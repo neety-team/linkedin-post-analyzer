@@ -1937,7 +1937,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > - **Betsaide: llegar directamente al decisor**, sin pasar por la investigación manual. Encaja exacto con el eje de identificación.
 > - **⚠️ En los apuntes pone "Caso Beside" y está MAL ESCRITO.** El nombre real, verificado en LinkedIn el 2026-07-29, es **BETSAIDE SAL**. Nunca escribas "Beside" en un post: es un cliente real y equivocarle el nombre es peor que no nombrarlo.
 
-> ### 💣💣 4.4b-MUNICIÓN · QUÉ PUEDE DECIR EL NINJA Y QUÉ NO, CON EL TAMAÑO DE CADA COSA (informe del 2026-08-24, 258 citas / 63 empresas)
+> ### 💣💣 4.4b-MUNICIÓN · QUÉ PUEDE DECIR EL NINJA Y QUÉ NO, CON EL TAMAÑO DE CADA COSA (informe del **2026-09-14**, 359 citas / 77 empresas / 117 reuniones)
 >
 > **Por qué esta sección existe:** `§4.4b` ya decía cómo se ESCRIBE el ninja (dos líneas, ≤55, la palabra del gancho) y `§4.4b-ORDEN` decía cuál es el EJE (la identificación). Lo que faltaba era el **inventario**: con qué palabras se dice ese eje y cuáles nos meten en la caja del competidor. Todo lo de aquí sale del informe de demos, **ninguna frase es una deducción mía** (`working-preferences §0c`).
 >
@@ -1945,12 +1945,39 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > #### ✅ LO QUE EL NINJA SÍ PUEDE PROMETER (ordenado por cuántas empresas lo piden)
 >
-> | Qué se promete | Empresas | Con qué palabras suyas |
-> |---|---|---|
-> | **Dejar de buscar para poder contactar** | **15** (9 ICP) | *"eliminar un tiempo de trabajo en prospección y dedicarlo a contactar, que es donde realmente se genera"* (bigD). El contraste es **buscar contra contactar**, no "ahorrar tiempo" |
-> | **El listado que acierta** | **5** (4 ICP) | *"la lista que nos pasasteis… acertó bastante bien"* (bigD). Acertar, no abarcar |
-> | **Lo mismo que ya haces, hecho entero** | **3** | *"lo que llevamos haciendo nosotros de forma manual, pero mucho más completo y más rápido"* (Vi4crane) |
-> | **El interlocutor, no la empresa** | **2** (2 ICP) · nuevo el 19/08 | *"no te da el interlocutor en la empresa, lo que te da es ese posible listado de empresas"* (Gaitek). Hipótesis todavía por tamaño, **pero es el eje que más nos separa de una base de datos** |
+> | Qué se promete | Empresas | 24/08 | Con qué palabras suyas |
+> |---|---|---|---|
+> | **Dejar de buscar para poder contactar** | **21** (15 ICP) | 15 (9) | *"eliminar un tiempo de trabajo en prospección y dedicarlo a contactar, que es donde realmente se genera"* (bigD). El contraste es **buscar contra contactar**, no "ahorrar tiempo" |
+> | **El listado que acierta — y te ahorra LIMPIARLO** | **8** (7 ICP) | 5 (4) | ⭐ **el ángulo cambió el 14/09 y es más afilado:** ya no dicen "acierta", dicen que les quita el trabajo de tirar la mitad. *"el trabajo de filtrado que tengo que hacer posteriormente a las listas que me da [su herramienta] es bastante mayor al que he tenido que hacer con la lista que me habéis dado vosotros"* (bigD) |
+> | **No pagar por buscar lo que no vale** | **8** (8 ICP) | — | 🆕 **el Único tema del informe con 8 de 8 ICP.** *"que me estés cobrando créditos por compañías que no valen la pena, pues no, eso lo puedo hacer yo"* (Fagor Automation). ⚠️ **No es un ángulo de PRECIO, es de gastar buscando**: si el ninja suena a "somos más baratos", está mal leído |
+> | **Lo mismo que ya haces, hecho entero** | **4** (3 ICP) | 3 | *"lo que llevamos haciendo nosotros de forma manual, pero mucho más completo y más rápido"* (Vi4crane) |
+> | **El interlocutor, no la empresa** | **2** (2 ICP) | 2 (2) | ⚠️ **NO ha crecido en 3 semanas y 101 citas nuevas**, y el informe lo marca `Reincide`, no `Patrón`. **Pero es el dolor de nuestro post de mejor CTR** — ver el bloque de abajo antes de descartarlo |
+> | *Nuevos patrones de 3 empresas, sin usar todavía* | 3 c/u | — | *les visitan la web y no saben qué empresa hay detrás* (2 ICP) · *temen que un descarte impreciso les borre empresas válidas del radar* (**3 de 3 ICP**) · *no se fían de que el email llegue a la persona* |
+>
+> #### 🎯🎯 4.4b-MUNICIÓN-PUNCH · EL TAMAÑO DE UN DOLOR MIDE CUÁNTOS LO DICEN, NO CUÁNTO ESCUECE (medido 2026-09-14)
+>
+> **El cruce que casi me hace enterrar nuestro mejor ninja.** Los cuatro posts de la ventana del 01-11/09 con su dolor declarado en el historial y su CTR real:
+>
+> ```
+> post          dolor del informe                  empresas    CTR
+> 02/09 Unai    dejar de buscar para contactar         21     0,316%
+> 08/09 Iker    el listado que acierta                  8     0,367%
+> 09/09 Asier   lo mismo que ya haces, entero           4     0,223%
+> 11/09 Unai    el interlocutor, no la empresa          2     0,756%   <- gana
+> ```
+>
+> **El dolor con MENOS respaldo en el informe dio el mejor CTR de la ventana, por el doble que el segundo.** Y lo hizo en la peor semana, con 3.042 impresiones: sacó más clics él solo (23) que el 08/09 y el 09/09 juntos (7).
+>
+> **Por qué pasa, y no es casualidad:** el informe cuenta **cuántas empresas lo dicen en una reunión**. El dolor más repetido es también el más genérico — *"no tengo tiempo de prospectar"* lo firma cualquiera y **no le señala a nadie en el feed**. El de 2 empresas es el más específico, y el específico es el que hace que uno se dé por aludido y pinche.
+>
+> **LA REGLA: el número de empresas decide si un dolor es REAL, no si es BUENO para el ninja.**
+> 1. **La regla de entrada no cambia:** 3 empresas o más para poder afirmarlo como lo que dice el mercado. Por debajo, se usa pero **no se presenta como dato**.
+> 2. **Entre dos dolores que pasen el filtro, gana el más ESPECÍFICO, no el más votado.**
+> 3. **Y un dolor pequeño con un post nuestro detrás pesa más que uno grande sin él** (`feedback: nuestro dato gana al corpus`). Aquí el informe dice "2 empresas" y nuestra base dice "0,756%, el mejor de la ventana".
+>
+> ⚠️ **El aviso, dicho entero: n=4, misma ventana, y dos de esos cuatro tienen menos de 1.500 impresiones**, así que sus CTR son ruidosos. Esto **no autoriza a ignorar el informe**: autoriza a no elegir el dolor por su contador. Se confirma o se cae con los próximos 4 posts, y el dolor de cada uno se sigue anotando en el historial el día que se publica.
+>
+> ⛔ **Y una cita ICP EN CONTRA del interlocutor, que va aquí para que nadie la descubra tarde:** *"solamente con los nombres de las empresas ya me vale. **Me dice las personas, porque yo las personas yo las consigo.**"* (Ariel · Composites Martiartu). **No todo el ICP tiene ese cuello de botella.** El eje sigue valiendo — lo sostiene nuestro CTR — pero no se escribe como si fuera universal.
 >
 > **⭐ Y LA UNIDAD DE MEDIDA SIGUE SIENDO "MESES"** (`aboutme §1b`), porque es la palabra que usan ellos. Un ninja que dice "en 5 minutos" está comprando la promesa de la herramienta que ellos ya han dejado de usar.
 >
@@ -1958,11 +1985,12 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > | Lo que NO se dice | Empresas que lo objetan | Por qué mata |
 > |---|---|---|
-> | **Que lo escribe la IA / que va solo** | **5** | *"vimos tantos de estos mensajes que directamente los ignoramos… se detecta claramente cuando está automatizado"* (Innobide). **El que lee nuestro post recibe esos mensajes a diario**: prometerle eso es ponernos en el montón que ya ignora |
-> | **Volumen, cantidad, "x3 contactos"** | **5** | Es literalmente la queja contra Waalaxy y Apollo (*"campañas demasiado masivas, ratios muy bajos, más de volumen"*, i+Med). Prometer cantidad nos mete en su caja gratis |
-> | **Descubrir un mercado que no conocen** | **4** | *"es un círculo muy muy cerrado… sabe quiénes son los compradores"* (Cluster Papel). En nicho pequeño esa promesa suena a que no entendemos su negocio |
-> | **La SEÑAL como argumento** | **12** (9 ICP) | La objeción más repetida del informe. Ver `§4.4b-ORDEN`: la señal cierra, no abre |
-> | **Cualquier cosa que suene a datos de terceros** | **3** lo preguntan en la propia demo | *"¿Tú de dónde has sacado el correo?"* (Binary Soul). Si en una reunión pagada ya lo preguntan, en un post abierto pesa el doble → `brand-voice §2c-DATOS` |
+> | **La SEÑAL como argumento** | **15** (11 ICP) · era 12 (9) | **Sigue siendo la objeción nº1 del informe entero y ha crecido.** Ver `§4.4b-ORDEN`: la señal cierra, no abre |
+> | **Descubrir un mercado que no conocen** | **7** (6 ICP) · era 4 | **La que más ha crecido de los vetos.** *"es un círculo muy muy cerrado… sabe quiénes son los compradores"*. En nicho pequeño esa promesa suena a que no entendemos su negocio |
+> | **Cualquier cosa que suene a datos de terceros** | **5** (3 ICP) · era 3 | *"¿Tú de dónde has sacado el correo?"* (Binary Soul), y ahora también dudas explícitas de legalidad. Si en una reunión pagada ya lo preguntan, en un post abierto pesa el doble → `brand-voice §2c-DATOS` |
+> | **Que lo escribe la IA / que va solo** | **5** (4 ICP) | *"vimos tantos de estos mensajes que directamente los ignoramos… se detecta claramente cuando está automatizado"* (Innobide). **El que lee nuestro post recibe esos mensajes a diario**: prometerle eso es ponernos en el montón que ya ignora |
+> | **Volumen, cantidad, "x3 contactos"** | **5** · pero ⚠️ **solo 1 es ICP** | Es la queja contra Waalaxy y Apollo. **El veto se mantiene** (prometer cantidad nos mete en su caja gratis y es la promesa de la herramienta que dejaron), **pero su respaldo ICP es flojo y conviene saberlo**: lo dicen 5 empresas y solo una encaja |
+> | **Prometer que no le quemamos la cuenta** | **5** · ⛔ **0 ICP** | 🆕 **No es un veto, es un aviso de no gastar línea.** El miedo a quemar la cuenta por volumen de envíos lo dicen 5 empresas y **ninguna encaja con el ICP**. Desactivar esa objeción en un ninja es hablarle a quien no compra |
 >
 > **⛔ Las dos primeras filas están MECANIZADAS** en `validar-post.py` y en `validar-email.py` (`no promete AUTOMATISMO` como fallo duro, `no vende VOLUMEN` como aviso). Las otras tres son criterio y van en el pase de `global §8`.
 >

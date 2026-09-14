@@ -1975,6 +1975,21 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > 2. **Entre dos dolores que pasen el filtro, gana el más ESPECÍFICO, no el más votado.**
 > 3. **Y un dolor pequeño con un post nuestro detrás pesa más que uno grande sin él** (`feedback: nuestro dato gana al corpus`). Aquí el informe dice "2 empresas" y nuestra base dice "0,756%, el mejor de la ventana".
 >
+> **⭐⭐ Y LAS DOS FUENTES NO COMPITEN: CONTESTAN PREGUNTAS DISTINTAS (Mario, 2026-09-14).** El informe y nuestra base no se ordenan una por encima de la otra, se usan en este orden:
+>
+> | | Qué contesta | Cómo se lee |
+> |---|---|---|
+> | **El informe de clientes** | **QUÉ dolores existen y son reales** | Patrón = **3 empresas que no se conocen entre ellas** diciendo lo mismo. Eso no es casualidad: es una mecánica del mercado |
+> | **Nuestra base de posts** | **CUÁL de esos dolores hace pinchar** | CTR real del post que lo usó |
+>
+> **Es exactamente cómo leemos los outliers** (`outliers-database`): un post que funciona en **tres cuentas que no tienen nada que ver** es una mecánica y se puede replicar; uno que funciona una vez es suerte hasta que se repita. **Un dolor dicho por 3 empresas independientes es una mecánica. Uno dicho por 2 es una anécdota, aunque nuestro post con él haya volado.**
+>
+> **Lo que sale de ahí, y es lo que hay que hacer, no lo contrario:**
+> - **El informe es el que PROPONE.** De ahí salen los candidatos, y de ningún otro sitio. Un dolor que no esté en el informe no se inventa.
+> - **Nuestra base es la que DESEMPATA** entre candidatos que ya pasaron el filtro.
+> - **Un dolor de 2 empresas con un CTR nuestro detrás se puede usar, pero es n=1 por los dos lados**: ni el mercado lo ha confirmado ni nosotros lo hemos repetido. Se usa **y se anota como prueba**, no como receta.
+> - **Un dolor de 21 empresas sin post detrás no es un CTR garantizado, es la apuesta más SEGURA para probar.** No se descarta por no haber ganado todavía.
+>
 > ⚠️ **El aviso, dicho entero: n=4, misma ventana, y dos de esos cuatro tienen menos de 1.500 impresiones**, así que sus CTR son ruidosos. Esto **no autoriza a ignorar el informe**: autoriza a no elegir el dolor por su contador. Se confirma o se cae con los próximos 4 posts, y el dolor de cada uno se sigue anotando en el historial el día que se publica.
 >
 > ⛔ **Y una cita ICP EN CONTRA del interlocutor, que va aquí para que nadie la descubra tarde:** *"solamente con los nombres de las empresas ya me vale. **Me dice las personas, porque yo las personas yo las consigo.**"* (Ariel · Composites Martiartu). **No todo el ICP tiene ese cuello de botella.** El eje sigue valiendo — lo sostiene nuestro CTR — pero no se escribe como si fuera universal.

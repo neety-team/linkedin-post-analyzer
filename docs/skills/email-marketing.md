@@ -183,6 +183,36 @@ Luma lee     : utm_source = "unai-03-evento"
 va SIEMPRE en `utm_source`, escrita a mano.** No se vuelve a dejar en `utm_campaign`, porque Luma no lo
 lee y perdemos la atribución de los asistentes al evento.
 
+#### 🔴🔴 Y HAY UN TERCER EMISOR QUE ESTA TABLA NO CONTEMPLABA: **HUBSPOT** (2026-09-14)
+
+**No somos el único correo de la casa.** Marketing manda desde **HubSpot** a la lista de **clientes**,
+y ese canal apunta al mismo sitio que el nuestro. El 20/08 salió *"invitación clientes evento"* (100
+entregados, 40% de apertura, 1 clic) con el enlace del evento **a pelo**: `https://luma.com/ujffj66o`,
+sin `forward.neety.com` y sin UTM escrito. **HubSpot le pone entonces el suyo: `utm_source=hs_email`.**
+
+| emisor | destino | UTM que llega | ¿identifica el correo? |
+|---|---|---|---|
+| Brevo (newsletter) | Luma vía `forward` | `unai-03-evento-correo` | ✅ **sí**, es el nombre del correo |
+| **HubSpot (clientes)** | Luma directo | **`hs_email`** | ❌ **no**: dice el canal, no la pieza |
+
+**⛔ El problema no es de hoy, es del segundo correo.** Con un solo envío de HubSpot al evento,
+`hs_email` es legible por eliminación. **En cuanto salga el segundo, los dos serán `hs_email`** — que
+es exactamente el lío de `sendinblue` que resolvimos aquí escribiendo el UTM dentro del `href`. Y hay
+un segundo ya en borrador (*"Clientes new versión extensión"*, creado el 08/09, mismo asunto, misma
+promesa del evento en la preview).
+
+**⚠️ Y LA SALIDA NO SE DA POR SABIDA, SE MIDE.** No sabemos si HubSpot respeta un `utm_source` escrito
+a mano en el `href` o si lo pisa, igual que hacía Brevo con Analytics encendido. **Es la misma
+pregunta que costó media tarde el 28/08 y se resolvió midiendo, no razonando.** La prueba es barata:
+correo de test, pulsar el enlace, mirar a dónde llega. **Si HubSpot lo pisa, la salida ya está
+montada: pasar por `forward.neety.com`**, que es nuestro y está verificado que conserva el UTM.
+
+**⚠️ Y de paso, dos cosas del canal de HubSpot que no siguen la convención de `§1`:** el remitente es
+**`Helena Baviera Serigó`** (21 caracteres, nombre completo y **sin `de Neety`**, justo lo que se midió
+que Gmail corta), y el `reply-to` va a **`helena@neety.io`**, un dominio distinto del `neety.com` cuya
+reputación cuidamos en Brevo. **No lo he investigado y no es de este apartado**, pero conviene saber
+que hay dos herramientas y dos identidades mandando marketing a la vez.
+
 #### 🔧 `/senders` da 403 desde Python y funciona con `curl` (2026-08-28)
 
 **Cloudflare bloquea el endpoint de remitentes según la firma del cliente**, no según la clave:
@@ -219,6 +249,33 @@ de baja. Si los tres coinciden, el dato es real.
 **Y aplica igual a los checks automáticos:** un validador que mira una clave mal escrita **pasa siempre
 en verde** y no protege de nada. Todo check nuevo se prueba rompiendo el dato a propósito y viéndolo
 fallar. Enlaza con lo mismo que ya pasó con el HTML del auditor.
+
+#### 🔴🔴 EL CASO MÁS CARO DE ESA MISMA REGLA: LAS ESTADÍSTICAS HAY QUE PEDIRLAS (2026-09-14)
+
+**`GET /emailCampaigns/{id}` SIN el parámetro `statistics` devuelve el bloque `globalStats` ENTERO A
+CEROS**, en vez de omitirlo. El campo está, con `sent: 0` y `delivered: 0`, **en campañas que salieron
+perfectamente**. Reproducido en 3 campañas distintas (15, 18 y 11):
+
+```
+camp 15  sin parametro: sent=0   deliv=0    -> MENTIRA
+camp 15  con parametro: sent=45  deliv=45   -> la verdad
+camp 11  sin parametro: sent=0   deliv=0
+camp 11  con parametro: sent=349 deliv=327
+```
+
+**Estuve a punto de informar de que los correos 2 y 3 habían salido a 0 personas.** Lo paró el segundo
+contraste, que aquí es **la ficha del contacto**: `GET /contacts/{email}` → `statistics.messagesSent`
+/ `delivered` / `opened`, con la hora exacta y el `campaignId`. **Ese es el registro por persona y no
+miente.**
+
+- **Se piden los DOS bloques, en dos llamadas:** `?statistics=globalStats` y `?statistics=linksStats`.
+- **⚙️ Y ya no se hace a mano: `python scripts/metricas-brevo.py`** (con `--quien`, además, quién
+  pulsó y marcando los internos `@neety.com`).
+- **⛔ Y el clic que se mira es el de `linksStats`, no el de `globalStats`:** `uniqueClicks` cuenta
+  también el enlace de BAJA. En el correo 3 son 4 contra 2. **El del panel está inflado por 2x-4x.**
+- **⛔ Y aún así hay que descontar los nuestros:** el 14/09, **2 de los 3 clics de los correos 2 y 3
+  eran de `mario@neety.com`** abriéndolos para revisarlos. Un clic interno en una lista de 45 mueve el
+  CTR más que cualquier decisión de copy. **Se descuenta siempre, y por eso el script lo marca.**
 
 #### 🔴🔴 NUNCA PARCHEAR EL HTML DE UNA CAMPAÑA CON UNA EXPRESIÓN REGULAR (2026-08-28)
 

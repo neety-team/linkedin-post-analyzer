@@ -1014,3 +1014,168 @@ completa en `Escritorio/BREVO-CONTACTOS-BORRADOS` (CSV con todos + la lista de l
 
 **La regla que sale de aquí:** antes de borrar en un proveedor, comprobar que **el CRM conserva lo que
 el proveedor va a olvidar**. Si no lo conserva, primero se guarda y luego se borra.
+
+---
+
+## 📊 RESULTADO REAL DE LOS CORREOS 2 Y 3, Y DE DÓNDE SALIÓ EL ASISTENTE DEL EVENTO (2026-09-14)
+
+**Lo primero, porque era el pendiente que bloqueaba todo lo demás: LOS DOS SALIERON.** El bloqueo de
+Brevo está levantado y la cuenta está viva (plan activo, 13.820 créditos de envío a 19/09).
+
+| id | correo | remitente | programado | **salió de verdad** |
+|---|---|---|---|---|
+| 15 | Correo 2 · Iker · la feria | `Iker de Neety` | 02/09 09:05 | ✅ **02/09 09:11:57** |
+| 18 | Correo 3 · Unai · evento | `Unai de Neety` | 09/09 09:05 | ✅ **09/09 09:09:50** |
+
+### 🔴🔴 LA TRAMPA QUE CASI ME HACE DECIR QUE NO HABÍAN SALIDO
+
+**`GET /emailCampaigns/{id}` SIN el parámetro `statistics` devuelve el bloque `globalStats` ENTERO A
+CEROS**, en vez de omitirlo. No es que falte el campo: está, con `sent: 0`, `delivered: 0`,
+`uniqueViews: 0`. **Reproducido en 3 campañas distintas** (15, 18 y 11), así que no es un fallo
+puntual:
+
+```
+camp 15  SIN parametro: sent=0  deliv=0  opens=0  clics=0      ← MENTIRA
+camp 15  CON parametro: sent=45 deliv=45 opens=16 clics=3      ← la verdad
+camp 11  SIN parametro: sent=0  deliv=0  opens=0  clics=0
+camp 11  CON parametro: sent=349 deliv=327 opens=65 clics=16
+```
+
+**Estuve a punto de informar de que las dos campañas habían salido a 0 personas.** Lo que lo paró fue
+la regla que ya está escrita en `email-marketing §1` (*"un 0, un None o una lista vacía en la API de
+Brevo no son un dato, son una pregunta"*) y el segundo contraste: **la ficha del contacto**
+(`GET /contacts/{email}` → `statistics.messagesSent` / `delivered` / `opened`) traía los eventos con
+su hora exacta, campaña por campaña. **Ese es el endpoint que no miente, porque es el registro por
+persona.**
+
+**LA REGLA: a los endpoints de campaña de Brevo se les pide el bloque de estadísticas
+EXPLÍCITAMENTE** (`?statistics=globalStats`, y otra llamada aparte con `?statistics=linksStats`).
+
+**⚙️ Y para no tener que acordarse, esto ya no se mira a mano: `python scripts/metricas-brevo.py`**
+(con `--quien` saca además quién pulsó y marca los internos). Pide los dos bloques explícitamente,
+ensena el clic inflado y el limpio en columnas separadas, y descuenta los `@neety.com`. **Reproduce
+exactamente los números que estaban apuntados del 28/08**, que es lo que le da crédito para los
+nuevos.
+
+### 📈 LA SERIE COMPLETA, CON EL CLIC LIMPIO Y NO EL INFLADO
+
+⚠️ **Las dos columnas de clics son distintas y hay que mirar la segunda.** `uniqueClicks` de
+`globalStats` **cuenta también el enlace de BAJA y el de preferencias** (ya avisado en el apartado del
+CTOR del panel). El clic que vale es la suma de `linksStats`, que solo cuenta los enlaces del cuerpo.
+
+| correo | fecha | posición del ninja | entregados | aperturas | clic "global" | **clic al ENLACE** | CTR real |
+|---|---|---|---|---|---|---|---|
+| Kaixito 01 · tandas 1-5 | 10-25/08 | al final, dentro de la PPD | 682 | 267 | 8 | **2** | 0,29‰ |
+| Kaixito 01 · tanda 6 | 28/08 | **subido al cuerpo** | 327 | 65 (19,9%) | 16 | **7** | **21,4‰** |
+| **Correo 2 · Iker · la feria** | 02/09 | en el cuerpo (49% del texto) | **45** | **16 (35,6%)** | 3 | **1** | 22,2‰ |
+| **Correo 3 · Unai · evento** | 09/09 | en el cuerpo | **45** | **13 (28,9%)** | 4 | **2** | 44,4‰ |
+
+**Los números de las tandas 1-5 y de la 6 coinciden exactamente con los apuntados el 28/08** (682
+entregados / 2 clics · 327 entregados / 6 clics, hoy 7 porque entró uno más después). **Que el método
+reproduzca lo que ya estaba escrito es lo que le da valor a lo nuevo.**
+
+#### ⛔ PERO ANTES DE CELEBRAR NADA: DE ESOS CLICS, LA MITAD SON DE MARIO
+
+Se recorrieron los 46 contactos uno a uno pidiendo su historial de clics. **Quién pulsó, con nombre y
+hora:**
+
+| campaña | quién | cuándo | enlace |
+|---|---|---|---|
+| 15 (correo 2) | **`mario@neety.com`** | **14/09 10:30** | `/agendar/` |
+| 18 (correo 3) | `anderalberdi94@gmail.com` | **09/09 14:50** | `forward` → Luma |
+| 18 (correo 3) | **`mario@neety.com`** | **14/09 10:31** | `forward` → Luma |
+
+- **`mario@neety.com` pulsó los dos hoy, con 19 segundos de diferencia.** Es él revisando los correos
+  para este análisis, no un lead. **Es ruido interno y hay que descontarlo.**
+- **Descontado, la foto real es:** correo 2 → **0 clics de lead en 45 entregados**. Correo 3 → **1
+  clic de lead en 45 entregados**.
+- **1 baja**, en el correo 3: `ojacinto@gmail.com`, el 09/09 a las 11:29.
+- **0 rebotes y 0 denuncias de spam en los dos.** La lista de 45 está limpia.
+- ⚠️ **De la tanda 6 solo sobrevive un nombre: `jrojo@bondaltiwater.com` (28/08 09:09, a
+  `/agendar/`).** Los otros 6 que pulsaron estaban entre los **1.056 contactos borrados** en la
+  limpieza que pidió Brevo, y **borrar un contacto borra también su historial de clics**. Es el mismo
+  aviso que ya quedó escrito ese día: antes de borrar en un proveedor, comprobar qué se pierde.
+
+**⛔ Y LO QUE NO SE PUEDE CONCLUIR, que es lo más importante: con 45 destinatarios, 0 y 1 son el mismo
+número.** El correo 2 no "rinde peor" que el correo 3. **La única evidencia real que tenemos sobre la
+posición del ninja sigue siendo la tanda 6** (327 entregados, 7 clics, contra 682 y 2), y estos dos
+correos **no la confirman ni la desmienten: no tienen tamaño para hacerlo.**
+
+**⭐ Lo que sí es información nueva:** el correo 2 es **el primero firmado por una persona real (Iker)
+en vez de por la mascota**, y abrió al **35,6%**, dentro del rango de Kaixito (30,6-44,3%). **No hay
+señal de que el founder abra mejor ni peor que Kaixito.** Para separarlo haría falta un A/B, y con 45
+personas tampoco se puede (`§ A/B del correo 3`, que se mató por lo mismo).
+
+---
+
+### 🕵️ EL ASISTENTE DEL EVENTO NO VINO DE LA NEWSLETTER: VINO DE HUBSPOT
+
+> **Lo que preguntaba Iker:** *"en la información de la web de Luma hemos conseguido un asistente
+> también por el correo, pero no sé exactamente por cuál ha sido, ya que el UTM solo muestra el source
+> de `hs_email`"*.
+
+**`hs_email` es la etiqueta que pone HUBSPOT en los enlaces que rastrea. No la pone Brevo, no la pone
+Luma y no la ponemos nosotros.** Así que el UTM no está roto: está diciendo exactamente la verdad, y
+la verdad es que ese clic salió de un correo de HubSpot.
+
+**Hay TRES canales de correo apuntando al mismo evento y solo uno es la newsletter:**
+
+| canal | herramienta | quién firma | fecha | entregados | aperturas | clics a Luma | UTM que llega a Luma |
+|---|---|---|---|---|---|---|---|
+| **clientes** | **HubSpot** | Helena Baviera Serigó (`helena@neety.io`) | **20/08** | **100** | **40 (40,0%)** | **1** | **`hs_email`** ← **es este** |
+| newsletter | Brevo, correo 3 | `Unai de Neety` | 09/09 | 45 | 13 (28,9%) | 2, uno de ellos Mario → **1 real** | `unai-03-evento-correo` |
+| LinkedIn | los 3 posts semanales | las 3 cuentas | ago-sep | — | — | — | (el de cada post) |
+
+**La prueba, en orden:**
+1. **El correo de HubSpot existe y se envió:** objeto `1327961622776`, *"invitación clientes evento"*,
+   asunto *"Un nuevo Neety está llegando (y queremos contártelo en persona)"*, estado `SENT`,
+   publicado el **2026-08-20**, a la lista 339 excluyendo la 360.
+2. **Lleva el enlace del evento**, y lo lleva **a pelo**:
+   `Confirmar mi asistencia → https://luma.com/ujffj66o`. **Sin `forward.neety.com` y sin ningún UTM
+   escrito a mano**, así que el rastreo de HubSpot le pone el suyo: `hs_email`.
+3. **Sus métricas cuadran con un asistente:** 100 entregados, 40 aperturas únicas y **exactamente 1
+   clic único**. Un clic, un registro.
+4. **Y el nuestro no puede ser**, porque el nuestro llega con otra etiqueta. Comprobada la cadena
+   entera hoy:
+   ```
+   forward.neety.com/?utm_source=unai-03-evento-correo
+     -> 302 Location: https://luma.com/ujffj66o?utm_source=unai-03-evento-correo
+   ```
+   **El redirect conserva el UTM.** Si el asistente hubiera venido del correo 3, en Luma pondría
+   `unai-03-evento-correo`, no `hs_email`.
+
+**⛔ LO QUE FALTA PARA CERRARLO DEL TODO, y solo lo puede mirar quien entra en Luma:** si
+`anderalberdi94@gmail.com` (el único lead que pulsó nuestro enlace, el 09/09 a las 14:50) **aparece o
+no en la lista de invitados**. Si aparece, la newsletter también ha traído uno y en Luma saldrá con
+`utm_source=unai-03-evento-correo`. Si no aparece, pulsó y no se registró.
+
+#### 🔴 EL AGUJERO QUE ESTO DESTAPA, Y ES DE ATRIBUCIÓN, NO DE ESTE CORREO
+
+**`hs_email` no identifica NADA.** Hoy hay un solo correo de HubSpot apuntando al evento, así que la
+etiqueta es legible por eliminación. **En cuanto salga el segundo, los dos serán `hs_email` y ya no se
+podrán separar** — que es exactamente el problema que `email-marketing §1` describe para `sendinblue`
+y que resolvimos en Brevo escribiendo el UTM a mano dentro del `href`.
+
+**Y ya hay un segundo en camino:** el objeto `1353655820482`, *"Clientes new versión extensión"*,
+mismo asunto, creado el **08/09**, **en BORRADOR**, con la misma promesa del evento en la preview
+(*"una cita en Donostia el 24 de septiembre"*).
+
+**Lo que hay que hacer antes de que salga ese borrador** (y va en este orden):
+1. **Escribir el UTM a mano en el `href` del enlace de Luma**, con el mismo esquema que usamos en
+   Brevo: `https://luma.com/ujffj66o?utm_source=helena-clientes-evento-2`.
+2. **⚠️ Y MEDIRLO, NO SUPONERLO.** No sabemos si HubSpot respeta un `utm_source` escrito a mano o si
+   lo pisa con `hs_email`, como hacía Brevo con `sendinblue` cuando tenía la integración de Analytics
+   encendida. **Es el mismo tipo de pregunta que costó media tarde el 28/08, y se resolvió midiendo,
+   no razonando.** La prueba es barata: mandarse el correo de test, pulsar el enlace y mirar a dónde
+   llega.
+3. **Si HubSpot lo pisa, la salida es la misma que ya tenemos montada: pasar por
+   `forward.neety.com`**, que es nuestro y ya está verificado que conserva el UTM.
+
+#### ⚠️ Y dos cosas más del correo de HubSpot que se ven de pasada y no son de este análisis
+- **El remitente es `Helena Baviera Serigó`**, nombre completo y **sin la marca**. `email-marketing §1`
+  midió en nuestra propia bandeja que a partir de ~20 caracteres Gmail corta (`Iker Galarza de Nee.`).
+  Ese remitente tiene 21 y encima no lleva `de Neety`, así que lo que se pierde no es la marca: es que
+  nunca estuvo. **La convención de la casa no se está aplicando en el canal de HubSpot.**
+- **El `reply-to` es `helena@neety.io`**, dominio distinto del `neety.com` cuya reputación cuidamos en
+  Brevo. **No es un problema hoy y no lo he investigado**, pero conviene saber que estamos mandando
+  correo de marketing desde dos herramientas y con dos identidades a la vez.

@@ -338,6 +338,25 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 - **⚠️ AL CALCAR UNA REFERENCIA, el formato es NUESTRO, no suyo.** Si el original es vertical (la referencia del meme del perro era **480x720**, ratio 0,67), el remix **se recompone a 1:1**: se calca la esencia, nunca el encuadre malo (`post-workflow §4.4`, tabla de qué se calca). Calcar un 2:3 es entregar un post recortado.
 - **En el prompt de imagen va escrito siempre**, con estas palabras: `en formato cuadrado 1:1`.
 
+> ## 📱📱 0b-FEED · LO QUE HACE LINKEDIN CON CADA FORMATO, MEDIDO EN EL FEED REAL (Mario, 2026-09-14)
+> **`§0b` decia "va cuadrada" y daba el motivo (la vertical pierde arriba y abajo). Faltaban los otros dos formatos, y yo llegue a escribir que LinkedIn "no recorta", que es falso y contradice esta misma seccion.** Cerrado con capturas del feed de Mario y de cuentas ajenas el 14/09.
+>
+> | formato | ¿recorta? | superficie en el feed |
+> |---|---|---|
+> | **VERTICAL alargada** | ✅ **SI, arriba y abajo** | — |
+> | **HORIZONTAL (16:9)** | ⛔ no, se ve entera | **~56% del alto de una cuadrada** |
+> | **CUADRADA 1:1** | ⛔ no | **100%** |
+>
+> - **El recorte de la vertical no es teoria:** paso con una foto nuestra hace meses y **el titular se perdio en la previsualizacion** por estar demasiado arriba. Ese caso es el origen de toda esta seccion.
+> - **La horizontal no pierde informacion, pierde PANTALLA.** Y la pantalla es el activo: la imagen la ve el 100% del que scrollea. Comprobado en el feed de Mario comparando nuestra historia cuadrada del 11/09 contra dos posts horizontales de otras cuentas: la cuadrada ocupa mas del doble.
+> - **⭐ PASA IGUAL CON VIDEO HORIZONTAL** (`video.md`): un video 16:9 se comprime en el feed exactamente como una foto 16:9. El formato de la pieza no depende de si es foto o video, depende del feed.
+>
+> ### ⚠️ Y LA TRAMPA QUE ME COMI: EL PERFIL NO ES EL FEED
+> **En la vista de PERFIL, LinkedIn mete barras negras alrededor de la imagen — tambien a las cuadradas.** En el FEED no aparece ninguna. Mismo post, dos renderizados distintos.
+> **Una foto NUNCA se juzga desde el perfil del que publica.** Se mira en el feed, desde otra cuenta. Si solo tienes la vista de perfil, no tienes el dato: dilo y no concluyas.
+>
+> **📌 El dato de esta ventana, y no cambia la regla:** la unica horizontal que hemos publicado (Unai, 02/09, 480x270) **no hundio el post** — 10.127 impresiones, dentro de su banda normal — pero fue **la peor CTR de sus 4 historias** (0,316% contra 0,756%, 0,653% y 0,528%). No penaliza el alcance y no compensa. **Todo sigue 1:1.**
+
 > ### ⛔⛔ 0b-ANCHO · PEDIR 1:1 NO BASTA: HAY QUE PEDIR QUE APROVECHE EL ANCHO (Iker, 2026-08-13)
 > **Decir solo "en formato cuadrado 1:1" es una trampa cuando la referencia es vertical, y es el caso NORMAL** (casi todas lo son). El generador cumple el encargo por la vía barata: **te mete dos franjas blancas a los lados** y ya tiene un cuadrado. El contenido sigue igual de estrecho, se ve más pequeño en el feed y queda a medio hacer.
 > - **Pasó el 14/08** con el meme del SpongeBob: 4 filas verticales, cuadrado perfecto y **dos columnas blancas laterales**. Iker: *"al hacerla cuadrada hacia los lados se tiene que aprovechar y que todo llegue hasta los lados, no como ahora que me ha metido dos columnas verticales blancas para hacerlo cuadrado y queda mal"*.

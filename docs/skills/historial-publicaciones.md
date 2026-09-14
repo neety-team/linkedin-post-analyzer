@@ -202,6 +202,42 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 
 ---
 
+## 📊 2026-09-14 · RESULTADO DE LAS DOS SEMANAS PROGRAMADAS (01–11/09) — ESTADO, no doctrina
+
+**Las condiciones van pegadas a los números a propósito, para que dentro de tres meses nadie lea esta tabla sin ellas:** 7 posts en 11 días (**la mitad del ritmo normal**), programados con el nativo de LinkedIn, **sin capa manual de interacción, sin que las cuentas se comentaran entre sí y con comentarios sin responder**. Con ese escenario:
+
+```
+274.480 impresiones · +187 seguidores · 15 inscripciones al evento
+```
+
+| fecha | cuenta | pilar | destino | imp. | clics | CTR | asistentes |
+|---|---|---|---|---|---|---|---|
+| 01/09 | Iker | meme | Luma | **218.529** | 111 | 0,051% | **7** |
+| 01/09 | Asier | mapa | `/mapas/cantabria/` | 13.021 | **21 (GA4)** | 0,161% | — |
+| 02/09 | Unai | historia | Luma | 10.127 | 32 | 0,316% | 1 |
+| 03/09 | Asier | meme | Luma | 27.499 | 76 | 0,276% | 1 |
+| 08/09 | Iker | historia | Luma | 1.364 | 5 | 0,367% | 0 |
+| 09/09 | Asier | historia | Luma | 898 | 2 | 0,223% | 0 |
+| 11/09 | Unai | historia | Luma | 3.042 | 23 | **0,756%** | 0 |
+
+- **6 de 7 a Luma, 1 al mapa. CERO a `/agendar/` y CERO a `/correo/`.**
+- El clic del mapa es de **GA4**, no de LinkedIn: LinkedIn decía 0 (`outliers-database §0b`).
+- La historia del 26/08, fuera de ventana pero de la misma campaña, aportó **5 asistentes** con 75 clics.
+
+**⭐ LOS POSTS SON EL 25% DEL EMBUDO DEL EVENTO, NO EL MOTOR.** De **59 inscritos** (aforo 80), solo **15 están atribuidos a publicaciones**. Los otros 44 entraron por otro sitio. **Al presupuestar un evento no se cuenta solo con LinkedIn:** en su mejor racha los posts traen ~1 inscripción al día, y un aforo se llena antes que eso.
+
+**⛔ LO QUE ESTA VENTANA NO MIDE, y hay que decirlo cada vez que se cite:**
+- **Peloteo:** un solo post, y su CTA iba al mapa, no a Luma. No es comparable con el resto.
+- **Lead magnet, newsletter y `/agendar/`:** cero posts. **No es que fueran mal: no se publicaron.**
+- **El desplome de la semana 2** (mediana 20.260 → **1.364**): **sin causa confirmada**. Descartado que fuera bloqueo (un bloqueado se ve con 18 impresiones, no con 898-3.042) y descartado que fueran ideas flojas por el validador (las tres pasaron 57/57). Quedan sin separar: tres historias casi idénticas con el mismo enlace en cuentas conectadas, la frecuencia partida y la falta de capa manual.
+- **Los ratios clic→asistente son n=15 en total.** Sirve el ORDEN, no los porcentajes. Y la atribución es a último clic.
+
+**Lo que SÍ se cumplió de la receta, comprobado contando URL por URL:** **un solo bloque de ninja en los 7 posts, cero dobles CTA**, y el enlace siempre entre el **63% y el 85%** del texto (memes y mapa al 63-69%, historias al 83-85%). Ninguno al principio, ninguno de última línea.
+
+**→ Las reglas que salieron de aquí viven en su receta, no en este registro:** `post-workflow §8.0-PROGRAMAR` (programar no penaliza) · `post-workflow §4.4-CONVERSION` (alcance ≠ conversión en meme) · `global §4.4b-EVENTO-EXPLICITO` · `outliers-database §0b` (el 0 de clics) · `images §0b-FEED` (formatos en el feed).
+
+---
+
 ## 🔁 2026-08-27 · EL DESPIECE DE UNAI SE REESCRIBE ENTERO: DE ALIMENTACIÓN A AUTOMOCIÓN, Y DE VALENCIA A CATALUÑA
 
 **Lo pide Iker y el motivo es de calendario:** *"no tengo tiempo al final de crear una plantilla nueva para comida"*. Sin plantilla de 12 huecos no hay despiece de alimentación, y la única silueta que existe es **la llanta**, que es de automoción y `§4.7` dice que se reutiliza en toda España y en las tres cuentas cambiando solo el título.

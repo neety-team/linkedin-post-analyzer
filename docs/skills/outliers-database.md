@@ -39,6 +39,32 @@ Usa el **snapshot cross-creator** (§3), la **taxonomía** (§1) y el **históri
 
 ---
 
+## ⛔⛔ 0b · UN 0 DE CLICS NO ES UN CERO: ES UN HUECO (Mario, 2026-09-14)
+
+**El caso que lo prueba, y se cerró cruzando dos fuentes:** el mapa de Cantabria de Asier (01/09, 13.021 impresiones, con su enlace a `recursos.neety.com/mapas/cantabria/` en el cuerpo).
+
+```
+Panel de LinkedIn ...... "Visits to links from this post"  =  0
+GA4, misma ventana ..... /mapas/cantabria/  =  27 vistas, 21 usuarios activos
+```
+
+**El 0 lo sirve LinkedIn y nosotros lo copiamos fiel. Pero es falso.**
+
+> **LA REGLA: si un post tiene enlace, tuvo alcance normal y no fue bloqueado, el número de clics NUNCA es cero.** Cuando `link_clicks_count` venga a 0 (o la interfaz no enseñe número), la lectura por defecto es **medición perdida**, no post que no convirtió.
+
+**Cómo se reconoce el hueco:** cuando LinkedIn marca 0 **no pinta la URL al lado**, así que en la BD queda `link_url` vacío junto a un `link_clicks_count` de 0 o `NULL`. **`link_url` vacío + enlace presente en el cuerpo = medición perdida.** Le pasa sobre todo a posts largos (el mapa son 2.017 caracteres) y a los que llevan más de un enlace.
+
+**⛔ PROHIBIDO EN UNA ENTREGA:**
+1. Decir que un post "no convirtió" apoyándose en un hueco.
+2. Meter ese 0 en una media, un CTR o una tabla comparativa.
+3. Declarar un pilar flojo con esa cifra dentro.
+
+**Lo que se hace en su lugar:** se marca como **no medido**, se dice que el dato lo perdió LinkedIn, y si hace falta el número se pide por **GA4 cruzando el UTM** (`global §4.4b-UTM`): `Informes → Interacción → Páginas y pantallas` para el total de la página, y `Campaña de la sesión` en Adquisición de tráfico para atribuirlo al post. **Ojo: GA4 también se queda corto** si el visitante no acepta el banner de cookies, así que GA4 por encima de 0 demuestra que LinkedIn se equivoca, pero un 0 en GA4 no demuestra lo contrario.
+
+**⭐ Y ESTO NO TUMBA EL CONTADOR DE LINKEDIN, SOLO EL CERO (Mario, 2026-09-14).** *"Es la única métrica a la que nos podemos agarrar en nuestro dashboard, y no siempre se equivoca. Desde que empezamos a medir los clics y el CTR hemos descubierto qué pilares convierten más y hasta cosas de formateado, como que poner enlaces en líneas individuales convertía muchísimo peor."* **Las cifras distintas de cero se siguen usando con normalidad.** La regla es sobre el cero.
+
+**El único caso en que un cero SÍ es un cero:** que el post fuera bloqueado o no tuviera impresiones. Se distingue mirando el alcance — un bloqueado se ve como la historia de Unai del 02/09, con **18 impresiones**, no con 13.021.
+
 ## 1 · Taxonomía (el vocabulario del análisis)
 
 La herramienta clasifica cada post por **hook_type × post_structure × tone**. Estas son las etiquetas canónicas — úsalas al referirte a arquetipos.

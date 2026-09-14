@@ -1748,6 +1748,31 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'utm_source={pilar}-{tema}-{ddmes}-{cuenta}, p.ej. historia-euskadi-26ago-unai. '
             'El resto de parametros se dejan puestos por si algun dia se activa el '
             'Measurement ID de GA4 en Luma (necesita Luma Plus)' if _luma_generico else '')
+        # ⛔ LOS CUATRO PARAMETROS, NO DOS (Mario, 2026-09-14). El check de arriba
+        # solo miraba `utm_campaign` y `utm_source`, y por ese hueco se colo el mapa
+        # de Cantabria del 01/09 con
+        #   ?utm_source=linkedin&utm_campaign=mapa-cantabria-01sep-asier
+        # o sea SIN `utm_medium` y con la cuenta metida dentro del campaign en vez
+        # de en `utm_content`. El enlace funciona igual y nadie lo nota, que es el
+        # peor modo de fallo: sin `medium`, GA4 no puede asignar canal y manda la
+        # sesion a "Sin asignar", asi que si la buscas por canal o por fuente/medio
+        # no aparece aunque exista. Se tardo media hora en encontrar esos 21
+        # usuarios por no tener los cuatro.
+        #
+        # Solo aplica a NUESTRO dominio: en Luma la identidad va en el source y el
+        # resto de parametros son decorativos hasta que se pague el Measurement ID
+        # (la excepcion de arriba).
+        _sin_medium = [u for u in _propias if 'utm_campaign=' in u and 'utm_medium=' not in u]
+        chk(not _sin_medium, 'El UTM de NUESTRA web lleva utm_medium (§4.4b-UTM)',
+            'sin utm_medium GA4 no puede asignar canal y la sesion cae en "Sin asignar": '
+            'el post no aparece si se busca por canal o por fuente/medio. '
+            'Va utm_medium=post' if _sin_medium else '')
+        _sin_content = [u for u in _propias if 'utm_campaign=' in u and 'utm_content=' not in u]
+        chk(not _sin_content, 'El UTM de NUESTRA web lleva utm_content con la cuenta (§4.4b-UTM)',
+            'utm_content={cuenta} es lo que permite ver QUE CUENTA trae los clics cuando '
+            'el mismo concepto sale en varias. Meter la cuenta dentro del utm_campaign '
+            'la esconde: hay que partir la cadena a mano para leerla' if _sin_content else '')
+
         chk('Neety' not in cuerpo.split(_dom)[0].split('\n')[-1],
             'Spam ninja NO nombra a Neety (§4.4b)', 'nombrar la marca = publicidad encubierta')
         lineas = [l for l in cuerpo.split('\n') if l.strip()]

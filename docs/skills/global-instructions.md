@@ -1349,6 +1349,23 @@ Es `working-preferences §0c-BIS` otra vez: **una regla universal guardada dentr
 
 **Mecanizado** en `validar-post.py` (`Spam ninja: la linea 2 RECOGE la 1 (bisagra)`), que busca el demostrativo o la repetición de un sustantivo de la línea 1. Es la única pieza del molde que se puede comprobar sola, y es justo la que faltaba.
 
+#### 📣❌ 4.4b-EVENTO-EXPLICITO · EL POST QUE VA DEL EVENTO NO CONVIERTE. EL NINJA DENTRO DE OTRO POST, SÍ (medido 2026-09-14)
+
+**Los tres `I’m attending` nativos de LinkedIn que se publicaron para el evento** (Unai 11/08 y 24/08, Asier 26/08), contra los posts que llevaban el evento metido en un ninja:
+
+```
+Los 3 posts que VAN del evento ....   37 clics  ->   0 asistentes
+El resto, con ninja dentro .......   370 clics  ->  15 asistentes
+```
+
+> **Un post cuyo tema es el evento trae clics de curiosidad, no de intención. El evento se vende DENTRO de un post que va de otra cosa.**
+
+**No es una sorpresa, es la confirmación de algo que ya estaba escrito:** el post de evento de Unai del 11/08 tenía un gancho de refrán invertido buenísimo y **el cartel con fecha, nombre y patrocinadores de imagen** — *"se notaba que era una promoción desde el segundo 1"*, **0.47x** (`post-workflow §4.6-FOTO`). Aquello estaba medido en alcance; ahora lo está también en conversión.
+
+**Aplica a cualquier destino, no solo al evento:** en cuanto el post entero es el anuncio, la puerta se cierra. El molde del ninja (`§4.4b`) existe justo para eso.
+
+⚠️ **Matiz de honestidad:** en los `I’m attending` el enlace es la tarjeta nativa de LinkedIn, no un ninja escrito por nosotros, así que el formato no es exactamente comparable. Lo que está medido sin discusión es el resultado: **0 de 37.**
+
 #### 🔗🔗 4.4b-UTM · TODO ENLACE QUE METAMOS EN UNA PUBLICACIÓN LLEVA UTM (Mario, 2026-08-26) — GLOBAL
 
 > **Iker, y lo pide como receta global:** *"todas las veces que metamos un enlace en una publicación, ya sea la web de la newsletter, la web de agendar o la del evento, añade siempre un UTM muy sencillo que indique de qué publicación de LinkedIn viene"*.

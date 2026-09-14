@@ -119,6 +119,26 @@ Nunca empieces pidiendo la llamada: primero valor, después la invitación.
 - Snippet: `const L = el => +(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)).toFixed(2);`
 - **Si el copy no cuadra, se acorta el copy. NUNCA se toca el CSS**, que es el mismo de los otros seis.
 
+## 📉 4c-bis · UNA PÁGINA NUESTRA SE JUZGA POR EL TIEMPO QUE RETIENE, Y HAY QUE MIRARLO (Mario, 2026-09-14)
+
+**El caso:** el mapa de Cantabria del 01/09 llevó **21 usuarios** a `recursos.neety.com/mapas/cantabria/`. En GA4, esa página los suelta en **14 segundos**.
+
+```
+/agendar/            58 vistas · 29 usuarios · 1 min 42 s
+/tutorial/           34 vistas ·  6 usuarios · 1 min 36 s
+/mapas/cantabria/    27 vistas · 21 usuarios ·      14 s
+```
+
+> **El post hizo su trabajo: trajo gente. La página la perdió.** Y hasta el 14/09 ni lo mirábamos, porque LinkedIn decía que a esa página no llegaba nadie (`outliers-database §0b`).
+
+**LA REGLA: cada vez que se monta o se revisa una página de recurso, se mira su tiempo de interacción en GA4 y se compara con `/agendar/`, que es nuestra vara.** `/agendar/` retiene 1m42s y está trabajada con aprendizajes de landing pages y un buscador interactivo: es la prueba de que el listón es alcanzable en casa. Una página bonita que retiene 14 segundos está rota aunque el diseño guste.
+
+**Y el diagnóstico del caso, que es aritmético y no de gusto:** el layout de las páginas de mapa es `grid-template-columns: 300px 1fr` dentro de un contenedor de 1.080px con 24px de padding. Al mapa le quedan **~698px de ancho por ~640 de alto: un cuadrado**. Y dentro de esos 698, el panel de PamPam se come ~300 con el título y la descripción, así que **el mapa de verdad se queda en ~400px**: se ve media región y los logos amontonados. En la vista propia de PamPam el mismo mapa tiene ~1.400px y se lee entero.
+
+**La gente entra a ver el mapa y justo el mapa es lo que se ve mal.** La columna de 300px se está comiendo el 30% de lo único que han venido a ver.
+
+⚠️ **Antes de matar una página por sus números, arregla lo que la rompe y vuelve a medir.** La tentación con el mapa fue quitar la web entera y dejar solo el mapa dentro del post; pero trajo 21 usuarios que ni sabíamos que existían. Primero el ancho, luego la decisión.
+
 ## 4d · ⚠️ LA MINIATURA DEL ENLACE EN EL DM: SI SALE MAL, ES LA CACHÉ DE LINKEDIN
 
 Cuando el DM con el enlace de `recursos.neety.com` sale **sin foto o con la foto

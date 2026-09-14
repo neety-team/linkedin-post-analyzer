@@ -659,6 +659,29 @@ cosas — **original, exagerado, controversial o una metáfora**. `salvar vidas`
 + exageración, y por eso vuela. **Si lo que has sacado no es ninguna de las cuatro, no has
 dado con la idea todavía.**
 
+### 💰💰 4.4-CONVERSION · EL ALCANCE Y LA CONVERSIÓN DE UN MEME SON DOS PALANCAS DISTINTAS (medido 2026-09-14)
+
+**Los dos memes de la ventana del 01-11/09, con tres días de diferencia y el mismo enlace de Luma:**
+
+| meme | de qué va el chiste | impresiones | clics | CTR | asistentes |
+|---|---|---|---|---|---|
+| Iker 01/09 · *"Cada ascenso en ventas se cobra en otro sitio"* | el ascenso y el físico — **universal** | **218.529** | 111 | **0,051%** | 7 |
+| Asier 03/09 · *"Mi mayor inversión en ventas emocionó al equipo"* | 4.797 € en una herramienta y 12 meses sin ver una cara — **el gasto del comprador** | 27.499 | 76 | **0,276%** | 1 |
+
+**8 veces menos alcance y 5,4 veces mejor CTR.**
+
+> **LA REGLA: el alcance de un meme lo decide lo UNIVERSAL que sea el chiste. La conversión la decide si el SUJETO del chiste es el dolor del que compra.** Son dos palancas, y hasta el 14/09 las tratábamos como una.
+
+**La prueba de por qué, y sale de los comentarios, no de la teoría:** los 21 comentarios del de 218.529 hablan del chiste — el peso, los escalones, si la gráfica tiene sentido — y **ni uno habla de vender**. Mucha cuenta de LATAM, fuera del ICP, y uno acusándonos de faltar al respeto por el físico. Llegó a muchísima gente y a casi nadie que compre.
+
+**CÓMO SE USA AL ELEGIR LA IDEA (`§4.4-PASO-1`), y no es "elige siempre el estrecho":**
+- **El meme de chiste universal es un boleto de lotería.** Nuestra mediana de meme está en ~9.900 impresiones; 2 de 12 se fueron por encima de 100k. Cuando toca, se lleva el premio gordo él solo (los 7 asistentes del 01/09 son la mejor cifra de toda la campaña del evento). **No se puede presupuestar.**
+- **La historia es renta fija:** mediana ~10.100 impresiones × 0,40% de CTR ≈ 40 clics **todas las semanas** (`§4.6`).
+- **Por eso el meme no se elige para cubrir un número de conversión.** Si la semana tiene que traer inscripciones, demos o correos, el número lo pone otro pilar y el meme va de extra.
+- **⭐ Y si el meme ADEMÁS tiene que convertir, el chiste se elige por su SUJETO:** que el que se ríe sea el que paga la factura. `Un ascenso` se ríe cualquiera; `4.797 € de una herramienta que nadie usa` solo se ríe quien firma esa factura — y ése es el que pincha.
+
+⚠️ **Lo que este dato NO dice:** que el meme universal sea malo. Trajo 7 asistentes, el récord de alcance de la casa y +29 seguidores en un día. Dice que **no se le puede pedir conversión**, no que no se haga.
+
 ### ⛔⛔ 4.4-PASO-0 · ANTES DE ELABORAR NADA: ¿YA LA HEMOS USADO? (Iker, 2026-08-11)
 
 **Es el PRIMER paso del runbook del meme, antes de leer la referencia siquiera.**
@@ -2971,6 +2994,17 @@ Durante esas dos semanas **no va a estar la capa manual que hace funcionar el si
 - **Consecuencia operativa:** de esas dos semanas **no sale ninguna regla nueva, ni se declara muerto ningún pilar, ni se toca ninguna receta**. Si un post cae, la explicación por defecto es la falta de interacción, no el copy.
 - **Y no valen de baseline**: al comparar en septiembre y octubre, esas dos semanas se marcan como periodo anómalo, igual que se marca agosto.
 - **Lo que sí se puede medir de ahí, y con cuidado:** el experimento de la programación nativa, comparando **solo** contra posts del mismo pilar y cuenta — y aun así con la advertencia de arriba encima.
+
+### 📅✅ 8.0-PROGRAMAR · LA HERRAMIENTA NATIVA DE LINKEDIN NO PENALIZA EL ALCANCE (medido 2026-09-14)
+
+**La duda llevaba abierta desde que se decidió dejar septiembre escrito (`§8.0-SEPTIEMBRE`): nadie sabía si programar con el nativo de LinkedIn costaba alcance.** Ya está contestada, y a favor.
+
+- **7 posts programados, 7 publicados.** Ni uno se cayó, ni uno se quedó en la cola.
+- **El post más grande de la historia de la casa salió programado:** el meme de Iker del 01/09, **218.529 impresiones**, sin nadie delante para empujarlo en la primera hora.
+
+> **Programar no cuesta alcance.** Se puede dejar contenido programado sin descontar nada por el formato de publicación.
+
+**⛔ Y lo que esto NO autoriza, que es la lectura peligrosa:** no dice que el sistema funcione igual sin la capa manual. En esa misma ventana la frecuencia bajó a la mitad, las cuentas no se comentaron entre sí y se quedaron comentarios sin responder — y **la mediana de impresiones de la segunda semana fue de 1.364 contra 20.260 de la primera**. Lo que está medido es la fontanería (publica o no publica), no el rendimiento. **Programar más no sustituye a estar delante**, y el volumen de las semanas sin nadie sigue cerrado donde está (`§8.0-SEPTIEMBRE`).
 
 ### 8.1 · Las 3 categorías de pilar (unidad de rotación)
 - **PELOTEO (regional)** = { **Mapa regional** | **"Los 10"** directores/comerciales regionales }. Ensalzan una zona o a personas. Los dos formatos cuentan como **la MISMA categoría** a efectos de intercalado (no pueden coincidir dos peloteos el mismo día).

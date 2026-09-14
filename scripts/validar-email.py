@@ -68,6 +68,12 @@ EMOJI = re.compile('[\U0001F000-\U0001FAFF☀-➿]')
 # El techo se pone en el p90: pasarse no es "estilo", es salirse del corpus ganador.
 ASUNTO_MAX = 62
 
+# email-marketing §8g (2026-09-14): la mediana del corpus lleva CUATRO ventanas bajando
+# (43 -> 36 -> 36 -> 31 caracteres; 8 -> 7 -> 7 -> 5 palabras) y el 61% de los 75 asuntos
+# de la ultima cabe en 35. El techo duro sigue en 62 (p90), pero la DIANA es otra: a
+# partir de aqui se avisa, porque casi siempre hay una version mas corta de la misma idea.
+ASUNTO_DIANA = 40
+
 
 def fallo(msg):
     return ('❌', msg)
@@ -128,6 +134,10 @@ def main():
             checks.append(ok(f'Asunto {len(asunto)} chars (techo {ASUNTO_MAX}, corpus Timepack)'))
         else:
             checks.append(fallo(f'Asunto {len(asunto)} chars > {ASUNTO_MAX} (mediana Timepack: 43)'))
+        if ASUNTO_DIANA < len(asunto) <= ASUNTO_MAX:
+            checks.append(aviso(f'Asunto de {len(asunto)} chars: pasa de la diana de {ASUNTO_DIANA} '
+                                f'(§8g: la mediana del corpus es 31 y el 61% cabe en 35). '
+                                f'Busca el recorte en una palabra que no sostenga el verbo ni la persona'))
         cifras = re.findall(r'\d+[.,]?\d*', asunto)
         if len(cifras) <= 1:
             checks.append(ok('Asunto con ≤1 número'))
@@ -139,6 +149,14 @@ def main():
             checks.append(ok('Asunto con ≤1 palabra en mayúsculas'))
         else:
             checks.append(fallo(f'Asunto con {len(mayus)} palabras en MAYÚSCULAS (máx 1, corpus Timepack)'))
+        # §2 + §8g: el 97% del corpus espanol que pregunta pone la ¿; los que se la saltan
+        # son los mismos que escriben "Enserio" y "testominio". Desviarse en ESTILO es
+        # diferenciarse; desviarse en CORRECCION es parecer descuidado, y lo nota un lector
+        # de 55 anos.
+        if '?' in asunto and '¿' not in asunto:
+            checks.append(fallo('Asunto con "?" y sin "¿" de apertura (§2: en lo correcto no nos desviamos)'))
+        elif '?' in asunto:
+            checks.append(ok('Interrogacion con su ¿ de apertura'))
         if '!' in asunto or '¡' in asunto:
             checks.append(fallo('Asunto con exclamación (0 de 353 en el corpus)'))
         else:
@@ -151,10 +169,22 @@ def main():
             checks.append(ok('Asunto con ≤1 emoji'))
         else:
             checks.append(fallo('Asunto con 2+ emojis'))
-        if asunto.rstrip().endswith(('.', ':')) is False:
-            checks.append(ok('Asunto sin punto final (corpus: los asuntos no cierran)'))
+        # §8g (2026-09-14) corrige el "nunca punto final" que salia solo de Timepack:
+        # 14 de 75 asuntos del corpus nuevo lo llevan y son de los mejores. La condicion es
+        # que sea una AFIRMACION SECA de 2-4 palabras ("No escribas mas.", "Hoy es dia 1.").
+        # Con mas palabras el punto vuelve a leerse como titular. Los dos puntos siguen sin
+        # aparecer ni una vez en los 75.
+        _fin = asunto.rstrip()
+        if _fin.endswith(':'):
+            checks.append(aviso('Asunto acabado en ":" (0 de 75 en el corpus nuevo)'))
+        elif _fin.endswith('.') and not _fin.endswith('...'):
+            if len(asunto.split()) <= 4:
+                checks.append(ok('Asunto con punto final y ≤4 palabras (§8g: afirmación seca, vale)'))
+            else:
+                checks.append(aviso(f'Asunto con punto final y {len(asunto.split())} palabras: el punto '
+                                    f'solo funciona en afirmaciones secas de 2-4 (§8g)'))
         else:
-            checks.append(aviso('Asunto acaba en puntuación de cierre; Timepack casi nunca lo hace'))
+            checks.append(ok('Asunto sin puntuación de cierre'))
 
     preview = cab.get('PREVIEW', '')
     primera = cuerpo_lineas[0].strip() if cuerpo_lineas else ''
@@ -188,6 +218,19 @@ def main():
         checks.append(fallo('Abre presentándose (la primera línea recompensa, no se presenta)'))
     else:
         checks.append(ok('No abre con presentación'))
+
+    # --- MICRO-APERTURA (§8d punto 1, §5-HISTORIA, §8g punto 2) ---
+    # El patron mas fuerte del corpus espanol: una orden o una palabra suelta, CON PUNTO,
+    # y linea en blanco detras. Es un freno: obliga a parar antes de leer. Isra "Mira.",
+    # RunnerPro "Escuchame." / "Oye." / "Domingo.", Hugo "Atiende.", Iker "Te cuento.".
+    # Es aviso y no fallo porque hay correos que abren in medias res a proposito (§3.1).
+    _pal = len(primera.split())
+    if 1 <= _pal <= 4 and primera.rstrip().endswith(('.', '?')):
+        checks.append(ok(f'Micro-apertura de {_pal} palabra(s) con punto ("{primera.strip()}")'))
+    else:
+        checks.append(aviso(f'Sin micro-apertura: la línea 1 tiene {_pal} palabras. El corpus abre con '
+                            f'1-3 palabras y punto ("Mira." / "Oye." / "Te cuento.") y línea en blanco '
+                            f'detrás. Si es un arranque in medias res a propósito, ignora el aviso'))
 
     # --- párrafos de prosa ≤3 líneas (global §3.2 heredado) ---
     # Excepción, la misma que en LinkedIn (global §3.2): SOLO las listas con MARCADOR
@@ -360,6 +403,12 @@ def main():
         checks.append(aviso('Sin PD (en Kaixito es opcional)'))
     else:
         checks.append(fallo('Sin PD (email-marketing §4b: en emails importantes, siempre)'))
+
+    # PPD: RunnerPro lleva Pd + Pd2 en 11 de 11 (§8g) y §5-HISTORIA reparte el trabajo
+    # entre las dos (PD = referidos, PPD = remate de la historia). Aviso, no fallo.
+    if tiene_pd and not re.search(r'^\s*(ppd|p\.?d\.?\s?2|pd2)', cuerpo_low, re.M):
+        checks.append(aviso('Solo una PD. RunnerPro lleva Pd + Pd2 en 11 de 11 (§8g) y §5-HISTORIA '
+                            'las reparte: PD = pedir el reenvío, PPD = remate de la historia'))
 
     # --- preview: sin techo medido, aviso a partir de 100 chars ---
     if preview and len(preview) > 100:

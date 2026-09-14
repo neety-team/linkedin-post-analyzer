@@ -195,6 +195,12 @@ sin `forward.neety.com` y sin UTM escrito. **HubSpot le pone entonces el suyo: `
 | Brevo (newsletter) | Luma vía `forward` | `unai-03-evento-correo` | ✅ **sí**, es el nombre del correo |
 | **HubSpot (clientes)** | Luma directo | **`hs_email`** | ❌ **no**: dice el canal, no la pieza |
 
+**✅ Y esto está comprobado a fondo, no de un vistazo:** se recorrieron **los 63 correos de marketing
+de la cuenta de HubSpot** (dos páginas, no solo la primera). **Solo dos tocan el evento**: el enviado
+del 20/08 y el borrador del 08/09. Los otros 61 son de 2024-2025, anteriores a que el evento
+existiera. La ficha del que salió, para verla sin fiarse de mí:
+`app-eu1.hubspot.com/email/145372616/details/456203534580/performance`
+
 **⛔ El problema no es de hoy, es del segundo correo.** Con un solo envío de HubSpot al evento,
 `hs_email` es legible por eliminación. **En cuanto salga el segundo, los dos serán `hs_email`** — que
 es exactamente el lío de `sendinblue` que resolvimos aquí escribiendo el UTM dentro del `href`. Y hay

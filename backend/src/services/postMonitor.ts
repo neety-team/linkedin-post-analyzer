@@ -83,6 +83,18 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
       return sinceLast >= interval - DUE_TOLERANCE_MS;
     });
 
+    // Los posts de mas de 7 dias siguen acumulando clics y su analitica Premium
+    // no la toca nadie mas (ver `refrescarAnaliticaPostsViejos`). Va AQUI, ANTES
+    // del return de abajo, y no al final del tick: si no hay ningun post reciente
+    // que fotografiar la funcion sale antes de tiempo, y entonces el pase semanal
+    // no correria justo en las semanas sin publicaciones, que son en las que la
+    // cola de posts viejos se acumula. No necesita el feed, solo el id del post.
+    try {
+      await refrescarAnaliticaPostsViejos();
+    } catch (e: any) {
+      console.warn('[postMonitor] pase semanal de analitica fallo:', e?.message);
+    }
+
     if (targets.length === 0) return { captured: 0, candidates: candidates.length };
 
     console.log(`[postMonitor] ${force ? 'forced ' : ''}ticking — ${targets.length}/${candidates.length} post(s) due for snapshot`);
@@ -212,6 +224,75 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
     tickInFlight = false;
     lastTickAt = Date.now();
   }
+}
+
+// ⭐⭐ PASE SEMANAL DE ANALITICA PREMIUM PARA POSTS DE MAS DE 7 DIAS (Mario, 2026-09-14)
+//
+// EL AGUJERO QUE TAPA: el bucle de arriba solo mira posts de menos de 7 dias,
+// asi que la analitica Premium —clics al enlace, guardados, envios, boton— se
+// refrescaba cada 6 horas durante una semana y despues NO SE TOCABA NUNCA MAS.
+// Las metricas publicas (likes, comentarios, reposts, impresiones) si siguen
+// creciendo, porque las pisa `bulkUpsert` en cada re-escaneo del creador; las
+// Premium no las toca nadie mas. Resultado: un post que sigue vivo acumula
+// clics que no llegan a la BD, y la conversion sale infravalorada SIEMPRE y de
+// forma desigual entre pilares (un mapa vive semanas, un meme muere en 48h).
+// Medido el 14/09 con el mapa de Cantabria: la BD lo tenia congelado en el dia
+// 7 y LinkedIn ya iba un 25% por encima en todos los contadores.
+//
+// Mario: *"pasados siete días que no se actualicen lo entiendo, pero eso de
+// nunca es un error garrafal. Una llamada una vez a la semana no pasa nada."*
+//
+// POR QUE SEMANAL Y NO MAS: es una peticion por post y Unipile devuelve listas
+// vacias cuando LinkedIn le mete rate limit, que es el mismo cupo que paga
+// TODO el scraping. Con ~9 posts a la semana, la cola en regimen son ~16
+// refrescos al dia; con 2 por vuelta y 96 vueltas diarias sobra capacidad.
+//
+// POR QUE EL TECHO ES 90 DIAS: LinkedIn deja de servir parte de los bloques
+// cuando el post los pasa (ya esta documentado en `savePremiumAnalytics`), asi
+// que seguir pidiendolos seria gastar cupo para traer nulls.
+//
+// NO HACE SNAPSHOT a proposito: la curva del post ya esta cerrada y un punto
+// suelto cada semana ensuciaria la grafica. Esto solo actualiza contadores.
+const ANALYTICS_OLD_PER_TICK = 2;
+const OLD_ANALYTICS_MAX_AGE_DAYS = 90;
+
+async function refrescarAnaliticaPostsViejos(): Promise<number> {
+  const { rows } = await pool.query(
+    `SELECT p.id, p.linkedin_post_id, c.unipile_account_id
+       FROM posts p
+       JOIN creators c ON c.id = p.creator_id
+      WHERE c.is_managed = TRUE
+        AND c.unipile_account_id IS NOT NULL
+        AND c.is_manual IS NOT TRUE
+        AND p.published_at IS NOT NULL
+        AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
+        AND p.published_at <  NOW() - INTERVAL '7 days'
+        AND p.published_at >  NOW() - ($1 || ' days')::interval
+        AND (p.premium_analytics_at IS NULL
+             OR p.premium_analytics_at < NOW() - INTERVAL '7 days')
+      ORDER BY p.premium_analytics_at ASC NULLS FIRST
+      LIMIT $2`,
+    [String(OLD_ANALYTICS_MAX_AGE_DAYS), ANALYTICS_OLD_PER_TICK]
+  );
+
+  let hechos = 0;
+  for (const p of rows) {
+    try {
+      const a = await fetchPremiumAnalytics(String(p.linkedin_post_id), p.unipile_account_id);
+      if (a) {
+        await savePremiumAnalytics(pool, p.id, a);
+        hechos++;
+      } else {
+        // La pagina no se pudo leer. Se marca igual para que este post no
+        // bloquee la cola pidiendose en cada vuelta: le tocara la semana que viene.
+        await pool.query(`UPDATE posts SET premium_analytics_at = NOW() WHERE id = $1`, [p.id]);
+      }
+    } catch (e: any) {
+      console.warn(`[postMonitor] analitica semanal fallo para ${p.id}:`, e?.message);
+    }
+  }
+  if (hechos) console.log(`[postMonitor] analitica semanal: ${hechos} post(s) de mas de 7 dias actualizados`);
+  return hechos;
 }
 
 // Per-post refresh — captures a fresh snapshot for ONE specific post and

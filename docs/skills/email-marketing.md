@@ -602,7 +602,7 @@ No son las señales. No es el momento. **Es la identificación.** Los clientes i
 1. **La promesa central no se toca: sigue siendo la identificación** (`§5`, "un solo producto, ángulos infinitos"). El informe la refuerza — la señal es ahora objeción en **12 empresas (9 del ICP)**, la más repetida de todo el documento. **Un email que abra con la señal está abriendo con el argumento del segundo tiempo** (`global §4.4b-ORDEN`).
 2. **Los vetos son los MISMOS y en email pesan más, no menos.** Prometer que lo escribe la IA es objeción en 5 empresas (*"vimos tantos de estos mensajes que directamente los ignoramos"*, Innobide), y aquí el lector lo está leyendo **dentro de la bandeja donde recibe esos mensajes**. Prometer volumen es la queja literal contra Waalaxy y Apollo, también 5 empresas.
 3. **Lo que el email SÍ puede hacer y el post no: una historia entera.** `§7` permite historias inventadas si el dolor es real; **el dolor real ahora tiene 77 empresas detrás y nombre de tema** (informe del 14/09). El dolor nº1 (**21 empresas, 15 del ICP**) *"eliminar un tiempo de trabajo en prospección y dedicarlo a contactar"* es un pilar 1 de manual; el nuevo del 19/08 (*"no te da el interlocutor en la empresa, lo que te da es ese posible listado de empresas"*) es un pilar 3 de manual, porque rompe la creencia de "ya tengo una base de datos". ⚠️ **Ese segundo sigue en 2 empresas el 14/09 y tiene una cita ICP en contra** (`aboutme §1b`): se usa — es el dolor de nuestro mejor CTR — pero **no se presenta como lo que dice el mercado**.
-4. **Y hay un tema que es de email y de nadie más: Sales Navigator** (**7 empresas el 14/09**, eran 5; *"la licencia… realmente no le sacamos demasiado fruto"*). En un post no se puede nombrar la marca (`global §4.4b-MUNICIÓN`: nombrar a LinkedIn dentro de LinkedIn); **en la bandeja de entrada no hay ese problema**. ⚠️ **Pero antes de apoyar un correo en esto, léete `global §4.4b-LICENCIA` entero:** el desglose por encaje del 24/08 dio ninguna ICP A y tres "encaja con dudas", hay **una cita de Fagor (ICP A) en contra**, y el desglose de las dos empresas nuevas (Sener y YK Robotics) **está sin hacer**. El ángulo bueno no es el precio, es que la licencia no te da el nombre de dentro.
+4. **Y hay un tema que es de email y de nadie más: Sales Navigator** (**7 empresas el 14/09**, eran 5; *"la licencia… realmente no le sacamos demasiado fruto"*). En un post no se puede nombrar la marca (`global §4.4b-MUNICIÓN`: nombrar a LinkedIn dentro de LinkedIn); **en la bandeja de entrada no hay ese problema**. ⭐ **Y el 14/09 este ángulo deja de ser flojo: entra Sener, que es ICP A** (`global §4.4b-LICENCIA`, desglose actualizado). ⚠️ Sigue habiendo **una cita de Fagor (también ICP A) en contra**, y **el ángulo bueno no es el precio**: es que la licencia no te da el nombre de dentro.
 
 **⚠️ Y la regla de entrada es la misma que en el ninja:** un dolor entra en un email cuando el informe lo respalda con **3 empresas o más**. Con 1 o 2 es hipótesis, se prueba en un correo y se anota el resultado en `historial-newsletter.md`.
 
@@ -677,20 +677,6 @@ cuerpo.
 
 #### 💣 QUÉ PUEDE PROMETER EL NINJA DEL CORREO, Y NO ES OPINABLE (Iker, 2026-08-26)
 > **Iker:** *"también tienes que copiar de la skill de LinkedIn que ahora tenemos nuevo feedback de los clientes, para mejorar también el spam ninja de los correos sabiendo cómo solucionar mejor su punto de dolor y cuál es"*.
-
-> ### 🚨 4.4b-IT · NUESTROS ENLACES SALTAN LOS FILTROS DE SEGURIDAD DEL ICP (informe del 2026-09-14)
->
-> **Dos temas del informe que se leen juntos y nadie había cruzado:**
-> - *Los correos y enlaces de Neety acaban en spam o marcados como sospechosos* — **4 empresas** (3 ICP)
-> - *Seguridad y IT del cliente frenan la compra y el arranque* — **7 empresas** (**6 ICP**)
->
-> La cita que lo hace concreto: *"El link que me pasaste ayer, de Nitti, es sospechoso. **Les ha saltado una alarma**"* (Wittenstein, 22 jul).
->
-> **Qué significa y qué NO:** está medido que **nuestros enlaces disparan el filtro corporativo de clientes industriales**. **NO está medido** que nuestra newsletter caiga en spam de forma sistemática — eso hay que comprobarlo en Brevo, no deducirlo de aquí (`feedback: aviso sin comprobar es hipótesis`).
->
-> **Lo que sí cambia hoy:** nuestro ICP es industria mediana con IT corporativo estricto, y ahí **un dominio que la empresa no conoce se bloquea antes de que nadie lea el copy**. El mejor ninja del mundo no sirve si el enlace no abre. Aplica igual al post (`recursos.neety.com`) y al correo.
->
-> 📌 **Pendiente de verificación, no de redacción:** reputación del dominio de envío, SPF/DKIM/DMARC y si el dominio de los enlaces está en alguna lista. Hasta que eso se mire, **esto es un riesgo anotado, no una regla de copy**.
 
 **⛔ EL INVENTARIO NO SE COPIA AQUÍ. Vive en `global §4.4b-MUNICIÓN` y en `aboutme §1b`, y se lee de ahí** (informe del **2026-09-14**: **359 citas, 77 empresas, 117 reuniones**). Dos copias del mismo banco de dolores se desincronizan en tres semanas y entonces el post y el correo empiezan a vender cosas distintas. **Lo que sí es de aquí es qué pesa distinto en la bandeja de entrada:**
 

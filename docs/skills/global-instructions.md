@@ -2031,6 +2031,28 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > | bigD (C) | *"no lo utilizamos, no lo pagamos"* | **No** |
 > | Composites Martiartu (C) | *"LinkedIn ya lo hace, cada vez lo están capando más"* | Otra queja distinta |
 >
+> #### 🔄 ACTUALIZADO EL 2026-09-14 · EL DESGLOSE YA ESTÁ HECHO, Y LA CONCLUSIÓN DE ARRIBA AGUANTA (pero la pata cambia)
+>
+> **El informe del 14/09 sube el tema de 5 a 7 empresas y trae las dos que faltaban.** Encaje leído de la ficha de cada cuenta en el propio informe, no deducido:
+>
+> | Empresa | Encaje | ¿La ha usado? | Qué dice de verdad |
+> |---|---|---|---|
+> | **Sener** 🆕 | **ICP A · Encaje nuclear** | Sí | *"Han usado Sales Navigator, pero sí que echaban en falta una herramienta mucho más precisa"* |
+> | **YK Robotics** 🆕 | ICP B | Sí | *"lo hemos usado, creo que se puede hacer mucho mejor… hay mucho margen para mejorar aquí"* |
+> | H2SITE | ICP B | Sí | *"el feedback que yo escucho dentro de la empresa no es muy para tirar cohetes"* |
+> | Scoutic (PKF Attest) | ICP C | La tuvo | *"realmente no le sacamos demasiado fruto"* |
+> | bigD | ICP C | **No** | *"no lo utilizamos, no lo pagamos"* |
+> | Composites Martiartu | ICP C | Otra queja | *"LinkedIn ya lo hace, cada vez lo están capando más"* |
+> | Noergia | **Fuera del ICP** | **No** | *"si eso quiere decir que no nos hace falta contratar[la], que es muy caro"* |
+>
+> **⛔ CADUCA LA FRASE DE ARRIBA "ninguna es ICP A".** Era cierta el 24/08 y ya no lo es: **Sener es ICP A**, y con H2SITE e YK Robotics el ángulo tiene **tres cuentas de encaje sólido** donde antes tenía cero. Los que la han usado pasan de **2 de 5 a 4 de 7**.
+>
+> **⭐ Y AUN ASÍ NO SE TOCA EL ÁNGULO, PORQUE LAS DOS CITAS NUEVAS LO CONFIRMAN EN VEZ DE CAMBIARLO.** Ni Sener ni YK Robotics se quejan del precio: se quejan de **precisión** (*"echaban en falta una herramienta mucho más precisa"*, *"se puede hacer mucho mejor"*). Es exactamente lo que decía el bloque de abajo: **el enemigo no es lo que cuesta la licencia, es que la licencia no te da el nombre de dentro.** Lo que cambia es que ahora eso lo sostiene un ICP A y no solo encajes dudosos.
+>
+> **⚠️ LA CITA EN CONTRA SIGUE VIVA, y también es ICP A:** Fagor Automation (*"este primer paso yo lo puedo hacer gratis, en Sales Navigator o en LinkedIn"*). **Dos ICP A, en direcciones opuestas.** O sea: **no se escribe como si el ICP odiara la licencia.** Se escribe sobre lo que a los dos les falta igual, que es el nombre de dentro.
+>
+> **Las líneas ✅/❌ de abajo no cambian ni una palabra.** La marca sigue sin entrar en un post (`§4.4b-PROMESA`), y en correo sí se puede nombrar (`email-marketing`).
+>
 > **`la licencia que pagas y no abres` solo lo sostienen 2 de 5.** Las otras tres ni la pagan, así que ese dolor de bolsillo no les toca — y por la regla de entrada de `§4.4b-MUNICIÓN` (3 empresas o más), **2 es hipótesis, no patrón**. Escribir el ninja sobre el precio es apoyarlo en la pata más floja que hay en toda la sección.
 >
 > **⭐ LO QUE SÍ COMPARTEN LAS 5, Y ADEMÁS ENCAJA CON FAGOR: la tengas o no la tengas, sigues sin el nombre de dentro.** Fagor lo dice sin querer — el primer paso (la empresa) lo hace gratis, y lo que pide **justo después** es el teléfono del decision maker. Es literalmente el tema nuevo del 19/08 (`aboutme §1b`: el cuello de botella es la persona, no la empresa).

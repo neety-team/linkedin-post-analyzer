@@ -1,6 +1,73 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { trackedCreate } from './claudeClient';
 import { stripLoneSurrogates } from '../utils/sanitizeText';
+import { detectarAperturaGenerica } from './replyGenerator';
+
+// ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
+//
+// MEDIDO, y la muestra son estos mismos comentarios ya publicados (sacados de
+// Unipile el 15/09): de 19 comentarios de apoyo, 15 (79%) abren con una
+// ABSTRACCION — 11 con un sintagma nominal ("La eficiencia comercial no esta
+// en...", "El contacto directo es solo un dato") y 4 con un infinitivo
+// ("Eliminar falsos positivos...", "Saber la empresa..."). Y "la eficiencia" y
+// "la diferencia" salen DOS veces cada una en 19, en cuentas distintas.
+//
+// LA CAUSA es la misma que en `replyGenerator` y este fichero ya la tenia
+// escrita para OTRA cosa: un MENU no produce variedad. El bloque VARIETY lista
+// cinco angulos y el modelo los colapsa, porque nadie le dice cual va en cual.
+// Y encima faltaba lo mas barato: la tabla de delatores de IA de brand-voice §3
+// (`AI_TELLS` en validar-post.py) nunca estuvo en este prompt, asi que la misma
+// formula que jamas pasa en un post salia cada dia en los comentarios.
+//
+// EL ARREGLO, en las mismas tres capas: se PROHIBE la familia en el prompt, se
+// ASIGNA a cada comentario su angulo y su arranque (sorteados sin reemplazo, y
+// por eso rotan tambien ENTRE posts), y se COMPRUEBA la salida.
+const ANGULOS_APOYO = [
+  'refuerza la idea principal con un angulo personal concreto',
+  'coge una frase o una cifra LITERAL del post y devuelvesela',
+  'calido y humano, sin peloteo hueco',
+  'anade UNA capa que el post no cubre, sin contradecirlo',
+  'una sola linea, corta y seca, de reaccion',
+  'nombra la consecuencia de NO hacer lo que dice el post',
+  'lleva su idea un paso mas alla, en general',
+];
+
+const ARRANQUES_APOYO = [
+  'un verbo en primera persona (Me ha pasado, Lo veo, Llevo tiempo viendo)',
+  'una palabra literal del post',
+  'una negacion (No, Nadie, Ninguno, Ni)',
+  'un adverbio de frecuencia (Casi siempre, Rara vez, Normalmente, Al final)',
+  'una reaccion de dos o tres palabras',
+  'el sujeto concreto de la escena del post (el comercial, el cliente, la lista)',
+  'una pregunta directa',
+  'el pronombre de la experiencia propia (Yo, A mi, En mi caso)',
+];
+
+// Sorteo SIN REEMPLAZO: dos comentarios de la misma tanda no pueden compartir
+// arranque, que es justo lo que hace que los cinco se lean como una sola mano.
+function reparte(banco: string[], n: number): string[] {
+  const copia = [...banco];
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia.slice(0, n);
+}
+
+// Las dos primeras palabras, normalizadas. Es con lo que se detecta que dos de
+// los cinco abren igual: el lector que baja por los comentarios ve eso, no el
+// angulo interno que tenia cada uno asignado.
+export function primerasDos(c: string): string {
+  return c
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .join(' ');
+}
 
 export interface CommentGenerationInput {
   postContent: string;
@@ -304,15 +371,23 @@ NO HOLLOW OPENERS: never "Great post!", "Love this", "Totalmente de acuerdo", "Q
 
 ★ NO NUMBERS OR FACTS THAT ARE NOT IN THE POST. Never invent a figure, a client, a company or a personal story with specifics that could be checked. If a comment needs a personal angle, keep it unfalsifiable ("me ha pasado algo parecido") rather than inventing a case.
 
-VARIETY: each comment must come from a genuinely different angle. If two sound similar, rewrite. Mix:
-- One that reinforces the main point with a concrete personal angle
-- One that picks up a specific phrase or number FROM the post and quotes it back
-- One that is warm and human ("me ha pasado lo mismo", "esto resuena")
-- One that adds ONE layer the post did not cover, without contradicting it
-- One short and punchy, a single line reaction
+★ EL ANGULO Y EL ARRANQUE DE CADA COMENTARIO TE LLEGAN ASIGNADOS en el mensaje de usuario, numerados. NO son un menu del que elegir: el 1 es el 1 y el 3 es el 3. Antes esto era una lista de cinco angulos y el modelo los colapsaba en el mismo, porque nadie decia cual iba en cual.
 Never repeat the same angle, and do not let two comments latch onto the same word of the post.
 
+★ ⛔ NINGUNO PUEDE ABRIR CON UNA ABSTRACCION. Es la tabla de delatores de IA de la casa (brand-voice §3), la misma que el validador de posts tumba desde hace meses y que aqui no miraba nadie. PROHIBIDO empezar un comentario con: "lo más importante", "lo más curioso", "lo más crucial", "lo más clave", "lo fundamental", "lo esencial", "lo cierto es que", "la clave está en", "la clave es", "el secreto es", "la verdad es que", "la realidad es que", "al final del día", "lo que nadie dice", "lo que nadie sabe", "lo interesante es que", "exactamente", "efectivamente".
+Y NO ES SOLO LA LISTA, ES LA FORMA: abrir con un sustantivo abstracto y un verbo copulativo ("La eficiencia comercial no está en...", "El contacto directo es solo un dato", "La diferencia entre X e Y...") se lee igual de robotico aunque la palabra no este en la lista. MEDIDO en los comentarios que de verdad publicamos: 15 de 19 abrian asi. Se abre por lo CONCRETO: un verbo, una persona, un objeto, o una palabra literal del post.
+⛔ Y NINGUNO DE LOS ${n} PUEDE EMPEZAR CON LAS MISMAS DOS PALABRAS QUE OTRO. Los publican personas distintas en el mismo hilo: dos aperturas iguales delatan la coordinacion entera.
+
 Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n} strings. No markdown fences, no explanation.`;
+
+  // Sorteados SIN REEMPLAZO y asignados uno a uno. Que el banco tenga mas
+  // entradas que huecos es lo que hace que roten tambien ENTRE posts: sin eso,
+  // dos tandas distintas vuelven a los mismos cinco angulos de siempre.
+  const angulos = reparte(ANGULOS_APOYO, n);
+  const arranques = reparte(ARRANQUES_APOYO, n);
+  const asignacion = angulos
+    .map((a, i) => `${i + 1}. ANGULO: ${a}. ARRANQUE OBLIGATORIO: empieza por ${arranques[i]}.`)
+    .join('\n');
 
   const userMessage = `${profileContext}
 
@@ -322,30 +397,91 @@ POST LANGUAGE: ${detectedLang}
 POST CONTENT:
 ${safePostContent}
 
-TASK: Write exactly ${n} supportive comments (mix of reinforce + warm), each ≤ 180 chars, each ≤ 2 lines, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image.
+═══ ASIGNACION DE ESTA TANDA (no es un menu, es el reparto) ═══
+${asignacion}
+═══════════════════════════════════════════════════════════════
+
+TASK: Write exactly ${n} supportive comments (mix of reinforce + warm), each ≤ 180 chars, each ≤ 2 lines, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image. Cada comentario respeta EL ANGULO Y EL ARRANQUE de su numero.
 
 Return JSON only: { "comments": ["...", "..."] }`;
 
-  const response = await trackedCreate('comment_generator_supportive', {
-    model: 'claude-sonnet-4-6',
-    max_tokens: 1024,
-    system,
-    messages: [{ role: 'user', content: userMessage }],
-  });
+  // EL GUARDARRAIL, porque un prompt es una peticion y no una garantia. Es la
+  // leccion que `replyGenerator` lleva escrita cuatro veces (las anecdotas, los
+  // dos puntos, las letras triples, el sorteo de aperturas): lo que no se
+  // comprueba, no se cumple.
+  //
+  // Se miran DOS cosas, las dos de APERTURA, que es donde se ve la monotonia:
+  //   (a) que ninguno abra con una formula de IA — reutilizando el MISMO
+  //       detector que el generador de respuestas, para que no acaben siendo
+  //       dos listas que se desincronizan;
+  //   (b) que no haya DOS que empiecen con las mismas dos palabras, que es lo
+  //       que delata que los cinco salieron de una sola mano. Esta es la que
+  //       de verdad importa aqui: los pegan cinco personas distintas en el
+  //       mismo hilo (brand-voice §7.2b).
+  //
+  // Dos intentos y no tres: esto genera cinco de golpe y cuesta cinco veces mas
+  // que una respuesta. Si el segundo sigue flojo se devuelve igual, porque los
+  // pega una persona que puede editarlos antes de publicar.
+  let out: string[] = [];
+  let reproche = '';
 
-  const text = response.content
-    .filter((block): block is Anthropic.TextBlock => block.type === 'text')
-    .map((block) => block.text)
-    .join('');
+  for (let intento = 1; intento <= 2; intento++) {
+    const response = await trackedCreate('comment_generator_supportive', {
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1024,
+      system,
+      messages: [{ role: 'user', content: userMessage + reproche }],
+    });
 
-  const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-  const parsed = JSON.parse(cleaned) as { comments: unknown };
-  if (!Array.isArray(parsed.comments)) throw new Error('Supportive generator returned no comments array');
+    const text = response.content
+      .filter((block): block is Anthropic.TextBlock => block.type === 'text')
+      .map((block) => block.text)
+      .join('');
 
-  const out = parsed.comments
-    .filter((c): c is string => typeof c === 'string')
-    .map((c) => c.trim())
-    .filter(Boolean);
-  if (out.length === 0) throw new Error('Supportive generator returned an empty list');
-  return out.slice(0, n);
+    const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    const parsed = JSON.parse(cleaned) as { comments: unknown };
+    if (!Array.isArray(parsed.comments)) throw new Error('Supportive generator returned no comments array');
+
+    out = parsed.comments
+      .filter((c): c is string => typeof c === 'string')
+      .map((c) => c.trim())
+      .filter(Boolean)
+      .slice(0, n);
+    if (out.length === 0) throw new Error('Supportive generator returned an empty list');
+
+    const genericas = out
+      .map((c) => ({ c, que: detectarAperturaGenerica(c) }))
+      .filter((x) => x.que);
+    const vistas = new Map<string, number>();
+    for (const c of out) {
+      const dos = primerasDos(c);
+      vistas.set(dos, (vistas.get(dos) || 0) + 1);
+    }
+    const repetidas = [...vistas.entries()].filter(([, veces]) => veces > 1).map(([k]) => k);
+
+    if ((genericas.length === 0 && repetidas.length === 0) || intento === 2) {
+      if (genericas.length || repetidas.length) {
+        console.warn(
+          `[commentGenerator] la tanda de apoyo sale con ${genericas.length} apertura(s) de IA y ${repetidas.length} repetida(s) tras 2 intentos, se devuelve igual`
+        );
+      }
+      break;
+    }
+
+    const partes: string[] = [];
+    if (genericas.length) {
+      partes.push(
+        `abren con una formula de IA prohibida: ${genericas
+          .map((x) => `"${x.c.slice(0, 40)}" (${x.que})`)
+          .join(', ')}`
+      );
+    }
+    if (repetidas.length) {
+      partes.push(`empiezan con las mismas dos palabras: ${repetidas.map((r) => `"${r}"`).join(', ')}`);
+    }
+    reproche = `\n\nEL INTENTO ANTERIOR NO VALE porque ${partes.join(' y ')}. Reescribe LOS ${n} cambiando LAS PRIMERAS PALABRAS de los que fallan, respetando el arranque asignado a cada numero. Los publican personas distintas en el mismo hilo, asi que dos aperturas parecidas los delatan a todos.`;
+    console.warn(`[commentGenerator] intento ${intento}/2 descartado: ${partes.join(' y ')}`);
+  }
+
+  return out;
 }

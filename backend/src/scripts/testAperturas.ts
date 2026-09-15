@@ -11,6 +11,7 @@
  *   npx tsx src/scripts/testAperturas.ts
  */
 import { detectarAperturaGenerica, buildPrompt, recordarApertura } from '../services/replyGenerator';
+import { primerasDos } from '../services/commentGenerator';
 
 let fallos = 0;
 const ok = (cond: boolean, label: string, extra = '') => {
@@ -92,6 +93,21 @@ ok(conMemoria.includes('EN ESTE MISMO POST'), 'con una apertura previa, se prohi
 ok(conMemoria.includes('Casi siempre acaba igual'), 'y se le dice cual fue');
 const otroPost = buildPrompt({ ...base, postId: 'otro' } as any, 'cercano').prompt;
 ok(!otroPost.includes('EN ESTE MISMO POST'), 'la memoria es POR post, no global');
+
+// 6. COMENTARIOS DE APOYO. La deteccion de choque es lo que impide que los
+//    cinco se lean como una sola mano: los pegan cinco personas distintas.
+console.log('\n6 · comentarios de apoyo: choque de aperturas');
+const tanda = [
+  'La eficiencia comercial no está en ampliar el mercado.',
+  'La eficiencia mejora cuando quitas capas.',
+  'Me ha pasado lo mismo con mi cartera.',
+];
+const conteo = new Map<string, number>();
+for (const c of tanda) conteo.set(primerasDos(c), (conteo.get(primerasDos(c)) || 0) + 1);
+const choques = [...conteo.entries()].filter(([, v]) => v > 1).map(([k]) => k);
+ok(choques.length === 1 && choques[0] === 'la eficiencia', 'caza los dos que abren igual', choques.join(', '));
+ok(primerasDos('¡Qué bueno! Me ha pasado.') === 'que bueno', 'normaliza tildes y signos');
+ok(tanda.filter((c) => detectarAperturaGenerica(c)).length === 2, 'y marca las dos abstracciones de la tanda');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

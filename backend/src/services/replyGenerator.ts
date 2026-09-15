@@ -476,7 +476,7 @@ const APERTURAS_IA: { re: RegExp; que: string }[] = [
   // justo el caso mas frecuente de los medidos: "La eficiencia COMERCIAL no
   // esta en..." salio dos veces en 19 comentarios. Por eso van hasta dos
   // palabras entre el sustantivo y el verbo.
-  { re: /^l[ao]s? (verdad|realidad|clave|gracia|diferencia|eficiencia|importancia|ventaja|dificultad|cuestion|magia|trampa|tecla|paradoja|ironia|leccion)\b(\s+\w+){0,2}\s+(no\s+)?(es|son|esta|estan|va|van)\b/, que: 'sustantivo abstracto + verbo copulativo' },
+  { re: /^l[ao]s? (verdad|realidad|clave|gracia|diferencia|eficiencia|importancia|ventaja|dificultad|cuestion|magia|trampa|tecla|paradoja|ironia|leccion)\b(\s+\w+){0,2}\s+(no\s+)?(es|son|esta|estan|va|van|mejora|mejoran|cambia|cambian|depende|dependen|empieza|empiezan|llega|llegan|cuesta|cuestan|pasa|pasan|funciona|funcionan|importa|importan|manda|mandan|sirve|sirven|nace|nacen|esta en|reside)\b/, que: 'sustantivo abstracto + verbo copulativo' },
   { re: /^al final del dia/, que: 'al final del dia' },
   { re: /^exactamente\b/, que: 'exactamente (la palabra de asentimiento va literal, sin adverbio)' },
   { re: /^efectivamente\b/, que: 'efectivamente' },

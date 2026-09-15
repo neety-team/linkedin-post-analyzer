@@ -92,6 +92,13 @@ CASOS = [
     # (EMPRESA_LADRONA) SEPARE al 4.82x sin quejas del 0.66x que sí las tuvo. Un check
     # que tumbara a los tres, o que no tumbara a ninguno, no mediría nada.
     ('hacemos fotos por fuera', 'los10', 'Iker', {
+        'Cada ficha lleva DOS menciones': (
+            'ESPERADO por antigüedad, igual que "Menciones con @": los tres "Los 10" del '
+            'histórico van sin arroba ninguna (→ Edorta Arriet Azpiroz - Geminis Lathes), '
+            'porque las @ se empezaron a pedir después. La regla nueva (Iker, 2026-09-15) '
+            'es que van las DOS aunque el nombre de la persona ya lleve la empresa dentro: '
+            'el texto no notifica a la página, solo la mención lo hace.'
+        ),
         'Spam ninja presente': (
             'ESPERADO Y CARGADO DE SENTIDO: este post NO lleva link, y es el único de los '
             'tres sin una sola queja. Los otros dos sí lo llevan y ambos recibieron petición '
@@ -118,6 +125,13 @@ CASOS = [
         ),
     }),
     ('le doy la vuelta', 'los10', 'Unai', {
+        'Cada ficha lleva DOS menciones': (
+            'ESPERADO por antigüedad, igual que "Menciones con @": los tres "Los 10" del '
+            'histórico van sin arroba ninguna (→ Edorta Arriet Azpiroz - Geminis Lathes), '
+            'porque las @ se empezaron a pedir después. La regla nueva (Iker, 2026-09-15) '
+            'es que van las DOS aunque el nombre de la persona ya lleve la empresa dentro: '
+            'el texto no notifica a la página, solo la mención lo hace.'
+        ),
         'La EMPRESA no es quien tapa a la persona': (
             'FALLA A PROPÓSITO. Es el 0.66x de Cataluña: flopeó Y un trabajador pidió por '
             'privado que le quitáramos la mención. "El nombre que se dice siempre es el de '
@@ -138,6 +152,13 @@ CASOS = [
         'Bloques de 2-3 en escalera': 'regla §3.2 afinada después',
     }),
     ('comiéndose noes', 'los10', 'Iker', {
+        'Cada ficha lleva DOS menciones': (
+            'ESPERADO por antigüedad, igual que "Menciones con @": los tres "Los 10" del '
+            'histórico van sin arroba ninguna (→ Edorta Arriet Azpiroz - Geminis Lathes), '
+            'porque las @ se empezaron a pedir después. La regla nueva (Iker, 2026-09-15) '
+            'es que van las DOS aunque el nombre de la persona ya lleve la empresa dentro: '
+            'el texto no notifica a la página, solo la mención lo hace.'
+        ),
         'Spam ninja presente': (
             'ARTEFACTO DEL TEST, no un fallo del post: sí lleva spam ninja, pero LinkedIn ya '
             'reescribió el link a lnkd.in y el check busca "recursos.neety.com". Los borradores '

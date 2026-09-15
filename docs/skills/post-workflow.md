@@ -567,6 +567,18 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 - **Ejecución:** Claude vía Unipile (credenciales de las env vars del entorno "Iker", como §4.2).
 - **Formato en el cuerpo:** `→ @Persona - @Empresa · logro concreto` (ej. `→ @Edorta Arriet Azpiroz - @Geminis Lathes · +77% bº`). **Con @ delante de los dos nombres**, igual que el mapa (§4.2 Paso 4): el usuario clica detrás de la arroba y LinkedIn abre el buscador de menciones solo. El logro va DESPUÉS del `·`, sin arroba.
 - **⚠️ NOMBRES EXACTOS DE LINKEDIN**, igual que en el mapa (§4.2 Paso 4): copia el `name` de Unipile literal, sin embellecer. Si el nombre no coincide, no salta el autocompletado de la @ y la mención muere.
+- **⛔⛔ LAS DOS MENCIONES VAN SIEMPRE, AUNQUE EL NOMBRE DE LA PERSONA YA LLEVE LA EMPRESA DENTRO (Iker, 2026-09-15).**
+  > **Casuística nueva.** Hay gente que se pone la empresa en el campo del nombre: `Aitor Lizarraga - AMPO-POYAM Valves`. Con la @ delante, esa ficha **parece** completa —se lee igual que `@Persona - @Empresa`— y yo la entregué con **una sola arroba**, razonando que la empresa ya salía escrita y que el segundo guion quedaba feo. Iker lo añadió a mano: *"siempre tenemos que mencionar a ambos para maximizar el alcance"*.
+  >
+  > **Y el motivo no es de formato, es de mecanismo: el texto escrito NO notifica a la página de la empresa. Solo la @ lo hace.** Una ficha con una arroba es una notificación regalada, y las notificaciones son el motor entero del peloteo (`outliers §3.13`: lo único que correlaciona con que reparta es cuántos mencionados contestan).
+  >
+  > **Queda así, con el guion extra y sin importar que el nombre se repita:**
+  > ```
+  > → @Aitor Lizarraga - AMPO-POYAM Valves - @AMPO · 281M€ y tercer récord seguido
+  > ```
+  > **El error de fondo, que es el repetible:** decidí por estética contra un mecanismo medido. Cuando choquen, gana el mecanismo y lo feo se declara en la entrega.
+  >
+  > **Mecanizado** como fallo duro en `validar-post.py --pilar los10` (`Cada ficha lleva DOS menciones`), contando arrobas por línea. **En el MAPA va de aviso**, porque allí sí existe la ficha legítima de una sola @ (empresa sin nadie con cargo válido, `§4.2 Paso 4`).
 
 **Paso 3 — CUERPO** (pelotea a la persona invisible, `swipe-file §3.1`):
 - Setup que pinta al que decide de verdad y no sale en la foto (una anáfora tipo "No publica. No da charlas. No sale en la nota de prensa." — **es UNA opción, no la plantilla fija**).

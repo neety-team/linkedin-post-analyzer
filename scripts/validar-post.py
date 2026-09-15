@@ -3012,6 +3012,19 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'sobre la IMAGEN, no la entrega del post: mientras pueda llegar una foto mejor, un '
             'fichero viejo ahi es peor que ninguno, porque la siguiente region se clona de el. '
             'La copia del Escritorio se queda: esto es el archivo del pilar', aviso=True)
+        # ⛔⛔ CADA FICHA LLEVA LAS DOS MENCIONES, SIEMPRE (Iker, 2026-09-15).
+        # Casuistica nueva: cuando el NOMBRE de LinkedIn de la persona ya incluye
+        # el de su empresa ("Aitor Lizarraga - AMPO-POYAM Valves"), la ficha PARECE
+        # completa con una sola arroba y yo la entregue asi, por estetica. Iker lo
+        # arreglo a mano: "siempre tenemos que mencionar a ambos para maximizar el
+        # alcance". Y tiene razon: el nombre escrito NO notifica a la pagina de la
+        # empresa; solo la @ lo hace. Una ficha con una arroba es una notificacion
+        # regalada, que es justo el motor del pilar.
+        _una = [l for l in _flechas if l.count('@') < 2]
+        chk(not _una, 'Cada ficha lleva DOS menciones, persona Y empresa (§4.3 Paso 2)',
+            ('%d con una sola @: "%s". Aunque el nombre de la persona ya lleve la empresa '
+             'dentro, la @ de la empresa va igual: el texto no notifica, la mencion si'
+             % (len(_una), _una[0][:60])) if _una else '')
         chk(len(_flechas) == 10, '"Los 10" con exactamente 10 fichas (§4.3 Paso 2)',
             f'{len(_flechas)}' if len(_flechas) != 10 else '')
         _sin_logro = [l for l in _flechas if '·' not in l]

@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, buildPrompt, recordarApertura } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, buildPrompt, recordarApertura } from '../services/replyGenerator';
 import { primerasDos } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -130,6 +130,19 @@ const BUENAS_TONO = [
   'Ana Pérez tomo nota, la próxima la cuento mejor.',
 ];
 for (const b of BUENAS_TONO) ok(detectarRespuestaBorde(b) === null, b.slice(0, 48), detectarRespuestaBorde(b) || '');
+
+// 8. Los dos fallos que destapo la prueba real contra produccion del 15/09.
+console.log('\n8 · el "pero va de lo contrario" y el elogio sin gracias');
+ok(detectarRespuestaBorde('Javier Mena entiendo la lectura, pero el post va justo de lo contrario, de que 4.797€ es la peor inversión...') !== null,
+   'caza el reconocimiento con "pero" que le da la vuelta');
+ok(detectarRespuestaBorde('Javier Mena entiendo que suene así, la idea era reírse del gasto y no de quien lo paga.') === null,
+   'y NO caza el reconocimiento honesto');
+ok(faltaElGracias('Brutal, de los mejores posts que he visto este mes', 'Luis Peña ¿has visto la cara de alguien cuando llega el cobro...') === true,
+   'caza el elogio sin gracias');
+ok(faltaElGracias('Brutal, de los mejores posts que he visto este mes', 'Luis Peña graciaas, y encima el mes que viene toca otra vez.') === false,
+   'y NO salta si agradece');
+ok(faltaElGracias('Y luego la herramienta no la usa nadie', 'Sara Ortiz exactoo y encima te toca defender el gasto.') === false,
+   'ni cuando el comentario no es un elogio');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

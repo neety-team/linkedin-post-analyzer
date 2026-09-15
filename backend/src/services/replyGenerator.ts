@@ -125,6 +125,7 @@ Y sigue siendo UNA sola frase (RULE 3), asi que se explica apretado. Mejor una e
 RULE 3c-ter — ⛔ SI SE QUEJAN O SE OFENDEN, NUNCA SE LES NIEGA LO QUE HA PASADO (Iker, 2026-09-15). El caso real: alguien se enfado con un meme sobre el peso de los comerciales y la herramienta contesto que "en ningun momento hemos hablado de peso". Era MENTIRA: estaba en la IMAGEN, y el modelo solo habia leido el texto. Negarle a alguien enfadado algo que SI hicimos, en publico, es el peor error que se puede cometer aqui.
 ⛔ PROHIBIDO abrir con una negacion de lo que dice el post ("en ningun momento", "yo no he dicho", "no hemos hablado de", "no va de eso") SALVO que estes absolutamente seguro mirando el POST ENTERO, TEXTO E IMAGEN.
 ✅ Ante una queja: se le reconoce ("entiendo que suene asi", "tomo nota", "no era la intencion"), se aclara la intencion sin negar el hecho, y no se discute. Nadie gana una discusion en sus propios comentarios.
+⛔ Y CUIDADO CON EL RECONOCIMIENTO DE MENTIRA, que es el fallo mas fino de todos: reconocer y acto seguido darle la vuelta con un "pero" ES DISCUTIR. "Entiendo la lectura, PERO el post va justo de lo contrario" le esta diciendo que no ha entendido nada, solo que con buenos modales. PROHIBIDAS las formas "pero va de lo contrario", "pero justo va de", "en realidad va de", "lo que quiere decir es". Si reconoces, reconoces y punto: se aclara la intencion en POSITIVO, sin corregirle a el ("la idea era reirse del gasto, no de quien lo paga").
 
 RULE 3f — ⛔⛔ EL POST ES TEXTO **Y** FOTO, Y LA FOTO SUELE LLEVAR EL CHISTE (Iker, 2026-09-15). Nuestros memes se escriben a proposito para que el TEXTO NO CUENTE lo que ensena la imagen, asi que leer solo el texto es leer medio post.
 · SI TE LLEGA LA IMAGEN: miralas las dos antes de contestar. Lo que se ve en la foto cuenta igual que lo que esta escrito, y para explicar una broma normalmente cuenta MAS.
@@ -311,6 +312,7 @@ export function buildPrompt(input: ReplyGenerationInput, voice: Voice): { prompt
 
   const varietyNudge = `OPENING MOVE for THIS reply (RULE 10), decided for you: ${move}. Use THAT one. Only if the comment makes it genuinely impossible, pick a DIFFERENT move from the list — never fall back to whatever you'd have written anyway.
 ARRANQUE OBLIGATORIO de esta respuesta: justo despues del nombre, empieza por ${elegido.arranque}. Esto no es una sugerencia y no se negocia con el contenido: si no te encaja, cambia el contenido, no el arranque.
+⛔ UNICA EXCEPCION, y manda sobre el arranque: SI EL COMENTARIO ES UN ELOGIO, lo primero es el GRACIAS (RULE 13), siempre, y el arranque sorteado se aplica DESPUES del gracias o no se aplica. Un halago sin agradecer se lee frio y es el unico caso en el que la variedad pierde.
 IF your reply agrees with the commenter, the agreement word for THIS reply is "${asent}" — use that one and no other, literal, sin convertirla en adverbio ("exactamente" esta PROHIBIDA).
 ⛔ Y recuerda la RULE 10b: no se abre con una abstraccion ni con un sustantivo abstracto mas verbo copulativo. Se abre por lo concreto.${evitaLista}`;
 
@@ -553,7 +555,37 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   { re: /(yo )?no (he|hemos) (dicho|hablado|mencionado)/, que: 'niegas haber dicho algo' },
   { re: /no (sale|aparece|pone) (nada )?(de|en) /, que: 'afirmas que algo NO sale en el post' },
   { re: /no va de eso/, que: '"no va de eso"' },
+  // El reconocimiento de mentira: reconocer y darle la vuelta con un "pero".
+  // Sale de la prueba del 15/09 con el comentario "me parece una falta de
+  // respeto", donde la respuesta fue "entiendo la lectura, PERO el post va
+  // justo de lo contrario". Con modales, pero le dice que no ha entendido.
+  { re: /pero (el post |la publicacion )?va (justo )?(de|a) lo contrario/, que: 'reconoces y le das la vuelta con un "pero"' },
+  { re: /pero (justo )?va de/, que: 'reconoces y le corriges con un "pero va de"' },
+  { re: /en realidad (el post |la publicacion )?va de/, que: '"en realidad va de"' },
+  { re: /lo que quiere decir (el post|la publicacion) es/, que: 'le explicas lo que "quiere decir" el post' },
 ];
+
+// ⛔ EL ELOGIO SIN GRACIAS (Iker, 2026-09-15, encontrado probando en produccion)
+//
+// La RULE 13 dice que agradecer ante un halago es "no negociable"... y era una
+// peticion mas. En la prueba, a "Brutal, de los mejores posts que he visto este
+// mes" contesto con una pregunta y CERO gracias.
+//
+// Y la culpa es mia: el ARRANQUE OBLIGATORIO que meti para la variedad le puede
+// tocar "empieza por una pregunta directa", y entonces el arranque pisa al
+// gracias. Arreglar una capa y romper otra, otra vez. Ahora la regla dice que
+// el elogio manda sobre el arranque, y ESTO lo comprueba.
+const ES_ELOGIO = /(gran (post|publicacion)|genial|brutal|crack|top\b|me encanta|buenisimo|que bueno|de los mejores|espectacular|enhorabuena|grande\b|maquina\b|aplausos|impecable|muy bueno|excelente)/;
+const HAY_GRACIAS = /(gracias|graciass|graciaas|se agradece|me alegra|un placer)/;
+
+/**
+ * Si el comentario es basicamente un halago y la respuesta no agradece, eso es
+ * un fallo duro de la RULE 13. Se mira el COMENTARIO, no la respuesta: es el
+ * comentario el que decide si toca dar las gracias.
+ */
+export function faltaElGracias(comentario: string, respuesta: string): boolean {
+  return ES_ELOGIO.test(llano(comentario)) && !HAY_GRACIAS.test(llano(respuesta));
+}
 
 /**
  * Devuelve el problema de TONO si la respuesta echa de casa al que comenta o
@@ -893,6 +925,9 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     // templado delante de todo el hilo, no. Si en 3 intentos sigue bordeando,
     // se devuelve el ultimo pero con el aviso bien alto en el log.
     ultimoTonoBorde = detectarRespuestaBorde(candidato);
+    if (!ultimoTonoBorde && faltaElGracias(input.commentText, candidato)) {
+      ultimoTonoBorde = 'el comentario es un elogio y la respuesta no da las gracias (RULE 13)';
+    }
     if (ultimoTonoBorde && intento < 3) {
       candidatoTibio = candidato;
       console.warn(

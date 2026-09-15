@@ -522,6 +522,16 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 > **Mecanizado** en `validar-post.py --pilar los10`: el puente y el gerundio como **avisos** (n=4, no da para fallo duro) y la región como **fallo duro** (además ya era regla escrita). **Probados contra los cuatro ganchos reales: aprueban a los dos ganadores y cazan el fallo concreto de cada flojo.**
 >
 > **⛔ Y ESTO NO SUSTITUYE AL PASE DE CRITERIO:** los tres inamovibles hacen que el gancho esté en la familia que funciona, no que sea bueno. El verbo sigue subiendo por la escalera de `global §2.9` y el ángulo sigue pasando por `global §8`.
+>
+> #### 🔟 LOS GANCHOS PUBLICADOS SE SACAN DE LA BD **ANTES** DE ESCRIBIR, NO AL ENTREGAR (Iker, 2026-09-15)
+>
+> **Iker, y es la lección que importa de toda la sesión:** *"casi cometes otra vez el error de la foto. Siempre priorizar nuestros datos frente a los de otros, una vez que ya hemos hecho varias pruebas y hemos sacado outliers"*.
+>
+> **Lo que pasó:** propuse un gancho sobre la foto, que es **el mecanismo del único "Los 10" que flopeó** (0.53x, y de esta misma cuenta), teniendo el diagnóstico escrito en `global §4.2` desde julio. Lo cazó él, no yo. Al reescribirlo me fui a otro concepto nuevo (`vive en la carretera`) y **volvió a fallar dos de los tres inamovibles**, porque seguía escribiendo de cero en vez de mirar los cuatro que existen.
+>
+> **EL PASO, y va el PRIMERO del Paso 1:** antes de escribir una sola línea, `GET /api/creators/{id}/posts` de las tres cuentas, filtrar `pillar='peloteo_los10'` y poner los ganchos publicados delante, ordenados por ratio. **Se escribe MIRÁNDOLOS.** El bloque de la entrega (`OUTPUT`) es el mismo trabajo enseñado, no un trabajo aparte: si el bloque se monta al final, el gancho ya está escrito y llega tarde.
+>
+> **Es `global §0-DATOS` aplicado a este pilar**, y vale igual para cualquier otro: *"los outliers de fuera te dan ideas; los propios te dan garantía"*.
 
 - Fórmula = **verbo físico + la herida propia del comercial** para que se IDENTIFIQUE al leerlo ("personas desconocidas quemando el teléfono", "aguantando el no", "marcando nombres que nadie conoce") + `👇`.
 - El comercial anónimo tiene que pensar "ese soy yo". Nada abstracto.

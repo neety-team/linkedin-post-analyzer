@@ -2112,6 +2112,30 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                              'mapa) se explican solos y por eso alli no hace falta. Linea de '
                              'encima: "%s"' % (' y '.join(_falta), _prev[:90]))
                             if _falta else 'linea de contexto puesta encima del bloque')
+                        # ⛔ Y LA LINEA DE CONTEXTO TAMBIEN ROTA (Iker, 2026-09-15).
+                        # La regla de §4.4b-EVENTO-CONTEXTO fijaba las tres PIEZAS
+                        # (24 · Donostia · presencial) y nadie dijo que la FRASE
+                        # tuviera que cambiar, asi que se convirtio en un tic:
+                        # "El 24 de septiembre montamos un evento presencial en
+                        # Donostia" se ha publicado LITERAL cuatro veces (Unai 02/09,
+                        # Iker 08/09, Asier 09/09, Unai 11/09) y la variante con
+                        # "hacemos", una mas (Iker 01/09). Es exactamente lo que
+                        # §2.0b prohibe: la publicacion nueva tiene que notarse nueva.
+                        # Lo que NO rota son las tres piezas; lo que rota es el VERBO
+                        # y el orden. Al publicar, la frase usada entra aqui.
+                        _EV_QUEMADA = {
+                            'montamos un evento presencial': 'Unai 02/09, Iker 08/09, Asier 09/09 y Unai 11/09 — cuatro veces LITERAL',
+                            'hacemos un evento presencial': 'Iker 01/09',
+                            'el jueves 24 hacemos': 'Iker, 15/09',
+                            'nos vemos en donostia para': 'Unai 24/08 y Asier 26/08',
+                        }
+                        _evq = [f for f in _EV_QUEMADA if f in _prev]
+                        chk(not _evq,
+                            'EVENTO: la frase de contexto no esta quemada (§4.4b-EVENTO-CONTEXTO)',
+                            ('"%s" ya salio en %s. Las tres piezas (24 · Donostia · presencial) '
+                             'no se tocan; lo que rota es el VERBO y el orden. Libres: tenemos, '
+                             'abrimos, nos juntamos, nos sentamos' % (_evq[0], _EV_QUEMADA[_evq[0]]))
+                            if _evq else '')
                 # 4.4b-EXPLICITO (Iker, 2026-08-27) - LA LINEA DEL ENLACE SE LEE SOLA.
                 # El vicio: el tope de 55 caracteres empuja a tachar el complemento
                 # del sustantivo, la frase sigue siendo gramatical y el lector se

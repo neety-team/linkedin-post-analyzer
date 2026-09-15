@@ -1655,6 +1655,18 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 **POR QUÉ SOLO LE PASA A ESTE ENLACE, que es lo que explica el fallo repetido:** `/agendar/`, `/correo/` y la página del mapa **se explican solos** — una reunión, un correo y el mapa de una región que el post lleva nombrando desde el gancho. **Un evento nuevo no lo conoce nadie.** El bloque de dos vende LA SALA (`§4.4b`, Grace Gong 11.6x y 14.4x), pero antes hay que decir **que la sala existe, cuándo y dónde**, o el lector recibe una oferta de un sitio que no sabe que hay.
 
+> #### ⛔⛔ Y LA LÍNEA DE CONTEXTO ROTA COMO TODO LO DEMÁS (Iker, 2026-09-15)
+>
+> **El fallo es de esta misma sección:** aquí se fijaron las tres PIEZAS (el 24 · Donostia · presencial) y **no se dijo que la FRASE tuviera que cambiar**, así que se convirtió en un tic. Medido en la BD: **`El 24 de septiembre montamos un evento presencial en Donostia` se ha publicado LITERAL cuatro veces** (Unai 02/09, Iker 08/09, Asier 09/09, Unai 11/09) y la variante con `hacemos`, una más (Iker 01/09). Seis posts seguidos con la misma línea.
+>
+> **Es `§2.0b` otra vez: el fondo se repite a propósito, la publicación nueva tiene que notarse nueva.** Y aquí pesa el doble, porque el mismo lector ve los posts de las tres cuentas.
+>
+> - **Lo que NO rota son las tres piezas.** El 24, Donostia y que es presencial siguen siendo obligatorios y explícitos (`§2.5b-EXPLÍCITO`).
+> - **Lo que rota es el VERBO y el ORDEN.** Quemados: `montamos un evento presencial` (×4), `hacemos un evento presencial`, `el jueves 24 hacemos` (Iker, 15/09), `nos vemos en Donostia para`. Libres: `tenemos`, `abrimos`, `nos juntamos`, `nos sentamos`.
+> - **⭐ Y desde septiembre hay una variante nueva que antes no existía: el DÍA DE LA SEMANA.** `el jueves 24` es más cercano que `el 24 de septiembre` ahora que el mes ya es el corriente. ⚠️ **Se verifica contra el calendario, que es un DATO** (`§2.2b`, la excepción al calco): **el 24/09/2026 cae en jueves** ✅. Y ⛔ **`este jueves` es FALSO** hasta el lunes 21: el 15/09 el 24 es la semana que viene, y lo cazó Iker antes que el validador.
+> - **Y se reparte entre cuentas el mismo día:** si el segundo jefe ya ha subido `el jueves 24`, el primero va con `el 24 de septiembre`, y al revés.
+> - **Mecanizado** como fallo duro en `validar-post.py` (`EVENTO: la frase de contexto no esta quemada`), con la lista de las publicadas dentro. **Probado: caza la frase de las cuatro veces y aprueba la nueva.**
+
 - **⛔ La línea NO sustituye al bloque de dos ni lo toca.** Sigue siendo `carencia / la cubre` con sus 55 caracteres y la palabra del gancho dentro (`§4.4b-BLOQUE`). Lo que se añade es la línea suelta de encima, que además rompe el pasillo de ritmo.
 - **⛔ Y no se convierte en el anuncio.** Una línea, informativa, y se acabó: si detrás va el programa o los ponentes, se cae el motor (`§4.4b`, vende la sala).
 - **⏳ CADUCA SOLA EL 24/09/2026.** Iker: *"dentro de un mes lo dejaremos de hacer, evento ya pasado"*. **El check lleva la fecha dentro y deja de correr ese día**; cuando pase, esta sección se borra entera en vez de quedarse de fósil.

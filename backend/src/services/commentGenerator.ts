@@ -28,6 +28,30 @@ import { detectarAperturaGenerica } from './replyGenerator';
 // asentimiento legitima y sorteada, aqui es relleno que se borra sin perder nada.
 const APERTURA_HUECA = /^(buena (reflexion|aportacion|observacion)|(muy )?buen (punto|apunte|aporte)|muy (cierto|bueno|buena)|que razon|totalmente( de acuerdo)?|gran (post|publicacion)|me encanta|brutal|genial)\b/;
 
+// ⛔⛔ Y NUNCA SE DEJA MAL A NUESTRA PROPIA PUBLICACION (Iker, 2026-09-15)
+//
+// El prompt lleva desde siempre un REGISTER que dice "supportive, NEVER
+// contrarian, NEVER skeptical"... y era una peticion mas. Esto salio PUBLICADO
+// el 20/08 en el hilo de un post nuestro:
+//
+//   "El flujo parece demasiado perfecto para produccion, objecion, respuesta y
+//    reunion cerrada sin errores intermedios. Bonita demo del..."
+//
+// O sea: un comentario nuestro, pegado por un companero con su nombre y su
+// cara, poniendo en duda nuestro propio contenido delante de todo el mundo. Es
+// el peor resultado posible de este flujo — peor que uno soso — porque le da
+// municion al que venia a discutir.
+//
+// La linea es fina y por eso va enumerada: SUMAR un matiz esta bien ("y encima
+// pasa que..."), poner en duda que lo que contamos sea real, no.
+const CRITICA_NUESTRO_POST = /(demasiado (perfecto|bonito|facil|redondo)|bonita demo|suena (a|muy) (demo|marketing|teoria)|en la vida real|en teoria (esta|suena)|me cuesta creer|dudo que|no me cuadra|ojala fuera (asi|tan)|no es tan (facil|sencillo) como|(muy|un poco) optimista|poco (realista|creible))/;
+
+export function criticaNuestroPost(c: string): boolean {
+  return CRITICA_NUESTRO_POST.test(
+    c.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  );
+}
+
 export function aperturaHueca(c: string): boolean {
   return APERTURA_HUECA.test(
     c.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim()
@@ -83,12 +107,6 @@ export function primerasDos(c: string): string {
 
 export interface CommentGenerationInput {
   postContent: string;
-  // LA FOTO DEL POST (`services/postImage.ts`). Misma ceguera que tenia el
-  // generador de respuestas y el mismo motivo: `global §2.0c` manda que el
-  // texto NO cuente lo que ensena la imagen, asi que comentar un meme leyendo
-  // solo el texto es comentar medio post. Ya nos ha salido publicado un
-  // "El meme funciona porque exagera una verdad" escrito sin haber visto el meme.
-  postImage?: { b64: string; mediaType: string } | null;
   creatorName: string | null;
   creatorHeadline: string | null;
   profile: {
@@ -362,6 +380,8 @@ export async function generateSupportiveComments(
 
 LANGUAGE: every comment in ${detectedLang}. Never switch languages. Never mix English into a Spanish thread.
 
+★ ⛔ NUNCA SE DEJA MAL A LA PUBLICACION NI A SU AUTOR, Y ESTO YA HA PASADO. El 20/08 se publico esto en el hilo de un post nuestro: "El flujo parece demasiado perfecto para produccion... Bonita demo". Lo pego un companero con su nombre y su cara, poniendo en duda nuestro propio contenido delante de todos y dandole municion a cualquiera que viniera a discutir. PROHIBIDO: poner en duda que lo que cuenta el post sea real o realista, decir que "en la vida real no pasa", que "suena a demo", que es "demasiado perfecto", que "es muy optimista" o que "no es tan facil". Sumar un matiz SI ("y encima pasa que..."); dudar del post, NO.
+
 REGISTER: every comment is SUPPORTIVE — either "reinforce" (extend the post's idea with one extra layer) or "warm_supportive" (genuinely happy for the author). NEVER contrarian, NEVER skeptical, NEVER provocative. These are colleagues backing each other up — they will not risk their professional image with edgy takes.
 
 LENGTH: MAX 2 lines, ≤ 180 characters each. Tight beats verbose. One sharp sentence is better than three filler ones. And vary the length across the ${n}: if they are all the same size they read as one template.
@@ -379,7 +399,7 @@ LENGTH: MAX 2 lines, ≤ 180 characters each. Tight beats verbose. One sharp sen
 
 ACCENTS WHEN STRETCHING A VOWEL: if the word you stretch carries a written accent, DROP the accent and write every repeated vowel plain. Write "buenisiiimo", never "buenííísimo"; "graciaas", never "gráciaas". An accent in the middle of a stretched run looks like a typo, not like someone typing with enthusiasm.
 
-★ EL POST ES TEXTO **Y** FOTO. Si te adjuntan la imagen, miralas las dos: en nuestros memes el chiste vive en la foto y el texto no lo cuenta a proposito. Referenciar algo que se VE en la imagen es la forma mas rapida de demostrar que lo has leido de verdad. Si NO te adjuntan imagen, NO afirmes nada sobre lo que el post ensena ni sobre lo que no ensena.
+⛔ NO VES LA IMAGEN DEL POST y casi todos llevan una. Solo tienes el texto, asi que NO afirmes nada sobre lo que el post ensena ni sobre lo que NO ensena: nada de "la foto", "la imagen", "el dibujo", "la captura". Comenta solo lo que esta ESCRITO.
 
 NO HOLLOW OPENERS: never "Great post!", "Love this", "Totalmente de acuerdo", "Qué bueno", "Muy buen punto", "Gran post", "Me encanta", "Brutal", "Buena reflexión", "Buen apunte", "Muy cierto", "Qué razón", "Totalmente".
 ⛔ Y OJO CON EL ELOGIO DISFRAZADO DE APERTURA: "Buena reflexión." seguido de la frase de verdad es exactamente el mismo peloteo hueco, solo que con punto en medio. Si la primera frase se puede borrar entera sin perder nada, es relleno. Reference something SPECIFIC from the post (a number, a phrase, a claim) so it's clear you actually read it.
@@ -422,12 +442,6 @@ ${safePostContent}
 ${asignacion}
 ═══════════════════════════════════════════════════════════════
 
-${
-    input.postImage
-      ? 'LA IMAGEN DEL POST VA ADJUNTA ARRIBA. Miralas las dos antes de escribir.'
-      : '⛔ NO TIENES LA IMAGEN DE ESTE POST. No afirmes nada sobre lo que ensena ni sobre lo que no ensena.'
-  }
-
 TASK: Write exactly ${n} supportive comments (mix of reinforce + warm), each ≤ 180 chars, each ≤ 2 lines, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image. Cada comentario respeta EL ANGULO Y EL ARRANQUE de su numero.
 
 Return JSON only: { "comments": ["...", "..."] }`;
@@ -453,24 +467,11 @@ Return JSON only: { "comments": ["...", "..."] }`;
   let reproche = '';
 
   for (let intento = 1; intento <= 2; intento++) {
-    const contenido: any[] = [];
-    if (input.postImage) {
-      contenido.push({
-        type: 'image',
-        source: {
-          type: 'base64',
-          media_type: input.postImage.mediaType,
-          data: input.postImage.b64,
-        },
-      });
-    }
-    contenido.push({ type: 'text', text: userMessage + reproche });
-
     const response = await trackedCreate('comment_generator_supportive', {
       model: 'claude-sonnet-4-6',
       max_tokens: 1024,
       system,
-      messages: [{ role: 'user', content: contenido }],
+      messages: [{ role: 'user', content: userMessage + reproche }],
     });
 
     const text = response.content
@@ -490,7 +491,13 @@ Return JSON only: { "comments": ["...", "..."] }`;
     if (out.length === 0) throw new Error('Supportive generator returned an empty list');
 
     const genericas = out
-      .map((c) => ({ c, que: detectarAperturaGenerica(c) || (aperturaHueca(c) ? 'peloteo hueco de apertura' : null) }))
+      .map((c) => ({
+        c,
+        que:
+          detectarAperturaGenerica(c) ||
+          (criticaNuestroPost(c) ? 'deja mal a nuestra propia publicacion' : null) ||
+          (aperturaHueca(c) ? 'peloteo hueco de apertura' : null),
+      }))
       .filter((x) => x.que);
     const vistas = new Map<string, number>();
     for (const c of out) {

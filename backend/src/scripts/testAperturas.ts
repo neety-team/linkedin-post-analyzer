@@ -11,7 +11,7 @@
  *   npx tsx src/scripts/testAperturas.ts
  */
 import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, buildPrompt, recordarApertura } from '../services/replyGenerator';
-import { primerasDos, aperturaHueca } from '../services/commentGenerator';
+import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
 const ok = (cond: boolean, label: string, extra = '') => {
@@ -154,6 +154,19 @@ for (const [c, esp] of [
   ['¿Cuántas renovaciones automáticas nadie ha revisado?', false],
 ] as [string, boolean][]) {
   ok(aperturaHueca(c) === esp, `${esp ? 'hueca' : 'buena'}: ${c.slice(0, 40)}`);
+}
+
+console.log('\n10 · un comentario de apoyo no deja mal nuestra propia publicacion');
+for (const [c, esp] of [
+  ['El flujo parece demasiado perfecto para producción, objeción, respuesta y reunión cerrada. Bonita demo.', true],
+  ['En la vida real esto no pasa casi nunca.', true],
+  ['Me cuesta creer que salga tan redondo.', true],
+  ['Suena a demo, pero se entiende la idea.', true],
+  ['Y encima pasa que luego nadie revisa la renovación.', false],
+  ['Yo también he caído en renovar sin pensar.', false],
+  ['Ninguna herramienta te da lo que da estar en la sala.', false],
+] as [string, boolean][]) {
+  ok(criticaNuestroPost(c) === esp, `${esp ? 'critica' : 'apoya '}: ${c.slice(0, 44)}`);
 }
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);

@@ -388,6 +388,43 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 - **Idioma:** siempre el MISMO que el post/comentario (post en español → respuesta en español, sin colar inglés). Iguala el registro (tú/usted, formal/informal).
 - Sin markdown, sin meta ("el algoritmo", "en LinkedIn"), sin auto-promo.
 
+#### 🗂️ 7.1d · QUÉ LLEVA LA VOZ DE CADA JEFE Y QUÉ NO (auditado el 2026-09-15)
+
+> **Iker, al quitar las imágenes:** *"espero que te hayas asegurado de que sea el jefe que sea y sean Google Chat o sea una respuesta a un comentario, siempre cumpla con el tono del jefe: si tiene que tener exclamación, si tiene que tener varias vocales, si puede tener emojis o no"*.
+
+**Auditado en el código, superficie por superficie. La respuesta corta: SÍ en las respuestas, y en el Google Chat NO — y no debe.**
+
+| | **RESPUESTA a un comentario** | **COMENTARIO de apoyo (Google Chat)** |
+|---|---|---|
+| **quién firma** | **el jefe**, en su propio post | **otra persona** del equipo, con su nombre y su cara |
+| voz por cuenta | ✅ `sobrio` Unai · `medio` Asier · `cercano` Iker | ⛔ **neutra a propósito** |
+| alargar vocales | ✅ por voz: Unai 0-1 letra, Asier 1, Iker 1-2 palabras | ✅ en 1 o 2 de los 5, no por voz |
+| exclamación | ✅ sorteada por voz: Unai 15%, Asier 25%, Iker libre | — |
+| puntos suspensivos | ✅ Unai 25%, Asier 20%, Iker libre | — |
+| emojis | ✅ Unai **nunca**, Asier de vez en cuando, Iker con naturalidad | como mucho 1 en 1 de los 5 |
+| agradecer un elogio | ✅ obligatorio y **comprobado** (`faltaElGracias`) | — |
+
+**⚠️ Y LO DEL GOOGLE CHAT NO ES UN OLVIDO, ES TU PROPIA REGLA (`§7.2b`):** *"los escriben CINCO PERSONAS DISTINTAS… cada uno lo pega con su nombre y su cara en el mismo hilo. Si al lector le suenan a la misma mano, se lee como coordinado y el tiro sale por la culata"*. **Ponerles la voz del jefe haría justo eso**, y encima sería raro: el jefe no se comenta a sí mismo. Lo que sí comparten con el jefe son las reglas de CASA (puntuación, cero anglicismos, cero cifras inventadas, registro de apoyo).
+
+**⛔ LO QUE SÍ FALTABA, Y ESTABA PUBLICADO:** el registro de apoyo era una petición sin nadie que la comprobara, y el 20/08 se publicó esto en el hilo de un post nuestro:
+
+```
+⛔ "El flujo parece demasiado perfecto para producción, objeción, respuesta y
+   reunión cerrada sin errores intermedios. Bonita demo del…"
+```
+
+**Un comentario nuestro, pegado por un compañero, poniendo en duda nuestro propio contenido delante de todos** y dándole munición a cualquiera que viniera a discutir. Es el peor resultado posible de este flujo, peor que uno soso. **Ahora `criticaNuestroPost()` lo caza y rehace la tanda.** La frontera: **sumar un matiz** sí (*"y encima pasa que…"*), **dudar de que el post sea real** no (*demasiado perfecto · bonita demo · en la vida real · me cuesta creer · suena a demo · poco realista*).
+
+#### 🚫 7.1e · LAS IMÁGENES NO SE LEEN, Y ESO OBLIGA A UNA REGLA (Iker, 2026-09-15)
+
+> *"Quita que lean las imágenes porque eso va a ser un consumo de tokens brutal. No tiene sentido y en su día ya ignoramos las imágenes por eso mismo, en el post-creator por ejemplo"*.
+
+**Retirado el 15/09, el mismo día que se probó.** Costaba ~850 tokens por imagen **y se mandaba dos veces** por respuesta (al generador y al juez de inventos), o sea ~34.000 tokens extra en una tanda de 20 comentarios.
+
+**⛔ PERO ENTONCES LA REGLA DE CEGUERA ES OBLIGATORIA, y es lo único que impide repetir el desastre del meme del peso** (donde se contestó *"en ningún momento hemos hablado de peso"* y **sí** estaba, en la imagen): el prompt le dice al modelo que **NO ve la foto** y le prohíbe afirmar o negar nada sobre lo que el post enseña. Nada de *"no sale"*, *"no aparece"*, *"no hemos dicho"*, *"no va de eso"*. Y `detectarRespuestaBorde()` lo comprueba.
+- **Lo que se pierde, dicho:** a un *"no entiendo este post"* de un meme ya no se le puede explicar la broma **entera**, porque la mitad vive en la foto. Se explica lo que da el texto y se abre reconociendo (`§7.1c`), que sigue siendo mucho mejor que lo de antes.
+- **La salida barata, si algún día se quiere:** mandar la imagen **solo** cuando el comentario la necesita (un *"no entiendo"* o una queja), que es ~1 de cada 20. No está hecho: se hace si Iker lo pide.
+
 #### 🔴🔴 7.1c · EL QUE NO ENTIENDE EL POST NO NOS ESTÁ ATACANDO, Y LA FOTO ES MEDIO POST (Iker, 2026-09-15) — CANÓNICO
 
 > **Iker, viendo la respuesta generada a un "No entiendo este post":** *"me parece surrealista que si siempre te he dicho que las respuestas sean de apoyo según el tono de cada jefe, me generes una respuesta en tono de burla, en tono borde, vacilando, diciendo que si no lo entiendes es su problema. Tienes que ser más comprensivo, empezar diciendo cosas como no pasa nada, e intentar explicar la broma leyendo la foto y el texto"*.

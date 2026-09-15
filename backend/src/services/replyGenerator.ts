@@ -40,12 +40,6 @@ export interface ReplyGenerationInput {
   // misma tanda de respuestas (`APERTURAS_POR_POST`). Opcional a proposito: si
   // no llega, el generador funciona igual, solo pierde la memoria de tanda.
   postId?: string | null;
-  // LA FOTO DEL POST, en base64 (`services/postImage.ts`). Sin ella el
-  // generador esta ciego a la mitad de cada meme, porque nuestra propia
-  // doctrina manda que el texto NUNCA cuente lo que ensena la imagen
-  // (`global §2.0c`). Si no llega, la RULE 3f le prohibe al modelo afirmar
-  // nada sobre lo que el post ensena o deja de ensenar.
-  postImage?: { b64: string; mediaType: string } | null;
 }
 
 // Las 3 cuentas comparten QUÉ decimos (la voz Neety del commenter_profile, que
@@ -461,11 +455,7 @@ ${emojiNudge}
 
 ${thanksNudge}
 
-${
-    input.postImage
-      ? 'LA IMAGEN DEL POST VA ADJUNTA ARRIBA. Miralas las dos, texto e imagen, antes de escribir. Si el comentario no entiende la broma, la explicacion sale de lo que se VE en la imagen (RULE 3f).'
-      : '⛔ NO TIENES LA IMAGEN DE ESTE POST. Este post lleva foto y NO la estas viendo, asi que NO afirmes nada sobre lo que ensena ni sobre lo que no ensena, y no niegues nada de lo que diga el comentario sobre ella (RULE 3f).'
-  }
+⛔ NO VES LA IMAGEN DE ESTE POST y casi todos nuestros posts llevan una. Solo tienes el texto, asi que NO afirmes nada sobre lo que el post ensena ni sobre lo que NO ensena, y no le niegues a nadie nada de lo que diga sobre la foto (RULE 3f).
 
 Write the reply now. Plain text, ONE single sentence, in the same language as the post/comment.`;
   return { prompt, arranque: elegido.arranque };
@@ -731,26 +721,9 @@ export function detectarInventos(
 //
 // Los patrones se quedan como PRIMER FILTRO: cuestan cero, cazan lo evidente y
 // ahorran la llamada. El juez es la red de debajo.
-// EL JUEZ TAMBIEN MIRA LA FOTO (Iker, 2026-09-15, una hora despues del cambio
-// de arriba y encontrado probando contra produccion). Al pasarle la imagen al
-// generador, este empezo a explicar bien la broma del meme del 03/09 nombrando
-// a "Aitor", que es el contacto de la captura... y el juez la TUMBO tres veces
-// por "inventarse una escena", porque el solo comparaba contra el TEXTO. El
-// usuario se quedaba con un 500 y sin borrador, justo en los posts donde mas
-// falta hace.
-//
-// Es el fallo de quitar una garantia sin mirar quien vivia de ella
-// (`working-preferences`, aprendizaje del 25/08): hasta hoy "lo que consta" era
-// solo texto. Si el generador ve la foto y el juez no, el juez llama mentira a
-// lo que tiene delante.
 async function juezDeInventos(
   respuesta: string,
-  fuentes: {
-    postContent?: string;
-    commentText?: string;
-    commenterName?: string | null;
-    postImage?: { b64: string; mediaType: string } | null;
-  }
+  fuentes: { postContent?: string; commentText?: string; commenterName?: string | null }
 ): Promise<Invento[]> {
   try {
     const message = await trackedCreate('reply_invention_judge', {
@@ -770,7 +743,7 @@ NO CUENTA COMO INVENTADO (responde inventa=false):
 - Angulo personal incomprobable y sin escena: "me ha pasado algo parecido", "lo vemos mucho", "por eso lo escribi".
 - Opiniones, valoraciones, preguntas, bromas y acuerdos.
 - Recoger o reformular algo que YA dicen el post o el comentario.
-- ⭐ TODO LO QUE SE VEA EN LA IMAGEN DEL POST, si te la adjuntan. La imagen es PARTE DEL POST y cuenta como fuente EXACTAMENTE IGUAL que el texto: los nombres que salgan en una captura, las cifras de una factura, lo que diga un mensaje, lo que haga un personaje. Nuestros memes esconden el chiste en la foto a proposito, asi que una respuesta que EXPLICA lo que se ve ahi no esta inventando, esta leyendo.
+- ⭐ CUALQUIER COSA QUE SUENE A LO QUE ENSENA LA FOTO. Tu solo tienes el TEXTO, pero el post lleva imagen y tu NO la ves, asi que no puedes saber si algo sale en ella. Si la respuesta describe una escena que podria estar en la imagen (un chat, una factura, una pantalla, una cara), NO la marques como inventada: no te consta ni que si ni que no, y tumbarla dejaria al usuario sin borrador. Marca solo lo que sea claramente una vivencia del autor ("el otro dia un cliente me dijo") o una cifra nueva.
 - EL NOMBRE DEL DESTINATARIO al principio de la respuesta. Toda respuesta abre con el nombre de quien comento, porque LinkedIn lo convierte en una mencion. Ese nombre NUNCA es una persona inventada.
 - Las formulas de asentimiento de la casa, que son modismos y no afirmaciones: "te compro eso", "lo has clavado", "y tanto", "ahi esta", "ese es el tema", "tal cual", "sin duda". "Te compro eso" significa "estoy de acuerdo", no que nadie haya comprado nada.
 
@@ -778,32 +751,11 @@ Responde SOLO con JSON: {"inventa": true|false, "que": "<lo inventado, en 8 pala
       messages: [
         {
           role: 'user',
-          content: [
-            ...(fuentes.postImage
-              ? [
-                  {
-                    type: 'image' as const,
-                    source: {
-                      type: 'base64' as const,
-                      media_type: fuentes.postImage.mediaType as any,
-                      data: fuentes.postImage.b64,
-                    },
-                  },
-                ]
-              : []),
-            {
-              type: 'text' as const,
-              text: `POST:\n${fuentes.postContent || '(vacio)'}\n\nCOMENTARIO de ${
+          content: `POST:\n${fuentes.postContent || '(vacio)'}\n\nCOMENTARIO de ${
             fuentes.commenterName || '(alguien)'
           }:\n${fuentes.commentText || '(vacio)'}\n\nRESPUESTA A REVISAR (va dirigida a ${
             fuentes.commenterName || 'quien comento'
-          }, cuyo nombre abre la respuesta como mencion):\n${respuesta}${
-                fuentes.postImage
-                  ? '\n\n⚠️ LA IMAGEN DEL POST VA ADJUNTA: todo lo que se vea en ella CONSTA y no es inventado.'
-                  : ''
-              }`,
-            },
-          ],
+          }, cuyo nombre abre la respuesta como mencion):\n${respuesta}`,
         },
       ],
     });
@@ -875,27 +827,11 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
 EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}", que es una de las formulas de IA que la casa tiene prohibidas. Reescribe la respuesta ENTERA cambiando LAS PRIMERAS PALABRAS: empieza por ${elegidoArranque}, y que en la primera frase se vea a alguien haciendo algo. No basta con mover la abstraccion mas adelante, el arranque tiene que ser otro.`
         : `\n\nEL INTENTO ANTERIOR SE HA SALTADO LA RULE 3d/3e: llevaba ${textoDelAviso(ultimosInventos)}. Eso no ha pasado y no consta en ningun sitio, asi que no se puede escribir. Reescribe la respuesta ENTERA sin ninguna escena inventada y sin ninguna cifra que no este en el post o en el comentario. Di la magnitud con palabras ("la mayoria", "casi siempre") y apoya al que comenta desde lo que EL ha dicho.`;
 
-    // La foto va como bloque de imagen ANTES del texto: asi el modelo la tiene
-    // delante mientras lee el comentario, que es justo cuando decide si puede
-    // explicar la broma o si tiene que salir por la tangente.
-    const contenido: any[] = [];
-    if (input.postImage) {
-      contenido.push({
-        type: 'image',
-        source: {
-          type: 'base64',
-          media_type: input.postImage.mediaType,
-          data: input.postImage.b64,
-        },
-      });
-    }
-    contenido.push({ type: 'text', text: prompt + correccion });
-
     const message = await trackedCreate('reply_generator', {
       model: 'claude-sonnet-4-6',
       max_tokens: 400,
       system: buildSystemPrompt(voice),
-      messages: [{ role: 'user', content: contenido }],
+      messages: [{ role: 'user', content: prompt + correccion }],
     });
     const block = message.content.find((b) => b.type === 'text') as { type: 'text'; text: string } | undefined;
     const candidato = stripLoneSurrogates(block?.text ?? '').trim();
@@ -905,7 +841,6 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       postContent: input.postContent,
       commentText: input.commentText,
       commenterName: input.commenterName,
-      postImage: input.postImage,
     };
     // Primero los patrones (gratis). Solo si pasan se le pregunta al juez, que
     // es una llamada mas y no hace falta gastarla en lo que ya esta cazado.

@@ -14,7 +14,6 @@ import { sendToGoogleChat } from '../services/googleChat';
 import { captureAccountSnapshots } from '../services/accountSnapshots';
 import { extractViewerTimestamps } from '../utils/wvmp';
 import { generateReply } from '../services/replyGenerator';
-import { getPostImage } from '../services/postImage';
 import { roastProfile } from '../services/roaster';
 import { generarRastro } from '../services/rastroGenerator';
 import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSync';
@@ -1500,8 +1499,6 @@ router.post('/anuncio-chat/run', async (req: Request, res: Response) => {
             comments = await generateSupportiveComments(
               {
                 postContent: p.content_text || '',
-                // La foto tambien: en un meme el chiste vive ahi (`global §2.0c`).
-                postImage: await getPostImage(p.id),
                 creatorName: p.creator_name,
                 creatorHeadline: null,
                 profile: { headline: null, voice_style: null, worldview: null, signature_moves: null, avoid: null },
@@ -1881,8 +1878,6 @@ router.get('/posts/:postId/google-chat-preview', async (req: Request, res: Respo
     const rawComments = await generateSupportiveComments(
       {
         postContent: post.content_text || '',
-        // La foto tambien: en un meme el chiste vive ahi (`global §2.0c`).
-        postImage: await getPostImage(post.id),
         creatorName: post.creator_name,
         creatorHeadline: post.creator_headline || null,
         // Neutral voice on purpose — these are network-support comments any
@@ -2883,13 +2878,6 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
     const reply = await generateReply({
       postContent: post.content_text || '',
       commentText: String(comment_text),
-      // LA FOTO DEL POST. Sin ella el generador esta ciego a la mitad de cada
-      // meme, porque el texto de un meme nuestro NUNCA cuenta lo que ensena la
-      // imagen (`global §2.0c`). Se cachea en la fila del post, asi que de una
-      // tanda de 20 comentarios solo la primera la descarga. Si vuelve null,
-      // la RULE 3f le prohibe al modelo afirmar nada sobre lo que el post
-      // ensena o deja de ensenar.
-      postImage: await getPostImage(postId),
       // Para que dos respuestas del MISMO post no abran igual. El generador
       // guarda en memoria las ultimas aperturas por post y se las prohibe a la
       // siguiente (`replyGenerator`, APERTURAS_POR_POST): sin esto cada llamada

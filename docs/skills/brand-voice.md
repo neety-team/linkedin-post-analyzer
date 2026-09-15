@@ -388,6 +388,39 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 - **Idioma:** siempre el MISMO que el post/comentario (post en español → respuesta en español, sin colar inglés). Iguala el registro (tú/usted, formal/informal).
 - Sin markdown, sin meta ("el algoritmo", "en LinkedIn"), sin auto-promo.
 
+#### 🔴🔴 7.1c · EL QUE NO ENTIENDE EL POST NO NOS ESTÁ ATACANDO, Y LA FOTO ES MEDIO POST (Iker, 2026-09-15) — CANÓNICO
+
+> **Iker, viendo la respuesta generada a un "No entiendo este post":** *"me parece surrealista que si siempre te he dicho que las respuestas sean de apoyo según el tono de cada jefe, me generes una respuesta en tono de burla, en tono borde, vacilando, diciendo que si no lo entiendes es su problema. Tienes que ser más comprensivo, empezar diciendo cosas como no pasa nada, e intentar explicar la broma leyendo la foto y el texto"*.
+
+**SON DOS FALLOS DISTINTOS Y EL SEGUNDO ES PEOR.**
+
+**1 · "NO LO ENTIENDO" CAÍA EN LA CASILLA DE "NOS ATACA".** La regla de apoyo por defecto tenía dos excepciones para discrepar: que diga algo falso, o que **cuestione el post**. Un *"no entiendo este post"* entra ahí por la puerta de atrás, y el generador se pone a defenderse. Salió esto:
+
+```
+⛔ "casi siempre que un post no se entiende es porque no va dirigido a ti"
+```
+
+**A alguien que acaba de darnos atención en público le hemos dicho que no es de los nuestros.** Faltaba la tercera categoría, que no es ni apoyo ni discrepancia: **el que no lo pilla y pide que se lo expliques**.
+- **Se abre quitándole hierro y poniéndotelo tú encima:** `no pasa nada`, `normal`, `culpa mía`, `me ha quedado enrevesado`, `te lo cuento`.
+- **Y se EXPLICA la broma**, en corto y mirando la foto. Salir por la tangente sin explicar nada también está prohibido.
+- ⛔ **Nunca**: que el post no va dirigido a él, que no es el público, *"si lo pillas, lo pillas"*, *"se explica solo"*, ni una sola gota de ironía.
+
+**2 · 🔴 EL GENERADOR ESTABA CIEGO: SOLO RECIBÍA EL TEXTO.** Y esto es un fallo de diseño nuestro, no del modelo, porque **choca de frente con nuestra propia receta**: `§2.0c` manda que el cuerpo **NUNCA** cuente lo que enseña la imagen. O sea que, por construcción, **el texto de un meme nuestro esconde justo la mitad que hace el chiste**, y el generador solo leía esa mitad.
+- **El caso que lo demuestra:** el meme del 03/09 tiene el chiste ENTERO en la captura (un compañero pregunta si esos 4.797€ son un viaje, y la factura resulta ser la renovación de las herramientas de ventas). Sin la foto **no hay nada que explicar**, así que la respuesta salió por la tangente y encima borde.
+- **Y el caso caro:** en el meme del peso, alguien se enfadó y la herramienta contestó *"en ningún momento hemos hablado de peso"*. **Era mentira: estaba en la imagen.** Negarle en público a alguien enfadado algo que sí hicimos es el peor error posible de este flujo.
+
+**LO QUE SE HA CAMBIADO, en las tres capas de siempre:**
+
+| capa | qué hace |
+|---|---|
+| **1 · el prompt** | `RULE 3c-bis` (el que no entiende → modo explicar, y va ANTES que la de discrepar), `RULE 3c-ter` (al que se queja no se le niega el hecho) y `RULE 3f` (el post es texto **y** foto) |
+| **2 · el código** | **la imagen del post viaja con la petición**, sacada de la fila del post y cacheada ahí mismo, así que en una tanda de 20 comentarios solo la primera la descarga |
+| **3 · el guardarraíl** | `detectarRespuestaBorde()` caza las dos familias y **vuelve a pedir la respuesta** con el fallo delante |
+
+**⛔ Y LA REGLA QUE SALVA EL CASO EN QUE LA FOTO NO LLEGUE** (las URL de LinkedIn caducan): si el modelo no tiene la imagen, **se le dice que no la tiene** y se le prohíbe afirmar nada sobre lo que el post enseña o deja de enseñar. Nada de *"no sale"*, *"no aparece"*, *"no hemos dicho"*. **Contestar sin la foto es contestar a medias; negar sin la foto es mentir.**
+
+**Severidad, que aquí es más alta que en lo demás:** el tono se comprueba **antes** que la apertura y se reintenta 3 veces. Si a la tercera sigue bordeando, se devuelve **con un aviso en rojo en el log** para revisarla a mano. Un arranque tibio se edita en dos segundos; echar de casa a un lead templado delante de todo el hilo, no.
+
 #### ⛔⛔ 7.1b · LA APERTURA NO SE ELIGE, SE SORTEA. Y NUNCA ES UNA ABSTRACCIÓN (Iker, 2026-09-15)
 
 > **Iker, contestando comentarios en directo:** *"muchas respuestas empiezan con frases del estilo tal cual, lo que nadie sabe, lo más importante, lo más crucial, lo más clave… veo demasiada repetición en el inicio. A veces inclúyeme la palabra justo, porque es que si no siempre dices exacto o exactamente. Pasa en ambas cuentas de jefes pese a que cada uno tiene un tono"*.

@@ -40,6 +40,12 @@ export interface ReplyGenerationInput {
   // misma tanda de respuestas (`APERTURAS_POR_POST`). Opcional a proposito: si
   // no llega, el generador funciona igual, solo pierde la memoria de tanda.
   postId?: string | null;
+  // LA FOTO DEL POST, en base64 (`services/postImage.ts`). Sin ella el
+  // generador esta ciego a la mitad de cada meme, porque nuestra propia
+  // doctrina manda que el texto NUNCA cuente lo que ensena la imagen
+  // (`global §2.0c`). Si no llega, la RULE 3f le prohibe al modelo afirmar
+  // nada sobre lo que el post ensena o deja de ensenar.
+  postImage?: { b64: string; mediaType: string } | null;
 }
 
 // Las 3 cuentas comparten QUÉ decimos (la voz Neety del commenter_profile, que
@@ -109,6 +115,20 @@ RULE 3c — POR DEFECTO SE APOYA, NO SE REBATE (Iker, 2026-08-07). Quien comenta
 ✅ SOLO se discrepa en dos casos, y los decide el COMENTARIO, no las ganas: (a) dice algo factualmente falso que perjudicaria a quien lo lea; (b) nos ataca o cuestiona el post. En esos dos, se discrepa con educacion y sin ironia. En todo lo demas, aunque su punto sea flojo o incompleto, se apoya y se suma.
 ⚠️ APOYAR NO ES DARLE LA RAZON A CUALQUIER COSA (Iker, 2026-08-19). Si el comentario es racista, machista, xenofobo, denigra a un colectivo o entra en un terreno politico o social inflamable, NO se le da la razon, NO se le sigue la broma y NO se le agradece el aporte. Lo que firma esa respuesta es una cuenta con nombre y apellidos, y un "totalmente de acuerdo" debajo de una barbaridad es nuestro. En ese caso, responde con algo corto, cortes y NEUTRO que no valide lo dicho y no abra pelea, o quedate en el agradecimiento seco por leer sin entrar en el fondo. Ante la duda, neutro: el default de apoyar es para comentarios normales, que son el 99%.
 Ejemplo real del 07/08, y es lo que NO se hace: alguien comento que el estado mental del comercial es fundamental, y la herramienta contesto "el estado mental importa, si, pero lo que yo decia es que ese estado mental lo genera el volumen de oportunidades, no la perseverancia". Le estaba dando la razon y le corregimos. Lo correcto era apoyarle y anadir el angulo del volumen SIN quitarle el suyo.
+
+RULE 3c-bis — ⛔⛔ "NO LO ENTIENDO" NO ES UN ATAQUE, ES ALGUIEN PIDIENDO QUE SE LO EXPLIQUES (Iker, 2026-09-15). Esta es la excepcion mas importante de la RULE 3c y va ANTES que ella.
+El caso real: en un meme, alguien comento "No entiendo este post" y la herramienta contesto "casi siempre que un post no se entiende es porque no va dirigido a ti". Eso es echar de casa a alguien que acaba de darnos atencion EN PUBLICO, y encima delante de todos.
+⛔ PROHIBIDO, y no hay matices: decirle que el post NO VA DIRIGIDO A EL, que NO ES SU PUBLICO, que "si lo pillas, lo pillas", que "el chiste se explica solo", ironizar, vacilar, o responder con superioridad de cualquier tipo. Tambien esta prohibido no explicar nada y salir por la tangente.
+✅ LO QUE SE HACE, en este orden: (1) ABRIR QUITANDOLE HIERRO Y PONIENDOTELO ENCIMA TU: "no pasa nada", "normal", "culpa mia", "me ha quedado enrevesado", "te lo cuento". (2) EXPLICAR LA BROMA de verdad, en corto, MIRANDO LA IMAGEN: que se ve, que dice, y donde esta el giro. Si el chiste vive en la foto, se cuenta lo que hay en la foto.
+Y sigue siendo UNA sola frase (RULE 3), asi que se explica apretado. Mejor una explicacion corta y calida que una defensa larga.
+
+RULE 3c-ter — ⛔ SI SE QUEJAN O SE OFENDEN, NUNCA SE LES NIEGA LO QUE HA PASADO (Iker, 2026-09-15). El caso real: alguien se enfado con un meme sobre el peso de los comerciales y la herramienta contesto que "en ningun momento hemos hablado de peso". Era MENTIRA: estaba en la IMAGEN, y el modelo solo habia leido el texto. Negarle a alguien enfadado algo que SI hicimos, en publico, es el peor error que se puede cometer aqui.
+⛔ PROHIBIDO abrir con una negacion de lo que dice el post ("en ningun momento", "yo no he dicho", "no hemos hablado de", "no va de eso") SALVO que estes absolutamente seguro mirando el POST ENTERO, TEXTO E IMAGEN.
+✅ Ante una queja: se le reconoce ("entiendo que suene asi", "tomo nota", "no era la intencion"), se aclara la intencion sin negar el hecho, y no se discute. Nadie gana una discusion en sus propios comentarios.
+
+RULE 3f — ⛔⛔ EL POST ES TEXTO **Y** FOTO, Y LA FOTO SUELE LLEVAR EL CHISTE (Iker, 2026-09-15). Nuestros memes se escriben a proposito para que el TEXTO NO CUENTE lo que ensena la imagen, asi que leer solo el texto es leer medio post.
+· SI TE LLEGA LA IMAGEN: miralas las dos antes de contestar. Lo que se ve en la foto cuenta igual que lo que esta escrito, y para explicar una broma normalmente cuenta MAS.
+· SI NO TE LLEGA LA IMAGEN (te lo dira el mensaje de usuario): NO PUEDES AFIRMAR NADA SOBRE LO QUE EL POST ENSENA NI SOBRE LO QUE NO ENSENA. Prohibido decir que algo "no sale", "no aparece", "no lo hemos dicho" o "no va de eso". Contesta solo desde lo que SI tienes delante, y si el comentario va de lo que se ve en la foto, se reconoce y se responde en general, sin negar nada.
 
 RULE 3d — CERO CIFRAS INVENTADAS (Iker, 2026-08-12). NUNCA metas un porcentaje ni una cifra en una respuesta: ni "el 80% de las veces", ni "el 80% de los tratos", ni "9 de cada 10", ni "3 veces mas". Suenan a dato y NO ESTAN COMPROBADOS, asi que es exactamente lo que la casa tiene prohibido en los posts: inventar un numero. Y en un comentario es peor, porque el que lo lee puede pedirte la fuente delante de todos.
 Di la MAGNITUD con palabras: "la mayoria de los tratos", "casi siempre", "en la mayoria de los casos", "muy pocas veces", "la mayor parte del tiempo", "rara vez". Dicen lo mismo, se leen igual de fuerte y no se pueden desmentir.
@@ -439,6 +459,12 @@ ${emojiNudge}
 
 ${thanksNudge}
 
+${
+    input.postImage
+      ? 'LA IMAGEN DEL POST VA ADJUNTA ARRIBA. Miralas las dos, texto e imagen, antes de escribir. Si el comentario no entiende la broma, la explicacion sale de lo que se VE en la imagen (RULE 3f).'
+      : '⛔ NO TIENES LA IMAGEN DE ESTE POST. Este post lleva foto y NO la estas viendo, asi que NO afirmes nada sobre lo que ensena ni sobre lo que no ensena, y no niegues nada de lo que diga el comentario sobre ella (RULE 3f).'
+  }
+
 Write the reply now. Plain text, ONE single sentence, in the same language as the post/comment.`;
   return { prompt, arranque: elegido.arranque };
 }
@@ -501,6 +527,43 @@ export function detectarAperturaGenerica(
   const arranque = llano(cuerpo).replace(/^[^a-z0-9¿¡]+/, '');
   for (const { re, que } of APERTURAS_IA) {
     if (re.test(arranque)) return que;
+  }
+  return null;
+}
+
+// ⛔⛔ EL GUARDARRAIL DEL TONO (Iker, 2026-09-15)
+//
+// Las RULE 3c-bis y 3c-ter PIDEN que no se eche de casa al que no entiende y
+// que no se le niegue nada al que se queja. Esto lo COMPRUEBA, que es la unica
+// forma que ha funcionado nunca en este fichero.
+//
+// Las dos familias salen de casos REALES, no de imaginacion:
+//   · "casi siempre que un post no se entiende es porque no va dirigido a ti"
+//     (meme del 03/09, a alguien que solo dijo "No entiendo este post").
+//   · "en ningun momento hemos hablado de peso" (meme del peso, a alguien
+//     enfadado) — y era mentira, estaba en la imagen.
+const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
+  { re: /no (va|iba) dirigid[ao] a ti/, que: 'le dices que el post no va dirigido a el' },
+  { re: /no (eres|es) (el|nuestro|mi) (publico|target|lector)/, que: 'le dices que no es el publico' },
+  { re: /no (va|iba) (por|contigo|para ti)/, que: 'le dices que el post no va con el' },
+  { re: /si (no )?lo pillas/, que: '"si lo pillas, lo pillas"' },
+  { re: /se explica sol[ao]/, que: '"se explica solo"' },
+  { re: /(no|nunca) (lo )?(vas a|vais a) entender/, que: 'le dices que no lo va a entender' },
+  { re: /en ning[uú]n momento (he|hemos|se) /, que: 'niegas lo que dice el post ("en ningun momento...")' },
+  { re: /(yo )?no (he|hemos) (dicho|hablado|mencionado)/, que: 'niegas haber dicho algo' },
+  { re: /no (sale|aparece|pone) (nada )?(de|en) /, que: 'afirmas que algo NO sale en el post' },
+  { re: /no va de eso/, que: '"no va de eso"' },
+];
+
+/**
+ * Devuelve el problema de TONO si la respuesta echa de casa al que comenta o
+ * niega lo que el post dice. `sinImagen` aprieta la segunda familia: si no
+ * hemos podido ver la foto, NINGUNA negacion sobre el contenido es defendible.
+ */
+export function detectarRespuestaBorde(respuesta: string): string | null {
+  const texto = llano(respuesta);
+  for (const { re, que } of RESPUESTA_BORDE) {
+    if (re.test(texto)) return que;
   }
   return null;
 }
@@ -726,23 +789,42 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
   let text = '';
   let ultimosInventos: Invento[] = [];
   let ultimaAperturaMala: string | null = null;
+  let ultimoTonoBorde: string | null = null;
   let candidatoTibio = '';
 
   for (let intento = 1; intento <= 3; intento++) {
     const correccion =
       intento === 1
         ? ''
+        : ultimoTonoBorde
+        ? `\n\nEL INTENTO ANTERIOR ROMPE LA RULE 3c-bis/3c-ter: ${ultimoTonoBorde}. Quien comenta nos acaba de dar atencion EN PUBLICO y no se le echa de casa ni se le niega lo que el post dice. Reescribe la respuesta ENTERA: si no entiende el post, abre quitandole hierro ("no pasa nada", "normal", "culpa mia") y EXPLICALE la broma mirando la imagen; si se queja, reconocele lo que siente y aclara la intencion sin negar ningun hecho.`
         : ultimosInventos.length === 0 && ultimaAperturaMala
         ? `
 
 EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}", que es una de las formulas de IA que la casa tiene prohibidas. Reescribe la respuesta ENTERA cambiando LAS PRIMERAS PALABRAS: empieza por ${elegidoArranque}, y que en la primera frase se vea a alguien haciendo algo. No basta con mover la abstraccion mas adelante, el arranque tiene que ser otro.`
         : `\n\nEL INTENTO ANTERIOR SE HA SALTADO LA RULE 3d/3e: llevaba ${textoDelAviso(ultimosInventos)}. Eso no ha pasado y no consta en ningun sitio, asi que no se puede escribir. Reescribe la respuesta ENTERA sin ninguna escena inventada y sin ninguna cifra que no este en el post o en el comentario. Di la magnitud con palabras ("la mayoria", "casi siempre") y apoya al que comenta desde lo que EL ha dicho.`;
 
+    // La foto va como bloque de imagen ANTES del texto: asi el modelo la tiene
+    // delante mientras lee el comentario, que es justo cuando decide si puede
+    // explicar la broma o si tiene que salir por la tangente.
+    const contenido: any[] = [];
+    if (input.postImage) {
+      contenido.push({
+        type: 'image',
+        source: {
+          type: 'base64',
+          media_type: input.postImage.mediaType,
+          data: input.postImage.b64,
+        },
+      });
+    }
+    contenido.push({ type: 'text', text: prompt + correccion });
+
     const message = await trackedCreate('reply_generator', {
       model: 'claude-sonnet-4-6',
       max_tokens: 400,
       system: buildSystemPrompt(voice),
-      messages: [{ role: 'user', content: prompt + correccion }],
+      messages: [{ role: 'user', content: contenido }],
     });
     const block = message.content.find((b) => b.type === 'text') as { type: 'text'; text: string } | undefined;
     const candidato = stripLoneSurrogates(block?.text ?? '').trim();
@@ -764,6 +846,24 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
         `[replyGenerator] intento ${intento}/3 descartado, se ha inventado ${textoDelAviso(ultimosInventos)}`
       );
       continue;
+    }
+
+    // EL TONO va antes que la apertura, y con mas severidad: un arranque tibio
+    // se puede editar en dos segundos; una respuesta que echa de casa a un lead
+    // templado delante de todo el hilo, no. Si en 3 intentos sigue bordeando,
+    // se devuelve el ultimo pero con el aviso bien alto en el log.
+    ultimoTonoBorde = detectarRespuestaBorde(candidato);
+    if (ultimoTonoBorde && intento < 3) {
+      candidatoTibio = candidato;
+      console.warn(
+        `[replyGenerator] intento ${intento}/3 descartado por TONO: ${ultimoTonoBorde}`
+      );
+      continue;
+    }
+    if (ultimoTonoBorde) {
+      console.warn(
+        `[replyGenerator] 🔴 los 3 intentos salen bordes (${ultimoTonoBorde}); REVISA esta respuesta a mano antes de enviarla`
+      );
     }
 
     // Lo que no miente pero abre como un folleto: se reintenta, y si a la

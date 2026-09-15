@@ -14,6 +14,7 @@ import { sendToGoogleChat } from '../services/googleChat';
 import { captureAccountSnapshots } from '../services/accountSnapshots';
 import { extractViewerTimestamps } from '../utils/wvmp';
 import { generateReply } from '../services/replyGenerator';
+import { getPostImage } from '../services/postImage';
 import { roastProfile } from '../services/roaster';
 import { generarRastro } from '../services/rastroGenerator';
 import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSync';
@@ -2878,6 +2879,13 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
     const reply = await generateReply({
       postContent: post.content_text || '',
       commentText: String(comment_text),
+      // LA FOTO DEL POST. Sin ella el generador esta ciego a la mitad de cada
+      // meme, porque el texto de un meme nuestro NUNCA cuenta lo que ensena la
+      // imagen (`global §2.0c`). Se cachea en la fila del post, asi que de una
+      // tanda de 20 comentarios solo la primera la descarga. Si vuelve null,
+      // la RULE 3f le prohibe al modelo afirmar nada sobre lo que el post
+      // ensena o deja de ensenar.
+      postImage: await getPostImage(postId),
       // Para que dos respuestas del MISMO post no abran igual. El generador
       // guarda en memoria las ultimas aperturas por post y se las prohibe a la
       // siguiente (`replyGenerator`, APERTURAS_POR_POST): sin esto cada llamada

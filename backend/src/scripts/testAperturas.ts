@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, buildPrompt, recordarApertura } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, buildPrompt, recordarApertura } from '../services/replyGenerator';
 import { primerasDos } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -108,6 +108,28 @@ const choques = [...conteo.entries()].filter(([, v]) => v > 1).map(([k]) => k);
 ok(choques.length === 1 && choques[0] === 'la eficiencia', 'caza los dos que abren igual', choques.join(', '));
 ok(primerasDos('¡Qué bueno! Me ha pasado.') === 'que bueno', 'normaliza tildes y signos');
 ok(tanda.filter((c) => detectarAperturaGenerica(c)).length === 2, 'y marca las dos abstracciones de la tanda');
+
+// 7. TONO. Las dos familias salen de casos reales que Iker devolvio el 15/09.
+console.log('\n7 · respuestas bordes o que niegan el post');
+const BORDES = [
+  'Rubén Carrasco casi siempre que un post no se entiende es porque no va dirigido a ti y eso no es malo para ninguno de los dos...',
+  'Ana Pérez en ningún momento hemos hablado de peso.',
+  'Ana Pérez yo no he dicho eso en el post.',
+  'Ana Pérez si lo pillas, lo pillas.',
+  'Ana Pérez no va de eso, va de otra cosa.',
+  'Ana Pérez el chiste se explica solo.',
+  'Ana Pérez no sale nada de peso en la publicación.',
+];
+for (const b of BORDES) ok(detectarRespuestaBorde(b) !== null, b.slice(0, 48), detectarRespuestaBorde(b) || 'NO LO CAZA');
+
+console.log('\n7b · respuestas comprensivas que NO pueden saltar');
+const BUENAS_TONO = [
+  'Rubén Carrasco no pasa nada, va de que el compañero ve 4.797€ fuera de la cuenta y se piensa que es un viaje, y resulta ser la renovación de las herramientas.',
+  'Ana Pérez normal que chirríe, entiendo que suene así y no era la intención.',
+  'Ana Pérez culpa mía que me quedó enrevesado, te lo cuento en corto.',
+  'Ana Pérez tomo nota, la próxima la cuento mejor.',
+];
+for (const b of BUENAS_TONO) ok(detectarRespuestaBorde(b) === null, b.slice(0, 48), detectarRespuestaBorde(b) || '');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

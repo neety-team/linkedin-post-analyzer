@@ -545,6 +545,16 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   { re: /(yo )?no (he|hemos) (dicho|hablado|mencionado)/, que: 'niegas haber dicho algo' },
   { re: /no (sale|aparece|pone) (nada )?(de|en) /, que: 'afirmas que algo NO sale en el post' },
   { re: /no va de eso/, que: '"no va de eso"' },
+  // ⛔ DESCRIBIR LA FOTO SIN VERLA (Iker, 2026-09-15). Retiradas las imagenes
+  // por coste, el modelo DEDUCE lo que hay en ellas a partir del texto y lo
+  // cuenta como si lo estuviera viendo: "en la imagen se ven dos mensajes de
+  // alguien que...". Aqui acerto, y ese es justo el peligro: el dia que se
+  // equivoque le estaremos describiendo NUESTRO propio post al reves a quien
+  // si lo esta viendo. Es la misma familia que el desastre del meme del peso,
+  // en afirmativo en vez de en negativo.
+  { re: /(en|desde) (la|esa|una) (imagen|foto|captura|pantalla|vineta)/, que: 'describes la imagen y NO la estas viendo' },
+  { re: /(la|esa) (imagen|foto|captura) (muestra|ensena|dice|pone|sale)/, que: 'describes la imagen y NO la estas viendo' },
+  { re: /en el (meme|dibujo|cartel)/, que: 'describes la imagen y NO la estas viendo' },
   // El reconocimiento de mentira: reconocer y darle la vuelta con un "pero".
   // Sale de la prueba del 15/09 con el comentario "me parece una falta de
   // respeto", donde la respuesta fue "entiendo la lectura, PERO el post va

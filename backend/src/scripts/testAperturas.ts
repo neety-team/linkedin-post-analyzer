@@ -182,5 +182,16 @@ ok(faltaElReconocimiento('Y luego la herramienta no la usa nadie',
    'Sara Ortiz exactoo y encima toca defender el gasto.') === false,
    'ni cuando el comentario no dice que no entienda');
 
+console.log('\n12 · describir la foto sin verla');
+for (const [c, esp] of [
+  ['Rubén Carrasco normal, en la imagen se ven dos mensajes de alguien que cree que...', true],
+  ['Rubén Carrasco la foto muestra una factura de renovación.', true],
+  ['Rubén Carrasco culpa mía, en el meme sale el jefe preguntando.', true],
+  ['Rubén Carrasco no pasa nada, la broma es que esos 4.797€ parecían un viaje y eran la renovación anual.', false],
+  ['Marta Ruiz normal, te lo cuento, va de que la sorpresa no era Bali sino la cuota.', false],
+] as [string, boolean][]) {
+  ok((detectarRespuestaBorde(c) !== null) === esp, `${esp ? 'describe' : 'correcta'}: ${c.slice(0, 46)}`);
+}
+
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

@@ -10,7 +10,7 @@ import sys, io, json, os, re, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import unipile_client as uni
 
-HOY = datetime.date(2026, 8, 26)
+HOY = datetime.date.today()
 
 # --- Poder de decision. Score 0 = NO SE MENCIONA. ---
 RANK = [

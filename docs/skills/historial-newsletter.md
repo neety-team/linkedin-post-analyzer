@@ -1179,3 +1179,38 @@ mismo asunto, creado el **08/09**, **en BORRADOR**, con la misma promesa del eve
 - **El `reply-to` es `helena@neety.io`**, dominio distinto del `neety.com` cuya reputación cuidamos en
   Brevo. **No es un problema hoy y no lo he investigado**, pero conviene saber que estamos mandando
   correo de marketing desde dos herramientas y con dos identidades a la vez.
+
+---
+
+## 🔍 ESTADO DE BREVO AL 2026-09-15, Y POR QUÉ LA LISTA VIEJA NO SE PUEDE RESCATAR
+
+> **Iker, y es una pregunta legítima que merecía medirse, no responderse de memoria:** *"hemos pasado de casi 2.000 destinatarios posibles a 45. Tirar la lista por completo a la basura es un error. Crea un segmento de la gente que no solo abrió esos correos, sino que pulsó el enlace y aun así no se dio de baja y a día de hoy sigue suscrita"*.
+
+**LA RESPUESTA ES QUE ESE SEGMENTO YA NO SE PUEDE CONSTRUIR, y no es por política: es que el dato no existe.** Medido el 15/09 contra la API, no deducido:
+
+| lo que hay | dato |
+|---|---|
+| Contactos en Brevo | **47** (lista `📥 Recursos · Todos` 40, con 1 de baja, + `Testers` 5) |
+| Los 1.056 borrados el 28/08 | **anonimizados en el histórico de campañas** |
+| Export de los que PULSARON en la tanda 6 | 6 filas, y **5 dicen `Deleted / Anonymized contact`** |
+| Únicos clics recuperables con nombre | `jrojo@bondaltiwater.com` (tanda 6) y `anderalberdi94@gmail.com` (correo 3), **los dos ya dentro de los 40** |
+| CSV de respaldo (`Escritorio/BREVO-CONTACTOS-BORRADOS`) | 1.056 correos, pero **solo 4 columnas**: email, bloqueado, listas, fecha de alta. **No guarda aperturas ni clics** |
+| De esos 1.056 | **68 bloqueados** (bajas + rebotes), un 6,4% |
+
+**Y el CRM tampoco lo tiene:** `email_snapshots.js` fotografía los ACUMULADOS de la campaña cada N minutos, nunca el evento por persona. O sea que **quién pulsó en las tandas 1-6 no está en Brevo, ni en el respaldo, ni en el CRM.** Es información perdida el día del borrado, exactamente como avisaba la entrada del 28/08 de este mismo fichero.
+
+- ✅ **Confirmado por Iker el mismo día montando el segmento a mano en el panel:** *"ya no aparece esa gente, solo me aparecen tres personas que ya tenemos"*.
+- 🔧 **Y los segmentos NO se pueden crear por API:** `POST /contacts/segments` devuelve `404 Invalid route/method`. Solo lectura (`GET /contacts/segments`) y panel. **Las LISTAS sí** se crean y se rellenan por API, que es como se montó el A/B del correo 2.
+- ⛔ **El límite de ritmo de los exports es real y muerde:** 24 `POST /emailCampaigns/{id}/exportRecipients` seguidos dejaron la cuenta en `429` durante toda la sesión, y con él se quedó sin comprobar **el motivo de las bajas de las tandas 5 y 6**. Se reintenta con pausas largas. ⚠️ Lo más probable es que salgan anonimizadas también.
+- 🔧 **Cómo se exporta, para no volver a buscarlo:** `POST /emailCampaigns/{id}/exportRecipients` con `{"recipientsType":"clickers"|"openers"|"unsubscribed"}` → devuelve `processId` → `GET /processes` trae el `export_url` cuando está `completed`. **El CSV se baja con `curl`, NUNCA con urllib**: Cloudflare da 403 según la firma del cliente, igual que ya pasaba con `/senders`.
+
+### 🌱 POR DÓNDE SÍ PUEDE CRECER LA LISTA (y por dónde no)
+
+| vía | estado |
+|---|---|
+| **Los 60 inscritos del evento** | ⛔ **Cerrada.** El formulario de Luma lleva una casilla de términos obligatoria que dice *"Uso de datos para la operativa del evento y con objetivos comerciales"*, pero **no tenemos acceso a la cuenta de Luma**: ni se puede exportar la lista ni añadir una casilla nueva (Iker, 15/09: *"ya es demasiado tarde"*) |
+| **⭐ Los WEBINARS de Iker** | 🟢 **La vía nueva, y es suya (15/09).** Hace bastantes, y en el registro **se añade una casilla de consentimiento de newsletter**. Es consentimiento limpio, separado y con registro, igual que el de `recursos.neety.com`. Es la única fuente recurrente que hoy no estamos aprovechando |
+| La casilla de recursos | 🟢 sigue viva y entra sola (worker horario) |
+| `recursos.neety.com/correo/` | 🟢 alimentada por el segundo ninja de los posts |
+| Rescatar a los que pulsaron | ⛔ **imposible**, no por política sino por falta de dato (arriba) |
+

@@ -879,6 +879,30 @@ Carmen lleva la newsletter de Runner Pro (B2C) entera desde Claude Code con un p
 - **Posicionamiento intacto** (`aboutme §1b`): los 3 pilares (listado con confianza / contacto por señal / el comercial valida), nunca "sin esfuerzo / lo hace por ti", más problema del cliente que features, el "cómo funciona exactamente" se guarda para la demo.
 - **⛔ LAS TRES PROMESAS VETADAS, y no son de estilo: cada una es una objeción medida** (informe del **2026-09-14**, inventario en `global §4.4b-MUNICIÓN`). **Automatismo** ("lo escribe la IA", "va solo") → 5 empresas (4 ICP) · **volumen** ("x3 contactos", "cientos de leads") → 5 empresas, la queja contra Waalaxy y Apollo, ⚠️ **aunque solo 1 de esas 5 es ICP: el veto se mantiene, su respaldo es flojo** · **la señal como argumento de apertura** → **15 empresas (11 ICP), sube desde 12** y sigue siendo la objeción nº1 del informe. **Y uno que ha crecido hasta ser veto de pleno derecho: descubrirle un mercado que ya conoce** → **7 empresas (6 ICP)**, eran 4. En email pesan más que en un post: el lector nos lee **dentro de la misma bandeja** donde recibe los mensajes automatizados que ya ignora. **Mecanizado en `validar-email.py`: automatismo como fallo duro, volumen como aviso** — el correo sí puede nombrar el volumen como ENEMIGO, que es literalmente el pilar 3 de `§5` (*"más leads no era tu problema"*).
   - **⭐ Y DESDE EL 2026-09-14 EL VETO TIENE PRUEBA EXTERNA, NO SOLO NUESTRO INFORME (`§8g`):** lemlist, competencia directa, mandó el 09/09 un correo que promete las dos cosas en una frase — *"Claude writes the outreach, lemlist handles the sending, the replies and the follow-up, **at scale**"*. **Automatismo y volumen, firmados por el competidor, con fecha.** No es que esas frases nos parezcan feas: es que son literalmente el discurso que 10 empresas del informe nombran como motivo para ignorar mensajes. **Cuando escribamos contra ese discurso, la cita existe.**
+### ⛔⛔ 7b · NUNCA UNA AFIRMACIÓN ROTUNDA SOBRE LO QUE EL LECTOR HA HECHO O NO (Iker, 2026-09-15) — CANÓNICO
+
+> **Iker, sobre el correo 4:** *"veo un pequeño peligro y es que a los pocos destinatarios a los que nos dirigimos has dado afirmaciones muy rotundas, como decir que tu nombre no está en la lista. Imagínate que de esos 40 destinatarios sí que hay varios que se han inscrito. Este correo va a ser confuso para ellos e incluso se van a asustar. Intenta en los correos nunca poner ese tipo de afirmaciones tan rotundas en cosas que afecten a nuestra conversión, o por lo menos pregúntamelo a mí"*.
+
+**El fallo, y es mío:** el borrador decía `El tuyo no aparece.` refiriéndose a la lista de inscritos del evento. **Es una afirmación sobre el lector que yo no puedo comprobar** — la lista de invitados de Luma no es nuestra y no se puede leer (ver abajo) — y que además es FALSA para todo el que ya se apuntó. A ese le estamos diciendo que su inscripción no consta: no es que no convierta, es que **asusta al que ya había convertido**.
+
+**LA REGLA:** una frase que afirme lo que el lector **ha hecho o no ha hecho** (apuntarse, descargar, abrir, contestar, pagar, venir) **solo se escribe si el dato se puede comprobar destinatario a destinatario en el momento del envío.** Si no se puede, hay dos salidas y ninguna es escribirla igual:
+
+| | ⛔ lo que no se hace | ✅ lo que se hace |
+|---|---|---|
+| **condicional que vale en los dos sentidos** | `El tuyo no aparece.` | `Si el tuyo ya está, es que lo habré apuntado torcido.` |
+| **preguntar** | dar el dato por bueno | preguntárselo a Iker antes de entregar |
+
+- **⭐ El condicional no cuesta fuerza, la gana:** en el correo 4 la salida buena convierte el defecto en el gag de la mascota despistada, **cubre al que ya está inscrito sin confundirlo** y deja el FOMO intacto para el que no. Es el lector ventrílocuo de `§3` aplicado a un dato que no tenemos.
+- **El ámbito es el estado del LECTOR, no el nuestro.** `Van 60 nombres` o `Quedan 20 sillas` son datos nuestros, medidos y verificables: esos van con cifra. Lo que no puede ir rotundo es lo que hizo ÉL.
+- **Y pesa más cuanto más pequeña es la lista.** Con 40 destinatarios, si 5 están inscritos, el correo le sale mal al 12% de la base. Con una lista de 10.000 el error es el mismo, pero aquí además se nota y se contesta.
+- **No es mecanizable** (haría falta saber a qué apunta cada afirmación), así que vive en el pase de criterio de `§9`: **antes de entregar, se busca toda frase en 2ª persona que afirme un hecho del lector y se pregunta si lo podemos comprobar.**
+
+#### 🔒 Y EL DATO QUE LO MOTIVA: LA LISTA DE INVITADOS DE LUMA NO SE PUEDE LEER (comprobado el 2026-09-15)
+
+No es que no la hayamos mirado: **no es accesible.** El evento va con `show_guest_list: false`, la API pública devuelve `guest_data` a nulo (es lo tuyo como visitante anónimo) y `api.lu.ma/event/get-guests` da **404 sin sesión de organizador**. **La cuenta de Luma no es nuestra**, así que tampoco hay export.
+- **Lo que SÍ se lee sin credenciales es el contador** (`api.lu.ma/url?url=<slug>`): inscritos, plazas libres y aforo. Eso son datos nuestros y sí se pueden escribir en un correo.
+- **Corolario:** cualquier correo que quiera hablarle a un inscrito o a un no inscrito **como si lo supiéramos, está escribiendo sobre un dato que no existe.**
+
 - **Aviso proactivo** (`working-preferences §2`): si una campaña no captura nada (ni respuesta, ni demo, ni dato), avisar sin que lo pregunten. Si un email va a rendir mal (segmento dormido, ángulo quemado, tercer email de venta seguido), avisar ANTES con dato.
 
 ---

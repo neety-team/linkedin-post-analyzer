@@ -146,6 +146,21 @@ SPAM_QUEMADO = {
     # asi que sin esta linea la lista no cazaba el texto real publicado.
     # Mismo patron que 'lo cuento en el correo antes que aqui/aquí'.
     'saber quién compra': 'meme de Iker 27/08, la forma con tilde',
+    # EVENTO · los 6 ninjas de Luma publicados entre el 01 y el 11/09, leidos del
+    # texto real de la BD el 2026-09-15. Se anotan las LINEAS 2, que son las que
+    # se repiten de un post a otro; las lineas 1 cuelgan del gancho de cada uno y
+    # no se reutilizan. Con estas seis dentro, el unico sustantivo del aforo que
+    # queda libre ya no es sillas, sitios, huecos, nombres, plazas ni personas.
+    'esa agenda se llena en solo 80 sillas': 'meme de Iker 01/09',
+    'en esa mesa sí lo hacemos y solo hay 80 sitios': 'historia de Unai 02/09',
+    'a esa sala solo entran 80 personas': 'meme de Asier 03/09',
+    'en esa sala sí te esperan y solo hay 80 huecos': 'historia de Iker 08/09',
+    'en esa sala sí entras y solo hay 80 sillas': 'historia de Asier 09/09',
+    'en esa sala sí están y son solo 80 nombres': 'historia de Unai 11/09',
+    # Y las dos formas de LINEA 1 que si son reutilizables, porque no dependen
+    # del gancho: el molde "un X no te lleva/mete a la sala".
+    'no te mete en la sala': 'historia de Asier 09/09',
+    'no te lleva a la sala de los que deciden': 'historia de Unai 11/09',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -210,6 +225,19 @@ ARRANQUE_QUEMADO = {
         'aquel': 'historia de Asier 25/08 ("Aquel numero era de la casa entera")',
         'me': 'historia de Asier 25/08 ("Me pregunto quien era yo / de que conocia")',
         'sabe': 'historia de Asier 25/08 ("Sabe el nombre / Sabe el numero / Sabe todo")',
+        # Leidos del texto PUBLICADO de la ventana 01-11/09 (BD en vivo,
+        # 2026-09-15). Llevaban desde el 27/08 sin anotarse, y por eso el
+        # borrador de Iker del 15/09 salio con `Llevaba 3 semanas / Llevaba 11
+        # llamadas` cuatro dias despues del `Llevaba 300 empresas / Llevaba 11
+        # anos` de Unai: mismo arranque Y la misma cifra, en cuenta hermana.
+        'recogi': 'historia de Unai 02/09 ("Recogi 200 tarjetas / Recogi la tarjeta")',
+        'busco': 'historia de Unai 02/09 ("Busco solo a esos 12 / Busco antes / Busco 2 dias menos")',
+        'llame': 'historia de Iker 08/09 ("Llame por orden alfabetico / Llame 60 veces")',
+        'traia': 'historia de Iker 08/09 ("Traia un listado / Traia 400 nombres / Traia empresas")',
+        'dentro': 'historia de Asier 09/09 ("Dentro tenia 40 empresas / Dentro tenia fotos")',
+        'llevaba': 'historia de Unai 11/09 ("Llevaba 300 empresas / Llevaba 11 anos")',
+        'dejo': 'historia de Unai 11/09 ("Dejo el ordenador / Dejo la cartera / Dejo cada ficha")',
+        'estaba': 'historia de Unai 11/09 ("Estaba el nombre / Estaba el telefono")',
     },
     'mapa': {
         'no': 'mapa de Navarra ("No paga las nominas San Fermin", swipe-file)',
@@ -227,6 +255,9 @@ ARRANQUE_QUEMADO = {
         'la': 'meme de Asier 20/08 ("La lista no se pule / no se hereda / se elige antes")',
         'no': 'meme de Unai 25/08 ("No buscan quien mande mas / escriba mejor / conteste antes")',
         'se': 'meme de Iker 27/08 ("Se lo que hablamos / Se en que bar desayuna")',
+        # Publicados 01-11/09, anotados el 2026-09-15.
+        'arriba': 'meme de Iker 01/09 ("Arriba llegan con agenda / Arriba nadie parte de cero / Arriba llegan con el nombre")',
+        '12': 'meme de Asier 03/09 ("12 meses pagados / 12 meses de pantalla / 12 meses sin una cara")',
     },
     # El pilar lead magnet tampoco tenia lista. Anotado al PUBLICAR (§0f).
     'leadmagnet': {

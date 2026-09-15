@@ -1637,6 +1637,27 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 - **⛔ Y no se convierte en el anuncio.** Una línea, informativa, y se acabó: si detrás va el programa o los ponentes, se cae el motor (`§4.4b`, vende la sala).
 - **⏳ CADUCA SOLA EL 24/09/2026.** Iker: *"dentro de un mes lo dejaremos de hacer, evento ya pasado"*. **El check lleva la fecha dentro y deja de correr ese día**; cuando pase, esta sección se borra entera en vez de quedarse de fósil.
 
+##### ⏳⏳ 4.4b-EVENTO-FECHA · LA FECHA VA CONCRETA Y CON SU DÍA DE LA SEMANA, NUNCA "LA SEMANA QUE VIENE" (Iker, 2026-09-15)
+
+> **Iker, y la duda es buena porque el evento ya está a 9 días:** *"¿tenemos que seguir diciendo el 24 de septiembre o podemos decir la semana que viene nos vemos en un evento presencial en Donostia? Porque una vez entren al enlace van a ver la fecha, pero no ponerlo de primeras no sé si genera más confusión, incluso más fricción, o al contrario"*.
+
+**LA RESPUESTA: la fecha concreta se queda, y encima se le pega el DÍA DE LA SEMANA.** Dos motivos, y el primero no es de estilo:
+
+1. **⏱️ Una marca relativa se pudre DENTRO de su propia ventana de distribución.** Un post nuestro **se sigue repartiendo 3 o 4 días** (`post-workflow §4.6-MEDIDO`: *"un CTR tomado a las 24 h está inflado… nada se declara récord hasta los 3-4 días"*, y el meme del 01/09 siguió subiendo una semana). `La semana que viene`, escrito un **martes 15**, es **falso** para quien lo lea el **lunes 22** — que es justo la semana del evento y justo cuando más aprieta el FOMO. Es la misma regla que ya estaba escrita en `§2.2b-CAPAS` (*"si el post se puede leer dos días después, mejor una marca que aguante"*), aplicada al caso en que la marca relativa la ponemos nosotros.
+2. **📅 La decisión del lector es de CALENDARIO, y se la damos ANTES del clic.** Lo que se pregunta no es *"¿me interesa?"*, es *"¿puedo ir?"*. Con la fecha delante lo resuelve en su cabeza; con `la semana que viene` tiene que entrar a Luma **solo para averiguar si le cuadra**, y un clic que únicamente resuelve una duda no convierte: la mayoría ni lo da. **Quitar la fecha no reduce fricción, la mueve al peor sitio.**
+
+**Y EL DÍA DE LA SEMANA SÍ SE AÑADE, que es lo que faltaba.** `El jueves 24` trae la proximidad que Iker buscaba con `la semana que viene` **sin perder la precisión**, y habla en el idioma en el que la gente mira su agenda. Concuerda además con el cartel de asistente, que ya imprime `jueves, 24 septiembre`.
+
+| | qué comunica | veredicto |
+|---|---|---|
+| `El 24 de septiembre` | preciso, pero suena lejano | 🟡 el default hasta hoy |
+| `La semana que viene` | próximo, y **caduca a mitad del reparto** | ⛔ nunca |
+| **`El jueves 24`** | **próximo Y preciso**, y son 12 caracteres menos | ✅ |
+
+**⛔ `septiembre` se cae, y solo por esto:** estamos EN septiembre, así que no hay ambigüedad posible. En un evento que caiga a más de un mes vista, el mes vuelve. **Lo que no se cae nunca son las otras dos piezas de `§4.4b-EVENTO-CONTEXTO`**: que es un **evento** y que es **presencial**.
+
+**Mecanizado:** el check ya buscaba `24`, `donostia` y una marca de presencialidad, así que acepta la forma nueva sin tocar nada. ⏳ **Caduca con su sección madre el 24/09.**
+
 **Mecanizado** en `validar-post.py` como **fallo duro** (`EVENTO: la linea de ENCIMA dice que hay evento, cuando y donde`), que mira el bloque inmediatamente anterior al del enlace y canta cuál de las tres piezas falta. **Probado contra el borrador que lo incumplía: lo caza.**
 
 #### ⛔⛔ 4.4b-FORMA · DOS LÍNEAS PEGADAS Y SIGUIENDO LA BROMA DEL GANCHO. SIEMPRE, EN TODOS LOS PILARES (Iker, 2026-08-12)

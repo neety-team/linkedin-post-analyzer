@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, buildPrompt, recordarApertura } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, buildPrompt, recordarApertura } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -168,6 +168,19 @@ for (const [c, esp] of [
 ] as [string, boolean][]) {
   ok(criticaNuestroPost(c) === esp, `${esp ? 'critica' : 'apoya '}: ${c.slice(0, 44)}`);
 }
+
+console.log('\n11 · el que no entiende: primero se le quita hierro');
+ok(faltaElReconocimiento('No entiendo este post',
+   'Rubén Carrasco la factura de 4.797€ llega al chat del equipo, que piensa que es un viaje...') === true,
+   'caza la que explica bien pero entra a saco');
+ok(faltaElReconocimiento('No entiendo este post',
+   'Rubén Carrasco no pasa nada, la broma es que la factura parecía un viaje y era la renovación.') === false,
+   'y NO salta con "no pasa nada"');
+ok(faltaElReconocimiento('no lo pillo la verdad',
+   'Marta Ruiz culpa mía, te lo cuento en corto.') === false, 'ni con "culpa mía"');
+ok(faltaElReconocimiento('Y luego la herramienta no la usa nadie',
+   'Sara Ortiz exactoo y encima toca defender el gasto.') === false,
+   'ni cuando el comentario no dice que no entienda');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

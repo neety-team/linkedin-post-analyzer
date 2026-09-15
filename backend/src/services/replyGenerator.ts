@@ -306,7 +306,7 @@ export function buildPrompt(input: ReplyGenerationInput, voice: Voice): { prompt
 
   const varietyNudge = `OPENING MOVE for THIS reply (RULE 10), decided for you: ${move}. Use THAT one. Only if the comment makes it genuinely impossible, pick a DIFFERENT move from the list — never fall back to whatever you'd have written anyway.
 ARRANQUE OBLIGATORIO de esta respuesta: justo despues del nombre, empieza por ${elegido.arranque}. Esto no es una sugerencia y no se negocia con el contenido: si no te encaja, cambia el contenido, no el arranque.
-⛔ UNICA EXCEPCION, y manda sobre el arranque: SI EL COMENTARIO ES UN ELOGIO, lo primero es el GRACIAS (RULE 13), siempre, y el arranque sorteado se aplica DESPUES del gracias o no se aplica. Un halago sin agradecer se lee frio y es el unico caso en el que la variedad pierde.
+⛔ DOS EXCEPCIONES, y las dos mandan sobre el arranque sorteado: (a) SI EL COMENTARIO ES UN ELOGIO, lo primero es el GRACIAS (RULE 13); (b) SI EL COMENTARIO DICE QUE NO ENTIENDE EL POST, lo primero es quitarle hierro (RULE 3c-bis): "no pasa nada", "normal", "culpa mia". En los dos casos el arranque sorteado se aplica DESPUES o no se aplica. Son los dos unicos sitios donde la variedad pierde, y pierde a proposito.
 IF your reply agrees with the commenter, the agreement word for THIS reply is "${asent}" — use that one and no other, literal, sin convertirla en adverbio ("exactamente" esta PROHIBIDA).
 ⛔ Y recuerda la RULE 10b: no se abre con una abstraccion ni con un sustantivo abstracto mas verbo copulativo. Se abre por lo concreto.${evitaLista}`;
 
@@ -565,6 +565,23 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
 // tocar "empieza por una pregunta directa", y entonces el arranque pisa al
 // gracias. Arreglar una capa y romper otra, otra vez. Ahora la regla dice que
 // el elogio manda sobre el arranque, y ESTO lo comprueba.
+// ⛔ EL QUE DICE QUE NO LO ENTIENDE (Iker, 2026-09-15, probando en produccion).
+// La RULE 3c-bis manda abrir quitandole hierro... y el ARRANQUE OBLIGATORIO que
+// meti para la variedad se la comia, igual que se comia el gracias: si el dado
+// sacaba "empieza por el sujeto de la escena", la respuesta explicaba la broma
+// perfectamente pero entraba a saco, sin el "no pasa nada". Tercera vez hoy que
+// arreglar una capa rompe otra, y por eso las dos van comprobadas y no pedidas.
+const NO_ENTIENDE = /(no (lo |la )?(entiendo|pillo|capto|comprendo)|no entiendo nada|no me queda claro|no le veo el (sentido|punto)|me he perdido|que quiere decir|a que te refieres|no se que quiere)/;
+const HAY_RECONOCIMIENTO = /(no pasa nada|normal|culpa mia|nada, |tranquil|me ha quedado|me quedo|te lo cuento|te lo explico|mal explicad|no me he explicad|es culpa)/;
+
+/**
+ * Si el comentario dice que no entiende el post, la respuesta TIENE que abrir
+ * reconociendo. Explicar bien pero entrando a saco sigue sonando a corregirle.
+ */
+export function faltaElReconocimiento(comentario: string, respuesta: string): boolean {
+  return NO_ENTIENDE.test(llano(comentario)) && !HAY_RECONOCIMIENTO.test(llano(respuesta));
+}
+
 const ES_ELOGIO = /(gran (post|publicacion)|genial|brutal|crack|top\b|me encanta|buenisimo|que bueno|de los mejores|espectacular|enhorabuena|grande\b|maquina\b|aplausos|impecable|muy bueno|excelente)/;
 const HAY_GRACIAS = /(gracias|graciass|graciaas|se agradece|me alegra|un placer)/;
 
@@ -862,6 +879,10 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     ultimoTonoBorde = detectarRespuestaBorde(candidato);
     if (!ultimoTonoBorde && faltaElGracias(input.commentText, candidato)) {
       ultimoTonoBorde = 'el comentario es un elogio y la respuesta no da las gracias (RULE 13)';
+    }
+    if (!ultimoTonoBorde && faltaElReconocimiento(input.commentText, candidato)) {
+      ultimoTonoBorde =
+        'el comentario dice que NO ENTIENDE el post y la respuesta no abre quitandole hierro (RULE 3c-bis): tiene que empezar por "no pasa nada", "normal" o "culpa mia" ANTES de explicar';
     }
     if (ultimoTonoBorde && intento < 3) {
       candidatoTibio = candidato;

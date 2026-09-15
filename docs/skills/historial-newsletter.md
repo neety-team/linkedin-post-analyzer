@@ -1214,3 +1214,39 @@ mismo asunto, creado el **08/09**, **en BORRADOR**, con la misma promesa del eve
 | `recursos.neety.com/correo/` | 🟢 alimentada por el segundo ninja de los posts |
 | Rescatar a los que pulsaron | ⛔ **imposible**, no por política sino por falta de dato (arriba) |
 
+---
+
+## ✅ CORREO 4 · Kaixito · el evento, última semana (programado 2026-09-16 09:05)
+
+**Campaña Brevo 21**, listas 15 + 4 (**45**: 40 de `📥 Recursos · Todos` + 5 `Testers`), remitente `Kaixito de Neety` (id 3), estado `queued` releído de la API, no del `204`.
+
+| | |
+|---|---|
+| Asunto | `te guardo la silla o no?` (24 car, **sin la `¿` de apertura**, excepción consciente de Iker como en la tanda 6) |
+| Preview | `Que luego me dicen que por qué no avisé a nadie.` |
+| Pilar | **novedades / entre bastidores de la mascota** (rota el de historia del correo 3) |
+| Ángulo | la lista de invitados que lleva Kaixito en su libro · **FOMO: enterarte el viernes de quién estaba** |
+| Dolor del cuerpo | identificación (`empresas que pueden comprarte` + `la persona que decide dentro`) |
+| GIF | **`curiosidad`** (el de `estrés` se gastó en el correo 0) |
+| Enlace | `forward.neety.com` con **`utm_source=kaixito-04-evento-correo`**, cadena verificada: 302 → `luma.com/ujffj66o?utm_source=kaixito-04-evento-correo` |
+| Ritmo | `1-2-1-3-1-1-2-1-2-1-1-1` · Validador **35/36** (el único fallo es la `¿` pedida) |
+| Cifras | 60 inscritos / 20 libres, leídas de la API de Luma el mismo 15/09 |
+
+### 🔴 LO QUE VOLVIÓ A MORDER: BREVO INYECTA EL UTM AL CREAR LA CAMPAÑA
+
+Al crear la campaña por API, el `href` escrito a mano salió reescrito así:
+
+```
+https://forward.neety.com/?utm_source=sendinblue&utm_campaign=Correo_4  Kaixito · evento&utm_medium=email
+```
+
+- **Y el `utm_campaign` que inyecta es el NOMBRE de la campaña**, con sus espacios y su `·`. O sea que no solo pierde la atribución de Luma: la ensucia con un valor impresentable.
+- **⭐ El interruptor, con el nombre EXACTO que Iker encontró en el panel (15/09): Configuración adicional → seguimiento UTM.** `email-marketing §1` lo llamaba *"integración de Google Analytics"*, que es como se llama en otra pantalla. **Anotado para no volver a buscarlo a ciegas.**
+- **Con el seguimiento apagado, Brevo respeta el `href` escrito a mano**, confirmado releyendo la campaña y siguiendo el 302 de verdad. Esto reconfirma lo del 28/08.
+- **El orden bueno es: crear → apagar el interruptor → reescribir el enlace → test.** Aquí se hizo test antes de apagarlo, así que el correo de prueba llevaba `sendinblue`; el enlace definitivo se verificó por API y por redirect, no por vista.
+
+### ⚙️ `scripts/montar-correo-brevo.py` (nuevo, 2026-09-15)
+
+Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desde el 28/08 y se hacía a mano: relleno invisible del preheader, fondo Alabastro, un `<p>` por bloque con `<br>` dentro, el GIF centrado a 280 px con su alt, y **el enlace pintado con texto corto y el UTM solo en el `href`**. Se comprueba renderizando a texto plano y buscando `style=`, `margin:` o `</a>`.
+
+**Pendiente al publicar (mañana):** meter el ninja de este correo en `QUEMADAS` de `validar-email.py` — el disparador es la publicación, nunca la entrega (`working-preferences §0f`).

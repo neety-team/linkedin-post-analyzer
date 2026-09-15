@@ -699,9 +699,26 @@ export function detectarInventos(
 //
 // Los patrones se quedan como PRIMER FILTRO: cuestan cero, cazan lo evidente y
 // ahorran la llamada. El juez es la red de debajo.
+// EL JUEZ TAMBIEN MIRA LA FOTO (Iker, 2026-09-15, una hora despues del cambio
+// de arriba y encontrado probando contra produccion). Al pasarle la imagen al
+// generador, este empezo a explicar bien la broma del meme del 03/09 nombrando
+// a "Aitor", que es el contacto de la captura... y el juez la TUMBO tres veces
+// por "inventarse una escena", porque el solo comparaba contra el TEXTO. El
+// usuario se quedaba con un 500 y sin borrador, justo en los posts donde mas
+// falta hace.
+//
+// Es el fallo de quitar una garantia sin mirar quien vivia de ella
+// (`working-preferences`, aprendizaje del 25/08): hasta hoy "lo que consta" era
+// solo texto. Si el generador ve la foto y el juez no, el juez llama mentira a
+// lo que tiene delante.
 async function juezDeInventos(
   respuesta: string,
-  fuentes: { postContent?: string; commentText?: string; commenterName?: string | null }
+  fuentes: {
+    postContent?: string;
+    commentText?: string;
+    commenterName?: string | null;
+    postImage?: { b64: string; mediaType: string } | null;
+  }
 ): Promise<Invento[]> {
   try {
     const message = await trackedCreate('reply_invention_judge', {
@@ -721,6 +738,7 @@ NO CUENTA COMO INVENTADO (responde inventa=false):
 - Angulo personal incomprobable y sin escena: "me ha pasado algo parecido", "lo vemos mucho", "por eso lo escribi".
 - Opiniones, valoraciones, preguntas, bromas y acuerdos.
 - Recoger o reformular algo que YA dicen el post o el comentario.
+- ⭐ TODO LO QUE SE VEA EN LA IMAGEN DEL POST, si te la adjuntan. La imagen es PARTE DEL POST y cuenta como fuente EXACTAMENTE IGUAL que el texto: los nombres que salgan en una captura, las cifras de una factura, lo que diga un mensaje, lo que haga un personaje. Nuestros memes esconden el chiste en la foto a proposito, asi que una respuesta que EXPLICA lo que se ve ahi no esta inventando, esta leyendo.
 - EL NOMBRE DEL DESTINATARIO al principio de la respuesta. Toda respuesta abre con el nombre de quien comento, porque LinkedIn lo convierte en una mencion. Ese nombre NUNCA es una persona inventada.
 - Las formulas de asentimiento de la casa, que son modismos y no afirmaciones: "te compro eso", "lo has clavado", "y tanto", "ahi esta", "ese es el tema", "tal cual", "sin duda". "Te compro eso" significa "estoy de acuerdo", no que nadie haya comprado nada.
 
@@ -728,11 +746,32 @@ Responde SOLO con JSON: {"inventa": true|false, "que": "<lo inventado, en 8 pala
       messages: [
         {
           role: 'user',
-          content: `POST:\n${fuentes.postContent || '(vacio)'}\n\nCOMENTARIO de ${
+          content: [
+            ...(fuentes.postImage
+              ? [
+                  {
+                    type: 'image' as const,
+                    source: {
+                      type: 'base64' as const,
+                      media_type: fuentes.postImage.mediaType as any,
+                      data: fuentes.postImage.b64,
+                    },
+                  },
+                ]
+              : []),
+            {
+              type: 'text' as const,
+              text: `POST:\n${fuentes.postContent || '(vacio)'}\n\nCOMENTARIO de ${
             fuentes.commenterName || '(alguien)'
           }:\n${fuentes.commentText || '(vacio)'}\n\nRESPUESTA A REVISAR (va dirigida a ${
             fuentes.commenterName || 'quien comento'
-          }, cuyo nombre abre la respuesta como mencion):\n${respuesta}`,
+          }, cuyo nombre abre la respuesta como mencion):\n${respuesta}${
+                fuentes.postImage
+                  ? '\n\n⚠️ LA IMAGEN DEL POST VA ADJUNTA: todo lo que se vea en ella CONSTA y no es inventado.'
+                  : ''
+              }`,
+            },
+          ],
         },
       ],
     });
@@ -834,6 +873,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       postContent: input.postContent,
       commentText: input.commentText,
       commenterName: input.commenterName,
+      postImage: input.postImage,
     };
     // Primero los patrones (gratis). Solo si pasan se le pregunta al juez, que
     // es una llamada mas y no hace falta gastarla en lo que ya esta cazado.

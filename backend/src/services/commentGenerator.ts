@@ -71,6 +71,12 @@ export function primerasDos(c: string): string {
 
 export interface CommentGenerationInput {
   postContent: string;
+  // LA FOTO DEL POST (`services/postImage.ts`). Misma ceguera que tenia el
+  // generador de respuestas y el mismo motivo: `global §2.0c` manda que el
+  // texto NO cuente lo que ensena la imagen, asi que comentar un meme leyendo
+  // solo el texto es comentar medio post. Ya nos ha salido publicado un
+  // "El meme funciona porque exagera una verdad" escrito sin haber visto el meme.
+  postImage?: { b64: string; mediaType: string } | null;
   creatorName: string | null;
   creatorHeadline: string | null;
   profile: {
@@ -361,6 +367,8 @@ LENGTH: MAX 2 lines, ≤ 180 characters each. Tight beats verbose. One sharp sen
 
 ACCENTS WHEN STRETCHING A VOWEL: if the word you stretch carries a written accent, DROP the accent and write every repeated vowel plain. Write "buenisiiimo", never "buenííísimo"; "graciaas", never "gráciaas". An accent in the middle of a stretched run looks like a typo, not like someone typing with enthusiasm.
 
+★ EL POST ES TEXTO **Y** FOTO. Si te adjuntan la imagen, miralas las dos: en nuestros memes el chiste vive en la foto y el texto no lo cuenta a proposito. Referenciar algo que se VE en la imagen es la forma mas rapida de demostrar que lo has leido de verdad. Si NO te adjuntan imagen, NO afirmes nada sobre lo que el post ensena ni sobre lo que no ensena.
+
 NO HOLLOW OPENERS: never "Great post!", "Love this", "Totalmente de acuerdo", "Qué bueno", "Muy buen punto", "Gran post", "Me encanta", "Brutal". Reference something SPECIFIC from the post (a number, a phrase, a claim) so it's clear you actually read it.
 
 ★ NEVER OUT YOURSELVES. These people work at the same company as the author. Do not write anything only an insider would know, do not say "el equipo", "en casa", "nosotros" or anything that reveals coordination, and never speak on the company's behalf. Each one is a normal contact reacting to a post.
@@ -401,6 +409,12 @@ ${safePostContent}
 ${asignacion}
 ═══════════════════════════════════════════════════════════════
 
+${
+    input.postImage
+      ? 'LA IMAGEN DEL POST VA ADJUNTA ARRIBA. Miralas las dos antes de escribir.'
+      : '⛔ NO TIENES LA IMAGEN DE ESTE POST. No afirmes nada sobre lo que ensena ni sobre lo que no ensena.'
+  }
+
 TASK: Write exactly ${n} supportive comments (mix of reinforce + warm), each ≤ 180 chars, each ≤ 2 lines, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image. Cada comentario respeta EL ANGULO Y EL ARRANQUE de su numero.
 
 Return JSON only: { "comments": ["...", "..."] }`;
@@ -426,11 +440,24 @@ Return JSON only: { "comments": ["...", "..."] }`;
   let reproche = '';
 
   for (let intento = 1; intento <= 2; intento++) {
+    const contenido: any[] = [];
+    if (input.postImage) {
+      contenido.push({
+        type: 'image',
+        source: {
+          type: 'base64',
+          media_type: input.postImage.mediaType,
+          data: input.postImage.b64,
+        },
+      });
+    }
+    contenido.push({ type: 'text', text: userMessage + reproche });
+
     const response = await trackedCreate('comment_generator_supportive', {
       model: 'claude-sonnet-4-6',
       max_tokens: 1024,
       system,
-      messages: [{ role: 'user', content: userMessage + reproche }],
+      messages: [{ role: 'user', content: contenido }],
     });
 
     const text = response.content

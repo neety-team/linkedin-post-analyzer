@@ -1500,6 +1500,8 @@ router.post('/anuncio-chat/run', async (req: Request, res: Response) => {
             comments = await generateSupportiveComments(
               {
                 postContent: p.content_text || '',
+                // La foto tambien: en un meme el chiste vive ahi (`global §2.0c`).
+                postImage: await getPostImage(p.id),
                 creatorName: p.creator_name,
                 creatorHeadline: null,
                 profile: { headline: null, voice_style: null, worldview: null, signature_moves: null, avoid: null },
@@ -1879,6 +1881,8 @@ router.get('/posts/:postId/google-chat-preview', async (req: Request, res: Respo
     const rawComments = await generateSupportiveComments(
       {
         postContent: post.content_text || '',
+        // La foto tambien: en un meme el chiste vive ahi (`global §2.0c`).
+        postImage: await getPostImage(post.id),
         creatorName: post.creator_name,
         creatorHeadline: post.creator_headline || null,
         // Neutral voice on purpose — these are network-support comments any

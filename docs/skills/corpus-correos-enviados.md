@@ -122,6 +122,135 @@ Neety · Miramon Pasealekua 170, Donostia, España
 
 ---
 
+## Iker 02 · la feria y el taco de tarjetas (pilar HISTORIA, el primero de un founder)
+
+**Enviado:** 2026-09-02 09:11 · campaña Brevo 15 · lista `📥 Recursos · Todos` + `Testers` (45)
+**Remitente:** `Iker de Neety` (`hola@neety.com`) · firma `Iker Galarza, cofundador de Neety`
+**`utm_campaign`:** `iker-02-feria` · **Métrica declarada:** clics a `/agendar/`
+
+| | Correo 2 |
+|---|---|
+| Enviados / entregados | 45 / 45 |
+| Aperturas reales | **16 · 35,6%** |
+| Clic "global" (infla, cuenta la baja) | 3 |
+| **Clic al ENLACE** (`linksStats`) | **1**, y es `mario@neety.com` el 14/09 → **0 de lead** |
+| Rebotes · bajas · spam | 0 · 0 · 0 |
+
+### El asunto y el preheader
+
+```
+me traje 200 tarjetas y no llamé a nadie
+```
+```
+Siguen ahí, en un cajón.
+```
+
+### El cuerpo, literal
+
+```
+Te cuento.
+
+Fue en una feria industrial, hace 3 años.
+
+Volví con 200 tarjetas en una bolsa de tela.
+Las conté esa misma noche en el hotel.
+
+Doscientas oportunidades, pensé.
+
+El lunes las puse todas encima de la mesa.
+Y me quedé mirándolas sin marcar un solo número.
+
+No sabía por cuál empezar.
+No sabía cuál de esas 200 empresas de verdad podía comprarnos.
+No sabía, dentro de cada una, a quién preguntar.
+
+Las metí en un cajón.
+Ahí siguen.
+
+Una feria te da tarjetas, no clientes.
+El nombre de quien decide, nosotros: https://recursos.neety.com/agendar/
+
+Antes pensaba que el problema era conseguir contactos.
+Ahora sé que el problema era no saber cuáles de esos contactos importaban.
+
+En ventas a esto se le llama prospección a ciegas.
+
+Iker Galarza, cofundador de Neety
+
+PD. Si tienes un cajón parecido en tu mesa, reenvíaselo a quien lleve ventas en tu equipo. Seguro que tiene el suyo.
+
+PPD. Las 200 siguen en el cajón. Alguna, seguro, era la buena.
+```
+
+---
+
+## Unai 03 · el comercial al que le guardaban sitio (pilar HISTORIA-TESTIGO, puerta del EVENTO)
+
+**Enviado:** 2026-09-09 09:09 · campaña Brevo 18 · misma lista (45)
+**Remitente:** `Unai de Neety` (`hola@neety.com`) · firma `Unai Arambarri, CEO de Neety`
+**`utm_source` escrito a mano:** `unai-03-evento-correo` · **Métrica declarada:** clics a Luma
+
+| | Correo 3 |
+|---|---|
+| Enviados / entregados | 45 / 45 |
+| Aperturas reales | **13 · 28,9%** |
+| Clic "global" | 4 |
+| **Clic al ENLACE** | **2**, uno es Mario → **1 de lead** (`anderalberdi94@gmail.com`, 09/09 14:50) |
+| Bajas | 1 (`ojacinto@gmail.com`) |
+
+⚠️ **El asistente del evento NO vino de aquí, vino de HubSpot** (`historial-newsletter`, 14/09). Con 45 destinatarios, 0 y 1 clic son el mismo número: ni el correo 2 ni el 3 confirman ni desmienten nada sobre la posición del ninja.
+
+### El asunto y el preheader
+
+```
+en euskadi nos juntamos sin ti
+```
+```
+No es nada personal, es cómo se entra.
+```
+
+⭐ **Es la variante de PSICOLOGÍA EMOCIONAL** (orgullo/pertenencia regional, `Euskadi` dentro del asunto). Se eligió sobre la de afirmación **matando el A/B**: con 40 personas el reparto daba ~6 aperturas por brazo.
+
+### El cuerpo, literal
+
+```
+Al grano.
+
+Trabajé con un comercial de Euskadi.
+Nunca le vi pedir una reunión a nadie.
+
+Yo solo iba de copiloto.
+
+En los bares le pagaban el café.
+En las ferias le guardaban un sitio.
+En los talleres lo conocían por el nombre.
+
+No era simpatía.
+
+Era que alguien decía su nombre antes.
+Y la puerta ya estaba abierta cuando él llegaba.
+
+El 24 de septiembre montamos un evento presencial en Donostia.
+
+Nos juntamos sin ti solo si no te apuntas.
+Tan solo hay 80 sillas: forward.neety.com
+
+Eso es lo que nadie cuenta de la prospección.
+
+No es dar con la empresa.
+Es que alguien de dentro te coja el teléfono.
+
+Unai Arambarri, CEO de Neety
+
+PD. Si conoces a quien lleva ventas en otra empresa y le pilla cerca, reenvíaselo. Va exactamente de esto.
+
+PPD. Aquel comercial se jubiló y su agenda no la heredó nadie.
+```
+
+> 🔴 **Los dos se rescataron de la API de Brevo el 2026-09-15, 13 y 6 días después de enviarse.** La regla de arriba (*"su texto literal se pega aquí el mismo día"*) se incumplió en los dos, y se notó: para escribir el correo 4 hubo que ir a buscar el cuerpo del 3 a la campaña. **El disparador es el ENVÍO, no que alguien lo pida.**
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

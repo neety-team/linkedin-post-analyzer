@@ -337,8 +337,17 @@ def main():
                 'dentro del bloque'))
 
         # Quemadas: mismo banco que los posts. El dolor no cambia, la frase si.
+        # Al ENVIAR un correo, su linea de ninja entra aqui (misma doctrina que
+        # SPAM_QUEMADO de validar-post.py: la lista describe lo YA publicado y el
+        # disparador es el envio, no la entrega). El dolor no cambia; la frase si.
         QUEMADAS = ('dar con el que decide', 'son meses a mano', 'te lo damos hecho',
-                    'te lo damos resuelto', 'te lo marcamos', 'acertar con quien no')
+                    'te lo damos resuelto', 'te lo marcamos', 'acertar con quien no',
+                    # correo 2 · Iker · 2026-09-02 (la feria)
+                    'una feria te da tarjetas, no clientes',
+                    'el nombre de quien decide, nosotros',
+                    # correo 3 · Unai · 2026-09-09 (el evento)
+                    'nos juntamos sin ti solo si no te apuntas',
+                    'tan solo hay 80 sillas')
         q = next((x for x in QUEMADAS if x in cuerpo_low), None)
         if q:
             checks.append(fallo(f'Ninja: frase QUEMADA "{q}" (§4.4b, el dolor no cambia y la frase sí)'))

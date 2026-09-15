@@ -2969,6 +2969,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'la foto. Quien las hace vender no sale en ninguna". Son CUATRO, no cinco: el '
             'pilar solo tiene cuatro publicados (el de Navarra del 11/09 no llego a subirse)',
             aviso=True)
+        # §4.3 Paso 6c (Iker, 2026-09-15) - la orla aprobada se archiva. No es
+        # un check del texto: es el paso que se cae al cerrar el post, porque
+        # ocurre DESPUES de que Iker de el visto bueno a la imagen y para
+        # entonces la conversacion ya va de otra cosa.
+        chk(False, 'ENTREGA: cuando Iker apruebe la ORLA, archivarla en la carpeta del pilar',
+            r'copiarla a C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\ '
+            'con el nombre "los 10 <region>.png": minusculas, SIN tildes ni eñes y sin guiones, '
+            'calcando lo que ya hay (los 10 euskadi / cataluna / asturias / andalucia). El nombre '
+            'se lista de la carpeta antes de escribirlo, no se inventa. ⏳ El disparador es su OK '
+            'sobre la IMAGEN, no la entrega del post: mientras pueda llegar una foto mejor, un '
+            'fichero viejo ahi es peor que ninguno, porque la siguiente region se clona de el. '
+            'La copia del Escritorio se queda: esto es el archivo del pilar', aviso=True)
         chk(len(_flechas) == 10, '"Los 10" con exactamente 10 fichas (§4.3 Paso 2)',
             f'{len(_flechas)}' if len(_flechas) != 10 else '')
         _sin_logro = [l for l in _flechas if '·' not in l]

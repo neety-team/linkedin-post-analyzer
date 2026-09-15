@@ -650,6 +650,15 @@ Lo vigila `validar-post.py --pilar los10` (`BEAT_EQUIPO`). **Riesgo asumido:** u
 
 **Paso 6 — FOTOS de las 10 personas (en vez del CSV):** para cada persona, saca su **foto de perfil de LinkedIn** vía Unipile (endpoint de perfil de persona → campo de foto de perfil, `profile_picture_url`/`picture_url`), descárgala, y entrega las 10 en un **ZIP/carpeta nombradas en ORDEN de mención**: `01_Nombre-Apellido.jpg`, `02_…`, … `10_…`. (El usuario las coloca en su plantilla; nosotros NO montamos la imagen — imagen = orla de retratos, `images §8`.)
 
+**Paso 6c — ⛔⛔ LA ORLA APROBADA SE ARCHIVA EN LA CARPETA DEL PILAR (Iker, 2026-09-15).**
+> **Iker:** *"una vez que te confirme que la foto de los 10 está bien, tienes que guardármela en esta ruta y con el nombre como lo tengo en otras regiones"*.
+>
+> - **Ruta:** `C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\`, que es donde vive la plantilla y el archivo del pilar.
+> - **Nombre:** **`los 10 <region>.png`** — todo en minúsculas, **sin tildes ni eñes** y sin guiones, calcando lo que ya hay: `los 10 euskadi.png` · `los 10 cataluna.png` · `los 10 asturias.png` · `los 10 andalucia.png`. **El nombre se calca de la carpeta, no se inventa:** se listan los ficheros antes de escribir ninguno.
+> - **⏳ EL DISPARADOR ES SU OK EXPLÍCITO SOBRE LA IMAGEN, no la entrega del post.** Mientras quede una ronda posible —una foto de perfil que pueda llegar en primer plano, un nombre por corregir— la orla todavía puede cambiar, y un fichero desactualizado en la carpeta de referencia es peor que no tenerlo: la siguiente región se clona de ahí.
+> - **La copia NO sustituye a la del Escritorio**, que es la que él sube a LinkedIn. Esto es el archivo del pilar.
+> - **Mecanizado** como aviso de entrega en `validar-post.py --pilar los10`, con la ruta y el patrón dentro, para que el paso no dependa de que yo me acuerde al cerrar el post.
+
 **Paso 6b — LA ORLA: la monta un SCRIPT, no el robot de diseño (2026-07-16).**
 ```
 python scripts/montar-orla.py   --plantilla "C:/Users/LENOVO/Documents/Mario/LINKEDIN GROWTH/PELOTEO REGIONAL/LOS 10/LOS 10 PLANTILLA.psd"   --fotos "C:/Users/LENOVO/Desktop/los10-<region>"   --fuente "C:/Users/LENOVO/Documents/Mario/LINKEDIN GROWTH/Bricolage_Grotesque/static/BricolageGrotesque-ExtraBold.ttf"   --nombres "Nombre 1 | Nombre 2 | … | Nombre 10"   --salida "C:/Users/LENOVO/Desktop/orla-<region>.png"

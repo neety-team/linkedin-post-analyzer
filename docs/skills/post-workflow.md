@@ -2386,15 +2386,80 @@ Acceso libre.
 
 **Qué es.** El tercer formato del pilar peloteo. El mapa pelotea EMPRESAS de una región, "Los 10" pelotea PERSONAS, y este pelotea **un OBJETO cotidiano despiezado**: cada pieza, la empresa de la región que la fabrica. **La prioridad es la EMPRESA**, como en el mapa, con la persona al lado. Estrenado el 2026-07-30 en la cuenta de Iker con Euskadi y el coche. Se valida con `--pilar objeto`.
 
+> ### 🔎🔎 PASO 0 DEL DESPIECE · LOS GANCHOS PUBLICADOS SE SACAN DE LA BD ANTES DE ESCRIBIR (2026-09-15, a petición de Iker)
+>
+> **Lo mismo que se hizo con "Los 10" el 15/09 (`§4.3` Paso 1), aplicado aquí.** Antes de escribir una línea: `GET /api/creators/{id}/posts`, filtrar `pillar='peloteo_objeto'` y poner los ganchos publicados delante, ordenados por impresiones. **Se escribe MIRÁNDOLOS.**
+>
+> **🔴 Y LO PRIMERO QUE HAY QUE SABER: ESTE PILAR NO TIENE NI UN DATO LIMPIO. Son dos posts y los dos flopearon, pero NINGUNO por el gancho.**
+>
+> | fecha | cuenta | región | imp | ratio | gancho |
+> |---|---|---|---|---|---|
+> | 30/07 | Iker | Euskadi | **4.075** | 0.94x | `En el mapa es el sitio de comer: Guggenheim, chuletón y de vuelta al aeropuerto. Y ahí se hace tu coche 👇` |
+> | 07/08 | Asier | Navarra | **1.273** | 0.46x | `Al felpudo del Pirineo lo archivan en toros, espárragos y nada más. Y exporta más piezas de coche que Montenegro entero 👇` |
+>
+> El de Iker se explica solo (perdió 3 de los 4 inamovibles, `§4.2`). **El de Asier los cumple los cuatro y aun así hizo 1.273**, y ahí es donde estaba el agujero de diagnóstico: llevábamos desde agosto diciendo "fue el mes". **No es el mes. Es la SATURACIÓN, y ahora está medida.**
+>
+> #### 📉📉 LO QUE DE VERDAD MANDA EN UN PELOTEO NO ES EL GANCHO, ES CUÁNTOS PELOTEOS HA HABIDO ANTES (medido el 2026-09-15 sobre los 22 peloteos publicados)
+>
+> Para cada peloteo se cuenta **cuántos peloteos de las TRES cuentas salieron en los 21 días anteriores**. El corte es monótono y no es sutil:
+>
+> | peloteos en los 21 días previos | n | mediana de impresiones |
+> |---|---|---|
+> | **0-3** | 12 | **39.310** |
+> | 4-5 | 7 | 16.726 |
+> | **6-7** | 3 | **2.360** |
+>
+> **Un factor 17 entre la banda limpia y la saturada.** Y los dos despieces cayeron justo ahí: el de Iker con **5** peloteos detrás y el de Asier con **6**, la segunda ventana más saturada de toda la historia del pilar.
+>
+> **La prueba sin ruido está DENTRO de una sola cuenta, la de Asier**, que hizo los tres posts con el mismo formato de peloteo y la misma baseline:
+> ```
+> 14/07  mapa Aragón      4 peloteos detrás  →  27.009 imp
+> 07/08  despiece Navarra 6 peloteos detrás  →   1.273 imp
+> 01/09  mapa Cantabria   0 peloteos detrás  →  13.021 imp
+> ```
+> **Mismo autor, misma mecánica, y lo único que se mueve con las impresiones es cuánta gente había visto ya un peloteo nuestro esa quincena.**
+>
+> ⚠️ **Lo que este dato NO dice, y hay que decirlo:** está confundido con el CALENDARIO (julio concentró 9 peloteos y es también cuando el feed se vacía) y con la NOVEDAD (abril fue el estreno del formato). No se puede separar con n=22. **Lo que sí se puede hacer es la consecuencia práctica, que es la misma en las tres lecturas: mirar la ventana antes de programar un peloteo.**
+>
+> **LA REGLA OPERATIVA, y va al Paso 1:** antes de elegir región, **cuenta los peloteos de las 3 cuentas de los últimos 21 días**. Con 4 o más, este pilar arranca cuesta arriba y hay que decirlo en la entrega; con 6 o más, se propone mover el post de día o cambiar de pilar.
+>
+> #### 🧬 LA ANATOMÍA DEL GANCHO PONE EL SUELO, NO EL TECHO (mismo corte, 2026-09-15)
+>
+> **Dentro de la cuenta de Iker, que es la única con 8 mapas, los cuatro inamovibles NO separan a los buenos de los malos:** Murcia (16.726) y Castilla y León (8.781) los llevan los cuatro, y Cataluña (48.866) **no lleva ninguno** — ni concepto, ni clichés, ni frase-rabia, y encima nombra la región en el gancho. Lo que separa a esos tres es la ventana.
+>
+> **Y aun así la fórmula no se toca, porque donde SÍ se ve es abajo:** los dos peores peloteos de Unai con ventana limpia son exactamente los dos que rompen la fórmula — el del 20/05 (`De día parece una tierra de oficinas`, **sin sujeto ajeno, sin clichés y sin país**: 5.311) y el "Los 10" de Cataluña (**reproche a las empresas**: 6.572). **La fórmula no te hace volar; no tenerla te hunde.** Por eso los cuatro inamovibles siguen siendo fallo duro y por eso este bloque no los relaja.
+>
+> #### ⛔⛔ LO QUE SÍ ES PROPIO DEL DESPIECE: EL PAÍS DE LA COMPARACIÓN TIENE QUE SER UN PAÍS **RICO Y CONOCIDO**, PORQUE EN PIEZAS NO GANAMOS A NINGUNO QUE HAGA COCHES
+>
+> **El problema es de tamaño y es estructural, no de redacción.** El remate del despiece mete el objeto dentro (`Y exporta más piezas de coche que [PAÍS] entero`, `§4.7` Paso 3), así que ya no comparamos exportación total contra exportación total: comparamos **partida 8708 contra partida 8708**. Y ahí una provincia española pesa poco:
+>
+> | | partes y accesorios de vehículos (HS 8708) |
+> |---|---|
+> | **Bizkaia** | **832,4 M€** (EUSTAT) |
+> | Serbia | 958 M$ · Suiza 1.128 M$ · Portugal 3.569 M$ · Suecia 5.233 M$ (Banco Mundial/Comtrade) |
+> | Noruega 540 M$ · Dinamarca 716 M$ · Bulgaria 449 M$ · Croacia 359 M$ · Grecia 153 M$ | |
+>
+> **Ningún país con industria de automoción de verdad queda por debajo con margen.** O sea que el país de la comparación va a ser SIEMPRE uno que no hace coches, y ahí es donde se cayó Montenegro: el lector nota que la comparación está ganada de antemano y el shock no llega.
+>
+> **LA SALIDA, y es la que se usa en el despiece de Bizkaia:** se elige un país **rico, famoso y del primer mundo** cuya falta de industria sea justo la ironía. **Noruega** es el caso perfecto — **96 de cada 100 coches nuevos que se matriculan allí son eléctricos, récord mundial (OFV)**, y aun así exporta la mitad de piezas que una provincia vasca. *(Deducción mía a partir de la tabla, `working-preferences §0c`: el corte de países está medido, que la ironía compense el tamaño no.)*
+>
+> **Y el procedimiento se queda igual de duro que en el mapa** (`§4.2` Paso 2): **partida contra partida**, fuente que publique ese país, y **margen de al menos el 15%**. Bizkaia contra Noruega son 832 M€ contra ~500 M€: **+66%**.
+>
+> #### 📏 LONGITUD Y FORMA, con lo poco que hay
+> Los dos despieces publicados miden **105 y 121 caracteres**, dentro de la horquilla de los mapas (80-130). **Con n=2 no hay nada que deducir: manda la vara del mapa** (`global §2.10`, mediana 75-93 y sospecha por encima de 110).
+
 **Paso 1 — OBJETO y REGIÓN.**
 - El objeto tiene que ser **reconocible por cualquiera y despiezable**. El coche es el caso perfecto: todo el mundo tiene uno y da para 20 sistemas con proveedor distinto. Un aerogenerador sería más "nuestro" pero nadie tiene uno en el garaje.
 - **La región se elige por IMPRESIONES, no por ratio.** Y **la región NO se quema entre formatos de peloteo**: el despiece es nuevo, así que puede repetir una región que ya hizo el mapa o "Los 10", incluso en la misma cuenta. Lo que sí va nuevo es el concepto, los clichés y la frase-rabia.
+- **⛔ ANTES DE ELEGIR REGIÓN, CUENTA LOS PELOTEOS DE LOS ÚLTIMOS 21 DÍAS** (las 3 cuentas juntas, Paso 0 de aquí arriba). Con 4 o más, se dice en la entrega; con 6 o más, se mueve de día o se cambia de pilar. **Es lo único medido que explica los dos flops del pilar.**
+- **🗺️ PAÍS VASCO, MEDIDO EL 2026-09-15: a nivel de PROVINCIA la automoción da para UN solo despiece más, y es Bizkaia.** Cruzando el universo de Sales Navigator contra las 721 entidades de `menciones-usadas.json`, **Gipuzkoa y Álava no llegan a 12** y **Euskadi entero ya está gastado** (despiece de Iker, 30/07). En Bizkaia se llega a 12, pero **solo 8 lo dicen en su propia descripción de LinkedIn**: las otras 4 (Lekun, IGESTEK, Plásticos Gernika y una más) hay que verificarlas **contra su web**, que es fuente válida por `§4.0` aunque el Paso 2 use la descripción por defecto. **Y el precio se dice en la entrega: son empresas pequeñas y solo 4 de las 12 tienen a alguien con cargo y actividad ≤6 meses.**
 - **⚠️ Al fijar un sector el universo se estrecha muchísimo más que en un mapa**, que acepta cualquier industria. **Es el pilar con más riesgo de quedarse corto.** Medido el 30/07: Galicia daba 8 empresas y Euskadi 12. Si la región no llega a 10, se cambia de región, no se rellena.
 
 **Paso 2 — LAS EMPRESAS, y aquí está el trabajo de verdad.**
 - **⛔ SON 12 EXACTAS (Iker, 2026-08-07).** No es objetivo ni suelo: es el número. **La plantilla de la llanta tiene 12 huecos**, así que 11 deja un agujero vacío y 13 no cabe. El texto y la imagen son la misma pieza y aquí **el número lo manda la imagen**. Vale para el despiece de **cualquier objeto y cualquier sector**, no solo la llanta de automoción: cuando se cree la plantilla de otro sector, se crea con 12 huecos.
 - ~~Objetivo 20, suelo 10.~~ (Era lo de antes, cuando la plantilla no estaba fijada.)
 - **Descubrimiento: buscar PERSONAS, no empresas.** La página de LinkedIn de una empresa muestra su SEDE, no sus plantas: filtrando por localización de empresa se caen justo las grandes (Michelin dice Clermont-Ferrand aunque fabrique en Valladolid). Buscando personas con `keywords` de la planta salen las multinacionales con su gente real.
+- **🔧 Y SI LA DESCRIPCIÓN NO DICE EL SECTOR, SE MIRA SU WEB ANTES DE DESCARTARLA (2026-09-15).** La regla de abajo existe para no INVENTAR, no para limitar la fuente a LinkedIn: `§4.0` acepta *"fuentes públicas con cita"*. En Bizkaia, 4 de las 12 empresas no nombran automoción en su ficha de LinkedIn y su propia web sí (Lekun: *"los sectores energéticos, eléctricos, automoción, naval"*). **Lo que no cambia: si ni la ficha ni la web lo dicen, la empresa se cae** — así se cayeron Tornillería Amezua (dice construcción, energía, agricultura y naval), FORMESA (eléctrico, valvulería y ferroviario) y Aceros Inoxidables Olarra.
 - **Cada pieza se asigna contra la DESCRIPCIÓN de la propia empresa** (`GET /api/v1/linkedin/company/{slug}` da `description`), nunca por intuición. **El 30/07 esto evitó cinco errores factuales**: Copreci hace electrodomésticos, Orkli climatización de edificios, Goizper bancos de ensayo, Onapres prensas y la página de Grupo ELAY es de recursos humanos. **Si la descripción está vacía, la empresa se cae** (así se fueron Mecaner y Megatech).
 - Las cuatro comprobaciones de mención del `§4.2` aplican enteras.
 

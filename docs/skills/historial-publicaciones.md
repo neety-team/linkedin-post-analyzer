@@ -203,6 +203,26 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 
 ---
 
+## 📝 ENTREGADO · MAR 16/09 · ASIER · DESPIECE DE AUTOMOCIÓN EN **BIZKAIA** (evento en el ninja)
+
+✅ validador **64/64** · UTM `despiece-bizkaia-16sep-asier` (Luma) · imagen `PELOTEO REGIONAL/DESPIECE/automocion bizkaia.png`
+
+**Qué es:** 3er despiece de la historia del pilar y **2º de Asier** (el 1º fue Navarra, 07/08). Región **NUEVA para las 3 cuentas en este formato**. 12 empresas de automoción **de origen vizcaíno**, ninguna repetida contra las 721 de `menciones-usadas.json`.
+
+**Gancho:** `La reducen al garaje de la ría: bacalao, paraguas y a casa. Y exporta más piezas de coche que Noruega entera 👇` (110 car, 2 oraciones, 0 cifras). Concepto `el garaje de la ría` · verbo `reducen` · frase-rabia `y a casa` · país **Noruega**. Los cuatro inamovibles, puestos.
+
+**🔴 DE ESTE POST SALE EL DIAGNÓSTICO QUE FALTABA DEL PILAR, y no es del gancho:** medidos los 22 peloteos publicados, la mediana cae de **39.310** (0-3 peloteos en los 21 días previos) a **16.726** (4-5) y a **2.360** (6-7). Los dos despieces anteriores salieron con **5** y **6** detrás. La prueba limpia es la propia cuenta de Asier: Aragón 27.009 con 4 detrás, Navarra 1.273 con 6, Cantabria 13.021 con 0. **Esta vez la ventana está en 2**, que es la banda buena. → `post-workflow §4.7` Paso 0.
+
+**Datos verificados (los años van aquí, nunca en el post):** Bizkaia exportó **832,4 M€** en partes y accesorios de vehículos y **11.854,7 M€** en total (EUSTAT, 2024) · Noruega exportó **540,6 M$** en HS 8708 (Banco Mundial/Comtrade, 2024), **+66% de margen** · **96%** de los coches nuevos matriculados en Noruega en 2025 fueron eléctricos (OFV).
+
+**⚠️ EL RIESGO ANOTADO, con su número:** solo **4 de las 12 fichas llevan persona** con cargo y actividad ≤6 meses (Enkarterri 0 días, Unamunzaga 73, Lekun 83, IGESTEK 152). El pilar reparte cuando contestan los mencionados (`outliers §3.13`), así que el motor va corto a propósito: **en Bizkaia no hay más**, medido contra las 721 ya usadas. Las 8 restantes notifican a la página (`§4.2` Paso 4).
+- **Y dos logos no se leen** (ENKARTERRI baja a 100px y se amplía; TALLERES UNAMUNZAGA es un símbolo sin nombre). Es su logo de LinkedIn y no se pide otro (`§4.3` 6b-quinquies).
+- **Jon Etxeberria Zarranz tiene el `location` en Éibar (Gipuzkoa)** aunque sea el General Manager de la planta de Abadiño. Se mantiene y se anota.
+
+**🔧 Tres bugs del validador arreglados el mismo día:** el check de fichas del despiece exigía PERSONA en las 12 (tumbaba el despiece de Navarra publicado) · el patrón de ritmo del pilar `objeto` cruzaba un `zip` desalineado y se comía los bloques de 3 · el check de menciones repetidas daba falso positivo con dos empresas que empiezan por un genérico (`@TALLERES …` ×2).
+
+---
+
 ## ✅ PUBLICADO · LUN 15/09 · UNAI · "LOS 10" DE GIPUZKOA (con el evento en el ninja)
 
 `https://www.linkedin.com/feed/update/urn:li:activity:7505584876465766401/` · publicado a las **11:14** · ✅ validador 67/67 · UTM `los10-gipuzkoa-15sep-unai`
@@ -365,7 +385,7 @@ El de automoción ya está hecho (Asier, 07/08). El siguiente **no repite sector
 | **Unai** | País Vasco · Bizkaia · Álava · **Cataluña** | **Gipuzkoa** (15/09) | "pueblo de 2,2 millones" · "trastienda del norte" · "lluvia y pintxos" · "última parada antes de Francia" |
 | **Asier** | Aragón · **Cantabria** (01/09) | — | "secarral que peina el cierzo" · "el felpudo del Pirineo" · "el tendedero del Cantábrico" |
 
-**DESPIECES ya hechos** (cuenta · región · objeto/sector): **Iker** — Euskadi, el coche (automoción, 30/07) · **Asier** — Navarra, el coche (automoción, 07/08) · **Unai** — Cataluña, el coche (automoción, 09/09). El despiece **no quema la región para mapa ni para "Los 10"** (`post-workflow §4.7` Paso 1), pero **repetir región Y formato en la misma cuenta sí es repetir**: Euskadi ya está gastada para un despiece de Iker.
+**DESPIECES ya hechos** (cuenta · región · objeto/sector): **Iker** — Euskadi, el coche (automoción, 30/07) · **Asier** — Navarra, el coche (automoción, 07/08) · **Asier** — **Bizkaia**, el coche (automoción, 16/09, entregado) · ~~**Unai** — Cataluña (09/09)~~ **escrito y NO publicado, así que no quema nada**. El despiece **no quema la región para mapa ni para "Los 10"** (`post-workflow §4.7` Paso 1), pero **repetir región Y formato en la misma cuenta sí es repetir**: Euskadi ya está gastada para un despiece de Iker.
 > 🔧 **Corregido el 2026-08-14: esta tabla estaba desactualizada y era una bomba de relojería.** Le faltaban **Castilla y León** (mapa de Iker, 04/08) y **Navarra** (despiece de Asier, 07/08), y Castilla y León seguía listada como libre para Iker. Planificar septiembre con ella sin actualizar habría repetido región en la misma cuenta. **Cada vez que se publique un peloteo, esta tabla se toca en el mismo commit que la fila del registro.**
 
 **"Los 10" está casi virgen:** solo se ha hecho UNA vez (Iker, País Vasco). Unai y Asier lo tienen entero libre, y a Iker le quedan 16 comunidades. Es la mecánica de peloteo con más recorrido sin quemar.

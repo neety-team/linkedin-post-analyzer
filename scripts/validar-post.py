@@ -92,11 +92,21 @@ VERBO_PREJUICIO_QUEMADO = {
     'en el mapa es': 'Euskadi (Iker)',
     'resumen': 'Castilla y León (Iker)',
     'todos ven': 'Valencia (Iker)',
+    # Leidos del texto PUBLICADO (BD en vivo, 2026-09-15). Llevaban desde
+    # julio y agosto sin anotarse, y son los DOS de la cuenta de Asier.
+    'archivan': 'Navarra, despiece de Asier 07/08',
+    'dan por visto': 'Cantabria, mapa de Asier 01/09',
 }
 
 # §4.2 Paso 1 — la frase-rabia es el motor: sin ella el local no siente el
 # desprecio, no comenta y no hay alcance. Familia validada + variantes.
-FRASE_RABIA = r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|para irse|antes de seguir carretera|de vuelta a|y a otra cosa|y ya|y punto|y hasta ah[ií])'
+FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|para irse'
+               r'|antes de seguir carretera|de vuelta a|y a otra cosa|y ya|y punto|y hasta ah[ií]'
+               # Variantes nuevas: el BEAT no cambia nunca (cliché de comer o de
+               # fiesta + gesto de despacharla), las palabras rotan siempre
+               # (§2.0b). Se añaden aquí el día que se estrenan, o el check pide
+               # la frase-rabia y a la vez tumba la única forma que queda libre.
+               r'|y a casa|y nada m[aá]s|y a la autov[ií]a|y se acab|y de ah[ií] no pasa)')
 
 # §4.4b — FRASES DEL SPAM NINJA QUEMADAS. El dolor es SIEMPRE el mismo (dar con
 # el cliente ideal, empresa y persona), pero la FORMA rota en cada post. Iker,
@@ -221,6 +231,8 @@ SPAM_QUEMADO = {
     'no aparece en cualquier sala': '2026-09-15 historia de Iker 15/09, la linea 1',
     'esa carretera acaba en una sala': '2026-09-15 "Los 10" de Gipuzkoa, Unai 15/09',
     'los encuentras de uno en uno': 'lo mismo, la linea 1 del bloque',
+    'saber quien firma dentro': '2026-08-07 despiece de Navarra, Asier 07/08',
+    'saber quién firma dentro': 'lo mismo, la forma con tilde',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -242,6 +254,8 @@ PAIS_QUEMADO = {
     'honduras': 'Álava',
     'kenia': 'Aragón',
     'paraguay': 'Castilla y León',
+    'montenegro': 'Navarra, despiece de Asier 07/08',
+    'jamaica': 'Cantabria, mapa de Asier 01/09',
 }
 
 # 4.4e - FRASES QUEMADAS DEL SEGUNDO NINJA, EL DEL CORREO. Misma logica que
@@ -325,6 +339,11 @@ ARRANQUE_QUEMADO = {
         '12': '2026-09-03 meme de Asier 03/09 ("12 meses pagados / 12 meses de pantalla / 12 meses sin una cara")',
     },
     # El pilar lead magnet tampoco tenia lista. Anotado al PUBLICAR (§0f).
+    # El pilar DESPIECE tampoco tenia lista. Leidos los dos publicados.
+    'objeto': {
+        'lo': '2026-07-30 despiece de Euskadi, Iker ("Lo asocias al monte / a la sidreria / a que llueve")',
+        'es': '2026-08-07 despiece de Navarra, Asier ("Es el pacharan... / Es el Camino...")',
+    },
     'leadmagnet': {
         'ninguno': '2026-08-26 lead magnet de Iker 26/08 ("Ninguno es de redaccion / de personalizacion / se arregla escribiendo mejor")',
     },
@@ -341,6 +360,9 @@ CONCEPTO_QUEMADO = {
     'secarral': 'Aragón',
     'pasillo de espa': 'descartado por Iker: critica a España',
     'tejado de la pen': 'Castilla y León',
+    # Los DOS de Asier, publicados y sin anotar hasta el 2026-09-15.
+    'felpudo del pir': 'Navarra, despiece de Asier 07/08',
+    'tendedero del cant': 'Cantabria, mapa de Asier 01/09',
 }
 
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
@@ -354,6 +376,8 @@ FRASE_RABIA_USADA = {
     'para irse': 'Álava',
     'antes de seguir carretera': 'Aragón',
     'y a otra cosa': 'Castilla y León',
+    'nada m': 'Navarra, despiece de Asier 07/08 ("toros, esparragos y nada mas")',
+    'a la autov': 'Cantabria, mapa de Asier 01/09 ("sobaos, anchoas y a la autovia")',
 }
 
 # §4.5.0a — MOLDE B del lead magnet: Claude (o yo) + VERBO PUNCHY + resultado.
@@ -903,10 +927,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # intensificador". El gancho perdio la emocion y gano un carcter. Este aviso
     # va DELANTE del de la tijera a proposito: primero se mira que el
     # intensificador esta, y solo despues se recorta lo que sobra.
+    # ⚠️ En PELOTEO el intensificador ES la frase-rabia (§2.3d, fila RABIA: "el
+    # remate de menosprecio"), asi que la familia entera de FRASE_RABIA cuenta
+    # como intensificador. Sin esto, cada peloteo con una frase-rabia NUEVA
+    # disparaba este aviso en falso y empujaba a apilar un segundo
+    # intensificador, que es justo lo que §2.3d prohibe ("no se apilan dos").
     _INTENS = (r'\bningun[oa]?\b|\bni un[oa]?\b|\bnunca\b|\bjam[aá]s\b|\bs[oó]lo\b|\bsolo\b'
                r'|en la vida|ni de broma|y poco m[aá]s|y para de contar|y a otra cosa'
                r'|lo [uú]ltimo que|en la vida habr[ií]a|todav[ií]a no|ya ha empezado'
-               r'|sin tocar|en una tarde')
+               r'|sin tocar|en una tarde|' + FRASE_RABIA)
     _int = re.search(_INTENS, hook_txt, re.I)
     chk(False, 'ENTREGA: ¿el gancho tiene INTENSIFICADOR, y sigue ahi? (§2.3d)',
         ('intensificador: "%s" - NO se recorta para acortar, aunque sea la palabra mas '
@@ -1199,7 +1228,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # 2) cada persona/marca se menciona UNA sola vez: repetir el mismo @
         # (p.ej. @Iker arriba y otra vez en la línea de resultados) gasta alcance
         # y suena a peloteo. Token = @ + primer run de letras.
-        _ats = [a.lower() for a in re.findall(r'@([A-Za-zÁÉÍÓÚÑÜáéíóúñü]+)', cuerpo)]
+        # 🔧 CORREGIDO EL 2026-09-16 · el token era SOLO la primera palabra, y eso
+        # da falso positivo en cuanto dos empresas distintas empiezan igual por un
+        # generico del sector: `@TALLERES UNAMUNZAGA` y `@Talleres Industriales
+        # Rofer` salian como la misma mencion repetida. Cuando la primera palabra
+        # es de esa familia, el token se alarga a las DOS primeras.
+        _GENERICO = {'talleres', 'grupo', 'industrias', 'aceros', 'plasticos', 'plásticos',
+                     'transmisiones', 'fundiciones', 'metalurgica', 'metalúrgica', 'mecanizados',
+                     'construcciones', 'hijos', 'laboratorios', 'productos', 'sociedad',
+                     'troqueleria', 'troquelería', 'estampaciones', 'tornilleria', 'tornillería'}
+        _pares = re.findall(r'@([A-Za-zÁÉÍÓÚÑÜáéíóúñü]+)(?:\s+([A-Za-zÁÉÍÓÚÑÜáéíóúñü]+))?', cuerpo)
+        _ats = [(a + ' ' + (b or '')).strip().lower() if a.lower() in _GENERICO else a.lower()
+                for a, b in _pares]
         _dups = sorted({a for a in _ats if _ats.count(a) > 1})
         chk(not _dups, 'Cada persona se menciona UNA sola vez (menciones §2.9)',
             f'repetidas: {_dups} → una mención por persona' if _dups else '')
@@ -1473,10 +1513,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'el primero que aparece es de %d. Los doses van antes que los treses'
             % _multi[0] if _multi[0] != 2 else '')
 
-    _pat = [len(b) for b in bloques(texto) if not es_lista(b)]
+    # 🔧 CORREGIDO EL 2026-09-16 · el zip estaba DESALINEADO y por eso el ritmo
+    # del despiece salia mal: `_pat` ya venia filtrado por `not es_lista` y se
+    # cruzaba contra `bloques(texto)` SIN filtrar, asi que las longitudes se
+    # emparejaban con bloques que no eran los suyos. Efecto real: un bloque de
+    # TRES en prosa desaparecia del patron y el check "al menos un bloque de
+    # TRES" fallaba con el bloque delante. Es la familia de §0d: un check que no
+    # mide lo que dice es peor que no tenerlo.
+    _bls_r = [b for b in bloques(texto) if not es_lista(b)]
     if pilar == 'objeto':
-        _pat = [n for n, bl in zip(_pat, bloques(texto))
-                if not any(l.strip().startswith('→') for l in bl)]
+        _bls_r = [b for b in _bls_r if not any(l.strip().startswith('→') for l in b)]
+    _pat = [len(b) for b in _bls_r]
     # `objeto` estaba FUERA de esta lista y no deberia haberlo estado nunca
     # (Iker, 2026-08-07): el ritmo es regla de formateado, o sea GLOBAL, y el
     # despiece es un post como cualquier otro. Se le excluye solo el tramo de
@@ -2865,11 +2912,27 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
 
     # ---------- DESPIECE / OBJETO (4.7) ----------
     if pilar == 'objeto':
-        _piezas = [l for l in _flechas if ':' in l and re.search(r' - | – | — ', l.split(':', 1)[1])]
+        # 🔧 CORREGIDO EL 2026-09-16. Este check exigia ademas un " - " DESPUES de
+        # los dos puntos, o sea una PERSONA en cada ficha, y eso contradice el
+        # canonico de §4.2 Paso 4 (Iker, 07/08): "como hay dos que no tienen,
+        # entonces no pones ninguna, eso no me parece bien" -> una ficha sin
+        # persona sigue mencionando a la empresa y se queda. La prueba de que el
+        # check estaba mal es que TUMBABA el despiece de Navarra publicado el
+        # 07/08, que es el molde del pilar y llevaba 6 de 12 fichas sin persona.
+        # Lo que SI es la firma del pilar es "pieza + dos puntos + @empresa".
+        _piezas = [l for l in _flechas if ':' in l and '@' in l.split(':', 1)[1]]
         chk(len(_piezas) == len(_flechas) and len(_flechas) > 0,
             'OBJETO: cada ficha lleva la pieza delante y los dos puntos (4.7)',
             f'{len(_flechas) - len(_piezas)} de {len(_flechas)} sin ese formato. Es la firma '
             'del pilar y lo que lo distingue del mapa en el clasificador')
+        # Aviso aparte: cuantas fichas llevan persona. No es fallo (§4.2 Paso 4),
+        # pero es lo unico que correlaciona con que el peloteo reparta
+        # (outliers §3.13: lo que cuenta es cuantos mencionados contestan).
+        _con_persona = [l for l in _piezas if re.search(r' - | – | — ', l.split(':', 1)[1])]
+        chk(True, 'ENTREGA: cuantas fichas llevan PERSONA, no solo empresa (4.7)',
+            f'{len(_con_persona)} de {len(_piezas)}. Una ficha sin persona sigue notificando a la '
+            'pagina y se queda (§4.2 Paso 4), pero el motor del pilar son los mencionados que '
+            'contestan: si bajas de la mitad, dilo en la entrega como riesgo', aviso=True)
         # ⛔ SON 12 EXACTAS, no "10 minimo" (Iker, 2026-08-07). No es una
         # preferencia de texto: la PLANTILLA de la llanta tiene 12 huecos, asi
         # que 11 deja un hueco vacio y 13 no cabe. El texto y la imagen son la

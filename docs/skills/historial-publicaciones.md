@@ -203,6 +203,41 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 
 ---
 
+## ✅ PUBLICADO · LUN 15/09 · UNAI · "LOS 10" DE GIPUZKOA (con el evento en el ninja)
+
+`https://www.linkedin.com/feed/update/urn:li:activity:7505584876465766401/` · publicado a las **11:14** · ✅ validador 67/67 · UTM `los10-gipuzkoa-15sep-unai`
+
+**Qué es:** 1er **"Los 10" de Unai** (el pilar estaba virgen en su cuenta) y 1er peloteo suyo desde el **31/07**, con el enlace del evento ocupando el hueco del de agendar. 10 empresas guipuzcoanas, ninguna repetida contra las 700 ya mencionadas, 9 de 10 con actividad ≤30 días.
+
+**🔴 DE ESTE POST SALEN LOS TRES INAMOVIBLES DEL GANCHO DEL PILAR, y salen de un error mío que Iker cazó dos veces.** Propuse un gancho sobre *no salir en la foto* — que es **el mecanismo del único "Los 10" que flopeó** (0.53x, y de esta misma cuenta) — con el diagnóstico escrito en `global §4.2` desde julio. Al reescribirlo me fui a otro concepto nuevo (`vive en la carretera`) y **volvió a fallar dos de los tres patrones**. Medidos los cuatro ganchos del pilar, el corte no tiene ruido: los dos que vuelan llevan las tres piezas y cada uno de los dos flojos falla exactamente una.
+
+| ratio | imp | puente empresa→persona | gerundio de herida | región en el gancho |
+|---|---|---|---|---|
+| **4.43x** | 49.426 | SÍ | `quemando` | no |
+| **2.49x** | 27.795 | SÍ | `comiéndose` | no |
+| 0.75x | 8.486 | **NO** | `aguantando` | no |
+| 0.53x | 6.572 | SÍ | **NINGUNO** | **SÍ** |
+| — | *este* | SÍ | `tragándose` | no |
+
+→ `post-workflow §4.3` Paso 1, con el paso previo que faltaba: **los ganchos publicados se sacan de la BD ANTES de escribir, no al entregar**. Y el OUTPUT del pilar pasa a llevar el bloque de ganchos ordenado por ratio, que Iker pidió para validar el nuevo de un vistazo.
+
+**Gancho:** `Las empresas que más venden no tienen mejor producto. Tienen a alguien tragándose carretera 👇` (93 car, 2 oraciones, ancla FUERTE `venden`, cifra 0). ⚠️ **Y este pilar es la excepción a la tijera de `global §2.2c`:** los dos que vuelan miden 106 y 96 car, y el más corto de los cuatro (77) es un flojo. **Por debajo de ~90 sospecha de que te has dejado el puente fuera.**
+
+**Otras cinco reglas nuevas, todas de correcciones de Iker en la misma sesión:**
+1. **Las DOS menciones van siempre**, aunque el nombre de LinkedIn de la persona ya incluya la empresa (`Aitor Lizarraga - AMPO-POYAM Valves - @AMPO`). Yo dejé una sola arroba por estética y él la añadió a mano: *"siempre tenemos que mencionar a ambos para maximizar el alcance"*. **El texto no notifica a la página; solo la @ lo hace.** Fallo duro en los10, aviso en mapa.
+2. **La línea de contexto del evento ROTA.** `El 24 de septiembre montamos un evento presencial en Donostia` estaba publicada **literal cuatro veces**. Aquí va `tenemos`. → `global §4.4b-EVENTO-CONTEXTO`.
+3. **El UTM va con la fecha de HOY por defecto**; adelantarla es decisión suya y ahora es fallo duro salvo `--publica-manana`.
+4. **La ventana de actividad ORDENA, no descarta**, cuando la empresa es ICP. Propuse quitar a IKUSI (120 días) y lo tumbó con su propia receta de agosto.
+5. **La guía de menciones de este pilar va en TABLA**, no línea a línea (la frontera es el número: 20 → líneas, 10 → tabla), con cargo y última actividad, porque la pide para revisarlas.
+
+**⚠️ CLIENTE FUERA:** en el 1er borrador entraba **Fagor Automation**, que es cliente (`recursos.neety.com/agendar/`). La sustituyó **AMPO**, que además traía el mejor logro de los diez. **Al montar un peloteo se cruza contra la lista de clientes de la web**, no solo contra `menciones-usadas.json`.
+
+**📉 SIN DATO DE ALCANCE EL DÍA 1, Y NO ES UN CAPADO.** Los dos posts del 15/09 (este y la historia de Iker) marcan `impressions_count = 0` **y a la vez registran clics** (4 y 3) y conversación (9♥/6💬/4🔁 en la 1ª hora). **Es imposible tener clics con cero impresiones: el 0 es un HUECO de medición**, el mismo fenómeno de `outliers §0b`. Afecta a dos cuentas, dos pilares y dos horas distintas → es de LinkedIn. **Un capado real se ve al revés: impresiones bajas pero REALES y cero interacción** (el del 02/09 se quedó en 18 imp).
+
+**📏 QUÉ MEDIR cuando vuelvan las analíticas:** impresiones contra los 6.572 del único "Los 10" de Unai y contra su baseline reciente (mediana 8.587 de sus 6 últimos); **clics a Luma** contra el 0,296% mediano de los 6 posts de septiembre con el evento; **reposts**, que es la firma del peloteo; y **cuántos de los 10 mencionados contestan**, que es lo único que correlaciona con que el pilar reparta (`outliers §3.13`).
+
+---
+
 ## 📊 2026-09-14 · RESULTADO DE LAS DOS SEMANAS PROGRAMADAS (01–11/09) — ESTADO, no doctrina
 
 **Las condiciones van pegadas a los números a propósito, para que dentro de tres meses nadie lea esta tabla sin ellas:** 7 posts en 11 días (**la mitad del ritmo normal**), programados con el nativo de LinkedIn, **sin capa manual de interacción, sin que las cuentas se comentaran entre sí y con comentarios sin responder**. Con ese escenario:
@@ -327,7 +362,7 @@ El de automoción ya está hecho (Asier, 07/08). El siguiente **no repite sector
 | Cuenta | MAPAS usados (no repetir en esa cuenta) | "LOS 10" usados | Conceptos gastados por esa cuenta |
 |---|---|---|---|
 | **Iker** | Gipuzkoa · Cataluña · Andalucía · Valencia · Galicia · Navarra · Murcia · **Castilla y León** | País Vasco · **Asturias** · **Navarra** (03/09) | "pueblo de 7.000 hab" · "esquina del Atlántico" · "patio trasero de los Pirineos" · "playa y paella" · "8,7 millones" · "el tejado de la Península" |
-| **Unai** | País Vasco · Bizkaia · Álava · **Cataluña** | — | "pueblo de 2,2 millones" · "trastienda del norte" · "lluvia y pintxos" · "última parada antes de Francia" |
+| **Unai** | País Vasco · Bizkaia · Álava · **Cataluña** | **Gipuzkoa** (15/09) | "pueblo de 2,2 millones" · "trastienda del norte" · "lluvia y pintxos" · "última parada antes de Francia" |
 | **Asier** | Aragón · **Cantabria** (01/09) | — | "secarral que peina el cierzo" · "el felpudo del Pirineo" · "el tendedero del Cantábrico" |
 
 **DESPIECES ya hechos** (cuenta · región · objeto/sector): **Iker** — Euskadi, el coche (automoción, 30/07) · **Asier** — Navarra, el coche (automoción, 07/08) · **Unai** — Cataluña, el coche (automoción, 09/09). El despiece **no quema la región para mapa ni para "Los 10"** (`post-workflow §4.7` Paso 1), pero **repetir región Y formato en la misma cuenta sí es repetir**: Euskadi ya está gastada para un despiece de Iker.
@@ -338,6 +373,8 @@ El de automoción ya está hecho (Asier, 07/08). El siguiente **no repite sector
 
 **Libres para Iker:** Aragón, Castilla-La Mancha, Extremadura, La Rioja, Cantabria, Canarias, Baleares.
 **Libres para Unai:** Valencia, Andalucía, Galicia, Navarra, Aragón, Asturias, Murcia, Castilla y León, Castilla-La Mancha, Extremadura, La Rioja, Cantabria, Canarias, Baleares.
+> 🔄 **Actualizado el 2026-09-15:** Unai estrena **"Los 10" con Gipuzkoa**. Ojo al planificar el siguiente mapa suyo: **Gipuzkoa NO le queda quemada para mapa** — un mapa y un "Los 10" del mismo territorio no se queman entre sí (validado con Iker: Gipuzkoa mapa 12.92x en abril y "Los 10" del País Vasco 4.81x en junio). Lo que sí está gastado para él es **todo el territorio vasco en MAPA** (País Vasco, Bizkaia, Álava).
+> ⚠️ **Y dos del plan de septiembre que NO se publicaron y por tanto NO queman nada:** el **despiece de automoción de Cataluña** (Unai, previsto el 09/09) y el **"Los 10" de Navarra** (Iker, previsto el 11/09). Estaban escritos y validados; no llegaron a subirse. **El espaciado y la cobertura se miden contra la BD, nunca contra el cuadro del plan** (`post-workflow §8.3`).
 
 > **El "país inventado" NO cuenta como región gastada** y no está en esta tabla: no es un mapa de peloteo (no menciona a nadie, la imagen es un dibujo y no una captura de PamPam, y el motor es la controversia). Ficha en `context/global-instructions.md §4.1`. Lo hicieron Unai (7.87x, 12-jun) e Iker (1.24x, 23-jun).
 **Libres para Asier:** todas menos Aragón.

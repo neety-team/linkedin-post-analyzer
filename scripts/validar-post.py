@@ -219,6 +219,8 @@ SPAM_QUEMADO = {
     'no te lleva a la sala de los que deciden': '2026-09-11 historia de Unai 11/09',
     'en esta sala sí está y tan solo hay 80 invitados': '2026-09-15 historia de Iker 15/09',
     'no aparece en cualquier sala': '2026-09-15 historia de Iker 15/09, la linea 1',
+    'esa carretera acaba en una sala': '2026-09-15 "Los 10" de Gipuzkoa, Unai 15/09',
+    'los encuentras de uno en uno': 'lo mismo, la linea 1 del bloque',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -306,6 +308,9 @@ ARRANQUE_QUEMADO = {
     # releido el post: si algun dia se comprueban, se anota aqui.
     'los10': {
         'no': '"Los 10" del Pais Vasco ("No publica. No da charlas.", swipe-file)',
+        'con': 'Gipuzkoa, Unai 15/09 ("Con el va un taller / alguien / la nomina")',
+        'aqui': 'Gipuzkoa, Unai 15/09 ("Aqui la sidra / Aqui el queso")',
+        'en': 'Gipuzkoa, Unai 15/09 ("En Mendaro / En Ordizia / En Beasain")',
         'se': 'Asturias ("Se sabe... / Se sabe... / Se hace..."), via runbook',
         'su': 'Andalucia ("Su / Su / Su"), via runbook',
     },
@@ -2149,6 +2154,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                             'hacemos un evento presencial': 'Iker 01/09',
                             'el jueves 24 hacemos': 'Iker, 15/09',
                             'nos vemos en donostia para': 'Unai 24/08 y Asier 26/08',
+                            'tenemos evento presencial': 'Unai 15/09',
                         }
                         _evq = [f for f in _EV_QUEMADA if f in _prev]
                         chk(not _evq,
@@ -2998,7 +3004,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             '· 0.75x/8.486 "Hay comerciales aguantando el no a primera hora para que su '
             'fabrica no pare" · 0.53x/6.572 "Las empresas catalanas que mas venden salen en '
             'la foto. Quien las hace vender no sale en ninguna". Son CUATRO, no cinco: el '
-            'pilar solo tiene cuatro publicados (el de Navarra del 11/09 no llego a subirse)',
+            'pilar tenia cuatro publicados. ⭐ QUINTO, subido el 15/09 y pendiente de ratio: '
+            '"Las empresas que mas venden no tienen mejor producto. Tienen a alguien '
+            'tragandose carretera" (Unai, Gipuzkoa), el primero escrito con los tres '
+            'inamovibles delante. Cuando tenga numero, entra ordenado',
             aviso=True)
         # §4.3 Paso 6c (Iker, 2026-09-15) - la orla aprobada se archiva. No es
         # un check del texto: es el paso que se cae al cerrar el post, porque

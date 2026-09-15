@@ -36,6 +36,10 @@ export interface ReplyGenerationInput {
   // y no nos ha mandado solicitud, LinkedIn no le entrega un privado, el recurso
   // NO va de camino, y decir que sí es mentira. Lo que toca es pedirle el paso.
   leadMagnet?: { kind: 'dm'; topic: string; pedirSolicitud?: boolean };
+  // Id de NUESTRO post. Solo se usa para no repetir la apertura dentro de la
+  // misma tanda de respuestas (`APERTURAS_POR_POST`). Opcional a proposito: si
+  // no llega, el generador funciona igual, solo pierde la memoria de tanda.
+  postId?: string | null;
 }
 
 // Las 3 cuentas comparten QUÉ decimos (la voz Neety del commenter_profile, que
@@ -131,7 +135,11 @@ RULE 8b — NEVER USE A COLON (Iker, 2026-08-12). Do not write ":" anywhere in t
 
 RULE 9 — NO COMMA BEFORE "Y" / "E": never write a comma directly before the connector "y" (or "e"). "recursos limitados, y la demanda sube" → "recursos limitados y la demanda sube". The comma-before-"y" reads formal/AI; real people drop it. (Comma before "pero" is fine and natural — this rule is only about "y"/"e".)
 
-RULE 10 — VARIETY (don't ban, just don't default): openers like "exacto", "totalmente", "justo", "tal cual", "cierto", "lo curioso es que", "buen punto", "me encanta que", "claro" are perfectly natural and FINE TO USE sometimes — the problem is using one of them on EVERY reply, which is what reads as canned/AI. So don't make any single opener your reflex; aim for genuine variety across replies. Sometimes one of those is exactly right — use it. Other times open a different way entirely. Vary the OPENING MOVE based on what the comment actually says — rotate among: (a) agree + add a specific angle they did NOT mention; (b) build on their point by taking it one step further, in general terms; (c) add a nuance que SUMA a la suya, nunca que la corrige; (d) answer their question or curiosity directly; (e) a short punchy reaction line, then one line that expands it; (f) pick up a specific word or phrase THEY used and run with it; (g) connect their point back to something the POST already says. The first words should feel written for THIS specific comment, not pasted from the same template every time.
+RULE 10 — CÓMO EMPIEZA LA RESPUESTA (Iker, 2026-09-15). El arranque de ESTA respuesta te llega DECIDIDO en el mensaje de usuario, junto con el movimiento. Úsalo. No elijas tú cómo abrir.
+
+RULE 10b — ⛔ PROHIBIDO ABRIR CON UNA ABSTRACCIÓN. Estas aperturas están VETADAS, y no es cuestión de gusto: son la tabla de delatores de IA de la casa (brand-voice §3), las mismas que el validador de posts tumba desde hace meses. NUNCA empieces una respuesta con: "lo más importante", "lo más curioso", "lo más crucial", "lo más clave", "lo más difícil", "lo fundamental", "lo esencial", "lo cierto es que", "la clave está en", "la clave es", "el secreto es", "la verdad es que", "la realidad es que", "al final del día", "lo que nadie dice", "lo que nadie sabe", "lo que casi nadie cuenta", "lo interesante es que", "es fundamental", "es crucial", "es clave".
+⚠️ Y NO ES SOLO LA LISTA: es la FORMA. Abrir con un sustantivo abstracto y un verbo copulativo ("La eficiencia comercial no está en...", "El contacto directo es solo un dato...", "La diferencia entre X e Y...") se lee igual de canned aunque la palabra no esté en la lista. Se abre por lo CONCRETO: un verbo, una persona, un objeto, una palabra que haya dicho ÉL, o la palabra de asentimiento que te llega sorteada. Si al leer tu primera frase no se ve a nadie haciendo nada, reescríbela.
+⛔ Y NUNCA "exactamente". Si asientes, usas la palabra de asentimiento que te llega sorteada, tal cual, sin alargarla a un adverbio.
 
 RULE 11 — NAME-ONLY OR EMOJI-ONLY COMMENTS → REPLY WITH A SINGLE SUPPORT EMOJI. If the comment is ONLY a person's name (someone tagging a colleague, e.g. "@Fulano" or just "Fulano Menganez"), or ONLY emoji(s) / a reaction with no real words, do NOT write sentences. Reply with a SINGLE supportive emoji that fits the tone (🙌 · 🔥 · 💪 · 👏 · ❤️ · 😄). No name lead, no words at all — just the emoji. This OVERRIDES rules 3, 4, 5 and 10 for these cases.
 
@@ -139,7 +147,7 @@ ${STRETCH_RULES[voice].r12}
 
 ${STRETCH_RULES[voice].r13}`;
 
-function buildPrompt(input: ReplyGenerationInput, voice: Voice): string {
+export function buildPrompt(input: ReplyGenerationInput, voice: Voice): { prompt: string; arranque: string } {
   const v = input.authorVoice;
   const voiceBlock = [
     v.voice_style ? `VOICE STYLE: ${v.voice_style}` : null,
@@ -188,17 +196,74 @@ function buildPrompt(input: ReplyGenerationInput, voice: Voice): string {
   // La variedad se mantiene, pero ahora TODAS las opciones se alimentan de algo
   // que ya existe: el comentario, el post, o una idea general sin escena. Nada
   // que obligue a inventarse un hecho.
-  const OPENING_MOVES = [
-    'agree, then add a specific angle they did NOT mention',
-    'build on their point by taking it one step further, in general terms',
-    'answer their question / curiosity directly and plainly',
-    'open with a short punchy reaction line, then one line that expands it',
-    'pick up a specific word or phrase THEY used and run with it',
-    'connect their point back to something the POST already says',
-    'name the thing they left implicit, the part they did not say out loud',
-    'state the general rule their comment is an instance of',
+  // ⛔⛔ EL MOVIMIENTO Y EL ARRANQUE VAN JUNTOS (Iker, 2026-09-15).
+  //
+  // EL FALLO, con su fecha y su causa: el 19/08, arreglando la fabrica de
+  // anecdotas inventadas, se cambiaron los dos movimientos CONCRETOS
+  // ('...with a concrete example or number', 'drop a tiny relevant anecdote')
+  // por otros ABSTRACTOS ('in general terms', 'state the general rule',
+  // 'name the thing they left implicit'). Sumados a la RULE 3d ("di la magnitud
+  // con palabras") y a la RULE 3e ("una idea general sin escena"), el prompt
+  // entero quedo empujando hacia lo abstracto. Y una abstraccion en español
+  // tiene UNA sola forma natural de empezar: "Lo mas importante...", "Lo que
+  // nadie dice...", "La clave esta en...". O sea, la tabla de delatores de IA
+  // de brand-voice §3 al completo.
+  //
+  // MEDIDO el 2026-09-15 sobre los comentarios que de verdad publicamos:
+  // 15 de 19 (79%) abren con una abstraccion, y "la eficiencia" y "la
+  // diferencia" salen DOS veces cada una en 19, en cuentas distintas. Por eso
+  // pasa en los tres perfiles pese a tener tonos distintos: la apertura es lo
+  // unico del prompt que NO va por voz.
+  //
+  // EL ARREGLO: cada movimiento lleva pegado su ARRANQUE, asi que el sorteo ya
+  // no decide solo DE QUE se habla sino CON QUE PALABRA se empieza. Sin esto,
+  // 7 de los 8 movimientos no tenian nada que decidiera las primeras palabras
+  // (el sorteo de asentimiento solo entra "IF your reply agrees"), y lo que no
+  // se decide lo decide el modelo, que siempre elige igual.
+  const OPENING_MOVES: Array<{ move: string; arranque: string }> = [
+    {
+      move: 'agree, then add a specific angle they did NOT mention',
+      arranque: 'la palabra de asentimiento sorteada, tal cual',
+    },
+    {
+      move: 'build on their point by taking it one step further, in general terms',
+      arranque: 'un VERBO conjugado (no un sustantivo abstracto)',
+    },
+    {
+      move: 'answer their question / curiosity directly and plainly',
+      arranque: 'la respuesta seca a lo que pregunta, sin preambulo',
+    },
+    {
+      move: 'open with a short punchy reaction line, then one line that expands it',
+      arranque: 'una reaccion de 2 o 3 palabras',
+    },
+    {
+      move: 'pick up a specific word or phrase THEY used and run with it',
+      arranque: 'esa misma palabra suya, literal',
+    },
+    {
+      move: 'connect their point back to something the POST already says',
+      arranque: 'una persona o un objeto del post (el comercial, el cliente, la lista, el telefono)',
+    },
+    {
+      move: 'name the thing they left implicit, the part they did not say out loud',
+      arranque: 'el SUSTANTIVO CONCRETO de eso que no dijo, nunca "lo que nadie..."',
+    },
+    {
+      move: 'state the general rule their comment is an instance of',
+      arranque: 'un adverbio de frecuencia (casi siempre, rara vez, al final, normalmente)',
+    },
+    {
+      move: 'point at the cost of NOT doing what they describe',
+      arranque: 'una negacion (no, nadie, ninguno, ni)',
+    },
+    {
+      move: 'turn their point into a short question you ask back',
+      arranque: 'la pregunta directamente',
+    },
   ];
-  const move = OPENING_MOVES[Math.floor(Math.random() * OPENING_MOVES.length)];
+  const elegido = OPENING_MOVES[Math.floor(Math.random() * OPENING_MOVES.length)];
+  const move = elegido.move;
 
   // La palabra de asentimiento tambien se SORTEA (Iker, 2026-08-06). El sorteo de
   // OPENING_MOVES ya estaba y aun asi el usuario seguia viendo "exacto" en todos
@@ -215,7 +280,19 @@ function buildPrompt(input: ReplyGenerationInput, voice: Voice): string {
   const banco = voice === 'sobrio' ? ASENTIMIENTOS : ASENTIMIENTOS.concat(ASENT_ESTIRADOS);
   const asent = banco[Math.floor(Math.random() * banco.length)];
 
-  const varietyNudge = `OPENING MOVE for THIS reply (RULE 10), decided for you: ${move}. Use THAT one. Only if the comment makes it genuinely impossible, pick a DIFFERENT move from RULE 10 — never fall back to whatever you'd have written anyway. IF your reply agrees with the commenter, the agreement word for THIS reply is "${asent}" — use that one and no other. Do NOT default to "exacto": it was showing up on every profile, which is exactly what reads as canned. ⛔ BURNT, do not open with these: "y lo más curioso", "lo más curioso es que", "lo curioso es que". The same goes for any opener you feel pulled to write on autopilot: that pull IS the tell.`;
+  // Las aperturas que ya se han usado en ESTE post, para que el sorteo no las
+  // repita dentro de la misma tanda (ver `APERTURAS_POR_POST` mas abajo).
+  const yaUsadas = input.postId ? (APERTURAS_POR_POST.get(input.postId) || []) : [];
+  const evitaLista = yaUsadas.length
+    ? ` ⛔ EN ESTE MISMO POST ya has abierto respuestas asi: ${yaUsadas
+        .map((a) => `"${a}"`)
+        .join(', ')}. NINGUNA de las tuyas puede empezar parecido: cambia las primeras palabras de verdad, no el orden.`
+    : '';
+
+  const varietyNudge = `OPENING MOVE for THIS reply (RULE 10), decided for you: ${move}. Use THAT one. Only if the comment makes it genuinely impossible, pick a DIFFERENT move from the list — never fall back to whatever you'd have written anyway.
+ARRANQUE OBLIGATORIO de esta respuesta: justo despues del nombre, empieza por ${elegido.arranque}. Esto no es una sugerencia y no se negocia con el contenido: si no te encaja, cambia el contenido, no el arranque.
+IF your reply agrees with the commenter, the agreement word for THIS reply is "${asent}" — use that one and no other, literal, sin convertirla en adverbio ("exactamente" esta PROHIBIDA).
+⛔ Y recuerda la RULE 10b: no se abre con una abstraccion ni con un sustantivo abstracto mas verbo copulativo. Se abre por lo concreto.${evitaLista}`;
 
   // PUNTOS SUSPENSIVOS AL CIERRE (usuario 2026-07-17). Ahora que el 1er jefe (Unai,
   // sobrio) y el 3º (Asier, medio) bajaron el volumen, les falta el gesto que en el
@@ -341,7 +418,7 @@ So this reply has TWO jobs and needs both:
 
 Order matters: engage FIRST, confirm LAST. Never open with "enviado" — that turns a real comment into a receipt, which is exactly what we're trying to avoid. Keep the whole thing to ONE sentence even with both jobs: engage and confirm in the same breath.\n`;
 
-  return `You are ${input.authorName}. Reply to a comment on your own post.
+  const prompt = `You are ${input.authorName}. Reply to a comment on your own post.
 
 ${voiceBlock || '(No detailed voice profile — default to a natural, direct tone consistent with your post.)'}
 
@@ -363,6 +440,7 @@ ${emojiNudge}
 ${thanksNudge}
 
 Write the reply now. Plain text, ONE single sentence, in the same language as the post/comment.`;
+  return { prompt, arranque: elegido.arranque };
 }
 
 // EL GUARDARRAIL, PORQUE UN PROMPT ES UNA PETICION Y NO UNA GARANTIA
@@ -375,6 +453,86 @@ Write the reply now. Plain text, ONE single sentence, in the same language as th
 // Es la misma leccion que este fichero ya tiene escrita para OPENING_MOVES:
 // pedirle algo al modelo "si te encaja" no produce el comportamiento. Aqui se
 // comprueba la salida y, si inventa, se vuelve a pedir con el fallo delante.
+
+// ⛔⛔ APERTURA GENERICA: EL GUARDARRAIL, PORQUE UN PROMPT ES UNA PETICION
+// (Iker, 2026-09-15)
+//
+// Este fichero ya tiene la leccion escrita tres veces —OPENING_MOVES, los dos
+// puntos, las anecdotas—: lo que solo esta en el prompt no se cumple. La RULE
+// 10b PIDE que no se abra con una abstraccion; esto lo COMPRUEBA.
+//
+// GEMELO de `AI_TELLS` en `scripts/validar-post.py` y de la tabla de
+// `brand-voice §3`. El validador de posts tumba estas mismas formulas desde
+// hace meses y el generador de respuestas no las miraba: por eso el mismo
+// delator que jamas pasa en un post salia cada dia en las respuestas.
+// ⚠️ Si se toca una de las dos listas, se toca la otra.
+const APERTURAS_IA: { re: RegExp; que: string }[] = [
+  { re: /^lo mas (importante|curioso|interesante|dificil|duro|clave|crucial|jodido|grave|potente)/, que: 'lo mas ...' },
+  { re: /^lo (fundamental|esencial|clave|crucial|cierto|curioso|interesante|bueno|malo|real|dificil|duro|jodido)\b/, que: 'lo fundamental / lo curioso / lo cierto...' },
+  { re: /^lo que (nadie|casi nadie|poca gente|pocos|muy pocos|la gente no)/, que: 'lo que nadie dice/sabe' },
+  { re: /^la clave (es|esta|de)/, que: 'la clave es / la clave esta en' },
+  { re: /^el (secreto|truco|quid)\b/, que: 'el secreto / el truco' },
+  // ⚠️ El adjetivo en medio es lo que se me escapo en la 1a version, y es
+  // justo el caso mas frecuente de los medidos: "La eficiencia COMERCIAL no
+  // esta en..." salio dos veces en 19 comentarios. Por eso van hasta dos
+  // palabras entre el sustantivo y el verbo.
+  { re: /^l[ao]s? (verdad|realidad|clave|gracia|diferencia|eficiencia|importancia|ventaja|dificultad|cuestion|magia|trampa|tecla|paradoja|ironia|leccion)\b(\s+\w+){0,2}\s+(no\s+)?(es|son|esta|estan|va|van)\b/, que: 'sustantivo abstracto + verbo copulativo' },
+  { re: /^al final del dia/, que: 'al final del dia' },
+  { re: /^exactamente\b/, que: 'exactamente (la palabra de asentimiento va literal, sin adverbio)' },
+  { re: /^efectivamente\b/, que: 'efectivamente' },
+];
+
+/**
+ * Devuelve la apertura prohibida si la respuesta abre con una de las formulas
+ * de IA. Mira SOLO el arranque: estas mismas palabras a mitad de frase no
+ * molestan a nadie, y prohibirlas en todo el texto tumbaria respuestas buenas.
+ *
+ * El nombre de quien comenta va SIEMPRE delante (RULE 5) y no cuenta, asi que
+ * se quita antes de mirar.
+ */
+export function detectarAperturaGenerica(
+  respuesta: string,
+  commenterName?: string | null
+): string | null {
+  let cuerpo = respuesta.trim();
+  if (commenterName && cuerpo.toLowerCase().startsWith(commenterName.trim().toLowerCase())) {
+    cuerpo = cuerpo.slice(commenterName.trim().length).trim();
+  }
+  const arranque = llano(cuerpo).replace(/^[^a-z0-9¿¡]+/, '');
+  for (const { re, que } of APERTURAS_IA) {
+    if (re.test(arranque)) return que;
+  }
+  return null;
+}
+
+/**
+ * Las aperturas ya usadas en cada post, para no repetirlas dentro de la misma
+ * tanda de respuestas — que es cuando se ven, porque Iker contesta 15 o 20
+ * comentarios seguidos del mismo post.
+ *
+ * ⚠️ VIVE EN MEMORIA DEL PROCESO Y ES A PROPOSITO. No hace falta una tabla:
+ * una tanda es una sentada, y si el servidor se reinicia lo unico que se
+ * pierde es la memoria de esa tanda, no un dato. Lo que NO se puede hacer es
+ * dejarlo sin nada: hoy cada llamada es independiente y no sabe con que abrio
+ * la anterior, que es exactamente la causa que este fichero lleva documentada
+ * desde el 17/07 para los agradecimientos y para el propio OPENING_MOVES.
+ */
+const APERTURAS_POR_POST = new Map<string, string[]>();
+const APERTURAS_RECORDADAS = 8;
+
+function apertura(respuesta: string, commenterName?: string | null): string {
+  let cuerpo = respuesta.trim();
+  if (commenterName && cuerpo.toLowerCase().startsWith(commenterName.trim().toLowerCase())) {
+    cuerpo = cuerpo.slice(commenterName.trim().length).trim();
+  }
+  return cuerpo.split(/\s+/).slice(0, 4).join(' ');
+}
+
+export function recordarApertura(postId: string | null | undefined, ap: string): void {
+  if (!postId || !ap) return;
+  const previas = APERTURAS_POR_POST.get(postId) || [];
+  APERTURAS_POR_POST.set(postId, [...previas, ap].slice(-APERTURAS_RECORDADAS));
+}
 
 export interface Invento {
   tipo: 'anecdota' | 'cifra';
@@ -546,7 +704,7 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
     throw new Error('ANTHROPIC_API_KEY not set');
   }
   const voice = voiceForAuthor(input.authorName);
-  const prompt = buildPrompt(input, voice);
+  const { prompt, arranque: elegidoArranque } = buildPrompt(input, voice);
 
   // Se genera y se COMPRUEBA. Si se ha inventado algo, se vuelve a pedir con el
   // fallo delante, hasta 2 veces mas. Un reproche concreto ("te has inventado
@@ -556,13 +714,28 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
   // texto. Es deliberado: la respuesta la publica el usuario con su nombre
   // delante, y un error que le obliga a escribirla a mano cuesta un minuto,
   // mientras que un cliente inventado en un hilo publico no se puede recoger.
+  //
+  // ⛔ Y DESDE EL 2026-09-15 SE COMPRUEBA TAMBIEN LA APERTURA, pero con OTRA
+  // severidad, y la diferencia es deliberada:
+  //   · una escena inventada es MENTIRA -> si no se arregla en 3 intentos, esto
+  //     FALLA y no devuelve nada.
+  //   · una apertura generica es FEA -> se reintenta, y si a la tercera sigue
+  //     igual se devuelve con un warn. Bloquear al usuario por estilo, mientras
+  //     esta contestando 20 comentarios seguidos, cuesta mas que un arranque
+  //     tibio que puede editar en dos segundos.
   let text = '';
   let ultimosInventos: Invento[] = [];
+  let ultimaAperturaMala: string | null = null;
+  let candidatoTibio = '';
 
   for (let intento = 1; intento <= 3; intento++) {
     const correccion =
       intento === 1
         ? ''
+        : ultimosInventos.length === 0 && ultimaAperturaMala
+        ? `
+
+EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}", que es una de las formulas de IA que la casa tiene prohibidas. Reescribe la respuesta ENTERA cambiando LAS PRIMERAS PALABRAS: empieza por ${elegidoArranque}, y que en la primera frase se vea a alguien haciendo algo. No basta con mover la abstraccion mas adelante, el arranque tiene que ser otro.`
         : `\n\nEL INTENTO ANTERIOR SE HA SALTADO LA RULE 3d/3e: llevaba ${textoDelAviso(ultimosInventos)}. Eso no ha pasado y no consta en ningun sitio, asi que no se puede escribir. Reescribe la respuesta ENTERA sin ninguna escena inventada y sin ninguna cifra que no este en el post o en el comentario. Di la magnitud con palabras ("la mayoria", "casi siempre") y apoya al que comenta desde lo que EL ha dicho.`;
 
     const message = await trackedCreate('reply_generator', {
@@ -586,13 +759,32 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
     if (ultimosInventos.length === 0) {
       ultimosInventos = await juezDeInventos(candidato, fuentes);
     }
-    if (ultimosInventos.length === 0) {
-      text = candidato;
-      break;
+    if (ultimosInventos.length > 0) {
+      console.warn(
+        `[replyGenerator] intento ${intento}/3 descartado, se ha inventado ${textoDelAviso(ultimosInventos)}`
+      );
+      continue;
     }
+
+    // Lo que no miente pero abre como un folleto: se reintenta, y si a la
+    // tercera sigue igual se publica igualmente (ver la nota de severidad).
+    ultimaAperturaMala = detectarAperturaGenerica(candidato, input.commenterName);
+    if (ultimaAperturaMala && intento < 3) {
+      candidatoTibio = candidato;
+      console.warn(
+        `[replyGenerator] intento ${intento}/3 descartado, abria con "${ultimaAperturaMala}" (RULE 10b)`
+      );
+      continue;
+    }
+    text = candidato;
+    break;
+  }
+  if (!text && candidatoTibio) {
     console.warn(
-      `[replyGenerator] intento ${intento}/3 descartado, se ha inventado ${textoDelAviso(ultimosInventos)}`
+      `[replyGenerator] los 3 intentos abrieron con una formula de IA ("${ultimaAperturaMala}"); se devuelve igual para no bloquear`
     );
+    text = candidatoTibio;
+    ultimosInventos = [];
   }
 
   if (!text) {
@@ -644,5 +836,9 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
       text = (n + rest).trim();
     }
   }
-  return text.trim();
+  const limpio = text.trim();
+  // La apertura entra en la memoria de la tanda SOLO cuando la respuesta se
+  // devuelve de verdad: si se ha descartado por inventar, nunca existio.
+  recordarApertura(input.postId, apertura(limpio, input.commenterName));
+  return limpio;
 }

@@ -1,0 +1,97 @@
+/**
+ * Prueba de las tres capas que arreglan la MONOTONIA DE LA APERTURA en las
+ * respuestas a comentarios (Iker, 2026-09-15).
+ *
+ * Es el gemelo de `scripts/test-validador.py`: no llama al modelo, comprueba
+ * lo DETERMINISTA — que el detector caza lo que tiene que cazar, que no caza lo
+ * que no, que el arranque se sortea SIEMPRE y que la memoria de tanda excluye
+ * lo ya usado. Lo que no puede probar es la salida del modelo; eso se ve en la
+ * herramienta.
+ *
+ *   npx tsx src/scripts/testAperturas.ts
+ */
+import { detectarAperturaGenerica, buildPrompt, recordarApertura } from '../services/replyGenerator';
+
+let fallos = 0;
+const ok = (cond: boolean, label: string, extra = '') => {
+  console.log(`  ${cond ? 'ok  ' : 'FALLA'}  ${label}${extra ? ` — ${extra}` : ''}`);
+  if (!cond) fallos++;
+};
+
+// 1. LO QUE TIENE QUE CAZAR. Las 8 primeras son las que Iker nombro el 15/09;
+//    las demas son aperturas REALES de comentarios nuestros ya publicados,
+//    sacadas de Unipile ese mismo dia (15 de 19 abrian con una abstraccion).
+console.log('\n1 · aperturas que DEBEN saltar');
+const MALAS = [
+  'Lo más importante aquí es el criterio.',
+  'Lo más crucial no es la herramienta.',
+  'Lo más clave llega después.',
+  'Lo que nadie dice es que cuesta meses.',
+  'Lo que nadie sabe es lo que cuesta.',
+  'La clave está en a quién llamas.',
+  'El secreto no es llamar más.',
+  'Exactamente eso, y encima cuesta meses.',
+  'La eficiencia comercial no está en ampliar el mercado.',
+  'La diferencia es que uno vende y el otro no.',
+  'Lo curioso es que a casi nadie le pasa.',
+  'La verdad es que cuesta más de lo que parece.',
+  'Al final del día lo que cuenta es el pedido.',
+];
+for (const m of MALAS) ok(detectarAperturaGenerica(m) !== null, m.slice(0, 44));
+
+// 2. LO QUE NO PUEDE SALTAR. Falsos positivos = respuestas buenas tumbadas, que
+//    es peor que el problema: el detector solo mira el ARRANQUE, asi que estas
+//    mismas palabras a mitad de frase tienen que pasar.
+console.log('\n2 · aperturas buenas que NO pueden saltar');
+const BUENAS = [
+  'justo, y encima lo pagas dos veces.',
+  'eso es, a mí me costó tres semanas.',
+  'tal cual, el teléfono no lo coge nadie.',
+  'Casi siempre acaba igual, con la lista sin tocar.',
+  'Nadie descuelga a la primera.',
+  '¿Y cuánto tardas en dar con el que firma?',
+  'El comercial que más cierra es el que menos llama, lo más curioso es eso.',
+  'Tacharlos es lo que de verdad cuesta.',
+];
+for (const b of BUENAS) ok(detectarAperturaGenerica(b) === null, b.slice(0, 44), detectarAperturaGenerica(b) || '');
+
+// 3. EL NOMBRE DE QUIEN COMENTA NO CUENTA. Toda respuesta abre con el nombre
+//    (RULE 5), asi que sin quitarlo el detector no veria nunca la apertura.
+console.log('\n3 · el nombre del comentarista se ignora');
+ok(detectarAperturaGenerica('Ana Pérez lo más importante es el criterio.', 'Ana Pérez') !== null, 'con nombre delante, salta igual');
+ok(detectarAperturaGenerica('Ana Pérez justo, eso mismo.', 'Ana Pérez') === null, 'con nombre delante, la buena no salta');
+
+// 4. EL ARRANQUE SE SORTEA SIEMPRE. Antes solo se decidia la palabra cuando la
+//    respuesta asentia (1 de 8 movimientos): el resto lo elegia el modelo, y un
+//    modelo elige siempre igual.
+console.log('\n4 · el arranque va en el 100% de los prompts, y rota');
+const base = {
+  postContent: 'post', commentText: 'comentario', commenterName: 'Ana Pérez',
+  commenterHeadline: null, authorName: 'Iker',
+  authorVoice: { voice_style: null, worldview: null, signature_moves: null, avoid: null },
+};
+const arranques = new Set<string>();
+let conArranque = 0;
+for (let i = 0; i < 400; i++) {
+  const { prompt, arranque } = buildPrompt(base as any, 'cercano');
+  if (prompt.includes('ARRANQUE OBLIGATORIO')) conArranque++;
+  arranques.add(arranque);
+}
+ok(conArranque === 400, 'los 400 prompts llevan arranque obligatorio', `${conArranque}/400`);
+ok(arranques.size >= 8, 'el sorteo reparte entre 8 arranques o mas', `${arranques.size} distintos`);
+
+// 5. MEMORIA DE TANDA. Es lo que evita que 20 respuestas del mismo post abran
+//    parecido: cada llamada es independiente y no sabe que dijo la anterior.
+console.log('\n5 · memoria de tanda por post');
+const post = 'post-de-prueba';
+const sinMemoria = buildPrompt({ ...base, postId: post } as any, 'cercano').prompt;
+ok(!sinMemoria.includes('EN ESTE MISMO POST'), 'sin aperturas previas no se mete la lista');
+recordarApertura(post, 'Casi siempre acaba igual');
+const conMemoria = buildPrompt({ ...base, postId: post } as any, 'cercano').prompt;
+ok(conMemoria.includes('EN ESTE MISMO POST'), 'con una apertura previa, se prohibe');
+ok(conMemoria.includes('Casi siempre acaba igual'), 'y se le dice cual fue');
+const otroPost = buildPrompt({ ...base, postId: 'otro' } as any, 'cercano').prompt;
+ok(!otroPost.includes('EN ESTE MISMO POST'), 'la memoria es POR post, no global');
+
+console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
+process.exit(fallos === 0 ? 0 : 1);

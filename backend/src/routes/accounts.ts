@@ -2878,6 +2878,12 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
     const reply = await generateReply({
       postContent: post.content_text || '',
       commentText: String(comment_text),
+      // Para que dos respuestas del MISMO post no abran igual. El generador
+      // guarda en memoria las ultimas aperturas por post y se las prohibe a la
+      // siguiente (`replyGenerator`, APERTURAS_POR_POST): sin esto cada llamada
+      // es independiente y no sabe con que abrio la anterior, que es la causa
+      // que este fichero lleva documentada desde el 17/07.
+      postId,
       commenterName: commenter_name || null,
       commenterHeadline: commenter_headline || null,
       // The reply is authored by the real post owner (Iker / Unai / Asier),

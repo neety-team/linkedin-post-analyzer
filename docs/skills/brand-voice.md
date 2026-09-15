@@ -388,6 +388,39 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 - **Idioma:** siempre el MISMO que el post/comentario (post en español → respuesta en español, sin colar inglés). Iguala el registro (tú/usted, formal/informal).
 - Sin markdown, sin meta ("el algoritmo", "en LinkedIn"), sin auto-promo.
 
+#### ⛔⛔ 7.1b · LA APERTURA NO SE ELIGE, SE SORTEA. Y NUNCA ES UNA ABSTRACCIÓN (Iker, 2026-09-15)
+
+> **Iker, contestando comentarios en directo:** *"muchas respuestas empiezan con frases del estilo tal cual, lo que nadie sabe, lo más importante, lo más crucial, lo más clave… veo demasiada repetición en el inicio. A veces inclúyeme la palabra justo, porque es que si no siempre dices exacto o exactamente. Pasa en ambas cuentas de jefes pese a que cada uno tiene un tono"*.
+
+**⭐ ESA ÚLTIMA FRASE ES EL DIAGNÓSTICO ENTERO: si pasa igual en dos voces distintas, la causa está por encima de la voz.** Y así era: de todo el prompt de respuestas, **la apertura era lo único que no iba por cuenta**.
+
+**LO MEDIDO (15/09, sobre los comentarios que de verdad publicamos, sacados de Unipile):**
+
+| cómo abren nuestras respuestas publicadas | n |
+|---|---|
+| **sintagma nominal abstracto** (*"La eficiencia comercial…"*, *"El contacto directo es…"*) | **11 de 19 · 57%** |
+| **infinitivo abstracto** (*"Eliminar falsos positivos…"*, *"Saber la empresa…"*) | 4 de 19 · 21% |
+| otra cosa | 4 de 19 · 21% |
+
+**79% abre con una abstracción**, y `la eficiencia` y `la diferencia` salen **dos veces cada una en 19**, en cuentas distintas.
+
+**LAS TRES CAUSAS, y se suman:**
+1. **El arreglo del 19/08 dejó el prompt escorado a lo abstracto.** Ese día, para matar las anécdotas inventadas, se cambiaron los dos movimientos de apertura CONCRETOS por otros abstractos (*"in general terms"*, *"state the general rule"*, *"name the thing they left implicit"*). Sumados a la regla de decir la magnitud con palabras y a la de "una idea general sin escena", el prompt entero empuja a lo abstracto — **y una abstracción en español solo tiene una forma natural de empezar: "Lo más importante…", "Lo que nadie dice…", "La clave está en…"**. O sea, la tabla de `§3` al completo.
+2. **La tabla anti-IA de `§3` nunca estuvo en el prompt de respuestas.** `validar-post.py` tumba `lo más importante`, `lo fundamental`, `la clave está en` y `el secreto es` en los POSTS desde hace meses; en las respuestas no las miraba nadie. El mismo delator que jamás pasa en un post salía a diario en los comentarios.
+3. **Nada decidía las primeras PALABRAS salvo cuando la respuesta asentía.** El sorteo de asentimiento (`exacto`, `justo`, `tal cual`…) está condicionado a *"IF your reply agrees"*, así que en **7 de los 8 movimientos** el arranque lo elegía el modelo. Y lo que no se decide, el modelo lo decide siempre igual.
+
+**LAS TRES CAPAS DEL ARREGLO, que son las que este generador ya usa para todo lo que se arregló de verdad:**
+
+| capa | qué hace |
+|---|---|
+| **1 · el prompt** | `RULE 10b` prohíbe las aperturas de la tabla de `§3` **y la forma** (sustantivo abstracto + verbo copulativo). Y `RULE 10` deja de ser un MENÚ de openers: listarlos era priming, que es justo lo que este fichero lleva documentado desde el 17/07 |
+| **2 · el código** | cada movimiento lleva pegado su **ARRANQUE**, y se sortea SIEMPRE (antes: 1 de 8). Además hay **memoria de tanda por post**: las últimas 8 aperturas usadas en ese post se le prohíben a la siguiente |
+| **3 · el guardarraíl** | `detectarAperturaGenerica()` mira la salida y, si abre con una fórmula de IA, **la vuelve a pedir con el fallo delante**. Es el patrón que ya funcionó con las anécdotas, los dos puntos y las letras triples |
+
+**⚠️ Y la severidad es distinta a la de los inventos, a propósito:** una escena inventada es **mentira** y si no se arregla en 3 intentos el generador **falla y no devuelve nada**; una apertura genérica es **fea**, así que se reintenta y a la tercera se devuelve igual con un aviso en el log. Bloquear a quien está contestando 20 comentarios seguidos por un arranque tibio cuesta más que el arranque tibio.
+
+**Lo que el detector NO cubre, dicho en voz alta:** caza la familia nombrada (`lo más…`, `lo que nadie…`, `la clave…`, `el secreto…`, `exactamente`, y el sustantivo abstracto de la lista + verbo copulativo). **La forma en general la sostiene el prompt, no el script.** Aquí no hay juez-LLM como en los inventos porque una llamada extra por respuesta no se paga para un problema de estilo. Se prueba con `npx tsx src/scripts/testAperturas.ts`, gemelo de `scripts/test-validador.py`.
+
 ### 7.2 · Comentar posts de OTROS (los 9 ángulos)
 Para comentar en posts ajenos (feature Network), la herramienta genera 9 ángulos distintos: reforzar · rebatir el dato · rebatir la premisa · sesgo de superviviente · reencuadrar · añadir lo que falta · robar una frase · cálido/de apoyo · mejor pregunta. Reglas:
 - **≤280 caracteres**, 3–4 líneas máx. Tight beats verbose.

@@ -217,6 +217,8 @@ SPAM_QUEMADO = {
     # del gancho: el molde "un X no te lleva/mete a la sala".
     'no te mete en la sala': '2026-09-09 historia de Asier 09/09',
     'no te lleva a la sala de los que deciden': '2026-09-11 historia de Unai 11/09',
+    'en esta sala sí está y tan solo hay 80 invitados': '2026-09-15 historia de Iker 15/09',
+    'no aparece en cualquier sala': '2026-09-15 historia de Iker 15/09, la linea 1',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -294,6 +296,8 @@ ARRANQUE_QUEMADO = {
         'llevaba': '2026-09-11 historia de Unai 11/09 ("Llevaba 300 empresas / Llevaba 11 anos")',
         'dejo': '2026-09-11 historia de Unai 11/09 ("Dejo el ordenador / Dejo la cartera / Dejo cada ficha")',
         'estaba': '2026-09-11 historia de Unai 11/09 ("Estaba el nombre / Estaba el telefono")',
+        'gaste': '2026-09-15 historia de Iker 15/09 ("Gaste 3 semanas / Gaste 7 llamadas")',
+        'volvi': '2026-09-15 historia de Iker 15/09 ("Volvi al coche / Volvi a la lista / Volvi a mirarla")',
     },
     'mapa': {
         'no': 'mapa de Navarra ("No paga las nominas San Fermin", swipe-file)',

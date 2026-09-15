@@ -3085,6 +3085,18 @@ Cada día de publicación, las 3 cuentas cubren las **3 categorías DISTINTAS** 
 - **Lead magnet: NO hay espaciado.** ⚠️ Aquí ponía "≥2 semanas por cuenta; nunca dos seguidos" y **es falso** (se corrigió en `global §4.4` y `§4.5` el 2026-07-14 pero esta línea se quedó sin tocar). **La fatiga de lead magnet no existe:** Iker publicó uno el **27-may (0.59x)** y otro el **28-may (8.52x, el 2º mejor post del histórico)**, días consecutivos y en la misma cuenta. La única diferencia fue el CTA ("Comenta" explícito), no el calendario. **Si un lead magnet flopea, mira el ángulo y el CTA, nunca la fecha.** Lo único que se mantiene: no solapar dos cuentas el MISMO día, que ya lo impide el cuadro latino.
 - **Mecanismo:** el planificador LEE el archivo **`historial-publicaciones.md`** (registro vivo) al empezar, respeta el espaciado a partir de él, y **añade la semana nueva** cuando la apruebas. Hay que **commitear** ese archivo cada vez que cambie para que el historial no se pierda. Si el historial está vacío o desactualizado, el workflow **te pregunta** qué hizo cada cuenta las últimas 2 semanas antes de asignar.
 
+> #### ⛔⛔ EL ESPACIADO SE MIDE CONTRA LA BD, NO CONTRA EL PLAN (2026-09-15)
+>
+> **El fallo, y lo repetí en tres entregas seguidas del mismo post:** avisé de que el peloteo de Unai salía *"a 7 días del despiece de Cataluña del 09/09"*, y **ese despiece nunca se publicó**. Estaba en el cuadro del plan de septiembre de `historial-publicaciones`, con su día y su cuenta, y lo leí como un hecho. Lo mismo con el "Los 10" de Navarra del 11/09. **Su último peloteo real es del 31/07: 47 días, no 7.**
+>
+> **El plan dice lo que se iba a publicar; solo la BD dice lo que se publicó.** Un post puede caerse, moverse o quedarse escrito sin subir, y eso pasa de verdad: de las dos semanas programadas de septiembre, **de 12 posts planificados salieron 7**.
+>
+> **LA REGLA: el gap de espaciado se saca de `GET /api/creators/{id}/posts`, filtrando por pilar y mirando la fecha real del último publicado.** El historial se usa para el PORQUÉ (qué región, qué concepto, qué se aprendió), nunca para el CUÁNDO.
+>
+> **⚠️ Y el coste de equivocarse aquí no es cosmético:** un aviso de riesgo inventado se lee luego como hecho y frena una publicación que estaba bien. Es la misma familia que `working-preferences §0g`: lo que tiene número se mide, y este lo tenía.
+>
+> **⭐ Y de paso, el dato que salió al medirlo de verdad, que corrige otra creencia:** el gap por cuenta, **solo, no explica el rendimiento**. Peloteos a ≤9 días del anterior: n=10, mediana **13.496** impresiones. A ≥14 días: n=8, mediana **17.158**. Dentro de cada grupo la varianza se come la diferencia (a 5 días hay un 79.224 y un 8.781; a 22 días, un 6.572). **Lo que sí está medido es el tope COLECTIVO de `§8.2`** — 4 peloteos en 10 días entre las tres cuentas hundieron el pilar en julio —, que es densidad entre cuentas, no el hueco de una sola.
+
 ### 8.4 · LA PREGUNTA PREVIA (obligatoria, antes de planificar nada)
 El workflow SIEMPRE arranca preguntando:
 > *"¿Planificamos la semana con los 3 pilares de siempre (peloteo / lead magnet / meme) o quieres meter o probar un formato nuevo esta semana (vídeo, evento, otro)?"*

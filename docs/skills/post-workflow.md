@@ -581,7 +581,24 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 **🔴 Paso 6b-quater — LAS FOTOS DE UNIPILE SON 100x100 Y NO HAY FORMA DE MEJORARLAS POR API (Iker, 2026-07-29).** Comprobado a fondo: el campo `profile_picture_url_large` **devuelve igualmente 100x100**, el endpoint de perfil completo `GET /users/{id}` tambien, y reescribir el tamano en la URL (`shrink_100_100` → `shrink_400_400`) da **403 deny-InvalidToken**, porque el token va firmado para ese tamano exacto.
 - **Consecuencia:** el script las amplia x2,24 hasta el hueco de la plantilla y avisa `AMPLIADA, pierde nitidez`. Es inevitable por API.
 - **La unica via para una foto nitida es MANUAL:** abrir el perfil en LinkedIn, descargar la foto grande y meterla en la carpeta con su numero. Asi se hizo con Alvaro Ales (400x400 frente a 100x100, ocho veces mas definicion).
-- **Cuando una cara salga especialmente mal, pidele a Iker esa foto concreta** en vez de publicar el borron. No hace falta hacerlo con las 10, solo con las que canten.
+- ~~**Cuando una cara salga especialmente mal, pidele a Iker esa foto concreta**~~ 🔴 **RETIRADO EL 2026-09-15.**
+
+> #### ⛔⛔ 6b-quinquies · NUNCA SE PIDE OTRA FOTO NI UN ENCUADRE MEJOR: SE TRABAJA CON LO QUE BAJA DE LINKEDIN (Iker, 2026-09-15)
+>
+> **Iker, y zanja el punto de arriba:** *"la recomendación que me has dado de la foto de Gustavo no la vuelvas a dar, ya que yo no puedo elegir qué foto tiene la gente en su cuenta de LinkedIn. Así que tenemos que trabajar con lo que descarguemos"*.
+>
+> **El fallo, y es mío:** avisé de que una de las 10 salía en plano de escritorio, con la cara pequeña, y le pedí *"la foto en primer plano"*. **Eso no es un aviso, es un imposible**: la foto de perfil la elige su dueño. Es exactamente la familia de `feedback: aviso sin comprobar es hipótesis` — una precaución que no se puede ejecutar solo gasta un turno suyo.
+>
+> | ⛔ nunca se pide | ✅ lo que sí está en nuestra mano |
+> |---|---|
+> | otra foto de esa persona | bajar `profile_picture_url_large`, que hoy **sí devuelve 800x800** en la mayoría de perfiles |
+> | un primer plano, otro encuadre, otro fondo | el **encuadre automático** del script, que acerca solo las caras que bajan del 60% de la mediana del grupo (`--umbral-cara`) |
+>
+> **Y el criterio de fondo ya estaba escrito dos párrafos más arriba, en el propio Paso 6b:** *"la foto fea se queda fea, y es lo correcto. Es su foto de LinkedIn. Si está borrosa, sale borrosa: eso NO se toca"*. **La receta se contradecía consigo misma y yo apliqué la mitad equivocada.**
+>
+> **⚠️ Y lo de las 100x100 de aquí arriba ya no es cierto siempre:** el 15/09, de las 10 fotos bajadas, **8 vinieron a 800x800** por `profile_picture_url_large`. El campo funciona; lo que a veces falta es que el propio perfil tenga una grande. **Comprobar el tamaño real al bajarlas, no darlo por perdido.**
+>
+> **Lo único que sigue valiendo del punto retirado:** si una foto baja a 100x100 y el script avisa de que la amplía, **se dice en la entrega como dato**, sin pedir nada a cambio.
 
 **🔴 Paso 6b-ter — EL TÍTULO Y LA PALETA DE LA ORLA (Iker, 2026-07-28, tres intentos fallidos).**
 - **El TÍTULO va incrustado en el PSD** (`LOS 10 QUE LEVANTAN / LA INDUSTRIA ASTURIANA`) y el script **solo sustituye los placeholders `Nombre`**. Si no lo cambias, sale la región del post anterior. Se cambia **solo la última palabra**, repintando únicamente la segunda línea.

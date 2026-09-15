@@ -825,7 +825,7 @@ def validar_tarjeta(texto, card=None):
 # validador existe para evitar.
 # EL PROCEDIMIENTO: grep "if pilar" y decidir SI o NO para cada uno, por escrito.
 
-def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fuera=False, remix=False, sin_menciones=False, card=None, solo_correo=False, historico=False):
+def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fuera=False, remix=False, sin_menciones=False, card=None, solo_correo=False, historico=False, publica_manana=False):
     texto = norm(texto)
     if pilar == 'entregable':
         return validar_entregable(texto)
@@ -1811,12 +1811,33 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 _fechas.add((_f[0] + _f[1]).lower())
         _desfasadas = sorted(f for f in _fechas
                              if f not in (_hoy_utm, _hoy_utm0))
-        chk(not _desfasadas, 'La fecha del utm_campaign es la de HOY (§4.4b-UTM)',
-            ('el UTM lleva %s y hoy es %s (%s). Si el post se sube HOY, corrigelo; si '
-             'se sube otro dia, pon la fecha de PUBLICACION y digalo en la entrega. '
-             'La fecha se mira en el reloj, no se arrastra del historial que estabas '
-             'leyendo, que es exactamente como se colo un 26ago un dia 27'
-             % (', '.join(_desfasadas), _hoy_utm, _hoy.isoformat())) if _desfasadas else
+        # ⛔ ENDURECIDO EL 2026-09-15 (Iker): "el UTM ponlo a 15 de septiembre, que lo
+        # voy a subir ahora aunque sea tarde, y NUNCA hagas ese cambio sin preguntarme
+        # antes a menos que yo te hubiese dicho que lo subiamos manana, que no te lo he
+        # dicho". O sea: el DEFAULT es HOY, y adelantar la fecha es una decision SUYA,
+        # no una deduccion mia de que la franja de manana rinde mas (§1h). Por eso una
+        # fecha FUTURA pasa a ser fallo duro salvo que se declare con --publica-manana,
+        # igual que se declaran --solo-correo o --sin-menciones. Una fecha PASADA sigue
+        # siendo aviso: ahi el modo de fallo es el despiste (arrastrar el dia del
+        # historial que estabas leyendo, como el 26ago de un dia 27), no una decision.
+        _fut, _pas = [], []
+        for f in _desfasadas:
+            _mm = re.match(r'(\d{1,2})(%s)' % '|'.join(_MESES_UTM), f)
+            try:
+                _d = datetime.date(_hoy.year, _MESES_UTM.index(_mm.group(2)) + 1, int(_mm.group(1)))
+            except Exception:
+                _pas.append(f); continue
+            (_fut if _d > _hoy else _pas).append(f)
+        if _fut and not publica_manana:
+            chk(False, 'El utm_campaign NO lleva fecha FUTURA sin declararla (§4.4b-UTM)',
+                'el UTM lleva %s y hoy es %s. Adelantar la fecha da por hecho que el post '
+                'sube otro dia, y eso lo decide Iker, no yo: el default es HOY. Si de verdad '
+                'se sube manana porque el lo ha dicho, se declara con --publica-manana; si no, '
+                'se corrige a hoy' % (', '.join(_fut), _hoy_utm))
+        chk(not _pas, 'La fecha del utm_campaign es la de HOY (§4.4b-UTM)',
+            ('el UTM lleva %s y hoy es %s (%s). La fecha se mira en el reloj, no se arrastra '
+             'del historial que estabas leyendo, que es exactamente como se colo un 26ago un '
+             'dia 27' % (', '.join(_pas), _hoy_utm, _hoy.isoformat())) if _pas else
             'hoy es %s' % _hoy_utm,
             aviso=True)
         # ⛔ LA EXCEPCION DE LUMA (comprobado en su documentacion el 2026-08-26):
@@ -3467,6 +3488,13 @@ def main():
                          'mas: ahi el bloque de agendar no tiene dolor al que agarrarse y se '
                          'convierte en la frase de catalogo que global 4.4b prohibe. Es una '
                          'decision, no un olvido, y por eso hay que declararla.')
+    ap.add_argument('--publica-manana', action='store_true', dest='publica_manana',
+                    help='El post se sube MAÑANA y por eso el utm_campaign lleva la fecha de '
+                         'mañana y no la de hoy (Iker, 2026-09-15). Solo se pasa cuando lo ha '
+                         'dicho EL: "nunca hagas ese cambio sin preguntarme antes a menos que '
+                         'yo te hubiese dicho que lo subiamos manana". El default es HOY; '
+                         'adelantar la fecha por mi cuenta, deduciendo que la franja de las '
+                         '10 rinde mas, es decidir por el.')
     ap.add_argument('--sin-menciones', action='store_true', dest='sin_menciones',
                     help='EXPERIMENTO de Iker (2026-08-11), solo para la cuenta de Mario: un '
                          'post suyo SIN mencionar a @Neety ni a los 3 jefes, escrito como si '
@@ -3491,7 +3519,7 @@ def main():
     a = ap.parse_args()
     texto = io.open(a.fichero, encoding='utf-8').read()
     card = io.open(a.tarjeta, encoding='utf-8').read() if a.tarjeta else None
-    res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico)
+    res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico, a.publica_manana)
     # Los avisos se imprimen pero NO cuentan: son sospechas, no infracciones.
     # Mezclarlos vaciaría de significado el marcador, y el marcador es lo único
     # que se pega en la entrega.

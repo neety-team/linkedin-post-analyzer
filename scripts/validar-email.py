@@ -252,6 +252,69 @@ def main():
     else:
         checks.append(ok('Todos los bloques de prosa ≤3 líneas'))
 
+    # --- RITMO DE BLOQUES (§3 + global §3.2, Iker 2026-09-15) ------------
+    # Portado de validar-post.py, donde vive desde el 2026-08-06. AQUI NO ESTABA,
+    # y por eso el correo 4 salio con un `1-2-1-2` de apertura y sin un solo
+    # bloque de TRES: dos iteraciones de Iker para cazar algo que es aritmetica.
+    # Iker, 2026-09-15: "nunca puedes poner un ritmo predecible de bloques ni en
+    # el correo ni en las publicaciones, y nos faltaria un bloque de tres".
+    # El GIF y las postdatas no son bloques de prosa: no entran en el patron.
+    _rb = [b for b in bloques
+           if not b.strip().startswith('[')
+           and not re.match(r'^\s*PP?\.?D\.?[ .:]', b, re.I)
+           and not es_lista_con_marcador(b)]
+    # ⛔ EL TRAMO DE LA VENTA NO ENTRA EN EL PATRON, y no es una excusa: su forma
+    # la IMPONE otra regla (`global §4.4b-EVENTO-CONTEXTO`: linea individual de
+    # contexto + bloque de dos del ninja), asi que contarlo seria medir una regla
+    # contra otra. Sin esta exclusion el check tumba el CORREO 3, que esta
+    # publicado y aprobado: ese es el aviso de §3.2 de que cuando un check tumba
+    # a un ganador, lo que hay que revisar es el check.
+    _lineas_de = lambda bs: [len([l for l in b.splitlines() if l.strip()]) for b in bs]
+    _pat_full = _lineas_de(_rb)          # el texto tal y como lo ve el lector
+    _idx = next((i for i, b in enumerate(_rb) if 'http' in b), None)
+    _pat = _lineas_de([b for i, b in enumerate(_rb) if i not in (_idx, _idx - 1)]
+                      if _idx is not None else _rb)
+    if len(_pat) >= 6:
+        _ritmo = '-'.join(map(str, _pat))
+        if any(n >= 3 for n in _pat):
+            checks.append(ok(f'Ritmo: hay bloque de TRES ({_ritmo})'))
+        else:
+            checks.append(fallo(f'Ritmo {_ritmo}: todo unos y doses, se lee plano. '
+                                f'Hace falta al menos un bloque de TRES'))
+        _c2 = any(_pat[i] == _pat[i+2] and _pat[i+1] == _pat[i+3] and _pat[i] != _pat[i+1]
+                  for i in range(len(_pat)-3))
+        _c4 = any(_pat[i:i+4] == _pat[i+4:i+8] and len(set(_pat[i:i+4])) > 1
+                  for i in range(len(_pat)-7))
+        # ⚠️ AVISO Y NO FALLO DURO, y el motivo es un dato nuestro: el CORREO 3
+        # (publicado el 09/09, aprobado, y el de mejor CTR de la serie) lleva
+        # `1-2-1-3-1-2-1-2-1`, o sea un ciclo de dos. En un correo hay ~10 bloques
+        # y media estructura viene impuesta, asi que la alternancia aparece sola.
+        # En posts si es fallo duro (`validar-post.py`), que ahi sobra sitio.
+        # Lo que hace falta es VERLO antes de entregar, no que el script decida.
+        if _c2 or _c4:
+            checks.append(aviso(f'Ritmo {_ritmo}: se repite un ciclo de '
+                                f'{"dos" if _c2 else "cuatro"} bloques. Rompelo con lineas '
+                                f'sueltas seguidas si puedes. OJO: no bloquea porque el '
+                                f'correo 3 publicado lleva 1-2-1-3-1-2-1-2-1'))
+        else:
+            checks.append(ok('Ritmo: sin patron que se repita'))
+        # El espejo se mide sobre el texto COMPLETO: es un patron que ve el ojo,
+        # y el ojo no excluye el tramo de la venta (al reves, es donde mas canta).
+        _esp = next((i for i in range(len(_pat_full)-4)
+                     if _pat_full[i] == _pat_full[i+1] == 1 and _pat_full[i+2] > 1
+                     and _pat_full[i+3] == _pat_full[i+4] == 1), None)
+        if _esp is not None:
+            checks.append(aviso(f'Ritmo {"-".join(map(str,_pat_full))}: tramo en espejo 1-1-{_pat_full[_esp+2]}-1-1. '
+                                f'Se lee igual del derecho que del reves, y canta mas si el '
+                                f'bloque del medio es el del enlace. Mueve un bloque de sitio'))
+        _su = sum(1 for n in _pat if n == 1) / len(_pat)
+        if _su >= 0.55:
+            checks.append(ok(f'Ritmo: la linea suelta domina ({_su:.0%})'))
+        else:
+            checks.append(aviso(f'Ritmo {_ritmo}: solo {_su:.0%} son lineas sueltas. En correo '
+                                f'la suelta es la base (§3: 92-99% del corpus) y los bloques '
+                                f'son la variedad'))
+
     # --- enlaces: 1 principal como máximo ---
     links = re.findall(r'https?://\S+', cuerpo)
     if len(links) <= 1:

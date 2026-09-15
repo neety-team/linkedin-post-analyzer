@@ -224,6 +224,28 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 
 **Los arranques ya gastados viven en `ARRANQUE_QUEMADO`, por pilar**, y ahí es donde sí toca la distinción de pilar: la **anáfora de negación** (`No paga… / No las pagan…`) es del **mapa** y no se calca en otro sitio.
 
+#### ⏳⏳ 2.0b-VENTANA · LAS LISTAS DE QUEMADAS NO SON UNA LISTA NEGRA: SON MEMORIA A CORTO PLAZO (Iker, 2026-09-15) — CANÓNICO
+
+> **Iker, y corrige cómo estaba montado:** *"si espaciamos entre publicaciones, no hace falta que esas palabras las metas como quemadas, rollo prohibidas, sino que mientras dos o tres publicaciones seguidas en la misma cuenta no repitan esas mismas palabras, luego podremos repetirlas"*.
+
+**POR QUÉ TENÍA QUE CAMBIAR, Y ES CONTABLE, no una impresión:** `ARRANQUE_QUEMADO` gana **~1,6 entradas por publicación** (16 arranques de historia con 10 posts publicados) y la casa publica **~9 a la semana**. A ese ritmo, en tres meses hay más arranques prohibidos que formas naturales de empezar una frase en castellano, y la regla acaba obligando a escribir raro — que es exactamente lo contrario de `brand-voice §3c`. **Una lista que solo crece se come el idioma.**
+
+| lista | ¿caduca? | ventana |
+|---|---|---|
+| **`ARRANQUE_QUEMADO`** | ✅ sí | **21 días** |
+| **`SPAM_QUEMADO`** y **`SPAM_QUEMADO_CORREO`** | ✅ sí | **30 días** |
+| `PAIS_QUEMADO` · `CONCEPTO_QUEMADO` · `FRASE_RABIA_USADA` · `VERBO_PREJUICIO_QUEMADO` | ⛔ **no** | para siempre |
+
+**LA VARIABLE QUE PARTE LOS DOS GRUPOS ES CUÁNTO CRECE LA LISTA, y por eso es medible:** las de **ritmo** (arranque, frase del ninja) se tocan **cada semana** y se saturan; las de **identidad de un post** (el país de la comparación, el concepto de la región, la frase-rabia) crecen **una vez al mes** y no saturan nada — y ahí repetir se lee a refrito aunque pasen seis meses, porque el lector recuerda el mapa entero, no una palabra.
+
+**⚠️ LOS DOS NÚMEROS SON CRITERIO Y VAN DECLARADOS COMO TAL** (`working-preferences §0c`). Lo único **medido** que tenemos sobre espaciado es `post-workflow §4.4-REPETIR`, y es de **referencias**: a 2 días, el remix hizo el **5,8%** del original; a 98 días, funcionó. Una referencia es el elemento **más** visible que existe y un arranque de anáfora el **menos**, así que de ahí sale el orden de magnitud: el **ninja** —la línea que pide el clic y la que más se lee como molde— hereda el mínimo medido de **un mes**; el **arranque** se queda en **tres semanas**, que son ~9 publicaciones de esa cuenta (el triple de las "dos o tres" que pide Iker) y ~27 de la casa.
+
+**⛔ LA VENTANA SE CUENTA EN DÍAS Y VALE PARA LAS 3 CUENTAS, no por cuenta.** Iker pidió "en la misma cuenta", pero eso choca con lo que él mismo decidió el **2026-08-25** con el caso delante: *"aunque sea otra cuenta, me da igual, hay que seguir sorprendiendo"*, porque **los 3 jefes comparten red** y el mismo lector ve los tres perfiles. Se mantiene el criterio del 25/08 y se le pone la caducidad del 15/09 encima. **Si algún día se quiere por cuenta, se cambia la constante y se anota el motivo aquí.**
+
+**⛔ Y UNA ENTRADA SIN FECHA NO CADUCA NUNCA.** El valor de cada entrada empieza por la fecha de **publicación** en ISO (`2026-09-11 historia de Unai…`). Lo que viene de un runbook o del swipe-file y no se puede datar se queda quemado para siempre: **no se inventa la fecha de un post del que no sabemos cuándo salió**, que es la misma regla que cualquier otro dato (`CLAUDE.md`).
+
+**Mecanizado** en `validar-post.py`: `VENTANA_ARRANQUE_DIAS = 21`, `VENTANA_NINJA_DIAS = 30` y la función `vigente()`, que compara contra el reloj del sistema. **Efecto el día que se montó:** `dar con el que decide` (31/07) y `te lo damos hecho` volvieron a estar libres, y los 8 arranques de historia anteriores al 25/08 también.
+
 **LAS TRES REGLAS DE MANTENIMIENTO:**
 1. **Al publicar, la frase usada entra en su lista.** Las listas solo crecen. Esto no es opcional y no espera a que nadie lo pida.
 2. **Si un elemento repetible NO tiene lista, es un hueco**: se crea. Así aparecieron `CONCEPTO_QUEMADO` y `FRASE_RABIA_USADA`, que llevaban meses con un "no repitas" en la receta y **nada detrás con qué comprobarlo**.

@@ -133,34 +133,90 @@ PROMESA_VOLUMEN = (r'(cientos de (leads|contactos|empresas|clientes)'
                    r'|miles de (leads|contactos|correos|mensajes)'
                    r'|m[aá]s (leads|contactos)\b|\bx\s?[2-9]\b|de volumen|a volumen)')
 
+# ⏳⏳ LA VENTANA DE FRESCURA (Iker, 2026-09-15). Estas listas NO son una lista
+# negra: son memoria a corto plazo. Iker: "si espaciamos entre publicaciones no
+# hace falta que esas palabras las metas como quemadas, rollo prohibidas, sino
+# que mientras dos o tres publicaciones seguidas en la misma cuenta no repitan
+# esas mismas palabras, luego podremos repetirlas".
+#
+# POR QUE HACIA FALTA, Y ES CONTABLE: `ARRANQUE_QUEMADO` gana ~1,6 entradas por
+# publicacion (16 entradas en historia con 10 posts) y la casa publica ~9 a la
+# semana. A ese ritmo, en tres meses hay mas arranques prohibidos que formas
+# naturales de empezar una frase en castellano, y la regla acaba obligando a
+# escribir raro — que es justo lo contrario de `brand-voice §3c`. Una lista que
+# solo crece se come el idioma.
+#
+# ⚠️ LOS NUMEROS SON CRITERIO Y VAN DECLARADOS COMO TAL (working-preferences §0c):
+# lo unico MEDIDO que tenemos sobre espaciado es `post-workflow §4.4-REPETIR`, y
+# es de REFERENCIAS (a 2 dias, 5,8% del original; a 98 dias, funciona). Una
+# referencia es el elemento mas visible que existe; un arranque de anafora es el
+# menos. De ahi el orden de magnitud: el ninja, que es la linea que pide el clic
+# y la que mas se lee como molde, hereda el minimo medido de un mes; el arranque
+# se queda en tres semanas, que son ~9 publicaciones de esa cuenta (3 veces las
+# "dos o tres" que pide Iker) y ~27 de la casa.
+#
+# ⛔ LA VENTANA SE CUENTA EN DIAS Y VALE PARA LAS 3 CUENTAS, no por cuenta. No es
+# un capricho: lo decidio Iker el 2026-08-25 con el caso delante ("aunque sea
+# otra cuenta, me da igual, hay que seguir sorprendiendo"), porque los 3 jefes
+# comparten red y el mismo lector ve los tres perfiles. Si algun dia se quiere
+# por cuenta, se cambia aqui y se anota el motivo.
+#
+# ⛔ Y NO TODAS LAS LISTAS CADUCAN. Caducan las de RITMO, que se tocan cada
+# semana. `PAIS_QUEMADO`, `CONCEPTO_QUEMADO`, `FRASE_RABIA_USADA` y
+# `VERBO_PREJUICIO_QUEMADO` NO: esas son la identidad de un post concreto (la
+# comparacion de Navarra, el concepto de Galicia), crecen una vez al mes y
+# repetirlas se lee como refrito aunque pasen seis meses.
+VENTANA_ARRANQUE_DIAS = 21
+VENTANA_NINJA_DIAS = 30
+
+_RE_FECHA_ENTRADA = re.compile(r'^(\d{4})-(\d{2})-(\d{2}) ')
+
+
+def vigente(valor, ventana_dias, hoy=None):
+    """True si esa palabra sigue quemada HOY.
+
+    El valor de la lista empieza por la fecha de PUBLICACION en ISO
+    (`2026-09-11 historia de Unai...`). Sin fecha delante no se puede liberar,
+    asi que se queda quemada para siempre: no inventamos la fecha de un post
+    que no sabemos cuando salio.
+    """
+    import datetime
+    m = _RE_FECHA_ENTRADA.match(valor)
+    if not m:
+        return True
+    pub = datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    hoy = hoy or datetime.date.today()
+    return (hoy - pub).days < ventana_dias
+
+
 SPAM_QUEMADO = {
-    'dar con el que decide': 'meme Unai 29/07, historia Iker 29/07, mapa Asturias 31/07',
-    'son meses a mano': 'lo mismo, en los tres',
-    'te lo damos hecho': 'lo mismo, en los tres',
-    'te lo damos resuelto': 'historia de Iker 18/08 (era la variante de "te lo damos hecho")',
-    'te lo marcamos': 'meme de Iker 19/08 (el de la transcripcion de la llamada)',
-    'acertar con quien no': 'historia de Unai 21/08 (la del evento en el ninja)',
-    'saber quien compra': 'meme de Iker 27/08 (el de la ficha del cliente)',
-    'saber quien compra, no': 'lo mismo, la forma con la coma',
+    'dar con el que decide': '2026-07-31 meme Unai 29/07, historia Iker 29/07, mapa Asturias 31/07',
+    'son meses a mano': '2026-07-31 lo mismo, en los tres',
+    'te lo damos hecho': '2026-07-31 lo mismo, en los tres',
+    'te lo damos resuelto': '2026-08-18 historia de Iker 18/08 (era la variante de "te lo damos hecho")',
+    'te lo marcamos': '2026-08-19 meme de Iker 19/08 (el de la transcripcion de la llamada)',
+    'acertar con quien no': '2026-08-21 historia de Unai 21/08 (la del evento en el ninja)',
+    'saber quien compra': '2026-08-27 meme de Iker 27/08 (el de la ficha del cliente)',
+    'saber quien compra, no': '2026-08-27 lo mismo, la forma con la coma',
     # Con tilde tambien: el check compara por substring y NO pliega acentos,
     # asi que sin esta linea la lista no cazaba el texto real publicado.
     # Mismo patron que 'lo cuento en el correo antes que aqui/aquí'.
-    'saber quién compra': 'meme de Iker 27/08, la forma con tilde',
+    'saber quién compra': '2026-08-27 meme de Iker 27/08, la forma con tilde',
     # EVENTO · los 6 ninjas de Luma publicados entre el 01 y el 11/09, leidos del
     # texto real de la BD el 2026-09-15. Se anotan las LINEAS 2, que son las que
     # se repiten de un post a otro; las lineas 1 cuelgan del gancho de cada uno y
     # no se reutilizan. Con estas seis dentro, el unico sustantivo del aforo que
     # queda libre ya no es sillas, sitios, huecos, nombres, plazas ni personas.
-    'esa agenda se llena en solo 80 sillas': 'meme de Iker 01/09',
-    'en esa mesa sí lo hacemos y solo hay 80 sitios': 'historia de Unai 02/09',
-    'a esa sala solo entran 80 personas': 'meme de Asier 03/09',
-    'en esa sala sí te esperan y solo hay 80 huecos': 'historia de Iker 08/09',
-    'en esa sala sí entras y solo hay 80 sillas': 'historia de Asier 09/09',
-    'en esa sala sí están y son solo 80 nombres': 'historia de Unai 11/09',
+    'esa agenda se llena en solo 80 sillas': '2026-09-01 meme de Iker 01/09',
+    'en esa mesa sí lo hacemos y solo hay 80 sitios': '2026-09-02 historia de Unai 02/09',
+    'a esa sala solo entran 80 personas': '2026-09-03 meme de Asier 03/09',
+    'en esa sala sí te esperan y solo hay 80 huecos': '2026-09-08 historia de Iker 08/09',
+    'en esa sala sí entras y solo hay 80 sillas': '2026-09-09 historia de Asier 09/09',
+    'en esa sala sí están y son solo 80 nombres': '2026-09-11 historia de Unai 11/09',
     # Y las dos formas de LINEA 1 que si son reutilizables, porque no dependen
     # del gancho: el molde "un X no te lleva/mete a la sala".
-    'no te mete en la sala': 'historia de Asier 09/09',
-    'no te lleva a la sala de los que deciden': 'historia de Unai 11/09',
+    'no te mete en la sala': '2026-09-09 historia de Asier 09/09',
+    'no te lleva a la sala de los que deciden': '2026-09-11 historia de Unai 11/09',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -189,17 +245,17 @@ PAIS_QUEMADO = {
 # ultimo, no la identificacion), asi que sus frases se gastan por su cuenta.
 # Al publicar, mete aqui la frase usada. La lista solo crece.
 SPAM_QUEMADO_CORREO = {
-    'lo cuento en el correo antes que aqui': 'meme de Iker 19/08, el PRIMER bloque de correo publicado',
-    'lo cuento en el correo antes que aquí': 'meme de Iker 19/08, el PRIMER bloque de correo publicado',
+    'lo cuento en el correo antes que aqui': '2026-08-19 meme de Iker 19/08, el PRIMER bloque de correo publicado',
+    'lo cuento en el correo antes que aquí': '2026-08-19 meme de Iker 19/08, el PRIMER bloque de correo publicado',
     # 4.4e-ROTA (Iker, 2026-08-24). Faltaba la de Mario del 21/08 y era justo la
     # que yo iba a repetir en el post de Asier. Lo que se conserva del bloque es
     # `correo de ventas` (dice de quien es y de que va); lo que ROTA en cada post
     # es el ARRANQUE que la precede, y sale del final de la linea 1, no de un
     # banco de frases. La linea 1 ya rota sola porque cuelga del gancho; la 2 no
     # cuelga de nada, asi que si nadie la mueve se queda fija para siempre.
-    'va en el correo de ventas': 'post de Mario 21/08 (la caida de los influencers)',
-    'de eso va nuestro correo de ventas': 'post de Mario 21/08, la forma larga',
-    'eso lo tienen antes los del correo': 'meme de Asier 20/08 (el de la busqueda de Google)',
+    'va en el correo de ventas': '2026-08-21 post de Mario 21/08 (la caida de los influencers)',
+    'de eso va nuestro correo de ventas': '2026-08-21 post de Mario 21/08, la forma larga',
+    'eso lo tienen antes los del correo': '2026-08-20 meme de Asier 20/08 (el de la busqueda de Google)',
 }
 
 # §2.0b — ARRANQUES DE BLOQUE YA PUBLICADOS, POR PILAR (Iker, 2026-08-25).
@@ -216,28 +272,28 @@ SPAM_QUEMADO_CORREO = {
 ARRANQUE_QUEMADO = {
     # Verificados leyendo el texto publicado.
     'historia': {
-        'la': 'historia de Iker 18/08 ("La eche donde el coche...")',
-        'ni': 'historia de Iker 13/08 ("Ni una pregunta por el precio")',
+        'la': '2026-08-18 historia de Iker 18/08 ("La eche donde el coche...")',
+        'ni': '2026-08-13 historia de Iker 13/08 ("Ni una pregunta por el precio")',
         # Publicados y leidos, no deducidos (§0f: la lista se toca al PUBLICAR).
-        'nadie': 'historia de Unai 21/08 ("Nadie las abria / Nadie me las pedia")',
-        'no': 'historia de Unai 21/08 ("No era la mas bonita / difícil / mejor")',
-        'hoy': 'historia de Unai 21/08 ("Hoy no toco el codigo / Hoy levanto dinero")',
-        'aquel': 'historia de Asier 25/08 ("Aquel numero era de la casa entera")',
-        'me': 'historia de Asier 25/08 ("Me pregunto quien era yo / de que conocia")',
-        'sabe': 'historia de Asier 25/08 ("Sabe el nombre / Sabe el numero / Sabe todo")',
+        'nadie': '2026-08-21 historia de Unai 21/08 ("Nadie las abria / Nadie me las pedia")',
+        'no': '2026-08-21 historia de Unai 21/08 ("No era la mas bonita / difícil / mejor")',
+        'hoy': '2026-08-21 historia de Unai 21/08 ("Hoy no toco el codigo / Hoy levanto dinero")',
+        'aquel': '2026-08-25 historia de Asier 25/08 ("Aquel numero era de la casa entera")',
+        'me': '2026-08-25 historia de Asier 25/08 ("Me pregunto quien era yo / de que conocia")',
+        'sabe': '2026-08-25 historia de Asier 25/08 ("Sabe el nombre / Sabe el numero / Sabe todo")',
         # Leidos del texto PUBLICADO de la ventana 01-11/09 (BD en vivo,
         # 2026-09-15). Llevaban desde el 27/08 sin anotarse, y por eso el
         # borrador de Iker del 15/09 salio con `Llevaba 3 semanas / Llevaba 11
         # llamadas` cuatro dias despues del `Llevaba 300 empresas / Llevaba 11
         # anos` de Unai: mismo arranque Y la misma cifra, en cuenta hermana.
-        'recogi': 'historia de Unai 02/09 ("Recogi 200 tarjetas / Recogi la tarjeta")',
-        'busco': 'historia de Unai 02/09 ("Busco solo a esos 12 / Busco antes / Busco 2 dias menos")',
-        'llame': 'historia de Iker 08/09 ("Llame por orden alfabetico / Llame 60 veces")',
-        'traia': 'historia de Iker 08/09 ("Traia un listado / Traia 400 nombres / Traia empresas")',
-        'dentro': 'historia de Asier 09/09 ("Dentro tenia 40 empresas / Dentro tenia fotos")',
-        'llevaba': 'historia de Unai 11/09 ("Llevaba 300 empresas / Llevaba 11 anos")',
-        'dejo': 'historia de Unai 11/09 ("Dejo el ordenador / Dejo la cartera / Dejo cada ficha")',
-        'estaba': 'historia de Unai 11/09 ("Estaba el nombre / Estaba el telefono")',
+        'recogi': '2026-09-02 historia de Unai 02/09 ("Recogi 200 tarjetas / Recogi la tarjeta")',
+        'busco': '2026-09-02 historia de Unai 02/09 ("Busco solo a esos 12 / Busco antes / Busco 2 dias menos")',
+        'llame': '2026-09-08 historia de Iker 08/09 ("Llame por orden alfabetico / Llame 60 veces")',
+        'traia': '2026-09-08 historia de Iker 08/09 ("Traia un listado / Traia 400 nombres / Traia empresas")',
+        'dentro': '2026-09-09 historia de Asier 09/09 ("Dentro tenia 40 empresas / Dentro tenia fotos")',
+        'llevaba': '2026-09-11 historia de Unai 11/09 ("Llevaba 300 empresas / Llevaba 11 anos")',
+        'dejo': '2026-09-11 historia de Unai 11/09 ("Dejo el ordenador / Dejo la cartera / Dejo cada ficha")',
+        'estaba': '2026-09-11 historia de Unai 11/09 ("Estaba el nombre / Estaba el telefono")',
     },
     'mapa': {
         'no': 'mapa de Navarra ("No paga las nominas San Fermin", swipe-file)',
@@ -252,16 +308,16 @@ ARRANQUE_QUEMADO = {
     # El pilar meme no tenia lista y es el que mas publica. Leidos los dos
     # publicados de la semana pasada (§0f: al PUBLICAR, no al entregar).
     'meme': {
-        'la': 'meme de Asier 20/08 ("La lista no se pule / no se hereda / se elige antes")',
-        'no': 'meme de Unai 25/08 ("No buscan quien mande mas / escriba mejor / conteste antes")',
-        'se': 'meme de Iker 27/08 ("Se lo que hablamos / Se en que bar desayuna")',
+        'la': '2026-08-20 meme de Asier 20/08 ("La lista no se pule / no se hereda / se elige antes")',
+        'no': '2026-08-25 meme de Unai 25/08 ("No buscan quien mande mas / escriba mejor / conteste antes")',
+        'se': '2026-08-27 meme de Iker 27/08 ("Se lo que hablamos / Se en que bar desayuna")',
         # Publicados 01-11/09, anotados el 2026-09-15.
-        'arriba': 'meme de Iker 01/09 ("Arriba llegan con agenda / Arriba nadie parte de cero / Arriba llegan con el nombre")',
-        '12': 'meme de Asier 03/09 ("12 meses pagados / 12 meses de pantalla / 12 meses sin una cara")',
+        'arriba': '2026-09-01 meme de Iker 01/09 ("Arriba llegan con agenda / Arriba nadie parte de cero / Arriba llegan con el nombre")',
+        '12': '2026-09-03 meme de Asier 03/09 ("12 meses pagados / 12 meses de pantalla / 12 meses sin una cara")',
     },
     # El pilar lead magnet tampoco tenia lista. Anotado al PUBLICAR (§0f).
     'leadmagnet': {
-        'ninguno': 'lead magnet de Iker 26/08 ("Ninguno es de redaccion / de personalizacion / se arregla escribiendo mejor")',
+        'ninguno': '2026-08-26 lead magnet de Iker 26/08 ("Ninguno es de redaccion / de personalizacion / se arregla escribiendo mejor")',
     },
 }
 
@@ -1484,7 +1540,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             if len(set(_pr)) == 1:
                 _anaf.append(_pr[0])
         _qa = ARRANQUE_QUEMADO.get(pilar, {})
-        _rep = [] if historico else sorted({a for a in _anaf if a in _qa})
+        _rep = ([] if historico else
+            sorted({a for a in _anaf if a in _qa
+                    and vigente(_qa[a], VENTANA_ARRANQUE_DIAS)}))
         chk(not _rep, 'RITMO: el arranque de la anafora no esta quemado (§2.0b)',
             ('arranques de este post: %s. Repetido: %s. Rota el arranque: si el '
              'anterior empezaba por articulo, este que empiece por VERBO, por '
@@ -2364,7 +2422,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
 
         # 8) Y ROTA, como el otro. Sin lista de quemadas, en un mes los tres perfiles
         #    dicen lo mismo (4.4b lo lleva escrito desde el 31/07).
-        _qc = [] if historico else sorted(f for f in SPAM_QUEMADO_CORREO if f in _cj.lower())
+        _qc = ([] if historico else
+               sorted(f for f in SPAM_QUEMADO_CORREO if f in _cj.lower()
+                      and vigente(SPAM_QUEMADO_CORREO[f], VENTANA_NINJA_DIAS)))
         chk(not _qc, 'Doble ninja: la frase del correo no esta quemada (§4.4e)',
             ' · '.join('"%s" ya salio en %s' % (f, SPAM_QUEMADO_CORREO[f]) for f in _qc))
 
@@ -2507,7 +2567,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # que el enlace va AHI: se lee como recurso y no como venta, y captura igual
     # porque esa pagina lleva su propio CTA a agendar. Mecanizado el 2026-07-31
     # tras entregarlo mal aun teniendolo escrito desde el 23/07.
-    _spam = [] if historico else sorted(f for f in SPAM_QUEMADO if f in texto.lower())
+    _spam = ([] if historico else
+             sorted(f for f in SPAM_QUEMADO if f in texto.lower()
+                    and vigente(SPAM_QUEMADO[f], VENTANA_NINJA_DIAS)))
     chk(not _spam, 'SPAM NINJA: la frase no está quemada (§4.4b)',
         ' · '.join(f'"{f}" ya salió en {SPAM_QUEMADO[f]}' for f in _spam) +
         '. El dolor es el mismo siempre (dar con el cliente ideal, empresa Y persona) pero la '

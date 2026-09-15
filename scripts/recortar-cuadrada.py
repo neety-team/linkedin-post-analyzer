@@ -42,6 +42,19 @@ import sys
 
 from PIL import Image, ImageDraw
 
+# HEIC/HEIF (Mario, 2026-09-15). El banco de fotos lo llenan los jefes desde el
+# movil, y un iPhone entrega **.HEIC**: `IMG_9698.HEIC`, `IMG_9879.HEIC`,
+# `IMG_0290.HEIC`. Sin esta linea Pillow no reconoce el formato y el script
+# muere con `UnidentifiedImageError` en la foto que mas veces vamos a recibir,
+# asi que la rejilla y el recorte habia que hacerlos convirtiendo a mano antes.
+# `pillow_heif` ya estaba instalado; lo unico que faltaba era registrarlo.
+try:
+    import pillow_heif
+
+    pillow_heif.register_heif_opener()
+except ImportError:  # pragma: no cover - entorno sin el paquete
+    pass
+
 try:
     from PIL import ImageCms
 except ImportError:                                    # pragma: no cover

@@ -22,6 +22,18 @@ import { detectarAperturaGenerica } from './replyGenerator';
 // EL ARREGLO, en las mismas tres capas: se PROHIBE la familia en el prompt, se
 // ASIGNA a cada comentario su angulo y su arranque (sorteados sin reemplazo, y
 // por eso rotan tambien ENTRE posts), y se COMPRUEBA la salida.
+// Peloteo hueco: lo que el prompt prohibe y el 15/09 salio igualmente
+// ("Buena reflexión. 12 meses de cuota no reemplazan..."). Lista APARTE de la
+// del generador de respuestas a proposito: alli "buen punto" es una palabra de
+// asentimiento legitima y sorteada, aqui es relleno que se borra sin perder nada.
+const APERTURA_HUECA = /^(buena (reflexion|aportacion|observacion)|(muy )?buen (punto|apunte|aporte)|muy (cierto|bueno|buena)|que razon|totalmente( de acuerdo)?|gran (post|publicacion)|me encanta|brutal|genial)\b/;
+
+export function aperturaHueca(c: string): boolean {
+  return APERTURA_HUECA.test(
+    c.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim()
+  );
+}
+
 const ANGULOS_APOYO = [
   'refuerza la idea principal con un angulo personal concreto',
   'coge una frase o una cifra LITERAL del post y devuelvesela',
@@ -369,7 +381,8 @@ ACCENTS WHEN STRETCHING A VOWEL: if the word you stretch carries a written accen
 
 ★ EL POST ES TEXTO **Y** FOTO. Si te adjuntan la imagen, miralas las dos: en nuestros memes el chiste vive en la foto y el texto no lo cuenta a proposito. Referenciar algo que se VE en la imagen es la forma mas rapida de demostrar que lo has leido de verdad. Si NO te adjuntan imagen, NO afirmes nada sobre lo que el post ensena ni sobre lo que no ensena.
 
-NO HOLLOW OPENERS: never "Great post!", "Love this", "Totalmente de acuerdo", "Qué bueno", "Muy buen punto", "Gran post", "Me encanta", "Brutal". Reference something SPECIFIC from the post (a number, a phrase, a claim) so it's clear you actually read it.
+NO HOLLOW OPENERS: never "Great post!", "Love this", "Totalmente de acuerdo", "Qué bueno", "Muy buen punto", "Gran post", "Me encanta", "Brutal", "Buena reflexión", "Buen apunte", "Muy cierto", "Qué razón", "Totalmente".
+⛔ Y OJO CON EL ELOGIO DISFRAZADO DE APERTURA: "Buena reflexión." seguido de la frase de verdad es exactamente el mismo peloteo hueco, solo que con punto en medio. Si la primera frase se puede borrar entera sin perder nada, es relleno. Reference something SPECIFIC from the post (a number, a phrase, a claim) so it's clear you actually read it.
 
 ★ NEVER OUT YOURSELVES. These people work at the same company as the author. Do not write anything only an insider would know, do not say "el equipo", "en casa", "nosotros" or anything that reveals coordination, and never speak on the company's behalf. Each one is a normal contact reacting to a post.
 
@@ -477,7 +490,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
     if (out.length === 0) throw new Error('Supportive generator returned an empty list');
 
     const genericas = out
-      .map((c) => ({ c, que: detectarAperturaGenerica(c) }))
+      .map((c) => ({ c, que: detectarAperturaGenerica(c) || (aperturaHueca(c) ? 'peloteo hueco de apertura' : null) }))
       .filter((x) => x.que);
     const vistas = new Map<string, number>();
     for (const c of out) {

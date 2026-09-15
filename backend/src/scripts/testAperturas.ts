@@ -11,7 +11,7 @@
  *   npx tsx src/scripts/testAperturas.ts
  */
 import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, buildPrompt, recordarApertura } from '../services/replyGenerator';
-import { primerasDos } from '../services/commentGenerator';
+import { primerasDos, aperturaHueca } from '../services/commentGenerator';
 
 let fallos = 0;
 const ok = (cond: boolean, label: string, extra = '') => {
@@ -143,6 +143,18 @@ ok(faltaElGracias('Brutal, de los mejores posts que he visto este mes', 'Luis Pe
    'y NO salta si agradece');
 ok(faltaElGracias('Y luego la herramienta no la usa nadie', 'Sara Ortiz exactoo y encima te toca defender el gasto.') === false,
    'ni cuando el comentario no es un elogio');
+
+console.log('\n9 · peloteo hueco en los comentarios de apoyo');
+for (const [c, esp] of [
+  ['Buena reflexión. 12 meses de cuota no reemplazan una conversación real.', true],
+  ['Muy buen punto, y encima cuesta el doble.', true],
+  ['Totalmente de acuerdo con esto.', true],
+  ['Yo también he caído en renovar sin pensar.', false],
+  ['Ninguna herramienta te da lo que da estar en la sala.', false],
+  ['¿Cuántas renovaciones automáticas nadie ha revisado?', false],
+] as [string, boolean][]) {
+  ok(aperturaHueca(c) === esp, `${esp ? 'hueca' : 'buena'}: ${c.slice(0, 40)}`);
+}
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

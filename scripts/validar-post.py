@@ -2979,6 +2979,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
              'pilar') % _reg10.group(0) if _reg10 else '')
         # El bloque que Iker pide ver en CADA entrega, para validar el gancho de un
         # vistazo contra los que ya funcionaron.
+        # §4.3 Paso 7 (Iker, 2026-07-29; reincidido el 2026-09-15). La frontera del
+        # formato es el NUMERO de menciones y yo daba el del mapa cuatro entregas
+        # seguidas: con 20 va linea a linea, con 10 o menos va en TABLA.
+        chk(False, 'ENTREGA: la guia de menciones de "Los 10" va en TABLA, no linea a linea',
+            'columnas: # · Persona (enlace) · Cargo · Empresa (enlace) + sede · Ultima '
+            'actividad · Logro. Persona primero, que es el orden del cuerpo en este pilar, '
+            'y el logro se mantiene porque aqui es el criterio de seleccion. Enlaces '
+            'markdown CLICABLES y FUERA de bloque cercado. Debajo, una linea por cada ficha '
+            'con peculiaridad (nombre de LinkedIn raro, persona fuera de la region, '
+            'actividad al limite): es lo que le ahorra abrir los diez perfiles', aviso=True)
         chk(False, 'ENTREGA: el bloque de los GANCHOS del pilar, de mas outlier a menos',
             'despues del texto va un bloque cercado con los ganchos reales de "Los 10" '
             'ordenados por ratio, para poder comparar el nuevo de un vistazo: '

@@ -497,6 +497,32 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 - **Concepto y personas: no repetir NUNCA, ni entre cuentas.** Y jamás menciones dos veces a la misma persona en dos "Los 10".
 
 **Paso 1 — HOOK (foco en la persona):**
+
+> ### ⛔⛔ LOS TRES INAMOVIBLES DEL GANCHO DE "LOS 10" (Iker, 2026-09-15) — como los 4 del mapa
+>
+> **Iker, y es una petición de receta, no una corrección de un post:** *"si no, por mucho que la plantilla de la foto en cada uno sea siempre igual, estamos arriesgando demasiado. Estaría bien que para este formato de los 10 también veamos qué patrones podríamos tener así más o menos hardcodeados"*.
+>
+> **El mapa tiene sus cuatro inamovibles desde julio y este pilar no tenía ninguno**, así que cada gancho se escribía de cero y el riesgo era máximo justo en la línea que decide el post. Destilados de **los CUATRO "Los 10" del histórico** (son cuatro, no cinco: el de Navarra del 11/09 se escribió y no llegó a subirse), y **el corte no tiene ruido: los dos que vuelan llevan las tres piezas, y cada uno de los dos flojos falla exactamente UNA.**
+>
+> | ratio | imp | puente empresa→persona | gerundio de herida | región en el gancho |
+> |---|---|---|---|---|
+> | **4.43x** | 49.426 | SÍ | `quemando` | no |
+> | **2.49x** | 27.795 | SÍ | `comiéndose` | no |
+> | 0.75x | 8.486 | **NO** | `aguantando` | no |
+> | 0.53x | 6.572 | SÍ | **NINGUNO** | **SÍ** |
+>
+> 1. **EL PUENTE: el gancho abre por la EMPRESA (o por su resultado) y gira a la PERSONA anónima dentro de la misma frase.** *"Las empresas que más vendieron este año tienen algo en común: personas desconocidas…"* · *"Ninguna empresa vende más por suerte. Alguien…"*. **El que arranca directo en el comercial se quedó en 0.75x**: sin el puente no hay revelación, y la revelación es el motor. El anónimo se nombra sin nombre: `alguien`, `personas desconocidas`, `quien`.
+> 2. **LA HERIDA FÍSICA EN GERUNDIO, y es del OFICIO, no del ego.** `quemando el teléfono`, `comiéndose noes`, `aguantando el no`. **El único gancho sin gerundio de herida es el 0.53x, que la cambió por una herida de ego (no salir en la foto).** A un comercial no le duele que no le hagan fotos; le duele comerse noes. ⚠️ **Y esto es la excepción consciente al veto de gerundios de `global §2.9`**: allí se vetan los gerundios que DESCRIBEN (`colgando`, `volviendo a`); aquí el gerundio va pegado a un verbo punchy y es lo que hace la escena.
+> 3. **LA REGIÓN NO SE NOMBRA.** Se revela al final, después de la lista y de los clichés (Paso 3b). **El único que la pone arriba es el de Cataluña, 0.53x, el peor del pilar**, y encima el adjetivo de sector estrecha el alcance (`global §2.3b`).
+>
+> **Y dos piezas más que cumplen los CUATRO, así que no se tocan aunque no separen nada:** el **`👇`** al final (4 de 4) y **CERO cifras en el gancho** (0 de 4 llevan). Ojo, esto no es el mapa: aquí **no hay comparación-país ni cifra shock**, que canibaliza al mapa (Paso 3b).
+>
+> **Longitud:** los dos que vuelan miden **106 y 96 caracteres**; el 0.75x, 77. **Este pilar es la excepción a la mediana de 75 de `global §2.10`**, y tiene sentido: el puente necesita sitio. Por debajo de ~90 sospecha de que te has dejado el puente fuera.
+>
+> **Mecanizado** en `validar-post.py --pilar los10`: el puente y el gerundio como **avisos** (n=4, no da para fallo duro) y la región como **fallo duro** (además ya era regla escrita). **Probados contra los cuatro ganchos reales: aprueban a los dos ganadores y cazan el fallo concreto de cada flojo.**
+>
+> **⛔ Y ESTO NO SUSTITUYE AL PASE DE CRITERIO:** los tres inamovibles hacen que el gancho esté en la familia que funciona, no que sea bueno. El verbo sigue subiendo por la escalera de `global §2.9` y el ángulo sigue pasando por `global §8`.
+
 - Fórmula = **verbo físico + la herida propia del comercial** para que se IDENTIFIQUE al leerlo ("personas desconocidas quemando el teléfono", "aguantando el no", "marcando nombres que nadie conoce") + `👇`.
 - El comercial anónimo tiene que pensar "ese soy yo". Nada abstracto.
 - **NUNCA crítica ni reproche a las empresas.** Regla precisa y su evidencia en el **Paso 3d** — no basta con "que no suene mal": lo que se prohíbe es que la **empresa sea el sujeto** que tapa a la persona.
@@ -631,7 +657,17 @@ python scripts/montar-orla.py   --plantilla "C:/Users/LENOVO/Documents/Mario/LIN
 ```
 (Ese ejemplo va cercado aquí solo para que veas la sintaxis. En la ENTREGA va suelto, para que se renderice.)
 
-**OUTPUT FINAL (SOLO esto):** (1) el **TEXTO** del post copy-ready · (2) el **ZIP con las 10 fotos** en orden de mención · (3) la **guía de menciones con enlaces** · (4) **los 2 PROMPTS de imagen** literales con sus `XXX` rellenos (Paso 6b). **Sin CSV** y sin montar la imagen: eso lo hace el usuario con su plantilla.
+**OUTPUT FINAL (SOLO esto):** (1) el **TEXTO** del post copy-ready · (2) **el BLOQUE DE GANCHOS DEL PILAR**, justo debajo del texto (ver abajo) · (3) el **ZIP con las 10 fotos** en orden de mención · (4) la **guía de menciones con enlaces** · (5) la **ORLA ya montada** con `montar-orla.py` (Paso 6b). **Sin CSV**.
+
+> ### 📋 EL BLOQUE DE GANCHOS, DEBAJO DEL TEXTO Y EN TODAS LAS ENTREGAS (Iker, 2026-09-15)
+>
+> **Iker:** *"quiero que después de darme el texto de la publicación, me des un bloque con los ganchos ordenados por más outlier a menos, de nuestra propia cuenta, que nos hayan funcionado en este formato. Para que así yo manualmente y de un vistazo rápido pueda validar si este nuevo gancho cumple por lo menos lo mínimo para volver a hacerse viral como los otros y tiene esos patrones en común o no"*.
+>
+> **Va en un bloque cercado, justo después del post**, con **el gancho real de cada "Los 10" publicado, su ratio y sus impresiones, de mayor a menor**, y **el nuevo abajo del todo, marcado**. Los textos salen de la BD (`pillar='peloteo_los10'`), no de memoria.
+>
+> - **Son los que HAY, no un número fijo.** Hoy son **cuatro**; cuando se publique el quinto, serán cinco. **No se rellena con ganchos de otro pilar ni con inventados.**
+> - **Debajo del bloque, la línea de patrones:** puente · gerundio de herida · región, marcando cuáles cumple el nuevo (`§4.3` Paso 1).
+> - **Mecanizado** como aviso de entrega en `validar-post.py --pilar los10`, que imprime los cuatro ganchos con su ratio para que no haya que ir a buscarlos.
 
 ### ⛔⛔ 4.4-PASO-1 · PRIMERO LA IDEA, DESPUÉS EL FORMATO (Iker, 2026-08-11)
 

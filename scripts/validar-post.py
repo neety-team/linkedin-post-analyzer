@@ -2896,6 +2896,55 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             f'{len(_con_logro)} llevan "·": eso es formato de "Los 10"' if _con_logro else '')
 
     if pilar == 'los10':
+        # ⛔⛔ LOS INAMOVIBLES DEL GANCHO DE "LOS 10" (Iker, 2026-09-15).
+        # Iker: "si no, por mucho que la plantilla de la foto sea siempre igual,
+        # estamos arriesgando demasiado". El mapa tiene sus 4 inamovibles desde
+        # julio (prejuicio ajeno, 2 cliches, `exporta`, comparacion-pais) y este
+        # pilar no tenia ninguno: cada gancho se escribia de cero.
+        # Destilados de los CUATRO "Los 10" del historico, y el corte es limpio:
+        # los dos que vuelan llevan las TRES piezas y cada uno de los dos flojos
+        # falla exactamente UNA.
+        #   4.43x  puente SI · gerundio "quemando"   · region no
+        #   2.49x  puente SI · gerundio "comiendose" · region no
+        #   0.75x  puente NO · gerundio "aguantando" · region no
+        #   0.53x  puente SI · gerundio NINGUNO      · region SI (catalanas)
+        # n=4, asi que van de AVISO y no de fallo duro, salvo la region, que
+        # ademas ya era regla escrita (§4.3 Paso 3b: no se nombra hasta el reveal).
+        _g10 = cuerpo.splitlines()[0]
+        _puente = re.search(r'^(las?|ningun[ao]|est[ae]s?)\s+(empresas?|f[aá]bricas?|'
+                            r'compa[nñ][ií]as?|firmas?|negocios?)', _g10, re.I)
+        chk(bool(_puente), 'LOS 10: el gancho abre por la EMPRESA y gira a la PERSONA (§4.3 Paso 1)',
+            'arranca en la persona. Los dos que vuelan (4.43x y 2.49x) abren por la empresa o '
+            'su resultado y giran a alguien sin nombre dentro de la misma frase; el que arranca '
+            'directo en el comercial se quedo en 0.75x', aviso=True)
+        _ger = re.search(r'\b\w+(ando|iendo|[eé]ndose|[aá]ndose)\b', _g10, re.I)
+        chk(bool(_ger), 'LOS 10: el gancho lleva la HERIDA FISICA en gerundio (§4.3 Paso 1)',
+            'sin gerundio de herida. Los tres que pasan de 0.75x lo llevan (quemando el '
+            'telefono, comiendose noes, aguantando el no); el unico sin el es el 0.53x, que '
+            'cambio la herida del oficio por una de ego (no salir en la foto)', aviso=True)
+        _reg10 = re.search(r'\b(catalan\w*|vasc\w*|navarr\w*|asturian\w*|gallego\w*|galleg\w*|'
+                           r'andaluz\w*|murcian\w*|aragon\w*|guipuzcoan\w*|vizcain\w*|alaves\w*|'
+                           r'riojan\w*|extremeñ\w*|manchego\w*|canari\w*|balear\w*|cantabr\w*|'
+                           r'gipuzkoa|bizkaia|araba|euskadi|catalu[nñ]a|navarra|asturias|galicia|'
+                           r'andaluc[ií]a|murcia|arag[oó]n|cantabria|extremadura|la rioja)\b',
+                           _g10, re.I)
+        chk(not _reg10, 'LOS 10: la REGION no se nombra en el gancho (§4.3 Paso 3b)',
+            ('dice "%s". La region se revela al final, despues de la lista y de los cliches. '
+             'El unico "Los 10" que la nombra arriba es el de Cataluna, 0.53x, el peor del '
+             'pilar') % _reg10.group(0) if _reg10 else '')
+        # El bloque que Iker pide ver en CADA entrega, para validar el gancho de un
+        # vistazo contra los que ya funcionaron.
+        chk(False, 'ENTREGA: el bloque de los GANCHOS del pilar, de mas outlier a menos',
+            'despues del texto va un bloque cercado con los ganchos reales de "Los 10" '
+            'ordenados por ratio, para poder comparar el nuevo de un vistazo: '
+            '4.43x/49.426 "Las empresas que mas vendieron este año tienen algo en comun: '
+            'personas desconocidas quemando el telefono" · 2.49x/27.795 "Ninguna empresa '
+            'vende mas por suerte. Alguien lleva un año comiendose noes para arrancar un si" '
+            '· 0.75x/8.486 "Hay comerciales aguantando el no a primera hora para que su '
+            'fabrica no pare" · 0.53x/6.572 "Las empresas catalanas que mas venden salen en '
+            'la foto. Quien las hace vender no sale en ninguna". Son CUATRO, no cinco: el '
+            'pilar solo tiene cuatro publicados (el de Navarra del 11/09 no llego a subirse)',
+            aviso=True)
         chk(len(_flechas) == 10, '"Los 10" con exactamente 10 fichas (§4.3 Paso 2)',
             f'{len(_flechas)}' if len(_flechas) != 10 else '')
         _sin_logro = [l for l in _flechas if '·' not in l]

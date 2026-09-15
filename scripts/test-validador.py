@@ -124,6 +124,13 @@ CASOS = [
             'la empresa. Hoy le doy la vuelta." Si este caso deja de fallar, el check se ha '
             'roto y no queda nada vigilando lo único que la evidencia soporta.'
         ),
+        'LOS 10: la REGION no se nombra en el gancho': (
+            'FALLA A PROPÓSITO, y es el segundo motivo por el que este post está clavado '
+            'aquí. Abre con "Las empresas CATALANAS que más venden", y es el único de los '
+            'cuatro "Los 10" que pone la región arriba: la región se revela al final '
+            '(§4.3 Paso 3b) y el adjetivo encima estrecha el alcance (global §2.3b). '
+            'Si este caso deja de fallar, el inamovible nuevo del gancho se ha roto.'
+        ),
         'Spam ninja presente': 'mismo artefacto del lnkd.in que el de Asturias, ver abajo',
         'El enlace apunta a recursos.neety.com': 'el mismo artefacto del lnkd.in: la URL cruda sí era nuestra',
         'El primer bloque multiple es de DOS': 'regla §3.2 afinada después; aquí el primer múltiple es de 3',

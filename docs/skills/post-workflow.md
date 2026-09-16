@@ -2542,7 +2542,17 @@ Acceso libre.
 - **Los logos se bajan de Unipile** (`logo_large`) numerados en el orden del post: `01-acero.jpg`, `02-tubos.jpg`. Mismo procedimiento que el CSV del mapa, pero **aquí NO hay CSV**.
 - **Una plantilla por SECTOR.** La llanta vale para automoción y se reutiliza en toda España y en las tres cuentas: solo cambia el título. Otro sector pide otra silueta.
 - **El script ordena los huecos por ÁNGULO, como un reloj**, empezando arriba. Una orla se lee por filas, una rueda se lee como un reloj.
-- **🟣 EL RELLENO DE LA LLANTA LO TRAE LA PLANTILLA, NO EL SCRIPT (Iker, 2026-09-16).** Se probó pintar de berenjena el centro y las 5 ventanas para que el círculo central no pareciera un hueco de logo olvidado. **Iker lo vio feo**, igual que ya le pasó cuando lo probó él solo con el centro. Medido: la parte oscura de la rueda pasa del **11% al 20%**, y una plantilla hecha de líneas finas se convierte en manchas macizas que pesan más que los logos de fuera. Con solo las ventanas rellenas (19%), el centro se queda como el único círculo claro y vacío del mismo tamaño que un logo, y parece aún más un hueco sin rellenar. **La solución la trae Iker en una plantilla nueva.** `montar-llanta.py` mantiene el relleno solo como maqueta (`--relleno`, apagado por defecto).
+- **🟣 LA LLANTA VA RELLENA EN BERENJENA POR FUERA; EL CENTRO Y LAS VENTANAS SE QUEDAN EN MENTA (Iker, 2026-09-16). Lo trae la PLANTILLA nueva, no el script.** Se probaron tres rellenos sobre la plantilla de líneas:
+
+  | qué se rellena | lo oscuro de la rueda | veredicto |
+  |---|---|---|
+  | nada (plantilla vieja) | 11% | ⛔ *"la veía como vacía"*: el círculo central parecía un hueco de logo que se nos había olvidado |
+  | centro + 5 ventanas | 20% | ⛔ feo: seis manchas sueltas que compiten con los logos |
+  | solo las 5 ventanas | 19% | ⛔ el centro se queda como el único círculo claro y parece todavía más un hueco |
+  | ⭐ **la rueda grande, con centro y ventanas en menta** | 31% | ✅ **el elegido** |
+
+  **Por qué gana, en palabras de Iker:** *"el morado es la silueta perfecta de la llanta"*, las ventanas en menta *"lo veo como algo mejor"*, y **los contornos de las ventanas y del centro se funden con el relleno y desaparecen**, así que el centro *"se nota que está hecho a posta y que no falta ningún logo"*. **La lección:** hay más superficie oscura que nunca, pero es UNA sola figura, no varias manchas, y el ojo la lee de golpe y pasa a los logos. Además, los discos blancos de los logos de fuera pisan el borde morado y se recortan con fuerza.
+  - `montar-llanta.py --relleno` solo sirve para maquetas (pinta centro y ventanas, que es la versión descartada). **Con la plantilla nueva, el script no rellena nada.**
 - **Los logos van CONTENIDOS, no recortados**, sobre un disco blanco. Un logo recortado pierde el nombre de la empresa, que es lo único que hay que poder leer.
 - 🔴 **El desenfoque de postproducción va SOLO sobre la plantilla, una vez.** Las imágenes de cada región las compone el script y no llevan firma de generador, igual que "Los 10".
 

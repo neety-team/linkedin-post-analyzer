@@ -548,7 +548,20 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 
 **📌 LA LECCIÓN, que es la que hay que retener: LA BASE DE DATOS TIENE LOS NÚMEROS, EL HISTORIAL TIENE EL PORQUÉ.** Yo hice el análisis contra la BD y no abrí el historial, que ya tenía el diagnóstico correcto de los dos posts. **Antes de sacar cualquier conclusión sobre un post publicado, se lee su ficha del historial.** Un número sin su ficha te lleva a inventarte un pilar.
 
-### 4.3 · Runbook "LOS 10" (encadenado) — RECETA DEFINITIVA
+### 4.3 · Runbook "LOS 10" (encadenado) — ⛔ PROHIBIDO DESDE EL 2026-09-16 (la receta se conserva)
+
+> ### ⛔⛔⛔ 4.3-VETO · "LOS 10" NO SE ESCRIBE, NO SE PROPONE Y NO SE PLANIFICA (Iker, 2026-09-16)
+>
+> **Iker:** *"a partir de ahora está prohibido que volvamos a subir el formato de los 10"* … *"que nunca la hagas a menos que te diga yo lo contrario"*.
+>
+> **Por qué, y no es por rendimiento:** el formato pone **la cara de personas de otras empresas** en una orla. Ha costado **una queja de un mencionado** (hace meses), **varias ediciones forzadas**, **la llamada de una directora de marketing de otra empresa** el 16/09 al primer jefe (Unai) y **el borrado del "Los 10" de Gipuzkoa** (publicado el 15/09). Convertía bien (trajo inscritos al evento), pero **el coste reputacional es de la marca, y lo pagan los jefes**.
+>
+> **Qué hago si me lo piden:** una línea diciendo que está prohibido y ofrezco **mapa o despiece**. Solo si Iker lo levanta **por escrito en ese chat** se escribe, y el validador lo exige con `--los10-autorizado` (sin el flag, `--pilar los10` es **fallo duro**). El Post Creator (`backend/src/services/postPrompt.ts`) lleva el mismo veto.
+>
+> **Por qué se conserva la receta de abajo:** Iker lo pidió (*"no borres de tu memoria la inteligencia"*), y porque buena parte vive ya en el tronco común (`§4.0d`) y en el mapa. **Lo que se aprendió aquí y SÍ se lleva a los otros peloteos:** el sujeto que tapa a la persona nunca es la empresa (Paso 3d), conceder el trabajo en equipo (3e) y la guía de menciones en tabla.
+>
+> **⚠️ Y el aviso honesto que va con el veto:** el riesgo no desaparece del todo. El mapa y el despiece **también mencionan a personas** y el despiece usa **logos** de terceros. Lo que se elimina es lo más sensible (**la cara**, que es derecho de imagen); los logos se usan para identificar a la empresa en un homenaje y hasta hoy **no han generado ninguna queja**. Si llega una por un logo, se aplica lo mismo: se retira sin discutir y se anota aquí.
+
 > **Casi idéntico al mapa (§4.2)** en formato y flujo (hook → cuerpo → menciones → spam ninja → cierre punchy). La diferencia de fondo: **la importancia va a las PERSONAS, no a la región.**
 > **Input del usuario:** SOLO la región (o sector) — **si no te la da, pídesela primero** (igual que el mapa). El resto lo verifica y rellena el workflow.
 > ⛔ **La orla se entrega SIN el aviso de desenfoque ni de exportar sin metadatos** (Iker, 2026-09-16): la monta `montar-orla.py` sobre su plantilla (`images §0a-penta`).
@@ -3283,7 +3296,7 @@ Durante esas dos semanas **no va a estar la capa manual que hace funcionar el si
 **⛔ Y lo que esto NO autoriza, que es la lectura peligrosa:** no dice que el sistema funcione igual sin la capa manual. En esa misma ventana la frecuencia bajó a la mitad, las cuentas no se comentaron entre sí y se quedaron comentarios sin responder — y **la mediana de impresiones de la segunda semana fue de 1.364 contra 20.260 de la primera**. Lo que está medido es la fontanería (publica o no publica), no el rendimiento. **Programar más no sustituye a estar delante**, y el volumen de las semanas sin nadie sigue cerrado donde está (`§8.0-SEPTIEMBRE`).
 
 ### 8.1 · Las 3 categorías de pilar (unidad de rotación)
-- **PELOTEO (regional)** = { **Mapa regional** | **"Los 10"** directores/comerciales regionales }. Ensalzan una zona o a personas. Los dos formatos cuentan como **la MISMA categoría** a efectos de intercalado (no pueden coincidir dos peloteos el mismo día).
+- **PELOTEO (regional)** = { **Mapa regional** | **Despiece** (uno por sector con plantilla) }. ~~"Los 10"~~ **prohibido desde el 16/09** (`§4.3-VETO`). Ensalzan una zona o a personas. Los dos formatos cuentan como **la MISMA categoría** a efectos de intercalado (no pueden coincidir dos peloteos el mismo día).
 - **LEAD MAGNET** (comment-gated).
 - **MEME** (con motor).
 
@@ -3301,7 +3314,7 @@ Cada día de publicación, las 3 cuentas cubren las **3 categorías DISTINTAS** 
 - **Frecuencia por defecto:** 3 posts/semana/cuenta (tú confirmas la frecuencia al lanzar).
 - **Días/horas por defecto:** martes-jueves; 11:00-12:00 y 14:00-15:00 (hora local). Configurable.
 - **Rota semana a semana** quién hace qué (que no salga idéntico).
-- **⭐ Dentro de PELOTEO, cada cuenta ALTERNA semana a semana: mapa → "Los 10" → mapa → "Los 10"…** Si la semana pasada esa cuenta sacó mapa, esta semana le toca "Los 10", y al revés. **Esa alternancia ES lo que produce el espaciado de ≥2 semanas entre mapas** (§8.3): no hay que calcularlo aparte, sale solo. Cambia siempre región/tema.
+- **🔄 (16/09) "Los 10" está prohibido (`§4.3-VETO`): la alternancia es mapa → despiece → mapa…, y el despiece rota de SECTOR (§8.1c).** Lo de abajo es la regla vieja. ~~Dentro de PELOTEO, cada cuenta ALTERNA semana a semana: mapa → "Los 10" → mapa → "Los 10"…~~ Si la semana pasada esa cuenta sacó mapa, esta semana le toca "Los 10", y al revés. **Esa alternancia ES lo que produce el espaciado de ≥2 semanas entre mapas** (§8.3): no hay que calcularlo aparte, sale solo. Cambia siempre región/tema.
 - **⛔ REGLA DURA (Iker, 2026-07-27) — UN SOLO MAPA Y UN SOLO "LOS 10" POR SEMANA, CONTANDO LAS TRES CUENTAS.** En una misma semana, **solo una cuenta** publica mapa y **solo otra cuenta** publica "Los 10". La tercera cuenta se queda **sin peloteo** esa semana (hasta que exista el tercer formato de peloteo, §8.1b). Esto ANULA lo que decía antes esta línea ("sí pueden coincidir dos cuentas en el mismo pilar la misma semana"), que era falso y nos costó caro.
   - **Por qué, con datos (medido 2026-07-27):** entre el 14 y el 23 de julio salieron **4 peloteos en 10 días** entre las tres cuentas, y el pilar se hundió: Iker pasó de **7,68x (563 likes) el 30-jun** a **2,69x (176)** y **1,23x (95)**; Unai de **2,92x (287)** a **0,71x (55)**. En junio, con la mitad de densidad, todos rendían 5-7x.
   - **No es el tamaño de la región,** que era la excusa fácil: **Navarra (660.000 habitantes) hizo 7,68x y Murcia (1,5 millones) hizo 1,23x**. La región pequeña ganó a la grande. Lo que cambió fue la **frecuencia**.
@@ -3335,7 +3348,7 @@ El workflow SIEMPRE arranca preguntando:
 
 ### 8.5 · Flujo del workflow (paralelo por cuenta)
 1. **Pregunta previa** (8.4) + confirmar frecuencia y días.
-2. **Proponer la MATRIZ semanal** (tabla cuenta × día × categoría) aplicando 8.2 + 8.3. Para cada celda de PELOTEO, decidir si mapa o "Los 10" y la región/tema.
+2. **Proponer la MATRIZ semanal** (tabla cuenta × día × categoría) aplicando 8.2 + 8.3. Para cada celda de PELOTEO, decidir si mapa o despiece (y de qué sector), y la región. **Nunca "Los 10"** (`§4.3-VETO`).
 3. **[Checkpoint] Enseñarte la matriz** para aprobar o ajustar ANTES de generar (recomendado siempre; imprescindible las primeras semanas).
 4. **Generar los posts en PARALELO** (una rama por cuenta; dentro de cada post, el runbook del pilar §4.2-4.5, encadenado): verificar datos → hook → cuerpo → CTA → concepto de imagen → Loop de validación (§8).
 5. **Entregar:** la matriz + todos los posts, cada uno con su texto en bloque cercado, tag, "por qué", riesgos, concepto de imagen y "revisa estas" (empresas/cifras/menciones). Y **di qué esperas de mí** para el siguiente paso.

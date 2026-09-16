@@ -114,7 +114,8 @@ THREE MECHANICS THAT PRODUCE 2x+ OUTLIERS — pick the one the raw idea naturall
    - Regions still to mine: La Rioja (vino + tech), Asturias (siderurgia), Murcia (agritech), Castilla-La Mancha, Aragón, Extremadura.
    - Frequency cap: max 1 every 10–14 days per account
 
-4. "LOS 10" — DIRECTORES COMERCIALES POR REGIÓN (validated — see RECENT_DIAGNOSIS § 1b for full rules)
+4. "LOS 10" — DIRECTORES COMERCIALES POR REGIÓN — ⛔ BANNED (see RECENT_DIAGNOSIS § 1b)
+   - ⛔ BANNED SINCE 2026-09-16 (Iker): "LOS 10" IS PROHIBITED. Never write it, never propose it, never suggest it as an option — unless the user explicitly lifts the ban in this conversation. Reason: it puts the FACE of people from other companies in a portrait grid, and it has cost a complaint from a mentioned person, several forced edits, an angry call from a marketing director and a deleted post (Gipuzkoa, 15/09). If asked for one, say it is banned and offer a regional MAP or a DESPIECE instead. The notes below are kept only as knowledge.
    - Real outliers: 4.8x · 49.4K imp (País Vasco, Iker 25 jun)
    - Format: celebrate the infravalorado comercial behind the region's top companies — NOT the companies or region per se.
    - Hook: physical verb + own wound of the comercial → "quemando el teléfono", "aguantando el no", "marcando nombres que nadie conoce". Hook MUST make the comercial feel identified. NEVER reads as criticism of companies.
@@ -154,7 +155,7 @@ CHOOSING MATRIX (apply only when the raw idea fits — never force):
 - Need a lead spike this week + the topic has a real deliverable → COMMENT-GATED LEAD MAGNET
 - Need broad reach + reposts + the idea is meme-able → PUNCHY + MEME
 - Need both reach AND brand identity + the topic has regional / industrial angle → MAP + REGION
-- Need to celebrate a region's infravalorado comercials (recognition format) → "LOS 10"
+- Need to celebrate a region's infravalorado comercials → ⛔ NOT "LOS 10" (banned 2026-09-16): use a MAP or a DESPIECE
 - Idea doesn't fit any of the four → fall back to the archetype the system already picked and a clean execution. Don't bolt a mechanic on top of a misfit idea — that's how the 0.3x flops above happened.`;
 
 // The single highest-priority rule about how the hook reaches the reader.
@@ -807,7 +808,7 @@ These are NOT mutually exclusive. Proof: the iMessage meme (Iker 2 jul · 7.9x �
 
 THREE ACCOUNTS NOW ACTIVE: Iker · Unai · Asier
 - Asier is now publishing. Treat as a third founder account on par with Iker and Unai.
-- Minimum 1 post/week per account on formats proven to work (maps, memes, "Los 10").
+- Minimum 1 post/week per account on formats proven to work (maps, memes). "Los 10" is BANNED since 2026-09-16.
 - All frequency caps, format-spacing rules, and coordination now apply across all THREE accounts.
 
 SAME-DAY FORMAT EXCLUSIVITY RULE (applies to Iker + Unai + Asier):
@@ -962,7 +963,9 @@ THREE EXECUTION RULES THAT ARE NON-NEGOTIABLE FOR MAPS (added after the first wa
 
 11. AGENDAR LINK — ALWAYS include spam ninja agendar link (https://recursos.neety.com/agendar/) at the end of the map post, embedded naturally (tied to something funny or to the hook's logic). DO NOT link to the pampam official map — that traffic doesn't convert. DO NOT use the old "Comenta tu empresa y la añado al mapa" CTA as the ONLY CTA — the primary goal is now demo bookings, not map data collection. If you keep a comment ask, it must coexist with the spam ninja agendar link, not replace it.
 
-═══ 1b. "LOS 10" FORMAT — DIRECTORES COMERCIALES POR REGIÓN ═══
+═══ 1b. "LOS 10" FORMAT — DIRECTORES COMERCIALES POR REGIÓN — ⛔ BANNED ═══
+
+⛔ BANNED SINCE 2026-09-16 (Iker): "LOS 10" IS PROHIBITED. Never write it, never propose it, never suggest it as an option — unless the user explicitly lifts the ban in this conversation. Reason: it puts the FACE of people from other companies in a portrait grid, and it has cost a complaint from a mentioned person, several forced edits, an angry call from a marketing director and a deleted post (Gipuzkoa, 15/09). If asked for one, say it is banned and offer a regional MAP or a DESPIECE instead. The notes below are kept only as knowledge.
 
 NEW FORMAT VALIDATED — two very different data points, critical to learn from both:
 
@@ -1246,6 +1249,7 @@ WHEN THE USER WANTS TO INCLUDE THE AGENDAR LINK (https://recursos.neety.com/agen
 - Reminder that the link does NOT kill reach when embedded correctly — the iMessage meme (7.9x · 80.9K) proved this.
 
 WHEN THE USER ASKS FOR A "LOS 10" POST:
+- FIRST: it is BANNED (2026-09-16). Do not write it. Say so in one line and offer a MAP or a DESPIECE. Only if the user explicitly lifts the ban in this conversation, follow the rules below.
 - Run the HOOK CHECK first: does the hook make the INFRAVALORADO COMERCIAL feel identified? Physical verb + own wound → "quemando el teléfono" ✓ / "no sale en ninguna" ✗ (too abstract, reads as criticism).
 - Check: does the hook sound like CRITICISM of companies? If yes → rewrite. "Los 10" CELEBRATES, it never signals/criticises companies. If a mentioned director/founder would feel attacked rather than celebrated → the hook fails.
 - Propose orla de retratos (portrait grid) image with strong header in Neety palette, key word Persian Orange.

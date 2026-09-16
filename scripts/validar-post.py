@@ -3797,6 +3797,11 @@ def main():
                          'compite contra si mismo y falla siempre, y eso no es un bug ni del '
                          'validador ni del post. NUNCA lo pases para validar un borrador: ahi la '
                          'reincidencia es exactamente lo que hay que cazar.')
+    ap.add_argument('--los10-autorizado', action='store_true', dest='los10_autorizado',
+                    help='"LOS 10" ESTA PROHIBIDO desde el 2026-09-16 (Iker): quejas de personas '
+                         'mencionadas con su foto, una llamada de una directora de marketing y el '
+                         '"Los 10" de Gipuzkoa borrado. Solo se pasa si IKER, en el chat de ESE '
+                         'post, ha levantado la prohibicion por escrito. Nunca por deduccion.')
     ap.add_argument('--generico', action='store_true',
                     help='Lead magnet modelo GENÉRICO (Martín Arosa/Guillermo): una palabra igual para '
                          'todos + recurso genérico + landing que captura. Salta el check del 2º dato.')
@@ -3804,6 +3809,15 @@ def main():
     texto = io.open(a.fichero, encoding='utf-8').read()
     card = io.open(a.tarjeta, encoding='utf-8').read() if a.tarjeta else None
     res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico, a.publica_manana)
+    # ⛔ "LOS 10" PROHIBIDO (Iker, 2026-09-16). Va DELANTE de todo y es fallo duro:
+    # el formato pone la cara de personas de otras empresas en una orla y ya ha
+    # costado una queja de un mencionado, varias ediciones, una llamada de una
+    # directora de marketing y el borrado del "Los 10" de Gipuzkoa (Unai, 15/09).
+    # --historico lo deja pasar porque test-validador valida posts YA publicados.
+    if a.pilar == 'los10' and not (a.los10_autorizado or a.historico):
+        res.insert(0, (False, 'LOS 10: formato PROHIBIDO desde el 16/09',
+                       'No se escribe ni se entrega salvo que Iker lo levante por escrito en ese chat '
+                       '(--los10-autorizado). El hueco de peloteo va a MAPA o DESPIECE (post-workflow §4.3-VETO).', False))
     # Los avisos se imprimen pero NO cuentan: son sospechas, no infracciones.
     # Mezclarlos vaciaría de significado el marcador, y el marcador es lo único
     # que se pega en la entrega.

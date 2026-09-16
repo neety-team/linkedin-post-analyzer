@@ -253,5 +253,7 @@ ok(desestirarTodo('clarooo, y juuusto eso, graciaas') === 'claro, y justo eso, g
 ok(detectarRespuestaBorde('Unai Sanz gracias por decirlo, nos vemos el jueves en Donostia.') !== null, 'caza "nos vemos el jueves"');
 ok(detectarRespuestaBorde('Unai Sanz gracias por decirlo, el jueves en Donostia hablamos justo de esto.') === null, 'deja pasar mencionar el evento sin dar por hecho que va');
 
+ok(estirarUna('muy bien dicho') === 'muuuy bien dicho' || estirarUna('muy bien dicho') === 'muy bieeen dicho', 'estira la ultima vocal aunque acabe en consonante', estirarUna('muy bien dicho'));
+
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

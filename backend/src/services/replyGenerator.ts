@@ -637,8 +637,10 @@ export function estirarUna(texto: string, letras = 2): string {
     hecho = true;
     const plano = w.normalize('NFD').replace(/[̀-ͯ]/g, '');
     if (base === 'gracias') return plano.replace(/as$/i, 'a'.repeat(letras) + 's');
-    const ult = plano.match(/[aeiou]$/i);
-    return ult ? plano + ult[0].repeat(letras) : w;
+    // Se estira la ULTIMA VOCAL, no la ultima letra: "bien" -> "bieeen",
+    // "muy" -> "muuuy", "claro" -> "clarooo", como los ejemplos de Iker.
+    const m = plano.match(/^(.*)([aeiou])([^aeiou]*)$/i);
+    return m ? m[1] + m[2] + m[2].repeat(letras) + m[3] : w;
   });
 }
 

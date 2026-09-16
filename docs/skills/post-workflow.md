@@ -111,7 +111,24 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 
 **5 · EL FINAL, EN ESTE ORDEN EN LOS TRES:** lista → cuerpo con clichés y pueblos → **reveal tardío** con frase nueva → **barrido geográfico** en una línea corta → **línea de contexto del evento** si el enlace es Luma → **el bloque del enlace** → **cierre punchy** que rebota contra el concepto.
 
-**6 · DÓNDE VA EL ENLACE: AL FINAL. ESTÁ MEDIDO (2026-09-16).** En los 21 peloteos publicados con enlace, el enlace cae **entre el 88% y el 96% del texto**, siempre detrás de la lista. Las líneas que hay entre la lista y el enlace no muestran ningún castigo: los tres mejores CTR tienen **4, 4 y 11 líneas** por medio (1,10% · 0,91% · 0,64%), y los que tienen 1-2 líneas se quedan en una mediana de ~0,24%. **La frase vieja "justo después de las menciones" no describía ni lo que publicamos ni lo que funciona.** La regla: el enlace va en la zona final, detrás del reveal y del barrido, **sin pasar de unas 11 líneas** entre la lista y el enlace, que es el máximo medido. ⚠️ Los dos CTR más altos (abril y mayo) llevaban a PamPam y no a nuestra web: se leen como dato de posición, no de destino.
+**6 · DÓNDE VA EL ENLACE: TARDE, DETRÁS DEL REVEAL. Y LO QUE ESTÁ MEDIDO Y LO QUE NO, SEPARADO (re-medido el 2026-09-17)**
+
+> 🔴 **CORRECCIÓN DE LA VERSIÓN DEL 16/09.** Ahí ponía *"los tres mejores CTR tienen 4, 4 y 11 líneas"* y *"los de 1-2 líneas, ~0,24%"*. **Las dos cifras mezclaban clics a PamPam** (web ajena, los dos CTR más altos del histórico) con clics a nuestra web, y el conteo de líneas incluía la propia línea del enlace. Iker preguntó si de verdad estaba validado que tarde convierte más, y la respuesta honesta era que **no lo había medido así**: había medido que no castigaba.
+
+**La medición buena: solo peloteos con clics a NUESTRA web (n=10), contando las líneas con texto entre la última ficha `→` y la línea del enlace:**
+
+| enlace | n | CTR mediano |
+|---|---|---|
+| pronto (0-3 líneas tras la lista) | 5 | **0,184%** |
+| tarde (4-10 líneas) | 5 | **0,471%** |
+
+**Correlación de rangos líneas-CTR: +0,46.** El mejor CTR a nuestra web es el más tardío medido: Castilla y León, **10 líneas → 0,638%**.
+
+**Lo que se puede afirmar:** en peloteo, poner el enlace tarde **no castiga y apunta a convertir más**. **Lo que NO:** que esté probado. Son 10 posts, y el grupo "pronto" junta los mapas de julio que salieron en plena saturación (`punto 1`).
+
+**LA REGLA:** el enlace va **tarde, detrás del reveal**, con **entre 4 y 10 líneas** entre la lista y el enlace. **10 es el máximo medido**: pasarse es salir de los datos. Si sobra una línea, **se fusiona antes que mover el bloque del enlace al final**: dejarlo con una línea suelta antes y otra después crea el tramo en espejo (`global §3.2-ESPEJO`) justo alrededor del bloque de venta. Caso del despiece de Bizkaia: el reveal y el barrido pasaron a una sola línea (`Y el garaje se llama Bizkaia, de Muskiz a Ondarroa.`) y el enlace quedó en 10.
+
+**Mecanizado** como aviso en `validar-post.py` para los tres peloteos (`PELOTEO: entre 4 y 10 lineas entre la lista y el enlace`).
 
 **7 · LAS LISTAS DE QUEMADAS CADUCAN** (Iker, 2026-09-16). País, concepto, frase-rabia y verbo del prejuicio **se liberan a los 42 días** (`global §2.0b-VENTANA`). Lo que no caduca: **la región dentro de la misma cuenta** y los vetos sin fecha.
 

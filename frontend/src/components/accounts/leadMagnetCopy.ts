@@ -178,6 +178,25 @@ const CATALOGO: RecursoDef[] = [
     ],
   },
   {
+    // PERFIL (Asier, 2026-09-17). Reedicion de /perfil/, que llevaba desde mayo
+    // SIN entrada aqui: con el post nuevo, `detectarRecurso` habria devuelto null
+    // y el boton del DM se habria bloqueado con los comentarios entrando.
+    // Igual que `criba` y `errores`, la palabra vive DENTRO de la imagen del post
+    // (`post-workflow §4.5.0-CTA-IMAGEN`), asi que al post lo reconocen las PISTAS.
+    //
+    // Las cinco se comprobaron contra el texto real del post (aparecen las
+    // cinco) y contra los posts de los otros recursos (cero solapes). Ojo al
+    // falso amigo: la guia se llama "landing page", pero el post no lo dice, asi
+    // que no sirve de pista.
+    link: 'https://recursos.neety.com/perfil/',
+    topic: 'las 7 piezas para que tu perfil de LinkedIn venda',
+    claves: ['perfil'],
+    pistas: [
+      'mi perfil no le vendia', 'montado como un curriculum', 'las 7 piezas',
+      'escaparate de venta', 'el curriculum, para las entrevistas',
+    ],
+  },
+  {
     // `firma` y `nombre` apuntaban al mismo sitio con dos entradas duplicadas:
     // el post se reescribio tres veces por un capado de alcance y la palabra
     // cambio, pero la pagina siguio siendo /firma/. Con el catalogo eso es una

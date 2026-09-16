@@ -212,6 +212,26 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## 📝 APROBADO · JUE 17/09 · ASIER · LEAD MAGNET `/perfil/` (1º lead magnet desde el 26/08)
+
+✅ validador 52/52 · sin enlace en el texto (el lead magnet no lleva UTM) · palabra del banner `PERFIL` · recurso REUTILIZADO `recursos.neety.com/perfil/`, **Asier nunca lo había usado** (Iker 17/07, 61 días)
+
+**Gancho:** `🚨 ÚLTIMA HORA: Claude ahora me dice por qué mi perfil no le vendía a nadie 👇` · lista de 7 piezas = las 7 secciones numeradas de la guía, palabra por palabra.
+
+**Cómo se eligió, y fue en tres vueltas (conviene no repetirlas):**
+1. `/criba/` para Unai → Iker lo movió a Asier, y **Asier ya había publicado `/criba/` el 14/08** (33 días): puerta dura de la misma cuenta. Descartado.
+2. `/firma/` → medido contra 245 lead magnets de ventas de la competencia desde el 15/07: tema "quién decide" mediana **57** comentarios frente a **118** del tema "a quién vender". Descartado por tema.
+3. `/vibe/` → guía con señales, automatismo y cifras sin fuente: habría que reescribirla. Descartado.
+4. **`/perfil/`**: tema "perfil" con mediana **686** (n=4; Chris Donnelly 24/08 *"Your LinkedIn profile SHOULD be your landing page"* va por **3.080** comentarios) y nuestro nº2 (483). Referencia del texto: Donnelly 24/08. Referencia de imagen: Donnelly 21/08 (el prompt dentro de la caja de Claude, 2.351c).
+
+**El recurso se adaptó el 16/09 (commit `813879c` de neety-resources):** 7 secciones numeradas con los títulos del post · sección nueva "El texto que le paso a Claude" (prompt-box copiado literal de `/errores/`) · fuera las cifras sin fuente · **y `noindex` en `/perfil/guia/` y `/mensajes/guia/`, que no lo tenían** (ahora lo vigila `validar-recurso.py`, check 5). Entrada nueva en `CATALOGO` con 5 pistas, comprobadas contra el post y contra los 5 lead magnets recientes: cero solapes.
+
+🔴 **El experimento tiene que ser real:** Asier pasa su perfil por Claude con el texto de la guía antes de publicar.
+
+📏 **QUÉ MEDIR:** comentarios contra los 16 del mejor lead magnet de Asier y contra los 71 del 12/08; **minutos hasta aparecer en Principal** (`post-workflow §4.5.0-REVISION`, es un post SIN enlace: sirve de grupo de control del retraso de los UTM de `global §9.0b`).
+
+---
+
 ## 📝 ENTREGADO (v2) · MIÉ 16/09 · ASIER · DESPIECE DE AUTOMOCIÓN EN **BIZKAIA** (evento en el ninja)
 
 ✅ validador **65/65** (v2) · UTM `despiece-bizkaia-16sep-asier` (Luma) · imagen `PELOTEO REGIONAL/DESPIECE/automocion bizkaia.png`

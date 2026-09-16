@@ -91,8 +91,16 @@ def main():
     if suelto:
         avisos.append('Ingles suelto en un recurso en castellano: %s' % ', '.join(suelto))
 
+    # ── 5. la guia no se indexa ─────────────────────────────────────────────
+    # Las dos mitades del gate: robots.txt Y la meta noindex (playbook §14).
+    # El 17/09 se vio que /perfil/ y /mensajes/ llevaban meses sin la meta:
+    # robots.txt no impide indexar una URL que Google encuentra enlazada.
+    if not re.search(r'<meta\s+name="robots"\s+content="noindex', html, re.I):
+        fallos.append('La guia no lleva <meta name="robots" content="noindex">: '
+                      'Google puede indexarla y el gate no sirve (playbook §14).')
+
     # ── salida ──────────────────────────────────────────────────────────────
-    total = 4
+    total = 5
     print('Recurso: %s' % a.fichero)
     print('  secciones numeradas: %d (promesa: %d)' % (len(reales), a.promete))
     print('  datos: %d  ·  fuentes: %d' % (datos, fuentes))

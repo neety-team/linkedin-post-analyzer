@@ -238,6 +238,8 @@ SPAM_QUEMADO = {
     'no te lleva a la sala de los que deciden': '2026-09-11 historia de Unai 11/09',
     'en esta sala sí está y tan solo hay 80 invitados': '2026-09-15 historia de Iker 15/09',
     'no aparece en cualquier sala': '2026-09-15 historia de Iker 15/09, la linea 1',
+    'sí te lo damos, con su contacto': '2026-09-16 meme de Iker 16/09',
+    'a recepción llega cualquiera': '2026-09-16 meme de Iker 16/09, la linea 1',
     'esa carretera acaba en una sala': '2026-09-15 "Los 10" de Gipuzkoa, Unai 15/09',
     'los encuentras de uno en uno': 'lo mismo, la linea 1 del bloque',
     'saber quien firma dentro': '2026-08-07 despiece de Navarra, Asier 07/08',
@@ -346,6 +348,8 @@ ARRANQUE_QUEMADO = {
         # Publicados 01-11/09, anotados el 2026-09-15.
         'arriba': '2026-09-01 meme de Iker 01/09 ("Arriba llegan con agenda / Arriba nadie parte de cero / Arriba llegan con el nombre")',
         '12': '2026-09-03 meme de Asier 03/09 ("12 meses pagados / 12 meses de pantalla / 12 meses sin una cara")',
+        'filtran': '2026-09-16 meme de Iker 16/09 ("Filtran por quien pregunto / Filtran antes de oirme")',
+        'sin': '2026-09-16 meme de Iker 16/09 ("Sin nombre no paso / no hay cita / no hay pedido")',
     },
     # El pilar lead magnet tampoco tenia lista. Anotado al PUBLICAR (§0f).
     # El pilar DESPIECE tampoco tenia lista. Leidos los dos publicados.

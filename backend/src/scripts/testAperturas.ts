@@ -240,7 +240,7 @@ ok(faltaElGracias('Muy buena historia', 'Rosa Mar√≠n la lista al final encoge m√
 ok(estirarUna('claro, y la lista encoge') === 'clarooo, y la lista encoge', 'alarga la palabra de reaccion', estirarUna('claro, y la lista encoge'));
 {
   const salidas = new Set<string>();
-  for (let k = 0; k < 60; k++) salidas.add(estirarUna('claro, la lista encoge y eso es bueno'));
+  for (let k = 0; k < 60; k++) salidas.add(estirarUna('claro, la lista encoge y queda muy bien'));
   ok(salidas.size >= 3, 'la palabra alargada no cae siempre en el mismo sitio', [...salidas].join(' | '));
 }
 ok(estirarUna('claro', 1) === 'claroo', 'en Unai, una sola letra de mas');

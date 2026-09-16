@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, buildPrompt, recordarApertura } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -243,6 +243,10 @@ ok(estirarUna('gracias por decirlo') === 'graciaas por decirlo', 'alarga el grac
 ok(estirarUna('la lista encoge sola') === 'la lista encoge sola', 'no fuerza si no hay palabra de reaccion');
 ok(estirarUna('sí, y encima clarooo') === 'sí, y encima clarooo', 'no alarga si ya hay una');
 ok(ponerEmojiAlFinal('tal cual 🔥', '🙌') === 'tal cual 🙌', 'cambia el emoji por el sorteado');
+
+ok(desestirarTodo('clarooo, y juuusto eso, graciaas') === 'claro, y justo eso, gracias', 'sin sorteo de alargar no queda ninguna', desestirarTodo('clarooo, y juuusto eso, graciaas'));
+ok(detectarRespuestaBorde('Unai Sanz gracias por decirlo, nos vemos el jueves en Donostia.') !== null, 'caza "nos vemos el jueves"');
+ok(detectarRespuestaBorde('Unai Sanz gracias por decirlo, el jueves en Donostia hablamos justo de esto.') === null, 'deja pasar mencionar el evento sin dar por hecho que va');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

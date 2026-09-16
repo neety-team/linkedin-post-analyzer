@@ -388,6 +388,8 @@ IF your reply agrees with the commenter, the agreement word for THIS reply is "$
   const PROB_EMOJI: Record<Voice, number> = { sobrio: 0, medio: 0.25, cercano: 0.5 };
   const conEmoji = !delicado && Math.random() < PROB_EMOJI[voice];
   const emojiElegido = sorteaEmoji();
+  const PALABRAS_ALARGAR = ['claro', 'si', 'bueno', 'no', 'bien', 'vale', 'genial', 'total', 'justo', 'eso'];
+  const palabraAlargar = PALABRAS_ALARGAR[Math.floor(Math.random() * PALABRAS_ALARGAR.length)];
   const emojiNudge =
     (conEmoji
       ? `EMOJI: esta respuesta TERMINA con este emoji y ningun otro: ${emojiElegido}`
@@ -396,7 +398,7 @@ IF your reply agrees with the commenter, the agreement word for THIS reply is "$
         : 'EMOJI: esta respuesta va SIN emoji.') +
     ' ' +
     (estirar
-      ? 'ALARGAR: esta respuesta lleva EXACTAMENTE UNA palabra alargada, una palabra corta de reaccion con la vocal final estirada (RULE 12). Una, no dos.'
+      ? `ALARGAR: esta respuesta lleva EXACTAMENTE UNA palabra alargada, una palabra corta de reaccion con la vocal final estirada (RULE 12). Si encaja, que sea "${palabraAlargar}"; si no, otra de reaccion. Una, no dos.`
       : 'ALARGAR: esta respuesta NO lleva ninguna palabra alargada, tampoco el gracias (RULE 12).');
 
   // Same per-call trick as OPENING_MOVES, for the same reason. RULE 13 lists the
@@ -541,6 +543,11 @@ function desestirar(palabra: string): string {
   // Colapsa cualquier racha de letras iguales y la "ss" final. Solo se llama
   // sobre palabras que esEstirada() ya ha marcado.
   return palabra.replace(/(\p{L})\1+/gu, '$1');
+}
+
+/** Devuelve TODAS las palabras alargadas a su forma normal. */
+export function desestirarTodo(texto: string): string {
+  return texto.replace(/\p{L}+/gu, (w) => (esEstirada(w) ? desestirar(w) : w));
 }
 
 /** Cuantas palabras alargadas lleva el texto. */
@@ -715,6 +722,11 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // Carrillo, que nos daba la razon: "¿y cuantas veces crees que el mejor
   // discurso...?". A quien apoya no se le examina. Tambien la retorica.
   { re: /[¿?]/, que: 'la respuesta hace una pregunta, y a quien comenta se le apoya, no se le examina' },
+  // Dar por hecho que el que comenta viene al evento (prueba del 16/09: "nos
+  // vemos el jueves en Donostia" a alguien que solo dijo "que grande Iker").
+  // Es la misma regla que el Google Chat tiene desde el 27/08: no se pone en
+  // boca de nadie que va a ir.
+  { re: /\b(nos vemos (el|en|alli|alla|ahi|pronto|el jueves)|alli nos vemos|te espero (el|en|alli)|os espero|alli estaras)\b/, que: 'das por hecho que el que comenta va a venir al evento' },
   // Tratarle de despistado (prueba del 16/09).
   { re: /\b(si no sabes|si lo lees|si te lo lees|esta en el post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
   // Afirmar que la historia es real (muchas escenas son construidas).
@@ -1211,11 +1223,13 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   {
     const nom = input.commenterName?.trim();
     if (nom && text.toLowerCase().startsWith(nom.toLowerCase())) {
-      const cuerpo = limitarEstiradas(text.slice(nom.length));
+      // Si el sorteo dijo "sin alargar", se quitan TODAS: el 16/09 salieron 6
+      // de 8 alargadas porque el modelo alargaba igual, con "clarooo" tres
+      // veces en la misma tanda.
+      const cuerpo = estirar ? limitarEstiradas(text.slice(nom.length)) : desestirarTodo(text.slice(nom.length));
       text = text.slice(0, nom.length) + (estirar ? estirarUna(cuerpo, voice === 'sobrio' ? 1 : voice === 'medio' ? 2 : 2) : cuerpo);
     } else {
-      text = limitarEstiradas(text);
-      if (estirar) text = estirarUna(text, voice === 'sobrio' ? 1 : 2);
+      text = estirar ? estirarUna(limitarEstiradas(text), voice === 'sobrio' ? 1 : 2) : desestirarTodo(text);
     }
   }
   // 1f. EL EMOJI LO DECIDE EL SORTEO, NO EL MODELO. Unai nunca; si al resto le

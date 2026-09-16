@@ -532,6 +532,9 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null),
       }))
       .filter((x) => x.que);
+    // UNA LINEA MEJOR QUE DOS (Iker, 2026-09-16): en la prueba, 3 de 5 salieron
+    // con la forma "frase. frase.", que leida en fila es una plantilla.
+    const conDosFrases = out.filter((c) => (c.match(/[.!?…](\s|$)/g) || []).length >= 2).length;
     const vistas = new Map<string, number>();
     for (const c of out) {
       const dos = primerasDos(c);
@@ -539,6 +542,9 @@ Return JSON only: { "comments": ["...", "..."] }`;
     }
     const repetidas = [...vistas.entries()].filter(([, veces]) => veces > 1).map(([k]) => k);
 
+    if (conDosFrases > 2) {
+      genericas.push({ c: `${conDosFrases} de ${n}`, que: 'demasiados con dos frases: como mucho dos, los demas en UNA linea' } as any);
+    }
     if ((genericas.length === 0 && repetidas.length === 0) || intento === 2) {
       if (genericas.length || repetidas.length) {
         console.warn(

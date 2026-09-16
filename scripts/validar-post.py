@@ -892,6 +892,13 @@ def validar_tarjeta(texto, card=None, cuenta=None, historico=False, publica_mana
                     texto, re.I)
     chk(not ms, 'Cifras en digito, nunca en letra (§3.6)', f'{ms[:3]}' if ms else '')
 
+    # §4.6-AVATAR (Iker, 2026-09-16): el generador deforma a las personas en cada
+    # iteracion. Aviso fijo de entrega porque el script no ve el prompt.
+    chk(False, 'ENTREGA: el avatar va como CIRCULO MAGENTA y la cara la pega el script (§4.6-AVATAR)',
+        'en el prompt, circulo liso FF00FF sin foto dentro, y al generador NO se le adjunta la '
+        'foto del jefe. Con el resto aprobado, Iker pasa el magenta a transparente y se monta con '
+        'scripts/montar-avatar-tarjeta.py', aviso=True)
+
     # ------------------------------------------------------------- LA TARJETA
     if card is None:
         chk(False, 'TARJETA: falta el texto de la tarjeta (--tarjeta <fichero>)',

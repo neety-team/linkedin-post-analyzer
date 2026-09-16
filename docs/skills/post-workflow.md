@@ -3108,6 +3108,19 @@ La tarjeta simula X, así que la cabecera son **dos líneas**: nombre exacto con
 - **⛔ Y se acorta el de Unai a dos palabras.** `@unaiarambarriyeregui` son 20 caracteres y se lee como un churro; los handles de las referencias son cortos (`@AdamMGrant`, `@AlexHormozi`, `@LeilaHormozi`).
 - **El nombre de la línea 1 va COMPLETO y exacto**, como en LinkedIn (`feedback_nombres_nunca_acortados`). Lo que se acorta es el handle, no el nombre.
 - **La foto es la REAL del jefe**, la misma del perfil. Es lo que sostiene la cabecera.
+
+#### ⛔⛔ 4.6-AVATAR · LA CARA NUNCA ENTRA EN EL GENERADOR: HUECO MAGENTA Y LA PEGA UN SCRIPT (Iker, 2026-09-16)
+
+> **Iker:** *"el otro generador siempre suele liarla y cada vez que le pedimos una iteración empieza a deformar las personas"*.
+
+**Es la misma razón que la orla de "Los 10" y la llanta del despiece:** un generador no pega, redibuja, y cada edición vuelve a redibujar la cara. **El OUTPUT de este pilar cambia:**
+
+1. **El prompt pide el avatar como un círculo MAGENTA liso `FF00FF`**, sin nada dentro, sin borde ni sombra. **Al generador NO se le adjunta la foto del jefe**: solo la referencia.
+2. Se itera la tarjeta (fondo, cabecera, texto) hasta que **yo doy el OK** al resto de la imagen.
+3. **Iker aplica el desenfoque, pasa el magenta a TRANSPARENTE, exporta en PNG sin metadatos** y me pasa el fichero.
+4. **Lo monto yo:** `python scripts/montar-avatar-tarjeta.py --tarjeta <png con hueco> --foto <foto de perfil> --salida <final.png>`. Detecta el hueco solo, encuadra la foto hacia la cara (YuNet, el mismo detector que la orla) y la pone DEBAJO de la tarjeta, así que la máscara es el círculo que dibujó el generador. **La imagen final se enseña en el chat** y **no lleva aviso de postproducción** después del montaje: el desenfoque ya se aplicó en el paso 3 y lo que pega el script es una foto real.
+- La foto de perfil se baja de Unipile (`profile_picture_url_large`, 800x800), no del banco de fotos: es la del perfil de LinkedIn, la que reconoce quien la ve.
+- **El aviso `⚠️ AVISO, MARIO:` va debajo del prompt**, porque el desenfoque se aplica al paso 3, antes de hacer el hueco.
 ---
 
 ## 5 · Dónde el círculo SE PARA y te devuelve (gates humanos — aquí mandan las skills)

@@ -1436,6 +1436,10 @@ El único creador de la BD que puso métricas simuladas es **Chris Donnelly, en 
 - **1:1, 800x800.** Manda `§0b` sin excepciones, y además cae dentro del rango medido de Grant (0,91-1,00).
 - **⛔ NUNCA APAISADO.** Andy Elliott es el único de la BD que lo hace apaisado (1,55-1,74) y es el que peor rinde de los que usan el formato.
 
+### 9.7 · ⛔ El avatar sale como círculo MAGENTA y la cara la pega un script (Iker, 2026-09-16)
+
+El generador deforma a las personas en cada iteración. **En el prompt el avatar es un círculo magenta liso `FF00FF`, sin foto dentro y sin adjuntarle la foto del jefe.** Cuando el resto está aprobado, Iker pasa el magenta a transparente y `scripts/montar-avatar-tarjeta.py` pega la foto de perfil debajo. Flujo completo en `post-workflow §4.6-AVATAR`. Misma familia que `§0f` (un modelo de imagen no puede pegar) y que la silueta del despiece (`§0a-novena`, huecos en magenta).
+
 ### 9.6 · El texto de la tarjeta pasa los mismos filtros que el cuerpo
 
 `§0h-FILTROS` aplica entero: lo que va dentro de la imagen **es copy nuestro**. La cifra de P2 va verificada contra fuente real, se cita el **nombre y nunca el año** (`global §3.5b`), y no se inventa ni una empresa ni una persona.

@@ -125,6 +125,13 @@ RULE 3f — ⛔⛔ EL POST ES TEXTO **Y** FOTO, Y LA FOTO SUELE LLEVAR EL CHISTE
 · SI TE LLEGA LA IMAGEN: miralas las dos antes de contestar. Lo que se ve en la foto cuenta igual que lo que esta escrito, y para explicar una broma normalmente cuenta MAS.
 · SI NO TE LLEGA LA IMAGEN (te lo dira el mensaje de usuario): NO PUEDES AFIRMAR NADA SOBRE LO QUE EL POST ENSENA NI SOBRE LO QUE NO ENSENA. Prohibido decir que algo "no sale", "no aparece", "no lo hemos dicho" o "no va de eso". Contesta solo desde lo que SI tienes delante, y si el comentario va de lo que se ve en la foto, se reconoce y se responde en general, sin negar nada.
 
+RULE 3c-quater — ⛔⛔ NUNCA SE VACILA, NUNCA SE LE TOMA POR TONTO A NADIE (Iker, 2026-09-16). Probado con comentarios dificiles, salieron estas, y las cuatro estan PROHIBIDAS en su forma:
+· A "Otro post vendiendo humo" -> "el humo no tacha nombres de una lista, los acumula". Es un ZASCA. Aunque el comentario sea despectivo, no se contesta con una replica ingeniosa: eso es vacilar en publico.
+· A "¿Esto es verdad o te lo has inventado?" -> "no, esta en el post con nombres y fechas". Le manda a leer, y AFIRMA que es real. NUNCA afirmes que una historia es real ni niegues que sea inventada: muchas escenas de nuestros posts se construyen a partir de un dolor real. Lo que se dice es que lo que cuenta le pasa a muchos comerciales.
+· A "Que post mas largo, no he llegado al final" -> "el final es donde esta el golpe". Es decirle "pues leetelo". Se le da la razon ("me he enrollado") y se le resume en una linea.
+· A "No se que tiene que ver con el evento" -> "...si no sabes que en ese evento...". NUNCA "si no sabes", "si lo lees", "esta en el post", "como dice el post": todo eso le trata de despistado.
+✅ ANTE UN COMENTARIO DESPECTIVO O HOSTIL ("tonteria", "humo", "chorrada", "postureo", "no tiene gracia"): corto, respetuoso y SIN "pero" que le rebata. "Respeto la opinion", "entiendo que no te encaje", "tomo nota", "cada uno lo vive distinto". Nada de zascas, nada de ironia, nada de dejar caer que no lo ha entendido.
+
 RULE 3d — CERO CIFRAS INVENTADAS (Iker, 2026-08-12). NUNCA metas un porcentaje ni una cifra en una respuesta: ni "el 80% de las veces", ni "el 80% de los tratos", ni "9 de cada 10", ni "3 veces mas". Suenan a dato y NO ESTAN COMPROBADOS, asi que es exactamente lo que la casa tiene prohibido en los posts: inventar un numero. Y en un comentario es peor, porque el que lo lee puede pedirte la fuente delante de todos.
 Di la MAGNITUD con palabras: "la mayoria de los tratos", "casi siempre", "en la mayoria de los casos", "muy pocas veces", "la mayor parte del tiempo", "rara vez". Dicen lo mismo, se leen igual de fuerte y no se pueden desmentir.
 UNICA excepcion: una cifra que este ESCRITA en el post o que la haya dicho el propio comentarista. Esa se puede recoger, porque ya esta publicada y verificada. Lo prohibido es que la cifra nazca aqui.
@@ -548,6 +555,10 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // Carrillo, que nos daba la razon: "¿y cuantas veces crees que el mejor
   // discurso...?". A quien apoya no se le examina. Tambien la retorica.
   { re: /[¿?]/, que: 'la respuesta hace una pregunta, y a quien comenta se le apoya, no se le examina' },
+  // Tratarle de despistado (prueba del 16/09).
+  { re: /\b(si no sabes|si lo lees|si te lo lees|esta en el post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
+  // Afirmar que la historia es real (muchas escenas son construidas).
+  { re: /\b((la historia|esto|todo|es todo) es (real|verdad|cierto)|es todo (real|verdad|cierto)|no (me lo he|lo he) inventad|paso de verdad|me paso tal cual)\b/, que: 'afirmas que la historia es real, y no puedes saberlo' },
   // "no era una herramienta, era la renovacion del evento" (prueba del 16/09, a
   // "¿Y que herramienta era?"). Falso: la factura del meme ES de herramientas
   // de ventas, pero eso vive en la foto y ya no la vemos. Sin imagen, corregir
@@ -590,8 +601,21 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
 // sacaba "empieza por el sujeto de la escena", la respuesta explicaba la broma
 // perfectamente pero entraba a saco, sin el "no pasa nada". Tercera vez hoy que
 // arreglar una capa rompe otra, y por eso las dos van comprobadas y no pedidas.
-const NO_ENTIENDE = /(no (lo |la )?(entiendo|pillo|capto|comprendo)|no entiendo nada|no me queda claro|no le veo el (sentido|punto)|me he perdido|que quiere decir|a que te refieres|no se que quiere)/;
-const HAY_RECONOCIMIENTO = /(no pasa nada|normal|culpa mia|nada, |tranquil|me ha quedado|me quedo|te lo cuento|te lo explico|mal explicad|no me he explicad|es culpa)/;
+const NO_ENTIENDE = /(no (lo |la )?(entiendo|pillo|capto|comprendo)|no entiendo nada|no me queda claro|no le veo el (sentido|punto)|me he perdido|que quiere decir|a que te refieres|no se que (quiere|tiene que ver)|que tiene que ver|(muy|mas|demasiado) largo|no he llegado al final|no me lo he leido|resumen por favor|tl;?dr)/;
+const HAY_RECONOCIMIENTO = /(no pasa nada|normal|culpa mia|nada, |tranquil|me ha quedado|me quedo|te lo cuento|te lo explico|te lo resumo|mal explicad|no me he explicad|es culpa|me he enrollado|me enrolle|tienes razon|con razon)/;
+
+// ⛔ EL COMENTARIO HOSTIL (Iker, 2026-09-16, "que nunca se vacile ni se le tome
+// por tonto a nadie"). A "Otro post vendiendo humo" salio un zasca; a "Vaya
+// tonteria de post", un "puede ser, pero...". Ante lo despectivo la respuesta
+// tiene que llevar una marca de respeto y NINGUN "pero" que le rebata.
+const ES_HOSTIL = /(tonteria|chorrada|gilipollez|humo|vendehumos|postureo|no tiene (ninguna )?gracia|sin gracia|no mola|ridicul|patetic|basura|cutre|que pesad|otro post (de|vendiendo)|falta de respeto)/;
+const HAY_RESPETO = /(respeto|entiendo|comprendo|tomo nota|lo apunto|me lo apunto|cada uno|es normal|normal que|valoro|gracias por (decirlo|la sinceridad|comentar|el apunte)|no te encaj)/;
+
+export function respuestaAHostilMal(comentario: string, respuesta: string): boolean {
+  if (!ES_HOSTIL.test(llano(comentario))) return false;
+  const r = llano(respuesta);
+  return !HAY_RESPETO.test(r) || /\bpero\b/.test(r);
+}
 
 /**
  * Si el comentario dice que no entiende el post, la respuesta TIENE que abrir
@@ -901,7 +925,11 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     }
     if (!ultimoTonoBorde && faltaElReconocimiento(input.commentText, candidato)) {
       ultimoTonoBorde =
-        'el comentario dice que NO ENTIENDE el post y la respuesta no abre quitandole hierro (RULE 3c-bis): tiene que empezar por "no pasa nada", "normal" o "culpa mia" ANTES de explicar';
+        'el comentario dice que NO ENTIENDE el post o que NO HA PODIDO LEERLO, y la respuesta no abre dandole la razon (RULE 3c-bis): tiene que empezar por "no pasa nada", "normal", "culpa mia" o "me he enrollado" y luego resumir o explicar';
+    }
+    if (!ultimoTonoBorde && respuestaAHostilMal(input.commentText, candidato)) {
+      ultimoTonoBorde =
+        'el comentario es despectivo y la respuesta le replica o no le muestra respeto (RULE 3c-quater): corta, respetuosa ("respeto la opinion", "entiendo que no te encaje", "tomo nota") y SIN ningun "pero" ni zasca';
     }
     if (ultimoTonoBorde && intento < 3) {
       candidatoTibio = candidato;

@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, buildPrompt, recordarApertura } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, buildPrompt, recordarApertura } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -200,6 +200,18 @@ ok(detectarRespuestaBorde('Mario Carrillo tal cual, el mejor discurso no llega a
 
 ok(detectarRespuestaBorde('Pablo Sanz no era una herramienta, era la renovación del evento presencial de Donostia...') !== null, 'caza "no era X, era Y" sobre el post');
 ok(detectarRespuestaBorde('Pablo Sanz eso es lo de menos, lo que duele son los 12 meses pagados sin ver a nadie.') === null, 'y deja pasar la que no corrige');
+
+// 14. Las 4 que salieron mal en la prueba de estres del 16/09.
+ok(respuestaAHostilMal('Otro post vendiendo humo', 'Sergio Vela el humo no tacha nombres de una lista, los acumula.'), 'caza el zasca al comentario hostil');
+ok(respuestaAHostilMal('Vaya tontería de post', 'Raúl Gómez puede ser, pero a quien le duele es a quien paga 12 meses.'), 'caza el "puede ser, pero"');
+ok(!respuestaAHostilMal('Otro post vendiendo humo', 'Sergio Vela respeto la opinión, entiendo que no te encaje.'), 'deja pasar la respetuosa');
+ok(detectarRespuestaBorde('Álvaro Ruiz no, está en el post con nombres, fechas y el número de llamadas exacto.') !== null, 'caza "está en el post"');
+ok(detectarRespuestaBorde('Álvaro Ruiz es todo real, me pasó tal cual.') !== null, 'caza afirmar que la historia es real');
+ok(detectarRespuestaBorde('Lucía Martín normal, y si no sabes que en ese evento están los que firman...') !== null, 'caza "si no sabes"');
+ok(faltaElReconocimiento('Qué post más largo, no he llegado al final', 'Nuria Sanz el final es donde está el golpe...'), 'caza el "pues léetelo"');
+ok(!faltaElReconocimiento('Qué post más largo, no he llegado al final', 'Nuria Sanz me he enrollado, te lo resumo, lo que no vale no se llama.'), 'deja pasar la que da la razón');
+
+ok(detectarRespuestaBorde('Mario Carrillo tal cual, el problema es real y encima lo pagas dos veces.') === null, 'no confunde "el problema es real" con afirmar la historia');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

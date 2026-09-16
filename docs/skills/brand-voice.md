@@ -389,6 +389,27 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 - **Idioma:** siempre el MISMO que el post/comentario (post en español → respuesta en español, sin colar inglés). Iguala el registro (tú/usted, formal/informal).
 - Sin markdown, sin meta ("el algoritmo", "en LinkedIn"), sin auto-promo.
 
+#### ⛔⛔ 7.1g · NUNCA SE VACILA NI SE TOMA POR TONTO A NADIE (Iker, 2026-09-16)
+
+> *"¿Me puedes confirmar que ahora nunca se generan respuestas que vacilen a los usuarios, que les vayan a enfadar o que se les tome por tontos?"*
+
+**No se confirmó a ciegas: se probó.** 10 comentarios difíciles contra producción, en las tres voces. **4 de 10 salieron mal**, y cada uno es una familia distinta:
+
+| comentario | lo que salió | por qué no vale |
+|---|---|---|
+| *"Otro post vendiendo humo"* | *"el humo no tacha nombres de una lista, los acumula"* | **zasca**: vacilar en público |
+| *"¿Esto es verdad o te lo has inventado?"* | *"no, está en el post con nombres y fechas"* | le manda a leer **y afirma que es real**, cuando muchas escenas son construidas (`post-workflow §4.6-INVENTAR`) |
+| *"Qué post más largo, no he llegado al final"* | *"el final es donde está el golpe"* | es decirle *"pues léetelo"* |
+| *"No sé qué tiene que ver con el evento"* | *"…si no sabes que en ese evento…"* | le trata de despistado |
+
+**LAS REGLAS, y las cuatro van comprobadas en código, no pedidas:**
+- **Comentario despectivo** (*tontería, humo, postureo, no tiene gracia…*) → corto, respetuoso y **sin ningún "pero"**: *"respeto la opinión"*, *"entiendo que no te encaje"*, *"tomo nota"*. `respuestaAHostilMal()`.
+- **"¿Es verdad?"** → nunca se afirma que la historia es real; se dice que lo que cuenta le pasa a muchos comerciales.
+- **"Es muy largo / no he llegado"** → se le da la razón (*"me he enrollado"*) y se le resume.
+- **Prohibido tratarle de despistado:** *"si no sabes"*, *"si lo lees"*, *"está en el post"*, *"como dice el post"*.
+
+**⚠️ Y lo que no se puede prometer:** un modelo no da un "nunca" absoluto. Los filtros cazan las familias que ya hemos visto y el prompt cubre el resto; **si aparece una forma nueva de vacilar, se añade aquí y al detector el mismo día.**
+
 #### ⛔ 7.1f · LA RESPUESTA NUNCA ES UNA PREGUNTA (Iker, 2026-09-16)
 
 > *"Ahora intentas responder comentarios haciendo una pregunta, cosa que yo creo que no me gusta. Puede ser inteligente a nivel de engagement, pero no sé si me convence. Recuerda que siempre hay que priorizar respuestas de apoyo"*.

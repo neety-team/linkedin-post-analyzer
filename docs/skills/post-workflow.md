@@ -43,7 +43,7 @@ Antes se dejaban SIEMPRE vacías. **Ya no.** La regla nueva:
 - **Rellena** los bloques de empresas y las menciones @ con datos **reales y verificables**, tomados de una **fuente**: (a) los datos del **mapa de pampam** o la lista que te pase el usuario, (b) fuentes públicas con cita (ICEX, cámara de comercio, INE/Eurostat, autoridad portuaria, prensa sectorial), o (c) **búsqueda web**, siempre citando de dónde sale.
 - **Marca cada entrada** con su fuente y un nivel de confianza, y añade una lista corta **"revisa estas"** con las dudosas. El usuario da el visto bueno final.
 - **NUNCA inventes.** Si no puedes verificar una empresa/persona, deja ese hueco como `→ [PENDIENTE · no verificado]` en vez de rellenarlo con algo falso. Un nombre inventado o un dato mal envenena el hilo (mapa de 6x → 0.5x).
-- **Menciones @:** solo personas que **hayan COMENTADO a otros en los últimos 3 meses** (no basta con publicar/compartir en su perfil: el que solo emite no nos comenta). Se comprueba con `/users/{id}/comments`. Descarta a quien no comente aunque sea el CEO. Detalle y el porqué del "3 meses no 1", en `§4.2 Paso 4`.
+- **Menciones @:** cargo con poder de decisión y actividad de CUALQUIER tipo (30 días para ordenar, 6 meses de techo); y una empresa con alguien dentro gana a una sin nadie. **Manda `§4.0d` punto 3.** ~~Solo quien haya COMENTADO a otros~~ se revirtió el 26/08.
 - **Sin web ni fuente disponible** → compórtate como antes (deja el bloque vacío marcado y pídele la fuente al usuario). Mejor vacío que inventado.
 
 ### 4.0b · ⭐ MAPA vs "LOS 10": criterios de selección OPUESTOS (2026-07-17)
@@ -79,6 +79,41 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 **⭐ BUSCANDO EMPRESAS NO SE PARA NUNCA (Iker, 2026-07-31).** Si una no sirve o no salen suficientes, **se sigue: otra fuente, otra provincia, prensa local, otro endpoint**. Solo se para cuando es **imposible** encontrar más, y eso hay que haberlo intentado de verdad. La que no convence **se descarta sola, sin consultar**: no se devuelven dudas. Y **no se re-auditan empresas ya verificadas en la misma sesión** — eso es trabajo repetido, no rigor. Textual: *"no tienes que parar, tienes que seguir, seguir, seguir"*. Truco que salvó Asturias el 31/07: **adivinar el slug de LinkedIn no funciona** (fallaron 20 de 22); se busca por **keyword** con `category: companies`, y el endpoint `/linkedin/company/{x}` acepta también el **id numérico**, que a veces es la única forma de sacar una ficha.
 
 **⚠️ Y LO CARO NO ES LA REGLA, ES LA BÚSQUEDA.** Cuando falten empresas, el reflejo es dar la región por agotada. En Cataluña un investigador devolvió *"0 de Girona, ninguna pasó el listón"* y **era falso**: buscando "Cataluña" a nivel autonómico, Barcelona se come los resultados. Atacando fuentes locales (el ranking provincial, el directorio del polígono de Riudellots, la prensa comarcal) salieron 8 gerundinas a la primera. **Antes de bajar a 16, busca por provincia y con prensa local.**
+
+### 🌳🌳 4.0d · EL TRONCO COMÚN DEL PELOTEO REGIONAL: LO QUE COMPARTEN MAPA, "LOS 10" Y DESPIECE (Iker, 2026-09-16) — CANÓNICO
+
+> **Iker:** *"creo que hay muchas diferencias entre lo pulida que está la receta del mapa, la de los 10 que retocamos ayer y la de despiece, cuando en realidad las tres, por mucho que cada una se represente con una imagen diferente, tienen en común ese orgullo peloteo regional y cosas como los clichés"*.
+
+**Tenía razón y la auditoría lo confirma:** cada runbook se había ido corrigiendo por separado y el despiece arrastraba reglas viejas (menciones "que COMENTEN", enlace "tras las menciones", nada sobre clichés ni barrido). **Lo que es igual en los tres vive AQUÍ. Los runbooks solo guardan lo que de verdad los separa**, y cuando una regla de aquí se toque, se toca aquí (`working-preferences §0c-BIS`).
+
+| | MAPA (`§4.2`) | "LOS 10" (`§4.3`) | DESPIECE (`§4.7`) |
+|---|---|---|---|
+| **Protagonista** | la empresa | la persona | la empresa, pieza a pieza |
+| **Gancho** | 4 inamovibles | 3 inamovibles propios | los 4 del mapa, con el objeto dentro del remate |
+| **Fichas** | 20, bloques de 4 | 10, bloques de 5, con logro | 12 exactas, bloques de 4, `→ Pieza: @Empresa - @Persona` |
+| **Imagen** | PamPam | orla | llanta |
+| **Todo lo demás** | ⬇️ tronco común | ⬇️ tronco común | ⬇️ tronco común |
+
+**1 · LA VENTANA ANTES QUE LA REGIÓN.** Se cuentan los peloteos de las 3 cuentas en los 21 días previos: mediana **39.310** con 0-3, **16.726** con 4-5 y **2.360** con 6-7 (22 peloteos, medido el 2026-09-15). Con 4 o más se avisa; con 6 o más se mueve el post. Detalle en `§4.7` Paso 0.
+
+**2 · EL GANCHO LO ENTIENDE CUALQUIERA** (Iker, 2026-09-16). Concepto, clichés y sitio, en palabras que conoce toda España. **Lo de allí baja al cuerpo.** El caso: `el garaje de la ría` → `el garaje del norte`. Iker: *"el concepto de garaje me encanta… pero el de la ría no creo que lo entienda cualquier persona"*. Mecanizado como fallo duro en los tres pilares (`GANCHO: sin vocabulario ni grafia LOCAL`). ⚠️ No es un veto a la grafía `tx`: `txistorra` va en el gancho de Navarra (79.224) y se entiende en toda España. La primera versión del check lo tumbaba.
+
+**3 · LAS MENCIONES, con este orden de prioridad y sin excepciones de pilar:**
+1. **Cargo con poder de decisión** (CEO/DG/gerente/fundador → dirección comercial o de exportación → marketing → dirección industrial). Sin eso no se menciona, aunque esté activísimo (`§4.2` Paso 4, `scripts/menciones.py`).
+2. **Actividad de cualquier tipo en LinkedIn** (publicar, comentar o compartir): 30 días es lo ideal y sirve para ORDENAR; 3 meses si no hay nadie; 6 de techo. ~~"Que haya COMENTADO a otros"~~ se revirtió el 26/08.
+3. **⭐ UNA EMPRESA CON ALGUIEN DENTRO GANA A UNA SIN NADIE (Iker, 2026-09-16).** *"hay muchas empresas en las que no has encontrado ninguna persona a la que mencionar. Esto es lo que tenemos que evitar al máximo a menos que no nos quede otra"*. La ficha sin persona sigue siendo válida, pero es **el último recurso**: antes se busca otra empresa que encaje y tenga un directivo activo. Solo si no la hay, se queda la ficha sin persona y se dice en la entrega con su número.
+4. **El método que encuentra a esa gente es buscar PERSONAS primero:** Sales Navigator con `posted_on_linkedin: true`, la `location` de la región y el sector en `keywords`. Después se verifica la empresa (`§4.3` Paso 2). Probado el 16/09 en Bizkaia: sacó a Estampaciones Vizcaya con su gerente, que el barrido por empresas había dejado sin persona.
+5. **La empresa califica por su ORIGEN**, no por la ciudad de su página ni por tener una planta (`§4.2` Paso 4). **Se verifica contra su descripción de LinkedIn y, si ahí no lo dice, contra su web** (`§4.7` Paso 2).
+6. **Ninguna empresa ni persona repetida** contra `menciones-usadas.json` (`§4.0c`), **y ningún cliente**: se cruza contra la lista de clientes de `/agendar/`.
+7. **Las DOS menciones siempre que haya persona** (`§4.3` Paso 2), con los nombres exactos de LinkedIn, tagline incluido.
+
+**4 · LOS CLICHÉS, IGUAL EN LOS TRES.** En el gancho van **los 2 más universales**. En el cuerpo van **otros, más locales, y como mínimo 8 guiños** (medido en el mapa: Navarra, 10 guiños → 79.224; Asturias, 4 → 2.297). **Los pueblos van con su oficio** y salen de las propias fichas (`global §4.1` 2b). ~~"4-8"~~ era la cifra vieja y seguía escrita en `global §4.1` y en `§4.3` Paso 3b.
+
+**5 · EL FINAL, EN ESTE ORDEN EN LOS TRES:** lista → cuerpo con clichés y pueblos → **reveal tardío** con frase nueva → **barrido geográfico** en una línea corta → **línea de contexto del evento** si el enlace es Luma → **el bloque del enlace** → **cierre punchy** que rebota contra el concepto.
+
+**6 · DÓNDE VA EL ENLACE: AL FINAL. ESTÁ MEDIDO (2026-09-16).** En los 21 peloteos publicados con enlace, el enlace cae **entre el 88% y el 96% del texto**, siempre detrás de la lista. Las líneas que hay entre la lista y el enlace no muestran ningún castigo: los tres mejores CTR tienen **4, 4 y 11 líneas** por medio (1,10% · 0,91% · 0,64%), y los que tienen 1-2 líneas se quedan en una mediana de ~0,24%. **La frase vieja "justo después de las menciones" no describía ni lo que publicamos ni lo que funciona.** La regla: el enlace va en la zona final, detrás del reveal y del barrido, **sin pasar de unas 11 líneas** entre la lista y el enlace, que es el máximo medido. ⚠️ Los dos CTR más altos (abril y mayo) llevaban a PamPam y no a nuestra web: se leen como dato de posición, no de destino.
+
+**7 · LAS LISTAS DE QUEMADAS CADUCAN** (Iker, 2026-09-16). País, concepto, frase-rabia y verbo del prejuicio **se liberan a los 42 días** (`global §2.0b-VENTANA`). Lo que no caduca: **la región dentro de la misma cuenta** y los vetos sin fecha.
 
 ### ⛔ 4.1-GANCHO · SI EL PILAR NO ESTÁ DEFINIDO, PRIMERO SOLO EL GANCHO (Iker, 2026-08-05)
 
@@ -336,7 +371,7 @@ Frase de entrada:
   3. **Aterrizan en NUESTRO dominio, no en PamPam.** El trafico es nuestro, el SEO es nuestro, y **quien vende es la pagina, no el post**.
   4. **Y ahi esta lo ultra:** la venta ocurre **DESPUES** del clic. El spam ninja normal todavia huele un poco a pitch; este no huele a nada. Descubren que es nuestra web cuando ya estan dentro.
 - **🔴 LA CONSECUENCIA, Y ES LA PARTE QUE SE OLVIDA:** si el post ya no vende, **quien tiene que convertir es la PAGINA**. Todo el peso del gate y del CTA a agendar se ha mudado alli. **Si esa pagina no captura, el post entero se queda en alcance bonito.** Asi que al medir un mapa no basta el ratio: hay que mirar **clics al enlace** y **que hace la pagina con ellos**. Y si alguna vez hay que elegir donde invertir una hora, va antes la pagina que el post.
-- **Colocación fija: justo DESPUÉS del bloque de menciones.** En este pilar no es "donde quede coherente".
+- **Colocación: en la zona final, detrás del reveal y del barrido** (`§4.0d` punto 6, medido el 16/09). 🔴 Aquí ponía *"justo DESPUÉS del bloque de menciones"*, y contradecía el ORDEN EXACTO de Iker del 03/08, dos pasos más arriba, y lo que publicamos en 20 de 21 peloteos.
 - **Framing de recurso, no de anuncio. Forma corta exacta y COMPLETA: `Mapa completo aquí: {link}`** (sin coma, sin "empresa por empresa", y sin nada delante). Es el molde literal que dio los CTR más altos (Galicia, Valencia, Bizkaia). NO "te decimos", NO "reserva", NO "agenda", NO alargarlo.
 - **🔴 CORREGIDO EL 2026-07-31: EN EL MAPA VA SOLO LA LINEA DEL ENLACE, SIN FRASE DE DOLOR DELANTE.** Es el **SPAM ULTRA NINJA** (`global §4.4b`), y el motivo esta ahi: el mapa es el pilar que mas clics genera **precisamente porque nada insinua que llevamos a nuestra web**, y una frase de dolor delante reintroduce el olor a venta que es lo que el ultra ninja elimina. **El bloque de DOS que pide §3.2 se saca de otro par natural del cuerpo.** Lo de abajo es la regla vieja, se conserva porque **sigue valiendo para el spam ninja normal de los demas pilares**:
 - ~~**Bloque de DOS líneas pegadas (SIN salto en blanco entre ellas), no dos líneas sueltas**~~ (Iker, 2026-07-23). El chiste del hook va encima del CTA y se leen de un golpe: dolor → fix. Un enlace flotando solo con blanco alrededor tiene pinta de anuncio (ceguera de banner) y rompe el problema→solución; además el spam ninja va SIEMPRE fusionado (`global §4.4b`). El dolor aterriza en el industrial de ESA región con un diferenciador de `aboutme §1b`, girando la palabra del hook. Validado (Murcia, hook del desierto):
@@ -401,7 +436,7 @@ Frase de entrada:
 
 **Paso 10 — Guía de menciones** (fuera del post, para pegar las @ a mano): las 20, para que el usuario encuentre a la persona/empresa correcta sin confundirse con homónimos.
 - **⚠️ ESTO APLICA AL MAPA (20 menciones). Con POCAS menciones, TABLA DE 4 COLUMNAS (Iker, 2026-07-29).** La frontera es el numero:
-  - **Hasta 10 menciones** (historia con peloteo, "Los 10"): **tabla markdown de CUATRO columnas**, en este orden exacto: **nombre de la empresa | enlace de la empresa | nombre de la persona | enlace de la persona**. Se lee de un vistazo y se comprueba fila a fila.
+  - **Hasta 12 fichas** (historia con peloteo, "Los 10", despiece): **tabla markdown de CUATRO columnas**, en este orden exacto: **nombre de la empresa | enlace de la empresa | nombre de la persona | enlace de la persona**. Se lee de un vistazo y se comprueba fila a fila.
   - **20 menciones (el mapa):** linea a linea, sin tabla, calcando la posicion del post, que es para lo que sirve ahi.
 - **NUNCA en tabla markdown** *(solo en el mapa, ver el punto de arriba)*. El usuario la usa línea a línea; la tabla estorba y no se copia bien.
 - **Tiene DOS usos y por eso DOS formatos. Da el que toca según dónde la entregues:**
@@ -462,11 +497,11 @@ Frase de entrada:
 - **🔴🔴 VERIFICAR UNA MENCIÓN SON CUATRO COMPROBACIONES, NO UNA (Iker, 2026-07-29, tras el despiece de Euskadi).** Yo daba por bueno "trabaja en esa empresa" y le devolvía las dudas al usuario. **Eso es mi trabajo, no el suyo.** Las cuatro, todas, antes de escribir un nombre:
   1. **¿La EMPRESA hace esa pieza?** Se comprueba contra **su propia descripción de LinkedIn** (`GET /api/v1/linkedin/company/{slug}` → `description`), nunca por intuición. Ese día iban a colarse cinco falsas: **Copreci** hace electrodomésticos, **Orkli** climatización de edificios, **Goizper** bancos de ensayo, **Onapres** prensas hidráulicas y la página de **Grupo ELAY** es de recursos humanos. Ninguna hace piezas de coche. Si la descripción está vacía, la empresa se cae: **Mecaner** y **Megatech Amurrio** se quedaron fuera por eso.
   2. **¿La PERSONA está en esa región?** El `location` del PERFIL, no el titular. **En multinacionales el buscador te devuelve gente de otras plantas:** `Jasmin Gaši` (Mubea) está en **Suiza**, `Martha Melo` (Walter Pack) en **Barcelona** y `Àlex Rodríguez Aguado` en **Barcelona aunque su titular diga "Gestamp Bizkaia"**. **El titular dice dónde está la planta; el location dice dónde está la persona. Manda el location.**
-  3. **¿Comenta?** El filtro de siempre (`§4.2` Paso 4).
+  3. **¿Tiene cargo con poder de decisión y actividad en LinkedIn?** El filtro de `§4.0d` punto 3 (ya no es "¿comenta?": se revirtió el 26/08).
   4. **¿Tiene el apellido completo?** Descarta los abreviados tipo `Daniel M.`: la mención se renderiza cortada y queda fatal. Y **el nombre exacto se saca del endpoint de USUARIO, no del buscador**, que trunca: el search devolvía `Josu Zaldua Saenz de Burua` y el perfil dice `Saenz de Buruaga`.
   - **Consecuencia práctica:** de 20 candidatas verificadas quedaron **12**. Y 12 salen en **3 bloques de 4 exactos**, que es mejor que 14 en 4+4+3+3. **Verificar de verdad no solo evita el error: a veces mejora el formato.**
 - **⚠️ PREGUNTA PRIMERO PARA QUÉ CUENTA ES.** La región no se elige en abstracto: **las regiones quemadas son POR CUENTA**, no globales. Iker ya hizo Cataluña → Iker no la repite jamás, pero **Unai y Asier sí pueden hacerla**. El plan es que cada cuenta acabe tocando todas las regiones (España se acaba). Mira la cobertura por cuenta en `docs/skills/historial-publicaciones.md` **antes** de proponer nada.
-- **El CONCEPTO, en cambio, no se repite NUNCA ni entre cuentas** (medido: "país inventado" 7.87x en Unai → 1.2x al repetirlo Iker). Y si una cuenta hace una región que ya hizo otra, el concepto, el país de comparación y los clichés van **todos nuevos**.
+- **El CONCEPTO no se repite en los 42 días siguientes, tampoco entre cuentas** (`§4.0d` punto 7; antes ponía "NUNCA") (medido: "país inventado" 7.87x en Unai → 1.2x al repetirlo Iker). Y si una cuenta hace una región que ya hizo otra, el concepto, el país de comparación y los clichés van **todos nuevos**.
 - **Prefiere la COMUNIDAD AUTÓNOMA a la provincia/ciudad** — más alcance. Validado: elegimos Cataluña (no Barcelona); y Álava (provincia) rindió MENOS que País Vasco (comunidad). Baja a provincia solo si tiene identidad muy fuerte y ya tocaste la comunidad.
 - Greenlit (comunidades sin tocar): Aragón, Asturias, Murcia, Castilla y León, Castilla-La Mancha, Extremadura, La Rioja, Cantabria, Canarias, Baleares…
 - Baneadas: capitales/ciudades obvias (Madrid 0.55x) y cualquier cosa que critique a otra región española.
@@ -627,7 +662,7 @@ Comando completo de referencia:
 python scripts/montar-orla.py --plantilla ".../LOS 10 PLANTILLA v2.psd" --fotos ".../fotos"   --salida ".../orla.png" --fuente ".../BricolageGrotesque-Bold.ttf"   --nombres "Nombre1|Nombre2|...|Nombre10"
 ```
 
-**Paso 3b — CLICHÉS + REVEAL (importado del mapa, va DESPUÉS de la lista):** el hueco está entre la lista y el reveal, y el 4.81x del País Vasco ya lo usaba (txoko, caserío, cooperativa) pero solo con 2 clichés. **Satúralo con 4-8 tejidos** (`global §4.1` regla 2): el cliché es lo que hace que el local repostee para defender a los suyos, y esa es la carencia medida de este pilar — el "Los 10" del País Vasco sacó **12 reposts** frente a los 46 de Navarra, 60 de Galicia y 90 de Gipuzkoa. Los dos motores no compiten: la identificación del comercial abre el post, el orgullo regional lo reparte.
+**Paso 3b — CLICHÉS + REVEAL (importado del mapa, va DESPUÉS de la lista):** el hueco está entre la lista y el reveal, y el 4.81x del País Vasco ya lo usaba (txoko, caserío, cooperativa) pero solo con 2 clichés. **Satúralo con 8 o más tejidos** (`§4.0d` punto 4) (`global §4.1` regla 2): el cliché es lo que hace que el local repostee para defender a los suyos, y esa es la carencia medida de este pilar — el "Los 10" del País Vasco sacó **12 reposts** frente a los 46 de Navarra, 60 de Galicia y 90 de Gipuzkoa. Los dos motores no compiten: la identificación del comercial abre el post, el orgullo regional lo reparte.
 - Mete aquí el **concepto despectivo original + "y poco más"** (`global §4.1`). **La región NO se nombra hasta el reveal**: los clichés van todos antes y solos ya la insinúan, igual que en el hook del mapa ("el patio trasero de los Pirineos" nunca dice Navarra).
 - ⛔ **DEL MAPA SE IMPORTA EL CLICHÉ, NO EL SHOCK CONTRA UN PAÍS.** Nada de "exporta más que Bolivia entera" ni ninguna cifra regional. Motivos, por orden: (a) **la prioridad de este pilar son las PERSONAS**, y en el gancho ni se menciona un país, así que meterlo en el cuerpo lo descentra; (b) **canibaliza el mapa** — es su firma, y lo que hace que un mapa y un "Los 10" del mismo territorio no se quemen entre sí es justo que uno pelotea empresas y el otro personas (`historial-publicaciones`); (c) **alarga el cuerpo después de la lista**, que es donde el post ya va cuesta abajo; (d) el **País Vasco 4.81x no llevaba NI UNA cifra regional**. El único dato numérico de este pilar es el **logro de cada persona** en su ficha. Corregido el 2026-07-15: la primera versión de este Paso 3b lo permitía "si tienes el dato verificado" y el usuario lo tumbó.
 - ⚠️ **Nunca en registro de reproche a las empresas** (lo que mató a Cataluña 0.66x). El cliché va contra el tópico de fuera, no contra la empresa que no reconoce a nadie. Regla exacta y evidencia: **Paso 3d**.
@@ -2469,7 +2504,7 @@ Acceso libre.
 - **Ficha:** `→ La pieza: @Empresa - @Persona`. La pieza delante y los dos puntos son la firma del formato y lo que lo distingue del mapa en el clasificador.
 - **Bloques de 4**, y si el número no es múltiplo de 4 el último es de 2 o de 3, nunca de 1. Nunca un 5 seguido de un 2.
 - **Reveal tardío** de la región, después de la lista, con los clichés locales justo antes.
-- **Spam ninja** tras las menciones y **cierre punchy** de una línea.
+- **El final va en el orden del tronco común** (`§4.0d` puntos 5 y 6): reveal → barrido → contexto del evento si toca → bloque del enlace → cierre punchy que rebota contra el concepto.
 - ⚠️ **NO importes la comparación con otro país.** Es la firma del mapa, igual que ya se decidió en "Los 10".
 
 **Paso 4 — LA IMAGEN: plantilla de silueta + script.**

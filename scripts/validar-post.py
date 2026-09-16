@@ -81,21 +81,21 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
-    'despachan': 'Murcia (Iker)',
-    'fichada': 'Asturias (Unai)',
-    'fichado': 'Euskadi (Iker)',
-    'jubilada': 'Asturias (Unai)',
-    'la ven como': 'Navarra, Cataluña y Aragón',
-    'la llaman': 'Álava (Unai)',
-    'la conocen por': 'País Vasco (Unai)',
-    'nadie habla': 'Gipuzkoa (Iker) y País Vasco (Unai)',
-    'en el mapa es': 'Euskadi (Iker)',
-    'resumen': 'Castilla y León (Iker)',
-    'todos ven': 'Valencia (Iker)',
-    # Leidos del texto PUBLICADO (BD en vivo, 2026-09-15). Llevaban desde
-    # julio y agosto sin anotarse, y son los DOS de la cuenta de Asier.
-    'archivan': 'Navarra, despiece de Asier 07/08',
-    'dan por visto': 'Cantabria, mapa de Asier 01/09',
+    # Cada valor empieza por la fecha de la ULTIMA publicacion que lo uso y
+    # caduca a los VENTANA_IDENTIDAD_DIAS (global 2.0b-VENTANA, Iker 2026-09-16).
+    'despachan': '2026-07-23 Murcia (Iker)',
+    'fichada': '2026-07-31 Asturias (Unai)',
+    'fichado': '2026-07-30 Euskadi (Iker)',
+    'jubilada': '2026-07-31 Asturias (Unai)',
+    'la ven como': '2026-07-17 Navarra, Cataluña y Aragón',
+    'la llaman': '2026-07-07 Álava (Unai)',
+    'la conocen por': '2026-06-09 País Vasco (Unai)',
+    'nadie habla': '2026-04-28 Gipuzkoa (Iker) y País Vasco (Unai)',
+    'en el mapa es': '2026-07-30 Euskadi (Iker)',
+    'resumen': '2026-08-04 Castilla y León (Iker)',
+    'todos ven': '2026-06-02 Valencia (Iker)',
+    'archivan': '2026-08-07 Navarra, despiece de Asier',
+    'dan por visto': '2026-09-01 Cantabria, mapa de Asier',
 }
 
 # §4.2 Paso 1 — la frase-rabia es el motor: sin ella el local no siente el
@@ -178,6 +178,15 @@ PROMESA_VOLUMEN = (r'(cientos de (leads|contactos|empresas|clientes)'
 # repetirlas se lee como refrito aunque pasen seis meses.
 VENTANA_ARRANQUE_DIAS = 21
 VENTANA_NINJA_DIAS = 30
+# 🔄 LAS LISTAS DE IDENTIDAD DEL PELOTEO TAMBIEN CADUCAN (Iker, 2026-09-16).
+# Hasta hoy pais, concepto, frase-rabia y verbo del prejuicio eran para siempre.
+# Iker: "lo importante es que dos o tres publicaciones seguidas no repitan... pero
+# sin ser tan exigente de nunca mas repetir una palabra, una frase o un concepto".
+# 42 dias = 3 peloteos seguidos de una misma cuenta, con la mediana MEDIDA de 14
+# dias entre peloteos de la misma cuenta (22 publicados, 2026-09-16). Criterio
+# derivado, no medido en rendimiento. Lo que NO caduca: la REGION dentro de una
+# misma cuenta (va por el historial) y las entradas sin fecha, que son vetos.
+VENTANA_IDENTIDAD_DIAS = 42
 
 _RE_FECHA_ENTRADA = re.compile(r'^(\d{4})-(\d{2})-(\d{2}) ')
 
@@ -243,19 +252,19 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
-    'uruguay': 'Murcia',
-    'bolivia': 'Navarra',
-    'croacia': 'Galicia',
-    'luxemburgo': 'Valencia',
-    'italia': 'Andalucía',
-    'portugal': 'Cataluña (Iker)',
-    'chipre': 'Asturias',
-    'finlandia': 'Cataluña (Unai)',
-    'honduras': 'Álava',
-    'kenia': 'Aragón',
-    'paraguay': 'Castilla y León',
-    'montenegro': 'Navarra, despiece de Asier 07/08',
-    'jamaica': 'Cantabria, mapa de Asier 01/09',
+    'uruguay': '2026-07-23 Murcia',
+    'bolivia': '2026-06-30 Navarra',
+    'croacia': '2026-06-16 Galicia',
+    'luxemburgo': '2026-06-02 Valencia',
+    'italia': '2026-05-13 Andalucía',
+    'portugal': '2026-04-30 Cataluña (Iker)',
+    'chipre': '2026-07-31 Asturias',
+    'finlandia': '2026-07-17 Cataluña (Unai)',
+    'honduras': '2026-07-07 Álava',
+    'kenia': '2026-07-14 Aragón',
+    'paraguay': '2026-08-04 Castilla y León',
+    'montenegro': '2026-08-07 Navarra, despiece de Asier',
+    'jamaica': '2026-09-01 Cantabria, mapa de Asier',
 }
 
 # 4.4e - FRASES QUEMADAS DEL SEGUNDO NINJA, EL DEL CORREO. Misma logica que
@@ -350,34 +359,35 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
-    'sitio de comer': 'Euskadi',
-    'desierto': 'Murcia',
-    'patio trasero': 'Navarra',
-    'esquina del atl': 'Galicia',
-    'museo minero': 'Asturias',
-    'ltima parada': 'Cataluña',
-    'trastienda del norte': 'Álava',
-    'secarral': 'Aragón',
+    'sitio de comer': '2026-07-30 Euskadi',
+    'desierto': '2026-07-23 Murcia',
+    'patio trasero': '2026-06-30 Navarra',
+    'esquina del atl': '2026-06-16 Galicia',
+    'museo minero': '2026-07-31 Asturias',
+    'ltima parada': '2026-07-17 Cataluña',
+    'trastienda del norte': '2026-07-07 Álava',
+    'secarral': '2026-07-14 Aragón',
+    # SIN fecha a proposito: no es un concepto gastado, es un VETO (critica a
+    # España). Una entrada sin fecha no caduca nunca.
     'pasillo de espa': 'descartado por Iker: critica a España',
-    'tejado de la pen': 'Castilla y León',
-    # Los DOS de Asier, publicados y sin anotar hasta el 2026-09-15.
-    'felpudo del pir': 'Navarra, despiece de Asier 07/08',
-    'tendedero del cant': 'Cantabria, mapa de Asier 01/09',
+    'tejado de la pen': '2026-08-04 Castilla y León',
+    'felpudo del pir': '2026-08-07 Navarra, despiece de Asier',
+    'tendedero del cant': '2026-09-01 Cantabria, mapa de Asier',
 }
 
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
-    'de vuelta al aeropuerto': 'Euskadi',
-    'y para de contar': 'Murcia',
-    'y poco m': 'Navarra',
-    'poco que rascar': 'Asturias',
-    'y a seguir': 'Cataluña',
-    'para irse': 'Álava',
-    'antes de seguir carretera': 'Aragón',
-    'y a otra cosa': 'Castilla y León',
-    'nada m': 'Navarra, despiece de Asier 07/08 ("toros, esparragos y nada mas")',
-    'a la autov': 'Cantabria, mapa de Asier 01/09 ("sobaos, anchoas y a la autovia")',
+    'de vuelta al aeropuerto': '2026-07-30 Euskadi',
+    'y para de contar': '2026-07-23 Murcia',
+    'y poco m': '2026-06-30 Navarra',
+    'poco que rascar': '2026-07-31 Asturias',
+    'y a seguir': '2026-07-17 Cataluña',
+    'para irse': '2026-07-07 Álava',
+    'antes de seguir carretera': '2026-07-14 Aragón',
+    'y a otra cosa': '2026-08-04 Castilla y León',
+    'nada m': '2026-08-07 Navarra, despiece de Asier',
+    'a la autov': '2026-09-01 Cantabria, mapa de Asier',
 }
 
 # §4.5.0a — MOLDE B del lead magnet: Claude (o yo) + VERBO PUNCHY + resultado.
@@ -2589,6 +2599,22 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             f'"{m.group(0)}" → único rasgo de texto que separa el 4.82x sin quejas del '
             f'0.66x que sí las tuvo. La persona invisible se queda; el culpable, fuera: '
             f'que tape la prensa, el titular, la cifra o nosotros' if m else '')
+    # ---------- GANCHO UNIVERSAL DEL PELOTEO (Iker, 2026-09-16) ----------
+    # "en el gancho tiene que poder entenderlo cualquier persona, sea el pilar
+    # que sea". Se escapo `el garaje de la ria`: la ria es Bilbao para el de
+    # Bilbao y nada para el de Cuenca. Vale para los TRES peloteos: el gancho lo
+    # lee toda España, el vocabulario y la grafia de alli bajan al CUERPO
+    # (post-workflow 4.0d). LISTA CERRADA de lo que ya se nos ha colado, y NO un
+    # veto a la grafia tx: la primera version vetaba cualquier `tx` y tumbaba el
+    # mapa de Navarra (79.224 imp), cuyo gancho dice `txistorra`, que se vende en
+    # cualquier supermercado de España. Lo que falla no es la letra, es la
+    # palabra que fuera no se entiende. Se amplia la lista cuando se cuele otra.
+    if pilar in ('mapa', 'objeto', 'los10'):
+        _loc = re.findall(r'\b(r[ií]as?|sirimiri|txoko|txuleton|bajera|caser[ií]o|bardenas'
+                          r'|margen izquierda|ribera|meseta)\b', hook_txt, re.I)
+        chk(not _loc, 'GANCHO: sin vocabulario ni grafia LOCAL, lo entiende cualquiera (4.0d)',
+            'en el gancho: %s. Al gancho, el sitio o el cliche que conoce toda España; '
+            'lo de alli, al cuerpo' % sorted(set(x.lower() for x in _loc)) if _loc else '')
     # ---------- GANCHO DEL PELOTEO (§4.2 Paso 1) ----------
     # Mecanizado el 2026-07-30 porque como criterio se me olvidaba.
     # SOLO mapa y objeto. "Los 10" NO usa el gancho de prejuicio regional: su
@@ -2626,21 +2652,21 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # --historico apaga los checks de REINCIDENCIA (ver el flag en main): un
         # post ya publicado es QUIEN lleno estas listas, asi que compite contra si
         # mismo y falla siempre. No es un bug del validador ni del post.
-        _pais = [] if historico else sorted(p for p in PAIS_QUEMADO if p in hook_txt.lower())
+        _pais = [] if historico else sorted(p for p in PAIS_QUEMADO if p in hook_txt.lower() and vigente(PAIS_QUEMADO[p], VENTANA_IDENTIDAD_DIAS))
         chk(not _pais, 'GANCHO: el país de la comparación no está usado (§4.2 Paso 2)',
             ' · '.join(f'"{p}" fue {PAIS_QUEMADO[p]}' for p in _pais) +
             '. La comparacion es lo que se comparte, asi que repetir pais se nota mas '
             'que ninguna otra cosa. Busca otro con >=15% de margen y fuente oficial')
-        _conc = [] if historico else sorted(c for c in CONCEPTO_QUEMADO if c in hook_txt.lower())
+        _conc = [] if historico else sorted(c for c in CONCEPTO_QUEMADO if c in hook_txt.lower() and vigente(CONCEPTO_QUEMADO[c], VENTANA_IDENTIDAD_DIAS))
         chk(not _conc, 'GANCHO: el concepto no está usado (§4.2 Paso 1)',
             ' · '.join(f'"{c}" fue {CONCEPTO_QUEMADO[c]}' for c in _conc) +
             '. El concepto se inventa nuevo por region, derivado de su GEOGRAFIA')
-        _rabia = [] if historico else sorted(f for f in FRASE_RABIA_USADA if f in hook_txt.lower())
+        _rabia = [] if historico else sorted(f for f in FRASE_RABIA_USADA if f in hook_txt.lower() and vigente(FRASE_RABIA_USADA[f], VENTANA_IDENTIDAD_DIAS))
         chk(not _rabia, 'GANCHO: la frase-rabia no está usada (§4.2 Paso 1)',
             ' · '.join(f'"{f}" fue {FRASE_RABIA_USADA[f]}' for f in _rabia) +
             '. El beat se mantiene siempre, las palabras cambian siempre')
         _quemados = [] if historico else sorted(v for v in VERBO_PREJUICIO_QUEMADO
-                           if re.search(r'\b' + v + r'\b', texto, re.I))
+                           if re.search(r'\b' + v + r'\b', texto, re.I) and vigente(VERBO_PREJUICIO_QUEMADO[v], VENTANA_IDENTIDAD_DIAS))
         chk(not _quemados,
             'GANCHO: el verbo del prejuicio no está quemado (§4.2 Paso 1)',
             ' · '.join(f'"{v}" ya salió en {VERBO_PREJUICIO_QUEMADO[v]}' for v in _quemados) +
@@ -2928,7 +2954,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # Aviso aparte: cuantas fichas llevan persona. No es fallo (§4.2 Paso 4),
         # pero es lo unico que correlaciona con que el peloteo reparta
         # (outliers §3.13: lo que cuenta es cuantos mencionados contestan).
-        _con_persona = [l for l in _piezas if re.search(r' - | – | — ', l.split(':', 1)[1])]
+        _con_persona = [l for l in _piezas if l.split(':', 1)[1].count('@') >= 2]  # por arrobas: `@MFS - SINTERING` lleva guion y no es persona
         chk(True, 'ENTREGA: cuantas fichas llevan PERSONA, no solo empresa (4.7)',
             f'{len(_con_persona)} de {len(_piezas)}. Una ficha sin persona sigue notificando a la '
             'pagina y se queda (§4.2 Paso 4), pero el motor del pilar son los mencionados que '

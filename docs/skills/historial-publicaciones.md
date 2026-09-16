@@ -203,19 +203,19 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 
 ---
 
-## 📝 ENTREGADO · MAR 16/09 · ASIER · DESPIECE DE AUTOMOCIÓN EN **BIZKAIA** (evento en el ninja)
+## 📝 ENTREGADO (v2) · MIÉ 16/09 · ASIER · DESPIECE DE AUTOMOCIÓN EN **BIZKAIA** (evento en el ninja)
 
-✅ validador **64/64** · UTM `despiece-bizkaia-16sep-asier` (Luma) · imagen `PELOTEO REGIONAL/DESPIECE/automocion bizkaia.png`
+✅ validador **65/65** (v2) · UTM `despiece-bizkaia-16sep-asier` (Luma) · imagen `PELOTEO REGIONAL/DESPIECE/automocion bizkaia.png`
 
 **Qué es:** 3er despiece de la historia del pilar y **2º de Asier** (el 1º fue Navarra, 07/08). Región **NUEVA para las 3 cuentas en este formato**. 12 empresas de automoción **de origen vizcaíno**, ninguna repetida contra las 721 de `menciones-usadas.json`.
 
-**Gancho:** `La reducen al garaje de la ría: bacalao, paraguas y a casa. Y exporta más piezas de coche que Noruega entera 👇` (110 car, 2 oraciones, 0 cifras). Concepto `el garaje de la ría` · verbo `reducen` · frase-rabia `y a casa` · país **Noruega**. Los cuatro inamovibles, puestos.
+**Gancho:** `La reducen al garaje del norte: bacalao, paraguas y a casa. Y exporta más piezas de coche que Noruega entera 👇` (111 car, 2 oraciones, 0 cifras). 🔄 **v1 decía `el garaje de la ría`** y lo tumbó Iker: la ría no la entiende cualquiera → `post-workflow §4.0d` punto 2, ya mecanizado. Concepto `el garaje del norte` · verbo `reducen` · frase-rabia `y a casa` · país **Noruega**. Los cuatro inamovibles, puestos.
 
 **🔴 DE ESTE POST SALE EL DIAGNÓSTICO QUE FALTABA DEL PILAR, y no es del gancho:** medidos los 22 peloteos publicados, la mediana cae de **39.310** (0-3 peloteos en los 21 días previos) a **16.726** (4-5) y a **2.360** (6-7). Los dos despieces anteriores salieron con **5** y **6** detrás. La prueba limpia es la propia cuenta de Asier: Aragón 27.009 con 4 detrás, Navarra 1.273 con 6, Cantabria 13.021 con 0. **Esta vez la ventana está en 2**, que es la banda buena. → `post-workflow §4.7` Paso 0.
 
 **Datos verificados (los años van aquí, nunca en el post):** Bizkaia exportó **832,4 M€** en partes y accesorios de vehículos y **11.854,7 M€** en total (EUSTAT, 2024) · Noruega exportó **540,6 M$** en HS 8708 (Banco Mundial/Comtrade, 2024), **+66% de margen** · **96%** de los coches nuevos matriculados en Noruega en 2025 fueron eléctricos (OFV).
 
-**⚠️ EL RIESGO ANOTADO, con su número:** solo **4 de las 12 fichas llevan persona** con cargo y actividad ≤6 meses (Enkarterri 0 días, Unamunzaga 73, Lekun 83, IGESTEK 152). El pilar reparte cuando contestan los mencionados (`outliers §3.13`), así que el motor va corto a propósito: **en Bizkaia no hay más**, medido contra las 721 ya usadas. Las 8 restantes notifican a la página (`§4.2` Paso 4).
+**⚠️ EL RIESGO ANOTADO, con su número:** solo **5 de las 12 fichas llevan persona** con cargo y actividad ≤6 meses (Enkarterri 0 días, Estampaciones Vizcaya 60, Unamunzaga 73, Lekun 83, IGESTEK 152). 🔄 En v1 eran 4: la búsqueda del 16/09 por PERSONAS (Sales Navigator con filtro de actividad) sacó a **Estampaciones Vizcaya**, que entra por **Rofer**. Se descartaron por no ser de automoción o no ser de Bizkaia: Lancor (motores de ascensor, verificado en su web), FORMESA (sector eléctrico), EIGAS (Álava, recambios), TEGOR (cosmética), SASPI (Gipuzkoa). El pilar reparte cuando contestan los mencionados (`outliers §3.13`), así que el motor va corto a propósito: **en Bizkaia no hay más**, medido contra las 721 ya usadas. Las 8 restantes notifican a la página (`§4.2` Paso 4).
 - **Y dos logos no se leen** (ENKARTERRI baja a 100px y se amplía; TALLERES UNAMUNZAGA es un símbolo sin nombre). Es su logo de LinkedIn y no se pide otro (`§4.3` 6b-quinquies).
 - **Jon Etxeberria Zarranz tiene el `location` en Éibar (Gipuzkoa)** aunque sea el General Manager de la planta de Abadiño. Se mantiene y se anota.
 

@@ -424,6 +424,10 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 | **dónde va** | ⛔ **nunca en un sitio predecible** (Iker, 2026-09-16): el sitio también se sortea (principio · medio · final), y si la alarga el código elige una palabra de reacción al azar, no la primera | igual, sorteado por comentario |
 | **emoji** | sorteado por voz (0/25/50%), al final, **nunca** en respuestas delicadas (no entiende, se queja, viene de malas). Si le tocaba y no lo puso, el código añade uno "seguro" (🙌 💪 👏 🙂 🤝) | 1 o 2 de los 5, posición barajada, con la misma red |
 | **comillas al empezar** | ⛔ salvo que cite algo que dijo **el que comenta** | ⛔ nunca: la cita del post va dentro de la frase |
+| **punto antes del emoji** | ⛔ nunca: `contarlo 👏`, no `contarlo. 👏` (los suspensivos sí se quedan). Lo quita el código | igual |
+| **coma antes de "y"** | ⛔ la quita el código | ⛔ igual (`Sirimiri, y mientras…` salió el 16/09) |
+
+**⛔ GOOGLE CHAT, LA ALARGADA ES OBLIGATORIA (Iker, 2026-09-16):** *"ninguno de estos comentarios le has puesto varias vocales. Uno tiene que tener sí o sí"*. Pedir "lleva una palabra alargada" dio 0 de 5, porque ninguna frase traía una palabra de reacción y el código no forzaba. Ahora **la palabra se asigna** (`clarooo`, `siii`, `buenooo`, `bieeen`, `totaaal`), el guardarraíl reintenta si falta y, si aun así no está, el código abre la frase con ella. **`no`, `si`, `ya`, `cual`, `bueno` solo se alargan sueltos** (seguidos de coma, punto o fin): el primer intento del código dejó *"la empresa que nooo sale"*, que es una negación alargada y se lee como errata.
 
 **Lo común a las palabras que le gustan a Iker**, y es lo que se le pide al modelo: son **cortas**, son **de reacción** (asentir, negar, valorar) y lo que se estira es **la última vocal**. Por eso suenan a alguien tecleando y no a un anuncio.
 

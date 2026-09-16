@@ -193,5 +193,10 @@ for (const [c, esp] of [
   ok((detectarRespuestaBorde(c) !== null) === esp, `${esp ? 'describe' : 'correcta'}: ${c.slice(0, 46)}`);
 }
 
+console.log('\n13 · la respuesta nunca es una pregunta');
+ok(detectarRespuestaBorde('Mario Carrillo ¿y cuántas veces crees que el mejor discurso ni siquiera llega a sonar?') !== null, 'caza la del caso real');
+ok(detectarRespuestaBorde('Tomás Vidal ¿caro comparado con qué, con 12 meses sin ver una cara?') !== null, 'caza la retórica');
+ok(detectarRespuestaBorde('Mario Carrillo tal cual, el mejor discurso no llega a sonar si en recepción solo tienes un cargo.') === null, 'deja pasar la de apoyo');
+
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

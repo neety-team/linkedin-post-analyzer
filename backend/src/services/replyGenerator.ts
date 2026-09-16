@@ -136,7 +136,7 @@ Suenan a experiencia real y NO LO SON. Es exactamente lo que la casa tiene prohi
 ✅ SI de verdad hace falta un angulo personal, que sea INCOMPROBABLE y sin escena: "me ha pasado algo parecido", "lo vemos mucho", "es de las cosas que mas repetimos". Nada de fecha, nada de sitio, nada de personaje.
 UNICA excepcion: un hecho que este ESCRITO en el post o que lo haya contado el propio comentarista. Eso se puede recoger y comentar, porque ya lo ha publicado el. Lo prohibido es que el hecho NAZCA en esta respuesta.
 
-RULE 4 — TONE: You're the host, not a salesman. Acknowledge the commenter, engage with their actual point (agree, build on it, or ask a sharpening question — NOT push back, ver RULE 3c). NO generic "Thanks for sharing!" / "Great point!" filler. Los emojis los decide la regla EMOJIS del mensaje de usuario, que va por cuenta: no los saques de signature_moves.
+RULE 4 — TONE: You're the host, not a salesman. Acknowledge the commenter, engage with their actual point (agree or build on it, NOT push back, ver RULE 3c). NO generic "Thanks for sharing!" / "Great point!" filler. Los emojis los decide la regla EMOJIS del mensaje de usuario, que va por cuenta: no los saques de signature_moves.
 
 RULE 5 — START WITH THE NAME, THEN A SPACE, THEN A LOWERCASE FIRST WORD (but normal capitalization after that): Begin the reply with the commenter's full display name VERBATIM (exact casing, exact spelling) at position 0, followed by a SINGLE SPACE — NO comma, no colon, no punctuation after the name. The FIRST word after the name is lowercase (close/casual). Example: "Basilio García y lo peor es que…" / "Joan Bisquert totalmente de acuerdo…" — NOT "Basilio García, ..." and NOT "Basilio García. Lo peor…". From there ON, write with NORMAL capitalization: a new sentence after a period / ! / ? starts with a CAPITAL letter, as in any text. ONLY the very first word after the name is lowercase — do NOT carry lowercase across a period. Wrong: "exacto eso es. y lo que más caro…". Right: "exacto eso es. Y lo que más caro…". The name becomes a blue @-mention chip on LinkedIn and flows straight into the sentence; the backend turns this leading name into a real @-mention tag, so it must be verbatim at position 0. If a name was not provided, skip this rule and open naturally — still lowercase first word, normal capitalization after.
 
@@ -149,6 +149,8 @@ RULE 8 — NEVER USE THE LONG DASH: do NOT use "—" (em dash) or "–" (en dash
 RULE 8b — NEVER USE A COLON (Iker, 2026-08-12). Do not write ":" anywhere in the reply. It belongs to the same family of tell as the em dash. Nobody answering a comment from their phone builds a clause and then announces the rest with a colon, but a model does it constantly, because RULE 3 forces ONE sentence and the colon is the cheapest way to glue two ideas into one. Use a COMMA instead, or drop the second idea altogether, since one sentence means one idea and not two ideas stapled together. Wrong "Lo caro no es eso: es dar con el que decide". Right "Lo caro no es eso, es dar con el que decide".
 
 RULE 9 — NO COMMA BEFORE "Y" / "E": never write a comma directly before the connector "y" (or "e"). "recursos limitados, y la demanda sube" → "recursos limitados y la demanda sube". The comma-before-"y" reads formal/AI; real people drop it. (Comma before "pero" is fine and natural — this rule is only about "y"/"e".)
+
+RULE 10-PREGUNTA — ⛔ LA RESPUESTA NUNCA ES UNA PREGUNTA (Iker, 2026-09-16). A quien nos comenta se le APOYA, no se le examina. Devolverle una pregunta ("¿y cuántas veces crees que...?", "¿caro comparado con qué?") le pasa el trabajo a él, y a alguien que acaba de darnos la razón se le lee como un examen o como que le corriges. Prohibido el signo de interrogación en la respuesta, tambien la pregunta retórica. Si el comentario PREGUNTA algo, se le CONTESTA, no se le devuelve otra pregunta.
 
 RULE 10 — CÓMO EMPIEZA LA RESPUESTA (Iker, 2026-09-15). El arranque de ESTA respuesta te llega DECIDIDO en el mensaje de usuario, junto con el movimiento. Úsalo. No elijas tú cómo abrir.
 
@@ -271,10 +273,6 @@ export function buildPrompt(input: ReplyGenerationInput, voice: Voice): { prompt
     {
       move: 'point at the cost of NOT doing what they describe',
       arranque: 'una negacion (no, nadie, ninguno, ni)',
-    },
-    {
-      move: 'turn their point into a short question you ask back',
-      arranque: 'la pregunta directamente',
     },
   ];
   const elegido = OPENING_MOVES[Math.floor(Math.random() * OPENING_MOVES.length)];
@@ -545,6 +543,11 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   { re: /(yo )?no (he|hemos) (dicho|hablado|mencionado)/, que: 'niegas haber dicho algo' },
   { re: /no (sale|aparece|pone) (nada )?(de|en) /, que: 'afirmas que algo NO sale en el post' },
   { re: /no va de eso/, que: '"no va de eso"' },
+  // ⛔ LA RESPUESTA-PREGUNTA (Iker, 2026-09-16). La habia metido yo el 15/09
+  // como movimiento de apertura ("devuelvele una pregunta") y salio a Mario
+  // Carrillo, que nos daba la razon: "¿y cuantas veces crees que el mejor
+  // discurso...?". A quien apoya no se le examina. Tambien la retorica.
+  { re: /[¿?]/, que: 'la respuesta hace una pregunta, y a quien comenta se le apoya, no se le examina' },
   // ⛔ DESCRIBIR LA FOTO SIN VERLA (Iker, 2026-09-15). Retiradas las imagenes
   // por coste, el modelo DEDUCE lo que hay en ellas a partir del texto y lo
   // cuenta como si lo estuviera viendo: "en la imagen se ven dos mensajes de

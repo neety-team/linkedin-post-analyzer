@@ -389,6 +389,20 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 - **Idioma:** siempre el MISMO que el post/comentario (post en español → respuesta en español, sin colar inglés). Iguala el registro (tú/usted, formal/informal).
 - Sin markdown, sin meta ("el algoritmo", "en LinkedIn"), sin auto-promo.
 
+#### ⛔ 7.1f · LA RESPUESTA NUNCA ES UNA PREGUNTA (Iker, 2026-09-16)
+
+> *"Ahora intentas responder comentarios haciendo una pregunta, cosa que yo creo que no me gusta. Puede ser inteligente a nivel de engagement, pero no sé si me convence. Recuerda que siempre hay que priorizar respuestas de apoyo"*.
+
+**El caso:** Mario comenta dándonos la razón y la herramienta le devuelve *"¿y cuántas veces crees que el mejor discurso del mundo ni siquiera llega a sonar…?"*. **A quien te apoya no se le examina:** una pregunta le pasa el trabajo a él y, en público, se lee como que le corriges.
+
+**La causa era mía, y doble:** el 15/09 metí *"devuélvele una pregunta"* como uno de los movimientos de apertura sorteados, y la RULE 4 arrastraba desde el principio un *"ask a sharpening question"*. Los dos fuera.
+
+**⚠️ Lo del engagement, dicho con honestidad:** que una pregunta traiga más respuestas es una hipótesis, **no un dato nuestro**: no guardamos las respuestas enviadas, así que no hay nada medido. Y aunque trajera un comentario más, lo paga el tono de apoyo, que es la regla de la casa. **Si el comentario PREGUNTA algo, se le contesta; nunca se le devuelve otra pregunta.** Tampoco la retórica.
+
+**Ámbito:** respuestas del autor a comentarios de su post. Los comentarios de apoyo del Google Chat NO entran: ahí una pregunta es un ángulo más de los cinco (`§7.2`, *better_question*) y no se le hace a nadie en concreto.
+
+**Mecanizado:** `detectarRespuestaBorde()` tumba cualquier `¿`/`?` y la respuesta se vuelve a pedir.
+
 #### 🗂️ 7.1d · QUÉ LLEVA LA VOZ DE CADA JEFE Y QUÉ NO (auditado el 2026-09-15)
 
 > **Iker, al quitar las imágenes:** *"espero que te hayas asegurado de que sea el jefe que sea y sean Google Chat o sea una respuesta a un comentario, siempre cumpla con el tono del jefe: si tiene que tener exclamación, si tiene que tener varias vocales, si puede tener emojis o no"*.

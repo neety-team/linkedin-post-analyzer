@@ -54,7 +54,9 @@ export function DateRangeCalendar({ start, end, onChange, onClose }: Props) {
   const dStart = fromIso(start);
   const dEnd = fromIso(end);
   const today = new Date();
-  const [anchor, setAnchor] = useState<Date>(dStart || today);
+  // Se abre SIEMPRE en el mes de hoy (Iker, 2026-09-16): abrir en el mes del
+  // inicio del rango le llevaba a agosto estando a 16 de septiembre.
+  const [anchor, setAnchor] = useState<Date>(today);
   const box = useRef<HTMLDivElement>(null);
 
   // Cerrar al pinchar fuera o con Escape. Sin esto el panel se queda abierto

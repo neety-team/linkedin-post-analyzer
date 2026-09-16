@@ -526,8 +526,15 @@ function AccountsInner() {
   // El calendario solo se despliega al pulsar Custom. Antes salían dos campos
   // de fecha en cuanto se elegía Custom, y ocupaban media barra de filtros.
   const [showCalendar, setShowCalendar] = useState(false);
-  const [customStart, setCustomStart] = useState<string>(() => presetRange(30).start);
-  const [customEnd, setCustomEnd] = useState<string>(() => presetRange(30).end);
+  // El rango personalizado arranca VACIO (Iker, 2026-09-16): antes nacia con
+  // los ultimos 30 dias y al abrir el calendario ya habia un rango puesto del
+  // 18/08 al 16/09, que es lo mismo que el boton de 30d. Ahora espera a que se
+  // pinche: el primer clic es el inicio y el segundo el final.
+  const [customStart, setCustomStart] = useState<string>('');
+  const [customEnd, setCustomEnd] = useState<string>('');
+  // El preset que habia antes de abrir Custom. Mientras no se pincha ningun
+  // dia, los datos siguen siendo los de ese preset, en vez de quedarse vacios.
+  const [prevPreset, setPrevPreset] = useState<30 | 90 | 180>(30);
 
   const dateRange = useMemo(() => {
     if (datePreset === 'custom') {
@@ -536,6 +543,7 @@ function AccountsInner() {
       // `{start:'', end:'2026-07-31'}`; luego `new Date('T00:00:00')` era
       // Invalid Date y en la barra se leía "NaN days" (Iker, 2026-08-21).
       // Con un solo día elegido, el rango es ese día: un día.
+      if (!customStart && !customEnd) return presetRange(prevPreset);
       if (!customEnd) return { start: customStart, end: customStart };
       if (!customStart) return { start: customEnd, end: customEnd };
       // Guard against inverted ranges — UI prevents this but defend anyway.
@@ -544,7 +552,16 @@ function AccountsInner() {
       return { start: a, end: b };
     }
     return presetRange(datePreset);
-  }, [datePreset, customStart, customEnd]);
+  }, [datePreset, customStart, customEnd, prevPreset]);
+
+  // Cerrar el calendario sin haber pinchado ningun dia (o tras "Borrar") vuelve
+  // al preset de antes: un Custom vacio no es un filtro.
+  // Va en un efecto y no dentro de closeCalendar porque "Borrar" vacia el rango
+  // y cierra en el mismo clic, y ahi el cierre aun ve el rango viejo.
+  const closeCalendar = () => setShowCalendar(false);
+  useEffect(() => {
+    if (!showCalendar && datePreset === 'custom' && !customStart && !customEnd) setDatePreset(prevPreset);
+  }, [showCalendar, datePreset, customStart, customEnd, prevPreset]);
 
   const days = useMemo(() => {
     const start = new Date(`${dateRange.start}T00:00:00`);
@@ -976,9 +993,10 @@ function AccountsInner() {
                 key={d}
                 onClick={() => {
                   setDatePreset(d);
-                  const r = presetRange(d);
-                  setCustomStart(r.start);
-                  setCustomEnd(r.end);
+                  setPrevPreset(d);
+                  setCustomStart('');
+                  setCustomEnd('');
+                  setShowCalendar(false);
                 }}
                 className={`px-2.5 py-1 rounded text-xs transition-colors ${
                   datePreset === d
@@ -995,9 +1013,18 @@ function AccountsInner() {
                 DateRangeCalendar. */}
             <div className="relative">
               <button
+                // Sin esto, el "pinchar fuera" del calendario lo cerraba en el
+                // mousedown y el click lo volvia a abrir.
+                onMouseDown={(e) => e.stopPropagation()}
                 onClick={() => {
-                  setDatePreset('custom');
-                  setShowCalendar((v) => !v);
+                  if (showCalendar) return closeCalendar();
+                  if (datePreset !== 'custom') {
+                    // Se entra en Custom SIN rango: lo elige Iker con dos clics.
+                    setCustomStart('');
+                    setCustomEnd('');
+                    setDatePreset('custom');
+                  }
+                  setShowCalendar(true);
                 }}
                 // El ancho DEPENDE de lo que ponga dentro. Con "Custom" cabe en
                 // nada; con un rango entero (`2026-07-31 → 2026-08-15`) hacen
@@ -1020,11 +1047,11 @@ function AccountsInner() {
                   start={customStart}
                   end={customEnd}
                   onChange={(s, e) => { setCustomStart(s); setCustomEnd(e); }}
-                  onClose={() => setShowCalendar(false)}
+                  onClose={closeCalendar}
                 />
               )}
             </div>
-            {datePreset === 'custom' && (
+            {datePreset === 'custom' && customStart && (
               <span className="text-[10px] text-text-muted ml-2">{days} day{days === 1 ? '' : 's'}</span>
             )}
           </div>

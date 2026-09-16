@@ -589,7 +589,6 @@ export default function PostCreator() {
                           content={msg.content}
                           onPreview={(text) => {
                             setManualPreview(cleanBlockForPreview(text));
-                            setPreviewTab('preview');
                           }}
                         />
 
@@ -610,7 +609,6 @@ export default function PostCreator() {
                                     onClick={() => {
                                       const clean = cleanBlockForPreview(block);
                                       setManualPreview(clean);
-                                      setPreviewTab('preview');
                                     }}
                                     className="text-[11px] px-2.5 py-1 rounded-md border border-accent/30 bg-accent/10 text-accent hover:bg-accent/20 transition-colors"
                                   >
@@ -623,7 +621,6 @@ export default function PostCreator() {
                                   onClick={() => {
                                     const clean = cleanBlockForPreview(blocks[0]);
                                     setManualPreview(clean);
-                                    setPreviewTab('preview');
                                   }}
                                   className="text-[11px] px-2.5 py-1 rounded-md border border-accent/30 bg-accent/10 text-accent hover:bg-accent/20 transition-colors"
                                 >

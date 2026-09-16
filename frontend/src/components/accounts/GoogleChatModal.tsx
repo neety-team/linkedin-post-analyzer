@@ -53,6 +53,9 @@ const CABECERAS: Record<string, string[]> = {
   // reaccionar o compartir.
   peloteo_objeto: ['Nuevo DESPIECE de {N}', 'Nuevo DESPIEEECE de {N}', 'DESPIECE nuevo de {N}', '{N} tiene DESPIECE nuevo'],
   evento: ['Nuevo post de EVENTO de {N}', 'EVENTO nuevo de {N}', '{N} anuncia el EVENTO', 'Post del EVENTO de {N}'],
+  // Pilar en prueba desde el 2026-09-16 (categoria creada a mano, slug `tarjeta`).
+  // Sin esta linea caia en "Nuevo POST", el mismo hueco que el del 11/08.
+  tarjeta: ['Nueva TARJETA de {N}', 'Nueva TARJEEETA de {N}', 'TARJETA nueva de {N}', '{N} tiene TARJETA nueva'],
   otro: ['Nuevo POST de {N}', 'Nuevo POOOST de {N}', 'POST nuevo de {N}', '{N} tiene POST nuevo', 'Nuevo POST {N}'],
 };
 

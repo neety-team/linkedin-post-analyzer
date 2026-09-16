@@ -5,6 +5,7 @@ import {
   detectarAperturaGenerica,
   limitarEstiradas,
   ponerEmojiAlFinal,
+  quitarEmojis,
   comillasDeArranque,
 } from './replyGenerator';
 
@@ -559,7 +560,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // puso.
   return out.map((c, i) => {
     let r = limitarEstiradas(c);
-    if (conEmoji.has(i)) r = ponerEmojiAlFinal(r);
+    r = conEmoji.has(i) ? ponerEmojiAlFinal(r) : quitarEmojis(r);
     return r;
   });
 }

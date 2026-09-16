@@ -233,5 +233,9 @@ ok(problemaDeEstilo('sin nombre no paso, así de claro', 'Ana Pérez "sin nombre
 ok(problemaDeEstilo('Qué bueno', 'Ana Pérez ' + 'x'.repeat(200), 'Ana Pérez') !== null, 'caza la respuesta demasiado larga');
 ok(problemaDeEstilo('x'.repeat(400), 'Ana Pérez ' + 'x'.repeat(200), 'Ana Pérez') === null, 'con un parrafazo se permite más');
 
+ok(limitarEstiradas('la lista al final encogeee más') === 'la lista al final encoge más', 'un verbo en mitad de la frase no se queda alargado', limitarEstiradas('la lista al final encogeee más'));
+ok(limitarEstiradas('encogeee y clarooo') === 'encoge y clarooo', 'se queda la de reaccion aunque vaya segunda', limitarEstiradas('encogeee y clarooo'));
+ok(faltaElGracias('Muy buena historia', 'Rosa Marín la lista al final encoge más de lo que uno espera.'), 'caza "Muy buena historia" sin gracias');
+
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

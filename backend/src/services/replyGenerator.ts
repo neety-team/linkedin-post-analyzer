@@ -547,13 +547,28 @@ export function contarEstiradas(texto: string): number {
   return (texto.match(/\p{L}+/gu) || []).filter(esEstirada).length;
 }
 
-/** Deja como mucho UNA palabra alargada (la primera) y normaliza el resto. */
+// Las palabras que SI se pueden alargar: cortas y de reaccion, que son las que
+// le gustan a Iker. En la prueba del 16/09 salio "la lista al final encogeee",
+// un verbo en mitad de la frase, y eso no suena a alguien tecleando con ganas,
+// suena a errata. Lo que no esta aqui vuelve a su forma normal.
+const REACCION = new Set([
+  'claro', 'si', 'bueno', 'buena', 'no', 'bien', 'vale', 'total', 'genial', 'justo', 'eso',
+  'gracias', 'exacto', 'cierto', 'muy', 'buenisimo', 'buenisima', 'cual', 'super', 'top',
+  'nada', 'ya', 'venga', 'guay', 'perfecto', 'brutal', 'tremendo', 'enorme', 'toma', 'hombre',
+]);
+
+/**
+ * Deja como mucho UNA palabra alargada, y solo si es de reaccion. Todas las
+ * demas vuelven a su forma normal.
+ */
 export function limitarEstiradas(texto: string): string {
   let vistas = 0;
   return texto.replace(/\p{L}+/gu, (w) => {
     if (!esEstirada(w)) return w;
+    const base = llanoLetra(desestirar(w));
+    if (!REACCION.has(base) || vistas > 0) return desestirar(w);
     vistas++;
-    return vistas === 1 ? w : desestirar(w);
+    return w;
   });
 }
 
@@ -765,7 +780,7 @@ export function faltaElReconocimiento(comentario: string, respuesta: string): bo
   return NO_ENTIENDE.test(llano(comentario)) && !HAY_RECONOCIMIENTO.test(llano(respuesta));
 }
 
-const ES_ELOGIO = /(gran (post|publicacion)|genial|brutal|crack|top\b|me encanta|buenisimo|que bueno|de los mejores|espectacular|enhorabuena|grande\b|maquina\b|aplausos|impecable|muy bueno|excelente)/;
+const ES_ELOGIO = /(gran (post|publicacion|historia)|muy buen[ao]|buena historia|me ha encantado|encantad|genial|brutal|crack|top\b|me encanta|buenisimo|que bueno|de los mejores|espectacular|enhorabuena|grande\b|maquina\b|aplausos|impecable|muy bueno|excelente)/;
 const HAY_GRACIAS = /(gracias|graciass|graciaas|se agradece|me alegra|un placer)/;
 
 /**
@@ -1170,10 +1185,13 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   }
   // 1f. EL EMOJI LO DECIDE EL SORTEO, NO EL MODELO. Unai nunca; si al resto le
   //     toco emoji y el modelo no lo puso, se le pone uno de los "seguros".
-  if (voice === 'sobrio') {
-    text = quitarEmojis(text);
-  } else if (conEmoji) {
+  //     Y si el sorteo dijo "sin emoji", se quita aunque el modelo lo haya
+  //     puesto: en la prueba del 16/09 Iker salio con emoji en 7 de 8, que es
+  //     justo el "todas con emoji" que no quiere.
+  if (conEmoji && voice !== 'sobrio') {
     text = ponerEmojiAlFinal(text);
+  } else {
+    text = quitarEmojis(text);
   }
   // 2. Strip a stray comma right after the leading mention name so the
   //    reply reads "Name y…" not "Name, y…" (the backend keeps whatever

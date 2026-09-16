@@ -2556,9 +2556,18 @@ Acceso libre.
 
   **Por qué gana, en palabras de Iker:** *"el morado es la silueta perfecta de la llanta"*, las ventanas en menta *"lo veo como algo mejor"*, y **los contornos de las ventanas y del centro se funden con el relleno y desaparecen**, así que el centro *"se nota que está hecho a posta y que no falta ningún logo"*. **La lección:** hay más superficie oscura que nunca, pero es UNA sola figura, no varias manchas, y el ojo la lee de golpe y pasa a los logos. Además, los discos blancos de los logos de fuera pisan el borde morado y se recortan con fuerza.
   - `montar-llanta.py --relleno` solo sirve para maquetas (pinta centro y ventanas, que es la versión descartada). **Con la plantilla nueva, el script no rellena nada.**
-- **🎯 EL LOGO SE CENTRA CONTRA EL BORDE REDONDO, NO CONTRA SU CAJA (Iker, 2026-09-16).** *"tienes que fijarte muy bien en cada logo con el que trabajas, si es circular, si es cuadrado"*. El de TALLERES UNAMUNZAGA es una "U": ancho arriba y estrecho abajo. Por la caja estaba centrado (32 px arriba y 32 abajo), pero el marco es un círculo: **tenía 5 px de aire hasta el borde redondo arriba y 25 abajo**, así que se veía pegado arriba. Rinder estaba igual (6/28) y Matrici al revés (13/4).
-  - **La regla:** `contener()` centra **el círculo más pequeño que envuelve la marca**, y su radio fija el tamaño. En un logo cuadrado o redondo coincide con la caja, así que esos no se mueven; en los asimétricos quedan con el mismo aire por los dos lados. Tras el cambio, los 12 de Bizkaia quedan con **4 a 6 px** por cada lado (IGESTEK, 12/10, porque es un logo alargado y fino). **Tampoco se centra por el centro de masa:** con eso se descolocó el pájaro de Lizarte en agosto.
-  - **Mecanizado:** el script mide ese aire en cada logo y **avisa si un lado tiene más de 6 px de diferencia con el opuesto** (`⚠️ descentrado`). Probado: con el centrado antiguo avisa en los tres logos que estaban mal, y con el nuevo en ninguno.
+- **🎯 EL LOGO SE CENTRA IGUALANDO EL VACÍO DE ARRIBA Y DE ABAJO DENTRO DEL CÍRCULO (Iker, 2026-09-16).** *"tienes que fijarte muy bien en cada logo con el que trabajas, si es circular, si es cuadrado"*. El caso fue la "U" de TALLERES UNAMUNZAGA (ancha arriba, estrecha abajo), y costó dos intentos:
+
+  | cómo se centraba | vacío arriba / abajo de la silueta | qué vio Iker |
+  |---|---|---|
+  | por la CAJA (lo de siempre) | **−22%**: más aire abajo | *"tiene más espacio por abajo"* ✅ |
+  | por el CÍRCULO MÍNIMO (1er arreglo, retirado) | **+47%**: más aire arriba, y el logo más grande | *"te has pasado bajándolo, y lo has agrandado"* ✅ |
+  | ⭐ **igualando el vacío** | **−2%** | — |
+
+  - **La lección de método:** el círculo mínimo iguala el aire de las ESQUINAS, y el ojo compara el **vacío que queda entre el borde y la SILUETA del logo** (su contorno convexo, no píxel a píxel: el hueco entre los brazos de la U no cuenta como aire). Esa medida predijo las dos quejas de Iker antes de tocar nada, y por eso es la buena.
+  - **La regla:** el TAMAÑO se calcula como siempre, y en horizontal se centra por la caja, como siempre. **Solo en vertical** se busca la posición que iguala el vacío de arriba y de abajo, sin que la marca se salga del círculo.
+  - **🔧 Un bug destapado por el camino:** para decidir qué es logo, el script usaba "todo lo que no sea blanco puro", y el fondo CASI blanco de muchos JPG (Sidenor) contaba como logo. `_mascara_marca()` mide el fondo en el borde del logo, igual que el recorte.
+  - **Prueba:** `python scripts/test-montar-llanta.py <carpeta de logos>` exige menos de un 10% de desequilibrio y que el logo no se salga del círculo. **Pasa en los 36 logos de los tres despieces (Euskadi, Navarra y Bizkaia), con el tamaño idéntico al de antes en los 36.** El script avisa en el montaje con la misma medida (`⚠️ descentrado en vertical`).
 - **Los logos van CONTENIDOS, no recortados**, sobre un disco blanco. Un logo recortado pierde el nombre de la empresa, que es lo único que hay que poder leer.
 - 🔴 **El desenfoque de postproducción va SOLO sobre la plantilla, una vez.** Las imágenes de cada región las compone el script y no llevan firma de generador, igual que "Los 10".
 

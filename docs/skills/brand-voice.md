@@ -200,6 +200,7 @@ Si sí → se cambia el verbo o se pasa a impersonal. Si no → se queda como es
 | `la transcribo` | **`la apunto`** · `la dejo por escrito` · `la paso a papel` | el que voló el 20/08 |
 | `grabé la llamada` | `me quedé con lo que dijo` | ⛔ **`grabar` no vale de recambio de `transcribir`**: es más delicado, no menos |
 | `la transcripción` | `el papel` · `lo apuntado` | |
+| `con su teléfono` (el de un tercero, que se lo damos nosotros) | **`con su contacto`** | Iker, 16/09: además no está confirmado que se entregue el móvil (`global §4.4b-PROMESA`). `teléfono` como el del comercial no capa: está en el post de 168.926 |
 | `te encuentro a quien decide` | **`te doy el nombre de quien decide`** | ya estaba en `post-workflow §4.5.0a 3b` por instinto, ahora con mecanismo |
 
 **⚠️ EL PELIGRO DE ESTA REGLA, dicho en voz alta: que me vuelva blando.** Proteger el post no es lijarlo. **El sinónimo pasa por la escalera de `global §2.9` igual que cualquier otro verbo**, y si sale más flojo que el original, no he terminado. `transcribo → apunto` mantuvo el ritmo y el gancho quedó 5 caracteres más corto; `transcribo → "documento el contenido de la conversación"` habría sido peor que el capado.

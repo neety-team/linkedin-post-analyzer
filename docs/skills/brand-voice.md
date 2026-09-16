@@ -421,6 +421,7 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 | **longitud** | **una línea**: ~160 caracteres tras el nombre; hasta ~280 solo si el comentario es un parrafazo (+300). Se comprueba y se reintenta | una frase por comentario; como mucho 1-2 de los 5 con dos |
 | **palabra alargada** | sorteada por voz (15/35/55%) y **nunca más de una**: si salen dos, el código normaliza la segunda | 1 o 2 comentarios, **posición barajada**, y nunca más de una por comentario |
 | **cuál se alarga** | una palabra corta de reacción, **vocal final**: `clarooo`, `siii`, `buenoo`, `nooo`, `bieeen`, `valeee`, `geniaaal`. Nunca un sustantivo en mitad de la frase | igual |
+| **dónde va** | ⛔ **nunca en un sitio predecible** (Iker, 2026-09-16): el sitio también se sortea (principio · medio · final), y si la alarga el código elige una palabra de reacción al azar, no la primera | igual, sorteado por comentario |
 | **emoji** | sorteado por voz (0/25/50%), al final, **nunca** en respuestas delicadas (no entiende, se queja, viene de malas). Si le tocaba y no lo puso, el código añade uno "seguro" (🙌 💪 👏 🙂 🤝) | 1 o 2 de los 5, posición barajada, con la misma red |
 | **comillas al empezar** | ⛔ salvo que cite algo que dijo **el que comenta** | ⛔ nunca: la cita del post va dentro de la frase |
 

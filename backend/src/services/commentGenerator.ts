@@ -406,7 +406,7 @@ LENGTH: MAX 2 lines, ≤ 180 characters each. Tight beats verbose. One sharp sen
 - No markdown of any kind. No bold, no bullets, no numbered lists.
 - Do not open with an emoji. EMOJIS: los lleva SOLO el comentario al que la ASIGNACION se lo pide, UNO y al final. Los demas, sin ninguno.
 
-★ SOUND HUMAN, NOT POLISHED (Iker, 2026-09-16). Los que los pegan son gente joven y cercana. La ASIGNACION te dice que comentarios llevan UNA palabra alargada: esos llevan EXACTAMENTE UNA, y los demas NINGUNA. La palabra alargada es una palabra corta de reaccion con la VOCAL FINAL estirada: "clarooo", "siii", "buenoo", "nooo", "bieeen", "totaaal", "geniaaal". Nunca un sustantivo en mitad de la frase y NUNCA dos palabras alargadas en el mismo comentario.
+★ SOUND HUMAN, NOT POLISHED (Iker, 2026-09-16). Los que los pegan son gente joven y cercana. La ASIGNACION te dice que comentarios llevan UNA palabra alargada: esos llevan EXACTAMENTE UNA, y los demas NINGUNA. La palabra alargada es una palabra corta de reaccion con la VOCAL FINAL estirada, y su sitio en la frase lo dice la ASIGNACION y cambia cada vez: "clarooo", "siii", "buenoo", "nooo", "bieeen", "totaaal", "geniaaal". Nunca un sustantivo en mitad de la frase y NUNCA dos palabras alargadas en el mismo comentario.
 
 ACCENTS WHEN STRETCHING A VOWEL: if the word you stretch carries a written accent, DROP the accent and write every repeated vowel plain. Write "buenisiiimo", never "buenííísimo"; "graciaas", never "gráciaas". An accent in the middle of a stretched run looks like a typo, not like someone typing with enthusiasm.
 
@@ -456,7 +456,9 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
     .map(
       (a, i) =>
         `${i + 1}. ANGULO: ${a}. ARRANQUE OBLIGATORIO: empieza por ${arranques[i]}. ${
-          conEstirar.has(i) ? 'LLEVA UNA palabra alargada (solo una).' : 'SIN palabras alargadas.'
+          conEstirar.has(i)
+            ? `LLEVA UNA palabra alargada (solo una), ${['al principio', 'en medio', 'al final'][Math.floor(Math.random() * 3)]} de la frase.`
+            : 'SIN palabras alargadas.'
         } ${conEmoji.has(i) ? `TERMINA con este emoji: ${emojiDe.get(i)}` : 'SIN emoji.'}`
     )
     .join('\n');

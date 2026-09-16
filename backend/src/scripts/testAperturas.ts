@@ -238,6 +238,11 @@ ok(limitarEstiradas('encogeee y clarooo') === 'encoge y clarooo', 'se queda la d
 ok(faltaElGracias('Muy buena historia', 'Rosa Marín la lista al final encoge más de lo que uno espera.'), 'caza "Muy buena historia" sin gracias');
 
 ok(estirarUna('claro, y la lista encoge') === 'clarooo, y la lista encoge', 'alarga la palabra de reaccion', estirarUna('claro, y la lista encoge'));
+{
+  const salidas = new Set<string>();
+  for (let k = 0; k < 60; k++) salidas.add(estirarUna('claro, la lista encoge y eso es bueno'));
+  ok(salidas.size >= 3, 'la palabra alargada no cae siempre en el mismo sitio', [...salidas].join(' | '));
+}
 ok(estirarUna('claro', 1) === 'claroo', 'en Unai, una sola letra de mas');
 ok(estirarUna('gracias por decirlo') === 'graciaas por decirlo', 'alarga el gracias', estirarUna('gracias por decirlo'));
 ok(estirarUna('la lista encoge sola') === 'la lista encoge sola', 'no fuerza si no hay palabra de reaccion');

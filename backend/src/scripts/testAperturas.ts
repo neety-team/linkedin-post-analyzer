@@ -255,5 +255,22 @@ ok(detectarRespuestaBorde('Unai Sanz gracias por decirlo, el jueves en Donostia 
 
 ok(estirarUna('muy bien dicho') === 'muuuy bien dicho' || estirarUna('muy bien dicho') === 'muy bieeen dicho', 'estira la ultima vocal aunque acabe en consonante', estirarUna('muy bien dicho'));
 
+// Maximo UNA alargada en cualquier caso (Iker, 2026-09-16)
+ok(esEstirada('bieen') && esEstirada('vaale') && esEstirada('buueno'), 'la doble e/a/u interior de una palabra de reaccion cuenta como alargada');
+ok(!esEstirada('leer') && !esEstirada('llevar') && !esEstirada('creer'), 'las dobles legitimas no cuentan');
+ok(contarEstiradas(limitarEstiradas('claroo y bieen dicho')) === 1, 'claroo y bieen se queda en una', limitarEstiradas('claroo y bieen dicho'));
+{
+  const colapsa = (t: string) => t.replace(/(\p{Ll})\1{2,}/gu, '$1$1');
+  const frases = ['clarooo y bieeen, siii', 'nooo, buenooo, graciaas', 'claro, bien, sí, vale, genial y muy justo', 'vaaale, total, suuuper bieen', 'síííí y clarooo 🙌'];
+  let peor = 0;
+  for (const f of frases) for (let k = 0; k < 40; k++) for (const letras of [1, 2]) {
+    const r = colapsa(estirarUna(limitarEstiradas(f), letras));
+    peor = Math.max(peor, contarEstiradas(r));
+    const r2 = estirarUna(limitarEstiradas(f), letras);
+    peor = Math.max(peor, contarEstiradas(r2));
+  }
+  ok(peor <= 1, 'ninguna combinacion de frase, voz y sorteo deja dos alargadas', String(peor));
+}
+
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

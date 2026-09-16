@@ -538,6 +538,12 @@ export function esEstirada(palabra: string): boolean {
   if (/(aa|ii|uu|oo)$/.test(w)) return true;
   if (/[a-z](aa|ii|uu)[a-z]/.test(w)) return true;
   if (/[aeiou]ss$/.test(w)) return true;
+  // Una palabra de reaccion con CUALQUIER letra doblada tambien cuenta ("bieen",
+  // "vaale", "buueno"): las reglas de arriba no ven la doble e/o interior, y el
+  // colapso de las voces sobrias convierte "bieeen" en "bieen". Sin esto,
+  // "claroo y bieen" pasaba como UNA alargada (Iker, 2026-09-16: maximo una).
+  const base = w.replace(/([a-z])\1+/g, '$1');
+  if (base !== w && REACCION.has(base)) return true;
   return false;
 }
 
@@ -1225,16 +1231,6 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   //     intentional lowercase opening word is preserved. \p{Ll} + /u keeps
   //     accented letters working (á→Á).
   text = text.replace(/([.!?])(\s+)(\p{Ll})/gu, (_m, p, sp, ch) => `${p}${sp}${ch.toUpperCase()}`);
-  // 1d. VOCES SOBRIAS (Unai y Asier, NO Iker): colapsa cualquier racha de 3+
-  //     letras iguales a 2 ("síííí" → "síí", "graciasss" → "graciass"). La
-  //     RULE 12 ya lo pide, pero el prompt es una petición y la voz es una
-  //     promesa: un solo desliz y el fundador suena a otro. Se puede hacer a
-  //     ciegas porque el español no tiene ninguna triple letra legítima. Solo
-  //     minúsculas, así que un acrónimo como "AAA" sobrevive.
-  //     Iker ('cercano') queda fuera a propósito: el "muuuy" es suyo.
-  if (voice !== 'cercano') {
-    text = text.replace(/(\p{Ll})\1{2,}/gu, '$1$1');
-  }
   // 1e. UNA SOLA PALABRA ALARGADA, EN CUALQUIER VOZ (Iker, 2026-09-16). Se
   //     aplica al cuerpo, no al nombre, para que un nombre raro nunca cuente
   //     como la palabra alargada.
@@ -1249,6 +1245,17 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     } else {
       text = estirar ? estirarUna(limitarEstiradas(text), voice === 'sobrio' ? 1 : 2) : desestirarTodo(text);
     }
+  }
+  // 1d. (va DESPUES del limite de alargadas, para que el colapso no esconda
+  //     ninguna) VOCES SOBRIAS (Unai y Asier, NO Iker): colapsa cualquier racha de 3+
+  //     letras iguales a 2 ("síííí" → "síí", "graciasss" → "graciass"). La
+  //     RULE 12 ya lo pide, pero el prompt es una petición y la voz es una
+  //     promesa: un solo desliz y el fundador suena a otro. Se puede hacer a
+  //     ciegas porque el español no tiene ninguna triple letra legítima. Solo
+  //     minúsculas, así que un acrónimo como "AAA" sobrevive.
+  //     Iker ('cercano') queda fuera a propósito: el "muuuy" es suyo.
+  if (voice !== 'cercano') {
+    text = text.replace(/(\p{Ll})\1{2,}/gu, '$1$1');
   }
   // 1f. EL EMOJI LO DECIDE EL SORTEO, NO EL MODELO. Unai nunca; si al resto le
   //     toco emoji y el modelo no lo puso, se le pone uno de los "seguros".

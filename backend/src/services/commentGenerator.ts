@@ -335,6 +335,9 @@ Return ONLY the JSON object with keys: ${COMMENT_KEYS.map(k => `"${k}"`).join(',
 
   for (const key of COMMENT_KEYS) {
     if (!parsed[key]) throw new Error(`Missing comment type: ${key}`);
+    // Maximo UNA palabra alargada tambien aqui (Iker, 2026-09-16): la regla vale
+    // en todas las superficies, no solo en respuestas y Google Chat.
+    parsed[key] = limitarEstiradas(parsed[key]);
   }
 
   return parsed;

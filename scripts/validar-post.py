@@ -2302,6 +2302,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 _pal1 = {w.lower() for w in re.findall(r'\b[a-zA-ZáéíóúñÁÉÍÓÚÑ]{5,}\b', _l1)}
                 _pal2 = {w.lower() for w in re.findall(r'\b[a-zA-ZáéíóúñÁÉÍÓÚÑ]{5,}\b', _l2)}
                 _eco12 = sorted(_pal1 & _pal2)
+                # El 'si' que responde al 'no' de la 1 tambien cose (4.4b-EXCEPCION):
+                # 'Una pieza no te sienta... / Nosotros si, pero...' (Iker, 16/09,
+                # que pidio no repetir 'sala'). Recupera el verbo sin escribirlo.
+                if not _dem and re.search(r'\b(no|nunca|nadie)\b', _l1, re.I):
+                    _dem = re.search(r'\bs[ií]\b', _l2, re.I)
                 chk(bool(_dem) or bool(_eco12),
                     'Spam ninja: la linea 2 RECOGE la 1, es una bisagra (4.4b-MOLDE)',
                     ('la linea 2 no apunta a la 1 con ningun demostrativo ni repite una '

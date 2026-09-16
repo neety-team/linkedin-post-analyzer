@@ -2561,7 +2561,7 @@ Acceso libre.
 
 **OUTPUT FINAL de este pilar (SOLO esto, Iker, 2026-07-30):**
 1. **El TEXTO** del post en bloque cercado, para copiarlo con el botón.
-2. **La GUÍA DE MENCIONES** en tabla de 4 columnas con enlaces azules pulsables, empresa y persona.
+2. **La GUÍA DE MENCIONES**, en tabla markdown **fuera de bloque cercado** (si no, los enlaces no se pueden pulsar), con las 12 fichas **en el mismo orden que el post** y estas 4 columnas: **Pieza | Empresa (enlace) | Persona (enlace) | Cargo · última actividad**. Si la ficha no lleva persona, la columna dice **por qué** (nadie con cargo, o su última actividad a X días). Los enlaces salen de `public_identifier`, nunca del nombre (`§4.2` Paso 4). Los `|` de los nombres con tagline **se quitan en la tabla** (rompen las columnas); en el post van enteros. Mismo formato que la de "Los 10" (`§4.3`), fijado el 16/09 al entregar el despiece de Bizkaia.
 3. **La IMAGEN** ya montada, **MOSTRADA en el chat** y **guardada en `Documents/Mario/LINKEDIN GROWTH/PELOTEO REGIONAL/DESPIECE/`** con la convencion de esa carpeta: minusculas, espacios y sin acentos, con el SECTOR delante (`automocion euskadi.png`, `alimentacion galicia.png`). El sector y no la palabra "objeto", que es jerga interna y no dice nada al abrir la carpeta (Iker, 2026-07-30).
 4. **NADA MAS. Sin ZIP ni carpeta de logos** (Iker, 2026-07-30): los logos me los bajo yo para montar la imagen, asi que entregarlos es ruido. **Vale igual para "Los 10" con las fotos de las personas.** Lo unico que se entrega es la imagen final. La ruta se da igual, porque la necesita para subirla, pero la imagen se ensena. Vale lo mismo para "Los 10": si la compongo yo con un script, se ve aqui.
 

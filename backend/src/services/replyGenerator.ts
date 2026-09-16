@@ -174,7 +174,7 @@ ${STRETCH_RULES[voice].r13}`;
 export function buildPrompt(
   input: ReplyGenerationInput,
   voice: Voice
-): { prompt: string; arranque: string; conEmoji: boolean; estirar: boolean } {
+): { prompt: string; arranque: string; conEmoji: boolean; estirar: boolean; emojiElegido: string } {
   const v = input.authorVoice;
   const voiceBlock = [
     v.voice_style ? `VOICE STYLE: ${v.voice_style}` : null,
@@ -387,9 +387,10 @@ IF your reply agrees with the commenter, the agreement word for THIS reply is "$
     /(no me gusta|no mola|me molesta|ofensiv|falta de respeto|no me ha hecho gracia)/.test(llano(input.commentText));
   const PROB_EMOJI: Record<Voice, number> = { sobrio: 0, medio: 0.25, cercano: 0.5 };
   const conEmoji = !delicado && Math.random() < PROB_EMOJI[voice];
+  const emojiElegido = sorteaEmoji();
   const emojiNudge =
     (conEmoji
-      ? 'EMOJI: esta respuesta TERMINA con UN emoji que encaje con lo que dices (🙌 💪 👏 😄 🔥 🤝 😅), uno solo, al final.'
+      ? `EMOJI: esta respuesta TERMINA con este emoji y ningun otro: ${emojiElegido}`
       : voice === 'sobrio'
         ? 'EMOJI: NUNCA. Ni uno. Eres el fundador y tu tono no los necesita.'
         : 'EMOJI: esta respuesta va SIN emoji.') +
@@ -486,7 +487,7 @@ ${thanksNudge}
 ⛔ NO VES LA IMAGEN DE ESTE POST y casi todos nuestros posts llevan una. Solo tienes el texto, asi que NO afirmes nada sobre lo que el post ensena ni sobre lo que NO ensena, y no le niegues a nadie nada de lo que diga sobre la foto (RULE 3f).
 
 Write the reply now. Plain text, ONE single sentence, in the same language as the post/comment.`;
-  return { prompt, arranque: elegido.arranque, conEmoji, estirar };
+  return { prompt, arranque: elegido.arranque, conEmoji, estirar, emojiElegido };
 }
 
 // EL GUARDARRAIL, PORQUE UN PROMPT ES UNA PETICION Y NO UNA GARANTIA
@@ -580,10 +581,42 @@ export const EMOJI_RE_G = /\p{Extended_Pictographic}️?/gu;
 // que al final de una frase seria pueden sonar a burla.
 const EMOJI_SEGUROS = ['🙌', '💪', '👏', '🙂', '🤝'];
 
-export function ponerEmojiAlFinal(texto: string): string {
-  if (EMOJI_RE.test(texto)) return texto;
-  const e = EMOJI_SEGUROS[Math.floor(Math.random() * EMOJI_SEGUROS.length)];
-  return `${texto.trim()} ${e}`;
+// El emoji tambien se SORTEA (Iker, 2026-09-16): dejado al modelo, salio 🔥 en
+// 4 de 5 respuestas seguidas, que es otra forma de plantilla.
+export const EMOJIS_RESPUESTA = ['🙌', '💪', '👏', '🔥', '🤝', '👌', '😄', '🎯'];
+export function sorteaEmoji(): string {
+  return EMOJIS_RESPUESTA[Math.floor(Math.random() * EMOJIS_RESPUESTA.length)];
+}
+
+/**
+ * Deja UN emoji al final: el sorteado. Si el modelo puso otro, se sustituye;
+ * si no puso ninguno, se anade.
+ */
+export function ponerEmojiAlFinal(texto: string, emoji?: string): string {
+  const e = emoji || EMOJI_SEGUROS[Math.floor(Math.random() * EMOJI_SEGUROS.length)];
+  if (!emoji && EMOJI_RE.test(texto)) return texto;
+  return `${quitarEmojis(texto)} ${e}`;
+}
+
+/**
+ * Si toco alargar y el modelo no lo hizo, se alarga la primera palabra de
+ * reaccion que haya ("claro" -> "clarooo", "gracias" -> "graciaas"). Si no hay
+ * ninguna, no se fuerza: alargar un sustantivo cualquiera es peor que no
+ * alargar nada.
+ */
+export function estirarUna(texto: string, letras = 2): string {
+  if (contarEstiradas(texto) > 0) return texto;
+  let hecho = false;
+  return texto.replace(/\p{L}+/gu, (w) => {
+    if (hecho) return w;
+    const base = llanoLetra(w);
+    if (!REACCION.has(base) || base.length < 2) return w;
+    hecho = true;
+    const plano = w.normalize('NFD').replace(/[̀-ͯ]/g, '');
+    if (base === 'gracias') return plano.replace(/as$/i, 'a'.repeat(letras) + 's');
+    const ult = plano.match(/[aeiou]$/i);
+    return ult ? plano + ult[0].repeat(letras) : w;
+  });
 }
 
 export function quitarEmojis(texto: string): string {
@@ -1005,7 +1038,7 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
     throw new Error('ANTHROPIC_API_KEY not set');
   }
   const voice = voiceForAuthor(input.authorName);
-  const { prompt, arranque: elegidoArranque, conEmoji } = buildPrompt(input, voice);
+  const { prompt, arranque: elegidoArranque, conEmoji, estirar, emojiElegido } = buildPrompt(input, voice);
 
   // Se genera y se COMPRUEBA. Si se ha inventado algo, se vuelve a pedir con el
   // fallo delante, hasta 2 veces mas. Un reproche concreto ("te has inventado
@@ -1178,9 +1211,11 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   {
     const nom = input.commenterName?.trim();
     if (nom && text.toLowerCase().startsWith(nom.toLowerCase())) {
-      text = text.slice(0, nom.length) + limitarEstiradas(text.slice(nom.length));
+      const cuerpo = limitarEstiradas(text.slice(nom.length));
+      text = text.slice(0, nom.length) + (estirar ? estirarUna(cuerpo, voice === 'sobrio' ? 1 : voice === 'medio' ? 2 : 2) : cuerpo);
     } else {
       text = limitarEstiradas(text);
+      if (estirar) text = estirarUna(text, voice === 'sobrio' ? 1 : 2);
     }
   }
   // 1f. EL EMOJI LO DECIDE EL SORTEO, NO EL MODELO. Unai nunca; si al resto le
@@ -1189,7 +1224,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   //     puesto: en la prueba del 16/09 Iker salio con emoji en 7 de 8, que es
   //     justo el "todas con emoji" que no quiere.
   if (conEmoji && voice !== 'sobrio') {
-    text = ponerEmojiAlFinal(text);
+    text = ponerEmojiAlFinal(text, emojiElegido);
   } else {
     text = quitarEmojis(text);
   }

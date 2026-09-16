@@ -7,6 +7,8 @@ import {
   ponerEmojiAlFinal,
   quitarEmojis,
   comillasDeArranque,
+  sorteaEmoji,
+  estirarUna,
 } from './replyGenerator';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
@@ -443,13 +445,19 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
   const nEmoji = 1 + (Math.random() < 0.4 ? 1 : 0);
   const nEstirar = 1 + (Math.random() < 0.4 ? 1 : 0);
   const conEmoji = new Set(posiciones.slice(0, nEmoji));
+  const emojiDe = new Map<number, string>();
+  for (const i of conEmoji) {
+    let e = sorteaEmoji();
+    while ([...emojiDe.values()].includes(e)) e = sorteaEmoji();
+    emojiDe.set(i, e);
+  }
   const conEstirar = new Set(reparte(Array.from({ length: n }, (_, i) => String(i)), n).map(Number).slice(0, nEstirar));
   const asignacion = angulos
     .map(
       (a, i) =>
         `${i + 1}. ANGULO: ${a}. ARRANQUE OBLIGATORIO: empieza por ${arranques[i]}. ${
           conEstirar.has(i) ? 'LLEVA UNA palabra alargada (solo una).' : 'SIN palabras alargadas.'
-        } ${conEmoji.has(i) ? 'TERMINA con UN emoji.' : 'SIN emoji.'}`
+        } ${conEmoji.has(i) ? `TERMINA con este emoji: ${emojiDe.get(i)}` : 'SIN emoji.'}`
     )
     .join('\n');
 
@@ -560,7 +568,8 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // puso.
   return out.map((c, i) => {
     let r = limitarEstiradas(c);
-    r = conEmoji.has(i) ? ponerEmojiAlFinal(r) : quitarEmojis(r);
+    if (conEstirar.has(i)) r = estirarUna(r, 2);
+    r = conEmoji.has(i) ? ponerEmojiAlFinal(r, emojiDe.get(i)) : quitarEmojis(r);
     return r;
   });
 }

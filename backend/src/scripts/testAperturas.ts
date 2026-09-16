@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, buildPrompt, recordarApertura } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, buildPrompt, recordarApertura } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -236,6 +236,13 @@ ok(problemaDeEstilo('x'.repeat(400), 'Ana Pérez ' + 'x'.repeat(200), 'Ana Pére
 ok(limitarEstiradas('la lista al final encogeee más') === 'la lista al final encoge más', 'un verbo en mitad de la frase no se queda alargado', limitarEstiradas('la lista al final encogeee más'));
 ok(limitarEstiradas('encogeee y clarooo') === 'encoge y clarooo', 'se queda la de reaccion aunque vaya segunda', limitarEstiradas('encogeee y clarooo'));
 ok(faltaElGracias('Muy buena historia', 'Rosa Marín la lista al final encoge más de lo que uno espera.'), 'caza "Muy buena historia" sin gracias');
+
+ok(estirarUna('claro, y la lista encoge') === 'clarooo, y la lista encoge', 'alarga la palabra de reaccion', estirarUna('claro, y la lista encoge'));
+ok(estirarUna('claro', 1) === 'claroo', 'en Unai, una sola letra de mas');
+ok(estirarUna('gracias por decirlo') === 'graciaas por decirlo', 'alarga el gracias', estirarUna('gracias por decirlo'));
+ok(estirarUna('la lista encoge sola') === 'la lista encoge sola', 'no fuerza si no hay palabra de reaccion');
+ok(estirarUna('sí, y encima clarooo') === 'sí, y encima clarooo', 'no alarga si ya hay una');
+ok(ponerEmojiAlFinal('tal cual 🔥', '🙌') === 'tal cual 🙌', 'cambia el emoji por el sorteado');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

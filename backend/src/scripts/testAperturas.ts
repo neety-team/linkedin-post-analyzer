@@ -198,5 +198,8 @@ ok(detectarRespuestaBorde('Mario Carrillo ¿y cuántas veces crees que el mejor 
 ok(detectarRespuestaBorde('Tomás Vidal ¿caro comparado con qué, con 12 meses sin ver una cara?') !== null, 'caza la retórica');
 ok(detectarRespuestaBorde('Mario Carrillo tal cual, el mejor discurso no llega a sonar si en recepción solo tienes un cargo.') === null, 'deja pasar la de apoyo');
 
+ok(detectarRespuestaBorde('Pablo Sanz no era una herramienta, era la renovación del evento presencial de Donostia...') !== null, 'caza "no era X, era Y" sobre el post');
+ok(detectarRespuestaBorde('Pablo Sanz eso es lo de menos, lo que duele son los 12 meses pagados sin ver a nadie.') === null, 'y deja pasar la que no corrige');
+
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

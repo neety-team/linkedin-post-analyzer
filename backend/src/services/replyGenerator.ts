@@ -548,6 +548,12 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // Carrillo, que nos daba la razon: "¿y cuantas veces crees que el mejor
   // discurso...?". A quien apoya no se le examina. Tambien la retorica.
   { re: /[¿?]/, que: 'la respuesta hace una pregunta, y a quien comenta se le apoya, no se le examina' },
+  // "no era una herramienta, era la renovacion del evento" (prueba del 16/09, a
+  // "¿Y que herramienta era?"). Falso: la factura del meme ES de herramientas
+  // de ventas, pero eso vive en la foto y ya no la vemos. Sin imagen, corregir
+  // lo que el post es o deja de ser es jugarsela, y encima contradice al que
+  // pregunta. Es la misma familia que "en ningun momento hemos hablado de".
+  { re: /(^|[ ,])no (era|es|fue) (un|una|el|la|lo) [a-z]+( [a-z]+)?, (era|es|fue) /, que: 'corriges lo que el post es o deja de ser sin ver la imagen' },
   // ⛔ DESCRIBIR LA FOTO SIN VERLA (Iker, 2026-09-15). Retiradas las imagenes
   // por coste, el modelo DEDUCE lo que hay en ellas a partir del texto y lo
   // cuenta como si lo estuviera viendo: "en la imagen se ven dos mensajes de

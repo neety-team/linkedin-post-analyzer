@@ -220,7 +220,7 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 - **Y dos logos no se leen** (ENKARTERRI baja a 100px y se amplía; TALLERES UNAMUNZAGA es un símbolo sin nombre). Es su logo de LinkedIn y no se pide otro (`§4.3` 6b-quinquies).
 - **Jon Etxeberria Zarranz tiene el `location` en Éibar (Gipuzkoa)** aunque sea el General Manager de la planta de Abadiño. Se mantiene y se anota.
 
-**📍 El enlace, re-medido el 16/09 por la tarde a petición de Iker:** con clics solo a nuestra web (n=10), enlace pronto 0,184% de CTR mediano y tarde 0,471%. Este post lo lleva a **10 líneas** de la lista (el máximo medido), tras fusionar el reveal y el barrido en una línea para no dejarlo en espejo. → `post-workflow §4.0d` punto 6.
+**🧪 A/B · BRAZO B DE LA POSICIÓN DEL ENLACE (Iker, 16/09):** Iker lo veía demasiado tarde y lo sube. **El enlace va al 74% del texto** (detrás de la frase de la sirimiri; reveal, pueblos, "ninguna sale en un anuncio" y cierre quedan por debajo). En v2 estaba al 91%. **Es el 2º post del brazo B y los dos son de Asier** (Cantabria 01/09 al 60%). Referencia del brazo A en su cuenta: Aragón 14/07, 0,500% a nuestra web. **Medir clics a Luma a los 3-4 días.** → `post-workflow §4.0d` punto 6.
 
 **🔧 Tres bugs del validador arreglados el mismo día:** el check de fichas del despiece exigía PERSONA en las 12 (tumbaba el despiece de Navarra publicado) · el patrón de ritmo del pilar `objeto` cruzaba un `zip` desalineado y se comía los bloques de 3 · el check de menciones repetidas daba falso positivo con dos empresas que empiezan por un genérico (`@TALLERES …` ×2).
 

@@ -2607,18 +2607,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             f'0.66x que sí las tuvo. La persona invisible se queda; el culpable, fuera: '
             f'que tape la prensa, el titular, la cifra o nosotros' if m else '')
     # ---------- POSICION DEL ENLACE EN PELOTEO (post-workflow 4.0d punto 6) ----------
-    # Medido el 2026-09-16 sobre los 10 peloteos con clics a NUESTRA web: con
-    # 0-3 lineas entre la ultima ficha y el enlace, CTR mediano 0,184%; con
-    # 4-10, 0,471% (rangos +0,46). n=10: por eso es aviso y no fallo.
+    # A/B ABIERTO (Iker, 2026-09-16). 20 de los 21 peloteos con enlace lo llevan
+    # entre el 88% y el 96% del texto, asi que el dato NO dice si arriba convierte
+    # mas o menos: solo que abajo es lo unico que hemos publicado. Este aviso no
+    # opina: imprime el % y el brazo, para que quede anotado en la ficha.
     if pilar in ('mapa', 'objeto', 'los10'):
-        _L = texto.split('\n')
-        _fl = [k for k, l in enumerate(_L) if l.lstrip().startswith('→')]
-        _li = [k for k, l in enumerate(_L) if re.search(r'https?://', l)]
-        if _fl and _li and _li[-1] > _fl[-1]:
-            _gap = len([l for l in _L[_fl[-1] + 1:_li[-1]] if l.strip()])
-            chk(4 <= _gap <= 10, 'PELOTEO: entre 4 y 10 lineas entre la lista y el enlace (4.0d)',
-                '%d lineas. Pronto (0-3) = 0,184%% de CTR mediano; tarde (4-10) = 0,471%%; mas de 10 no '
-                'esta medido. Si sobra una, se fusiona, no se manda el enlace al final' % _gap, aviso=True)
+        _m = re.search(r'https?://', texto)
+        if _m:
+            _pos = 100.0 * _m.start() / max(len(texto), 1)
+            _brazo = 'A (abajo, 88-96%)' if _pos >= 85 else ('B (a media cola, <80%)' if _pos < 80 else 'entre los dos brazos')
+            chk(True, 'PELOTEO: posicion del enlace, apuntala en la ficha (4.0d)',
+                'enlace al %.0f%% del texto -> brazo %s. A/B abierto: brazo A = 20 posts, brazo B = '
+                'Cantabria 01/09 y Bizkaia 16/09. Nunca en la ultima linea ni suelto' % (_pos, _brazo), aviso=True)
     # ---------- GANCHO UNIVERSAL DEL PELOTEO (Iker, 2026-09-16) ----------
     # "en el gancho tiene que poder entenderlo cualquier persona, sea el pilar
     # que sea". Se escapo `el garaje de la ria`: la ria es Bilbao para el de

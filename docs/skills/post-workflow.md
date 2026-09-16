@@ -111,24 +111,32 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 
 **5 · EL FINAL, EN ESTE ORDEN EN LOS TRES:** lista → cuerpo con clichés y pueblos → **reveal tardío** con frase nueva → **barrido geográfico** en una línea corta → **línea de contexto del evento** si el enlace es Luma → **el bloque del enlace** → **cierre punchy** que rebota contra el concepto.
 
-**6 · DÓNDE VA EL ENLACE: TARDE, DETRÁS DEL REVEAL. Y LO QUE ESTÁ MEDIDO Y LO QUE NO, SEPARADO (re-medido el 2026-09-16, por la tarde)**
+**6 · DÓNDE VA EL ENLACE: NO ESTÁ DECIDIDO, Y HAY UN A/B ABIERTO (Iker, 2026-09-16)**
 
-> 🔴 **CORRECCIÓN DE LA VERSIÓN DEL 16/09.** Ahí ponía *"los tres mejores CTR tienen 4, 4 y 11 líneas"* y *"los de 1-2 líneas, ~0,24%"*. **Las dos cifras mezclaban clics a PamPam** (web ajena, los dos CTR más altos del histórico) con clics a nuestra web, y el conteo de líneas incluía la propia línea del enlace. Iker preguntó si de verdad estaba validado que tarde convierte más, y la respuesta honesta era que **no lo había medido así**: había medido que no castigaba.
+> 🔴 **LO QUE NO SABEMOS, dicho sin adornos.** En 20 de los 21 peloteos con enlace, el enlace cae **entre el 88% y el 96% del texto**: siempre casi al final. **Con eso no se puede comparar "arriba contra abajo", porque abajo es lo único que hemos publicado.** Las dos versiones de este punto del 16/09 lo presentaban como medido y no lo estaba:
+> - la primera mezclaba clics a PamPam con clics a nuestra web;
+> - la segunda comparaba "0-3 líneas tras la lista" (0,184%) contra "4-10" (0,471%), **pero en esos posts la lista ya estaba al final**, así que las dos bandas son "enlace al final" y no responden a la pregunta.
 
-**La medición buena: solo peloteos con clics a NUESTRA web (n=10), contando las líneas con texto entre la última ficha `→` y la línea del enlace:**
+**Lo único que empuja hacia ARRIBA, y viene de otros sitios:**
+- **El correo** (`historial-newsletter`, 28/08): el enlace metido en la posdata sacó **2 clics en 682 envíos**; subido al cuerpo, **6 en 327**. Único cambio entre tandas, n pequeño.
+- **El resto de pilares** (`global §4.4b-CLICS`): en prosa, el enlace antes del carácter 650 convierte más.
+- **Iker, y es el criterio de quien lo ve en el móvil:** *"a nivel psicológico lo comprobamos incluso en los correos, poniendo el enlace en la posdata no pulsaba prácticamente nadie"*.
 
-| enlace | n | CTR mediano |
+**El único peloteo con el enlace subido:** Cantabria, 01/09, **del 87% al 60%**, a petición de Iker (*"lo veo muy atrás"*). **13.021 impresiones y 21 clics en GA4 (0,161%)**. No se puede leer: un solo post, recién vueltos de vacaciones, y medido en GA4 cuando todos los demás están medidos en LinkedIn.
+
+**LO QUE SÍ SE MANTIENE, porque está medido en todos los pilares:** el enlace **nunca en la última línea** y **nunca en una línea suelta**: siempre en el bloque de dos (`global §4.4b-FORMA`).
+
+**EL A/B, con las cuatro condiciones de `§9b`:**
+| brazo | dónde va el enlace | posts |
 |---|---|---|
-| pronto (0-3 líneas tras la lista) | 5 | **0,184%** |
-| tarde (4-10 líneas) | 5 | **0,471%** |
+| **A · abajo** | detrás del reveal, entre el 88% y el 96% | los 20 del histórico |
+| **B · a media cola** | detrás de la primera línea de clichés, con reveal, pueblos y cierre por debajo; **por debajo del 80%** | Cantabria 01/09 (60%) · **despiece de Bizkaia de Asier, 16/09 (74%)** |
 
-**Correlación de rangos líneas-CTR: +0,46.** El mejor CTR a nuestra web es el más tardío medido: Castilla y León, **10 líneas → 0,638%**.
+**Se lee con 3 o 4 posts del brazo B en la MISMA cuenta.** La cuenta de Asier ya tiene los dos: Aragón (A, 0,500%), Cantabria (B, GA4) y Bizkaia (B). **Cada peloteo nuevo apunta en su ficha del historial el % de posición del enlace** el día que sale.
 
-**Lo que se puede afirmar:** en peloteo, poner el enlace tarde **no castiga y apunta a convertir más**. **Lo que NO:** que esté probado. Son 10 posts, y el grupo "pronto" junta los mapas de julio que salieron en plena saturación (`punto 1`).
+**Cómo se sube sin romper el ritmo** (caso de Bizkaia): mover el bloque del enlace deja casi siempre un tramo en espejo o un ciclo suelta-bloque-suelta-bloque. Se prueban las ordenaciones de la cola con el validador y se elige **la más alta que pase limpia**. En Bizkaia quedó: sirimiri → contexto del evento → enlace → reveal y barrido → pueblos → "ninguna sale en un anuncio" → cierre.
 
-**LA REGLA:** el enlace va **tarde, detrás del reveal**, con **entre 4 y 10 líneas** entre la lista y el enlace. **10 es el máximo medido**: pasarse es salir de los datos. Si sobra una línea, **se fusiona antes que mover el bloque del enlace al final**: dejarlo con una línea suelta antes y otra después crea el tramo en espejo (`global §3.2-ESPEJO`) justo alrededor del bloque de venta. Caso del despiece de Bizkaia: el reveal y el barrido pasaron a una sola línea (`Y el garaje se llama Bizkaia, de Muskiz a Ondarroa.`) y el enlace quedó en 10.
-
-**Mecanizado** como aviso en `validar-post.py` para los tres peloteos (`PELOTEO: entre 4 y 10 lineas entre la lista y el enlace`).
+**Mecanizado** como aviso en `validar-post.py` (`PELOTEO: posicion del enlace`), que imprime el % y dice a qué brazo pertenece el post.
 
 **7 · LAS LISTAS DE QUEMADAS CADUCAN** (Iker, 2026-09-16). País, concepto, frase-rabia y verbo del prejuicio **se liberan a los 42 días** (`global §2.0b-VENTANA`). Lo que no caduca: **la región dentro de la misma cuenta** y los vetos sin fecha.
 
@@ -3320,6 +3328,7 @@ El sistema no termina al entregar el post. Para que mejore con el tiempo:
 | **Registro de la foto** | oficina | casa, informal | 21/08 Unai en oficina (5.651 imp · 43 clics) contra 26/08 Unai en casa. **Mismo pilar y misma cuenta: es el A/B más limpio que tenemos**, aunque el resto del post cambie |
 | **Rama del pilar** | historia propia | historia de otro | A: 4 · B: 1 (26/08) |
 | **Variante regional** | sin región | con región | A: 4 · B: 1 (26/08), **confundida con la rama** |
+| **Posición del enlace en peloteo** | abajo (88-96% del texto) | a media cola (<80%) | A: 20 posts · B: Cantabria 01/09 (60%) y Bizkaia 16/09 (74%), **los dos de Asier**. Detalle en `§4.0d` punto 6 |
 
 ---
 

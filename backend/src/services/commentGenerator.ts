@@ -1,7 +1,12 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { trackedCreate } from './claudeClient';
 import { stripLoneSurrogates } from '../utils/sanitizeText';
-import { detectarAperturaGenerica } from './replyGenerator';
+import {
+  detectarAperturaGenerica,
+  limitarEstiradas,
+  ponerEmojiAlFinal,
+  comillasDeArranque,
+} from './replyGenerator';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
 //
@@ -60,7 +65,7 @@ export function aperturaHueca(c: string): boolean {
 
 const ANGULOS_APOYO = [
   'refuerza la idea principal con un angulo personal concreto',
-  'coge una frase o una cifra LITERAL del post y devuelvesela',
+  'recoge una frase o una cifra LITERAL del post DENTRO de tu frase, nunca abriendo con ella entre comillas',
   'calido y humano, sin peloteo hueco',
   'anade UNA capa que el post no cubre, sin contradecirlo',
   'una sola linea, corta y seca, de reaccion',
@@ -75,7 +80,6 @@ const ARRANQUES_APOYO = [
   'un adverbio de frecuencia (Casi siempre, Rara vez, Normalmente, Al final)',
   'una reaccion de dos o tres palabras',
   'el sujeto concreto de la escena del post (el comercial, el cliente, la lista)',
-  'una pregunta directa',
   'el pronombre de la experiencia propia (Yo, A mi, En mi caso)',
 ];
 
@@ -380,6 +384,10 @@ export async function generateSupportiveComments(
 
 LANGUAGE: every comment in ${detectedLang}. Never switch languages. Never mix English into a Spanish thread.
 
+★ ⛔ NINGUNO ES UNA PREGUNTA, NI RETORICA (Iker, 2026-09-16). El primero de una tanda abrio con "¿Cuantas ventas se pierden antes de llegar al que decide?" y no se quiere: se afirma, se apoya. Ningun signo de interrogacion.
+★ ⛔ NINGUNO EMPIEZA CON COMILLAS (Iker, 2026-09-16): "empezar un comentario con comillas parece escrito por una inteligencia artificial". Si citas una frase del post, va DENTRO de la frase, nunca abriendola.
+★ UNA LINEA MEJOR QUE DOS. Preferible UNA frase por comentario; como mucho uno o dos de los ${n} pueden llevar dos frases cortas. Si los ${n} tienen la forma "frase. frase.", se leen como una plantilla.
+
 ★ ⛔ NUNCA SE DEJA MAL A LA PUBLICACION NI A SU AUTOR, Y ESTO YA HA PASADO. El 20/08 se publico esto en el hilo de un post nuestro: "El flujo parece demasiado perfecto para produccion... Bonita demo". Lo pego un companero con su nombre y su cara, poniendo en duda nuestro propio contenido delante de todos y dandole municion a cualquiera que viniera a discutir. PROHIBIDO: poner en duda que lo que cuenta el post sea real o realista, decir que "en la vida real no pasa", que "suena a demo", que es "demasiado perfecto", que "es muy optimista" o que "no es tan facil". Sumar un matiz SI ("y encima pasa que..."); dudar del post, NO.
 
 REGISTER: every comment is SUPPORTIVE — either "reinforce" (extend the post's idea with one extra layer) or "warm_supportive" (genuinely happy for the author). NEVER contrarian, NEVER skeptical, NEVER provocative. These are colleagues backing each other up — they will not risk their professional image with edgy takes.
@@ -393,9 +401,9 @@ LENGTH: MAX 2 lines, ≤ 180 characters each. Tight beats verbose. One sharp sen
 - NEVER a colon. No ":" anywhere in the comment (Iker, 2026-08-12). It reads as AI. Nobody writing a quick comment on their phone sets up a clause and then announces it with a colon. Use a comma, or split it into two short sentences. ⚠️ This line used to say "use a full stop, a comma or a colon" — the prompt itself was teaching the tell.
 - NEVER a comma directly before "y" or "e". A comma before "pero" is fine.
 - No markdown of any kind. No bold, no bullets, no numbered lists.
-- Do not open with an emoji. At most ONE emoji, in at most one of the ${n}, and only if it lands naturally.
+- Do not open with an emoji. EMOJIS: los lleva SOLO el comentario al que la ASIGNACION se lo pide, UNO y al final. Los demas, sin ninguno.
 
-★ SOUND HUMAN, NOT POLISHED. In ONE or at most TWO of the ${n}, stretch a vowel on the word carrying the emphasis, the way people actually type: "muuuy", "totaaal", "buenííísimo", "ciertooo", "graciaas". Doing it in all of them is try-hard and worse than not doing it at all.
+★ SOUND HUMAN, NOT POLISHED (Iker, 2026-09-16). Los que los pegan son gente joven y cercana. La ASIGNACION te dice que comentarios llevan UNA palabra alargada: esos llevan EXACTAMENTE UNA, y los demas NINGUNA. La palabra alargada es una palabra corta de reaccion con la VOCAL FINAL estirada: "clarooo", "siii", "buenoo", "nooo", "bieeen", "totaaal", "geniaaal". Nunca un sustantivo en mitad de la frase y NUNCA dos palabras alargadas en el mismo comentario.
 
 ACCENTS WHEN STRETCHING A VOWEL: if the word you stretch carries a written accent, DROP the accent and write every repeated vowel plain. Write "buenisiiimo", never "buenííísimo"; "graciaas", never "gráciaas". An accent in the middle of a stretched run looks like a typo, not like someone typing with enthusiasm.
 
@@ -426,8 +434,22 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
   // dos tandas distintas vuelven a los mismos cinco angulos de siempre.
   const angulos = reparte(ANGULOS_APOYO, n);
   const arranques = reparte(ARRANQUES_APOYO, n);
+  // EMOJI Y ALARGAMIENTO, SORTEADOS Y EN SITIOS DISTINTOS CADA VEZ (Iker,
+  // 2026-09-16): "por lo menos siempre un comentario con emoji y otro con
+  // vocales, pero que nunca salga el de vocales en la misma posicion de los 5".
+  // Uno o dos de cada, en posiciones barajadas, y nunca todos.
+  const posiciones = reparte(Array.from({ length: n }, (_, i) => String(i)), n).map(Number);
+  const nEmoji = 1 + (Math.random() < 0.4 ? 1 : 0);
+  const nEstirar = 1 + (Math.random() < 0.4 ? 1 : 0);
+  const conEmoji = new Set(posiciones.slice(0, nEmoji));
+  const conEstirar = new Set(reparte(Array.from({ length: n }, (_, i) => String(i)), n).map(Number).slice(0, nEstirar));
   const asignacion = angulos
-    .map((a, i) => `${i + 1}. ANGULO: ${a}. ARRANQUE OBLIGATORIO: empieza por ${arranques[i]}.`)
+    .map(
+      (a, i) =>
+        `${i + 1}. ANGULO: ${a}. ARRANQUE OBLIGATORIO: empieza por ${arranques[i]}. ${
+          conEstirar.has(i) ? 'LLEVA UNA palabra alargada (solo una).' : 'SIN palabras alargadas.'
+        } ${conEmoji.has(i) ? 'TERMINA con UN emoji.' : 'SIN emoji.'}`
+    )
     .join('\n');
 
   const userMessage = `${profileContext}
@@ -496,7 +518,9 @@ Return JSON only: { "comments": ["...", "..."] }`;
         que:
           detectarAperturaGenerica(c) ||
           (criticaNuestroPost(c) ? 'deja mal a nuestra propia publicacion' : null) ||
-          (aperturaHueca(c) ? 'peloteo hueco de apertura' : null),
+          (aperturaHueca(c) ? 'peloteo hueco de apertura' : null) ||
+          (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
+          (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null),
       }))
       .filter((x) => x.que);
     const vistas = new Map<string, number>();
@@ -530,5 +554,12 @@ Return JSON only: { "comments": ["...", "..."] }`;
     console.warn(`[commentGenerator] intento ${intento}/2 descartado: ${partes.join(' y ')}`);
   }
 
-  return out;
+  // Lo que se garantiza en codigo, sin gastar otra llamada: una sola palabra
+  // alargada por comentario, y el emoji en el que le toco si el modelo no lo
+  // puso.
+  return out.map((c, i) => {
+    let r = limitarEstiradas(c);
+    if (conEmoji.has(i)) r = ponerEmojiAlFinal(r);
+    return r;
+  });
 }

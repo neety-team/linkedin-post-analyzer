@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, buildPrompt, recordarApertura } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, buildPrompt, recordarApertura } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -212,6 +212,26 @@ ok(faltaElReconocimiento('Qué post más largo, no he llegado al final', 'Nuria 
 ok(!faltaElReconocimiento('Qué post más largo, no he llegado al final', 'Nuria Sanz me he enrollado, te lo resumo, lo que no vale no se llama.'), 'deja pasar la que da la razón');
 
 ok(detectarRespuestaBorde('Mario Carrillo tal cual, el problema es real y encima lo pagas dos veces.') === null, 'no confunde "el problema es real" con afirmar la historia');
+
+// 15. Una sola palabra alargada, emojis y comillas (Iker, 2026-09-16).
+console.log('\n15 · alargar vocales: solo una palabra, y sin romper las normales');
+for (const w of ['clarooo', 'siii', 'buenoo', 'nooo', 'bieeen', 'graciass', 'muuy', 'totaaal', 'geniaaal'])
+  ok(esEstirada(w), `detecta ${w}`);
+for (const w of ['Neety', 'feedback', 'Google', 'lee', 'cree', 'desee', 'coordinar', 'leer', 'zoo', 'clientes', 'business', 'Aaron'])
+  ok(!esEstirada(w), `no toca ${w}`);
+ok(limitarEstiradas('clarooo, y siii genial') === 'clarooo, y si genial', 'deja solo la primera', limitarEstiradas('clarooo, y siii genial'));
+ok(limitarEstiradas('buenoo, con feedback de Neety') === 'buenoo, con feedback de Neety', 'no toca lo que no es estirado');
+ok(contarEstiradas('nooo, y encima muuy caro') === 2, 'cuenta dos');
+ok(ponerEmojiAlFinal('tal cual').endsWith('🙌') || /\p{Extended_Pictographic}/u.test(ponerEmojiAlFinal('tal cual')), 'pone emoji si falta');
+ok(ponerEmojiAlFinal('tal cual 🔥') === 'tal cual 🔥', 'no duplica el emoji');
+ok(quitarEmojis('respeto la opinión 🙌') === 'respeto la opinión', 'quita emojis para Unai');
+console.log('\n15b · comillas y longitud');
+ok(comillasDeArranque('"Sin nombre no paso." Tres palabras que explican más.') === 'Sin nombre no paso.', 'detecta el arranque con comillas');
+ok(comillasDeArranque('Recepción filtra antes de oírte.') === null, 'no salta sin comillas');
+ok(problemaDeEstilo('Qué bueno', 'Ana Pérez "Sin nombre no paso." lo resume todo', 'Ana Pérez') !== null, 'caza comillas que no citan al que comenta');
+ok(problemaDeEstilo('sin nombre no paso, así de claro', 'Ana Pérez "sin nombre no paso" lo resume todo', 'Ana Pérez') === null, 'deja pasar si cita al que comenta');
+ok(problemaDeEstilo('Qué bueno', 'Ana Pérez ' + 'x'.repeat(200), 'Ana Pérez') !== null, 'caza la respuesta demasiado larga');
+ok(problemaDeEstilo('x'.repeat(400), 'Ana Pérez ' + 'x'.repeat(200), 'Ana Pérez') === null, 'con un parrafazo se permite más');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

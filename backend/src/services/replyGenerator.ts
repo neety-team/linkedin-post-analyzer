@@ -75,17 +75,17 @@ function voiceForAuthor(authorName: string): Voice {
 const STRETCH_RULES: Record<Voice, { r0: string; r12: string; r13: string }> = {
   sobrio: {
     r0: `RULE 0 — QUIÉN ERES (esta regla tiñe todas las demás): eres UNAI, el FUNDADOR y CEO. La cuenta la firmas tú, así que eres el más SOBRIO de los tres. Tu lector medio es un director industrial de unos 50 años que lleva vendiendo desde antes de que existiera Salesforce: tiene que leerte y verte como un IGUAL, no como un chaval de LinkedIn haciendo contenido. Afirmas, no exclamas. Nada de hype, nada de jerga de creador, nada de caricatura, nada infantil. ⚠️ Sobrio NO es acartonado ni corporativo: sigues siendo natural, directo y con la gracia de siempre. Lo que baja es el VOLUMEN, no la naturalidad. Si dudas entre dos formas de decir algo, elige la que diría alguien que lleva 20 años cerrando pedidos.`,
-    r12: `RULE 12 — ALARGAMIENTO DE VOCAL, VERSIÓN MÍNIMA (eres el más sobrio de los tres). La mayoría de tus respuestas NO llevan ninguno. Cuando lo lleves, es UNA sola vocal doblada y por UNA letra: "muuy buena", "graciaas". NUNCA tres o más de la misma letra ⚠️ SI LA PALABRA LLEVA TILDE, LA TILDE SE QUITA (Iker, 2026-07-30): escribe "buenisiiimo" y "siii", nunca "buenííísimo" ni "síííí". Una tilde en medio de una racha de vocales parece una errata, no alguien escribiendo con ganas.: "muuuy", "ciertooo", "síííí" no son tu voz, suenan a grito y te alejan del industrial que te lee. Cero o uno, nunca dos en la misma respuesta. Esa contención ES la voz del fundador.`,
+    r12: `RULE 12 — ALARGAR UNA VOCAL, Y SOLO CUANDO TOCA. Eres el mas sobrio: cuando alargas, es una sola letra de mas ("claroo", "graciaas"). Y NUNCA MAS DE UNA PALABRA ALARGADA EN TODA LA RESPUESTA (Iker, 2026-09-16). Si te toca alargar, se alarga UNA palabra corta de reaccion y su VOCAL FINAL: "clarooo", "siii", "buenoo", "nooo", "bieeen", "valeee", "totaaal", "genial" -> "geniaaal". Es la palabra con la que asientes, niegas o valoras, al principio o al final de la frase. NUNCA un sustantivo en mitad de la frase, nunca dos palabras, nunca la misma letra repetida en varias palabras. Si la palabra lleva tilde, la tilde se quita al alargar ("siii", no "síii"). Si te toca NO alargar, no alargas ninguna, tampoco el gracias. El mensaje de usuario te dice cual de las dos toca.`,
     r13: `RULE 13 — SIEMPRE AGRADECER CUANDO NOS ELOGIAN (nunca lo saltes), Y NUNCA IGUAL DOS VECES. Si el comentario es sobre todo un halago ("gran post", "me encanta", "brutal", "crack", "top"), la respuesta DEBE llevar gracias, y NUNCA un "gracias" seco. En tu voz va sobrio y corto: "graciass", "graciaas", "muchas graciaas", "gracias por valorarlo", "gracias por tenerlo en cuenta", "gracias por decirlo", "me alegra que te sirva". Como mucho UNA letra doblada: "graciasss", "graciaaas" o "se agradeceee" son demasiado ruidosos para ti. ⛔ "graciaas por el cariño" NO ES TUYA: es exclusiva de Iker (Iker, 2026-08-12). Tú eres el fundador y le hablas de igual a igual a un director industrial de 55 años; esa frase es demasiado efusiva para tu registro. Agradeces SIEMPRE, pero seco y corto. En el mensaje de usuario te llega una VARIANTE DE GRACIAS sorteada: usa esa, bajada a tu tono. El gracias va primero; después, si acaso, una línea corta.`,
   },
   cercano: {
     r0: `RULE 0 — QUIÉN ERES (esta regla tiñe todas las demás): eres IKER. Eres el más CERCANO de los tres y el que más se permite el punchy y el guiño. Aun así, un punto por debajo de lo que eras: nuestro lector medio es un director industrial de unos 50 años, no un creador de LinkedIn, así que nada de hype ni de jerga de creador. Cercano no es infantil.`,
-    r12: `RULE 12 — NATURAL VOWEL ELONGATION (this is what makes a reply sound human, not AI). Stretch a vowel in ONE or TWO words per reply by repeating a vowel — both mid-word and word-final. "muuuy buena" reads better than "muy buena"; "ciertooo" better than "cierto"; also "totaaal", "buenííísimo", "graciaas", "síííí". ⚠️ SI LA PALABRA LLEVA TILDE, LA TILDE SE QUITA (Iker, 2026-07-30): escribe "buenisiiimo" y "siii", nunca "buenííísimo" ni "síííí". Una tilde en medio de una racha de vocales parece una errata, no alguien escribiendo con ganas. Put the stretch where the emphasis naturally lands (agreement, praise, emphasis). ONE or TWO stretches per reply is human; stretching every word is try-hard — keep it subtle. Do this on most replies; it's a core part of the natural voice.`,
+    r12: `RULE 12 — ALARGAR UNA VOCAL, Y SOLO CUANDO TOCA. Eres el mas cercano: cuando alargas, puedes estirar dos o tres letras ("clarooo", "bieeen"). Y NUNCA MAS DE UNA PALABRA ALARGADA EN TODA LA RESPUESTA (Iker, 2026-09-16). Si te toca alargar, se alarga UNA palabra corta de reaccion y su VOCAL FINAL: "clarooo", "siii", "buenoo", "nooo", "bieeen", "valeee", "totaaal", "genial" -> "geniaaal". Es la palabra con la que asientes, niegas o valoras, al principio o al final de la frase. NUNCA un sustantivo en mitad de la frase, nunca dos palabras, nunca la misma letra repetida en varias palabras. Si la palabra lleva tilde, la tilde se quita al alargar ("siii", no "síii"). Si te toca NO alargar, no alargas ninguna, tampoco el gracias. El mensaje de usuario te dice cual de las dos toca.`,
     r13: `RULE 13 — ALWAYS THANK WHEN THEY PRAISE US (never skip it), AND NEVER THANK THE SAME WAY TWICE. If the comment is mainly praise / flattery ("gran post", "me encanta", "brutal", "qué bueno", "de los mejores", "crack", "top", etc.), the reply MUST include a thanks — and NEVER a flat "gracias". Use a warm, elongated variant: "graciasss", "graciaas", "muchas graciaaas", "gracias por valorarlo", "gracias por tenerlo en cuenta", "gracias por decirlo", "gracias por leerlo", "gracias por pasarte por aquí", "me alegra que te sirva", "se agradeceee". ✅ "graciaas por el cariño" es TUYA y solo tuya: ninguna otra cuenta la usa (Iker, 2026-08-12). Aun así NO es tu default — se gastó de tanto usarla, así que entra en la rotación como una más. A THANKS VARIANT is picked for you per reply in the user message: use that one. This is non-negotiable when the comment is basically a compliment — we too often skip the thanks and it reads cold. You can add a short line after the thanks, but the thanks comes first.`,
   },
   medio: {
     r0: `RULE 0 — QUIÉN ERES (esta regla tiñe todas las demás): eres ASIER. Estás en el punto MEDIO de los tres: más sobrio que Iker, menos que Unai (que es el fundador y firma la casa). Escribes contenido, no eres el CEO, pero nuestro lector es un director industrial de unos 50 años y tiene que tomarte en serio. Natural y directo, sin hype y sin caricatura. ⚠️ Sobrio NO es acartonado: la gracia y los clichés siguen. Lo que baja es el volumen.`,
-    r12: `RULE 12 — NATURAL VOWEL ELONGATION, SOBER VERSION (this is what makes a reply sound human, not AI — but you are a understated writer, so it stays quiet). Stretch a vowel in ONE word per reply, and by exactly ONE extra letter — the doubled vowel, never more. "muuy buena", "ciertoo", "totaal", "buenííisimo" is TOO MUCH → "buenísimoo", "síí". NEVER three or more of the same letter: "muuuy", "ciertooo", "síííí" are NOT your voice — they read as shouting. One doubled vowel, once per reply, where the emphasis naturally lands. Most replies get exactly one; some get none. That restraint IS the voice.`,
+    r12: `RULE 12 — ALARGAR UNA VOCAL, Y SOLO CUANDO TOCA. Estas en el punto medio: cuando alargas, una o dos letras de mas ("claroo", "siii"). Y NUNCA MAS DE UNA PALABRA ALARGADA EN TODA LA RESPUESTA (Iker, 2026-09-16). Si te toca alargar, se alarga UNA palabra corta de reaccion y su VOCAL FINAL: "clarooo", "siii", "buenoo", "nooo", "bieeen", "valeee", "totaaal", "genial" -> "geniaaal". Es la palabra con la que asientes, niegas o valoras, al principio o al final de la frase. NUNCA un sustantivo en mitad de la frase, nunca dos palabras, nunca la misma letra repetida en varias palabras. Si la palabra lleva tilde, la tilde se quita al alargar ("siii", no "síii"). Si te toca NO alargar, no alargas ninguna, tampoco el gracias. El mensaje de usuario te dice cual de las dos toca.`,
     r13: `RULE 13 — ALWAYS THANK WHEN THEY PRAISE US (never skip it), AND NEVER THANK THE SAME WAY TWICE. If the comment is mainly praise / flattery ("gran post", "me encanta", "brutal", "qué bueno", "de los mejores", "crack", "top", etc.), the reply MUST include a thanks — and NEVER a flat "gracias". Use a warm but UNDERSTATED variant: "graciass", "graciaas", "muchas graciaas", "gracias por valorarlo", "gracias por tenerlo en cuenta", "gracias por decirlo", "gracias por leerlo", "me alegra que te sirva". ⛔ "graciaas por el cariño" NO ES TUYA: es exclusiva de Iker (Iker, 2026-08-12). Estás en el punto medio, así que agradeces siempre pero sin efusividad. A THANKS VARIANT is picked for you per reply in the user message: use that one, toned down to your voice. At most ONE doubled letter — "graciasss" / "graciaaas" / "se agradeceee" are too loud for you. This is non-negotiable when the comment is basically a compliment — we too often skip the thanks and it reads cold. You can add a short line after the thanks, but the thanks comes first.`,
   },
 };
@@ -100,7 +100,7 @@ RULE 1 — LANGUAGE: Write the reply in the EXACT SAME LANGUAGE as the post and 
 
 RULE 2 — VOICE: The voice_style / worldview / signature_moves below are how you actually write. The "avoid" list is words/patterns you would never use. Both are law.
 
-RULE 3 — LENGTH: EXACTLY ONE SENTENCE. Not two, not three — ONE (Iker, 2026-08-06). It may be a long line, but it is a single sentence and it ends with a single full stop. This applies to EVERY profile and EVERY tone, no exceptions: the voice changes the volume, never the length. If you cannot fit it in one sentence, you are saying too much — cut the idea, do not add a second sentence.
+RULE 3 — LENGTH: EXACTLY ONE SENTENCE, AND ONE LINE (Iker, 2026-08-06 y 2026-09-16). Una linea larga como mucho, que despues del nombre no pase de unos 160 caracteres: mejor una linea larga que dos. Solo si el comentario al que respondes es un PARRAFAZO (mas de 300 caracteres) puedes llegar a unos 280. Nunca dos frases. Si no cabe, sobra una idea: quitala, no la aprietes.
 
 RULE 3b — SIN ANGLICISMOS QUE TENGAN TRADUCCION LLANA (Iker, 2026-08-07). El que lee la respuesta es el MISMO lector que el del post: un director comercial de unos 55 anos que vende maquinaria industrial y que puede no tener ni CRM. NUNCA escribas: pipeline, funnel, forecast, workflow, engagement, insight, pitch, closing. Di lo que diria el: la cartera, las oportunidades abiertas, el embudo, la prevision, el proceso, la respuesta, el hallazgo, el discurso, el cierre. Ojo, esto NO prohibe todo el ingles: CRM, B2B, SDR, lead o deal no tienen equivalente llano y se usan con normalidad. Se prohibe el ingles que el lector ya dice en espanol. Test: si el diria "la cartera", tu dices "la cartera".
 
@@ -171,7 +171,10 @@ ${STRETCH_RULES[voice].r12}
 
 ${STRETCH_RULES[voice].r13}`;
 
-export function buildPrompt(input: ReplyGenerationInput, voice: Voice): { prompt: string; arranque: string } {
+export function buildPrompt(
+  input: ReplyGenerationInput,
+  voice: Voice
+): { prompt: string; arranque: string; conEmoji: boolean; estirar: boolean } {
   const v = input.authorVoice;
   const voiceBlock = [
     v.voice_style ? `VOICE STYLE: ${v.voice_style}` : null,
@@ -297,7 +300,11 @@ export function buildPrompt(input: ReplyGenerationInput, voice: Voice): { prompt
     'totalmente', 'claro', 'sin duda', 'ahí está', 'ese es el tema',
     'y tanto', 'buen punto', 'lo has clavado', 'te compro eso'];
   const ASENT_ESTIRADOS = ['juuusto', 'exactoo', 'eso esss', 'buenoo', 'clarooo', 'tal cuaal'];
-  const banco = voice === 'sobrio' ? ASENTIMIENTOS : ASENTIMIENTOS.concat(ASENT_ESTIRADOS);
+  // ALARGAR O NO, SORTEADO AQUI (Iker, 2026-09-16). "Casi todas" no es
+  // variedad y "a veces" no produce "a veces": lo decide el dado, por voz.
+  const PROB_ESTIRAR: Record<Voice, number> = { sobrio: 0.15, medio: 0.35, cercano: 0.55 };
+  const estirar = Math.random() < PROB_ESTIRAR[voice];
+  const banco = estirar && voice !== 'sobrio' ? ASENTIMIENTOS.concat(ASENT_ESTIRADOS) : ASENTIMIENTOS;
   const asent = banco[Math.floor(Math.random() * banco.length)];
 
   // Las aperturas que ya se han usado en ESTE post, para que el sorteo no las
@@ -368,12 +375,28 @@ IF your reply agrees with the commenter, the agreement word for THIS reply is "$
   // RULE 4 los dejaba a merced de `signature_moves`, que es texto libre de la
   // base de datos: si ahi no se mencionan, no salen nunca, y si se mencionan
   // salen siempre. Demasiado frágil para un rasgo que Iker tiene decidido.
-  const EMOJI_POR_VOZ: Record<Voice, string> = {
-    sobrio: 'EMOJIS: NUNCA. Ni uno. Eres el fundador y tu tono no los necesita; los puntos suspensivos hacen ese papel.',
-    medio: 'EMOJIS: de vez en cuando, como mucho UNO y solo si remata de verdad. La mayoría de tus respuestas van sin ninguno.',
-    cercano: 'EMOJIS: puedes usarlos con naturalidad, uno por respuesta como mucho. No los fuerces si la frase no los pide.',
-  };
-  const emojiNudge = EMOJI_POR_VOZ[voice];
+  // EMOJIS SORTEADOS POR VOZ (Iker, 2026-09-16). La tabla decia que Iker "va
+  // por libre" y en la practica casi no salia ninguno: "puedes usarlos con
+  // naturalidad" es un permiso, y un permiso el modelo casi nunca lo ejerce. Lo
+  // decide el dado. Unai sigue sin ninguno. Y nunca en una respuesta DELICADA
+  // (alguien que no entiende, que se queja o que viene de malas), donde un
+  // emoji al final puede leerse como burla.
+  const delicado =
+    ES_HOSTIL.test(llano(input.commentText)) ||
+    NO_ENTIENDE.test(llano(input.commentText)) ||
+    /(no me gusta|no mola|me molesta|ofensiv|falta de respeto|no me ha hecho gracia)/.test(llano(input.commentText));
+  const PROB_EMOJI: Record<Voice, number> = { sobrio: 0, medio: 0.25, cercano: 0.5 };
+  const conEmoji = !delicado && Math.random() < PROB_EMOJI[voice];
+  const emojiNudge =
+    (conEmoji
+      ? 'EMOJI: esta respuesta TERMINA con UN emoji que encaje con lo que dices (🙌 💪 👏 😄 🔥 🤝 😅), uno solo, al final.'
+      : voice === 'sobrio'
+        ? 'EMOJI: NUNCA. Ni uno. Eres el fundador y tu tono no los necesita.'
+        : 'EMOJI: esta respuesta va SIN emoji.') +
+    ' ' +
+    (estirar
+      ? 'ALARGAR: esta respuesta lleva EXACTAMENTE UNA palabra alargada, una palabra corta de reaccion con la vocal final estirada (RULE 12). Una, no dos.'
+      : 'ALARGAR: esta respuesta NO lleva ninguna palabra alargada, tampoco el gracias (RULE 12).');
 
   // Same per-call trick as OPENING_MOVES, for the same reason. RULE 13 lists the
   // thanks variants but a menu doesn't produce variety: every call is independent,
@@ -463,7 +486,7 @@ ${thanksNudge}
 ⛔ NO VES LA IMAGEN DE ESTE POST y casi todos nuestros posts llevan una. Solo tienes el texto, asi que NO afirmes nada sobre lo que el post ensena ni sobre lo que NO ensena, y no le niegues a nadie nada de lo que diga sobre la foto (RULE 3f).
 
 Write the reply now. Plain text, ONE single sentence, in the same language as the post/comment.`;
-  return { prompt, arranque: elegido.arranque };
+  return { prompt, arranque: elegido.arranque, conEmoji, estirar };
 }
 
 // EL GUARDARRAIL, PORQUE UN PROMPT ES UNA PETICION Y NO UNA GARANTIA
@@ -476,6 +499,95 @@ Write the reply now. Plain text, ONE single sentence, in the same language as th
 // Es la misma leccion que este fichero ya tiene escrita para OPENING_MOVES:
 // pedirle algo al modelo "si te encaja" no produce el comportamiento. Aqui se
 // comprueba la salida y, si inventa, se vuelve a pedir con el fallo delante.
+
+// ⛔⛔ UNA SOLA PALABRA ALARGADA POR RESPUESTA, EN CUALQUIER CUENTA (Iker, 2026-09-16)
+//
+// Iker: "sea el jefe que sea o sea lo de Google Chat, nunca pongas varias
+// palabras con varias vocales. Siempre maximo una palabra, y solo la que mejor
+// vaya a quedar". Y dio sus ejemplos: "clarooo", "siii", "buenoo", "nooo",
+// "bieeen". Lo que tienen en comun, y es lo que se le pide al modelo: son
+// palabras CORTAS de reaccion (asentir, negar, valorar), que abren o cierran la
+// frase, y lo que se alarga es la VOCAL FINAL. Nunca un sustantivo en mitad de
+// la frase.
+//
+// El prompt lo pide; esto lo GARANTIZA: si salen dos o mas, se deja la primera
+// y las demas se devuelven a su forma normal. Es determinista y no gasta una
+// llamada. La deteccion es conservadora a proposito, porque el castellano tiene
+// dobles vocales legitimas ("lee", "cree", "desee", "coordinar") y en el texto
+// se cuelan palabras inglesas ("Neety", "feedback", "Google"):
+//   · una racha de 3 o mas letras iguales, en cualquier sitio
+//   · una doble a/i/u/o AL FINAL de palabra ("buenoo", "siii", "totaal"),
+//     menos la "ee" final, que es subjuntivo ("desee", "emplee")
+//   · una doble a/i/u EN MEDIO ("muuy", "juusto"), que casi no existe en ingles
+//   · una "ss" final ("graciass"), que ninguna palabra castellana tiene
+const DOBLE_OK = new Set(['zoo', 'hawaii', 'boss', 'stress', 'business', 'fitness', 'less', 'express', 'class', 'press', 'success', 'kiss', 'cross']);
+
+function llanoLetra(w: string): string {
+  return w.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+export function esEstirada(palabra: string): boolean {
+  const w = llanoLetra(palabra);
+  if (w.length < 2 || DOBLE_OK.has(w)) return false;
+  if (/([a-z])\1\1/.test(w)) return true;
+  if (/(aa|ii|uu|oo)$/.test(w)) return true;
+  if (/[a-z](aa|ii|uu)[a-z]/.test(w)) return true;
+  if (/[aeiou]ss$/.test(w)) return true;
+  return false;
+}
+
+function desestirar(palabra: string): string {
+  // Colapsa cualquier racha de letras iguales y la "ss" final. Solo se llama
+  // sobre palabras que esEstirada() ya ha marcado.
+  return palabra.replace(/(\p{L})\1+/gu, '$1');
+}
+
+/** Cuantas palabras alargadas lleva el texto. */
+export function contarEstiradas(texto: string): number {
+  return (texto.match(/\p{L}+/gu) || []).filter(esEstirada).length;
+}
+
+/** Deja como mucho UNA palabra alargada (la primera) y normaliza el resto. */
+export function limitarEstiradas(texto: string): string {
+  let vistas = 0;
+  return texto.replace(/\p{L}+/gu, (w) => {
+    if (!esEstirada(w)) return w;
+    vistas++;
+    return vistas === 1 ? w : desestirar(w);
+  });
+}
+
+export const EMOJI_RE = /\p{Extended_Pictographic}/u;
+export const EMOJI_RE_G = /\p{Extended_Pictographic}️?/gu;
+
+// Emojis que no pueden quedar mal al final de casi nada. Se usan SOLO cuando el
+// sorteo dijo "con emoji" y el modelo no lo puso: nada de risas ni corazones,
+// que al final de una frase seria pueden sonar a burla.
+const EMOJI_SEGUROS = ['🙌', '💪', '👏', '🙂', '🤝'];
+
+export function ponerEmojiAlFinal(texto: string): string {
+  if (EMOJI_RE.test(texto)) return texto;
+  const e = EMOJI_SEGUROS[Math.floor(Math.random() * EMOJI_SEGUROS.length)];
+  return `${texto.trim()} ${e}`;
+}
+
+export function quitarEmojis(texto: string): string {
+  return texto.replace(EMOJI_RE_G, '').replace(/\s{2,}/g, ' ').trim();
+}
+
+// ⛔ ABRIR CON COMILLAS (Iker, 2026-09-16): "empezar un comentario con comillas
+// parece inteligencia artificial. Si vas a meter comillas, que sea para hacer
+// referencia a algo que coges del comentario al que respondes". Devuelve el
+// texto entrecomillado del arranque, o null si no abre con comillas.
+export function comillasDeArranque(texto: string, nombre?: string | null): string | null {
+  let cuerpo = texto.trim();
+  if (nombre && cuerpo.toLowerCase().startsWith(nombre.trim().toLowerCase())) {
+    cuerpo = cuerpo.slice(nombre.trim().length).trim();
+  }
+  const m = cuerpo.match(/^["“«'‘]([^"”»'’]{2,})["”»'’]/);
+  if (m) return m[1];
+  return /^["“«'‘]/.test(cuerpo) ? cuerpo.slice(1, 40) : null;
+}
 
 // ⛔⛔ APERTURA GENERICA: EL GUARDARRAIL, PORQUE UN PROMPT ES UNA PETICION
 // (Iker, 2026-09-15)
@@ -621,6 +733,34 @@ export function respuestaAHostilMal(comentario: string, respuesta: string): bool
  * Si el comentario dice que no entiende el post, la respuesta TIENE que abrir
  * reconociendo. Explicar bien pero entrando a saco sigue sonando a corregirle.
  */
+/**
+ * Lo que no es de tono sino de forma, y el usuario ve a simple vista:
+ *  · la LONGITUD: una linea, ~160 caracteres tras el nombre; hasta ~280 solo
+ *    si el comentario es un parrafazo (Iker, 2026-09-16: "mejor una linea
+ *    larga que dos, a menos que el comentario sea un parrafazo").
+ *  · ABRIR CON COMILLAS que no citan al que comenta, que "parece escrito por
+ *    inteligencia artificial".
+ */
+export function problemaDeEstilo(
+  comentario: string,
+  respuesta: string,
+  nombre?: string | null
+): string | null {
+  let cuerpo = respuesta.trim();
+  if (nombre && cuerpo.toLowerCase().startsWith(nombre.trim().toLowerCase())) {
+    cuerpo = cuerpo.slice(nombre.trim().length).trim();
+  }
+  const tope = comentario.trim().length > 300 ? 300 : 175;
+  if (cuerpo.length > tope) {
+    return `mide ${cuerpo.length} caracteres y el tope es ${tope}: tiene que caber en UNA linea, quita una idea`;
+  }
+  const cita = comillasDeArranque(respuesta, nombre);
+  if (cita !== null && !llano(comentario).includes(llano(cita).slice(0, 12))) {
+    return 'abre con comillas y lo entrecomillado no es algo que haya dicho el que comenta: abrir con comillas parece escrito por una IA';
+  }
+  return null;
+}
+
 export function faltaElReconocimiento(comentario: string, respuesta: string): boolean {
   return NO_ENTIENDE.test(llano(comentario)) && !HAY_RECONOCIMIENTO.test(llano(respuesta));
 }
@@ -850,7 +990,7 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
     throw new Error('ANTHROPIC_API_KEY not set');
   }
   const voice = voiceForAuthor(input.authorName);
-  const { prompt, arranque: elegidoArranque } = buildPrompt(input, voice);
+  const { prompt, arranque: elegidoArranque, conEmoji } = buildPrompt(input, voice);
 
   // Se genera y se COMPRUEBA. Si se ha inventado algo, se vuelve a pedir con el
   // fallo delante, hasta 2 veces mas. Un reproche concreto ("te has inventado
@@ -873,6 +1013,7 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
   let ultimosInventos: Invento[] = [];
   let ultimaAperturaMala: string | null = null;
   let ultimoTonoBorde: string | null = null;
+  let ultimoEstilo: string | null = null;
   let candidatoTibio = '';
 
   for (let intento = 1; intento <= 3; intento++) {
@@ -881,6 +1022,8 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
         ? ''
         : ultimoTonoBorde
         ? `\n\nEL INTENTO ANTERIOR ROMPE LA RULE 3c-bis/3c-ter: ${ultimoTonoBorde}. Quien comenta nos acaba de dar atencion EN PUBLICO y no se le echa de casa ni se le niega lo que el post dice. Reescribe la respuesta ENTERA: si no entiende el post, abre quitandole hierro ("no pasa nada", "normal", "culpa mia") y EXPLICALE la broma mirando la imagen; si se queja, reconocele lo que siente y aclara la intencion sin negar ningun hecho.`
+        : ultimoEstilo
+        ? ' EL INTENTO ANTERIOR NO VALE: ' + ultimoEstilo + '. Reescribe la respuesta ENTERA arreglando eso y manteniendo todo lo demas.'
         : ultimosInventos.length === 0 && ultimaAperturaMala
         ? `
 
@@ -944,6 +1087,16 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       );
     }
 
+    // LONGITUD Y COMILLAS (Iker, 2026-09-16), con la misma severidad que la
+    // apertura: se reintenta y, si a la tercera sigue, se devuelve igual.
+    ultimoEstilo = problemaDeEstilo(input.commentText, candidato, input.commenterName);
+    if (ultimoEstilo && intento < 3) {
+      candidatoTibio = candidato;
+      ultimaAperturaMala = null;
+      console.warn(`[replyGenerator] intento ${intento}/3 descartado por estilo: ${ultimoEstilo}`);
+      continue;
+    }
+
     // Lo que no miente pero abre como un folleto: se reintenta, y si a la
     // tercera sigue igual se publica igualmente (ver la nota de severidad).
     ultimaAperturaMala = detectarAperturaGenerica(candidato, input.commenterName);
@@ -1003,6 +1156,24 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   //     Iker ('cercano') queda fuera a propósito: el "muuuy" es suyo.
   if (voice !== 'cercano') {
     text = text.replace(/(\p{Ll})\1{2,}/gu, '$1$1');
+  }
+  // 1e. UNA SOLA PALABRA ALARGADA, EN CUALQUIER VOZ (Iker, 2026-09-16). Se
+  //     aplica al cuerpo, no al nombre, para que un nombre raro nunca cuente
+  //     como la palabra alargada.
+  {
+    const nom = input.commenterName?.trim();
+    if (nom && text.toLowerCase().startsWith(nom.toLowerCase())) {
+      text = text.slice(0, nom.length) + limitarEstiradas(text.slice(nom.length));
+    } else {
+      text = limitarEstiradas(text);
+    }
+  }
+  // 1f. EL EMOJI LO DECIDE EL SORTEO, NO EL MODELO. Unai nunca; si al resto le
+  //     toco emoji y el modelo no lo puso, se le pone uno de los "seguros".
+  if (voice === 'sobrio') {
+    text = quitarEmojis(text);
+  } else if (conEmoji) {
+    text = ponerEmojiAlFinal(text);
   }
   // 2. Strip a stray comma right after the leading mention name so the
   //    reply reads "Name y…" not "Name, y…" (the backend keeps whatever

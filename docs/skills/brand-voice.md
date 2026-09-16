@@ -410,6 +410,24 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 
 **⚠️ Y lo que no se puede prometer:** un modelo no da un "nunca" absoluto. Los filtros cazan las familias que ya hemos visto y el prompt cubre el resto; **si aparece una forma nueva de vacilar, se añade aquí y al detector el mismo día.**
 
+#### ⛔⛔ 7.1h · UNA LÍNEA, UNA PALABRA ALARGADA, Y EL EMOJI LO DECIDE EL DADO (Iker, 2026-09-16)
+
+> *"En la tabla, en el segundo jefe me has puesto que va por libre, pero no veo esa libertad: no veo casi emojis. Y en el Google Chat ninguna tiene ni varias vocales ni emoticono… no quiero que todas lo tengan, pero por lo menos siempre uno con emoji y otro con vocales, y nunca en la misma posición. Y sea quien sea, nunca varias palabras con vocales alargadas: máximo una, la que mejor quede. A mí me gusta en palabras como clarooo, siii, buenoo, nooo, bieeen"*.
+
+**LA CAUSA, y es la de siempre en este fichero:** "puedes usar emojis con naturalidad" es un **permiso**, y un permiso el modelo casi nunca lo ejerce. Lo mismo con las vocales: "en uno o dos" no produce "en uno o dos". **Ahora lo decide el código y el modelo solo lo ejecuta.**
+
+| qué | respuestas | Google Chat |
+|---|---|---|
+| **longitud** | **una línea**: ~160 caracteres tras el nombre; hasta ~280 solo si el comentario es un parrafazo (+300). Se comprueba y se reintenta | una frase por comentario; como mucho 1-2 de los 5 con dos |
+| **palabra alargada** | sorteada por voz (15/35/55%) y **nunca más de una**: si salen dos, el código normaliza la segunda | 1 o 2 comentarios, **posición barajada**, y nunca más de una por comentario |
+| **cuál se alarga** | una palabra corta de reacción, **vocal final**: `clarooo`, `siii`, `buenoo`, `nooo`, `bieeen`, `valeee`, `geniaaal`. Nunca un sustantivo en mitad de la frase | igual |
+| **emoji** | sorteado por voz (0/25/50%), al final, **nunca** en respuestas delicadas (no entiende, se queja, viene de malas). Si le tocaba y no lo puso, el código añade uno "seguro" (🙌 💪 👏 🙂 🤝) | 1 o 2 de los 5, posición barajada, con la misma red |
+| **comillas al empezar** | ⛔ salvo que cite algo que dijo **el que comenta** | ⛔ nunca: la cita del post va dentro de la frase |
+
+**Lo común a las palabras que le gustan a Iker**, y es lo que se le pide al modelo: son **cortas**, son **de reacción** (asentir, negar, valorar) y lo que se estira es **la última vocal**. Por eso suenan a alguien tecleando y no a un anuncio.
+
+**⚠️ Y el detector es conservador a propósito:** el castellano tiene dobles vocales legítimas (`lee`, `cree`, `desee`, `coordinar`) y en los textos se cuelan palabras inglesas (`Neety`, `feedback`, `Google`). Solo cuenta como alargada una racha de 3 letras, una doble a/i/u/o **al final**, una doble a/i/u en medio o una `ss` final. Probado contra todas esas: no toca ninguna.
+
 #### ⛔ 7.1f · LA RESPUESTA NUNCA ES UNA PREGUNTA (Iker, 2026-09-16)
 
 > *"Ahora intentas responder comentarios haciendo una pregunta, cosa que yo creo que no me gusta. Puede ser inteligente a nivel de engagement, pero no sé si me convence. Recuerda que siempre hay que priorizar respuestas de apoyo"*.
@@ -420,7 +438,7 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 
 **⚠️ Lo del engagement, dicho con honestidad:** que una pregunta traiga más respuestas es una hipótesis, **no un dato nuestro**: no guardamos las respuestas enviadas, así que no hay nada medido. Y aunque trajera un comentario más, lo paga el tono de apoyo, que es la regla de la casa. **Si el comentario PREGUNTA algo, se le contesta; nunca se le devuelve otra pregunta.** Tampoco la retórica.
 
-**Ámbito:** respuestas del autor a comentarios de su post. Los comentarios de apoyo del Google Chat NO entran: ahí una pregunta es un ángulo más de los cinco (`§7.2`, *better_question*) y no se le hace a nadie en concreto.
+**Ámbito:** respuestas del autor **y, desde el mismo 16/09, también los comentarios de apoyo del Google Chat.** Ahí se había dejado la pregunta como un ángulo más y la primera de una tanda abrió con *"¿Cuántas ventas se pierden antes de llegar al que decide?"*. Iker tampoco la quiere.
 
 **Mecanizado:** `detectarRespuestaBorde()` tumba cualquier `¿`/`?` y la respuesta se vuelve a pedir.
 
@@ -434,10 +452,10 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 |---|---|---|
 | **quién firma** | **el jefe**, en su propio post | **otra persona** del equipo, con su nombre y su cara |
 | voz por cuenta | ✅ `sobrio` Unai · `medio` Asier · `cercano` Iker | ⛔ **neutra a propósito** |
-| alargar vocales | ✅ por voz: Unai 0-1 letra, Asier 1, Iker 1-2 palabras | ✅ en 1 o 2 de los 5, no por voz |
+| alargar vocales | ✅ **UNA palabra como mucho**, sorteada: Unai 15% · Asier 35% · Iker 55% | ✅ **UNA palabra** en 1 o 2 de los 5, en posición sorteada |
 | exclamación | ✅ sorteada por voz: Unai 15%, Asier 25%, Iker libre | — |
 | puntos suspensivos | ✅ Unai 25%, Asier 20%, Iker libre | — |
-| emojis | ✅ Unai **nunca**, Asier de vez en cuando, Iker con naturalidad | como mucho 1 en 1 de los 5 |
+| emojis | ✅ sorteado: Unai **nunca** · Asier 25% · Iker 50%, y **nunca** en respuestas delicadas | ✅ 1 o 2 de los 5, en posición sorteada |
 | agradecer un elogio | ✅ obligatorio y **comprobado** (`faltaElGracias`) | — |
 
 **⚠️ Y LO DEL GOOGLE CHAT NO ES UN OLVIDO, ES TU PROPIA REGLA (`§7.2b`):** *"los escriben CINCO PERSONAS DISTINTAS… cada uno lo pega con su nombre y su cara en el mismo hilo. Si al lector le suenan a la misma mano, se lee como coordinado y el tiro sale por la culata"*. **Ponerles la voz del jefe haría justo eso**, y encima sería raro: el jefe no se comenta a sí mismo. Lo que sí comparten con el jefe son las reglas de CASA (puntuación, cero anglicismos, cero cifras inventadas, registro de apoyo).

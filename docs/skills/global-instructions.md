@@ -2296,6 +2296,8 @@ Te marcamos quién va a comprar y cuándo, y tu comercial entra solo ahí: [link
 | EVENTO | Luma | ya estaba |
 | LEAD MAGNET | ninguna en el post | ya estaba |
 | MEME | **la decide el TEMA del post** (correo si el tema no toca vender, agendar si sí) | ⭐ **aprobado el 27/08**, ya no es hipótesis mía. Y en **Unai**, mientras viva el evento, **Luma** |
+
+**⭐ Y MIENTRAS VIVE EL EVENTO, LUMA ES LA MAYORÍA, NO LA TOTALIDAD (Iker, 2026-09-16).** *"Lo ideal es que la inmensa mayoría sí que hagan eso, pero también seguir de vez en cuando, como en el meme que acabamos de publicar, haciendo spam a la web de agendar… no vamos a frenarnos y paralizar nuestro alcance y nuestra conversión"*. El primer caso es el meme de Iker del 16/09 (recepción, llamada 79), que va a `/agendar/` porque su dolor es palabra por palabra el de agendar. **Lo que se sabe que se deja en la mesa, y Iker lo dice él mismo:** el meme del 01/09 (218.529 impresiones) fue el post que más inscritos trajo, **7**. Se asume a propósito: variar la puerta es una decisión, no un descuido.
 | INSIGHT y post suelto | la decide el TEMA, ver `§4.4e-SOLO` | |
 
 - ⚠️ **La fila del MEME es una deducción mía y va marcada como tal.** Los tres memes con doble bloque tienen el `link_url` **vacío** en la BD, o sea que **no medimos nada** ni a favor ni en contra. Lo único medido es que el meme convierte fatal en CTR y muy bien por interacción, y de ahí a decir "en meme va el correo" hay un salto que todavía no está dado. **Se prueba en un meme y se anota.**

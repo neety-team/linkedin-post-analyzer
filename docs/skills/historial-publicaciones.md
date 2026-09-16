@@ -114,7 +114,7 @@
 - **Semana del 24/08: el grueso**, con el viernes 28 como tope. Lo que no esté hecho el 28 no sale.
 - **📦 VOLUMEN CERRADO: 6 posts por semana, 2 por cuenta. 12 en total.** No son 9, y el recorte es a propósito: **no se sube**.
 - **Cada cuenta lleva 1 peloteo + 1 post de otro pilar, las dos semanas.** Los tres formatos de peloteo salen cada semana (**mapa + despiece + "Los 10"**, uno por cuenta) y **rotan entre cuentas** de una semana a otra → 6 peloteos y 6 del resto. Esto abre el tope colectivo de `§8.2` **solo para esta ventana**.
-- **🔧 FIJO: el despiece del segundo jefe es de MÁQUINA HERRAMIENTA**, sector nunca tocado (los dos despieces hechos son de automoción). **Pide plantilla NUEVA de 12 huecos** — solo existe la de la llanta. Siluetas candidatas: fresa/broca · plato de torno con garras · engranaje · llave fija. ⚠️ **Región sin decidir y con trampa**: el sector se concentra en Euskadi y **Euskadi ya está gastada para un despiece de Iker** (el coche, 30/07).
+- **⛔ DESCARTADO el 16/09** (36 directivos activos en toda España, `post-workflow §4.7-SECTORES`; la siguiente plantilla es MAQUINARIA con engranaje). Lo que ponía: ~~**🔧 FIJO: el despiece del segundo jefe es de MÁQUINA HERRAMIENTA**~~, sector nunca tocado (los dos despieces hechos son de automoción). **Pide plantilla NUEVA de 12 huecos** — solo existe la de la llanta. Siluetas candidatas: fresa/broca · plato de torno con garras · engranaje · llave fija. ⚠️ **Región sin decidir y con trampa**: el sector se concentra en Euskadi y **Euskadi ya está gastada para un despiece de Iker** (el coche, 30/07).
 - El **despiece de alimentación** (espátula o gorro de cocinero) sigue vivo como **el segundo despiece**, en la otra semana y otra cuenta.
 - ⏱️ **Aviso de carga:** 6 peloteos + plantilla nueva en 10 días laborables, publicando a la vez. Los peloteos primero (es el pilar caro) y que los 6 posts restantes sean **memes e historias**, que no dependen de verificar a terceros.
 - 🧪 **Se programa con la herramienta nativa de LinkedIn**, cosa que no hemos probado nunca (la sospecha de que penaliza viene de TikTok y en LinkedIn es un mito sin comprobar).
@@ -203,6 +203,14 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 **⚠️ RIESGO ASUMIDO Y ANOTADO:** Unai llega a **4 historias en 4 semanas** (21/08, 26/08, 02/09, 11/09) y **las dos nuevas son rama B, que es n=1 y sin validar**. El pilar entero tiene 6 posts publicados en toda la casa, así que estamos multiplicando su volumen justo cuando nadie está mirando y con métricas que **no generan doctrina** (`post-workflow §8.0-SEPTIEMBRE`). Si la rama B no funciona, sus dos posts caen juntos y no nos vamos a enterar a tiempo.
 
 ---
+
+## ⛔ 16/09 · "LOS 10" PROHIBIDO Y EL DE GIPUZKOA, BORRADO
+
+**Qué pasó:** el 16/09 una directora de marketing de otra empresa llamó muy enfadada a Unai por el "Los 10" de Gipuzkoa (15/09), y **Unai lo borró**. Hace meses ya se había quejado un mencionado en la foto, y otros "Los 10" hubo que editarlos. **Iker prohíbe el formato** salvo que él lo levante por escrito (`post-workflow §4.3-VETO`). El validador y el Post Creator lo bloquean.
+- **Métricas antes del borrado:** 7.789 impresiones, 8 comentarios y 54 clics (0,6x). **Al estar borrado, no genera solape de audiencia ni quema la región.** Sus 10 personas no se vuelven a mencionar sin mirarlo antes.
+- **Plan de peloteo desde ya:** mapa + despiece de automoción + despiece de **maquinaria** (plantilla nueva, engranaje), con **alimentación** (cesta de la compra) como tercera plantilla. Evidencia en `post-workflow §4.7-SECTORES`. **La máquina herramienta "fija" del 14/08 queda descartada.**
+- **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
+- **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
 ## 📝 ENTREGADO (v2) · MIÉ 16/09 · ASIER · DESPIECE DE AUTOMOCIÓN EN **BIZKAIA** (evento en el ninja)
 

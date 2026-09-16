@@ -2529,6 +2529,38 @@ Acceso libre.
 > #### 📏 LONGITUD Y FORMA, con lo poco que hay
 > Los dos despieces publicados miden **105 y 121 caracteres**, dentro de la horquilla de los mapas (80-130). **Con n=2 no hay nada que deducir: manda la vara del mapa** (`global §2.10`, mediana 75-93 y sospecha por encima de 110).
 
+> ### 🧭🧭 4.7-SECTORES · QUÉ PLANTILLA TOCA DESPUÉS DE LA LLANTA, ELEGIDO POR ALCANCE (Iker, 2026-09-16)
+>
+> **Iker:** *"yo elegí automoción sin investigar realmente si es el sector más rentable… ahora quiero priorizar por alcance"*. Con "Los 10" prohibido (`§4.3-VETO`), el despiece carga con dos de los tres peloteos semanales, así que necesita **varias plantillas**.
+>
+> **Lo que limita un despiece NO es el tamaño del sector en España: es encontrar 12 empresas de la región con un directivo activo.** Por eso la vara es esta (Sales Navigator, 16/09: personas del sector con `director OR CEO OR gerente OR fundador OR owner OR founder`, ubicadas en la región y con `posted_on_linkedin`, que devuelve un subconjunto estricto del universo, o sea que el filtro se aplica):
+>
+> | sector (industrias de LinkedIn) | España | P.Vasco | Cataluña | Andalucía | Valencia | Galicia | Navarra | Aragón | CyL | Asturias | Cantabria | La Rioja | CLM | Extremadura | regiones ≥30 |
+> |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+> | **Maquinaria** (55,135,147,918,901) | **3.343** | 252 | 867 | 351 | 384 | 126 | 65 | 117 | 94 | 88 | 31 | 16 | 68 | 35 | **12 de 13** |
+> | Automoción (53,1042) | 1.099 | 52 | 245 | 91 | 87 | 34 | 21 | 29 | 41 | 10 | 5 | 4 | 22 | 8 | 6 |
+> | Eléctrico/electrónico (112,2468) | 582 | 52 | 190 | 41 | 44 | 11 | 10 | 21 | 11 | 15 | 2 | 0 | 6 | 2 | 4 |
+> | Alimentación y bebidas (23,142,65) | n.d. | 22 | 220 | 86 | 73 | 39 | 10 | 22 | 50 | 10 | 5 | 12 | n.d. | n.d. | 5 |
+> | Plástico (117,743) | 341 | 8 | 119 | 19 | 77 | 6 | 4 | 12 | 8 | 5 | 4 | 2 | 3 | 2 | 2 |
+> | Productos metálicos (840,807,883,852,876) | 133 | 18 | 24 | 5 | 17 | 6 | 4 | 15 | 4 | 10 | 1 | 0 | 1 | 1 | 0 |
+> | **Máquina herramienta** (928) | **36** | 4 | 9 | 3 | 5 | 0 | 0 | 2 | 0 | 0 | 0 | 0 | 2 | 0 | **0** |
+> | Vino (2500) | n.d. | n.d. | n.d. | 2 | 3 | 2 | 0 | 1 | n.d. | n.d. | n.d. | n.d. | n.d. | n.d. | 0 |
+>
+> ⚠️ Productos metálicos sale bajo porque en LinkedIn esas empresas se suelen etiquetar como maquinaria. En el INE es el sector más repartido (17 comunidades y 38 provincias con ≥30 centros de 10+ asalariados, DIRCE). **El cubo "maquinaria" de LinkedIn ya se come buena parte del metal-mecánico.**
+>
+> **Las otras dos fuentes apuntan al mismo sitio:**
+> - **INE (DIRCE, empresas de 10+ asalariados):** alimentación en 17 comunidades y 48 provincias; maquinaria con ≥30 en 11 comunidades; automoción en 8; máquina herramienta en 2. Exportación española de maquinaria para la industria: 19.090 M€ (Secretaría de Estado de Comercio).
+> - **HubSpot (conversión), deals por sector de la empresa:** maquinaria 14 + ingeniería industrial/mecánica 17 = **31**, contra automoción 4, química 4, eléctrico 5 y alimentación **3**. ⚠️ 578 deals no tienen sector: marca una dirección, no es una medida.
+>
+> **LA DECISIÓN, en orden:**
+> 1. **SIGUIENTE PLANTILLA: MAQUINARIA INDUSTRIAL, con silueta de ENGRANAJE.** Tiene tres cosas a favor: el triple de universo activo que automoción, 12 de 13 regiones con margen (automoción: 6) y es el sector que más deals nos da. El engranaje es el icono universal de "industria", se lee como un reloj igual que la llanta (`montar-llanta.py` sirve sin tocar) y los 12 logos caben en la corona y el centro. Remate: *"Y exporta más maquinaria que [PAÍS] entero"* (partida HS 84, que es enorme en los países ricos: **el país se verifica en cada post** con el margen del 15%).
+> 2. **TERCERA: ALIMENTACIÓN, con silueta de CESTA o CARRITO DE LA COMPRA, no gorro ni espátula.** Es la de más alcance "de calle" (todo el mundo compra comida y hay tejido en todas las provincias), pero **la que peor convierte**: muchas venden a la gran distribución y no prospectan en frío (3 deals). El gorro de cocinero dice **restaurante**, que no es nuestro ICP y atraería a hostelería. La cesta sostiene el despiece: *cada cosa de tu cesta la hace una empresa de aquí*.
+> 3. **Cuarta, si hace falta:** eléctrico/electrónico (bombilla o enchufe), solo para Cataluña, País Vasco, Valencia y Andalucía.
+> 4. **⛔ DESCARTADA: MÁQUINA HERRAMIENTA**, que estaba "fija" desde el 14/08 sin medir. **36 directivos activos en toda España y 0 en 8 regiones**: no llega a 12 fichas con persona ni en su propia casa. Su gente entra dentro de "maquinaria".
+> 5. **⛔ Vino, plástico y metal como sector propio:** no llegan en casi ninguna región.
+>
+> **La regla que sale de aquí, para cualquier plantilla futura:** antes de diseñar una silueta nueva se corre esta misma medición, y **el sector necesita ≥30 directivos activos en al menos 8 regiones**. Si no, la plantilla se agota en dos posts.
+
 **Paso 1 — OBJETO y REGIÓN.**
 - El objeto tiene que ser **reconocible por cualquiera y despiezable**. El coche es el caso perfecto: todo el mundo tiene uno y da para 20 sistemas con proveedor distinto. Un aerogenerador sería más "nuestro" pero nadie tiene uno en el garaje.
 - **La región se elige por IMPRESIONES, no por ratio.** Y **la región NO se quema entre formatos de peloteo**: el despiece es nuevo, así que puede repetir una región que ya hizo el mapa o "Los 10", incluso en la misma cuenta. Lo que sí va nuevo, si esta cuenta lo usó en sus 3 últimos peloteos, es el concepto y la frase-rabia (`global §2.0b-VENTANA`). **Los clichés de la región pueden repetirse.**
@@ -3314,6 +3346,7 @@ Cada día de publicación, las 3 cuentas cubren las **3 categorías DISTINTAS** 
 | Jueves | Lead magnet | Meme | Peloteo |
 
 - **Frecuencia por defecto:** 3 posts/semana/cuenta (tú confirmas la frecuencia al lanzar).
+- **🔄 (16/09) LOS TRES PELOTEOS DE LA SEMANA, sin "Los 10":** mapa + despiece de un sector + despiece de otro sector (automoción · maquinaria · alimentación, `§4.7-SECTORES`). **Nunca dos despieces del mismo sector en la misma semana.** ⚠️ Tres peloteos por semana son **9 en 21 días**, por encima de todo lo medido (`§4.0d` punto 1: con 6-7, la mediana cae a 2.360). Iker lo decide sabiéndolo, así que va como **prueba de 2 semanas con corte**: si la mediana de impresiones de los peloteos de esas dos semanas queda por debajo de **8.000**, se vuelve a 1-2 por semana.
 - **Días/horas por defecto:** martes-jueves; 11:00-12:00 y 14:00-15:00 (hora local). Configurable.
 - **Rota semana a semana** quién hace qué (que no salga idéntico).
 - **🔄 (16/09) "Los 10" está prohibido (`§4.3-VETO`): la alternancia es mapa → despiece → mapa…, y el despiece rota de SECTOR (§8.1c).** Lo de abajo es la regla vieja. ~~Dentro de PELOTEO, cada cuenta ALTERNA semana a semana: mapa → "Los 10" → mapa → "Los 10"…~~ Si la semana pasada esa cuenta sacó mapa, esta semana le toca "Los 10", y al revés. **Esa alternancia ES lo que produce el espaciado de ≥2 semanas entre mapas** (§8.3): no hay que calcularlo aparte, sale solo. Cambia siempre región/tema.

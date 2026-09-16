@@ -473,7 +473,7 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
       (a, i) =>
         `${i + 1}. ANGULO: ${a}. ARRANQUE OBLIGATORIO: empieza por ${arranques[i]}. ${
           conEstirar.has(i)
-            ? `LLEVA ESTA palabra alargada, tal cual y SOLO esta: "${palabraDe.get(i)!.toLowerCase()}", ${['al principio', 'en medio', 'al final'][Math.floor(Math.random() * 3)]} de la frase.`
+            ? `LLEVA ESTA palabra alargada, tal cual y SOLO esta: "${palabraDe.get(i)!.toLowerCase()}", ${['al principio de la frase', 'en medio de la frase, como inciso entre dos comas donde haya una pausa natural (nunca pegada a "y" ni partiendo una idea)', 'al final de la frase, suelta tras una coma'][Math.floor(Math.random() * 3)]}. Tiene que sonar a alguien que asiente, no a una palabra metida con calzador.`
             : 'SIN palabras alargadas.'
         } ${conEmoji.has(i) ? `TERMINA con este emoji: ${emojiDe.get(i)}` : 'SIN emoji.'}`
     )

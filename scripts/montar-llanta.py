@@ -326,8 +326,10 @@ def main() -> int:
     p.add_argument('--salida', required=True, help='PNG de salida')
     p.add_argument('--region', help='Región que sustituye a XXX en el título (VASCA, GALLEGA…)')
     p.add_argument('--fuente', default=FUENTE_DEF, help='Ruta al .ttf del título')
-    p.add_argument('--sin-relleno', action='store_true',
-                   help='Deja el centro y las ventanas de la llanta en menta (lo de antes del 16/09)')
+    # El relleno NO va por defecto (Iker, 2026-09-16): lo vio feo y el relleno lo
+    # trae la PLANTILLA nueva que pasa él. Se deja como opcion para maquetas.
+    p.add_argument('--relleno', action='store_true',
+                   help='Maqueta: pinta de berenjena el centro y las ventanas de la llanta')
     a = p.parse_args()
 
     plantilla = Image.open(a.plantilla).convert('RGBA')
@@ -371,7 +373,7 @@ def main() -> int:
             dibujar_titulo(out, titulo, a.region, a.fuente)
             print(f'  título: {titulo["texto"].replace(chr(10), " / ").replace(MARCADOR_REGION, a.region.upper())}')
 
-    if not a.sin_relleno:
+    if a.relleno:
         n = rellenar_llanta(out, out.getpixel((12, 12)))
         print(f'  relleno berenjena: {n} zonas (centro + ventanas)')
         if n != 6:

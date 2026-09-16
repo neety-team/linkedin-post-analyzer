@@ -151,6 +151,92 @@ def _recortar_fondo(logo):
     return rgba.crop((x0, y0, x1 + 1, y1 + 1))
 
 
+def _circulo_minimo(pts):
+    """Circulo mas pequeño que contiene todos los puntos (Welzl iterativo).
+
+    Se le pasa el CONTORNO CONVEXO de la marca, no todos sus pixeles: da el
+    mismo circulo y son decenas de puntos en vez de miles.
+    """
+    import random
+
+    def dos(a, b):
+        cx, cy = (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
+        return cx, cy, ((a[0] - cx) ** 2 + (a[1] - cy) ** 2) ** 0.5
+
+    def tres(a, b, c):
+        ax, ay = a
+        bx, by = b
+        cx, cy = c
+        d = 2 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))
+        if abs(d) < 1e-9:
+            return None
+        ux = ((ax * ax + ay * ay) * (by - cy) + (bx * bx + by * by) * (cy - ay) + (cx * cx + cy * cy) * (ay - by)) / d
+        uy = ((ax * ax + ay * ay) * (cx - bx) + (bx * bx + by * by) * (ax - cx) + (cx * cx + cy * cy) * (bx - ax)) / d
+        return ux, uy, ((ax - ux) ** 2 + (ay - uy) ** 2) ** 0.5
+
+    def dentro(c, p):
+        return c is not None and ((p[0] - c[0]) ** 2 + (p[1] - c[1]) ** 2) ** 0.5 <= c[2] + 1e-7
+
+    p = list(pts)
+    random.Random(0).shuffle(p)
+    c = None
+    for i, a in enumerate(p):
+        if dentro(c, a):
+            continue
+        c = (a[0], a[1], 0.0)
+        for j in range(i):
+            b = p[j]
+            if dentro(c, b):
+                continue
+            c = dos(a, b)
+            for k in range(j):
+                q = p[k]
+                if dentro(c, q):
+                    continue
+                t = tres(a, b, q)
+                c = t if t else c
+    return c
+
+
+def _contorno_convexo(xs, ys):
+    """Contorno convexo (cadena monotona) de una nube de pixeles."""
+    pts = sorted(set(zip(xs.tolist(), ys.tolist())))
+    if len(pts) <= 2:
+        return pts
+
+    def giro(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+    abajo, arriba = [], []
+    for q in pts:
+        while len(abajo) >= 2 and giro(abajo[-2], abajo[-1], q) <= 0:
+            abajo.pop()
+        abajo.append(q)
+    for q in reversed(pts):
+        while len(arriba) >= 2 and giro(arriba[-2], arriba[-1], q) <= 0:
+            arriba.pop()
+        arriba.append(q)
+    return abajo[:-1] + arriba[:-1]
+
+
+def holgura(disco):
+    """Aire (px) entre la marca y el borde REDONDO del hueco: arriba, abajo, izq, dcha.
+
+    Se mide la distancia al centro del pixel de marca mas lejano en cada mitad
+    y se resta del radio. Es lo que el ojo compara en un marco circular.
+    """
+    a = np.array(disco.convert('RGB')).astype(int)
+    lado = a.shape[0]
+    c = (lado - 1) / 2.0
+    ys, xs = np.nonzero(np.abs(a - 255).max(axis=2) > 30)
+    if not len(xs):
+        return None
+    d = np.hypot(ys - c, xs - c)
+    r = lado / 2.0
+    def aire(sel):
+        return r - d[sel].max() if sel.any() else r
+    return (aire(ys < c), aire(ys >= c), aire(xs < c), aire(xs >= c))
+
+
 def contener(logo, lado):
     """Disco blanco con el logo dentro: lo mas grande posible y CENTRADO.
 
@@ -165,11 +251,18 @@ def contener(logo, lado):
     esquinas vacias. El radio al pixel de marca mas lejano vale para las dos
     formas y para cualquier otra.
 
-    CENTRADO — por el CENTRO DE LA CAJA, nunca por el centro de masa. Probe con
-    el centro de masa para bajar una T que se veia alta y descoloco todos los
-    logos ASIMETRICOS: el pajaro de Lizarte mira a la derecha, asi que su masa
-    esta a la derecha y el centroide lo empujo a la izquierda. La caja equilibra
-    los extremos visibles, que es lo que el ojo lee como centrado.
+    CENTRADO — por el CENTRO DEL CIRCULO MINIMO que envuelve la marca (Iker,
+    2026-09-16). Nunca por el centro de masa: probe con el para bajar una T que
+    se veia alta y descoloco todos los logos ASIMETRICOS (el pajaro de Lizarte
+    mira a la derecha y el centroide lo empujo a la izquierda). Y tampoco por
+    el centro de la CAJA, que era lo de antes: el marco es un CIRCULO, y un
+    logo ancho por un lado y estrecho por el otro (la "U" de Talleres
+    Unamunzaga: dos brazos arriba, una curva abajo) quedaba con 32 px de caja
+    arriba y abajo, pero con las esquinas de arriba pegadas al borde redondo y
+    la curva de abajo con aire de sobra. El circulo minimo mide lo mismo que
+    el marco: distancia al borde REDONDO. En un logo cuadrado o redondo
+    coincide con el centro de la caja, asi que esos no se mueven.
+    Y el RADIO de ese circulo es el que fija el tamaño, igual que antes.
     """
     import numpy as np
     from PIL import Image
@@ -188,14 +281,21 @@ def contener(logo, lado):
     ys, xs = np.nonzero(marca)
     cx, cy = (logo.width - 1) / 2.0, (logo.height - 1) / 2.0
     if len(xs):
-        r = float(np.max(np.sqrt((xs - cx) ** 2 + (ys - cy) ** 2)))
+        c = _circulo_minimo(_contorno_convexo(xs, ys))
+        if c:
+            cx, cy, r = c
+        else:
+            r = float(np.max(np.sqrt((xs - cx) ** 2 + (ys - cy) ** 2)))
     else:
         r = ((logo.width ** 2 + logo.height ** 2) ** 0.5) / 2
     escala = (util / 2.0) / max(r, 1.0)
 
     nuevo = (max(1, round(logo.width * escala)), max(1, round(logo.height * escala)))
     logo = logo.resize(nuevo, Image.LANCZOS)
-    lienzo.paste(logo, ((lado - logo.width) // 2, (lado - logo.height) // 2), logo)
+    # El centro del circulo minimo cae en el centro del disco.
+    x = round((lado - 1) / 2.0 - (cx + 0.5) * escala + 0.5)
+    y = round((lado - 1) / 2.0 - (cy + 0.5) * escala + 0.5)
+    lienzo.paste(logo, (x, y), logo)
     return lienzo
 
 
@@ -351,8 +451,16 @@ def main() -> int:
         if min(logo.size) < lado * (1 - 2 * MARGEN):
             print(f'  ⚠️  {nombre} es {logo.size[0]}px y el hueco pide '
                   f'{round(lado * (1 - 2 * MARGEN))}px: se amplía y pierde nitidez')
-        fondo.paste(contener(logo, lado), (h['x0'], h['y0']))
+        disco = contener(logo, lado)
+        fondo.paste(disco, (h['x0'], h['y0']))
         print(f'  {i:2}. {nombre[:34]:36} → hueco en ({h["x0"]},{h["y0"]}) {lado}px')
+        # Comprobacion de centrado contra el BORDE REDONDO (Iker, 2026-09-16):
+        # aire entre la marca y el circulo en cada mitad. Si un lado tiene mucho
+        # mas que el opuesto, el ojo lo lee descentrado aunque la caja cuadre.
+        hol = holgura(disco)
+        if hol and (abs(hol[0] - hol[1]) > 6 or abs(hol[2] - hol[3]) > 6):
+            print(f'      ⚠️  descentrado: aire arriba {hol[0]:.0f} / abajo {hol[1]:.0f} · '
+                  f'izq {hol[2]:.0f} / dcha {hol[3]:.0f} px. Miralo en la imagen.')
 
     out = Image.alpha_composite(fondo, plantilla)
 

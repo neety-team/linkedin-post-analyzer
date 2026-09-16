@@ -566,6 +566,18 @@ Lee el post e imagina que lo sube una consultora, una agencia o una constructora
 - **Condición 2: la sala pasa del 75% llena.** Por debajo, vuelve la regla de arriba (`solo hay 80`).
 - **Y la cifra caduca con el post:** para el siguiente, otra lectura. El validador avisa en cuanto ve `quedan N plazas/puestos`.
 
+**🧠 CÓMO SE ESCRIBE LA LÍNEA 2 CON `quedan N` (Iker, 2026-09-16, despiece de Bizkaia).** Propuso cuatro cosas y cada una tiene su respuesta:
+
+| propuesta | veredicto | por qué |
+|---|---|---|
+| `puestos` → **`plazas`** | ✅ | `plazas` es la palabra de un evento; `puestos` suena a trabajo o a mercadillo |
+| `quedan menos de 15` | ⛔ con 15 libres | es falso ese día. `menos de N` solo si la API da menos de N. Y no hace falta blindarlo contra el reparto: si se llena más, la cifra queda corta a nuestro favor |
+| `elegidos a mano` junto a `quedan` | ⛔ quitarlo | **son dos escaseces que se pisan**: la cola (*corre, que se acaban*) y el filtro (*solo entra quien elegimos*). Si hay filtro, correr no sirve; si hay cola, elegir suena a enchufe. Con `quedan N`, se queda la cola sola |
+| `Corre:` / `date prisa` | ⛔ | el imperativo de urgencia es la voz del anuncio, y el post que suena a promo trae clics de curiosidad (`§4.4b-EVENTO-EXPLICITO`: 37 clics, 0 asistentes). Nuestros ninjas nunca ordenan (`§4.4b-EMAIL`). La urgencia ya la hace `solo quedan`; la orden encima es presión, y un director comercial de 55 la reconoce y se resiste. Y `15 plazas. Corre:` son dos frases en una línea |
+| quitar `sala` de la 2 por repetida | ⛔ se queda | la línea 1 tiene **dos femeninos** (`pieza`, `sala`), así que un `esa` suelto duda (`§4.4b-ANTECEDENTE`). Repetir el SUSTANTIVO es bisagra legítima; lo que sonaba redundante es que la línea no hacía nada con él |
+
+**Lo que faltaba de verdad era el `sí`** (`§4.4b-EXCEPCIÓN`): `Solo quedan 15 puestos en esa sala` informaba; `En esa sala sí, pero solo quedan 15 plazas` da la vuelta a la norma y el `pero` convierte la cifra en **lo que puedes perder** (aversión a la pérdida), que empuja más que la orden y sin sonar a anuncio. **Mecanizado:** aviso `la linea del enlace no ORDENA ni parte en dos frases`.
+
 **⚠️ Y EL INTENSIFICADOR CUESTA CARACTERES, así que compite con `§2.2c` (a igualdad de sentido gana el corto).** Iker lo dijo él mismo mientras lo pedía: *"esto contradice lo que te he dicho, siempre hay que intentar corto y bueno"*. **No se contradice si el intensificador CAMBIA la emoción, que es justo lo que `§2.2c` protege**: ahí la tijera quita lo redundante, no lo que hace el trabajo. El caso del 21/08: el gancho pasó de 62 a 78 caracteres, +16, y lo que compran esos 16 es el superlativo. **La prueba es la de siempre: quítalo y mira si el gancho sigue apretando igual.** Si sigue igual, sobraba.
 
 **⛔ Y NO SE APILAN DOS.** Un superlativo y un remate de menosprecio en la misma frase se anulan, exactamente igual que tres verbos punchy (`§2.9`). Uno, y que caiga solo.

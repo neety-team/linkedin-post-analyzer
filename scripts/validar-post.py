@@ -2619,6 +2619,20 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             chk(True, 'PELOTEO: posicion del enlace, apuntala en la ficha (4.0d)',
                 'enlace al %.0f%% del texto -> brazo %s. A/B abierto: brazo A = 20 posts, brazo B = '
                 'Cantabria 01/09 y Bizkaia 16/09. Nunca en la ultima linea ni suelto' % (_pos, _brazo), aviso=True)
+    # ---------- LA LINEA DEL ENLACE NO ORDENA (Iker, 2026-09-16) ----------
+    # Propuso "Solo quedan 15 plazas. Corre:" / "date prisa". El imperativo de
+    # urgencia es la voz del anuncio (4.4b-EVENTO-EXPLICITO: el post que suena a
+    # promo trae 0 asistentes) y choca con una sala con aprobacion: correr no
+    # te mete. Y el punto en medio parte la linea en dos frases (global 3).
+    _le = next((l for l in texto.splitlines() if re.search(r'https?://', l)), '')
+    _pre = re.split(r'https?://', _le)[0]
+    _imp = re.findall(r'\b(corre|date prisa|d[eé]pechate|ap[uú]ntate|reserva(?:\s+ya)?|no te lo pierdas|no te quedes fuera|entra ya|pincha|haz clic)\b', _pre, re.I)
+    _dos = re.search(r'[.!?]\s+\S', _pre.strip())
+    if _le:
+        chk(not _imp and not _dos, 'Spam ninja: la linea del enlace no ORDENA ni parte en dos frases (4.4b-EMAIL)',
+            ('imperativo %s' % _imp if _imp else '') + (' · punto en medio' if _dos else '') +
+            '. La urgencia la pone el "solo quedan", no la orden: "En esa sala si, pero solo quedan 15 plazas:"',
+            aviso=True)
     # ---------- LO QUE QUEDA DEL AFORO (Iker, 2026-09-16) ----------
     # "quedan N plazas" es un dato VIVO: solo vale leido ese mismo dia en la API
     # publica de Luma (reference_luma_aforo_api) y con la sala ya casi llena

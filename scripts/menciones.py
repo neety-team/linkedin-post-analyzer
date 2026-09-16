@@ -29,16 +29,19 @@ RANK = [
 ]
 # Cargos que NO se mencionan aunque esten activos.
 VETO = re.compile(r'\b(becari|intern\b|student|estudiante|t[eé]cnico|operari|administrativ|auxiliar|'
-                  r'mantenimiento|sistemas|inform[aá]tic|\bit\b|rrhh|recursos humanos|human resources|'
+                  r'mantenimiento|sistemas|inform[aá]tic|\bit\b|rrhh|rr\.? ?hh\b|recursos humanos|human resources|'
                   r'calidad|quality|prevenci|riesgos laborales|almac[eé]n|log[ií]stic|compras|'
                   r'purchasing|procurement|contab|fiscal|nóminas|analista|analyst|becaria|'
-                  r'soporte|support|profesor|docente|consultor de|community manager)', re.I)
+                  r'soporte|support|profesor|docente|consultor de|community manager)'
+                  r'|(?<![a-z])qa\b', re.I)
 
 def score(h):
     h = (h or '').lower()
     if VETO.search(h):
         # Solo se salva si ademas es CEO/DG/fundador (p.ej. "CEO y director de calidad")
-        if not re.search(RANK[0][1], h):
+        # "Deputy General Manager_QA" (grado corporativo, UNO Minda, 16/09) no es
+        # un director general: con deputy/assistant/adjunto delante no se salva.
+        if not re.search(r'(?<!deputy )(?<!assistant )(?<!adjunto )(?<!adjunta )' + RANK[0][1], h):
             return 0
     for s, pat in RANK:
         if re.search(pat, h):
@@ -78,7 +81,7 @@ def actividad(pid):
             best, tipo = d, 'comentario'
     return best, tipo
 
-def procesa(cid, max_personas=6):
+def procesa(cid, max_personas=10):
     emp = uni.company(cid)
     if '_error' in emp:
         return {'id': cid, 'error': emp}
@@ -87,19 +90,50 @@ def procesa(cid, max_personas=6):
              'logo': emp.get('logo_large'), 'city': loc.get('city'), 'area': loc.get('area'),
              'street': (loc.get('street') or [''])[0], 'cp': loc.get('postalCode'),
              'desc': (emp.get('description') or '')[:400], 'personas': []}
-    r = uni._req('POST', '/api/v1/linkedin/search?account_id=%s&limit=25' % uni.A,
-                 {'api': 'classic', 'category': 'people', 'company': [str(cid)]})
+    # 🔧 2026-09-16 (Iker: "Light Systems tiene un director, ¿por qué lo has
+    # descartado?"). Dos fallos:
+    #  a) la busqueda classic devuelve 25 personas y no se paginaba: en una
+    #     empresa de 128 empleados el directivo puede no salir. Ahora se leen
+    #     TODOS con Sales Navigator, pagina a pagina.
+    #  b) el cargo se puntuaba solo por el TITULAR. Ruben Saez tiene de titular
+    #     "Head of R&D en UNO MINDA RINDER" (0 puntos) y de cargo actual
+    #     "Director departamento I+D+i". Ahora se puntua titular + cargo, y el
+    #     veto mira los dos (asi un "Director de RR. HH." no se cuela por el cargo).
+    todos, cur = [], None
+    for _ in range(40):
+        ruta = '/api/v1/linkedin/search?account_id=%s&limit=25' % uni.A + (('&cursor=%s' % cur) if cur else '')
+        r = uni._req('POST', ruta, {'api': 'sales_navigator', 'category': 'people',
+                                   'company': {'include': [str(cid)]}})
+        its = (r.get('items') or []) if isinstance(r, dict) else []
+        todos += its
+        cur = r.get('cursor') if isinstance(r, dict) else None
+        if not cur or not its:
+            break
+    if not todos:   # respaldo: la classic de siempre
+        r = uni._req('POST', '/api/v1/linkedin/search?account_id=%s&limit=25' % uni.A,
+                     {'api': 'classic', 'category': 'people', 'company': [str(cid)]})
+        todos = (r.get('items') or []) if isinstance(r, dict) else []
     cands = []
-    for it in (r.get('items') or []) if isinstance(r, dict) else []:
+    for it in todos:
         if it.get('name') in (None, 'LinkedIn Member'): continue
-        s = score(it.get('headline'))
+        pos = it.get('current_positions') or [{}]
+        cargo = (pos[0].get('role') if pos else '') or ''
+        s = score((it.get('headline') or '') + ' | ' + cargo)
         if s == 0: continue
+        it['_cargo'] = cargo
         cands.append((s, it))
     cands.sort(key=lambda x: -x[0])
     for s, it in cands[:max_personas]:
-        d, tipo = actividad(it['id'])
-        ficha['personas'].append({'name': it.get('name'), 'headline': (it.get('headline') or '')[:95],
-                                  'id': it.get('id'), 'pid': it.get('public_identifier'),
+        pid_miembro = it.get('id')
+        if str(pid_miembro).startswith('ACwAA') and it.get('public_identifier'):
+            # reference_unipile_sales_navigator: el id de Sales Navigator devuelve
+            # listas vacias sin error; hay que pedir el provider_id del miembro
+            u = uni.user(it['public_identifier'])
+            pid_miembro = u.get('provider_id') or pid_miembro
+        d, tipo = actividad(pid_miembro)
+        ficha['personas'].append({'name': it.get('name'),
+                                  'headline': ((it.get('_cargo') or '') + ' · ' + (it.get('headline') or ''))[:95],
+                                  'id': pid_miembro, 'pid': it.get('public_identifier'),
                                   'score': s, 'dias': d, 'tipo': tipo,
                                   'foto': bool(it.get('profile_picture_url'))})
     ficha['personas'].sort(key=lambda p: (p['dias'] if p['dias'] is not None else 9999, -p['score']))

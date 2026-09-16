@@ -2619,6 +2619,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             chk(True, 'PELOTEO: posicion del enlace, apuntala en la ficha (4.0d)',
                 'enlace al %.0f%% del texto -> brazo %s. A/B abierto: brazo A = 20 posts, brazo B = '
                 'Cantabria 01/09 y Bizkaia 16/09. Nunca en la ultima linea ni suelto' % (_pos, _brazo), aviso=True)
+    # ---------- LO QUE QUEDA DEL AFORO (Iker, 2026-09-16) ----------
+    # "quedan N plazas" es un dato VIVO: solo vale leido ese mismo dia en la API
+    # publica de Luma (reference_luma_aforo_api) y con la sala ya casi llena
+    # (global 2.3d). El 16/09 Iker puso "quedan 20" y la API decia 15.
+    _q = re.search(r'\bquedan?\s+(?:solo\s+|tan solo\s+)?(\d+)\s+(?:plazas|puestos|sillas|entradas|asientos)', texto, re.I)
+    if _q:
+        chk(True, 'EVENTO: "quedan %s" es un dato VIVO, leelo hoy en Luma (global 2.3d)' % _q.group(1),
+            'curl -s "https://api.lu.ma/url?url=<slug>" -> data.ticket_info.spots_remaining. '
+            'Pega la lectura y la hora en la entrega; si la sala no pasa del 75% lleno, vuelve al tope ("solo hay 80")',
+            aviso=True)
     # ---------- GANCHO UNIVERSAL DEL PELOTEO (Iker, 2026-09-16) ----------
     # "en el gancho tiene que poder entenderlo cualquier persona, sea el pilar
     # que sea". Se escapo `el garaje de la ria`: la ria es Bilbao para el de

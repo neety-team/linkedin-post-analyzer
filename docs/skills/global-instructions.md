@@ -561,6 +561,11 @@ Lee el post e imagina que lo sube una consultora, una agencia o una constructora
 
 **La regla, en una línea: se intensifica el TAMAÑO DE LA PUERTA, nunca la cola que hay delante.**
 
+**🔄 LA EXCEPCIÓN, Y LA DECIDIÓ IKER (2026-09-16): `quedan N` SÍ vale cuando la sala está casi llena Y la cifra se ha leído ese mismo día.** Las dos razones de arriba se caen a la vez: con 65 de 80 dentro, lo que queda ya no dice *"nadie ha entrado"*, dice *"se acaba"*; y el dato vivo **sí se puede verificar**, en la API pública de Luma (`curl -s "https://api.lu.ma/url?url=<slug>"` → `data.ticket_info.spots_remaining`), aunque la página lo oculte. Iker lo metió en el correo de la mañana y en el ninja del despiece de Bizkaia: *"en esa sala solo quedan 20 puestos… para darle más FOMO"*.
+- **Condición 1: la lectura es del día de publicar**, con hora, y va en la entrega. El 16/09 Iker escribió `quedan 20` de memoria; la API a las 13:28 decía **15** (65 registrados). **Se escribe la cifra de la API, no la recordada.**
+- **Condición 2: la sala pasa del 75% llena.** Por debajo, vuelve la regla de arriba (`solo hay 80`).
+- **Y la cifra caduca con el post:** para el siguiente, otra lectura. El validador avisa en cuanto ve `quedan N plazas/puestos`.
+
 **⚠️ Y EL INTENSIFICADOR CUESTA CARACTERES, así que compite con `§2.2c` (a igualdad de sentido gana el corto).** Iker lo dijo él mismo mientras lo pedía: *"esto contradice lo que te he dicho, siempre hay que intentar corto y bueno"*. **No se contradice si el intensificador CAMBIA la emoción, que es justo lo que `§2.2c` protege**: ahí la tijera quita lo redundante, no lo que hace el trabajo. El caso del 21/08: el gancho pasó de 62 a 78 caracteres, +16, y lo que compran esos 16 es el superlativo. **La prueba es la de siempre: quítalo y mira si el gancho sigue apretando igual.** Si sigue igual, sobraba.
 
 **⛔ Y NO SE APILAN DOS.** Un superlativo y un remate de menosprecio en la misma frase se anulan, exactamente igual que tres verbos punchy (`§2.9`). Uno, y que caiga solo.

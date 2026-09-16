@@ -263,6 +263,12 @@ La interfaz que imitamos **está en español entera**, incluidas las palabras de
 | **Prefijo de teléfono** | `+1 415…` | `+34 6…` |
 | **Nombres de persona** | Brad, Ashley | los de `§0a-septima-NOMBRES` |
 
+**📞 EL TELÉFONO ESPAÑOL NO ES SOLO CAMBIAR EL PREFIJO (meme de Iker, 2026-09-16).** Mi prompt pidió `+34 617 43 291` y el generador lo pintó tal cual. Tenía dos fallos que no son de gusto, son de datos:
+- **Un número español tiene 9 cifras** (`617 43 29 15`), no 8. El de la referencia, `+1 (628) 899-2679`, tiene las 10 de EE. UU. **Se cuentan las cifras antes de dar el prompt.**
+- **Un móvil español (`6xx`, `7xx`) no lleva ciudad; un fijo sí, por su prefijo** (`943` = Gipuzkoa, `944` = Bizkaia, `945` = Álava, `948` = Navarra). En EE. UU. el `628` es de San Francisco aunque sea móvil, así que el original cuadraba; `Éibar` encima de un `617` no cuadra. **Si la pantalla enseña ciudad, el número es un fijo de esa provincia.**
+- **Y el topónimo, con la grafía oficial y en el mismo idioma que el resto de la línea:** `Eibar, Gipuzkoa`, no `Éibar, Gipuzkoa`, que mezcla la forma castellana con la vasca.
+- ⛔ **Si un número va censurado en un sitio, va censurado en TODOS los sitios de la captura (Iker, 2026-09-16).** *"Al igual que censuramos el final del número arriba, en el mensaje de abajo esos últimos números también deberían estar censurados"*. **La referencia lo tenía mal** (tapaba el grande y enseñaba el pequeño) y yo lo calqué: **los defectos del original no se heredan** (`§0d`). Y hay un motivo más que el de coherencia: un número completo y verosímil en un post de una empresa que da teléfonos es el disparador de `brand-voice §2c-DATOS`, y puede ser de alguien de verdad.
+
 **Por qué importa: un pantallazo se cree o no se cree, y no hay término medio.** El registro entero vive de que el lector piense un segundo que eso es una captura de verdad (`§0a-sexta-bis`). Una ciudad americana en la pantalla de un director comercial de Gipuzkoa lo delata igual que una palabra en inglés.
 
 #### ⛔ LA EXCEPCIÓN, Y MANDA SOBRE LO DE ARRIBA: SI LA UBICACIÓN ES UN DATO REAL DE UNA EMPRESA O PERSONA QUE SALE NOMBRADA, NO SE TOCA

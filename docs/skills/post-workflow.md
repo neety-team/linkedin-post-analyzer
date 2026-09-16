@@ -2972,6 +2972,8 @@ La regla que más se falla, de su §1: **ni todo ni nada.** Regalar todo en el g
 
 **Input del usuario:** la creencia comercial que quieres desmontar. Si no la da, pídesela.
 
+> **🏷️ En la herramienta es la categoría `tarjeta` (etiqueta "Tarjeta", color rosa), creada a mano el 2026-09-16.** Iker descartó "Captura" (se confunde con el meme de captura documental, que tiene otro motor) y "Bold statement" (es un tipo de gancho, no un formato). ⛔ **El clasificador NO la detecta:** cada tarjeta publicada se etiqueta A MANO pulsando el badge de pilar en Accounts, el mismo día. Si el pilar sale de prueba, se enseña a `services/pillar.ts` y se siembra en la migración.
+
 #### 4.6.0 · La evidencia, para que no se olvide de dónde sale
 
 Barrido de **153 creadores y 37.168 posts** de nuestra BD (2026-08-20). El formato es **imagen sola, sin nada de texto en LinkedIn**, y es rarísimo: **241 posts de 37.168 (0,65%)**. De los 2.278 outliers de la competencia, solo 6 son imagen-sola (0,26%). Quien lo hace de verdad:

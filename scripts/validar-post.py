@@ -747,7 +747,7 @@ RE_EMOJI_TARJETA = re.compile(
 )
 
 
-def validar_tarjeta(texto, card=None):
+def validar_tarjeta(texto, card=None, cuenta=None, historico=False, publica_manana=False):
     """Pilar TARJETA (`post-workflow §4.6`), EN PRUEBA desde 2026-08-20.
 
     POR QUE ES UNA FUNCION APARTE Y NO 22 `if pilar in (...)` MAS
@@ -799,10 +799,13 @@ def validar_tarjeta(texto, card=None):
     # 150-400. El suelo importa tanto como el techo: por debajo de 150 no cabe
     # el ninja con su pasillo, y por encima de 400 el post deja de leerse de un
     # golpe, que es lo unico que hace funcionar al formato.
-    n = len(texto)
+    # Se mide con el enlace YA ACORTADO, como los 450 del meme (4.4-CORTO): el
+    # lector ve `lnkd.in/xxxxxxxx`, no la cola de UTM, y con la URL cruda un
+    # enlace de Luma con sus cuatro parametros se comia 130 de los 400.
+    n = len(re.sub(r'https?://\S+', 'https://lnkd.in/eXXXXXXX', texto))
     chk(150 <= n <= 400, 'TARJETA: el texto de LinkedIn cae entre 150 y 400 caracteres (§4.6-PASO-3)',
-        f'{n} caracteres. Medido en Hormozi: 1-150 da 0,95x-1,06x y 151-400 da 0,91x-1,11x; '
-        f'a partir de 900 se hunde a 0,71x')
+        f'{n} caracteres con el enlace acortado. Medido en Hormozi: 1-150 da 0,95x-1,06x y '
+        f'151-400 da 0,91x-1,11x; a partir de 900 se hunde a 0,71x')
 
     ms = re.findall(r'#\w+', texto)
     chk(not ms, 'TARJETA: cero hashtags (§4.6-PASO-3)', f'{len(ms)}: {ms[:3]}' if ms else
@@ -822,35 +825,66 @@ def validar_tarjeta(texto, card=None):
         if m else 'lo unico que los datos castigan en este formato')
 
     # ------------------------------------------------------------ SPAM NINJA
-    tiene_agendar = 'recursos.neety.com/agendar' in texto
-    chk(tiene_agendar, 'TARJETA: lleva el spam ninja de agendar (§4.6-PASO-3)',
-        '' if tiene_agendar else 'obligatorio en este pilar; el de correo es opcional')
+    # ⛔ ARREGLADO EL 2026-09-16: ESTE BLOQUE SE ESCRIBIO EL 20/08 Y NO SE TOCO
+    # CUANDO CAMBIARON DOS REGLAS DEL NINJA. (1) §4.4e-UNA (27/08): un post, UNA
+    # puerta, y la elige el tema; el correo ya no es "opcional encima". (2) El
+    # evento: mientras vive, el enlace de Luma OCUPA EL HUECO del de agendar en
+    # cualquier pilar (global 4.4b, mecanizado el 21/08 y el 27/08 solo en
+    # validar()). Aqui se seguia EXIGIENDO /agendar/, asi que la primera tarjeta
+    # con Luma, que es justo lo que manda la receta esta semana, fallaba. Y como
+    # esta funcion no pasa por validar(), ninguna regla de FORMA del ninja
+    # (dos lineas, <=55, bisagra, palabra del gancho, UTM, linea de contexto del
+    # evento, quemadas) se comprobaba en este pilar. Es feedback_regla_nueva_
+    # revisar_codigo otra vez: una funcion aparte es un sitio donde la regla
+    # nueva no llega sola.
+    def _puerta(u):
+        if 'recursos.neety.com/agendar' in u:
+            return 'agendar'
+        if 'recursos.neety.com/correo' in u or 'recursos.neety.com/newsletter' in u:
+            return 'correo'
+        if 'luma.com' in u or 'forward.neety.com' in u:
+            return 'evento'
+        return None
+    puertas = {p for p in (_puerta(u) for u in re.findall(r'https?://\S+', texto)) if p}
+    chk(len(puertas) == 1, 'TARJETA: lleva UNA puerta, agendar, correo o evento (§4.6-PASO-3, §4.4e-UNA)',
+        ('ninguna: el spam ninja es obligatorio en este pilar' if not puertas else
+         'lleva ' + ' + '.join(sorted(puertas)) + ': un post, una puerta') if len(puertas) != 1
+        else 'puerta: ' + next(iter(puertas)))
 
-    if tiene_agendar:
+    if puertas:
         bs = bloques(texto)
         idx = next((i for i, b in enumerate(bs)
-                    if any('recursos.neety.com/agendar' in l for l in b)), None)
+                    if any(_puerta(l) for l in b)), None)
         # §4.4e-PRONTO se mide en BLOQUES, no en caracteres. Aqui NO hay gancho
         # en el texto (vive en la imagen), asi que los 2 bloques se cuentan
         # desde el principio: el enlace no puede ser el 1º ni el 2º bloque.
         chk(idx is not None and idx >= 2,
-            'TARJETA: >=2 bloques de cuerpo antes del ninja de agendar (§4.4e-PRONTO)',
+            'TARJETA: >=2 bloques de cuerpo antes del spam ninja (§4.4e-PRONTO)',
             f'va en el bloque {(idx or 0) + 1} de {len(bs)}. El gancho vive en la imagen, asi que '
             f'los 2 bloques se cuentan desde el inicio del texto')
 
-    if 'recursos.neety.com/correo' in texto or 'recursos.neety.com/newsletter' in texto:
-        bs = bloques(texto)
-        idx = next((i for i, b in enumerate(bs)
-                    if any(('recursos.neety.com/correo' in l or 'recursos.neety.com/newsletter' in l)
-                           for l in b)), None)
-        chk(idx is not None and idx <= len(bs) - 3,
-            'TARJETA: el ninja de correo no es el ultimo ni el penultimo bloque (§4.4e)',
-            f'va en el bloque {(idx or 0) + 1} de {len(bs)}; detras tiene que quedar cuerpo y el '
-            f'cierre punchy en su linea')
-        m = re.search(r'\b(suscr[ií]b|newsletter)\w*', texto, re.I)
+    if 'correo' in puertas:
+        m = re.search(r'\b(suscr[ií]b|newsletter)\w*', re.sub(r'https?://\S+', ' ', texto), re.I)
         chk(not m, 'TARJETA: sin "suscribete" ni "newsletter" en el bloque de correo (§4.4e)',
             f'"{m.group(0)}" suena a formulario; a un industrial de 55 se le dice "esto lo mando '
             f'por correo antes que aqui"' if m else '')
+
+    # LAS REGLAS DE FORMA DEL NINJA, LAS MISMAS QUE EN CUALQUIER PILAR. No se
+    # copian aqui: se corre validar() sobre el texto con P1 de la tarjeta delante
+    # haciendo de gancho (el gancho de este pilar ES la tarjeta, y el ninja tiene
+    # que recoger una palabra suya) y se quedan solo los checks del enlace. Asi,
+    # la proxima regla del ninja entra en este pilar sin tocar esta funcion.
+    if puertas and card:
+        _p1 = norm(card).strip().split('\n\n')[0].replace('\n', ' ')
+        _PREF = ('Spam ninja', 'SPAM NINJA', 'ENTREGA: repetir la palabra', 'ENTREGA: la linea',
+                 'EVENTO:', 'UNA sola puerta', 'El enlace lleva https', 'Todo enlace nuestro',
+                 'El utm_campaign', 'La fecha del utm', 'El UTM de NUESTRA', 'En LUMA',
+                 'Con spam ninja', 'Sin anglicismos', 'Sin el AÑO', 'Sin transcribir',
+                 'Sin lenguaje de reproche')
+        for x in validar(_p1 + '\n\n' + texto, 'meme', cuenta, historico=historico,
+                         publica_manana=publica_manana, ref_fuera=True):
+            if x[1].startswith(_PREF):
+                r.append(x)
 
     # Universal §3.6: si hay cifras, en digito.
     ms = re.findall(r'\b(dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|veinte|treinta|'
@@ -929,7 +963,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     if pilar == 'entregable':
         return validar_entregable(texto)
     if pilar == 'tarjeta':
-        return validar_tarjeta(texto, card)
+        return validar_tarjeta(texto, card, cuenta, historico, publica_manana)
     bs = bloques(texto)
     hook = bs[0] if bs else []
     hook_txt = ' '.join(hook)

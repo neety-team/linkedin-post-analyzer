@@ -3069,8 +3069,9 @@ Con muestras de más de 100 posts, el texto corto es **neutro o sube**.
 
 **Lo que SÍ penaliza es el CTA imperativo:** Alex 0,80x y Leila 0,90x contra sus propios posts sin CTA. Recuento de CTA: Grant **0 de 75**, Alex 11 de 393, Leila 8 de 353.
 
-- **✅ Spam ninja de agendar: OBLIGATORIO**, en su posición canónica. No es un CTA imperativo — es un enlace enterrado en cuerpo, y la doble puerta ya está refutada como no-capadora (`§4.5.0-PUERTAS`).
-- **⚠️ Spam ninja de correo: OPCIONAL post a post**, igual que en meme (`global §4.4e-MEME`).
+- **✅ Spam ninja: OBLIGATORIO, y UNA sola puerta** (`global §4.4e-UNA`). No es un CTA imperativo, es un enlace enterrado en cuerpo. La puerta la elige el tema como en cualquier pilar: agendar si la creencia toca vender, correo si no, y **mientras viva el evento, Luma ocupa el hueco de agendar** con su línea de contexto encima (`global §4.4b-EVENTO-CONTEXTO`).
+  > 🔴 **CORREGIDO EL 2026-09-16.** Aquí ponía *"agendar OBLIGATORIO + correo OPCIONAL"*, escrito el 20/08, antes de que el 27/08 se retirara la doble puerta. Y el validador lo codificaba igual: **tumbaba la primera tarjeta con Luma**, que es justo lo que la receta manda esta semana, y además no pasaba por ninguna regla de forma del ninja (dos líneas, ≤55, bisagra, palabra del gancho, UTM, línea de contexto del evento). Arreglado: `validar_tarjeta` acepta una puerta de las tres y corre los checks del ninja de `validar()` con **P1 de la tarjeta haciendo de gancho**, porque en este pilar el gancho ES la tarjeta y el ninja tiene que recoger una palabra suya.
+- **El largo (150-400) se mide con el enlace ya acortado a `lnkd.in`**, igual que los 450 del meme: con la URL cruda, un enlace de Luma con sus cuatro parámetros se comía 130 de los 400.
 - **⛔ CTA imperativo: PROHIBIDO.** Nada de `comenta`, `descarga`, `sígueme`, `dime qué opinas`.
 - **⛔ Hashtags y emoji: CERO**, dentro y fuera de la tarjeta.
 

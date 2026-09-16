@@ -423,6 +423,9 @@ def main():
             # correo 3 · Unai · el evento
             'nos juntamos sin ti solo si no te apuntas': '2026-09-09',
             'tan solo hay 80 sillas': '2026-09-09',
+            # correo 4 · Kaixito · el evento, ultima semana
+            'por correo no te guardo sitio': '2026-09-16',
+            'de las 20 sillas que quedan elegimos': '2026-09-16',
         }
         _hoy = datetime.date.today()
         q = next((x for x, f in QUEMADAS.items() if x in cuerpo_low

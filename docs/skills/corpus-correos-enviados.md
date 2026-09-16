@@ -251,6 +251,77 @@ PPD. Aquel comercial se jubiló y su agenda no la heredó nadie.
 
 ---
 
+## Kaixito 04 · la lista del libro (pilar NOVEDADES de mascota, puerta del EVENTO)
+
+**Enviado:** 2026-09-16 09:08 · campaña Brevo 21 · listas 15 + 4 (45)
+**Remitente:** `Kaixito de Neety` (`hola@neety.com`) · **GIF:** `curiosidad`
+**`utm_source` escrito a mano:** `kaixito-04-evento-correo` (con el **seguimiento UTM de Brevo APAGADO**)
+
+| | Correo 4 |
+|---|---|
+| Enviados / entregados | 45 / 45 |
+| Aperturas reales | **16 · 35,6%** |
+| **Clic al ENLACE** | **4**, uno es Mario → **3 de lead** |
+| Bajas | **0** |
+| **Inscritos en Luma** | **1** (el primero atribuido a la newsletter) |
+
+### El asunto y el preheader
+
+```
+te guardo la silla o no?
+```
+```
+Que luego me dicen que por qué no avisé a nadie.
+```
+
+⚠️ **Sin la `¿` de apertura, a petición de Iker** (segunda vez, las dos en correos de Kaixito). El validador lo marca y se acepta.
+
+### El cuerpo, literal
+
+```
+Aviso de mascota.
+
+Te recuerdo que aquí damos con las empresas que pueden comprarte.
+Y con la persona que decide dentro, que es lo que cuesta.
+
+Pero hoy no te escribo por eso.
+
+Llevo la lista del jueves en mi libro.
+Llevo 60 nombres con su empresa detrás.
+Llevo semanas apuntando y ya casi no cabe.
+
+[GIF: Kaixito repasando la lista con las gafas puestas]
+
+Si el tuyo ya está, es que lo habré apuntado torcido.
+
+Y ese día enseñamos la nueva generación de Neety.
+
+Lo que fastidia de verdad no es perderse la charla.
+Es enterarte el viernes de quién estaba.
+
+El jueves 24 nos sentamos en Donostia. Evento presencial.
+
+Por correo no te guardo sitio al lado de quien decide.
+De las 20 sillas que quedan elegimos quién entra: https://forward.neety.com/?utm_source=kaixito-04-evento-correo
+
+Yo no vendo nada, que para eso están mis jefes.
+
+Pero el libro lo llevo yo y me gusta verlo lleno.
+
+Kaixito, la mascota de Neety
+
+PD. Reenvíaselo a quien lleve las ventas en tu empresa. Esto se disfruta más con alguien al lado.
+
+PPD. El jueves lo vas a ver en LinkedIn igual. Mejor desde dentro.
+```
+
+> **Tres cosas de este texto que costaron iteraciones y no se deben perder al versionarlo:**
+> 1. `Si el tuyo ya está, es que lo habré apuntado torcido.` sustituye a `El tuyo no aparece.`, que afirmaba algo del lector que **no se puede comprobar** y que era falso para los ya inscritos (`email-marketing §7b`).
+> 2. `Mejor desde dentro.` sustituye a `Pero desde fuera.` por lo mismo.
+> 3. El ritmo `1-2-1-3-…` es el del correo 3; la primera versión abría en `1-2-1-2` y sin bloque de 3.
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

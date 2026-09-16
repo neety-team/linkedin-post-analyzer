@@ -1250,3 +1250,22 @@ https://forward.neety.com/?utm_source=sendinblue&utm_campaign=Correo_4  Kaixito 
 Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desde el 28/08 y se hacía a mano: relleno invisible del preheader, fondo Alabastro, un `<p>` por bloque con `<br>` dentro, el GIF centrado a 280 px con su alt, y **el enlace pintado con texto corto y el UTM solo en el `href`**. Se comprueba renderizando a texto plano y buscando `style=`, `margin:` o `</a>`.
 
 **Pendiente al publicar (mañana):** meter el ninja de este correo en `QUEMADAS` de `validar-email.py` — el disparador es la publicación, nunca la entrega (`working-preferences §0f`).
+
+### 📈 RESULTADO DEL CORREO 4, EL MISMO DÍA (leído el 2026-09-16 con `metricas-brevo.py --quien`)
+
+**Salió de verdad: 16/09 a las 09:08:** `queued` → `sent`, 45 enviados, 45 entregados.
+
+| correo | remitente | aperturas | clics de LEAD (internos fuera) | bajas | inscritos en Luma |
+|---|---|---|---|---|---|
+| 2 · la feria | Iker | 16 · 35,6% | **0** | 0 | — (iba a `/agendar/`) |
+| 3 · evento | Unai | 13 · 28,9% | **1** | 1 | 0 (el `hs_email` era de HubSpot) |
+| **4 · evento** | **Kaixito** | **16 · 35,6%** | **3** (66,7‰) | **0** | **1** (dato de Iker, visto en Luma) |
+
+- **Los 3 que pulsaron:** `hablemos@garazizuniga.studio` (09:36), `louisedesiree.ldf@gmail.com` (10:53) y `anderalberdi94@gmail.com` (11:36, **segunda vez**: ya pulsó el correo 3). El 4º clic es `mario@neety.com` a las 09:14, revisando.
+- ⭐ **ES EL PRIMER INSCRITO AL EVENTO ATRIBUIDO A LA NEWSLETTER POR UTM.** El del correo 3 resultó ser de HubSpot (14/09). Este llega con `utm_source=kaixito-04-evento-correo`, que es justo lo que se protegió apagando el seguimiento UTM de Brevo antes del test.
+- **Luma pasó de 60 a 65 inscritos** entre el 15/09 por la tarde y el 16/09 a mediodía (**15 plazas libres**). Iker atribuye **al menos 5** al "Los 10" de Gipuzkoa de Unai (`historial-publicaciones`), así que las cuentas no casan exactas y **no se fuerzan**: Luma no deja ver la lista (`email-marketing §7b`).
+- ⚠️ **LO QUE NO SE PUEDE CONCLUIR, y va delante de cualquier celebración:** entre el correo 3 y el 4 cambiaron **seis cosas a la vez** (remitente, pilar, familia de asunto, GIF, que ya es la ÚLTIMA semana y que el ninja dice las sillas que QUEDAN en vez del aforo total). Con 45 destinatarios, **3 contra 1 clic no separa ninguna de ellas**. Lo único que es dato sin discusión: **cero bajas** en un correo de mascota a una lista industrial, y **un inscrito atribuido**.
+- 📏 **Y la cifra de dentro caducó el mismo día:** el cuerpo decía `60 nombres` y `20 sillas`, verdad al programar; al salir ya eran 65 y 15 o casi. **Una cifra de aforo en un correo programado se reverifica a la hora del envío, no la víspera.**
+
+**⭐ QUÉ SE LLEVA EL SIGUIENTE CORREO:** Kaixito **no ha bajado ni aperturas ni bajas** frente a los founders (35,6% igual que Iker, 0 bajas contra 1 de Unai). `email-marketing §1` decía *"se mide, no se discute: si abre más, gana papel"*. **Todavía no abre más, pero tampoco cuesta nada, y es el único que ha traído un inscrito.**
+

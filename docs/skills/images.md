@@ -201,7 +201,7 @@ Al remixar una referencia hay **dos capas** y se confunden con facilidad. **Yo m
   - **Las tres condiciones a la vez:** **impares** (`§2.5b`: son cifras que elegimos nosotros), **distintas entre sí** (dos filas con el mismo número cantan a plantilla) y **distintas de las del original** (que es para lo que existe esta sección). Quedaron 3 días · 7 horas · 19 horas · 5 días.
   - **Y que sigan cuadrando con lo que cuenta cada fila:** lo que se presenta como recién salido lleva horas, y lo que se presenta como antiguo lleva días. Cambiar el número no es sortearlo.
 - **El nombre del remitente:** el del dueño de la cuenta donde se publica (Unai, Iker o Asier).
-- **El nombre del destinatario:** un **nombre común en el País Vasco**, que es de donde es la mayor parte de la audiencia. Rota y no repitas. **Ya gastados: Mikel** y **Iñaki** (meme del tatuaje, Unai, 2026-07-29). Libres: Gorka, Aitor, Jon, Ander, Eneko, Julen, Imanol, Beñat, Koldo. **Apunta aquí el que uses cada vez.**
+- **El nombre del destinatario:** un **nombre común en el País Vasco**, que es de donde es la mayor parte de la audiencia. Rota: no repitas el que usó esa cuenta en sus 3 últimas publicaciones (`global §2.0b-VENTANA`). **Usados: Mikel** y **Iñaki** (meme del tatuaje, Unai, 2026-07-29), hoy libres otra vez. Libres: Gorka, Aitor, Jon, Ander, Eneko, Julen, Imanol, Beñat, Koldo. **Apunta aquí el que uses cada vez.**
   > ### ⛔⛔ 0a-septima-NOMBRES · EL NOMBRE INVENTADO COPIA EL SEXO DEL ORIGINAL Y LA TIERRA DE LA CUENTA (Iker, 2026-08-18)
   > **Vale para CUALQUIER nombre de persona que aparezca dentro de una imagen remixada** — el destinatario de un correo, el autor de un tuit, el contacto de un chat—, y **la lista de arriba se queda corta porque es toda de hombres.**
   >
@@ -217,7 +217,7 @@ Al remixar una referencia hay **dos capas** y se confunden con facilidad. **Yo m
   >
   > **Detalles de forma, para que cuele:** se copia el **estilo del original** (si su nombre va en minúscula, el nuestro también; si su `@` lleva guion bajo al final, el nuestro también), va **sin foto y sin tick de verificado** —no fabricamos una verificación—, y **el `@` se comprueba a mano en la plataforma antes de subir**: un usuario que resulta ser de alguien real es suplantación.
   >
-  > **🚫 NOMBRES FICTICIOS YA GASTADOS (la lista solo crece, `global §2.0b`):** `Mikel` e `Iñaki` (correo del tatuaje, Unai, 29/07) · `Cuota Trimestral` (tuit del diccionario, Unai, 13/08, cuenta-rol) · `aitana lledó` (tuit del seguimiento, Helena, 18/08).
+  > **🔄 NOMBRES FICTICIOS YA USADOS (con fecha y cuenta: frenan solo a esa cuenta durante sus 3 publicaciones siguientes, `global §2.0b-VENTANA`):** `Mikel` e `Iñaki` (correo del tatuaje, Unai, 29/07) · `Cuota Trimestral` (tuit del diccionario, Unai, 13/08, cuenta-rol) · `aitana lledó` (tuit del seguimiento, Helena, 18/08).
 - **La foto de perfil** que aparezca: la del dueño de la cuenta.
 - Y cualquier dato identificable del original (empresa, ciudad, cifras).
 

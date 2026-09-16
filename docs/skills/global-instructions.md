@@ -168,7 +168,7 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 
 **⛔ Y NUNCA NOMBRES LO QUE ANUNCIAS.** Ni "evento", ni "premio", ni "lanzamiento". Iker: *"si ya en el gancho te han dicho cuál es el premio, ¿para qué te vas a leer la publicación?"*. El objeto sustituye al nombre.
 
-**🚫 CONCEPTOS YA USADOS** (entran en la ley de variedad de §2.0b, no se repiten): `esquina del Atlántico` · `trastienda del norte` · `patio trasero de los Pirineos` · `tejado de la Península` · `museo minero` · `desierto` · `secarral` · `última parada` · `sitio de comer`. Propuestos el 05/08 para el evento y aún sin gastar: `fecha de derribo` · `vitrina` · `cuenta atrás` · `carpeta que no se abre` · `último de su especie` · `interruptor` · `la grieta` · `la última foto`.
+**🔄 CONCEPTOS YA USADOS:** la lista viva, con fecha y cuenta, es `CONCEPTO_QUEMADO` de `validar-post.py`, y **solo frena a la cuenta que lo usó durante sus 3 publicaciones siguientes** (`§2.0b-VENTANA`: por cuenta, 3 publicaciones de esa cuenta, y los clichés no entran). Ejemplos de conceptos que ya han salido: `esquina del Atlántico` · `trastienda del norte` · `patio trasero de los Pirineos` · `tejado de la Península` · `museo minero` · `desierto` · `secarral` · `última parada` · `sitio de comer`. Propuestos el 05/08 para el evento y aún sin gastar: `fecha de derribo` · `vitrina` · `cuenta atrás` · `carpeta que no se abre` · `último de su especie` · `interruptor` · `la grieta` · `la última foto`.
 
 ### 🔄 2.0b · LEY DE VARIEDAD: TODO ELEMENTO QUE SE REPITE, ROTA (universal — auditoría del 2026-07-31)
 
@@ -200,7 +200,7 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 
 **El fallo que lo motiva, y es de libro:** entregué `La web… / La centralita… / La persona…` **una semana después** de que la historia de Iker del 18/08 publicara `La eché… / La eché… / La eché…`. Mismo pilar, mismo arranque, tres líneas seguidas que el lector ve como un bloque.
 
-- **⛔ Y da igual que sea OTRA CUENTA.** Iker: *"aunque sea otra cuenta, me da igual, hay que seguir sorprendiendo"*. Las tres cuentas de founder comparten red (`post-workflow`, visión de futuro), así que el mismo lector ve las dos.
+- **🔄 POR CUENTA, y con aviso si otra cuenta lo acaba de usar** (Iker, 16/09, corrige su *"aunque sea otra cuenta, me da igual"* del 25/08). El arranque solo frena a la cuenta que lo publicó, durante sus 3 publicaciones siguientes de ese pilar. Si otra cuenta lo usó hace menos de 7 días, el validador avisa sin bloquear, porque el mismo lector ve los tres perfiles (`§2.0b-VENTANA`: por cuenta, 3 publicaciones de esa cuenta, y los clichés no entran).
 - **CÓMO SE ROTA, y es la lista de `working-preferences §4`:** si el bloque anterior de ese pilar empezaba por **artículo** (`La`, `El`), el siguiente empieza por **VERBO** (`Sabe`, `Marca`), o por **nombre**, o por **lugar**, o por **número**. Caso del 25/08: `La web…` pasó a **`Sabe el nombre de la empresa. / Sabe el número de la centralita. / Sabe todo menos quién compra dentro.`**
 - **Lo que NO cambia es el formateado.** Sigue habiendo anáfora, escalera y bloque de 2. **Lo que rota es la palabra con la que arranca, no la estructura**, exactamente igual que el mapa repite su fórmula y cambia el concepto.
 - **Mecanizado** como aviso en `validar-post.py` (`RITMO: el arranque de la anafora no esta quemado`), que **imprime los arranques del post** aunque no haya ninguno repetido — porque el trabajo no es que el script decida, es que yo los VEA antes de entregar. Aviso y no fallo duro: `La`, `No` o `Me` son demasiado comunes para vetarlas a ciegas.
@@ -224,34 +224,45 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 
 **Los arranques ya gastados viven en `ARRANQUE_QUEMADO`, por pilar**, y ahí es donde sí toca la distinción de pilar: la **anáfora de negación** (`No paga… / No las pagan…`) es del **mapa** y no se calca en otro sitio.
 
-#### ⏳⏳ 2.0b-VENTANA · LAS LISTAS DE QUEMADAS NO SON UNA LISTA NEGRA: SON MEMORIA A CORTO PLAZO (Iker, 2026-09-15) — CANÓNICO
+#### ⏳⏳ 2.0b-VENTANA · "QUEMADA" SIGNIFICA "NO SE REPITE EN LAS PRÓXIMAS 3 PUBLICACIONES DE ESA CUENTA". NADA MÁS (Iker, 2026-09-15 y 2026-09-16) — CANÓNICO, MANDA SOBRE CUALQUIER "NUNCA" DE OTRA SECCIÓN
 
-> **Iker, y corrige cómo estaba montado:** *"si espaciamos entre publicaciones, no hace falta que esas palabras las metas como quemadas, rollo prohibidas, sino que mientras dos o tres publicaciones seguidas en la misma cuenta no repitan esas mismas palabras, luego podremos repetirlas"*.
+> **Iker, 15/09:** *"si espaciamos entre publicaciones, no hace falta que esas palabras las metas como quemadas, rollo prohibidas, sino que mientras dos o tres publicaciones seguidas en la misma cuenta no repitan esas mismas palabras, luego podremos repetirlas"*.
+>
+> **Iker, 16/09, y lo pide como auditoría de todas las skills:** *"siempre que me hablas de lista de palabras o frases quemadas me das miedo… los clichés no pueden ser cosas quemadas: si se vuelve a hacer una publicación de esa región y esos son clichés típicos, no me los vas a poder bloquear para siempre… que esas palabras quemadas o frases sean por cuenta y que pasado un determinado tiempo caduquen"*.
 
-**POR QUÉ TENÍA QUE CAMBIAR, Y ES CONTABLE, no una impresión:** `ARRANQUE_QUEMADO` gana **~1,6 entradas por publicación** (16 arranques de historia con 10 posts publicados) y la casa publica **~9 a la semana**. A ese ritmo, en tres meses hay más arranques prohibidos que formas naturales de empezar una frase en castellano, y la regla acaba obligando a escribir raro — que es exactamente lo contrario de `brand-voice §3c`. **Una lista que solo crece se come el idioma.**
+**LA REGLA, en cuatro líneas. Vale para TODOS los pilares, para los posts y para las listas del validador:**
+1. **POR CUENTA.** Lo que usó Iker solo le frena a Iker. Unai y Asier pueden usarlo al día siguiente.
+2. **CADUCA.** Una expresión no se repite en **las 3 publicaciones siguientes de esa misma cuenta** (del mismo pilar, cuando la lista es de un pilar). Pasadas esas, vuelve a estar libre.
+3. **LOS CLICHÉS NO SE QUEMAN NUNCA.** Son de la región, no del post: si una región se vuelve a hacer, sus clichés típicos (el pulpo, la txistorra, el bacalao) valen otra vez. Lo que rota es lo que **inventamos nosotros**: el concepto, el país de la comparación, la frase-rabia, el verbo del prejuicio, el arranque de la anáfora y la frase del ninja.
+4. **"NUNCA" SOLO LO DICE UN VETO DE CONTENIDO**, no el uso: una crítica a España (`pasillo de España`), una palabra con riesgo legal (`brand-voice §2c-DATOS`), un eje que da pena (`callado`, `post-workflow §4.2`), un opener de plantilla de LinkedIn (`OPENERS_QUEMADOS`). Eso no es "quemado", es "vetado", y se escribe sin fecha.
 
-| lista | ¿caduca? | ventana |
+**LAS VENTANAS, pasadas a días con la cadencia MEDIDA en la BD (2026-09-16, desde el 01/06):** dentro de una cuenta, meme, lead magnet e historia salen cada **~7 días**; un peloteo cada **~14**; la cuenta entera publica cada **1-3 días**.
+
+| lista del validador | qué guarda | ventana = 3 publicaciones de esa cuenta |
 |---|---|---|
-| **`ARRANQUE_QUEMADO`** | ✅ sí | **21 días** |
-| **`SPAM_QUEMADO`** y **`SPAM_QUEMADO_CORREO`** | ✅ sí | **30 días** |
-| `PAIS_QUEMADO` · `CONCEPTO_QUEMADO` · `FRASE_RABIA_USADA` · `VERBO_PREJUICIO_QUEMADO` | ✅ **sí, desde el 2026-09-16** | **42 días** |
+| `PAIS_QUEMADO` · `CONCEPTO_QUEMADO` · `FRASE_RABIA_USADA` · `VERBO_PREJUICIO_QUEMADO` | la identidad del gancho de un peloteo | **42 días** (3 × 14) |
+| `ARRANQUE_QUEMADO` | la palabra que abre la anáfora, por pilar | **21 días** (3 × 7) |
+| `SPAM_QUEMADO` · `SPAM_QUEMADO_CORREO` · frase de contexto del evento | las líneas del ninja | **21 días** |
+| lista de quemadas de `validar-email.py` | la línea del ninja del correo | **21 días** (3 correos, uno por semana), **sin distinguir remitente**: los cuatro escriben a la misma lista y el mismo suscriptor los lee todos |
 
-**LA VARIABLE QUE PARTE LOS DOS GRUPOS ES CUÁNTO CRECE LA LISTA, y por eso es medible:** las de **ritmo** (arranque, frase del ninja) se tocan **cada semana** y se saturan; las de **identidad de un post** (el país de la comparación, el concepto de la región, la frase-rabia) crecen **una vez al mes** y no saturan nada — y ahí repetir se lee a refrito aunque pasen seis meses, porque el lector recuerda el mapa entero, no una palabra.
+- **Cómo lo hace el script** (`quemada()` en `validar-post.py`): cada entrada lleva delante la **fecha** de su última publicación y dentro el **nombre de la cuenta**. Con `--cuenta X`, bloquea (fallo duro) solo si la usó X dentro de la ventana. Si la usó otra cuenta hace menos de **7 días**, sale un **aviso que no cuenta**: el lector de los tres perfiles es el mismo y conviene verlo, pero no se prohíbe. **Sin `--cuenta`** no sabe quién publica y bloquea como si fuera la misma: por eso `--cuenta` va siempre.
+- **Una entrada sin fecha es un veto y no caduca.** Por eso **nunca se escribe sin fecha lo que solo "ya se usó"**: el 16/09 había nueve entradas así por descuido (los arranques `No`, `Con`, `Aquí`, `En` de mapa y "Los 10", dos líneas de ninja) y llevaban semanas bloqueando para siempre. Se dataron contra la BD; la que no tenía post detrás (`Su`, sacada de un ejemplo del runbook) se borró.
+- **⚠️ Los números son criterio y van declarados** (`working-preferences §0c`): lo que está medido es la **cadencia**, no el rendimiento de repetir. Lo único medido sobre repetir es `post-workflow §4.4-REPETIR`, y es de **referencias** de meme (a 2 días hizo el 5,8% del original; a 98 días funcionó), que por eso llevan su propia ventana más larga.
 
-**⚠️ LOS DOS NÚMEROS SON CRITERIO Y VAN DECLARADOS COMO TAL** (`working-preferences §0c`). Lo único **medido** que tenemos sobre espaciado es `post-workflow §4.4-REPETIR`, y es de **referencias**: a 2 días, el remix hizo el **5,8%** del original; a 98 días, funcionó. Una referencia es el elemento **más** visible que existe y un arranque de anáfora el **menos**, así que de ahí sale el orden de magnitud: el **ninja** —la línea que pide el clic y la que más se lee como molde— hereda el mínimo medido de **un mes**; el **arranque** se queda en **tres semanas**, que son ~9 publicaciones de esa cuenta (el triple de las "dos o tres" que pide Iker) y ~27 de la casa.
+**🔴 LO QUE ESTA SECCIÓN DECÍA HASTA EL 16/09, Y ESTABA MAL:** que la ventana *"vale para las 3 cuentas, no por cuenta"*, apoyado en un *"aunque sea otra cuenta, me da igual"* de Iker del 25/08. Iker lo corrigió dos veces después (15/09 y 16/09) y **manda lo último**; lo que queda del 25/08 es el aviso de los 7 días. También decía que *"las listas solo crecen"* y que lo que no se puede datar *"se queda quemado para siempre"*: las dos frases empujaban justo al miedo que Iker describió.
 
-**🔄 ACTUALIZADO EL 2026-09-16: LAS DE IDENTIDAD TAMBIÉN CADUCAN.** Iker, repitiéndolo para el peloteo: *"lo importante es que dos o tres publicaciones seguidas no repitan la misma estructura y las mismas expresiones… pero sin ser tan exigente de nunca más repetir una palabra, una frase o un concepto"*. El párrafo de arriba que las dejaba "para siempre" **queda superado**. **42 días = 3 peloteos seguidos de una misma cuenta**, con la mediana medida de 14 días entre peloteos de la misma cuenta (22 publicados). Es criterio derivado, no medido en rendimiento. **No caducan** la región dentro de una misma cuenta (va por el historial) ni las entradas sin fecha, que son vetos (`pasillo de España`). Mecanizado: `VENTANA_IDENTIDAD_DIAS = 42`, con la fecha de la última publicación delante de cada entrada.
-
-**⛔ LA VENTANA SE CUENTA EN DÍAS Y VALE PARA LAS 3 CUENTAS, no por cuenta.** Iker pidió "en la misma cuenta", pero eso choca con lo que él mismo decidió el **2026-08-25** con el caso delante: *"aunque sea otra cuenta, me da igual, hay que seguir sorprendiendo"*, porque **los 3 jefes comparten red** y el mismo lector ve los tres perfiles. Se mantiene el criterio del 25/08 y se le pone la caducidad del 15/09 encima. **Si algún día se quiere por cuenta, se cambia la constante y se anota el motivo aquí.**
-
-**⛔ Y UNA ENTRADA SIN FECHA NO CADUCA NUNCA.** El valor de cada entrada empieza por la fecha de **publicación** en ISO (`2026-09-11 historia de Unai…`). Lo que viene de un runbook o del swipe-file y no se puede datar se queda quemado para siempre: **no se inventa la fecha de un post del que no sabemos cuándo salió**, que es la misma regla que cualquier otro dato (`CLAUDE.md`).
-
-**Mecanizado** en `validar-post.py`: `VENTANA_ARRANQUE_DIAS = 21`, `VENTANA_NINJA_DIAS = 30` y la función `vigente()`, que compara contra el reloj del sistema. **Efecto el día que se montó:** `dar con el que decide` (31/07) y `te lo damos hecho` volvieron a estar libres, y los 8 arranques de historia anteriores al 25/08 también.
+**⛔ LO QUE NO ES UNA LISTA DE QUEMADAS, aunque se le parezca, y por eso no caduca así:**
+- **La región dentro de una misma cuenta** (`historial-publicaciones`, cobertura por cuenta): es espaciado de TEMA, no de palabras. Otra cuenta sí puede hacerla.
+- **Las empresas y personas ya mencionadas** (`menciones-usadas.json`, `post-workflow §4.0c`): el motor del peloteo es llegar a gente NUEVA, así que no se repiten por negocio, no por estilo.
+- **El tema de un lead magnet en la misma cuenta** (~90 días, `post-workflow §4.5`): medido con n=3, es de tema, no de expresión.
+- **La referencia de un meme en la misma cuenta** (`post-workflow §4.4`): es el elemento más visible que existe, así que su ventana es la medida y no la de 3 publicaciones: **mínimo ~3 meses** (a 2 días hizo el 5,8% del original; a 98 días funcionó) y solo si la primera voló.
 
 **LAS TRES REGLAS DE MANTENIMIENTO:**
-1. **Al publicar, la frase usada entra en su lista.** Las listas solo crecen. Esto no es opcional y no espera a que nadie lo pida.
-2. **Si un elemento repetible NO tiene lista, es un hueco**: se crea. Así aparecieron `CONCEPTO_QUEMADO` y `FRASE_RABIA_USADA`, que llevaban meses con un "no repitas" en la receta y **nada detrás con qué comprobarlo**.
+1. **Al publicar, la frase usada entra en su lista con su FECHA y su CUENTA**, leída del texto real de la BD. No espera a que nadie lo pida. Si ya estaba, se le actualiza la fecha.
+2. **Si un elemento repetible NO tiene lista, es un hueco**: se crea, con fecha y cuenta desde el primer día.
 3. **La mejor variante no sale de un banco de frases, sale del GANCHO de ese post.** Si el post va de un tatuaje, el spam ninja habla de tatuajes. Un banco de alternativas es el plan B, no el plan A.
+
+**Y AL HABLAR CON IKER, la palabra es la de la regla:** *"no se repite en las próximas 3 publicaciones de esa cuenta"*, no *"está quemada"* a secas, que suena a prohibido para siempre.
 
 ### 📰 2.1b · LA TENDENCIA ES UN MOTOR Y LO ESTAMOS DESAPROVECHANDO (Mario, 2026-08-21) — GLOBAL
 
@@ -733,7 +744,7 @@ Ruptura de patrón · Rompe creencias · Dato impactante · Intriga (curiosity g
 
 **⭐ CALCAR Y MEJORAR ES UNIVERSAL, no solo del meme (Iker, 2026-07-23).** **Y con ello viajan las tres reglas del remix, que estan escritas en el runbook del meme solo porque el primer caso fue un meme:** la esencia se saca de lo OBSERVABLE y nunca de mi teoria (`post-workflow §4.4-ESENCIA`), al espanol del sector ventas se le ACREDITA con @ (`§4.4-CREDITO`), y un ganador propio se DOBLA lo antes posible repitiendo el esqueleto y rotando solo el intensificador (`§4.4-DOBLE`). **Aplican al pilar que sea.** Siempre que se remixa una referencia —meme, lead magnet, remix de mapa, lo que sea— el mínimo es IGUALAR el original y el objetivo es SUPERARLO: verbo más punchy, formato más limpio, mejor ángulo. Copiar tal cual es el SUELO, no la meta. Iker lo dijo para el meme el 22/07 y al día siguiente no lo apliqué en otro hook: **un aprendizaje basado en datos no es del pilar donde se dijo, es de TODOS** — igual que el formateado (`§3`). Apúntalos siempre en global/receta/validador aunque no te lo pidan.
 **El verbo del gancho tiene un trabajo: frenar el scroll.** Si solo describe, no vale. Delatores de verbo flojo: `se cae`, `hay`, `es`, `tiene`, `pasa`, `ocurre`, `se pierde`, `no funciona`. Sube un peldaño hasta el punto dulce.
-**La familia punchy validada** (roba de aquí, pero NO repitas el que ya usó ese pilar): **quemar · reventar · enterrar · tirar · desmontar · arrancar · comerse · fundir · machacar**. Se pasan de rosca: destripar, descuartizar.
+**La familia punchy validada** (roba de aquí, pero no repitas el que usó esa cuenta en sus 3 últimas publicaciones de ese pilar, `§2.0b-VENTANA`): **quemar · reventar · enterrar · tirar · desmontar · arrancar · comerse · fundir · machacar**. Se pasan de rosca: destripar, descuartizar.
 **Delatores de gerundio que DESCRIBEN** (el fallo real, 2026-07-15): `colgando`, `volviendo a`, `intentando`, `trabajando`, `haciendo`, `dando vueltas`. Caso: *"Alguien lleva un año **colgando** el teléfono **y volviendo a marcar**"* → cuenta lo que hace, no frena a nadie. Arreglado a *"Alguien lleva un año **comiéndose** noes para **arrancar** un sí"*: dos verbos punchy, la herida y el premio. Ya están en el validador.
 > ⚠️ **Lo que el script NO puede ver:** la lista negra caza el verbo flojo conocido, pero **no sabe si un verbo nuevo tiene punch**. Eso es criterio y vive en §8. Si el gancho pasa el validador, aún tienes que leerlo y preguntarte si ese verbo para el scroll.
 
@@ -861,7 +872,7 @@ Solo un puñado de mecánicas produce outliers de forma fiable. Elige la que la 
 
 **⚠️ EL REVEAL: la frase se varía SIEMPRE, la función no.** Los **4 posts reales dicen literal `Sí, hablo de X.`** (Navarra, Galicia, Aragón, País Vasco). Es un comodín gastado, igual que `La gente y las empresas que mueven todo esto:` como entrada a la lista (`swipe-file §2.1`). El reveal **tiene que seguir existiendo y llegando tarde**; lo que cambia son las palabras (`working-preferences §4`). Alternativas: `Se llama Asturias.` · `Todo esto es Navarra.` · `Los diez son de Galicia.` · `Bienvenido a Aragón.` · `Y esto pasa en Álava.` **Está en el validador** (`--pilar mapa|los10`) porque es Type A puro: la regla de frescura ya existía y aun así se coló 4 de 4 veces.
 
-**Concepto creativo de zona:** nunca "región/tierra/pueblo". Inventa uno original por zona: Navarra → "el patio trasero de los Pirineos"; Álava → "la trastienda del norte"; Galicia → "esta esquina del Atlántico". Nunca repitas concepto.
+**Concepto creativo de zona:** nunca "región/tierra/pueblo". Inventa uno original por zona: Navarra → "el patio trasero de los Pirineos"; Álava → "la trastienda del norte"; Galicia → "esta esquina del Atlántico". El concepto no se repite en las 3 publicaciones siguientes de esa cuenta (`§2.0b-VENTANA`: por cuenta, 3 publicaciones de esa cuenta, y los clichés no entran).
 
 **Reglas de ejecución NO negociables (condiciones de seguridad, no adornos):**
 1. **Verificar TODA cifra shock antes de publicar** contra fuente real (ICEX, Cámara, autoridad portuaria, INE, Eurostat, Datacomex, IDESCAT/EUSTAT/IECA). Un dato mal → el primer comentario de un local corrigiéndolo envenena el hilo → de 6x a 0.5x. Citar la fuente dentro del post es escudo + credibilidad, pero **solo el NOMBRE de la fuente, nunca su año** (`(IAEST)`, no `(IAEST 2024)`): un año a la vista hace que el post se lea como viejo y el lector se pira. Detalle en `post-workflow §4.2` Paso 3.
@@ -890,8 +901,8 @@ Solo un puñado de mecánicas produce outliers de forma fiable. Elige la que la 
 - **Espaciado y repetición — TODO se mide POR CUENTA, no global:**
   - **≥2 semanas** entre mapas **de esa cuenta**; nunca dos seguidos en la misma cuenta.
   - **REGIÓN: no repetir DENTRO de la misma cuenta.** Entre cuentas SÍ se puede: si Iker ya hizo Cataluña, Iker no la repite nunca, pero **Unai y Asier sí pueden hacerla**. El plan a largo plazo es que **cada cuenta acabe tocando todas las regiones**, porque España se acaba. Por eso, **antes de elegir región, PREGUNTA para qué cuenta es**: la lista de regiones libres es distinta en cada una. La cobertura por cuenta vive en `docs/skills/historial-publicaciones.md`.
-  - **CONCEPTO: no repetir en 42 días, tampoco entre cuentas** (`§2.0b-VENTANA`). Es regla de frescura (`working-preferences §4`), **no un hecho medido**. ⚠️ Ojo con la "prueba" que se citaba aquí: el "país inventado" 7.87x → 1.2x **NO demuestra que repetir concepto mate**. Ese caso está confundido: el segundo no cayó por repetido, cayó porque **el país ficticio se puso en un sitio donde no había nada y no ofendió a nadie** → sin controversia, sin motor (detalle abajo). No lo cites como evidencia de repetición.
-  - **Si una cuenta repite una región que ya hizo OTRA cuenta**, el concepto, el país de comparación y los clichés tienen que ser **todos nuevos**. Es lo único que lo diferencia de un refrito ante un lector que ya lo vio. (No validado con datos: la primera vez que se haga, mídelo.)
+  - **CONCEPTO: no se repite en los 42 días siguientes EN ESA CUENTA** (3 peloteos suyos); otra cuenta puede usarlo, con aviso si fue hace menos de 7 días (`§2.0b-VENTANA`). Es regla de frescura (`working-preferences §4`), **no un hecho medido**. ⚠️ Ojo con la "prueba" que se citaba aquí: el "país inventado" 7.87x → 1.2x **NO demuestra que repetir concepto mate**. Ese caso está confundido: el segundo no cayó por repetido, cayó porque **el país ficticio se puso en un sitio donde no había nada y no ofendió a nadie** → sin controversia, sin motor (detalle abajo). No lo cites como evidencia de repetición.
+  - **Si una cuenta repite una región que ya hizo OTRA cuenta**, lo que conviene cambiar es **lo inventado** (concepto, país de comparación, frase-rabia), para que no se lea como refrito. **Los clichés de la región SÍ se pueden repetir**: son de la región, no del post (Iker, 16/09, `§2.0b-VENTANA` punto 3). (Criterio, no medido: la primera vez que se haga, mídelo.)
 
 **Bloques de empresas:** RELLENAR con empresas reales verificadas (ver `post-workflow §4.0`): exportadoras de la zona sacadas de una fuente real (mapa de pampam / lista del usuario / ICEX / cámara / web con cita). Marca las dudosas y **nunca inventes** — lo que no puedas verificar va como `→ [PENDIENTE · no verificado]`. Formato: 20 líneas en 5 bloques de 4, **cada empresa con SU persona mencionable y @ delante de ambos nombres** (`post-workflow §4.2` Paso 4). La **frase de entrada va sola, con línea en blanco antes de la primera `→`** (nunca pegada a la lista):
 ```
@@ -1681,9 +1692,9 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > **Es `§2.0b` otra vez: el fondo se repite a propósito, la publicación nueva tiene que notarse nueva.** Y aquí pesa el doble, porque el mismo lector ve los posts de las tres cuentas.
 >
 > - **Lo que NO rota son las tres piezas.** El 24, Donostia y que es presencial siguen siendo obligatorios y explícitos (`§2.5b-EXPLÍCITO`).
-> - **Lo que rota es el VERBO y el ORDEN.** Quemados: `montamos un evento presencial` (×4), `hacemos un evento presencial`, `el jueves 24 hacemos` (Iker, 15/09), `nos vemos en Donostia para`. Libres: `tenemos`, `abrimos`, `nos juntamos`, `nos sentamos`.
+> - **Lo que rota es el VERBO y el ORDEN.** Ya usados (cada uno frena solo a su cuenta durante 21 días, `§2.0b-VENTANA`): `montamos un evento presencial` (×4), `hacemos un evento presencial`, `el jueves 24 hacemos` (Iker, 15/09), `nos vemos en Donostia para`, `tenemos evento presencial` (Unai, 15/09), `abrimos las puertas de un evento` (Asier, 16/09).
 > - **⭐ Y desde septiembre hay una variante nueva que antes no existía: el DÍA DE LA SEMANA.** `el jueves 24` es más cercano que `el 24 de septiembre` ahora que el mes ya es el corriente. ⚠️ **Se verifica contra el calendario, que es un DATO** (`§2.2b`, la excepción al calco): **el 24/09/2026 cae en jueves** ✅. Y ⛔ **`este jueves` es FALSO** hasta el lunes 21: el 15/09 el 24 es la semana que viene, y lo cazó Iker antes que el validador.
-> - **Y se reparte entre cuentas el mismo día:** si el segundo jefe ya ha subido `el jueves 24`, el primero va con `el 24 de septiembre`, y al revés.
+> - **Y el mismo día, mejor que no coincidan dos cuentas:** si el segundo jefe ya ha subido `el jueves 24`, el primero va con `el 24 de septiembre`, y al revés. No es un bloqueo, es el aviso de los 7 días de `§2.0b-VENTANA`.
 > - **Mecanizado** como fallo duro en `validar-post.py` (`EVENTO: la frase de contexto no esta quemada`), con la lista de las publicadas dentro. **Probado: caza la frase de las cuatro veces y aprueba la nueva.**
 
 - **⛔ La línea NO sustituye al bloque de dos ni lo toca.** Sigue siendo `carencia / la cubre` con sus 55 caracteres y la palabra del gancho dentro (`§4.4b-BLOQUE`). Lo que se añade es la línea suelta de encima, que además rompe el pasillo de ritmo.
@@ -1709,7 +1720,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 **⛔ `septiembre` se cae, y solo por esto:** estamos EN septiembre, así que no hay ambigüedad posible. En un evento que caiga a más de un mes vista, el mes vuelve. **Lo que no se cae nunca son las otras dos piezas de `§4.4b-EVENTO-CONTEXTO`**: que es un **evento** y que es **presencial**.
 
-**Mecanizado:** el check ya buscaba `24`, `donostia` y una marca de presencialidad, así que acepta la forma nueva sin tocar nada. ⏳ **Caduca con su sección madre el 24/09.**
+**Mecanizado:** el check ya buscaba `\b24\b`, `donostia` y una marca de presencialidad, así que acepta la forma nueva sin tocar nada. ⏳ **Caduca con su sección madre el 24/09.**
 
 **Mecanizado** en `validar-post.py` como **fallo duro** (`EVENTO: la linea de ENCIMA dice que hay evento, cuando y donde`), que mira el bloque inmediatamente anterior al del enlace y canta cuál de las tres piezas falta. **Probado contra el borrador que lo incumplía: lo caza.**
 
@@ -1819,7 +1830,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > **Ángulos distintos para decir lo mismo**, por si el gancho no da juego: acertar la empresa · saber a quién le hablas · elegir bien la lista · quién firma de verdad · a quién merece la pena perseguir · la mitad del trabajo es la lista · dar con el nombre correcto.
 >
-> **🚫 QUEMADAS, no se repiten:** `dar con el que decide` · `son meses a mano` · `te lo damos hecho`. Salieron en el meme de Unai del 29/07, la historia de Iker del 29/07 y el mapa de Asturias del 31/07. **Mecanizado en `SPAM_QUEMADO` de `validar-post.py`: fallo duro, y al publicar se mete ahí la frase usada.** `te lo damos hecho` gusta porque es punchy, así que se conserva el punch cambiando el verbo: `esa parte ya la tenemos hecha`, `ese trabajo ya está hecho`, `eso te lo damos resuelto`.
+> **🔄 YA USADAS EL 29-31/07, y hoy libres otra vez:** `dar con el que decide` · `son meses a mano` · `te lo damos hecho` (meme de Unai del 29/07, historia de Iker del 29/07 y mapa de Asturias del 31/07). **Mecanizado en `SPAM_QUEMADO` de `validar-post.py`**: fallo duro solo para la cuenta que la usó y durante 21 días (`§2.0b-VENTANA`); al publicar se mete ahí la frase usada con su fecha y su cuenta. `te lo damos hecho` gusta porque es punchy, así que se conserva el punch cambiando el verbo: `esa parte ya la tenemos hecha`, `ese trabajo ya está hecho`, `eso te lo damos resuelto`.
 
 > ## 📅 EL EVENTO DE SEPTIEMBRE: 3 POSTS A LA SEMANA, UNO POR CUENTA (Iker, 2026-08-03)
 >

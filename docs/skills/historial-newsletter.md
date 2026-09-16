@@ -181,10 +181,10 @@ MailerLite canceló la cuenta 2536617 por supuesta violación de la política an
 - Los calentamientos de dominio del sector escalan **a diario**. Espaciar 3 días era exceso de cautela por mi parte, no doctrina.
 - ⛔ **Y el viernes no se lanza la última tanda:** si no lo abren ese día, el fin de semana se lo come y no vuelven hasta el lunes (criterio de Mario, coherente con vender a empresas).
 
-## Palabras de CTA-respuesta ya usadas (no repetir)
+## Palabras de CTA-respuesta ya usadas (no se repiten en los 3 correos siguientes, `global §2.0b-VENTANA`)
 - `web` / `linkedin` / `evento` / `webinar` / `ni idea` (correo 0, 2026-08-07)
 
-## Ángulos ya usados (no repetir, como los conceptos del mapa)
+## Ángulos ya usados (no se repiten en los 3 correos siguientes, como los conceptos del mapa)
 _(ninguno)_
 
 

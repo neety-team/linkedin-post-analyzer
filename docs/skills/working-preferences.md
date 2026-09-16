@@ -485,6 +485,8 @@ Cuando acoto la petición a un trozo ("no toques el hook, mejora el cuerpo", "so
 
 Este es un tema importante para mí: **quiero seguir sorprendiendo al lector**. No me des siempre las mismas frases.
 
+> **🔄 Y el alcance de "no repetir" es siempre el mismo (Iker, 2026-09-16, `global §2.0b-VENTANA`):** no se repite en las **3 publicaciones siguientes de esa misma cuenta**; después vuelve a valer. **Por cuenta, con caducidad, y los clichés de una región nunca se bloquean.** Ningún "nunca" de esta lista significa "para siempre".
+
 - **Reescribe bastante las expresiones** en cada post nuevo (sobre todo en mapas y "Los 10"): mismos conceptos estructurales, **palabras y ángulos distintos** cada vez.
 - **Varía el arranque de los bloques.** No empieces siempre los bloques de 3 por "No…". Rota: unos empiezan por verbo, otros por nombre, otros por lugar, otros por número.
 - **No repitas frases-comodín** entre posts. Ejemplo concreto que quiero eliminar: "La gente y las empresas que mueven todo esto:" — dilo distinto cada vez.

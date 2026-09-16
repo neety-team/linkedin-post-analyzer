@@ -712,7 +712,7 @@ En LinkedIn la primera línea del bloque cuelga de la broma del gancho, y su **p
 | **Dos puertas (agendar + correo)** (`§4.4e`) | ❌ **NO, jamás.** Pedirle a un suscriptor que se suscriba al correo que está leyendo no tiene sentido. **Una puerta y es `/agendar/`** |
 | **UTM en el enlace** (`§4.4b-UTM`) | ❌ **No se escribe a mano.** Brevo los inyecta él en el envío. La URL del cuerpo va limpia, y lo que hay que vigilar es el `utm_campaign` de la campaña (`§9b` punto 12) |
 | **No nombrar a Neety** (`§4.4b` regla 2) | ✅ **SÍ, y no por el mismo motivo.** En LinkedIn es porque nombrar la marca lo delata como publicidad ante el clasificador. En el correo no hay clasificador de alcance, pero **el bloque sigue leyendo mejor en plural sin marca**, y la firma de abajo ya dice quiénes somos |
-| **Lista de frases quemadas** | ✅ **SÍ, y es la MISMA lista.** El dolor no cambia y la frase sí. Un ninja repetido entre canales se quema el doble de rápido, porque media lista viene de LinkedIn |
+| **Lista de frases quemadas** | ✅ **SÍ, con las mismas frases de LinkedIn dentro** y su propia lista en `validar-email.py`. El dolor no cambia y la frase sí. **Caduca a los 21 días (3 correos) y no distingue remitente**: los cuatro escriben a la misma lista de suscriptores (`global §2.0b-VENTANA`) |
 
 #### 🔴🔴 5-NINJA-POSICION · EL ENLACE NO VA AL FINAL DEL CUERPO. NUESTRO DATO GANA AL CORPUS (Iker, 2026-08-27)
 
@@ -782,7 +782,7 @@ cuerpo.
 2. **Se cuenta en PRETÉRITO.** Escena que ya pasó, no situación que se repite. La mezcla correcta: **imperfecto para la costumbre, pretérito para los hechos** (`§4.6-NOSTALGIA`).
 3. **El arco:** escena → momento → desenlace → reframe (antes vs ahora) → **lección corta y universal**.
 4. **La escena se puede inventar. El DOLOR, nunca** (`§4.6-INVENTAR`), y en email esa excepción ya existía desde el 27/07 (`§7`). El dolor sale de `global §4.4b-MUNICIÓN`, y la entrega dice **de qué dolor del informe sale**.
-5. **El VEHÍCULO rota** y comparte lista con LinkedIn (`§4.6-VEHICULO`), porque media lista viene de ahí. **Gastados:** el instituto y la infancia (×4), la primera venta de crío, el Excel del cliente en reunión, **la feria (correo 2, 31/08)**, **la centralita (correo 3, 07/09)**.
+5. **El VEHÍCULO rota** y comparte lista con LinkedIn (`§4.6-VEHICULO`), porque media lista viene de ahí. No se repite en los 3 correos siguientes; después vuelve a estar libre (`global §2.0b-VENTANA`). **Usados:** el instituto y la infancia (×4), la primera venta de crío, el Excel del cliente en reunión, **la feria (correo 2, 31/08)**, **la centralita (correo 3, 07/09)**.
 6. **Una sola puerta, y es `/agendar/`** (`§4.6-CORREO`). El bloque de correo no entra: en un correo sería pedirle al lector que se suscriba a lo que ya está leyendo.
 7. **La línea que sitúa la escena dice QUIÉN y DÓNDE**, y no etiqueta al otro con una etiqueta que aún no le tocaba (`§4.6` 1b).
 

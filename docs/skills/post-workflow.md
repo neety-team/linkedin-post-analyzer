@@ -111,7 +111,7 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 
 **5 · EL FINAL, EN ESTE ORDEN EN LOS TRES:** lista → cuerpo con clichés y pueblos → **reveal tardío** con frase nueva → **barrido geográfico** en una línea corta → **línea de contexto del evento** si el enlace es Luma → **el bloque del enlace** → **cierre punchy** que rebota contra el concepto.
 
-**6 · DÓNDE VA EL ENLACE: TARDE, DETRÁS DEL REVEAL. Y LO QUE ESTÁ MEDIDO Y LO QUE NO, SEPARADO (re-medido el 2026-09-17)**
+**6 · DÓNDE VA EL ENLACE: TARDE, DETRÁS DEL REVEAL. Y LO QUE ESTÁ MEDIDO Y LO QUE NO, SEPARADO (re-medido el 2026-09-16, por la tarde)**
 
 > 🔴 **CORRECCIÓN DE LA VERSIÓN DEL 16/09.** Ahí ponía *"los tres mejores CTR tienen 4, 4 y 11 líneas"* y *"los de 1-2 líneas, ~0,24%"*. **Las dos cifras mezclaban clics a PamPam** (web ajena, los dos CTR más altos del histórico) con clics a nuestra web, y el conteo de líneas incluía la propia línea del enlace. Iker preguntó si de verdad estaba validado que tarde convierte más, y la respuesta honesta era que **no lo había medido así**: había medido que no castigaba.
 

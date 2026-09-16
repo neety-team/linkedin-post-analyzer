@@ -2607,7 +2607,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             f'0.66x que sí las tuvo. La persona invisible se queda; el culpable, fuera: '
             f'que tape la prensa, el titular, la cifra o nosotros' if m else '')
     # ---------- POSICION DEL ENLACE EN PELOTEO (post-workflow 4.0d punto 6) ----------
-    # Medido el 2026-09-17 sobre los 10 peloteos con clics a NUESTRA web: con
+    # Medido el 2026-09-16 sobre los 10 peloteos con clics a NUESTRA web: con
     # 0-3 lineas entre la ultima ficha y el enlace, CTR mediano 0,184%; con
     # 4-10, 0,471% (rangos +0,46). n=10: por eso es aviso y no fallo.
     if pilar in ('mapa', 'objeto', 'los10'):

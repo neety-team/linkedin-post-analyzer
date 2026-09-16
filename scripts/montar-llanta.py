@@ -267,6 +267,58 @@ def dibujar_titulo(img: Image.Image, titulo: dict, region: str, ruta_fuente: str
         base += titulo['salto']
 
 
+def rellenar_llanta(img: Image.Image, color) -> int:
+    """Pinta de berenjena el CENTRO de la llanta y sus VENTANAS (Iker, 2026-09-16).
+
+    Por qué: con la plantilla tal cual, el círculo central sale vacío y se lee
+    como un hueco de logo que se nos ha olvidado, y las ventanas menta dejan el
+    disco blanco de cada logo fundido con el fondo. En berenjena, la rueda se
+    lee como una llanta y los logos resaltan.
+
+    Cómo, sin tocar nada más: se buscan las zonas color menta CERRADAS (que no
+    tocan el borde de la imagen), por debajo de la franja del título, y se
+    rellenan las pequeñas (<3% de la imagen). Así queda fuera la zona grande de
+    los radios, que se sigue viendo menta, y quedan dentro el centro y las
+    ventanas. Devuelve cuántas zonas ha pintado.
+    """
+    from collections import deque
+    a = np.array(img.convert('RGB')).astype(int)
+    H, W, _ = a.shape
+    menta = np.abs(a - a[H - 5, 5]).sum(2) < 30          # el fondo de la plantilla
+    franja = next((y for y in range(H) if menta[y, 12]), 0)  # fin de la franja del título
+    vis = np.zeros((H, W), bool)
+    pintar = np.zeros((H, W), bool)
+    n = 0
+    for y in range(franja, H):
+        for x in range(W):
+            if not menta[y, x] or vis[y, x]:
+                continue
+            q, px, borde = deque([(y, x)]), [], False
+            vis[y, x] = True
+            while q:
+                cy, cx = q.popleft()
+                px.append((cy, cx))
+                if cy in (0, H - 1) or cx in (0, W - 1):
+                    borde = True
+                for ny, nx in ((cy + 1, cx), (cy - 1, cx), (cy, cx + 1), (cy, cx - 1)):
+                    if 0 <= ny < H and 0 <= nx < W and menta[ny, nx] and not vis[ny, nx]:
+                        vis[ny, nx] = True
+                        q.append((ny, nx))
+            if not borde and 300 < len(px) < 0.03 * H * W:
+                ys, xs = zip(*px)
+                pintar[list(ys), list(xs)] = True
+                n += 1
+    # 2 px de margen para comerse el antialias del borde (el contorno ya es berenjena).
+    crece = pintar.copy()
+    for dy in range(-2, 3):
+        for dx in range(-2, 3):
+            crece |= np.roll(np.roll(pintar, dy, 0), dx, 1)
+    b = np.array(img.convert('RGBA'))
+    b[crece, :3] = color[:3]
+    img.paste(Image.fromarray(b))
+    return n
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description='Monta la imagen del pilar despiece (objeto).')
     p.add_argument('--plantilla', required=True, help='PSD con los huecos transparentes')
@@ -274,6 +326,8 @@ def main() -> int:
     p.add_argument('--salida', required=True, help='PNG de salida')
     p.add_argument('--region', help='Región que sustituye a XXX en el título (VASCA, GALLEGA…)')
     p.add_argument('--fuente', default=FUENTE_DEF, help='Ruta al .ttf del título')
+    p.add_argument('--sin-relleno', action='store_true',
+                   help='Deja el centro y las ventanas de la llanta en menta (lo de antes del 16/09)')
     a = p.parse_args()
 
     plantilla = Image.open(a.plantilla).convert('RGBA')
@@ -316,6 +370,13 @@ def main() -> int:
             ImageDraw.Draw(out).rectangle([x0 - 6, y0 - 10, x1 + 6, y1 + 10], fill=berenjena)
             dibujar_titulo(out, titulo, a.region, a.fuente)
             print(f'  título: {titulo["texto"].replace(chr(10), " / ").replace(MARCADOR_REGION, a.region.upper())}')
+
+    if not a.sin_relleno:
+        n = rellenar_llanta(out, out.getpixel((12, 12)))
+        print(f'  relleno berenjena: {n} zonas (centro + ventanas)')
+        if n != 6:
+            print(f'⚠️  Esperaba 6 zonas (1 centro + 5 ventanas) y he pintado {n}: mira la imagen.',
+                  file=sys.stderr)
 
     out.convert('RGB').save(a.salida, 'PNG')
     print(f'\n✓ {a.salida}')

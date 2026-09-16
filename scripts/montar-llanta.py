@@ -23,7 +23,7 @@ QUÉ HACE, Y NADA MÁS:
 
 USO:
   python scripts/montar-llanta.py \
-      --plantilla "…/PLANTILLA OBJETO.psd" \
+      --plantilla "…/PELOTEO REGIONAL/DESPIECE/PLANTILLA AUTOMOCION v2.psd" \
       --logos "…/logos-despiece-euskadi" \
       --region VASCA \
       --salida "…/despiece-euskadi.png"

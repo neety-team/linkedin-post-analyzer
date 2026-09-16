@@ -609,8 +609,11 @@ export function sorteaEmoji(): string {
  */
 export function ponerEmojiAlFinal(texto: string, emoji?: string): string {
   const e = emoji || EMOJI_SEGUROS[Math.floor(Math.random() * EMOJI_SEGUROS.length)];
-  if (!emoji && EMOJI_RE.test(texto)) return texto;
-  return `${quitarEmojis(texto)} ${e}`;
+  if (!emoji && EMOJI_RE.test(texto)) return texto.replace(/(?<!\.)\.\s*(\p{Extended_Pictographic})/gu, ' $1');
+  // ⛔ Nunca un punto justo antes del emoji (Iker, 2026-09-16: "queda mal").
+  // Los puntos suspensivos si se quedan.
+  const sinPunto = quitarEmojis(texto).replace(/(?<!\.)\.\s*$/, '');
+  return `${sinPunto} ${e}`;
 }
 
 /**
@@ -619,28 +622,40 @@ export function ponerEmojiAlFinal(texto: string, emoji?: string): string {
  * ninguna, no se fuerza: alargar un sustantivo cualquiera es peor que no
  * alargar nada.
  */
+// Estas solo son reaccion cuando van SUELTAS (seguidas de coma, punto o fin):
+// "no, la lista…" si, pero "la empresa que nooo sale" es una negacion alargada
+// y suena a errata (prueba del 16/09). Igual "si" condicional, "ya" temporal,
+// "la cual", "una buena idea".
+const SOLO_SUELTAS = new Set([
+  'no', 'si', 'ya', 'nada', 'toma', 'hombre', 'vale', 'total', 'venga', 'cual', 'super', 'top',
+  'bueno', 'buena', 'eso',
+]);
+
+function alargable(w: string, despues: string, antes: string): boolean {
+  const b = llanoLetra(w);
+  if (!REACCION.has(b) || b.length < 2) return false;
+  // "eso" se deja alargar si lo escribe el modelo ("esooo" suelto), pero el
+  // codigo no lo elige: en mitad de la frase es un pronombre.
+  if (b === 'eso') return false;
+  if (b === 'cual' && /\btal\s*$/i.test(antes)) return true;
+  if (SOLO_SUELTAS.has(b)) return /^\s*([,.!…]|$)/.test(despues);
+  return true;
+}
+
 export function estirarUna(texto: string, letras = 2): string {
   if (contarEstiradas(texto) > 0) return texto;
   // Se elige una AL AZAR entre las que haya, no la primera (Iker, 2026-09-16:
   // "la palabra alargada no puede tener una posicion predecible").
-  const candidatas = (texto.match(/\p{L}+/gu) || []).filter((w) => {
-    const b = llanoLetra(w);
-    // "eso" se deja alargar si lo escribe el modelo ("esooo" suelto), pero el
-    // codigo no lo elige: en mitad de la frase es un pronombre ("esooo es
-    // bueno") y no suena a reaccion.
-    return REACCION.has(b) && b.length >= 2 && b !== 'eso';
-  });
+  const candidatas: number[] = [];
+  for (const m of texto.matchAll(/\p{L}+/gu)) {
+    const i = m.index ?? 0;
+    if (alargable(m[0], texto.slice(i + m[0].length), texto.slice(0, i))) candidatas.push(i);
+  }
   if (!candidatas.length) return texto;
-  const elegida = Math.floor(Math.random() * candidatas.length);
-  let vistas = -1;
-  let hecho = false;
-  return texto.replace(/\p{L}+/gu, (w) => {
-    if (hecho) return w;
+  const donde = candidatas[Math.floor(Math.random() * candidatas.length)];
+  return texto.replace(/\p{L}+/gu, (w: string, off: number) => {
+    if (off !== donde) return w;
     const base = llanoLetra(w);
-    if (!REACCION.has(base) || base.length < 2 || base === 'eso') return w;
-    vistas++;
-    if (vistas !== elegida) return w;
-    hecho = true;
     const plano = w.normalize('NFD').replace(/[̀-ͯ]/g, '');
     if (base === 'gracias') return plano.replace(/as$/i, 'a'.repeat(letras) + 's');
     // Se estira la ULTIMA VOCAL, no la ultima letra: "bien" -> "bieeen",
@@ -648,6 +663,42 @@ export function estirarUna(texto: string, letras = 2): string {
     const m = plano.match(/^(.*)([aeiou])([^aeiou]*)$/i);
     return m ? m[1] + m[2] + m[2].repeat(letras) + m[3] : w;
   });
+}
+
+// ⛔ COMA ANTES DE "Y" (Iker, 2026-09-16): "Sirimiri, y mientras tanto…" suena a
+// IA. Se quita en todas las superficies, no solo en las respuestas.
+export function quitarComaAntesDeY(texto: string): string {
+  return texto.replace(/,\s*(?<![\p{L}])([ye])(?![\p{L}])/giu, ' $1');
+}
+
+/** Hay alguna palabra de reaccion que se pueda alargar. */
+export function tieneReaccion(texto: string): boolean {
+  for (const m of texto.matchAll(/\p{L}+/gu)) {
+    const i = m.index ?? 0;
+    if (alargable(m[0], texto.slice(i + m[0].length), texto.slice(0, i))) return true;
+  }
+  return false;
+}
+
+// Las que le gustan a Iker (2026-09-16), ya alargadas, para cuando toca alargar
+// y la frase no trae ninguna palabra de reaccion.
+export const ALARGADAS_SUELTAS = ['Clarooo', 'Siii', 'Buenooo', 'Bieeen', 'Totaaal'];
+
+/**
+ * Como estirarUna, pero GARANTIZA una alargada: si la frase no tiene ninguna
+ * palabra de reaccion, abre con una suelta. En la tanda de Google Chat del
+ * 16/09 salieron 0 de 5 alargadas porque ninguna frase traia "claro", "muy" o
+ * "bien", y estirarUna no fuerza.
+ */
+export function forzarEstirada(texto: string, letras = 2, palabra?: string): string {
+  const r = estirarUna(texto, letras);
+  if (contarEstiradas(r) > 0) return r;
+  const p = palabra || ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
+  const resto = r.replace(/^\s+/, '');
+  // "Casi siempre…" -> "Buenooo, casi siempre…" (sin tocar siglas ni nombres
+  // propios que empiecen la frase: solo se baja si la segunda letra es minuscula)
+  const bajada = /^\p{Lu}\p{Ll}/u.test(resto) ? resto[0].toLowerCase() + resto.slice(1) : resto;
+  return `${p}, ${bajada}`;
 }
 
 export function quitarEmojis(texto: string): string {

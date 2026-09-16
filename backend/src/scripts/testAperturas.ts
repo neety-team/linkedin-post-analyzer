@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -270,6 +270,27 @@ ok(contarEstiradas(limitarEstiradas('claroo y bieen dicho')) === 1, 'claroo y bi
     peor = Math.max(peor, contarEstiradas(r2));
   }
   ok(peor <= 1, 'ninguna combinacion de frase, voz y sorteo deja dos alargadas', String(peor));
+}
+
+// Google Chat 16/09: punto antes del emoji, coma antes de "y" y 0 de 5 alargadas
+ok(ponerEmojiAlFinal('Eso también hay que contarlo.', '👏') === 'Eso también hay que contarlo 👏', 'nunca un punto antes del emoji', ponerEmojiAlFinal('Eso también hay que contarlo.', '👏'));
+ok(ponerEmojiAlFinal('Eso también hay que contarlo. 👏') === 'Eso también hay que contarlo 👏', 'quita el punto aunque el emoji lo pusiera el modelo');
+ok(ponerEmojiAlFinal('lo dejo ahí...', '👏') === 'lo dejo ahí... 👏', 'los suspensivos se quedan');
+ok(quitarComaAntesDeY('Sirimiri, y mientras tanto exportando') === 'Sirimiri y mientras tanto exportando', 'quita la coma antes de y');
+ok(quitarComaAntesDeY('Bilbao, Ermua, yo qué sé') === 'Bilbao, Ermua, yo qué sé', 'no toca "yo"');
+{
+  const r = forzarEstirada('Casi siempre la empresa que no sale en el anuncio es la que más trabajo tiene detrás.');
+  ok(contarEstiradas(r) === 1 && /^\p{Lu}\p{Ll}+, casi siempre/u.test(r), 'sin palabra de reaccion, abre con una alargada', r);
+  ok(contarEstiradas(forzarEstirada('pues claro que sí, muy bien dicho')) === 1, 'si hay de reaccion, alarga una de ellas');
+}
+{
+  let mal = 0;
+  for (let k = 0; k < 50; k++) {
+    const r = estirarUna('la empresa que no sale si ya la cual es una buena idea');
+    if (r !== 'la empresa que no sale si ya la cual es una buena idea') mal++;
+  }
+  ok(mal === 0, 'no alarga una negacion, un si condicional, un ya ni "la cual" en mitad de la frase');
+  ok(estirarUna('no, y encima encoge') === 'nooo, y encima encoge', 'el "no" suelto si se alarga', estirarUna('no, y encima encoge'));
 }
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);

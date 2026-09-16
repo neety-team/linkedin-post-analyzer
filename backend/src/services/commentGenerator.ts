@@ -4,6 +4,11 @@ import { stripLoneSurrogates } from '../utils/sanitizeText';
 import {
   detectarAperturaGenerica,
   limitarEstiradas,
+  quitarComaAntesDeY,
+  forzarEstirada,
+  tieneReaccion,
+  contarEstiradas,
+  ALARGADAS_SUELTAS,
   ponerEmojiAlFinal,
   quitarEmojis,
   comillasDeArranque,
@@ -337,7 +342,7 @@ Return ONLY the JSON object with keys: ${COMMENT_KEYS.map(k => `"${k}"`).join(',
     if (!parsed[key]) throw new Error(`Missing comment type: ${key}`);
     // Maximo UNA palabra alargada tambien aqui (Iker, 2026-09-16): la regla vale
     // en todas las superficies, no solo en respuestas y Google Chat.
-    parsed[key] = limitarEstiradas(parsed[key]);
+    parsed[key] = quitarComaAntesDeY(limitarEstiradas(parsed[key]));
   }
 
   return parsed;
@@ -455,12 +460,20 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
     emojiDe.set(i, e);
   }
   const conEstirar = new Set(reparte(Array.from({ length: n }, (_, i) => String(i)), n).map(Number).slice(0, nEstirar));
+  // La palabra alargada se ASIGNA, no se deja al modelo: con "lleva una palabra
+  // alargada" a secas, el 16/09 salieron 0 de 5.
+  const palabraDe = new Map<number, string>();
+  for (const i of conEstirar) {
+    let p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
+    while ([...palabraDe.values()].includes(p)) p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
+    palabraDe.set(i, p);
+  }
   const asignacion = angulos
     .map(
       (a, i) =>
         `${i + 1}. ANGULO: ${a}. ARRANQUE OBLIGATORIO: empieza por ${arranques[i]}. ${
           conEstirar.has(i)
-            ? `LLEVA UNA palabra alargada (solo una), ${['al principio', 'en medio', 'al final'][Math.floor(Math.random() * 3)]} de la frase.`
+            ? `LLEVA ESTA palabra alargada, tal cual y SOLO esta: "${palabraDe.get(i)!.toLowerCase()}", ${['al principio', 'en medio', 'al final'][Math.floor(Math.random() * 3)]} de la frase.`
             : 'SIN palabras alargadas.'
         } ${conEmoji.has(i) ? `TERMINA con este emoji: ${emojiDe.get(i)}` : 'SIN emoji.'}`
     )
@@ -534,7 +547,10 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (criticaNuestroPost(c) ? 'deja mal a nuestra propia publicacion' : null) ||
           (aperturaHueca(c) ? 'peloteo hueco de apertura' : null) ||
           (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
-          (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null),
+          (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null) ||
+          (conEstirar.has(out.indexOf(c)) && contarEstiradas(c) === 0 && !tieneReaccion(c)
+            ? `le tocaba la palabra alargada "${palabraDe.get(out.indexOf(c))}" y no la lleva`
+            : null),
       }))
       .filter((x) => x.que);
     // UNA LINEA MEJOR QUE DOS (Iker, 2026-09-16): en la prueba, 3 de 5 salieron
@@ -578,8 +594,8 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // alargada por comentario, y el emoji en el que le toco si el modelo no lo
   // puso.
   return out.map((c, i) => {
-    let r = limitarEstiradas(c);
-    if (conEstirar.has(i)) r = estirarUna(r, 2);
+    let r = quitarComaAntesDeY(limitarEstiradas(c));
+    if (conEstirar.has(i)) r = forzarEstirada(r, 2, palabraDe.get(i));
     r = conEmoji.has(i) ? ponerEmojiAlFinal(r, emojiDe.get(i)) : quitarEmojis(r);
     return r;
   });

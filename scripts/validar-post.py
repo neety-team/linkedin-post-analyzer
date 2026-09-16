@@ -87,7 +87,7 @@ VERBO_PREJUICIO_QUEMADO = {
     'fichada': '2026-07-31 Asturias (Unai)',
     'fichado': '2026-07-30 Euskadi (Iker)',
     'jubilada': '2026-07-31 Asturias (Unai)',
-    'la ven como': '2026-07-17 Navarra, Cataluña y Aragón',
+    'la ven como': '2026-07-17 Navarra, Cataluña y Aragón (Iker 30/06, Unai 17/07, Asier 14/07)',
     'la llaman': '2026-07-07 Álava (Unai)',
     'la conocen por': '2026-06-09 País Vasco (Unai)',
     'nadie habla': '2026-04-28 Gipuzkoa (Iker) y País Vasco (Unai)',
@@ -166,19 +166,35 @@ PROMESA_VOLUMEN = (r'(cientos de (leads|contactos|empresas|clientes)'
 # se queda en tres semanas, que son ~9 publicaciones de esa cuenta (3 veces las
 # "dos o tres" que pide Iker) y ~27 de la casa.
 #
-# ⛔ LA VENTANA SE CUENTA EN DIAS Y VALE PARA LAS 3 CUENTAS, no por cuenta. No es
-# un capricho: lo decidio Iker el 2026-08-25 con el caso delante ("aunque sea
-# otra cuenta, me da igual, hay que seguir sorprendiendo"), porque los 3 jefes
-# comparten red y el mismo lector ve los tres perfiles. Si algun dia se quiere
-# por cuenta, se cambia aqui y se anota el motivo.
+# 🔄🔄 LA VENTANA ES POR CUENTA (Iker, 2026-09-16, y manda sobre lo del 25/08).
+# Aqui ponia "vale para las 3 cuentas", sacado de un "aunque sea otra cuenta, me
+# da igual" del 25/08. Iker lo corrigio dos veces despues: "que dos o tres
+# publicaciones seguidas EN LA MISMA CUENTA no repitan esas mismas palabras"
+# (15/09) y "que esas palabras quemadas sean por cuenta y que pasado un
+# determinado tiempo caduquen" (16/09). Asi que:
+#   - bloquea (fallo duro) solo si la uso LA MISMA cuenta dentro de su ventana;
+#   - si la uso OTRA cuenta hace menos de VENTANA_OTRA_CUENTA_DIAS, sale un
+#     AVISO que no cuenta: el lector de los tres perfiles es el mismo y conviene
+#     verlo, pero no se prohibe.
+#   - sin --cuenta no se sabe quien publica, asi que bloquea como antes.
+# La cuenta se lee del propio texto de la entrada (Iker/Unai/Asier).
 #
-# ⛔ Y NO TODAS LAS LISTAS CADUCAN. Caducan las de RITMO, que se tocan cada
-# semana. `PAIS_QUEMADO`, `CONCEPTO_QUEMADO`, `FRASE_RABIA_USADA` y
-# `VERBO_PREJUICIO_QUEMADO` NO: esas son la identidad de un post concreto (la
-# comparacion de Navarra, el concepto de Galicia), crecen una vez al mes y
-# repetirlas se lee como refrito aunque pasen seis meses.
-VENTANA_ARRANQUE_DIAS = 21
-VENTANA_NINJA_DIAS = 30
+# ⛔ TODAS LAS LISTAS CADUCAN, tambien las de identidad del peloteo (ver
+# VENTANA_IDENTIDAD_DIAS). Lo unico que no caduca es un VETO: una entrada SIN
+# fecha, y solo se escribe sin fecha lo que esta prohibido por contenido (una
+# critica a España), nunca lo que simplemente ya se uso.
+#
+# ⛔ Y LOS CLICHES NO ESTAN EN NINGUNA LISTA, a proposito. Si una region se
+# vuelve a hacer, sus cliches tipicos se pueden volver a usar: son de la region,
+# no del post. Lo que rota es lo que INVENTAMOS (concepto, pais, frase-rabia,
+# verbo, arranque, ninja).
+# Cadencia MEDIDA en la BD el 2026-09-16 (desde el 01/06, Iker y Unai): dentro
+# de una cuenta, meme, lead magnet e historia salen cada ~7 dias; un peloteo
+# cada ~14; y la cuenta entera publica cada 1-3 dias.
+# "Dos o tres publicaciones seguidas" = 3 publicaciones de esa cuenta:
+VENTANA_ARRANQUE_DIAS = 21     # el arranque va por pilar: 3 x 7 dias
+VENTANA_NINJA_DIAS = 21        # el ninja va en casi todo; antes 30 (el minimo medido de REFERENCIAS, que no son ninjas)
+VENTANA_OTRA_CUENTA_DIAS = 7   # solo aviso: otra cuenta lo acaba de usar
 # 🔄 LAS LISTAS DE IDENTIDAD DEL PELOTEO TAMBIEN CADUCAN (Iker, 2026-09-16).
 # Hasta hoy pais, concepto, frase-rabia y verbo del prejuicio eran para siempre.
 # Iker: "lo importante es que dos o tres publicaciones seguidas no repitan... pero
@@ -190,6 +206,39 @@ VENTANA_NINJA_DIAS = 30
 VENTANA_IDENTIDAD_DIAS = 42
 
 _RE_FECHA_ENTRADA = re.compile(r'^(\d{4})-(\d{2})-(\d{2}) ')
+
+
+_CUENTAS = ('iker', 'unai', 'asier')
+AVISOS_OTRA_CUENTA = []
+
+
+def cuentas_de(valor):
+    """Las cuentas que nombra una entrada de lista ('2026-09-16 ... Asier')."""
+    return {c for c in _CUENTAS if re.search(r'(?<![a-z])' + c + r'(?![a-z])', valor, re.I)}
+
+
+def quemada(clave, valor, ventana_dias, cuenta=None, hoy=None):
+    """True si BLOQUEA a esta cuenta hoy (Iker, 2026-09-16: por cuenta y con caducidad).
+
+    Sin fecha = veto de contenido, bloquea siempre. Con fecha y fuera de la
+    ventana, libre. Dentro de la ventana, bloquea si la uso esta misma cuenta,
+    si la entrada no dice de quien era, o si no sabemos quien publica. Si fue
+    otra cuenta hace muy poco, se anota para un aviso que no cuenta.
+    """
+    import datetime
+    if not vigente(valor, ventana_dias, hoy):
+        return False
+    m = _RE_FECHA_ENTRADA.match(valor)
+    if not m:
+        return True
+    cs = cuentas_de(valor)
+    if not cuenta or not cs or cuenta.lower() in cs:
+        return True
+    pub = datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    dias = ((hoy or datetime.date.today()) - pub).days
+    if dias < VENTANA_OTRA_CUENTA_DIAS:
+        AVISOS_OTRA_CUENTA.append('"%s" (%s, hace %d dias)' % (clave, '/'.join(sorted(cs)), dias))
+    return False
 
 
 def vigente(valor, ventana_dias, hoy=None):
@@ -211,13 +260,13 @@ def vigente(valor, ventana_dias, hoy=None):
 
 SPAM_QUEMADO = {
     'dar con el que decide': '2026-07-31 meme Unai 29/07, historia Iker 29/07, mapa Asturias 31/07',
-    'son meses a mano': '2026-07-31 lo mismo, en los tres',
-    'te lo damos hecho': '2026-07-31 lo mismo, en los tres',
+    'son meses a mano': '2026-07-31 lo mismo, en los tres (Unai e Iker)',
+    'te lo damos hecho': '2026-07-31 lo mismo, en los tres (Unai e Iker)',
     'te lo damos resuelto': '2026-08-18 historia de Iker 18/08 (era la variante de "te lo damos hecho")',
     'te lo marcamos': '2026-08-19 meme de Iker 19/08 (el de la transcripcion de la llamada)',
     'acertar con quien no': '2026-08-21 historia de Unai 21/08 (la del evento en el ninja)',
     'saber quien compra': '2026-08-27 meme de Iker 27/08 (el de la ficha del cliente)',
-    'saber quien compra, no': '2026-08-27 lo mismo, la forma con la coma',
+    'saber quien compra, no': '2026-08-27 meme de Iker 27/08, la forma con la coma',
     # Con tilde tambien: el check compara por substring y NO pliega acentos,
     # asi que sin esta linea la lista no cazaba el texto real publicado.
     # Mismo patron que 'lo cuento en el correo antes que aqui/aquí'.
@@ -242,9 +291,9 @@ SPAM_QUEMADO = {
     'sí te lo damos, con su contacto': '2026-09-16 meme de Iker 16/09',
     'a recepción llega cualquiera': '2026-09-16 meme de Iker 16/09, la linea 1',
     'esa carretera acaba en una sala': '2026-09-15 "Los 10" de Gipuzkoa, Unai 15/09',
-    'los encuentras de uno en uno': 'lo mismo, la linea 1 del bloque',
+    'los encuentras de uno en uno': '2026-09-15 "Los 10" de Gipuzkoa, Unai 15/09, la linea 1 del bloque',
     'saber quien firma dentro': '2026-08-07 despiece de Navarra, Asier 07/08',
-    'saber quién firma dentro': 'lo mismo, la forma con tilde',
+    'saber quién firma dentro': '2026-08-07 despiece de Navarra, Asier 07/08, la forma con tilde',
     'nosotros sí, pero ya solo quedan': '2026-09-16 despiece de Bizkaia, Asier 16/09',
     'no te sienta en la sala del que': '2026-09-16 despiece de Bizkaia, Asier 16/09, la linea 1',
 }
@@ -257,17 +306,17 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
-    'uruguay': '2026-07-23 Murcia',
-    'bolivia': '2026-06-30 Navarra',
-    'croacia': '2026-06-16 Galicia',
-    'luxemburgo': '2026-06-02 Valencia',
-    'italia': '2026-05-13 Andalucía',
+    'uruguay': '2026-07-23 Murcia (Iker)',
+    'bolivia': '2026-06-30 Navarra (Iker)',
+    'croacia': '2026-06-16 Galicia (Iker)',
+    'luxemburgo': '2026-06-02 Valencia (Iker)',
+    'italia': '2026-05-13 Andalucía (Iker)',
     'portugal': '2026-04-30 Cataluña (Iker)',
-    'chipre': '2026-07-31 Asturias',
+    'chipre': '2026-07-31 Asturias (Unai)',
     'finlandia': '2026-07-17 Cataluña (Unai)',
-    'honduras': '2026-07-07 Álava',
-    'kenia': '2026-07-14 Aragón',
-    'paraguay': '2026-08-04 Castilla y León',
+    'honduras': '2026-07-07 Álava (Unai)',
+    'kenia': '2026-07-14 Aragón (Asier)',
+    'paraguay': '2026-08-04 Castilla y León (Iker)',
     'montenegro': '2026-08-07 Navarra, despiece de Asier',
     'jamaica': '2026-09-01 Cantabria, mapa de Asier',
     'noruega': '2026-09-16 Bizkaia, despiece de Asier',
@@ -331,17 +380,16 @@ ARRANQUE_QUEMADO = {
         'volvi': '2026-09-15 historia de Iker 15/09 ("Volvi al coche / Volvi a la lista / Volvi a mirarla")',
     },
     'mapa': {
-        'no': 'mapa de Navarra ("No paga las nominas San Fermin", swipe-file)',
+        'no': '2026-06-30 mapa de Navarra, Iker ("No paga las nominas San Fermin")',
     },
     # Estos dos salen de nuestro propio runbook (post-workflow 4.3), no de haber
     # releido el post: si algun dia se comprueban, se anota aqui.
     'los10': {
-        'no': '"Los 10" del Pais Vasco ("No publica. No da charlas.", swipe-file)',
-        'con': 'Gipuzkoa, Unai 15/09 ("Con el va un taller / alguien / la nomina")',
-        'aqui': 'Gipuzkoa, Unai 15/09 ("Aqui la sidra / Aqui el queso")',
-        'en': 'Gipuzkoa, Unai 15/09 ("En Mendaro / En Ordizia / En Beasain")',
-        'se': 'Asturias ("Se sabe... / Se sabe... / Se hace..."), via runbook',
-        'su': 'Andalucia ("Su / Su / Su"), via runbook',
+        'no': '2026-06-25 "Los 10" del Pais Vasco, Iker ("No publica. No da charlas.")',
+        'con': '2026-09-15 Gipuzkoa, Unai 15/09 ("Con el va un taller / alguien / la nomina")',
+        'aqui': '2026-09-15 Gipuzkoa, Unai 15/09 ("Aqui la sidra / Aqui el queso")',
+        'en': '2026-09-15 Gipuzkoa, Unai 15/09 ("En Mendaro / En Ordizia / En Beasain")',
+        'se': '2026-07-16 "Los 10" de Asturias, Iker ("Se sabe... / Se sabe... / Se hace...")',
     },
     # El pilar meme no tenia lista y es el que mas publica. Leidos los dos
     # publicados de la semana pasada (§0f: al PUBLICAR, no al entregar).
@@ -369,18 +417,18 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
-    'sitio de comer': '2026-07-30 Euskadi',
-    'desierto': '2026-07-23 Murcia',
-    'patio trasero': '2026-06-30 Navarra',
-    'esquina del atl': '2026-06-16 Galicia',
-    'museo minero': '2026-07-31 Asturias',
-    'ltima parada': '2026-07-17 Cataluña',
-    'trastienda del norte': '2026-07-07 Álava',
-    'secarral': '2026-07-14 Aragón',
+    'sitio de comer': '2026-07-30 Euskadi (Iker)',
+    'desierto': '2026-07-23 Murcia (Iker)',
+    'patio trasero': '2026-06-30 Navarra (Iker)',
+    'esquina del atl': '2026-06-16 Galicia (Iker)',
+    'museo minero': '2026-07-31 Asturias (Unai)',
+    'ltima parada': '2026-07-17 Cataluña (Unai)',
+    'trastienda del norte': '2026-07-07 Álava (Unai)',
+    'secarral': '2026-07-14 Aragón (Asier)',
     # SIN fecha a proposito: no es un concepto gastado, es un VETO (critica a
     # España). Una entrada sin fecha no caduca nunca.
     'pasillo de espa': 'descartado por Iker: critica a España',
-    'tejado de la pen': '2026-08-04 Castilla y León',
+    'tejado de la pen': '2026-08-04 Castilla y León (Iker)',
     'felpudo del pir': '2026-08-07 Navarra, despiece de Asier',
     'tendedero del cant': '2026-09-01 Cantabria, mapa de Asier',
     'garaje del norte': '2026-09-16 Bizkaia, despiece de Asier',
@@ -389,14 +437,14 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
-    'de vuelta al aeropuerto': '2026-07-30 Euskadi',
-    'y para de contar': '2026-07-23 Murcia',
-    'y poco m': '2026-06-30 Navarra',
-    'poco que rascar': '2026-07-31 Asturias',
-    'y a seguir': '2026-07-17 Cataluña',
-    'para irse': '2026-07-07 Álava',
-    'antes de seguir carretera': '2026-07-14 Aragón',
-    'y a otra cosa': '2026-08-04 Castilla y León',
+    'de vuelta al aeropuerto': '2026-07-30 Euskadi (Iker)',
+    'y para de contar': '2026-07-23 Murcia (Iker)',
+    'y poco m': '2026-06-30 Navarra (Iker)',
+    'poco que rascar': '2026-07-31 Asturias (Unai)',
+    'y a seguir': '2026-07-17 Cataluña (Unai)',
+    'para irse': '2026-07-07 Álava (Unai)',
+    'antes de seguir carretera': '2026-07-14 Aragón (Asier)',
+    'y a otra cosa': '2026-08-04 Castilla y León (Iker)',
     'nada m': '2026-08-07 Navarra, despiece de Asier',
     'a la autov': '2026-09-01 Cantabria, mapa de Asier',
     'y a casa': '2026-09-16 Bizkaia, despiece de Asier',
@@ -1620,7 +1668,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         _qa = ARRANQUE_QUEMADO.get(pilar, {})
         _rep = ([] if historico else
             sorted({a for a in _anaf if a in _qa
-                    and vigente(_qa[a], VENTANA_ARRANQUE_DIAS)}))
+                    and quemada(a, _qa[a], VENTANA_ARRANQUE_DIAS, cuenta)}))
         chk(not _rep, 'RITMO: el arranque de la anafora no esta quemado (§2.0b)',
             ('arranques de este post: %s. Repetido: %s. Rota el arranque: si el '
              'anterior empezaba por articulo, este que empiece por VERBO, por '
@@ -2221,15 +2269,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                         # §2.0b prohibe: la publicacion nueva tiene que notarse nueva.
                         # Lo que NO rota son las tres piezas; lo que rota es el VERBO
                         # y el orden. Al publicar, la frase usada entra aqui.
+                        # Fecha = la ULTIMA vez; caduca y va por cuenta (quemada()).
                         _EV_QUEMADA = {
-                            'montamos un evento presencial': 'Unai 02/09, Iker 08/09, Asier 09/09 y Unai 11/09 — cuatro veces LITERAL',
-                            'hacemos un evento presencial': 'Iker 01/09',
-                            'el jueves 24 hacemos': 'Iker, 15/09',
-                            'nos vemos en donostia para': 'Unai 24/08 y Asier 26/08',
-                            'tenemos evento presencial': 'Unai 15/09',
-                            'abrimos las puertas de un evento': 'Asier 16/09, despiece de Bizkaia',
+                            'montamos un evento presencial': '2026-09-11 Unai 02/09 y 11/09, Iker 08/09, Asier 09/09 — cuatro veces LITERAL',
+                            'hacemos un evento presencial': '2026-09-01 Iker 01/09',
+                            'el jueves 24 hacemos': '2026-09-15 Iker, 15/09',
+                            'nos vemos en donostia para': '2026-08-26 Unai 24/08 y Asier 26/08',
+                            'tenemos evento presencial': '2026-09-15 Unai 15/09',
+                            'abrimos las puertas de un evento': '2026-09-16 Asier 16/09, despiece de Bizkaia',
                         }
-                        _evq = [f for f in _EV_QUEMADA if f in _prev]
+                        _evq = [f for f in _EV_QUEMADA if f in _prev
+                                and quemada(f, _EV_QUEMADA[f], VENTANA_NINJA_DIAS, cuenta)]
                         chk(not _evq,
                             'EVENTO: la frase de contexto no esta quemada (§4.4b-EVENTO-CONTEXTO)',
                             ('"%s" ya salio en %s. Las tres piezas (24 · Donostia · presencial) '
@@ -2557,7 +2607,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         #    dicen lo mismo (4.4b lo lleva escrito desde el 31/07).
         _qc = ([] if historico else
                sorted(f for f in SPAM_QUEMADO_CORREO if f in _cj.lower()
-                      and vigente(SPAM_QUEMADO_CORREO[f], VENTANA_NINJA_DIAS)))
+                      and quemada(f, SPAM_QUEMADO_CORREO[f], VENTANA_NINJA_DIAS, cuenta)))
         chk(not _qc, 'Doble ninja: la frase del correo no esta quemada (§4.4e)',
             ' · '.join('"%s" ya salio en %s' % (f, SPAM_QUEMADO_CORREO[f]) for f in _qc))
 
@@ -2719,21 +2769,21 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # --historico apaga los checks de REINCIDENCIA (ver el flag en main): un
         # post ya publicado es QUIEN lleno estas listas, asi que compite contra si
         # mismo y falla siempre. No es un bug del validador ni del post.
-        _pais = [] if historico else sorted(p for p in PAIS_QUEMADO if p in hook_txt.lower() and vigente(PAIS_QUEMADO[p], VENTANA_IDENTIDAD_DIAS))
+        _pais = [] if historico else sorted(p for p in PAIS_QUEMADO if p in hook_txt.lower() and quemada(p, PAIS_QUEMADO[p], VENTANA_IDENTIDAD_DIAS, cuenta))
         chk(not _pais, 'GANCHO: el país de la comparación no está usado (§4.2 Paso 2)',
             ' · '.join(f'"{p}" fue {PAIS_QUEMADO[p]}' for p in _pais) +
             '. La comparacion es lo que se comparte, asi que repetir pais se nota mas '
             'que ninguna otra cosa. Busca otro con >=15% de margen y fuente oficial')
-        _conc = [] if historico else sorted(c for c in CONCEPTO_QUEMADO if c in hook_txt.lower() and vigente(CONCEPTO_QUEMADO[c], VENTANA_IDENTIDAD_DIAS))
+        _conc = [] if historico else sorted(c for c in CONCEPTO_QUEMADO if c in hook_txt.lower() and quemada(c, CONCEPTO_QUEMADO[c], VENTANA_IDENTIDAD_DIAS, cuenta))
         chk(not _conc, 'GANCHO: el concepto no está usado (§4.2 Paso 1)',
             ' · '.join(f'"{c}" fue {CONCEPTO_QUEMADO[c]}' for c in _conc) +
             '. El concepto se inventa nuevo por region, derivado de su GEOGRAFIA')
-        _rabia = [] if historico else sorted(f for f in FRASE_RABIA_USADA if f in hook_txt.lower() and vigente(FRASE_RABIA_USADA[f], VENTANA_IDENTIDAD_DIAS))
+        _rabia = [] if historico else sorted(f for f in FRASE_RABIA_USADA if f in hook_txt.lower() and quemada(f, FRASE_RABIA_USADA[f], VENTANA_IDENTIDAD_DIAS, cuenta))
         chk(not _rabia, 'GANCHO: la frase-rabia no está usada (§4.2 Paso 1)',
             ' · '.join(f'"{f}" fue {FRASE_RABIA_USADA[f]}' for f in _rabia) +
             '. El beat se mantiene siempre, las palabras cambian siempre')
         _quemados = [] if historico else sorted(v for v in VERBO_PREJUICIO_QUEMADO
-                           if re.search(r'\b' + v + r'\b', texto, re.I) and vigente(VERBO_PREJUICIO_QUEMADO[v], VENTANA_IDENTIDAD_DIAS))
+                           if re.search(r'\b' + v + r'\b', texto, re.I) and quemada(v, VERBO_PREJUICIO_QUEMADO[v], VENTANA_IDENTIDAD_DIAS, cuenta))
         chk(not _quemados,
             'GANCHO: el verbo del prejuicio no está quemado (§4.2 Paso 1)',
             ' · '.join(f'"{v}" ya salió en {VERBO_PREJUICIO_QUEMADO[v]}' for v in _quemados) +
@@ -2764,7 +2814,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # tras entregarlo mal aun teniendolo escrito desde el 23/07.
     _spam = ([] if historico else
              sorted(f for f in SPAM_QUEMADO if f in texto.lower()
-                    and vigente(SPAM_QUEMADO[f], VENTANA_NINJA_DIAS)))
+                    and quemada(f, SPAM_QUEMADO[f], VENTANA_NINJA_DIAS, cuenta)))
     chk(not _spam, 'SPAM NINJA: la frase no está quemada (§4.4b)',
         ' · '.join(f'"{f}" ya salió en {SPAM_QUEMADO[f]}' for f in _spam) +
         '. El dolor es el mismo siempre (dar con el cliente ideal, empresa Y persona) pero la '
@@ -3612,6 +3662,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'va a Iker, y si Iker ya tiene meme esa semana, a Asier. Si de verdad es '
             'sobrio, pasa --meme-sobrio y quedara constancia de que lo decidiste.')
 
+    if AVISOS_OTRA_CUENTA and not historico:
+        chk(True, 'QUEMADAS: otra cuenta lo acaba de usar, no bloquea (2.0b-VENTANA)',
+            'libre para esta cuenta, pero el lector de los tres perfiles es el mismo: '
+            + ' · '.join(sorted(set(AVISOS_OTRA_CUENTA))), aviso=True)
+    AVISOS_OTRA_CUENTA.clear()
     return r
 
 def _autochequeo():

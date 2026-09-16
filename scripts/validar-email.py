@@ -403,17 +403,32 @@ def main():
         # Al ENVIAR un correo, su linea de ninja entra aqui (misma doctrina que
         # SPAM_QUEMADO de validar-post.py: la lista describe lo YA publicado y el
         # disparador es el envio, no la entrega). El dolor no cambia; la frase si.
-        QUEMADAS = ('dar con el que decide', 'son meses a mano', 'te lo damos hecho',
-                    'te lo damos resuelto', 'te lo marcamos', 'acertar con quien no',
-                    # correo 2 · Iker · 2026-09-02 (la feria)
-                    'una feria te da tarjetas, no clientes',
-                    'el nombre de quien decide, nosotros',
-                    # correo 3 · Unai · 2026-09-09 (el evento)
-                    'nos juntamos sin ti solo si no te apuntas',
-                    'tan solo hay 80 sillas')
-        q = next((x for x in QUEMADAS if x in cuerpo_low), None)
+        # ⏳ CADUCAN (Iker, 2026-09-16: "que pasado un determinado tiempo caduquen").
+        # Fecha = ultima vez que salio, en post o en correo. Ventana: 3 correos
+        # seguidos, y sale uno por semana. NO va por remitente, a diferencia de
+        # LinkedIn: los cuatro remitentes escriben a la MISMA lista, asi que el
+        # mismo suscriptor lee los cuatro (email-marketing §7).
+        import datetime
+        VENTANA_CORREO_DIAS = 21
+        QUEMADAS = {
+            'dar con el que decide': '2026-07-31',
+            'son meses a mano': '2026-07-31',
+            'te lo damos hecho': '2026-07-31',
+            'te lo damos resuelto': '2026-08-18',
+            'te lo marcamos': '2026-08-19',
+            'acertar con quien no': '2026-08-21',
+            # correo 2 · Iker · la feria
+            'una feria te da tarjetas, no clientes': '2026-09-02',
+            'el nombre de quien decide, nosotros': '2026-09-02',
+            # correo 3 · Unai · el evento
+            'nos juntamos sin ti solo si no te apuntas': '2026-09-09',
+            'tan solo hay 80 sillas': '2026-09-09',
+        }
+        _hoy = datetime.date.today()
+        q = next((x for x, f in QUEMADAS.items() if x in cuerpo_low
+                  and (_hoy - datetime.date.fromisoformat(f)).days < VENTANA_CORREO_DIAS), None)
         if q:
-            checks.append(fallo(f'Ninja: frase QUEMADA "{q}" (§4.4b, el dolor no cambia y la frase sí)'))
+            checks.append(fallo(f'Ninja: frase QUEMADA "{q}", salio el {QUEMADAS[q]} y se libera a los {VENTANA_CORREO_DIAS} dias (§4.4b, el dolor no cambia y la frase sí)'))
         else:
             checks.append(ok('Ninja: sin frases quemadas'))
 

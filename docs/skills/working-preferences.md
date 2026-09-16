@@ -232,6 +232,10 @@ tipografía como los colores del nuevo brand book"*. **Un meme calcado sin nuest
 tipografía es el meme de otro con nuestro chiste**: lo único que lo hace nuestro es
 cómo está escrito. Las dos cosas van al validador como aviso de entrega.
 
+## ⛔⛔ 1h-DIA · EL DÍA NO SE PREGUNTA: SE PUBLICA HOY (Iker, 2026-09-16) — GLOBAL
+
+**Todo lo que se prepara se publica el mismo día en que Iker lo cierra conmigo**, salvo que él diga otra cosa, esté de vacaciones o ya sea muy tarde. Iker: *"siempre las cosas se publican el día en el que hablo contigo, a menos que te diga lo contrario"*. **El fallo:** el 16/09 tuve tres turnos seguidos la pregunta *"¿hoy o el 17?"* en los pendientes. **No se pregunta el día; se pregunta la HORA** (abajo), y el `ddmes` del UTM es el de ese día. Si hay algo del calendario que choca (una cuenta que publicó ayer), se avisa en una línea, no se deja abierto como pregunta.
+
 ## ⛔⛔ 1h · ANTES DE QUE SUBA NADA, PREGUNTARLE LA HORA (Iker, 2026-08-11) — GLOBAL
 
 **En cuanto Iker diga que el post ya está o que lo va a subir, hay que preguntarle

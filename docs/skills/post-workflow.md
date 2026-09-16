@@ -548,6 +548,7 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 ### 4.3 · Runbook "LOS 10" (encadenado) — RECETA DEFINITIVA
 > **Casi idéntico al mapa (§4.2)** en formato y flujo (hook → cuerpo → menciones → spam ninja → cierre punchy). La diferencia de fondo: **la importancia va a las PERSONAS, no a la región.**
 > **Input del usuario:** SOLO la región (o sector) — **si no te la da, pídesela primero** (igual que el mapa). El resto lo verifica y rellena el workflow.
+> ⛔ **La orla se entrega SIN el aviso de desenfoque ni de exportar sin metadatos** (Iker, 2026-09-16): la monta `montar-orla.py` sobre su plantilla (`images §0a-penta`).
 > **Diferencias de OUTPUT vs mapa:** (a) **NO hay CSV** (no se dibuja mapa) · (b) en su lugar, las **10 FOTOS en un ZIP/carpeta, en el ORDEN de mención** (el usuario las mete en SU plantilla de imagen con otra herramienta) · (c) **los 2 PROMPTS de imagen** literales, adaptados a la región (Paso 6b) · (d) el resto igual: texto copy-ready + guía de menciones con enlaces.
 
 **Paso 0 — Región + guardarraíles:** **PREGUNTA PRIMERO PARA QUÉ CUENTA ES** (igual que el mapa, §4.2). Los guardarraíles son los mismos y **todos se miden POR CUENTA**:
@@ -2572,6 +2573,7 @@ Acceso libre.
 - 🔴 **El desenfoque de postproducción va SOLO sobre la plantilla, una vez.** Las imágenes de cada región las compone el script y no llevan firma de generador, igual que "Los 10".
 
 **OUTPUT FINAL de este pilar (SOLO esto, Iker, 2026-07-30):**
+> ⛔ **SIN el aviso de desenfoque ni de exportar sin metadatos** (Iker, 2026-09-16): la imagen la monta `montar-llanta.py` sobre su plantilla, que ya lleva la postproducción hecha (`images §0a-penta`).
 1. **El TEXTO** del post en bloque cercado, para copiarlo con el botón.
 2. **La GUÍA DE MENCIONES**, en tabla markdown **fuera de bloque cercado** (si no, los enlaces no se pueden pulsar), con las 12 fichas **en el mismo orden que el post** y estas 4 columnas: **Pieza | Empresa (enlace) | Persona (enlace) | Cargo · última actividad**. Si la ficha no lleva persona, la columna dice **por qué** (nadie con cargo, o su última actividad a X días). Los enlaces salen de `public_identifier`, nunca del nombre (`§4.2` Paso 4). Los `|` de los nombres con tagline **se quitan en la tabla** (rompen las columnas); en el post van enteros. Mismo formato que la de "Los 10" (`§4.3`), fijado el 16/09 al entregar el despiece de Bizkaia.
 3. **La IMAGEN** ya montada, **MOSTRADA en el chat** y **guardada en `Documents/Mario/LINKEDIN GROWTH/PELOTEO REGIONAL/DESPIECE/`** con la convencion de esa carpeta: minusculas, espacios y sin acentos, con el SECTOR delante (`automocion euskadi.png`, `alimentacion galicia.png`). El sector y no la palabra "objeto", que es jerga interna y no dice nada al abrir la carpeta (Iker, 2026-07-30).

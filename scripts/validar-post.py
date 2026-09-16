@@ -96,6 +96,7 @@ VERBO_PREJUICIO_QUEMADO = {
     'todos ven': '2026-06-02 Valencia (Iker)',
     'archivan': '2026-08-07 Navarra, despiece de Asier',
     'dan por visto': '2026-09-01 Cantabria, mapa de Asier',
+    'reducen': '2026-09-16 Bizkaia, despiece de Asier',
 }
 
 # §4.2 Paso 1 — la frase-rabia es el motor: sin ella el local no siente el
@@ -244,6 +245,8 @@ SPAM_QUEMADO = {
     'los encuentras de uno en uno': 'lo mismo, la linea 1 del bloque',
     'saber quien firma dentro': '2026-08-07 despiece de Navarra, Asier 07/08',
     'saber quién firma dentro': 'lo mismo, la forma con tilde',
+    'nosotros sí, pero ya solo quedan': '2026-09-16 despiece de Bizkaia, Asier 16/09',
+    'no te sienta en la sala del que': '2026-09-16 despiece de Bizkaia, Asier 16/09, la linea 1',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -267,6 +270,7 @@ PAIS_QUEMADO = {
     'paraguay': '2026-08-04 Castilla y León',
     'montenegro': '2026-08-07 Navarra, despiece de Asier',
     'jamaica': '2026-09-01 Cantabria, mapa de Asier',
+    'noruega': '2026-09-16 Bizkaia, despiece de Asier',
 }
 
 # 4.4e - FRASES QUEMADAS DEL SEGUNDO NINJA, EL DEL CORREO. Misma logica que
@@ -356,6 +360,8 @@ ARRANQUE_QUEMADO = {
     'objeto': {
         'lo': '2026-07-30 despiece de Euskadi, Iker ("Lo asocias al monte / a la sidreria / a que llueve")',
         'es': '2026-08-07 despiece de Navarra, Asier ("Es el pacharan... / Es el Camino...")',
+        'las': '2026-09-16 despiece de Bizkaia, Asier ("Las piezas salen de Zamudio / de Berriz / de Gernika")',
+        'eso': '2026-09-16 despiece de Bizkaia, Asier ("Eso no lo paga el txakoli / Eso lo paga un turno")',
     },
     'leadmagnet': {
         'ninguno': '2026-08-26 lead magnet de Iker 26/08 ("Ninguno es de redaccion / de personalizacion / se arregla escribiendo mejor")',
@@ -377,6 +383,7 @@ CONCEPTO_QUEMADO = {
     'tejado de la pen': '2026-08-04 Castilla y León',
     'felpudo del pir': '2026-08-07 Navarra, despiece de Asier',
     'tendedero del cant': '2026-09-01 Cantabria, mapa de Asier',
+    'garaje del norte': '2026-09-16 Bizkaia, despiece de Asier',
 }
 
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
@@ -392,6 +399,7 @@ FRASE_RABIA_USADA = {
     'y a otra cosa': '2026-08-04 Castilla y León',
     'nada m': '2026-08-07 Navarra, despiece de Asier',
     'a la autov': '2026-09-01 Cantabria, mapa de Asier',
+    'y a casa': '2026-09-16 Bizkaia, despiece de Asier',
 }
 
 # §4.5.0a — MOLDE B del lead magnet: Claude (o yo) + VERBO PUNCHY + resultado.
@@ -2219,13 +2227,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                             'el jueves 24 hacemos': 'Iker, 15/09',
                             'nos vemos en donostia para': 'Unai 24/08 y Asier 26/08',
                             'tenemos evento presencial': 'Unai 15/09',
+                            'abrimos las puertas de un evento': 'Asier 16/09, despiece de Bizkaia',
                         }
                         _evq = [f for f in _EV_QUEMADA if f in _prev]
                         chk(not _evq,
                             'EVENTO: la frase de contexto no esta quemada (§4.4b-EVENTO-CONTEXTO)',
                             ('"%s" ya salio en %s. Las tres piezas (24 · Donostia · presencial) '
-                             'no se tocan; lo que rota es el VERBO y el orden. Libres: tenemos, '
-                             'abrimos, nos juntamos, nos sentamos' % (_evq[0], _EV_QUEMADA[_evq[0]]))
+                             'no se tocan; lo que rota es el VERBO y el orden. Libres: '
+                             'nos juntamos, nos sentamos, os esperamos' % (_evq[0], _EV_QUEMADA[_evq[0]]))
                             if _evq else '')
                 # 4.4b-EXPLICITO (Iker, 2026-08-27) - LA LINEA DEL ENLACE SE LEE SOLA.
                 # El vicio: el tope de 55 caracteres empuja a tachar el complemento
@@ -2664,6 +2673,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(not _loc, 'GANCHO: sin vocabulario ni grafia LOCAL, lo entiende cualquiera (4.0d)',
             'en el gancho: %s. Al gancho, el sitio o el cliche que conoce toda España; '
             'lo de alli, al cuerpo' % sorted(set(x.lower() for x in _loc)) if _loc else '')
+    # ---------- GENERO DE LAS PALABRAS LOCALES (Iker, 2026-09-16) ----------
+    # Se colo 'La sirimiri' en el despiece de Bizkaia y la RAE lo da como
+    # MASCULINO ('el sirimiri'). Lo corrigio Iker a mano antes de publicar. La
+    # palabra de alli se escribe como la escribe el castellano de alli, y el
+    # genero se mira en la RAE antes de usarla. Se amplia cuando se cuele otra.
+    _GEN_MAL = re.compile(r'\b(?:la|una|esa|esta)\s+(sirimiri|chirimiri|txirimiri|txakoli|chacol[ií]|pachar[aá]n|txoko|caser[ií]o)\b', re.I)
+    _gm = _GEN_MAL.findall(texto)
+    chk(not _gm, 'GENERO: la palabra local va con su articulo (RAE)',
+        ('%s es masculino: el sirimiri, el txakoli, el pacharan, el txoko, el caserio' % sorted(set(g.lower() for g in _gm))) if _gm else '')
     # ---------- GANCHO DEL PELOTEO (§4.2 Paso 1) ----------
     # Mecanizado el 2026-07-30 porque como criterio se me olvidaba.
     # SOLO mapa y objeto. "Los 10" NO usa el gancho de prejuicio regional: su

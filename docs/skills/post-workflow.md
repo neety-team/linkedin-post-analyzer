@@ -110,6 +110,7 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 7. **Las DOS menciones siempre que haya persona** (`§4.3` Paso 2), con los nombres exactos de LinkedIn, tagline incluido.
 
 **4 · LOS CLICHÉS, IGUAL EN LOS TRES.** En el gancho van **los 2 más universales**. En el cuerpo van **otros, más locales, y como mínimo 8 guiños** (medido en el mapa: Navarra, 10 guiños → 79.224; Asturias, 4 → 2.297). **Los pueblos van con su oficio** y salen de las propias fichas (`global §4.1` 2b). ~~"4-8"~~ era la cifra vieja y seguía escrita en `global §4.1` y en `§4.3` Paso 3b.
+   - **⛔ El GÉNERO de la palabra local se mira en la RAE antes de escribirla (Iker, 2026-09-16).** Se me coló *"La sirimiri"* en el despiece de Bizkaia; es **el sirimiri**, masculino, y lo corrigió Iker a mano antes de publicar: *"a mí no sé por qué me sonaba raro, ya que yo no soy vasco"*. **Un cliché con el artículo mal delata al de fuera**, que es justo lo contrario de lo que busca el guiño. Mecanizado: fallo duro `GENERO: la palabra local va con su articulo`, con sirimiri, txakoli, pacharán, txoko y caserío.
 
 **5 · EL FINAL, EN ESTE ORDEN EN LOS TRES:** lista → cuerpo con clichés y pueblos → **reveal tardío** con frase nueva → **barrido geográfico** en una línea corta → **línea de contexto del evento** si el enlace es Luma → **el bloque del enlace** → **cierre punchy** que rebota contra el concepto.
 

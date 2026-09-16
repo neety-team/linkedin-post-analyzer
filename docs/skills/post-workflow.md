@@ -3059,6 +3059,8 @@ P3   EL AFORISMO. Más corto que P1 y P2. Es lo que se comparte.
 1. **Negación + afirmación** — `No es X. Es Y.` El más frecuente. De Grant: *"The cure for ignorance is not information. It's humility and curiosity."*
 2. **Afirmación tajante** sobre un colectivo. De Grant: *"Too many mediocre men talk over capable women."*
 3. **Vocativo de regañina al jefe** — `Hey leaders:` / `Dear leaders:`, 2 de 14. Traducido: **`Directores comerciales:`**. Es el que más cerca queda de nuestro ICP y del motor de rabia que ya sabemos que funciona.
+   - **⛔ Si la referencia lo lleva, el vocativo NO se quita (Iker, 2026-09-16).** Lo quité en la primera tarjeta por miedo a regañar al comprador y Iker lo echó en falta: es lo que coloca la tarjeta y trae el ancla de ventas gratis. Y la cita del jefe se usa **en su versión española ya hecha** (`"No me traigas problemas, tráeme soluciones"`), nunca retocada. Detalle en `brand-voice §3c-CALCO`.
+   - **La primera tarjeta usó la de Grant `Hey leaders` (1.582 reposts, 2,03x).** Revisadas también 42 de Hormozi: la única con palabra de ventas es `Dear younger me: The less a customer pays, the more problems they will cause` (195 reposts, 1,82x), y queda **libre para una tarjeta futura**.
 
 **El tema: las 14 atacan una creencia del MUNDO DEL TRABAJO.** Ni producto, ni empresa, ni "yo". En cuanto la tarjeta habla de Neety, deja de ser este formato.
 

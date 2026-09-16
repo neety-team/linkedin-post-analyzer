@@ -322,6 +322,18 @@ que cumple lo mismo, es 16 caracteres más corto y **además es lo que diría un
 
 **Y el test se hace en alto, de verdad, no leyendo por encima.** Si al decirla tropiezas o te suena a traducción, está mal aunque el validador dé 50/50. **El script mide la forma; el oído es lo único que mide el idioma.**
 
+### ⛔⛔ 3c-CALCO · UN REMIX DEL INGLÉS NO PUEDE SONAR A TRADUCCIÓN (Iker, 2026-09-16) — GLOBAL
+
+> **Iker, sobre la primera tarjeta:** *"no me suena bien el español… no sé si hemos escogido la mejor referencia o es que el español está mal redactado y suena raro al haberlo traducido casi tal cual del inglés"*.
+
+**Era el español, no la referencia.** Tres fallos míos en tres líneas, y los tres se repiten en cualquier remix del inglés:
+1. **Calcar el verbo en vez de la frase.** `doesn't eliminate problems` → `no elimina las excusas` es inglés con palabras españolas. Lo que diría alguien: **`no acaba con los problemas`**.
+2. **Retocar una frase que YA EXISTE en español.** El original cita `"Don't bring me problems, bring me solutions"`, y en castellano esa frase **existe tal cual**: `"No me traigas problemas, tráeme soluciones"`. Yo la cambié a `excusas / pedidos` para anclarla a ventas y **perdió lo único que la hacía funcionar: que el lector la ha oído mil veces**. Si la cita del original tiene equivalente hecho en español, **se usa el hecho, palabra por palabra**, y el ancla de ventas se pone en otra parte de la frase.
+3. **Quitar la pieza que dice a quién se le habla.** `Hey leaders:` se fue fuera y era lo que colocaba la tarjeta. Quedó en **`Directores comerciales:`**, que además trae el ancla de ventas que yo había ido a buscar deformando la cita.
+- **Y el remate inventado suena peor que el calcado bien dicho:** `"Tráeme la excusa y la convertimos en pedido"` (nadie convierte una excusa en un pedido) → `"Tráeme problemas, siempre y cuando quieras ser parte de la solución"`, que es el original dicho como lo diría Iker.
+
+**El test, antes de entregar cualquier remix del inglés:** léelo en voz alta y pregúntate **si un director comercial de Bilbao lo diría así sin haber leído el original**. Si suena a subtítulo, se reescribe desde la idea, no desde las palabras.
+
 **Test de leer en voz alta (correr en cada cuerpo antes de entregar):** léelo mentalmente en voz alta. Cualquier frase que un founder real NUNCA diría en voz alta a un colega — demasiado equilibrada, abstracta, "LinkedIn-corporate" — se reescribe como lo diría de verdad. Si te daría vergüenza decir la frase en voz alta en un bar, sigue siendo demasiado robótica.
 
 ---

@@ -303,11 +303,10 @@ const pausa = () => new Promise((r) => setTimeout(r, ANALYTICS_PAUSE_MS));
 // 2 dias gasta asi 4 llamadas al dia, no 96.
 const reintentarAnaliticaReciente = (id: string) =>
   pool.query(`UPDATE posts SET premium_analytics_at = NOW() WHERE id = $1`, [id]);
+// Un intento fallido cuenta como lectura: se reintenta en el siguiente
+// intervalo de su edad (2, 7 o 14 dias), sin bloquear la cola.
 const reintentarAnaliticaVieja = (id: string) =>
-  pool.query(
-    `UPDATE posts SET premium_analytics_at = NOW() - INTERVAL '6 days' WHERE id = $1`,
-    [id]
-  );
+  pool.query(`UPDATE posts SET premium_analytics_at = NOW() WHERE id = $1`, [id]);
 
 async function refrescarAnaliticaPostsRecientes(candidates: any[]): Promise<number> {
   // CADENCIA POR EDAD (Iker, 2026-09-17, segunda vuelta). Con 6h fijas, un post
@@ -367,8 +366,14 @@ async function refrescarAnaliticaPostsViejos(): Promise<number> {
         AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
         AND p.published_at <  NOW() - INTERVAL '7 days'
         AND p.published_at >  NOW() - ($1 || ' days')::interval
+        -- CADENCIA POR EDAD (2026-09-17): con 7 dias fijos, el mapa de Asier
+        -- del 01/09 tenia 7 envios guardados y 14 en LinkedIn. Un post de 1 a 4
+        -- semanas sigue vivo: cada 2 dias; hasta 90, semanal; luego, quincenal.
         AND (p.premium_analytics_at IS NULL
-             OR p.premium_analytics_at < NOW() - INTERVAL '7 days')
+             OR p.premium_analytics_at < NOW() - CASE
+                  WHEN p.published_at > NOW() - INTERVAL '30 days' THEN INTERVAL '2 days'
+                  WHEN p.published_at > NOW() - INTERVAL '90 days' THEN INTERVAL '7 days'
+                  ELSE INTERVAL '14 days' END)
       ORDER BY p.premium_analytics_at ASC NULLS FIRST
       LIMIT $2`,
     [String(OLD_ANALYTICS_MAX_AGE_DAYS), ANALYTICS_OLD_PER_TICK]

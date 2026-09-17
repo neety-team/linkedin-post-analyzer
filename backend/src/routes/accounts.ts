@@ -1678,6 +1678,9 @@ router.get('/analytics', async (req: Request, res: Response) => {
          LEFT JOIN posts p ON p.creator_id = c.id
            AND p.published_at >= $1 AND p.published_at <= $2
            AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
+           -- Los ocultos fuera, como en el resto de la pantalla (antes la tabla
+           -- sumaba 30 posts con el KPI en 26).
+           AND p.deleted_from_linkedin_at IS NULL
          WHERE c.is_managed = TRUE${filtroManual}
          GROUP BY c.id
          ORDER BY avg_engagement DESC`,

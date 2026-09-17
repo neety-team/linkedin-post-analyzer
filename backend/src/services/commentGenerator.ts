@@ -4,6 +4,7 @@ import { stripLoneSurrogates } from '../utils/sanitizeText';
 import {
   detectarAperturaGenerica,
   limitarEstiradas,
+  quitarIncisosSueltos,
   quitarComaAntesDeY,
   forzarEstirada,
   tieneReaccion,
@@ -594,7 +595,8 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // alargada por comentario, y el emoji en el que le toco si el modelo no lo
   // puso.
   return out.map((c, i) => {
-    let r = quitarComaAntesDeY(limitarEstiradas(c));
+    // Antes de limitar: si no, la alargada mal puesta se queda huerfana (18/09).
+    let r = quitarComaAntesDeY(limitarEstiradas(quitarIncisosSueltos(c)));
     if (conEstirar.has(i)) r = forzarEstirada(r, 2, palabraDe.get(i));
     r = conEmoji.has(i) ? ponerEmojiAlFinal(r, emojiDe.get(i)) : quitarEmojis(r);
     return r;

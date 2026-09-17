@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -325,6 +325,38 @@ ok(quitarComaAntesDeY('Bilbao, Ermua, yo qué sé') === 'Bilbao, Ermua, yo qué 
   }
   ok(mal === 0, 'no alarga una negacion, un si condicional, un ya ni "la cual" en mitad de la frase');
   ok(estirarUna('no, y encima encoge') === 'nooo, y encima encoge', 'el "no" suelto si se alarga', estirarUna('no, y encima encoge'));
+}
+
+// 15d. ASENTIMIENTOS APILADOS E INCISOS SUELTOS (Iker, 2026-09-18), con las
+//      respuestas reales de la tanda contra produccion del 17/09.
+console.log('\n15d · un solo asentimiento y ningun inciso suelto');
+ok(asentimientosAlPrincipio(' exactooo, claro y tanto, aunque lo que más sorprende') >= 2, 'caza "exactooo, claro y tanto"');
+ok(asentimientosAlPrincipio(' clarooo, ese es el tema') === 1, 'uno solo no salta');
+ok(asentimientosAlPrincipio(' claro que sí, la lista encoge') === 1, '"claro que sí" es uno');
+ok(asentimientosAlPrincipio(' pues siii, a veces es el precio') === 1, '"pues siii" es uno');
+ok(asentimientosAlPrincipio(' claro, si lo piensas es el precio') === 1, 'el "si" condicional no cuenta');
+ok(incisoDeAsentir(' pues geniaaal, el filtro, tal cual, siempre lo pone alguien') === 'tal cual', 'caza ", tal cual," en mitad');
+ok(incisoDeAsentir(' siii, llegar al que firma, claro, es la mitad') === 'claro', 'caza ", claro," en mitad');
+ok(incisoDeAsentir(' pues exacto, tal cual, la lista encoge') === null, 'en el arranque no es inciso');
+ok(incisoDeAsentir(' lo tengo claro, pero la lista encoge') === null, '"lo tengo claro, pero" es castellano normal');
+ok(incisoDeAsentir(' está bien, total, que al final encoge') === null, 'no toca "bien" ni "total"');
+ok(alargadaFueraDeSitio(' justooo, el interlocutor bieeen, que casi siempre') === 'bieeen', 'caza la alargada fuera de sitio');
+ok(alargadaFueraDeSitio(' pues siii, a veces es el precio') === null, 'la de su sitio no salta');
+ok(problemaDeEstilo('Gran post', 'Sara Molina exactooo, claro y tanto, aunque el foco va al precio', 'Sara Molina') !== null, 'problemaDeEstilo reintenta el apilado');
+ok(problemaDeEstilo('Gran post', 'Nerea Uriarte pues geniaaal, el filtro, tal cual, siempre lo pone alguien que no firma', 'Nerea Uriarte') !== null, 'problemaDeEstilo reintenta el inciso');
+ok(problemaDeEstilo('Gran post', 'Luis Gómez pues siii, a veces es el precio y aun así casi siempre hay algo antes', 'Luis Gómez') === null, 'la buena pasa');
+{
+  const a = quitarIncisosSueltos(' justooo, el interlocutor bieeen, que casi siempre es quien no firma nada.');
+  ok(a === ' justooo, el interlocutor, que casi siempre es quien no firma nada.', 'quita la alargada huerfana con su coma', a);
+  const b = quitarIncisosSueltos(' pues geniaaal, el filtro, tal cual, siempre lo pone alguien.');
+  ok(b === ' pues geniaaal, el filtro, siempre lo pone alguien.', 'quita el inciso suelto', b);
+  const c = quitarIncisosSueltos(' el comercial busca, sí, antes de culpar al precio.');
+  ok(c === ' el comercial busca, sí, antes de culpar al precio.', 'no toca lo que no es inciso de asentir', c);
+}
+ok(forzarEstirada('totalmente, la lista encoge', 2, 'claro', false) === 'clarooo, la lista encoge', 'la alargada sustituye al "totalmente" del arranque', forzarEstirada('totalmente, la lista encoge', 2, 'claro', false));
+{
+  const { prompt } = buildPrompt(base as any, 'cercano');
+  ok(prompt.includes('nunca va como inciso'.toUpperCase().slice(0, 0)) && /NUNCA va como inciso/.test(prompt), 'el prompt prohibe el inciso de asentir');
 }
 
 // RULE 3g (Iker, 2026-09-17): el comentario de Antonio N. en el meme, y lo que salio.

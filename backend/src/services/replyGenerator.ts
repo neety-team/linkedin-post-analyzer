@@ -321,6 +321,17 @@ export function buildPrompt(
   // 2026-09-18): el asentimiento puede caer en cualquier sitio y la alargada
   // solo tiene dos. La palabra alargada la decide el sorteo de ALARGAR.
   const asent = ASENTIMIENTOS[Math.floor(Math.random() * ASENTIMIENTOS.length)];
+  // Palabra y sitio sorteados (Iker, 2026-09-18: "repites mucho claro con
+  // varias oes" y "las colocas en posiciones que no tienen sentido"). La palabra
+  // no repite ninguna de las ultimas del mismo post, y el sitio es uno de los
+  // DOS que valen; el codigo quita la que caiga en otro (sitioAlargable).
+  // Si el asentimiento sorteado es de los alargables, ES la palabra: el 17/09
+  // salio "tal cuaaal, te compro eso, tal cual" por sortear las dos por separado.
+  const recientes = input.postId ? (ALARGADAS_POR_POST.get(input.postId) || []) : [];
+  const libres = PALABRAS_ALARGAR.filter((p) => !recientes.includes(p) && p !== asent);
+  const palabraAlargar = PALABRAS_ALARGAR.includes(asent) && !recientes.includes(asent)
+    ? asent
+    : (libres.length ? libres : PALABRAS_ALARGAR)[Math.floor(Math.random() * (libres.length || PALABRAS_ALARGAR.length))];
 
   // Las aperturas que ya se han usado en ESTE post, para que el sorteo no las
   // repita dentro de la misma tanda (ver `APERTURAS_POR_POST` mas abajo).
@@ -334,7 +345,10 @@ export function buildPrompt(
   const varietyNudge = `OPENING MOVE for THIS reply (RULE 10), decided for you: ${move}. Use THAT one. Only if the comment makes it genuinely impossible, pick a DIFFERENT move from the list — never fall back to whatever you'd have written anyway.
 ARRANQUE OBLIGATORIO de esta respuesta: justo despues del nombre, empieza por ${elegido.arranque}. Esto no es una sugerencia y no se negocia con el contenido: si no te encaja, cambia el contenido, no el arranque.
 ⛔ DOS EXCEPCIONES, y las dos mandan sobre el arranque sorteado: (a) SI EL COMENTARIO ES UN ELOGIO, lo primero es el GRACIAS (RULE 13); (b) SI EL COMENTARIO DICE QUE NO ENTIENDE EL POST, lo primero es quitarle hierro (RULE 3c-bis): "no pasa nada", "normal", "culpa mia". En los dos casos el arranque sorteado se aplica DESPUES o no se aplica. Son los dos unicos sitios donde la variedad pierde, y pierde a proposito.
-IF your reply agrees with the commenter, the agreement word for THIS reply is "${asent}" — use that one and no other, literal, sin convertirla en adverbio ("exactamente" esta PROHIBIDA).
+${estirar
+  ? `UNA SOLA PALABRA DE ASENTIR EN TODA LA RESPUESTA (Iker, 2026-09-18): si asientes, la palabra es la ALARGADA de esta respuesta ("${alargarPalabra(palabraAlargar, 2)}") y NO se le suma ninguna otra ("claro", "exacto", "y tanto", "tal cual", "totalmente"...). Nada de "exactooo, claro y tanto".`
+  : `IF your reply agrees with the commenter, the agreement word for THIS reply is "${asent}": use that one and no other, literal, UNA sola vez y al principio, sin convertirla en adverbio ("exactamente" esta PROHIBIDA).`}
+⛔ Una palabra de asentir NUNCA va como inciso en mitad de la frase ("el filtro, tal cual, siempre lo pone", "el comercial busca justo, antes de...") ni pegada a otra ("claro y tanto"). Si no asientes, no la metas.
 ⛔ Y recuerda la RULE 10b: no se abre con una abstraccion ni con un sustantivo abstracto mas verbo copulativo. Se abre por lo concreto.${evitaLista}`;
 
   // PUNTOS SUSPENSIVOS AL CIERRE (usuario 2026-07-17). Ahora que el 1er jefe (Unai,
@@ -403,17 +417,6 @@ IF your reply agrees with the commenter, the agreement word for THIS reply is "$
   const PROB_EMOJI: Record<Voice, number> = { sobrio: 0, medio: 0.25, cercano: 0.5 };
   const conEmoji = !delicado && Math.random() < PROB_EMOJI[voice];
   const emojiElegido = sorteaEmoji();
-  // Palabra y sitio sorteados (Iker, 2026-09-18: "repites mucho claro con
-  // varias oes" y "las colocas en posiciones que no tienen sentido"). La palabra
-  // no repite ninguna de las ultimas del mismo post, y el sitio es uno de los
-  // DOS que valen; el codigo quita la que caiga en otro (sitioAlargable).
-  // Si el asentimiento sorteado es de los alargables, ES la palabra: el 17/09
-  // salio "tal cuaaal, te compro eso, tal cual" por sortear las dos por separado.
-  const recientes = input.postId ? (ALARGADAS_POR_POST.get(input.postId) || []) : [];
-  const libres = PALABRAS_ALARGAR.filter((p) => !recientes.includes(p) && p !== asent);
-  const palabraAlargar = PALABRAS_ALARGAR.includes(asent) && !recientes.includes(asent)
-    ? asent
-    : (libres.length ? libres : PALABRAS_ALARGAR)[Math.floor(Math.random() * (libres.length || PALABRAS_ALARGAR.length))];
   const SITIOS = [
     `como PRIMERA palabra de la respuesta, justo despues del nombre y delante del arranque ("${alargarPalabra(palabraAlargar, 2)}, ...")`,
     'dentro de la PRIMERA frase, justo antes de su primera coma, en las tres primeras palabras',
@@ -812,7 +815,11 @@ export function forzarEstirada(texto: string, letras = 2, palabra?: string, mule
   // Y no siempre de primera (Iker, 2026-09-18: "que no sea predecible"): a
   // veces detras de un "pues", que es el otro sitio que vale.
   if (muletilla) p = (mayus ? 'Pues ' : 'pues ') + p[0].toLowerCase() + p.slice(1);
-  const resto = r.replace(/^\s+/, '');
+  // Si la frase ya abre asintiendo con una que no se alarga ("totalmente, …"),
+  // la alargada la SUSTITUYE: sumarla daba "clarooo, totalmente, …" (18/09).
+  let resto = r.replace(/^\s+/, '');
+  const arranqueAsiente = resto.match(/^(totalmente|efectivamente|sin duda|desde luego|por supuesto|y tanto|eso es)\s*,\s*/i);
+  if (arranqueAsiente) resto = resto.slice(arranqueAsiente[0].length);
   // "Casi siempre…" -> "Buenooo, casi siempre…" (sin tocar siglas ni nombres
   // propios que empiecen la frase: solo se baja si la segunda letra es minuscula)
   const bajada = /^\p{Lu}\p{Ll}/u.test(resto) ? resto[0].toLowerCase() + resto.slice(1) : resto;
@@ -994,6 +1001,88 @@ export function respuestaAHostilMal(comentario: string, respuesta: string): bool
  *  · ABRIR CON COMILLAS que no citan al que comenta, que "parece escrito por
  *    inteligencia artificial".
  */
+// ⛔ ASENTIMIENTOS APILADOS E INCISOS SUELTOS (Iker, 2026-09-18). Prueba contra
+// produccion: "exactooo, claro y tanto, aunque…", "pues geniaaal, el filtro,
+// tal cual, siempre lo pone…", "justooo, el interlocutor bien, que…". El
+// modelo recibia dos palabras sorteadas y las encajaba donde podia.
+const ASENTIR = ['tal cual', 'y tanto', 'sin duda', 'eso es', 'desde luego', 'por supuesto',
+  'claro', 'exacto', 'justo', 'cierto', 'totalmente', 'efectivamente', 'si', 'vale', 'total', 'perfecto'];
+// Estas solo asienten sueltas: "si lo piensas" o "total que" no son asentir.
+const SOLO_CON_PAUSA = new Set(['si', 'vale', 'total', 'perfecto']);
+const RELLENO_ARRANQUE = new Set(['pues', 'y', 'uy', 'uf', 'uff', 'ah', 'oh', 'eh', 'ay', 'hombre', 'vamos', 'que']);
+
+function plano(texto: string): string {
+  return desestirarTodo(texto).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+/** Cuantas palabras de asentir hay seguidas al principio, antes de la primera con contenido. */
+export function asentimientosAlPrincipio(cuerpo: string): number {
+  let resto = plano(cuerpo).replace(/^[\s,.!]+/, '').replace(/\bque si\b/g, 'que');
+  let n = 0;
+  for (let guard = 0; guard < 8; guard++) {
+    resto = resto.replace(/^[\s,.!]+/, '');
+    const f = ASENTIR.find((a) => new RegExp(SOLO_CON_PAUSA.has(a) ? `^${a}\\s*[,.!]` : `^${a}(?![a-z])`).test(resto));
+    if (f) { n++; resto = resto.slice(f.length); continue; }
+    const w = resto.match(/^[a-z]+/);
+    if (w && RELLENO_ARRANQUE.has(w[0])) { resto = resto.slice(w[0].length); continue; }
+    break;
+  }
+  return n;
+}
+
+// Palabras de asentir que sueltas entre dos comas en mitad de la frase no
+// significan nada. "bien", "vale" o "total" quedan fuera: ", total, que…" o
+// "está bien, pero" son castellano normal.
+const INCISO_SUELTO = /[^,]*[a-z][^,]*,\s*(tal cual|y tanto|sin duda|claro|exacto|justo|totalmente|efectivamente),/;
+
+/** El inciso de asentir suelto en mitad de la frase, o null. */
+export function incisoDeAsentir(cuerpo: string): string | null {
+  const t = plano(cuerpo);
+  const m = t.match(INCISO_SUELTO);
+  if (!m) return null;
+  // Si lo que va delante son solo asentimientos o relleno, es el arranque, no un inciso.
+  const antes = m[0].slice(0, m[0].lastIndexOf(m[1]));
+  const palabras = (antes.match(/[a-z]+/g) || []);
+  const soloArranque = palabras.every((w) => RELLENO_ARRANQUE.has(w) || ASENTIR.some((a) => a.split(' ').includes(w)));
+  return soloArranque ? null : m[1];
+}
+
+/** La palabra alargada que ha quedado fuera de sus dos sitios, o null. */
+export function alargadaFueraDeSitio(cuerpo: string): string | null {
+  for (const m of cuerpo.matchAll(/\p{L}+/gu)) {
+    if (esEstirada(m[0]) && !sitioAlargable(cuerpo, m.index ?? 0, m[0])) return m[0];
+  }
+  return null;
+}
+
+/**
+ * Ultimo recurso tras los reintentos: quita el inciso suelto y la alargada mal
+ * puesta ENTERA (con su coma), en vez de dejarla huerfana ("el interlocutor
+ * bien, que…").
+ */
+export function quitarIncisosSueltos(cuerpo: string): string {
+  let r = cuerpo;
+  const fuera = alargadaFueraDeSitio(r);
+  if (fuera) {
+    const i = r.indexOf(fuera);
+    const antes = r.slice(0, i);
+    const despues = r.slice(i + fuera.length);
+    r = /,\s*$/.test(antes) && /^\s*,/.test(despues)
+      ? antes.replace(/\s*$/, '') + despues.replace(/^\s*,/, '')
+      : /^\s*,/.test(despues)
+        ? antes.replace(/\s+$/, '') + despues.replace(/^\s*,/, ',')
+        : r.slice(0, i) + desestirar(fuera) + despues;
+  }
+  const inc = incisoDeAsentir(r);
+  if (inc) {
+    const re = new RegExp(`,\\s*${inc.replace(' ', '\\s+')}\\p{L}*\\s*,`, 'iu');
+    const fueraTilde = r.normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const m = fueraTilde.match(re);
+    if (m && m.index !== undefined) r = r.slice(0, m.index) + ',' + r.slice(m.index + m[0].length);
+  }
+  return r.replace(/\s{2,}/g, ' ').replace(/,\s*,/g, ',');
+}
+
 export function problemaDeEstilo(
   comentario: string,
   respuesta: string,
@@ -1010,6 +1099,17 @@ export function problemaDeEstilo(
   const cita = comillasDeArranque(respuesta, nombre);
   if (cita !== null && !llano(comentario).includes(llano(cita).slice(0, 12))) {
     return 'abre con comillas y lo entrecomillado no es algo que haya dicho el que comenta: abrir con comillas parece escrito por una IA';
+  }
+  if (asentimientosAlPrincipio(cuerpo) >= 2) {
+    return 'abre con varias palabras de asentir seguidas ("exacto, claro y tanto"): deja UNA sola';
+  }
+  const inciso = incisoDeAsentir(cuerpo);
+  if (inciso) {
+    return `mete "${inciso}" como inciso suelto en mitad de la frase, donde no significa nada: quitalo o llevalo al principio`;
+  }
+  const fuera = alargadaFueraDeSitio(cuerpo);
+  if (fuera) {
+    return `la palabra alargada "${fuera}" esta en un sitio que no vale: solo puede ser la primera palabra o ir antes de la primera coma detras de "pues"`;
   }
   return null;
 }
@@ -1435,7 +1535,9 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       // Si el sorteo dijo "sin alargar", se quitan TODAS: el 16/09 salieron 6
       // de 8 alargadas porque el modelo alargaba igual, con "clarooo" tres
       // veces en la misma tanda.
-      const cuerpo = estirar ? limitarEstiradas(text.slice(nom.length)) : desestirarTodo(text.slice(nom.length));
+      const cuerpo = estirar
+        ? limitarEstiradas(quitarIncisosSueltos(text.slice(nom.length)))
+        : desestirarTodo(quitarIncisosSueltos(text.slice(nom.length)));
       // Si toca alargar y el modelo no la dejo en uno de sus dos sitios, se
       // abre con la palabra sorteada (Iker, 2026-09-18): antes estirarUna la
       // soltaba en cualquier palabra de reaccion, tambien entre dos comas.
@@ -1443,7 +1545,9 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
         ? `${text.slice(0, nom.length)} ${forzarEstirada(cuerpo.replace(/^[\s,]+/, ''), letrasVoz, palabraAlargar)}`
         : text.slice(0, nom.length) + cuerpo;
     } else {
-      text = estirar ? forzarEstirada(limitarEstiradas(text), letrasVoz, palabraAlargar) : desestirarTodo(text);
+      text = estirar
+        ? forzarEstirada(limitarEstiradas(quitarIncisosSueltos(text)), letrasVoz, palabraAlargar)
+        : desestirarTodo(quitarIncisosSueltos(text));
     }
   }
   // 1d. (va DESPUES del limite de alargadas, para que el colapso no esconda

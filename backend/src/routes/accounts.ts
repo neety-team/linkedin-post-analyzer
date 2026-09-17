@@ -706,7 +706,7 @@ async function buildDailyViewerBuckets(
   // inside the requested window (the snapshot captured the rolling window
   // around that day, including its events).
   const { rows: snapshots } = await pool.query(
-    `SELECT s.creator_id, s.viewer_timestamps
+    `SELECT s.creator_id, s.viewer_timestamps, s.captured_at
        FROM creator_profile_view_snapshots s
        JOIN creators c ON c.id = s.creator_id
       WHERE ${creatorFilter}
@@ -732,9 +732,20 @@ async function buildDailyViewerBuckets(
     const ts: number[] | null = snap.viewer_timestamps;
     if (!Array.isArray(ts)) continue;
     const snapBucket = new Map<string, number>();
+    // ⛔ SOLO LA ULTIMA SEMANA DE CADA CAPTURA (Iker, 2026-09-17). LinkedIn ya
+    // no da la hora de cada visita, solo "hace X": exacto hasta "hace 6 d", y
+    // despues "hace 2 sem" / "hace 1 mes". Cada captura diaria ponia a TODO el
+    // grupo de "hace 1 mes" en un unico dia (hoy - 30), cada dia en uno
+    // distinto, y el MAX por dia se quedaba con el grupo entero cada vez:
+    // 17.705 visitas en 90 dias para Iker cuando LinkedIn dice 2.926.
+    // Como capturamos a diario, cada visitante pasa por la ventana de 6 dias
+    // de alguna captura con su dia exacto; lo mas viejo se descarta.
+    const capturadaMs = new Date(snap.captured_at).getTime();
+    const desdeExacto = capturadaMs - 6.5 * 86400_000;
     for (const raw of ts) {
       const ms = typeof raw === 'string' ? Number(raw) : raw;
       if (!Number.isFinite(ms) || ms < windowStart || ms > now + 86400_000) continue;
+      if (ms < desdeExacto) continue;
       const key = dayKey(ms);
       snapBucket.set(key, (snapBucket.get(key) || 0) + 1);
     }

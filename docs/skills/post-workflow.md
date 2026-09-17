@@ -3286,6 +3286,35 @@ Cada post lleva ahora su **etiqueta de PILAR** en la herramienta (chapa de color
 
 **⛔ EL AVISO QUE ME TOCA DAR ESTE MES (Iker lo pidió explícitamente):** si en agosto se pide un mapa, un "Los 10" o un despiece, **aviso ANTES de escribir una línea** con el dato de arriba y ofrezco **dejarlo preparado para septiembre** en vez de publicarlo. **No es un veto:** si Iker confirma, se escribe entero y se entrega, que la decisión es suya (`working-preferences §2`). Mecanizado como AVISO (que no resta en el marcador) en `validar-post.py` para `--pilar mapa|los10|objeto` cuando la fecha del sistema cae en agosto.
 
+### 🎃🎄 8.0-TENDENCIAS · EL CALENDARIO SE MIRA EN CADA PLANIFICACIÓN, SIN QUE NADIE LO PIDA (Mario, 2026-09-17)
+
+> **Mario:** *"en marketing las tendencias son de lo más importante… cosas como el Día de la Madre, del Niño, del Padre, no lo estamos haciendo"*. Y pide que se le recuerde **cada semana**, aunque no lo diga. Solo lo hemos hecho una vez, con el Mundial, y tarde.
+
+**LA REGLA:** en cada planificación semanal, **antes de repartir pilares**, se mira esta tabla y se dice qué cae en las **2 semanas siguientes**, con una idea de ventas. Y cualquier tendencia de actualidad de esa semana, aunque no esté aquí. **La fecha no es un pilar: es un motor que va DENTRO de un pilar que ya funciona** (`global §2.1b`): un meme, una historia o una tarjeta. Si es meme, con referencia viral de ventas sobre esa fecha, buscada en la BD o en LinkedIn (`§4.4-PASO-0b`).
+
+| fecha | qué | idea de ventas (borrador, se itera como cualquier gancho) |
+|---|---|---|
+| **tras el jue 24/09/2026** | ⛔ **fin del evento de Donostia** | quitar de la web los 14 botones y banners de Luma (commit `7af25fd` de neety-resources) y dejar de meter Luma en los ninjas (`global §4.4b-EVENTO-CONTEXTO`) |
+| vie 09/10 | Día de la Comunitat Valenciana (festivo autonómico, Mario) | — |
+| lun 12/10 | Fiesta Nacional | puente: el lunes nadie coge el teléfono |
+| dom 25/10 | Euskadi Eguna (los jefes; comprobar si es festivo este año) | guiño regional en un peloteo vasco |
+| **sáb 31/10** | **Halloween** | *lo que da miedo en ventas no es Halloween, es…* (el "ya te llamaré", el cliente fantasma que deja de contestar, la previsión que resucita). Buscar meme viral de ventas de Halloween desde el 01/10 |
+| dom 01/11 | Todos los Santos | los clientes muertos de la cartera |
+| mié 11/11 | Día del Soltero | — |
+| **vie 27/11 · lun 30/11** | **Black Friday · Cyber Monday** | el cliente que solo compra con descuento; la objeción del precio |
+| dom 06/12 · mar 08/12 | Constitución · Inmaculada (puente) | el puente que congela diciembre |
+| **mar 22/12** | **Lotería de Navidad** | llamar a ciegas es jugar a la lotería; enlaza con el playbook de Iker *"LinkedIn no es una lotería"* |
+| **vie 25/12** | **Navidad** | la carta a Papá Noel del comercial (que me cojan el teléfono…) |
+| lun 28/12 | Inocentes | la inocentada del cliente que dijo *"esta semana firmo"* |
+| jue 31/12 | Nochevieja | los propósitos de año nuevo del director comercial |
+| **mié 06/01/2027** | **Reyes** | la carta a los Reyes del equipo de ventas |
+| dom 14/02 | San Valentín | el cliente que te deja en visto |
+| vie 19/03 | Día del Padre (festivo en algunas comunidades) | idea de Mario: *el mejor regalo para el jefe de ventas que es padre*. Es casi un ultra ninja: **hay que darle muchas vueltas** para que no se lea a anuncio |
+| dom 02/05 | Día de la Madre (1er domingo de mayo) | misma familia que el Día del Padre |
+
+- **⚠️ Los traslados de festivos cambian por comunidad.** Que un festivo en domingo pase al lunes depende del calendario laboral de cada una: comprobarlo antes de planificar. Mandan los nacionales; después País Vasco (los jefes) y Comunidad Valenciana (Mario).
+- **Las ideas son borradores**: pasan por la escalera del verbo, el ancla de ventas y los vetos de la munición (sin automatismo, sin volumen, sin señal) como cualquier otro gancho.
+
 ### 📅 8.0-SEPTIEMBRE · LAS 2 PRIMERAS SEMANAS DE SEPTIEMBRE SE DEJAN ESCRITAS ANTES DE LAS VACACIONES (Iker, 2026-08-14)
 
 **Las fechas, que ya están cerradas (Iker, 2026-08-14):**

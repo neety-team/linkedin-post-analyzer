@@ -26,21 +26,21 @@
 ---
 
 
-## 📋📋 1-PEGAR · EL POST SE ENTREGA AQUÍ, Y SE PEGA POR NOTION → GOOGLE DOCS → LINKEDIN (Iker, 2026-09-17)
+## 📋📋 1-PEGAR · EL POST SE ENTREGA AQUÍ, Y SE PEGA EN LINKEDIN PASANDO POR GOOGLE DOCS (Iker, 2026-09-17)
 
 **El bloque cercado sigue siendo LA entrega** (`§1`). Iker: *"es mejor que me lo pases aquí como hasta ahora"*.
 
-**El problema, que no es del texto:** el bloque es texto plano puro, sin markdown, y sus líneas en blanco están vacías (comprobado byte a byte el 17/09: sin invisibles ni ``). Lo que cambió es el editor de LinkedIn, que ya no pega bien ni el texto plano ni cualquier HTML.
+**El problema, que no es del texto:** el bloque es texto plano puro, sin markdown, y sus líneas en blanco están vacías (comprobado byte a byte el 17/09: sin invisibles ni `
+`). Lo que cambió es el editor de LinkedIn, que ya no pega bien ni el texto plano ni cualquier HTML.
 
-**LAS TRES RUTAS PROBADAS EL 17/09:**
+**LO QUE SE SABE, corregido por Iker el mismo 17/09:**
+- **Gmail se come los emojis** al pasar a LinkedIn (en el borrador se ven y en LinkedIn desaparecen). **Gmail fuera.**
+- **Google Docs conserva los emojis**, y el texto se ve bien tanto en Docs como en Notion.
+- **El paso inestable es Google Docs → LinkedIn**: unas veces respeta el blanco único y otras lo duplica, **venga el texto de aquí o de Notion**. Esa mañana, una tarjeta salió perfecta; el lead magnet de la tarde, con blancos dobles.
+- **Con blancos dobles, los bloques de 2 y 3 y la lista se respetan**: basta quitar un salto en cada blanco, que están vacíos (comprobado).
+- *(Deducción mía, sin comprobar: la lista `1. ` del lead magnet es lo único que la tarjeta no tenía. Si vuelve a pasar solo con posts con lista, ahí está la causa.)*
 
-| ruta | resultado |
-|---|---|
-| **aquí → Notion (texto plano) → Google Docs → LinkedIn** | ✅ un solo blanco, emojis intactos (tarjeta de Iker) |
-| aquí → Notion → Gmail → LinkedIn | ⛔ blancos DOBLES y emojis perdidos |
-| aquí → Google Docs → LinkedIn, sin Notion | ⛔ blancos DOBLES (emojis bien) |
-
-**Así que la ruta es la primera, y Notion NO se salta.** ⚠️ Yo recomendé saltárselo y fue un error: la explicación probable *(deducción mía, sin comprobar dentro de LinkedIn)* es que Notion convierte las líneas en blanco en separación entre bloques, y Docs pegado directo las mete como párrafos vacíos que LinkedIn suma a su propio espacio. **Lo que se ha visto, sin deducir:** con blancos dobles, los bloques de 2 y 3 y la lista se respetan; basta quitar un salto por blanco.
+**LA RUTA:** aquí o Notion → **Google Docs** → LinkedIn, y **revisar los blancos antes de publicar**.
 
 - **⚠️ En lead magnet, ojo con la lista `1. `:** Notion la puede convertir en lista numerada. Pegando como texto plano debería quedarse como texto; si sale rara, anotarlo aquí.
 - **Plan B, opcional:** `scripts/copiar-post.ps1 <fichero>` deja el post en el portapapeles como HTML. Solo si Iker lo pide. Sin probar en el editor de LinkedIn.

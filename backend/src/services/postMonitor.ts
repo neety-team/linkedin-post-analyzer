@@ -300,8 +300,9 @@ const ANALYTICS_RECENT_PER_TICK = 6;
 // devuelve paginas vacias; el tick las encadenaba sin ninguna.
 const ANALYTICS_PAUSE_MS = 1500;
 // Si la pagina no se puede leer (rate limit, post borrado), se reintenta en
-// 1 hora en vez de en la vuelta siguiente, para no machacar un post roto.
-const ANALYTICS_RETRY_HOURS = 1;
+// 3 horas: antes que las 6 normales, pero sin machacar cada hora un post que
+// ya no existe (el Los 10 borrado de Unai gastaba 24 llamadas al dia).
+const ANALYTICS_RETRY_HOURS = 3;
 const pausa = () => new Promise((r) => setTimeout(r, ANALYTICS_PAUSE_MS));
 
 const reintentarAnaliticaReciente = (id: string) =>
@@ -400,16 +401,17 @@ async function refrescarAnaliticaPostsViejos(): Promise<number> {
 // ese caduco el 11/09. Un post que nadie traia no tenia curva, ni hora dorada,
 // ni analitica, hasta que alguien pulsaba el boton.
 //
-// CADENCIA: cada vuelta (15 min) de 7:00 a 22:59 de Madrid, que es cuando se
-// publica y cuando la hora dorada importa; cada hora el resto. Es el mismo
-// scrape incremental del boton: suele ser 1 pagina del feed + 1 del perfil.
+// CADENCIA: cada vuelta (15 min) de 8:00 a 20:59 de Madrid, que es cuando se
+// publica y cuando la hora dorada importa; cada hora el resto. Es el scrape
+// incremental del boton pero SIN la llamada de perfil (sinPerfil): 1 pagina
+// del feed por cuenta, ~180 llamadas al dia entre las tres.
 let ultimoDescubrimiento = 0;
 
 async function descubrirPostsNuevos(): Promise<number> {
   const hora = Number(new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Europe/Madrid', hour: '2-digit', hour12: false,
   }).format(new Date()));
-  const cada = hora >= 7 && hora < 23 ? TICK_MS : HOUR_MS;
+  const cada = hora >= 8 && hora < 21 ? TICK_MS : HOUR_MS;
   if (Date.now() - ultimoDescubrimiento < cada - DUE_TOLERANCE_MS) return 0;
   ultimoDescubrimiento = Date.now();
 
@@ -423,7 +425,7 @@ async function descubrirPostsNuevos(): Promise<number> {
   let nuevos = 0;
   for (const { id } of rows) {
     try {
-      const r = await scrapeCreatorPosts(id);
+      const r = await scrapeCreatorPosts(id, { sinPerfil: true });
       nuevos += r.scraped;
     } catch (e: any) {
       console.warn(`[postMonitor] descubrimiento fallo para ${id}:`, e?.message);
@@ -864,16 +866,28 @@ const ACCOUNT_SNAPSHOT_INTERVAL_MS = 6 * 60 * 60 * 1000; // 6 hours
 let accountSnapshotInFlight = false;
 
 // FOTOS DE LAS CUENTAS MANUALES (2026-09-17). Las URLs de media.licdn.com van
-// firmadas y caducan (`e=` en la URL): las de Mario y Helena dieron 403 desde el
-// 10/09. Las cuentas conectadas renuevan la foto en cada captureAccountSnapshots,
-// pero las manuales no pasan por ahi (no tienen account_id). Se leen con la
-// sesion compartida de Unipile, igual que sus posts: solo la foto, nada mas.
+// firmadas y caducan: la fecha va en la propia URL (`e=`, epoch en segundos).
+// Medido: una foto leida el 17/09 caduca el 08/10, o sea duran ~3 semanas. Las
+// de Mario y Helena dieron 403 desde el 10/09 porque las manuales no pasan por
+// captureAccountSnapshots (no tienen account_id).
+// El pase de cada 6h solo MIRA la fecha, sin llamar a nadie; se pide la foto a
+// Unipile (sesion compartida, solo la foto) cuando le quedan menos de 3 dias o
+// si la URL no trae fecha. Unas 2 llamadas por cuenta al mes.
+const FOTO_MARGEN_MS = 3 * 24 * HOUR_MS;
+
+function fotoPorCaducar(url: string | null): boolean {
+  const e = url?.match(/[?&]e=(\d+)/)?.[1];
+  if (!e) return true;
+  return Number(e) * 1000 - Date.now() < FOTO_MARGEN_MS;
+}
+
 async function renovarFotosManuales(): Promise<void> {
   const { rows } = await pool.query(
-    `SELECT id, linkedin_url FROM creators
+    `SELECT id, linkedin_url, profile_image_url FROM creators
       WHERE is_manual = TRUE AND linkedin_url IS NOT NULL`
   );
   for (const c of rows) {
+    if (!fotoPorCaducar(c.profile_image_url)) continue;
     try {
       const raw = await unipileService.getProfile(c.linkedin_url);
       const foto = unipileService.normalizeProfile(raw, c.linkedin_url).profile_image_url;

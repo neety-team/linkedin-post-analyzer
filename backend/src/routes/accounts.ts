@@ -80,7 +80,13 @@ function parseDateRange(req: Request): { startDate: string; endDate: string; day
 // (services/anuncioChat.ts) haga exactamente lo mismo que el boton "Get new
 // posts", en vez de reimplementar el scrape y quedarse desincronizado a la
 // primera que alguien toque uno de los dos.
-export async function scrapeCreatorPosts(creatorId: string): Promise<{ scraped: number; snapshots_seeded: number }> {
+export async function scrapeCreatorPosts(
+  creatorId: string,
+  // sinPerfil: el monitor busca posts nuevos cada 15 min y NO necesita la foto
+  // de seguidores (ya la hace el pase de cuentas de cada 6h): se ahorra una
+  // llamada a Unipile por cuenta y vuelta, y usa el linkedin_id guardado.
+  opciones: { sinPerfil?: boolean } = {}
+): Promise<{ scraped: number; snapshots_seeded: number }> {
   const t0 = Date.now();
   const creator = await CreatorModel.findById(creatorId);
   if (!creator) return { scraped: 0, snapshots_seeded: 0 };
@@ -91,10 +97,13 @@ export async function scrapeCreatorPosts(creatorId: string): Promise<{ scraped: 
   // is the single biggest cost of a refresh (20-40s/account). The button is
   // for surfacing a new post, so we only need a fast follower snapshot here;
   // WVMP stays owned by the 6h tick + the profile-views refresh button.
-  const snapStart = Date.now();
-  const snap = await captureAccountSnapshots(creatorId, { skipViewers: true });
-  console.log(`[scrapeCreatorPosts] ${creator.name}: account snapshot (followers, no WVMP) ${Date.now() - snapStart}ms`);
-  const providerId = snap.providerId;
+  let providerId: string | null = (creator as any).linkedin_id ?? null;
+  if (!opciones.sinPerfil || !providerId) {
+    const snapStart = Date.now();
+    const snap = await captureAccountSnapshots(creatorId, { skipViewers: true });
+    console.log(`[scrapeCreatorPosts] ${creator.name}: account snapshot (followers, no WVMP) ${Date.now() - snapStart}ms`);
+    providerId = snap.providerId;
+  }
 
   if (!providerId) return { scraped: 0, snapshots_seeded: 0 };
 

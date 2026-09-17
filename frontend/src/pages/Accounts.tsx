@@ -1458,9 +1458,10 @@ function AccountsInner() {
             endDate={dateRange.end}
             includeManual={incluirManuales}
             title="Impressions per month"
-            subtitle={selectedCreator === 'all'
-              ? 'Impressions from posts published each month — all managed accounts'
-              : 'Impressions from posts published each month (this account)'}
+            subtitle={(selectedCreator === 'all'
+              ? 'Impressions gained each month, by all posts of every age — all managed accounts'
+              : 'Impressions gained each month, by all posts of every age (this account)')
+              + '. Sep 2026 also includes the growth since May of posts that were not being re-read until 17 Sep.'}
             unit="impressions"
             color="#e8935a"
           />

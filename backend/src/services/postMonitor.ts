@@ -468,26 +468,30 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
         AND unipile_account_id IS NOT NULL
         AND linkedin_id IS NOT NULL
         AND is_manual IS NOT TRUE
-        AND (public_counters_synced_at IS NULL
-             OR public_counters_synced_at < NOW() - ($1 || ' days')::interval)
-      ORDER BY public_counters_synced_at ASC NULLS FIRST
-      LIMIT 1`,
-    [String(COUNTERS_RESYNC_DAYS)]
+        AND (public_counters_next_at IS NULL OR public_counters_next_at <= NOW())
+      ORDER BY public_counters_next_at ASC NULLS FIRST
+      LIMIT 1`
   );
   const cuenta = cuentas[0];
   if (!cuenta) return 0;
 
+  // Siguiente pase: dentro de 7 dias o el dia 1 del mes que viene (hora de
+  // Madrid, la de la sesion), lo que llegue antes, para que las impresiones
+  // ganadas caigan en su mes. Si fallo, en 24h.
   const marcar = (reintentarEnHoras: number | null) =>
-    pool.query(
-      reintentarEnHoras == null
-        ? `UPDATE creators SET public_counters_synced_at = NOW() WHERE id = $1`
-        : `UPDATE creators
-              SET public_counters_synced_at = NOW() - ($2 || ' days')::interval + ($3 || ' hours')::interval
+    reintentarEnHoras == null
+      ? pool.query(
+          `UPDATE creators
+              SET public_counters_synced_at = NOW(),
+                  public_counters_next_at = LEAST(NOW() + ($2 || ' days')::interval,
+                                                  date_trunc('month', NOW()) + INTERVAL '1 month')
             WHERE id = $1`,
-      reintentarEnHoras == null
-        ? [cuenta.id]
-        : [cuenta.id, String(COUNTERS_RESYNC_DAYS), String(reintentarEnHoras)]
-    );
+          [cuenta.id, String(COUNTERS_RESYNC_DAYS)]
+        )
+      : pool.query(
+          `UPDATE creators SET public_counters_next_at = NOW() + ($2 || ' hours')::interval WHERE id = $1`,
+          [cuenta.id, String(reintentarEnHoras)]
+        );
 
   let raws: any[];
   try {
@@ -572,6 +576,12 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
        WHERE id = $1`,
       [p.id, likes, comments, reposts, imp,
        calculateEngagement({ likes_count: likes, comments_count: comments, reposts_count: reposts })]
+    );
+    // La lectura queda guardada: de la serie sale "impresiones ganadas cada mes".
+    await pool.query(
+      `INSERT INTO post_metric_readings (post_id, impressions_count, likes_count, comments_count, reposts_count)
+       VALUES ($1, COALESCE($2, (SELECT impressions_count FROM posts WHERE id = $1)), $3, $4, $5)`,
+      [p.id, imp, likes, comments, reposts]
     );
     hechos++;
   }
@@ -681,10 +691,8 @@ export async function capturePostSnapshot(postId: string): Promise<{
       // un post fantasma en Live Posts que no habia forma de quitar.
       //
       //  a) El post es RECIENTE: deberia estar en el feed que acabamos de pedir,
-      //     asi que si no esta es porque su autor lo BORRO. Se marca y desaparece
-      //     de Live Posts. NO se borra la fila: sus metricas siguen valiendo para
-      //     analisis historico (el meme de 196 impresiones de Asier es justo el
-      //     dato con el que diagnosticamos la degradacion de imagen).
+      //     asi que si no esta, su autor probablemente lo BORRO. Se avisa y la
+      //     persona decide si lo oculta.
       //  b) El post es viejo y simplemente cayo fuera de MONITOR_WINDOW_MS. Ese
       //     no se toca: sigue vivo en LinkedIn.
       const { rows: pub } = await pool.query(
@@ -694,20 +702,17 @@ export async function capturePostSnapshot(postId: string): Promise<{
       const publishedAt = pub[0]?.published_at ? new Date(pub[0].published_at).getTime() : null;
       const dentroDeVentana =
         publishedAt != null && Date.now() - publishedAt < MONITOR_WINDOW_MS;
-      // Solo si el feed ha llegado de verdad: con una lista vacia (rate limit
-      // de LinkedIn) un post vivo se marcaba como borrado y desaparecia.
-      const feedReal = raws.some((r: any) => !esRepost(r));
-      if (dentroDeVentana && !feedReal) {
-        return { ok: false, reason: 'LinkedIn devolvio el feed vacio; prueba en unos minutos' };
-      }
+      // Ya NO se marca como borrado (2026-09-17): ocultar lo decide una
+      // persona con el boton, porque un post borrado puede tener metricas que
+      // cuentan (el Los 10 de Unai) y un feed vacio marcaba posts vivos.
       if (dentroDeVentana) {
-        await pool.query(
-          `UPDATE posts SET deleted_from_linkedin_at = NOW()
-            WHERE id = $1 AND deleted_from_linkedin_at IS NULL`,
-          [target.id]
-        );
-        console.log(`[capturePostSnapshot] ${target.id} no esta en el feed y es reciente: marcado como borrado en LinkedIn`);
-        return { ok: false, reason: 'deleted from LinkedIn (removed from Live Posts)' };
+        const feedReal = raws.some((r: any) => !esRepost(r));
+        return {
+          ok: false,
+          reason: feedReal
+            ? 'el post no esta en el feed de LinkedIn (borrado?); si quieres quitarlo de la lista, usa Ocultar'
+            : 'LinkedIn devolvio el feed vacio; prueba en unos minutos',
+        };
       }
       return { ok: false, reason: 'post not in current feed (older than monitor window)' };
     }

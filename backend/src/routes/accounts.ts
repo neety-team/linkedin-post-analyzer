@@ -407,19 +407,70 @@ router.get('/impressions-monthly', async (req: Request, res: Response) => {
     params.push(range.startDate, range.endDate);
     const startIdx = params.length - 1;
     const endIdx = params.length;
+    // ⭐ IMPRESIONES GANADAS EN CADA MES (Iker, 2026-09-17). Antes era la suma
+    // de las impresiones DE POR VIDA de los posts publicados ese mes, y un mes
+    // cerrado seguia subiendo. Ahora: cada post aporta a un mes lo que crecio
+    // entre dos lecturas suyas (snapshots de la primera semana + lecturas
+    // periodicas despues), y el crecimiento cae en el mes de la lectura.
+    //  - MAX acumulado y no el valor a pelo: Unipile devuelve ceros a ratos y
+    //    un 0 seguido del valor real contaria el post dos veces.
+    //  - La primera lectura cuenta entera solo si se hizo en la primera semana
+    //    del post (post seguido desde que nacio). Si no, es una linea base: un
+    //    post de 2025 no "gana" hoy toda su vida.
+    //  - Septiembre de 2026 incluye lo que crecieron desde mayo los posts que
+    //    estuvieron congelados (no hay lecturas intermedias para repartirlo).
     const { rows } = await pool.query(
-      `SELECT
-         to_char(date_trunc('month', p.published_at), 'YYYY-MM') AS month,
-         COALESCE(SUM(p.impressions_count), 0)::bigint AS impressions,
-         COUNT(*)::int AS posts
-       FROM posts p
-       WHERE ${scopeSql}
-         AND p.published_at IS NOT NULL
-         AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
-         AND p.published_at >= date_trunc('month', $${startIdx}::date)
-         AND p.published_at < date_trunc('month', $${endIdx}::date) + interval '1 month'
-       GROUP BY date_trunc('month', p.published_at)
-       ORDER BY date_trunc('month', p.published_at) ASC`,
+      `WITH posts_ambito AS (
+         SELECT p.id, p.published_at
+           FROM posts p
+          WHERE ${scopeSql}
+            AND p.published_at IS NOT NULL
+            AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
+            AND p.deleted_from_linkedin_at IS NULL
+       ),
+       lecturas AS (
+         SELECT s.post_id, s.captured_at, COALESCE(s.impressions_count, 0) AS imp
+           FROM post_snapshots s JOIN posts_ambito pa ON pa.id = s.post_id
+         UNION ALL
+         SELECT r.post_id, r.captured_at, COALESCE(r.impressions_count, 0)
+           FROM post_metric_readings r JOIN posts_ambito pa ON pa.id = r.post_id
+       ),
+       acumulado AS (
+         SELECT l.post_id, l.captured_at, pa.published_at,
+                MAX(l.imp) OVER w AS imp_max,
+                ROW_NUMBER() OVER w AS rn
+           FROM lecturas l JOIN posts_ambito pa ON pa.id = l.post_id
+         WINDOW w AS (PARTITION BY l.post_id ORDER BY l.captured_at
+                      ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
+       ),
+       deltas AS (
+         SELECT captured_at,
+                CASE WHEN rn = 1
+                  THEN CASE WHEN captured_at <= published_at + INTERVAL '8 days' THEN imp_max ELSE 0 END
+                  ELSE imp_max - LAG(imp_max) OVER (PARTITION BY post_id ORDER BY rn)
+                END AS ganadas
+           FROM acumulado
+       ),
+       por_mes AS (
+         SELECT date_trunc('month', captured_at) AS mes, SUM(ganadas)::bigint AS impressions
+           FROM deltas
+          WHERE captured_at >= date_trunc('month', $${startIdx}::date)
+            AND captured_at < date_trunc('month', $${endIdx}::date) + interval '1 month'
+          GROUP BY 1
+       ),
+       publicados AS (
+         SELECT date_trunc('month', published_at) AS mes, COUNT(*)::int AS posts
+           FROM posts_ambito
+          WHERE published_at >= date_trunc('month', $${startIdx}::date)
+            AND published_at < date_trunc('month', $${endIdx}::date) + interval '1 month'
+          GROUP BY 1
+       )
+       SELECT to_char(COALESCE(m.mes, pb.mes), 'YYYY-MM') AS month,
+              COALESCE(m.impressions, 0)::bigint AS impressions,
+              COALESCE(pb.posts, 0)::int AS posts
+         FROM por_mes m
+         FULL JOIN publicados pb ON pb.mes = m.mes
+        ORDER BY COALESCE(m.mes, pb.mes) ASC`,
       params
     );
     res.json({ points: rows.map((r) => ({ ...r, impressions: Number(r.impressions) })) });
@@ -657,10 +708,12 @@ async function buildDailyViewerBuckets(
 
   const now = Date.now();
   const windowStart = now - days * 86400_000;
-  const dayKey = (ms: number) => {
-    const d = new Date(ms);
-    return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
-  };
+  // Dia de MADRID, no de UTC (2026-09-17): una visita a las 01:00 de Madrid es
+  // de hoy, no de ayer.
+  const fmtDiaMadrid = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit',
+  });
+  const dayKey = (ms: number) => fmtDiaMadrid.format(new Date(ms));
 
   // perCreatorDay = creator_id → (dayKey → MAX count seen across that
   // creator's snapshots). MAX, not sum: the same viewer captured today
@@ -926,10 +979,11 @@ router.delete('/posts/:id/snapshots/zero-impressions', async (req: Request, res:
 // el OK de los mencionados y el lead magnet capado) y el post se queda colgado en
 // el panel. Hasta ahora había que pedírmelo a mí y lo hacía por SQL.
 //
-// Se reutiliza `deleted_from_linkedin_at`, la misma columna que pone el monitor
-// cuando detecta que un post ya no está en el feed (`postMonitor.ts`), en vez de
-// crear una `hidden_at` aparte: el caso real es siempre el mismo —el post ya no
-// existe en LinkedIn— y dos columnas para un solo estado se acaban desincronizando.
+// `deleted_from_linkedin_at` significa OCULTO POR UNA PERSONA. Desde el
+// 2026-09-17 el monitor ya no la pone solo al ver que un post falta del feed:
+// un post borrado puede tener metricas que se quieren conservar (el Los 10 de
+// Unai convirtio asistentes), y un feed vacio marcaba como borrados posts vivos.
+// Un post oculto sale de Live posts Y de todos los totales y medias.
 // NO se borra la fila: las métricas y los snapshots se conservan enteros, que es
 // justo lo que Iker no quería perder.
 router.post('/posts/:id/hide', async (req: Request, res: Response) => {
@@ -1090,13 +1144,16 @@ router.get('/analytics', async (req: Request, res: Response) => {
     const range = parseDateRange(req);
     const days = range.days;
 
-    const currentStartIso = `${range.startDate}T00:00:00.000Z`;
-    const currentEndIso = `${range.endDate}T23:59:59.999Z`;
+    // Sin 'Z': la sesion de la BD esta en Europe/Madrid (db/index.ts), asi que
+    // estos limites son la medianoche de Madrid, no la de UTC.
+    const currentStartIso = `${range.startDate} 00:00:00`;
+    const currentEndIso = `${range.endDate} 23:59:59.999`;
     // Previous period of equal length, ending right before the current
-    // period starts. Used for the deltas in KPI cards.
-    const previousStartIso = new Date(
-      new Date(currentStartIso).getTime() - days * 24 * 60 * 60 * 1000
-    ).toISOString();
+    // period starts. Used for the deltas in KPI cards. Aritmetica de
+    // calendario (en UTC solo para contar dias, no para situar el instante).
+    const prevStartDay = new Date(`${range.startDate}T00:00:00.000Z`);
+    prevStartDay.setUTCDate(prevStartDay.getUTCDate() - days);
+    const previousStartIso = `${prevStartDay.toISOString().slice(0, 10)} 00:00:00`;
 
     // Build scope: either a specific creator or all managed accounts.
     // Queries use <SCOPE> as a placeholder so each query can append its own params.
@@ -1113,7 +1170,11 @@ router.get('/analytics', async (req: Request, res: Response) => {
     const filtroManual = incluirManual ? '' : ' AND is_manual IS NOT TRUE';
 
     const scope = (nextIdx: number) => {
-      const demoFilter = `p.linkedin_post_id <> 'DEMO_LIVE_POST'`;
+      // Los posts OCULTOS (boton Ocultar) no cuentan en ningun numero de esta
+      // pantalla (Iker, 2026-09-17): son los capados por LinkedIn, con decenas
+      // de impresiones, y bajaban medias y totales. Un post borrado que NO se
+      // oculta (el Los 10 de Unai del 15/09) sigue contando entero.
+      const demoFilter = `p.linkedin_post_id <> 'DEMO_LIVE_POST' AND p.deleted_from_linkedin_at IS NULL`;
       if (creatorId) return { sql: `p.creator_id = $${nextIdx} AND ${demoFilter}`, params: [creatorId] };
       return {
         sql: `p.creator_id IN (SELECT id FROM creators WHERE is_managed = TRUE${filtroManual}) AND ${demoFilter}`,
@@ -1149,20 +1210,81 @@ router.get('/analytics', async (req: Request, res: Response) => {
     const prevTotals = totalsSql('p.published_at >= $1 AND p.published_at < $2', [previousStartIso, currentStartIso]);
     const prevTotalsQ = await pool.query(prevTotals.sql, prevTotals.params);
 
-    const deltaPct = (curr: number, prev: number): number | null => {
-      if (!prev || prev === 0) return null;
+    const deltaPct = (curr: number | null, prev: number | null): number | null => {
+      if (curr == null || prev == null || !prev) return null;
       return +(((curr - prev) / prev) * 100).toFixed(1);
     };
 
+    // ⭐ COMPARACION A IGUAL EDAD (Iker, 2026-09-17). Los totales acumulados
+    // comparaban posts de horas con posts ya maduros del periodo anterior, y el
+    // mes en curso salia casi siempre en rojo. Para las flechas, cada post
+    // cuenta con lo que llevaba a los 7 DIAS (maximo de sus snapshots hasta el
+    // dia 7; MAX por los ceros intermitentes de Unipile). Solo entran posts que
+    // ya cumplieron la semana y cuya curva llego al menos al dia 6. Los totales
+    // se estiman como media-a-7-dias x numero de posts del periodo, asi los
+    // posts jovenes cuentan con la media de los maduros en vez de con lo que
+    // llevan. Si un periodo no tiene posts con dato a 7 dias (rango de menos de
+    // una semana, o posts de antes de medir), la flecha no se pinta.
+    // El numero grande de la tarjeta sigue siendo el total real.
+    const aSieteDiasSql = (dateCondition: string, baseParams: any[]) => {
+      const s = scope(baseParams.length + 1);
+      return {
+        sql: `WITH ambito AS (
+            SELECT p.id, p.published_at FROM posts p
+             WHERE ${dateCondition} AND ${s.sql}
+          ),
+          v7 AS (
+            SELECT sn.post_id,
+                   MAX(sn.likes_count) AS likes,
+                   MAX(sn.comments_count) AS comments,
+                   MAX(sn.reposts_count) AS reposts,
+                   NULLIF(MAX(COALESCE(sn.impressions_count, 0)), 0) AS impressions
+              FROM post_snapshots sn
+              JOIN ambito a ON a.id = sn.post_id
+             WHERE a.published_at <= NOW() - INTERVAL '7 days'
+               AND sn.captured_at <= a.published_at + INTERVAL '7 days 12 hours'
+             GROUP BY sn.post_id
+            HAVING MAX(sn.captured_at) >= MIN(a.published_at) + INTERVAL '6 days'
+          )
+          SELECT
+            (SELECT COUNT(*) FROM ambito)::int AS n_total,
+            COUNT(*)::int AS n7,
+            COUNT(impressions)::int AS n7_imp,
+            COALESCE(SUM(likes), 0)::float AS likes,
+            COALESCE(SUM(comments), 0)::float AS comments,
+            COALESCE(SUM(reposts), 0)::float AS reposts,
+            COALESCE(SUM(impressions), 0)::float AS impressions,
+            COALESCE(SUM(likes + comments * 2 + reposts * 3), 0)::float AS engagement
+          FROM v7`,
+        params: [...baseParams, ...s.params],
+      };
+    };
+    const edad = async (cond: string, ps: any[]) => {
+      const q = aSieteDiasSql(cond, ps);
+      const r = (await pool.query(q.sql, q.params)).rows[0];
+      const media = (v: number, n: number) => (n > 0 ? v / n : null);
+      const total = (v: number) => (r.n7 > 0 ? (v / r.n7) * r.n_total : null);
+      return {
+        avg_engagement: media(r.engagement, r.n7),
+        total_likes: total(r.likes),
+        total_comments: total(r.comments),
+        total_reposts: total(r.reposts),
+        total_impressions: r.n7_imp > 0 ? (r.impressions / r.n7_imp) * r.n_total : null,
+        avg_impressions: media(r.impressions, r.n7_imp),
+      };
+    };
+    const edadActual = await edad('p.published_at >= $1 AND p.published_at <= $2', [currentStartIso, currentEndIso]);
+    const edadPrevia = await edad('p.published_at >= $1 AND p.published_at < $2', [previousStartIso, currentStartIso]);
+
     const buildComparison = (curr: any, prev: any) => ({
-      avg_engagement: { current: curr.avg_engagement, previous: prev.avg_engagement, delta_pct: deltaPct(curr.avg_engagement, prev.avg_engagement) },
+      avg_engagement: { current: curr.avg_engagement, previous: prev.avg_engagement, delta_pct: deltaPct(edadActual.avg_engagement, edadPrevia.avg_engagement) },
       total_posts: { current: curr.total_posts, previous: prev.total_posts, delta_pct: deltaPct(curr.total_posts, prev.total_posts) },
       total_outliers: { current: curr.total_outliers, previous: prev.total_outliers, delta_pct: deltaPct(curr.total_outliers, prev.total_outliers) },
-      total_likes: { current: curr.total_likes, previous: prev.total_likes, delta_pct: deltaPct(curr.total_likes, prev.total_likes) },
-      total_comments: { current: curr.total_comments, previous: prev.total_comments, delta_pct: deltaPct(curr.total_comments, prev.total_comments) },
-      total_reposts: { current: curr.total_reposts, previous: prev.total_reposts, delta_pct: deltaPct(curr.total_reposts, prev.total_reposts) },
-      total_impressions: { current: Number(curr.total_impressions), previous: Number(prev.total_impressions), delta_pct: deltaPct(Number(curr.total_impressions), Number(prev.total_impressions)) },
-      avg_impressions: { current: curr.avg_impressions, previous: prev.avg_impressions, delta_pct: deltaPct(curr.avg_impressions, prev.avg_impressions) },
+      total_likes: { current: curr.total_likes, previous: prev.total_likes, delta_pct: deltaPct(edadActual.total_likes, edadPrevia.total_likes) },
+      total_comments: { current: curr.total_comments, previous: prev.total_comments, delta_pct: deltaPct(edadActual.total_comments, edadPrevia.total_comments) },
+      total_reposts: { current: curr.total_reposts, previous: prev.total_reposts, delta_pct: deltaPct(edadActual.total_reposts, edadPrevia.total_reposts) },
+      total_impressions: { current: Number(curr.total_impressions), previous: Number(prev.total_impressions), delta_pct: deltaPct(edadActual.total_impressions, edadPrevia.total_impressions) },
+      avg_impressions: { current: curr.avg_impressions, previous: prev.avg_impressions, delta_pct: deltaPct(edadActual.avg_impressions, edadPrevia.avg_impressions) },
     });
 
     // Gap-filled daily series with 7-day rolling sum of total engagement.

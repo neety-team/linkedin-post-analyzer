@@ -163,6 +163,9 @@ export async function recalcCreatorOutliers(creatorId: string): Promise<void> {
            )::float AS avg_imp
            FROM posts
           WHERE creator_id = $1 AND linkedin_post_id <> 'DEMO_LIVE_POST'
+            -- Los ocultos no cuentan en la media (Iker, 2026-09-17): un post
+            -- capado con 12 impresiones inflaba el multiplicador del resto.
+            AND deleted_from_linkedin_at IS NULL
        )
        UPDATE posts p SET
          outlier_ratio = GREATEST(
@@ -209,6 +212,7 @@ export async function recalcCreatorOutliers(creatorId: string): Promise<void> {
          SELECT AVG(engagement_score)::float AS avg
            FROM posts
           WHERE creator_id = $1 AND linkedin_post_id <> 'DEMO_LIVE_POST'
+            AND deleted_from_linkedin_at IS NULL
        ) m, antes a
        WHERE p.id = a.id
          AND p.creator_id = $1 AND p.linkedin_post_id <> 'DEMO_LIVE_POST'

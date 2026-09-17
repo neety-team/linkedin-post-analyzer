@@ -1051,6 +1051,36 @@ const migration = `
   -- dia likes, comentarios, reposts e impresiones de sus posts de mas de 7 dias
   -- (services/postMonitor.ts, refrescarContadoresPostsViejos). NULL = nunca.
   ALTER TABLE creators ADD COLUMN IF NOT EXISTS public_counters_synced_at TIMESTAMPTZ;
+  -- Cuando toca el siguiente pase (NULL = ya). Lo fija el propio pase: dentro
+  -- de 7 dias o el dia 1 del mes siguiente, lo que llegue antes; 24h si fallo.
+  ALTER TABLE creators ADD COLUMN IF NOT EXISTS public_counters_next_at TIMESTAMPTZ;
+
+  -- Lecturas periodicas de los contadores de un post DESPUES de su semana de
+  -- snapshots (pase semanal + una al empezar cada mes). No se mezclan con
+  -- post_snapshots para no ensuciar la curva de 7 dias. Con los snapshots
+  -- forman la serie de la que sale "impresiones GANADAS cada mes" (Iker,
+  -- 2026-09-17): el mes suma lo que crece cada post entre dos lecturas.
+  CREATE TABLE IF NOT EXISTS post_metric_readings (
+    id BIGSERIAL PRIMARY KEY,
+    post_id UUID NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
+    captured_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    impressions_count INTEGER,
+    likes_count INTEGER,
+    comments_count INTEGER,
+    reposts_count INTEGER
+  );
+  CREATE INDEX IF NOT EXISTS idx_post_metric_readings_post
+    ON post_metric_readings (post_id, captured_at);
+
+  -- Lectura inicial: el valor que cada post tiene HOY. Sin ella, el primer
+  -- pase semanal de un post viejo contaria toda su vida como ganada ese mes.
+  -- Idempotente: solo para posts que aun no tienen ninguna lectura.
+  INSERT INTO post_metric_readings (post_id, captured_at, impressions_count, likes_count, comments_count, reposts_count)
+  SELECT p.id, NOW(), p.impressions_count, p.likes_count, p.comments_count, p.reposts_count
+    FROM posts p
+    JOIN creators c ON c.id = p.creator_id AND c.is_managed = TRUE
+   WHERE p.published_at IS NOT NULL
+     AND NOT EXISTS (SELECT 1 FROM post_metric_readings r WHERE r.post_id = p.id);
 
   -- LA IMAGEN DE UN MEME, EN TEXTO (Iker, 2026-09-17). Las fotos se quitaron de
   -- las respuestas el 15/09 por coste, y el generador se quedo sin entender la

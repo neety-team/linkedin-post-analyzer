@@ -692,7 +692,10 @@ router.get('/:id/wvmp-debug', async (req: Request, res: Response) => {
 // of MAX-per-snapshot for that creator/day.
 async function buildDailyViewerBuckets(
   creatorId: string | null,
-  days: number
+  days: number,
+  // TEMPORAL (2026-09-17): 'ventana' = metodo sin solapes que se esta midiendo
+  // contra las cifras de 90 dias de LinkedIn antes de sustituir al actual.
+  metodo: 'max' | 'ventana' = 'max'
 ): Promise<Map<string, number>> {
   const params: any[] = [];
   let creatorFilter = 'c.is_managed = TRUE';
@@ -727,6 +730,35 @@ async function buildDailyViewerBuckets(
   // perCreatorDay = creator_id → (dayKey → MAX count seen across that
   // creator's snapshots). MAX, not sum: the same viewer captured today
   // and again tomorrow would otherwise be counted twice.
+  if (metodo === 'ventana') {
+    // Cada captura cuenta solo las visitas con hora exacta ("hace N h", menos de
+    // 23,5 h) y posteriores a la captura anterior de esa cuenta; los dias se
+    // SUMAN. Sin solapes, una visita no puede contarse en dos capturas.
+    const porCuenta = new Map<string, any[]>();
+    for (const sn of snapshots) {
+      const l = porCuenta.get(sn.creator_id) || [];
+      l.push(sn);
+      porCuenta.set(sn.creator_id, l);
+    }
+    const combinado = new Map<string, number>();
+    for (const lista of porCuenta.values()) {
+      lista.sort((a, b) => new Date(a.captured_at).getTime() - new Date(b.captured_at).getTime());
+      let previa = -Infinity;
+      for (const sn of lista) {
+        const cap = new Date(sn.captured_at).getTime();
+        const desde = Math.max(previa, cap - 23.5 * 3600_000);
+        for (const raw of sn.viewer_timestamps || []) {
+          const ms = typeof raw === 'string' ? Number(raw) : raw;
+          if (!Number.isFinite(ms) || ms <= desde || ms > cap + 60_000 || ms < windowStart) continue;
+          const k = dayKey(ms);
+          combinado.set(k, (combinado.get(k) || 0) + 1);
+        }
+        previa = cap;
+      }
+    }
+    return combinado;
+  }
+
   const perCreatorDay = new Map<string, Map<string, number>>();
   for (const snap of snapshots) {
     const ts: number[] | null = snap.viewer_timestamps;
@@ -796,7 +828,9 @@ router.get('/profile-view-history', async (req: Request, res: Response) => {
       1,
       Math.round((today.getTime() - startDay.getTime()) / 86400000) + 1
     );
-    const dayBuckets = await buildDailyViewerBuckets(creatorId, daysFromTodayBack);
+    const dayBuckets = await buildDailyViewerBuckets(
+      creatorId, daysFromTodayBack, req.query.metodo === 'ventana' ? 'ventana' : 'max'
+    );
 
     const out: { day: string; views: number }[] = [];
     for (let d = new Date(startDay); d.getTime() <= endDay.getTime(); d.setUTCDate(d.getUTCDate() + 1)) {

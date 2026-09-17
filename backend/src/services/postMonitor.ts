@@ -419,7 +419,7 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
   }
 
   const { rows: viejos } = await pool.query(
-    `SELECT id, linkedin_post_id, impressions_count
+    `SELECT id, linkedin_post_id, impressions_count, likes_count, comments_count, reposts_count
        FROM posts
       WHERE creator_id = $1
         AND linkedin_post_id IS NOT NULL
@@ -432,18 +432,39 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
     if (id) porLinkedInId.set(String(id), r);
   }
 
-  let hechos = 0;
+  // ⛔ ESCUDO CONTRA EL FEED DEGRADADO (2026-09-17). La primera pasada sobre
+  // Iker escribio likes=0 y comentarios=0 en ~100 posts (el del 01/09 paso de
+  // 301 likes a 0) mientras las impresiones llegaban bien: Unipile devuelve
+  // reacciones a 0 en parte del feed. Un post no pierde todos sus likes, asi
+  // que un 0 nunca pisa un valor real, contador a contador. Y si muchos posts
+  // vienen asi, el feed entero no es de fiar: no se escribe nada y se reintenta.
+  const pares: { p: any; n: any }[] = [];
   for (const p of viejos) {
     const raw = porLinkedInId.get(String(p.linkedin_post_id));
-    if (!raw) continue;
-    const n = unipileService.normalizePost(raw, cuenta.id);
-    const engagement = calculateEngagement(n);
-    // Mismo escudo que el refresh manual: un 0/null de impresiones con un valor
-    // real ya guardado es un fallo puntual de Unipile, no un post que ha
-    // perdido lectores. Se conserva el que habia.
-    const imp = typeof n.impressions_count === 'number' && n.impressions_count > 0
-      ? n.impressions_count
-      : null;
+    if (raw) pares.push({ p, n: unipileService.normalizePost(raw, cuenta.id) });
+  }
+  const conLikes = pares.filter(({ p }) => Number(p.likes_count) > 0);
+  const ceros = conLikes.filter(({ n }) => !(Number(n.likes_count) > 0));
+  if (conLikes.length > 0 && ceros.length / conLikes.length > 0.1) {
+    console.warn(
+      `[postMonitor] contadores semanales: feed degradado para ${cuenta.id} ` +
+        `(${ceros.length}/${conLikes.length} posts con likes a 0), no se escribe nada; reintento en ${COUNTERS_RETRY_HOURS}h`
+    );
+    await marcar(COUNTERS_RETRY_HOURS);
+    return 0;
+  }
+
+  const real = (nuevo: any, viejo: any) =>
+    Number(nuevo) > 0 ? Number(nuevo) : Number(viejo) || 0;
+
+  let hechos = 0;
+  for (const { p, n } of pares) {
+    const likes = real(n.likes_count, p.likes_count);
+    const comments = real(n.comments_count, p.comments_count);
+    const reposts = real(n.reposts_count, p.reposts_count);
+    // Mismo escudo para las impresiones: un 0/null con un valor real guardado
+    // es un fallo puntual de Unipile, no un post que ha perdido lectores.
+    const imp = Number(n.impressions_count) > 0 ? Number(n.impressions_count) : null;
     await pool.query(
       `UPDATE posts SET
          likes_count = $2,
@@ -452,7 +473,8 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
          impressions_count = COALESCE($5, impressions_count),
          engagement_score = $6
        WHERE id = $1`,
-      [p.id, n.likes_count, n.comments_count, n.reposts_count, imp, engagement]
+      [p.id, likes, comments, reposts, imp,
+       calculateEngagement({ likes_count: likes, comments_count: comments, reposts_count: reposts })]
     );
     hechos++;
   }

@@ -1006,6 +1006,63 @@ router.patch('/posts/:id/impressions', async (req: Request, res: Response) => {
   }
 });
 
+// POST /api/accounts/posts/restore-counters — repara likes/comentarios/reposts
+// que un feed degradado dejo a 0 (el pase semanal del 2026-09-17 lo hizo en
+// ~80 posts de Iker y ~15 de Unai antes de tener escudo). SOLO PUEDE SUBIR:
+// GREATEST contra el valor guardado, asi que llamarlo de mas nunca estropea nada.
+//   { items: [{ id, likes, comments, reposts }] }  valores de una copia buena
+//   { from_snapshots_creator_id: "<uuid>" }        el maximo de sus snapshots
+router.post('/posts/restore-counters', async (req: Request, res: Response) => {
+  try {
+    const tocados = new Set<string>();
+    let filas = 0;
+    const items = Array.isArray(req.body?.items) ? req.body.items : [];
+    for (const it of items) {
+      const n = (v: any) => (Number.isFinite(Number(v)) && Number(v) > 0 ? Math.round(Number(v)) : 0);
+      const { rows } = await pool.query(
+        `UPDATE posts p SET
+           likes_count    = GREATEST(COALESCE(p.likes_count, 0), $2),
+           comments_count = GREATEST(COALESCE(p.comments_count, 0), $3),
+           reposts_count  = GREATEST(COALESCE(p.reposts_count, 0), $4)
+          FROM creators c
+         WHERE p.id = $1 AND c.id = p.creator_id AND c.is_managed = TRUE
+         RETURNING p.creator_id`,
+        [String(it.id), n(it.likes), n(it.comments), n(it.reposts)]
+      );
+      if (rows[0]) { tocados.add(rows[0].creator_id); filas++; }
+    }
+    const desdeSnapshots = typeof req.body?.from_snapshots_creator_id === 'string'
+      ? req.body.from_snapshots_creator_id : null;
+    if (desdeSnapshots) {
+      const { rowCount } = await pool.query(
+        `UPDATE posts p SET
+           likes_count    = GREATEST(COALESCE(p.likes_count, 0), m.likes),
+           comments_count = GREATEST(COALESCE(p.comments_count, 0), m.comments),
+           reposts_count  = GREATEST(COALESCE(p.reposts_count, 0), m.reposts)
+          FROM (SELECT post_id, MAX(likes_count) likes, MAX(comments_count) comments, MAX(reposts_count) reposts
+                  FROM post_snapshots GROUP BY post_id) m,
+               creators c
+         WHERE m.post_id = p.id AND c.id = p.creator_id AND c.is_managed = TRUE
+           AND p.creator_id = $1`,
+        [desdeSnapshots]
+      );
+      filas += rowCount || 0;
+      tocados.add(desdeSnapshots);
+    }
+    // El engagement y los multiplicadores dependen de estos contadores.
+    await pool.query(
+      `UPDATE posts SET engagement_score = likes_count + comments_count * 2 + reposts_count * 3
+        WHERE creator_id = ANY($1::uuid[])`,
+      [[...tocados]]
+    );
+    for (const id of tocados) await recalcCreatorOutliers(id);
+    res.json({ ok: true, filas, creadores: [...tocados] });
+  } catch (err: any) {
+    console.error('[accounts/posts/restore-counters]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // POST /api/accounts/:id/scrape — re-scrape posts using this account's unipile_account_id
 // so impressions come through (LinkedIn only returns impressions for the authenticated account).
 router.post('/:id/scrape', async (req: Request, res: Response) => {

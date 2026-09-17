@@ -158,14 +158,19 @@ export async function savePremiumAnalytics(
   postId: string,
   a: PremiumAnalytics
 ): Promise<void> {
+  // GREATEST ademas del COALESCE (2026-09-17): son contadores acumulados, no
+  // bajan nunca. Ese dia una lectura dejo los clics al enlace del meme de Iker
+  // en 0 cuando la misma pagina, leida tres veces justo despues, daba 119;
+  // LinkedIn a veces sirve la pagina con ceros (tambien en posts viejos). Un 0
+  // no es "no tiene clics", es "no me lo ha dado".
   await pool.query(
     `UPDATE posts SET
-       profile_viewers_count   = COALESCE($2, profile_viewers_count),
-       followers_gained_count  = COALESCE($3, followers_gained_count),
-       saves_count             = COALESCE($4, saves_count),
-       sends_count             = COALESCE($5, sends_count),
-       link_clicks_count       = COALESCE($6, link_clicks_count),
-       premium_button_clicks   = COALESCE($7, premium_button_clicks),
+       profile_viewers_count   = GREATEST(COALESCE($2, profile_viewers_count), profile_viewers_count),
+       followers_gained_count  = GREATEST(COALESCE($3, followers_gained_count), followers_gained_count),
+       saves_count             = GREATEST(COALESCE($4, saves_count), saves_count),
+       sends_count             = GREATEST(COALESCE($5, sends_count), sends_count),
+       link_clicks_count       = GREATEST(COALESCE($6, link_clicks_count), link_clicks_count),
+       premium_button_clicks   = GREATEST(COALESCE($7, premium_button_clicks), premium_button_clicks),
        link_url                = COALESCE($8, link_url),
        premium_analytics_at    = NOW()
      WHERE id = $1`,

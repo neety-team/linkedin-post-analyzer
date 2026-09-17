@@ -1081,8 +1081,11 @@ function AccountsInner() {
           and captures posts published < 6h ago from managed accounts that have a unipile_account_id. */}
       {hasAccounts && (
         <div className="bg-bg-card border border-border rounded-xl p-5">
-          <div className="mb-4 flex items-start justify-between gap-3 flex-wrap">
-            <div>
+          {/* Titulo a la izquierda y botones SIEMPRE arriba a la derecha: el
+              texto se estrecha (min-w-0) en vez de empujar los botones a otra
+              linea, que es lo que paso al alargar la descripcion (2026-09-17). */}
+          <div className="mb-4 flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
               <h3 className="text-lg font-semibold flex items-center gap-2">
                 {(() => {
                   // "Monitoring" = any tracked post still within the 7d window (any non-closed phase).
@@ -1109,7 +1112,7 @@ function AccountsInner() {
                 Phase-based snapshots for 7 days; after that, likes, comments, reposts and impressions refresh weekly with no age limit, and Premium analytics weekly up to a year.
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-shrink-0 whitespace-nowrap">
               <button
                 onClick={() => setLegendOpen((v) => !v)}
                 className="text-xs text-text-muted hover:text-accent transition-colors"

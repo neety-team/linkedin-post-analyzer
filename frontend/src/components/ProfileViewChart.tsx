@@ -120,7 +120,8 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
     () => oficial.map((p) => ({ ...p, label: fmtDay(p.day) })),
     [oficial]
   );
-  const datos = vista === 'tendencia' ? datosTendencia : datosDiario;
+  // Dos formas de punto segun la vista; recharts solo necesita las claves.
+  const datos: Record<string, unknown>[] = vista === 'tendencia' ? datosTendencia : datosDiario;
   const totalEstimado = (points || []).reduce((s, p) => s + (p.views || 0), 0);
   const variacionTendencia = hayTendencia && oficial[0].viewers_90d > 0
     ? ((oficial[oficial.length - 1].viewers_90d - oficial[0].viewers_90d) / oficial[0].viewers_90d) * 100

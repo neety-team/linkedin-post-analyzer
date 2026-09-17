@@ -1176,6 +1176,17 @@ sorprende, que es de lo que vive este pilar.
 > - **El cuerpo se copia casi entero.** Ya está adaptado a ventas y ya capturó la esencia. Tocarlo es rehacer trabajo que funcionó.
 > - **El gancho MANTIENE el esqueleto validado y solo cambia la palabra de intensidad.** La escalera real de este caso: Félix puso `no, señor` → nosotros lo mejoramos con `Jamás` → el double down usa `Nunca`. **Tres palabras, misma frase.** Inventar un gancho nuevo es tirar lo único que ya sabes que funciona.
 > - **La escalada va en la IMAGEN, no en el texto.** El brazo pasó a la cara. Ahí es donde se sube lo absurdo sin tocar lo que ya rinde.
+>
+> #### 🔁🔁 4.4-DOBLE-PROPIO · SI LA REFERENCIA ES UN MEME NUESTRO, LA IMAGEN SE REESCRIBE ENTERA: MISMA BROMA, OTRAS PALABRAS (Iker, 2026-09-17) — GLOBAL
+>
+> **El caso:** double down de *"Vender es un caos"* (Unai 06/08, 134.544 imp) en la cuenta de Asier, 42 días después. La primera imagen solo cambiaba el título (`Un día` → `Un viernes`) y arreglaba tildes. Iker: *"mantendría las mismas bromas, pero las reescribiría con sinónimos o con otras palabras, incluso más punchy… necesito un poquito más de variedad para que se note la diferencia"*.
+>
+> **LA REGLA, y afina `images §0b-TEXTO-REF` (calcar palabra por palabra):** ese calco es para una referencia AJENA, cuyo original nuestro público no ha visto. **Cuando la referencia es NUESTRA, el público ya ha leído esas palabras**, así que el texto de dentro de la imagen se reescribe entero:
+> - **Se conserva:** la broma de cada elemento, su orden, su forma (pregunta sigue siendo pregunta, grito sigue siendo grito) y **las repeticiones deliberadas** (las dos quejas de "nadie me contesta" se siguen repitiendo, con otras palabras).
+> - **Se cambia:** las palabras, con sinónimos y subiendo el verbo (`gasto` → `fundo`, `rechazo` → `portazo`, `saco` → `clavo`, `objetivo` → `cuota`), **sin alargar ninguna etiqueta** para que el dibujo no se mueva.
+> - **Pasa los filtros de siempre** (`images §0h-FILTROS`) y **no repite palabras del gancho**.
+> - **Y el TEXTO del post tampoco se copia a ciegas** (esto corrige *"el cuerpo se copia casi entero"* de arriba para cuando pasa tiempo): Iker prefirió la versión reescrita *"ya que desde que ese meme se publicó hemos mejorado bastante las recetas"*. Se conserva el esqueleto y el gancho con el intensificador rotado; todo lo demás pasa por las recetas vigentes.
+> - **El test:** pon la imagen vieja y la nueva lado a lado. **Si alguien que vio la primera no nota la diferencia en un segundo, no hay factor sorpresa.** Título y todas las etiquetas cambiados, la curva más exagerada y la misma broma: eso es un double down; solo el título es un refrito.
 > - **Y se marca que es broma en el cierre**, con una línea corta detrás del bold statement (`Silencio es no. El láser son 6 sesiones.`). El primero se comió insultos por leerse en serio.
 > - **🔴 MEDIDO EL 2026-08-05, Y ES PEOR DE LO QUE YO AVISABA: el double down del tatuaje hizo 5.427 contra 93.744 del original. Un 5,8%.** Yo avisé de que rendiría "por debajo"; rindió **17 veces menos**.
 > - **La causa, y es la lección:** el original funcionó **por polémica** (a Unai le insultaron y eso disparó los comentarios). Al repetir, lo hicimos **más absurdo a propósito para evitar los insultos**… y con eso le quitamos el motor. **Un double down suavizado no es un double down: es el mismo chiste sin lo que lo hizo viral.**

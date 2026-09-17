@@ -3680,7 +3680,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'suavizarla para que quepa en la cuenta nueva no se repite. Medido: la '
             'escalera de calvicie a 98 dias hizo 138.828 y luego 89.320; el tatuaje a 2 '
             'dias hizo 93.744 y luego 5.427, un 5,8%. Si falla una puerta, se busca otra '
-            'referencia (§4.4-REPETIR)', aviso=True)
+            'referencia (§4.4-REPETIR). Y SI LA REFERENCIA ES UN MEME NUESTRO, el texto de '
+            'DENTRO de la imagen se reescribe entero: misma broma, mismo orden y mismas '
+            'repeticiones, pero con otras palabras y sin alargar ninguna (§4.4-DOBLE-PROPIO)', aviso=True)
 
     # aboutme §2-CARRIL - CADA CUENTA ES VENTAS + SU OFICIO (Iker, 2026-08-19).
     # Las cinco cuentas anclan a ventas siempre; lo que cambia es el segundo

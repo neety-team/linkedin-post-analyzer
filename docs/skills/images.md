@@ -469,6 +469,8 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 - **⭐ LO MÁS CARO: las repeticiones del original son deliberadas.** Ahí la queja de soledad salía DOS veces casi igual, y esa vuelta al mismo pensamiento es la broma. Cambiar la segunda por otra queja distinta parece "dar variedad" y en realidad desmonta el gag. **Si el original repite, tú repites**, y se le dice al diseñador que es a propósito para que no lo "arregle".
 - **Preguntas siguen siendo preguntas**, afirmaciones siguen siendo afirmaciones. El tiempo verbal y el modo son parte de la esencia (`post-workflow §4.4` paso 2).
 - **El sustantivo concreto no se cambia por un primo suyo.** `venta` no es `reunión`, igual que `tatuaje` no es `tarta`.
+- **⚠️ EXCEPCIÓN: si la referencia es un meme NUESTRO (double down), el texto de dentro NO se calca: se reescribe con la misma broma y otras palabras** (`post-workflow §4.4-DOBLE-PROPIO`, Iker 2026-09-17). Nuestro público ya leyó el original.
+- **⛔ Y AL DICTAR LAS ETIQUETAS EN EL PROMPT, SE DICE "SIN PUNTO FINAL" (2026-09-17).** Escribí *"La tres dice ¡Sí! Venta cerrada."* y el generador pegó el punto de MI frase a seis etiquetas que no lo llevaban. En un prompt en prosa el punto que cierra la frase se confunde con el texto literal: **se añade "ninguna etiqueta lleva punto al final" cuando el original no los lleva.**
 
 ### ⭐⭐ 0b-TEXTO-REF-CORTE · DÓNDE PARTE LA LÍNEA TAMBIÉN SE CALCA, Y MÁS LÍNEAS NO ES PEOR (Iker, 2026-08-18)
 

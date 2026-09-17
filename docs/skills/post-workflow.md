@@ -1625,6 +1625,18 @@ Ninguno de los dos escala y ninguno construye red. Pedir la solicitud no tiene t
 
 
 
+#### ⛔⛔ 4.5.-1-BIS · LA IMAGEN ENSEÑA EL RECURSO, PERO NUNCA LO REGALA (Iker, 2026-09-17)
+
+> **Iker, sobre la imagen del lead magnet de `/perfil/`:** *"si ya en la propia publicación en la foto revelamos el prompt, que es la gracia del recurso, ¿para qué nos van a pedir la guía? Y si nos la piden y luego ven que el prompt era el mismo de la imagen, se van a sentir frustrados y enfadados"*.
+
+**El fallo, y era mío:** calqué la imagen de Chris Donnelly (un prompt entero dentro de la caja de Claude) sin mirar la diferencia de fondo. **Él enseña 1 de sus 12 prompts; nosotros enseñábamos el ÚNICO de la guía.** La regla del gate (`lead-magnet-web §1`: se regala un trozo, el resto se enseña bloqueado) **vale igual para la foto del post**, y no la apliqué.
+
+**LA REGLA:** si la imagen enseña la pieza que hace valioso el recurso (un prompt, una plantilla, una lista), **se ve el arranque nítido y el resto desenfocado**, como contenido bloqueado. Nítido solo lo que demuestra de qué va y que es real (en `/perfil/`: las 3 primeras líneas con los huecos a rellenar); ilegible todo lo que es el valor.
+- **El test:** tapa el post y mira la foto. *¿Con lo que se lee aquí, alguien ya tiene lo que va a pedir?* Si sí, se desenfoca más.
+- **Y el calco no lo arregla:** que la referencia lo enseñe entero no es permiso. Se calca la forma, no lo que se regala, porque el reparto de su recurso no es el nuestro.
+
+**🎨 Y DE PASO, EL SUBRAYADO DEL TÍTULO (Iker, 2026-09-17).** La franja de color detrás del título venía de la referencia (Donnelly la pone en verde) y se quitó: con el prompt desenfocado, **las franjas de los huecos son lo único destacado dentro de la caja**, y una franja en el título les roba la mirada. Jerarquía: título en berenjena sin caja, franjas solo en lo que el lector tiene que rellenar, y la única palabra naranja en el CTA (`images §0h-COMPLEMENTO`).
+
 #### ⭐ 4.5.0 · EL HOOK "ÚLTIMA HORA" (medido, y NO estaba en esta receta hasta el 2026-07-20)
 
 Nuestros 2 mejores lead magnets usan la misma estructura de gancho y **la receta no la recogía**: solo aparecía como ejemplo suelto en `swipe-file`. Por eso se dejó de usar sin que nadie lo decidiera. **Sin usar desde el 2026-05-15.**

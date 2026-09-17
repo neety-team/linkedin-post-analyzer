@@ -216,6 +216,20 @@ export function esEspanola(location: string | null | undefined): boolean {
   return segs.some((s) => ES_REGIONS.has(s));
 }
 
+/**
+ * ¿Es un repost? Unipile lo marca de varias formas segun la version; aqui van
+ * TODAS, las mismas que usa el filtro de `scrapeCreatorPosts`. Un repost lleva
+ * la fecha y a veces el id del post original, asi que no sirve para decidir
+ * donde cortar la lectura del feed.
+ */
+export function esRepost(raw: any): boolean {
+  if (!raw) return false;
+  if (raw.type === 'repost' || raw.type === 'RESHARE' || raw.type === 'reshare') return true;
+  if (raw.is_repost || raw.is_reshare) return true;
+  if (raw.reshared_post || raw.original_post) return true;
+  return false;
+}
+
 export class UnipileService {
   private apiKey: string;
   private baseUrl: string;
@@ -569,14 +583,17 @@ export class UnipileService {
         // monitor dejo sin snapshots a todos los posts de Iker y Unai durante
         // 20 horas sin avisar. Su fecha no dice nada del orden, asi que un
         // repost viejo se salta y se sigue leyendo.
-        if (floor && publishedAt && new Date(publishedAt) < floor && post.is_repost) {
+        // Un repost tampoco corta el scrape incremental: puede llegar con el id
+        // del post original, que ya tenemos, y pararia antes de ver lo nuevo.
+        const repost = esRepost(post);
+        if (floor && publishedAt && new Date(publishedAt) < floor && repost) {
           continue;
         }
         if (floor && publishedAt && new Date(publishedAt) < floor) {
           console.log(`[Unipile] Reached posts older than the requested window, stopping. Total: ${allPosts.length}`);
           return allPosts;
         }
-        if (incremental) {
+        if (incremental && !repost) {
           const pid = post.social_id || post.id;
           if (pid && knownIds!.has(pid)) {
             console.log(`[Unipile] Reached already-stored post (incremental), stopping. New: ${allPosts.length}`);

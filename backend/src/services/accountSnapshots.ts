@@ -55,7 +55,11 @@ export async function captureAccountSnapshots(
     const rawProfile = await unipileService.getProfile(creator.linkedin_url, accountIdOverride);
     const normalized = unipileService.normalizeProfile(rawProfile, creator.linkedin_url);
     if (!providerId && normalized.linkedin_id) providerId = normalized.linkedin_id;
-    if (typeof normalized.followers_count === 'number' && normalized.followers_count >= 0) {
+    // > 0 y no >= 0 (2026-09-17): normalizeProfile devuelve 0 cuando Unipile no
+    // trae el campo, y Unipile da ceros a ratos. Una cuenta con miles de
+    // seguidores no se queda en 0: guardarlo pintaba -8.000 un dia y +8.000 el
+    // siguiente en la grafica y en el mes. Sin dato, se usa el ultimo bueno.
+    if (typeof normalized.followers_count === 'number' && normalized.followers_count > 0) {
       latestFollowers = normalized.followers_count;
     }
     const updates: Record<string, any> = {};
@@ -78,7 +82,7 @@ export async function captureAccountSnapshots(
       (err as Error).message
     );
   }
-  if (latestFollowers == null && typeof creator.followers_count === 'number') {
+  if (latestFollowers == null && typeof creator.followers_count === 'number' && creator.followers_count > 0) {
     latestFollowers = creator.followers_count;
   }
 

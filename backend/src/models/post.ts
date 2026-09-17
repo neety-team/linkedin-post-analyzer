@@ -131,13 +131,16 @@ export const PostModel = {
             profile_viewers_count, followers_gained_count, pillar
           ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32)
           ON CONFLICT (linkedin_post_id) DO UPDATE SET
-            likes_count = EXCLUDED.likes_count,
-            comments_count = EXCLUDED.comments_count,
-            reposts_count = EXCLUDED.reposts_count,
-            impressions_count = EXCLUDED.impressions_count,
-            engagement_score = EXCLUDED.engagement_score,
-            outlier_ratio = EXCLUDED.outlier_ratio,
-            is_outlier = EXCLUDED.is_outlier,
+            -- ESCUDO ANTI-CERO (2026-09-17): Unipile devuelve contadores a 0 a
+            -- ratos, y con otra cuenta que no es la duena las impresiones llegan
+            -- siempre a 0/NULL. Un 0 no pisa un valor real.
+            likes_count = CASE WHEN EXCLUDED.likes_count > 0 THEN EXCLUDED.likes_count ELSE posts.likes_count END,
+            comments_count = CASE WHEN EXCLUDED.comments_count > 0 THEN EXCLUDED.comments_count ELSE posts.comments_count END,
+            reposts_count = CASE WHEN EXCLUDED.reposts_count > 0 THEN EXCLUDED.reposts_count ELSE posts.reposts_count END,
+            impressions_count = COALESCE(NULLIF(EXCLUDED.impressions_count, 0), posts.impressions_count),
+            engagement_score = CASE WHEN EXCLUDED.engagement_score > 0 THEN EXCLUDED.engagement_score ELSE posts.engagement_score END,
+            -- outlier_ratio / is_outlier NO se tocan aqui: llegaban a 0/false en
+            -- cada re-escaneo y los recalcula recalcCreatorOutliers.
             char_count = EXCLUDED.char_count,
             line_break_count = EXCLUDED.line_break_count,
             has_aggressive_spacing = EXCLUDED.has_aggressive_spacing,

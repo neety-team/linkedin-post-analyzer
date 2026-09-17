@@ -1,5 +1,5 @@
 import pool from '../db';
-import { unipileService } from './unipile';
+import { unipileService, esRepost } from './unipile';
 import { calculateEngagement } from './engagement';
 import { recalcCreatorOutliers } from './outliers';
 import { refrescarPostManual } from './manualPost';
@@ -48,6 +48,13 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
   if (tickInFlight) return { captured: 0, candidates: 0 };
   tickInFlight = true;
   try {
+    // Primero se buscan posts nuevos, para que entren ya en la cola de abajo.
+    try {
+      await descubrirPostsNuevos();
+    } catch (e: any) {
+      console.warn('[postMonitor] busqueda de posts nuevos fallo:', e?.message);
+    }
+
     // All managed-account posts within the 7-day window; we'll filter per-post by
     // phase cadence in JS so each post only gets hit at its own required interval.
     const { rows: candidates } = await pool.query(
@@ -55,6 +62,7 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
               c.id AS creator_id, c.linkedin_id, c.unipile_account_id, c.is_manual,
               (SELECT MAX(s.captured_at) FROM post_snapshots s WHERE s.post_id = p.id) AS last_snapshot_at,
               p.premium_analytics_at,
+              p.likes_count, p.comments_count, p.reposts_count, p.impressions_count,
               -- La analitica Premium se pide de una en una, asi que va racionada
               -- (ver el bloque de analytics mas abajo). Se re-pide cada 6h en vez
               -- de una sola vez porque los clics al enlace SIGUEN SUBIENDO
@@ -179,6 +187,24 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
           }
 
           const normalized = unipileService.normalizePost(raw, creatorId);
+
+          // ⛔ ESCUDO ANTI-CERO (2026-09-17). Unipile devuelve a ratos un post con
+          // todos los contadores a 0 (medido: 15 de 169 en una lectura, 0 en la
+          // siguiente). Antes eso se escribia tal cual: likes a 0 en el post y un
+          // punto a 0 en la curva. Un post que ya tenia likes o impresiones no
+          // los pierde, asi que esa lectura se descarta entera (sin snapshot) y
+          // la siguiente vuelta lo vuelve a intentar.
+          const degradado =
+            (Number(target.impressions_count) > 0 && !(Number(normalized.impressions_count) > 0)) ||
+            (Number(target.likes_count) > 0 && !(Number(normalized.likes_count) > 0));
+          if (degradado) {
+            console.warn(`[postMonitor] lectura degradada de ${target.id} (contadores a 0): se descarta, sin snapshot`);
+            continue;
+          }
+          const noBaja = (nuevo: any, viejo: any) =>
+            Number(nuevo) > 0 ? Number(nuevo) : Number(viejo) || 0;
+          normalized.comments_count = noBaja(normalized.comments_count, target.comments_count);
+          normalized.reposts_count = noBaja(normalized.reposts_count, target.reposts_count);
           const engagement = calculateEngagement(normalized);
 
           // Persist the snapshot
@@ -195,7 +221,7 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
                likes_count = $2,
                comments_count = $3,
                reposts_count = $4,
-               impressions_count = $5,
+               impressions_count = COALESCE($5, impressions_count),
                engagement_score = $6,
                content_text = COALESCE($7, content_text)
              WHERE id = $1`,
@@ -276,6 +302,19 @@ const ANALYTICS_PAUSE_MS = 1500;
 const ANALYTICS_RETRY_HOURS = 1;
 const pausa = () => new Promise((r) => setTimeout(r, ANALYTICS_PAUSE_MS));
 
+const reintentarAnaliticaReciente = (id: string) =>
+  pool.query(
+    `UPDATE posts
+        SET premium_analytics_at = NOW() - INTERVAL '6 hours' + ($2 || ' hours')::interval
+      WHERE id = $1`,
+    [id, String(ANALYTICS_RETRY_HOURS)]
+  );
+const reintentarAnaliticaVieja = (id: string) =>
+  pool.query(
+    `UPDATE posts SET premium_analytics_at = NOW() - INTERVAL '6 days' WHERE id = $1`,
+    [id]
+  );
+
 async function refrescarAnaliticaPostsRecientes(candidates: any[]): Promise<number> {
   const pendientes = candidates
     .filter((c) => c.needs_analytics && !c.is_manual && c.unipile_account_id && c.linkedin_post_id)
@@ -294,15 +333,13 @@ async function refrescarAnaliticaPostsRecientes(candidates: any[]): Promise<numb
         await savePremiumAnalytics(pool, p.id, a);
         hechos++;
       } else {
-        await pool.query(
-          `UPDATE posts
-              SET premium_analytics_at = NOW() - INTERVAL '6 hours' + ($2 || ' hours')::interval
-            WHERE id = $1`,
-          [p.id, String(ANALYTICS_RETRY_HOURS)]
-        );
+        await reintentarAnaliticaReciente(p.id);
       }
     } catch (e: any) {
+      // Un fallo de red tambien se reprograma: si no, el post se queda primero
+      // en la cola y bloquea a los demas en cada vuelta.
       console.warn(`[postMonitor] analytics failed for ${p.id}:`, e?.message);
+      await reintentarAnaliticaReciente(p.id).catch(() => {});
     }
   }
   if (pendientes.length) {
@@ -339,16 +376,59 @@ async function refrescarAnaliticaPostsViejos(): Promise<number> {
         await savePremiumAnalytics(pool, p.id, a);
         hechos++;
       } else {
-        // La pagina no se pudo leer. Se marca igual para que este post no
-        // bloquee la cola pidiendose en cada vuelta: le tocara la semana que viene.
-        await pool.query(`UPDATE posts SET premium_analytics_at = NOW() WHERE id = $1`, [p.id]);
+        // La pagina no se pudo leer. Se reprograma para MANANA, no para la
+        // semana que viene: LinkedIn la sirve vacia a ratos y un post vivo no
+        // puede perder una semana por una lectura mala. Tampoco se reintenta
+        // en la vuelta siguiente, para no bloquear la cola.
+        await reintentarAnaliticaVieja(p.id);
       }
     } catch (e: any) {
       console.warn(`[postMonitor] analitica semanal fallo para ${p.id}:`, e?.message);
+      await reintentarAnaliticaVieja(p.id).catch(() => {});
     }
   }
   if (hechos) console.log(`[postMonitor] analitica semanal: ${hechos} post(s) de mas de 7 dias actualizados`);
   return hechos;
+}
+
+// ⭐⭐ DESCUBRIMIENTO AUTOMATICO DE POSTS NUEVOS (2026-09-17)
+//
+// EL AGUJERO: el tick solo actualiza posts que YA estan en la BD. Los nuevos
+// entraban por el boton "Get new posts" o por el anunciador del Google Chat, y
+// ese caduco el 11/09. Un post que nadie traia no tenia curva, ni hora dorada,
+// ni analitica, hasta que alguien pulsaba el boton.
+//
+// CADENCIA: cada vuelta (15 min) de 7:00 a 22:59 de Madrid, que es cuando se
+// publica y cuando la hora dorada importa; cada hora el resto. Es el mismo
+// scrape incremental del boton: suele ser 1 pagina del feed + 1 del perfil.
+let ultimoDescubrimiento = 0;
+
+async function descubrirPostsNuevos(): Promise<number> {
+  const hora = Number(new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Madrid', hour: '2-digit', hour12: false,
+  }).format(new Date()));
+  const cada = hora >= 7 && hora < 23 ? TICK_MS : HOUR_MS;
+  if (Date.now() - ultimoDescubrimiento < cada - DUE_TOLERANCE_MS) return 0;
+  ultimoDescubrimiento = Date.now();
+
+  // Import dinamico: routes/accounts importa este modulo, y al reves se
+  // formaria un ciclo en la carga.
+  const { scrapeCreatorPosts } = await import('../routes/accounts');
+  const { rows } = await pool.query(
+    `SELECT id FROM creators
+      WHERE is_managed = TRUE AND unipile_account_id IS NOT NULL AND is_manual IS NOT TRUE`
+  );
+  let nuevos = 0;
+  for (const { id } of rows) {
+    try {
+      const r = await scrapeCreatorPosts(id);
+      nuevos += r.scraped;
+    } catch (e: any) {
+      console.warn(`[postMonitor] descubrimiento fallo para ${id}:`, e?.message);
+    }
+  }
+  if (nuevos) console.log(`[postMonitor] descubrimiento: ${nuevos} post(s) nuevo(s)`);
+  return nuevos;
 }
 
 // ⭐⭐ PASE SEMANAL DE CONTADORES PUBLICOS PARA POSTS DE MAS DE 7 DIAS (Iker, 2026-09-17)
@@ -449,6 +529,17 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
     const raw = porLinkedInId.get(String(p.linkedin_post_id));
     if (raw) pares.push({ p, n: unipileService.normalizePost(raw, cuenta.id) });
   }
+  // Feed a medias: getPosts corta en la primera pagina vacia y devuelve lo que
+  // lleve. Si no aparecen ni el 70% de los posts viejos, no se da la semana
+  // por hecha (los que faltan se quedarian otros 7 dias sin tocar).
+  if (viejos.length > 0 && pares.length / viejos.length < 0.7) {
+    console.warn(
+      `[postMonitor] contadores semanales: feed incompleto para ${cuenta.id} ` +
+        `(${pares.length}/${viejos.length} posts encontrados); reintento en ${COUNTERS_RETRY_HOURS}h`
+    );
+    await marcar(COUNTERS_RETRY_HOURS);
+    return 0;
+  }
   const conLikes = pares.filter(({ p }) => Number(p.likes_count) > 0);
   const ceros = conLikes.filter(({ n }) => !(Number(n.likes_count) > 0));
   if (conLikes.length > 0 && ceros.length / conLikes.length > 0.1) {
@@ -485,10 +576,8 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
     hechos++;
   }
   await marcar(null);
-  if (hechos) {
-    await recalcCreatorOutliers(cuenta.id);
-    console.log(`[postMonitor] contadores semanales: ${hechos}/${viejos.length} post(s) de mas de 7 dias al dia para ${cuenta.id}`);
-  }
+  if (hechos) await recalcCreatorOutliers(cuenta.id);
+  console.log(`[postMonitor] contadores semanales: ${hechos}/${viejos.length} post(s) de mas de 7 dias al dia para ${cuenta.id}`);
   return hechos;
 }
 
@@ -605,6 +694,12 @@ export async function capturePostSnapshot(postId: string): Promise<{
       const publishedAt = pub[0]?.published_at ? new Date(pub[0].published_at).getTime() : null;
       const dentroDeVentana =
         publishedAt != null && Date.now() - publishedAt < MONITOR_WINDOW_MS;
+      // Solo si el feed ha llegado de verdad: con una lista vacia (rate limit
+      // de LinkedIn) un post vivo se marcaba como borrado y desaparecia.
+      const feedReal = raws.some((r: any) => !esRepost(r));
+      if (dentroDeVentana && !feedReal) {
+        return { ok: false, reason: 'LinkedIn devolvio el feed vacio; prueba en unos minutos' };
+      }
       if (dentroDeVentana) {
         await pool.query(
           `UPDATE posts SET deleted_from_linkedin_at = NOW()
@@ -643,13 +738,25 @@ export async function capturePostSnapshot(postId: string): Promise<{
     // so we still update the post's live counters from those.
     const newImp = typeof normalized.impressions_count === 'number' ? normalized.impressions_count : null;
     const looksLikeImpZero = newImp == null || newImp === 0;
+    // Ademas de los snapshots se mira el propio post: uno sin snapshots (entro
+    // tarde, o es viejo) tambien tiene impresiones y likes que no se pisan con 0.
+    const { rows: actual } = await pool.query(
+      `SELECT impressions_count, likes_count FROM posts WHERE id = $1`,
+      [target.id]
+    );
+    if (Number(actual[0]?.likes_count) > 0 && !(Number(normalized.likes_count) > 0)) {
+      return { ok: false, reason: 'LinkedIn devolvio los contadores a 0; no se ha tocado nada, prueba en unos minutos' };
+    }
     if (looksLikeImpZero) {
-      const { rows: prior } = await pool.query(
+      const { rows: priorSnap } = await pool.query(
         `SELECT impressions_count FROM post_snapshots
           WHERE post_id = $1 AND impressions_count IS NOT NULL AND impressions_count > 0
           ORDER BY captured_at DESC LIMIT 1`,
         [target.id]
       );
+      const prior = priorSnap.length > 0
+        ? priorSnap
+        : Number(actual[0]?.impressions_count) > 0 ? [{ impressions_count: actual[0].impressions_count }] : [];
       if (prior.length > 0) {
         // Update live counters anyway (engagement is reliable) but skip the
         // snapshot insert so the impressions chart doesn't dip to 0.

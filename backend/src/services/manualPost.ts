@@ -562,17 +562,23 @@ export async function refrescarPostManual(
     return { ok: false, motivo: err?.message || 'Unipile no responde' };
   }
 
-  const likes = raw.reaction_counter ?? 0;
-  const comentarios = raw.comment_counter ?? 0;
-  const reposts = raw.repost_counter ?? 0;
-
   // Las impresiones del post (escritas a mano) se ARRASTRAN al snapshot nuevo.
   // Sin esto la curva caeria a cero cada 15 minutos entre dos ediciones
   // manuales, y una curva que baja a cero y vuelve a subir no se puede leer.
   const { rows: actual } = await pool.query(
-    `SELECT impressions_count FROM posts WHERE id = $1`,
+    `SELECT impressions_count, likes_count, comments_count, reposts_count FROM posts WHERE id = $1`,
     [postId]
   );
+
+  // ESCUDO ANTI-CERO (2026-09-17): Unipile da contadores a 0 a ratos. Un post
+  // que ya tenia likes no los pierde: esa lectura se descarta entera.
+  if (Number(actual[0]?.likes_count) > 0 && !(Number(raw.reaction_counter) > 0)) {
+    return { ok: false, motivo: 'lectura degradada (likes a 0), se descarta' };
+  }
+  const noBaja = (nuevo: any, viejo: any) => (Number(nuevo) > 0 ? Number(nuevo) : Number(viejo) || 0);
+  const likes = noBaja(raw.reaction_counter, actual[0]?.likes_count);
+  const comentarios = noBaja(raw.comment_counter, actual[0]?.comments_count);
+  const reposts = noBaja(raw.repost_counter, actual[0]?.reposts_count);
 
   await insertarSnapshot(postId, {
     likes_count: likes,

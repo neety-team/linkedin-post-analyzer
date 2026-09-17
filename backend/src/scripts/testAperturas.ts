@@ -347,7 +347,7 @@ ok(problemaDeEstilo('Gran post', 'Nerea Uriarte pues geniaaal, el filtro, tal cu
 ok(problemaDeEstilo('Gran post', 'Luis Gómez pues siii, a veces es el precio y aun así casi siempre hay algo antes', 'Luis Gómez') === null, 'la buena pasa');
 {
   const a = quitarIncisosSueltos(' justooo, el interlocutor bieeen, que casi siempre es quien no firma nada.');
-  ok(a === ' justooo, el interlocutor, que casi siempre es quien no firma nada.', 'quita la alargada huerfana con su coma', a);
+  ok(a === ' justooo, el interlocutor que casi siempre es quien no firma nada.', 'quita la alargada huerfana con su coma', a);
   const b = quitarIncisosSueltos(' pues geniaaal, el filtro, tal cual, siempre lo pone alguien.');
   ok(b === ' pues geniaaal, el filtro, siempre lo pone alguien.', 'quita el inciso suelto', b);
   const c = quitarIncisosSueltos(' el comercial busca, sí, antes de culpar al precio.');
@@ -441,6 +441,17 @@ ok(eventoInventado('No basta con llegar con la solución y eso es justo lo que s
   ok(r === 'No basta con llegar con la solución, hay que llegar a quien la aprueba.', 'recorta la coletilla del evento', r);
 }
 ok(recortarEventoInventado('Casi siempre se pierde antes de llamar.') === 'Casi siempre se pierde antes de llamar.', 'sin evento no toca nada');
+
+console.log('\n15j · cuarta revision del 18/09');
+ok(quitarIncisosSueltos('el cliente buenooo, escucha atento y luego lo consulta') === 'el cliente escucha atento y luego lo consulta', 'sin coma huerfana', quitarIncisosSueltos('el cliente buenooo, escucha atento y luego lo consulta'));
+ok(asentimientosAlPrincipio(' ciertoo, vale y ese orgullo lo carga el turno') >= 2, 'caza "ciertoo, vale y"');
+ok(asentimientosAlPrincipio(' valeee, bien y añadiría que') >= 2, 'caza "valeee, bien y"');
+ok(asentimientosAlPrincipio(' bien dicho, el turno entra de noche') === 0, '"bien dicho" no es asentir apilado');
+ok(detectarRespuestaBorde('Maite Lasa culpa mía, el evento es el sitio donde lo trabajamos en persona.') !== null, 'caza "donde lo trabajamos"');
+ok(detectarRespuestaBorde('Ana Pérez es la reunión donde lo vemos cada semana con los comerciales') === null, '"donde lo vemos" sin evento no salta');
+ok(detectarRespuestaBorde('Carlos Vidal apuntarlo está bien, pero lo que hay en el evento es la conversación') !== null, 'caza "lo que hay en el evento"');
+ok(detectarRespuestaBorde('Fernando Cid los de EUSTAT los cito en el propio post') !== null, 'caza "en el propio post"');
+ok(forzarEstirada('bien y añadiría que tampoco se enseña', 2, 'vale', false) === 'valeee, añadiría que tampoco se enseña', 'sustituye el "bien y"', forzarEstirada('bien y añadiría que tampoco se enseña', 2, 'vale', false));
 
 // RULE 3g (Iker, 2026-09-17): el comentario de Antonio N. en el meme, y lo que salio.
 const antonio = 'Iker Galarza Rodríguez una que funciona muy bien es: tu madre se ha tropezado en la ducha.\n\nSólo para valientes.';

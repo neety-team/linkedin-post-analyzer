@@ -188,7 +188,7 @@ ${STRETCH_RULES[voice].r13}`;
 export function buildPrompt(
   input: ReplyGenerationInput,
   voice: Voice
-): { prompt: string; arranque: string; conEmoji: boolean; estirar: boolean; emojiElegido: string; palabraAlargar: string } {
+): { prompt: string; arranque: string; conEmoji: boolean; estirar: boolean; emojiElegido: string; palabraAlargar: string; thanks: string } {
   const v = input.authorVoice;
   const voiceBlock = [
     v.voice_style ? `VOICE STYLE: ${v.voice_style}` : null,
@@ -571,7 +571,7 @@ ${thanksNudge}
 ${avisoImagen}
 
 Write the reply now. Plain text, ONE single sentence, in the same language as the post/comment.`;
-  return { prompt, arranque: elegido.arranque, conEmoji, estirar, emojiElegido, palabraAlargar };
+  return { prompt, arranque: elegido.arranque, conEmoji, estirar, emojiElegido, palabraAlargar, thanks };
 }
 
 // EL GUARDARRAIL, PORQUE UN PROMPT ES UNA PETICION Y NO UNA GARANTIA
@@ -852,7 +852,7 @@ export function forzarEstirada(texto: string, letras = 2, palabra?: string, mule
   // dio "tal cuaaal, claro y lo peor…" y "totaaal, justo y mientras…".
   const arranqueAsiente =
     resto.match(/^(totalmente|efectivamente|sin duda|desde luego|por supuesto|y tanto|eso es|tal cual|claro|exacto|justo|cierto|genial|brutal|perfecto|s[ií])\s*(,|y(?![\p{L}]))\s*/iu) ||
-    resto.match(/^(vale|total)\s*,\s*/iu);
+    resto.match(/^(vale|total|bien)\s*(,|y(?![\p{L}]))\s*/iu);
   if (arranqueAsiente) resto = resto.slice(arranqueAsiente[0].length);
   // "Casi siempre…" -> "Buenooo, casi siempre…" (sin tocar siglas ni nombres
   // propios que empiecen la frase: solo se baja si la segunda letra es minuscula)
@@ -963,7 +963,7 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // (lo mira `daPorHechoQueViene`, que ve el comentario: a quien dice "alli
   // estare" si se le puede esperar)
   // Tratarle de despistado (prueba del 16/09).
-  { re: /\b(si no sabes|si lo lees|si te lo lees|estan? en el post|en el mismo post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
+  { re: /\b(si no sabes|si lo lees|si te lo lees|estan? en el post|en el (mismo|propio) post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
   // "te dejo el enlace en el post para reservar sitio" (tanda del 18/09): el
   // enlace YA esta en el post, asi que es mandarle a leerlo.
   { re: /\b(enlace|link)\b[^.]{0,25}\b(en|del) (el )?post\b|\b(lo )?tienes (arriba|en el post)\b/, que: 'le mandas a buscar el enlace al post, que es tratarle de despistado' },
@@ -974,7 +974,7 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // ⛔ INVENTAR QUE SE HACE EN EL EVENTO (tanda del 18/09): "por eso en el
   // evento trabajamos exactamente eso". Del evento solo consta lo que dice el
   // post; su programa no se describe.
-  { re: /\b(en el (evento|encuentro)( del jueves)?( en donostia)?|el jueves en donostia) (trabajamos|vemos|ensenamos|explicamos|practicamos|contamos|resolvemos|hablamos de)\b|\blo que (trabajamos|vemos|ensenamos|explicamos|practicamos|resolvemos) en (el evento|donostia)|\b(lo que|de lo que) (queremos|queriamos|vamos a|venimos a) (resolver|trabajar|hablar|contar|ver|ensenar)[^.]{0,25}(el jueves|en donostia|en el evento)|\bel (evento|encuentro)( del jueves)?( en donostia)? (va de|es para|sirve para|trata de|consiste en)|\b(lo que|de lo que) se (trabaja|habla|ve|resuelve|ensena|cuenta) (el jueves |justo )?en (donostia|el evento)|\bse (trabaja|resuelve|ensena) (eso |esto |justo eso )?(el jueves )?en (donostia|el evento)/, que: 'afirmas que se hace o se trabaja algo en el evento y no consta: del evento solo se puede decir lo que pone el post' },
+  { re: /\b(en el (evento|encuentro)( del jueves)?( en donostia)?|el jueves en donostia) (trabajamos|vemos|ensenamos|explicamos|practicamos|contamos|resolvemos|hablamos de)\b|\blo que (trabajamos|vemos|ensenamos|explicamos|practicamos|resolvemos) en (el evento|donostia)|\b(lo que|de lo que) (queremos|queriamos|vamos a|venimos a) (resolver|trabajar|hablar|contar|ver|ensenar)[^.]{0,25}(el jueves|en donostia|en el evento)|\bel (evento|encuentro)( del jueves)?( en donostia)? (va de|es para|sirve para|trata de|consiste en)|\b(lo que|de lo que) se (trabaja|habla|ve|resuelve|ensena|cuenta) (el jueves |justo )?en (donostia|el evento)|\bse (trabaja|resuelve|ensena) (eso |esto |justo eso )?(el jueves )?en (donostia|el evento)|\b(evento|donostia|jueves)\b[^.]{0,40}\bdonde (lo |eso |esto )?(trabajamos|resolvemos|ensenamos|contamos|vemos)\b|\blo que (hay|pasa|se hace) en (el evento|donostia)/, que: 'afirmas que se hace o se trabaja algo en el evento y no consta: del evento solo se puede decir lo que pone el post' },
   // Afirmar que la historia es real (muchas escenas son construidas).
   { re: /\b((la historia|esto|todo|es todo) es (real|verdad|cierto)|es todo (real|verdad|cierto)|no (me lo he|lo he) inventad|paso de verdad|me paso tal cual)\b/, que: 'afirmas que la historia es real, y no puedes saberlo' },
   // "no era una herramienta, era la renovacion del evento" (prueba del 16/09, a
@@ -1114,9 +1114,9 @@ export function recortarEventoInventado(texto: string): string {
 // tal cual, siempre lo pone…", "justooo, el interlocutor bien, que…". El
 // modelo recibia dos palabras sorteadas y las encajaba donde podia.
 const ASENTIR = ['tal cual', 'y tanto', 'sin duda', 'eso es', 'desde luego', 'por supuesto',
-  'claro', 'exacto', 'justo', 'cierto', 'totalmente', 'efectivamente', 'genial', 'brutal', 'si', 'vale', 'total', 'perfecto'];
+  'claro', 'exacto', 'justo', 'cierto', 'totalmente', 'efectivamente', 'genial', 'brutal', 'si', 'vale', 'total', 'perfecto', 'bien'];
 // Estas solo asienten sueltas: "si lo piensas" o "total que" no son asentir.
-const SOLO_CON_PAUSA = new Set(['si', 'vale', 'total', 'perfecto']);
+const SOLO_CON_PAUSA = new Set(['si', 'vale', 'total', 'perfecto', 'bien']);
 const RELLENO_ARRANQUE = new Set(['pues', 'y', 'uy', 'uf', 'uff', 'ah', 'oh', 'eh', 'ay', 'hombre', 'vamos', 'que']);
 
 function plano(texto: string): string {
@@ -1129,7 +1129,7 @@ export function asentimientosAlPrincipio(cuerpo: string): number {
   let n = 0;
   for (let guard = 0; guard < 8; guard++) {
     resto = resto.replace(/^[\s,.!]+/, '');
-    const f = ASENTIR.find((a) => new RegExp(SOLO_CON_PAUSA.has(a) ? `^${a}\\s*[,.!]` : `^${a}(?![a-z])`).test(resto));
+    const f = ASENTIR.find((a) => new RegExp(SOLO_CON_PAUSA.has(a) ? `^${a}(\\s*[,.!]|\\s+y(?![a-z]))` : `^${a}(?![a-z])`).test(resto));
     if (f) { n++; resto = resto.slice(f.length); continue; }
     const w = resto.match(/^[a-z]+/);
     if (w && RELLENO_ARRANQUE.has(w[0])) { resto = resto.slice(w[0].length); continue; }
@@ -1182,7 +1182,9 @@ export function quitarIncisosSueltos(cuerpo: string): string {
     r = /,\s*$/.test(antes) && /^\s*,/.test(despues)
       ? antes.replace(/\s*$/, '') + despues.replace(/^\s*,/, '')
       : /^\s*,/.test(despues)
-        ? antes.replace(/\s+$/, '') + despues.replace(/^\s*,/, ',')
+        // La coma era de la interjeccion: se va con ella ("el cliente
+        // buenooo, escucha" -> "el cliente escucha", Google Chat 18/09).
+        ? antes.replace(/\s+$/, '') + ' ' + despues.replace(/^\s*,\s*/, '')
         : r.slice(0, i0) + desestirar(fuera) + despues;
   }
   const inc = incisoDeAsentir(r);
@@ -1415,6 +1417,8 @@ CUENTA COMO INVENTADO (responde inventa=true):
 - Narrar un suceso concreto que no consta: una reunion, una llamada, un viaje, una conversacion, un encuentro, algo que "paso" en un momento o lugar determinado.
 - Citar a una persona, un cliente, una empresa o un sitio que no aparece en las fuentes.
 - Dar una cifra, una duracion o una cantidad que no esta en las fuentes, este en digitos o en letra.
+- Usar una cifra que SI esta en el post pero con OTRO significado: la facturacion de una empresa contada como "un pedido de", un porcentaje de crecimiento contado como margen, un dato de un pais atribuido a una empresa (revision del 18/09: "el cliente que firma un pedido de 281M€", cuando 281M€ era la facturacion).
+- Decir de que va, que se trabaja, que se ensena o cuanto cuesta un evento, si el post no lo dice.
 
 NO CUENTA COMO INVENTADO (responde inventa=false):
 - Observaciones generales sin escena: "a la mayoria les pasa", "casi siempre acaba igual", "es lo mas comun".
@@ -1469,7 +1473,7 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
     throw new Error('ANTHROPIC_API_KEY not set');
   }
   const voice = voiceForAuthor(input.authorName);
-  const { prompt, arranque: elegidoArranque, conEmoji, estirar, emojiElegido, palabraAlargar } = buildPrompt(input, voice);
+  const { prompt, arranque: elegidoArranque, conEmoji, estirar, emojiElegido, palabraAlargar, thanks } = buildPrompt(input, voice);
 
   // Se genera y se COMPRUEBA. Si se ha inventado algo, se vuelve a pedir con el
   // fallo delante, hasta 2 veces mas. Un reproche concreto ("te has inventado
@@ -1674,6 +1678,16 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       text = estirar
         ? (palabraAlargar === 'gracias' ? estirarUna(base, letrasVoz) : forzarEstirada(base, letrasVoz, palabraAlargar))
         : desestirarTodo(quitarIncisosSueltos(text));
+    }
+  }
+  // 1f-bis. "gracias." A SECAS (salio dos veces en las revisiones del 18/09 aun
+  //     con el reintento): se cambia por la variante sorteada.
+  {
+    const nomG = input.commenterName?.trim() || '';
+    const cuerpoG = nomG && text.toLowerCase().startsWith(nomG.toLowerCase()) ? text.slice(nomG.length).trim() : text.trim();
+    if (/^gracias\s*[.!]?\s*$/i.test(desestirarTodo(quitarEmojis(cuerpoG)))) {
+      // La lista de variantes ya va por voz (THANKS_VARIANTS), asi que vale tal cual.
+      text = `${nomG ? nomG + ' ' : ''}${thanks}${voice === 'sobrio' ? '.' : ''}`;
     }
   }
   // 1g. TILDES QUE NO ADMITEN DUDA (tanda del 18/09: "ojala", "culpa mia").

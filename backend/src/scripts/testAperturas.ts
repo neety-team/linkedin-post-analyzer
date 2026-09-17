@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -292,6 +292,13 @@ ok(quitarComaAntesDeY('Bilbao, Ermua, yo qué sé') === 'Bilbao, Ermua, yo qué 
   ok(mal === 0, 'no alarga una negacion, un si condicional, un ya ni "la cual" en mitad de la frase');
   ok(estirarUna('no, y encima encoge') === 'nooo, y encima encoge', 'el "no" suelto si se alarga', estirarUna('no, y encima encoge'));
 }
+
+// RULE 3g (Iker, 2026-09-17): el comentario de Antonio N. en el meme, y lo que salio.
+const antonio = 'Iker Galarza Rodríguez una que funciona muy bien es: tu madre se ha tropezado en la ducha.\n\nSólo para valientes.';
+ok(tomaEnSerioLaBroma(antonio, 'Antonio N. Funciona porque mezcla urgencia con un nombre real y de ahí a preguntar directamente por el responsable hay solo un paso 🔥'), 'caza la broma tomada en serio');
+ok(!tomaEnSerioLaBroma(antonio, 'Antonio N. me la apuntaré por si la necesito en el futuro jajaja'), 'deja pasar la que sigue la broma');
+ok(tomaEnSerioLaBroma('jajaja la mejor excusa del mundo', 'Pedro Gil es una buena táctica para llegar al que decide'), 'con jajaja tambien caza el analisis');
+ok(!tomaEnSerioLaBroma('Muy buen post, la llamada en frío funciona', 'Pedro Gil funciona porque llegas antes que nadie'), 'un comentario serio puede recibir un "funciona porque"');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);
 process.exit(fallos === 0 ? 0 : 1);

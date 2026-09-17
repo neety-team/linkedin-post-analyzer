@@ -218,12 +218,29 @@ export interface ThreadCardHandle {
    basta con pasarle el id de la sub-respuesta.
    Va plegada por defecto: si cada respuesta abriera su textarea, un hilo de
    seis dejaria el panel ilegible. */
+// Lo que se dijo en el hilo ANTES de un mensaje, para que el generador lea la
+// respuesta en su contexto (Iker, 2026-09-17): Antonio N. siguio la broma de un
+// meme contestando a un "jajajaj" nuestro, y leido suelto se tomo en serio.
+function hiloAntesDe(thread: Thread, targetId: string): { autor: string | null; texto: string }[] {
+  if (targetId === thread.id) return [];
+  const previos = [thread];
+  for (const r of thread.replies) {
+    if (r.id === targetId) break;
+    previos.push(r);
+  }
+  return previos
+    .filter((m) => m.text && m.text.trim())
+    .map((m) => ({ autor: m.author.name, texto: m.text }));
+}
+
 function SubReplyBox({
   postId,
   reply,
+  hilo,
 }: {
   postId: string;
   reply: Thread;
+  hilo: { autor: string | null; texto: string }[];
 }) {
   const [abierto, setAbierto] = useState(false);
   const [draft, setDraft] = useState('');
@@ -265,6 +282,7 @@ function SubReplyBox({
           commenter_name: reply.author.name,
           commenter_headline: reply.author.headline,
           commenter_profile_id: reply.author.profile_id,
+          hilo,
         }
       );
       setDraft(res.reply);
@@ -441,6 +459,7 @@ export function ThreadCard({
           commenter_name: target.author.name,
           commenter_headline: target.author.headline,
           commenter_profile_id: target.author.profile_id,
+          hilo: hiloAntesDe(thread, target.id),
         }
       );
       setDraft(res.reply);
@@ -552,7 +571,7 @@ export function ThreadCard({
                       <p className="text-xs text-text-secondary whitespace-pre-wrap">{r.text}</p>
                     )}
                     <ReactionBar postId={postId} commentId={r.id} initialReaction={r.my_reaction} compact />
-                    <SubReplyBox postId={postId} reply={r} />
+                    <SubReplyBox postId={postId} reply={r} hilo={hiloAntesDe(thread, r.id)} />
                   </div>
                 </div>
               ))}

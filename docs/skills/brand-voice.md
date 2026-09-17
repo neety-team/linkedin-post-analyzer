@@ -494,7 +494,19 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 
 **⛔ PERO ENTONCES LA REGLA DE CEGUERA ES OBLIGATORIA, y es lo único que impide repetir el desastre del meme del peso** (donde se contestó *"en ningún momento hemos hablado de peso"* y **sí** estaba, en la imagen): el prompt le dice al modelo que **NO ve la foto** y le prohíbe afirmar o negar nada sobre lo que el post enseña. Nada de *"no sale"*, *"no aparece"*, *"no hemos dicho"*, *"no va de eso"*. Y `detectarRespuestaBorde()` lo comprueba.
 - **Lo que se pierde, dicho:** a un *"no entiendo este post"* de un meme ya no se le puede explicar la broma **entera**, porque la mitad vive en la foto. Se explica lo que da el texto y se abre reconociendo (`§7.1c`), que sigue siendo mucho mejor que lo de antes.
-- **La salida barata, si algún día se quiere:** mandar la imagen **solo** cuando el comentario la necesita (un *"no entiendo"* o una queja), que es ~1 de cada 20. No está hecho: se hace si Iker lo pide.
+- ~~La salida barata, si algún día se quiere~~ → **hecha el 17/09, y de otra forma** (ver `§7.1f`).
+
+#### 😂 7.1f · EN UN MEME, LA IMAGEN VA EN TEXTO Y LA BROMA SE SIGUE (Iker, 2026-09-17)
+
+**El caso:** en un meme, Antonio N. contestó dentro de un hilo *"una que funciona muy bien es: tu madre se ha tropezado en la ducha. Sólo para valientes"*. La herramienta propuso *"Funciona porque mezcla urgencia con un nombre real…"*: **se tomó al pie de la letra un chiste que seguía la broma del meme**. Iker contestó a mano: *"me la apuntaré por si la necesito en el futuro jajaja"*.
+
+**Por qué falló:** el generador solo leía el texto del post, y en un meme la broma vive en la imagen. Tampoco veía el hilo: Antonio contestaba a un *"jajajaj"* nuestro.
+
+**Lo que se hizo, y cuánto cuesta:**
+- **Solo en posts con pilar `meme`**, la imagen se reduce a 512 px y **Haiku la resume UNA vez por post** (texto literal, escena y dónde está el chiste). Se guarda en `posts.image_summary` (`services/postImageText.ts`). Cada respuesta lo lee como **texto**: unas decenas de tokens, no ~850 por foto.
+- **El hilo viaja con la petición**: lo que se dijo antes del comentario al que se responde.
+- **Regla 3g del generador:** si el comentario es una broma (risas, disparate, "solo para valientes"), **se le sigue el rollo** en su mismo registro, corto y con complicidad. Prohibido explicar por qué "funciona" o analizarlo como táctica. `tomaEnSerioLaBroma()` lo comprueba y hace repetir la respuesta.
+- La regla de ceguera de `§7.1e` sigue para todo lo que no es meme, y tampoco con el resumen se describe la foto (*"en la imagen se ve…"*).
 
 #### 🔴🔴 7.1c · EL QUE NO ENTIENDE EL POST NO NOS ESTÁ ATACANDO, Y LA FOTO ES MEDIO POST (Iker, 2026-09-15) — CANÓNICO
 

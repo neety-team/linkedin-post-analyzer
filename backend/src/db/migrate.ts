@@ -1051,6 +1051,14 @@ const migration = `
   -- dia likes, comentarios, reposts e impresiones de sus posts de mas de 7 dias
   -- (services/postMonitor.ts, refrescarContadoresPostsViejos). NULL = nunca.
   ALTER TABLE creators ADD COLUMN IF NOT EXISTS public_counters_synced_at TIMESTAMPTZ;
+
+  -- LA IMAGEN DE UN MEME, EN TEXTO (Iker, 2026-09-17). Las fotos se quitaron de
+  -- las respuestas el 15/09 por coste, y el generador se quedo sin entender la
+  -- broma de los memes. Esto guarda UNA vez por post lo que dice y ensena la
+  -- imagen (services/postImageText.ts), y cada respuesta lo lee como texto.
+  -- source_url: de que imagen salio, para rehacerlo si el creador la cambia.
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS image_summary TEXT;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS image_summary_source_url TEXT;
 `;
 
 /**

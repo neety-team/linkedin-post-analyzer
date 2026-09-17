@@ -40,6 +40,14 @@ export interface ReplyGenerationInput {
   // misma tanda de respuestas (`APERTURAS_POR_POST`). Opcional a proposito: si
   // no llega, el generador funciona igual, solo pierde la memoria de tanda.
   postId?: string | null;
+  // LA IMAGEN DEL MEME EN TEXTO (Iker, 2026-09-17, `services/postImageText.ts`).
+  // Solo llega en posts con pilar `meme`: el texto literal de la imagen y una
+  // linea de que se ve. Cuesta unas decenas de tokens, no una foto.
+  imageSummary?: string | null;
+  // EL HILO ENCIMA DEL COMENTARIO (Iker, 2026-09-17). Una respuesta dentro de
+  // un hilo se entiende por lo que se dijo antes: Antonio N. contesto a un
+  // "jajajaj" nuestro siguiendo la broma, y sin eso parecia una frase suelta.
+  hilo?: { autor: string | null; texto: string }[];
 }
 
 // Las 3 cuentas comparten QUÉ decimos (la voz Neety del commenter_profile, que
@@ -131,6 +139,12 @@ RULE 3c-quater — ⛔⛔ NUNCA SE VACILA, NUNCA SE LE TOMA POR TONTO A NADIE (I
 · A "Que post mas largo, no he llegado al final" -> "el final es donde esta el golpe". Es decirle "pues leetelo". Se le da la razon ("me he enrollado") y se le resume en una linea.
 · A "No se que tiene que ver con el evento" -> "...si no sabes que en ese evento...". NUNCA "si no sabes", "si lo lees", "esta en el post", "como dice el post": todo eso le trata de despistado.
 ✅ ANTE UN COMENTARIO DESPECTIVO O HOSTIL ("tonteria", "humo", "chorrada", "postureo", "no tiene gracia"): corto, respetuoso y SIN "pero" que le rebata. "Respeto la opinion", "entiendo que no te encaje", "tomo nota", "cada uno lo vive distinto". Nada de zascas, nada de ironia, nada de dejar caer que no lo ha entendido.
+
+RULE 3g — ⛔⛔ SI EL COMENTARIO ES UNA BROMA, SE LE SIGUE LA BROMA (Iker, 2026-09-17). Nuestros memes invitan a jugar, y mucha gente comenta SIGUIENDO EL CHISTE: una exageracion, un disparate, una ocurrencia, un "jajaja", un "solo para valientes". Eso NO es una opinion para analizar ni una tactica para valorar.
+El caso real: en un meme, Antonio N. contesto dentro de un hilo "una que funciona muy bien es, tu madre se ha tropezado en la ducha. Solo para valientes", y la herramienta respondio "funciona porque mezcla urgencia con un nombre real y de ahi a preguntar por el responsable hay solo un paso". Se lo tomo AL PIE DE LA LETRA y le explico su propio chiste como si fuera un consejo de ventas. Lo que contesto Iker a mano, y es el tono: "me la apuntare por si la necesito en el futuro jajaja".
+⛔ PROHIBIDO ante una broma: explicar por que "funciona", analizarla, valorarla como tecnica, sacar la leccion de ventas, o contestar en serio.
+✅ LO QUE SE HACE: seguirle el rollo en su mismo registro, corto y con complicidad. Reirse con el ("jajaja"), hacer como que te la quedas, subir un pelin la exageracion o rematarla. Lee el TONO antes que las palabras: si la frase es absurda, exagerada o viene con risas o emojis de risa, es una broma aunque suene a consejo.
+⚠️ Lo de la RULE 3c-bis y 3c-quater sigue mandando: seguir la broma nunca es reirse DE el, y una broma racista, machista u ofensiva no se sigue (RULE 3c).
 
 RULE 3d — CERO CIFRAS INVENTADAS (Iker, 2026-08-12). NUNCA metas un porcentaje ni una cifra en una respuesta: ni "el 80% de las veces", ni "el 80% de los tratos", ni "9 de cada 10", ni "3 veces mas". Suenan a dato y NO ESTAN COMPROBADOS, asi que es exactamente lo que la casa tiene prohibido en los posts: inventar un numero. Y en un comentario es peor, porque el que lo lee puede pedirte la fuente delante de todos.
 Di la MAGNITUD con palabras: "la mayoria de los tratos", "casi siempre", "en la mayoria de los casos", "muy pocas veces", "la mayor parte del tiempo", "rara vez". Dicen lo mismo, se leen igual de fuerte y no se pueden desmentir.
@@ -467,6 +481,26 @@ So this reply has TWO jobs and needs both:
 
 Order matters: engage FIRST, confirm LAST. Never open with "enviado" — that turns a real comment into a receipt, which is exactly what we're trying to avoid. Keep the whole thing to ONE sentence even with both jobs: engage and confirm in the same breath.\n`;
 
+  // La imagen del meme llega como TEXTO resumido una vez por post
+  // (`postImageText`), no como foto: es lo que la hace barata.
+  const imagenBloque = input.imageSummary
+    ? `═══ LO QUE HAY EN LA IMAGEN DEL POST (es un MEME: el chiste vive aqui) ═══
+${input.imageSummary}
+
+`
+    : '';
+  const avisoImagen = input.imageSummary
+    ? `LA IMAGEN DEL POST TE LLEGA RESUMIDA ARRIBA. Usala para entender la broma y el tono del comentario (RULE 3f y 3g), pero no la describas ("en la imagen se ve...") ni cites nada que no este en ese resumen.`
+    : `⛔ NO VES LA IMAGEN DE ESTE POST y casi todos nuestros posts llevan una. Solo tienes el texto, asi que NO afirmes nada sobre lo que el post ensena ni sobre lo que NO ensena, y no le niegues a nadie nada de lo que diga sobre la foto (RULE 3f).`;
+  // Lo que se dijo antes en el hilo. Solo contexto: se responde al comentario de abajo.
+  const hilo = (input.hilo || []).filter((m) => m.texto && m.texto.trim()).slice(-4);
+  const hiloBloque = hilo.length
+    ? `═══ EL HILO HASTA AHORA (contexto, de viejo a nuevo; tu respuesta va al comentario de abajo) ═══
+${hilo.map((m) => `${m.autor || '(alguien)'}: "${m.texto.trim().slice(0, 300)}"`).join('\n')}
+
+`
+    : '';
+
   const prompt = `You are ${input.authorName}. Reply to a comment on your own post.
 
 ${voiceBlock || '(No detailed voice profile — default to a natural, direct tone consistent with your post.)'}
@@ -474,7 +508,7 @@ ${voiceBlock || '(No detailed voice profile — default to a natural, direct ton
 ═══ YOUR POST ═══
 ${input.postContent}
 
-═══ THE COMMENT YOU ARE REPLYING TO ═══
+${imagenBloque}${hiloBloque}═══ THE COMMENT YOU ARE REPLYING TO ═══
 ${commenterLine}
 "${input.commentText}"
 
@@ -488,7 +522,7 @@ ${emojiNudge}
 
 ${thanksNudge}
 
-⛔ NO VES LA IMAGEN DE ESTE POST y casi todos nuestros posts llevan una. Solo tienes el texto, asi que NO afirmes nada sobre lo que el post ensena ni sobre lo que NO ensena, y no le niegues a nadie nada de lo que diga sobre la foto (RULE 3f).
+${avisoImagen}
 
 Write the reply now. Plain text, ONE single sentence, in the same language as the post/comment.`;
   return { prompt, arranque: elegido.arranque, conEmoji, estirar, emojiElegido };
@@ -912,6 +946,19 @@ export function faltaElGracias(comentario: string, respuesta: string): boolean {
   return ES_ELOGIO.test(llano(comentario)) && !HAY_GRACIAS.test(llano(respuesta));
 }
 
+// ⛔ LA BROMA TOMADA EN SERIO (Iker, 2026-09-17). Antonio N. siguio el chiste
+// de un meme con "tu madre se ha tropezado en la ducha. Solo para valientes" y
+// la respuesta le explico que "funciona porque mezcla urgencia con un nombre
+// real". Si el comentario lleva marcas de broma, la respuesta no puede
+// analizarla como una tactica.
+const ES_BROMA = /(\bj[ae]j[ae]j?|\bjaj|\bjej|xd\b|para valientes|😂|🤣|😅|😆|😜|😝)/;
+const ANALIZA_BROMA = /(funciona (muy bien )?(porque|por que)|porque mezcla|mezcla [a-z ]+ con|combina [a-z ]+ con|la clave (es|esta)|como (tactica|tecnica|estrategia)|es una (buena )?(tactica|tecnica|estrategia))/;
+
+/** El comentario es una broma y la respuesta la analiza en serio (RULE 3g). */
+export function tomaEnSerioLaBroma(comentario: string, respuesta: string): boolean {
+  return ES_BROMA.test(llano(comentario)) && ANALIZA_BROMA.test(llano(respuesta));
+}
+
 /**
  * Devuelve el problema de TONO si la respuesta echa de casa al que comenta o
  * niega lo que el post dice. `sinImagen` aprieta la segunda familia: si no
@@ -1078,6 +1125,7 @@ NO CUENTA COMO INVENTADO (responde inventa=false):
 - Angulo personal incomprobable y sin escena: "me ha pasado algo parecido", "lo vemos mucho", "por eso lo escribi".
 - Opiniones, valoraciones, preguntas, bromas y acuerdos.
 - Recoger o reformular algo que YA dicen el post o el comentario.
+- ⭐ LO QUE SALGA EN [IMAGEN DEL POST] o en [HILO] dentro del POST: es parte de lo publicado y CONSTA igual que el texto.
 - ⭐ CUALQUIER COSA QUE SUENE A LO QUE ENSENA LA FOTO. Tu solo tienes el TEXTO, pero el post lleva imagen y tu NO la ves, asi que no puedes saber si algo sale en ella. Si la respuesta describe una escena que podria estar en la imagen (un chat, una factura, una pantalla, una cara), NO la marques como inventada: no te consta ni que si ni que no, y tumbarla dejaria al usuario sin borrador. Marca solo lo que sea claramente una vivencia del autor ("el otro dia un cliente me dijo") o una cifra nueva.
 - EL NOMBRE DEL DESTINATARIO al principio de la respuesta. Toda respuesta abre con el nombre de quien comento, porque LinkedIn lo convierte en una mencion. Ese nombre NUNCA es una persona inventada.
 - Las formulas de asentimiento de la casa, que son modismos y no afirmaciones: "te compro eso", "lo has clavado", "y tanto", "ahi esta", "ese es el tema", "tal cual", "sin duda". "Te compro eso" significa "estoy de acuerdo", no que nadie haya comprado nada.
@@ -1175,8 +1223,15 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     const candidato = stripLoneSurrogates(block?.text ?? '').trim();
     if (!candidato) throw new Error('Empty reply from model');
 
+    // Lo que CONSTA no es solo el texto del post: el resumen de la imagen y el
+    // hilo tambien estan publicados, y el juez no puede llamar inventado a lo
+    // que sale ahi (misma leccion que el 15/09 con las fotos).
     const fuentes = {
-      postContent: input.postContent,
+      postContent: [
+        input.postContent,
+        input.imageSummary ? `[IMAGEN DEL POST]\n${input.imageSummary}` : '',
+        ...(input.hilo || []).map((m) => `[HILO] ${m.autor || ''}: ${m.texto}`),
+      ].filter(Boolean).join('\n\n'),
       commentText: input.commentText,
       commenterName: input.commenterName,
     };
@@ -1204,6 +1259,10 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     if (!ultimoTonoBorde && faltaElReconocimiento(input.commentText, candidato)) {
       ultimoTonoBorde =
         'el comentario dice que NO ENTIENDE el post o que NO HA PODIDO LEERLO, y la respuesta no abre dandole la razon (RULE 3c-bis): tiene que empezar por "no pasa nada", "normal", "culpa mia" o "me he enrollado" y luego resumir o explicar';
+    }
+    if (!ultimoTonoBorde && tomaEnSerioLaBroma(input.commentText, candidato)) {
+      ultimoTonoBorde =
+        'el comentario es una BROMA que sigue el chiste del post y la respuesta la analiza en serio, como si fuera una tactica (RULE 3g): siguele el rollo, corto y con complicidad ("me la apunto por si la necesito jajaja"), sin explicar por que funciona';
     }
     if (!ultimoTonoBorde && respuestaAHostilMal(input.commentText, candidato)) {
       ultimoTonoBorde =

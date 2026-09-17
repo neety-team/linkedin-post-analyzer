@@ -14,6 +14,7 @@ import { sendToGoogleChat } from '../services/googleChat';
 import { captureAccountSnapshots } from '../services/accountSnapshots';
 import { extractViewerTimestamps } from '../utils/wvmp';
 import { generateReply } from '../services/replyGenerator';
+import { getMemeImageSummary } from '../services/postImageText';
 import { roastProfile } from '../services/roaster';
 import { generarRastro } from '../services/rastroGenerator';
 import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSync';
@@ -2840,6 +2841,8 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
       // mandado solicitud, así que no hay envío que prometer. La respuesta pide
       // el paso en vez de confirmar nada.
       pedir_solicitud,
+      // Lo que se dijo antes en el hilo ([{autor, texto}], de viejo a nuevo).
+      hilo,
     } = req.body || {};
 
     // GIF / sticker / image-only comment → no text to engage with. Skip the
@@ -2878,6 +2881,16 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
     const reply = await generateReply({
       postContent: post.content_text || '',
       commentText: String(comment_text),
+      // LA IMAGEN DEL MEME, EN TEXTO (Iker, 2026-09-17). Solo en pilar meme, y
+      // se resume una vez por post (`postImageText`): la tanda de 20 respuestas
+      // paga unas decenas de tokens cada una, no una foto.
+      imageSummary: await getMemeImageSummary(postId),
+      hilo: Array.isArray(hilo)
+        ? hilo
+            .filter((m: any) => m && typeof m.texto === 'string')
+            .slice(-6)
+            .map((m: any) => ({ autor: m.autor ? String(m.autor) : null, texto: String(m.texto).slice(0, 500) }))
+        : [],
       // Para que dos respuestas del MISMO post no abran igual. El generador
       // guarda en memoria las ultimas aperturas por post y se las prohibe a la
       // siguiente (`replyGenerator`, APERTURAS_POR_POST): sin esto cada llamada

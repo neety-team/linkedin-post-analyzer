@@ -1572,10 +1572,9 @@ function AccountsInner() {
             endDate={dateRange.end}
             includeManual={incluirManuales}
             title="Impressions per month"
-            subtitle={(selectedCreator === 'all'
-              ? 'Impressions gained each month, by all posts of every age — all managed accounts'
-              : 'Impressions gained each month, by all posts of every age (this account)')
-              + '. Sep 2026 also includes the growth since May of posts that were not being re-read until 17 Sep.'}
+            subtitle={selectedCreator === 'all'
+              ? 'Impressions received each month — LinkedIn daily figures for connected accounts (manual accounts: estimated) — all managed accounts'
+              : 'Impressions received each month — LinkedIn daily figures (this account)'}
             unit="impressions"
             color="#e8935a"
           />

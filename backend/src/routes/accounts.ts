@@ -428,14 +428,43 @@ router.get('/impressions-monthly', async (req: Request, res: Response) => {
     //    post de 2025 no "gana" hoy toda su vida.
     //  - Septiembre de 2026 incluye lo que crecieron desde mayo los posts que
     //    estuvieron congelados (no hay lecturas intermedias para repartirlo).
+    // ⭐⭐ CUENTAS CONECTADAS: la cifra OFICIAL de LinkedIn (impresiones diarias
+    // de Content analytics, tabla creator_daily_impressions). La reconstruccion
+    // de abajo queda SOLO para las cuentas manuales, que no tienen pagina que
+    // leer: se quedaba entre un 10% y un 15% corta por mes y metia en
+    // septiembre lo acumulado desde mayo.
+    const oficialParams: any[] = [range.startDate, range.endDate];
+    let oficialScope = `c.is_managed = TRUE AND c.unipile_account_id IS NOT NULL AND c.is_manual IS NOT TRUE`;
+    if (creatorId) {
+      oficialParams.push(creatorId);
+      oficialScope += ` AND c.id = $3`;
+    }
+    const { rows: oficial } = await pool.query(
+      `SELECT to_char(date_trunc('month', d.day), 'YYYY-MM') AS month,
+              SUM(d.impressions)::bigint AS impressions
+         FROM creator_daily_impressions d
+         JOIN creators c ON c.id = d.creator_id
+        WHERE ${oficialScope}
+          AND d.day >= date_trunc('month', $1::date)
+          AND d.day < date_trunc('month', $2::date) + interval '1 month'
+        GROUP BY 1`,
+      oficialParams
+    );
+
     const { rows } = await pool.query(
-      `WITH posts_ambito AS (
-         SELECT p.id, p.published_at
+      `WITH posts_todos AS (
+         SELECT p.id, p.published_at, p.creator_id
            FROM posts p
           WHERE ${scopeSql}
             AND p.published_at IS NOT NULL
             AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
             AND p.deleted_from_linkedin_at IS NULL
+       ),
+       posts_ambito AS (
+         SELECT pt.id, pt.published_at
+           FROM posts_todos pt
+           JOIN creators c ON c.id = pt.creator_id
+          WHERE c.is_manual = TRUE
        ),
        lecturas AS (
          SELECT s.post_id, s.captured_at, COALESCE(s.impressions_count, 0) AS imp
@@ -469,7 +498,7 @@ router.get('/impressions-monthly', async (req: Request, res: Response) => {
        ),
        publicados AS (
          SELECT date_trunc('month', published_at) AS mes, COUNT(*)::int AS posts
-           FROM posts_ambito
+           FROM posts_todos
           WHERE published_at >= date_trunc('month', $${startIdx}::date)
             AND published_at < date_trunc('month', $${endIdx}::date) + interval '1 month'
           GROUP BY 1
@@ -482,7 +511,15 @@ router.get('/impressions-monthly', async (req: Request, res: Response) => {
         ORDER BY COALESCE(m.mes, pb.mes) ASC`,
       params
     );
-    res.json({ points: rows.map((r) => ({ ...r, impressions: Number(r.impressions) })) });
+    const porMes = new Map<string, { month: string; impressions: number; posts: number }>();
+    for (const r of rows) porMes.set(r.month, { month: r.month, impressions: Number(r.impressions), posts: r.posts });
+    for (const o of oficial) {
+      const p = porMes.get(o.month) || { month: o.month, impressions: 0, posts: 0 };
+      p.impressions += Number(o.impressions);
+      porMes.set(o.month, p);
+    }
+    const points = [...porMes.values()].sort((a, b) => a.month.localeCompare(b.month));
+    res.json({ points });
   } catch (err: any) {
     console.error('[accounts/impressions-monthly]', err);
     res.status(500).json({ error: err.message });

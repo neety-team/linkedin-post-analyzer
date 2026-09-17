@@ -7,7 +7,9 @@ import { captureAccountSnapshots } from './accountSnapshots';
 import { runFollowerSync } from './followerSync';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from './premiumAnalytics';
 import { resumirMemesPendientes } from './postImageText';
-import { fetchResumenLinkedIn, guardarResumenLinkedIn } from './linkedinOverview';
+import {
+  fetchResumenLinkedIn, guardarResumenLinkedIn, fetchImpresionesDiarias, guardarImpresionesDiarias,
+} from './linkedinOverview';
 
 // Phase-based snapshot cadence for LinkedIn posts.
 // The algorithm distributes posts in waves, so we sample densely in the golden hour
@@ -917,6 +919,8 @@ async function accountSnapshotTick(): Promise<void> {
       try {
         const r = await fetchResumenLinkedIn(unipile_account_id);
         if (r) await guardarResumenLinkedIn(pool, id, r);
+        const serie = await fetchImpresionesDiarias(unipile_account_id);
+        if (serie) await guardarImpresionesDiarias(pool, id, serie);
       } catch (e: any) {
         console.warn(`[accountSnapshot] resumen de LinkedIn fallo para ${id}:`, e?.message);
       }

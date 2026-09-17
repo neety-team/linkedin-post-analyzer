@@ -1069,6 +1069,17 @@ const migration = `
     PRIMARY KEY (creator_id, captured_on)
   );
 
+  -- Impresiones DIARIAS oficiales de cada cuenta (Content analytics de
+  -- LinkedIn, ultimos 365 dias; services/linkedinOverview.ts). De aqui sale
+  -- "Impressions per month" para las cuentas conectadas.
+  CREATE TABLE IF NOT EXISTS creator_daily_impressions (
+    creator_id UUID NOT NULL REFERENCES creators(id) ON DELETE CASCADE,
+    day DATE NOT NULL,
+    impressions INTEGER NOT NULL,
+    captured_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (creator_id, day)
+  );
+
   -- Lecturas periodicas de los contadores de un post DESPUES de su semana de
   -- snapshots (pase semanal + una al empezar cada mes). No se mezclan con
   -- post_snapshots para no ensuciar la curva de 7 dias. Con los snapshots

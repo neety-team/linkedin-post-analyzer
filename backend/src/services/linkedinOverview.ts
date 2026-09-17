@@ -100,3 +100,75 @@ export async function guardarResumenLinkedIn(
     [creatorId, v(r.profileViewers90d), v(r.postImpressions7d), v(r.followers), v(r.searchAppearances)]
   );
 }
+
+/**
+ * IMPRESIONES DIARIAS OFICIALES (Iker, 2026-09-17). La pagina de Content
+ * analytics con `timeRange=past_365_days` trae la grafica de LinkedIn con un
+ * punto por dia: {"y": impresiones, ..., "x": medianoche UTC del dia en ms}.
+ * El HTML lleva varias series; la PRIMERA de cada dia es la de impresiones
+ * (comprobado ese dia: la suma de sus ultimos 7 dias dio 54.315 / 14.780 /
+ * 6.843 contra 54.286 / 14.780 / 6.837 del resumen de Iker, Unai y Asier).
+ * Con ella "Impressions per month" es la cifra de LinkedIn y no una
+ * reconstruccion, que se quedaba entre un 10% y un 15% corta por mes.
+ */
+export async function fetchImpresionesDiarias(
+  accountId: string
+): Promise<{ dia: string; impresiones: number }[] | null> {
+  if (!KEY() || !accountId) return null;
+  const res = await fetch(`${BASE()}/api/v1/linkedin`, {
+    method: 'POST',
+    headers: { 'X-API-KEY': KEY(), 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      account_id: accountId,
+      method: 'GET',
+      request_url:
+        'https://www.linkedin.com/analytics/creator/content/?metricType=IMPRESSIONS&timeRange=past_365_days',
+      encoding: false,
+    }),
+  });
+  if (!res.ok) {
+    console.warn(`[linkedinOverview] impresiones diarias: HTTP ${res.status} para ${accountId}`);
+    return null;
+  }
+  const crudo = await res.text();
+  let html = crudo;
+  try {
+    const j = JSON.parse(crudo);
+    if (typeof j?.data === 'string') html = j.data;
+  } catch {
+    /* HTML plano */
+  }
+  html = html.replace(/\\"/g, '"');
+  const porDia = new Map<number, number>();
+  const re = /\{"y":(\d+),"tooltipPercentageText":[\s\S]{0,400}?"x":(\d{13})\}/g;
+  for (const m of html.matchAll(re)) {
+    const x = Number(m[2]);
+    if (!porDia.has(x)) porDia.set(x, Number(m[1]));
+  }
+  // Una lectura buena trae el ano entero; si no, la pagina vino a medias.
+  if (porDia.size < 300) {
+    console.warn(`[linkedinOverview] impresiones diarias de ${accountId}: solo ${porDia.size} dias, se descarta`);
+    return null;
+  }
+  return [...porDia.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([x, y]) => ({ dia: new Date(x).toISOString().slice(0, 10), impresiones: y }));
+}
+
+/** Un 0 no pisa un dia que ya tenia impresiones (ceros intermitentes). */
+export async function guardarImpresionesDiarias(
+  pool: { query: (q: string, v?: any[]) => Promise<any> },
+  creatorId: string,
+  serie: { dia: string; impresiones: number }[]
+): Promise<void> {
+  if (serie.length === 0) return;
+  await pool.query(
+    `INSERT INTO creator_daily_impressions (creator_id, day, impressions)
+     SELECT $1::uuid, d::date, i FROM unnest($2::text[], $3::int[]) AS t(d, i)
+     ON CONFLICT (creator_id, day) DO UPDATE SET
+       impressions = CASE WHEN EXCLUDED.impressions > 0 OR creator_daily_impressions.impressions = 0
+                          THEN EXCLUDED.impressions ELSE creator_daily_impressions.impressions END,
+       captured_at = NOW()`,
+    [creatorId, serie.map((p) => p.dia), serie.map((p) => p.impresiones)]
+  );
+}

@@ -1059,6 +1059,9 @@ const migration = `
   -- source_url: de que imagen salio, para rehacerlo si el creador la cambia.
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS image_summary TEXT;
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS image_summary_source_url TEXT;
+  -- Ultimo intento de resumir (haya salido o no): un fallo no se reintenta
+  -- hasta pasadas 6 horas, ni en cada vuelta del monitor ni en cada respuesta.
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS image_summary_tried_at TIMESTAMPTZ;
 `;
 
 /**

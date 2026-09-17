@@ -6,6 +6,7 @@ import { refrescarPostManual } from './manualPost';
 import { captureAccountSnapshots } from './accountSnapshots';
 import { runFollowerSync } from './followerSync';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from './premiumAnalytics';
+import { resumirMemesPendientes } from './postImageText';
 
 // Phase-based snapshot cadence for LinkedIn posts.
 // The algorithm distributes posts in waves, so we sample densely in the golden hour
@@ -226,6 +227,11 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
   } finally {
     tickInFlight = false;
     lastTickAt = Date.now();
+    // La imagen de cada meme NUEVO nuestro, resumida en texto una sola vez para
+    // las respuestas (`postImageText`). Va en el finally porque el tick sale
+    // antes si no hay snapshots que tomar, y el meme recien publicado tambien
+    // tiene que resumirse. Sin await: no retrasa el monitor.
+    void resumirMemesPendientes();
   }
 }
 

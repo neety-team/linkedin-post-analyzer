@@ -503,7 +503,8 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 **Por qué falló:** el generador solo leía el texto del post, y en un meme la broma vive en la imagen. Tampoco veía el hilo: Antonio contestaba a un *"jajajaj"* nuestro.
 
 **Lo que se hizo, y cuánto cuesta:**
-- **Solo en posts con pilar `meme`**, la imagen se reduce a 512 px y **Haiku la resume UNA vez por post** (texto literal, escena y dónde está el chiste). Se guarda en `posts.image_summary` (`services/postImageText.ts`). Cada respuesta lo lee como **texto**: unas decenas de tokens, no ~850 por foto.
+- **Solo en memes de nuestras 3 cuentas** (nunca la competencia), la imagen se reduce a 512 px en JPEG antes de mandarla y **Haiku la resume UNA vez por post, al publicarlo**: lo lanza el monitor de posts en su vuelta. Se guarda en `posts.image_summary` (`services/postImageText.ts`) y **cada respuesta lo lee de la BD como texto**: unas decenas de tokens, no ~850 por foto.
+- **Una vez guardado no se rehace nunca**, aunque cambie la URL de la imagen (las de LinkedIn cambian en cada refresco). Si el intento falla, no se reintenta hasta pasadas 6 horas.
 - **El hilo viaja con la petición**: lo que se dijo antes del comentario al que se responde.
 - **Regla 3g del generador:** si el comentario es una broma (risas, disparate, "solo para valientes"), **se le sigue el rollo** en su mismo registro, corto y con complicidad. Prohibido explicar por qué "funciona" o analizarlo como táctica. `tomaEnSerioLaBroma()` lo comprueba y hace repetir la respuesta.
 - La regla de ceguera de `§7.1e` sigue para todo lo que no es meme, y tampoco con el resumen se describe la foto (*"en la imagen se ve…"*).

@@ -10,17 +10,27 @@ import { trackedCreate } from './claudeClient';
 // para valientes" y la herramienta se lo tomo en serio y le analizo por que
 // "funciona" como tactica. La broma vivia en la imagen.
 //
-// LO QUE HACE, y por que sale barato:
-//   · SOLO para posts con pilar `meme`, que es donde el chiste vive en la foto.
-//   · La foto se reduce a 512 px (~350 tokens) y se la mira Haiku UNA vez por
-//     post. El resultado (el texto literal de la imagen y una linea de que se
-//     ve) se guarda en `posts.image_summary`.
-//   · Cada respuesta lo lee como TEXTO: unas decenas de tokens, no una imagen.
+// LO QUE HACE, y por que sale barato (Iker: "no quiero gastar casi tokens"):
+//   · SOLO posts con pilar `meme` de NUESTRAS cuentas (is_managed). Nunca la
+//     competencia, que son miles de posts.
+//   · La foto se reduce a 512 px y JPEG 75 antes de mandarla (~350 tokens en
+//     vez de ~850), y la mira Haiku, el modelo barato.
+//   · Se hace UNA vez por post, AL PUBLICARLO: el monitor de posts lo lanza en
+//     su vuelta (`resumirMemesPendientes`). El resultado se guarda en
+//     `posts.image_summary` y cada respuesta lo LEE de la BD como texto.
+//   · Una vez guardado NO se rehace nunca, aunque cambie la URL: las URL de
+//     media.licdn.com llevan un token que caduca y cambia en cada refresco del
+//     post, asi que invalidar por URL volveria a leer la misma imagen una y otra
+//     vez.
+//   · Si falla (403, imagen rara), se marca `image_summary_tried_at` y no se
+//     reintenta hasta pasadas 6 horas.
 //
 // NUNCA LANZA: sin resumen, el generador sigue con la RULE 3f (no afirmar nada
-// de lo que la foto ensena), que es lo que habia hasta hoy.
+// de lo que la foto ensena), que es lo que habia hasta el 17/09.
 
 const MAX_DIM = 512;
+const REINTENTO_HORAS = 6;
+const MEMES_POR_VUELTA = 3;
 
 let _jimp: any;
 let _jimpTried = false;
@@ -81,63 +91,97 @@ async function bajarReducida(url: string): Promise<string | null> {
   return out.toString('base64');
 }
 
-/**
- * Resumen en texto de la imagen de un MEME, cacheado en la fila del post.
- * Devuelve null si el post no es meme, no tiene imagen o no se ha podido leer.
- */
-export async function getMemeImageSummary(postId: string): Promise<string | null> {
-  try {
-    const { rows } = await pool.query(
-      `SELECT pillar, raw_data, image_summary, image_summary_source_url
-         FROM posts WHERE id = $1`,
-      [postId]
-    );
-    const post = rows[0];
-    if (!post || post.pillar !== 'meme') return null;
+// La unica llamada que gasta tokens. Se marca el intento ANTES de nada, para
+// que un fallo no se reintente en cada vuelta ni en cada respuesta.
+async function resumir(postId: string, raw: any): Promise<string | null> {
+  await pool.query(`UPDATE posts SET image_summary_tried_at = NOW() WHERE id = $1`, [postId]);
+  const url = extraerUrlImagen(raw);
+  if (!url) return null;
+  const b64 = await bajarReducida(url);
+  if (!b64) return null;
 
-    const url = extraerUrlImagen(post.raw_data);
-    // Cache valida si se hizo de la misma imagen (o si ya no hay URL que comparar).
-    if (post.image_summary && (!url || url === post.image_summary_source_url)) {
-      return post.image_summary;
-    }
-    if (!url) return null;
-
-    const b64 = await bajarReducida(url);
-    if (!b64) return null;
-
-    const message = await trackedCreate('meme_image_summary', {
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 250,
-      messages: [
-        {
-          role: 'user',
-          content: [
-            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: b64 } },
-            {
-              type: 'text',
-              text: `Es la imagen de un meme de LinkedIn. Devuelve SOLO esto, en espanol y sin markdown:
+  const message = await trackedCreate('meme_image_summary', {
+    model: 'claude-haiku-4-5-20251001',
+    max_tokens: 250,
+    messages: [
+      {
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: b64 } },
+          {
+            type: 'text',
+            text: `Es la imagen de un meme de LinkedIn. Devuelve SOLO esto, en espanol y sin markdown:
 TEXTO: todo el texto que se lee en la imagen, literal y en orden (si no hay, "ninguno").
 ESCENA: una frase con lo que se ve (personajes, situacion), sin interpretar.
 BROMA: una frase con donde esta el chiste.
 Maximo 80 palabras en total. No inventes nada que no se vea.`,
-            },
-          ],
-        },
-      ],
-    });
-    const block = message.content.find((b) => b.type === 'text') as { type: 'text'; text: string } | undefined;
-    const resumen = (block?.text || '').trim();
-    if (!resumen) return null;
+          },
+        ],
+      },
+    ],
+  });
+  const block = message.content.find((b) => b.type === 'text') as { type: 'text'; text: string } | undefined;
+  const resumen = (block?.text || '').trim();
+  if (!resumen) return null;
+  await pool.query(
+    `UPDATE posts SET image_summary = $2, image_summary_source_url = $3 WHERE id = $1`,
+    [postId, resumen, url]
+  );
+  console.log(`[postImageText] resumida la imagen del meme ${postId}`);
+  return resumen;
+}
 
-    await pool
-      .query(
-        `UPDATE posts SET image_summary = $2, image_summary_source_url = $3 WHERE id = $1`,
-        [postId, resumen, url]
-      )
-      .catch((e: any) => console.warn('[postImageText] no se ha podido cachear:', e?.message));
-    return resumen;
+const PENDIENTE_SQL = `p.pillar = 'meme'
+  AND p.image_summary IS NULL
+  AND (p.image_summary_tried_at IS NULL
+       OR p.image_summary_tried_at < NOW() - INTERVAL '${REINTENTO_HORAS} hours')`;
+
+/**
+ * Lo que usa cada respuesta: LEE el resumen guardado. Solo si el post es un
+ * meme nuestro y todavia no lo tiene (el monitor aun no ha pasado), lo hace en
+ * ese momento, y queda guardado para el resto de la tanda.
+ */
+export async function getMemeImageSummary(postId: string): Promise<string | null> {
+  try {
+    const { rows } = await pool.query(
+      `SELECT p.image_summary, p.raw_data, (${PENDIENTE_SQL}) AS pendiente
+         FROM posts p JOIN creators c ON c.id = p.creator_id
+        WHERE p.id = $1 AND p.pillar = 'meme' AND c.is_managed = TRUE`,
+      [postId]
+    );
+    const post = rows[0];
+    if (!post) return null;
+    if (post.image_summary) return post.image_summary;
+    if (!post.pendiente) return null;
+    return await resumir(postId, post.raw_data);
   } catch (err: any) {
-    console.warn('[postImageText] fallo resumiendo la imagen:', err?.message);
+    console.warn('[postImageText] fallo leyendo el resumen:', err?.message);
     return null;
+  }
+}
+
+/**
+ * Lo que lanza el monitor de posts en cada vuelta: resume los memes NUEVOS de
+ * nuestras cuentas (ultimos 7 dias) que aun no tienen resumen. Como mucho 3
+ * por vuelta, y cada uno una sola vez.
+ */
+export async function resumirMemesPendientes(): Promise<void> {
+  try {
+    const { rows } = await pool.query(
+      `SELECT p.id, p.raw_data
+         FROM posts p JOIN creators c ON c.id = p.creator_id
+        WHERE c.is_managed = TRUE
+          AND p.published_at > NOW() - INTERVAL '7 days'
+          AND ${PENDIENTE_SQL}
+        ORDER BY p.published_at DESC
+        LIMIT ${MEMES_POR_VUELTA}`
+    );
+    for (const r of rows) {
+      await resumir(r.id, r.raw_data).catch((e: any) =>
+        console.warn(`[postImageText] ${r.id}: ${e?.message}`)
+      );
+    }
+  } catch (err: any) {
+    console.warn('[postImageText] fallo en la vuelta de memes:', err?.message);
   }
 }

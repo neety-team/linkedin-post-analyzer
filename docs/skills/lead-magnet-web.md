@@ -137,6 +137,15 @@ Nunca empieces pidiendo la llamada: primero valor, después la invitación.
 
 **La gente entra a ver el mapa y justo el mapa es lo que se ve mal.** La columna de 300px se está comiendo el 30% de lo único que han venido a ver.
 
+**✅ ARREGLADO el 2026-09-17 en los 13 mapas.** Ahora la cabecera ocupa una línea, la página va a 1200px y el mapa se ve entero en la primera pantalla: 1200×534 en la ventana real de Iker, antes 698 de ancho. Lo que aprendimos al hacerlo, y que vale para cualquier página con un embebido:
+- **Mide en la ventana REAL.** Un portátil 1920×1080 al 125 % es una ventana de **~1532×690**. Mis primeras medidas a 1920×960 escondieron el problema.
+- **Un embebido tiene su propio suelo.** PamPam se pone en modo compacto (mapa blanqueado + "Tap to interact") con **500px de alto o menos**, a cualquier ancho.
+- **Un embebido se queda la rueda del ratón.** Con el cursor encima del mapa, la página no baja. Nunca va pegado al borde: el aire de abajo es la zona de scroll.
+- **Nada cortado a medias en el pliegue.** Dejar asomar la fila de cifras se vio como un fallo. Mejor el mapa entero con aire y las cifras debajo, con el efecto de scroll.
+- **El H1 no repite lo que ya dice el embebido.**
+- La doctrina completa está en `neety-resources/docs/lead-magnet-playbook.md §5 TER` y el control automático en `tools/qa-mapas.cjs`.
+- **PENDIENTE:** volver a GA4 a la semana o dos del 17/09 y comparar el tiempo de interacción de `/mapas/cantabria/` con los 14 s.
+
 ⚠️ **Antes de matar una página por sus números, arregla lo que la rompe y vuelve a medir.** La tentación con el mapa fue quitar la web entera y dejar solo el mapa dentro del post; pero trajo 21 usuarios que ni sabíamos que existían. Primero el ancho, luego la decisión.
 
 ## 4d · ⚠️ LA MINIATURA DEL ENLACE EN EL DM: SI SALE MAL, ES LA CACHÉ DE LINKEDIN

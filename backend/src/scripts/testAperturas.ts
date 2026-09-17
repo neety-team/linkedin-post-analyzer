@@ -353,6 +353,9 @@ ok(problemaDeEstilo('Gran post', 'Luis Gómez pues siii, a veces es el precio y 
   const c = quitarIncisosSueltos(' el comercial busca, sí, antes de culpar al precio.');
   ok(c === ' el comercial busca, sí, antes de culpar al precio.', 'no toca lo que no es inciso de asentir', c);
 }
+ok(forzarEstirada('claro y lo peor es que la excusa tapa el problema', 2, 'tal cual', false) === 'tal cuaaal, lo peor es que la excusa tapa el problema', 'sustituye el "claro y" del arranque', forzarEstirada('claro y lo peor es que la excusa tapa el problema', 2, 'tal cual', false));
+ok(forzarEstirada('justo y mientras no lo resuelves, insistes', 2, 'total', false) === 'totaaal, mientras no lo resuelves, insistes', 'sustituye el "justo y" del arranque', forzarEstirada('justo y mientras no lo resuelves, insistes', 2, 'total', false));
+ok(forzarEstirada('si lo piensas, la lista encoge', 2, 'vale', false) === 'valeee, si lo piensas, la lista encoge', 'el "si" condicional no se quita');
 ok(forzarEstirada('totalmente, la lista encoge', 2, 'claro', false) === 'clarooo, la lista encoge', 'la alargada sustituye al "totalmente" del arranque', forzarEstirada('totalmente, la lista encoge', 2, 'claro', false));
 {
   const { prompt } = buildPrompt(base as any, 'cercano');

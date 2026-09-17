@@ -818,7 +818,11 @@ export function forzarEstirada(texto: string, letras = 2, palabra?: string, mule
   // Si la frase ya abre asintiendo con una que no se alarga ("totalmente, …"),
   // la alargada la SUSTITUYE: sumarla daba "clarooo, totalmente, …" (18/09).
   let resto = r.replace(/^\s+/, '');
-  const arranqueAsiente = resto.match(/^(totalmente|efectivamente|sin duda|desde luego|por supuesto|y tanto|eso es)\s*,\s*/i);
+  // Y tambien si abre con "claro y…" / "justo y…" sin pausa: la tanda del 18/09
+  // dio "tal cuaaal, claro y lo peor…" y "totaaal, justo y mientras…".
+  const arranqueAsiente =
+    resto.match(/^(totalmente|efectivamente|sin duda|desde luego|por supuesto|y tanto|eso es|tal cual|claro|exacto|justo|cierto)\s*(,|y(?![\p{L}]))\s*/iu) ||
+    resto.match(/^(s[ií]|vale|total|perfecto)\s*,\s*/iu);
   if (arranqueAsiente) resto = resto.slice(arranqueAsiente[0].length);
   // "Casi siempre…" -> "Buenooo, casi siempre…" (sin tocar siglas ni nombres
   // propios que empiecen la frase: solo se baja si la segunda letra es minuscula)

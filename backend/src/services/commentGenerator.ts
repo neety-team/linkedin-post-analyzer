@@ -5,6 +5,11 @@ import {
   detectarAperturaGenerica,
   limitarEstiradas,
   quitarIncisosSueltos,
+  eventoInventado,
+  recortarEventoInventado,
+  asentimientosAlPrincipio,
+  incisoDeAsentir,
+  alargadaFueraDeSitio,
   ponerTildesSeguras,
   quitarComaAntesDeY,
   forzarEstirada,
@@ -550,6 +555,10 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (aperturaHueca(c) ? 'peloteo hueco de apertura' : null) ||
           (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
           (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null) ||
+          (eventoInventado(c) ? 'se inventa lo que se hace en el evento o sus condiciones: del evento solo se dice lo que pone el post' : null) ||
+          (asentimientosAlPrincipio(c) >= 2 ? 'abre con varias palabras de asentir seguidas: deja una' : null) ||
+          (incisoDeAsentir(c) ? `mete "${incisoDeAsentir(c)}" como inciso suelto en mitad` : null) ||
+          (alargadaFueraDeSitio(c) ? `la palabra alargada "${alargadaFueraDeSitio(c)}" va en un sitio que no vale: primera palabra o antes de la primera coma tras "pues"` : null) ||
           (conEstirar.has(out.indexOf(c)) && contarEstiradas(c) === 0 && !tieneReaccion(c)
             ? `le tocaba la palabra alargada "${palabraDe.get(out.indexOf(c))}" y no la lleva`
             : null),
@@ -595,11 +604,29 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // Lo que se garantiza en codigo, sin gastar otra llamada: una sola palabra
   // alargada por comentario, y el emoji en el que le toco si el modelo no lo
   // puso.
-  return out.map((c, i) => {
-    // Antes de limitar: si no, la alargada mal puesta se queda huerfana (18/09).
-    let r = ponerTildesSeguras(quitarComaAntesDeY(limitarEstiradas(quitarIncisosSueltos(c))));
-    if (conEstirar.has(i)) r = forzarEstirada(r, 2, palabraDe.get(i));
-    r = conEmoji.has(i) ? ponerEmojiAlFinal(r, emojiDe.get(i)) : quitarEmojis(r);
-    return r;
+  // Antes de limitar: si no, la alargada mal puesta se queda huerfana (18/09).
+  const limpios = out.map((c) =>
+    ponerTildesSeguras(quitarComaAntesDeY(limitarEstiradas(quitarIncisosSueltos(recortarEventoInventado(c)))))
+  );
+  // La alargada: primero donde el modelo dejo una palabra de reaccion en su
+  // sitio; solo si no, se antepone. Y nunca delante de una primera persona
+  // (Google Chat 18/09: "Pues exactooo, yo, sin ese contexto…").
+  const anteponible = (t: string) => !/^\s*(yo|me|mi|lo veo|nosotros|a mi)\b/i.test(t);
+  const conAlargada = limpios.map((r, i) => {
+    if (!conEstirar.has(i)) return r;
+    const suave = estirarUna(r, 2);
+    if (contarEstiradas(suave) > 0) return suave;
+    return anteponible(r) ? forzarEstirada(r, 2, palabraDe.get(i)) : r;
   });
+  // Al menos una en la tanda (Iker, 2026-09-16): si las asignadas no pudieron,
+  // se busca otra que admita la alargada.
+  if (!conAlargada.some((r) => contarEstiradas(r) > 0)) {
+    const j = conAlargada.findIndex((r) => contarEstiradas(estirarUna(r, 2)) > 0);
+    const k = j >= 0 ? j : conAlargada.findIndex((r) => anteponible(r) && !conEmoji.has(conAlargada.indexOf(r)));
+    if (k >= 0) {
+      const p = [...palabraDe.values()][0];
+      conAlargada[k] = j >= 0 ? estirarUna(conAlargada[k], 2) : forzarEstirada(conAlargada[k], 2, p);
+    }
+  }
+  return conAlargada.map((r, i) => (conEmoji.has(i) ? ponerEmojiAlFinal(r, emojiDe.get(i)) : quitarEmojis(r)));
 }

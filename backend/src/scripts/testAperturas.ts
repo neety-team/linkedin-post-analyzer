@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos, daPorHechoQueViene, inventaCondicionesDelEvento, graciasSeco, ponerTildesSeguras } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos, daPorHechoQueViene, inventaCondicionesDelEvento, graciasSeco, ponerTildesSeguras, eventoInventado, recortarEventoInventado } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -314,7 +314,7 @@ ok(quitarComaAntesDeY('Sirimiri, y mientras tanto exportando') === 'Sirimiri y m
 ok(quitarComaAntesDeY('Bilbao, Ermua, yo qué sé') === 'Bilbao, Ermua, yo qué sé', 'no toca "yo"');
 {
   const r = forzarEstirada('Casi siempre la empresa que no sale en el anuncio es la que más trabajo tiene detrás.', 2, undefined, false);
-  ok(contarEstiradas(r) === 1 && /^\p{Lu}\p{Ll}+, casi siempre/u.test(r), 'sin palabra de reaccion, abre con una alargada', r);
+  ok(contarEstiradas(r) === 1 && /^\p{Lu}[\p{Ll} ]+, casi siempre/u.test(r), 'sin palabra de reaccion, abre con una alargada', r);
   ok(contarEstiradas(forzarEstirada('pues claro que sí, muy bien dicho')) === 1, 'si hay de reaccion, alarga una de ellas');
 }
 {
@@ -426,6 +426,21 @@ ok(incisoDeAsentir(' clarooo, ninguno lo niega, brutal y hay tratos que se caen'
 ok(quitarIncisosSueltos(' claro, ninguno lo niega, brutal y hay tratos') === ' claro, ninguno lo niega y hay tratos', 'y lo quita', quitarIncisosSueltos(' claro, ninguno lo niega, brutal y hay tratos'));
 ok(ponerTildesSeguras('ojala te acuerdes, culpa mia, asi que tambien aquí') === 'ojalá te acuerdes, culpa mía, así que también aquí', 'pone las tildes seguras', ponerTildesSeguras('ojala te acuerdes, culpa mia, asi que tambien aquí'));
 ok(ponerTildesSeguras('facilmente y mia') === 'facilmente y mia', 'no toca lo ambiguo');
+
+console.log('\n15h · tercera revision del 18/09');
+ok(detectarRespuestaBorde('Maite Lasa culpa mía, el post empieza hablando del precio y el evento va de atacar las causas reales.') !== null, 'caza "el evento va de"');
+ok(detectarRespuestaBorde('Fernando Cid los datos de EUSTAT van con la fuente al lado en el mismo post!') !== null, 'caza "en el mismo post"');
+ok(ponerTildesSeguras('Carlos Vidal espera que te saque algo') === 'Carlos Vidal espero que te saque algo', 'corrige "espera que te" al abrir', ponerTildesSeguras('Carlos Vidal espera que te saque algo'));
+
+console.log('\n15i · Google Chat del 18/09');
+ok(quitarIncisosSueltos('Tal cuaal, el comercial, tal cuaal, insistiendo a quien no compra') !== '', 'no rompe');
+ok(!/\btal,/.test(quitarIncisosSueltos('el comercial tal cuaal, insistiéndole a una empresa que no compra')), 'la alargada "tal cual" mal puesta se va con su "tal"', quitarIncisosSueltos('el comercial tal cuaal, insistiéndole a una empresa que no compra'));
+ok(eventoInventado('No basta con llegar con la solución y eso es justo lo que se trabaja en Donostia 🤝'), 'caza "lo que se trabaja en Donostia"');
+{
+  const r = recortarEventoInventado('No basta con llegar con la solución, hay que llegar a quien la aprueba y eso es justo lo que se trabaja en Donostia 🤝');
+  ok(r === 'No basta con llegar con la solución, hay que llegar a quien la aprueba.', 'recorta la coletilla del evento', r);
+}
+ok(recortarEventoInventado('Casi siempre se pierde antes de llamar.') === 'Casi siempre se pierde antes de llamar.', 'sin evento no toca nada');
 
 // RULE 3g (Iker, 2026-09-17): el comentario de Antonio N. en el meme, y lo que salio.
 const antonio = 'Iker Galarza Rodríguez una que funciona muy bien es: tu madre se ha tropezado en la ducha.\n\nSólo para valientes.';

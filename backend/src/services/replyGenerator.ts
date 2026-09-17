@@ -963,7 +963,7 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // (lo mira `daPorHechoQueViene`, que ve el comentario: a quien dice "alli
   // estare" si se le puede esperar)
   // Tratarle de despistado (prueba del 16/09).
-  { re: /\b(si no sabes|si lo lees|si te lo lees|estan? en el post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
+  { re: /\b(si no sabes|si lo lees|si te lo lees|estan? en el post|en el mismo post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
   // "te dejo el enlace en el post para reservar sitio" (tanda del 18/09): el
   // enlace YA esta en el post, asi que es mandarle a leerlo.
   { re: /\b(enlace|link)\b[^.]{0,25}\b(en|del) (el )?post\b|\b(lo )?tienes (arriba|en el post)\b/, que: 'le mandas a buscar el enlace al post, que es tratarle de despistado' },
@@ -974,7 +974,7 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // ⛔ INVENTAR QUE SE HACE EN EL EVENTO (tanda del 18/09): "por eso en el
   // evento trabajamos exactamente eso". Del evento solo consta lo que dice el
   // post; su programa no se describe.
-  { re: /\b(en el (evento|encuentro)( del jueves)?( en donostia)?|el jueves en donostia) (trabajamos|vemos|ensenamos|explicamos|practicamos|contamos|resolvemos|hablamos de)\b|\blo que (trabajamos|vemos|ensenamos|explicamos|practicamos|resolvemos) en (el evento|donostia)|\b(lo que|de lo que) (queremos|queriamos|vamos a|venimos a) (resolver|trabajar|hablar|contar|ver|ensenar)[^.]{0,25}(el jueves|en donostia|en el evento)/, que: 'afirmas que se hace o se trabaja algo en el evento y no consta: del evento solo se puede decir lo que pone el post' },
+  { re: /\b(en el (evento|encuentro)( del jueves)?( en donostia)?|el jueves en donostia) (trabajamos|vemos|ensenamos|explicamos|practicamos|contamos|resolvemos|hablamos de)\b|\blo que (trabajamos|vemos|ensenamos|explicamos|practicamos|resolvemos) en (el evento|donostia)|\b(lo que|de lo que) (queremos|queriamos|vamos a|venimos a) (resolver|trabajar|hablar|contar|ver|ensenar)[^.]{0,25}(el jueves|en donostia|en el evento)|\bel (evento|encuentro)( del jueves)?( en donostia)? (va de|es para|sirve para|trata de|consiste en)|\b(lo que|de lo que) se (trabaja|habla|ve|resuelve|ensena|cuenta) (el jueves |justo )?en (donostia|el evento)|\bse (trabaja|resuelve|ensena) (eso |esto |justo eso )?(el jueves )?en (donostia|el evento)/, que: 'afirmas que se hace o se trabaja algo en el evento y no consta: del evento solo se puede decir lo que pone el post' },
   // Afirmar que la historia es real (muchas escenas son construidas).
   { re: /\b((la historia|esto|todo|es todo) es (real|verdad|cierto)|es todo (real|verdad|cierto)|no (me lo he|lo he) inventad|paso de verdad|me paso tal cual)\b/, que: 'afirmas que la historia es real, y no puedes saberlo' },
   // "no era una herramienta, era la renovacion del evento" (prueba del 16/09, a
@@ -1079,6 +1079,8 @@ export function graciasSeco(comentario: string, respuesta: string, nombre?: stri
 
 // Palabras que en castellano SIEMPRE llevan tilde, y "culpa mia".
 const TILDES_SEGURAS: Array<[RegExp, string]> = [
+  // Errata del 18/09: "Carlos Vidal espera que te saque algo que llevarte".
+  [/^(\p{Lu}[^\n]{0,60}? )?espera que te\b/u, '$1espero que te'],
   [/\bojala\b/g, 'ojalá'], [/\bOjala\b/g, 'Ojalá'], [/\btambien\b/g, 'también'],
   [/\bdespues\b/g, 'después'], [/\baqui\b/g, 'aquí'], [/\bademas\b/g, 'además'],
   [/\btodavia\b/g, 'todavía'], [/\bdificil\b/g, 'difícil'], [/\bfacil\b/g, 'fácil'],
@@ -1086,6 +1088,25 @@ const TILDES_SEGURAS: Array<[RegExp, string]> = [
 ];
 export function ponerTildesSeguras(texto: string): string {
   return TILDES_SEGURAS.reduce((t, [re, bien]) => t.replace(re, bien), texto);
+}
+
+/** El detector de evento inventado, suelto, para las superficies sin reintento propio. */
+export function eventoInventado(texto: string): boolean {
+  return inventaCondicionesDelEvento(texto) || (detectarRespuestaBorde(texto) || '').includes('evento');
+}
+
+/**
+ * Quita la coletilla que se inventa el evento ("…y eso es justo lo que se
+ * trabaja en Donostia 🤝"): corta desde el " y " o la coma anterior.
+ */
+export function recortarEventoInventado(texto: string): string {
+  if (!eventoInventado(texto)) return texto;
+  const t = texto;
+  const plano = llano(t);
+  const m = plano.match(/\s(y|pero)\s[^,.]*?(evento|donostia|jueves)[^.]*$/) || plano.match(/,[^,.]*?(evento|donostia|jueves)[^.]*$/);
+  if (!m || m.index === undefined) return texto;
+  const corte = t.slice(0, m.index).replace(/[\s,]+$/, '');
+  return corte.length >= 25 ? corte + (/[.!…]$/.test(corte) ? '' : '.') : texto;
 }
 
 // ⛔ ASENTIMIENTOS APILADOS E INCISOS SUELTOS (Iker, 2026-09-18). Prueba contra
@@ -1151,14 +1172,18 @@ export function quitarIncisosSueltos(cuerpo: string): string {
   let r = cuerpo;
   const fuera = alargadaFueraDeSitio(r);
   if (fuera) {
-    const i = r.indexOf(fuera);
+    const i0 = r.indexOf(fuera);
+    // "tal cuaal" es una sola palabra de reaccion: se quita con su "tal"
+    // (Google Chat 18/09: "el comercial tal, insistiendole…").
+    const conTal = llanoLetra(desestirar(fuera)) === 'cual' && /\btal\s+$/i.test(r.slice(0, i0));
+    const i = conTal ? r.slice(0, i0).search(/\btal\s+$/i) : i0;
     const antes = r.slice(0, i);
-    const despues = r.slice(i + fuera.length);
+    const despues = r.slice(i0 + fuera.length);
     r = /,\s*$/.test(antes) && /^\s*,/.test(despues)
       ? antes.replace(/\s*$/, '') + despues.replace(/^\s*,/, '')
       : /^\s*,/.test(despues)
         ? antes.replace(/\s+$/, '') + despues.replace(/^\s*,/, ',')
-        : r.slice(0, i) + desestirar(fuera) + despues;
+        : r.slice(0, i0) + desestirar(fuera) + despues;
   }
   const inc = incisoDeAsentir(r);
   if (inc) {

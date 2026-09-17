@@ -791,12 +791,27 @@ export function recordarAlargada(postId: string | null | undefined, texto: strin
  * 16/09 salieron 0 de 5 alargadas porque ninguna frase traia "claro", "muy" o
  * "bien", y estirarUna no fuerza.
  */
-export function forzarEstirada(texto: string, letras = 2, palabra?: string): string {
+export function forzarEstirada(texto: string, letras = 2, palabra?: string, muletilla = Math.random() < 0.3): string {
   const r = estirarUna(texto, letras);
   if (contarEstiradas(r) > 0) return r;
-  const p = palabra
-    ? (esEstirada(palabra.split(/\s+/).pop() || '') ? palabra : alargarPalabra(palabra, letras))
+  // Si la frase ya dice esa palabra ("ese es el tema claro y…"), se abre con
+  // otra: el 17/09 salio "clarooo, ese es el tema claro" y "exactooo, nadie lo
+  // enseña, exacto y…".
+  const enTexto = new Set((r.match(/\p{L}+/gu) || []).map(llanoLetra));
+  const dice = (w: string) => enTexto.has(llanoLetra(desestirar(w.split(/\s+/).pop() || '')));
+  let elegida = palabra;
+  if (!elegida || dice(elegida)) {
+    const libres = PALABRAS_ALARGAR.filter((w) => !dice(w));
+    if (libres.length) elegida = libres[Math.floor(Math.random() * libres.length)];
+  }
+  const mayus = palabra ? /^\p{Lu}/u.test(palabra) : true;
+  let p = elegida
+    ? (esEstirada(elegida.split(/\s+/).pop() || '') ? elegida : alargarPalabra(elegida, letras))
     : ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
+  p = mayus ? p[0].toUpperCase() + p.slice(1) : p[0].toLowerCase() + p.slice(1);
+  // Y no siempre de primera (Iker, 2026-09-18: "que no sea predecible"): a
+  // veces detras de un "pues", que es el otro sitio que vale.
+  if (muletilla) p = (mayus ? 'Pues ' : 'pues ') + p[0].toLowerCase() + p.slice(1);
   const resto = r.replace(/^\s+/, '');
   // "Casi siempre…" -> "Buenooo, casi siempre…" (sin tocar siglas ni nombres
   // propios que empiecen la frase: solo se baja si la segunda letra es minuscula)

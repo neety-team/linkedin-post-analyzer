@@ -253,9 +253,16 @@ ok(limitarEstiradas('uff siii, que el evento') === 'uff siii, que el evento', 'd
 ok(estirarUna('la lista encoge, y queda muy bien, claro') === 'la lista encoge, y queda muy bien, claro', 'no alarga una de reaccion lejos del arranque');
 ok(estirarUna('pues claro, la lista encoge') === 'pues clarooo, la lista encoge', 'alarga la de antes de la primera coma');
 {
-  const r = forzarEstirada('la lista encoge, bien dicho', 2, 'vale');
+  const r = forzarEstirada('la lista encoge, bien dicho', 2, 'vale', false);
   ok(r === 'valeee, la lista encoge, bien dicho', 'si no hay sitio, abre con la sorteada ya alargada', r);
-  ok(forzarEstirada('la lista encoge', 2, 'tal cual') === 'tal cuaaal, la lista encoge', 'alarga "tal cual" en la ultima', forzarEstirada('la lista encoge', 2, 'tal cual'));
+  ok(forzarEstirada('la lista encoge', 2, 'tal cual', false) === 'tal cuaaal, la lista encoge', 'alarga "tal cual" en la ultima', forzarEstirada('la lista encoge', 2, 'tal cual', false));
+}
+{
+  const r = forzarEstirada('ese es el tema claro y el precio es la excusa', 2, 'claro', false);
+  ok(!/^claro/.test(r) && contarEstiradas(r) === 1, 'si la frase ya dice la palabra, abre con otra', r);
+  ok(forzarEstirada('la lista encoge', 2, 'vale', true) === 'pues valeee, la lista encoge', 'a veces detras de un pues', forzarEstirada('la lista encoge', 2, 'vale', true));
+  ok(/^Pues /.test(forzarEstirada('La lista encoge', 2, 'Clarooo', true)), 'en Google Chat, con mayuscula');
+  ok(limitarEstiradas(forzarEstirada('la lista encoge', 2, 'vale', true)) === 'pues valeee, la lista encoge', 'y el limpiado la respeta');
 }
 {
   let mal = 0;

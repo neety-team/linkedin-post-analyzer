@@ -952,7 +952,7 @@ export function faltaElGracias(comentario: string, respuesta: string): boolean {
 // real". Si el comentario lleva marcas de broma, la respuesta no puede
 // analizarla como una tactica.
 const ES_BROMA = /(\bj[ae]j[ae]j?|\bjaj|\bjej|xd\b|para valientes|😂|🤣|😅|😆|😜|😝)/;
-const ANALIZA_BROMA = /(funciona (muy bien )?(porque|por que)|porque mezcla|mezcla [a-z ]+ con|combina [a-z ]+ con|la clave (es|esta)|como (tactica|tecnica|estrategia)|es una (buena )?(tactica|tecnica|estrategia))/;
+const ANALIZA_BROMA = /(funciona (muy bien )?(porque|por que)|porque mezcla|mezcla [a-z ]+ con|combina [a-z ]+ con|la clave (es|esta)|marca la diferencia|cambia todo|lo que (mas )?funciona|la urgencia|como (tactica|tecnica|estrategia)|es una (buena )?(tactica|tecnica|estrategia))/;
 
 /** El comentario es una broma y la respuesta la analiza en serio (RULE 3g). */
 export function tomaEnSerioLaBroma(comentario: string, respuesta: string): boolean {
@@ -1383,7 +1383,12 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   if (input.commenterName) {
     const n = input.commenterName;
     if (text.slice(0, n.length).toLowerCase() === n.toLowerCase()) {
-      const rest = text.slice(n.length).replace(/^\s*,\s*/, ' ');
+      let rest = text.slice(n.length).replace(/^\s*,\s*/, ' ');
+      // La primera palabra tras el nombre va en minuscula (RULE 5). Un nombre
+      // que acaba en punto ("Antonio N.") engañaba al paso 1c, que la subia a
+      // mayuscula como si fuera una frase nueva (Iker, 2026-09-17). Se respetan
+      // las siglas ("CRM") para no romperlas.
+      rest = rest.replace(/^(\s+)(\p{Lu})(\p{Ll})/u, (_m, sp, a, b) => `${sp}${a.toLowerCase()}${b}`);
       text = (n + rest).trim();
     }
   }

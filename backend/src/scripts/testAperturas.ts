@@ -298,6 +298,9 @@ const antonio = 'Iker Galarza Rodríguez una que funciona muy bien es: tu madre 
 ok(tomaEnSerioLaBroma(antonio, 'Antonio N. Funciona porque mezcla urgencia con un nombre real y de ahí a preguntar directamente por el responsable hay solo un paso 🔥'), 'caza la broma tomada en serio');
 ok(!tomaEnSerioLaBroma(antonio, 'Antonio N. me la apuntaré por si la necesito en el futuro jajaja'), 'deja pasar la que sigue la broma');
 ok(tomaEnSerioLaBroma('jajaja la mejor excusa del mundo', 'Pedro Gil es una buena táctica para llegar al que decide'), 'con jajaja tambien caza el analisis');
+// Las dos que salieron en la prueba real contra produccion, con la regla ya puesta.
+ok(tomaEnSerioLaBroma(antonio, 'Antonio N. clarooo que la urgencia del mensaje cambia todo lo que sigue'), 'caza "la urgencia cambia todo"');
+ok(tomaEnSerioLaBroma(antonio, 'Antonio N. el teléfono ya lo tienes, la excusa es lo que marca la diferencia jajaja'), 'caza "marca la diferencia" aunque lleve jajaja');
 ok(!tomaEnSerioLaBroma('Muy buen post, la llamada en frío funciona', 'Pedro Gil funciona porque llegas antes que nadie'), 'un comentario serio puede recibir un "funciona porque"');
 
 console.log(fallos === 0 ? '\n✅ las tres capas hacen lo que dicen\n' : `\n❌ ${fallos} fallo(s)\n`);

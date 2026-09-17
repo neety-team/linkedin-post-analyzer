@@ -3216,7 +3216,10 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
     // replyGenerator RULE 11 for name-only / emoji-only comments). This also
     // makes "Generar respuesta" work at all for media comments, which used to
     // 400 here because comment_text was empty.
-    if (!comment_text || !String(comment_text).trim()) {
+    // Y lo mismo si el comentario es SOLO emojis o signos ("👏👏"): la RULE 11
+    // lo pedia y el modelo contesto "ninguno de esos aplausos llega a quien
+    // tiene que escucharlos…" (tanda del 18/09). Se garantiza aqui.
+    if (!comment_text || !/\p{L}/u.test(String(comment_text))) {
       const SUPPORT_EMOJI = ['🙌', '🔥', '💪', '👏', '❤️', '😄'];
       const emoji = SUPPORT_EMOJI[Math.floor(Math.random() * SUPPORT_EMOJI.length)];
       return res.json({

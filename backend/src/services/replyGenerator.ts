@@ -316,7 +316,17 @@ export function buildPrompt(
   // ALARGAR O NO, SORTEADO AQUI (Iker, 2026-09-16). "Casi todas" no es
   // variedad y "a veces" no produce "a veces": lo decide el dado, por voz.
   const PROB_ESTIRAR: Record<Voice, number> = { sobrio: 0.15, medio: 0.35, cercano: 0.55 };
-  const estirar = Math.random() < PROB_ESTIRAR[voice];
+  // Ni alargada ni palabra de asentir a una PREGUNTA, a quien DISCREPA o a quien
+  // viene delicado (Iker, 2026-09-18). Salio "tal cuaaal" a "¿el evento es
+  // gratis?", "claroo, tramposa, pero…" a una critica y "justooo, normal,
+  // culpa mia" a alguien que no entendia el post.
+  const comentarioLlano = llano(input.commentText);
+  const sinAsentir =
+    /[¿?]/.test(input.commentText) ||
+    DISCREPA.test(comentarioLlano) ||
+    ES_HOSTIL.test(comentarioLlano) ||
+    NO_ENTIENDE.test(comentarioLlano);
+  const estirar = !sinAsentir && Math.random() < PROB_ESTIRAR[voice];
   // Las variantes estiradas ("juuusto", "clarooo") ya no entran aqui (Iker,
   // 2026-09-18): el asentimiento puede caer en cualquier sitio y la alargada
   // solo tiene dos. La palabra alargada la decide el sorteo de ALARGAR.
@@ -345,7 +355,9 @@ export function buildPrompt(
   const varietyNudge = `OPENING MOVE for THIS reply (RULE 10), decided for you: ${move}. Use THAT one. Only if the comment makes it genuinely impossible, pick a DIFFERENT move from the list — never fall back to whatever you'd have written anyway.
 ARRANQUE OBLIGATORIO de esta respuesta: justo despues del nombre, empieza por ${elegido.arranque}. Esto no es una sugerencia y no se negocia con el contenido: si no te encaja, cambia el contenido, no el arranque.
 ⛔ DOS EXCEPCIONES, y las dos mandan sobre el arranque sorteado: (a) SI EL COMENTARIO ES UN ELOGIO, lo primero es el GRACIAS (RULE 13); (b) SI EL COMENTARIO DICE QUE NO ENTIENDE EL POST, lo primero es quitarle hierro (RULE 3c-bis): "no pasa nada", "normal", "culpa mia". En los dos casos el arranque sorteado se aplica DESPUES o no se aplica. Son los dos unicos sitios donde la variedad pierde, y pierde a proposito.
-${elegido.arranque.startsWith('una negacion')
+${sinAsentir
+  ? `Esta respuesta NO lleva palabra de asentir ("claro", "exacto", "tal cual", "totalmente"...): el comentario es una pregunta, una discrepancia o alguien que no lo ha entendido, y asentir ahi no tiene sentido. Contesta directamente.`
+  : elegido.arranque.startsWith('una negacion')
   ? `Esta respuesta NO lleva palabra de asentir. La negacion del arranque va sobre el PROBLEMA del post ("nadie descuelga", "ningun comercial..."), NUNCA sobre lo que dice el que comenta: "no te compro eso", "no es asi" o "no es eso" estan PROHIBIDAS.`
   : estirar
   ? `UNA SOLA PALABRA DE ASENTIR EN TODA LA RESPUESTA (Iker, 2026-09-18): si asientes, la palabra es la ALARGADA de esta respuesta ("${alargarPalabra(palabraAlargar, 2)}") y NO se le suma ninguna otra ("claro", "exacto", "y tanto", "tal cual", "totalmente"...). Nada de "exactooo, claro y tanto".`
@@ -823,8 +835,8 @@ export function forzarEstirada(texto: string, letras = 2, palabra?: string, mule
   // Y tambien si abre con "claro y…" / "justo y…" sin pausa: la tanda del 18/09
   // dio "tal cuaaal, claro y lo peor…" y "totaaal, justo y mientras…".
   const arranqueAsiente =
-    resto.match(/^(totalmente|efectivamente|sin duda|desde luego|por supuesto|y tanto|eso es|tal cual|claro|exacto|justo|cierto)\s*(,|y(?![\p{L}]))\s*/iu) ||
-    resto.match(/^(s[ií]|vale|total|perfecto)\s*,\s*/iu);
+    resto.match(/^(totalmente|efectivamente|sin duda|desde luego|por supuesto|y tanto|eso es|tal cual|claro|exacto|justo|cierto|genial|brutal|perfecto|s[ií])\s*(,|y(?![\p{L}]))\s*/iu) ||
+    resto.match(/^(vale|total)\s*,\s*/iu);
   if (arranqueAsiente) resto = resto.slice(arranqueAsiente[0].length);
   // "Casi siempre…" -> "Buenooo, casi siempre…" (sin tocar siglas ni nombres
   // propios que empiecen la frase: solo se baja si la segunda letra es minuscula)
@@ -932,9 +944,10 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // vemos el jueves en Donostia" a alguien que solo dijo "que grande Iker").
   // Es la misma regla que el Google Chat tiene desde el 27/08: no se pone en
   // boca de nadie que va a ir.
-  { re: /\b(nos vemos (el|en|alli|alla|ahi|pronto|el jueves)|alli nos vemos|te esper(o|amos) (el|en|alli)|os esper(o|amos)|alli estaras)\b/, que: 'das por hecho que el que comenta va a venir al evento' },
+  // (lo mira `daPorHechoQueViene`, que ve el comentario: a quien dice "alli
+  // estare" si se le puede esperar)
   // Tratarle de despistado (prueba del 16/09).
-  { re: /\b(si no sabes|si lo lees|si te lo lees|esta en el post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
+  { re: /\b(si no sabes|si lo lees|si te lo lees|estan? en el post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
   // "te dejo el enlace en el post para reservar sitio" (tanda del 18/09): el
   // enlace YA esta en el post, asi que es mandarle a leerlo.
   { re: /\b(enlace|link)\b[^.]{0,25}\b(en|del) (el )?post\b|\b(lo )?tienes (arriba|en el post)\b/, que: 'le mandas a buscar el enlace al post, que es tratarle de despistado' },
@@ -997,6 +1010,8 @@ const HAY_RECONOCIMIENTO = /(no pasa nada|normal|culpa mia|nada, |tranquil|me ha
 // por tonto a nadie"). A "Otro post vendiendo humo" salio un zasca; a "Vaya
 // tonteria de post", un "puede ser, pero...". Ante lo despectivo la respuesta
 // tiene que llevar una marca de respeto y NINGUN "pero" que le rebata.
+// Quien le lleva la contraria al post sin venir de malas.
+const DISCREPA = /(discrepo|no estoy de acuerdo|no comparto|no creo que|no lo veo|trampos|no es (asi|verdad|cierto)|ya no hace falta|no sirve|exagerad|mentira|es falso|no tiene sentido|eso no es)/;
 const ES_HOSTIL = /(tonteria|chorrada|gilipollez|humo|vendehumos|postureo|no tiene (ninguna )?gracia|sin gracia|no mola|ridicul|patetic|basura|cutre|que pesad|otro post (de|vendiendo)|falta de respeto)/;
 const HAY_RESPETO = /(respeto|entiendo|comprendo|tomo nota|lo apunto|me lo apunto|cada uno|es normal|normal que|valoro|gracias por (decirlo|la sinceridad|comentar|el apunte)|no te encaj)/;
 
@@ -1018,12 +1033,38 @@ export function respuestaAHostilMal(comentario: string, respuesta: string): bool
  *  · ABRIR CON COMILLAS que no citan al que comenta, que "parece escrito por
  *    inteligencia artificial".
  */
+// ⛔ DAR POR HECHO QUE VIENE AL EVENTO (tandas del 16 y 18/09): "nos vemos el
+// jueves", "el jueves 24 en Donostia te esperamos" a "Me lo apunto", "espero
+// que el jueves en Donostia te ayude" a "me he visto reflejada". Solo vale si
+// el comentario dice que viene.
+const DICE_QUE_VIENE = /(alli estare|ahi estare|alli nos vemos|nos vemos (el|en|alli|alla)|me apunto al|ya estoy apuntad|estoy inscrit|me he inscrito|voy al evento|ire al evento|alli estaremos|cuenta conmigo|tengo (mi )?plaza)/;
+const SUPONE_QUE_VIENE = /(nos vemos (el|en|alli|alla|ahi|pronto)|alli nos vemos|te esper(o|amos)|os esper(o|amos)|alli estaras|cuando vengas|cuando llegues|(el jueves|en donostia|en el evento)[^.]{0,40}\bte (ayude|sirva|guste|encante|toque)|te (ayude|sirva|guste|encante)[^.]{0,40}(el jueves|en donostia|en el evento))/;
+export function daPorHechoQueViene(comentario: string, respuesta: string): boolean {
+  return SUPONE_QUE_VIENE.test(llano(respuesta)) && !DICE_QUE_VIENE.test(llano(comentario));
+}
+
+// ⛔ AFIRMAR EL PRECIO O LAS CONDICIONES DEL EVENTO (tanda del 18/09): "el
+// precio esta en el link y es cero". No consta en ningun sitio.
+export function inventaCondicionesDelEvento(respuesta: string): boolean {
+  const t = llano(respuesta);
+  return /(evento|jueves|donostia|enlace|link|entrada|plaza|inscripcion)/.test(t) &&
+    /\b(gratis|gratuit[oa]|es cero|no cuesta|sin coste|de pago|cuesta \d|\d+ ?(euros|eur)\b|precio (es|esta))/.test(t);
+}
+
+// ⛔ EL GRACIAS SECO (RULE 13): "gracias, espero que les sirva" a un elogio.
+export function graciasSeco(comentario: string, respuesta: string, nombre?: string | null): boolean {
+  if (!ES_ELOGIO.test(llano(comentario))) return false;
+  let cuerpo = respuesta.trim();
+  if (nombre && cuerpo.toLowerCase().startsWith(nombre.trim().toLowerCase())) cuerpo = cuerpo.slice(nombre.trim().length).trim();
+  return /^gracias\s*([,.!]|$)/i.test(cuerpo);
+}
+
 // ⛔ ASENTIMIENTOS APILADOS E INCISOS SUELTOS (Iker, 2026-09-18). Prueba contra
 // produccion: "exactooo, claro y tanto, aunque…", "pues geniaaal, el filtro,
 // tal cual, siempre lo pone…", "justooo, el interlocutor bien, que…". El
 // modelo recibia dos palabras sorteadas y las encajaba donde podia.
 const ASENTIR = ['tal cual', 'y tanto', 'sin duda', 'eso es', 'desde luego', 'por supuesto',
-  'claro', 'exacto', 'justo', 'cierto', 'totalmente', 'efectivamente', 'si', 'vale', 'total', 'perfecto'];
+  'claro', 'exacto', 'justo', 'cierto', 'totalmente', 'efectivamente', 'genial', 'brutal', 'si', 'vale', 'total', 'perfecto'];
 // Estas solo asienten sueltas: "si lo piensas" o "total que" no son asentir.
 const SOLO_CON_PAUSA = new Set(['si', 'vale', 'total', 'perfecto']);
 const RELLENO_ARRANQUE = new Set(['pues', 'y', 'uy', 'uf', 'uff', 'ah', 'oh', 'eh', 'ay', 'hombre', 'vamos', 'que']);
@@ -1464,6 +1505,17 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     if (!ultimoTonoBorde && tomaEnSerioLaBroma(input.commentText, candidato)) {
       ultimoTonoBorde =
         'el comentario es una BROMA que sigue el chiste del post y la respuesta la analiza en serio, como si fuera una tactica (RULE 3g): siguele el rollo, corto y con complicidad ("me la apunto por si la necesito jajaja"), sin explicar por que funciona';
+    }
+    if (!ultimoTonoBorde && daPorHechoQueViene(input.commentText, candidato)) {
+      ultimoTonoBorde =
+        'das por hecho que el que comenta va a venir al evento y no lo ha dicho: nada de "te esperamos", "nos vemos" ni "el jueves te ayudara"; como mucho, que alli se habla de esto';
+    }
+    if (!ultimoTonoBorde && inventaCondicionesDelEvento(candidato)) {
+      ultimoTonoBorde =
+        'afirmas el precio o las condiciones del evento y no constan en ningun sitio: no lo digas; si lo pregunta, di que se entra por solicitud y que se lo confirmamos por privado';
+    }
+    if (!ultimoTonoBorde && graciasSeco(input.commentText, candidato, input.commenterName)) {
+      ultimoTonoBorde = 'el comentario es un elogio y el gracias va seco ("gracias, ..."): usa la variante de gracias sorteada (RULE 13)';
     }
     if (!ultimoTonoBorde && respuestaAHostilMal(input.commentText, candidato)) {
       ultimoTonoBorde =

@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos, daPorHechoQueViene, inventaCondicionesDelEvento, graciasSeco } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -283,8 +283,8 @@ ok(estirarUna('sí, y encima clarooo') === 'sí, y encima clarooo', 'no alarga s
 ok(ponerEmojiAlFinal('tal cual 🔥', '🙌') === 'tal cual 🙌', 'cambia el emoji por el sorteado');
 
 ok(desestirarTodo('clarooo, y juuusto eso, graciaas') === 'claro, y justo eso, gracias', 'sin sorteo de alargar no queda ninguna', desestirarTodo('clarooo, y juuusto eso, graciaas'));
-ok(detectarRespuestaBorde('Unai Sanz gracias por decirlo, nos vemos el jueves en Donostia.') !== null, 'caza "nos vemos el jueves"');
-ok(detectarRespuestaBorde('Carlos Vidal te esperamos el jueves en Donostia 😄') !== null, 'caza "te esperamos el jueves" (17/09)');
+ok(daPorHechoQueViene('Gran post', 'Unai Sanz gracias por decirlo, nos vemos el jueves en Donostia.'), 'caza "nos vemos el jueves"');
+ok(daPorHechoQueViene('Me lo apunto', 'Carlos Vidal te esperamos el jueves en Donostia 😄'), 'caza "te esperamos el jueves" (17/09)');
 ok(detectarRespuestaBorde('Unai Sanz gracias por decirlo, el jueves en Donostia hablamos justo de esto.') === null, 'deja pasar mencionar el evento sin dar por hecho que va');
 
 ok(estirarUna('muy bien dicho') === 'muuuy bien dicho' || estirarUna('muy bien dicho') === 'muy bieeen dicho', 'estira la ultima vocal aunque acabe en consonante', estirarUna('muy bien dicho'));
@@ -378,6 +378,31 @@ ok(detectarRespuestaBorde('Ana Pérez no descuelga nadie a la primera y ahí se 
   }
   ok(negOk, 'con arranque de negacion no se sortea palabra de asentir');
 }
+
+// 15f. Revision ampliada del 18/09 (3 cuentas, comentarios variados).
+console.log('\n15f · preguntas, discrepancias, evento y gracias seco');
+{
+  let malos = 0;
+  for (let i = 0; i < 200; i++) {
+    for (const c of ['¿El evento es gratis?', 'Discrepo, en mi sector el precio sí manda', 'No termino de entender qué tiene que ver']) {
+      const { prompt, estirar } = buildPrompt({ ...base, commentText: c } as any, 'cercano');
+      if (estirar || /UNA SOLA PALABRA DE ASENTIR|the agreement word for THIS reply/.test(prompt)) malos++;
+    }
+  }
+  ok(malos === 0, 'a preguntas, discrepancias y a quien no entiende: ni alargada ni asentir', String(malos));
+}
+ok(daPorHechoQueViene('Me lo apunto', 'Carlos Vidal justooo, el jueves 24 en Donostia te esperamos 🤝'), 'caza "te esperamos" a quien no dijo que viene');
+ok(daPorHechoQueViene('Qué bueno, me he visto reflejada', 'Laura Pineda brutaaal, espero que el jueves en Donostia te ayude a ponerle nombre'), 'caza "el jueves te ayude"');
+ok(!daPorHechoQueViene('Allí estaré!', 'Iñigo Mendia te esperamos por allí 👏'), 'a quien dice que viene si se le espera');
+ok(!daPorHechoQueViene('Gran post', 'Ana Pérez graciaas, el jueves en Donostia se habla justo de esto'), 'mencionar el evento sin suponer no salta');
+ok(inventaCondicionesDelEvento('Ander Bilbao tal cuaaal, el precio está en el link y es cero 🔥'), 'caza el precio inventado del evento');
+ok(!inventaCondicionesDelEvento('Ana Pérez el precio casi nunca tumba la venta'), 'hablar del precio de una venta no salta');
+ok(graciasSeco('Brutal, lo comparto con mi equipo', 'Irene Sanz gracias, espero que les sirva a ellos también.', 'Irene Sanz'), 'caza el gracias seco');
+ok(!graciasSeco('Gran post', 'Irene Sanz gracias por leerlo, ojalá les sirva', 'Irene Sanz'), 'gracias por X no es seco');
+ok(detectarRespuestaBorde('Fernando Cid los datos están en el post con la fuente al lado') !== null, 'caza "están en el post"');
+ok(asentimientosAlPrincipio(' perfectooo, genial y el que coge el teléfono') >= 2, 'caza "perfectooo, genial y"');
+ok(forzarEstirada('genial y el que coge el teléfono no decide', 2, 'perfecto', false) === 'perfectooo, el que coge el teléfono no decide', 'sustituye el "genial y"', forzarEstirada('genial y el que coge el teléfono no decide', 2, 'perfecto', false));
+ok(forzarEstirada('si y es de los que más duele', 2, 'justo', false) === 'justooo, es de los que más duele', 'sustituye el "si y"', forzarEstirada('si y es de los que más duele', 2, 'justo', false));
 
 // RULE 3g (Iker, 2026-09-17): el comentario de Antonio N. en el meme, y lo que salio.
 const antonio = 'Iker Galarza Rodríguez una que funciona muy bien es: tu madre se ha tropezado en la ducha.\n\nSólo para valientes.';

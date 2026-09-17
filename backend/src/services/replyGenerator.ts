@@ -963,7 +963,7 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // (lo mira `daPorHechoQueViene`, que ve el comentario: a quien dice "alli
   // estare" si se le puede esperar)
   // Tratarle de despistado (prueba del 16/09).
-  { re: /\b(si no sabes|si lo lees|si te lo lees|estan? en el post|en el (mismo|propio) post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
+  { re: /\b(si no sabes|si lo lees|si te lo lees|estan? en el post|en el (mismo|propio) post|(citad|puest|indicad|enlazad|recogid)[oa]s? en el post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
   // "te dejo el enlace en el post para reservar sitio" (tanda del 18/09): el
   // enlace YA esta en el post, asi que es mandarle a leerlo.
   { re: /\b(enlace|link)\b[^.]{0,25}\b(en|del) (el )?post\b|\b(lo )?tienes (arriba|en el post)\b/, que: 'le mandas a buscar el enlace al post, que es tratarle de despistado' },
@@ -1087,7 +1087,7 @@ const TILDES_SEGURAS: Array<[RegExp, string]> = [
   [/\bojala\b/g, 'ojalá'], [/\bOjala\b/g, 'Ojalá'], [/\btambien\b/g, 'también'],
   [/\bdespues\b/g, 'después'], [/\baqui\b/g, 'aquí'], [/\bademas\b/g, 'además'],
   [/\btodavia\b/g, 'todavía'], [/\bdificil\b/g, 'difícil'], [/\bfacil\b/g, 'fácil'],
-  [/\bculpa mia\b/g, 'culpa mía'], [/\basi que\b/g, 'así que'], [/\basi de\b/g, 'así de'],
+  [/\bculpa mia\b/g, 'culpa mía'], [/\brazon\b/g, 'razón'], [/\basi que\b/g, 'así que'], [/\basi de\b/g, 'así de'],
 ];
 export function ponerTildesSeguras(texto: string): string {
   return TILDES_SEGURAS.reduce((t, [re, bien]) => t.replace(re, bien), texto);
@@ -1127,6 +1127,18 @@ export function recortarFraseDelEvento(texto: string): string {
   const corte = texto.slice(0, m.index).replace(/[\s,]+$/, '');
   if (corte.replace(/\P{L}/gu, '').length < 20) return '';
   return corte + (/[.!…]$/.test(corte) ? '' : '.');
+}
+
+/** Si el texto abre con el nombre escrito con otras tildes o mayusculas, lo deja exacto. */
+export function normalizarNombreInicial(texto: string, nombre: string): string {
+  if (!nombre || texto.startsWith(nombre)) return texto;
+  const objetivo = llano(nombre);
+  for (let k = Math.max(1, nombre.length - 3); k <= Math.min(texto.length, nombre.length + 3); k++) {
+    if (llano(texto.slice(0, k)) === objetivo && !/\p{L}/u.test(texto.charAt(k))) {
+      return nombre + texto.slice(k);
+    }
+  }
+  return texto;
 }
 
 // ⛔ ASENTIMIENTOS APILADOS E INCISOS SUELTOS (Iker, 2026-09-18). Prueba contra
@@ -1666,6 +1678,11 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   }
   // Drop wrapping quotes if the model added them despite the system rule.
   text = text.replace(/^["“”']+|["“”']+$/g, '').trim();
+  // EL NOMBRE, TAL CUAL VIENE DE LINKEDIN (18/09). Todo lo de abajo reconoce
+  // el nombre con startsWith; si el modelo lo escribe con otra tilde
+  // ("Gomez" por "Gómez"), el cuerpo se trataba como si no hubiera nombre y la
+  // alargada acababa delante ("ciertooo, luis Gómez…").
+  if (input.commenterName) text = normalizarNombreInicial(text, input.commenterName.trim());
   // Defensive cleanups so a model slip never reaches LinkedIn (RULE 5/8/9):
   // 1. Replace any em/en dash with a comma — it's the AI tell we ban.
   text = text.replace(/\s*[—–]\s*/g, ', ').replace(/,\s*,/g, ',');
@@ -1723,7 +1740,10 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     const cuerpoG = nomG && text.toLowerCase().startsWith(nomG.toLowerCase()) ? text.slice(nomG.length).trim() : text.trim();
     if (/^gracias\s*[.!]?\s*$/i.test(desestirarTodo(quitarEmojis(cuerpoG)))) {
       // La lista de variantes ya va por voz (THANKS_VARIANTS), asi que vale tal cual.
-      text = `${nomG ? nomG + ' ' : ''}${thanks}${voice === 'sobrio' ? '.' : ''}`;
+      // Una de las variantes es una INSTRUCCION para el modelo ("plain
+      // elongated thanks…"), no una frase: el 18/09 se publico tal cual.
+      const frase = /^plain\b|[()"]/.test(thanks) ? 'muchas graciaas' : thanks;
+      text = `${nomG ? nomG + ' ' : ''}${frase}${voice === 'sobrio' ? '.' : ''}`;
     }
   }
   // 1g. TILDES QUE NO ADMITEN DUDA (tanda del 18/09: "ojala", "culpa mia").
@@ -1751,7 +1771,8 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       } else if (NO_ENTIENDE.test(llano(input.commentText))) {
         text = con('culpa mía, me quedó enrevesado.');
       } else {
-        text = con(`${thanks}${voice === 'sobrio' ? '.' : ''}`);
+        const frase = /^plain\b|[()"]/.test(thanks) ? 'muchas graciaas' : thanks;
+        text = con(`${frase}${voice === 'sobrio' ? '.' : ''}`);
       }
     }
   }

@@ -10,10 +10,11 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos, daPorHechoQueViene, inventaCondicionesDelEvento, graciasSeco, ponerTildesSeguras, eventoInventado, recortarEventoInventado, recortarFraseDelEvento } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos, daPorHechoQueViene, inventaCondicionesDelEvento, graciasSeco, ponerTildesSeguras, eventoInventado, recortarEventoInventado, recortarFraseDelEvento, normalizarNombreInicial } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
+const io_leer = () => require('fs').readFileSync(require('path').join(__dirname, '../services/replyGenerator.ts'), 'utf8') as string;
 const ok = (cond: boolean, label: string, extra = '') => {
   console.log(`  ${cond ? 'ok  ' : 'FALLA'}  ${label}${extra ? ` — ${extra}` : ''}`);
   if (!cond) fallos++;
@@ -462,6 +463,17 @@ ok(detectarRespuestaBorde('Esther Gil discrepar tiene todo el sentido, en tu sec
 ok(quitarIncisosSueltos('el dato, totaal, es de los que cambian') === 'el dato es de los que cambian', 'sin coma entre sujeto y verbo', quitarIncisosSueltos('el dato, totaal, es de los que cambian'));
 ok(quitarIncisosSueltos('vende mucho, clarooo, pero cuesta más') === 'vende mucho, pero cuesta más', 'la coma se queda antes de pero', quitarIncisosSueltos('vende mucho, clarooo, pero cuesta más'));
 ok(quitarIncisosSueltos('la reunión de más de una hora, tal cual, acaba igual') === 'la reunión de más de una hora acaba igual', 'con tildes delante corta en su sitio', quitarIncisosSueltos('la reunión de más de una hora, tal cual, acaba igual'));
+
+console.log('\n15l · sexta revision del 18/09');
+ok(normalizarNombreInicial('Luis Gomez a veces pesa', 'Luis Gómez') === 'Luis Gómez a veces pesa', 'reescribe el nombre con su tilde');
+ok(normalizarNombreInicial('luis gómez a veces pesa', 'Luis Gómez') === 'Luis Gómez a veces pesa', 'y con su mayuscula');
+ok(normalizarNombreInicial('Luisa Gómez a veces', 'Luis Gómez') === 'Luisa Gómez a veces', 'no confunde otro nombre');
+ok(detectarRespuestaBorde('Fernando Cid los tres están citados en el post junto a cada dato') !== null, 'caza "citados en el post"');
+ok(ponerTildesSeguras('tiene razon en que') === 'tiene razón en que', 'razón con tilde');
+{
+  const fuente = io_leer();
+  ok(/\/\^plain\\b\|\[\(\)"\]\/\.test\(thanks\)/.test(fuente), 'el respaldo del gracias filtra la variante que es una instruccion');
+}
 
 // RULE 3g (Iker, 2026-09-17): el comentario de Antonio N. en el meme, y lo que salio.
 const antonio = 'Iker Galarza Rodríguez una que funciona muy bien es: tu madre se ha tropezado en la ducha.\n\nSólo para valientes.';

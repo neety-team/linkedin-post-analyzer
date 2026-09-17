@@ -970,6 +970,9 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // ⛔ LA CONTRADICCION (tanda del 18/09): "no te compro eso, te compro eso".
   // Salia de cruzar el arranque "una negacion" con la palabra de asentir. A
   // quien comenta se le apoya: nunca se le niega lo que dice.
+  // "discrepo tambien" a quien discrepaba (revision del 18/09): se lee como
+  // que le das la razon y a la vez contradices tu propio post.
+  { re: /\b(discrepo|tambien discrepo|yo tambien discrepo)\b/, que: 'repites su "discrepo" como si fuera tuyo: reconocele el matiz con tus palabras' },
   { re: /(^|[ ,.])no (te compro eso|es eso|es asi|estoy de acuerdo|tal cual|exacto|comparto)\b/, que: 'le llevas la contraria al que comenta o te contradices ("no te compro eso")' },
   // ⛔ INVENTAR QUE SE HACE EN EL EVENTO (tanda del 18/09): "por eso en el
   // evento trabajamos exactamente eso". Del evento solo consta lo que dice el
@@ -1103,10 +1106,27 @@ export function recortarEventoInventado(texto: string): string {
   if (!eventoInventado(texto)) return texto;
   const t = texto;
   const plano = llano(t);
-  const m = plano.match(/\s(y|pero)\s[^,.]*?(evento|donostia|jueves)[^.]*$/) || plano.match(/,[^,.]*?(evento|donostia|jueves)[^.]*$/);
+  const m = plano.match(/\s(y|pero)\s[^,.]*?(evento|donostia|jueves)[^.]*\.?\s*$/) || plano.match(/,[^,.]*?(evento|donostia|jueves)[^.]*\.?\s*$/);
   if (!m || m.index === undefined) return texto;
   const corte = t.slice(0, m.index).replace(/[\s,]+$/, '');
   return corte.length >= 25 ? corte + (/[.!…]$/.test(corte) ? '' : '.') : texto;
+}
+
+/**
+ * Quita la parte de la frase que habla del evento o da por hecho que viene
+ * (desde el " y ", " pero " o la coma anterior). Devuelve '' si no queda nada
+ * con sentido.
+ */
+export function recortarFraseDelEvento(texto: string): string {
+  const plano = llano(texto);
+  const clave = '(evento|donostia|jueves|alli|alla|te esper|os esper|nos vemos|vengas)';
+  const m =
+    plano.match(new RegExp(`\\s(y|pero)\\s[^,.]*?${clave}[^.]*\\.?\\s*$`)) ||
+    plano.match(new RegExp(`,[^,.]*?${clave}[^.]*\\.?\\s*$`));
+  if (!m || m.index === undefined) return '';
+  const corte = texto.slice(0, m.index).replace(/[\s,]+$/, '');
+  if (corte.replace(/\P{L}/gu, '').length < 20) return '';
+  return corte + (/[.!…]$/.test(corte) ? '' : '.');
 }
 
 // ⛔ ASENTIMIENTOS APILADOS E INCISOS SUELTOS (Iker, 2026-09-18). Prueba contra
@@ -1168,6 +1188,22 @@ export function alargadaFueraDeSitio(cuerpo: string): string | null {
  * puesta ENTERA (con su coma), en vez de dejarla huerfana ("el interlocutor
  * bien, que…").
  */
+// Al quitar un inciso de entre dos trozos, la coma solo se queda si lo que
+// sigue la pide ("…, pero…"). Si no, "el dato, totaal, es…" se quedaba en
+// "el dato, es…", con coma entre sujeto y verbo (revision del 18/09).
+function unirSinInciso(antes: string, despues: string): string {
+  const a = antes.replace(/[\s,]+$/, '');
+  const d = despues.replace(/^[\s,]+/, '');
+  const pideComa = /^(pero|aunque|sino|porque)\b/i.test(d) && /,\s*$/.test(antes);
+  return a + (pideComa ? ', ' : ' ') + d;
+}
+
+// Quita tildes letra a letra, SIN cambiar la longitud: los indices que se
+// sacan de aqui valen para el texto original (con NFD entero no valian).
+function sinTildesMismaLongitud(t: string): string {
+  return [...t].map((ch) => ch.normalize('NFD').replace(/[̀-ͯ]/g, '') || ch).join('');
+}
+
 export function quitarIncisosSueltos(cuerpo: string): string {
   let r = cuerpo;
   const fuera = alargadaFueraDeSitio(r);
@@ -1179,20 +1215,20 @@ export function quitarIncisosSueltos(cuerpo: string): string {
     const i = conTal ? r.slice(0, i0).search(/\btal\s+$/i) : i0;
     const antes = r.slice(0, i);
     const despues = r.slice(i0 + fuera.length);
-    r = /,\s*$/.test(antes) && /^\s*,/.test(despues)
-      ? antes.replace(/\s*$/, '') + despues.replace(/^\s*,/, '')
-      : /^\s*,/.test(despues)
-        // La coma era de la interjeccion: se va con ella ("el cliente
-        // buenooo, escucha" -> "el cliente escucha", Google Chat 18/09).
-        ? antes.replace(/\s+$/, '') + ' ' + despues.replace(/^\s*,\s*/, '')
-        : r.slice(0, i0) + desestirar(fuera) + despues;
+    // Con coma detras, la coma era de la interjeccion y se va con ella ("el
+    // cliente buenooo, escucha" -> "el cliente escucha"). Sin coma, solo se
+    // desestira.
+    r = /^\s*,/.test(despues) ? unirSinInciso(antes, despues) : r.slice(0, i0) + desestirar(fuera) + despues;
   }
   const inc = incisoDeAsentir(r);
   if (inc) {
     const re = new RegExp(`,\\s*${inc.replace(' ', '\\s+')}\\p{L}*\\s*(,|y(?![\\p{L}]))`, 'iu');
-    const fueraTilde = r.normalize('NFD').replace(/[̀-ͯ]/g, '');
-    const m = fueraTilde.match(re);
-    if (m && m.index !== undefined) r = r.slice(0, m.index) + (m[1] === ',' ? ',' : ' y') + r.slice(m.index + m[0].length);
+    const m = sinTildesMismaLongitud(r).match(re);
+    if (m && m.index !== undefined) {
+      const antes = r.slice(0, m.index + 1);
+      const despues = r.slice(m.index + m[0].length);
+      r = m[1] === ',' ? unirSinInciso(antes, despues) : r.slice(0, m.index) + ' y ' + despues.replace(/^\s+/, '');
+    }
   }
   return r.replace(/\s{2,}/g, ' ').replace(/,\s*,/g, ',');
 }
@@ -1694,14 +1730,30 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   text = ponerTildesSeguras(text);
   // 1h. SI A LA TERCERA SIGUE INVENTANDO SOBRE EL EVENTO, salida segura: lo
   //     que no sabemos se contesta por privado.
-  if (
-    inventaCondicionesDelEvento(text) ||
-    (detectarRespuestaBorde(text) || '').includes('evento') ||
-    daPorHechoQueViene(input.commentText, text)
-  ) {
-    console.warn(`[replyGenerator] respuesta sobre el evento sin base, se sustituye por la salida segura: ${text}`);
-    const nomSeguro = input.commenterName?.trim();
-    text = `${nomSeguro ? nomSeguro + ' ' : ''}te lo paso por privado${voice === 'sobrio' ? '.' : ' 🙌'}`;
+  //     Primero se RECORTA la coletilla del evento; "te lo paso por privado"
+  //     solo vale si el comentario pregunta algo (revision del 18/09: a "no
+  //     termino de entender" le salio solo "te lo paso por privado").
+  {
+    const malEvento = (t: string) =>
+      inventaCondicionesDelEvento(t) ||
+      (detectarRespuestaBorde(t) || '').includes('evento') ||
+      daPorHechoQueViene(input.commentText, t);
+    if (malEvento(text)) {
+      const nomSeguro = input.commenterName?.trim() || '';
+      const cuerpoS = nomSeguro && text.toLowerCase().startsWith(nomSeguro.toLowerCase()) ? text.slice(nomSeguro.length).trim() : text.trim();
+      const recortado = recortarFraseDelEvento(cuerpoS);
+      const con = (c: string) => `${nomSeguro ? nomSeguro + ' ' : ''}${c}`;
+      console.warn(`[replyGenerator] respuesta sobre el evento sin base: ${text}`);
+      if (recortado && !malEvento(con(recortado))) {
+        text = con(recortado);
+      } else if (/[¿?]/.test(input.commentText)) {
+        text = con(`te lo paso por privado${voice === 'sobrio' ? '.' : ' 🙌'}`);
+      } else if (NO_ENTIENDE.test(llano(input.commentText))) {
+        text = con('culpa mía, me quedó enrevesado.');
+      } else {
+        text = con(`${thanks}${voice === 'sobrio' ? '.' : ''}`);
+      }
+    }
   }
   // 1d. (va DESPUES del limite de alargadas, para que el colapso no esconda
   //     ninguna) VOCES SOBRIAS (Unai y Asier, NO Iker): colapsa cualquier racha de 3+

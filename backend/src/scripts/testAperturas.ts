@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos, daPorHechoQueViene, inventaCondicionesDelEvento, graciasSeco, ponerTildesSeguras, eventoInventado, recortarEventoInventado } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos, daPorHechoQueViene, inventaCondicionesDelEvento, graciasSeco, ponerTildesSeguras, eventoInventado, recortarEventoInventado, recortarFraseDelEvento } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -349,7 +349,7 @@ ok(problemaDeEstilo('Gran post', 'Luis Gómez pues siii, a veces es el precio y 
   const a = quitarIncisosSueltos(' justooo, el interlocutor bieeen, que casi siempre es quien no firma nada.');
   ok(a === ' justooo, el interlocutor que casi siempre es quien no firma nada.', 'quita la alargada huerfana con su coma', a);
   const b = quitarIncisosSueltos(' pues geniaaal, el filtro, tal cual, siempre lo pone alguien.');
-  ok(b === ' pues geniaaal, el filtro, siempre lo pone alguien.', 'quita el inciso suelto', b);
+  ok(b === ' pues geniaaal, el filtro siempre lo pone alguien.', 'quita el inciso suelto', b);
   const c = quitarIncisosSueltos(' el comercial busca, sí, antes de culpar al precio.');
   ok(c === ' el comercial busca, sí, antes de culpar al precio.', 'no toca lo que no es inciso de asentir', c);
 }
@@ -452,6 +452,16 @@ ok(detectarRespuestaBorde('Ana Pérez es la reunión donde lo vemos cada semana 
 ok(detectarRespuestaBorde('Carlos Vidal apuntarlo está bien, pero lo que hay en el evento es la conversación') !== null, 'caza "lo que hay en el evento"');
 ok(detectarRespuestaBorde('Fernando Cid los de EUSTAT los cito en el propio post') !== null, 'caza "en el propio post"');
 ok(forzarEstirada('bien y añadiría que tampoco se enseña', 2, 'vale', false) === 'valeee, añadiría que tampoco se enseña', 'sustituye el "bien y"', forzarEstirada('bien y añadiría que tampoco se enseña', 2, 'vale', false));
+
+console.log('\n15k · quinta revision del 18/09');
+ok(recortarFraseDelEvento('culpa mía, el hilo va de por qué se caen las ventas y el evento es el sitio donde lo trabajamos en persona.') === 'culpa mía, el hilo va de por qué se caen las ventas.', 'recorta la frase del evento', recortarFraseDelEvento('culpa mía, el hilo va de por qué se caen las ventas y el evento es el sitio donde lo trabajamos en persona.'));
+ok(recortarFraseDelEvento('te esperamos el jueves') === '', 'si no queda nada, vacio');
+ok(detectarRespuestaBorde('Esther Gil discrepo también, porque en algunos sectores el precio pesa') !== null, 'caza "discrepo también"');
+ok(detectarRespuestaBorde('Esther Gil discrepar tiene todo el sentido, en tu sector pesa más') === null, '"discrepar tiene sentido" no salta');
+
+ok(quitarIncisosSueltos('el dato, totaal, es de los que cambian') === 'el dato es de los que cambian', 'sin coma entre sujeto y verbo', quitarIncisosSueltos('el dato, totaal, es de los que cambian'));
+ok(quitarIncisosSueltos('vende mucho, clarooo, pero cuesta más') === 'vende mucho, pero cuesta más', 'la coma se queda antes de pero', quitarIncisosSueltos('vende mucho, clarooo, pero cuesta más'));
+ok(quitarIncisosSueltos('la reunión de más de una hora, tal cual, acaba igual') === 'la reunión de más de una hora acaba igual', 'con tildes delante corta en su sitio', quitarIncisosSueltos('la reunión de más de una hora, tal cual, acaba igual'));
 
 // RULE 3g (Iker, 2026-09-17): el comentario de Antonio N. en el meme, y lo que salio.
 const antonio = 'Iker Galarza Rodríguez una que funciona muy bien es: tu madre se ha tropezado en la ducha.\n\nSólo para valientes.';

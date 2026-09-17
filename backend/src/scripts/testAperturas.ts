@@ -313,7 +313,7 @@ ok(ponerEmojiAlFinal('lo dejo ahí...', '👏') === 'lo dejo ahí... 👏', 'los
 ok(quitarComaAntesDeY('Sirimiri, y mientras tanto exportando') === 'Sirimiri y mientras tanto exportando', 'quita la coma antes de y');
 ok(quitarComaAntesDeY('Bilbao, Ermua, yo qué sé') === 'Bilbao, Ermua, yo qué sé', 'no toca "yo"');
 {
-  const r = forzarEstirada('Casi siempre la empresa que no sale en el anuncio es la que más trabajo tiene detrás.');
+  const r = forzarEstirada('Casi siempre la empresa que no sale en el anuncio es la que más trabajo tiene detrás.', 2, undefined, false);
   ok(contarEstiradas(r) === 1 && /^\p{Lu}\p{Ll}+, casi siempre/u.test(r), 'sin palabra de reaccion, abre con una alargada', r);
   ok(contarEstiradas(forzarEstirada('pues claro que sí, muy bien dicho')) === 1, 'si hay de reaccion, alarga una de ellas');
 }

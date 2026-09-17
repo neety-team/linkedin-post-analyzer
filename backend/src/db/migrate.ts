@@ -1046,6 +1046,11 @@ const migration = `
 
   CREATE INDEX IF NOT EXISTS idx_posts_chat_pendientes
     ON posts (creator_id, published_at) WHERE chat_announced_at IS NULL;
+
+  -- Ultima vez que el monitor releyo el feed ENTERO de la cuenta para poner al
+  -- dia likes, comentarios, reposts e impresiones de sus posts de mas de 7 dias
+  -- (services/postMonitor.ts, refrescarContadoresPostsViejos). NULL = nunca.
+  ALTER TABLE creators ADD COLUMN IF NOT EXISTS public_counters_synced_at TIMESTAMPTZ;
 `;
 
 /**

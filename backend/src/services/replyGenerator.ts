@@ -339,7 +339,12 @@ export function buildPrompt(
   // salio "tal cuaaal, te compro eso, tal cual" por sortear las dos por separado.
   const recientes = input.postId ? (ALARGADAS_POR_POST.get(input.postId) || []) : [];
   const libres = PALABRAS_ALARGAR.filter((p) => !recientes.includes(p) && p !== asent);
-  const palabraAlargar = PALABRAS_ALARGAR.includes(asent) && !recientes.includes(asent)
+  // En un ELOGIO la alargada es el gracias (tanda del 18/09: "siii, me alegra
+  // que te sirva" a "Gran post Iker"). Se alarga el que escriba el modelo.
+  const esElogio = ES_ELOGIO.test(llano(input.commentText));
+  const palabraAlargar = esElogio
+    ? 'gracias'
+    : PALABRAS_ALARGAR.includes(asent) && !recientes.includes(asent)
     ? asent
     : (libres.length ? libres : PALABRAS_ALARGAR)[Math.floor(Math.random() * (libres.length || PALABRAS_ALARGAR.length))];
 
@@ -436,6 +441,17 @@ ${sinAsentir
     'dentro de la PRIMERA frase, justo antes de su primera coma, en las tres primeras palabras',
   ];
   const sitioAlargar = SITIOS[Math.floor(Math.random() * SITIOS.length)];
+  // ⛔ EL EVENTO: SOLO LO QUE DICE EL POST (tandas del 18/09). Sin esto el
+  // modelo contestaba "gratis, esta el enlace en el post" a "¿el evento es
+  // gratis?" y "es justo lo que queremos resolver el jueves".
+  const eventoNudge = /(evento|donostia)/i.test(input.postContent)
+    ? `EVENTO: del evento solo sabes lo que pone el post (dia, sitio, plazas). NO sabes el precio, si es gratis, el programa ni los ponentes: no lo afirmes ni digas que alli se trabaja o se resuelve algo concreto. Si te preguntan algo que no sabes, la respuesta es que se lo pasas por privado. No mandes a buscar el enlace al post y no des por hecho que viene salvo que lo diga.\n`
+    : '';
+  // ⛔ A QUIEN DISCREPA (tanda del 18/09): "no es una trampa, es que…" le
+  // corrige. Se le reconoce lo que dice y se aporta, sin enmendarle.
+  const discrepaNudge = DISCREPA.test(comentarioLlano)
+    ? `DISCREPA: el comentario lleva la contraria. Reconocele lo que tiene de razon ("en tu sector pesa mas", "es verdad que...") y aporta el matiz sin decirle que se equivoca: nada de "no es X, es Y", nada de "pero", nada de corregirle.\n`
+    : '';
   const emojiNudge =
     (conEmoji
       ? `EMOJI: esta respuesta TERMINA con este emoji y ningun otro: ${emojiElegido}`
@@ -545,7 +561,7 @@ ${commenterLine}
 ${mentionInstruction}
 ${leadMagnetInstruction}
 ${varietyNudge}
-
+${eventoNudge}${discrepaNudge}
 ${ellipsisNudge}
 
 ${emojiNudge}
@@ -958,7 +974,7 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // ⛔ INVENTAR QUE SE HACE EN EL EVENTO (tanda del 18/09): "por eso en el
   // evento trabajamos exactamente eso". Del evento solo consta lo que dice el
   // post; su programa no se describe.
-  { re: /\b(en el (evento|encuentro)( del jueves)?( en donostia)?|el jueves en donostia) (trabajamos|vemos|ensenamos|explicamos|practicamos|contamos|resolvemos|hablamos de)\b|\blo que (trabajamos|vemos|ensenamos|explicamos|practicamos|resolvemos) en (el evento|donostia)/, que: 'afirmas que se hace o se trabaja algo en el evento y no consta: del evento solo se puede decir lo que pone el post' },
+  { re: /\b(en el (evento|encuentro)( del jueves)?( en donostia)?|el jueves en donostia) (trabajamos|vemos|ensenamos|explicamos|practicamos|contamos|resolvemos|hablamos de)\b|\blo que (trabajamos|vemos|ensenamos|explicamos|practicamos|resolvemos) en (el evento|donostia)|\b(lo que|de lo que) (queremos|queriamos|vamos a|venimos a) (resolver|trabajar|hablar|contar|ver|ensenar)[^.]{0,25}(el jueves|en donostia|en el evento)/, que: 'afirmas que se hace o se trabaja algo en el evento y no consta: del evento solo se puede decir lo que pone el post' },
   // Afirmar que la historia es real (muchas escenas son construidas).
   { re: /\b((la historia|esto|todo|es todo) es (real|verdad|cierto)|es todo (real|verdad|cierto)|no (me lo he|lo he) inventad|paso de verdad|me paso tal cual)\b/, que: 'afirmas que la historia es real, y no puedes saberlo' },
   // "no era una herramienta, era la renovacion del evento" (prueba del 16/09, a
@@ -1011,7 +1027,7 @@ const HAY_RECONOCIMIENTO = /(no pasa nada|normal|culpa mia|nada, |tranquil|me ha
 // tonteria de post", un "puede ser, pero...". Ante lo despectivo la respuesta
 // tiene que llevar una marca de respeto y NINGUN "pero" que le rebata.
 // Quien le lleva la contraria al post sin venir de malas.
-const DISCREPA = /(discrepo|no estoy de acuerdo|no comparto|no creo que|no lo veo|trampos|no es (asi|verdad|cierto)|ya no hace falta|no sirve|exagerad|mentira|es falso|no tiene sentido|eso no es)/;
+const DISCREPA = /(discrepo|no se yo|a veces si|no siempre|depende|no estoy de acuerdo|no comparto|no creo que|no lo veo|trampos|no es (asi|verdad|cierto)|ya no hace falta|no sirve|exagerad|mentira|es falso|no tiene sentido|eso no es)/;
 const ES_HOSTIL = /(tonteria|chorrada|gilipollez|humo|vendehumos|postureo|no tiene (ninguna )?gracia|sin gracia|no mola|ridicul|patetic|basura|cutre|que pesad|otro post (de|vendiendo)|falta de respeto)/;
 const HAY_RESPETO = /(respeto|entiendo|comprendo|tomo nota|lo apunto|me lo apunto|cada uno|es normal|normal que|valoro|gracias por (decirlo|la sinceridad|comentar|el apunte)|no te encaj)/;
 
@@ -1053,10 +1069,23 @@ export function inventaCondicionesDelEvento(respuesta: string): boolean {
 
 // ⛔ EL GRACIAS SECO (RULE 13): "gracias, espero que les sirva" a un elogio.
 export function graciasSeco(comentario: string, respuesta: string, nombre?: string | null): boolean {
-  if (!ES_ELOGIO.test(llano(comentario))) return false;
   let cuerpo = respuesta.trim();
   if (nombre && cuerpo.toLowerCase().startsWith(nombre.trim().toLowerCase())) cuerpo = cuerpo.slice(nombre.trim().length).trim();
+  // "gracias." como respuesta entera no vale nunca ("Qué bien contado" -> "gracias.").
+  if (/^gracias\s*[.!]?\s*$/i.test(cuerpo)) return true;
+  if (!ES_ELOGIO.test(llano(comentario))) return false;
   return /^gracias\s*([,.!]|$)/i.test(cuerpo);
+}
+
+// Palabras que en castellano SIEMPRE llevan tilde, y "culpa mia".
+const TILDES_SEGURAS: Array<[RegExp, string]> = [
+  [/\bojala\b/g, 'ojalá'], [/\bOjala\b/g, 'Ojalá'], [/\btambien\b/g, 'también'],
+  [/\bdespues\b/g, 'después'], [/\baqui\b/g, 'aquí'], [/\bademas\b/g, 'además'],
+  [/\btodavia\b/g, 'todavía'], [/\bdificil\b/g, 'difícil'], [/\bfacil\b/g, 'fácil'],
+  [/\bculpa mia\b/g, 'culpa mía'], [/\basi que\b/g, 'así que'], [/\basi de\b/g, 'así de'],
+];
+export function ponerTildesSeguras(texto: string): string {
+  return TILDES_SEGURAS.reduce((t, [re, bien]) => t.replace(re, bien), texto);
 }
 
 // ⛔ ASENTIMIENTOS APILADOS E INCISOS SUELTOS (Iker, 2026-09-18). Prueba contra
@@ -1091,7 +1120,7 @@ export function asentimientosAlPrincipio(cuerpo: string): number {
 // Palabras de asentir que sueltas entre dos comas en mitad de la frase no
 // significan nada. "bien", "vale" o "total" quedan fuera: ", total, que…" o
 // "está bien, pero" son castellano normal.
-const INCISO_SUELTO = /[^,]*[a-z][^,]*,\s*(tal cual|y tanto|sin duda|claro|exacto|justo|totalmente|efectivamente),/;
+const INCISO_SUELTO = /[^,]*[a-z][^,]*,\s*(tal cual|y tanto|sin duda|claro|exacto|justo|totalmente|efectivamente|brutal|genial)(,| y )/;
 
 /** El inciso de asentir suelto en mitad de la frase, o null. */
 export function incisoDeAsentir(cuerpo: string): string | null {
@@ -1133,10 +1162,10 @@ export function quitarIncisosSueltos(cuerpo: string): string {
   }
   const inc = incisoDeAsentir(r);
   if (inc) {
-    const re = new RegExp(`,\\s*${inc.replace(' ', '\\s+')}\\p{L}*\\s*,`, 'iu');
+    const re = new RegExp(`,\\s*${inc.replace(' ', '\\s+')}\\p{L}*\\s*(,|y(?![\\p{L}]))`, 'iu');
     const fueraTilde = r.normalize('NFD').replace(/[̀-ͯ]/g, '');
     const m = fueraTilde.match(re);
-    if (m && m.index !== undefined) r = r.slice(0, m.index) + ',' + r.slice(m.index + m[0].length);
+    if (m && m.index !== undefined) r = r.slice(0, m.index) + (m[1] === ',' ? ',' : ' y') + r.slice(m.index + m[0].length);
   }
   return r.replace(/\s{2,}/g, ' ').replace(/,\s*,/g, ',');
 }
@@ -1176,7 +1205,7 @@ export function faltaElReconocimiento(comentario: string, respuesta: string): bo
   return NO_ENTIENDE.test(llano(comentario)) && !HAY_RECONOCIMIENTO.test(llano(respuesta));
 }
 
-const ES_ELOGIO = /(gran (post|publicacion|historia)|muy buen[ao]|buena historia|me ha encantado|encantad|genial|brutal|crack|top\b|me encanta|buenisimo|que bueno|de los mejores|espectacular|enhorabuena|grande\b|maquina\b|aplausos|impecable|muy bueno|excelente)/;
+const ES_ELOGIO = /(gran (post|publicacion|historia|reflexion)|(que|muy) bien (contado|explicado|escrito|dicho|traido)|bien contado|muy buen[ao]|buena historia|me ha encantado|encantad|genial|brutal|crack|top\b|me encanta|buenisimo|que bueno|de los mejores|espectacular|enhorabuena|grande\b|maquina\b|aplausos|impecable|muy bueno|excelente)/;
 const HAY_GRACIAS = /(gracias|graciass|graciaas|se agradece|me alegra|un placer)/;
 
 /**
@@ -1610,14 +1639,30 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       // Si toca alargar y el modelo no la dejo en uno de sus dos sitios, se
       // abre con la palabra sorteada (Iker, 2026-09-18): antes estirarUna la
       // soltaba en cualquier palabra de reaccion, tambien entre dos comas.
+      // En un elogio solo se alarga el gracias que haya: nunca se le antepone otra.
+      const alarga = (t: string) => (palabraAlargar === 'gracias' ? estirarUna(t, letrasVoz) : forzarEstirada(t, letrasVoz, palabraAlargar));
       text = estirar
-        ? `${text.slice(0, nom.length)} ${forzarEstirada(cuerpo.replace(/^[\s,]+/, ''), letrasVoz, palabraAlargar)}`
+        ? `${text.slice(0, nom.length)} ${alarga(cuerpo.replace(/^[\s,]+/, ''))}`
         : text.slice(0, nom.length) + cuerpo;
     } else {
+      const base = limitarEstiradas(quitarIncisosSueltos(text));
       text = estirar
-        ? forzarEstirada(limitarEstiradas(quitarIncisosSueltos(text)), letrasVoz, palabraAlargar)
+        ? (palabraAlargar === 'gracias' ? estirarUna(base, letrasVoz) : forzarEstirada(base, letrasVoz, palabraAlargar))
         : desestirarTodo(quitarIncisosSueltos(text));
     }
+  }
+  // 1g. TILDES QUE NO ADMITEN DUDA (tanda del 18/09: "ojala", "culpa mia").
+  text = ponerTildesSeguras(text);
+  // 1h. SI A LA TERCERA SIGUE INVENTANDO SOBRE EL EVENTO, salida segura: lo
+  //     que no sabemos se contesta por privado.
+  if (
+    inventaCondicionesDelEvento(text) ||
+    (detectarRespuestaBorde(text) || '').includes('evento') ||
+    daPorHechoQueViene(input.commentText, text)
+  ) {
+    console.warn(`[replyGenerator] respuesta sobre el evento sin base, se sustituye por la salida segura: ${text}`);
+    const nomSeguro = input.commenterName?.trim();
+    text = `${nomSeguro ? nomSeguro + ' ' : ''}te lo paso por privado${voice === 'sobrio' ? '.' : ' 🙌'}`;
   }
   // 1d. (va DESPUES del limite de alargadas, para que el colapso no esconda
   //     ninguna) VOCES SOBRIAS (Unai y Asier, NO Iker): colapsa cualquier racha de 3+

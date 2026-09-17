@@ -10,7 +10,7 @@
  *
  *   npx tsx src/scripts/testAperturas.ts
  */
-import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos, daPorHechoQueViene, inventaCondicionesDelEvento, graciasSeco } from '../services/replyGenerator';
+import { detectarAperturaGenerica, detectarRespuestaBorde, faltaElGracias, faltaElReconocimiento, respuestaAHostilMal, tomaEnSerioLaBroma, esEstirada, limitarEstiradas, contarEstiradas, ponerEmojiAlFinal, quitarEmojis, comillasDeArranque, problemaDeEstilo, estirarUna, desestirarTodo, buildPrompt, recordarApertura, quitarComaAntesDeY, forzarEstirada, asentimientosAlPrincipio, incisoDeAsentir, alargadaFueraDeSitio, quitarIncisosSueltos, daPorHechoQueViene, inventaCondicionesDelEvento, graciasSeco, ponerTildesSeguras } from '../services/replyGenerator';
 import { primerasDos, aperturaHueca, criticaNuestroPost } from '../services/commentGenerator';
 
 let fallos = 0;
@@ -403,6 +403,29 @@ ok(detectarRespuestaBorde('Fernando Cid los datos están en el post con la fuent
 ok(asentimientosAlPrincipio(' perfectooo, genial y el que coge el teléfono') >= 2, 'caza "perfectooo, genial y"');
 ok(forzarEstirada('genial y el que coge el teléfono no decide', 2, 'perfecto', false) === 'perfectooo, el que coge el teléfono no decide', 'sustituye el "genial y"', forzarEstirada('genial y el que coge el teléfono no decide', 2, 'perfecto', false));
 ok(forzarEstirada('si y es de los que más duele', 2, 'justo', false) === 'justooo, es de los que más duele', 'sustituye el "si y"', forzarEstirada('si y es de los que más duele', 2, 'justo', false));
+
+// 15g. Segunda revision ampliada del 18/09.
+console.log('\n15g · elogio con gracias, discrepancia, evento y tildes');
+{
+  let malos = 0;
+  for (let i = 0; i < 200; i++) {
+    const r = buildPrompt({ ...base, commentText: 'Gran post Iker, muy claro' } as any, 'cercano');
+    if (r.estirar && r.palabraAlargar !== 'gracias') malos++;
+    const d = buildPrompt({ ...base, commentText: 'No sé yo, a veces sí es el precio' } as any, 'cercano');
+    if (d.estirar || !/DISCREPA:/.test(d.prompt)) malos++;
+  }
+  ok(malos === 0, 'en un elogio la alargada es el gracias, y "no sé yo" es discrepar', String(malos));
+  const ev = buildPrompt({ ...base, postContent: 'El jueves 24 organizamos un evento presencial en Donostia.' } as any, 'cercano').prompt;
+  ok(/EVENTO: del evento solo sabes/.test(ev), 'si el post habla del evento, el prompt dice que solo se sabe lo del post');
+  ok(!/EVENTO: del evento/.test(buildPrompt(base as any, 'cercano').prompt), 'y si no, no');
+}
+ok(graciasSeco('Qué bien contado', 'Elena Vidal gracias.', 'Elena Vidal'), 'caza "gracias." a secas');
+ok(detectarRespuestaBorde('Javier Mena llegar al que firma es justo lo que queríamos resolver el jueves 😄') !== null, 'caza "lo que queríamos resolver el jueves"');
+ok(inventaCondicionesDelEvento('Ander Bilbao gratis, está el enlace en el post para apuntarte 😄'), 'caza "gratis" con el enlace');
+ok(incisoDeAsentir(' clarooo, ninguno lo niega, brutal y hay tratos que se caen') === 'brutal', 'caza ", brutal y" en mitad');
+ok(quitarIncisosSueltos(' claro, ninguno lo niega, brutal y hay tratos') === ' claro, ninguno lo niega y hay tratos', 'y lo quita', quitarIncisosSueltos(' claro, ninguno lo niega, brutal y hay tratos'));
+ok(ponerTildesSeguras('ojala te acuerdes, culpa mia, asi que tambien aquí') === 'ojalá te acuerdes, culpa mía, así que también aquí', 'pone las tildes seguras', ponerTildesSeguras('ojala te acuerdes, culpa mia, asi que tambien aquí'));
+ok(ponerTildesSeguras('facilmente y mia') === 'facilmente y mia', 'no toca lo ambiguo');
 
 // RULE 3g (Iker, 2026-09-17): el comentario de Antonio N. en el meme, y lo que salio.
 const antonio = 'Iker Galarza Rodríguez una que funciona muy bien es: tu madre se ha tropezado en la ducha.\n\nSólo para valientes.';

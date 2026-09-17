@@ -26,15 +26,17 @@
 ---
 
 
-## 📋📋 1-PEGAR · EL POST SE LE DEJA EN EL PORTAPAPELES, LISTO PARA LINKEDIN (Iker, 2026-09-17)
+## 📋📋 1-PEGAR · EL POST SE ENTREGA AQUÍ, Y SE PEGA EN LINKEDIN PASANDO POR GOOGLE DOCS (Iker, 2026-09-17)
 
-**El problema, que no es del texto:** el editor nuevo de LinkedIn se come los saltos al pegar texto plano, y las rutas de rescate fallan cada una a su manera. **Gmail DUPLICA los blancos** (cada línea se vuelve un bloque y el blanco cuenta dos veces), **Gmail y Google Docs se comen los emojis**, y **Notion convierte `1. ` en lista numerada**, que es justo lo que lleva todo lead magnet. El 17/09 el bloque que se entregó tenía un solo blanco entre párrafos; los dobles los metió Gmail.
+**El bloque cercado sigue siendo LA entrega** (`§1`). Iker, y es decisión suya: *"es mejor que me lo pases aquí como hasta ahora"*.
 
-**LA SALIDA: al entregar un post definitivo, además del bloque cercado, se ejecuta**
-```
-powershell -STA -ExecutionPolicy Bypass -File scripts\copiar-post.ps1 <fichero.txt>
-```
-**con el MISMO fichero que pasó el validador.** Deja en el portapapeles HTML con un `<p>` por línea y `<p><br></p>` por blanco, los emojis como entidades y la lista como texto; Iker pega directo en LinkedIn con Ctrl+V. Si el modo por defecto fallara, `-Modo br` es el plan B. **⚠️ Pendiente de confirmar en LinkedIn con el primer uso**: el HTML se ha verificado leyendo el portapapeles, no pegando en el editor.
+**El problema, que no es del texto:** el bloque es texto plano puro, sin markdown. Lo que cambió es el editor de LinkedIn:
+- **pegado en texto plano** (botón de copiar, bloc de notas, Notion como plain text) → se come los saltos;
+- **pegado con formato** → los respeta, pero cada ruta añade su defecto: **Gmail DUPLICA los blancos** (caso del 17/09), **Gmail y Google Docs se comen los emojis**, y **Notion convierte `1. ` en lista numerada**, que es justo lo que lleva todo lead magnet.
+
+**LA RUTA QUE FUNCIONA (probada el 17/09):** bloque de aquí → **Google Docs directamente, sin pasar por Notion** → LinkedIn, y **se reponen a mano los emojis** con el selector de LinkedIn. Al entregar, **se dice qué emojis lleva el post y dónde**, para que no se escape ninguno.
+
+**Plan B, opcional y no por defecto:** `scripts/copiar-post.ps1 <fichero>` deja el post en el portapapeles como HTML (`<p>` por línea, emojis como entidades). Solo si Iker lo pide o la ruta de Docs deja de funcionar. Sin probar todavía en el editor de LinkedIn.
 
 ## ⭐ 1c · SI UN HALLAZGO CAMBIA UN ENTREGABLE YA DADO, REDALO ENTERO (Iker, 2026-07-21)
 

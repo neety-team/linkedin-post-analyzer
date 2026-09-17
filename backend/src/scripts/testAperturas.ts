@@ -284,6 +284,7 @@ ok(ponerEmojiAlFinal('tal cual 🔥', '🙌') === 'tal cual 🙌', 'cambia el em
 
 ok(desestirarTodo('clarooo, y juuusto eso, graciaas') === 'claro, y justo eso, gracias', 'sin sorteo de alargar no queda ninguna', desestirarTodo('clarooo, y juuusto eso, graciaas'));
 ok(detectarRespuestaBorde('Unai Sanz gracias por decirlo, nos vemos el jueves en Donostia.') !== null, 'caza "nos vemos el jueves"');
+ok(detectarRespuestaBorde('Carlos Vidal te esperamos el jueves en Donostia 😄') !== null, 'caza "te esperamos el jueves" (17/09)');
 ok(detectarRespuestaBorde('Unai Sanz gracias por decirlo, el jueves en Donostia hablamos justo de esto.') === null, 'deja pasar mencionar el evento sin dar por hecho que va');
 
 ok(estirarUna('muy bien dicho') === 'muuuy bien dicho' || estirarUna('muy bien dicho') === 'muy bieeen dicho', 'estira la ultima vocal aunque acabe en consonante', estirarUna('muy bien dicho'));

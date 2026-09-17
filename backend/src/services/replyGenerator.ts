@@ -919,7 +919,7 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // vemos el jueves en Donostia" a alguien que solo dijo "que grande Iker").
   // Es la misma regla que el Google Chat tiene desde el 27/08: no se pone en
   // boca de nadie que va a ir.
-  { re: /\b(nos vemos (el|en|alli|alla|ahi|pronto|el jueves)|alli nos vemos|te espero (el|en|alli)|os espero|alli estaras)\b/, que: 'das por hecho que el que comenta va a venir al evento' },
+  { re: /\b(nos vemos (el|en|alli|alla|ahi|pronto|el jueves)|alli nos vemos|te esper(o|amos) (el|en|alli)|os esper(o|amos)|alli estaras)\b/, que: 'das por hecho que el que comenta va a venir al evento' },
   // Tratarle de despistado (prueba del 16/09).
   { re: /\b(si no sabes|si lo lees|si te lo lees|esta en el post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
   // Afirmar que la historia es real (muchas escenas son construidas).

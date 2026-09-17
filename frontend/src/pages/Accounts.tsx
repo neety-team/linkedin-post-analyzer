@@ -1586,6 +1586,7 @@ function AccountsInner() {
             creatorId={selectedCreator === 'all' ? null : selectedCreator}
             startDate={dateRange.start}
             endDate={dateRange.end}
+            includeManual={incluirManuales}
             reloadSignal={refreshSignal}
           />
 
@@ -1610,8 +1611,8 @@ function AccountsInner() {
             includeManual={incluirManuales}
             title="New followers per month"
             subtitle={selectedCreator === 'all'
-              ? 'Monthly followers gained — all managed accounts'
-              : 'Followers gained each month (this account)'}
+              ? 'New followers each month — LinkedIn daily figures for connected accounts — all managed accounts'
+              : 'New followers each month — LinkedIn daily figures (this account)'}
             unit="followers"
             color="#34d399"
             signed

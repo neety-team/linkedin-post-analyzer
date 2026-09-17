@@ -9,6 +9,7 @@ import { fetchPremiumAnalytics, savePremiumAnalytics } from './premiumAnalytics'
 import { resumirMemesPendientes } from './postImageText';
 import {
   fetchResumenLinkedIn, guardarResumenLinkedIn, fetchSeriesDiarias, guardarSeriesDiarias,
+  fetchSeguidoresDiarios, guardarSeguidoresDiarios,
 } from './linkedinOverview';
 
 // Phase-based snapshot cadence for LinkedIn posts.
@@ -884,18 +885,35 @@ function fotoPorCaducar(url: string | null): boolean {
   return Number(e) * 1000 - Date.now() < FOTO_MARGEN_MS;
 }
 
+// La MISMA llamada da tambien sus seguidores: se hace una vez al dia para
+// tener la foto diaria del total que las cuentas conectadas ya tienen (sin
+// ella, la suma de "todas las cuentas" subia y bajaba segun el dia).
 async function renovarFotosManuales(): Promise<void> {
   const { rows } = await pool.query(
-    `SELECT id, linkedin_url, profile_image_url FROM creators
-      WHERE is_manual = TRUE AND linkedin_url IS NOT NULL`
+    `SELECT c.id, c.linkedin_url, c.profile_image_url,
+            NOT EXISTS (SELECT 1 FROM creator_follower_snapshots s
+                         WHERE s.creator_id = c.id AND s.captured_on = CURRENT_DATE) AS sin_seguidores_hoy
+       FROM creators c
+      WHERE c.is_manual = TRUE AND c.linkedin_url IS NOT NULL`
   );
   for (const c of rows) {
-    if (!fotoPorCaducar(c.profile_image_url)) continue;
+    if (!fotoPorCaducar(c.profile_image_url) && !c.sin_seguidores_hoy) continue;
     try {
       const raw = await unipileService.getProfile(c.linkedin_url);
-      const foto = unipileService.normalizeProfile(raw, c.linkedin_url).profile_image_url;
+      const perfil = unipileService.normalizeProfile(raw, c.linkedin_url);
+      const foto = perfil.profile_image_url;
       if (foto) {
         await pool.query(`UPDATE creators SET profile_image_url = $2 WHERE id = $1`, [c.id, foto]);
+      }
+      if (typeof perfil.followers_count === 'number' && perfil.followers_count > 0) {
+        await pool.query(`UPDATE creators SET followers_count = $2 WHERE id = $1`, [c.id, perfil.followers_count]);
+        await pool.query(
+          `INSERT INTO creator_follower_snapshots (creator_id, captured_on, captured_at, followers_count)
+           VALUES ($1, CURRENT_DATE, NOW(), $2)
+           ON CONFLICT (creator_id, captured_on) DO UPDATE
+             SET followers_count = EXCLUDED.followers_count, captured_at = NOW()`,
+          [c.id, perfil.followers_count]
+        );
       }
     } catch (e: any) {
       console.warn(`[accountSnapshot] foto de la cuenta manual ${c.id} no renovada:`, e?.message);
@@ -921,6 +939,8 @@ async function accountSnapshotTick(): Promise<void> {
         if (r) await guardarResumenLinkedIn(pool, id, r);
         const series = await fetchSeriesDiarias(unipile_account_id);
         if (series) await guardarSeriesDiarias(pool, id, series);
+        const seguidores = await fetchSeguidoresDiarios(unipile_account_id);
+        if (seguidores) await guardarSeguidoresDiarios(pool, id, seguidores);
       } catch (e: any) {
         console.warn(`[accountSnapshot] resumen de LinkedIn fallo para ${id}:`, e?.message);
       }

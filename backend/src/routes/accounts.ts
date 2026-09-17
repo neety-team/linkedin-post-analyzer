@@ -264,47 +264,75 @@ router.patch('/:id', async (req: Request, res: Response) => {
 // creators for the combined view. Deltas are derived over ALL history and
 // only filtered to the window afterwards, so the first in-window day still
 // gets a correct delta against the snapshot just before the window.
+// ⭐⭐ SERIE DE SEGUIDORES POR DIA (Iker, 2026-09-17). Un solo sitio para la
+// grafica diaria, la mensual y el KPI, asi no pueden volver a no cuadrar.
+//  - Seguidores NUEVOS: la serie oficial de LinkedIn para las cuentas
+//    conectadas (creator_daily_impressions.new_followers); si un dia aun no la
+//    tiene, la diferencia entre fotos del total. Las manuales, siempre la
+//    diferencia entre fotos, y su PRIMERA foto no cuenta como ganada.
+//  - TOTAL: cada cuenta arrastra su ultima foto conocida, asi la suma de
+//    "todas las cuentas" no sube y baja segun que cuentas tengan foto ese dia.
+// Antes se sumaban solo las cuentas con foto ese dia y la primera foto real de
+// Mario y Helena (tras una semilla a 0) salio como +2.591 el 21/08/2026.
+async function serieSeguidores(
+  creatorId: string | null,
+  incluirManual: boolean,
+  desde: string,
+  hasta: string
+): Promise<{ day: string; followers: number; gained: number }[]> {
+  const params: any[] = [desde, hasta];
+  let ambito = `c.is_managed = TRUE${incluirManual ? '' : ' AND c.is_manual IS NOT TRUE'}`;
+  if (creatorId) {
+    params.push(creatorId);
+    ambito = `c.id = $3`;
+  }
+  const { rows } = await pool.query(
+    `WITH dias AS (
+       SELECT generate_series($1::date, $2::date, '1 day'::interval)::date AS day
+     ),
+     cuentas AS (
+       SELECT c.id, (c.unipile_account_id IS NOT NULL AND c.is_manual IS NOT TRUE) AS oficial
+         FROM creators c
+        WHERE ${ambito}
+     ),
+     deltas AS (
+       SELECT s.creator_id, s.captured_on AS day,
+              s.followers_count - LAG(s.followers_count) OVER (
+                PARTITION BY s.creator_id ORDER BY s.captured_on) AS gained
+         FROM creator_follower_snapshots s
+         JOIN cuentas cu ON cu.id = s.creator_id
+        WHERE s.followers_count > 0
+     ),
+     por_cuenta AS (
+       SELECT d.day, cu.id,
+              CASE WHEN cu.oficial AND o.new_followers IS NOT NULL THEN o.new_followers
+                   ELSE COALESCE(dl.gained, 0) END AS gained,
+              (SELECT s.followers_count FROM creator_follower_snapshots s
+                WHERE s.creator_id = cu.id AND s.captured_on <= d.day AND s.followers_count > 0
+                ORDER BY s.captured_on DESC LIMIT 1) AS followers
+         FROM dias d
+         CROSS JOIN cuentas cu
+         LEFT JOIN creator_daily_impressions o ON o.creator_id = cu.id AND o.day = d.day
+         LEFT JOIN deltas dl ON dl.creator_id = cu.id AND dl.day = d.day
+     )
+     SELECT day::text AS day,
+            COALESCE(SUM(followers), 0)::int AS followers,
+            COALESCE(SUM(gained), 0)::int AS gained
+       FROM por_cuenta
+      GROUP BY day
+      ORDER BY day ASC`,
+    params
+  );
+  return rows;
+}
+
 router.get('/follower-history', async (req: Request, res: Response) => {
   try {
     const creatorId = (req.query.creator_id as string) || null;
     const range = parseDateRange(req);
-
-    const params: any[] = [];
-    let creatorFilter = 'c.is_managed = TRUE';
-    if (creatorId) {
-      params.push(creatorId);
-      creatorFilter = `s.creator_id = $${params.length}`;
-    }
-
-    // deltas: per-creator gained = followers_count - prior snapshot's count.
-    // windowed: keep only the requested range. combined: sum per day.
-    params.push(range.startDate, range.endDate);
-    const startIdx = params.length - 1;
-    const endIdx = params.length;
-    const { rows } = await pool.query(
-      `WITH deltas AS (
-         SELECT
-           s.creator_id,
-           s.captured_on,
-           s.followers_count,
-           s.followers_count - LAG(s.followers_count) OVER (
-             PARTITION BY s.creator_id ORDER BY s.captured_on ASC
-           ) AS gained
-         FROM creator_follower_snapshots s
-         JOIN creators c ON c.id = s.creator_id
-        WHERE ${creatorFilter}
-       )
-       SELECT
-         captured_on::text AS day,
-         SUM(followers_count)::int AS followers,
-         COALESCE(SUM(gained), 0)::int AS gained
-       FROM deltas
-       WHERE captured_on >= $${startIdx}::date AND captured_on <= $${endIdx}::date
-       GROUP BY captured_on
-       ORDER BY captured_on ASC`,
-      params
-    );
-    res.json({ points: rows });
+    const incluirManual = req.query.include_manual !== 'false';
+    const points = await serieSeguidores(creatorId, incluirManual, range.startDate, range.endDate);
+    res.json({ points });
   } catch (err: any) {
     console.error('[accounts/follower-history]', err);
     res.status(500).json({ error: err.message });
@@ -326,59 +354,17 @@ router.get('/follower-monthly', async (req: Request, res: Response) => {
   try {
     const creatorId = (req.query.creator_id as string) || null;
     const range = parseDateRange(req);
-
-    // Mismo interruptor de cuentas manuales que /impressions-monthly.
     const incluirManual = req.query.include_manual !== 'false';
-    const params: any[] = [];
-    let creatorFilter = incluirManual ? 'c.is_managed = TRUE' : 'c.is_managed = TRUE AND c.is_manual IS NOT TRUE';
-    if (creatorId) {
-      params.push(creatorId);
-      creatorFilter = `s.creator_id = $${params.length}`;
-    }
-
-    // For each (creator, month) take BOTH the first and last snapshot of
-    // the month. A month's gain = its end total − the previous month's end
-    // total. For the very FIRST tracked month there is no previous month,
-    // so we fall back to that month's own first snapshot — i.e. "followers
-    // gained during the portion of the month we actually tracked". This
-    // makes April show up (its tracked half) instead of being dropped for
-    // lacking a prior month to diff against.
-    params.push(range.startDate, range.endDate);
-    const startIdx = params.length - 1;
-    const endIdx = params.length;
-    const { rows } = await pool.query(
-      `WITH month_bounds AS (
-         SELECT
-           s.creator_id,
-           date_trunc('month', s.captured_on) AS month,
-           (ARRAY_AGG(s.followers_count ORDER BY s.captured_on ASC))[1]  AS first_count,
-           (ARRAY_AGG(s.followers_count ORDER BY s.captured_on DESC))[1] AS last_count
-         FROM creator_follower_snapshots s
-         JOIN creators c ON c.id = s.creator_id
-        WHERE ${creatorFilter}
-        GROUP BY s.creator_id, date_trunc('month', s.captured_on)
-       ),
-       month_delta AS (
-         SELECT
-           creator_id,
-           month,
-           last_count - COALESCE(
-             LAG(last_count) OVER (PARTITION BY creator_id ORDER BY month ASC),
-             first_count
-           ) AS gained
-         FROM month_bounds
-       )
-       SELECT
-         to_char(month, 'YYYY-MM') AS month,
-         COALESCE(SUM(gained), 0)::int AS gained
-       FROM month_delta
-       WHERE month >= date_trunc('month', $${startIdx}::date)
-         AND month <= date_trunc('month', $${endIdx}::date)
-       GROUP BY month
-       ORDER BY month ASC`,
-      params
-    );
-    res.json({ points: rows });
+    // Meses enteros que tocan el rango, con la misma serie que la grafica diaria.
+    const desde = `${range.startDate.slice(0, 7)}-01`;
+    const finMes = new Date(`${range.endDate.slice(0, 7)}-01T00:00:00Z`);
+    finMes.setUTCMonth(finMes.getUTCMonth() + 1);
+    finMes.setUTCDate(0);
+    const hasta = finMes.toISOString().slice(0, 10);
+    const dias = await serieSeguidores(creatorId, incluirManual, desde, hasta);
+    const porMes = new Map<string, number>();
+    for (const d of dias) porMes.set(d.day.slice(0, 7), (porMes.get(d.day.slice(0, 7)) || 0) + d.gained);
+    res.json({ points: [...porMes.entries()].map(([month, gained]) => ({ month, gained })) });
   } catch (err: any) {
     console.error('[accounts/follower-monthly]', err);
     res.status(500).json({ error: err.message });
@@ -1580,7 +1566,10 @@ router.get('/analytics', async (req: Request, res: Response) => {
       );
       return Number(rows[0]?.gained || 0);
     };
-    const followersGained = await buildSnapshotDelta('creator_follower_snapshots', 'followers_count');
+    // Misma serie que la grafica de seguidores (oficial de LinkedIn para las
+    // conectadas): antes era ultima foto - primera y no cuadraba con ella.
+    const followersGained = (await serieSeguidores(creatorId, incluirManual, range.startDate, range.endDate))
+      .reduce((acc, d) => acc + d.gained, 0);
 
     // Profile-views KPI used to be `last - first` of the rolling-feed size,
     // which is misleading. Now we share the bucketing logic with the chart

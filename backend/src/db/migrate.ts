@@ -339,10 +339,13 @@ const migration = `
 
   -- Seed one snapshot per managed creator with today's count, so the chart
   -- has a starting point. Safe to re-run: the unique index kicks in.
+  -- Solo con una cifra real (> 0): las cuentas manuales se crean con 0 y esa
+  -- semilla pintaba luego +2.591 "seguidores ganados" el dia que llegaba su
+  -- cifra de verdad (21/08/2026).
   INSERT INTO creator_follower_snapshots (creator_id, captured_on, followers_count)
-    SELECT id, CURRENT_DATE, COALESCE(followers_count, 0)
+    SELECT id, CURRENT_DATE, followers_count
       FROM creators
-     WHERE is_managed = TRUE
+     WHERE is_managed = TRUE AND followers_count > 0
   ON CONFLICT (creator_id, captured_on) DO NOTHING;
 
   -- v17: Allow 'generated' source_type for AI-brainstormed ideas (Inspiration → Generate).
@@ -1081,6 +1084,12 @@ const migration = `
   );
   -- Engagement diario oficial (misma pagina, serie "Engagements").
   ALTER TABLE creator_daily_impressions ADD COLUMN IF NOT EXISTS engagements INTEGER;
+  -- Seguidores nuevos diarios oficiales (Audience analytics, serie "New followers").
+  ALTER TABLE creator_daily_impressions ADD COLUMN IF NOT EXISTS new_followers INTEGER;
+
+  -- Una cuenta con seguidores nunca tiene 0: esas filas son semillas o lecturas
+  -- fallidas y rompen la curva (el pico falso del 21/08/2026). Idempotente.
+  DELETE FROM creator_follower_snapshots WHERE followers_count IS NULL OR followers_count <= 0;
 
   -- Lecturas periodicas de los contadores de un post DESPUES de su semana de
   -- snapshots (pase semanal + una al empezar cada mes). No se mezclan con

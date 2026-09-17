@@ -195,3 +195,61 @@ export async function guardarSeriesDiarias(
     [creatorId, dias.map((p) => p.dia), dias.map((p) => p.impresiones), dias.map((p) => p.engagements)]
   )
 }
+
+/**
+ * SEGUIDORES NUEVOS DIARIOS OFICIALES (Iker, 2026-09-17). Audience analytics
+ * (`/analytics/creator/audience/?timeRange=past_365_days`) trae "New followers"
+ * diaria y acumulada; la primera es la diaria. Medido con Iker: 5.845 en 365
+ * dias, como la curva acumulada de su captura de LinkedIn. Con ella la grafica
+ * de seguidores deja de depender de fotos diarias del total, que para las
+ * cuentas manuales no existian y metieron un +2.591 falso el 21/08.
+ */
+export async function fetchSeguidoresDiarios(accountId: string): Promise<Map<string, number> | null> {
+  if (!KEY() || !accountId) return null;
+  const res = await fetch(`${BASE()}/api/v1/linkedin`, {
+    method: 'POST',
+    headers: { 'X-API-KEY': KEY(), 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      account_id: accountId,
+      method: 'GET',
+      request_url: 'https://www.linkedin.com/analytics/creator/audience/?timeRange=past_365_days',
+      encoding: false,
+    }),
+  });
+  if (!res.ok) {
+    console.warn(`[linkedinOverview] seguidores diarios: HTTP ${res.status} para ${accountId}`);
+    return null;
+  }
+  const crudo = await res.text();
+  let html = crudo;
+  try {
+    const j = JSON.parse(crudo);
+    if (typeof j?.data === 'string') html = j.data;
+  } catch {
+    /* HTML plano */
+  }
+  html = html.replace(/\\"/g, '"');
+  const s = serie(html, 'New followers');
+  if (s.size < 300) {
+    console.warn(`[linkedinOverview] seguidores diarios de ${accountId}: solo ${s.size} dias, se descarta`);
+    return null;
+  }
+  return s;
+}
+
+export async function guardarSeguidoresDiarios(
+  pool: { query: (q: string, v?: any[]) => Promise<any> },
+  creatorId: string,
+  serieDias: Map<string, number>
+): Promise<void> {
+  if (serieDias.size === 0) return;
+  const dias = [...serieDias.keys()];
+  await pool.query(
+    `INSERT INTO creator_daily_impressions (creator_id, day, impressions, new_followers)
+     SELECT $1::uuid, d::date, 0, n FROM unnest($2::text[], $3::int[]) AS t(d, n)
+     ON CONFLICT (creator_id, day) DO UPDATE SET
+       new_followers = CASE WHEN EXCLUDED.new_followers > 0 OR COALESCE(creator_daily_impressions.new_followers, 0) = 0
+                            THEN EXCLUDED.new_followers ELSE creator_daily_impressions.new_followers END`,
+    [creatorId, dias, dias.map((d) => serieDias.get(d) ?? 0)]
+  );
+}

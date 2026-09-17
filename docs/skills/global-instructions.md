@@ -576,6 +576,7 @@ Lee el post e imagina que lo sube una consultora, una agencia o una constructora
 - **Condición 1: la lectura es del día de publicar**, con hora, y va en la entrega. El 16/09 Iker escribió `quedan 20` de memoria; la API a las 13:28 decía **15** (65 registrados). **Se escribe la cifra de la API, no la recordada.**
 - **Condición 2: la sala pasa del 75% llena.** Por debajo, vuelve la regla de arriba (`solo hay 80`).
 - **Y la cifra caduca con el post:** para el siguiente, otra lectura. El validador avisa en cuanto ve `quedan N plazas/puestos`.
+- **🔄 17/09: EL EVENTO CAMBIÓ DE SALA Y SUBIÓ EL AFORO.** Pasó al ARIMA Hotel (Miramón), *"para poder recibiros a todos"*, y Luma pasó de 15 plazas libres a **34** (lectura del 17/09, 09:51). **Con el aforo ampliado, `quedan N` vuelve a estar prohibido**: la cifra ya no dice "se acaba", dice "hay hueco". **La escasez se cuenta con el hecho, sin número:** `la primera sala se quedó corta` (demanda real, verificable en Luma). Iker: *"con el matiz de debido a la afluencia… pero no lo hagas muy largo"*.
 
 **🧠 CÓMO SE ESCRIBE LA LÍNEA 2 CON `quedan N` (Iker, 2026-09-16, despiece de Bizkaia).** Propuso cuatro cosas y cada una tiene su respuesta:
 

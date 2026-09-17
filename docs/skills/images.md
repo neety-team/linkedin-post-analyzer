@@ -1429,6 +1429,7 @@ El único creador de la BD que puso métricas simuladas es **Chris Donnelly, en 
 - **Todos son pasteles casi blancos, con un degradado radial muy suave.** Nunca un color saturado, nunca un fondo oscuro.
 - **Rotan: nunca dos tarjetas seguidas con el mismo fondo.** Se apunta el usado en `historial-publicaciones.md`.
 - **Texto `#0F1419`** (el casi-negro de X), sans, **cuerpo grande**: el bloque de texto ocupa casi todo el ancho.
+- **📏 Pastel contra blanco, MEDIDO sobre 42 tarjetas de Grant (2026-09-17, lo preguntó Iker: *"¿no debería ser blanco puro, como una captura de Twitter?"*):** pastel **n=26 · mediana 16.683 likes · 910 reposts** · blanco **n=11 · 16.091 likes · 797 reposts**. El pastel no es un error de la referencia: es su fondo mayoritario y rinde igual o algo mejor en reposts (+14%), que es la métrica del pilar. **El blanco también es válido** (está en la paleta); lo que no se hace es tratar el pastel como un fallo a corregir.
 - ⚠️ **Ojo, ese fondo NO es de X.** X es blanco, gris oscuro o negro. El pastel es lo que hace que la tarjeta sea **un idioma visual y no la falsificación de un tuit concreto** — y es también lo que la separa de las 10.000 capturas grises que ya circulan.
 
 ### 9.5 · Formato

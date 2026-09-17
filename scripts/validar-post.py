@@ -2230,16 +2230,27 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 _stop = {'para', 'como', 'desde', 'entre', 'cuando', 'porque', 'sobre',
                          'todos', 'todas', 'nadie', 'nunca', 'siempre', 'tambien',
                          'tampoco', 'estar', 'tener', 'hacer', 'decir', 'quiere',
-                         'queria', 'vender', 'ventas'}
+                         'queria', 'vender', 'ventas',
+                         # 17/09: el check ya mira palabras de 4 letras, porque el chiste
+                         # puede vivir en una corta ("Vender es un caos" solo le dejaba
+                         # "punto"). Las de 4 letras que no cargan nada, fuera.
+                         'pero', 'solo', 'algo', 'esta', 'este', 'esto', 'cada', 'todo',
+                         'toda', 'nada', 'mas', 'aqui', 'alli', 'ahora', 'bien', 'hace',
+                         'hoy', 'otro', 'otra', 'tras', 'hacia', 'mismo', 'misma', 'tiene',
+                         'eres', 'soy', 'fue', 'sin', 'con', 'que', 'una', 'uno', 'unos',
+                         'unas', 'sus', 'mis', 'tus', 'les', 'nos', 'era', 'han', 'hay',
+                         'vez', 'asi', 'muy', 'ya', 'donde', 'punto'}
 
                 def _sinac(_s):
                     for _a, _b in zip('áéíóúñ', 'aeioun'):
                         _s = _s.replace(_a, _b)
                     return _s
-                _pal = [w for w in re.findall(r'[a-záéíóúñ]{5,}', hook_txt.lower())
+                _pal = [w for w in re.findall(r'[a-záéíóúñ]{4,}', hook_txt.lower())
                         if _sinac(w) not in _stop]
                 _raiz = _sinac(' '.join(b).lower())
-                _eco = [w for w in _pal if _sinac(w)[:5] in _raiz]
+                _eco = [w for w in _pal
+                        if (re.search(r'\b' + _sinac(w) + r'\b', _raiz) if len(w) == 4
+                            else _sinac(w)[:5] in _raiz)]
                 chk(_mapa or bool(_eco),
                     'Spam ninja: REPITE una palabra del gancho, literal (§4.4b regla 3)',
                     ('el gancho habla de: ' + ', '.join(_pal[:6]) + ', y el ninja no recoge '

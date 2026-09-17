@@ -53,6 +53,7 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
       `SELECT p.id, p.linkedin_post_id, p.published_at,
               c.id AS creator_id, c.linkedin_id, c.unipile_account_id, c.is_manual,
               (SELECT MAX(s.captured_at) FROM post_snapshots s WHERE s.post_id = p.id) AS last_snapshot_at,
+              p.premium_analytics_at,
               -- La analitica Premium se pide de una en una, asi que va racionada
               -- (ver el bloque de analytics mas abajo). Se re-pide cada 6h en vez
               -- de una sola vez porque los clics al enlace SIGUEN SUBIENDO
@@ -82,6 +83,23 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
       const sinceLast = now - new Date(c.last_snapshot_at).getTime();
       return sinceLast >= interval - DUE_TOLERANCE_MS;
     });
+
+    // ⭐ ANALITICA PREMIUM DE LOS POSTS DE LA SEMANA: clics al enlace, guardados,
+    // envios, visitas al perfil y seguidores ganados. Nada de esto viene en el
+    // feed; se lee del HTML de la pagina de analiticas (ver premiumAnalytics.ts).
+    //
+    // DESACOPLADA DEL SNAPSHOT (Iker, 2026-09-17). Antes se pedia dentro del
+    // bucle de snapshots, o sea solo cuando al post le tocaba foto Y aparecia en
+    // el feed. Resultado: el meme de Iker del 16/09 llevaba 119 clics en LinkedIn
+    // y la herramienta seguia con 2, los de su primera hora. Mientras el feed
+    // venia vacio no se pidio nunca, y cuando falla una vez el reintento esperaba
+    // al siguiente snapshot (2h, 6h o 24h segun la fase). Ahora corre en cada
+    // vuelta para el que lleve 6h sin mirarse, con o sin snapshot pendiente.
+    try {
+      await refrescarAnaliticaPostsRecientes(candidates);
+    } catch (e: any) {
+      console.warn('[postMonitor] analitica de posts recientes fallo:', e?.message);
+    }
 
     // Los posts de mas de 7 dias siguen acumulando clics y su analitica Premium
     // no la toca nadie mas (ver `refrescarAnaliticaPostsViejos`). Va AQUI, ANTES
@@ -114,10 +132,6 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
     }
 
     const touchedCreators = new Set<string>();
-    // Tope de llamadas de analitica por vuelta. Cada una es una peticion extra a
-    // Unipile, y el rate limit de LinkedIn se paga en TODO el scraping, no solo aqui.
-    const ANALYTICS_PER_TICK = 6;
-    let analyticsFetched = 0;
 
     for (const [creatorId, posts] of byCreator.entries()) {
       const first = posts[0];
@@ -172,28 +186,6 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
              VALUES ($1, $2, $3, $4, $5)`,
             [target.id, normalized.impressions_count, normalized.likes_count, normalized.comments_count, normalized.reposts_count]
           );
-
-          // ⭐ ANALITICA DE LINKEDIN PREMIUM: clics al enlace, guardados, envios,
-          // visitas al perfil y seguidores ganados. Nada de esto viene en el feed.
-          // Se lee del HTML de la pagina de analiticas (ver premiumAnalytics.ts).
-          //
-          // Es UNA peticion por post, asi que va acotado: como mucho
-          // ANALYTICS_PER_TICK por vuelta. Unipile devuelve listas vacias cuando
-          // LinkedIn le mete rate limit, y pasarse aqui nos deja sin scraping en
-          // todo lo demas.
-          if (analyticsFetched < ANALYTICS_PER_TICK && target.needs_analytics) {
-            analyticsFetched++;
-            try {
-              const a = await fetchPremiumAnalytics(
-                String(target.linkedin_post_id), first.unipile_account_id
-              );
-              if (a) await savePremiumAnalytics(pool, target.id, a);
-            } catch (e: any) {
-              // Que falle la analitica NO puede tumbar el snapshot, que es lo
-              // importante de este tick.
-              console.warn(`[postMonitor] analytics failed for ${target.id}:`, e?.message);
-            }
-          }
 
           // Only touch the live counters. outlier_ratio/is_outlier are recomputed
           // per-creator below once all posts are in so the multipliers don't drift to 0.
@@ -266,6 +258,53 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
 const ANALYTICS_OLD_PER_TICK = 2;
 const OLD_ANALYTICS_MAX_AGE_DAYS = 90;
 
+// Tope de llamadas de analitica de posts recientes por vuelta. Cada una es una
+// peticion a LinkedIn, y el rate limit se paga en TODO el scraping.
+const ANALYTICS_RECENT_PER_TICK = 6;
+// Respiro entre peticiones a la pagina de analiticas. El relleno retroactivo
+// (`/backfill-premium-analytics`) ya documento que sin pausa LinkedIn corta y
+// devuelve paginas vacias; el tick las encadenaba sin ninguna.
+const ANALYTICS_PAUSE_MS = 1500;
+// Si la pagina no se puede leer (rate limit, post borrado), se reintenta en
+// 1 hora en vez de en la vuelta siguiente, para no machacar un post roto.
+const ANALYTICS_RETRY_HOURS = 1;
+const pausa = () => new Promise((r) => setTimeout(r, ANALYTICS_PAUSE_MS));
+
+async function refrescarAnaliticaPostsRecientes(candidates: any[]): Promise<number> {
+  const pendientes = candidates
+    .filter((c) => c.needs_analytics && !c.is_manual && c.unipile_account_id && c.linkedin_post_id)
+    // El que lleva mas tiempo sin mirarse primero; los nunca mirados, delante.
+    .sort((a, b) =>
+      (a.premium_analytics_at ? new Date(a.premium_analytics_at).getTime() : 0) -
+      (b.premium_analytics_at ? new Date(b.premium_analytics_at).getTime() : 0))
+    .slice(0, ANALYTICS_RECENT_PER_TICK);
+
+  let hechos = 0;
+  for (const [i, p] of pendientes.entries()) {
+    if (i > 0) await pausa();
+    try {
+      const a = await fetchPremiumAnalytics(String(p.linkedin_post_id), p.unipile_account_id);
+      if (a) {
+        await savePremiumAnalytics(pool, p.id, a);
+        hechos++;
+      } else {
+        await pool.query(
+          `UPDATE posts
+              SET premium_analytics_at = NOW() - INTERVAL '6 hours' + ($2 || ' hours')::interval
+            WHERE id = $1`,
+          [p.id, String(ANALYTICS_RETRY_HOURS)]
+        );
+      }
+    } catch (e: any) {
+      console.warn(`[postMonitor] analytics failed for ${p.id}:`, e?.message);
+    }
+  }
+  if (pendientes.length) {
+    console.log(`[postMonitor] analitica reciente: ${hechos}/${pendientes.length} post(s) actualizados`);
+  }
+  return hechos;
+}
+
 async function refrescarAnaliticaPostsViejos(): Promise<number> {
   const { rows } = await pool.query(
     `SELECT p.id, p.linkedin_post_id, c.unipile_account_id
@@ -287,6 +326,7 @@ async function refrescarAnaliticaPostsViejos(): Promise<number> {
 
   let hechos = 0;
   for (const p of rows) {
+    await pausa();
     try {
       const a = await fetchPremiumAnalytics(String(p.linkedin_post_id), p.unipile_account_id);
       if (a) {

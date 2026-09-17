@@ -234,7 +234,7 @@ ok(problemaDeEstilo('Qué bueno', 'Ana Pérez ' + 'x'.repeat(200), 'Ana Pérez')
 ok(problemaDeEstilo('x'.repeat(400), 'Ana Pérez ' + 'x'.repeat(200), 'Ana Pérez') === null, 'con un parrafazo se permite más');
 
 ok(limitarEstiradas('la lista al final encogeee más') === 'la lista al final encoge más', 'un verbo en mitad de la frase no se queda alargado', limitarEstiradas('la lista al final encogeee más'));
-ok(limitarEstiradas('encogeee y clarooo') === 'encoge y clarooo', 'se queda la de reaccion aunque vaya segunda', limitarEstiradas('encogeee y clarooo'));
+ok(limitarEstiradas('encogeee y clarooo') === 'encoge y claro', 'detras de un verbo no se queda ninguna (18/09)', limitarEstiradas('encogeee y clarooo'));
 ok(faltaElGracias('Muy buena historia', 'Rosa Marín la lista al final encoge más de lo que uno espera.'), 'caza "Muy buena historia" sin gracias');
 
 ok(estirarUna('claro, y la lista encoge') === 'clarooo, y la lista encoge', 'alarga la palabra de reaccion', estirarUna('claro, y la lista encoge'));
@@ -246,6 +246,10 @@ ok(limitarEstiradas('la lista encoge. Clarooo, luego otra') === 'la lista encoge
 ok(limitarEstiradas('siii, la lista encoge') === 'siii, la lista encoge', 'deja la primera palabra');
 ok(limitarEstiradas('pues siii, la lista encoge') === 'pues siii, la lista encoge', 'deja la de antes de la primera coma');
 ok(limitarEstiradas(' clarooo que encoge') === ' clarooo que encoge', 'primera palabra aunque no lleve coma (cuerpo tras el nombre)');
+ok(limitarEstiradas('perfectooo y la excusa tapa algo') === 'perfecto y la excusa tapa algo', 'primera palabra sin pausa detras no vale');
+ok(limitarEstiradas('clarooo que tapa algo') === 'clarooo que tapa algo', 'pero "claro que" si');
+ok(limitarEstiradas('apúntate ciertooo, que el evento') === 'apúntate cierto, que el evento', 'segunda posicion detras de un verbo no vale');
+ok(limitarEstiradas('uff siii, que el evento') === 'uff siii, que el evento', 'detras de una muletilla si');
 ok(estirarUna('la lista encoge, y queda muy bien, claro') === 'la lista encoge, y queda muy bien, claro', 'no alarga una de reaccion lejos del arranque');
 ok(estirarUna('pues claro, la lista encoge') === 'pues clarooo, la lista encoge', 'alarga la de antes de la primera coma');
 {
@@ -280,7 +284,7 @@ ok(estirarUna('muy bien dicho') === 'muuuy bien dicho' || estirarUna('muy bien d
 // Maximo UNA alargada en cualquier caso (Iker, 2026-09-16)
 ok(esEstirada('bieen') && esEstirada('vaale') && esEstirada('buueno'), 'la doble e/a/u interior de una palabra de reaccion cuenta como alargada');
 ok(!esEstirada('leer') && !esEstirada('llevar') && !esEstirada('creer'), 'las dobles legitimas no cuentan');
-ok(contarEstiradas(limitarEstiradas('claroo y bieen dicho')) === 1, 'claroo y bieen se queda en una', limitarEstiradas('claroo y bieen dicho'));
+ok(contarEstiradas(limitarEstiradas('claroo y bieen dicho')) <= 1, 'claroo y bieen se queda en una como mucho', limitarEstiradas('claroo y bieen dicho'));
 {
   const colapsa = (t: string) => t.replace(/(\p{Ll})\1{2,}/gu, '$1$1');
   const frases = ['clarooo y bieeen, siii', 'nooo, buenooo, graciaas', 'claro, bien, sí, vale, genial y muy justo', 'vaaale, total, suuuper bieen', 'síííí y clarooo 🙌'];

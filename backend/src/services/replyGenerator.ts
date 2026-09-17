@@ -407,9 +407,13 @@ IF your reply agrees with the commenter, the agreement word for THIS reply is "$
   // varias oes" y "las colocas en posiciones que no tienen sentido"). La palabra
   // no repite ninguna de las ultimas del mismo post, y el sitio es uno de los
   // DOS que valen; el codigo quita la que caiga en otro (sitioAlargable).
+  // Si el asentimiento sorteado es de los alargables, ES la palabra: el 17/09
+  // salio "tal cuaaal, te compro eso, tal cual" por sortear las dos por separado.
   const recientes = input.postId ? (ALARGADAS_POR_POST.get(input.postId) || []) : [];
-  const libres = PALABRAS_ALARGAR.filter((p) => !recientes.includes(p));
-  const palabraAlargar = (libres.length ? libres : PALABRAS_ALARGAR)[Math.floor(Math.random() * (libres.length || PALABRAS_ALARGAR.length))];
+  const libres = PALABRAS_ALARGAR.filter((p) => !recientes.includes(p) && p !== asent);
+  const palabraAlargar = PALABRAS_ALARGAR.includes(asent) && !recientes.includes(asent)
+    ? asent
+    : (libres.length ? libres : PALABRAS_ALARGAR)[Math.floor(Math.random() * (libres.length || PALABRAS_ALARGAR.length))];
   const SITIOS = [
     `como PRIMERA palabra de la respuesta, justo despues del nombre y delante del arranque ("${alargarPalabra(palabraAlargar, 2)}, ...")`,
     'dentro de la PRIMERA frase, justo antes de su primera coma, en las tres primeras palabras',
@@ -622,13 +626,25 @@ const REACCION = new Set([
 //   · en la PRIMERA frase, entre las tres primeras palabras y justo antes de
 //     una coma o del final de esa frase ("pues siii, ...", "tal cuaal, ...")
 // Cualquier otra posicion vuelve a su forma normal.
+// Prueba contra produccion del 17/09: "perfectooo y la excusa…" (primera, pero
+// sin pausa detras) y "apuntate ciertooo, que…" (segunda, detras de un verbo)
+// sonaban raro. Detras tiene que ir una pausa, salvo "claro que" / "si que", y
+// en segunda posicion solo vale detras de una muletilla.
+const MULETILLAS = new Set(['pues', 'y', 'uy', 'uf', 'uff', 'ah', 'oh', 'eh', 'ay', 'hombre', 'vamos', 'jo', 'buah', 'bua', 'ya', 'si', 'no', 'jaja', 'jajaja', 'mira', 'bueno', 'vaya', 'tal']);
 export function sitioAlargable(texto: string, off: number, palabra: string): boolean {
   const antes = texto.slice(0, off);
   if (/[.!?…]/.test(antes)) return false;
-  const previas = (antes.match(/\p{L}+/gu) || []).length;
-  if (previas === 0) return true;
-  if (previas > 2) return false;
-  return /^\s*([,.!?…]|$)/.test(texto.slice(off + palabra.length));
+  const previas = (antes.match(/\p{L}+/gu) || []).map(llanoLetra);
+  if (previas.length > 2) return false;
+  if (previas.some((w) => !MULETILLAS.has(w))) return false;
+  const despues = texto.slice(off + palabra.length);
+  if (/^\s*([,.!?…]|$)/.test(despues)) return true;
+  if (previas.length) return false;
+  // Primera palabra sin pausa: solo "claro que" / "si que", "gracias por…" y
+  // "muy…" ("muuuy bien dicho"), que se leen de corrido.
+  const base = llanoLetra(desestirar(palabra));
+  if (/^(claro|si)$/.test(base)) return /^\s+que(?![\p{L}])/iu.test(despues);
+  return base === 'gracias' || base === 'muy';
 }
 
 /**

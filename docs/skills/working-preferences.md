@@ -26,6 +26,16 @@
 ---
 
 
+## 📋📋 1-PEGAR · EL POST SE LE DEJA EN EL PORTAPAPELES, LISTO PARA LINKEDIN (Iker, 2026-09-17)
+
+**El problema, que no es del texto:** el editor nuevo de LinkedIn se come los saltos al pegar texto plano, y las rutas de rescate fallan cada una a su manera. **Gmail DUPLICA los blancos** (cada línea se vuelve un bloque y el blanco cuenta dos veces), **Gmail y Google Docs se comen los emojis**, y **Notion convierte `1. ` en lista numerada**, que es justo lo que lleva todo lead magnet. El 17/09 el bloque que se entregó tenía un solo blanco entre párrafos; los dobles los metió Gmail.
+
+**LA SALIDA: al entregar un post definitivo, además del bloque cercado, se ejecuta**
+```
+powershell -STA -ExecutionPolicy Bypass -File scripts\copiar-post.ps1 <fichero.txt>
+```
+**con el MISMO fichero que pasó el validador.** Deja en el portapapeles HTML con un `<p>` por línea y `<p><br></p>` por blanco, los emojis como entidades y la lista como texto; Iker pega directo en LinkedIn con Ctrl+V. Si el modo por defecto fallara, `-Modo br` es el plan B. **⚠️ Pendiente de confirmar en LinkedIn con el primer uso**: el HTML se ha verificado leyendo el portapapeles, no pegando en el editor.
+
 ## ⭐ 1c · SI UN HALLAZGO CAMBIA UN ENTREGABLE YA DADO, REDALO ENTERO (Iker, 2026-07-21)
 
 **El fallo:** entregado un prompt de diseñador, hice una investigacion posterior que obligaba a cambiarle una columna. Explique el cambio y **no volvi a dar el prompt**. Iker se quedo con un prompt caduco y un parrafo diciendole que estaba caduco.

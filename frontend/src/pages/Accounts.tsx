@@ -170,7 +170,7 @@ const PHASE_META: Record<LivePost['phase'], { label: string; bg: string; text: s
   consolidation: { label: '📈 Consolidation', bg: 'bg-yellow-500/15', text: 'text-yellow-400', window: '6 – 24h',  cadence: 'every 2h',     blurb: 'Se acumula el grueso del alcance. A las 24h suele haber el 60–70% de las impresiones totales.' },
   long_tail:     { label: '📉 Long tail',     bg: 'bg-sky-500/15',    text: 'text-sky-400',    window: '24 – 72h', cadence: 'every 6h',     blurb: 'Long tail fuerte. A 72h ya tienes el 85–90% de las impresiones finales.' },
   tail:          { label: '🐢 Tail',          bg: 'bg-purple-500/15', text: 'text-purple-400', window: '3 – 7d',   cadence: 'every 24h',    blurb: 'Cola residual, sobre todo comentarios y algún reshare.' },
-  closed:        { label: '✅ Closed',        bg: 'bg-bg-secondary',  text: 'text-text-muted', window: '> 7d',     cadence: 'weekly',       blurb: 'Sin más puntos en la curva, pero los contadores se refrescan cada semana (públicos sin límite de edad, Premium hasta 90 días): un post que resurge se ve.' },
+  closed:        { label: '✅ Closed',        bg: 'bg-bg-secondary',  text: 'text-text-muted', window: '> 7d',     cadence: 'weekly',       blurb: 'Sin más puntos en la curva, pero los contadores se refrescan cada semana (públicos sin límite de edad, Premium hasta un año): un post que resurge se ve.' },
 };
 
 const PHASE_ORDER: LivePost['phase'][] = ['golden', 'first_wave', 'consolidation', 'long_tail', 'tail', 'closed'];
@@ -1106,7 +1106,7 @@ function AccountsInner() {
                 Live posts
               </h3>
               <p className="text-xs text-text-muted">
-                Phase-based snapshots for 7 days; after that, likes, comments, reposts and impressions refresh weekly with no age limit, and Premium analytics weekly up to 90 days.
+                Phase-based snapshots for 7 days; after that, likes, comments, reposts and impressions refresh weekly with no age limit, and Premium analytics weekly up to a year.
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -2601,6 +2601,9 @@ function TopPostRow(
                 miente, porque LinkedIn infla las impresiones del meme
                 (outliers-database §3.11). Por eso el tooltip lo avisa. */}
             <div className="flex items-center gap-1.5 flex-shrink-0">
+              {/* Pilar a la IZQUIERDA del CTR, igual que en Live posts (Iker,
+                  2026-09-17): el multiplicador va el ultimo, a la derecha. */}
+              <PilarSelector postId={post.id} pillar={post.pillar} />
               {ctr != null && (
                 <span
                   className={`rounded font-semibold tabular-nums bg-amber-500/15 text-amber-400 ${
@@ -2634,7 +2637,6 @@ function TopPostRow(
                   {post.outlier_ratio.toFixed(1)}x
                 </span>
               )}
-              <PilarSelector postId={post.id} pillar={post.pillar} />
             </div>
           </div>
           <ExpandablePostText text={post.content_text || post.hook_text} />

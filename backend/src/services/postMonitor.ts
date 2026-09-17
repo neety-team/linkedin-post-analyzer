@@ -281,14 +281,16 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
 // TODO el scraping. Con ~9 posts a la semana, la cola en regimen son ~16
 // refrescos al dia; con 2 por vuelta y 96 vueltas diarias sobra capacidad.
 //
-// POR QUE EL TECHO ES 90 DIAS: LinkedIn deja de servir parte de los bloques
-// cuando el post los pasa (ya esta documentado en `savePremiumAnalytics`), asi
-// que seguir pidiendolos seria gastar cupo para traer nulls.
+// POR QUE EL TECHO ES 365 DIAS (subido desde 90 el 2026-09-17): se suponia que
+// LinkedIn dejaba de servir los bloques pasados 90 dias, y no es asi. Medido ese
+// dia: posts de Iker de abril, mayo y junio (3-5 meses) y uno de diciembre de
+// 2025 dieron la pagina completa y correcta. Uno de 2023 si la dio con ceros,
+// y esos ya no pisan nada (GREATEST en `savePremiumAnalytics`).
 //
 // NO HACE SNAPSHOT a proposito: la curva del post ya esta cerrada y un punto
 // suelto cada semana ensuciaria la grafica. Esto solo actualiza contadores.
 const ANALYTICS_OLD_PER_TICK = 2;
-const OLD_ANALYTICS_MAX_AGE_DAYS = 90;
+const OLD_ANALYTICS_MAX_AGE_DAYS = 365;
 
 // Tope de llamadas de analitica de posts recientes por vuelta. Cada una es una
 // peticion a LinkedIn, y el rate limit se paga en TODO el scraping.

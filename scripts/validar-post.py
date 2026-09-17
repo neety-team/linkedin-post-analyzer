@@ -925,6 +925,18 @@ def validar_tarjeta(texto, card=None, cuenta=None, historico=False, publica_mana
             f'P1={len(parr[0])} P2={len(parr[1])} P3={len(parr[2])}. P3 es el aforismo y es lo '
             f'que la gente repostea: 14 de 14 en Grant')
 
+    # 2026-09-17: se colo "Solo consigue que nadie te cuente" en P1 y "Consigue que tu
+    # equipo te cuente" en P2. Grant repite el SUSTANTIVO (problems) a proposito;
+    # el verbo repetido entre parrafos suena a plantilla. Aviso: a veces el eco es
+    # buscado (el "te cuente" del contraste nadie / tu equipo lo era).
+    if len(parr) >= 2:
+        _w = lambda s: {w.lower() for w in re.findall(r'\b[a-záéíóúñ]{6,}\b', s, re.I)}
+        _rep = sorted(_w(parr[0]) & _w(parr[1]))
+        chk(not _rep, 'TARJETA: P2 no repite palabras de P1 sin querer (brand-voice §3c-CALCO)',
+            'repetidas: %s. Un sustantivo del original puede repetirse (Grant repite problems); '
+            'un VERBO repetido suena a plantilla ("consigue que" en P1 y P2, 17/09)' % _rep
+            if _rep else '', aviso=True)
+
     ms = re.findall(r'#\w+', card)
     chk(not ms, 'TARJETA: cero hashtags DENTRO de la tarjeta (§4.6-PASO-1)', f'{ms[:3]}' if ms else '')
 

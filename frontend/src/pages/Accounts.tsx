@@ -249,6 +249,14 @@ interface Analytics {
     posts_per_week: number;
   };
   comparison: Comparison;
+  // Cifras oficiales de la pagina de resumen de LinkedIn (ultima lectura de
+  // cada cuenta conectada del ambito, sumadas). null si aun no hay lectura.
+  linkedin_oficial?: {
+    profile_viewers_90d: number;
+    post_impressions_7d: number;
+    cuentas: number;
+    captured_at: string;
+  } | null;
   daily: DailyRow[];
   format_mix: FormatRow[];
   top_posts: TopPost[];
@@ -1414,7 +1422,7 @@ function AccountsInner() {
               flowing in. Posts/week is a cadence sanity check — paired with
               the engagement KPIs above so you can tell whether you're
               under-posting or over-posting for the engagement you're getting. */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="bg-bg-card border border-border rounded-xl p-4">
               <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
                 <span>👥</span>
@@ -1427,24 +1435,37 @@ function AccountsInner() {
               </div>
               <div className="text-[10px] text-text-muted mt-0.5">over {days}d (snapshot last − first)</div>
             </div>
+            {/* CIFRAS OFICIALES DE LINKEDIN (Iker, 2026-09-17). El numero grande
+                es el de la pagina de resumen de LinkedIn, el mismo que ve la
+                persona. Van en ventana FIJA (90 dias / 7 dias), no en el rango
+                elegido: LinkedIn no da otro. La reconstruccion desde la lista de
+                visitantes se quedaba entre un 12% y un 24% por encima. */}
             <div className="bg-bg-card border border-border rounded-xl p-4">
               <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
                 <span>👁️‍🗨️</span>
-                <span>Profile viewers</span>
+                <span>Profile viewers · 90d</span>
               </div>
-              <div className="flex items-baseline gap-2 mt-1">
-                {analytics.totals.profile_views_gained === 0 ? (
-                  <div className="text-2xl font-bold text-text-muted">—</div>
-                ) : (
-                  <div className="text-2xl font-bold text-text-primary">
-                    {fmtNum(analytics.totals.profile_views_gained)}
-                  </div>
-                )}
+              <div className="text-2xl font-bold text-text-primary mt-1 tabular-nums">
+                {analytics.linkedin_oficial ? fmtNum(analytics.linkedin_oficial.profile_viewers_90d) : '—'}
               </div>
               <div className="text-[10px] text-text-muted mt-0.5">
-                {analytics.totals.profile_views_gained === 0
-                  ? 'no snapshots yet (LinkedIn Premium req.)'
-                  : `viewers únicos en últimos ${days}d`}
+                {analytics.linkedin_oficial
+                  ? `dato de LinkedIn · leído ${fmtAge(analytics.linkedin_oficial.captured_at)}`
+                  : 'aún sin lectura de LinkedIn'}
+              </div>
+            </div>
+            <div className="bg-bg-card border border-border rounded-xl p-4">
+              <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
+                <span>📈</span>
+                <span>Post impressions · 7d</span>
+              </div>
+              <div className="text-2xl font-bold text-text-primary mt-1 tabular-nums">
+                {analytics.linkedin_oficial ? fmtNum(analytics.linkedin_oficial.post_impressions_7d) : '—'}
+              </div>
+              <div className="text-[10px] text-text-muted mt-0.5">
+                {analytics.linkedin_oficial
+                  ? `dato de LinkedIn · leído ${fmtAge(analytics.linkedin_oficial.captured_at)}`
+                  : 'aún sin lectura de LinkedIn'}
               </div>
             </div>
             <div className="bg-bg-card border border-border rounded-xl p-4">

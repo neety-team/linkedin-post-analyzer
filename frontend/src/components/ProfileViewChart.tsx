@@ -187,8 +187,8 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
           <h3 className="text-lg font-semibold">Profile views</h3>
           <p className="text-xs text-text-muted mt-0.5">
             {creatorId
-              ? `New profile views per day (last ${days}d · ${fmtNum(deltas.totalRange)} total)`
-              : `New profile views per day — all managed accounts (last ${days}d · ${fmtNum(deltas.totalRange)} total)`}
+              ? `Estimated new profile views per day (last ${days}d · ~${fmtNum(deltas.totalRange)}) — rebuilt from LinkedIn's viewer list, which misses private viewers; the exact 90-day figure is in the KPI above`
+              : `Estimated new profile views per day — all managed accounts (last ${days}d · ~${fmtNum(deltas.totalRange)}) — rebuilt from LinkedIn's viewer list; the exact 90-day figure is in the KPI above`}
           </p>
         </div>
         <div className="flex items-start gap-5 flex-wrap">

@@ -1055,6 +1055,20 @@ const migration = `
   -- de 7 dias o el dia 1 del mes siguiente, lo que llegue antes; 24h si fallo.
   ALTER TABLE creators ADD COLUMN IF NOT EXISTS public_counters_next_at TIMESTAMPTZ;
 
+  -- Cifras OFICIALES de la pagina de resumen de LinkedIn, una fila por cuenta y
+  -- dia (services/linkedinOverview.ts). Son el numero que la persona ve en
+  -- LinkedIn; la reconstruccion desde la lista de visitantes no cuadraba.
+  CREATE TABLE IF NOT EXISTS creator_linkedin_overview (
+    creator_id UUID NOT NULL REFERENCES creators(id) ON DELETE CASCADE,
+    captured_on DATE NOT NULL,
+    captured_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    profile_viewers_90d INTEGER,
+    post_impressions_7d INTEGER,
+    followers INTEGER,
+    search_appearances INTEGER,
+    PRIMARY KEY (creator_id, captured_on)
+  );
+
   -- Lecturas periodicas de los contadores de un post DESPUES de su semana de
   -- snapshots (pase semanal + una al empezar cada mes). No se mezclan con
   -- post_snapshots para no ensuciar la curva de 7 dias. Con los snapshots

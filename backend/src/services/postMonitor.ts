@@ -7,6 +7,7 @@ import { captureAccountSnapshots } from './accountSnapshots';
 import { runFollowerSync } from './followerSync';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from './premiumAnalytics';
 import { resumirMemesPendientes } from './postImageText';
+import { fetchResumenLinkedIn, guardarResumenLinkedIn } from './linkedinOverview';
 
 // Phase-based snapshot cadence for LinkedIn posts.
 // The algorithm distributes posts in waves, so we sample densely in the golden hour
@@ -908,9 +909,18 @@ async function accountSnapshotTick(): Promise<void> {
       console.warn('[accountSnapshot] renovar fotos manuales fallo:', e?.message)
     );
     const { rows: managed } = await pool.query(
-      `SELECT id FROM creators WHERE is_managed = TRUE AND unipile_account_id IS NOT NULL`
+      `SELECT id, unipile_account_id FROM creators WHERE is_managed = TRUE AND unipile_account_id IS NOT NULL`
     );
     if (managed.length === 0) return;
+    // Cifras oficiales del resumen de LinkedIn: 1 llamada por cuenta y pase.
+    for (const { id, unipile_account_id } of managed) {
+      try {
+        const r = await fetchResumenLinkedIn(unipile_account_id);
+        if (r) await guardarResumenLinkedIn(pool, id, r);
+      } catch (e: any) {
+        console.warn(`[accountSnapshot] resumen de LinkedIn fallo para ${id}:`, e?.message);
+      }
+    }
     console.log(`[accountSnapshot] refreshing follower + WVMP for ${managed.length} managed creator(s)`);
     for (const { id } of managed) {
       try {

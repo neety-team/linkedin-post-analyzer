@@ -863,10 +863,36 @@ async function backfillOutliers() {
 const ACCOUNT_SNAPSHOT_INTERVAL_MS = 6 * 60 * 60 * 1000; // 6 hours
 let accountSnapshotInFlight = false;
 
+// FOTOS DE LAS CUENTAS MANUALES (2026-09-17). Las URLs de media.licdn.com van
+// firmadas y caducan (`e=` en la URL): las de Mario y Helena dieron 403 desde el
+// 10/09. Las cuentas conectadas renuevan la foto en cada captureAccountSnapshots,
+// pero las manuales no pasan por ahi (no tienen account_id). Se leen con la
+// sesion compartida de Unipile, igual que sus posts: solo la foto, nada mas.
+async function renovarFotosManuales(): Promise<void> {
+  const { rows } = await pool.query(
+    `SELECT id, linkedin_url FROM creators
+      WHERE is_manual = TRUE AND linkedin_url IS NOT NULL`
+  );
+  for (const c of rows) {
+    try {
+      const raw = await unipileService.getProfile(c.linkedin_url);
+      const foto = unipileService.normalizeProfile(raw, c.linkedin_url).profile_image_url;
+      if (foto) {
+        await pool.query(`UPDATE creators SET profile_image_url = $2 WHERE id = $1`, [c.id, foto]);
+      }
+    } catch (e: any) {
+      console.warn(`[accountSnapshot] foto de la cuenta manual ${c.id} no renovada:`, e?.message);
+    }
+  }
+}
+
 async function accountSnapshotTick(): Promise<void> {
   if (accountSnapshotInFlight) return;
   accountSnapshotInFlight = true;
   try {
+    await renovarFotosManuales().catch((e: any) =>
+      console.warn('[accountSnapshot] renovar fotos manuales fallo:', e?.message)
+    );
     const { rows: managed } = await pool.query(
       `SELECT id FROM creators WHERE is_managed = TRUE AND unipile_account_id IS NOT NULL`
     );

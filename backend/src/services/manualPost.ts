@@ -318,7 +318,9 @@ async function buscarOCrearCreator(autor: AutorPost): Promise<{ id: string; crea
     `INSERT INTO creators (linkedin_url, linkedin_id, name, headline, profile_image_url, is_managed, is_manual)
      VALUES ($1, $2, $3, $4, $5, TRUE, TRUE)
      ON CONFLICT (linkedin_url) DO UPDATE
-       SET is_managed = TRUE, is_manual = TRUE
+       SET is_managed = TRUE, is_manual = TRUE,
+           -- La foto recien leida sustituye a la guardada: la vieja caduca.
+           profile_image_url = COALESCE(EXCLUDED.profile_image_url, creators.profile_image_url)
      RETURNING id`,
     [url, autor.provider_id, autor.name, autor.headline, autor.profile_image_url]
   );

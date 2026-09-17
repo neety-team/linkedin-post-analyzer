@@ -345,7 +345,9 @@ export function buildPrompt(
   const varietyNudge = `OPENING MOVE for THIS reply (RULE 10), decided for you: ${move}. Use THAT one. Only if the comment makes it genuinely impossible, pick a DIFFERENT move from the list — never fall back to whatever you'd have written anyway.
 ARRANQUE OBLIGATORIO de esta respuesta: justo despues del nombre, empieza por ${elegido.arranque}. Esto no es una sugerencia y no se negocia con el contenido: si no te encaja, cambia el contenido, no el arranque.
 ⛔ DOS EXCEPCIONES, y las dos mandan sobre el arranque sorteado: (a) SI EL COMENTARIO ES UN ELOGIO, lo primero es el GRACIAS (RULE 13); (b) SI EL COMENTARIO DICE QUE NO ENTIENDE EL POST, lo primero es quitarle hierro (RULE 3c-bis): "no pasa nada", "normal", "culpa mia". En los dos casos el arranque sorteado se aplica DESPUES o no se aplica. Son los dos unicos sitios donde la variedad pierde, y pierde a proposito.
-${estirar
+${elegido.arranque.startsWith('una negacion')
+  ? `Esta respuesta NO lleva palabra de asentir. La negacion del arranque va sobre el PROBLEMA del post ("nadie descuelga", "ningun comercial..."), NUNCA sobre lo que dice el que comenta: "no te compro eso", "no es asi" o "no es eso" estan PROHIBIDAS.`
+  : estirar
   ? `UNA SOLA PALABRA DE ASENTIR EN TODA LA RESPUESTA (Iker, 2026-09-18): si asientes, la palabra es la ALARGADA de esta respuesta ("${alargarPalabra(palabraAlargar, 2)}") y NO se le suma ninguna otra ("claro", "exacto", "y tanto", "tal cual", "totalmente"...). Nada de "exactooo, claro y tanto".`
   : `IF your reply agrees with the commenter, the agreement word for THIS reply is "${asent}": use that one and no other, literal, UNA sola vez y al principio, sin convertirla en adverbio ("exactamente" esta PROHIBIDA).`}
 ⛔ Una palabra de asentir NUNCA va como inciso en mitad de la frase ("el filtro, tal cual, siempre lo pone", "el comercial busca justo, antes de...") ni pegada a otra ("claro y tanto"). Si no asientes, no la metas.
@@ -933,6 +935,17 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   { re: /\b(nos vemos (el|en|alli|alla|ahi|pronto|el jueves)|alli nos vemos|te esper(o|amos) (el|en|alli)|os esper(o|amos)|alli estaras)\b/, que: 'das por hecho que el que comenta va a venir al evento' },
   // Tratarle de despistado (prueba del 16/09).
   { re: /\b(si no sabes|si lo lees|si te lo lees|esta en el post|lo dice el post|como dice el post|vuelve a leer|leelo (otra vez|bien|entero))\b/, que: 'le tratas de despistado o le mandas a leer el post' },
+  // "te dejo el enlace en el post para reservar sitio" (tanda del 18/09): el
+  // enlace YA esta en el post, asi que es mandarle a leerlo.
+  { re: /\b(enlace|link)\b[^.]{0,25}\b(en|del) (el )?post\b|\b(lo )?tienes (arriba|en el post)\b/, que: 'le mandas a buscar el enlace al post, que es tratarle de despistado' },
+  // ⛔ LA CONTRADICCION (tanda del 18/09): "no te compro eso, te compro eso".
+  // Salia de cruzar el arranque "una negacion" con la palabra de asentir. A
+  // quien comenta se le apoya: nunca se le niega lo que dice.
+  { re: /(^|[ ,.])no (te compro eso|es eso|es asi|estoy de acuerdo|tal cual|exacto|comparto)\b/, que: 'le llevas la contraria al que comenta o te contradices ("no te compro eso")' },
+  // ⛔ INVENTAR QUE SE HACE EN EL EVENTO (tanda del 18/09): "por eso en el
+  // evento trabajamos exactamente eso". Del evento solo consta lo que dice el
+  // post; su programa no se describe.
+  { re: /\b(en el (evento|encuentro)( del jueves)?( en donostia)?|el jueves en donostia) (trabajamos|vemos|ensenamos|explicamos|practicamos|contamos|resolvemos|hablamos de)\b|\blo que (trabajamos|vemos|ensenamos|explicamos|practicamos|resolvemos) en (el evento|donostia)/, que: 'afirmas que se hace o se trabaja algo en el evento y no consta: del evento solo se puede decir lo que pone el post' },
   // Afirmar que la historia es real (muchas escenas son construidas).
   { re: /\b((la historia|esto|todo|es todo) es (real|verdad|cierto)|es todo (real|verdad|cierto)|no (me lo he|lo he) inventad|paso de verdad|me paso tal cual)\b/, que: 'afirmas que la historia es real, y no puedes saberlo' },
   // "no era una herramienta, era la renovacion del evento" (prueba del 16/09, a

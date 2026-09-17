@@ -362,6 +362,23 @@ ok(forzarEstirada('totalmente, la lista encoge', 2, 'claro', false) === 'clarooo
   ok(prompt.includes('nunca va como inciso'.toUpperCase().slice(0, 0)) && /NUNCA va como inciso/.test(prompt), 'el prompt prohibe el inciso de asentir');
 }
 
+// 15e. Lo que salio en la tanda del 18/09 despues de arreglar las alargadas.
+console.log('\n15e · contradiccion, evento inventado y enlace del post');
+ok(detectarRespuestaBorde('Nerea Uriarte no te compro eso, te compro eso y encima es peor') !== null, 'caza "no te compro eso"');
+ok(detectarRespuestaBorde('Pedro Alonso nadie lo sabe a la primera, por eso en el evento trabajamos exactamente eso.') !== null, 'caza "en el evento trabajamos"');
+ok(detectarRespuestaBorde('Javier Mena llegar a quien firma es exactamente lo que trabajamos en el evento del jueves en Donostia') !== null, 'caza "lo que trabajamos en el evento"');
+ok(detectarRespuestaBorde('Carlos Vidal el evento está en Donostia el jueves 24, te dejo el enlace en el post para reservar sitio.') !== null, 'caza "el enlace en el post"');
+ok(detectarRespuestaBorde('Ana Pérez nadie descuelga a la primera y el jueves en Donostia se sienta uno al lado de quien compra.') === null, 'deja pasar mencionar el evento con lo que dice el post');
+ok(detectarRespuestaBorde('Ana Pérez no descuelga nadie a la primera y ahí se pierde la venta.') === null, 'deja pasar una negacion sobre el problema');
+{
+  let negOk = true;
+  for (let i = 0; i < 300; i++) {
+    const { prompt, arranque } = buildPrompt(base as any, 'cercano');
+    if (arranque.startsWith('una negacion') && (/the agreement word for THIS reply/.test(prompt) || /UNA SOLA PALABRA DE ASENTIR/.test(prompt))) negOk = false;
+  }
+  ok(negOk, 'con arranque de negacion no se sortea palabra de asentir');
+}
+
 // RULE 3g (Iker, 2026-09-17): el comentario de Antonio N. en el meme, y lo que salio.
 const antonio = 'Iker Galarza Rodríguez una que funciona muy bien es: tu madre se ha tropezado en la ducha.\n\nSólo para valientes.';
 ok(tomaEnSerioLaBroma(antonio, 'Antonio N. Funciona porque mezcla urgencia con un nombre real y de ahí a preguntar directamente por el responsable hay solo un paso 🔥'), 'caza la broma tomada en serio');

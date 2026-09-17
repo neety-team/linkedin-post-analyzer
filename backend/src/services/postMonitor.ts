@@ -921,6 +921,84 @@ async function renovarFotosManuales(): Promise<void> {
   }
 }
 
+// ⭐⭐ CIFRAS OFICIALES DE LINKEDIN (resumen + series diarias + seguidores).
+// LinkedIn responde de forma irregular: la misma pagina a veces viene sin
+// series o sin el resumen (medido el 17/09/2026 con Asier: vacia y, un minuto
+// despues, completa). Por eso cada lectura se reintenta hasta 3 veces, y la
+// funcion se puede lanzar a mano (POST /api/accounts/linkedin-oficial/refresh)
+// para reparar sin esperar al pase de 6h.
+async function conReintentos<T>(leer: () => Promise<T | null>): Promise<T | null> {
+  for (let intento = 1; intento <= 3; intento++) {
+    const r = await leer().catch(() => null);
+    if (r) return r;
+    if (intento < 3) await new Promise((ok) => setTimeout(ok, 5000));
+  }
+  return null;
+}
+
+export async function refrescarCifrasOficiales(
+  cuentas?: { id: string; unipile_account_id: string }[]
+): Promise<{ id: string; resumen: boolean; series: string; seguidores: string }[]> {
+  const managed = cuentas ?? (await pool.query(
+    `SELECT id, unipile_account_id FROM creators
+      WHERE is_managed = TRUE AND unipile_account_id IS NOT NULL AND is_manual IS NOT TRUE`
+  )).rows;
+  const informe: { id: string; resumen: boolean; series: string; seguidores: string }[] = [];
+  for (const { id, unipile_account_id } of managed) {
+    const fila = { id, resumen: false, series: 'sin leer', seguidores: 'sin leer' };
+    try {
+      const r = await conReintentos(() => fetchResumenLinkedIn(unipile_account_id));
+      if (r) {
+        await guardarResumenLinkedIn(pool, id, r);
+        fila.resumen = true;
+      }
+      const series = await conReintentos(() => fetchSeriesDiarias(unipile_account_id));
+      // COMPROBACION CRUZADA (2026-09-17): la suma de los ultimos 7 dias de la
+      // serie diaria tiene que parecerse a "Post impressions in 7 days" del
+      // resumen, otra pagina de LinkedIn. Si no, la serie se leyo mal (ese dia
+      // se guardaron acumuladas como diarias: 8,4 M en 30 dias) y no se guarda.
+      const siete = series ? series.slice(-7).reduce((a, d) => a + d.impresiones, 0) : 0;
+      // Si el resumen no vino, se compara con la ultima cifra de 7 dias
+      // guardada. Sin ninguna referencia, no se guarda nada.
+      let oficial7 = r?.postImpressions7d ?? null;
+      if (!oficial7) {
+        const { rows: prev } = await pool.query(
+          `SELECT post_impressions_7d FROM creator_linkedin_overview
+            WHERE creator_id = $1 AND post_impressions_7d > 0
+            ORDER BY captured_on DESC LIMIT 1`,
+          [id]
+        );
+        oficial7 = prev[0]?.post_impressions_7d ?? null;
+      }
+      const cuadra = oficial7 != null && oficial7 > 0 && Math.abs(siete - oficial7) / oficial7 <= 0.35;
+      if (series && cuadra) {
+        await guardarSeriesDiarias(pool, id, series);
+        fila.series = `guardada (7d ${siete} / resumen ${oficial7})`;
+      } else if (series) {
+        fila.series = `descartada (7d ${siete} / resumen ${oficial7})`;
+        console.warn(`[cifrasOficiales] serie diaria de ${id} ${fila.series}`);
+      }
+      const seguidores = await conReintentos(() => fetchSeguidoresDiarios(unipile_account_id));
+      // Los nuevos de un ano no pueden pasar del total de seguidores de la
+      // cuenta (una acumulada leida como diaria suma millones).
+      const nuevosAno = seguidores ? [...seguidores.values()].reduce((a, b) => a + b, 0) : 0;
+      const { rows: tot } = await pool.query(`SELECT followers_count FROM creators WHERE id = $1`, [id]);
+      const total = r?.followers ?? tot[0]?.followers_count ?? null;
+      if (seguidores && total && nuevosAno <= total) {
+        await guardarSeguidoresDiarios(pool, id, seguidores);
+        fila.seguidores = `guardados (${nuevosAno} en el ano, total ${total})`;
+      } else if (seguidores) {
+        fila.seguidores = `descartados (${nuevosAno} en el ano, total ${total})`;
+        console.warn(`[cifrasOficiales] seguidores de ${id} ${fila.seguidores}`);
+      }
+    } catch (e: any) {
+      console.warn(`[cifrasOficiales] fallo para ${id}:`, e?.message);
+    }
+    informe.push(fila);
+  }
+  return informe;
+}
+
 async function accountSnapshotTick(): Promise<void> {
   if (accountSnapshotInFlight) return;
   accountSnapshotInFlight = true;
@@ -932,49 +1010,7 @@ async function accountSnapshotTick(): Promise<void> {
       `SELECT id, unipile_account_id FROM creators WHERE is_managed = TRUE AND unipile_account_id IS NOT NULL`
     );
     if (managed.length === 0) return;
-    // Cifras oficiales del resumen de LinkedIn: 1 llamada por cuenta y pase.
-    for (const { id, unipile_account_id } of managed) {
-      try {
-        const r = await fetchResumenLinkedIn(unipile_account_id);
-        if (r) await guardarResumenLinkedIn(pool, id, r);
-        const series = await fetchSeriesDiarias(unipile_account_id);
-        // COMPROBACION CRUZADA (2026-09-17): la suma de los ultimos 7 dias de la
-        // serie diaria tiene que parecerse a "Post impressions in 7 days" del
-        // resumen, otra pagina de LinkedIn. Si no, la serie se leyo mal (ese dia
-        // se guardaron acumuladas como diarias: 8,4 M en 30 dias) y no se guarda.
-        const siete = series ? series.slice(-7).reduce((a, d) => a + d.impresiones, 0) : 0;
-        // Si el resumen no vino en esta vuelta, se compara con la ultima cifra
-        // de 7 dias guardada. Sin ninguna referencia, no se guarda nada.
-        let oficial7 = r?.postImpressions7d ?? null;
-        if (!oficial7) {
-          const { rows: prev } = await pool.query(
-            `SELECT post_impressions_7d FROM creator_linkedin_overview
-              WHERE creator_id = $1 AND post_impressions_7d > 0
-              ORDER BY captured_on DESC LIMIT 1`,
-            [id]
-          );
-          oficial7 = prev[0]?.post_impressions_7d ?? null;
-        }
-        const cuadra = oficial7 != null && oficial7 > 0 && Math.abs(siete - oficial7) / oficial7 <= 0.35;
-        if (series && cuadra) await guardarSeriesDiarias(pool, id, series);
-        else if (series) {
-          console.warn(`[accountSnapshot] serie diaria de ${id} descartada: 7 dias = ${siete}, resumen = ${oficial7}`);
-        }
-        const seguidores = await fetchSeguidoresDiarios(unipile_account_id);
-        // Los nuevos de un ano no pueden pasar del total de seguidores de la
-        // cuenta (una acumulada leida como diaria suma millones).
-        const nuevosAno = seguidores ? [...seguidores.values()].reduce((a, b) => a + b, 0) : 0;
-        const { rows: tot } = await pool.query(`SELECT followers_count FROM creators WHERE id = $1`, [id]);
-        const total = r?.followers ?? tot[0]?.followers_count ?? null;
-        if (seguidores && total && nuevosAno <= total) {
-          await guardarSeguidoresDiarios(pool, id, seguidores);
-        } else if (seguidores) {
-          console.warn(`[accountSnapshot] seguidores diarios de ${id} descartados: ${nuevosAno} nuevos en un ano con ${total} en total`);
-        }
-      } catch (e: any) {
-        console.warn(`[accountSnapshot] resumen de LinkedIn fallo para ${id}:`, e?.message);
-      }
-    }
+    await refrescarCifrasOficiales(managed);
     console.log(`[accountSnapshot] refreshing follower + WVMP for ${managed.length} managed creator(s)`);
     for (const { id } of managed) {
       try {

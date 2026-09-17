@@ -5,7 +5,7 @@ import { enrichPost } from '../services/engagement';
 import { recalcCreatorOutliers } from '../services/outliers';
 import { PostModel } from '../models/post';
 import { CreatorModel } from '../models/creator';
-import { maybeTick, capturePostSnapshot } from '../services/postMonitor';
+import { maybeTick, capturePostSnapshot, refrescarCifrasOficiales } from '../services/postMonitor';
 import { anunciarPostsDeHoy, componerMensaje } from '../services/anuncioChat';
 import { buscarMensajeEnviado, veredictoDeBusqueda } from '../services/verificarEnvio';
 import { generateComments, generateSupportiveComments } from '../services/commentGenerator';
@@ -1141,6 +1141,19 @@ router.patch('/posts/:id/impressions', async (req: Request, res: Response) => {
     res.json({ ok: true, id: post.id, impressions_count: post.impressions_count });
   } catch (err: any) {
     console.error('[accounts/posts/impressions]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/accounts/linkedin-oficial/refresh — relee YA las cifras oficiales de
+// LinkedIn (resumen, impresiones/engagement diarios y seguidores diarios) de
+// las cuentas conectadas, con sus comprobaciones. Sirve para reparar sin
+// esperar al pase de 6h. Devuelve que se guardo y que se descarto.
+router.post('/linkedin-oficial/refresh', async (_req: Request, res: Response) => {
+  try {
+    res.json({ ok: true, cuentas: await refrescarCifrasOficiales() });
+  } catch (err: any) {
+    console.error('[accounts/linkedin-oficial/refresh]', err);
     res.status(500).json({ error: err.message });
   }
 });

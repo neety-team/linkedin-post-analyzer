@@ -238,10 +238,32 @@ ok(limitarEstiradas('encogeee y clarooo') === 'encoge y clarooo', 'se queda la d
 ok(faltaElGracias('Muy buena historia', 'Rosa Marín la lista al final encoge más de lo que uno espera.'), 'caza "Muy buena historia" sin gracias');
 
 ok(estirarUna('claro, y la lista encoge') === 'clarooo, y la lista encoge', 'alarga la palabra de reaccion', estirarUna('claro, y la lista encoge'));
+// LOS DOS SITIOS (Iker, 2026-09-18): primera palabra, o en la primera frase
+// antes de una coma. "una frase, buenooo, y otra frase" suena fatal.
+console.log('\n15c · la alargada solo va en sus dos sitios');
+ok(limitarEstiradas('la lista encoge sola, buenooo, y luego otra cosa') === 'la lista encoge sola, bueno, y luego otra cosa', 'quita la que va entre dos comas en mitad', limitarEstiradas('la lista encoge sola, buenooo, y luego otra cosa'));
+ok(limitarEstiradas('la lista encoge. Clarooo, luego otra') === 'la lista encoge. Claro, luego otra', 'quita la de la segunda frase');
+ok(limitarEstiradas('siii, la lista encoge') === 'siii, la lista encoge', 'deja la primera palabra');
+ok(limitarEstiradas('pues siii, la lista encoge') === 'pues siii, la lista encoge', 'deja la de antes de la primera coma');
+ok(limitarEstiradas(' clarooo que encoge') === ' clarooo que encoge', 'primera palabra aunque no lleve coma (cuerpo tras el nombre)');
+ok(estirarUna('la lista encoge, y queda muy bien, claro') === 'la lista encoge, y queda muy bien, claro', 'no alarga una de reaccion lejos del arranque');
+ok(estirarUna('pues claro, la lista encoge') === 'pues clarooo, la lista encoge', 'alarga la de antes de la primera coma');
 {
-  const salidas = new Set<string>();
-  for (let k = 0; k < 60; k++) salidas.add(estirarUna('claro, la lista encoge y queda muy bien'));
-  ok(salidas.size >= 3, 'la palabra alargada no cae siempre en el mismo sitio', [...salidas].join(' | '));
+  const r = forzarEstirada('la lista encoge, bien dicho', 2, 'vale');
+  ok(r === 'valeee, la lista encoge, bien dicho', 'si no hay sitio, abre con la sorteada ya alargada', r);
+  ok(forzarEstirada('la lista encoge', 2, 'tal cual') === 'tal cuaaal, la lista encoge', 'alarga "tal cual" en la ultima', forzarEstirada('la lista encoge', 2, 'tal cual'));
+}
+{
+  let mal = 0;
+  const frases = ['Mira, la lista encoge sola, buenooo, y luego otra', 'totalmente. Y bieeen dicho, siii', 'la clave, clarooo, es el contexto'];
+  for (const f of frases) for (let k = 0; k < 30; k++) {
+    const r = forzarEstirada(limitarEstiradas(f), 2, 'justo');
+    const w = (r.match(/\p{L}+/gu) || []).find(esEstirada) || '';
+    const i = r.indexOf(w);
+    const previas = (r.slice(0, i).match(/\p{L}+/gu) || []).length;
+    if (contarEstiradas(r) !== 1 || /[.!?]/.test(r.slice(0, i)) || previas > 2) mal++;
+  }
+  ok(mal === 0, 'tras el limpiado, siempre una y siempre en su sitio', String(mal));
 }
 ok(estirarUna('claro', 1) === 'claroo', 'en Unai, una sola letra de mas');
 ok(estirarUna('gracias por decirlo') === 'graciaas por decirlo', 'alarga el gracias', estirarUna('gracias por decirlo'));

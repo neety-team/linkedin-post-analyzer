@@ -83,17 +83,17 @@ function voiceForAuthor(authorName: string): Voice {
 const STRETCH_RULES: Record<Voice, { r0: string; r12: string; r13: string }> = {
   sobrio: {
     r0: `RULE 0 — QUIÉN ERES (esta regla tiñe todas las demás): eres UNAI, el FUNDADOR y CEO. La cuenta la firmas tú, así que eres el más SOBRIO de los tres. Tu lector medio es un director industrial de unos 50 años que lleva vendiendo desde antes de que existiera Salesforce: tiene que leerte y verte como un IGUAL, no como un chaval de LinkedIn haciendo contenido. Afirmas, no exclamas. Nada de hype, nada de jerga de creador, nada de caricatura, nada infantil. ⚠️ Sobrio NO es acartonado ni corporativo: sigues siendo natural, directo y con la gracia de siempre. Lo que baja es el VOLUMEN, no la naturalidad. Si dudas entre dos formas de decir algo, elige la que diría alguien que lleva 20 años cerrando pedidos.`,
-    r12: `RULE 12 — ALARGAR UNA VOCAL, Y SOLO CUANDO TOCA. Eres el mas sobrio: cuando alargas, es una sola letra de mas ("claroo", "graciaas"). Y NUNCA MAS DE UNA PALABRA ALARGADA EN TODA LA RESPUESTA (Iker, 2026-09-16). Si te toca alargar, se alarga UNA palabra corta de reaccion y su VOCAL FINAL: "clarooo", "siii", "buenoo", "nooo", "bieeen", "valeee", "totaaal", "genial" -> "geniaaal". Es la palabra con la que asientes, niegas o valoras, y su SITIO no es fijo: puede ir al principio, en medio o al final, donde suene natural. El mensaje de usuario te dice donde toca esta vez. NUNCA un sustantivo en mitad de la frase, nunca dos palabras, nunca la misma letra repetida en varias palabras. Si la palabra lleva tilde, la tilde se quita al alargar ("siii", no "síii"). Si te toca NO alargar, no alargas ninguna, tampoco el gracias. El mensaje de usuario te dice cual de las dos toca.`,
+    r12: `RULE 12 — ALARGAR UNA VOCAL, Y SOLO CUANDO TOCA. Eres el mas sobrio: cuando alargas, es una sola letra de mas ("claroo", "graciaas"). Y NUNCA MAS DE UNA PALABRA ALARGADA EN TODA LA RESPUESTA (Iker, 2026-09-16). Si te toca alargar, se alarga UNA palabra corta de reaccion y su VOCAL FINAL: "clarooo", "siii", "buenoo", "nooo", "bieeen", "valeee", "totaaal", "genial" -> "geniaaal". Es la palabra con la que asientes, niegas o valoras, y solo tiene DOS SITIOS (Iker, 2026-09-18): o es la PRIMERA palabra de la respuesta ("siii, ...", "clarooo, ..."), o va en la PRIMERA frase justo antes de una coma ("pues siii, ..."). ⛔ NUNCA entre dos comas en mitad de la respuesta ("una frase, buenooo, y otra frase" suena fatal) ni en la segunda frase o despues. El mensaje de usuario te dice cual de los dos sitios toca esta vez. NUNCA un sustantivo en mitad de la frase, nunca dos palabras, nunca la misma letra repetida en varias palabras. Si la palabra lleva tilde, la tilde se quita al alargar ("siii", no "síii"). Si te toca NO alargar, no alargas ninguna, tampoco el gracias. El mensaje de usuario te dice cual de las dos toca.`,
     r13: `RULE 13 — SIEMPRE AGRADECER CUANDO NOS ELOGIAN (nunca lo saltes), Y NUNCA IGUAL DOS VECES. Si el comentario es sobre todo un halago ("gran post", "me encanta", "brutal", "crack", "top"), la respuesta DEBE llevar gracias, y NUNCA un "gracias" seco. En tu voz va sobrio y corto: "graciass", "graciaas", "muchas graciaas", "gracias por valorarlo", "gracias por tenerlo en cuenta", "gracias por decirlo", "me alegra que te sirva". Como mucho UNA letra doblada: "graciasss", "graciaaas" o "se agradeceee" son demasiado ruidosos para ti. ⛔ "graciaas por el cariño" NO ES TUYA: es exclusiva de Iker (Iker, 2026-08-12). Tú eres el fundador y le hablas de igual a igual a un director industrial de 55 años; esa frase es demasiado efusiva para tu registro. Agradeces SIEMPRE, pero seco y corto. En el mensaje de usuario te llega una VARIANTE DE GRACIAS sorteada: usa esa, bajada a tu tono. El gracias va primero; después, si acaso, una línea corta.`,
   },
   cercano: {
     r0: `RULE 0 — QUIÉN ERES (esta regla tiñe todas las demás): eres IKER. Eres el más CERCANO de los tres y el que más se permite el punchy y el guiño. Aun así, un punto por debajo de lo que eras: nuestro lector medio es un director industrial de unos 50 años, no un creador de LinkedIn, así que nada de hype ni de jerga de creador. Cercano no es infantil.`,
-    r12: `RULE 12 — ALARGAR UNA VOCAL, Y SOLO CUANDO TOCA. Eres el mas cercano: cuando alargas, puedes estirar dos o tres letras ("clarooo", "bieeen"). Y NUNCA MAS DE UNA PALABRA ALARGADA EN TODA LA RESPUESTA (Iker, 2026-09-16). Si te toca alargar, se alarga UNA palabra corta de reaccion y su VOCAL FINAL: "clarooo", "siii", "buenoo", "nooo", "bieeen", "valeee", "totaaal", "genial" -> "geniaaal". Es la palabra con la que asientes, niegas o valoras, y su SITIO no es fijo: puede ir al principio, en medio o al final, donde suene natural. El mensaje de usuario te dice donde toca esta vez. NUNCA un sustantivo en mitad de la frase, nunca dos palabras, nunca la misma letra repetida en varias palabras. Si la palabra lleva tilde, la tilde se quita al alargar ("siii", no "síii"). Si te toca NO alargar, no alargas ninguna, tampoco el gracias. El mensaje de usuario te dice cual de las dos toca.`,
+    r12: `RULE 12 — ALARGAR UNA VOCAL, Y SOLO CUANDO TOCA. Eres el mas cercano: cuando alargas, puedes estirar dos o tres letras ("clarooo", "bieeen"). Y NUNCA MAS DE UNA PALABRA ALARGADA EN TODA LA RESPUESTA (Iker, 2026-09-16). Si te toca alargar, se alarga UNA palabra corta de reaccion y su VOCAL FINAL: "clarooo", "siii", "buenoo", "nooo", "bieeen", "valeee", "totaaal", "genial" -> "geniaaal". Es la palabra con la que asientes, niegas o valoras, y solo tiene DOS SITIOS (Iker, 2026-09-18): o es la PRIMERA palabra de la respuesta ("siii, ...", "clarooo, ..."), o va en la PRIMERA frase justo antes de una coma ("pues siii, ..."). ⛔ NUNCA entre dos comas en mitad de la respuesta ("una frase, buenooo, y otra frase" suena fatal) ni en la segunda frase o despues. El mensaje de usuario te dice cual de los dos sitios toca esta vez. NUNCA un sustantivo en mitad de la frase, nunca dos palabras, nunca la misma letra repetida en varias palabras. Si la palabra lleva tilde, la tilde se quita al alargar ("siii", no "síii"). Si te toca NO alargar, no alargas ninguna, tampoco el gracias. El mensaje de usuario te dice cual de las dos toca.`,
     r13: `RULE 13 — ALWAYS THANK WHEN THEY PRAISE US (never skip it), AND NEVER THANK THE SAME WAY TWICE. If the comment is mainly praise / flattery ("gran post", "me encanta", "brutal", "qué bueno", "de los mejores", "crack", "top", etc.), the reply MUST include a thanks — and NEVER a flat "gracias". Use a warm, elongated variant: "graciasss", "graciaas", "muchas graciaaas", "gracias por valorarlo", "gracias por tenerlo en cuenta", "gracias por decirlo", "gracias por leerlo", "gracias por pasarte por aquí", "me alegra que te sirva", "se agradeceee". ✅ "graciaas por el cariño" es TUYA y solo tuya: ninguna otra cuenta la usa (Iker, 2026-08-12). Aun así NO es tu default — se gastó de tanto usarla, así que entra en la rotación como una más. A THANKS VARIANT is picked for you per reply in the user message: use that one. This is non-negotiable when the comment is basically a compliment — we too often skip the thanks and it reads cold. You can add a short line after the thanks, but the thanks comes first.`,
   },
   medio: {
     r0: `RULE 0 — QUIÉN ERES (esta regla tiñe todas las demás): eres ASIER. Estás en el punto MEDIO de los tres: más sobrio que Iker, menos que Unai (que es el fundador y firma la casa). Escribes contenido, no eres el CEO, pero nuestro lector es un director industrial de unos 50 años y tiene que tomarte en serio. Natural y directo, sin hype y sin caricatura. ⚠️ Sobrio NO es acartonado: la gracia y los clichés siguen. Lo que baja es el volumen.`,
-    r12: `RULE 12 — ALARGAR UNA VOCAL, Y SOLO CUANDO TOCA. Estas en el punto medio: cuando alargas, una o dos letras de mas ("claroo", "siii"). Y NUNCA MAS DE UNA PALABRA ALARGADA EN TODA LA RESPUESTA (Iker, 2026-09-16). Si te toca alargar, se alarga UNA palabra corta de reaccion y su VOCAL FINAL: "clarooo", "siii", "buenoo", "nooo", "bieeen", "valeee", "totaaal", "genial" -> "geniaaal". Es la palabra con la que asientes, niegas o valoras, y su SITIO no es fijo: puede ir al principio, en medio o al final, donde suene natural. El mensaje de usuario te dice donde toca esta vez. NUNCA un sustantivo en mitad de la frase, nunca dos palabras, nunca la misma letra repetida en varias palabras. Si la palabra lleva tilde, la tilde se quita al alargar ("siii", no "síii"). Si te toca NO alargar, no alargas ninguna, tampoco el gracias. El mensaje de usuario te dice cual de las dos toca.`,
+    r12: `RULE 12 — ALARGAR UNA VOCAL, Y SOLO CUANDO TOCA. Estas en el punto medio: cuando alargas, una o dos letras de mas ("claroo", "siii"). Y NUNCA MAS DE UNA PALABRA ALARGADA EN TODA LA RESPUESTA (Iker, 2026-09-16). Si te toca alargar, se alarga UNA palabra corta de reaccion y su VOCAL FINAL: "clarooo", "siii", "buenoo", "nooo", "bieeen", "valeee", "totaaal", "genial" -> "geniaaal". Es la palabra con la que asientes, niegas o valoras, y solo tiene DOS SITIOS (Iker, 2026-09-18): o es la PRIMERA palabra de la respuesta ("siii, ...", "clarooo, ..."), o va en la PRIMERA frase justo antes de una coma ("pues siii, ..."). ⛔ NUNCA entre dos comas en mitad de la respuesta ("una frase, buenooo, y otra frase" suena fatal) ni en la segunda frase o despues. El mensaje de usuario te dice cual de los dos sitios toca esta vez. NUNCA un sustantivo en mitad de la frase, nunca dos palabras, nunca la misma letra repetida en varias palabras. Si la palabra lleva tilde, la tilde se quita al alargar ("siii", no "síii"). Si te toca NO alargar, no alargas ninguna, tampoco el gracias. El mensaje de usuario te dice cual de las dos toca.`,
     r13: `RULE 13 — ALWAYS THANK WHEN THEY PRAISE US (never skip it), AND NEVER THANK THE SAME WAY TWICE. If the comment is mainly praise / flattery ("gran post", "me encanta", "brutal", "qué bueno", "de los mejores", "crack", "top", etc.), the reply MUST include a thanks — and NEVER a flat "gracias". Use a warm but UNDERSTATED variant: "graciass", "graciaas", "muchas graciaas", "gracias por valorarlo", "gracias por tenerlo en cuenta", "gracias por decirlo", "gracias por leerlo", "me alegra que te sirva". ⛔ "graciaas por el cariño" NO ES TUYA: es exclusiva de Iker (Iker, 2026-08-12). Estás en el punto medio, así que agradeces siempre pero sin efusividad. A THANKS VARIANT is picked for you per reply in the user message: use that one, toned down to your voice. At most ONE doubled letter — "graciasss" / "graciaaas" / "se agradeceee" are too loud for you. This is non-negotiable when the comment is basically a compliment — we too often skip the thanks and it reads cold. You can add a short line after the thanks, but the thanks comes first.`,
   },
 };
@@ -188,7 +188,7 @@ ${STRETCH_RULES[voice].r13}`;
 export function buildPrompt(
   input: ReplyGenerationInput,
   voice: Voice
-): { prompt: string; arranque: string; conEmoji: boolean; estirar: boolean; emojiElegido: string } {
+): { prompt: string; arranque: string; conEmoji: boolean; estirar: boolean; emojiElegido: string; palabraAlargar: string } {
   const v = input.authorVoice;
   const voiceBlock = [
     v.voice_style ? `VOICE STYLE: ${v.voice_style}` : null,
@@ -313,13 +313,14 @@ export function buildPrompt(
   const ASENTIMIENTOS = ['exacto', 'justo', 'eso es', 'tal cual', 'cierto',
     'totalmente', 'claro', 'sin duda', 'ahí está', 'ese es el tema',
     'y tanto', 'buen punto', 'lo has clavado', 'te compro eso'];
-  const ASENT_ESTIRADOS = ['juuusto', 'exactoo', 'eso esss', 'buenoo', 'clarooo', 'tal cuaal'];
   // ALARGAR O NO, SORTEADO AQUI (Iker, 2026-09-16). "Casi todas" no es
   // variedad y "a veces" no produce "a veces": lo decide el dado, por voz.
   const PROB_ESTIRAR: Record<Voice, number> = { sobrio: 0.15, medio: 0.35, cercano: 0.55 };
   const estirar = Math.random() < PROB_ESTIRAR[voice];
-  const banco = estirar && voice !== 'sobrio' ? ASENTIMIENTOS.concat(ASENT_ESTIRADOS) : ASENTIMIENTOS;
-  const asent = banco[Math.floor(Math.random() * banco.length)];
+  // Las variantes estiradas ("juuusto", "clarooo") ya no entran aqui (Iker,
+  // 2026-09-18): el asentimiento puede caer en cualquier sitio y la alargada
+  // solo tiene dos. La palabra alargada la decide el sorteo de ALARGAR.
+  const asent = ASENTIMIENTOS[Math.floor(Math.random() * ASENTIMIENTOS.length)];
 
   // Las aperturas que ya se han usado en ESTE post, para que el sorteo no las
   // repita dentro de la misma tanda (ver `APERTURAS_POR_POST` mas abajo).
@@ -402,9 +403,17 @@ IF your reply agrees with the commenter, the agreement word for THIS reply is "$
   const PROB_EMOJI: Record<Voice, number> = { sobrio: 0, medio: 0.25, cercano: 0.5 };
   const conEmoji = !delicado && Math.random() < PROB_EMOJI[voice];
   const emojiElegido = sorteaEmoji();
-  const PALABRAS_ALARGAR = ['claro', 'si', 'bueno', 'no', 'bien', 'vale', 'genial', 'total', 'justo', 'eso'];
-  const palabraAlargar = PALABRAS_ALARGAR[Math.floor(Math.random() * PALABRAS_ALARGAR.length)];
-  const SITIOS = ['al principio de la frase', 'en medio de la frase', 'al final de la frase'];
+  // Palabra y sitio sorteados (Iker, 2026-09-18: "repites mucho claro con
+  // varias oes" y "las colocas en posiciones que no tienen sentido"). La palabra
+  // no repite ninguna de las ultimas del mismo post, y el sitio es uno de los
+  // DOS que valen; el codigo quita la que caiga en otro (sitioAlargable).
+  const recientes = input.postId ? (ALARGADAS_POR_POST.get(input.postId) || []) : [];
+  const libres = PALABRAS_ALARGAR.filter((p) => !recientes.includes(p));
+  const palabraAlargar = (libres.length ? libres : PALABRAS_ALARGAR)[Math.floor(Math.random() * (libres.length || PALABRAS_ALARGAR.length))];
+  const SITIOS = [
+    `como PRIMERA palabra de la respuesta, justo despues del nombre y delante del arranque ("${alargarPalabra(palabraAlargar, 2)}, ...")`,
+    'dentro de la PRIMERA frase, justo antes de su primera coma, en las tres primeras palabras',
+  ];
   const sitioAlargar = SITIOS[Math.floor(Math.random() * SITIOS.length)];
   const emojiNudge =
     (conEmoji
@@ -414,7 +423,7 @@ IF your reply agrees with the commenter, the agreement word for THIS reply is "$
         : 'EMOJI: esta respuesta va SIN emoji.') +
     ' ' +
     (estirar
-      ? `ALARGAR: esta respuesta lleva EXACTAMENTE UNA palabra alargada, una palabra corta de reaccion con la vocal final estirada (RULE 12). Si encaja, que sea "${palabraAlargar}"; si no, otra de reaccion. Esta vez va ${sitioAlargar}, sin que suene a muletilla pegada. Una, no dos.`
+      ? `ALARGAR: esta respuesta lleva EXACTAMENTE UNA palabra alargada, una palabra corta de reaccion con la vocal final estirada (RULE 12). Si encaja, que sea "${palabraAlargar}"; si no, otra de reaccion. Esta vez va ${sitioAlargar}. En ningun otro sitio: entre dos comas en mitad de la respuesta suena fatal. Una, no dos.`
       : 'ALARGAR: esta respuesta NO lleva ninguna palabra alargada, tampoco el gracias (RULE 12).');
 
   // Same per-call trick as OPENING_MOVES, for the same reason. RULE 13 lists the
@@ -525,7 +534,7 @@ ${thanksNudge}
 ${avisoImagen}
 
 Write the reply now. Plain text, ONE single sentence, in the same language as the post/comment.`;
-  return { prompt, arranque: elegido.arranque, conEmoji, estirar, emojiElegido };
+  return { prompt, arranque: elegido.arranque, conEmoji, estirar, emojiElegido, palabraAlargar };
 }
 
 // EL GUARDARRAIL, PORQUE UN PROMPT ES UNA PETICION Y NO UNA GARANTIA
@@ -607,16 +616,31 @@ const REACCION = new Set([
   'nada', 'ya', 'venga', 'guay', 'perfecto', 'brutal', 'tremendo', 'enorme', 'toma', 'hombre',
 ]);
 
+// ⛔ LOS DOS SITIOS DE LA ALARGADA (Iker, 2026-09-18). "No tiene sentido que
+// me pongas una frase, buenooo, y luego otra frase. Suena fatal". Solo vale:
+//   · como PRIMERA palabra ("siii, ...", "clarooo que ...")
+//   · en la PRIMERA frase, entre las tres primeras palabras y justo antes de
+//     una coma o del final de esa frase ("pues siii, ...", "tal cuaal, ...")
+// Cualquier otra posicion vuelve a su forma normal.
+export function sitioAlargable(texto: string, off: number, palabra: string): boolean {
+  const antes = texto.slice(0, off);
+  if (/[.!?…]/.test(antes)) return false;
+  const previas = (antes.match(/\p{L}+/gu) || []).length;
+  if (previas === 0) return true;
+  if (previas > 2) return false;
+  return /^\s*([,.!?…]|$)/.test(texto.slice(off + palabra.length));
+}
+
 /**
- * Deja como mucho UNA palabra alargada, y solo si es de reaccion. Todas las
- * demas vuelven a su forma normal.
+ * Deja como mucho UNA palabra alargada: de reaccion y en uno de sus dos sitios.
+ * Todas las demas vuelven a su forma normal.
  */
 export function limitarEstiradas(texto: string): string {
   let vistas = 0;
-  return texto.replace(/\p{L}+/gu, (w) => {
+  return texto.replace(/\p{L}+/gu, (w: string, off: number) => {
     if (!esEstirada(w)) return w;
     const base = llanoLetra(desestirar(w));
-    if (!REACCION.has(base) || vistas > 0) return desestirar(w);
+    if (!REACCION.has(base) || vistas > 0 || !sitioAlargable(texto, off, w)) return desestirar(w);
     vistas++;
     return w;
   });
@@ -683,20 +707,27 @@ export function estirarUna(texto: string, letras = 2): string {
   const candidatas: number[] = [];
   for (const m of texto.matchAll(/\p{L}+/gu)) {
     const i = m.index ?? 0;
-    if (alargable(m[0], texto.slice(i + m[0].length), texto.slice(0, i))) candidatas.push(i);
+    if (alargable(m[0], texto.slice(i + m[0].length), texto.slice(0, i)) && sitioAlargable(texto, i, m[0])) candidatas.push(i);
   }
   if (!candidatas.length) return texto;
   const donde = candidatas[Math.floor(Math.random() * candidatas.length)];
-  return texto.replace(/\p{L}+/gu, (w: string, off: number) => {
-    if (off !== donde) return w;
-    const base = llanoLetra(w);
-    const plano = w.normalize('NFD').replace(/[̀-ͯ]/g, '');
-    if (base === 'gracias') return plano.replace(/as$/i, 'a'.repeat(letras) + 's');
-    // Se estira la ULTIMA VOCAL, no la ultima letra: "bien" -> "bieeen",
-    // "muy" -> "muuuy", "claro" -> "clarooo", como los ejemplos de Iker.
-    const m = plano.match(/^(.*)([aeiou])([^aeiou]*)$/i);
-    return m ? m[1] + m[2] + m[2].repeat(letras) + m[3] : w;
-  });
+  return texto.replace(/\p{L}+/gu, (w: string, off: number) => (off === donde ? alargarPalabra(w, letras) : w));
+}
+
+/** "claro" -> "clarooo", "bien" -> "bieeen", "gracias" -> "graciaas", "tal cual" -> "tal cuaal". */
+export function alargarPalabra(w: string, letras = 2): string {
+  if (/\s/.test(w)) {
+    const partes = w.split(/\s+/);
+    partes[partes.length - 1] = alargarPalabra(partes[partes.length - 1], letras);
+    return partes.join(' ');
+  }
+  const base = llanoLetra(w);
+  const plano = w.normalize('NFD').replace(/[̀-ͯ]/g, '');
+  if (base === 'gracias') return plano.replace(/as$/i, 'a'.repeat(letras) + 's');
+  // Se estira la ULTIMA VOCAL, no la ultima letra: "bien" -> "bieeen",
+  // "muy" -> "muuuy", "claro" -> "clarooo", como los ejemplos de Iker.
+  const m = plano.match(/^(.*)([aeiou])([^aeiou]*)$/i);
+  return m ? m[1] + m[2] + m[2].repeat(letras) + m[3] : w;
 }
 
 // ⛔ COMA ANTES DE "Y" (Iker, 2026-09-16): "Sirimiri, y mientras tanto…" suena a
@@ -715,8 +746,28 @@ export function tieneReaccion(texto: string): boolean {
 }
 
 // Las que le gustan a Iker (2026-09-16), ya alargadas, para cuando toca alargar
-// y la frase no trae ninguna palabra de reaccion.
-export const ALARGADAS_SUELTAS = ['Clarooo', 'Siii', 'Buenooo', 'Bieeen', 'Totaaal'];
+// y la frase no trae ninguna palabra de reaccion. Mas banco el 18/09: con cinco,
+// "clarooo" salia una de cada pocas.
+export const ALARGADAS_SUELTAS = ['Clarooo', 'Siii', 'Buenooo', 'Bieeen', 'Totaaal', 'Valeee', 'Exactooo', 'Juuusto', 'Geniaaal', 'Ciertooo', 'Perfectooo', 'Tal cuaal'];
+
+// Las bases que sortea la respuesta publica (Iker, 2026-09-18). Sin "no" (abrir
+// con una negacion alargada se lee como que le llevas la contraria) ni "eso"
+// (en la primera frase suele ser pronombre).
+export const PALABRAS_ALARGAR = ['claro', 'si', 'bueno', 'bien', 'vale', 'genial', 'total', 'justo', 'exacto', 'cierto', 'perfecto', 'brutal', 'tal cual'];
+
+// Las ultimas palabras alargadas de cada post, para que en la misma tanda no
+// salga "clarooo" tres veces. Mismo patron que APERTURAS_POR_POST.
+const ALARGADAS_POR_POST = new Map<string, string[]>();
+export function recordarAlargada(postId: string | null | undefined, texto: string): void {
+  if (!postId) return;
+  const w = (texto.match(/\p{L}+/gu) || []).find(esEstirada);
+  if (!w) return;
+  let base = llanoLetra(desestirar(w));
+  if (base === 'cual') base = 'tal cual';
+  const previas = ALARGADAS_POR_POST.get(postId) || [];
+  ALARGADAS_POR_POST.set(postId, [...previas, base].slice(-4));
+  if (ALARGADAS_POR_POST.size > 200) ALARGADAS_POR_POST.delete(ALARGADAS_POR_POST.keys().next().value as string);
+}
 
 /**
  * Como estirarUna, pero GARANTIZA una alargada: si la frase no tiene ninguna
@@ -727,7 +778,9 @@ export const ALARGADAS_SUELTAS = ['Clarooo', 'Siii', 'Buenooo', 'Bieeen', 'Totaa
 export function forzarEstirada(texto: string, letras = 2, palabra?: string): string {
   const r = estirarUna(texto, letras);
   if (contarEstiradas(r) > 0) return r;
-  const p = palabra || ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
+  const p = palabra
+    ? (esEstirada(palabra.split(/\s+/).pop() || '') ? palabra : alargarPalabra(palabra, letras))
+    : ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
   const resto = r.replace(/^\s+/, '');
   // "Casi siempre…" -> "Buenooo, casi siempre…" (sin tocar siglas ni nombres
   // propios que empiecen la frase: solo se baja si la segunda letra es minuscula)
@@ -1173,7 +1226,7 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
     throw new Error('ANTHROPIC_API_KEY not set');
   }
   const voice = voiceForAuthor(input.authorName);
-  const { prompt, arranque: elegidoArranque, conEmoji, estirar, emojiElegido } = buildPrompt(input, voice);
+  const { prompt, arranque: elegidoArranque, conEmoji, estirar, emojiElegido, palabraAlargar } = buildPrompt(input, voice);
 
   // Se genera y se COMPRUEBA. Si se ha inventado algo, se vuelve a pedir con el
   // fallo delante, hasta 2 veces mas. Un reproche concreto ("te has inventado
@@ -1341,6 +1394,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   //     intentional lowercase opening word is preserved. \p{Ll} + /u keeps
   //     accented letters working (á→Á).
   text = text.replace(/([.!?])(\s+)(\p{Ll})/gu, (_m, p, sp, ch) => `${p}${sp}${ch.toUpperCase()}`);
+  const letrasVoz = voice === 'sobrio' ? 1 : 2;
   // 1e. UNA SOLA PALABRA ALARGADA, EN CUALQUIER VOZ (Iker, 2026-09-16). Se
   //     aplica al cuerpo, no al nombre, para que un nombre raro nunca cuente
   //     como la palabra alargada.
@@ -1351,9 +1405,14 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       // de 8 alargadas porque el modelo alargaba igual, con "clarooo" tres
       // veces en la misma tanda.
       const cuerpo = estirar ? limitarEstiradas(text.slice(nom.length)) : desestirarTodo(text.slice(nom.length));
-      text = text.slice(0, nom.length) + (estirar ? estirarUna(cuerpo, voice === 'sobrio' ? 1 : voice === 'medio' ? 2 : 2) : cuerpo);
+      // Si toca alargar y el modelo no la dejo en uno de sus dos sitios, se
+      // abre con la palabra sorteada (Iker, 2026-09-18): antes estirarUna la
+      // soltaba en cualquier palabra de reaccion, tambien entre dos comas.
+      text = estirar
+        ? `${text.slice(0, nom.length)} ${forzarEstirada(cuerpo.replace(/^[\s,]+/, ''), letrasVoz, palabraAlargar)}`
+        : text.slice(0, nom.length) + cuerpo;
     } else {
-      text = estirar ? estirarUna(limitarEstiradas(text), voice === 'sobrio' ? 1 : 2) : desestirarTodo(text);
+      text = estirar ? forzarEstirada(limitarEstiradas(text), letrasVoz, palabraAlargar) : desestirarTodo(text);
     }
   }
   // 1d. (va DESPUES del limite de alargadas, para que el colapso no esconda
@@ -1396,5 +1455,6 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   // La apertura entra en la memoria de la tanda SOLO cuando la respuesta se
   // devuelve de verdad: si se ha descartado por inventar, nunca existio.
   recordarApertura(input.postId, apertura(limpio, input.commenterName));
+  recordarAlargada(input.postId, limpio.slice(input.commenterName?.trim().length || 0));
   return limpio;
 }

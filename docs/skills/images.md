@@ -654,6 +654,14 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **⚠️ Y EL PEAJE, que hay que mirar SIEMPRE porque el 27/08 se nos coló a los dos:** el chat nuevo **no arrastra ninguna de las correcciones anteriores**, así que puede devolver la imagen perfecta de forma y **rota de esencia**. Aquí regeneró a los cinco muñecos gordos y **se comió la segunda mitad de la curva del peso** —en el original engorda hasta el del medio y vuelve a adelgazar—, que es justo el motor del chiste y de lo que colgaba el cuerpo del post (`Lo peor es el medio`).
 - **EL CHEQUEO al recibir la versión del chat nuevo:** poner la referencia al lado y **repasar el inventario del Paso 6a otra vez, entero**, como si fuera la primera versión. Lo que se comprueba primero es **el mecanismo del gag**, no el color ni la colocación, que son lo que veníamos mirando.
 
+### 🧰🧰 0i-PHOTOSHOP · SI LA IMAGEN YA ES BUENA Y SOLO FALTA MOVER ALGO, SE MUEVE EN PHOTOSHOP, NO EN EL GENERADOR (2026-09-17)
+
+**El caso (lead magnet de Asier, `/perfil/`):** la tercera versión solo tenía el título alineado a la izquierda y pegado arriba. Pedí al generador *"centra el título y reparte el aire"* con *"ni la caja, ni el desenfoque"* en la contención, y **rehízo la imagen entera**: el texto nítido de la caja salió más pequeño y con otros cortes de línea, el punto se metió dentro de la franja y el desenfoque cambió. Iker: *"ha empeorado todo bastante"*. Se volvió a la versión anterior.
+
+**LA REGLA:** cuando la imagen ya está bien de contenido y lo que falta es **colocación** (centrar, subir, bajar, repartir aire) de un elemento que está sobre **fondo liso**, no se pide al generador: se hace en Photoshop en dos minutos (seleccionar, `Ctrl+J`, rellenar el hueco con el color del fondo, alinear sobre el lienzo). **Cada edición en el generador rehace la imagen y vuelve a poner en juego todo lo que ya estaba bien**, diga lo que diga la contención.
+- **El generador se reserva para cambios de contenido** (un texto, un desenfoque, un elemento nuevo).
+- **Y en la entrega, la alternativa manual va primero** cuando el retoque es solo de posición.
+
 ## ✂️✂️ 0i-3-CONTENCION-CORTA · EL CIERRE ES LA FRASE SECA, SIN LISTA DE LO QUE SE QUEDA (Iker, 2026-08-27)
 
 > **Iker:** *"en tu último prompt yo le he dicho «deja todo lo demás intacto y no hagas nada que no te he pedido», y he quitado todos esos detalles específicos que has dado tú. Es mejor así, más sencillo"*.

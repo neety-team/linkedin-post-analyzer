@@ -562,6 +562,16 @@ export class UnipileService {
       const incremental = !!knownIds && knownIds.size > 0;
       for (const post of posts) {
         const publishedAt = post.parsed_datetime || post.created_at || post.published_at || post.date;
+        // Un REPOST llega con la fecha del post original, pero LinkedIn lo
+        // coloca en el feed por la fecha en que se reposteo (Iker, 2026-09-17).
+        // Si reposteas hoy un post del dia 1, sale el PRIMERO del feed con
+        // fecha del dia 1, y el corte de abajo devolvia la lista vacia: el
+        // monitor dejo sin snapshots a todos los posts de Iker y Unai durante
+        // 20 horas sin avisar. Su fecha no dice nada del orden, asi que un
+        // repost viejo se salta y se sigue leyendo.
+        if (floor && publishedAt && new Date(publishedAt) < floor && post.is_repost) {
+          continue;
+        }
         if (floor && publishedAt && new Date(publishedAt) < floor) {
           console.log(`[Unipile] Reached posts older than the requested window, stopping. Total: ${allPosts.length}`);
           return allPosts;

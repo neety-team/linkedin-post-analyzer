@@ -150,7 +150,12 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
 
         for (const target of posts) {
           const raw = target.linkedin_post_id ? byLinkedInId.get(String(target.linkedin_post_id)) : null;
-          if (!raw) continue;
+          if (!raw) {
+            // Antes este salto era mudo, y un feed vacio por un repost viejo
+            // dejo a dos cuentas 20 horas sin snapshots sin una sola linea de log.
+            console.warn(`[postMonitor] post ${target.id} no esta en el feed de ${creatorId} (${raws.length} items): sin snapshot`);
+            continue;
+          }
 
           const normalized = unipileService.normalizePost(raw, creatorId);
           const engagement = calculateEngagement(normalized);

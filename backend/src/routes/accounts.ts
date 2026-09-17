@@ -1352,21 +1352,52 @@ router.get('/analytics', async (req: Request, res: Response) => {
     // First two params are the inclusive [start, end] of the requested
     // window; scope params follow.
     const dailyScope = scope(3);
+    // ⭐ ENGAGEMENT E IMPRESIONES RECIBIDOS CADA DIA (Iker, 2026-09-17). Antes la
+    // linea era el engagement de por vida de los posts PUBLICADOS ese dia: caia
+    // a 0 cualquier dia sin publicar aunque los posts siguieran recibiendo
+    // likes, y por eso subia y bajaba sin sentido. Ahora, para las cuentas
+    // conectadas, es la serie diaria OFICIAL de LinkedIn (tabla
+    // creator_daily_impressions); las manuales, que no tienen pagina que leer,
+    // siguen contando por fecha de publicacion. La suma de 7 dias mira tambien
+    // los 6 dias anteriores al rango para no arrancar artificialmente baja.
+    // Los posts, outliers y lapices siguen saliendo de la fecha de publicacion.
+    const oficialDiaScope = creatorId
+      ? `c.id = $3`
+      : `c.is_managed = TRUE AND c.unipile_account_id IS NOT NULL AND c.is_manual IS NOT TRUE`;
     const dailyQ = await pool.query(
       `WITH day_series AS (
-        SELECT generate_series($1::date, $2::date, '1 day'::interval)::date AS day
+        SELECT generate_series($1::date - 6, $2::date, '1 day'::interval)::date AS day
       ),
       daily_raw AS (
         SELECT
           (p.published_at)::date AS day,
           COUNT(*)::int AS posts,
           COUNT(*) FILTER (WHERE p.is_outlier = TRUE)::int AS outliers,
-          COALESCE(ROUND(SUM(p.engagement_score))::int, 0) AS total_engagement,
-          COALESCE(ROUND(AVG(p.engagement_score))::int, 0) AS avg_engagement,
-          COALESCE(SUM(p.impressions_count), 0)::bigint AS total_impressions
+          COALESCE(ROUND(AVG(p.engagement_score))::int, 0) AS avg_engagement
         FROM posts p
         WHERE p.published_at >= $1 AND p.published_at <= $2 AND ${dailyScope.sql}
         GROUP BY (p.published_at)::date
+      ),
+      manual_raw AS (
+        SELECT
+          (p.published_at)::date AS day,
+          COALESCE(SUM(p.engagement_score), 0)::bigint AS engagement,
+          COALESCE(SUM(p.impressions_count), 0)::bigint AS impressions
+        FROM posts p
+        JOIN creators cm ON cm.id = p.creator_id AND cm.is_manual = TRUE
+        WHERE p.published_at >= ($1::date - 6) AND p.published_at <= $2 AND ${dailyScope.sql}
+        GROUP BY (p.published_at)::date
+      ),
+      oficial_dia AS (
+        SELECT d.day,
+               COALESCE(SUM(d.engagements), 0)::bigint AS engagement,
+               COALESCE(SUM(d.impressions), 0)::bigint AS impressions
+          FROM creator_daily_impressions d
+          JOIN creators c ON c.id = d.creator_id
+         WHERE ${oficialDiaScope}
+           AND c.unipile_account_id IS NOT NULL
+           AND d.day >= ($1::date - 6) AND d.day <= $2::date
+         GROUP BY d.day
       ),
       day_post_arrays AS (
         -- All posts published on each day, agg'd as a JSON array so the
@@ -1396,26 +1427,43 @@ router.get('/analytics', async (req: Request, res: Response) => {
           ds.day,
           COALESCE(dr.posts, 0) AS posts,
           COALESCE(dr.outliers, 0) AS outliers,
-          COALESCE(dr.total_engagement, 0) AS total_engagement,
+          (COALESCE(od.engagement, 0) + COALESCE(mr.engagement, 0))::bigint AS total_engagement,
           COALESCE(dr.avg_engagement, 0) AS avg_engagement,
-          COALESCE(dr.total_impressions, 0) AS total_impressions,
+          (COALESCE(od.impressions, 0) + COALESCE(mr.impressions, 0))::bigint AS total_impressions,
           dpa.day_posts
         FROM day_series ds
         LEFT JOIN daily_raw dr ON dr.day = ds.day
+        LEFT JOIN manual_raw mr ON mr.day = ds.day
+        LEFT JOIN oficial_dia od ON od.day = ds.day
         LEFT JOIN day_post_arrays dpa ON dpa.day = ds.day
+      ),
+      con_rolling AS (
+        SELECT
+          day,
+          posts,
+          outliers,
+          total_engagement,
+          avg_engagement,
+          total_impressions,
+          SUM(total_engagement) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS rolling_sum_7d,
+          SUM(total_impressions) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS rolling_impressions_7d,
+          SUM(posts) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS active_posts_7d,
+          day_posts
+        FROM filled
       )
       SELECT
         day::text AS day,
         posts,
         outliers,
-        total_engagement,
+        total_engagement::int AS total_engagement,
         avg_engagement,
         total_impressions::bigint AS total_impressions,
-        SUM(total_engagement) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)::int AS rolling_sum_7d,
-        SUM(total_impressions) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)::bigint AS rolling_impressions_7d,
-        SUM(posts) OVER (ORDER BY day ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)::int AS active_posts_7d,
+        rolling_sum_7d::int AS rolling_sum_7d,
+        rolling_impressions_7d::bigint AS rolling_impressions_7d,
+        active_posts_7d::int AS active_posts_7d,
         COALESCE(day_posts, '[]'::json) AS day_posts
-      FROM filled
+      FROM con_rolling
+      WHERE day >= $1::date
       ORDER BY day ASC`,
       [currentStartIso, currentEndIso, ...dailyScope.params]
     );

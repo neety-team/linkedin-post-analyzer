@@ -8,7 +8,7 @@ import { runFollowerSync } from './followerSync';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from './premiumAnalytics';
 import { resumirMemesPendientes } from './postImageText';
 import {
-  fetchResumenLinkedIn, guardarResumenLinkedIn, fetchImpresionesDiarias, guardarImpresionesDiarias,
+  fetchResumenLinkedIn, guardarResumenLinkedIn, fetchSeriesDiarias, guardarSeriesDiarias,
 } from './linkedinOverview';
 
 // Phase-based snapshot cadence for LinkedIn posts.
@@ -919,8 +919,8 @@ async function accountSnapshotTick(): Promise<void> {
       try {
         const r = await fetchResumenLinkedIn(unipile_account_id);
         if (r) await guardarResumenLinkedIn(pool, id, r);
-        const serie = await fetchImpresionesDiarias(unipile_account_id);
-        if (serie) await guardarImpresionesDiarias(pool, id, serie);
+        const series = await fetchSeriesDiarias(unipile_account_id);
+        if (series) await guardarSeriesDiarias(pool, id, series);
       } catch (e: any) {
         console.warn(`[accountSnapshot] resumen de LinkedIn fallo para ${id}:`, e?.message);
       }

@@ -1541,7 +1541,7 @@ function AccountsInner() {
               <h3 className="text-lg font-semibold">Engagement over time</h3>
             </div>
             <p className="text-xs text-text-muted mb-3">
-              {`Daily engagement${analytics.totals.total_impressions > 0 ? ' and impressions' : ''} from published posts ${selectedCreator === 'all' ? '— all managed accounts' : '(this account)'}`}
+              {`Engagement and impressions received each day, as a 7-day sum — LinkedIn's own daily figures ${selectedCreator === 'all' ? '(manual accounts: estimated by publication day) — all managed accounts' : '(this account)'}. Pencils mark the days you published.`}
             </p>
             {dailyChartData.length === 0 ? (
               <p className="text-center text-text-muted text-sm py-12">No posts in this range.</p>

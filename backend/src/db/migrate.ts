@@ -1079,6 +1079,8 @@ const migration = `
     captured_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (creator_id, day)
   );
+  -- Engagement diario oficial (misma pagina, serie "Engagements").
+  ALTER TABLE creator_daily_impressions ADD COLUMN IF NOT EXISTS engagements INTEGER;
 
   -- Lecturas periodicas de los contadores de un post DESPUES de su semana de
   -- snapshots (pase semanal + una al empezar cada mes). No se mezclan con

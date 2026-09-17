@@ -1441,6 +1441,11 @@ El único creador de la BD que puso métricas simuladas es **Chris Donnelly, en 
 
 El generador deforma a las personas en cada iteración. **En el prompt el avatar es un círculo magenta liso `FF00FF`, sin foto dentro y sin adjuntarle la foto del jefe.** Cuando el resto está aprobado, Iker pasa el magenta a transparente y `scripts/montar-avatar-tarjeta.py` pega la foto de perfil debajo. Flujo completo en `post-workflow §4.6-AVATAR`. Misma familia que `§0f` (un modelo de imagen no puede pegar) y que la silueta del despiece (`§0a-novena`, huecos en magenta).
 
+### 9.8 · Lo que se arregla FUERA del generador (Iker, 2026-09-17)
+
+- **⛔ El halo claro alrededor de las letras y el ruido del generador NUNCA se piden por prompt.** Iker: *"eso la herramienta de generación nunca lo va a poder arreglar"*. Lo quita el **desenfoque de superficie** de Photoshop, y tras aplicarlo se comprobó en el fichero: el anillo de píxeles alrededor de las letras da 226,8 contra 228 del fondo, sin halo.
+- **Los huecos entre párrafos se MIDEN en el PNG final, de arriba de línea a arriba de línea.** En la primera tarjeta salieron 161 px y 134 px aunque el prompt pedía iguales. Se corrigió bajando la banda del P3 27 px en píxeles (costura de 0,4 niveles, invisible), y de paso el aire de abajo quedó en 69 px contra 70 arriba. `montar-avatar-tarjeta.py` ya imprime estas medidas y avisa si no cuadran.
+
 ### 9.6 · El texto de la tarjeta pasa los mismos filtros que el cuerpo
 
 `§0h-FILTROS` aplica entero: lo que va dentro de la imagen **es copy nuestro**. La cifra de P2 va verificada contra fuente real, se cita el **nombre y nunca el año** (`global §3.5b`), y no se inventa ni una empresa ni una persona.

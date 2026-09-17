@@ -94,6 +94,33 @@ def main() -> int:
     # Sin EXIF ni perfil ni firma: se guarda solo el píxel.
     final.save(a.salida, 'PNG')
 
+    # ESPACIADO, MEDIDO Y NO A OJO (2026-09-17). En la tarjeta de Iker el hueco
+    # P1-P2 medía 161 px de línea a línea y el P2-P3, 134: el generador no los
+    # iguala aunque se le pida. Se mide de ARRIBA de línea a ARRIBA de línea (de
+    # borde de tinta a borde de tinta engaña: un rabo de "q" cambia 15 px) y se
+    # compara el aire de abajo con el de arriba del avatar.
+    gris = np.array(final.convert('L')).astype(int)
+    cnt = (gris[:, :] < 110).sum(1)
+    tramos, ini = [], None
+    for y in range(h['y1'] + 40, gris.shape[0]):
+        if cnt[y] and ini is None:
+            ini = y
+        if not cnt[y] and ini is not None:
+            if y - ini > 15:
+                tramos.append((ini, y - 1))
+            ini = None
+    if tramos:
+        pasos = np.diff([t[0] for t in tramos]).tolist()
+        linea = int(np.median(pasos)) if pasos else 0
+        saltos = [p for p in pasos if p > 1.5 * linea]
+        abajo = gris.shape[0] - 1 - tramos[-1][1]
+        print(f'ESPACIADO: pasos entre líneas {pasos} · huecos entre párrafos {saltos} · '
+              f'aire arriba {h["y0"]} · aire abajo {abajo}')
+        if len(saltos) >= 2 and max(saltos) - min(saltos) > 6:
+            print('AVISO: los huecos entre párrafos NO son iguales. Se corrige bajando el '
+                  'párrafo corto en píxeles (banda entera, el degradado no deja costura), no con '
+                  'otro prompt.')
+
     rel = h['n'] / (ancho * alto)
     print(f'OK: avatar de {ancho}x{alto} en ({h["x0"]},{h["y0"]}), relleno {rel:.0%} del '
           f'recuadro (un círculo da ~79%). Guardado en {a.salida}')

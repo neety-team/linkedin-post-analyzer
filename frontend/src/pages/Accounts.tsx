@@ -170,7 +170,7 @@ const PHASE_META: Record<LivePost['phase'], { label: string; bg: string; text: s
   consolidation: { label: '📈 Consolidation', bg: 'bg-yellow-500/15', text: 'text-yellow-400', window: '6 – 24h',  cadence: 'every 2h',     blurb: 'Se acumula el grueso del alcance. A las 24h suele haber el 60–70% de las impresiones totales.' },
   long_tail:     { label: '📉 Long tail',     bg: 'bg-sky-500/15',    text: 'text-sky-400',    window: '24 – 72h', cadence: 'every 6h',     blurb: 'Long tail fuerte. A 72h ya tienes el 85–90% de las impresiones finales.' },
   tail:          { label: '🐢 Tail',          bg: 'bg-purple-500/15', text: 'text-purple-400', window: '3 – 7d',   cadence: 'every 24h',    blurb: 'Cola residual, sobre todo comentarios y algún reshare.' },
-  closed:        { label: '✅ Closed',        bg: 'bg-bg-secondary',  text: 'text-text-muted', window: '> 7d',     cadence: 'stopped',      blurb: 'Prácticamente muerto salvo virales/evergreen que siguen trayendo impresiones semanas (raro).' },
+  closed:        { label: '✅ Closed',        bg: 'bg-bg-secondary',  text: 'text-text-muted', window: '> 7d',     cadence: 'weekly',       blurb: 'Sin más puntos en la curva, pero los contadores se refrescan cada semana (públicos sin límite de edad, Premium hasta 90 días): un post que resurge se ve.' },
 };
 
 const PHASE_ORDER: LivePost['phase'][] = ['golden', 'first_wave', 'consolidation', 'long_tail', 'tail', 'closed'];
@@ -368,7 +368,10 @@ function ctrPct(post: {
   if (!mostrarClics(post)) return null;
   const imp = post.impressions_count ?? 0;
   if (!imp) return null;
-  return ((post.link_clicks_count ?? 0) / imp) * 100;
+  // Sin dato de clics (analitica Premium aun no leida) no hay CTR: pintar
+  // 0,00% lo hacia pasar por un post que no convierte.
+  if (post.link_clicks_count == null) return null;
+  return (post.link_clicks_count / imp) * 100;
 }
 
 function sinMedicion(post: {
@@ -1103,7 +1106,7 @@ function AccountsInner() {
                 Live posts
               </h3>
               <p className="text-xs text-text-muted">
-                Phase-based tracking for 7 days. Only managed accounts with a Unipile account_id configured are tracked.
+                Phase-based snapshots for 7 days; after that, likes, comments, reposts and impressions refresh weekly with no age limit, and Premium analytics weekly up to 90 days.
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -1453,6 +1456,7 @@ function AccountsInner() {
             creatorId={selectedCreator === 'all' ? null : selectedCreator}
             startDate={dateRange.start}
             endDate={dateRange.end}
+            includeManual={incluirManuales}
             title="Impressions per month"
             subtitle={selectedCreator === 'all'
               ? 'Impressions from posts published each month — all managed accounts'
@@ -1487,6 +1491,7 @@ function AccountsInner() {
             creatorId={selectedCreator === 'all' ? null : selectedCreator}
             startDate={dateRange.start}
             endDate={dateRange.end}
+            includeManual={incluirManuales}
             title="New followers per month"
             subtitle={selectedCreator === 'all'
               ? 'Monthly followers gained — all managed accounts'

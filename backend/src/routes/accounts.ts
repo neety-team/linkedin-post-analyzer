@@ -318,8 +318,10 @@ router.get('/follower-monthly', async (req: Request, res: Response) => {
     const creatorId = (req.query.creator_id as string) || null;
     const range = parseDateRange(req);
 
+    // Mismo interruptor de cuentas manuales que /impressions-monthly.
+    const incluirManual = req.query.include_manual !== 'false';
     const params: any[] = [];
-    let creatorFilter = 'c.is_managed = TRUE';
+    let creatorFilter = incluirManual ? 'c.is_managed = TRUE' : 'c.is_managed = TRUE AND c.is_manual IS NOT TRUE';
     if (creatorId) {
       params.push(creatorId);
       creatorFilter = `s.creator_id = $${params.length}`;
@@ -1274,7 +1276,9 @@ router.get('/analytics', async (req: Request, res: Response) => {
        JOIN creators c ON c.id = p.creator_id
        WHERE p.published_at >= $1 AND p.published_at <= $2 AND ${topScope.sql}
        ORDER BY p.outlier_ratio DESC NULLS LAST, p.engagement_score DESC
-       LIMIT 50`,
+       -- 1000 y no 50 (2026-09-17): la web reordena ESTA lista por impresiones,
+       -- CTR, clics o fecha, y con 50 se quedaban fuera posts del rango sin aviso.
+       LIMIT 1000`,
       [currentStartIso, currentEndIso, ...topScope.params]
     );
 
@@ -1487,7 +1491,9 @@ router.get('/live-posts', async (req: Request, res: Response) => {
        JOIN creators c ON c.id = p.creator_id
        WHERE ${dateFilter}
        ORDER BY p.published_at DESC
-       LIMIT 50`,
+       -- 500 y no 50 (2026-09-17): con rangos de 90/180 dias desaparecian los
+       -- posts mas antiguos del rango sin aviso.
+       LIMIT 500`,
       params
     );
     res.json(rows);

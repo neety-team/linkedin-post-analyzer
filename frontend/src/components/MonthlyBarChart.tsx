@@ -17,6 +17,9 @@ interface Props {
   // hasn't migrated yet.
   startDate?: string;
   endDate?: string;
+  // Interruptor de cuentas manuales de la pagina: sin pasarlo, la barra
+  // sumaba a Mario y Helena aunque estuviera apagado.
+  includeManual?: boolean;
   months?: number;
   title: string;
   subtitle: string;
@@ -98,6 +101,7 @@ export default function MonthlyBarChart({
   creatorId,
   startDate,
   endDate,
+  includeManual = true,
   months = 12,
   title,
   subtitle,
@@ -119,6 +123,7 @@ export default function MonthlyBarChart({
       params.set('months', String(months));
     }
     if (creatorId) params.set('creator_id', creatorId);
+    if (!includeManual) params.set('include_manual', 'false');
     fetch(`${BASE}${endpoint}?${params.toString()}`)
       .then((r) => r.json())
       .then((data) => {
@@ -132,7 +137,7 @@ export default function MonthlyBarChart({
         if (!cancelled) setLoading(false);
       });
     return () => { cancelled = true; };
-  }, [endpoint, creatorId, startDate, endDate, months]);
+  }, [endpoint, creatorId, startDate, endDate, months, includeManual]);
 
   const chartData = useMemo(
     () => (points || []).map((p) => ({

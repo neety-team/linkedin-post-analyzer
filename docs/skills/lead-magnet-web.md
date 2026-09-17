@@ -306,6 +306,10 @@ CÓMO QUIERO QUE TRABAJES (antes de escribir una línea de copy)
 
 6. NO ME DIGAS QUE ESTÁ TERMINADO SIN PASAR LA CHECKLIST del playbook §19 (18
    puntos). Pégamela con el resultado de cada uno.
+
+7. Y PÉGAME LA SALIDA DE `node tools/qa-formato.cjs <puerto> <slug>`: tiene que
+   decir "formateado en norma". Vale igual si el recurso es nuevo o si solo lo
+   has adaptado. data-qa-libre solo en bloques que imitan un texto real.
 ```
 
 > **⭐ DE DÓNDE SALE EL PUNTO 2b (Iker, 2026-08-14, revisando `/criba/` ya construida).** Al briefing le faltaban **dos reglas medibles**, y las dos las descubrió él a mano después: **coherencia de bloques repetidos** (que los bloques gemelos rendericen las mismas líneas) y **ocupación** (que no quede columna fantasma). Son de la misma familia que el *"mide, no estimes"* del §4c: **una regla sin su número se incumple**, así que el briefing fija presupuesto de caracteres y de líneas en vez de dejar la longitud libre.

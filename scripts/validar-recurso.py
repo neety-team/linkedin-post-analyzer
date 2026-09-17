@@ -99,8 +99,21 @@ def main():
         fallos.append('La guia no lleva <meta name="robots" content="noindex">: '
                       'Google puede indexarla y el gate no sirve (playbook §14).')
 
+    # ── 6. ocupacion: sin tope de lectura heredado en el texto ──────────────
+    # lead-magnet-web §5 punto 2b: ancho completo o tope, pero igual en todo el
+    # documento, y la casa eligio ancho completo. El 17/09 /perfil/ se regalo
+    # con `.container p { max-width: 720px }` de su version vieja: 59 de 69
+    # parrafos se quedaban en una columna estrecha. Las maquetas que imitan una
+    # interfaz SI van topadas, pero centradas (margin auto).
+    topes = re.findall(r'\.container\s+p\s*\{\s*max-width:\s*(\d+)px', html)
+    if topes:
+        fallos.append('Tope de lectura heredado en el texto (.container p max-width %spx): '
+                      'los parrafos van a ancho completo (lead-magnet-web §5 2b).' % topes[0])
+    for m in re.finditer(r'\.li-mockup\s*\{\s*max-width:\s*\d+px;?\s*\}', html):
+        avisos.append('Maqueta topada sin centrar (%s): anade margin-left/right auto.' % m.group(0))
+
     # ── salida ──────────────────────────────────────────────────────────────
-    total = 5
+    total = 6
     print('Recurso: %s' % a.fichero)
     print('  secciones numeradas: %d (promesa: %d)' % (len(reales), a.promete))
     print('  datos: %d  ·  fuentes: %d' % (datos, fuentes))

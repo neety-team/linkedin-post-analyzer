@@ -382,6 +382,96 @@ function sinMedicion(post: {
   return tieneEnlaceEnCuerpo(post.content_text) && post.link_clicks_count === 0 && !post.link_url;
 }
 
+/* ⭐ FRANJA PREMIUM, UNA SOLA PARA LIVE POSTS Y TOP POSTS (Iker, 2026-09-17).
+   Antes cada tarjeta tenia su copia y los ceros se escondian: un post recien
+   publicado con 0 guardados no enseñaba nada y parecia que no se medía.
+   Reglas:
+   - Guardados, envios, seguidores y visitas se enseñan SIEMPRE que LinkedIn
+     haya dado la analitica (0 incluido). Si nunca se ha leido: "Premium sin leer".
+   - El icono del enlace sale SIEMPRE, con cuatro estados:
+       sin enlace en el post            → "sin enlace"
+       enlace, clics aun sin leer       → "—"
+       enlace, LinkedIn no da la fila   → "sin datos de LinkedIn"
+       enlace y dato                    → la cifra (0 incluido), en ambar. */
+type PostPremium = {
+  content_text: string | null;
+  saves_count?: number | null;
+  sends_count?: number | null;
+  profile_viewers_count?: number | null;
+  followers_gained_count?: number | null;
+  link_clicks_count?: number | null;
+  link_url?: string | null;
+};
+
+function FranjaPremium({ post }: { post: PostPremium }) {
+  const leida = [post.saves_count, post.sends_count, post.profile_viewers_count, post.followers_gained_count]
+    .some((v) => v != null);
+  const conEnlace = mostrarClics(post) || !!post.link_url;
+  const sep = <span className="text-text-muted/40 select-none">·</span>;
+
+  let enlace: React.ReactNode;
+  if (!conEnlace) {
+    enlace = (
+      <span className="inline-flex items-center gap-1 text-text-muted/70" title="Este post no lleva enlace: no hay clics que medir">
+        <MetricIcon d={ICON_LINK} /> <span className="text-[10px]">sin enlace</span>
+      </span>
+    );
+  } else if (post.link_clicks_count == null) {
+    enlace = (
+      <span className="inline-flex items-center gap-1 text-text-muted" title="El post lleva enlace, pero la analitica de LinkedIn aun no se ha leido">
+        <MetricIcon d={ICON_LINK} /> —
+      </span>
+    );
+  } else if (sinMedicion(post)) {
+    enlace = (
+      <span
+        className="inline-flex items-center gap-1 text-text-muted"
+        title="El post lleva enlace, pero LinkedIn no lo registra en la analitica del post (no aparece su URL). Ese 0 no es que nadie pinche: LinkedIn no da el dato."
+      >
+        <MetricIcon d={ICON_LINK} /> <span className="text-[10px]">sin datos de LinkedIn</span>
+      </span>
+    );
+  } else {
+    enlace = (
+      <span className="inline-flex items-center gap-1 font-medium text-amber-400" title={`Clics al enlace${post.link_url ? ` → ${post.link_url}` : ''}`}>
+        <MetricIcon d={ICON_LINK} /> {fmtNum(post.link_clicks_count)}
+      </span>
+    );
+  }
+
+  return (
+    <>
+      {sep}
+      {leida ? (
+        <>
+          <span className="inline-flex items-center gap-1" title="Guardados. Cuesta mas que un like y nadie guarda por compromiso.">
+            <MetricIcon d={ICON_SAVE} /> {fmtNum(post.saves_count ?? 0)}
+          </span>
+          <span className="inline-flex items-center gap-1" title="Enviados por privado a otra persona">
+            <MetricIcon d={ICON_SEND} /> {fmtNum(post.sends_count ?? 0)}
+          </span>
+        </>
+      ) : (
+        <span className="text-[10px] text-text-muted/70" title="La analitica Premium de este post aun no se ha podido leer">
+          Premium sin leer
+        </span>
+      )}
+      {enlace}
+      {leida && (
+        <>
+          {sep}
+          <span className="text-emerald-400/80" title="Seguidores ganados con este post (LinkedIn Premium)">
+            +{fmtNum(post.followers_gained_count ?? 0)} seguidores
+          </span>
+          <span className="text-emerald-400" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
+            {fmtNum(post.profile_viewers_count ?? 0)} visitas perfil
+          </span>
+        </>
+      )}
+    </>
+  );
+}
+
 // Compacto (K/M), SOLO para ejes y etiquetas de barra de gráficas, donde una
 // cifra entera repetida en cada tick amontona el eje. Añade M para millones
 // (antes solo hacía K, y 2 millones salían como "2036.3K", ilegible).
@@ -2453,57 +2543,8 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
             )}
 
             {/* LinkedIn Premium: lo mas parecido a "esto trajo negocio" que
-                tenemos. Solo se pintan si hay dato, para no ensuciar los posts
-                antiguos que nunca llegaron a tenerlo. */}
-            {(!!post.saves_count || !!post.sends_count || mostrarClics(post)) && (
-              <span className="text-text-muted/40 select-none">·</span>
-            )}
-            {!!post.saves_count && (
-              <span className="inline-flex items-center gap-1" title="Guardados. Cuesta mas que un like y nadie guarda por compromiso.">
-                <MetricIcon d={ICON_SAVE} /> {fmtNum(post.saves_count)}
-              </span>
-            )}
-            {!!post.sends_count && (
-              <span className="inline-flex items-center gap-1" title="Enviados por privado a otra persona">
-                <MetricIcon d={ICON_SEND} /> {fmtNum(post.sends_count)}
-              </span>
-            )}
-            {/* El numero que justifica todo esto: sin el, un lead magnet solo se
-                podia juzgar por comentarios, que miden ruido y no intencion.
-                Va resaltado y con la URL en el tooltip. Se enseña SIEMPRE que el
-                post lleve enlace, aunque sea 0 (ver mostrarClics). */}
-            {mostrarClics(post) && (
-              <span
-                className={`inline-flex items-center gap-1 font-medium ${
-                  sinMedicion(post) ? 'text-text-muted' : 'text-amber-400'
-                }`}
-                title={
-                  sinMedicion(post)
-                    ? 'LinkedIn no ha registrado este enlace en la analitica del post (no aparece su URL), asi que este 0 no quiere decir que nadie pinche: es que no lo esta midiendo'
-                    : post.link_clicks_count != null
-                      ? `Clics al enlace${post.link_url ? ` → ${post.link_url}` : ''}`
-                      : 'El post lleva enlace, pero LinkedIn aún no ha dado los clics'
-                }
-              >
-                <MetricIcon d={ICON_LINK} />{' '}
-                {post.link_clicks_count != null ? fmtNum(post.link_clicks_count) : '—'}
-                {sinMedicion(post) && <span className="text-[10px]">sin medir</span>}
-              </span>
-            )}
-
-            {(!!post.followers_gained_count || !!post.profile_viewers_count) && (
-              <span className="text-text-muted/40 select-none">·</span>
-            )}
-            {!!post.followers_gained_count && (
-              <span className="text-emerald-400/80" title="Seguidores ganados con este post (LinkedIn Premium)">
-                +{fmtNum(post.followers_gained_count)} seguidores
-              </span>
-            )}
-            {!!post.profile_viewers_count && (
-              <span className="text-emerald-400" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
-                {fmtNum(post.profile_viewers_count)} visitas perfil
-              </span>
-            )}
+                tenemos. Ver FranjaPremium para los estados. */}
+            <FranjaPremium post={post} />
             <button
               onClick={handleRefresh}
               disabled={refreshing}
@@ -2669,51 +2710,7 @@ function TopPostRow(
               </span>
             )}
 
-            {(!!post.saves_count || !!post.sends_count || mostrarClics(post)) && (
-              <span className="text-text-muted/40 select-none">·</span>
-            )}
-            {!!post.saves_count && (
-              <span className="inline-flex items-center gap-1" title="Guardados. Cuesta mas que un like y nadie guarda por compromiso.">
-                <MetricIcon d={ICON_SAVE} /> {fmtNum(post.saves_count)}
-              </span>
-            )}
-            {!!post.sends_count && (
-              <span className="inline-flex items-center gap-1" title="Enviados por privado a otra persona">
-                <MetricIcon d={ICON_SEND} /> {fmtNum(post.sends_count)}
-              </span>
-            )}
-            {mostrarClics(post) && (
-              <span
-                className={`inline-flex items-center gap-1 font-medium ${
-                  sinMedicion(post) ? 'text-text-muted' : 'text-amber-400'
-                }`}
-                title={
-                  sinMedicion(post)
-                    ? 'LinkedIn no ha registrado este enlace en la analitica del post (no aparece su URL), asi que este 0 no quiere decir que nadie pinche: es que no lo esta midiendo'
-                    : post.link_clicks_count != null
-                      ? `Clics al enlace${post.link_url ? ` → ${post.link_url}` : ''}`
-                      : 'El post lleva enlace, pero LinkedIn aún no ha dado los clics'
-                }
-              >
-                <MetricIcon d={ICON_LINK} />{' '}
-                {post.link_clicks_count != null ? fmtNum(post.link_clicks_count) : '—'}
-                {sinMedicion(post) && <span className="text-[10px]">sin medir</span>}
-              </span>
-            )}
-
-            {(!!post.followers_gained_count || !!post.profile_viewers_count) && (
-              <span className="text-text-muted/40 select-none">·</span>
-            )}
-            {!!post.followers_gained_count && (
-              <span className="text-emerald-400/80" title="Seguidores ganados con este post (LinkedIn Premium)">
-                +{fmtNum(post.followers_gained_count)} seguidores
-              </span>
-            )}
-            {!!post.profile_viewers_count && (
-              <span className="text-emerald-400" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
-                {fmtNum(post.profile_viewers_count)} visitas perfil
-              </span>
-            )}
+            <FranjaPremium post={post} />
 
             <span className="ml-auto flex items-center gap-3">
               {post.published_at && (

@@ -62,14 +62,7 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
               c.id AS creator_id, c.linkedin_id, c.unipile_account_id, c.is_manual,
               (SELECT MAX(s.captured_at) FROM post_snapshots s WHERE s.post_id = p.id) AS last_snapshot_at,
               p.premium_analytics_at,
-              p.likes_count, p.comments_count, p.reposts_count, p.impressions_count,
-              -- La analitica Premium se pide de una en una, asi que va racionada
-              -- (ver el bloque de analytics mas abajo). Se re-pide cada 6h en vez
-              -- de una sola vez porque los clics al enlace SIGUEN SUBIENDO
-              -- mientras el post vive: capturarlos una vez daria una foto de la
-              -- primera hora, no el total.
-              (p.premium_analytics_at IS NULL
-               OR p.premium_analytics_at < NOW() - INTERVAL '6 hours') AS needs_analytics
+              p.likes_count, p.comments_count, p.reposts_count, p.impressions_count
        FROM posts p
        JOIN creators c ON c.id = p.creator_id
        WHERE c.is_managed = TRUE
@@ -103,7 +96,7 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
     // y la herramienta seguia con 2, los de su primera hora. Mientras el feed
     // venia vacio no se pidio nunca, y cuando falla una vez el reintento esperaba
     // al siguiente snapshot (2h, 6h o 24h segun la fase). Ahora corre en cada
-    // vuelta para el que lleve 6h sin mirarse, con o sin snapshot pendiente.
+    // vuelta, con su propia cadencia por edad (ver refrescarAnaliticaPostsRecientes).
     try {
       await refrescarAnaliticaPostsRecientes(candidates);
     } catch (e: any) {
@@ -299,19 +292,13 @@ const ANALYTICS_RECENT_PER_TICK = 6;
 // (`/backfill-premium-analytics`) ya documento que sin pausa LinkedIn corta y
 // devuelve paginas vacias; el tick las encadenaba sin ninguna.
 const ANALYTICS_PAUSE_MS = 1500;
-// Si la pagina no se puede leer (rate limit, post borrado), se reintenta en
-// 3 horas: antes que las 6 normales, pero sin machacar cada hora un post que
-// ya no existe (el Los 10 borrado de Unai gastaba 24 llamadas al dia).
-const ANALYTICS_RETRY_HOURS = 3;
 const pausa = () => new Promise((r) => setTimeout(r, ANALYTICS_PAUSE_MS));
 
+// Un intento fallido cuenta como lectura: se reintenta en el siguiente
+// intervalo de su fase (30 min a 24h), no en cada vuelta. Un post borrado de
+// 2 dias gasta asi 4 llamadas al dia, no 96.
 const reintentarAnaliticaReciente = (id: string) =>
-  pool.query(
-    `UPDATE posts
-        SET premium_analytics_at = NOW() - INTERVAL '6 hours' + ($2 || ' hours')::interval
-      WHERE id = $1`,
-    [id, String(ANALYTICS_RETRY_HOURS)]
-  );
+  pool.query(`UPDATE posts SET premium_analytics_at = NOW() WHERE id = $1`, [id]);
 const reintentarAnaliticaVieja = (id: string) =>
   pool.query(
     `UPDATE posts SET premium_analytics_at = NOW() - INTERVAL '6 days' WHERE id = $1`,
@@ -319,8 +306,21 @@ const reintentarAnaliticaVieja = (id: string) =>
   );
 
 async function refrescarAnaliticaPostsRecientes(candidates: any[]): Promise<number> {
+  // CADENCIA POR EDAD (Iker, 2026-09-17, segunda vuelta). Con 6h fijas, un post
+  // se leia al publicarse (0 guardados) y no otra vez hasta 6h despues: el lead
+  // magnet de Asier llevaba 3 guardados y 8 envios en LinkedIn y aqui 0. Ahora
+  // sigue las fases de los snapshots con un suelo de 30 min: 30 min las
+  // primeras 6h, luego 2h, 6h y 24h (~33 lecturas por post en su semana).
+  const ahora = Date.now();
+  const toca = (c: any) => {
+    const intervalo = requiredIntervalMs(ahora - new Date(c.published_at).getTime());
+    if (intervalo == null) return false;
+    if (!c.premium_analytics_at) return true;
+    const desde = ahora - new Date(c.premium_analytics_at).getTime();
+    return desde >= Math.max(intervalo, 30 * 60 * 1000) - DUE_TOLERANCE_MS;
+  };
   const pendientes = candidates
-    .filter((c) => c.needs_analytics && !c.is_manual && c.unipile_account_id && c.linkedin_post_id)
+    .filter((c) => toca(c) && !c.is_manual && c.unipile_account_id && c.linkedin_post_id)
     // El que lleva mas tiempo sin mirarse primero; los nunca mirados, delante.
     .sort((a, b) =>
       (a.premium_analytics_at ? new Date(a.premium_analytics_at).getTime() : 0) -

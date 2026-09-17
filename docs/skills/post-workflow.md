@@ -3169,6 +3169,7 @@ La tarjeta simula X, así que la cabecera son **dos líneas**: nombre exacto con
 3. **Iker aplica el desenfoque, pasa el magenta a TRANSPARENTE, exporta en PNG sin metadatos** y me pasa el fichero.
 4. **Lo monto yo:** `python scripts/montar-avatar-tarjeta.py --tarjeta <png con hueco> --foto <foto de perfil> --salida <final.png>`. Detecta el hueco solo, encuadra la foto hacia la cara (YuNet, el mismo detector que la orla) y la pone DEBAJO de la tarjeta, así que la máscara es el círculo que dibujó el generador. **La imagen final se enseña en el chat** y **no lleva aviso de postproducción** después del montaje: el desenfoque ya se aplicó en el paso 3 y lo que pega el script es una foto real.
 - La foto de perfil se baja de Unipile (`profile_picture_url_large`, 800x800), no del banco de fotos: es la del perfil de LinkedIn, la que reconoce quien la ve.
+- **📁 Todo el material de este pilar va a `C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\TARJETAS\` (Iker, 2026-09-17)**, nunca al Escritorio. La imagen final se nombra **por la tarjeta, no por la fecha**: `tarjeta <idea en dos o tres palabras>.png` (la primera es `tarjeta traeme problemas.png`). Ahí viven también los avatares ya bajados (`avatar iker perfil.jpg`), que se reutilizan, y las referencias (`referencia <autor> <idea>.jpg`).
 - **El aviso `⚠️ AVISO, MARIO:` va debajo del prompt**, porque el desenfoque se aplica al paso 3, antes de hacer el hueco.
 ---
 

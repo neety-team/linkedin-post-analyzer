@@ -827,7 +827,47 @@ router.get('/profile-view-history', async (req: Request, res: Response) => {
       out.push({ day: key, views: dayBuckets.get(key) || 0 });
     }
 
-    res.json({ points: out });
+    // CIFRA OFICIAL "Profile viewers in 90 days" (resumen de LinkedIn), un
+    // valor por dia, sumando las cuentas conectadas del ambito. Solo los dias en
+    // que TODAS tienen lectura: si falta una, la suma bajaria sin motivo. Es la
+    // unica serie de visitas que LinkedIn da; se guarda desde el 17/09/2026.
+    const ambitoOficial = creatorId
+      ? `c.id = $3`
+      : `c.is_managed = TRUE AND c.unipile_account_id IS NOT NULL AND c.is_manual IS NOT TRUE`;
+    const oficialParams: any[] = [range.startDate, range.endDate];
+    if (creatorId) oficialParams.push(creatorId);
+    const { rows: oficial } = await pool.query(
+      `SELECT o.captured_on::text AS day, SUM(o.profile_viewers_90d)::int AS viewers_90d
+         FROM creator_linkedin_overview o
+         JOIN creators c ON c.id = o.creator_id
+        WHERE ${ambitoOficial}
+          AND c.unipile_account_id IS NOT NULL
+          AND o.profile_viewers_90d IS NOT NULL
+          AND o.captured_on >= $1::date AND o.captured_on <= $2::date
+        GROUP BY o.captured_on
+       HAVING COUNT(*) = (SELECT COUNT(*) FROM creators c
+                           WHERE ${ambitoOficial} AND c.unipile_account_id IS NOT NULL)
+        ORDER BY o.captured_on`,
+      oficialParams
+    );
+    const { rows: ultima } = await pool.query(
+      `SELECT COALESCE(SUM(o.profile_viewers_90d), 0)::int AS viewers_90d, COUNT(o.creator_id)::int AS cuentas
+         FROM creators c
+         JOIN LATERAL (
+           SELECT profile_viewers_90d, creator_id FROM creator_linkedin_overview x
+            WHERE x.creator_id = c.id AND x.profile_viewers_90d IS NOT NULL
+            ORDER BY x.captured_on DESC LIMIT 1
+         ) o ON TRUE
+        WHERE ${creatorId ? 'c.id = $1' : 'c.is_managed = TRUE AND c.is_manual IS NOT TRUE'}
+          AND c.unipile_account_id IS NOT NULL`,
+      creatorId ? [creatorId] : []
+    );
+
+    res.json({
+      points: out,
+      oficial,
+      oficial_actual: ultima[0]?.cuentas > 0 ? ultima[0].viewers_90d : null,
+    });
   } catch (err: any) {
     console.error('[accounts/profile-view-history]', err);
     res.status(500).json({ error: err.message });

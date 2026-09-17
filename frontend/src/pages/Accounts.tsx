@@ -257,6 +257,7 @@ interface Analytics {
     cuentas: number;
     captured_at: string;
   } | null;
+  periodo_previo?: { engagement: number; impressions: number } | null;
   daily: DailyRow[];
   format_mix: FormatRow[];
   top_posts: TopPost[];
@@ -1541,7 +1542,7 @@ function AccountsInner() {
               <h3 className="text-lg font-semibold">Engagement over time</h3>
             </div>
             <p className="text-xs text-text-muted mb-3">
-              {`Engagement and impressions received each day, as a 7-day sum — LinkedIn's own daily figures ${selectedCreator === 'all' ? '(manual accounts: estimated by publication day) — all managed accounts' : '(this account)'}. Pencils mark the days you published.`}
+              {`Impressions and engagements received in the range, like LinkedIn's Content analytics — LinkedIn's own daily figures ${selectedCreator === 'all' ? '(manual accounts: estimated by publication day) — all managed accounts' : '(this account)'}. Pencils mark the days you published.`}
             </p>
             {dailyChartData.length === 0 ? (
               <p className="text-center text-text-muted text-sm py-12">No posts in this range.</p>
@@ -1549,6 +1550,7 @@ function AccountsInner() {
               <AccountsEngagementChart
                 data={dailyChartData}
                 hasImpressions={analytics.totals.total_impressions > 0}
+                previo={analytics.periodo_previo ?? null}
                 xTickInterval={xTickInterval}
                 creatorOrder={(accounts || [])
                   .slice()

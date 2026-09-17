@@ -1468,6 +1468,32 @@ router.get('/analytics', async (req: Request, res: Response) => {
       [currentStartIso, currentEndIso, ...dailyScope.params]
     );
 
+    // Total del PERIODO ANTERIOR con la misma fuente que la grafica (serie
+    // oficial de LinkedIn para las conectadas + manuales por fecha de
+    // publicacion): es el "vs prior N days" que enseña LinkedIn.
+    const previoQ = await pool.query(
+      `SELECT
+         (SELECT COALESCE(SUM(d.engagements), 0) FROM creator_daily_impressions d
+            JOIN creators c ON c.id = d.creator_id
+           WHERE ${oficialDiaScope} AND c.unipile_account_id IS NOT NULL
+             AND d.day >= $1::date AND d.day < $2::date)
+         + (SELECT COALESCE(SUM(p.engagement_score), 0) FROM posts p
+            JOIN creators cm ON cm.id = p.creator_id AND cm.is_manual = TRUE
+           WHERE p.published_at >= $1 AND p.published_at < $2 AND ${dailyScope.sql}) AS engagement,
+         (SELECT COALESCE(SUM(d.impressions), 0) FROM creator_daily_impressions d
+            JOIN creators c ON c.id = d.creator_id
+           WHERE ${oficialDiaScope} AND c.unipile_account_id IS NOT NULL
+             AND d.day >= $1::date AND d.day < $2::date)
+         + (SELECT COALESCE(SUM(p.impressions_count), 0) FROM posts p
+            JOIN creators cm ON cm.id = p.creator_id AND cm.is_manual = TRUE
+           WHERE p.published_at >= $1 AND p.published_at < $2 AND ${dailyScope.sql}) AS impressions`,
+      [previousStartIso, currentStartIso, ...dailyScope.params]
+    );
+    const periodoPrevio = {
+      engagement: Number(previoQ.rows[0]?.engagement || 0),
+      impressions: Number(previoQ.rows[0]?.impressions || 0),
+    };
+
     // Content type mix with avg engagement per type
     const formatScope = scope(3);
     const formatQ = await pool.query(
@@ -1643,6 +1669,7 @@ router.get('/analytics', async (req: Request, res: Response) => {
       end_date: range.endDate,
       creator_id: creatorId,
       linkedin_oficial: linkedinOficial,
+      periodo_previo: periodoPrevio,
       totals: {
         ...totalsQ.rows[0],
         followers_gained: followersGained,

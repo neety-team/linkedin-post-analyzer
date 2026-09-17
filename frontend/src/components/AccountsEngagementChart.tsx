@@ -3,6 +3,17 @@ import {
   ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 
+/* ⭐ COMO LA GRAFICA DE LINKEDIN (Iker, 2026-09-17). Antes pintaba a la vez el
+   engagement y las impresiones de los posts PUBLICADOS cada dia (sumados a 7
+   dias, dos ejes), y subia y bajaba sin que se entendiera por que. Ahora copia
+   Content analytics de LinkedIn: una metrica cada vez (Impressions /
+   Engagements), en Cumulative o Daily, con el total del periodo en grande y la
+   variacion contra el periodo anterior. Los datos son los RECIBIDOS cada dia
+   (serie oficial de LinkedIn para las cuentas conectadas). Los lapices siguen
+   marcando los dias en que se publico. */
+type Metrica = 'impressions' | 'engagements';
+type Modo = 'cumulative' | 'daily';
+
 export interface DayPost {
   id: string;
   preview: string | null;
@@ -41,6 +52,8 @@ export interface DailyPoint {
 interface Props {
   data: DailyPoint[];
   hasImpressions: boolean;
+  // Total del periodo anterior de igual duracion, misma fuente que `data`.
+  previo?: { engagement: number; impressions: number } | null;
   xTickInterval: number;
   // Managed-account creator ids in the canonical display order (by onboarding
   // date), so the pencil rows read Iker → Unai → Asier instead of alphabetical.
@@ -101,9 +114,17 @@ function PencilIcon({ size = 14, color = '#ffffff' }: { size?: number; color?: s
 }
 
 function fmtNum(n: number): string {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1000) return `${(n / 1000).toFixed(1)}K`;
   return n.toString();
 }
+
+function fmtFull(n: number): string {
+  return Math.round(n).toLocaleString('es-ES');
+}
+
+const COLOR_IMP = '#38bdf8';
+const COLOR_ENG = '#e8935a';
 
 function fmtFullDay(iso: string): string {
   const d = new Date(iso);
@@ -112,18 +133,14 @@ function fmtFullDay(iso: string): string {
   });
 }
 
-// In-chart tooltip for hovering the line/area. Rendered THROUGH Recharts
-// (content prop) so Recharts owns its positioning and keeps it on-screen
-// — the previous onMouseMove-driven DOM tooltip never reliably fired for
-// line hovers. Values only (no top-post preview / link): the rich
-// pencil-driven tooltip still covers that.
-function PointTooltip({ active, payload, hasImpressions }: any) {
+function PointTooltip({ active, payload, metrica, modo }: any) {
   if (!active || !payload || !payload.length) return null;
   const d = payload[0]?.payload;
   if (!d) return null;
   const heading = d.posts > 0
     ? `${fmtFullDay(d.day)} · ${d.posts} post${d.posts > 1 ? 's' : ''}`
-    : `${fmtFullDay(d.day)} · no post`;
+    : fmtFullDay(d.day);
+  const nombre = metrica === 'impressions' ? 'Impressions' : 'Engagements';
   return (
     <div
       style={{
@@ -138,32 +155,13 @@ function PointTooltip({ active, payload, hasImpressions }: any) {
       }}
     >
       <div style={{ fontWeight: 600, marginBottom: 6 }}>{heading}</div>
-
       <MetricRow
-        swatch="#e8935a"
-        label="Engagement (7d)"
-        value={fmtNum(d.rolling)}
+        swatch={metrica === 'impressions' ? COLOR_IMP : COLOR_ENG}
+        label={modo === 'cumulative' ? `${nombre} so far` : nombre}
+        value={fmtFull(d.valor)}
         valueColor="#e8eaf0"
-        sub={d.raw > 0 ? `${fmtNum(d.raw)} that day` : null}
+        sub={modo === 'cumulative' ? `${fmtFull(d.delDia)} that day` : null}
       />
-
-      {hasImpressions && (
-        <div style={{ marginTop: 6 }}>
-          <MetricRow
-            swatch="#38bdf8"
-            label="Impressions (7d)"
-            value={fmtNum(d.rollingImpressions)}
-            valueColor="#bae6fd"
-            sub={d.rawImpressions > 0 ? `${fmtNum(d.rawImpressions)} that day` : null}
-          />
-        </div>
-      )}
-
-      {d.activePosts > 0 && (
-        <div style={{ color: '#94a3b8', fontSize: 11, marginTop: 6 }}>
-          {d.activePosts} post{d.activePosts > 1 ? 's' : ''} active in 7-day window
-        </div>
-      )}
     </div>
   );
 }
@@ -190,8 +188,10 @@ function MetricRow({
   );
 }
 
-export default function AccountsEngagementChart({ data, hasImpressions, xTickInterval, creatorOrder }: Props) {
+export default function AccountsEngagementChart({ data, hasImpressions, previo, xTickInterval, creatorOrder }: Props) {
   const [hover, setHover] = useState<HoverState | null>(null);
+  const [metrica, setMetrica] = useState<Metrica>(hasImpressions ? 'impressions' : 'engagements');
+  const [modo, setModo] = useState<Modo>('cumulative');
   const wrapperRef = useRef<HTMLDivElement>(null);
   const chartBoxRef = useRef<HTMLDivElement>(null);
   const clearTimerRef = useRef<number | null>(null);
@@ -207,8 +207,21 @@ export default function AccountsEngagementChart({ data, hasImpressions, xTickInt
     clearTimerRef.current = window.setTimeout(() => setHover(null), 150);
   };
 
-  const filteredData = data;
   const effectiveTickInterval = xTickInterval;
+  let acumulado = 0;
+  const filteredData = data.map((d) => {
+    const delDia = metrica === 'impressions' ? d.rawImpressions : d.raw;
+    acumulado += delDia;
+    return { ...d, delDia, valor: modo === 'cumulative' ? acumulado : delDia };
+  });
+  const total = acumulado;
+  const totalPrevio = previo ? (metrica === 'impressions' ? previo.impressions : previo.engagement) : 0;
+  const variacion = totalPrevio > 0 ? ((total - totalPrevio) / totalPrevio) * 100 : null;
+  const color = metrica === 'impressions' ? COLOR_IMP : COLOR_ENG;
+  const boton = (activo: boolean) =>
+    `px-2.5 py-1 rounded-full border text-xs transition-colors ${
+      activo ? 'border-accent text-accent bg-accent/10' : 'border-border text-text-muted hover:text-text-secondary'
+    }`;
 
   // Compute the stable ordering of creators that have at least one post
   // in the visible range. Primary order = the canonical onboarding order
@@ -241,6 +254,36 @@ export default function AccountsEngagementChart({ data, hasImpressions, xTickInt
 
   return (
     <div ref={wrapperRef} style={{ position: 'relative' }}>
+      <div className="flex items-center gap-2 flex-wrap mb-3">
+        <div className="flex gap-1">
+          {hasImpressions && (
+            <button className={boton(metrica === 'impressions')} onClick={() => setMetrica('impressions')}>
+              Impressions
+            </button>
+          )}
+          <button className={boton(metrica === 'engagements')} onClick={() => setMetrica('engagements')}>
+            Engagements
+          </button>
+        </div>
+        <div className="flex gap-1">
+          <button className={boton(modo === 'cumulative')} onClick={() => setModo('cumulative')}>
+            Cumulative
+          </button>
+          <button className={boton(modo === 'daily')} onClick={() => setModo('daily')}>
+            Daily
+          </button>
+        </div>
+      </div>
+      <div className="mb-3 flex items-baseline gap-2 flex-wrap">
+        <span className="text-2xl font-bold text-text-primary tabular-nums">{fmtFull(total)}</span>
+        <span className="text-sm text-text-muted">{metrica === 'impressions' ? 'Impressions' : 'Engagements'}</span>
+        {variacion != null && (
+          <span className={`text-xs font-medium ${variacion >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+            {variacion >= 0 ? '▲' : '▼'} {Math.abs(variacion).toLocaleString('es-ES', { maximumFractionDigits: 0 })}%
+            <span className="text-text-muted font-normal"> vs. prior {data.length} days</span>
+          </span>
+        )}
+      </div>
       <div ref={chartBoxRef}>
       <ResponsiveContainer width="100%" height={CHART_HEIGHT}>
         <ComposedChart
@@ -248,13 +291,9 @@ export default function AccountsEngagementChart({ data, hasImpressions, xTickInt
           margin={CHART_MARGIN}
         >
           <defs>
-            <linearGradient id="rollingFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#e8935a" stopOpacity={0.35} />
-              <stop offset="100%" stopColor="#e8935a" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="impressionsFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.18} />
-              <stop offset="100%" stopColor="#38bdf8" stopOpacity={0} />
+            <linearGradient id="serieFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={color} stopOpacity={0.3} />
+              <stop offset="100%" stopColor={color} stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#2e3348" />
@@ -269,65 +308,32 @@ export default function AccountsEngagementChart({ data, hasImpressions, xTickInt
             width={Y_AXIS_WIDTH}
             tick={{ fill: '#9ca3af', fontSize: 11 }}
             axisLine={{ stroke: '#2e3348' }}
+            tickFormatter={(v) => fmtNum(Number(v))}
           />
-          {hasImpressions && (
-            <YAxis
-              yAxisId="right"
-              orientation="right"
-              width={Y_AXIS_WIDTH}
-              tick={{ fill: '#7dd3fc', fontSize: 11 }}
-              axisLine={{ stroke: '#2e3348' }}
-              tickFormatter={(v) => fmtNum(Number(v))}
-            />
-          )}
           <Tooltip
-            cursor={{ stroke: '#e8935a', strokeOpacity: 0.3, strokeWidth: 1 }}
-            content={<PointTooltip hasImpressions={hasImpressions} />}
+            cursor={{ stroke: color, strokeOpacity: 0.3, strokeWidth: 1 }}
+            content={<PointTooltip metrica={metrica} modo={modo} />}
             wrapperStyle={{ zIndex: 60, outline: 'none' }}
           />
           <Area
             yAxisId="left"
             type="monotone"
-            dataKey="rolling"
+            dataKey="valor"
             stroke="none"
-            fill="url(#rollingFill)"
+            fill="url(#serieFill)"
             isAnimationActive={false}
           />
-          {hasImpressions && (
-            <Area
-              yAxisId="right"
-              type="monotone"
-              dataKey="rollingImpressions"
-              stroke="none"
-              fill="url(#impressionsFill)"
-              isAnimationActive={false}
-            />
-          )}
           <Line
             yAxisId="left"
             type="monotone"
-            dataKey="rolling"
-            name="Engagement (7d rolling)"
-            stroke="#e8935a"
+            dataKey="valor"
+            name={metrica === 'impressions' ? 'Impressions' : 'Engagements'}
+            stroke={color}
             strokeWidth={2.5}
             dot={false}
-            activeDot={{ r: 6, fill: '#e8935a', stroke: '#1a1d2e', strokeWidth: 2 }}
+            activeDot={{ r: 6, fill: color, stroke: '#1a1d2e', strokeWidth: 2 }}
             isAnimationActive={false}
           />
-          {hasImpressions && (
-            <Line
-              yAxisId="right"
-              type="monotone"
-              dataKey="rollingImpressions"
-              name="Impressions (7d rolling)"
-              stroke="#38bdf8"
-              strokeWidth={2}
-              strokeDasharray="4 3"
-              dot={false}
-              activeDot={{ r: 5, fill: '#38bdf8', stroke: '#1a1d2e', strokeWidth: 2 }}
-              isAnimationActive={false}
-            />
-          )}
         </ComposedChart>
       </ResponsiveContainer>
       </div>
@@ -342,7 +348,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, xTickInt
         style={{
           position: 'relative',
           marginLeft: Y_AXIS_WIDTH + CHART_MARGIN.left,
-          marginRight: (hasImpressions ? Y_AXIS_WIDTH : 0) + CHART_MARGIN.right,
+          marginRight: CHART_MARGIN.right,
           marginTop: 6,
           minHeight: stripHeight,
         }}

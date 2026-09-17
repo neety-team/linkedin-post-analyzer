@@ -662,6 +662,16 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **El generador se reserva para cambios de contenido** (un texto, un desenfoque, un elemento nuevo).
 - **Y en la entrega, la alternativa manual va primero** cuando el retoque es solo de posición.
 
+### 🌬️🌬️ 0i-3-EFECTO · EL RETOQUE SE PIDE CON EL EFECTO, EN UNA O DOS FRASES (Iker, 2026-09-17)
+
+**Lo que funcionó a la primera, en chat nuevo, sobre una imagen ya buena:**
+```
+SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que la frase de abajo, y dale más aire por arriba para que respire y no quede pegado al borde. Deja todo lo demás intacto y no toques nada que no te he pedido.
+```
+**Lo que falló justo antes, en el mismo hilo:** un prompt que pedía *"el mismo hueco arriba, entre el título y la caja, y abajo"*, bajar el tamaño del título y enumeraba lo que no tocar. El generador rehízo la imagen entera y rompió la caja. Iker: *"ese es el tipo de prompts que tienes que darle, funciona mejor"*.
+
+**LA REGLA:** para retocar, **se describe cómo tiene que VERSE, no cómo medirlo**: `que respire`, `que no quede pegado al borde`, `igual que la frase de abajo`. Una o dos frases y la contención seca (`§0i-3-CONTENCION-CORTA`). Las igualdades de huecos de `§0b-DENTRO-DEL-MARCO-BIS` se quedan para cuando el efecto no baste. Y si el hilo ya lleva varias ediciones, chat nuevo (`§0i-CHAT-NUEVO`).
+
 ## ✂️✂️ 0i-3-CONTENCION-CORTA · EL CIERRE ES LA FRASE SECA, SIN LISTA DE LO QUE SE QUEDA (Iker, 2026-08-27)
 
 > **Iker:** *"en tu último prompt yo le he dicho «deja todo lo demás intacto y no hagas nada que no te he pedido», y he quitado todos esos detalles específicos que has dado tú. Es mejor así, más sencillo"*.

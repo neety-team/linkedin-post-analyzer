@@ -938,9 +938,39 @@ async function accountSnapshotTick(): Promise<void> {
         const r = await fetchResumenLinkedIn(unipile_account_id);
         if (r) await guardarResumenLinkedIn(pool, id, r);
         const series = await fetchSeriesDiarias(unipile_account_id);
-        if (series) await guardarSeriesDiarias(pool, id, series);
+        // COMPROBACION CRUZADA (2026-09-17): la suma de los ultimos 7 dias de la
+        // serie diaria tiene que parecerse a "Post impressions in 7 days" del
+        // resumen, otra pagina de LinkedIn. Si no, la serie se leyo mal (ese dia
+        // se guardaron acumuladas como diarias: 8,4 M en 30 dias) y no se guarda.
+        const siete = series ? series.slice(-7).reduce((a, d) => a + d.impresiones, 0) : 0;
+        // Si el resumen no vino en esta vuelta, se compara con la ultima cifra
+        // de 7 dias guardada. Sin ninguna referencia, no se guarda nada.
+        let oficial7 = r?.postImpressions7d ?? null;
+        if (!oficial7) {
+          const { rows: prev } = await pool.query(
+            `SELECT post_impressions_7d FROM creator_linkedin_overview
+              WHERE creator_id = $1 AND post_impressions_7d > 0
+              ORDER BY captured_on DESC LIMIT 1`,
+            [id]
+          );
+          oficial7 = prev[0]?.post_impressions_7d ?? null;
+        }
+        const cuadra = oficial7 != null && oficial7 > 0 && Math.abs(siete - oficial7) / oficial7 <= 0.35;
+        if (series && cuadra) await guardarSeriesDiarias(pool, id, series);
+        else if (series) {
+          console.warn(`[accountSnapshot] serie diaria de ${id} descartada: 7 dias = ${siete}, resumen = ${oficial7}`);
+        }
         const seguidores = await fetchSeguidoresDiarios(unipile_account_id);
-        if (seguidores) await guardarSeguidoresDiarios(pool, id, seguidores);
+        // Los nuevos de un ano no pueden pasar del total de seguidores de la
+        // cuenta (una acumulada leida como diaria suma millones).
+        const nuevosAno = seguidores ? [...seguidores.values()].reduce((a, b) => a + b, 0) : 0;
+        const { rows: tot } = await pool.query(`SELECT followers_count FROM creators WHERE id = $1`, [id]);
+        const total = r?.followers ?? tot[0]?.followers_count ?? null;
+        if (seguidores && total && nuevosAno <= total) {
+          await guardarSeguidoresDiarios(pool, id, seguidores);
+        } else if (seguidores) {
+          console.warn(`[accountSnapshot] seguidores diarios de ${id} descartados: ${nuevosAno} nuevos en un ano con ${total} en total`);
+        }
       } catch (e: any) {
         console.warn(`[accountSnapshot] resumen de LinkedIn fallo para ${id}:`, e?.message);
       }

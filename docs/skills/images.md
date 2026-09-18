@@ -1137,6 +1137,8 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 
 **⛔ Y UN ECO GIRADO TAMBIÉN ES REPETIR (Iker, 2026-09-18).** Para el cartel de ponentes de Unai propuse `Con quién andamos` con el gancho `Dime con quién andas y te diré cuánto vendes`. No era el gancho literal, pero llevaba `con quién` y el verbo `andar`, y el cuerpo ya decía `con quién andamos`: tres veces en el mismo post. **Contestar al gancho con sus mismas palabras es repetirlo.** La foto responde con lo que ENSEÑA (las caras), y el título aporta otra capa: aquí quedó `Cuatro miradas a la venta`, con ancla de ventas y cero palabras del gancho. El check 1 se corre palabra a palabra contra el gancho **y contra el cuerpo**.
 
+**Y LA FORMA DEL TÍTULO, gustos de Iker (2026-09-18):** **2 a 4 palabras**, **con verbo punchy** (un concepto sin verbo, como `4 miradas a la venta`, no le vale), **cifras en dígito**, y **se entregan varias alternativas para elegir**, como con los ganchos. Si la imagen ya lleva una etiqueta (`PONENTES CONFIRMADOS`), el título no la repite.
+
 **El test de un vistazo, que resume los tres:** tapa el post, mira solo la foto. **¿Aporta algo que el post no dice, y sabes qué palabra comentar?** Si la foto repite el gancho, has gastado el único espacio visual del post en decir dos veces lo mismo.
 
 ## 🛑🛑 0h-FILTROS · EL TEXTO QUE VA DENTRO DE LA IMAGEN ES COPY NUESTRO Y PASA LOS MISMOS FILTROS QUE EL CUERPO (Iker, 2026-08-18)

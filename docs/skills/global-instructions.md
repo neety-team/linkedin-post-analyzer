@@ -1847,6 +1847,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > - Aplica a **todos** los mencionados: partners, clientes y sede.
 > - **Va como aviso fijo del validador** (`--pilar evento`), así que sale solo en cada entrega y se pega en la respuesta. No depende de que yo me acuerde.
 > - **Y adelanta el aviso:** si el post se entrega un lunes para publicar el martes, el OK hay que pedirlo el lunes. Avisar el mismo día de subir no sirve de nada.
+> - **🔄 Quién da el OK (Iker, 2026-09-18):** al mencionado no le escribe Iker; el OK lo gestiona **el primer jefe**, y para Iker basta con que el jefe apruebe el post. Y si los mencionados **ya los anunció la página de Neety** como ponentes con su permiso (caso del cartel de ponentes del 18/09), volver a nombrarlos no necesita una ronda nueva: ya están asociados al acto. El aviso del validador se lee así: ¿lo ha aprobado el jefe?
 >
 > ### 🏷️ CADA BLOQUE DE MENCIONES DICE QUÉ SON (Iker, 2026-08-05)
 >

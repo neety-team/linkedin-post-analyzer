@@ -212,6 +212,22 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## ✅ PUBLICADO · VIE 18/09 · UNAI · EVENTO: CARTEL DE PONENTES (Neety Forward)
+
+| dato | |
+|---|---|
+| **Post** | [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7506672308812414977/) · publicado **13:15** (14:00 es la peor franja, se asumió: la cuenta llevaba desde el 11/09 sin nada visible) |
+| **Pilar** | evento, post que VA del evento (el formato que menos convierte: 37 clics y 0 asistentes en los 3 "I'm attending"). Pedido por Iker a sabiendas, para autoridad |
+| **Gancho** | `Dime con quién andas y te diré cuánto vendes 👇` (46 car, refrán invertido, ancla `vendes`) |
+| **Menciones** | 8 (4 ponentes + 4 empresas): Juanjo Gómez · UPTEK, Jon Heras Landa · LIN3S ≡ Digital Consulting, Telmo E. · Multiverse Computing, Maite Ruiz Roqueñi · Asociación Marketing AMA. OK vía el primer jefe; ya anunciados por la página de Neety el 08/09 |
+| **Contexto** | `El 24 de septiembre nos juntamos en un evento presencial en Donostia.` |
+| **Ninja** | `Leer a quien vende bien nunca te hace sitio en su mesa.` / `Esta mesa sí y la pidió tanta gente que la agrandamos:` → forward.neety.com, UTM `evento-speakers-18sep-unai` |
+| **Imagen** | cartel de 4 ponentes montado por Iker en Canva sobre la plantilla de la serie: título `Las ventas se reinventan` (ventas en naranja) + `Neety Forward` sin año, fotos en duotono B/N, sin fecha, ciudad, enlace ni cargos, `PONENTES CONFIRMADOS` en negrita. Centrado medido sobre el export 1200×1200: 273 px de margen a cada lado |
+| **Validador** | 58/58 |
+| **Aforo Luma** | 68 registrados / 32 libres = **100** tras mudarse al ARIMA (antes 80), lectura 18/09 13:38 |
+| **Quemados** | contexto `nos juntamos en un evento presencial` · ninja `nunca te hace sitio en su mesa` y `la pidió tanta gente que la agrandamos` · arranque `vienen` |
+| ⏳ | medir clics a Luma (GA4 por UTM) e inscritos a los 3-4 días |
+
 ## 📝 APROBADO · JUE 17/09 · ASIER · LEAD MAGNET `/perfil/` (1º lead magnet desde el 26/08)
 
 ✅ validador 52/52 · sin enlace en el texto (el lead magnet no lleva UTM) · palabra del banner `PERFIL` · recurso REUTILIZADO `recursos.neety.com/perfil/`, **Asier nunca lo había usado** (Iker 17/07, 61 días)

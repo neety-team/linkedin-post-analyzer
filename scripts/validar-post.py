@@ -296,6 +296,10 @@ SPAM_QUEMADO = {
     'saber quién firma dentro': '2026-08-07 despiece de Navarra, Asier 07/08, la forma con tilde',
     'nosotros sí, pero ya solo quedan': '2026-09-16 despiece de Bizkaia, Asier 16/09',
     'no te sienta en la sala del que': '2026-09-16 despiece de Bizkaia, Asier 16/09, la linea 1',
+    'no te sienta al lado de quien compra': '2026-09-17 Iker 17/09, la linea 1',
+    'la primera sala se quedó corta': '2026-09-17 Iker 17/09',
+    'nunca te hace sitio en su mesa': '2026-09-18 Unai 18/09, cartel de ponentes, la linea 1',
+    'la pidió tanta gente que la agrandamos': '2026-09-18 Unai 18/09, cartel de ponentes',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -352,6 +356,9 @@ SPAM_QUEMADO_CORREO = {
 # porque `No`, `La` o `Me` son palabras demasiado comunes para vetarlas a ciegas:
 # lo que hace falta es VERLAS al entregar, que es justo lo que faltaba.
 ARRANQUE_QUEMADO = {
+    'evento': {
+        'vienen': '2026-09-18 evento de Unai 18/09 ("Vienen de la industria / del marketing / de construir la IA")',
+    },
     # Verificados leyendo el texto publicado.
     'historia': {
         'la': '2026-08-18 historia de Iker 18/08 ("La eche donde el coche...")',
@@ -2341,6 +2348,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                             'nos vemos en donostia para': '2026-08-26 Unai 24/08 y Asier 26/08',
                             'tenemos evento presencial': '2026-09-15 Unai 15/09',
                             'abrimos las puertas de un evento': '2026-09-16 Asier 16/09, despiece de Bizkaia',
+                            'organizamos un evento presencial': '2026-09-17 Iker 17/09',
+                            'nos juntamos en un evento presencial': '2026-09-18 Unai 18/09, cartel de ponentes',
                         }
                         _evq = [f for f in _EV_QUEMADA if f in _prev
                                 and quemada(f, _EV_QUEMADA[f], VENTANA_NINJA_DIAS, cuenta)]

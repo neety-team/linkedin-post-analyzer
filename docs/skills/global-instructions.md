@@ -2158,6 +2158,29 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > #### 🔴 EL AVISO QUE VA CON ESTA SECCIÓN, dicho antes de usarla
 >
 > **Un inventario de frases validadas es exactamente lo que `§4.4b` lleva desde el 31/07 diciendo que NO se haga**: *"la mejor variante es la que cuelga de la BROMA DEL GANCHO, no una frase de catálogo"*. **Esto es el banco de DOLORES, no el banco de FRASES.** Se usa para decidir **de qué habla** el ninja; la frase sigue saliendo del gancho de ese post, y sigue pasando el test de los cinco segundos (tapa el post, lee las dos líneas: si valdrían pegadas a cualquier otra publicación nuestra, están mal). **Si algún día ves dos ninjas con la misma frase de esta sección, la sección se ha usado mal.**
+>
+> #### ⛓️⛓️ 4.4b-CADENA · CADA LECTOR TIENE ROTO UN SOLO ESLABÓN, Y EL NINJA HABLA DE ESE (informe "Dónde le duele a cada cliente", 2026-09-18)
+>
+> **Qué es la fuente, dicho antes que nada:** no son citas nuevas. Es el **mismo informe** (79 empresas, 120 reuniones, 1 jul-15 sep) **reclasificado por el lado comercial** para preparar demos: 71 cuentas colocadas en el paso de la cadena donde les duele. **La clasificación es por analogía y 17 de 71 son de confianza baja.** Por eso esto NO cambia la regla de entrada de arriba (3 empresas con cita propia): da el **mapa** para elegir de qué eslabón habla cada ninja, no frases nuevas.
+>
+> **La cadena:** `1 encontrar empresas → 2 dar con la persona → 3 saber cuándo → 4 hacerlo cada semana`. **El primer eslabón roto tapa los demás**: al que no encuentra empresas no le importa nada de lo que viene después.
+>
+> ```
+> tipo                          cuentas  clientes  cierra   ¿saca la lista fácil?
+> 1 no encuentra empresas           9        1       11%     no (los 9)
+> 2 sabe cuáles, no a quién        15        3       20%     sí
+> 3 sabe a quién, no cuándo        21        2       10%     sí
+> 4 no tiene nada montado          26       16       62%     sí
+> ```
+>
+> **Lo que cambia para el ninja, en orden de peso:**
+> 1. **62 de 71 sacan la lista fácil.** Prometer EMPRESAS (más, nuevas, "que no conocías") le habla a 9 de 71. Confirma y agranda el veto de "descubrir un mercado" de arriba, y le pone la frase con la que lo rechazan: *"ya las conocemos todas"* (Cadinox, Meltio) y *"CNAE un poco mejorado"* (Hansa-Flex). **Excepción única: post de exportación o país nuevo** (RTS en EE.UU., Jeremias en Tailandia, Inpre hacia naval): ahí el eslabón 1 sí está roto.
+> 2. **El eslabón 2 (la persona) tiene 15 cuentas, no 2.** Es la otra lectura del mismo dolor que dio el 0,756% del 11/09 (`§4.4b-MUNICIÓN-PUNCH`). La frase con la que se abre la demo es literalmente un bloque de dos: *"Esta empresa ya la conocéis. Esta es la persona que compra ahí."* → **norma que el lector confirma + la excepción que no tiene** (`§4.4b-EXCEPCIÓN`). ⚠️ Sigue vigente la cita en contra de Composites Martiartu: no se escribe como universal.
+> 3. **El eslabón 3 es el grupo más grande (21) y el que peor cierra (10%).** El dolor se dice como **pérdida**, no como herramienta: *"os enterasteis tarde y ya estaba otro dentro"*, *"perder uno es perder el año"*, *"el primero paga el año"*. **`§4.4b-ORDEN` no se toca**: la palabra `señal` sigue fuera del gancho y del ninja (15 empresas la objetan). Lo que es **hipótesis a probar**: nombrar la PÉRDIDA (llegar tarde) en la línea 1 en posts de quien vende proyecto (bienes de equipo, ingeniería, instalaciones), y que la línea 2 pase `§4.4b-PROMESA` contra lo que enseña `/agendar/`. Se prueba una vez y se anota en el historial.
+> 4. **El eslabón 4 es donde está el dinero: 16 de los 22 clientes.** Su dolor es el que ya es nº1 del banco (**buscar contra contactar**, 21 empresas), y su pregunta es un ninja hecho: *"¿Ese tiempo vale más buscando o llamando?"*. **Para `/agendar/` es el ángulo por defecto.**
+> 5. 🆕 **Enemigo nuevo del eslabón 1: ChatGPT / los agentes de IA** (*"esto lo hago con ChatGPT"*; Jeremias ya busca con agentes). Solo 1-2 empresas: **hipótesis**. El ángulo no es "somos mejores que la IA" sino el de siempre, **cuántas salen buenas** (*"¿cuántas salieron buenas?"*), que es la fila del listado que acierta.
+> 6. **Un ninja, un eslabón.** Hansa-Flex rechazó la demo entera con *"más de lo que podemos digerir"*. El lector de un post todavía menos: el bloque de dos vende UN paso, nunca la cadena.
+> 7. **Unidad de medida: sigue siendo tiempo perdido en su escala** (*"semanas para cinco"*, meses). La frase de demo *"esto ha tardado veinte minutos"* vale en directo, delante de sus cinco, **no en un ninja**: ahí es la promesa de velocidad de la herramienta que ya dejaron.
 
 > **🚨 UN `🔗 0` EN UN POST CON ENLACE NO SIGNIFICA "NADIE PINCHA": a veces LinkedIn no mide ese enlace (Iker, 2026-07-24).**
 > **Cómo distinguirlo:** en la página de analíticas del post, cuando LinkedIn SÍ está midiendo, junto a "Visits to links from this post" aparece **la URL de destino registrada**. Cuando no mide, no aparece **ninguna URL**, solo un 0 pelado. La herramienta guarda esa URL en `link_url`: **enlace en el cuerpo + `link_url` vacío + 0 clics = LinkedIn no lo está midiendo**, y ese 0 no es un dato de interés real.

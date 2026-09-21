@@ -68,10 +68,10 @@ EMOJI = re.compile('[\U0001F000-\U0001FAFF☀-➿]')
 # El techo se pone en el p90: pasarse no es "estilo", es salirse del corpus ganador.
 ASUNTO_MAX = 62
 
-# email-marketing §8g (2026-09-14): la mediana del corpus lleva CUATRO ventanas bajando
-# (43 -> 36 -> 36 -> 31 caracteres; 8 -> 7 -> 7 -> 5 palabras) y el 61% de los 75 asuntos
-# de la ultima cabe en 35. El techo duro sigue en 62 (p90), pero la DIANA es otra: a
-# partir de aqui se avisa, porque casi siempre hay una version mas corta de la misma idea.
+# email-marketing §8g/§8h: la mediana del corpus en cinco ventanas es 43 -> 36 -> 36 -> 31
+# -> 36 caracteres. El 31 fue una semana suelta (§8h, 2026-09-21): la banda estable es 31-37.
+# El techo duro sigue en 62 (p90), pero la DIANA es otra: a partir de aqui se avisa, porque
+# casi siempre hay una version mas corta de la misma idea.
 ASUNTO_DIANA = 40
 
 
@@ -136,7 +136,7 @@ def main():
             checks.append(fallo(f'Asunto {len(asunto)} chars > {ASUNTO_MAX} (mediana Timepack: 43)'))
         if ASUNTO_DIANA < len(asunto) <= ASUNTO_MAX:
             checks.append(aviso(f'Asunto de {len(asunto)} chars: pasa de la diana de {ASUNTO_DIANA} '
-                                f'(§8g: la mediana del corpus es 31 y el 61% cabe en 35). '
+                                f'(§8h: la mediana del corpus va de 31 a 37 en cinco ventanas). '
                                 f'Busca el recorte en una palabra que no sostenga el verbo ni la persona'))
         cifras = re.findall(r'\d+[.,]?\d*', asunto)
         if len(cifras) <= 1:
@@ -478,6 +478,19 @@ def main():
         checks.append(fallo(f'Número en letra: "{m.group(0)}" (global §3.6: en dígito)'))
     else:
         checks.append(ok('Cifras en dígito'))
+
+    # --- UNA palabra en mayusculas en el cuerpo, como mucho (email-marketing §8h punto 1) ---
+    # RunnerPro 4 de 4 y Isra 5 de 7 llevan exactamente UNA, y es la palabra del giro
+    # (VEINTE, BARATO, VARIEDAD, INCAPACES). Ninguno de los dos mete dos. La mayuscula no
+    # grita: marca donde gira el correo. Con dos ya no marca nada.
+    _siglas = {'NEETY', 'FORWARD', 'LINKEDIN', 'HUBSPOT', 'GIPUZKOA', 'EUSKADI'}
+    _cuerpo_sin_url = re.sub(r'https?://\S+|\S+\.(?:com|es|io)\S*', ' ', cuerpo)
+    _caps = [w for w in re.findall(r'\b[A-ZÁÉÍÓÚÑ]{4,}\b', _cuerpo_sin_url) if w not in _siglas]
+    if len(_caps) >= 2:
+        checks.append(aviso(f'{len(_caps)} palabras en MAYÚSCULAS en el cuerpo ({", ".join(_caps[:4])}): '
+                            f'el corpus lleva UNA, la del giro (§8h). Deja la que más pese'))
+    else:
+        checks.append(ok(f'≤1 palabra en mayúsculas en el cuerpo' + (f' ({_caps[0]})' if _caps else '')))
 
     # --- PD (aviso, no fallo: Kaixito puede no llevarlo) ---
     # En ESPAÑOL la postdata es PD, no P.S. Medido el 2026-08-06 sobre el corpus

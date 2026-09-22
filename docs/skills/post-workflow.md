@@ -867,7 +867,7 @@ dado con la idea todavía.**
 
 #### 🎟️🎟️ 4.4-CONVERSION-EVENTO · UN EVENTO SE MIDE EN INSCRITOS POR CADA 1.000 IMPRESIONES, NO EN CTR (campaña Neety Forward cerrada el 22/09, validado por Iker)
 
-**Todos los posts con enlace a Luma desde el 26/08** (impresiones y clics de la BD al 22/09, inscritos por UTM de Luma):
+**Todos los posts con enlace a Luma desde el 26/08** (impresiones y clics de la BD al 22/09, inscritos por UTM de Luma: gráfico "Recuento de utm_source" de Iker, 23 con fuente, **verificado cifra a cifra el 22/09**):
 
 ```
 post                                  imp      clics  inscritos  por 1.000 imp

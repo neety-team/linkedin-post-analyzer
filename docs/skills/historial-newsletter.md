@@ -1287,7 +1287,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Objeción | la IA que escribe mensajes que ya nadie abre (**5 empresas, 4 ICP**, `global §4.4b-MUNICIÓN`). Contenido de la objeción, **sin cita atribuida ni empresa** |
 | Giro | no se nota por cómo está escrito, se nota porque llega igual a medio sector: **el problema es a QUIÉN se lo mandas** (identificación) |
 | Micro-apertura | `Una frase.` (familia del anuncio del formato; la base de Iker sigue siendo `Te cuento.`, que anuncia historia y esto no lo es) |
-| Enlace | `forward.neety.com/?utm_source=iker-05-evento-correo`, 302 → `luma.com/ujffj66o?utm_source=iker-05-evento-correo` verificado el 22/09 |
+| Enlace | `forward.neety.com/?utm_source=correo-05-iker-objecion`, 302 → `luma.com/ujffj66o?utm_source=correo-05-iker-objecion` (seguimiento UTM apagado por Iker, auditor ✅) verificado el 22/09 |
 | Validador | **36/36** · ritmo `1-1-1-1-3-1-2-1-1-2-1-1` |
 
 **Por qué NO fue el "última llamada / menos de 24 horas" que se pidió:**

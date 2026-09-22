@@ -183,6 +183,14 @@ Luma lee     : utm_source = "unai-03-evento"
 va SIEMPRE en `utm_source`, escrita a mano.** No se vuelve a dejar en `utm_campaign`, porque Luma no lo
 lee y perdemos la atribución de los asistentes al evento.
 
+**🏷️ Y EL NOMBRE EMPIEZA POR `correo-` (Iker, 2026-09-22):** `correo-{nº}-{remitente}-{pilar}`, todo en
+minúsculas y sin tildes → `correo-05-iker-objecion`. **El porqué:** en el panel de Luma los UTM de
+correos y de posts salen en la MISMA lista, y los de posts empiezan por su pilar (`meme-…`,
+`historia-…`). Con `correo-` delante los correos se agrupan juntos al ordenar y no se confunden con un
+post, que era un riesgo real porque `historia` es pilar en los dos canales. Los dos anteriores
+(`unai-03-evento-correo`, `kaixito-04-evento-correo`) se quedan como salieron: cambiarlos rompería la
+atribución que ya tienen.
+
 #### 🔴🔴 Y HAY UN TERCER EMISOR QUE ESTA TABLA NO CONTEMPLABA: **HUBSPOT** (2026-09-14)
 
 **No somos el único correo de la casa.** Marketing manda desde **HubSpot** a la lista de **clientes**,

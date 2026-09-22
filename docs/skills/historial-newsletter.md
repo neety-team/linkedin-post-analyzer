@@ -1302,5 +1302,35 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **🔁 PUERTA CAMBIADA A `/agendar/` (Iker, 22/09 tarde), y es la única.** Iker: *"como la ubicación del evento ya restringe mucho"*. **No se sabe dónde vive la lista** (ni Brevo ni el CRM guardan ubicación: 37 de 42 son `.com`), así que Donostia no le sirve a la mayoría. Se descartó añadir un segundo enlace (regla de un solo enlace, `email-marketing §3`) y **se cambió la única puerta**. De paso, el enlace a `/agendar/` resuelve justo lo que dice el cuerpo (*a quién mandárselo*) y hace de este correo la **prueba limpia de OBJECIÓN**, sin el ruido del evento. Se quitó la línea del evento; ninja `Una máquina te escribe el mensaje. Abrirlo, no.` / `A quién mandárselo, con su nombre, nosotros:` (Iker: explícito, quién lo hace, como el `en el evento sí` del post de la mañana). **UTM escrito a mano** (`utm_source=brevo&utm_medium=email&utm_campaign=correo-05-iker-objecion`), porque el seguimiento de Brevo está apagado. Validador 36/37 (solo la `¿`, aceptada). Auditor ✅.
 
+### 🟠 LOS INSCRITOS AL EVENTO ENTRAN EN LA LISTA (decisión de Iker, 2026-09-22 · 19:00)
+
+**Lo que decide Iker, y queda escrito porque es una excepción a `§ SOLO CON CONSENTIMIENTO EXPLÍCITO` (28/08):** el formulario de Luma llevaba una casilla **obligatoria** con este texto literal — *"Términos del evento · Uso de datos para la operativa del evento y con objetivos comerciales"* — y el anfitrión del evento somos nosotros. Iker: *"con objetivos comerciales podemos hilar la fina línea de que nos han dado el permiso"*.
+
+⚠️ **El aviso que se dio antes de hacerlo, para que no se relea como una recomendación mía:** una casilla obligatoria para poder inscribirse no es un consentimiento libre en el sentido estricto del RGPD, y subir un lote de contactos que no han pasado por nuestro formulario es la señal nº1 del perfil que nos cerró MailerLite. Se hace con tres mitigaciones que pidió el propio Iker o que salen de `§0b`:
+
+1. **Solo los aprobados que aceptaron los términos.** Del CSV de Luma (91 filas): fuera 9 rechazados, 4 invitados, los `@neety.com` y los que no tienen el `Aceptado`. **Quedan 72**, y 1 ya estaba en la lista de recursos.
+2. **Altas de una en una por API**, con pausa, nunca `POST /contacts/import`.
+3. **El envío se parte en DOS TANDAS** y la segunda solo sale si la primera no trae rebotes ni denuncias.
+
+**Listas nuevas en Brevo** (carpeta 3, la de siempre), verificadas por los dos endpoints:
+
+| id | lista | contactos |
+|---|---|---|
+| 16 | `📅 Inscritos · NEETY FORWARD 2026` | 72 |
+| 17 | `… · tanda 1` | 36 |
+| 18 | `… · tanda 2` | 35 |
+
+**⛔ En el CRM NO se ha creado la audiencia.** `assertSyncable` bloquea por código sincronizar a Brevo una audiencia sin opt-in, y saltárselo pedía tocar la guarda legal. La lista vive solo en Brevo y el envío no necesita el CRM.
+
+**Las dos campañas, las dos en BORRADOR:**
+
+| id | nombre | destinatarios | día |
+|---|---|---|---|
+| 22 | `Correo 5 · Iker · OBJECIÓN · tanda 1` | listas 15 + 4 + **17** = 41 + 5 + 36 | mié 23/09 09:05 |
+| 23 | `Correo 5 · Iker · OBJECIÓN · tanda 2` | lista **18**, excluyendo 15 y 17 = 35 | jue 24/09 09:05, **solo si la tanda 1 va limpia** |
+
+- El enlace lleva `utm_content=tanda-1` / `tanda-2`, que es lo que deja desglosar las dos tandas del mismo correo en GA4 (`§9c`).
+- 🔴 **La 23 nació con el seguimiento UTM de Brevo ENCENDIDO** y su enlace salió con `utm_source=sendinblue` y el nombre de la campaña dentro. Hay que apagarlo en Configuración adicional y reescribir el enlace, igual que en la 22. **El auditor lo caza desde hoy** (`auditar-campanas-brevo.py`, check nuevo).
+
 **Al enviarlo:** meter el ninja en `QUEMADAS` de `validar-email.py`, el cuerpo literal en `corpus-correos-enviados.md`, y leer las métricas a los 5-6 días.
 **Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. **Remitente cambiado de Unai a Iker (22/09):** Iker llevaba 3 semanas sin escribir (Unai 2), el pilar objeción es suyo porque es quien hace las demos, y así Unai queda libre para el correo de después del evento. **Asier se descartó para este:** estrenar remitente y pilar a la vez no deja atribuir nada. ✅ **Su remitente ya existe: `Asier de Neety` (id 7, `hola@neety.com`, activo), dado de alta por Iker el 22/09.** Candidato para su estreno: pilar 9 · receta regalada.

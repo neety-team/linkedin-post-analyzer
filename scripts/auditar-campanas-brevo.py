@@ -59,6 +59,15 @@ def revisar(c):
                    and "utm_campaign=" not in e]
     if enlaces_web and not (c.get("utmCampaignValue") or "").strip():
         fallos.append("no lleva utm_campaign: los clics no se podran atribuir")
+    # Seguimiento UTM ENCENDIDO en una campaña que escribe su UTM a mano: Brevo
+    # pisa el href con `sendinblue` y mete el NOMBRE de la campaña como
+    # utm_campaign, y las tandas del mismo correo se parten en GA4 (22/09).
+    for e in re.findall(r'href="(https?://[^"]+)"', c.get("htmlContent") or ""):
+        if "utm_source=sendinblue" in e and "luma.com" not in e and "forward.neety.com" not in e:
+            fallos.append("el seguimiento UTM de Brevo esta ENCENDIDO: ha pisado el enlace con "
+                          "utm_source=sendinblue y el nombre de la campaña. Apágalo en "
+                          "Configuración adicional y vuelve a escribir el enlace")
+            break
     if not (c.get("previewText") or "").strip():
         fallos.append("no lleva preview: Gmail cogera la primera linea del cuerpo")
     if not c.get("recipients", {}).get("lists"):

@@ -49,7 +49,13 @@ def revisar(c):
     # Sin el enlace de baja el correo es ilegal, ademas de feo.
     elif "baja" not in pie.lower():
         fallos.append("el PIE no lleva enlace de baja")
-    if not (c.get("utmCampaignValue") or "").strip():
+    # utm_campaign solo hace falta si algun enlace va a NUESTRA web (GA4). Si
+    # todos van a Luma/forward, el seguimiento UTM va APAGADO a proposito y la
+    # identidad viaja en utm_source (email-marketing §1). Falso positivo del 22/09.
+    enlaces_web = [e for e in re.findall(r'href="(https?://[^"]+)"', c.get("htmlContent") or "")
+                   if "luma.com" not in e and "forward.neety.com" not in e
+                   and "unsubscribe" not in e.lower() and "{{" not in e]
+    if enlaces_web and not (c.get("utmCampaignValue") or "").strip():
         fallos.append("no lleva utm_campaign: los clics no se podran atribuir")
     if not (c.get("previewText") or "").strip():
         fallos.append("no lleva preview: Gmail cogera la primera linea del cuerpo")

@@ -1281,8 +1281,8 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 | | |
 |---|---|
-| Asunto | `se nota que lo ha escrito una máquina` (37 car) |
-| Preview | `Es justo. Pero el culpable no es la máquina.` |
+| Asunto | **`¿tú lo abrirías?`** (16 car) · antes `se nota que lo ha escrito una máquina` (37) |
+| Preview | `Yo tampoco. Y eso que me dedico a esto.` |
 | Pilar | **OBJECIÓN (6), primera vez que sale** (`email-marketing §8g`, era el 1º del orden recomendado) |
 | Objeción | la IA que escribe mensajes que ya nadie abre (**5 empresas, 4 ICP**, `global §4.4b-MUNICIÓN`). Contenido de la objeción, **sin cita atribuida ni empresa** |
 | Giro | no se nota por cómo está escrito, se nota porque llega igual a medio sector: **el problema es a QUIÉN se lo mandas** (identificación) |
@@ -1297,6 +1297,8 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 4. **El post que va DEL evento trae clics y 0 inscritos** (`global §4.4b-EVENTO-EXPLICITO`); el evento se vende dentro de otra cosa.
 
 **⚠️ PENDIENTE ANTES DEL TEST (lo hace Iker en el panel):** Brevo ha inyectado `utm_source=sendinblue` al crear la campaña, como en el correo 4. **Configuración adicional → seguimiento UTM → apagar**, y después se reescribe el `href` a mano y se pasa `auditar-campanas-brevo.py`.
+
+**🔁 Cambio de asunto (22/09, a propuesta de Iker):** el primero decía de qué iba el correo, y los asuntos buenos de las referencias nunca dicen el tema (`email-marketing §8g`). **Hipótesis con nuestro dato, n=2 contra n=2:** los dos asuntos que más abrieron son **preguntas cortas en 2ª persona, de tú a tú y sin tema** (`¿no te acuerdas de mí?` 46,8% · `te guardo la silla o no?` 44,4%) y los dos que menos, **afirmaciones** (`me traje 200 tarjetas…` 35,6% · `en euskadi nos juntamos sin ti` 28,9%). Con 45 destinatarios no es prueba, pero la dirección coincide en los 4. **Si este abre en la franja alta, se propone como regla.** Ninja cambiado para que cuelgue de `abrir`: `Una máquina te escribe el mensaje. Abrirlo, no.` Validador 37/37.
 
 **Al enviarlo:** meter el ninja en `QUEMADAS` de `validar-email.py`, el cuerpo literal en `corpus-correos-enviados.md`, y leer las métricas a los 5-6 días.
 **Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. **Remitente cambiado de Unai a Iker (22/09):** Iker llevaba 3 semanas sin escribir (Unai 2), el pilar objeción es suyo porque es quien hace las demos, y así Unai queda libre para el correo de después del evento. **Asier se descartó para este:** estrenar remitente y pilar a la vez no deja atribuir nada. ✅ **Su remitente ya existe: `Asier de Neety` (id 7, `hola@neety.com`, activo), dado de alta por Iker el 22/09.** Candidato para su estreno: pilar 9 · receta regalada.

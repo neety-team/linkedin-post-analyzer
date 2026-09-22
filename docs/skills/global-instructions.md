@@ -1495,6 +1495,7 @@ post → /agendar/?utm_source=linkedin&utm_campaign=meme-recepcion-16sep&utm_con
 botón → luma.com/...?utm_source=recursos-agendar--meme-recepcion-16sep-iker
 ```
 - ✅ **Probado en producción por Iker el 22/09** desde el meme del 16/09 en incógnito: Luma recibió `utm_source=recursos-agendar--meme-recepcion-16sep-iker` (Luma reordena los parámetros, da igual).
+- **En GA4 se ve con la medición mejorada, sin eventos nuestros:** evento `click` con *Dominio del enlace* que contiene `luma` y *Campaña de la sesión* como fila (cuenta hacia atrás si "Clics salientes" estaba activo). Para los informes fijos, evento `click_luma` creado en GA4 (solo cuenta desde que se crea). Un post que enlaza DIRECTO a Luma no pasa por nuestra web y GA4 no lo ve: ese lo cubre el `utm_source` del propio post.
 - **El doble guion separa página y post**: en Top Sources de Luma se lee de qué página salió y de qué post venía. Sin UTM de origen, el botón queda como siempre.
 - **No hay que tocar nada al escribir el post**: basta con que el enlace a nuestra web lleve su UTM normal (`§4.4b-UTM`). Tampoco al crear un mapa nuevo: el script lo cargan todas las páginas y corrige cualquier enlace a `luma.com`.
 - ⚠️ **`/assets/*` va con caché `immutable` de un año:** cualquier cambio en `attr.js` exige subir el `?v=` en las 39 páginas, o los navegadores que ya lo tenían siguen con el viejo.

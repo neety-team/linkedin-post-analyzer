@@ -54,7 +54,9 @@ def revisar(c):
     # identidad viaja en utm_source (email-marketing §1). Falso positivo del 22/09.
     enlaces_web = [e for e in re.findall(r'href="(https?://[^"]+)"', c.get("htmlContent") or "")
                    if "luma.com" not in e and "forward.neety.com" not in e
-                   and "unsubscribe" not in e.lower() and "{{" not in e]
+                   and "unsubscribe" not in e.lower() and "{{" not in e
+                   # con el seguimiento apagado, el UTM va escrito a mano en el href (22/09)
+                   and "utm_campaign=" not in e]
     if enlaces_web and not (c.get("utmCampaignValue") or "").strip():
         fallos.append("no lleva utm_campaign: los clics no se podran atribuir")
     if not (c.get("previewText") or "").strip():

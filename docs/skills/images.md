@@ -217,6 +217,8 @@ Al remixar una referencia hay **dos capas** y se confunden con facilidad. **Yo m
   >
   > **Detalles de forma, para que cuele:** se copia el **estilo del original** (si su nombre va en minúscula, el nuestro también; si su `@` lleva guion bajo al final, el nuestro también), va **sin foto y sin tick de verificado** —no fabricamos una verificación—, y **el `@` se comprueba a mano en la plataforma antes de subir**: un usuario que resulta ser de alguien real es suplantación.
   >
+  > **⛔ VASCO SÍ, PERO DE LOS QUE SUENAN EN TODA ESPAÑA (Iker, 2026-09-22).** Propuse cambiar `Aitor G` / `Ander` por `Gorka M` / `Gaizka` y lo tumbó: *"esos nombres a los vascos les molarán pero los veo demasiado específicos, mejor los otros, no pasa nada mientras se cumpla la esencia del meme"*. **El nombre es atrezo, no guiño regional:** se elige de los vascos que el lector de cualquier sitio reconoce sin pararse (`Aitor`, `Ander`, `Mikel`, `Iñaki`, `Jon`, `Asier`), nunca de los muy marcados (`Gorka`, `Gaizka`, `Ekaitz`, `Koldo`). Y el parecido con una persona real mencionada semanas antes en la misma cuenta (lo que me hizo proponer el cambio: `Aitor Lizarraga`, "Los 10" de Unai del 15/09) **no se considera motivo**, si el nombre va sin apellido.
+  >
   > **🔄 NOMBRES FICTICIOS YA USADOS (con fecha y cuenta: frenan solo a esa cuenta durante sus 3 publicaciones siguientes, `global §2.0b-VENTANA`):** `Mikel` e `Iñaki` (correo del tatuaje, Unai, 29/07) · `Cuota Trimestral` (tuit del diccionario, Unai, 13/08, cuenta-rol) · `aitana lledó` (tuit del seguimiento, Helena, 18/08).
 - **La foto de perfil** que aparezca: la del dueño de la cuenta.
 - Y cualquier dato identificable del original (empresa, ciudad, cifras).

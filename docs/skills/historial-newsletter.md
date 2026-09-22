@@ -1275,9 +1275,9 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ---
 
-## 📝 CORREO 5 · Unai · la objeción de la IA, con la puerta del evento (BORRADOR 2026-09-22, para el mié 23/09 09:05)
+## 📝 CORREO 5 · Iker · la objeción de la IA, con la puerta del evento (BORRADOR 2026-09-22, para el mié 23/09 09:05)
 
-**Campaña Brevo 22**, listas 15 + 4 (**46**: 41 de `📥 Recursos · Todos`, 1 de ellos de baja, + 5 `Testers`), remitente `Unai de Neety` (`hola@neety.com`), estado **`draft`** releído de la API. **Sin `scheduledAt`** (`§9a-BIS`).
+**Campaña Brevo 22**, listas 15 + 4 (**46**: 41 de `📥 Recursos · Todos`, 1 de ellos de baja, + 5 `Testers`), remitente **`Iker de Neety`** (`hola@neety.com`), estado **`draft`** releído de la API. **Sin `scheduledAt`** (`§9a-BIS`).
 
 | | |
 |---|---|
@@ -1286,12 +1286,12 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Pilar | **6 · LA OBJECIÓN, primera vez que sale** (`email-marketing §8g`, era el 1º del orden recomendado) |
 | Objeción | la IA que escribe mensajes que ya nadie abre (**5 empresas, 4 ICP**, `global §4.4b-MUNICIÓN`). Contenido de la objeción, **sin cita atribuida ni empresa** |
 | Giro | no se nota por cómo está escrito, se nota porque llega igual a medio sector: **el problema es a QUIÉN se lo mandas** (identificación) |
-| Micro-apertura de Unai | `Una frase.` (la del correo 3 fue `Al grano.`) |
-| Enlace | `forward.neety.com/?utm_source=unai-05-evento-correo`, 302 → `luma.com/ujffj66o?utm_source=unai-05-evento-correo` verificado el 22/09 |
+| Micro-apertura | `Una frase.` (familia del anuncio del formato; la base de Iker sigue siendo `Te cuento.`, que anuncia historia y esto no lo es) |
+| Enlace | `forward.neety.com/?utm_source=iker-05-evento-correo`, 302 → `luma.com/ujffj66o?utm_source=iker-05-evento-correo` verificado el 22/09 |
 | Validador | **36/36** · ritmo `1-1-1-1-3-1-2-1-1-2-1-1` |
 
 **Por qué NO fue el "última llamada / menos de 24 horas" que se pidió:**
-1. **Era falso:** sale el miércoles a las 09:05 y el evento arranca el jueves a las 18:00 (Luma `start_at` 16:00Z). Son **33 horas**. Y el correo se abre durante días: por eso va `este jueves 24`, nunca `mañana` (`global §4.4b-EVENTO-FECHA`).
+1. **Era falso:** sale el miércoles a las 09:05 y el evento arranca el jueves a las 18:00 (Luma `start_at` 16:00Z). Son **33 horas**. Se escribe **`Mañana jueves 24`** (Iker, 22/09): el 80% de las aperturas del correo 4 fueron el mismo día (16 de 20), y el `jueves 24` cubre al que lo abra el jueves.
 2. **Sería el 3.er correo seguido del evento** (3, 4 y este): `§7` pide avisar del tercer correo de venta seguido.
 3. **Los inscritos ya reciben de Luma el recordatorio de 24 h y el de 1 h** (`§8h`): un tercero nuestro es ruido para ellos.
 4. **El post que va DEL evento trae clics y 0 inscritos** (`global §4.4b-EVENTO-EXPLICITO`); el evento se vende dentro de otra cosa.
@@ -1299,4 +1299,4 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 **⚠️ PENDIENTE ANTES DEL TEST (lo hace Iker en el panel):** Brevo ha inyectado `utm_source=sendinblue` al crear la campaña, como en el correo 4. **Configuración adicional → seguimiento UTM → apagar**, y después se reescribe el `href` a mano y se pasa `auditar-campanas-brevo.py`.
 
 **Al enviarlo:** meter el ninja en `QUEMADAS` de `validar-email.py`, el cuerpo literal en `corpus-correos-enviados.md`, y leer las métricas a los 5-6 días.
-**Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. El correo de después del evento (`email-marketing §8h`) estaba pensado para Unai; **si sale la semana que viene, rota a Iker o Asier** para no repetir remitente.
+**Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. **Remitente cambiado de Unai a Iker (22/09):** Iker llevaba 3 semanas sin escribir (Unai 2), el pilar objeción es suyo porque es quien hace las demos, y así Unai queda libre para el correo de después del evento. **Asier se descartó para este:** no tiene remitente dado de alta en Brevo (solo Kaixito, Iker y Unai) y estrenar remitente y pilar a la vez no deja atribuir nada. Candidato para su estreno: pilar 9 · receta regalada.

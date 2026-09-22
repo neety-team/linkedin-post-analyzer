@@ -208,7 +208,12 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 
 Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow §4.4-CONVERSION-EVENTO` (inscritos por 1.000 impresiones, tabla completa, meme por volumen, posts = 25% del embudo, hipótesis del ninja de persona), `§4.4-CONVERSION` (la renta fija de la historia es de Unai), `§4.6-RAMAS` (rama B probada solo en Unai) y `global §4.4b-EVENTO-EXPLICITO` (0 inscritos de 23 clics). Y `global §2.0b`: **la idea del ninja no se quema, se quema la frase.**
 
-**✅ ARREGLADO EL 22/09 (commit `3731959` de neety-resources):** los botones de Luma de `/agendar/` y de los mapas ya pasan el post de origen (`utm_source=recursos-agendar--meme-recepcion-16sep-iker`). Detalle en `global §4.4b-UTM`, "la tercera superficie". Los 2 inscritos antiguos de `recursos-agendar` siguen sin atribuir: solo GA4 los puede recuperar. **Desde el 25/09 el ninja vuelve a `/agendar/` y la prioridad vuelve a ser demos** (Iker, 22/09).
+**✅ ARREGLADO EL 22/09 (commit `3731959` de neety-resources):** los botones de Luma de `/agendar/` y de los mapas ya pasan el post de origen (`utm_source=recursos-agendar--meme-recepcion-16sep-iker`). Detalle en `global §4.4b-UTM`, "la tercera superficie". Los 2 inscritos antiguos de `recursos-agendar` siguen sin atribuir: solo GA4 los puede recuperar.
+
+**📊 GA4 LEÍDO EL 22/09 (clics salientes a Luma, 26/08-22/09, exploración de Iker): 83 clics.**
+- **`/agendar/`: 3 clics**, 2 con campaña `meme-recepcion-16sep` (meme de Iker del 16/09) y 1 referral. Los 2 inscritos de `recursos-agendar` salen casi seguro de ese meme: **se le atribuyen como probables** (clics, no inscripciones). Con ellos el meme del 16/09 a `/agendar/` suma, además de su CTR de 0,281%, ~2 inscritos al evento.
+- **`/mapas/cantabria/`: 3 clics** con `mapa-cantabria-01sep-asier`: el mapa llevaba a su página y desde ahí saltaron al evento.
+- ⭐ **`/` = la HOME DE neety.com: 77 de los 83 clics** (59 orgánico, 9 directo). Su banner enlaza a `luma.com/ujffj66o` **sin UTM**, así que esos inscritos llegan a Luma sin fuente. **Es seguramente buena parte de los ~54 inscritos sin UTM.** La propiedad de GA4 junta neety.com y recursos: para ver solo recursos, filtrar *Nombre de host*. **Desde el 25/09 el ninja vuelve a `/agendar/` y la prioridad vuelve a ser demos** (Iker, 22/09).
 
 **⏳ PENDIENTE DE IKER:** export de Luma por UTM · cifra oficial del meme de Asier del 18/09 · GA4 (`cta_evento` por fuente) o token del CRM · UTM del `I'm attending` del 24/08.
 

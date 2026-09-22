@@ -1326,8 +1326,8 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 | id | nombre | destinatarios | día |
 |---|---|---|---|
-| 22 | `Correo 5 · Iker · OBJECIÓN · tanda 1` | listas 15 + 4 + **17** = 41 + 5 + 36 | mié 23/09 09:05 |
-| 23 | `Correo 5 · Iker · OBJECIÓN · tanda 2` | lista **18**, excluyendo 15 y 17 = 35 | jue 24/09 09:05, **solo si la tanda 1 va limpia** |
+| 22 | `Correo 5 · Iker · OBJECIÓN · tanda 1` | listas 15 + 4 + **17** = 41 + 5 + 36 | ✅ **PROGRAMADA** mié 23/09 09:05 (`queued`, releído de la API) tras el OK de Iker a su correo de prueba |
+| 23 | `Correo 5 · Iker · OBJECIÓN · tanda 2` | lista **18**, excluyendo 15 y 17 = 35 | **en borrador a propósito**: se programa el 23/09 después de mirar rebotes y quejas de la tanda 1 |
 
 - El enlace lleva `utm_content=tanda-1` / `tanda-2`, que es lo que deja desglosar las dos tandas del mismo correo en GA4 (`§9c`).
 - 🔴 **La 23 nació con el seguimiento UTM de Brevo ENCENDIDO** y su enlace salió con `utm_source=sendinblue` y el nombre de la campaña dentro. Hay que apagarlo en Configuración adicional y reescribir el enlace, igual que en la 22. **El auditor lo caza desde hoy** (`auditar-campanas-brevo.py`, check nuevo).

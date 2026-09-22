@@ -580,6 +580,8 @@ Lee el post e imagina que lo sube una consultora, una agencia o una constructora
 - **Y la cifra caduca con el post:** para el siguiente, otra lectura. El validador avisa en cuanto ve `quedan N plazas/puestos`.
 - **🔄 17/09: EL EVENTO CAMBIÓ DE SALA Y SUBIÓ EL AFORO.** Pasó al ARIMA Hotel (Miramón), *"para poder recibiros a todos"*, y Luma pasó de 15 plazas libres a **34** (lectura del 17/09, 09:51). **Con el aforo ampliado, `quedan N` vuelve a estar prohibido**: la cifra ya no dice "se acaba", dice "hay hueco". **La escasez se cuenta con el hecho, sin número:** `la primera sala se quedó corta` (demanda real, verificable en Luma). Iker: *"con el matiz de debido a la afluencia… pero no lo hagas muy largo"*.
 
+**🔄 22/09 · SIN EL TOTAL, `quedan N` SE LEE AL REVÉS (Iker, mapa de Álava).** *"decir 23 plazas a 2 días publicamente nos puede perjudicar, parece que lo tenemos vacío al no decir el total"*. El lector no sabe que la sala es de 100: `quedan 23` puede leerse como mucho hueco. **Si el total no cabe en la línea, se quita la cifra y se dice la escasez sin número: `ya quedan las últimas plazas`** (cierto con la sala al 77%). La cifra sola solo vale cuando es pequeña de por sí (15, que ya suena a poco) o va con su total.
+
 **🧠 CÓMO SE ESCRIBE LA LÍNEA 2 CON `quedan N` (Iker, 2026-09-16, despiece de Bizkaia).** Propuso cuatro cosas y cada una tiene su respuesta:
 
 | propuesta | veredicto | por qué |

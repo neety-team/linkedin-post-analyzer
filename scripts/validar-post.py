@@ -2463,7 +2463,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # Aunque global §4.4b diga que el spam ninja no consume la regla del UNO,
         # en la practica compite: el que iba a clicar se va a comentar, y la
         # prioridad es el clic. El cierre es un bold statement, no otro CTA.
-        m = re.search(r'\b(etiqueta|etiquetad|menciona|comenta|comparte)\w*\b', cuerpo, re.I)
+        # Las lineas de menciones (→) son NOMBRES de empresa, no piden nada: el
+        # mapa de Alava del 22/09 cayo aqui por "DIREMA - Maquinaria de
+        # embotellado, etiquetado y embalaje". Se miran solo las lineas de prosa.
+        _prosa_cta = '\n'.join(l for l in cuerpo.split('\n') if not l.lstrip().startswith('→'))
+        m = re.search(r'\b(etiqueta|etiquetad|menciona|comenta|comparte)\w*\b', _prosa_cta, re.I)
         chk(not m, 'Con spam ninja, el cierre NO es otro CTA (§4.4 Paso 5)',
             f'"{m.group(0)}" apila un 2o CTA sobre el enlace. Cierra con bold statement'
             if m else '')

@@ -204,6 +204,14 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 
 ---
 
+## ✅ 22/09 · CIERRE DE LA SEMANA 14-20/09 VALIDADO POR IKER
+
+Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow §4.4-CONVERSION-EVENTO` (inscritos por 1.000 impresiones, tabla completa, meme por volumen, posts = 25% del embudo, hipótesis del ninja de persona), `§4.4-CONVERSION` (la renta fija de la historia es de Unai), `§4.6-RAMAS` (rama B probada solo en Unai) y `global §4.4b-EVENTO-EXPLICITO` (0 inscritos de 23 clics). Y `global §2.0b`: **la idea del ninja no se quema, se quema la frase.**
+
+**⏳ PENDIENTE PARA EL PRÓXIMO EVENTO:** el botón `Pedir mi plaza` de `neety-resources/agendar/index.html` lleva `utm_source=recursos-agendar` fija y Luma no ve de qué post venía (los 2 inscritos de esa fuente están sin atribuir). La UTM de origen ya está guardada en la página (`neety:attr` en sessionStorage; es la que llega al Google Chat con las demos): hay que pasarla al enlace de Luma. **Desde el 25/09 el ninja vuelve a `/agendar/` y la prioridad vuelve a ser demos** (Iker, 22/09).
+
+**⏳ PENDIENTE DE IKER:** export de Luma por UTM · cifra oficial del meme de Asier del 18/09 · GA4 (`cta_evento` por fuente) o token del CRM · UTM del `I'm attending` del 24/08.
+
 ## ⛔ 16/09 · "LOS 10" PROHIBIDO Y EL DE GIPUZKOA, BORRADO
 
 **Qué pasó:** el 16/09 una directora de marketing de otra empresa llamó muy enfadada a Unai por el "Los 10" de Gipuzkoa (15/09), y **Unai lo borró**. Hace meses ya se había quejado un mencionado en la foto, y otros "Los 10" hubo que editarlos. **Iker prohíbe el formato** salvo que él lo levante por escrito (`post-workflow §4.3-VETO`). El validador y el Post Creator lo bloquean.

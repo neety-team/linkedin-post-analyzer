@@ -1421,6 +1421,8 @@ El resto, con ninja dentro .......   370 clics  ->  15 asistentes
 
 ⚠️ **Matiz de honestidad:** en los `I’m attending` el enlace es la tarjeta nativa de LinkedIn, no un ninja escrito por nosotros, así que el formato no es exactamente comparable. Lo que está medido sin discusión es el resultado: **0 de 37.**
 
+✅ **CONFIRMADO EN INSCRITOS POR UTM (22/09, validado por Iker):** los dos `I’m attending` con UTM (Unai 24/08, Asier 26/08) y el **cartel de ponentes** de Unai del 18/09 suman **23 clics y 0 inscritos**. El cartel es el caso más claro: 0,494% de CTR, el 2º de su semana, y ningún inscrito. **Un post que va del evento trae clics, no inscritos.** La tabla completa de conversión del evento está en `post-workflow §4.4-CONVERSION-EVENTO`.
+
 #### 🔗🔗 4.4b-UTM · TODO ENLACE QUE METAMOS EN UNA PUBLICACIÓN LLEVA UTM (Mario, 2026-08-26) — GLOBAL
 
 > **Iker, y lo pide como receta global:** *"todas las veces que metamos un enlace en una publicación, ya sea la web de la newsletter, la web de agendar o la del evento, añade siempre un UTM muy sencillo que indique de qué publicación de LinkedIn viene"*.

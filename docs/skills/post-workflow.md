@@ -859,11 +859,39 @@ dado con la idea todavía.**
 
 **CÓMO SE USA AL ELEGIR LA IDEA (`§4.4-PASO-1`), y no es "elige siempre el estrecho":**
 - **El meme de chiste universal es un boleto de lotería.** Nuestra mediana de meme está en ~9.900 impresiones; 2 de 12 se fueron por encima de 100k. Cuando toca, se lleva el premio gordo él solo (los 7 asistentes del 01/09 son la mejor cifra de toda la campaña del evento). **No se puede presupuestar.**
-- **La historia es renta fija:** mediana ~10.100 impresiones × 0,40% de CTR ≈ 40 clics **todas las semanas** (`§4.6`).
+- **La historia es renta fija… en la cuenta de UNAI** (🔄 corregido el 22/09, validado por Iker): sus 4 historias con Luma dan 48 · 78 · 35 · 34 clics. **Las dos de Iker de septiembre dan 7 y 15 (0 inscritos) y la de Asier del 09/09, 6.** La renta fija es de la cuenta, no del pilar: si la semana necesita clics de historia, la historia va a Unai.
 - **Por eso el meme no se elige para cubrir un número de conversión.** Si la semana tiene que traer inscripciones, demos o correos, el número lo pone otro pilar y el meme va de extra.
 - **⭐ Y si el meme ADEMÁS tiene que convertir, el chiste se elige por su SUJETO:** que el que se ríe sea el que paga la factura. `Un ascenso` se ríe cualquiera; `4.797 € de una herramienta que nadie usa` solo se ríe quien firma esa factura — y ése es el que pincha.
 
 ⚠️ **Lo que este dato NO dice:** que el meme universal sea malo. Trajo 7 asistentes, el récord de alcance de la casa y +29 seguidores en un día. Dice que **no se le puede pedir conversión**, no que no se haga.
+
+#### 🎟️🎟️ 4.4-CONVERSION-EVENTO · UN EVENTO SE MIDE EN INSCRITOS POR CADA 1.000 IMPRESIONES, NO EN CTR (campaña Neety Forward cerrada el 22/09, validado por Iker)
+
+**Todos los posts con enlace a Luma desde el 26/08** (impresiones y clics de la BD al 22/09, inscritos por UTM de Luma):
+
+```
+post                                  imp      clics  inscritos  por 1.000 imp
+15/09 Unai  "Los 10" Gipuzkoa *      7.789      54       4          0,51
+26/08 Unai  historia (rama B)       16.225      78       5          0,31
+11/09 Unai  historia (rama B)        4.847      34       1          0,21
+02/09 Unai  historia (rama B)       10.574      35       1          0,09
+03/09 Asier meme                    27.771      79       1          0,04
+01/09 Iker  meme                   225.976     117       7          0,03
+9 posts más (<=15 clics cada uno)       -      72       0          0
+* borrado a 1 día: número CORTADO, su techo era más alto
+```
+
+**1 · LA MÉTRICA.** El CTR no predice inscritos: el cartel de Unai del 18/09 hizo 0,494% (2º de su semana) y 0 inscritos; el meme del 01/09 hizo 0,051% y 7. **Para un evento se compara `inscritos / impresiones × 1.000`.** El CTR sigue valiendo para `/agendar/` y `/correo/`, donde no hay un segundo paso de registro.
+
+**2 · LO QUE MEJOR VENDE UN EVENTO ES UN POST QUE NOMBRA A GENTE REAL DE LA REGIÓN.** El "Los 10" es el mejor de la tabla con un solo día de vida (Unai contaba 5-7 inscritos: la UTM se queda corta). Como el formato está vetado (`§4.3-VETO`), **en el próximo evento el hueco lo prueban mapa y despiece con el enlace de Luma**. El despiece de Bizkaia (16/09, 2.128 imp, 0 inscritos) no dice nada: a 0,51 por 1.000 se esperaba 1.
+
+**3 · UN MEME A LUMA SOLO TRAE INSCRITOS POR VOLUMEN.** 7 con 226.000 impresiones, 1 con 27.800, 0 con 24.500 (Asier 18/09). A ~0,03 por 1.000, un meme necesita >30.000 impresiones para traer uno. **El meme no se pone al evento para cubrir un número; va de extra** (misma lógica que arriba).
+
+**4 · LOS POSTS SON UNA CUARTA PARTE DEL EMBUDO.** Al 22/09: 77 inscritos en Luma, 23 con UTM y **19 de posts (25%)**, lo mismo que medía el cierre del 14/09. **La UTM es un suelo**: una tabla por post compara posts entre sí, no dice cuánto llena LinkedIn un evento.
+
+**⛔ Lo que NO dice, y va con la tabla cada vez que se cite:** los posts que convierten son **casi todos de Unai** (11 de 19 inscritos de posts), así que pilar, rama y cuenta van juntos y no se pueden separar. Y los inscritos que entran por `/agendar/` salen como `recursos-agendar` sin post (el botón lleva la UTM fija; pendiente de arreglar para el próximo evento).
+
+**🧪 HIPÓTESIS EN PRUEBA, no regla:** *el ninja que nombra a la PERSONA convierte más que el que vende "la sala"* (a favor: `Una reunión la pide cualquiera, el nombre de dentro no.` 26/08, 5 inscritos). **En contra:** `El que firma tu pedido no aparece en cualquier sala.` (Iker 15/09) nombra a la persona y sacó 0 con 15 clics, y el ninja del "Los 10" también vendía la sala (`una sala de solo 80 sitios`). Casi todos los ninjas del evento mezclan las dos cosas. **Hace falta un ninja limpio de cada tipo, en la misma cuenta, antes de tocar el molde de `global §4.4b`.**
 
 ### ⛔⛔ 4.4-PASO-0 · ANTES DE ELABORAR NADA: ¿YA LA HEMOS USADO? (Iker, 2026-08-11)
 
@@ -2794,6 +2822,8 @@ Acceso libre.
 > - **⭐ Y EL ARGUMENTO PARA DEFENDERLO HACIA DENTRO, MEDIDO (2026-08-21).** Cuando un jefe pregunte si nos lo hemos inventado, la respuesta no es teórica: **los dos mejores posts del pilar son los dos que llevan escena construida.** Iker 13/08 (escena redactada a partir del dolor nº1 del informe) → **10.2k imp · 1.01x · 0,41% de CTR, el mejor del pilar**; Iker 18/08 (portal, 143 nombres y el filtro del césped, inventados) → **9.5k imp · 0.95x, el de más alcance del pilar**. **Y el matiz que cierra la conversación: no nos inventamos el DOLOR, que sale de 50 reuniones reales. Nos inventamos el decorado.**
 
 > ### 🌳🌳 4.6-RAMAS · LA TAXONOMÍA DEL PILAR HISTORIA (Mario, 2026-08-26) — ⚠️ SIN VALIDAR EN DATOS
+>
+> 🔄 **22/09 (validado por Iker): la rama B ya tiene números, pero solo en UNA cuenta.** Las tres historias rama B son de Unai y suman **7 inscritos al evento** (26/08: 5 · 02/09: 1 · 11/09: 1) y 147 clics. **Lo que queda probado es "rama B en la cuenta de Unai", no la rama.** Las historias de Iker y Asier de septiembre (08/09, 09/09 y 15/09) dan 0 inscritos, así que rama y cuenta no se pueden separar. Además el 02/09 y el 11/09 caen en la ventana que no genera doctrina (`§8.0-SEPTIEMBRE`). **Para validar la rama falta una rama B en la cuenta de Iker o de Asier.** Tabla en `§4.4-CONVERSION-EVENTO`.
 > **Iker, cerrando el día y pidiendo que quede escrito:** *"hemos abierto dentro del pilar historia una nueva rama: ya no es solo la historia personal nuestra, sino que podemos contar historias en tercera persona. Y no solo eso, sino adaptadas al peloteo. Algunas historias estaría bien adaptarlas por región: que no entren en la categoría peloteo regional, sino que sean pilar historia de tipo peloteo regional"*.
 >
 > **🔴 LO PRIMERO, PORQUE ES LO QUE MÁS FÁCIL SE OLVIDA: nada de esto está medido.** Se creó el 26/08 y **el único post que lo usa es el de ese día**, así que hoy es **n=1 para las dos cosas a la vez**. Va escrito porque si no se escribe se pierde, no porque haya funcionado. **La regla de `working-preferences §0c` sigue mandando: hasta que haya números, esto son hipótesis con nombre, no recetas.**

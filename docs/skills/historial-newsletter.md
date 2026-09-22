@@ -1283,7 +1283,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 |---|---|
 | Asunto | `se nota que lo ha escrito una máquina` (37 car) |
 | Preview | `Es justo. Pero el culpable no es la máquina.` |
-| Pilar | **6 · LA OBJECIÓN, primera vez que sale** (`email-marketing §8g`, era el 1º del orden recomendado) |
+| Pilar | **OBJECIÓN (6), primera vez que sale** (`email-marketing §8g`, era el 1º del orden recomendado) |
 | Objeción | la IA que escribe mensajes que ya nadie abre (**5 empresas, 4 ICP**, `global §4.4b-MUNICIÓN`). Contenido de la objeción, **sin cita atribuida ni empresa** |
 | Giro | no se nota por cómo está escrito, se nota porque llega igual a medio sector: **el problema es a QUIÉN se lo mandas** (identificación) |
 | Micro-apertura | `Una frase.` (familia del anuncio del formato; la base de Iker sigue siendo `Te cuento.`, que anuncia historia y esto no lo es) |

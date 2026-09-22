@@ -647,14 +647,28 @@ En los emails importantes, SIEMPRE (Timepack lo lleva en el 86% de los correos, 
 
 | Pilar | % | Qué es | Remitente | CTA |
 |---|---|---|---|---|
-| **1 · El dolor de encontrarlos** | ~40% | El director comercial que no sabe a quién llamar. La lista comprada que no vale. La feria de 200 tarjetas y cero pedidos. El comercial que se pasa media semana buscando en vez de vendiendo | Iker | Suave, y fuerte 1 de cada 3 |
-| **2 · Historia con lección** | ~25% | El molde RunnerPro: una historia (propia o inventada, §7) que aterriza en el dolor y cierra con la frase-puente. Puede colgarse del calendario (agosto, vuelta de vacaciones, cierre de trimestre) | Cualquiera | Suave |
-| **3 · Rompe una creencia del sector** | ~20% | El molde Isra Bravo: *"lo que te han contado sobre X está mal"*. Ej: "más leads no era tu problema", "el CRM no te va a decir a quién llamar" | Unai o Iker | Suave |
-| **4 · Por dentro y novedades** | ~15% | Cómo funciona algo por debajo, aterrizado en ventas · lo que hemos roto esta semana | Asier · Kaixito | Relación |
+| **1 · DOLOR** (el dolor de encontrarlos) | ~40% | El director comercial que no sabe a quién llamar. La lista comprada que no vale. La feria de 200 tarjetas y cero pedidos. El comercial que se pasa media semana buscando en vez de vendiendo | Iker | Suave, y fuerte 1 de cada 3 |
+| **2 · HISTORIA** (con lección) | ~25% | El molde RunnerPro: una historia (propia o inventada, §7) que aterriza en el dolor y cierra con la frase-puente. Puede colgarse del calendario (agosto, vuelta de vacaciones, cierre de trimestre) | Cualquiera | Suave |
+| **3 · MITO** (rompe una creencia del sector) | ~20% | El molde Isra Bravo: *"lo que te han contado sobre X está mal"*. Ej: "más leads no era tu problema", "el CRM no te va a decir a quién llamar" | Unai o Iker | Suave |
+| **4 · BASTIDORES** (por dentro y novedades) | ~15% | Cómo funciona algo por debajo, aterrizado en ventas · lo que hemos roto esta semana | Asier · Kaixito | Relación |
 
 **🆕 Y HAY CUATRO PILARES CANDIDATOS MÁS, sacados del corpus el 2026-09-14 y con su runbook en `§8g`:**
 **5 · el CALENDARIO** (la fecha pone el dolor y la urgencia, y es el mecanismo más usado del corpus) · **6 · la OBJECIÓN entera** (una objeción del informe de demos, en sus palabras, rebatida sin vender: es el pilar con más munición y cero invención) · **7 · la CICATRIZ propia con número pequeño** (el único donde podemos poner una cifra nuestra sin `[PENDIENTE]`, porque las de fracaso sí están medidas) · **8 · las FASCINACIONES** (la lista de bullets de curiosidad: el correo que sostiene la cadencia cuando no hay nada que contar).
 **🆕 Y un 9º, del 2026-09-21 (`§8h`): 9 · la RECETA REGALADA** (el método entero para hacerlo a mano, y lo que se vende es aplicarlo a su caso; el puente nunca promete automatismo).
+
+**🏷️ LOS NOMBRES DE LOS PILARES: UNA PALABRA, Y PUNCHY (Iker, 2026-09-22).** Igual que en posts decimos `meme`, `mapa` o `peloteo`, cada pilar de correo se nombra con **una sola palabra** (dos como mucho). Es el nombre que va en el historial, en el `name` de la campaña de Brevo y en la conversación. La descripción larga se queda solo en la sección del pilar.
+
+| nº | nombre | en una línea |
+|---|---|---|
+| 1 | **DOLOR** | hacer consciente el dolor de encontrarlos |
+| 2 | **HISTORIA** | escena → giro → lección → enlace |
+| 3 | **MITO** | lo que te han contado sobre X está mal |
+| 4 | **BASTIDORES** | por dentro y novedades, casi siempre Kaixito |
+| 5 | **CALENDARIO** | una fecha del año laboral pone el dolor y la urgencia |
+| 6 | **OBJECIÓN** | una objeción real de las demos, se le da la razón y se le da la vuelta |
+| 7 | **CICATRIZ** | un fracaso propio con número pequeño |
+| 8 | **ANZUELOS** | lista de 8-10 frases de curiosidad hacia un solo enlace |
+| 9 | **RECETA** | el método entero a mano; se vende aplicarlo a su caso |
 ⚠️ **Los cinco son n=0 y NO entran en el reparto de arriba hasta que se prueben.** El orden recomendado y el porqué de no lanzarlos a la vez, en `§8g`.
 
 **⭐ LA PROMESA CENTRAL, Y ES UNA SOLA (confirmada por Mario con feedback de clientes, 2026-08-10):**
@@ -1468,7 +1482,7 @@ identificación. **Un pilar que necesite un mensaje central nuevo está mal plan
 
 ---
 
-**🗓️ PILAR 5 · EL CALENDARIO (el más respaldado de los cuatro, y el más barato)**
+**🗓️ PILAR 5 · CALENDARIO (la fecha pone el dolor; el más respaldado de los cuatro, y el más barato)**
 
 **La evidencia:** es el mecanismo más usado de toda la ventana. **RunnerPro cuelga los 11 correos de
 "la vuelta de septiembre"**, EDEM los 2, Hoppy Copy dedica uno entero a explicar la jugada, SINGULARU
@@ -1498,7 +1512,7 @@ que la fecha sea de SU calendario laboral, no del calendario general.**
 
 ---
 
-**💬 PILAR 6 · LA OBJECIÓN, ENTERA (el que más munición tiene y cero riesgo de inventar)**
+**💬 PILAR 6 · OBJECIÓN (la objeción, entera; el que más munición tiene y cero riesgo de inventar)**
 
 **La evidencia:** Juan dedica un correo completo a **tres objeciones entrecomilladas como las dice el
 lector** (*"Es que yo no tengo tiempo ahora mismo"*, *"Es que yo no sé escribir bien"*, *"Es que
@@ -1532,7 +1546,7 @@ Gipuzkoa que fabrica cierres" identifica). Eso es `§7` y no cambia.
 
 ---
 
-**🩹 PILAR 7 · LA CICATRIZ PROPIA CON NÚMERO PEQUEÑO (el que resuelve nuestro problema de cifras)**
+**🩹 PILAR 7 · CICATRIZ (propia y con número pequeño; el que resuelve nuestro problema de cifras)**
 
 **La evidencia:** Juan cuenta que tardó **3 horas** en escribir un email con todas las técnicas y
 sacó **2 respuestas: un amigo vacilándole y una baja**. Y que el que reescribió en **25 minutos** sin
@@ -1560,7 +1574,7 @@ fracaso sale en público es de Iker, no mía.**
 
 ---
 
-**📑 PILAR 8 · LAS FASCINACIONES (el correo de relleno de calidad, para sostener cadencia)**
+**📑 PILAR 8 · ANZUELOS (antes "las fascinaciones"; el correo de relleno de calidad, para sostener cadencia)**
 
 **La evidencia:** **5 de los 20 correos de Isra** son solo una lista de bullets de curiosidad con su
 destino. Cero historia, cero cuerpo. Y él es el que más sabe de esto de todo el corpus.
@@ -1589,10 +1603,10 @@ recomendación es de orden, no de lanzamiento:
 
 | orden | pilar | por qué ese |
 |---|---|---|
-| 1º | **6 · la objeción** | munición verificada, cero invención, y cierra el hueco del echo marketing que lleva abierto desde julio |
-| 2º | **5 · el calendario** | el más respaldado del corpus y el más barato, y el reloj no espera: septiembre y el cierre de trimestre se pasan |
-| 3º | **7 · la cicatriz** | el único con cifras propias, pero necesita el OK de Iker sobre qué fracaso se cuenta en público |
-| 4º | **8 · las fascinaciones** | solo cuando la cadencia apriete. No es un pilar de mensaje, es un pilar de ritmo |
+| 1º | **6 · OBJECIÓN** | munición verificada, cero invención, y cierra el hueco del echo marketing que lleva abierto desde julio |
+| 2º | **5 · CALENDARIO** | el más respaldado del corpus y el más barato, y el reloj no espera: septiembre y el cierre de trimestre se pasan |
+| 3º | **7 · CICATRIZ** | el único con cifras propias, pero necesita el OK de Iker sobre qué fracaso se cuenta en público |
+| 4º | **8 · ANZUELOS** | solo cuando la cadencia apriete. No es un pilar de mensaje, es un pilar de ritmo |
 
 > 🆕 **2026-09-21 (`§8h`): el 9 · la receta regalada entra 3º**, por delante de la cicatriz: no necesita el OK de Iker sobre qué fracaso contar y tiene detrás la mitad de la semana de RunnerPro. La cicatriz y las fascinaciones bajan un puesto.
 
@@ -1833,7 +1847,7 @@ otros 1000."*
 
 **🆕 Y DE AQUÍ SALE UN CANDIDATO MÁS, el 9:**
 
-**🧰 PILAR 9 · LA RECETA REGALADA (candidato, n=0, como los otros cuatro)**
+**🧰 PILAR 9 · RECETA (la receta regalada; candidato, n=0, como los otros cuatro)**
 - **La evidencia:** 2 de los 4 correos de RunnerPro de esta semana, y es el mismo molde las dos
   veces (fuerza y cadencia). Timepack ya tenía el how-to en el 22% de sus asuntos (`§2`).
 - **Qué es:** el correo enseña un método entero y utilizable (pasos numerados, con cifras), incluido

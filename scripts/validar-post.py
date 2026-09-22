@@ -2930,7 +2930,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'no la agenda ni los ponentes. Grace Gong hizo 11.6x y 14.4x contando la sala')
 
     if pilar == 'mapa':
-        chk('recursos.neety.com/mapas/' in texto,
+        # EXPERIMENTO mapa -> Luma (post-workflow §4.4-CONVERSION-EVENTO punto 2,
+        # Iker 22/09): mientras viva el evento, el mapa puede llevar como UNICA
+        # puerta el enlace de Luma en vez de la pagina del mapa. Caduca el 24/09.
+        import datetime as _dt
+        _mapa_luma = (_dt.date.today() <= _dt.date(2026, 9, 24)
+                      and re.search(r'luma\.com/ujffj66o|forward\.neety\.com', texto)
+                      and 'recursos.neety.com/mapas/' not in texto)
+        chk('recursos.neety.com/mapas/' in texto or bool(_mapa_luma),
             'MAPA: el CTA enlaza a /mapas/{region}/ (§4.2 Paso 5)',
             'el mapa NO enlaza a /agendar/. Va "Mapa completo aquí: '
             'https://recursos.neety.com/mapas/{region}/", con la region en minuscula y sin '

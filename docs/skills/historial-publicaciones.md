@@ -8,6 +8,11 @@
 
 ## ⚠️ SI ES LUNES Y SE HABLA DE PUBLICACIONES: PRIMERO SE ANALIZA LA SEMANA PASADA (Iker, 2026-08-10)
 
+> 🔔 **PARA LA REVISIÓN DEL LUNES 28/09 (lo pide Iker el 22/09, sin que haga falta recordárselo):**
+> 1. **A/B de la POSICIÓN del bloque del ninja en PELOTEO (mapa):** ¿subirlo justo detrás de la lista (brazo B) sube CTR y conversión? Caso nuevo: **mapa de Álava de Iker, 22/09, enlace al 68%**, contra el brazo A de su cuenta y contra Cantabria (Asier 01/09, 60%) y el despiece de Bizkaia (Asier 16/09, 74%). `post-workflow §4.0d` punto 6.
+> 2. **Y EN GENERAL, en todos los posts de la semana: si alguno se hizo viral, mirar si la posición del ninja influyó** en clics e inscritos (dónde cayó el enlace en % del texto y en carácter, contra su CTR y sus inscritos por 1.000 impresiones). Incluye el meme de Unai del 22/09 (enlace hacia el 75%).
+> 3. **Cierre del evento (24/09):** inscritos por UTM de todos los posts con Luma, con la tabla de `post-workflow §4.4-CONVERSION-EVENTO` actualizada. Desde el 25/09 el ninja vuelve a `/agendar/`.
+
 **Antes de planificar nada.** No es un repaso opcional ni algo que Iker tenga que pedir: **se hace solo, al detectar que es lunes y que la conversación va de publicaciones.** Se sacan las métricas de las publicaciones de la semana anterior en las tres cuentas, se comparan con su pilar, y **los aprendizajes se integran en las recetas ANTES de decidir qué se publica esta semana**. Planificar sin haber mirado lo anterior es repetir errores con calendario nuevo.
 
 **Y el análisis se hace CONJUNTO:** primero Iker da sus conclusiones, yo las contrasto contra la base de datos, y lo que entra en las recetas es la suma de las dos, no la mía sola.
@@ -224,6 +229,21 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **Plan de peloteo desde ya:** mapa + despiece de automoción + despiece de **maquinaria** (plantilla nueva, engranaje), con **alimentación** (cesta de la compra) como tercera plantilla. Evidencia en `post-workflow §4.7-SECTORES`. **La máquina herramienta "fija" del 14/08 queda descartada.**
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
+
+## ✅ PUBLICADO · MAR 22/09 · UNAI · MEME: EL CORREO A "DIRECCIÓN" (captura documental, evento en el ninja)
+
+| dato | |
+|---|---|
+| **Post** | [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7508122482403545088/) · publicado **13:18** (se pasó la franja de las 12 iterando la imagen) · texto idéntico al validado (57/57) |
+| **Pilar** | meme · **Motor B, captura documental** (correo de Gmail recibido) · remix de referencia INGLESA (`--referencia-fuera`, `--meme-sobrio`) |
+| **Referencia** | [Kyle Coleman, Global VP Sales & Marketing @ ClickUp, 01/04](https://www.linkedin.com/posts/kyletcoleman_best-sequence-ive-gotten-all-year-1-activity-7445174211725275136-rYL0?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3Y0xIBY3GmF1Fzh8sTaB5OABfF0GgS7OQ) · 209 reacciones · **45% de risa (~94 risas)**, por debajo de las 150, aceptado por Iker. Rincón de Unai: el que manda recibiendo prospección mala. 🔄 **Primera propuesta descartada por Iker:** la cara gritando de Alex Murphy (49% risa): *"para Unai evitaría caras de personas con expresiones, prefieren memes inteligentes como capturas"* |
+| **Gancho** | `El mejor correo comercial que he recibido este año 👇` (calco de `Best sequence I've gotten all year`; `secuencia` → `correo comercial` por audiencia) |
+| **Cuerpo** | `Me llama por mi nombre preferido: "Dirección".` · bloque 2 `Me jura…` / `Me mete prisa… de 2:37 a 4:19 de la madrugada` · `Pero no sabe nada.` · bloque 3 `No sabe mi nombre / qué vendemos / quién firma aquí` · cierre `A Dirección no le vende nadie.` · la lista numerada del original pasó a bloque de 3 con anáfora (`global §2.2b-NEGATIVO`) |
+| **Contexto** | `Este jueves 24 hacemos evento presencial en Donostia.` |
+| **Ninja** | `Un correo a "Dirección" nunca llega a quien firma.` / `En el evento sí, pero ya se acaban las plazas:` → Luma, UTM `meme-direccion-22sep-unai` · **tipo PERSONA** (eslabón 2), para la hipótesis persona contra sala · sin cifra de plazas (commit `45577b1`); `Ese día sí` se cambió a `En el evento sí` por explícito (Iker) |
+| **Imagen** | captura de Gmail calcada (colores y tipografía del original, sin marca): remitente `Aitor G`, firma `Ander` (el cruce Henry/Harry del original), horas 2:37 → 4:19 (hace 7 horas) |
+| **Quemados** | contexto `hacemos evento presencial en donostia` · ninja `nunca llega a quien firma` y `en el evento sí, pero ya se acaban` · arranques de meme `me` / `no` · nombres `Aitor` / `Ander` (todo en `validar-post.py` e `images §0a-septima-NOMBRES`) |
+| ⏳ | a los 3-4 días (25-26/09): impresiones, reposts, clics e **inscritos en Luma por UTM** (vara: ~0,03 por 1.000 imp de un meme) |
 
 ## ✅ PUBLICADO · MAR 22/09 · IKER · MAPA DE **ÁLAVA** (evento en el ninja, ÚNICA puerta a Luma)
 

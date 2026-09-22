@@ -306,6 +306,9 @@ SPAM_QUEMADO = {
     'la pidió tanta gente que la agrandamos': '2026-09-18 Unai 18/09, cartel de ponentes',
     'no lo calma una sala cualquiera': '2026-09-18 meme de Asier 18/09, la linea 1',
     'tanto que la primera quedó corta': '2026-09-18 meme de Asier 18/09',
+    'nunca llega a quien firma': '2026-09-22 meme de Unai 22/09 (correo a "Direccion"), la linea 1',
+    'en el evento sí, pero ya se acaban': '2026-09-22 meme de Unai 22/09',
+    'en el evento si, pero ya se acaban': '2026-09-22 meme de Unai 22/09, sin tilde',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -412,7 +415,8 @@ ARRANQUE_QUEMADO = {
     # publicados de la semana pasada (§0f: al PUBLICAR, no al entregar).
     'meme': {
         'la': '2026-08-20 meme de Asier 20/08 ("La lista no se pule / no se hereda / se elige antes")',
-        'no': '2026-08-25 meme de Unai 25/08 ("No buscan quien mande mas / escriba mejor / conteste antes")',
+        'no': '2026-09-22 meme de Unai 22/09 ("No sabe mi nombre / que vendemos / quien firma aqui"); antes Unai 25/08 ("No buscan quien...")',
+        'me': '2026-09-22 meme de Unai 22/09 ("Me jura que confia / Me mete prisa")',
         'se': '2026-08-27 meme de Iker 27/08 ("Se lo que hablamos / Se en que bar desayuna")',
         # Publicados 01-11/09, anotados el 2026-09-15.
         'arriba': '2026-09-01 meme de Iker 01/09 ("Arriba llegan con agenda / Arriba nadie parte de cero / Arriba llegan con el nombre")',
@@ -2356,6 +2360,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                         # Fecha = la ULTIMA vez; caduca y va por cuenta (quemada()).
                         _EV_QUEMADA = {
                             'os esperamos en donostia': '2026-09-22 Iker 22/09, mapa de Álava',
+                            'hacemos evento presencial en donostia': '2026-09-22 Unai 22/09, meme del correo a "Direccion"',
                             'montamos un evento presencial': '2026-09-11 Unai 02/09 y 11/09, Iker 08/09, Asier 09/09 — cuatro veces LITERAL',
                             'hacemos un evento presencial': '2026-09-01 Iker 01/09',
                             'el jueves 24 hacemos': '2026-09-15 Iker, 15/09',

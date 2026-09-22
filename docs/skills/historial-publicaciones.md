@@ -227,6 +227,40 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 | **Aforo Luma** | 68 registrados / 32 libres = **100** tras mudarse al ARIMA (antes 80), lectura 18/09 13:38 |
 | **Quemados** | contexto `nos juntamos en un evento presencial` · ninja `nunca te hace sitio en su mesa` y `la pidió tanta gente que la agrandamos` · arranque `vienen` |
 | ⏳ | medir clics a Luma (GA4 por UTM) e inscritos a los 3-4 días |
+| 📊 **Medido 21/09 (BD) y 22/09 (UTM de Luma)** | 1.417 imp · 0.34x · 23♥ · 6💬 · 5🔁 · **7 clics (0,494%) · 0 inscritos con UTM**. El mejor CTR de la semana y cero conversión: confirma `global §4.4b-EVENTO-EXPLICITO` también en inscritos (los 3 posts que VAN del evento suman 23 clics y 0 inscritos) |
+
+## ✅ PUBLICADO · VIE 18/09 · ASIER · MEME: DOUBLE DOWN DE "VENDER ES UN CAOS" (remix de un meme NUESTRO)
+
+> 📝 Anotado el 22/09, cuatro días tarde: se escribió en otra sesión y no entró en el historial. Lo que va aquí está **leído del texto publicado y de la BD**, no reconstruido. El número del validador y el UTM exacto de esa sesión no los tengo.
+
+| dato | |
+|---|---|
+| **Post** | [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7506632750569832449/) · publicado **10:38** |
+| **Pilar** | meme · **double down de un meme propio**: *"Vender es un caos"* de Unai (06/08, **134.544 imp · 9.16x · 618♥ · 62🔁**), 42 días después y en otra cuenta. Es el caso que originó `post-workflow §4.4-DOBLE-PROPIO` (la imagen se reescribe entera: misma broma, otras palabras). Confirmado por Iker el 22/09 que es remix |
+| **Gancho** | `Vender es un caos y punto 🤣` (27 car; el original decía `asi de simple`, se rotó el intensificador y se mantuvo el esqueleto) |
+| **Cuerpo** | escalera `Con 3 clientes a punto, un silencio es una crisis. / Con 15, un silencio es un mal día. / Con 35, un viernes más.` · cierre `Se quema antes el que tiene pocos síes posibles.` · 519 car |
+| **Contexto** | `El jueves 24 hay evento presencial en Donostia con los que compran.` |
+| **Ninja** | `Al caos de vender no lo calma una sala cualquiera.` / `Esta sala sí, tanto que la primera quedó corta:` → Luma (`link_url` = luma.com/ujffj66o, medido). **No habla de ningún eslabón de la cadena** (`global §4.4b-CADENA`): vende la sala, no la persona |
+| 🔴 **Ninja casi repetido** | `tanto que la primera quedó corta` es la misma idea que `la primera sala se quedó corta` de la tarjeta de Iker **del día anterior**. El validador lo dejó pasar porque la frase no era literal y porque era otra cuenta. Anotado para no repetirlo |
+| 📊 **Medido 21/09** | **24.551 imp · 1.34x · 101♥ · 19💬 · 7🔁 · 11 clics (0,045%) · 5 guardados · 16 envíos · 8 seguidores** · **0 inscritos con UTM** (22/09) |
+| ⚠️ **La cifra de alcance está por confirmar** | Iker dice el 22/09 que **ha vuelto a volar**, y la BD sigue en 24.551 después de un refresco de las propias ese mismo día (el de la tarjeta sí se movió). Hay que leer la cifra oficial de LinkedIn antes de sacar conclusiones del double down (`feedback: cifra oficial antes que reconstruir`). El double down del tatuaje hizo un 5,8% del original; si este pasa de ~25.000, va mucho mejor que aquel |
+| **Lo que ya se puede decir sin esa cifra** | alcance y conversión van por separado: con 24.551 impresiones trajo **0 inscritos**, frente a los 7 del meme de Iker del 01/09 (225.976 imp). **Un meme a Luma solo trae inscritos por volumen, y este ninja no nombraba a la persona** |
+| **Quemados** (metidos en `validar-post.py` el 22/09) | contexto `hay evento presencial en donostia con los que compran` · ninja `no lo calma una sala cualquiera` y `tanto que la primera quedó corta` · arranque de meme `con` |
+
+## ✅ PUBLICADO · JUE 17/09 · IKER · TARJETA: "EL PRECIO CASI NUNCA ES LO QUE TUMBA UNA VENTA" (1ª tarjeta de la prueba)
+
+> 📝 Anotado el 22/09, cinco días tarde: sus quemadas ya se metieron el 18/09 (commit `ccd5a40`), pero la ficha no. Leído del texto publicado y de la BD.
+
+| dato | |
+|---|---|
+| **Post** | [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7506281826412322820/) · publicado **11:24** |
+| **Pilar** | **tarjeta** (`post-workflow §4.6`, EN PRUEBA): **la 1ª de las 3** y, como decía el runbook, en la cuenta de Iker. Las otras dos van a Asier y a Unai, en ese orden. Etiquetada a mano como `tarjeta` en la herramienta |
+| **Creencia que desmonta** | `El precio casi nunca es lo que tumba una venta.` → `Se cae por llamar a quien no decide.` / `Se cae por insistirle a una empresa que no compra eso.` · cierre `El problema que se calla es la venta que no vuelve.` · 383 car |
+| **Contexto** | `El jueves 24 organizamos un evento presencial en Donostia.` |
+| **Ninja** | `Traer soluciones no te sienta al lado de quien compra.` / `En Donostia sí y la primera sala se quedó corta:` → Luma (`link_url` medido). Eslabón 2 (la persona), pero dicho como sala |
+| 📊 **Medido 22/09** | **3.305 imp · 0.44x · 17♥ · 15💬 · 4🔁 · 4 clics (0,121%) · 3 guardados · 9 envíos** · **0 inscritos con UTM** |
+| **Cómo se juzga** | por **alcance y reposts, nunca por comentarios** (`§4.6-RIESGO`: el formato es una máquina de repost). **Las dos cosas salieron flojas**: 0.44x y 4 reposts. Es n=1 y la prueba sigue con las otras dos cuentas; **no es motivo para cerrarla** |
+| **Quemados** | contexto `organizamos un evento presencial` · ninja `no te sienta al lado de quien compra` y `la primera sala se quedó corta` (ya en `validar-post.py` desde el 18/09) |
 
 ## 📝 APROBADO · JUE 17/09 · ASIER · LEAD MAGNET `/perfil/` (1º lead magnet desde el 26/08)
 

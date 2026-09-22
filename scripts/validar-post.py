@@ -300,6 +300,8 @@ SPAM_QUEMADO = {
     'la primera sala se quedó corta': '2026-09-17 Iker 17/09',
     'nunca te hace sitio en su mesa': '2026-09-18 Unai 18/09, cartel de ponentes, la linea 1',
     'la pidió tanta gente que la agrandamos': '2026-09-18 Unai 18/09, cartel de ponentes',
+    'no lo calma una sala cualquiera': '2026-09-18 meme de Asier 18/09, la linea 1',
+    'tanto que la primera quedó corta': '2026-09-18 meme de Asier 18/09',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -409,6 +411,7 @@ ARRANQUE_QUEMADO = {
         '12': '2026-09-03 meme de Asier 03/09 ("12 meses pagados / 12 meses de pantalla / 12 meses sin una cara")',
         'filtran': '2026-09-16 meme de Iker 16/09 ("Filtran por quien pregunto / Filtran antes de oirme")',
         'sin': '2026-09-16 meme de Iker 16/09 ("Sin nombre no paso / no hay cita / no hay pedido")',
+        'con': '2026-09-18 meme de Asier 18/09 ("Con 3 clientes a punto / Con 15 / Con 35")',
     },
     # El pilar lead magnet tampoco tenia lista. Anotado al PUBLICAR (§0f).
     # El pilar DESPIECE tampoco tenia lista. Leidos los dos publicados.
@@ -2350,6 +2353,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                             'abrimos las puertas de un evento': '2026-09-16 Asier 16/09, despiece de Bizkaia',
                             'organizamos un evento presencial': '2026-09-17 Iker 17/09',
                             'nos juntamos en un evento presencial': '2026-09-18 Unai 18/09, cartel de ponentes',
+                            'hay evento presencial en donostia con los que compran': '2026-09-18 Asier 18/09, meme',
                         }
                         _evq = [f for f in _EV_QUEMADA if f in _prev
                                 and quemada(f, _EV_QUEMADA[f], VENTANA_NINJA_DIAS, cuenta)]

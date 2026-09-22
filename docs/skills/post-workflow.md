@@ -942,7 +942,9 @@ referencias quemadas seguidas, dos entregas enteras a la basura y el retraso enc
 |---|---|---|---|
 | ✅ **La escalera de calvicie** · Iker 06/05 → Asier 12/08 | **98 días** | 13.92x · **138.828** | 6.04x · **89.320**, el mejor post de Asier |
 | ⛔ **El tatuaje** · Unai 29/07 → Iker 31/07 | **2 días** | 6.88x · **93.744** | 0.53x · **5.427**, un **5,8%** del original |
+| ✅ **"Vender es un caos"** · Unai 06/08 → Asier 18/09 (añadido el 22/09) | **42 días** | 9.16x · **134.544** | **1.58x · 29.243**, un **21,7%** del original (BD tras refresco del 22/09) |
 
+- **🔄 22/09: tercer caso y confirma la vara.** A 42 días, en otra cuenta y con la imagen reescrita (`§4.4-DOBLE-PROPIO`), el double down superó el baseline de Asier (1.58x) y multiplicó por ~4 el porcentaje del tatuaje. No llega a la escalera (98 días), así que **el mes de espaciado es el mínimo, no el óptimo**. ⚠️ A Luma trajo 11-12 clics y 0 inscritos: el double down devuelve alcance, no conversión (`§4.4-CONVERSION-EVENTO`).
 - **El espaciado es lo que separa los dos casos, no la calidad de la referencia:** las dos
   partían de un post que había volado (138.828 y 93.744) y las dos se remixaron bien. La
   que se repitió a los 2 días se estrelló.

@@ -2055,6 +2055,8 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > **El dolor con MENOS respaldo en el informe dio el mejor CTR de la ventana, por el doble que el segundo.** Y lo hizo en la peor semana, con 3.042 impresiones: sacó más clics él solo (23) que el 08/09 y el 09/09 juntos (7).
 >
+> 🔄 **Releído en la BD el 22/09, con los posts ya asentados, y el "por el doble" ya no se sostiene:** 02/09 **0,331%** (35/10.574) · 08/09 **0,479%** (7/1.461) · 09/09 **0,589%** (6/1.018) · 11/09 **0,701%** (34/4.847). **El 11/09 sigue siendo el mejor, pero por 1,2x, no por 2x.** La regla de abajo se queda (entre dos dolores válidos gana el específico), pero **ya no se cita este cruce como prueba fuerte**: es el mejor de 4, en la ventana que no genera doctrina (`post-workflow §8.0-SEPTIEMBRE`), y en la cuenta de Unai, que es la que más clics saca en historia.
+>
 > **Por qué pasa, y no es casualidad:** el informe cuenta **cuántas empresas lo dicen en una reunión**. El dolor más repetido es también el más genérico — *"no tengo tiempo de prospectar"* lo firma cualquiera y **no le señala a nadie en el feed**. El de 2 empresas es el más específico, y el específico es el que hace que uno se dé por aludido y pinche.
 >
 > **LA REGLA: el número de empresas decide si un dolor es REAL, no si es BUENO para el ninja.**

@@ -1260,7 +1260,9 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 |---|---|---|---|---|---|
 | 2 · la feria | Iker | 16 · 35,6% | **0** | 0 | — (iba a `/agendar/`) |
 | 3 · evento | Unai | 13 · 28,9% | **1** | 1 | 0 (el `hs_email` era de HubSpot) |
-| **4 · evento** | **Kaixito** | **16 · 35,6%** | **3** (66,7‰) | **0** | **1** (dato de Iker, visto en Luma) |
+| **4 · evento** | **Kaixito** | **16 · 35,6%** → 🔄 **20 · 44,4% al 22/09** | **3** (66,7‰) | **0** | **1** (dato de Iker, visto en Luma; confirmado por UTM el 22/09) |
+
+> 🔄 **Releído el 22/09 con `metricas-brevo.py`:** 45 entregados, **20 aperturas (44,4%)**, 4 clics de cuerpo (uno es de Mario: **3 de lead**), 0 bajas. Es el mejor de los correos 2-4 en aperturas y en clics, **pero con 45 destinatarios y seis variables cambiadas a la vez no separa nada** (ver abajo). La lectura del mismo día infravaloraba las aperturas en un 20%: **un correo se cierra a los 5-6 días, no el día del envío.**
 
 - **Los 3 que pulsaron:** `hablemos@garazizuniga.studio` (09:36), `louisedesiree.ldf@gmail.com` (10:53) y `anderalberdi94@gmail.com` (11:36, **segunda vez**: ya pulsó el correo 3). El 4º clic es `mario@neety.com` a las 09:14, revisando.
 - ⭐ **ES EL PRIMER INSCRITO AL EVENTO ATRIBUIDO A LA NEWSLETTER POR UTM.** El del correo 3 resultó ser de HubSpot (14/09). Este llega con `utm_source=kaixito-04-evento-correo`, que es justo lo que se protegió apagando el seguimiento UTM de Brevo antes del test.

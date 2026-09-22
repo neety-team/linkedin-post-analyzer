@@ -137,6 +137,8 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 
 **Se lee con 3 o 4 posts del brazo B en la MISMA cuenta.** La cuenta de Asier ya tiene los dos: Aragón (A, 0,500%), Cantabria (B, GA4) y Bizkaia (B). **Cada peloteo nuevo apunta en su ficha del historial el % de posición del enlace** el día que sale.
 
+**📍 EL CRITERIO DE IKER PARA EL BRAZO B (22/09):** *"justo después de dar el valor, pero no demasiado tarde, que ya hayan cerrado el post"*. En un mapa, el valor es la LISTA: el bloque del enlace va **justo detrás de las menciones**, con su línea de contexto si es el evento, y detrás una suelta que devuelve al cuerpo. Primer caso: mapa de Álava de Iker, 22/09, enlace al **68%**, cosido a la lista con la palabra del gancho (`Saber quién llena la nevera…` tras `las 20 que la llenan`). Es criterio suyo, no dato: se mide dentro del A/B.
+
 **Cómo se sube sin romper el ritmo** (caso de Bizkaia): mover el bloque del enlace deja casi siempre un tramo en espejo o un ciclo suelta-bloque-suelta-bloque. Se prueban las ordenaciones de la cola con el validador y se elige **la más alta que pase limpia**. En Bizkaia quedó: sirimiri → contexto del evento → enlace → reveal y barrido → pueblos → "ninguna sale en un anuncio" → cierre.
 
 **Mecanizado** como aviso en `validar-post.py` (`PELOTEO: posicion del enlace`), que imprime el % y dice a qué brazo pertenece el post.

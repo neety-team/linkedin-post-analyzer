@@ -227,7 +227,7 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 | **Aforo Luma** | 68 registrados / 32 libres = **100** tras mudarse al ARIMA (antes 80), lectura 18/09 13:38 |
 | **Quemados** | contexto `nos juntamos en un evento presencial` · ninja `nunca te hace sitio en su mesa` y `la pidió tanta gente que la agrandamos` · arranque `vienen` |
 | ⏳ | medir clics a Luma (GA4 por UTM) e inscritos a los 3-4 días |
-| 📊 **Medido 21/09 (BD) y 22/09 (UTM de Luma)** | 1.417 imp · 0.34x · 23♥ · 6💬 · 5🔁 · **7 clics (0,494%) · 0 inscritos con UTM**. El mejor CTR de la semana y cero conversión: confirma `global §4.4b-EVENTO-EXPLICITO` también en inscritos (los 3 posts que VAN del evento suman 23 clics y 0 inscritos) |
+| 📊 **Medido 21/09 (BD) y 22/09 (UTM de Luma)** | 1.417 imp · 0.34x · 23♥ · 6💬 · 5🔁 · **7 clics (0,494%) · 0 inscritos con UTM**. El 2º mejor CTR de la semana (el 1º es el "Los 10" del 15/09, 54/7.789 = 0,693%; corregido el 22/09) y cero conversión: confirma `global §4.4b-EVENTO-EXPLICITO` también en inscritos (los 3 posts que VAN del evento suman 23 clics y 0 inscritos) |
 
 ## ✅ PUBLICADO · VIE 18/09 · ASIER · MEME: DOUBLE DOWN DE "VENDER ES UN CAOS" (remix de un meme NUESTRO)
 

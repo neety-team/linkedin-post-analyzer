@@ -1489,6 +1489,15 @@ Luma:        ?utm_source=historia-euskadi-26ago-unai&utm_medium=post&utm_campaig
 
 **Aplicado el 2026-08-27 a los 14 enlaces que había** (12 mapas + las 2 bandas de `/agendar/`), en el repo `neety-resources`.
 
+🔄 **22/09: EL BOTÓN HEREDA EL POST QUE TRAJO LA VISITA** (`neety-resources/assets/attr.js`, paso 1b, commit `3731959`). Con el source fijo, quien llegaba de un post a `/agendar/` o a un mapa y se inscribía desde el botón salía en Luma como `recursos-agendar`, **sin post** (2 inscritos del evento de septiembre perdidos así). Ahora, si la visita trae `utm_campaign`, el script lo pega al source del botón:
+```
+post → /agendar/?utm_source=linkedin&utm_campaign=meme-recepcion-16sep&utm_content=iker
+botón → luma.com/...?utm_source=recursos-agendar--meme-recepcion-16sep-iker
+```
+- **El doble guion separa página y post**: en Top Sources de Luma se lee de qué página salió y de qué post venía. Sin UTM de origen, el botón queda como siempre.
+- **No hay que tocar nada al escribir el post**: basta con que el enlace a nuestra web lleve su UTM normal (`§4.4b-UTM`). Tampoco al crear un mapa nuevo: el script lo cargan todas las páginas y corrige cualquier enlace a `luma.com`.
+- ⚠️ **`/assets/*` va con caché `immutable` de un año:** cualquier cambio en `attr.js` exige subir el `?v=` en las 39 páginas, o los navegadores que ya lo tenían siguen con el viejo.
+
 **⚠️ La trampa del bloque replicado:** la banda de evento de los mapas se edita en uno y se copia a los otros 11, y el `utm_source` lleva el slug de la región. **Copiar la banda sin tocar el slug atribuye Álava a Bizkaia y no lo nota nadie**, porque el enlace funciona igual. Va avisado en el comentario HTML de las 12 páginas.
 
 ##### ⛔⛔ Y LA REGLA QUE LO CIERRA TODO: **UTM SOLO EN LO QUE SALE DE NUESTRO DOMINIO** (Iker, 2026-08-27)

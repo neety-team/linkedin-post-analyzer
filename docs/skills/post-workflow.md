@@ -889,7 +889,7 @@ post                                  imp      clics  inscritos  por 1.000 imp
 
 **4 · LOS POSTS SON UNA CUARTA PARTE DEL EMBUDO.** Al 22/09: 77 inscritos en Luma, 23 con UTM y **19 de posts (25%)**, lo mismo que medía el cierre del 14/09. **La UTM es un suelo**: una tabla por post compara posts entre sí, no dice cuánto llena LinkedIn un evento.
 
-**⛔ Lo que NO dice, y va con la tabla cada vez que se cite:** los posts que convierten son **casi todos de Unai** (11 de 19 inscritos de posts), así que pilar, rama y cuenta van juntos y no se pueden separar. Y los inscritos que entran por `/agendar/` salen como `recursos-agendar` sin post (el botón lleva la UTM fija; pendiente de arreglar para el próximo evento).
+**⛔ Lo que NO dice, y va con la tabla cada vez que se cite:** los posts que convierten son **casi todos de Unai** (11 de 19 inscritos de posts), así que pilar, rama y cuenta van juntos y no se pueden separar. Y los inscritos que entran por `/agendar/` salen como `recursos-agendar` sin post (el botón llevaba la UTM fija; arreglado el 22/09, ver `global §4.4b-UTM`).
 
 **🧪 HIPÓTESIS EN PRUEBA, no regla:** *el ninja que nombra a la PERSONA convierte más que el que vende "la sala"* (a favor: `Una reunión la pide cualquiera, el nombre de dentro no.` 26/08, 5 inscritos). **En contra:** `El que firma tu pedido no aparece en cualquier sala.` (Iker 15/09) nombra a la persona y sacó 0 con 15 clics, y el ninja del "Los 10" también vendía la sala (`una sala de solo 80 sitios`). Casi todos los ninjas del evento mezclan las dos cosas. **Hace falta un ninja limpio de cada tipo, en la misma cuenta, antes de tocar el molde de `global §4.4b`.**
 

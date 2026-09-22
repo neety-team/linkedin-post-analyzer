@@ -208,7 +208,7 @@ Iker pidió expresamente que se lo recuerde al arrancar la semana que viene. **E
 
 Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow §4.4-CONVERSION-EVENTO` (inscritos por 1.000 impresiones, tabla completa, meme por volumen, posts = 25% del embudo, hipótesis del ninja de persona), `§4.4-CONVERSION` (la renta fija de la historia es de Unai), `§4.6-RAMAS` (rama B probada solo en Unai) y `global §4.4b-EVENTO-EXPLICITO` (0 inscritos de 23 clics). Y `global §2.0b`: **la idea del ninja no se quema, se quema la frase.**
 
-**⏳ PENDIENTE PARA EL PRÓXIMO EVENTO:** el botón `Pedir mi plaza` de `neety-resources/agendar/index.html` lleva `utm_source=recursos-agendar` fija y Luma no ve de qué post venía (los 2 inscritos de esa fuente están sin atribuir). La UTM de origen ya está guardada en la página (`neety:attr` en sessionStorage; es la que llega al Google Chat con las demos): hay que pasarla al enlace de Luma. **Desde el 25/09 el ninja vuelve a `/agendar/` y la prioridad vuelve a ser demos** (Iker, 22/09).
+**✅ ARREGLADO EL 22/09 (commit `3731959` de neety-resources):** los botones de Luma de `/agendar/` y de los mapas ya pasan el post de origen (`utm_source=recursos-agendar--meme-recepcion-16sep-iker`). Detalle en `global §4.4b-UTM`, "la tercera superficie". Los 2 inscritos antiguos de `recursos-agendar` siguen sin atribuir: solo GA4 los puede recuperar. **Desde el 25/09 el ninja vuelve a `/agendar/` y la prioridad vuelve a ser demos** (Iker, 22/09).
 
 **⏳ PENDIENTE DE IKER:** export de Luma por UTM · cifra oficial del meme de Asier del 18/09 · GA4 (`cta_evento` por fuente) o token del CRM · UTM del `I'm attending` del 24/08.
 

@@ -225,6 +225,22 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## ✅ PUBLICADO · MAR 22/09 · IKER · MAPA DE **ÁLAVA** (evento en el ninja, ÚNICA puerta a Luma)
+
+| dato | |
+|---|---|
+| **Post** | [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7508102575712378880/) · publicado **11:59** · texto idéntico al validado (75/75) |
+| **Por qué Álava** | a Iker le faltaban Bizkaia y Álava en mapa. Álava con Unai (07/07) hizo **50.939** imp y Bizkaia 36.901; Bizkaia además con el despiece de Asier del 16/09. Ventana: 3 peloteos en 21 días (banda buena) |
+| **Gancho** | `A la nevera del norte la tienen calada: vino, baloncesto y hasta ahí. Y exporta más que Islandia entera 👇` (105 car) · concepto `nevera del norte` · verbo `tienen calada` · frase-rabia `y hasta ahí` · país **Islandia** |
+| **Datos** (años aquí, nunca en el post) | Álava exportó **8.865,9 M€ en 2025** (EUSTAT, tabla mensual, provisional) · Islandia **923,2 mil M ISK en 2025** (Statistics Iceland) = ~6.380 M€ al cambio medio BCE 2025 (144,71) → **+39%** · población 01/01/2025: Álava **344.665** (INE/EUSTAT), Islandia **389.444** (Statistics Iceland) · industria = **29%** del PIB alavés, dato de 2022 (EUSTAT) |
+| **Menciones** | **20 empresas alavesas de origen, las 20 con persona** con cargo de decisión y actividad ≤180 días (casi todas ≤60). Ninguna repetida contra las 721 ni cliente. Encontradas por PERSONAS (Sales Navigator, `posted_on_linkedin`, location Álava: los ids que valen son `90009820` Greater Vitoria, `101551702` Araba-Álava y `102598892` Vitoria; el `104853813` de la búsqueda de LOCATION devuelve 0) y por empresas (classic, location Álava). Tres personas viven fuera y dirigen empresa alavesa (Riscal en Madrid, Gamarra en Donostia, Euroresin en Fuenmayor) |
+| **PamPam** | las 20 AÑADIDAS al mapa de Álava de Unai: ahora son **40 en un mismo mapa** (revisado: 0 duplicados, 40 coordenadas distintas; separadas a mano SVE/AJL en Miñano y Flanker/DIREMA en Júndiz) |
+| 🧪 **Experimento 1** | **única puerta = Luma**, sin enlace a `/mapas/alava/` (`post-workflow §4.4-CONVERSION-EVENTO` punto 2). UTM `mapa-alava-22sep-iker`. Se mide en **inscritos por 1.000 imp** contra el 0,51 del "Los 10" de Gipuzkoa |
+| 🧪 **Experimento 2** | **enlace al 68%, justo detrás de la lista** (brazo B, 1er post de Iker en él). Criterio de Iker: "justo después de dar el valor". Ninja de tipo PERSONA (`no te presenta a nadie`), útil para la hipótesis persona contra sala |
+| **Ninja** | `Este jueves 24 os esperamos en Donostia, en un evento presencial.` / `Saber quién llena la nevera no te presenta a nadie.` / `Allí sí lo hacemos y ya quedan las últimas plazas:` (Luma leída a las 11:22: 23 libres de 100; sin la cifra porque sin el total se leía a sala vacía, Iker) |
+| **Quemados** | concepto `nevera del norte` · verbo `tienen calada` · frase-rabia `y hasta ahí` · país `islandia` · contexto `os esperamos en donostia` · ninja `no te presenta a nadie` y `ya quedan las últimas plazas` · arranques de mapa `ni` / `aqui` / `por` (todo en `validar-post.py`) |
+| ⏳ | a los 3-4 días (25-26/09): impresiones, reposts, clics y **inscritos en Luma por UTM** |
+
 ## ✅ PUBLICADO · VIE 18/09 · UNAI · EVENTO: CARTEL DE PONENTES (Neety Forward)
 
 | dato | |
@@ -486,7 +502,7 @@ El de automoción ya está hecho (Asier, 07/08). El siguiente **no repite sector
 
 | Cuenta | MAPAS usados (no repetir en esa cuenta) | "LOS 10" usados | Conceptos gastados por esa cuenta |
 |---|---|---|---|
-| **Iker** | Gipuzkoa · Cataluña · Andalucía · Valencia · Galicia · Navarra · Murcia · **Castilla y León** | País Vasco · **Asturias** · **Navarra** (03/09) | "pueblo de 7.000 hab" · "esquina del Atlántico" · "patio trasero de los Pirineos" · "playa y paella" · "8,7 millones" · "el tejado de la Península" |
+| **Iker** | Gipuzkoa · Cataluña · Andalucía · Valencia · Galicia · Navarra · Murcia · Castilla y León · **Álava** (22/09) | País Vasco · **Asturias** · **Navarra** (03/09) | "pueblo de 7.000 hab" · "esquina del Atlántico" · "patio trasero de los Pirineos" · "playa y paella" · "8,7 millones" · "el tejado de la Península" · "la nevera del norte" |
 | **Unai** | País Vasco · Bizkaia · Álava · **Cataluña** | **Gipuzkoa** (15/09) | "pueblo de 2,2 millones" · "trastienda del norte" · "lluvia y pintxos" · "última parada antes de Francia" |
 | **Asier** | Aragón · **Cantabria** (01/09) | — | "secarral que peina el cierzo" · "el felpudo del Pirineo" · "el tendedero del Cantábrico" |
 
@@ -496,7 +512,7 @@ El de automoción ya está hecho (Asier, 07/08). El siguiente **no repite sector
 **"Los 10" está casi virgen:** solo se ha hecho UNA vez (Iker, País Vasco). Unai y Asier lo tienen entero libre, y a Iker le quedan 16 comunidades. Es la mecánica de peloteo con más recorrido sin quemar.
 **Personas ya mencionadas en "Los 10"** (no repetir NUNCA a la misma persona en otro "Los 10"): las 10 del País Vasco de Iker (Edorta Arriet Azpiroz, Ana Isabel Portilla, Andoni Iriarte, Oscar Urdangarin, Xabier Otaño Eguidazu, Oier Elguezabal, Carlos Muriel, Borja Jareño Irazola, Javier Gomez de Cadiñanos, Fernando Martínez) y **las 10 de Asturias de Iker** (Javier Soto, Alvaro Vallaure Mori, Jose Antonio Garcia Sanchez, OUAZZANI TOUHAMI ASMA, David Menéndez Mozo, Alvaro Platero Alonso, Alfredo Fernández Olano, Alejandro García Menéndez, José Arturo Gutiérrez García, Alfonso Sanchez Miguez).
 
-**Libres para Iker:** Aragón, Castilla-La Mancha, Extremadura, La Rioja, Cantabria, Canarias, Baleares.
+**Libres para Iker:** Bizkaia, Aragón, Castilla-La Mancha, Extremadura, La Rioja, Cantabria, Canarias, Baleares. (Álava usada el 22/09; Bizkaia la tiene libre en mapa: el despiece de Asier no le quema nada.)
 **Libres para Unai:** Valencia, Andalucía, Galicia, Navarra, Aragón, Asturias, Murcia, Castilla y León, Castilla-La Mancha, Extremadura, La Rioja, Cantabria, Canarias, Baleares.
 > 🔄 **Actualizado el 2026-09-15:** Unai estrena **"Los 10" con Gipuzkoa**. Ojo al planificar el siguiente mapa suyo: **Gipuzkoa NO le queda quemada para mapa** — un mapa y un "Los 10" del mismo territorio no se queman entre sí (validado con Iker: Gipuzkoa mapa 12.92x en abril y "Los 10" del País Vasco 4.81x en junio). Lo que sí está gastado para él es **todo el territorio vasco en MAPA** (País Vasco, Bizkaia, Álava).
 > ⚠️ **Y dos del plan de septiembre que NO se publicaron y por tanto NO queman nada:** el **despiece de automoción de Cataluña** (Unai, previsto el 09/09) y el **"Los 10" de Navarra** (Iker, previsto el 11/09). Estaban escritos y validados; no llegaron a subirse. **El espaciado y la cobertura se miden contra la BD, nunca contra el cuadro del plan** (`post-workflow §8.3`).

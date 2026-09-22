@@ -81,6 +81,7 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
+    'tienen calada': '2026-09-22 Álava, mapa de Iker',
     # Cada valor empieza por la fecha de la ULTIMA publicacion que lo uso y
     # caduca a los VENTANA_IDENTIDAD_DIAS (global 2.0b-VENTANA, Iker 2026-09-16).
     'despachan': '2026-07-23 Murcia (Iker)',
@@ -259,6 +260,9 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'no te presenta a nadie': '2026-09-22 mapa de Álava, Iker 22/09, la linea 1',
+    'ya quedan las últimas plazas': '2026-09-22 mapa de Álava, Iker 22/09',
+    'ya quedan las ultimas plazas': '2026-09-22 mapa de Álava, Iker 22/09, sin tilde',
     'dar con el que decide': '2026-07-31 meme Unai 29/07, historia Iker 29/07, mapa Asturias 31/07',
     'son meses a mano': '2026-07-31 lo mismo, en los tres (Unai e Iker)',
     'te lo damos hecho': '2026-07-31 lo mismo, en los tres (Unai e Iker)',
@@ -312,6 +316,7 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
+    'islandia': '2026-09-22 Álava, mapa de Iker',
     'uruguay': '2026-07-23 Murcia (Iker)',
     'bolivia': '2026-06-30 Navarra (Iker)',
     'croacia': '2026-06-16 Galicia (Iker)',
@@ -389,6 +394,9 @@ ARRANQUE_QUEMADO = {
         'volvi': '2026-09-15 historia de Iker 15/09 ("Volvi al coche / Volvi a la lista / Volvi a mirarla")',
     },
     'mapa': {
+        'ni': '2026-09-22 mapa de Álava, Iker ("Ni la llena Celedón / Ni la llenan los blusas")',
+        'aqui': '2026-09-22 mapa de Álava, Iker ("Aquí la sal / Aquí se discute / Aquí se sube")',
+        'por': '2026-09-22 mapa de Álava, Iker ("Por fuera / Por dentro")',
         'no': '2026-06-30 mapa de Navarra, Iker ("No paga las nominas San Fermin")',
     },
     # Estos dos salen de nuestro propio runbook (post-workflow 4.3), no de haber
@@ -427,6 +435,7 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'nevera del norte': '2026-09-22 Álava, mapa de Iker',
     'sitio de comer': '2026-07-30 Euskadi (Iker)',
     'desierto': '2026-07-23 Murcia (Iker)',
     'patio trasero': '2026-06-30 Navarra (Iker)',
@@ -447,6 +456,7 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'y hasta ah': '2026-09-22 Álava, mapa de Iker',
     'de vuelta al aeropuerto': '2026-07-30 Euskadi (Iker)',
     'y para de contar': '2026-07-23 Murcia (Iker)',
     'y poco m': '2026-06-30 Navarra (Iker)',
@@ -2345,6 +2355,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                         # y el orden. Al publicar, la frase usada entra aqui.
                         # Fecha = la ULTIMA vez; caduca y va por cuenta (quemada()).
                         _EV_QUEMADA = {
+                            'os esperamos en donostia': '2026-09-22 Iker 22/09, mapa de Álava',
                             'montamos un evento presencial': '2026-09-11 Unai 02/09 y 11/09, Iker 08/09, Asier 09/09 — cuatro veces LITERAL',
                             'hacemos un evento presencial': '2026-09-01 Iker 01/09',
                             'el jueves 24 hacemos': '2026-09-15 Iker, 15/09',

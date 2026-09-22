@@ -1494,6 +1494,7 @@ Luma:        ?utm_source=historia-euskadi-26ago-unai&utm_medium=post&utm_campaig
 post → /agendar/?utm_source=linkedin&utm_campaign=meme-recepcion-16sep&utm_content=iker
 botón → luma.com/...?utm_source=recursos-agendar--meme-recepcion-16sep-iker
 ```
+- ✅ **Probado en producción por Iker el 22/09** desde el meme del 16/09 en incógnito: Luma recibió `utm_source=recursos-agendar--meme-recepcion-16sep-iker` (Luma reordena los parámetros, da igual).
 - **El doble guion separa página y post**: en Top Sources de Luma se lee de qué página salió y de qué post venía. Sin UTM de origen, el botón queda como siempre.
 - **No hay que tocar nada al escribir el post**: basta con que el enlace a nuestra web lleve su UTM normal (`§4.4b-UTM`). Tampoco al crear un mapa nuevo: el script lo cargan todas las páginas y corrige cualquier enlace a `luma.com`.
 - ⚠️ **`/assets/*` va con caché `immutable` de un año:** cualquier cambio en `attr.js` exige subir el `?v=` en las 39 páginas, o los navegadores que ya lo tenían siguen con el viejo.

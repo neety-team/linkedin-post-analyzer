@@ -1281,7 +1281,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 | | |
 |---|---|
-| Asunto | **`¿tú lo abrirías?`** (16 car) · antes `se nota que lo ha escrito una máquina` (37) |
+| Asunto | **`tú lo abrirías?`** (15 car, **sin la `¿` a petición de Iker**, tercera vez tras la tanda 6 y el correo 4: la minúscula del `tú` le gusta más sin ella) · antes `se nota que lo ha escrito una máquina` (37) |
 | Preview | `Yo tampoco. Y eso que me dedico a esto.` |
 | Pilar | **OBJECIÓN (6), primera vez que sale** (`email-marketing §8g`, era el 1º del orden recomendado) |
 | Objeción | la IA que escribe mensajes que ya nadie abre (**5 empresas, 4 ICP**, `global §4.4b-MUNICIÓN`). Contenido de la objeción, **sin cita atribuida ni empresa** |

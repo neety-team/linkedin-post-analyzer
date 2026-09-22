@@ -1272,3 +1272,31 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **⭐ QUÉ SE LLEVA EL SIGUIENTE CORREO:** Kaixito **no ha bajado ni aperturas ni bajas** frente a los founders (35,6% igual que Iker, 0 bajas contra 1 de Unai). `email-marketing §1` decía *"se mide, no se discute: si abre más, gana papel"*. **Todavía no abre más, pero tampoco cuesta nada, y es el único que ha traído un inscrito.**
 
+
+---
+
+## 📝 CORREO 5 · Unai · la objeción de la IA, con la puerta del evento (BORRADOR 2026-09-22, para el mié 23/09 09:05)
+
+**Campaña Brevo 22**, listas 15 + 4 (**46**: 41 de `📥 Recursos · Todos`, 1 de ellos de baja, + 5 `Testers`), remitente `Unai de Neety` (`hola@neety.com`), estado **`draft`** releído de la API. **Sin `scheduledAt`** (`§9a-BIS`).
+
+| | |
+|---|---|
+| Asunto | `se nota que lo ha escrito una máquina` (37 car) |
+| Preview | `Es justo. Pero el culpable no es la máquina.` |
+| Pilar | **6 · LA OBJECIÓN, primera vez que sale** (`email-marketing §8g`, era el 1º del orden recomendado) |
+| Objeción | la IA que escribe mensajes que ya nadie abre (**5 empresas, 4 ICP**, `global §4.4b-MUNICIÓN`). Contenido de la objeción, **sin cita atribuida ni empresa** |
+| Giro | no se nota por cómo está escrito, se nota porque llega igual a medio sector: **el problema es a QUIÉN se lo mandas** (identificación) |
+| Micro-apertura de Unai | `Una frase.` (la del correo 3 fue `Al grano.`) |
+| Enlace | `forward.neety.com/?utm_source=unai-05-evento-correo`, 302 → `luma.com/ujffj66o?utm_source=unai-05-evento-correo` verificado el 22/09 |
+| Validador | **36/36** · ritmo `1-1-1-1-3-1-2-1-1-2-1-1` |
+
+**Por qué NO fue el "última llamada / menos de 24 horas" que se pidió:**
+1. **Era falso:** sale el miércoles a las 09:05 y el evento arranca el jueves a las 18:00 (Luma `start_at` 16:00Z). Son **33 horas**. Y el correo se abre durante días: por eso va `este jueves 24`, nunca `mañana` (`global §4.4b-EVENTO-FECHA`).
+2. **Sería el 3.er correo seguido del evento** (3, 4 y este): `§7` pide avisar del tercer correo de venta seguido.
+3. **Los inscritos ya reciben de Luma el recordatorio de 24 h y el de 1 h** (`§8h`): un tercero nuestro es ruido para ellos.
+4. **El post que va DEL evento trae clics y 0 inscritos** (`global §4.4b-EVENTO-EXPLICITO`); el evento se vende dentro de otra cosa.
+
+**⚠️ PENDIENTE ANTES DEL TEST (lo hace Iker en el panel):** Brevo ha inyectado `utm_source=sendinblue` al crear la campaña, como en el correo 4. **Configuración adicional → seguimiento UTM → apagar**, y después se reescribe el `href` a mano y se pasa `auditar-campanas-brevo.py`.
+
+**Al enviarlo:** meter el ninja en `QUEMADAS` de `validar-email.py`, el cuerpo literal en `corpus-correos-enviados.md`, y leer las métricas a los 5-6 días.
+**Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. El correo de después del evento (`email-marketing §8h`) estaba pensado para Unai; **si sale la semana que viene, rota a Iker o Asier** para no repetir remitente.

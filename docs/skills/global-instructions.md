@@ -174,6 +174,8 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 
 **El principio, y es lo que faltaba escrito en algún sitio:** el fondo se repite a propósito (mismo pilar, mismo dolor, mismo formato: eso es lo que hace que funcione), pero **la publicación nueva tiene que NOTARSE nueva**. Cualquier trozo de texto que aparezca igual en dos posts seguidos quema el pilar entero, porque el lector nos tiene fichados y deja de leer.
 
+> ⛔ **LA IDEA NO SE QUEMA, SE QUEMA LA FRASE (Iker, 2026-09-22).** Si una idea vende (un ninja, un gancho, un argumento), **se repite en otra cuenta o en el post siguiente contada con otras palabras**: sinónimos, otro verbo, otro sujeto. Nunca se veta ni se avisa por repetir la IDEA. Caso: `la primera sala se quedó corta` (Iker 17/09) → `tanto que la primera quedó corta` (Asier 18/09) está bien hecho. Por eso el validador compara frases literales y **no debe** comparar ideas.
+
 > **POR QUÉ ESTA SECCIÓN EXISTE.** La auditoría del 31/07 encontró **diez reglas de rotación repartidas por seis sitios distintos**, cada una escrita después de un fallo distinto, y **ningún sitio que dijera el principio**. Por eso fallaba siempre en un elemento nuevo: tenía diez recordatorios y ninguna ley. Iker, ese día: *"este texto que me has dado ahora deberías habértelo ocurrido a la primera sin tanta iteración"*. Tenía razón, y la causa era esta.
 
 **INVENTARIO COMPLETO de lo que rota. Antes de entregar, se repasa entero:**

@@ -309,6 +309,10 @@ SPAM_QUEMADO = {
     'nunca llega a quien firma': '2026-09-22 meme de Unai 22/09 (correo a "Direccion"), la linea 1',
     'en el evento sí, pero ya se acaban': '2026-09-22 meme de Unai 22/09',
     'en el evento si, pero ya se acaban': '2026-09-22 meme de Unai 22/09, sin tilde',
+    'el después empieza en la sala': '2026-09-23 historia de equipo de Unai 23/09, la linea 1',
+    'el despues empieza en la sala': '2026-09-23 historia de equipo de Unai 23/09, sin tilde',
+    'y en esa sala aún te hacemos sitio': '2026-09-23 historia de equipo de Unai 23/09',
+    'y en esa sala aun te hacemos sitio': '2026-09-23 historia de equipo de Unai 23/09, sin tilde',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas

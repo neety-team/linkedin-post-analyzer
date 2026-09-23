@@ -230,6 +230,20 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## ✅ PUBLICADO · MIÉ 23/09 · UNAI · HISTORIA DE EQUIPO: LA VÍSPERA DEL EVENTO (foto de grupo, Luma)
+
+| dato | |
+|---|---|
+| **Post** | enlace y hora `[PENDIENTE · pedir a Iker]` · texto idéntico al validado (62/63, el único fallo es el de abajo, decidido) |
+| **Pilar** | historia · **rama A** (propia, en plural de equipo) · **no regional** · forma **PROMESA** (`post-workflow §4.6-PROMESA`) |
+| **Gancho** | `En menos de 24 horas se marca un antes y un después en ventas 👇` · **impersonal a propósito**: falla `HISTORIA: hook personal` porque la foto es de grupo e Iker quería sensación de equipo sin el "yo". Recorrido: `enterrar` (demasiado para Unai) → `jubilar` (no le encaja el tono) → `partir las ventas` (no gustó) → `ÚLTIMA HORA:` (a Unai no le gusta) → este. **Va contra `global §2.9-REVOLUCIONAR`** (anunciar un gran cambio: 0.68x · 0.53x · 0.45x), pedido por Unai: si sale bajo su media, el sospechoso es el gancho |
+| **Cuerpo** | libreta → primer cliente / el que nos recomendó → el que no nos compraba → `Hoy somos 11 y ninguno quiere vender a ciegas.` → bloque 3 del evento sacado de la web de Luma (`Cómo dar con quién te va a comprar antes de llamar.` / `Lo nuevo que hemos construido, en primicia.` / `Y casos reales de quien ya vende así.`) · cierre `Nada de esto se hace solo.` · **real**: los 11, las camisetas, el evento · **inventado** (decorado): libreta, llamadas, los tres clientes |
+| **Contexto** | `El 24 de septiembre, en persona en Donostia.` |
+| **Ninja** | `Mejor tarde que nunca, el después empieza en la sala.` / `Y en esa sala aún te hacemos sitio:` → Luma, UTM `historia-equipo-23sep-unai` · **tipo SALA** (para la hipótesis persona contra sala de `§4.4-CONVERSION-EVENTO`) · 20 plazas libres en Luma al escribirlo, sin cifra |
+| **Foto** | **grupal**: todo el equipo con las camisetas y el photocall detrás. Aviso dado: recortar centrado en las personas para que el photocall no se lea como cartel (`§4.6-PROMESA` condición 1) |
+| **Quemados** | ninja `el después empieza en la sala` / `y en esa sala aún te hacemos sitio` (en `validar-post.py`) · vehículo `la libreta de los inicios` · gancho `en menos de 24 horas` |
+| ⏳ | a los 3-4 días (26-27/09): impresiones contra la mediana de Unai, clics, **inscritos por UTM** (vara de la historia rama B de Unai: 0,31 por 1.000) y conversación. Entra en la revisión del lunes 28/09 |
+
 ## 📝 ENTREGADO · MIÉ 23/09 · ASIER · TARJETA 2: "EL CLIENTE BARATO SALE CARO" (A/B con barra de métricas simuladas)
 
 | dato | |

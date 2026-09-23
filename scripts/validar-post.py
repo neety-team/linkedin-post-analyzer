@@ -1001,6 +1001,109 @@ def validar_tarjeta(texto, card=None, cuenta=None, historico=False, publica_mana
 # validador existe para evitar.
 # EL PROCEDIMIENTO: grep "if pilar" y decidir SI o NO para cada uno, por escrito.
 
+# ⭐ LAS PALABRAS CON IMAGEN QUE EL MISMO LECTOR ACABA DE VER (Iker, 2026-09-23).
+# La historia del 23/09 salio con "nave nueva" (el "Los 10" de Unai del 15/09),
+# "naves" y "camiones" (el mapa de Alava de Iker del 22/09, EL DIA ANTERIOR) y
+# "carpeta" (el gancho de la historia de Asier del 09/09). Pasaba 60/60 porque las
+# listas de quemadas solo guardan FRASES y se rellenan a mano. Iker: "no se por que
+# lo de nave me suena". Las tres cuentas comparten red: el lector ve las tres.
+# Esto baja lo publicado de la BD y canta las palabras RARAS (poco frecuentes en
+# nuestro corpus) que el borrador comparte con lo publicado en los ultimos 14
+# dias. Aviso y no fallo: la idea no se quema, la frase si (global 2.0b), y una
+# palabra repetida puede ser la buena; lo que hace falta es VERLA antes de entregar.
+BD_BASE = 'https://linkedin-post-analyzer-production.up.railway.app'
+BD_CREADORES = {
+    'Iker': '3d545376-057c-48db-8b45-c5c5510110bb',
+    'Unai': '88d272b7-0f93-49cf-bac1-1334965f361d',
+    'Asier': '89610120-758c-4d25-8353-76c1147e0f0c',
+}
+_STOP_ECO = set((
+    'para pero porque como cuando donde desde hasta entre sobre sin con que quien '
+    'cual este esta estos estas ese esa esos esas aquel aquella nada nadie todo toda '
+    'todos todas otro otra otros otras mismo misma cada algo alguien siempre nunca '
+    'ahora antes despues luego tambien tampoco todavia solo mucho mucha muchos poco '
+    'mas menos bien muy aqui alli entonces ademas tras hacia segun cualquier ningun '
+    'ninguna ninguno tiene tienen tenia tengo hace hacen hizo hacer ser estar estaba '
+    'fue fueron puede pueden sabe saber dice dijo decir llega llego vamos hemos habia '
+    'jueves evento presencial donostia septiembre plazas sala '
+    # Vocabulario del spam ninja, que se repite A PROPOSITO (la idea no se quema)
+    'contacto primero primera ultimo ultima mejor peor gente nombre'
+).split())
+
+
+def _raiz_eco(w):
+    import unicodedata
+    w = ''.join(c for c in unicodedata.normalize('NFD', w.lower())
+                if unicodedata.category(c) != 'Mn')
+    if len(w) > 5 and w.endswith('es'):
+        w = w[:-2]
+    elif len(w) > 4 and w.endswith('s'):
+        w = w[:-1]
+    return w
+
+
+def _palabras_eco(t):
+    t = re.sub(r'https?://\S+', ' ', t)
+    lineas = [l for l in t.split('\n') if not l.strip().startswith(('→', '@'))]
+    return {_raiz_eco(w) for w in re.findall(r'[a-záéíóúñü]{4,}', ' '.join(lineas), re.I)} - _STOP_ECO
+
+
+def eco_reciente(cuerpo, dias=14, hoy=None):
+    """Devuelve (lista de ecos, error). Cada eco: (palabra, cuenta, fecha, linea)."""
+    import json, base64, urllib.request
+    u, p = os.environ.get('APP_BASIC_USER'), os.environ.get('APP_BASIC_PASS')
+    if not (u and p):
+        return None, 'faltan APP_BASIC_USER/APP_BASIC_PASS en el entorno'
+    auth = base64.b64encode(f'{u}:{p}'.encode()).decode()
+    posts = []
+    try:
+        for quien, cid in BD_CREADORES.items():
+            req = urllib.request.Request(f'{BD_BASE}/api/creators/{cid}/posts?limit=120',
+                                         headers={'Authorization': 'Basic ' + auth})
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                for x in json.load(resp).get('posts', []):
+                    posts.append((quien, (x.get('published_at') or '')[:10], x.get('content_text') or ''))
+    except Exception as e:
+        return None, f'no pude leer la BD ({e.__class__.__name__})'
+    if not posts:
+        return None, 'la BD no devolvio publicaciones'
+    # Frecuencia en todo el corpus propio: lo que sale en mas del 6% de nuestros
+    # posts (venta, cliente, firma, puerta...) es vocabulario de la casa, no un eco.
+    # Afinado el 23/09 contra 235 posts: "nave" sale en 13 y tiene que cazarse;
+    # "firma" en 19 y "puerta" en 20 solo metian ruido.
+    df = {}
+    for _, _, t in posts:
+        for w in _palabras_eco(t):
+            df[w] = df.get(w, 0) + 1
+    tope = max(3, int(len(posts) * 0.06))
+    hoy = hoy or datetime.date.today()
+    mias = {w for w in _palabras_eco(cuerpo) if df.get(w, 0) <= tope}
+    limpio = norm(cuerpo).strip()
+    ecos = []
+    for quien, fecha, t in posts:
+        try:
+            edad = (hoy - datetime.date.fromisoformat(fecha)).days
+        except ValueError:
+            continue
+        if edad < 0 or edad > dias or norm(t).strip() == limpio:
+            continue
+        for w in sorted(mias & _palabras_eco(t)):
+            linea = next((l.strip() for l in t.split('\n')
+                          if w in {_raiz_eco(x) for x in re.findall(r'[a-záéíóúñü]{4,}', l, re.I)}), '')
+            ecos.append((w, quien, fecha, linea[:90]))
+    # Una entrada por palabra (la publicacion mas reciente) y las mas raras
+    # primero: el 23/09 el aviso se cortaba a las 10 y dejaba fuera justo
+    # "carpeta" (Asier) y "nave nueva" (Unai), que eran dos de los tres ecos.
+    ecos.sort(key=lambda e: e[2], reverse=True)
+    vistos, unicos = set(), []
+    for e in ecos:
+        if e[0] not in vistos:
+            vistos.add(e[0])
+            unicos.append(e)
+    unicos.sort(key=lambda e: (df.get(e[0], 0), e[0]))
+    return unicos, None
+
+
 def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fuera=False, remix=False, sin_menciones=False, card=None, solo_correo=False, historico=False, publica_manana=False):
     texto = norm(texto)
     if pilar == 'entregable':
@@ -3585,6 +3688,24 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(not re.search(r'comenta\s+"', cuerpo, re.I),
             'HISTORIA: sin comment-gate — no pide comentar una palabra (§4.6)',
             'pedir "comenta X" la convierte en lead magnet; la historia cierra en la lección o lleva un CTA suave')
+
+    # ---------- ECO: PALABRAS CON IMAGEN YA VISTAS ESTAS DOS SEMANAS ----------
+    # (Iker, 2026-09-23; el porque, encima de eco_reciente). No corre con
+    # --historico: un post publicado se encontraria a si mismo y a sus vecinos.
+    if not historico:
+        _ecos, _err = eco_reciente(cuerpo)
+        if _err:
+            chk(False, 'ECO: palabras con imagen ya vistas en las 3 cuentas (14 dias)',
+                _err + ' -> compara a mano el gancho, los objetos y el decorado contra '
+                'lo publicado estas dos semanas en las TRES cuentas', aviso=True)
+        else:
+            chk(not _ecos, 'ECO: palabras con imagen ya vistas en las 3 cuentas (14 dias)',
+                ' · '.join(f'"{w}" {q} {f}: «{l}»' for w, q, f, l in _ecos[:10]) +
+                ('' if not _ecos else ' -> NO es una prohibicion ni una lista: el mismo lector '
+                 'acaba de leer esa palabra en una de las tres cuentas. Si es decorado, se '
+                 'OFRECE un sinonimo igual de punchy y de una sola lectura; si es el nucleo '
+                 'de la escena, se queda y se dice en la entrega. Pasados 14 dias vuelve a '
+                 'estar libre sola (global 2.0b-ECO)'), aviso=True)
 
     # ---------- CONTRA EL HISTORIAL ----------
     h = leer_historial()

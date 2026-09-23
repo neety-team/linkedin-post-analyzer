@@ -259,6 +259,26 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 - **El tema de un lead magnet en la misma cuenta** (~90 días, `post-workflow §4.5`): medido con n=3, es de tema, no de expresión.
 - **La referencia de un meme en la misma cuenta** (`post-workflow §4.4`): es el elemento más visible que existe, así que su ventana es la medida y no la de 3 publicaciones: **mínimo ~3 meses** (a 2 días hizo el 5,8% del original; a 98 días funcionó) y solo si la primera voló.
 
+#### 🔁🔁 2.0b-ECO · VARIEDAD NO ES PROHIBIR: ES NO REPETIR LO QUE EL LECTOR ACABA DE LEER, Y OFRECER EL SINÓNIMO (Iker, 2026-09-23) — GLOBAL, TODOS LOS PILARES
+
+> **Iker:** *"hay una diferencia entre bloquear palabras y hacerlas prohibidas y otra en repetir, que siempre te equivocas con eso cuando hablo de variedad"*. Y antes: *"no hayas hardcodeado esas palabras, sino que tengas la capacidad en la receta global, porque esto va across todo tipo de posts: ofrecer sinónimos ya"*.
+
+**El caso:** la historia de Iker del 23/09 pasaba 60/60 y llevaba `nave nueva` (el "Los 10" de Unai del 15/09), `naves` y `camiones` (el mapa del propio Iker del DÍA ANTERIOR) y `carpeta` (el gancho de la historia de Asier del 09/09). Iker: *"no sé por qué lo de nave me suena"*. Las listas de quemadas no podían verlo: guardan FRASES, se rellenan a mano y solo después de publicar.
+
+**LAS TRES COSAS, que son distintas y no se mezclan:**
+
+| | qué es | dura | qué se hace |
+|---|---|---|---|
+| **VETADA** | un veto de contenido (`§2.0b-VENTANA` punto 4: datos de terceros, "callado" en mapas) | siempre | no se escribe |
+| **QUEMADA** | una FRASE nuestra (ninja, arranque, concepto) en su lista | 3 publicaciones de esa cuenta | no se repite literal, se dice con otras palabras |
+| ⭐ **ECO** | una PALABRA con imagen que el mismo lector acaba de leer en cualquiera de las 3 cuentas | 14 días, y se libera sola | **se OFRECE un sinónimo** igual de punchy; si es el núcleo de la escena, se queda y se declara |
+
+**Un eco nunca es una prohibición ni entra en una lista.** Es información para decidir: el que escribe propone el sinónimo **ya, en la misma entrega**, sin esperar a que Iker lo note, y deja la palabra solo si cambiarla rompe la escena.
+
+**CÓMO SE HACE, y no depende de ninguna lista:** `validar-post.py` baja de la BD lo publicado por las TRES cuentas en los últimos 14 días y canta las palabras que el borrador comparte con ellas, **solo las raras** (las que salen en menos del 6% de nuestro corpus: el vocabulario de la casa, `venta`, `cliente`, `firma`, no es eco). Las ordena de más rara a más común, una vez cada una, con la línea donde salió. Vale para cualquier pilar y cualquier palabra futura. Si no puede leer la BD, lo dice y se compara a mano.
+
+**El sinónimo pasa los mismos filtros que cualquier palabra:** una sola lectura (`§2.2d-DOBLE`), el mismo techo de verbo (`§2.9`) y el castellano hablado (`brand-voice §3c`). Casos del 23/09: `nave` → `fábrica`, `carpeta` → `sobre`, `capó` → `mano en alto`, `la foto` → `el corte de cinta` (que además pinta más); `coche` y `camión` se quedaron porque son el gancho.
+
 **LAS TRES REGLAS DE MANTENIMIENTO:**
 1. **Al publicar, la frase usada entra en su lista con su FECHA y su CUENTA**, leída del texto real de la BD. No espera a que nadie lo pida. Si ya estaba, se le actualiza la fecha.
 2. **Si un elemento repetible NO tiene lista, es un hueco**: se crea, con fecha y cuenta desde el primer día.

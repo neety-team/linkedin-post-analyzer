@@ -179,7 +179,7 @@ RULE 10b — ⛔ PROHIBIDO ABRIR CON UNA ABSTRACCIÓN. Estas aperturas están VE
 ⚠️ Y NO ES SOLO LA LISTA: es la FORMA. Abrir con un sustantivo abstracto y un verbo copulativo ("La eficiencia comercial no está en...", "El contacto directo es solo un dato...", "La diferencia entre X e Y...") se lee igual de canned aunque la palabra no esté en la lista. Se abre por lo CONCRETO: un verbo, una persona, un objeto, una palabra que haya dicho ÉL, o la palabra de asentimiento que te llega sorteada. Si al leer tu primera frase no se ve a nadie haciendo nada, reescríbela.
 ⛔ Y NUNCA "exactamente". Si asientes, usas la palabra de asentimiento que te llega sorteada, tal cual, sin alargarla a un adverbio.
 
-RULE 11 — NAME-ONLY OR EMOJI-ONLY COMMENTS → REPLY WITH A SINGLE SUPPORT EMOJI. If the comment is ONLY a person's name (someone tagging a colleague, e.g. "@Fulano" or just "Fulano Menganez"), or ONLY emoji(s) / a reaction with no real words, do NOT write sentences. Reply with a SINGLE supportive emoji that fits the tone (🙌 · 🔥 · 💪 · 👏 · ❤️ · 😄). No name lead, no words at all — just the emoji. This OVERRIDES rules 3, 4, 5 and 10 for these cases.
+RULE 11 — NAME-ONLY OR EMOJI-ONLY COMMENTS → THE NAME, THEN A SINGLE SUPPORT EMOJI. If the comment is ONLY a person's name (someone tagging a colleague, e.g. "@Fulano" or just "Fulano Menganez"), or ONLY emoji(s) / a reaction with no real words, do NOT write sentences. Reply with the commenter's name verbatim at position 0, a SINGLE SPACE, and then ONE supportive emoji that fits the tone (🙌 · 🔥 · 💪 · 👏 · ❤️ · 😄) — nothing else, no words at all. Example: "Erica Fernandez Higueras 🙌". RULE 5 (the name lead) ALWAYS applies, emoji replies included: the backend turns that leading name into the @-mention, and dropping it means replying to someone without tagging them. Only when no commenter name was provided do you reply with the bare emoji. This OVERRIDES rules 3, 4 and 10 for these cases, never rule 5.
 
 ${STRETCH_RULES[voice].r12}
 
@@ -708,6 +708,23 @@ const EMOJI_SEGUROS = ['🙌', '💪', '👏', '🙂', '🤝'];
 export const EMOJIS_RESPUESTA = ['🙌', '💪', '👏', '🔥', '🤝', '👌', '😄', '🎯'];
 export function sorteaEmoji(): string {
   return EMOJIS_RESPUESTA[Math.floor(Math.random() * EMOJIS_RESPUESTA.length)];
+}
+
+// ⛔⛔ LA MENCION NO SE PIERDE NUNCA, NI EN UNA RESPUESTA DE UN SOLO EMOJI
+// (Iker, 2026-09-23). Un comentario de solo emojis, un GIF o una imagen se
+// contestan igual —con un emoji de apoyo y sin frases— pero ABRIENDO CON EL
+// NOMBRE de quien comento, que es lo unico que LinkedIn convierte en @-mencion
+// (`buildMentionedReply` en routes/accounts.ts casa el prefijo en la posicion 0).
+// El fallo: a un comentario de solo emojis la herramienta devolvia "🙌" a secas
+// y el panel marcaba "@Erica Fernandez Higueras ✗", o sea respuesta sin etiquetar
+// a quien se habia molestado en comentar. Vale igual si quien comenta es una
+// PAGINA DE EMPRESA: el chip no existe (Unipile da 422 en la plantilla de
+// mencion, verificado en jun 2026), pero el NOMBRE sigue abriendo la respuesta.
+export const EMOJIS_DE_APOYO = ['🙌', '🔥', '💪', '👏', '❤️', '😄'];
+export function respuestaDeApoyo(commenterName?: string | null): string {
+  const emoji = EMOJIS_DE_APOYO[Math.floor(Math.random() * EMOJIS_DE_APOYO.length)];
+  const nombre = (commenterName || '').trim();
+  return nombre ? `${nombre} ${emoji}` : emoji;
 }
 
 /**

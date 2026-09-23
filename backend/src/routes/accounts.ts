@@ -13,7 +13,7 @@ import { CommenterProfileModel } from '../models/commenterProfile';
 import { sendToGoogleChat } from '../services/googleChat';
 import { captureAccountSnapshots } from '../services/accountSnapshots';
 import { extractViewerTimestamps } from '../utils/wvmp';
-import { generateReply } from '../services/replyGenerator';
+import { generateReply, respuestaDeApoyo } from '../services/replyGenerator';
 import { getMemeImageSummary } from '../services/postImageText';
 import { roastProfile } from '../services/roaster';
 import { generarRastro } from '../services/rastroGenerator';
@@ -3235,14 +3235,17 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
     // Y lo mismo si el comentario es SOLO emojis o signos ("👏👏"): la RULE 11
     // lo pedia y el modelo contesto "ninguno de esos aplausos llega a quien
     // tiene que escucharlos…" (tanda del 18/09). Se garantiza aqui.
+    // ⛔ Y LA RESPUESTA ABRE CON EL NOMBRE, SIEMPRE (Iker, 2026-09-23): la
+    // mencion no se quita nunca, ni en una respuesta de un solo emoji. Detalle
+    // y motivo en `respuestaDeApoyo` (replyGenerator.ts).
     if (!comment_text || !/\p{L}/u.test(String(comment_text))) {
-      const SUPPORT_EMOJI = ['🙌', '🔥', '💪', '👏', '❤️', '😄'];
-      const emoji = SUPPORT_EMOJI[Math.floor(Math.random() * SUPPORT_EMOJI.length)];
       return res.json({
-        reply: emoji,
+        reply: respuestaDeApoyo(commenter_name ? String(commenter_name) : null),
         voice: null,
         comment_id: commentId,
-        mention: null,
+        mention: commenter_name && commenter_profile_id
+          ? { name: String(commenter_name), profile_id: String(commenter_profile_id) }
+          : null,
       });
     }
 

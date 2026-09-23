@@ -448,6 +448,15 @@ export function ThreadCard({
     .slice(0, mention.name.length)
     .toLowerCase() === mention.name.toLowerCase();
 
+  // ⛔ A UNA EMPRESA NO SE LA PUEDE ETIQUETAR, PERO SU NOMBRE NO SE QUITA
+  // (Iker, 2026-09-23). Sin chip la fila de arriba no mostraba NADA, así que
+  // no había forma de ver si la respuesta abría con su nombre o salía pelada.
+  // El nombre es lo único que dice a quién se contesta, emoji incluido.
+  const empresa = target.author.is_company ? target.author.name : null;
+  const abreConNombre = !!empresa && draft
+    .slice(0, empresa.length)
+    .toLowerCase() === empresa.toLowerCase();
+
   const handleGenerate = async () => {
     setGenerating(true);
     setMsg(null);
@@ -642,6 +651,20 @@ export function ThreadCard({
                         }
                       >
                         {willMention ? `@${mention.name} ✓` : `@${mention.name} ✗`}
+                      </span>
+                    )}
+                    {!mention && empresa && (
+                      <span
+                        className={`text-[10px] ml-auto ${
+                          abreConNombre ? 'text-text-secondary' : 'text-text-muted'
+                        }`}
+                        title={
+                          abreConNombre
+                            ? `LinkedIn no deja etiquetar a una página de empresa: "${empresa}" va como texto, pero la respuesta sí la nombra`
+                            : `La respuesta tiene que abrir con "${empresa}": a una empresa no se la puede etiquetar, así que el nombre es lo único que dice a quién contestas`
+                        }
+                      >
+                        {abreConNombre ? `${empresa} ✓ sin @` : `${empresa} ✗`}
                       </span>
                     )}
                     {voice && (

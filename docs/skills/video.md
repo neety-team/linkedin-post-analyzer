@@ -159,6 +159,21 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 5. **La serie se repite:** el mismo texto, publicado dos veces, validó dos veces (400k y 195k). El formato es reconocible (`§4` punto 34).
 6. **Pantalla = voz = caption en 5 de 5.** ⚠️ **Choca con `§1`**, que manda hacerlas distintas y sale de outliers B2B de LinkedIn. En este pilar **pantalla = voz** (validado 5/5, y LinkedIn arranca el vídeo sin sonido). El caption sí cambia, porque en LinkedIn lleva el spam ninja.
 
+### 6.2b · EL CASO QUE LO DEMUESTRA: MISMO VÍDEO, OTRO ADJETIVO, x166 (cuenta de vídeos de Iker, métricas suyas)
+
+| gancho | vistas | ♥ | 💬 | guardados | compartidos |
+|---|---|---|---|---|---|
+| `Rampa gigante en Fortnite` | ~3.000 | — | — | — | — |
+| **`Rampa de la muerte en Fortnite`** | **+500.000** | 41.000 | 236 | 14.200 | 3.742 |
+
+**Los mismos planos y los mismos subtítulos. Solo cambia el gancho.** El segundo: 15,80 s de duración, **10,4 s de retención media (66%)**, **41% lo vio entero** y +1.500 seguidores. Lo observable:
+1. **El detalle que describe (`gigante`) se cambia por una expresión hecha de peligro (`de la muerte`).** El primero dice cómo es la rampa; el segundo promete que va a pasar algo. Es `global §2.3d` (el intensificador) llevado al extremo.
+2. **Bucle abierto hasta el final:** el código del mapa no se enseñaba hasta el último segundo. En nuestro caso, el evento hace de código: **no se nombra en el gancho y se desvela al final** (Iker, 23/09).
+3. **El mismo plano con un zoom distinto en cada palabra del gancho.** Con 3 planos o con uno, en la intro cada palabra lleva su propio corte o zoom.
+4. **3 palabras de gancho y 15,8 s de vídeo.** La duración de 15-30 s de este pilar va en esa línea.
+
+**⚠️ El techo del intensificador lo pone la cuenta (`brand-voice §1b`).** `de la muerte` es de calle: vale en Iker y **no en Unai**, cuyo intensificador es el formal (`jamás`, `en la vida`) o la expresión de prensa (`de infarto`, *(deducción: sin medir en su cuenta)*).
+
 ### 6.3 · La receta del gancho (lo cerrado el 23/09)
 
 - **Voz = texto en pantalla, en 3 líneas, y cada línea es UN plano** de los 3 rápidos de la intro. La línea y su plano cuentan lo mismo (test de la creadora de vídeos, `global §2.2d`).
@@ -167,6 +182,7 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - **Ancla de ventas dentro del modificador** (`global §2.3`), en su versión amplia.
 - **El modificador es verdad y se ve en los planos.** Si no hay un plano que lo enseñe, no va (`CLAUDE.md`: nada inventado).
 - ⛔ `revolucionar` y su familia (`global §2.9-REVOLUCIONAR`: 0.68x, 0.53x y 0.45x en nuestras cuentas).
+- **El modificador lleva un intensificador extremo, no un adjetivo que describe** (`§6.2b`: `gigante` → `de la muerte`, x166), con el techo de registro de la cuenta.
 - **Si el vídeo lleva un enlace (evento, agendar), el gancho NO lo nombra.** Un post que va del evento trae clics y no inscritos (`global §4.4b-EVENTO-EXPLICITO`: 0 inscritos de 37 clics). El enlace entra como ninja: en el payoff del vídeo y en el caption.
 
 ### 6.4 · El primer frame

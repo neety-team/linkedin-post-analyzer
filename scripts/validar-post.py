@@ -3704,7 +3704,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 ('' if not _ecos else ' -> NO es una prohibicion ni una lista: el mismo lector '
                  'acaba de leer esa palabra en una de las tres cuentas. Si es decorado, se '
                  'OFRECE un sinonimo igual de punchy y de una sola lectura; si es el nucleo '
-                 'de la escena, se queda y se dice en la entrega. Pasados 14 dias vuelve a '
+                 'de la escena, se queda y se dice en la entrega. Y SE QUEDA TAMBIEN si el eco '
+                 'tiene otro sentido, si va en una cita o en el remate, o si el sinonimo es '
+                 'peor: la variedad nunca justifica una frase peor. Pasados 14 dias vuelve a '
                  'estar libre sola (global 2.0b-ECO)'), aviso=True)
 
     # ---------- CONTRA EL HISTORIAL ----------

@@ -277,7 +277,14 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 
 **CÓMO SE HACE, y no depende de ninguna lista:** `validar-post.py` baja de la BD lo publicado por las TRES cuentas en los últimos 14 días y canta las palabras que el borrador comparte con ellas, **solo las raras** (las que salen en menos del 6% de nuestro corpus: el vocabulario de la casa, `venta`, `cliente`, `firma`, no es eco). Las ordena de más rara a más común, una vez cada una, con la línea donde salió. Vale para cualquier pilar y cualquier palabra futura. Si no puede leer la BD, lo dice y se compara a mano.
 
-**El sinónimo pasa los mismos filtros que cualquier palabra:** una sola lectura (`§2.2d-DOBLE`), el mismo techo de verbo (`§2.9`) y el castellano hablado (`brand-voice §3c`). Casos del 23/09: `nave` → `fábrica`, `carpeta` → `sobre`, `capó` → `mano en alto`, `la foto` → `el corte de cinta` (que además pinta más); `coche` y `camión` se quedaron porque son el gancho.
+**El sinónimo pasa los mismos filtros que cualquier palabra:** una sola lectura (`§2.2d-DOBLE`), el mismo techo de verbo (`§2.9`) y el castellano hablado (`brand-voice §3c`). Casos del 23/09: `nave` → `fábrica`, `carpeta` → `sobre`, `capó` → `mano en alto`; `coche` y `camión` se quedaron porque son el gancho.
+
+**⛔ ANTES DE CAMBIAR UNA PALABRA POR ECO, TRES PREGUNTAS. Si alguna sale que sí, se queda (Iker, 23/09, el mismo día):**
+1. **¿El eco tiene OTRO SENTIDO?** `fotos de naves` (Asier, fotos de verdad) no es eco de `es para la foto` (de cara a la galería). Coincidir en la palabra no es repetir la imagen.
+2. **¿Es una CITA o el REMATE de la escena?** En una cita manda cómo habla quien la dice (`brand-voice §3b`), y el remate es la línea que no se toca por decorado.
+3. **¿El sinónimo es PEOR?** Si pierde la doble lectura, la voz hablada o caracteres que no compensan, se queda la original. **La variedad nunca justifica una frase peor.**
+
+**El fallo que lo motiva:** cambié `lo del periódico es la foto` por `es el corte de cinta` solo porque el aviso lo marcaba. Iker: *"no sé si al aportar variedad en este caso estamos cometiendo un error"*. Lo estábamos: un vigilante dice `es para la foto`, `corte de cinta` es de nota de prensa, se perdía la doble lectura y el eco era de otro sentido y estaba a 14 días, en el límite. Volvió `es para la foto`. **Es el mismo error de la tabla de arriba: tratar un aviso como si fuera un veto.**
 
 **LAS TRES REGLAS DE MANTENIMIENTO:**
 1. **Al publicar, la frase usada entra en su lista con su FECHA y su CUENTA**, leída del texto real de la BD. No espera a que nadie lo pida. Si ya estaba, se le actualiza la fecha.

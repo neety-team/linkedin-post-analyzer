@@ -1380,6 +1380,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not m, 'Hook sin jerga que estrecha alcance (§2.3)', f'"{m.group(0)}" fuera del hook' if m else '')
     m = re.search(r'[—–]', cuerpo)
     chk(not m, 'Sin guion largo (brand-voice §3)', 'delator de IA nº1' if m else '')
+    # 2026-09-23 (Iker) — NINGUNA LINEA DE TEXTO TERMINA EN DOS PUNTOS. "Mañana lo
+    # contamos en una sala:" delante de una lista; Iker: "no me gusta nada, creo que
+    # nunca lo hemos hecho, pon punto final". Los unicos ':' de final que quedan son
+    # los que van pegados al enlace del ninja. Fallo duro en historia; en el resto,
+    # aviso, porque la entrada al bloque de menciones del peloteo si los lleva.
+    _dp = [l.strip() for l in cuerpo.split('\n')
+           if l.strip().endswith(':') and 'http' not in l]
+    chk(not _dp, 'Ninguna linea termina en dos puntos (brand-voice §3)',
+        f'{_dp[:2]} → punto final' if _dp else '', aviso=(pilar != 'historia'))
     # 2026-08-20 — FAMILIA 7: DECIR EN PRIMERA PERSONA QUE HEMOS TRANSCRITO O
     # GRABADO UNA CONVERSACION. El meme del 19/08 se capó a 133 imp y el MISMO post
     # con las 3 conjugaciones de `transcribir` cambiadas por `apuntar` salió a la

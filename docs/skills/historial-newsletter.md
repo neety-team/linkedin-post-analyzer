@@ -1326,11 +1326,29 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 | id | nombre | destinatarios | día |
 |---|---|---|---|
-| 22 | `Correo 5 · Iker · OBJECIÓN · tanda 1` | listas 15 + 4 + **17** = 41 + 5 + 36 | ✅ **PROGRAMADA** mié 23/09 09:05 (`queued`, releído de la API) tras el OK de Iker a su correo de prueba |
-| 23 | `Correo 5 · Iker · OBJECIÓN · tanda 2` | lista **18**, excluyendo 15 y 17 = 35 | **en borrador a propósito**: se programa el 23/09 después de mirar rebotes y quejas de la tanda 1 |
+| 22 | `Correo 5 · Iker · OBJECIÓN · tanda 1` | listas 15 + 4 + **17** = 41 + 5 + 36 | ✅ **ENVIADA** el 23/09 a las 09:10 |
+| 23 | `Correo 5 · Iker · OBJECIÓN · tanda 2` | lista **18** limpia, excluyendo 15 y 17 = **33** | ✅ **PROGRAMADA** jue 24/09 09:05 (`queued`), después de verificar la lista |
 
 - El enlace lleva `utm_content=tanda-1` / `tanda-2`, que es lo que deja desglosar las dos tandas del mismo correo en GA4 (`§9c`).
 - 🔴 **La 23 nació con el seguimiento UTM de Brevo ENCENDIDO** y su enlace salió con `utm_source=sendinblue` y el nombre de la campaña dentro. Hay que apagarlo en Configuración adicional y reescribir el enlace, igual que en la 22. **El auditor lo caza desde hoy** (`auditar-campanas-brevo.py`, check nuevo).
+
+### 📈 RESULTADO DE LA TANDA 1 (leído el 23/09 a la hora del envío) Y LO QUE OBLIGÓ A HACER
+
+| | tanda 1 |
+|---|---|
+| Enviados / entregados | 83 / **75** |
+| **Rebotes duros** | **3** · 3,6% del total y **8,3% de los 36 inscritos nuevos**. De los 41 de siempre, **cero** |
+| Aperturas a 1 h | 20 únicas (19 de personas) · **25,3%** |
+| Clic de lead | **1**, `hcalderon@parke.eus` a las 09:29 |
+| Bajas / denuncias | **0 / 0** |
+
+**Los 3 que rebotaron:** `ruiz.sika@yahoo.es`, `jsanmiguelcobi@gmail.com`, `xcm@spyro.es`. Brevo los bloquea solo.
+
+**🔴 LA LECCIÓN, y es la que justifica las dos tandas:** una lista de inscritos a un evento **NO es una lista limpia**. Los 41 de la newsletter llevan meses sin rebotar y los nuevos rebotaron al 8,3%, cuatro veces el umbral del sector. **Partir el envío es lo que permitió parar a tiempo.**
+
+**⛔ El sondeo SMTP gratis (`src/smtp_probe.js` del CRM) NO sirvió:** los 35 salieron como `no-se-sabe`, o el puerto está bloqueado desde el equipo o son dominios que aceptan todo. **Cuando hay contactos nuevos de golpe, la verificación de pago es la única que llega.**
+
+**✅ Lo que sí funcionó: Bouncer, 35 créditos.** 33 `deliverable` y **2 `risky`** (`bkortabarria@lacor.es`, `susanavelasco@hervel.com`), quitados de la lista 18 antes de programar. Su estimación previa de rebote para ese grupo era 1,9%. **Sin marcar Company Enrichment ni Email Engagement Insights**: no deciden nada y gastan créditos.
 
 **Al enviarlo:** meter el ninja en `QUEMADAS` de `validar-email.py`, el cuerpo literal en `corpus-correos-enviados.md`, y leer las métricas a los 5-6 días.
 **Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. **Remitente cambiado de Unai a Iker (22/09):** Iker llevaba 3 semanas sin escribir (Unai 2), el pilar objeción es suyo porque es quien hace las demos, y así Unai queda libre para el correo de después del evento. **Asier se descartó para este:** estrenar remitente y pilar a la vez no deja atribuir nada. ✅ **Su remitente ya existe: `Asier de Neety` (id 7, `hola@neety.com`, activo), dado de alta por Iker el 22/09.** Candidato para su estreno: pilar 9 · receta regalada.

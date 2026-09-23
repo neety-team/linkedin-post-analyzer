@@ -423,12 +423,23 @@ def main():
             # correo 3 · Unai · el evento
             'nos juntamos sin ti solo si no te apuntas': '2026-09-09',
             'tan solo hay 80 sillas': '2026-09-09',
+            # correo 5 · Iker · OBJECION (enviado 23/09)
+            'una maquina te escribe el mensaje': '2026-09-23',
+            'a quien mandarselo, con su nombre, nosotros': '2026-09-23',
             # correo 4 · Kaixito · el evento, ultima semana
             'por correo no te guardo sitio': '2026-09-16',
             'de las 20 sillas que quedan elegimos': '2026-09-16',
         }
         _hoy = datetime.date.today()
-        q = next((x for x, f in QUEMADAS.items() if x in cuerpo_low
+        # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el
+        # cuerpo lleva tildes, asi que 'a quien mandarselo' no encontraba
+        # 'a quién mandárselo' y una frase recien enviada pasaba como nueva.
+        import unicodedata
+        def _plano(t):
+            return ''.join(c for c in unicodedata.normalize('NFD', t)
+                           if unicodedata.category(c) != 'Mn')
+        cuerpo_plano = _plano(cuerpo_low)
+        q = next((x for x, f in QUEMADAS.items() if _plano(x) in cuerpo_plano
                   and (_hoy - datetime.date.fromisoformat(f)).days < VENTANA_CORREO_DIAS), None)
         if q:
             checks.append(fallo(f'Ninja: frase QUEMADA "{q}", salio el {QUEMADAS[q]} y se libera a los {VENTANA_CORREO_DIAS} dias (§4.4b, el dolor no cambia y la frase sí)'))

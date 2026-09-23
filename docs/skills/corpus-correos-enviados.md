@@ -322,6 +322,80 @@ PPD. El jueves lo vas a ver en LinkedIn igual. Mejor desde dentro.
 
 ---
 
+## Iker 05 · la objeción de la IA (pilar OBJECIÓN, el primero del pilar · puerta `/agendar/`)
+
+**Enviado:** 2026-09-23 09:10 · campaña Brevo 22 (`tanda 1`) · listas 15 + 4 + 17
+**Remitente:** `Iker de Neety` (`hola@neety.com`) · firma `Iker Galarza, cofundador de Neety`
+**`utm_campaign` escrito a mano:** `correo-05-iker-objecion` + `utm_content=tanda-1`
+**Tanda 2:** campaña 23, 33 destinatarios, programada para el 24/09 09:05.
+
+| | Tanda 1 |
+|---|---|
+| Enviados / entregados | 83 / **75** |
+| **Rebotes duros** | **3** (3,6% del total · **8,3% de los 36 inscritos nuevos**; de los 41 de siempre, cero) |
+| Aperturas a 1 h | 20 únicas, 19 de personas · **25,3%** |
+| Clic de lead | **1** (`hcalderon@parke.eus`, 09:29) |
+| Bajas / denuncias | **0 / 0** |
+
+### El asunto y el preheader
+
+```
+tú lo abrirías?
+```
+```
+Yo tampoco. Y eso que me dedico a esto.
+```
+
+⚠️ **Sin la `¿` de apertura, a petición de Iker** (tercera vez). Su motivo: con la `¿` delante, el `tú` en minúscula pierde el efecto de mensaje escrito deprisa.
+
+⭐ **Por qué este asunto y no el primero que entregué:** el primero (`se nota que lo ha escrito una máquina`, 37 car) **decía de qué iba el correo**, y ninguno de los 75 asuntos del corpus lo dice. **Nuestros dos asuntos con más aperturas son preguntas cortas de tú a tú y sin tema** (`¿no te acuerdas de mí?` 46,8% · `te guardo la silla o no?` 44,4%) y los dos peores son afirmaciones (35,6% y 28,9%). n=2 contra 2: hipótesis, no regla.
+
+### El cuerpo, literal
+
+```
+Una frase.
+
+"Esos mensajes ya ni los abro."
+
+Nos lo dicen en las reuniones cuando sale la IA.
+
+Y no les falta razón.
+
+El que te llama por tu nombre y alaba tu empresa.
+El que vuelve a los 3 días con la misma plantilla.
+El que al final te pregunta si viste los anteriores.
+
+Pero no se notan por cómo están escritos.
+
+Se notan porque te llegan igual que a medio sector.
+Nadie miró antes si tu empresa les podía comprar.
+
+El problema no es quién escribe el mensaje.
+
+Es a QUIÉN se lo mandas.
+
+Si llega a la persona que decide, se contesta.
+Aunque lleve una falta de ortografía.
+
+Una máquina te escribe el mensaje. Abrirlo, no.
+A quién mandárselo, con su nombre, nosotros: https://recursos.neety.com/agendar/?utm_source=brevo&utm_medium=email&utm_campaign=correo-05-iker-objecion
+
+El mensaje luego lo escribes tú. Sin plantilla.
+
+Iker Galarza, cofundador de Neety
+
+PD. ¿Alguien de tu equipo quiere poner la IA a mandar mensajes? Reenvíaselo antes de que empiece.
+
+PPD. Si contestas a este correo, te responde una persona.
+```
+
+> **Tres cosas de este correo que no se deben perder al versionarlo:**
+> 1. **La puerta cambió a `/agendar/` la víspera del evento** (Iker, 22/09): no sabemos dónde vive la lista y Donostia no le sirve a la mayoría. De paso lo convierte en la prueba limpia del pilar, sin el ruido del evento.
+> 2. **La línea del enlace dice QUIÉN lo hace** (`…, nosotros:`). La primera versión decía `con nombre y apellido:` y se quedaba en el qué. Iker: *"bastantes veces pecas de ser explícito, te falta serlo más"*.
+> 3. **`Abrirlo, no.` cuelga del ASUNTO**: es la palabra que el ninja repite, y cambió cuando cambió el asunto.
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

@@ -1477,3 +1477,26 @@ El generador deforma a las personas en cada iteración. **En el prompt el avatar
 ### 9.6 · El texto de la tarjeta pasa los mismos filtros que el cuerpo
 
 `§0h-FILTROS` aplica entero: lo que va dentro de la imagen **es copy nuestro**. La cifra de P2 va verificada contra fuente real, se cita el **nombre y nunca el año** (`global §3.5b`), y no se inventa ni una empresa ni una persona.
+
+---
+
+## 10 · 🪪 EL BANNER DEL PERFIL (1584×396) (Iker, 2026-09-23)
+
+> **Por qué existe:** hasta hoy no había ni una regla escrita para el banner; solo `APUNTES PERFIL LINKEDIN.txt` (*"BANNER = propuesta de VALOR + CTA"*). Todo lo de abajo sale de **medirlo montado** sobre la captura real del perfil de Iker, a 800 y a 375 px de ancho (script de maqueta en el scratchpad de la sesión del 23/09, `make.py` + `ronda2.py`).
+
+**Lo medido, no opinado:**
+1. **La foto de perfil tapa x 3,5-23,5% y la mitad de abajo del banner** (captura del perfil de Iker). Todo el texto va alineado a la derecha, de x≈40% a x≈95%.
+2. **En móvil (375 px) el banner se ve a 0,24x.** Un título de 66-70 px se lee; **un botón de 27 px con 47 caracteres NO se lee, y la tira de logos tampoco.** O sea: **el título lleva todo el mensaje**, y el botón solo sobrevive si es corto (≤ ~24 caracteres) y a ~36 px, siempre más pequeño que el título.
+3. **El banner no se puede pulsar.** Un botón pintado que parece pulsable manda el clic a la imagen a pantalla completa. Por eso el botón **acaba en una flecha hacia abajo**: no es el enlace, señala el enlace real (el botón personalizado del perfil, **"Concertar una cita"**, que en escritorio está abajo a la izquierda, bajo el titular).
+4. **Message-match con la página de destino, que es la causa nº1 medida de 51 clics → 0 formularios en `/agendar/`.** La página dice `Reserva 30 min con Iker` y `te lo digo yo mismo`: el banner habla en **singular del founder** y dice **30 minutos, nunca 20**.
+
+**El copy:**
+- **Cero jerga ni siglas** (ni `B2B`, ni `prospección`, ni `inteligencia comercial`, ni `IA`). `B2B para empresas` además es redundante.
+- **El eje es la identificación** (`global §4.4b-ORDEN`): a quién vender y a quién llamar dentro. **Nunca** automatismo (`IA que ejecuta` estaba en el banner viejo y es veto de 5 empresas), volumen ni la señal.
+- **El botón dice qué pasa, sin orden** (`global §2.3d`: el director de 55 se resiste a la orden): `Te lo enseño en 30 min ↓` mejor que `Agenda 30 min y lo verás en acción!` (demo genérica, orden y sin `¡`).
+- **Repetir el mensaje central aquí NO es quemarlo**: el banner es fijo y la narrativa constante es lo que premia el algoritmo (`APUNTES LINKEDIN`, algoritmo). `La idea no se quema, la frase sí` vale para el feed, no para el perfil.
+
+**Lo visual:**
+- Paleta nueva (`§0a-ter`): fondo claro de degradado, **título en berenjena `#431b44` sólido** (en la v1 el final del título se fundía con el degradado), **una sola palabra naranja** que cierra el concepto, botón **degradado berenjena → violeta con texto blanco** (el blanco sobre claro no parecía pulsable) y sombra suave.
+- **Tira de logos de clientes bajo el botón**: en escritorio se lee y es la única prueba social del banner; en móvil desaparece, así que nunca lleva mensaje.
+- Bricolage Grotesque Bold en el título, Switzer Semibold en el botón.

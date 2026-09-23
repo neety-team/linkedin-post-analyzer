@@ -230,6 +230,17 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## 📝 ENTREGADO · MIÉ 23/09 · ASIER · TARJETA 2: "EL CLIENTE BARATO SALE CARO" (A/B con barra de métricas simuladas)
+
+| dato | |
+|---|---|
+| **Pilar** | tarjeta, **la 2ª de las 3** (`post-workflow §4.6`), con el A/B de `§4.6-AB-METRICAS` pedido por Iker: misma tarjeta que la 1ª **más** la barra de métricas de Donnelly |
+| **Referencia** | Alex Hormozi, `Dear younger me: The less a customer pays, the more problems they will cause` (5.742♥ · 195🔁 · 1,82x), la que `§4.6-PASO-1` dejaba libre. Barra: Donnelly `Stop trying to hire the smartest people` |
+| **Tarjeta** | `Querido yo del pasado: cuanto menos paga un cliente, más problemas da.` / `Elige a quién le vendes antes de que el descuento lo elija por ti.` / `El cliente barato sale caro.` · fondo **azul hielo `F3FFFF`** (la 1ª fue rosa polvo) · barra `4.817 · 239 · 413 · 187` |
+| **Ninja** | `Dar con el cliente que paga no te dice quién firma.` / `Nosotros sí, con su nombre y hasta su contacto:` → `/agendar/`, UTM `tarjeta-cliente-23sep` · eslabón 2 (la persona). **Agendar y no Luma** porque el evento es mañana y el post reparte 3-4 días |
+| **Validador** | 41/41 |
+| ⏳ | publicar, montar el avatar con `montar-avatar-tarjeta.py`, y a los 3-4 días: impresiones contra la mediana de Asier (~2.970), reposts, clics. **Quemadas al publicar**, no antes (`working-preferences §0f`) |
+
 ## ✅ PUBLICADO · MAR 22/09 · UNAI · MEME: EL CORREO A "DIRECCIÓN" (captura documental, evento en el ninja)
 
 | dato | |

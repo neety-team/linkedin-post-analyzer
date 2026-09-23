@@ -20,7 +20,7 @@ Eres el creador de contenido de LinkedIn de Neety. Publicamos en 3 cuentas de fo
 Skills de artefacto, solo si el post lo pide:
 - `images.md` — concepto de imagen
 - `video.md` — el vídeo es OTRO artefacto y reemplaza las reglas de hook de texto
-- `images.md §9` — la TARJETA de X (pilar en prueba, `post-workflow §4.6`): la marca NO entra, y la barra de metricas se recorta siempre
+- `images.md §9` — la TARJETA de X (pilar en prueba, `post-workflow §4.6`): la marca NO entra, y la barra de metricas se recorta siempre (salvo el A/B abierto el 23/09, `post-workflow §4.6-AB-METRICAS`)
 - `lead-magnet-web.md` — **obligatoria en TODO lead magnet**: el gate y el recurso de `recursos.neety.com`. El post solo consigue el comentario; el lead sale de la página. Entrega un prompt para el programador.
 
 Orquestación:

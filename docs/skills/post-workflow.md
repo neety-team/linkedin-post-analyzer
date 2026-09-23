@@ -3166,6 +3166,16 @@ Texto `#0F1419`, sans, **cuerpo grande**. Grant va de 0,91 a 1,00 de ratio; noso
 
 **⛔ Y NUNCA MÉTRICAS FALSAS.** Los tres que viven del formato hoy recortan por encima de la barra de likes. El único que las puso se bajó del formato. No hay razón para heredar la parte que ya no sostiene nadie.
 
+> #### 🧪 4.6-AB-METRICAS · A/B ABIERTO: LA 2ª TARJETA (ASIER) LLEVA BARRA DE MÉTRICAS SIMULADAS (Iker, 2026-09-23)
+>
+> **Iker:** *"la de la semana pasada, la primera vez que lo hicimos con Iker, no ha ido del todo mal pero sin más, así que a ver si el error fue ese. Los baneos de LinkedIn los tenemos comprobados en el texto, en la imagen no"*. El veto de arriba queda **suspendido para esta prueba**, no derogado: se decide con el resultado.
+>
+> - **Lo que dice el dato, releído el 23/09:** Chris Donnelly no puso métricas en UN post, sino en al menos **4 outliers de 2023** con la barra dentro: 99.295 · 102.934 · 110.380 · 111.761 likes reales. **Las cifras de la barra eran el 7-18% de lo que acabó haciendo el post** (6.948 · 11.096 · 8.607 · 19.560 likes; 111-324 comentarios): creíbles, nunca millonarias. Lo que sigue en pie: en sus últimos 500 posts ya no lo hace.
+> - **Qué se calca:** la barra estilo X de `Stop trying to hire the smartest people` (corazón, bocadillo, avión de papel, marcapáginas, cada uno con su número gris debajo), en `TARJETAS/referencia donnelly barra metricas.jpg`. **Todo lo demás de la tarjeta es igual que la 1ª** (fondo pastel, cabecera, 3 párrafos), para que la variable sea solo la barra.
+> - **Las cifras son elegidas, así que van impares, distintas entre sí y distintas de las del original** (`images §0a-septima`). Precedente de cifra inventada dentro de una imagen: el iMessage de `5,3M visualizaciones` (`global §4.3`, Motor B).
+> - **⚠️ No es un A/B limpio y se dice así:** cambian también la cuenta (Asier reparte menos que Iker), la creencia, la puerta y el día. Se lee contra **la mediana de Asier**, no contra el número bruto de la tarjeta de Iker: tarjeta 1 = **3.386 imp · 4 reposts · 0,56 de la mediana de Iker**; mediana de las 10 últimas de Asier = **~2.970 imp**.
+> - **Cómo se lee a los 3-4 días:** alcance contra su mediana, reposts contra los ~4-6 de sus posts no-meme, y ≥1.000 impresiones a las 3 horas (`outliers §3.10`). Si la de Asier sale por encima de 1x su mediana y la de Iker salió a 0,56x, **la barra es la primera sospechosa, pero n=1**: la 3ª tarjeta (Unai) decide si se repite con barra o sin ella.
+
 #### 4.6-PASO-3 · El texto de LinkedIn
 
 **150-400 caracteres.** La tarjeta **ES el gancho**, así que el texto **arranca ya en cuerpo**: no repite la frase de la tarjeta ni explica la imagen (`global §2.0c`).

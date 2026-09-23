@@ -1441,6 +1441,8 @@ El único creador de la BD que puso métricas simuladas es **Chris Donnelly, en 
 
 **No heredamos la parte que ya no sostiene nadie.** Además es la parte que nos obligaría a poner una cifra inventada en una imagen, que es exactamente lo que `CLAUDE.md` prohíbe en su primera línea.
 
+> 🧪 **SUSPENDIDO PARA UN A/B (Iker, 2026-09-23):** la 2ª tarjeta (Asier) lleva la barra calcada de Donnelly, con cifras elegidas impares y creíbles. Corrección de lo de arriba: Donnelly no lo hizo una vez, lo hizo en **al menos 4 outliers de 2023** (99-112k likes reales, barra al 7-18% de eso). Método, confusores y cómo se lee en `post-workflow §4.6-AB-METRICAS`. La cifra de la barra es atrezo del formato, como el `5,3M` del iMessage, no un dato que se afirme en el texto.
+
 ### 9.4 · La paleta (extraída de los ficheros, no de memoria)
 
 | HEX | Tono | Veces en las 14 |

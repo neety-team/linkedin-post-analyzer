@@ -16,7 +16,7 @@ Un post de vídeo se consume distinto (autoplay, swipe, sonido normalmente off�
 
 **Sí siguen mandando** (son de comercio, no de formato): menciones a terceros SIEMPRE en positivo, atacar el problema y no al lector, público B2B amplio (no fuerces marco industrial), fórmula "Comenta X + Y" si hay lead magnet en el caption, idioma del usuario, **sin markdown dentro del caption**, el **verbo punchy con techo** (`global §2.9`: sube hasta el que encaja, sin pasarse a gore) y el **SPAM NINJA en el caption** (`global §4.4b`: máx 2 líneas cortas, sin nombrar a Neety, girando el concepto del gancho, nunca última línea — **salvo que el caption sea un lead magnet**, que entonces no lleva). Y la voz Neety (`brand-voice`).
 
-**Datos propios que sí valen:** los outliers de TEXTO+VÍDEO de la cuenta (no los de texto solo). Ese subconjunto es la única referencia de la cuenta que aplica a un vídeo.
+**Datos propios que sí valen:** los outliers de TEXTO+VÍDEO de la cuenta (no los de texto solo). Ese subconjunto es la única referencia de la cuenta que aplica a un vídeo. El resumen medido está en `§4b`, y el primer pilar de vídeo, en `§6`.
 
 ---
 
@@ -122,6 +122,62 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 36. **Preguntas finales antes de publicar:** ¿se entiende sin sonido? ¿el primer frame llama la atención? ¿el hook podría ser título de un vídeo largo? ¿hay razón clara para ver hasta el final? ¿prometo algo y lo cumplo? ¿hay historia? ¿hay giro/payoff? ¿puedo cortar algún segundo? ¿el final termina donde debe? ¿alguien lo compartiría? ¿alguien lo volvería a ver?
 
 **Resumen rápido:** idea simple + historia · hook visual que se entiende sin audio · lenguaje de niño de 5 años · foreshadow al principio · mecanismo que empuja al final · expectativa clara · payoff · twist si se puede · corte abrupto tras el payoff · analizar retención/scroll-through/rewatch/shares · adaptar a cada plataforma.
+
+---
+
+## 4b · Lo que ya sabemos de VÍDEO en nuestras cuentas (medido el 2026-09-23 contra la BD)
+
+- **12 vídeos en las 3 cuentas, mediana 1.950 impresiones**, contra **3.925 de los 222 posts con imagen**. El vídeo nos rinde la mitad de mediana: todo pilar de vídeo es de momento una prueba y así se avisa.
+- **Los 2 vlogs "cómo es nuestro día" van 0 de 2:** la oficina de Lanzadera (Iker 13/12/2024, 0.41x) y Valencia desde el cielo (Unai 10/01/2025, 0.41x). **Ninguno llevaba ancla de ventas ni vector nuevo**: eran un día normal contado en tono reflexivo.
+- **El único vídeo que voló es el mapa de Euskadi de Unai (28/04, 3.54x · 21.846)**, con el patrón §2 nº2 (`Nadie habla del pueblo… que exporta más que países enteros`) y ancla de ventas (`exporta`).
+
+---
+
+## 6 · PILAR "UNA MAÑANA CON…" (vlog con vector) — v0, EN PRUEBA (Iker, 2026-09-23)
+
+> **Estado:** primer pilar de vídeo de la casa. Definido el 23/09 con las referencias de Iker (Instagram y TikTok, **ninguna de LinkedIn**). El gancho y el primer frame están definidos; el resto del guion se cierra al ver los planos grabados y se añade aquí. Lo marcado *(deducción)* es mío y está sin validar (`working-preferences §0c`).
+
+### 6.1 · Las referencias (métricas dadas por Iker)
+
+| referencia | red | vistas | ♥ | 💬 | guardados | compartidos |
+|---|---|---|---|---|---|---|
+| `Un día conmigo compaginando la universidad y las redes` (Iker, cuenta personal) | IG | 176.000 | 3.915 | 65 | 230 | sin dato |
+| `Rutina de un / deportista / de 15 años` | TikTok | 400.000 | 38.900 | 221 | 4.422 | 2.888 |
+| el mismo texto, repetido por el mismo creador | TikTok | 195.000 | 6.802 | 145 | 1.036 | 3.283 |
+| `Mañana de un deportista de 15 años` | TikTok | 107.000 | 8.075 | 72 | 729 | **303** |
+| `Día de descanso / de un atleta / de 15 años` | TikTok | 220.000 *(Iker escribió "220"; con 20.000 ♥ se asume 220k)* | 20.000 | 109 | 1.539 | 1.312 |
+| `Aquí te traigo una rutina de brazos para hacer en casa` | TikTok | 210.000 | 19.400 | 75 | **7.473** | 654 |
+
+**Lo observable, común a todas:** el texto en pantalla es **exactamente** lo que dice la voz, subtitulado palabra por palabra y partido en 3 líneas; el caption repite el mismo texto. El primer frame enseña la identidad sin sonido (el deportista sale de la cama sin camiseta).
+
+### 6.2 · Los patrones que se cruzan
+
+1. **La fórmula:** `[momento] + [de/con quién] + [UN modificador que no pega]`. El bucket base (`un día conmigo`, `rutina de un deportista`, `24 horas…`) está quemado; **lo que lo hace viral es el modificador**: `de 15 años`, `compaginando la universidad y las redes`, `con [personaje nuevo]`. Es el vector viral.
+2. **El modificador crea una contradicción** entre dos cosas que no suelen ir juntas (15 años y disciplina de profesional; universidad y creador). El que mira quiere ver cómo encajan *(deducción)*.
+3. **La identidad filtra la audiencia:** `deportista` para al público fitness. En nuestro caso la palabra de identidad tiene que ser de ventas, y así hace a la vez de ancla (`global §2.3`).
+4. **"Rutina" se comparte ~10 veces más que "mañana"** con el mismo creador y el mismo modificador (2.888 y 3.283 contra 303). *(deducción: la rutina se puede copiar y se manda a alguien; la mañana solo se mira.)* Guardados altos = utilidad (brazos: 7.473).
+5. **La serie se repite:** el mismo texto, publicado dos veces, validó dos veces (400k y 195k). El formato es reconocible (`§4` punto 34).
+6. **Pantalla = voz = caption en 5 de 5.** ⚠️ **Choca con `§1`**, que manda hacerlas distintas y sale de outliers B2B de LinkedIn. En este pilar **pantalla = voz** (validado 5/5, y LinkedIn arranca el vídeo sin sonido). El caption sí cambia, porque en LinkedIn lleva el spam ninja.
+
+### 6.3 · La receta del gancho (lo cerrado el 23/09)
+
+- **Voz = texto en pantalla, en 3 líneas, y cada línea es UN plano** de los 3 rápidos de la intro. La línea y su plano cuentan lo mismo (test de la creadora de vídeos, `global §2.2d`).
+- **6-10 palabras**, que se dicen en ~3 s.
+- **`Una mañana`, con el artículo.** Sin él, `Mañana con nosotros` se lee como "mañana (el día de después) con nosotros", y con un evento al día siguiente parece un anuncio. En la referencia no pasa porque `Mañana DE un` obliga a leerlo como la parte del día.
+- **Ancla de ventas dentro del modificador** (`global §2.3`), en su versión amplia.
+- **El modificador es verdad y se ve en los planos.** Si no hay un plano que lo enseñe, no va (`CLAUDE.md`: nada inventado).
+- ⛔ `revolucionar` y su familia (`global §2.9-REVOLUCIONAR`: 0.68x, 0.53x y 0.45x en nuestras cuentas).
+- **Si el vídeo lleva un enlace (evento, agendar), el gancho NO lo nombra.** Un post que va del evento trae clics y no inscritos (`global §4.4b-EVENTO-EXPLICITO`: 0 inscritos de 37 clics). El enlace entra como ninja: en el payoff del vídeo y en el caption.
+
+### 6.4 · El primer frame
+
+- Tiene que enseñar **la identidad y la contradicción a la vez, sin sonido**: en la referencia, cama + cuerpo de deportista.
+- ⛔ **Nada con marca del evento** (photocall, cartel, logo): se lee como promoción desde el segundo 1 (`post-workflow §4.6-FOTO`, el cartel de Unai del 11/08, 0.47x).
+- Si salen caras, gana la sonrisa amplia con los ojos abiertos (criterio de CTR de las fotos de la casa).
+- El giro final (en el primer vídeo, la piscina) **no sale en la intro**.
+
+### 6.5 · Pendiente de cerrar con los planos grabados
+Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.
 
 ---
 

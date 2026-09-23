@@ -1493,6 +1493,7 @@ El generador deforma a las personas en cada iteración. **En el prompt el avatar
 **El copy:**
 - **Cero jerga ni siglas** (ni `B2B`, ni `prospección`, ni `inteligencia comercial`, ni `IA`). `B2B para empresas` además es redundante.
 - **El eje es la identificación** (`global §4.4b-ORDEN`): a quién vender y a quién llamar dentro. **Nunca** automatismo (`IA que ejecuta` estaba en el banner viejo y es veto de 5 empresas), volumen ni la señal.
+- **Ningún verbo de CANAL en el título (Iker, 23/09: `llamar` → no siempre es por teléfono).** `llamar` promete un teléfono que no está confirmado que demos (`feedback: contacto, no teléfono`) y deja fuera el correo y LinkedIn. Pero `contactar` tampoco basta: vale para cualquiera de dentro, incluida la recepción, y **el valor es el que decide, no el canal**. Nuestros mejores ninjas nombran siempre al decisor (`el de quien paga` 0,56%, `Al que firma, no.` 0,281%). Ganó `A quién vender y quién firma`: 28 caracteres (el más corto, así que la letra más grande en móvil) y sin canal. `quién decide la compra` es más explícito, pero con 39 caracteres llega hasta la foto.
 - **El botón dice qué pasa, sin orden** (`global §2.3d`: el director de 55 se resiste a la orden): `Te lo enseño en 30 min ↓` mejor que `Agenda 30 min y lo verás en acción!` (demo genérica, orden y sin `¡`).
 - **Repetir el mensaje central aquí NO es quemarlo**: el banner es fijo y la narrativa constante es lo que premia el algoritmo (`APUNTES LINKEDIN`, algoritmo). `La idea no se quema, la frase sí` vale para el feed, no para el perfil.
 

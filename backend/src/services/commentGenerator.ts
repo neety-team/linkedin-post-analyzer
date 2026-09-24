@@ -98,6 +98,41 @@ const ARRANQUES_APOYO = [
   'el pronombre de la experiencia propia (Yo, A mi, En mi caso)',
 ];
 
+// MODO EVENTO (Iker, 2026-09-24). El post de Unai de las sillas, a 40 minutos
+// de Neety Forward, salio con cinco comentarios de apoyo genericos ("Casi
+// siempre el resultado que parece espontaneo...") que no mencionaban el evento.
+// Los pegan compañeros de la misma empresa, y vayan o no, lo minimo es desearle
+// suerte o decir las ganas que tienen. El clasificador solo etiqueta `evento`
+// por el enlace de Luma, y el de las sillas no lo llevaba: por eso tambien se
+// mira el texto.
+const ANGULOS_EVENTO = [
+  'desea suerte al autor para el evento, por su nombre de pila y sin decir "vuestro"',
+  'dice las ganas que tiene de que empiece o de que llegue el dia',
+  'orgullo de estar en esto, en primera persona del plural y SOLO para el evento',
+  'recoge un detalle LITERAL del post y lo cierra deseando que salga redondo',
+  'una sola linea, corta y seca, de animo para el dia',
+  'le quita hierro a los nervios o a la espera y desea que salga bien',
+  'ganas de ver lo que salga de ahi, sin dar por hecho que asiste',
+];
+
+export function esPostDeEvento(pillar: string | null | undefined, texto: string): boolean {
+  if (pillar === 'evento') return true;
+  const t = texto.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  return /\bneety forward\b|forward\.neety\.com|\b(luma\.com|lu\.ma)\b|\bevento\b/.test(t);
+}
+
+/** Lo minimo de cada comentario en modo evento: suerte, ganas u orgullo. */
+export function apoyaElEvento(c: string): boolean {
+  const t = c.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  return /\b(suerte|ganas|redond[oa]|orgullo|a por ello|a por todas|a tope|disfrut\w*|enhorabuena|que salga|sale (genial|bien|redondo)|exito)/.test(t);
+}
+
+/** Habla del evento como alguien de fuera (regla del 27/08). */
+export function eventoDesdeFuera(c: string): boolean {
+  const t = c.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  return /\b(vuestr[oa]s?|habeis|contais|preparais|organizais|os deseo|al equipo|todo el equipo|el equipo)\b/.test(t);
+}
+
 // Sorteo SIN REEMPLAZO: dos comentarios de la misma tanda no pueden compartir
 // arranque, que es justo lo que hace que los cinco se lean como una sola mano.
 function reparte(banco: string[], n: number): string[] {
@@ -128,6 +163,8 @@ export interface CommentGenerationInput {
   postContent: string;
   creatorName: string | null;
   creatorHeadline: string | null;
+  /** Pilar ya etiquetado del post. Solo lo usa el generador de apoyo, para el modo evento. */
+  pillar?: string | null;
   profile: {
     headline: string | null;
     voice_style: string | null;
@@ -432,7 +469,7 @@ NO HOLLOW OPENERS: never "Great post!", "Love this", "Totalmente de acuerdo", "Q
 
 ★ NEVER OUT YOURSELVES. These people work at the same company as the author. Do not write anything only an insider would know, do not say "el equipo", "en casa", "nosotros" or anything that reveals coordination, and never speak on the company's behalf. Each one is a normal contact reacting to a post.
 
-★ THE EVENT IS OURS, SO NEVER TALK ABOUT IT LIKE AN OUTSIDER (Iker, 2026-08-27). If the post mentions our September event, the people pasting these comments WORK AT THE SAME COMPANY and their profile says so, so wishing the author luck with "vuestro evento" or "mucha suerte con el evento" reads as if a colleague did not know their own company was organising it. Iker has had to rewrite these by hand. Use the FIRST PERSON PLURAL for the event and only for the event ("lo que vamos a montar", "ganas de que llegue", "orgullo de estar en esto"). This does NOT override the rule above: still no "el equipo", no speaking on the company's behalf and nothing that reveals coordination on the POST itself. The event is public, the coordination is not.
+★ THE EVENT IS OURS, SO NEVER TALK ABOUT IT LIKE AN OUTSIDER (Iker, 2026-08-27). If the post mentions our September event, the people pasting these comments WORK AT THE SAME COMPANY and their profile says so, so wishing the author luck with "vuestro evento" or "suerte con lo que habéis montado" reads as if a colleague did not know their own company was organising it. Wishing luck to the PERSON or for the DAY is fine and wanted ("Mucha suerte hoy Unai", "que salga redondo"). Iker has had to rewrite these by hand. Use the FIRST PERSON PLURAL for the event and only for the event ("lo que vamos a montar", "ganas de que llegue", "orgullo de estar en esto"). This does NOT override the rule above: still no "el equipo", no speaking on the company's behalf and nothing that reveals coordination on the POST itself. The event is public, the coordination is not.
 
 ★ AND NEVER ASSUME THE COMMENTER IS GOING. Not everyone pasting a comment will attend, and a comment that says "nos vemos allí" or "estaré" puts words in the mouth of someone who may not go. Express interest or pride WITHOUT asserting attendance: "ganas de ver cómo sale" works, "allí estaré" does not.
 
@@ -450,7 +487,8 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
   // Sorteados SIN REEMPLAZO y asignados uno a uno. Que el banco tenga mas
   // entradas que huecos es lo que hace que roten tambien ENTRE posts: sin eso,
   // dos tandas distintas vuelven a los mismos cinco angulos de siempre.
-  const angulos = reparte(ANGULOS_APOYO, n);
+  const modoEvento = esPostDeEvento(input.pillar, safePostContent);
+  const angulos = reparte(modoEvento ? ANGULOS_EVENTO : ANGULOS_APOYO, n);
   const arranques = reparte(ARRANQUES_APOYO, n);
   // EMOJI Y ALARGAMIENTO, SORTEADOS Y EN SITIOS DISTINTOS CADA VEZ (Iker,
   // 2026-09-16): "por lo menos siempre un comentario con emoji y otro con
@@ -497,7 +535,9 @@ ${safePostContent}
 ═══ ASIGNACION DE ESTA TANDA (no es un menu, es el reparto) ═══
 ${asignacion}
 ═══════════════════════════════════════════════════════════════
-
+${modoEvento ? `
+★ ESTE POST ES DE NUESTRO EVENTO (Iker, 2026-09-24). Los ${n} comentarios van del evento: CADA UNO, como minimo, le desea suerte al autor o dice las ganas que tiene de que empiece (o, si el post ya lo cuenta como pasado, el orgullo de como salio). Un comentario que solo reflexiona sobre la idea del post y no nombra ni suerte, ni ganas, ni orgullo NO VALE. Los pegan compañeros de la misma empresa: nunca "vuestro", "habéis", "contáis" ni "el equipo"; el evento en primera persona del plural o deseando suerte a la persona y al dia. Y sin dar por hecho que el que comenta va a asistir.
+` : ''}
 TASK: Write exactly ${n} supportive comments (mix of reinforce + warm), each ≤ 180 chars, each ≤ 2 lines, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image. Cada comentario respeta EL ANGULO Y EL ARRANQUE de su numero.
 
 Return JSON only: { "comments": ["...", "..."] }`;
@@ -556,6 +596,8 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
           (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null) ||
           (eventoInventado(c) ? 'se inventa lo que se hace en el evento o sus condiciones: del evento solo se dice lo que pone el post' : null) ||
+          (modoEvento && !apoyaElEvento(c) ? 'el post es del evento y no le desea suerte ni dice las ganas que tiene' : null) ||
+          (modoEvento && eventoDesdeFuera(c) ? 'habla del evento como alguien de fuera (vuestro, habeis, el equipo)' : null) ||
           (asentimientosAlPrincipio(c) >= 2 ? 'abre con varias palabras de asentir seguidas: deja una' : null) ||
           (incisoDeAsentir(c) ? `mete "${incisoDeAsentir(c)}" como inciso suelto en mitad` : null) ||
           (alargadaFueraDeSitio(c) ? `la palabra alargada "${alargadaFueraDeSitio(c)}" va en un sitio que no vale: primera palabra o antes de la primera coma tras "pues"` : null) ||

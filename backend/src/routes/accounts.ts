@@ -1883,6 +1883,7 @@ router.post('/anuncio-chat/run', async (req: Request, res: Response) => {
               {
                 postContent: p.content_text || '',
                 creatorName: p.creator_name,
+                pillar: p.pillar,
                 creatorHeadline: null,
                 profile: { headline: null, voice_style: null, worldview: null, signature_moves: null, avoid: null },
               },
@@ -2262,6 +2263,7 @@ router.get('/posts/:postId/google-chat-preview', async (req: Request, res: Respo
       {
         postContent: post.content_text || '',
         creatorName: post.creator_name,
+        pillar: post.pillar,
         creatorHeadline: post.creator_headline || null,
         // Neutral voice on purpose — these are network-support comments any
         // teammate can paste, not a specific person's voice.

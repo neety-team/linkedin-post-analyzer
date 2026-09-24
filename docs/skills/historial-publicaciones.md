@@ -230,6 +230,19 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## ✅ PUBLICADO · JUE 24/09 · UNAI · HISTORIA: LAS SILLAS A 40 MINUTOS DEL EVENTO (sin enlace)
+
+| dato | |
+|---|---|
+| **Post** | [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7508915408129945600/) · publicado unos 40 min antes de Neety Forward (hora exacta `[PENDIENTE · pedir a Iker]`) · texto idéntico al validado (45/46, falla solo `hook personal`, como el del 23/09 y por lo mismo) |
+| **Pilar** | historia · rama A (plural de equipo) · no regional · forma **PROMESA**, **secuela del 23/09** (retoma "el antes y el después" y "la sala") · **sin spam ninja ni enlace**, decisión de Iker: el evento empezaba en minutos |
+| **Gancho** | `Ya solo nos quedan unos minutos para que empiece el después en ventas 👇` (antes "una hora", cambiado al quedar 40 min) |
+| **Cuerpo** | `Las sillas ya están en su sitio.` → `Ayer os conté…` / `Hoy ya no es una promesa, es una sala.` → `Aquí dentro, nervios de estreno.` → `Nadie se sentó en toda la mañana.` / `Alguien contó las sillas hasta 3 veces.` / `Y la pantalla se encendió antes de que hiciera falta.` → `En nada entran los primeros a Neety Forward.` → `Pronto os enseñamos lo que pase hoy.` → cierre `Como en ventas, lo que sale bien se prepara antes de que entre nadie.` · **real**: sala, sillas, pantalla, evento · **inventado** (decorado): nadie se sentó, contar las sillas, la pantalla encendida antes de tiempo · `tarde` → `mañana` por Iker (a las 17:00 "toda la tarde" se leía a sala vacía) · Iker pidió `Neety Forward 2026` y se dejó **sin año** (brand-voice, nunca el año) |
+| **Foto** | la sala vacía con las bolsas naranjas en cada silla y la pantalla con `Comenzamos`. Cuadrada 3024×3024 recortando 800 px de techo y 208 de abajo (`sillas-cuadrada.jpg`) |
+| **Quemados** | gancho `ya solo nos quedan unos minutos` · cierre `lo que sale bien se prepara antes de que entre nadie` · vehículo `la sala antes de abrir` |
+| 🔧 | los comentarios de apoyo de Google Chat salieron genéricos y sin nombrar el evento → **modo evento** en `commentGenerator.ts` (`brand-voice §7.2b`) |
+| ⏳ | a los 3-4 días: conversación y guardados (vara del pilar), sin clics que medir porque no lleva enlace |
+
 ## ✅ PUBLICADO · MIÉ 23/09 · UNAI · HISTORIA DE EQUIPO: LA VÍSPERA DEL EVENTO (foto de grupo, Luma)
 
 | dato | |

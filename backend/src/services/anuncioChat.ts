@@ -168,6 +168,7 @@ export async function anunciarPostsDeHoy(): Promise<ResultadoAnuncio> {
           {
             postContent: post.content_text || '',
             creatorName: post.creator_name,
+            pillar: post.pillar,
             creatorHeadline: post.creator_headline || null,
             profile: { headline: null, voice_style: null, worldview: null, signature_moves: null, avoid: null },
           },

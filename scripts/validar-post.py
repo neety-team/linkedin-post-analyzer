@@ -68,7 +68,7 @@ SUJETO_ES_MODELO = (r'(claude\s*(opus|sonnet|haiku)?\s*\d|gpt-?\d|gemini\s*\d'
 # §4.2 Paso 1 — En el peloteo el prejuicio SIEMPRE lo dice otro: "la ven como…",
 # "nadie habla de…". Sin ese sujeto, el desprecio se lee como NUESTRO y ofende a
 # quien queriamos que comentara defendiendo lo suyo (Iker, 2026-07-30).
-SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina)'
+SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina)'
 
 # §4.2 Paso 1 — VERBOS DE PREJUICIO QUEMADOS. El sujeto ajeno es obligatorio,
 # pero el VERBO tiene que rotar. "Fichada" salio el 30/07 en el despiece de
@@ -108,7 +108,11 @@ FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|pa
                # fiesta + gesto de despacharla), las palabras rotan siempre
                # (§2.0b). Se añaden aquí el día que se estrenan, o el check pide
                # la frase-rabia y a la vez tumba la única forma que queda libre.
-               r'|y a casa|y nada m[aá]s|y a la autov[ií]a|y se acab|y de ah[ií] no pasa)')
+               r'|y a casa|y nada m[aá]s|y a la autov[ií]a|y se acab|y de ah[ií] no pasa'
+               # 2026-09-28, mapa de Extremadura (Asier): el gesto de despacharla
+               # es seguir viaje hacia el pais de al lado, que es el prejuicio real
+               # de la region (tierra de paso camino de Lisboa).
+               r'|y a portugal)')
 
 # §4.4b — FRASES DEL SPAM NINJA QUEMADAS. El dolor es SIEMPRE el mismo (dar con
 # el cliente ideal, empresa y persona), pero la FORMA rota en cada post. Iker,

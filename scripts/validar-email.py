@@ -153,7 +153,12 @@ def main():
         # son los mismos que escriben "Enserio" y "testominio". Desviarse en ESTILO es
         # diferenciarse; desviarse en CORRECCION es parecer descuidado, y lo nota un lector
         # de 55 anos.
-        if '?' in asunto and '¿' not in asunto:
+        # ⭐ Iker, 2026-09-28 (cuarta vez, y ya es regla): la pregunta en MINUSCULA va sin
+        # la ¿, porque la minuscula pegada al signo no tiene sentido y sin el se lee como
+        # un WhatsApp. Correos 4, 5 y 6. Si el asunto empieza en MAYUSCULA, la ¿ se pone.
+        if '?' in asunto and '¿' not in asunto and asunto[:1].islower():
+            checks.append(ok('Pregunta en minúscula sin "¿": registro WhatsApp (§2, decisión de Iker 28/09)'))
+        elif '?' in asunto and '¿' not in asunto:
             checks.append(fallo('Asunto con "?" y sin "¿" de apertura (§2: en lo correcto no nos desviamos)'))
         elif '?' in asunto:
             checks.append(ok('Interrogacion con su ¿ de apertura'))

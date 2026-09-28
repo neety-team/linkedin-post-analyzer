@@ -1367,3 +1367,21 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 - **⚠️ Parte de eso puede ser un robot, y se dice antes de sacar conclusiones:** dos clics de la tanda 2 son de dominios corporativos **a los 2 y 8 minutos del envío** (`bancsabadell.com` 09:08, `hydro.com` 09:14), que es la huella de un escáner de enlaces de seguridad. **El 83,9% de aperturas de esa tanda apunta a lo mismo.** Sin descontarlos son 7; descontándolos, 5.
 - 🔴 **Sin comprobar todavía: si alguno de los 7 llegó a agendar.** Un clic no es una demo. Se mira en el CRM (origen `brevo` + `correo-05-iker-objecion`) antes de dar el pilar por bueno.
 - **Pilar OBJECIÓN: n=1 y con dato bueno.** No se repite la semana siguiente (rotación), pero entra en el cupo.
+
+## 📝 CORREO 6 · Unai · CALENDARIO (BORRADOR 2026-09-28, para el mar 29/09)
+
+**Campaña Brevo 24**, listas **15 + 4 + 17 + 18** (sin la 16, que aún tiene dentro las 2 direcciones que Bouncer marcó como dudosas), remitente **`Unai de Neety`** (`hola@neety.com`), estado **`draft`** releído de la API, **sin `scheduledAt`** (`email-marketing §9a-BIS`). Un solo envío: los 111 ya recibieron el correo 5 con 0 bajas y 0 denuncias.
+
+| | |
+|---|---|
+| Asunto | `a quién vas a llamar en octubre?` (33 car, **sin `¿`**: desde hoy es regla, `email-marketing §2`) |
+| Preview | `Te lo pregunto por algo que pasa en enero.` |
+| Pilar | **CALENDARIO (5), primera vez.** El cierre del tercer trimestre (miércoles 30/09) pone la fecha y la urgencia |
+| Por qué este pilar | rotación (Iker firmó el 5), la fecha solo vale esta semana, y prueba la hipótesis de `email-marketing §8h` punto 7 (a nuestros correos les falta urgencia) |
+| Dolor | buscar contra llamar (21 empresas, eslabón 4 de `global §4.4b-CADENA`) + quien decide dentro (el de mejor CTR) |
+| Puerta | `/agendar/` de recursos, **no la web nueva**: su titular todavía no confirma lo que promete el correo (decisión de Iker, 28/09). `utm_campaign=correo-06-unai-calendario` escrito a mano |
+| PD | el evento en condicional (`§7b`): vale para el que vino, el que no pudo y la lista de siempre |
+| Validador | **37/37** · ritmo `1-3-1-2-1-1-3-1` |
+
+**⚠️ PENDIENTE ANTES DEL TEST (Iker, en el panel):** Brevo ha vuelto a pisar el enlace con `utm_source=sendinblue`. **Configuración adicional → seguimiento UTM → apagar**; después se reescribe el `href` por API y se pasa `auditar-campanas-brevo.py`.
+

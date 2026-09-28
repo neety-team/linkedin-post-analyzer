@@ -453,7 +453,9 @@ El asunto es al email lo que el gancho es al post: si no abre, no existe el cuer
 - El asunto de un email de la newsletter NO necesita ancla de ventas explícita como el hook de LinkedIn (el lector ya sabe quiénes somos: está suscrito), pero sí tiene que tocar un problema o curiosidad real del que vende.
 
 **⭐ ORTOGRAFÍA SÍ, REGISTRO NO — la regla para desviarse del corpus (2026-08-06).** Medido sobre 565 asuntos españoles: **el 97% de los que llevan interrogación ponen la `¿` de apertura** (43 de 44) y **solo 1 de 565 empieza en minúscula**. Las dos cosas son desviaciones, pero no son iguales:
-- **La `¿` SE PONE.** Quitarla es una falta de ortografía, la nota un lector de 55 años y no se gana nada. **En lo correcto no nos desviamos.**
+- ~~**La `¿` SE PONE.** Quitarla es una falta de ortografía, la nota un lector de 55 años y no se gana nada. **En lo correcto no nos desviamos.**~~
+- **⭐ CAMBIADO POR IKER EL 2026-09-28, y ya es regla (lo había pedido en los correos 4, 5 y 6): la pregunta que empieza en MINÚSCULA va SIN la `¿`.** Su motivo: *"si empiezas con minúsculas no tiene sentido una minúscula al lado de un símbolo, y así queda más natural, como si te enviásemos un WhatsApp"*. Es la misma decisión de registro que la minúscula: el asunto tiene que parecer escrito deprisa por una persona. **Si el asunto empieza en MAYÚSCULA, la `¿` se pone.** Mecanizado en `validar-email.py`.
+  - ⚠️ **El dato no lo decide, y hay que saberlo:** nuestro único asunto con `¿` es el correo 0 (`¿no te acuerdas de mí?`, 46,8%, el que más abrió), pero salió desde MailerLite, a otra lista y firmado por Kaixito, así que no se puede comparar con nada. **Con ~110 destinatarios tampoco se puede testar**: un A/B de 55 contra 55 no detecta la diferencia que pueda haber. Es una decisión de registro, no una medición.
 - **Las minúsculas SE MANTIENEN** aunque sean el 0% del corpus. Es una decisión de registro, no un error, y ahí la desviación es el objetivo: en una bandeja de Asuntos Con Mayúscula, el nuestro parece escrito por una persona.
 - **La regla general:** desviarse del corpus en **estilo** es diferenciarse; desviarse en **corrección** es parecer descuidado.
 

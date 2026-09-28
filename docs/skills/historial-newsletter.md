@@ -1352,3 +1352,18 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Al enviarlo:** meter el ninja en `QUEMADAS` de `validar-email.py`, el cuerpo literal en `corpus-correos-enviados.md`, y leer las métricas a los 5-6 días.
 **Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. **Remitente cambiado de Unai a Iker (22/09):** Iker llevaba 3 semanas sin escribir (Unai 2), el pilar objeción es suyo porque es quien hace las demos, y así Unai queda libre para el correo de después del evento. **Asier se descartó para este:** estrenar remitente y pilar a la vez no deja atribuir nada. ✅ **Su remitente ya existe: `Asier de Neety` (id 7, `hola@neety.com`, activo), dado de alta por Iker el 22/09.** Candidato para su estreno: pilar 9 · receta regalada.
+
+### 📈 RESULTADO FINAL DEL CORREO 5, LAS DOS TANDAS (leído el 2026-09-28 con `metricas-brevo.py --quien --listas 15,4,17,18`)
+
+| | tanda 1 (camp. 22) | tanda 2 (camp. 23) | total |
+|---|---|---|---|
+| Enviados / entregados | 83 / 80 | 33 / 31 | 116 / **111** |
+| Aperturas únicas | 51 · 63,8% | 26 · **83,9%** | 77 |
+| **Clics de lead al enlace** | **4** | **3** | **7 · 6,3%** |
+| Bajas / denuncias | 0 / 0 | 0 / 0 | **0 / 0** |
+
+- **Es el mejor correo de la serie en clics** (correo 4: 3 de 45 · correo 3: 1 · correo 2: 0), y el primero con la puerta en `/agendar/` que saca clics de lead.
+- **La tanda 2 (solo inscritos del evento, verificados con Bouncer) clica más:** 3 de 31 contra 4 de 80. Cohorte recién llegada y caliente.
+- **⚠️ Parte de eso puede ser un robot, y se dice antes de sacar conclusiones:** dos clics de la tanda 2 son de dominios corporativos **a los 2 y 8 minutos del envío** (`bancsabadell.com` 09:08, `hydro.com` 09:14), que es la huella de un escáner de enlaces de seguridad. **El 83,9% de aperturas de esa tanda apunta a lo mismo.** Sin descontarlos son 7; descontándolos, 5.
+- 🔴 **Sin comprobar todavía: si alguno de los 7 llegó a agendar.** Un clic no es una demo. Se mira en el CRM (origen `brevo` + `correo-05-iker-objecion`) antes de dar el pilar por bueno.
+- **Pilar OBJECIÓN: n=1 y con dato bueno.** No se repite la semana siguiente (rotación), pero entra en el cupo.

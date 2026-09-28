@@ -272,7 +272,11 @@ def main():
     _lineas_de = lambda bs: [len([l for l in b.splitlines() if l.strip()]) for b in bs]
     _pat_full = _lineas_de(_rb)          # el texto tal y como lo ve el lector
     _idx = next((i for i, b in enumerate(_rb) if 'http' in b), None)
-    _pat = _lineas_de([b for i, b in enumerate(_rb) if i not in (_idx, _idx - 1)]
+    # La linea de contexto es UNA linea suelta. Si el bloque de antes del ninja tiene
+    # 2-3 lineas, es cuerpo y cuenta (correo 6, 28/09: un bloque de TRES pegado al
+    # ninja se excluia y el check pedia un bloque de tres que ya estaba).
+    _ctx = _idx - 1 if _idx and _lineas_de([_rb[_idx - 1]])[0] == 1 else None
+    _pat = _lineas_de([b for i, b in enumerate(_rb) if i not in (_idx, _ctx)]
                       if _idx is not None else _rb)
     if len(_pat) >= 6:
         _ritmo = '-'.join(map(str, _pat))

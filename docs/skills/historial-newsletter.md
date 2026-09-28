@@ -1385,5 +1385,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ~~**⚠️ PENDIENTE ANTES DEL TEST (Iker, en el panel):** Brevo ha vuelto a pisar el enlace con `utm_source=sendinblue`. **Configuración adicional → seguimiento UTM → apagar**; después se reescribe el `href` por API y se pasa `auditar-campanas-brevo.py`.~~ ✅ **Resuelto de raíz:** seguimiento UTM apagado en la cuenta (`email-marketing §1`). Enlace intacto y auditor en verde en la 27. ✅ **Test revisado por Iker en Gmail el 28/09 (remitente, preheader una vez, pie en español, enlace con UTM) y PROGRAMADA: `queued` para el mar 29/09 09:05**, releída de la API con el pie y el HTML intactos, auditor en verde.
 
-**Al salir:** comprobar el 29/09 que pasa a `sent`; pegar el cuerpo literal en `corpus-correos-enviados.md` y el ninja en las QUEMADAS de `validar-email.py`; leer métricas con `metricas-brevo.py --quien` a los 5-6 días.
+**Destinatarios, contados en Brevo el 28/09: 111** (117 únicos en las 4 listas, sin nadie repetido, menos 6 bloqueados por rebote o baja): 42 de `Recursos · Todos` + 5 testers + 33 + 31 inscritos del evento. **Personas de fuera: 106.**
+
+**Al salir:** pegar el cuerpo literal en `corpus-correos-enviados.md` y el ninja en las QUEMADAS de `validar-email.py`. **Revisión de métricas: lunes 05/10** (Iker no trabaja fines de semana), con `metricas-brevo.py --quien`, descontando los clics de escáner y mirando en el CRM si alguien reservó.
 

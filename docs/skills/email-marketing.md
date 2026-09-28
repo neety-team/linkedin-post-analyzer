@@ -861,6 +861,7 @@ El primer correo del sistema no vende: **segmenta la base mezclada por RESPUESTA
 - **A quién:** SOLO al segmento de origen desconocido. Los que tienen origen claro (p. ej. los ~40 de recursos) NO lo reciben: a ellos se les escribe referenciando su origen cuando toque.
 - **Purga:** los rebotados/direcciones rotas se borran YA. Los que no abren NO se tocan tras un correo: los opens son poco fiables (Apple los distorsiona), se juzga tras 4-6 correos por clics + respuestas.
 - **Envío escalonado** en tandas pequeñas repartidas en días: hace a la vez de calentamiento del dominio.
+- **🔴 RESULTADO Y LA ALTERNATIVA (2026-09-28, `§8i` punto 1):** salió y dio **0 respuestas de 191** (`historial-newsletter`). EDEM segmenta su lista con **un clic en vez de una respuesta**: 4 opciones A-D, cada una un enlace, con premio, honestidad (*"las cuatro te llevan a la misma historia"*) y la respuesta como salida para quien quiera escribir. **Si se vuelve a intentar segmentar, se prueba esa versión** con los 4 dolores de la propuesta de valor como opciones. Choca con la regla de un solo enlace (`§3`) y con el dominio (`§0b`): **lo decide Iker**, con 3-4 enlaces al mismo dominio y una sola vez.
 
 ### 5c · Segmentación (antes de enviar nada)
 No se dispara lo mismo a toda la base. Mínimo separar por: **origen** (lead magnet / newsletter / webinar / LinkedIn / contacto comercial), **rol** (founder / director comercial / marketing / agencia) y **temperatura** (abrió, clicó, respondió, dormido >3 meses). Los dormidos NO reciben la campaña normal: reciben la de reactivación (recordar por qué están en la lista + una idea útil + opción clara de baja). Lista pequeña y viva > lista grande y muerta.
@@ -963,7 +964,8 @@ No es que no la hayamos mirado: **no es accesible.** El evento va con `show_gues
 - **Inventario a 2026-07-27 (ZIP "hasta 27 julio", 34 correos, 8 fuentes):** RunnerPro (7, el sistema de Carmen en vivo: 300-450 palabras, bienvenida con descuento día 0) · **BOGA/EDEM (2, la más cercana a nuestro género: curiosidad pura en primera persona + storytelling ~1.000 palabras)** · Cosas de Freelance (6, **bienvenida NUMERADA [1/10]…: la secuencia como producto con barra de progreso — patrón robable**) · Singularu (12, e-commerce puro: contraste, no modelo; su "chica Singularu" = truco de tribu) · lemlist (2, competencia: vigilar su discurso de señales) · Kieran Flanagan (4, ensayos 4-5k palabras: otro género) · **Aprilynne Alter (7, ZIP del 27-jul): asuntos TODOS en minúsculas y sin gancho de venta ("are creator conferences worth it?", mediana ~40 chars: valida el estilo del correo 0 desde otro nicho) · P.S. en el 100% · cuerpos educativos de 1.200-2.600 palabras con ~7 imágenes (género ensayo visual, no nuestro formato)**.
 - **Faltan por suscribirse (prioridad):** ~~Isra Bravo~~ ✅ llega desde agosto · **Lavender 🔴 MAL: la suscripción cayó en "The Lavender Newsletter", una publicación queer local de Illinois, no en la herramienta de email de ventas** (`§8g`). Hay que rehacerla apuntando a `lavender.ai`. · CustomerTop, sigue sin aparecer en ningún ZIP.
 - **⭐ REGLA DE INTAKE que sale de ahí: una suscripción nueva no se da por buena por el nombre, se verifica leyendo su primer correo.** La de Lavender estuvo cuatro meses en la lista de "ya suscritos" trayendo noticias municipales de Champaign-Urbana.
-- **🪦 Bajas del corpus:** Content Playbook / Kleo (Lara Acosta) **cerró la newsletter el 2026-08-30**.
+- ~~**🪦 Bajas del corpus:** Content Playbook / Kleo (Lara Acosta) **cerró la newsletter el 2026-08-30**.~~ **🔴 FALSO, corregido en `§8i` (2026-09-28):** el correo del 30/08 anunciaba **2 semanas de descanso**, no un cierre. Volvió el 27/09 como **The B2B Creator** y sigue en el corpus. **Una baja tampoco se da por buena por el asunto: se lee el cuerpo.**
+- **⚠️ A 2026-09-28 (`§8i`): lemlist, Hoppy Copy y Tendios llevan DOS semanas sin mandar nada → toca comprobar las suscripciones (Mario). Lavender, tercera semana llegando la mala. Alta de facto: Kakiyo (competencia, correos de ciclo de vida de producto).**
 - **⚠️ A 2026-09-21 (`§8h`): Lavender sigue llegando mal** (la de Illinois, el 18/09) y **lemlist, Hoppy Copy y Tendios no mandaron nada esa semana.** Tres altas nuevas que en su segunda semana no aparecen: si a la siguiente tampoco, se comprueba que la suscripción siga viva.
 - **🆕 Altas del corpus (2026-09-14):** **Hoppy Copy** (herramienta de copy con IA, jugadas de calendario) · **lemlist** (competencia directa, vigilar su discurso) · **Tendios Bid** (SaaS B2B español, su secuencia de bienvenida es la referencia de `§5b`).
 
@@ -1474,8 +1476,8 @@ municipales y del condado. No tiene nada que ver con nuestro género. **Se quita
 suscripción correcta vuelve a la lista de pendientes.** Y la lección de intake: **una suscripción se
 verifica leyendo el primer correo, no dándola por buena por el nombre.**
 
-**🪦 Content Playbook (Lara Acosta / Kleo) cerró.** Correo del 30/08, `📘 Good bye & thank you!`. Baja
-del corpus.
+**🪦 ~~Content Playbook (Lara Acosta / Kleo) cerró.~~ 🔴 No cerró (`§8i`): era un descanso de 2 semanas y volvió el 27/09 como The B2B Creator.** Correo del 30/08, `📘 Good bye & thank you!`. ~~Baja
+del corpus.~~
 
 #### 🎯 LOS CUATRO PILARES CANDIDATOS QUE SALEN DE AQUÍ
 
@@ -1652,7 +1654,8 @@ Google**, que es de otro servidor. Las cifras de ritmo salen de un script sobre 
   españolas**. No es un error de lectura: la cabecera `Received` de Google dice `Sun, 20 Sep 2026
   18:29 -0700`, que es lo mismo. **Es su segunda salida de hora en dos ventanas** (la otra, el 12/09
   a las 11:22, la explicó él al día siguiente). **No se teoriza el porqué**: si la explica en el
-  correo siguiente, se apunta aquí.
+  correo siguiente, se apunta aquí. ✅ **Explicada por él el mismo 21/09 a las 15:29 (`ERROR 03:27`):
+  programó AM en vez de PM (`§8i`).**
 - **SINGULARU rompe su minuto por primera vez** (11:47 y 12:32, en rebajas). Es el único de todo el
   corpus sin autor persona, y es también el primero que pierde la hora.
 - ⭐ **Una variante de la constancia que no teníamos: DECLARAR la cita.** Cosas de Freelance abre
@@ -1896,6 +1899,343 @@ de las 16:00: salieron a las 16:00 del día antes y a las 15:01). **Consecuencia
 el inscrito ya recibe dos recordatorios con el nombre del evento en el asunto, así que **un tercero
 nuestro el mismo día sobra** y cuenta como ruido para él. Lo que sí le falta a la lista es **el
 correo de después** (arriba), porque Luma no lo manda.
+
+---
+
+### 8i · ⭐ SEXTA VENTANA — 21 newsletters, 8 remitentes, 7 días (21-27 sep 2026, analizado el 2026-09-28)
+
+ZIP `newslettershasta28sep.zip`, 24 ficheros. **Fuera del conteo (3):** 1 aviso de notas de Substack,
+**1 de The Lavender Newsletter (tercera semana llegando la mala)** y **1 correo de ciclo de vida de
+Kakiyo**, que no es newsletter y se analiza aparte porque es competencia. **Dentro (21):** **Isra
+Bravo (7)**, **SINGULARU (4)**, **RunnerPro (3)**, **Juan Domínguez (3)**, BOGA/EDEM (1), Content
+Playbook (1, **vuelve**), Sonia Ferrent (1), Cosas de Freelance (1). **No llegó nada de** Hugo López
+(volvió el 21/09 y vuelve a callar), Kieran Flanagan, lemlist, Hoppy Copy ni Tendios.
+
+**Método, igual que `§8h`:** horas pasadas a +02:00 desde el `Date`, cifras de ritmo con script sobre
+el texto plano. **Y se cierra el pendiente de `§8h`: el ritmo de RunnerPro ya se ha medido.** Su
+plantilla separa los bloques con una línea de espacios duros (`\xa0\xa0`) y los párrafos de dentro con
+una línea vacía; separando por la primera sale limpio.
+
+#### 🔴 DOS CORRECCIONES A LO ESCRITO, antes que nada
+
+1. **Content Playbook NO cerró.** `§8` y `§8g` leyeron el asunto `📘 Good bye & thank you!` (30/08)
+   como cierre. **El cuerpo decía otra cosa:** dos semanas de descanso y vuelta el domingo 20/09.
+   Volvió el 27/09, una semana tarde, **renombrada The B2B Creator**, y abre confesándolo: *"Oops! I
+   said we'd take 2 weeks off. We took 3."* **Vuelve al corpus.** Es la regla de intake de Lavender
+   (`§8`) al revés: **una baja tampoco se da por buena por el asunto. Se lee el cuerpo.**
+2. **La salida de Isra a las 03:29 del 21/09 (`§8h`, "sin explicar") la explica él.** Ese mismo día,
+   a las 15:29, manda `ERROR 03:27`: *"por error mío… mi email ha salido a las 03:27h pero AM en vez
+   de PM"*. **Un AM/PM al programar.** Lo reescribe y lo manda a su hora el mismo día. **Pendiente
+   cerrado sin haber teorizado nada, que era lo que pedía `§8h`.** Dos salidas de hora en tres
+   semanas, y las dos las ha confesado él.
+
+#### ⏰ LAS HORAS: sexta semana del bloque de las 15:00, y aparece el DÍA fijo
+
+| remitente | hora española | días | de cuántos |
+|---|---|---|---|
+| **RunnerPro** | **15:00-15:07** | mié · vie · dom | 3 de 3 |
+| **Isra Bravo** | **15:29** | los 7 | 7 de 7 |
+| **Juan Domínguez** | **16:01-16:02** | lun · mié · vie | 3 de 3 |
+| BOGA/EDEM | 12:03 | martes | 1 de 1 |
+| Cosas de Freelance | 08:01 | jueves | 1 de 1 (y lo vuelve a declarar en la línea 1) |
+| SINGULARU | 11:30 · 11:31 · 10:31 dom · **12:05** | mar · mié · jue · dom | 3 de 4 en su minuto |
+| Content Playbook | 16:17 | domingo | antes del parón salía a las 15:01 |
+| Sonia Ferrent | 09:57 | viernes | sin hora fija |
+
+- **⭐ Lo nuevo: la constancia no es solo de minuto, también es de DÍA.** Juan manda **lunes,
+  miércoles y viernes**; RunnerPro **miércoles, viernes y domingo** (con algún lunes: el 21/09).
+- **⭐⭐ Y RunnerPro reserva el domingo a UN pilar.** Los tres domingos que tenemos documentados con
+  texto (23/08, 20/09 y 27/09) son **reflexión personal en primera persona**, abren con `Domingo.` y
+  los dos últimos lo llevan **también en el asunto** (`Domingo. El día que dejé el reloj en casa` ·
+  `Domingo. Yo empecé a correr para adelgazar`). **El lector sabe qué correo le llega antes de
+  abrirlo.** Nosotros mandamos uno por semana y ese recurso no nos aplica hoy. **Si algún día pasamos
+  a dos, el equivalente es un día fijo para un pilar**, no dos días al azar.
+- **⛔ Lo que no cambia:** nuestras 09:01 (`§5`). El test pendiente sigue siendo `09:01 contra 15:01`.
+
+#### ✉️ EL ASUNTO: la banda aguanta, y esta semana nadie pregunta
+
+| ventana | n | mediana caracteres | mediana palabras |
+|---|---|---|---|
+| Timepack | 353 | 43 | 8 |
+| 4-10 ago | 32 | 36 | 7 |
+| 11-17 ago | 39 | 36 | 7 |
+| 26 ago - 14 sep | 75 | 31 | 5 |
+| 15-21 sep | 24 | 36 | 7 |
+| **21-27 sep (esta)** | **21** | **30** | **6** |
+
+**Solo los remitentes-persona (n=16): 33 caracteres y 7 palabras.** Dentro de la banda 31-37 de `§8h`
+por segunda vez. El 30 del total lo bajan los 4 de SINGULARU (12-30 car). **La regla de ≤40 (`§2`) no
+se toca.** Isra sale **bimodal**: `2 mujeres` (9), `ERROR 03:27` (11), `Ganador del concurso.` (21)…
+y `El peligro de pagar para que más gente vea algo que todavía no sabes vender` (75), el más largo de
+la ventana y por encima de nuestro techo de 62.
+
+- **🔴 CERO asuntos con `?` en 21.** En `§8g` eran el 5%. **Choca con nuestra hipótesis de
+  `historial-newsletter` (correo 5)**, que dice que nuestros dos asuntos que más abrieron son
+  preguntas cortas en 2ª persona. **No se corrige nada:** son listas distintas, la nuestra es n=2
+  contra n=2, y nuestro dato gana al corpus. **Se apunta que la pregunta es terreno nuestro, no del
+  corpus**, y que por eso no hay de dónde copiarla: se prueba con nuestras cifras.
+- **Punto final:** `Cambiamos.` (1 palabra) y `Ganador del concurso.` (3). **Los dos dentro de la
+  regla de ≤4 palabras de `§2`.**
+- **⭐ NUEVO: el punto DENTRO del asunto, que lo parte en dos golpes.** `Domingo. Yo empecé a correr
+  para adelgazar` (RunnerPro) · `Último día. Y 9 poderosas razones` (Isra). **La primera mitad es una
+  micro-apertura subida al asunto** (RunnerPro abre el cuerpo también con `Domingo.`), y la segunda
+  abre el gap. Es el asunto de una palabra de `§8e` con la explicación pegada detrás.
+- **⭐ El asunto + preheader como dos mitades de una frase ya es SISTEMA, no un caso.** `§8h` lo
+  vio una vez. Ahora Juan lo hace **en los 3 correos de la semana** (5 de 5 en dos ventanas) y EDEM
+  también:
+
+| asunto | preheader |
+|---|---|
+| `Mis amigos no saben a qué me dedico` | `Y me da bastante igual` |
+| `Si nadie te valora` | `¿cuánto vales?` |
+| `Hacemos un Podcast en directo este viernes (Madrid)` | `Últimas entradas!` |
+| `Cambiamos.` (EDEM) | `Lo fácil sería dejarlo todo cómo está.` |
+
+  **Es exactamente lo que hizo nuestro correo 5** (`tú lo abrirías?` + `Yo tampoco. Y eso que me
+  dedico a esto.`). Queda confirmado desde fuera. **Y la otra forma, la de Isra y RunnerPro: NO
+  llevan preheader**, y el cliente de correo enseña la primera línea, que es su micro-apertura
+  (`Mira.`, `Escúchame.`). **Las dos valen. La que no aparece en ningún remitente bueno es el
+  preheader que resume el correo.**
+- **Emoji:** SINGULARU (4 de 4) y Content Playbook. **Remitentes-persona: cero, por sexta vez.** Sonia
+  Ferrent lo lleva **en el nombre del remitente** (`Ventas con Sonia Ferrent 🚀`), no en el asunto.
+
+**🧠 LAS PALANCAS NUEVAS DE ESTA SEMANA** (se suman a la tabla de `§8g`; las versiones Neety son para
+inspirar, no para calcar, y cualquier cifra o fecha pasa por `§7`):
+
+| palanca | literal | qué activa | versión Neety |
+|---|---|---|---|
+| ⭐⭐ **La causa desplazada en el tiempo** | `Lo que cenas hoy lo corres mañana` | el lector culpa a lo que ve (sus piernas) y el asunto le señala lo que hizo ayer | `la lista de enero se hace en octubre` · encaja con el pilar CALENDARIO |
+| ⭐⭐ **La paradoja: lo que haces bien te hace perder** | `Explicar te hace vender menos` · `El mercado no paga el esfuerzo` | ataca algo de lo que el lector está orgulloso | `conocer bien tu sector te hace ver menos empresas` (las 40 de siempre, `§8g` punto 7) |
+| ⭐ **El fallo propio en mayúsculas** | `ERROR 03:27` | curiosidad + simpatía (efecto *pratfall*: el competente que falla cae mejor) | solo con un fallo real y con OK de Iker (pilar 7) |
+| ⭐ **Número + sustantivo, sin verbo** (2ª ventana) | `2 mujeres` (tras `27 personas interesadas`) | suena a caso y no da ninguna pista | cifra propia y verificada, `§7` |
+| **Nombre + escena con hora** | `Javier sale a las ocho y ya es de noche` | la fecha se ve en una persona, no en un calendario | nombre inventado sin empresa (`§7`) y comprobado contra el corpus enviado |
+| ⚠️ **El anuncio** | `Hacemos un Podcast en directo este viernes (Madrid)` · `Hackea tus Ventas nunca volverá a estar tan barato` | nada: dice el tema | ❌ **Isra vendió 10 días seguidos sin poner el tema en el asunto** (abajo) |
+
+#### ⭐ EL CUERPO: lo que se confirma y lo que se mide por fin
+
+| | líneas sueltas | bloques de 2 | de 3 | de 4+ | palabras |
+|---|---|---|---|---|---|
+| **Isra Bravo** (7) | **100%** | 0% | 0% | 0% | 219-498 (mediana 443) |
+| **RunnerPro** (3) · **medido por primera vez** | **62%** | **31%** | 6% | 0% | **335-346** |
+| **Juan Domínguez** (3) | 43-86% | **14-37%** | 0-9% | 0-11% | 308-516 |
+
+- **RunnerPro: 31% de bloques de dos.** `§8g` le había medido 23% sobre el texto que se podía
+  separar. **Tercera ventana con los dos remitentes de texto más parecidos a nosotros por encima del
+  20%.** La prioridad de `§3` (1º suelta, 2º bloque de dos, 3º de tres) sigue respaldada desde fuera.
+- **La longitud más estable del corpus es la de RunnerPro: 335-346 palabras en 3 correos**, dentro de
+  la banda 300-450 de `§8` por sexta vez.
+- **Enlace:** RunnerPro 87-89% · Isra 68-95% · Juan 84% en el correo del evento y **sin enlace en los
+  otros dos**. Nada nuevo frente a `§8g`, y nuestro dato (`§5-NINJA-POSICION`) sigue mandando.
+- **Mayúscula única, la del giro:** RunnerPro **2 de 3** (`LUZ`, `HIDRATOS`), y **el que no la lleva
+  es el personal del domingo**: una reflexión no tiene giro técnico que marcar. Isra 2 de 7 (`ANTES`,
+  `AVANZAS`). **EDEM mete cuatro, pero como VOZ de un personaje** (`NO TOQUÉIS NADA. Ni la caja, ni el
+  producto, ni el cable. NADA.`): es otro uso, el grito puesto en boca de alguien. El aviso del
+  validador a partir de dos sigue bien puesto.
+- **PD:** RunnerPro 3 de 3 con Pd + Pd2 · Isra 7 de 7 · Juan 2 de 3 (escrito `P.D::` y `P. D.`).
+  **Cero `P.S.` en español por sexta vez** (solo el `PS` de Kakiyo, en inglés).
+- **⭐ En la cuenta atrás, la PD de Isra ES el reloj.** 5 de los 6 correos de venta de la semana llevan
+  la fecha límite en la PD (el sexto, la subida de precio) (*"Altas hasta mañana a las 23:59h"*, *"Pd: No habrá más emails ni habrá
+  excepciones. Es hasta las 23:59h. Después, se acabó."*). **Y lo cumple:** el domingo ya no vende La
+  Firma. Es la *"urgencia real y ejecutada"* de Timepack (`§8`), vista en vivo.
+
+#### ⭐⭐ LA CUENTA ATRÁS COMPLETA DE ISRA, reconstruida con las dos ventanas
+
+`§8h` vio la mitad. Con esta ventana se ve entera: **La Firma, evento del domingo 27, 10 correos de
+venta en 9 días y uno de después.**
+
+| día | asunto | qué trabajo hace |
+|---|---|---|
+| vie 18 | `EVENTO SEPTIEMBRE, Apertura abierta.` | anuncio |
+| sáb 19 | `27 personas interesadas` | caso |
+| dom 20 | `Cómo conseguir suscriptores.` | caso |
+| lun 21 | `Una ginecóloga me ha hecho una pregunta` (salió a las 03:29 por error) | caso |
+| lun 21 | `ERROR 03:27` | **confiesa el fallo y lo aprovecha para las 3 preguntas que le hacen** (¿es un curso? ¿hay comunidad? ¿qué opinas de Netflix?) |
+| mar 22 | `El mercado no paga el esfuerzo` | caso (480 vídeos, 3 libros, <1.000 €) |
+| mié 23 | `2 mujeres` | caso |
+| jue 24 | `El peligro de pagar para que más gente vea algo que todavía no sabes vender` | caso (la escritora desconocida) |
+| vie 25 | `Explicar te hace vender menos` | caso (el método que parece "una gilipollez" antes de probarlo) |
+| sáb 26 | `Último día. Y 9 poderosas razones` | **el índice: 9 viñetas, y al menos 6 son los casos de los correos anteriores** |
+| dom 27 | `Ganador del concurso.` | cerrado ya: **no vende lo suyo, cede el correo a otro** |
+
+**Lo que enseña, en orden de lo que nos sirve:**
+1. **⭐⭐ El último día no trae argumento nuevo: es el ÍNDICE de la campaña.** Cada caso que ya contó
+   vuelve como una línea de fascinación (*"Por qué un negocio puede publicar 480 vídeos… para acabar
+   facturando menos de 1.000"*). Al que no abrió los anteriores le da el resumen; al que sí, se los
+   recuerda todos juntos. **Esto afina el pilar 8 (anzuelos) de `§8g`:** su mejor uso no es rellenar
+   cadencia, es **cerrar una campaña**.
+2. **⭐ La FAQ entra por la puerta de un error.** Las objeciones se contestan como preguntas que le
+   hacen, cada una con guion y rebatida en dos o tres líneas (*"-¿La Firma es un curso? / No tiene
+   nada que ver."*). **Es el pilar 6 (objeción) en formato de preguntas frecuentes**, y es la primera
+   vez que un referente lo hace así.
+3. **Cada caso se corta antes de la respuesta.** *"hay dos caminos muy diferentes. / 1 / Y / 2"* ·
+   *"una de ellas es bastante peor que 'no sabemos comunicar'"*. La respuesta está en el evento
+   (`§8h` punto 5).
+4. **El correo de después no vende nada suyo.** Justo cuando el lector espera "última oportunidad",
+   llega un regalo a un tercero. Es la misma lógica que el post-evento de Hugo (`§8h`).
+5. **Ningún asunto dice "evento", "plazas" ni "último aviso"** salvo el de apertura y el del último
+   día. Diez correos del mismo producto y **ninguno repite caso**, y por eso la lista lo aguanta.
+
+**Para nosotros, la plantilla de una ventana de campaña (demos o evento):** anuncio → **un caso por
+correo** → FAQ con las objeciones reales del informe → **último día = índice de los casos** → después,
+un correo que no pide. Con nuestra cadencia son 4-5 correos, no 10: **lo que se copia es la regla de
+un caso por correo, no el volumen.** ⚠️ Y no se copia el ancla de precio (*"el precio no tardará en
+subir a 300€… tú mantienes tu precio para siempre"*): un SaaS con demo no abre y cierra (`§8`).
+
+**🔀 EL CONTRASTE QUE REGALA LA SEMANA: dos lanzamientos cerrando el mismo fin de semana.** Isra
+(sábado 26, 23:59) y **Sonia Ferrent, que vende ventas + IA en español, nuestro sector y nuestro
+comprador** (early bird hasta el domingo 27, *"+50€"*). Sonia manda **un correo de ~60 palabras**:
+`Hola, ¿cómo estás?`, dos emoji, *"¡este es el momento de decidir! 💪🏾"* y la landing *"de nuevo"*.
+**No tenemos métricas de ninguno** y no se sabe quién vendió más. **Lo que sí se ve: el de Sonia no
+da ni una razón nueva para decidir, solo la fecha.** Lección: **el cierre de una ventana es un
+argumento, no un recordatorio del precio.**
+
+#### ⭐⭐ LOS 12 MECANISMOS NUEVOS QUE MERECEN ROBARSE
+
+1. **⭐⭐ La encuesta de UN clic que segmenta (EDEM, `Cambiamos.`).** Cuatro opciones, **cada una un
+   enlace**: *"A) Nada, lo dejaría así. / B) Lo haría más corto… / C) Iría más al grano… / D) Al
+   contrario que 'C'…"*. Sin formulario (*"no hay 14 preguntas ni una barra que se va completando y
+   que nunca avanza"*), con **premio** (*"se te abrirá un BOGA que nunca llegó a publicarse. Como si
+   fuera una escena eliminada del contenido extra de un DVD"*), con **honestidad** (*"las cuatro
+   opciones te llevan a la misma historia, así que no hagas clic en las demás… porque me destrozarás
+   las métricas"*), con **salida por respuesta** (*"dale a responder… escrito por ti, tiene muchísimo
+   más valor"*) y **atendiendo a los dos lectores** (*"Ahora que ya has votado, o me has ignorado y
+   sigues leyendo, como el que deja a alguien en visto…"*).
+   **Es nuestro correo 0 segmentador (`§5c-0`) en su versión de menos fricción.** El nuestro pedía
+   RESPONDER con una palabra y dio **0 respuestas de 191** (`historial-newsletter`). **Un clic cuesta
+   menos que escribir, y en Brevo el clic de cada enlace se lee por contacto**: segmenta sin que nadie
+   escriba nada. La versión Neety sale sola de los 4 dolores de la propuesta de valor: *¿qué te frena
+   más? A) no sé qué empresas me faltan · B) sé cuáles, pero no con quién hablar · C) llego cuando ya
+   han comprado · D) no tengo tiempo de buscar*, y las cuatro llevan al mismo recurso.
+   **El dato que da no lo tenemos hoy: el dolor dominante de la lista.**
+   **⚠️ Tres límites antes de hacerlo:** (a) **rompe la regla de un solo enlace (`§3`)** y nuestro
+   dominio tiene historial (`§0b`): si se hace, con 3-4 enlaces al mismo dominio, una sola vez, y lo
+   decide Iker; (b) **un clic no es consentimiento**: se manda solo a quien ya está en la lista con
+   casilla; (c) con 46-110 destinatarios, **cada opción saldrá con 1-5 clics**: da dirección, no prueba.
+2. **⭐⭐ El puente que admite lo que el producto NO hace.** RunnerPro, en el de la cena: *"El plan te
+   dice qué corres cada día. Lo de la noche anterior depende de ti, pero ya sabes qué mirar."*
+   **Delimitar el producto en voz alta lo hace creíble**, y para nosotros es el antídoto exacto del
+   veto de automatismo (`§7`): *Neety te dice a qué empresa y con quién. Lo que le dices, lo decides
+   tú.* **Es además nuestro posicionamiento real** (lo que compran los clientes es la identificación y
+   el comercial valida). Se anota como variante de la línea 2 del ninja de correo.
+3. **⭐ Anunciar el pilar dentro del correo: `Hoy toca uno de los personales.`** (RunnerPro, domingo,
+   línea 2). Le dice al lector qué tipo de correo tiene delante y convierte la newsletter en un
+   programa con secciones. Es el primo de nuestro `Una frase.` del correo 5 (que anuncia el formato):
+   **aquí se anuncia el pilar.**
+4. **⭐ El consejo por adelantado: `te doy el plan B ahora, antes de que lo necesites`.** RunnerPro
+   predice el problema que el lector va a tener la semana que viene (se va la luz a las ocho) y le da
+   el arreglo antes de que llegue. **Es el pilar CALENDARIO en su versión más útil**: no comenta la
+   fecha, **se adelanta a ella.**
+5. **⭐ La fecha que nadie ha registrado.** *"Esta semana ha pasado algo y casi nadie lo ha registrado.
+   / Se acabó el verano. De verdad, no en el calendario de tu cabeza."* **Resuelve el riesgo que
+   `§8g` le puso al pilar calendario** (*"el ángulo más manido"*): no usa la vuelta al cole, que usa
+   todo el mundo, sino **la fecha real que el lector no ha visto venir**. Para nosotros: la del
+   calendario industrial que no sale en las noticias (`§8g`, pilar 5). ⚠️ **Toda fecha de ese
+   calendario se verifica antes de escribirla (`§7`).**
+6. **⭐ La pregunta de un dato en la línea 2, sin pedir respuesta.** *"Oye. / Pregunta rápida: ¿a qué
+   hora cenaste ayer?"* La respuesta está en la cabeza del lector y el correo entero explica por qué
+   importa. Primo del autodiagnóstico de `§8h` punto 4, pero **abriendo** en vez de a mitad. Versión
+   Neety: *"Pregunta rápida: ¿cuándo entró en tu lista la última empresa que no conocías ya?"*
+7. **La cita del punto bajo, y el narrador la desactiva en la línea siguiente.** Javier: *"Salí ayer y
+   a mitad de vuelta ya no veía el suelo. Me he desanimado tonto."* → *"No es tonto. Es la primera
+   semana de cada otoño y le pasa a todo el mundo."* **Afina `§8g` punto 3:** la vergüenza la dice el
+   cliente y **la normaliza el narrador al instante**, que es lo que convierte la historia de uno en la
+   de todos. Laura, en el otro: resultado pequeño (*"los entrenos de la mañana ya no me dan miedo"*),
+   como pedía `§8h` punto 8.
+8. **🔴 Y OTRA VEZ EL NOMBRE REPETIDO.** El `Javier` del 25/09 **ya había salido el 21/08** (`§8f`,
+   *"Javier no paró en agosto"*), y en `§8h` fueron María y Marta con la misma cita. **Segundo caso en
+   dos ventanas. Desde hoy lo caza `validar-email.py`**: aviso si un nombre de pila común del borrador
+   ya está en `corpus-correos-enviados.md`. La búsqueda a mano sigue, porque la lista del validador no
+   tiene todos los nombres.
+9. **⭐ La confesión sin épica.** *"Yo empecé a correr para adelgazar. / Ya está. No hay historia
+   bonita detrás. No fue un médico, ni una promesa, ni un documental. / Me vi en una foto y me puse a
+   correr."* **La negación triple de `§8g` punto 9 aplicada al ORIGEN de una historia personal:** le
+   quita la épica antes de que el lector sospeche de ella. Y el esqueleto es robable para el pilar
+   historia de un founder: **motivo inicial → se cumple → lo dejas → aparece el motivo real** (*"El
+   motivo con el que empiezas casi nunca es el motivo que te sostiene"*).
+10. **Nombrar la costura, cuarta forma, y en EDEM ya es firma.** Juan: *"La sala tiene las butacas que
+    tiene; aquí la urgencia no me la he inventado yo 🤣"* + *"Será el único evento presencial… No
+    tenemos otra fecha ni otra ciudad"* (la escasez, con su motivo). EDEM, **tercera ventana
+    seguida**: *"Y aquí es donde, con sutileza, te hablo de un curso"* (antes: *"(ahora viene el
+    girito)"* y *"el enlace inevitable"*). **Tres correos de EDEM, tres costuras nombradas: ya no es
+    un truco, es su voz.**
+11. **La firma con el apodo del día (Juan).** `Juan, el que ya está un poco nervioso`, y antes `«el
+    silencioso»` y `El simplificador`. **El hueco de la firma-mantra es fijo; el apodo cambia con el
+    ánimo del correo.** Tercera ventana. Encaja en Kaixito mejor que en los founders.
+12. **La vuelta tras un fallo, confesada en la primera línea.** Content Playbook *"Oops! I said we'd
+    take 2 weeks off. We took 3."* · Isra `ERROR 03:27` · Hugo en `§8h` (*"llevo semanas
+    desaparecido"*) · Sonia en `§8g` (*"se me fue el cursor"*). **Cuatro remitentes abren confesando un
+    fallo operativo propio.** Es el efecto *pratfall* y es el pilar 7 (cicatriz) en miniatura, con una
+    ventaja: el fallo ya ha pasado, no hay que elegirlo. **Qué fallo sale en público sigue siendo de
+    Iker** (`§8g`, pilar 7).
+
+**Y dos confirmaciones de mecanismos que ya teníamos:**
+- **"Lo leo yo"**, quinta fuente: RunnerPro *"si te da por contestar a este email con tu segundo
+  motivo, lo leo. Los leo todos."* · Juan *"Contéstame a este correo, que me apetece saber qué opinas
+  sobre esto."* · EDEM *"escrito por ti, tiene muchísimo más valor"*.
+- **La cesión del correo entero**, segunda vez de Isra (`§8g` punto 12): `Ganador del concurso.` Le
+  regala un correo a la persona que más le han recomendado sus lectores, *"NO me llevo nada… Nada, pago
+  yo."* ⚠️ **Para nosotros solo con persona real, filtro de menciones (`CLAUDE.md`) y su permiso
+  escrito.** Los ponentes de NEETY FORWARD serían el caso natural; lo decide Iker.
+
+#### 🆕 KAKIYO — competencia, y es la segunda que promete lo que nuestros clientes rechazan
+
+SaaS de SDR con IA para LinkedIn (Tallinn). No es newsletter: es un **correo de ciclo de vida** a la
+cuenta del corpus, que se dio de alta y no terminó la configuración. Asunto `The 2 minute part you
+haven't done yet`, 07:01.
+- **La promesa:** *"you get to watch how it would actually message your prospects and book
+  meetings"* + *"PS campaigns running on Kakiyo tend to land around a 30% reply rate."* **La IA escribe
+  y agenda por ti: automatismo puro.** Con el lemlist del 09/09 (`§8g`) son **dos competidores
+  diciendo lo mismo en tres semanas.** Nuestra contraposición está en el mecanismo 2 de arriba.
+  ⚠️ **El 30% no está verificado y no se cita.**
+- **⭐ Lo robable, y es de producto, no de newsletter:** el **progreso dotado** (*"You set the workspace
+  up back at the start, so you're closer than you think"*), la **tarea diminuta con su tiempo** (*"2
+  minutes"*) y **el ensayo sin riesgo** (*"before anything goes live"*). Es el molde del correo al que
+  empezó algo y no lo terminó. **Nos sirve el día que haya un flujo así** (un diagnóstico a medias,
+  un recurso sin descargar): va a `§5b`, no a la newsletter.
+
+#### 🧩 LOS PILARES DE LA SEMANA, contados
+
+| remitente | qué pilares usó |
+|---|---|
+| Isra (7) | 4 casos del evento · 1 FAQ (objeciones) · 1 índice de último día · 1 cesión sin venta propia |
+| RunnerPro (3) | 1 receta (la cena) · 1 calendario + receta + cliente (la luz) · 1 personal de domingo |
+| Juan (3) | 2 reflexiones **sin enlace** · 1 venta de evento |
+| EDEM (1) | encuesta de un clic + historia (Apple) + curso |
+| Cosas de Freelance (1) | receta larga, **en serie** (*"léelo antes de seguir si no lo has leído"*) con índice arriba (*"Hoy te cuento:"* y 3 viñetas) |
+| Content Playbook (1) | plantillas + caso (Clay) |
+| Sonia (1) | cierre de precio |
+
+**Cómo quedan los candidatos de `§8g`/`§8h` después de esta ventana:**
+- **9 · RECETA: el más respaldado de la semana** (RunnerPro 2 de 3, Cosas de Freelance y Content
+  Playbook). Y ya tiene dueño: **es el estreno de Asier** (`historial-newsletter`, correo 5).
+- **6 · OBJECIÓN:** primer referente que la hace como FAQ (Isra). La nuestra ya salió (correo 5, 23/09).
+- **5 · CALENDARIO:** RunnerPro enseña cómo evitar lo manido (mecanismos 4 y 5).
+- **8 · ANZUELOS:** cambia de uso, **de relleno a cierre de campaña** (el índice de Isra).
+- **7 · CICATRIZ:** cuatro remitentes abren con un fallo propio (mecanismo 12).
+- **⛔ No sale ningún pilar nuevo.** La encuesta de un clic no es un pilar: **es el correo 0 hecho
+  mejor**, y va a `§5c-0`.
+
+#### ⛔ Lo que NO se copia de esta ventana
+- **Las erratas**, que siguen: `lso`, `comenten`, `mercaso`, `qeu`, `aminal`, `nevento`, `Instragran`,
+  `parasiempre`, `mchas`, `pagaria` (Isra) · las preguntas de Juan sin `¿` (*"Cuánto hace que no te
+  escapas…?"*) · `cómo está` con tilde de más en el preheader de EDEM.
+- **Los tacos y el registro de Isra** (*"gilipollez"*, *"puta pérdida de tiempo"*, *"Madera pa
+  peonces"*) y su **testimonio con coletilla, segunda vez** (*"Ana L. / \*Este testimonio podría ser
+  mentira, pero no lo es"*): igual que en `§8h`, sin permiso escrito del cliente no tenemos testimonio.
+- **La amenaza de subida de precio** y el precio congelado *"para siempre"* (`§8`).
+- **Las cifras sin verificar de otros:** el 30% de Kakiyo y las de Clay en Content Playbook (*"$7.1B"*).
+- **SINGULARU:** 27-28 enlaces por correo y un `Tu calendario de adviento 🎄` **el 23 de septiembre**.
+  El calendario adelantado tres meses es ecommerce, no nosotros.
+- **El cierre de Sonia Ferrent** (arriba).
+
+#### 📥 INTAKE: lo que hay que tocar en las suscripciones (lo hace Mario)
+- **Lavender:** tercera semana llegando la de Illinois. Sigue pendiente rehacerla contra `lavender.ai`.
+- **lemlist, Hoppy Copy y Tendios: segunda semana sin nada.** `§8` decía que a la segunda se
+  comprueba. **Toca mirar en la bandeja del corpus si están en Promociones o Spam o si la suscripción
+  se cayó.**
+- **Kakiyo:** entra por un alta de producto, no por la newsletter. Se deja como vigilancia de
+  competencia.
+- **Content Playbook → The B2B Creator:** vuelve al corpus (arriba).
 
 ## 9 · Entrega y validación (cada email, sin excepción)
 

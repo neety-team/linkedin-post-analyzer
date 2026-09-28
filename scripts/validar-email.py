@@ -503,6 +503,44 @@ def main():
     else:
         checks.append(ok(f'≤1 palabra en mayúsculas en el cuerpo' + (f' ({_caps[0]})' if _caps else '')))
 
+    # --- nombre de pila que YA salio en un correo enviado (email-marketing §8h punto 9, §8i) ---
+    # RunnerPro repitio la misma cita con otro nombre a 5 dias (Maria/Marta, §8h) y volvio a
+    # sacar a "Javier" cinco semanas despues (21/08 -> 25/09, §8i). El que lee dos correos
+    # seguidos lo ve, y es lo que delata una historia inventada. La lista cubre los nombres
+    # mas comunes; un nombre raro se escapa, y por eso es aviso y la busqueda a mano sigue.
+    _NOMBRES_PILA = {
+        'María', 'Marta', 'Laura', 'Ana', 'Lucía', 'Paula', 'Sara', 'Carmen', 'Elena', 'Cristina',
+        'Isabel', 'Raquel', 'Patricia', 'Beatriz', 'Silvia', 'Irene', 'Nuria', 'Rocío', 'Pilar',
+        'Teresa', 'Mónica', 'Sonia', 'Eva', 'Alba', 'Julia', 'Clara', 'Andrea', 'Natalia', 'Marina',
+        'Rosa', 'Lourdes', 'Begoña', 'Amaia', 'Ane', 'Leire', 'Nerea', 'Maite', 'Ainhoa', 'Itziar',
+        'Idoia', 'Garazi', 'Miren', 'Arantxa', 'Edurne', 'Izaskun', 'Olatz', 'June', 'Uxue',
+        'Javier', 'Pablo', 'Carlos', 'Juan', 'José', 'Antonio', 'Manuel', 'Francisco', 'David',
+        'Daniel', 'Miguel', 'Alejandro', 'Jorge', 'Luis', 'Sergio', 'Alberto', 'Fernando', 'Rafael',
+        'Pedro', 'Ángel', 'Andrés', 'Álvaro', 'Rubén', 'Óscar', 'Raúl', 'Diego', 'Adrián', 'Íñigo',
+        'Enrique', 'Ramón', 'Vicente', 'Joaquín', 'Ignacio', 'Víctor', 'Roberto', 'Eduardo', 'Tomás',
+        'Mikel', 'Jon', 'Aitor', 'Iñaki', 'Unax', 'Asier', 'Ander', 'Gorka', 'Xabier', 'Josu',
+        'Koldo', 'Andoni', 'Imanol', 'Eneko', 'Ibai', 'Julen', 'Oier', 'Joseba', 'Patxi', 'Txema',
+        'Gaizka', 'Igor', 'Borja', 'Hugo', 'Martín', 'Lucas', 'Mateo', 'Marcos', 'Gonzalo', 'Ricardo',
+    }
+    _remitentes_nombre = {'Iker', 'Unai', 'Asier', 'Kaixito', 'Mario', 'Helene'}
+    _usados = sorted({w for w in re.findall(r'\b[A-ZÁÉÍÓÚÑ][a-záéíóúñü]+\b', cuerpo)
+                      if w in _NOMBRES_PILA and w not in _remitentes_nombre})
+    if _usados:
+        _ruta_corpus = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    '..', 'docs', 'skills', 'corpus-correos-enviados.md')
+        try:
+            with io.open(_ruta_corpus, encoding='utf-8') as f:
+                _corpus = f.read()
+            _repetidos = [n for n in _usados if re.search(r'\b' + n + r'\b', _corpus)]
+            if _repetidos:
+                checks.append(aviso(f'Nombre de pila ya usado en un correo enviado: {", ".join(_repetidos)} '
+                                    f'(§8h p.9: RunnerPro repitió María/Marta y Javier, y así se delata '
+                                    f'una historia inventada). Si es una persona real, ignóralo'))
+            else:
+                checks.append(ok(f'Nombre de pila sin repetir en el corpus enviado ({", ".join(_usados)})'))
+        except OSError:
+            checks.append(aviso('No se pudo leer corpus-correos-enviados.md para comprobar nombres repetidos'))
+
     # --- PD (aviso, no fallo: Kaixito puede no llevarlo) ---
     # En ESPAÑOL la postdata es PD, no P.S. Medido el 2026-08-06 sobre el corpus
     # español entero (Timepack + Hugo López + Sales Hackers + newsletters):

@@ -1370,7 +1370,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ## 📝 CORREO 6 · Unai · CALENDARIO (BORRADOR 2026-09-28, para el mar 29/09)
 
-**Campaña Brevo 24**, listas **15 + 4 + 17 + 18** (sin la 16, que aún tiene dentro las 2 direcciones que Bouncer marcó como dudosas), remitente **`Unai de Neety`** (`hola@neety.com`), estado **`draft`** releído de la API, **sin `scheduledAt`** (`email-marketing §9a-BIS`). Un solo envío: los 111 ya recibieron el correo 5 con 0 bajas y 0 denuncias.
+**Campaña Brevo 27** (la 24 se borró y se recreó el 28/09 para comprobar que, con el UTM apagado en la cuenta, el enlace ya no se pisa: ✅), listas **15 + 4 + 17 + 18** (sin la 16, que aún tiene dentro las 2 direcciones que Bouncer marcó como dudosas), remitente **`Unai de Neety`** (`hola@neety.com`), estado **`draft`** releído de la API, **sin `scheduledAt`** (`email-marketing §9a-BIS`). Un solo envío: los 111 ya recibieron el correo 5 con 0 bajas y 0 denuncias.
 
 | | |
 |---|---|
@@ -1383,5 +1383,5 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | PD | el evento en condicional (`§7b`): vale para el que vino, el que no pudo y la lista de siempre |
 | Validador | **37/37** · ritmo `1-3-1-2-1-1-3-1` |
 
-**⚠️ PENDIENTE ANTES DEL TEST (Iker, en el panel):** Brevo ha vuelto a pisar el enlace con `utm_source=sendinblue`. **Configuración adicional → seguimiento UTM → apagar**; después se reescribe el `href` por API y se pasa `auditar-campanas-brevo.py`.
+~~**⚠️ PENDIENTE ANTES DEL TEST (Iker, en el panel):** Brevo ha vuelto a pisar el enlace con `utm_source=sendinblue`. **Configuración adicional → seguimiento UTM → apagar**; después se reescribe el `href` por API y se pasa `auditar-campanas-brevo.py`.~~ ✅ **Resuelto de raíz:** seguimiento UTM apagado en la cuenta (`email-marketing §1`). Enlace intacto y auditor en verde en la 27. **Falta el test de Iker y programar.**
 

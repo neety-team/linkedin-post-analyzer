@@ -325,6 +325,14 @@ ajustes de esa campaña. Con ella apagada, Brevo deja de inyectar y respeta el U
 **Y solo hace falta apagarlo en las campañas que apuntan a LUMA.** En las que van a nuestra web, la
 inyección de Brevo hace justo lo que queremos.
 
+#### ✅✅ RESUELTO DE RAÍZ EL 2026-09-28: EL SEGUIMIENTO UTM ESTÁ APAGADO EN LA CUENTA (manda sobre todo lo de abajo)
+
+**Iker lo apagó en Configuración → Parámetros UTM → `Activar seguimiento UTM`**, que es el interruptor de toda la cuenta (según el texto de Brevo, afecta a *"campañas, plantillas y escenarios"*). **Comprobado el mismo día:** se borró la campaña 24 y se volvió a crear por API como la 27, y **el enlace se quedó tal cual lo escribimos** (`utm_source=brevo&utm_medium=email&utm_campaign=correo-06-unai-calendario`). Auditor en verde.
+- **Ya no hay aviso de "apaga el UTM" al entregar un correo.** Lo de abajo queda como historia.
+- **Lo que sigue siendo obligatorio: escribir el UTM a mano en cada enlace.** Con el interruptor apagado, un enlace sin UTM llega como tráfico directo. El auditor falla si un enlace a nuestra web no lleva `utm_campaign`.
+- **No se tocó el seguimiento de CLICS**, que es otra cosa y es de donde salen los clics de `metricas-brevo.py`.
+- ⚠️ **Si algún día se monta una automatización (escenario) de Brevo con enlaces, también necesitará su UTM escrito a mano.**
+
 #### ⭐ EL PROCEDIMIENTO QUE CIERRA ESTO (lo midió Iker el 2026-08-28, y manda sobre lo de arriba)
 
 Iker creó una campaña de prueba para verlo. **Dos hechos medidos, ya no hipótesis:**

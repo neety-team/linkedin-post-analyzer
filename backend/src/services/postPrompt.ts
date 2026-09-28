@@ -110,7 +110,7 @@ THREE MECHANICS THAT PRODUCE 2x+ OUTLIERS — pick the one the raw idea naturall
    - Hook formula C: "Nadie habla de [zona pequeña] que [logro económico shock]. En 60 segundos te explico por qué 👇"
    - ALWAYS use an original creative concept for the zone (never just "región/tierra") — invent something like "el patio trasero", "la trastienda", "esta esquina" per zone.
    - The map IS the engagement tool, not decoration. Triggers identity + social currency + belonging simultaneously; comments turn into regional debates → algorithm gold.
-   - ALWAYS include spam ninja agendar link (https://recursos.neety.com/agendar/) — NOT a link to the pampam map.
+   - ALWAYS include spam ninja agendar link (https://neety.com/solicitar-demo) — NOT a link to the pampam map.
    - Regions still to mine: La Rioja (vino + tech), Asturias (siderurgia), Murcia (agritech), Castilla-La Mancha, Aragón, Extremadura.
    - Frequency cap: max 1 every 10–14 days per account
 
@@ -803,7 +803,7 @@ export const RECENT_DIAGNOSIS = `RECENT DIAGNOSIS (last 2 weeks of real publishi
 
 OBJECTIVE IS NOW A MIX — not just reach:
 - PRIMARY goal: broad reach / outlier (viralidad) — as before.
-- SECONDARY goal: funnel into demo booking at https://recursos.neety.com/agendar/
+- SECONDARY goal: funnel into demo booking at https://neety.com/solicitar-demo
 These are NOT mutually exclusive. Proof: the iMessage meme (Iker 2 jul · 7.9x · 80.9K imp) included the agendar link AS SPAM NINJA and was the TOP post of the period. High reach + spam ninja link = fully compatible.
 
 THREE ACCOUNTS NOW ACTIVE: Iker · Unai · Asier
@@ -825,7 +825,7 @@ SECOND SPAM NINJA — THE EMAIL BLOCK (added 2026-08-18, global-instructions 4.4
 - In EVENT posts the Luma link takes the agendar slot, and the email block is the second one. Never three links in one post.
 
 SPAM NINJA AGENDAR LINK (how to include the demo link):
-- When a post includes https://recursos.neety.com/agendar/, ALWAYS embed it as spam ninja: tied to the hook or to something funny/natural in the body — NEVER as a direct "visita nuestra web" CTA. The link must feel like a punchline, a natural aside, or a logical follow-through of the hook. Not a sales pitch bolted at the end.
+- When a post includes https://neety.com/solicitar-demo, ALWAYS embed it as spam ninja: tied to the hook or to something funny/natural in the body — NEVER as a direct "visita nuestra web" CTA. The link must feel like a punchline, a natural aside, or a logical follow-through of the hook. Not a sales pitch bolted at the end.
 - Neety mentions in the body are ALLOWED: occasionally referencing "Neety" by name in the body is fine. Not every post, but not banned either.
 
 ═══ 1. REGIONAL MAPS — WHAT JUST HAPPENED ═══
@@ -961,7 +961,7 @@ THREE EXECUTION RULES THAT ARE NON-NEGOTIABLE FOR MAPS (added after the first wa
 → XXX - XXX
 → XXX - XXX
 
-11. AGENDAR LINK — ALWAYS include spam ninja agendar link (https://recursos.neety.com/agendar/) at the end of the map post, embedded naturally (tied to something funny or to the hook's logic). DO NOT link to the pampam official map — that traffic doesn't convert. DO NOT use the old "Comenta tu empresa y la añado al mapa" CTA as the ONLY CTA — the primary goal is now demo bookings, not map data collection. If you keep a comment ask, it must coexist with the spam ninja agendar link, not replace it.
+11. AGENDAR LINK — ALWAYS include spam ninja agendar link (https://neety.com/solicitar-demo) at the end of the map post, embedded naturally (tied to something funny or to the hook's logic). DO NOT link to the pampam official map — that traffic doesn't convert. DO NOT use the old "Comenta tu empresa y la añado al mapa" CTA as the ONLY CTA — the primary goal is now demo bookings, not map data collection. If you keep a comment ask, it must coexist with the spam ninja agendar link, not replace it.
 
 ═══ 1b. "LOS 10" FORMAT — DIRECTORES COMERCIALES POR REGIÓN — ⛔ BANNED ═══
 
@@ -999,7 +999,7 @@ EMOTIONAL AXIS: "le pongo cara al que estuvo detrás del salto" → recognition 
 
 NOT region-dependent: works for any Spanish region regardless of the founder's origin — same rule as maps.
 
-AGENDAR LINK: ALWAYS embed spam ninja agendar link (https://recursos.neety.com/agendar/) in the post — same rule as maps.
+AGENDAR LINK: ALWAYS embed spam ninja agendar link (https://neety.com/solicitar-demo) in the post — same rule as maps.
 
 BODY + FORMATTING: apply the same body rewriting rules as maps (rule 8 above) — vary block openers, never repeat same phrases post to post. Apply the staircase block rule (rule 9).
 
@@ -1244,7 +1244,7 @@ WHEN SCHEDULING / COORDINATING MULTIPLE ACCOUNTS (Iker + Unai + Asier):
 - Apply the SAME-DAY FORMAT EXCLUSIVITY RULE (§ 0): no two accounts can post the same format/pillar on the same day. Before suggesting a format, ask what the other accounts are posting that day. Map ≠ map ≠ map on the same day; meme ≠ meme on the same day, etc.
 - Asier is now active — include him in all scheduling coordination conversations.
 
-WHEN THE USER WANTS TO INCLUDE THE AGENDAR LINK (https://recursos.neety.com/agendar/):
+WHEN THE USER WANTS TO INCLUDE THE AGENDAR LINK (https://neety.com/solicitar-demo):
 - ALWAYS embed it as spam ninja: tied to the hook or to something funny/natural in the body. NEVER a bolted-on "visita nuestra web" closer. The link should feel earned and contextual.
 - Reminder that the link does NOT kill reach when embedded correctly — the iMessage meme (7.9x · 80.9K) proved this.
 

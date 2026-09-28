@@ -1108,8 +1108,21 @@ def eco_reciente(cuerpo, dias=14, hoy=None):
     return unicos, None
 
 
+def puerta_agendar(texto):
+    # 2026-09-28 (Iker): la puerta de agendar se muda a la web nueva,
+    # https://neety.com/solicitar-demo (reserva de 30 min con Iker, buscador en
+    # directo de empresas + interlocutor, y captura el UTM igual que /agendar/).
+    # Los ~25 checks de este fichero buscan 'recursos.neety.com/agendar', asi que
+    # en vez de tocarlos uno a uno (y dejarme alguno vivo con la regla vieja) se
+    # traduce la URL nueva a la vieja SOLO dentro del validador. El fichero del
+    # post no se toca. Coste conocido: la URL vieja mide 3 caracteres mas, asi que
+    # el check del caracter 650 queda un pelo mas estricto, nunca mas laxo.
+    return texto.replace('https://neety.com/solicitar-demo',
+                         'https://recursos.neety.com/agendar')
+
+
 def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fuera=False, remix=False, sin_menciones=False, card=None, solo_correo=False, historico=False, publica_manana=False):
-    texto = norm(texto)
+    texto = puerta_agendar(norm(texto))
     if pilar == 'entregable':
         return validar_entregable(texto)
     if pilar == 'tarjeta':
@@ -2532,7 +2545,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 # que una frase nombre una carencia es criterio.
                 _l1 = b[0] if len(b) > 1 else ''
                 _carencia = re.search(r'\bno\b|cualquiera|lo f[aá]cil|es f[aá]cil'
-                                      r'|lo caro|lo dif[ií]cil|ni\b|nadie|ning', _l1, re.I)
+                                      r'|lo caro|lo dif[ií]cil|ni\b|nadie|ning'
+                                      # 2026-09-28: `nunca` y `jamas` son la norma negada
+                                      # con intensificador (global §4.4b-ANTECEDENTE:
+                                      # `no te sienta` -> `nunca te sienta`). Sin ellos el
+                                      # aviso se quejaba justo del ninja bien escrito.
+                                      r'|\bnunca\b|\bjam[aá]s\b', _l1, re.I)
                 chk(False, 'ENTREGA: la linea 1 del ninja nombra la CARENCIA (§4.4b-BLOQUE)',
                     'las dos lineas son UNA unidad: la 1 dice que es lo facil y QUE FALTA, '
                     'y la 2 cubre exactamente eso. Si la 1 solo afirma algo, la 2 llega de '

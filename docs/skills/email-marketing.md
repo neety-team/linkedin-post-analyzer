@@ -339,6 +339,8 @@ Iker creó una campaña de prueba para verlo. **Dos hechos medidos, ya no hipót
 | `recursos.neety.com/agendar/` (nuestra web, GA4) | **ENCENDIDO** | nada: viene así de fábrica y es lo que queremos |
 | **Luma o `forward.neety.com`** | **APAGADO** | **«acuérdate de desactivar Google Analytics en esta campaña»**, y ANTES de que yo escriba el enlace |
 
+> 🔄 **ACTUALIZADO EL 2026-09-28 (Iker preguntó por qué había que apagarlo si ya no vamos a Luma): desde el correo 5 (22/09) se apaga SIEMPRE, también para `/agendar/`.** La fila de arriba no está mal, pero se quedó vieja. **Para `/agendar/` no es obligatorio:** con Analytics encendido el clic se atribuye igual, solo que con `utm_source=sendinblue` y el NOMBRE de la campaña como `utm_campaign` (`Correo 6  Unai  CALENDARIO`, con espacios). **Se apaga por tres motivos:** (1) **una sola regla para cualquier destino**, sin tener que acordarse de a dónde va el enlace; (2) el nombre lo elegimos nosotros (`correo-06-unai-calendario`) y es igual que en los correos 5 y siguientes, así que en GA4 y en el campo `origen` del formulario todos caen bajo `brevo`; (3) **las tandas de un mismo correo no se parten**, porque cada tanda es una campaña con otro nombre. **Por qué viene encendido:** es el valor de fábrica de Brevo al CREAR la campaña, y ese interruptor no existe en la API (ni se lee ni se escribe). El auditor lo caza en cualquier destino desde el 22/09.
+
 **El aviso es obligatorio y va en la entrega, no en un comentario suelto.** Si se me olvida, el enlace
 del evento sale con `utm_source=sendinblue` y los registros de Luma se quedan sin atribuir. El auditor
 lo caza después, pero el clic sigue siendo de una persona.

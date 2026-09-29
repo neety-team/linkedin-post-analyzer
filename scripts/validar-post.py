@@ -1337,6 +1337,13 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
 
     nums = re.findall(r'\d+(?:[.,]\d+)?', hook_txt)
     chk(len(nums) <= 1, 'Hook con ≤1 cifra (§2.5)', f'{len(nums)} cifras: {nums}' if len(nums) > 1 else '')
+    # global §9.3b (29/09): dos posts del mismo dia con `LinkedIn` en la primera
+    # linea se quedaron sin salir en el feed (Iker y Mario). En OBSERVACION: aviso,
+    # no fallo, hasta que la resubida sin la palabra confirme o descarte.
+    _li = re.search(r'linked\s*in', hook_txt, re.I)
+    chk(not _li, 'Gancho sin "LinkedIn" (en observacion por capado, §9.3b)',
+        'el 29/09 los dos posts con LinkedIn en el gancho no salieron en el feed. '
+        'Sin confirmar: si no hace falta, cambiala (el movil, aqui)' if _li else '', aviso=True)
     if generico:
         # Los hooks de Martín Arosa y Guillermo Flor son CORTOS y SIN cifras
         # (`§4.5.0b`). Iker NUNCA quiere cifras en el hook y los suyos son de pocas

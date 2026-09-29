@@ -2771,6 +2771,20 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 
 **Y el contexto que lo agrava: LinkedIn es cada vez más restrictivo**, y ha añadido un **botón para reportar publicaciones** a mano. Lo que pasaba hace tres meses no es la vara de hoy, y la vara se sigue moviendo.
 
+### 🔎 9.3b · EN OBSERVACIÓN DESDE EL 29/09: `LinkedIn` EN EL GANCHO (2 casos, sin confirmar)
+
+**Los dos posts del mismo día con `LinkedIn` en la primera línea se quedaron sin salir en "Primero los más relevantes":**
+
+| caso | cuenta | gancho | lecturas |
+|---|---|---|---|
+| meme del globo, 29/09, publicado 13:17 | Iker | `Solo voy a mirar LinkedIn un minuto antes de ponerme a vender 🤞` | min 16 → 15 imp · min 18 → 23 · min 33 → 45 · nunca en el feed · **borrado** |
+| meme de marketing, 29/09 | Mario | gancho con `el algoritmo de LinkedIn` | Iker notó las impresiones raras; cifras en su chat |
+
+- **Control del mismo día:** el mapa de Asier (29/09, 11:30, sin `LinkedIn`) repartió con normalidad, **445 impresiones a las ~2 horas**. No fue un día de filtro general.
+- **Lo que NO está probado:** que la culpa sea la palabra. Los dos son memes y los dos se publicaron el mismo día. El único precedente que repartió con `LinkedIn` en el gancho (Unai, 25/08, 23.164) es de hace 35 días y no vale para el filtro de hoy (`§9.2`).
+- **Cómo se cierra:** resubida con **un solo cambio**, `LinkedIn` → `el móvil`, en el gancho y en el ninja (`§9.5`). Si reparte, y la de Mario sin la palabra también, **pasa a la familia de riesgo** de `brand-voice §2c`. Si no reparte, la palabra queda descartada y se busca en otro sitio.
+- **Mientras tanto:** `validar-post.py` avisa si la primera línea lleva `LinkedIn` (aviso, no fallo duro, hasta que haya confirmación).
+
 ### 9.4 · Lo que NO informa
 
 - **⛔ La ausencia de aviso.** LinkedIn **no avisa nunca** — ni en analíticas, ni en notificaciones (a diferencia de TikTok). Los tres capados tampoco tuvieron aviso. **Buscarlo es tiempo perdido y su ausencia no prueba nada** (`post-workflow §4.5.0-SIN-AVISO`).

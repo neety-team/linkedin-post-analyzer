@@ -157,6 +157,8 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 3. **La identidad filtra la audiencia:** `deportista` para al público fitness. En nuestro caso la palabra de identidad tiene que ser de ventas, y así hace a la vez de ancla (`global §2.3`).
 4. **"Rutina" se comparte ~10 veces más que "mañana"** con el mismo creador y el mismo modificador (2.888 y 3.283 contra 303). *(deducción: la rutina se puede copiar y se manda a alguien; la mañana solo se mira.)* Guardados altos = utilidad (brazos: 7.473).
 5. **La serie se repite:** el mismo texto, publicado dos veces, validó dos veces (400k y 195k). El formato es reconocible (`§4` punto 34).
+7. **`conmigo` / `con nosotros` NO está validado: sale en 1 de 7** (el de Iker, que es el de menos vistas y el de menos ♥ por vista, 2,2%). Lo que sí se repite es **ETIQUETARSE a uno mismo en tercera persona con una identidad** (`de un deportista de 15 años`, 3 de 7, incluido el de 400k) o **no poner persona** (la rampa). En vídeo, el "con nosotros" lo hace el primer frame, donde salimos todos (Iker, 29/09, al preguntarlo).
+8. **Qué empuja cada referencia, medido sobre sus ♥:** los comentarios no pasan del 0,4-2,1% en ninguna. **El formato no vive de comentarios: vive de guardados y compartidos.** Los guardados se disparan cuando hay algo que usar después (brazos 38,5%, rampa 34,6%: el código del mapa); sin utilidad se quedan en el 6-15%. La `mañana` es la que menos se comparte de la serie del deportista (3,8% contra 7,4% y 48,3%).
 6. **Pantalla = voz = caption en 5 de 5.** ⚠️ **Choca con `§1`**, que manda hacerlas distintas y sale de outliers B2B de LinkedIn. En este pilar **pantalla = voz** (validado 5/5, y LinkedIn arranca el vídeo sin sonido). El caption sí cambia, porque en LinkedIn lleva el spam ninja.
 
 ### 6.2b · EL CASO QUE LO DEMUESTRA: MISMO VÍDEO, OTRO ADJETIVO, x166 (cuenta de vídeos de Iker, métricas suyas)
@@ -182,6 +184,8 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - **Ancla de ventas dentro del modificador** (`global §2.3`), en su versión amplia.
 - **El modificador es verdad y se ve en los planos.** Si no hay un plano que lo enseñe, no va (`CLAUDE.md`: nada inventado).
 - ⛔ `revolucionar` y su familia (`global §2.9-REVOLUCIONAR`: 0.68x, 0.53x y 0.45x en nuestras cuentas).
+- **El verbo del modificador no puede describir.** `intentando vender` es literalmente un delator de `global §2.9` (*intentando, trabajando, haciendo*). Y **`sin descanso` se tumbó el 29/09**: no es punchy y se puede leer como que la empresa explota al equipo. **El test de las dos lecturas vale también para la imagen de empresa**, no solo para el objeto.
+- **Apuesta del 29/09:** `Una mañana / persiguiendo clientes / desde una casa rural`. Es la idea de Iker (`intentando vender`: humilde y sin prometer que se vende) con el verbo subido un peldaño. `perseguir` está en un post nuestro de 16.769 (`brand-voice §2c-DATOS`). `clientes` es ancla de ventas. Y el evento, desvelado al final, es literalmente salir a por clientes.
 - **El modificador lleva un intensificador extremo, no un adjetivo que describe** (`§6.2b`: `gigante` → `de la muerte`, x166), con el techo de registro de la cuenta.
 - **Si el vídeo lleva un enlace (evento, agendar), el gancho NO lo nombra.** Un post que va del evento trae clics y no inscritos (`global §4.4b-EVENTO-EXPLICITO`: 0 inscritos de 37 clics). El enlace entra como ninja: en el payoff del vídeo y en el caption.
 

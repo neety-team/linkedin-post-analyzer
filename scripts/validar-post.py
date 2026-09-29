@@ -325,6 +325,11 @@ SPAM_QUEMADO = {
     'el despues empieza en la sala': '2026-09-23 historia de equipo de Unai 23/09, sin tilde',
     'y en esa sala aún te hacemos sitio': '2026-09-23 historia de equipo de Unai 23/09',
     'y en esa sala aun te hacemos sitio': '2026-09-23 historia de equipo de Unai 23/09, sin tilde',
+    # Historia de Iker del 23/09 (la fabrica y el coche), leida del texto publicado
+    # en la BD el 2026-09-29: no se habia anotado al publicarse.
+    'no lo ves desde el coche': '2026-09-23 historia de Iker 23/09, la linea 1',
+    'nosotros sí te decimos quién decide': '2026-09-23 historia de Iker 23/09',
+    'nosotros si te decimos quien decide': '2026-09-23 historia de Iker 23/09, sin tilde',
 }
 
 # §4.2 Paso 1 — CONCEPTOS DE GANCHO YA USADOS. La receta decia "no repitas
@@ -412,6 +417,7 @@ ARRANQUE_QUEMADO = {
         'estaba': '2026-09-11 historia de Unai 11/09 ("Estaba el nombre / Estaba el telefono")',
         'gaste': '2026-09-15 historia de Iker 15/09 ("Gaste 3 semanas / Gaste 7 llamadas")',
         'volvi': '2026-09-15 historia de Iker 15/09 ("Volvi al coche / Volvi a la lista / Volvi a mirarla")',
+        'el': '2026-09-23 historia de Iker 23/09 ("El otro no lo leyo / El otro entro / El otro comio")',
     },
     'mapa': {
         'ni': '2026-09-22 mapa de Álava, Iker ("Ni la llena Celedón / Ni la llenan los blusas")',

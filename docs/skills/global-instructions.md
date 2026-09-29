@@ -2778,8 +2778,9 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 | versión | `LinkedIn` | `teléfono` | resultado |
 |---|---|---|---|
 | meme del globo, Iker, publicado **13:17** | **sí**, en el gancho (`Solo voy a mirar LinkedIn un minuto…`) y en el ninja (`Un minuto en LinkedIn nunca…`) | sí, en el cierre | min 16 → 15 imp · min 18 → 23 · min 33 → 45 · **nunca salió en "Primero los más relevantes"** · borrado |
-| **resubida, ~14:00**, único cambio `LinkedIn` → `el móvil` | **no** | **sí, intacto** | ✅ **en "Primero los más relevantes" desde la cuenta de Mario en menos de 1 minuto** |
+| **resubida, 13:59**, único cambio `LinkedIn` → `el móvil` | **no** | **sí, intacto** | ✅ **en "Primero los más relevantes" desde la cuenta de Mario en menos de 1 minuto** · a los pocos minutos: **66 imp** (la capada tenía 41 a los 33 min), 2 clics, 3 reposts, 3 guardados, 9 envíos |
 
+- **⚠️ Al comparar, fíate de las IMPRESIONES y del feed, no de la interacción** (Iker, 29/09): en la resubida los reposts, guardados y envíos los empujó el equipo desde las cuentas de los jefes, y en la capada no. Las impresiones y la aparición en el feed no las mueve eso.
 - **Segundo caso con la misma palabra:** un meme de Mario (domingo 27/09) con `el algoritmo de LinkedIn` en el gancho también fue raro en impresiones. Iker sospechaba de `algoritmo`; **con el caso de hoy, la sospechosa es `LinkedIn`**. ⚠️ Ese tenía más variables encima (domingo, sin interacción de los jefes, público frío), así que va como indicio, no como prueba.
 - **Control del mismo día:** el mapa de Asier (29/09, 11:30, sin la palabra) salió en el feed y repartió (445 impresiones a las ~2 horas).
 - **Y de paso queda probada `teléfono`:** estaba en la versión capada y en la que salió. **No capa** (29/09). Se suma a la historia de Unai del 11/09 (5.788 imp).

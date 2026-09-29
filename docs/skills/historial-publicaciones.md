@@ -237,7 +237,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 
 | dato | |
 |---|---|
-| **Post** | resubida publicada hacia las **14:00** · `[PENDIENTE · enlace]` (aún no en la BD) · validado 53/53 · en "Primero los más relevantes" desde la cuenta de Mario **en menos de 1 minuto** |
+| **Post** | resubida publicada a las **13:59** · `[PENDIENTE · enlace]` · validado 53/53 · en "Primero los más relevantes" desde la cuenta de Mario **en menos de 1 minuto** · primera lectura: **66 imp**, 2 clics, 3 ♥, 3 💬, 3 reposts, 3 guardados, 9 envíos (la interacción, empujada por el equipo) |
 | **1ª versión, CAPADA** | publicada **13:17** · [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7510658943661215745/) · llevaba `LinkedIn` en el gancho y en el ninja · min 16 → 15 imp · min 18 → 23 · min 33 → 45 · nunca en el feed · **borrada**. Único cambio de la resubida: `LinkedIn` → `el móvil` → **confirma `global §9.3b`**, y `teléfono` (en las dos) **no capa** |
 | **Referencia** | [Dachi Beberashvili, 16/09](https://www.linkedin.com/posts/dachi-beberashvili-55b978231_saleshumor-saleslife-b2bsales-activity-7505948317294649344-APRJ) · 488 reac · 54 com · 14 reposts · **41% de risa (~200 risas)** · gancho con `calling` (rincón de Iker: llamar) · inglés → `--referencia-fuera`. Descartadas: Luke Ross 18/09 (513 risas, gancho sin palabra de ventas) y Segantini "cold calls on Fridays" (166) |
 | **Gancho** | `Solo voy a mirar el móvil un minuto antes de ponerme a vender 🤞` · futuro calcado · ancla fuerte `vender` · intensificador `Solo` |

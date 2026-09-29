@@ -2785,7 +2785,22 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 - **Y de paso queda probada `teléfono`:** estaba en la versión capada y en la que salió. **No capa** (29/09). Se suma a la historia de Unai del 11/09 (5.788 imp).
 - **⚠️ Lo que no sabemos, dicho:** si capa `LinkedIn` en cualquier sitio o solo en el gancho. La versión capada la llevaba en los dos. Hasta que alguien lo pruebe, **fuera de todo el texto** (en la URL da igual: el `utm_source=linkedin` lo lleva todo post que ha repartido).
 - **Nuestro precedente en contra es viejo:** Unai 25/08 con `Medio LinkedIn` en el gancho hizo 23.164. De hace 35 días, así que según `§9.2` no vale para el filtro de hoy.
-- **La salida:** nombrar lo que se ve sin nombrar la plataforma. Aquí `el móvil`; en otros casos, `el feed`, `esta red`, `aquí`.
+- **La salida PROBADA es el objeto físico: `el móvil`.** `el feed`, `esta red` y `aquí` NO están probados y, por la hipótesis 1 de abajo, pueden caer igual: siguen hablando de la plataforma.
+- **`móvil` y `teléfono` no capan a 29/09/2026** (las dos iban en la versión que salió). Caducan como todo (`§9.2`): si otro post con ellas cae, se vuelve a mirar.
+
+**POR QUÉ, en hipótesis (mías, sin medir, `working-preferences §0c`). Las tres llevan a la misma práctica, no nombrar la plataforma ni hablar de cómo funciona por dentro:**
+1. **Hablar de la plataforma se lee como intentar trucarla.** Es la familia de los capados que ya teníamos (`Comenta "X"`, `conecta conmigo`): los posts de "el algoritmo de LinkedIn" son la firma de los pods y de los vendedores de alcance. El de Mario encaja de lleno. **La que más peso tiene.**
+2. **Marca de la plataforma + enlace externo suena a suplantación** (el patrón de phishing "LinkedIn te ha enviado…"). Nuestro post tenía las dos cosas.
+3. **El post dejaba mal a la plataforma** (media hora perdida en ella). La más débil: el de Mario no iba en ese tono.
+
+**LO QUE NO SE PROPONE, POR NIVELES (para no acabar con una lista negra por superstición, `brand-voice §2c`):**
+
+| nivel | palabras | cómo se trata |
+|---|---|---|
+| ⛔ confirmado | `LinkedIn` y variantes (`Linkedin`, `Linked In`, `linkedín`, `#linkedin`, `LI`) | fuera de todo el texto · fallo duro |
+| 🟠 indicio (1 caso con más variables) | `algoritmo` | fuera del gancho · aviso |
+| 🟡 hipótesis sin dato | marcas de la plataforma (`Sales Navigator`, `InMail`, `Premium`) y jerga de trucar el alcance (`hackear el alcance`, `el algoritmo premia`) | no se proponen si hay otra forma de decirlo · no es veto |
+| ✅ probadas el 29/09 | `móvil`, `teléfono` | libres |
 - **Mecanizado:** fallo duro en `validar-post.py` (`Sin "LinkedIn" en el texto`), fuera de las URLs y salvo `--historico`.
 
 ### 9.4 · Lo que NO informa

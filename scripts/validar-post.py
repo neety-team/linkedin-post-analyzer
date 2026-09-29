@@ -1350,11 +1350,21 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # utm_source=linkedin lo lleva todo post que ha repartido. --historico lo salta.
     if not historico:
         _sin_url = re.sub(r'https?://\S+', ' ', cuerpo)
-        _li = re.findall(r'[^\n]*linked\s*in[^\n]*', _sin_url, re.I)
+        # variantes: Linkedin, Linked In, linkedín, #linkedin, y la sigla LI (solo
+        # en mayusculas y como palabra suelta, para no cazar "li" dentro de nada)
+        _li = re.findall(r'[^\n]*linked\s*[ií]n[^\n]*', _sin_url, re.I)
+        _li += re.findall(r'[^\n]*\bLI\b[^\n]*', _sin_url)
         chk(not _li, 'Sin "LinkedIn" escrito en el post: CAPA (§9.3b)',
-            'lineas: %s. Cambiala por lo que se ve: el movil, el feed, esta red, aqui. '
-            'El 29/09 un post con la palabra no salio nunca en el feed y la resubida '
-            'sin ella salio en menos de 1 minuto' % [l.strip()[:50] for l in _li] if _li else '')
+            'lineas: %s. El recambio PROBADO es el objeto: el movil (el feed, esta red o '
+            'aqui no estan probados y pueden caer igual). El 29/09 un post con la palabra '
+            'no salio nunca en el feed y la resubida sin ella salio en menos de 1 minuto'
+            % [l.strip()[:50] for l in _li] if _li else '')
+        # §9.3b: `algoritmo` en observacion (meme de Mario 27/09, con mas variables
+        # encima). Solo en el gancho y solo aviso: un caso no hace lista negra.
+        _alg = re.search(r'algoritmo', hook_txt, re.I)
+        chk(not _alg, 'Gancho sin "algoritmo" (en observacion, §9.3b)',
+            'un unico indicio (Mario 27/09, "el algoritmo de LinkedIn"). Si hay otra forma '
+            'de decirlo, se cambia' if _alg else '', aviso=True)
     if generico:
         # Los hooks de Martín Arosa y Guillermo Flor son CORTOS y SIN cifras
         # (`§4.5.0b`). Iker NUNCA quiere cifras en el hook y los suyos son de pocas

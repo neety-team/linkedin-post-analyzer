@@ -266,6 +266,8 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'te trae lectores. al que te compra, no': '2026-09-29 meme de Mario 29/09 (resubida del algoritmo), la linea 1 del ninja',
+    'con nombre y apellidos': '2026-09-29 meme de Mario 29/09, la linea 2 del ninja',
     'nunca te dice a quién llamar': '2026-09-29 meme de Iker 29/09 (el del globo), la linea 1 del ninja',
     'nunca te dice a quien llamar': '2026-09-29 meme de Iker 29/09, sin tilde',
     'hasta el nombre de quien decide': '2026-09-29 meme de Iker 29/09, la linea 2 del ninja',
@@ -1364,12 +1366,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'aqui no estan probados y pueden caer igual). El 29/09 un post con la palabra '
             'no salio nunca en el feed y la resubida sin ella salio en menos de 1 minuto'
             % [l.strip()[:50] for l in _li] if _li else '')
-        # §9.3b: `algoritmo` en observacion (meme de Mario 27/09, con mas variables
-        # encima). Solo en el gancho y solo aviso: un caso no hace lista negra.
+        # §9.3b: `algoritmo` PROBADA el 29/09 (meme de Mario, en el gancho, en
+        # "Primero los mas relevantes" de otra cuenta al minuto 3). Se queda de AVISO
+        # porque Mario lo pidio (29/09): "en el futuro ponme avisos de cuidado", y
+        # porque un precedente caduca (§9.2): LinkedIn cambia el filtro sin avisar.
         _alg = re.search(r'algoritmo', hook_txt, re.I)
-        chk(not _alg, 'Gancho sin "algoritmo" (en observacion, §9.3b)',
-            'un unico indicio (Mario 27/09, "el algoritmo de LinkedIn"). Si hay otra forma '
-            'de decirlo, se cambia' if _alg else '', aviso=True)
+        chk(not _alg, 'Gancho con "algoritmo": vigila el feed (§9.3b)',
+            'probada 29/09 (Mario, en el feed al minuto 3), pero habla de la plataforma, que es '
+            'la familia de LinkedIn. Mira "Primero los mas relevantes" desde otra cuenta en los '
+            'primeros minutos y no la borres antes del 30' if _alg else '', aviso=True)
     if generico:
         # Los hooks de Martín Arosa y Guillermo Flor son CORTOS y SIN cifras
         # (`§4.5.0b`). Iker NUNCA quiere cifras en el hook y los suyos son de pocas

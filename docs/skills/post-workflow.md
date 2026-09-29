@@ -532,7 +532,9 @@ Frase de entrada:
 > La **imagen del POST** no la doy nunca: es la captura de PamPam que hace el usuario. La **portada de la WEB** tampoco: la saca el programador.
 
 **⚠️ AVISO DE LA CAPTURA DEL MAPA — VA EN TODA ENTREGA DE MAPA (Iker, 2026-07-31).** En el mapa **NO se avisa de limpiar metadatos**: la captura sale de PamPam, que es una web, y no ensucia nada (`images §0` lo explica). Lo que sí se avisa es del **encuadre**, que es lo único que puede salir mal y solo lo ve el que hace la captura. **UNA LÍNEA, ni una más**, literal:
-> ⚠️ Antes de capturar, comprueba que los logos se ven grandes y bien espaciados entre sí; si alguno queda muy lejos, muévele la ubicación a mano en PamPam.
+> ⚠️ Antes de capturar, comprueba que los logos se ven grandes y bien espaciados entre sí; si alguno queda muy lejos, muévele la ubicación a mano en PamPam. Y encuadra con algo de mar o frontera para que la silueta de la región se reconozca sin nombrarla.
+
+**🗺️ EL ENCUADRE QUE HACE IKER (2026-09-29), y por eso va en el aviso:** el gancho no desvela la región, pero **la foto sí tiene que dejar que el de allí se reconozca por la FORMA**. Deja ver la costa o la frontera y el contorno (Galicia con el Atlántico, Valencia con el Mediterráneo, Extremadura con Portugal y Lisboa), con las empresas en el centro. Una región de interior ampliada y centrada, como sería Madrid, no se distingue. PamPam agranda solo los logos que tienen hueco alrededor, así que no todos salen iguales, y eso se acepta como variedad.
 
 **Nada de que se lean los nombres (Iker, 2026-07-31):** ese lo quitó él, así que no vuelve. El aviso es solo de espaciado y tamaño.
 

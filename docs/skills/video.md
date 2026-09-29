@@ -221,6 +221,18 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - **Color: letra mint claro `#ebfff6` (el blanco de la marca) con contorno o sombra berenjena `#431b44`, y UNA palabra naranja `#fe8238`, solo en el gancho.** Contraste WCAG medido: mint sobre berenjena **13,6:1**, azul bebé **8,1:1** y naranja **5,7:1**. **Sin contorno, sobre agua de piscina** (tono de muestra, no sacado de nuestros planos), el azul bebé cae a **1,6:1** y el naranja a **1,1:1**: desaparecen. El contorno es lo que hace legible cualquier color; el azul, además, se funde con la piscina y el cielo.
 - *(Deducción, sin medir)* **el subtítulo blanco es el nativo de TikTok e Instagram**, así que choca menos y no se lee como anuncio. Un texto que se ve de marca se lee como publicidad, igual que el photocall (`§6.4`). La marca entra por la fuente, el contorno berenjena y la palabra naranja, no por pintar todo el texto.
 - **El amarillo** es el estilo del que edita para redes. Está fuera de la paleta y no hay dato nuestro que lo pida.
+- **🔄 CORREGIDO EL 29/09 POR LA REFERENCIA DE IKER (Rodri): todo el texto en mint, SIN palabra naranja y SIN contorno, y pequeño.** Es su referencia validada y manda sobre mi propuesta de contorno más naranja. **Lo que se mantiene, porque está medido y no es gusto: sin contorno, la legibilidad depende del fondo de cada plano.** Sobre el frame de la piscina de Iker, el mint da:
+
+  | fondo real | contraste |
+  |---|---|
+  | puerta oscura | 18,1:1 |
+  | tarima | 6,7:1 |
+  | pared blanca en sombra | 4,0-5,8:1 |
+  | **cielo** | **2,3:1** |
+  | **agua de la piscina** | **1,9:1** |
+
+  **Por debajo de 3:1 no se lee.** Así que el texto se coloca en cada plano sobre la zona oscura, o lleva una sombra suave berenjena que no se note como contorno. Esta segunda salida es *deducción*, sin medir en nuestros vídeos.
+- **Tamaño:** en el vídeo de Iker, "holaaa" mide **12 px de alto sobre 678 del lienzo (1,8%)** y **54 px de ancho sobre 382 (14%)**. No se sube a ojo: se mide un frame de Rodri y se iguala.
 
 ### 6.5 · Pendiente de cerrar con los planos grabados
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.

@@ -185,7 +185,24 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - **El modificador es verdad y se ve en los planos.** Si no hay un plano que lo enseñe, no va (`CLAUDE.md`: nada inventado).
 - ⛔ `revolucionar` y su familia (`global §2.9-REVOLUCIONAR`: 0.68x, 0.53x y 0.45x en nuestras cuentas).
 - **El verbo del modificador no puede describir.** `intentando vender` es literalmente un delator de `global §2.9` (*intentando, trabajando, haciendo*). Y **`sin descanso` se tumbó el 29/09**: no es punchy y se puede leer como que la empresa explota al equipo. **El test de las dos lecturas vale también para la imagen de empresa**, no solo para el objeto.
-- **Apuesta del 29/09:** `Una mañana / persiguiendo clientes / desde una casa rural`. Es la idea de Iker (`intentando vender`: humilde y sin prometer que se vende) con el verbo subido un peldaño. `perseguir` está en un post nuestro de 16.769 (`brand-voice §2c-DATOS`). `clientes` es ancla de ventas. Y el evento, desvelado al final, es literalmente salir a por clientes.
+- ~~Apuesta del 29/09: `Una mañana / persiguiendo clientes / desde una casa rural`~~ **→ TUMBADA EL MISMO DÍA POR AUTOGOL (`global §4.4b-AUTOGOL`), y la cacé solo porque Iker pidió autovalidarla.** Nuestro propio ninja del 21/07 (18.933 imp) promete *"Te quitamos los minutos de perseguir a quien nunca iba a comprar"*. Un vídeo de la empresa pasándose la mañana persiguiendo clientes publica que lo que vendemos no nos funciona ni a nosotros.
+- **Apuesta vigente (29/09):** `Una mañana de ventas / a contrarreloj / en una casa rural`. **El bucle es el más fuerte de todos los candidatos:** *¿contrarreloj, para qué?* lo paga el desvelado del evento, igual que el código del mapa en la rampa (`§6.2b`). Y la piscina lo contradice al final.
+
+#### ⛔⛔ 6.3-CHECK · TODO GANCHO DE VÍDEO SE ENTREGA CON ESTE CHEQUEO ESCRITO, LÍNEA A LÍNEA (Iker, 2026-09-29)
+
+> Iker: *"asegúrate de que siempre que me das una corrección del gancho la autovalidas con todo lo que sabes"*. En tres rondas le di `de infarto` (fuera del registro de Unai), `sin descanso` (segunda lectura de explotación) y `persiguiendo clientes` (autogol). **Los tres fallaban una regla que ya estaba escrita.** No había un check que las juntara para vídeo.
+
+| # | check | fuente |
+|---|---|---|
+| 1 | **Bucle abierto:** leído solo, ¿sabes cómo acaba? ¿Qué pregunta deja, y qué parte del vídeo la paga? | `global §2.0` |
+| 2 | **Autogol:** ¿el gancho cuenta como algo nuestro el dolor que nuestro producto o el enlace resuelven? | `global §4.4b-AUTOGOL` |
+| 3 | **Segunda lectura sobre la EMPRESA** (explotación, desorganización, no nos va bien) y sobre el OBJETO | `§6.3`, `global §2.2d-DOBLE` |
+| 4 | **Ancla de ventas** en versión amplia: `ventas`/`vender` fuerte; `cliente` o `teléfono` solos son ambiguos | `global §2.3` |
+| 5 | **Punch:** ¿hay verbo que frena o intensificador que lo sustituya? Nada de gerundios que describen | `global §2.9`, `§2.9-SIN-VERBO` |
+| 6 | **Rodable:** ¿qué plano va con cada línea? | `global §2.2d` |
+| 7 | **Verdad:** ¿lo enseñan los planos? ¿no promete un resultado que no hubo? | `CLAUDE.md` |
+| 8 | **Registro de la cuenta** (Unai: nada de expresiones de calle) | `brand-voice §1b` |
+| 9 | **Longitud** 6-10 palabras, `una mañana` con artículo, cero familias de riesgo, cero palabras quemadas | `§6.3`, `brand-voice §2c` |
 - **El modificador lleva un intensificador extremo, no un adjetivo que describe** (`§6.2b`: `gigante` → `de la muerte`, x166), con el techo de registro de la cuenta.
 - **Si el vídeo lleva un enlace (evento, agendar), el gancho NO lo nombra.** Un post que va del evento trae clics y no inscritos (`global §4.4b-EVENTO-EXPLICITO`: 0 inscritos de 37 clics). El enlace entra como ninja: en el payoff del vídeo y en el caption.
 

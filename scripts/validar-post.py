@@ -81,6 +81,8 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
+    'dejan atrás': '2026-09-29 Extremadura, mapa de Asier',
+    'dejan atras': '2026-09-29 Extremadura, mapa de Asier',
     'tienen calada': '2026-09-22 Álava, mapa de Iker',
     # Cada valor empieza por la fecha de la ULTIMA publicacion que lo uso y
     # caduca a los VENTANA_IDENTIDAD_DIAS (global 2.0b-VENTANA, Iker 2026-09-16).
@@ -264,6 +266,7 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'lo que no cabe en la lista': '2026-09-29 Extremadura, mapa de Asier, la linea 1 del ultra ninja en bloque de 2 (A/B de forma)',
     'no te presenta a nadie': '2026-09-22 mapa de Álava, Iker 22/09, la linea 1',
     'ya quedan las últimas plazas': '2026-09-22 mapa de Álava, Iker 22/09',
     'ya quedan las ultimas plazas': '2026-09-22 mapa de Álava, Iker 22/09, sin tilde',
@@ -327,6 +330,7 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
+    'moldavia': '2026-09-29 Extremadura, mapa de Asier',
     'islandia': '2026-09-22 Álava, mapa de Iker',
     'uruguay': '2026-07-23 Murcia (Iker)',
     'bolivia': '2026-06-30 Navarra (Iker)',
@@ -408,7 +412,8 @@ ARRANQUE_QUEMADO = {
         'ni': '2026-09-22 mapa de Álava, Iker ("Ni la llena Celedón / Ni la llenan los blusas")',
         'aqui': '2026-09-22 mapa de Álava, Iker ("Aquí la sal / Aquí se discute / Aquí se sube")',
         'por': '2026-09-22 mapa de Álava, Iker ("Por fuera / Por dentro")',
-        'no': '2026-06-30 mapa de Navarra, Iker ("No paga las nominas San Fermin")',
+        'no': '2026-09-29 mapa de Extremadura, Asier ("No la sostiene la torta del Casar / el teatro romano / los cerezos del Jerte"); antes Navarra, Iker 30/06',
+        'se': '2026-09-29 mapa de Extremadura, Asier ("Se almuerzan migas / Se va andando a Guadalupe")',
     },
     # Estos dos salen de nuestro propio runbook (post-workflow 4.3), no de haber
     # releido el post: si algun dia se comprueban, se anota aqui.
@@ -447,6 +452,7 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'despensa del oeste': '2026-09-29 Extremadura, mapa de Asier',
     'nevera del norte': '2026-09-22 Álava, mapa de Iker',
     'sitio de comer': '2026-07-30 Euskadi (Iker)',
     'desierto': '2026-07-23 Murcia (Iker)',
@@ -468,6 +474,7 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'y a portugal': '2026-09-29 Extremadura, mapa de Asier',
     'y hasta ah': '2026-09-22 Álava, mapa de Iker',
     'de vuelta al aeropuerto': '2026-07-30 Euskadi (Iker)',
     'y para de contar': '2026-07-23 Murcia (Iker)',

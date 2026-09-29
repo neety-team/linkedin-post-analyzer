@@ -233,6 +233,20 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## ✅ PUBLICADO · MAR 29/09 · ASIER · MAPA DE **EXTREMADURA** (1ª región que no había hecho ninguna cuenta)
+
+| dato | |
+|---|---|
+| **Post** | [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7510632207539912707/) · publicado **11:30** · texto idéntico al validado (73/73) |
+| **Por qué Extremadura** | la opción "región nueva que genere orgullo" que pidió Iker: ninguna cuenta la había hecho, y repetir región de otra cuenta rinde mucho menos (Cataluña 7.123 contra 49.740; Álava 20.616 contra 50.955). Ventana: 2 peloteos en 21 días (banda buena) |
+| **Gancho** | `A la despensa del oeste la dejan atrás: jamón, cigüeñas y a Portugal. Y exporta más que Moldavia entera 👇` · concepto `despensa del oeste` · verbo `dejan atrás` · frase-rabia `y a Portugal` · país **Moldavia** |
+| **Datos** (años aquí, nunca en el post) | Extremadura exportó **4.074,7 M€ en 2025**, +22,4% (IEEx sobre datos del Ministerio; en el post va como Datacomex para no destapar la región) · Moldavia **3.782,7 M$ en 2025** (Estadística de Moldavia) × 0,8867 (media BCE 2025) = **3.354 M€** → +21,5% · semimanufacturas no químicas 1.331 M€, 32,7%, +111% · España +0,7% en 2025 (Ministerio) · población 1.055.197 (INE, 01/01/2026) contra 2.381.300 (Moldavia, 01/01/2025) |
+| **Menciones** | **20 empresas extremeñas de origen, las 20 con persona** con cargo de decisión y actividad ≤150 días (casi todas ≤30). Ninguna repetida contra las 776 ni cliente. Encontradas por personas (Sales Navigator, `posted_on_linkedin`, location `102727695` Extremadura, `104026730` Badajoz, `107155007` Cáceres, `90009760`/`90009765` sus áreas) y por empresas. Ana Espárrago (Señorío de Montanera) vive en Madrid; Manuel Vázquez (Conesa) y Pedro Fernández-Llario (Ingulados) ponen solo "Spain" |
+| **PamPam** | [mapa](https://www.pampam.city/extremadura-el-musculo-industrial-8zMWAaozJD75JV0Kgjb1) · 20 coordenadas distintas · Siderúrgica Balboa sin logo en LinkedIn (puesto a mano) · página [`/mapas/extremadura/`](https://recursos.neety.com/mapas/extremadura/) creada el 28/09 (commits `aabec0f` y `b6b38d3` de neety-resources) |
+| 🧪 **A/B del enlace** | **brazo B (66%, justo detrás de la lista)** y forma **bloque de 2** con línea 1 sin olor a venta: `Lo que no cabe en la lista es dónde fabrica cada una.` / `Mapa completo aquí:`. UTM `mapa-extremadura-29sep`. **El siguiente peloteo va con línea sola** (recordatorio arriba del todo) |
+| **Quemados** | concepto `despensa del oeste` · verbo `dejan atrás` · frase-rabia `y a Portugal` · país `moldavia` · ninja `lo que no cabe en la lista` · arranques de mapa `no` / `se` (todo en `validar-post.py`) · 20 empresas y personas en `menciones-usadas.json` (814) |
+| ⏳ | a los 3-4 días (02-03/10, que cae en viernes-sábado, así que **se mira el lunes 05/10**): impresiones, reposts, clics y CTR contra Aragón (0,377%) y Cantabria (sin medir en LinkedIn); y clics por UTM en GA4 |
+
 ## ✅ PUBLICADO · JUE 24/09 · UNAI · HISTORIA: LAS SILLAS A 40 MINUTOS DEL EVENTO (sin enlace)
 
 | dato | |
@@ -565,7 +579,7 @@ El de automoción ya está hecho (Asier, 07/08). El siguiente **no repite sector
 |---|---|---|---|
 | **Iker** | Gipuzkoa · Cataluña · Andalucía · Valencia · Galicia · Navarra · Murcia · Castilla y León · **Álava** (22/09) | País Vasco · **Asturias** · **Navarra** (03/09) | "pueblo de 7.000 hab" · "esquina del Atlántico" · "patio trasero de los Pirineos" · "playa y paella" · "8,7 millones" · "el tejado de la Península" · "la nevera del norte" |
 | **Unai** | País Vasco · Bizkaia · Álava · **Cataluña** | **Gipuzkoa** (15/09) | "pueblo de 2,2 millones" · "trastienda del norte" · "lluvia y pintxos" · "última parada antes de Francia" |
-| **Asier** | Aragón · **Cantabria** (01/09) | — | "secarral que peina el cierzo" · "el felpudo del Pirineo" · "el tendedero del Cantábrico" |
+| **Asier** | Aragón · Cantabria (01/09) · **Extremadura** (29/09) | — | "secarral que peina el cierzo" · "el felpudo del Pirineo" · "el tendedero del Cantábrico" · "la despensa del oeste" |
 
 **DESPIECES ya hechos** (cuenta · región · objeto/sector): **Iker** — Euskadi, el coche (automoción, 30/07) · **Asier** — Navarra, el coche (automoción, 07/08) · **Asier** — **Bizkaia**, el coche (automoción, 16/09, entregado) · ~~**Unai** — Cataluña (09/09)~~ **escrito y NO publicado, así que no quema nada**. El despiece **no quema la región para mapa ni para "Los 10"** (`post-workflow §4.7` Paso 1), pero **repetir región Y formato en la misma cuenta sí es repetir**: Euskadi ya está gastada para un despiece de Iker.
 > 🔧 **Corregido el 2026-08-14: esta tabla estaba desactualizada y era una bomba de relojería.** Le faltaban **Castilla y León** (mapa de Iker, 04/08) y **Navarra** (despiece de Asier, 07/08), y Castilla y León seguía listada como libre para Iker. Planificar septiembre con ella sin actualizar habría repetido región en la misma cuenta. **Cada vez que se publique un peloteo, esta tabla se toca en el mismo commit que la fila del registro.**
@@ -579,7 +593,7 @@ El de automoción ya está hecho (Asier, 07/08). El siguiente **no repite sector
 > ⚠️ **Y dos del plan de septiembre que NO se publicaron y por tanto NO queman nada:** el **despiece de automoción de Cataluña** (Unai, previsto el 09/09) y el **"Los 10" de Navarra** (Iker, previsto el 11/09). Estaban escritos y validados; no llegaron a subirse. **El espaciado y la cobertura se miden contra la BD, nunca contra el cuadro del plan** (`post-workflow §8.3`).
 
 > **El "país inventado" NO cuenta como región gastada** y no está en esta tabla: no es un mapa de peloteo (no menciona a nadie, la imagen es un dibujo y no una captura de PamPam, y el motor es la controversia). Ficha en `context/global-instructions.md §4.1`. Lo hicieron Unai (7.87x, 12-jun) e Iker (1.24x, 23-jun).
-**Libres para Asier:** todas menos Aragón.
+**Libres para Asier:** todas menos Aragón, Cantabria y Extremadura.
 **Baneada para todas:** Madrid y capitales obvias (Madrid 0.55x, sin efecto underdog).
 
 ---

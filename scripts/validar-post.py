@@ -555,6 +555,11 @@ MARKETING_ANCLA = (r'\b(marketing|contenido|redes|crecer|crecimiento|alcance|imp
                    # 2026-09-29: `linkedin` FUERA de la lista. Escrito en el post capa la
                    # publicacion (global §9.3b), asi que no puede ser un ancla valida.
                    r'|audiencia|viral|engagement|seguidores|marca personal|perfil|feed'
+                   # 2026-09-29 — `algoritmo` DENTRO (meme de Mario, gancho elegido por
+                   # el: "Seguro que el algoritmo me ama..."). Es la misma familia que
+                   # `feed` y `alcance`: el reparto del contenido. Que sea ancla NO la
+                   # saca de observacion por capado (§9.3b): ese aviso sigue corriendo.
+                   r'|algoritmo'
                    # 2026-08-21 — el post de la caida de los influencers de Mario. Un gancho
                    # con "influencer" dentro fallaba el ancla, y es la palabra mas de
                    # marketing que existe: esta en la misma familia que "viral" y

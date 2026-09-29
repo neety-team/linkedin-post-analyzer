@@ -137,6 +137,18 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 
 **Se lee con 3 o 4 posts del brazo B en la MISMA cuenta.** La cuenta de Asier ya tiene los dos: Aragón (A, 0,500%), Cantabria (B, GA4) y Bizkaia (B). **Cada peloteo nuevo apunta en su ficha del historial el % de posición del enlace** el día que sale.
 
+**📊 REVISIÓN DEL 29/09 (la pedida para el lunes 28/09), BD en vivo, y NO da para decidir:**
+| post | brazo | forma | destino | CTR |
+|---|---|---|---|---|
+| Álava, Iker 22/09 | B (69%) | bloque de 2 | Luma | 0,177% (40/22.633) |
+| Cantabria, Asier 01/09 | B (63%) | bloque de 2 | `/mapas/` | **sin medir** (`link_url` vacío; 21 clics en GA4) |
+| despiece Bizkaia, Asier 16/09 | B (78%) | bloque de 2 | Luma | 0,266% (6/2.252) |
+| Castilla y León, Iker 04/08 | A (95%) | suelta | `/mapas/` | 0,270% (56/20.759) |
+| Aragón, Asier 14/07 | A (96%) | suelta | `/agendar/` | 0,377% (135/35.811) |
+- **Ningún post del brazo B supera al A de su propia cuenta**, pero cada uno cambia además el destino (Luma) o no se midió, así que no hay comparación limpia. **El A/B sigue abierto**; el mapa de Extremadura de Asier (29/09) es el primer brazo B a `/mapas/` con la forma canónica.
+- ⚠️ **Hipótesis, n=2, sin causa conocida:** los dos mapas con `Mapa completo aquí` metido en un bloque de dos (Murcia 23/07 y Cantabria 01/09) salieron **sin medir** en LinkedIn; el único suelto a `/mapas/` (Castilla y León) sí se midió. No prueba nada (`global §4.4b`: el `🔗 0` tiene causa interna de LinkedIn), pero es una razón más para no tocar la forma del ultra ninja.
+- **LA FORMA NO ESTABA EN PRUEBA Y SE HABÍA DESVIADO:** el ultra ninja es `Mapa completo aquí: {link}` **SOLO** (`§4.2` Paso 5). Cantabria y el borrador de Extremadura le metían una línea encima porque `validar-post.py` exigía "promete IDENTIFICAR" también en el mapa. Arreglado el 29/09: con `Mapa completo aquí` en un mapa, ese check se da por cumplido. **Lo que se mide es la POSICIÓN; la forma es la canónica.**
+
 **📍 EL CRITERIO DE IKER PARA EL BRAZO B (22/09):** *"justo después de dar el valor, pero no demasiado tarde, que ya hayan cerrado el post"*. En un mapa, el valor es la LISTA: el bloque del enlace va **justo detrás de las menciones**, con su línea de contexto si es el evento, y detrás una suelta que devuelve al cuerpo. Primer caso: mapa de Álava de Iker, 22/09, enlace al **68%**, cosido a la lista con la palabra del gancho (`Saber quién llena la nevera…` tras `las 20 que la llenan`). Es criterio suyo, no dato: se mide dentro del A/B.
 
 **Cómo se sube sin romper el ritmo** (caso de Bizkaia): mover el bloque del enlace deja casi siempre un tramo en espejo o un ciclo suelta-bloque-suelta-bloque. Se prueban las ordenaciones de la cola con el validador y se elige **la más alta que pase limpia**. En Bizkaia quedó: sirimiri → contexto del evento → enlace → reveal y barrido → pueblos → "ninguna sale en un anuncio" → cierre.

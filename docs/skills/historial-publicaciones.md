@@ -9,7 +9,7 @@
 ## ⚠️ SI ES LUNES Y SE HABLA DE PUBLICACIONES: PRIMERO SE ANALIZA LA SEMANA PASADA (Iker, 2026-08-10)
 
 > 🔔 **PARA LA REVISIÓN DEL LUNES 28/09 (lo pide Iker el 22/09, sin que haga falta recordárselo):**
-> 1. **A/B de la POSICIÓN del bloque del ninja en PELOTEO (mapa):** ¿subirlo justo detrás de la lista (brazo B) sube CTR y conversión? Caso nuevo: **mapa de Álava de Iker, 22/09, enlace al 68%**, contra el brazo A de su cuenta y contra Cantabria (Asier 01/09, 60%) y el despiece de Bizkaia (Asier 16/09, 74%). `post-workflow §4.0d` punto 6.
+> 1. ✅ **Revisado el 29/09 (resultado en `post-workflow §4.0d` punto 6): no da para decidir, el A/B sigue abierto.** **A/B de la POSICIÓN del bloque del ninja en PELOTEO (mapa):** ¿subirlo justo detrás de la lista (brazo B) sube CTR y conversión? Caso nuevo: **mapa de Álava de Iker, 22/09, enlace al 68%**, contra el brazo A de su cuenta y contra Cantabria (Asier 01/09, 60%) y el despiece de Bizkaia (Asier 16/09, 74%). `post-workflow §4.0d` punto 6.
 > 2. **Y EN GENERAL, en todos los posts de la semana: si alguno se hizo viral, mirar si la posición del ninja influyó** en clics e inscritos (dónde cayó el enlace en % del texto y en carácter, contra su CTR y sus inscritos por 1.000 impresiones). Incluye el meme de Unai del 22/09 (enlace hacia el 75%).
 > 3. **Cierre del evento (24/09):** inscritos por UTM de todos los posts con Luma, con la tabla de `post-workflow §4.4-CONVERSION-EVENTO` actualizada. Desde el 25/09 el ninja vuelve a `/agendar/`.
 

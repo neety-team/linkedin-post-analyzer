@@ -2426,6 +2426,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                     'aunque lleven la palabra del gancho dentro', aviso=True)
                 _blo = ' '.join(b).lower()
                 _iden = re.search(r'qui[eé]n|persona|empresa|nombre|decide|firma|compra', _blo)
+                # ULTRA NINJA DEL MAPA (global 4.4b-MOLDE, fila 'pagina del mapa'; post-workflow
+                # 4.2 Paso 5): va SOLO 'Mapa completo aqui: {link}', y su promesa es el mapa, no
+                # la identificacion de /agendar/. Este check obligaba a meter una linea encima
+                # (Cantabria 01/09, Extremadura 29/09) contra la receta (Iker, 2026-09-29).
+                if _mapa and 'mapa completo' in _blo:
+                    _iden = True
                 # ⛔ EL NINJA DEL EVENTO PROMETE OTRA COSA, Y ES LA CORRECTA (2026-08-27).
                 # "Identificar a la persona" es el contrato de /agendar/ (4.4b-PROMESA:
                 # lo que promete el ninja lo decide el DESTINO). El destino Luma vende

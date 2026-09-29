@@ -2764,6 +2764,7 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 
 - **⛔ La ausencia de aviso.** LinkedIn **no avisa nunca** — ni en analíticas, ni en notificaciones (a diferencia de TikTok). Los tres capados tampoco tuvieron aviso. **Buscarlo es tiempo perdido y su ausencia no prueba nada** (`post-workflow §4.5.0-SIN-AVISO`).
 - **⛔ La foto.** Probado dos veces en agosto: se resubió con imagen distinta y volvió a caer. **El baneo es del TEXTO.**
+- **⛔ Un post muerto de fin de semana en una cuenta fría (Mario, 29/09).** Su meme del domingo 27/09 hizo **78 impresiones y 0 interacciones en 2 días** y se sospechó de `algoritmo`. **Medido:** 17 posts en español del corpus de septiembre la llevan (8 creadores, 2 en el gancho) y todos repartieron, y la palabra no cae en ninguna familia de `§9.3`. Lo que sí había: domingo, sin los jefes en la primera hora y la cuenta sin post propio desde el 27/08. **El semáforo de `<100 a los 60 min` está calibrado en cuentas de jefe entre semana: en una cuenta pequeña, fría y en domingo no separa capado de arranque muerto.** Sin haber mirado el Principal en su momento, el caso queda sin veredicto y **`algoritmo` no entra en ninguna lista**. Se cierra con la resubida entre semana con la palabra intacta (`historial-publicaciones`, fila del 27/09).
 
 ### 9.5 · La resubida: UNA variable, y con el coste sabido
 

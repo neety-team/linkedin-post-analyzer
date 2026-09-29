@@ -1610,6 +1610,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not m, 'Sin negrita Unicode tipo 𝗟𝗮𝘀 𝟭𝟬 (§6)',
         'el check de markdown no la caza: es otro bloque Unicode' if m else '')
 
+    # aboutme §1 (Iker, 2026-09-29): la puerta de agendar se muda a
+    # neety.com/solicitar-demo, pero NO todavia (faltan las notificaciones a
+    # Google Chat y migrar recursos y mapas). Desde el lunes 05/10 hay que
+    # preguntarle en CADA post si ya va a la web nueva. Aviso, no fallo: la
+    # decision es suya post a post hasta que la migracion este cerrada.
+    if not historico and datetime.date.today() >= datetime.date(2026, 10, 5) \
+            and 'recursos.neety.com' in cuerpo:
+        chk(False, 'ENTREGA: ¿este post ya va a la WEB NUEVA? (aboutme §1, migracion)',
+            'desde el 05/10 se pregunta en cada publicacion si el enlace pasa de '
+            'recursos.neety.com a https://neety.com/solicitar-demo. Pregunta en el chat antes '
+            'de entregar. Ojo: la web nueva aun no tiene seccion de mapas', aviso=True)
+
     # global §2.2b-SIMBOLOS (Iker, 2026-09-29) — los marcadores de lista son
     # ENVASE, no motor: se calca que haya una lista, nunca con que simbolo la
     # tecleo el autor. El meme del 29/09 calco los guiones de la referencia y los

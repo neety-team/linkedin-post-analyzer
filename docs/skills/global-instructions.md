@@ -1419,7 +1419,7 @@ Es `working-preferences §0c-BIS` otra vez: **una regla universal guardada dentr
 
 | destino | qué CUBRE la línea 2 | extras propios |
 |---|---|---|
-| `/agendar/` → **desde el 28/09, `https://neety.com/solicitar-demo`** (`aboutme §1`) | la identificación: a quién vender, quién firma dentro (`§4.4b-ORDEN`, `§4.4b-MUNICIÓN`) | antes del carácter 650 (`§4.4b-CLICS`) · mismo UTM de `§4.4b-UTM` (la página lo guarda) · ⚠️ **primer post de cada cuenta con este dominio: puede quedarse ~20 min en revisión** (`§9.0b`; hipótesis mía por analogía con el primer UTM, sin medir), no se borra antes de 30 |
+| `/agendar/` (`https://recursos.neety.com/agendar/`) · 🚧 **migración pendiente a `https://neety.com/solicitar-demo`: no se usa hasta que Iker lo diga, y desde el 05/10 se le pregunta en cada post** (`aboutme §1`) | la identificación: a quién vender, quién firma dentro (`§4.4b-ORDEN`, `§4.4b-MUNICIÓN`) | antes del carácter 650 (`§4.4b-CLICS`) |
 | `/correo/` | lo que se cuenta antes ahí que aquí (`§4.4e`) | va en plural y nunca de última línea (`§4.4e-QUIÉN`) |
 | **Luma (evento)** | **la sala: quién está dentro y cómo se entra** (`§4.4b`, Grace Gong 11.6x/14.4x) | **una línea de contexto ENCIMA** (`§4.4b-EVENTO-CONTEXTO`) · la identidad va en `utm_source` (`§4.4b-UTM`) |
 | página del mapa | el mapa que el post lleva nombrando desde el gancho | el ultra ninja, y ahí el 650 no aplica |

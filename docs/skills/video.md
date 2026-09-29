@@ -192,6 +192,15 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - Si salen caras, gana la sonrisa amplia con los ojos abiertos (criterio de CTR de las fotos de la casa).
 - El giro final (en el primer vídeo, la piscina) **no sale en la intro**.
 
+### 6.4b · TEXTO EN PANTALLA: CUÁNDO, CUÁNTO, FUENTE Y COLOR (2026-09-29)
+
+- **Lo que NO dice el scraping, para no citarlo mal:** el `VIDEO_SCRIPT` de `postPrompt.ts` sale de las **transcripciones de audio** de 11 TikToks B2B-IA (Apify `clockworks/tiktok-video-scraper`). **Ve lo que se dice, no lo que se ve**: no dice nada de subtítulos, fuente ni color.
+- **Texto desde el frame 1 y el vídeo subtitulado entero, palabra a palabra: 7 de 7** referencias de Iker (las 6 de `§6.1` y la rampa de `§6.2b`). LinkedIn arranca los vídeos sin sonido.
+- **Fuente: Bricolage Grotesque, en negrita.** No es gusto: el brandbook (`images §0a-ter`) reserva Bricolage para títulos y textos cortos, y un subtítulo de 1-3 palabras es texto corto. Switzer es para texto corrido, y en un vídeo no hay.
+- **Color: letra mint claro `#ebfff6` (el blanco de la marca) con contorno o sombra berenjena `#431b44`, y UNA palabra naranja `#fe8238`, solo en el gancho.** Contraste WCAG medido: mint sobre berenjena **13,6:1**, azul bebé **8,1:1** y naranja **5,7:1**. **Sin contorno, sobre agua de piscina** (tono de muestra, no sacado de nuestros planos), el azul bebé cae a **1,6:1** y el naranja a **1,1:1**: desaparecen. El contorno es lo que hace legible cualquier color; el azul, además, se funde con la piscina y el cielo.
+- *(Deducción, sin medir)* **el subtítulo blanco es el nativo de TikTok e Instagram**, así que choca menos y no se lee como anuncio. Un texto que se ve de marca se lee como publicidad, igual que el photocall (`§6.4`). La marca entra por la fuente, el contorno berenjena y la palabra naranja, no por pintar todo el texto.
+- **El amarillo** es el estilo del que edita para redes. Está fuera de la paleta y no hay dato nuestro que lo pida.
+
 ### 6.5 · Pendiente de cerrar con los planos grabados
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.
 

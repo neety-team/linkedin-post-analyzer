@@ -235,7 +235,21 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
   **Por debajo de 3:1 no se lee.** Así que el texto se coloca en cada plano sobre la zona oscura, o lleva una sombra suave berenjena que no se note como contorno. Esta segunda salida es *deducción*, sin medir en nuestros vídeos.
 - **Tamaño:** en el vídeo de Iker, "holaaa" mide **12 px de alto sobre 678 del lienzo (1,8%)** y **54 px de ancho sobre 382 (14%)**. No se sube a ojo: se mide un frame de Rodri y se iguala.
 
-### 6.5 · Pendiente de cerrar con los planos grabados
+### 6.5 · El guion del primer vídeo (29/09, Unai) — la plantilla del pilar
+
+**Estructura, ~17 s y ~40 palabras de voz en off (= subtítulos):**
+1. **0-3 s · gancho con sobrecarga de planos:** 3 planos, uno por línea y un zoom por palabra. Primero el grupo trabajando en el sitio (el primer frame), luego el detalle de trabajo y al final una cara de agobio.
+2. **3-5 s · dónde y cuántos:** el plano abierto del sitio, cortado **antes** de que se vea el giro. La casa rural sale aquí, dicha en voz, no en el gancho.
+3. **5-10 s · el desarrollo en 3 (`§4` punto 9):** `Unos… / Otros… / Y alguien…`. El segundo plano enseña el material del desvelado sin nombrarlo (`montando esto`).
+4. **10-13 s · el pago del bucle:** la pregunta del gancho en voz (`¿Tanta prisa por qué?`) y el desvelado.
+5. **13-17 s · el giro y corte seco** sobre el audio real del plano (`holaaa`), sin despedida (`§4` punto 13).
+
+**Lo que se comprobó en los metadatos y no se supuso:** los clips se grabaron **el lunes 22/09 entre las 12:36 y las 13:58**, y el evento era el **jueves 24**. `Al día siguiente` habría sido falso: va `En dos días`. **La fecha de grabación se lee siempre en `com.apple.quicktime.creationdate` antes de escribir una marca de tiempo.**
+
+**El caption** repite el gancho en la primera línea, **no desvela el evento** (`El porqué de tanta prisa, al final del vídeo`) y lleva el ninja a `/agendar/`. Se valida con `--pilar meme --referencia-fuera --meme-sobrio`, porque el validador no tiene pilar de vídeo: **57/57** el 29/09.
+
+### 6.6 · Pendiente
+Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.
 
 ---

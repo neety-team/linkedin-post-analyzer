@@ -130,6 +130,8 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 | **Mario** (marketing) | 🟢 **EXCEPCIÓN: marketing y contenido** | — |
 | **Helena** (customer success) | 🟢 **EXCEPCIÓN: atención al cliente y partnerships** | — |
 
+**✅ El caso al derecho (Iker, 2026-09-29):** el meme de Dachi Beberashvili (*"I'll just check LinkedIn for a minute before I start calling"*, 41% de risa) se eligió para Iker **porque va de LLAMAR**. Iker: *"es el que mejor encaja con el segundo jefe porque es con el que más libertad tenemos, y este meme no encajaría ni con el primero ni con el tercero, ya que no son comerciales, no hacen llamadas en ese sentido para vender, y encima son más sobrios"*. **Dos filtros a la vez: el rincón (llamar) y el registro (el humor más suelto).** Si una referencia de llamadas aparece cuando a Iker no le toca meme, se guarda para él; no se le da a Unai ni a Asier.
+
 **El caso que lo prueba, y es nuestro:** el meme de Asier del 20/08 (la captura de una búsqueda de Google) hizo **3.010 impresiones · 0.32x**. Iker, al revisarlo: *"originalmente sí era referencia de meme pero NO de ventas, cuando siempre lo tiene que ser"*.
 
 **⚠️ Y esto AFINA `post-workflow §4.4-FUENTE`, que decía que un meme de OTRO sector con dolor psicológico universal era "la excepción que da los mejores outliers".** Ya no se sale a buscar fuera: **se busca dentro de ventas y ahí se elige el que tenga el dolor más universal**. Lo de "que sea psicológico y universal" sigue mandando **como criterio de elección DENTRO de la cantera de ventas**, no como permiso para salir de ella.

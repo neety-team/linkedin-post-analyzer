@@ -1391,7 +1391,7 @@ sorprende, que es de lo que vive este pilar.
 >
 > | Se calca A MUERTE (es el motor) | Manda SIEMPRE lo nuestro (es el envase) |
 > |---|---|
-> | La **mecánica del GANCHO** (Paso 2) | **Formateado:** bloques de 2/3, línea individual detrás, líneas cortas, el cierre respira (`global §3.2-§3.3`) |
+> | La **mecánica del GANCHO** (Paso 2) | **Formateado:** bloques de 2/3, línea individual detrás, líneas cortas, el cierre respira (`global §3.2-§3.3`) · **y los SÍMBOLOS: la lista del original con guiones va con `→`** (`global §2.2b-SIMBOLOS`, 29/09) |
 > | La **IMAGEN**: layout, paneles, estilo de dibujo, mecánica cómica (Paso 6) | **Puntuación anti-IA:** cero guion largo, cero coma antes de "y" (`brand-voice §3`) |
 > | La **temática y el esqueleto del cuerpo**: sus etiquetas, su orden (Paso 3) | **Ancla de ventas** y **verbo con techo** (`global §2.3`, `§2.9`) |
 > | La **emoción**: contraste, curiosidad, reto (`outliers-database §3.9c` Paso 5) | **Spam ninja** (`global §4.4b`) y la jerga vetada del hook |

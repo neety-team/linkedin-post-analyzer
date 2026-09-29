@@ -1610,6 +1610,20 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not m, 'Sin negrita Unicode tipo 𝗟𝗮𝘀 𝟭𝟬 (§6)',
         'el check de markdown no la caza: es otro bloque Unicode' if m else '')
 
+    # global §2.2b-SIMBOLOS (Iker, 2026-09-29) — los marcadores de lista son
+    # ENVASE, no motor: se calca que haya una lista, nunca con que simbolo la
+    # tecleo el autor. El meme del 29/09 calco los guiones de la referencia y los
+    # tuvo que cambiar Iker a mano por flechas. Los de la casa: → (mapa, meme),
+    # 1️⃣ o 1. (listas numeradas). Fallo duro en borradores; --historico lo deja
+    # pasar porque hay ganadores viejos con guiones (desmonto perfiles).
+    if not historico:
+        _sim = [l.strip()[:40] for l in cuerpo.split('\n')
+                if re.match(r'^\s*[-•·*▪◦–]\s+\S', l)]
+        chk(not _sim, 'Marcadores de lista de la CASA, no los del original (§2.2b-SIMBOLOS)',
+            'lineas con guion o vineta: %s. Se cambian por → (o 1️⃣/1. si es numerada): '
+            'el simbolo es como lo tecleo su autor, no lo que hizo volar el post' % _sim
+            if _sim else '')
+
     # brand-voice §4.5 — el nombre del founder gana al del producto. Como mucho
     # UNA vez y nunca en el hook. El check viejo solo miraba el spam ninja.
     # §4.4e - LAS URLs NO CUENTAN COMO NOMBRAR LA MARCA. `\bNeety\b` casa dentro

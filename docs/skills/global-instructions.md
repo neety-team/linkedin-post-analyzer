@@ -1144,6 +1144,15 @@ Iker: *"todo lo queremos validar en datos. En las referencias igual: analiza su 
 - **El ritmo es donde SI les ganamos** (bloques de 2 y 3 en escalera, lineas sueltas). Su ritmo puede ser peor que el nuestro; su gancho y su longitud, no.
 - **Lo que NO se calca se declara en la entrega**, para que sea una decision y no un descuido.
 
+#### ⛔ 2.2b-SIMBOLOS · LOS SIMBOLOS DEL ORIGINAL SON ENVASE: SE PONEN LOS DE LA CASA (Iker, 2026-09-29) — GLOBAL
+> *"Este tipo de variedad, por ejemplo la tontería de las flechas, tendrías que ser tú capaz de hacerlo también. Quiero que seas tan perfeccionista como yo, de hasta fijarte en los símbolos"*.
+
+**El caso:** el meme de Iker del 29/09 calcaba bien la idea, el gancho y la lista de Dachi Beberashvili… **con sus guiones**. Iker los cambió a mano por flechas: *"para que no sea tan copia"*. Ya estaba escrito en `post-workflow §4.4` (*"¿esto es lo que hizo volar al post, o es solo cómo lo tecleó su autor?"*), pero nunca lo había aplicado a los signos.
+- **Se calca QUE haya lista, cuántos ítems y en qué orden. Nunca el símbolo.** Guion, viñeta `•` o asterisco → **`→`** (la de los mapas y los memes) o, si la lista es numerada, **`1️⃣` / `1.`**.
+- **Es el cambio más barato que existe para que no se note la copia**, y además es nuestra firma: el lector que nos sigue reconoce la flecha.
+- **Vale para todo símbolo que no cargue el chiste:** marcadores, separadores (`———`), hashtags de cola (`#SalesHumor…`, que ya no calcamos). El emoji es otra cosa: si anuncia el tono (🤣, 👇) se mira DÓNDE vive (`§2.2b-MEDIR`).
+- **Mecanizado** como fallo duro en `validar-post.py` (`Marcadores de lista de la CASA`), salvo con `--historico`.
+
 #### El paso que se falla siempre: separar VEHICULO de CONTENIDO
 
 | | Que es | Se hace con el |

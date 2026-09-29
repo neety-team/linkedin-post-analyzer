@@ -207,6 +207,19 @@ def main():
         checks.append(fallo('Coma antes de "y"/"e" en el cuerpo'))
     else:
         checks.append(ok('Cero comas antes de "y"'))
+    # 2026-09-29 (Iker): los dos puntos en medio de una frase son el mismo delator que
+    # el guion largo. Se salvan el ':' pegado a un enlace, las horas (10:00) y la linea
+    # que ACABA en ':' presentando algo debajo (esa la mira su propio check si lo hay).
+    _dp = []
+    for _l in cuerpo.split('\n'):
+        _s = re.sub(r'https?://\S+', '', _l)
+        _s = re.sub(r'\d:\d', '', _s)
+        if re.search(r':\s*\S', _s):
+            _dp.append(_l.strip()[:60])
+    if _dp:
+        checks.append(fallo(f'Dos puntos en medio de una frase: {_dp[:2]} → "es", un punto o una coma'))
+    else:
+        checks.append(ok('Sin dos puntos en medio de una frase'))
 
     # --- cuerpo: markdown (el email va en texto plano) ---
     if re.search(r'(\*\*|__|^#{1,3}\s|```)', cuerpo, re.M):

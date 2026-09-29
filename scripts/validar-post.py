@@ -1461,6 +1461,36 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
            if l.strip().endswith(':') and 'http' not in l]
     chk(not _dp, 'Ninguna linea termina en dos puntos (brand-voice §3)',
         f'{_dp[:2]} → punto final' if _dp else '', aviso=(pilar != 'historia'))
+    # 2026-09-29 (Iker) — LOS DOS PUNTOS EN MEDIO DE UNA FRASE SON EL MISMO DELATOR
+    # QUE EL GUION LARGO. "Lo peor de ir a contrarreloj: no saber a quien vender" →
+    # "…contrarreloj es no saber…". Fallo duro en TODOS los pilares. Se salvan: el
+    # ':' pegado al enlace del ninja (el molde de global §4.4b), las horas (10:00) y
+    # las listas de etiqueta ("SDR: ilusion y pelo intactos.", el 13.61x), que son
+    # estructura y no una frase anunciando su segunda mitad.
+    # ⚠️ Y DOS EXCEPCIONES MEDIDAS (29/09, 273 ganchos nuestros con +500 imp): el
+    # GANCHO DEL PELOTEO ("La ven como el patio trasero de los Pirineos: toro,
+    # txistorra y poco mas", 107.094; mediana de los 9 con enumeracion tras ':',
+    # 16.689) y la ETIQUETA EN MAYUSCULAS del lead magnet ("🚨 ULTIMA HORA:",
+    # 25.457). Son el molde de dos pilares, no una frase de IA. Si Iker decide
+    # quitarlas tambien, se borran estas dos condiciones y test-validador lo dira.
+    _hook_linea = texto.strip().split('\n')[0].strip()
+    _dp_medio = []
+    for _bl in re.split(r'\n\s*\n', cuerpo):
+        _ls = [l for l in _bl.split('\n') if l.strip()]
+        if es_lista(_ls):
+            continue
+        for _l in _ls:
+            if pilar in ('mapa', 'los10', 'objeto') and _l.strip() == _hook_linea:
+                continue
+            if re.match(r'^\W*[A-ZÁÉÍÓÚÑ ]{3,}:', _l.strip()):
+                continue
+            _s = re.sub(r':\s*https?://\S+', '', _l)
+            _s = re.sub(r'https?://\S+', '', _s)
+            _s = re.sub(r'\d:\d', '', _s)
+            if re.search(r':\s*\S', _s):
+                _dp_medio.append(_l.strip()[:70])
+    chk(not _dp_medio, 'Sin dos puntos en medio de una frase (brand-voice §3)',
+        f'{_dp_medio[:2]} → "es", un punto o una coma' if _dp_medio else '')
     # 2026-08-20 — FAMILIA 7: DECIR EN PRIMERA PERSONA QUE HEMOS TRANSCRITO O
     # GRABADO UNA CONVERSACION. El meme del 19/08 se capó a 133 imp y el MISMO post
     # con las 3 conjugaciones de `transcribir` cambiadas por `apuntar` salió a la

@@ -233,6 +233,19 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## ✅ PUBLICADO · MAR 29/09 · IKER · MEME DEL GLOBO ("solo voy a mirar el móvil un minuto")
+
+| dato | |
+|---|---|
+| **Post** | resubida publicada hacia las **14:00** · `[PENDIENTE · enlace]` (aún no en la BD) · validado 53/53 · en "Primero los más relevantes" desde la cuenta de Mario **en menos de 1 minuto** |
+| **1ª versión, CAPADA** | publicada **13:17** · [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7510658943661215745/) · llevaba `LinkedIn` en el gancho y en el ninja · min 16 → 15 imp · min 18 → 23 · min 33 → 45 · nunca en el feed · **borrada**. Único cambio de la resubida: `LinkedIn` → `el móvil` → **confirma `global §9.3b`**, y `teléfono` (en las dos) **no capa** |
+| **Referencia** | [Dachi Beberashvili, 16/09](https://www.linkedin.com/posts/dachi-beberashvili-55b978231_saleshumor-saleslife-b2bsales-activity-7505948317294649344-APRJ) · 488 reac · 54 com · 14 reposts · **41% de risa (~200 risas)** · gancho con `calling` (rincón de Iker: llamar) · inglés → `--referencia-fuera`. Descartadas: Luke Ross 18/09 (513 risas, gancho sin palabra de ventas) y Segantini "cold calls on Fridays" (166) |
+| **Gancho** | `Solo voy a mirar el móvil un minuto antes de ponerme a vender 🤞` · futuro calcado · ancla fuerte `vender` · intensificador `Solo` |
+| **Ninja → `/agendar/`** | `Un minuto de móvil nunca te dice a quién llamar.` / `Nosotros sí, hasta el nombre de quien decide:` · UTM `meme-linkedin-29sep` · `utm_content=iker` · dolor: saber a quién llamar (eslabón 2, el interlocutor) |
+| **Imagen** | foto del globo de Yoda con `mi jefe` / `yo mirando memes de ventas en vez de hacer llamadas`, todo en blanco como el original (sin palabra naranja, `images §0a-sexta-quater`). El generador bloqueó la referencia (`images §0i-2b`) y la resolvió Iker retocándola en Photoshop; se publicó en verde |
+| **Lo que se aprendió** | lista con `→` en vez de los guiones del original (`global §2.2b-SIMBOLOS`) · puerta: `recursos.neety.com/agendar/`, la web nueva se aplaza (`aboutme §1`) |
+| ⏳ | medir a los 3-4 días (02-03/10): impresiones contra la mediana de meme de Iker, clics a `/agendar/`, % de risa |
+
 ## ✅ PUBLICADO · MAR 29/09 · ASIER · MAPA DE **EXTREMADURA** (1ª región que no había hecho ninguna cuenta)
 
 | dato | |

@@ -183,7 +183,7 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 | cuenta | el GANCHO ancla en | ventas va en |
 |---|---|---|
 | **Unai · Iker · Asier** (los 3 jefes) | **VENTAS**, sin excepción (`global §2.3`) | el gancho **y** el cuerpo |
-| **Mario** (marketing) | **MARKETING**: contenido, alcance, LinkedIn, audiencia, campaña, newsletter | **el CUERPO** |
+| **Mario** (marketing) | **MARKETING**: contenido, alcance, audiencia (⛔ `LinkedIn` NO: escrito en el post capa, `global §9.3b`, 29/09), campaña, newsletter | **el CUERPO** |
 | **Helena** (customer success) | **SU OFICIO**: atención al cliente, cuentas, seguimiento | **el CUERPO** |
 
 **Por qué, y no es una excepción caprichosa:** la cuenta de Mario está construyendo red de MARKETING (`§2`, manda solicitudes a gente de marketing). Un gancho que ancla en vender le pide al algoritmo una audiencia que no es la suya, que es exactamente el fallo que `global §2.3` describe al revés para los jefes. **El puente a ventas ya existe y es el de `§2-PUENTE`** (el post capta la atención, el enlace vende lo que la convierte en clientes): ese puente vive en el CUERPO y en el ninja, no en la primera línea.

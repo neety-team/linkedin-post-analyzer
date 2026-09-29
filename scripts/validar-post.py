@@ -266,6 +266,9 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'nunca te dice a quién llamar': '2026-09-29 meme de Iker 29/09 (el del globo), la linea 1 del ninja',
+    'nunca te dice a quien llamar': '2026-09-29 meme de Iker 29/09, sin tilde',
+    'hasta el nombre de quien decide': '2026-09-29 meme de Iker 29/09, la linea 2 del ninja',
     'lo que no cabe en la lista': '2026-09-29 Extremadura, mapa de Asier, la linea 1 del ultra ninja en bloque de 2 (A/B de forma)',
     'no te presenta a nadie': '2026-09-22 mapa de Álava, Iker 22/09, la linea 1',
     'ya quedan las últimas plazas': '2026-09-22 mapa de Álava, Iker 22/09',
@@ -549,7 +552,9 @@ ANCLA_VENTAS = f'({ANCLA_FUERTE}|{ANCLA_AMBIGUA})'
 # La cuenta de Mario NO es de ventas: es la de MARKETING/growth (aboutme §2). Su
 # hook ancla en marketing, no en "vender". Sin esto, todo post suyo falla el ancla.
 MARKETING_ANCLA = (r'\b(marketing|contenido|redes|crecer|crecimiento|alcance|impresiones'
-                   r'|audiencia|viral|engagement|seguidores|marca personal|perfil|linkedin'
+                   # 2026-09-29: `linkedin` FUERA de la lista. Escrito en el post capa la
+                   # publicacion (global §9.3b), asi que no puede ser un ancla valida.
+                   r'|audiencia|viral|engagement|seguidores|marca personal|perfil|feed'
                    # 2026-08-21 — el post de la caida de los influencers de Mario. Un gancho
                    # con "influencer" dentro fallaba el ancla, y es la palabra mas de
                    # marketing que existe: esta en la misma familia que "viral" y
@@ -1337,13 +1342,19 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
 
     nums = re.findall(r'\d+(?:[.,]\d+)?', hook_txt)
     chk(len(nums) <= 1, 'Hook con ≤1 cifra (§2.5)', f'{len(nums)} cifras: {nums}' if len(nums) > 1 else '')
-    # global §9.3b (29/09): dos posts del mismo dia con `LinkedIn` en la primera
-    # linea se quedaron sin salir en el feed (Iker y Mario). En OBSERVACION: aviso,
-    # no fallo, hasta que la resubida sin la palabra confirme o descarte.
-    _li = re.search(r'linked\s*in', hook_txt, re.I)
-    chk(not _li, 'Gancho sin "LinkedIn" (en observacion por capado, §9.3b)',
-        'el 29/09 los dos posts con LinkedIn en el gancho no salieron en el feed. '
-        'Sin confirmar: si no hace falta, cambiala (el movil, aqui)' if _li else '', aviso=True)
+    # global §9.3b / brand-voice §2c familia 8 (Iker, 2026-09-29): `LinkedIn`
+    # escrito en el post lo capa. Confirmado con resubida de UN cambio: con la
+    # palabra, 45 imp en 33 min y nunca en el feed; con `el movil`, en el feed en
+    # menos de 1 minuto (y `telefono` iba en las dos). No se sabe si capa solo en el
+    # gancho, asi que se mira TODO el texto. Las URLs se quitan antes: el
+    # utm_source=linkedin lo lleva todo post que ha repartido. --historico lo salta.
+    if not historico:
+        _sin_url = re.sub(r'https?://\S+', ' ', cuerpo)
+        _li = re.findall(r'[^\n]*linked\s*in[^\n]*', _sin_url, re.I)
+        chk(not _li, 'Sin "LinkedIn" escrito en el post: CAPA (§9.3b)',
+            'lineas: %s. Cambiala por lo que se ve: el movil, el feed, esta red, aqui. '
+            'El 29/09 un post con la palabra no salio nunca en el feed y la resubida '
+            'sin ella salio en menos de 1 minuto' % [l.strip()[:50] for l in _li] if _li else '')
     if generico:
         # Los hooks de Martín Arosa y Guillermo Flor son CORTOS y SIN cifras
         # (`§4.5.0b`). Iker NUNCA quiere cifras en el hook y los suyos son de pocas

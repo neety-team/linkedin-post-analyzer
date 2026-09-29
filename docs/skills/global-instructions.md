@@ -2615,7 +2615,7 @@ Recordatorios rápidos que siguen viviendo aquí porque afectan a la elección d
   > **Criterio general:** cuando dos reglas de estas skills se contradicen, **manda SIEMPRE la basada en datos actuales de nuestras cuentas** sobre la intuición o el folklore heredado (mismo principio que `outliers-database §4` manda sobre `§3`).
 - **Cadencia:** por defecto **3 posts/semana por cuenta** (≈9/semana entre las 3); máx. 1/día por cuenta (dos el mismo día se canibalizan). Mínimo absoluto: 1/semana/cuenta. Exclusividad de CATEGORÍA por día entre las 3 cuentas (peloteo / lead magnet / meme intercalados) — lógica completa en `post-workflow §8`.
 - **Ventana de oro:** primeros 60 min tras publicar. Si no hay 5+ likes / 1-2 comentarios en la primera hora, LinkedIn deja de distribuir.
-- **Palanca de las 3 cuentas (interna, gratis):** somos 3 fundadores de la MISMA empresa → Iker, Unai y Asier **se comentan y repostean entre sí** en los primeros 30 min de cada post (comentario sustancioso, no "🔥"). Es el motor de arranque más fiable que tenemos y no cuesta nada.
+- **Palanca de las 3 cuentas (interna, gratis):** somos 3 fundadores de la MISMA empresa → Iker, Unai y Asier **se comentan y repostean entre sí** en los primeros 30 min de cada post (comentario sustancioso, no "🔥"). Es el motor de arranque más fiable que tenemos y no cuesta nada. ⚠️ **Decisivo, pero no en el 100% de los casos (Iker, 2026-09-29):** en las 2 semanas de vacaciones hubo días sin que los jefes se comentaran entre sí y, aunque las historias fueron mal, un meme casi sin interacción interna se hizo súper viral. Se hace siempre que se pueda; si un día no se puede, no se da el post por perdido.
 - **Comentar antes de publicar:** 30-60 min antes, la cuenta que publica comenta de verdad en 5-10 personas que comentaron su post anterior → les salta la notificación y devuelven el comentario en la ventana de oro (táctica externa validada, `outliers-database §5.2`).
 - **Responder rápido:** contesta a los primeros comentarios en cuanto entran (alimenta la ventana de oro), con la voz de `brand-voice §7` (corto, vocales alargadas, agradecer si elogian).
 
@@ -2771,19 +2771,22 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 
 **Y el contexto que lo agrava: LinkedIn es cada vez más restrictivo**, y ha añadido un **botón para reportar publicaciones** a mano. Lo que pasaba hace tres meses no es la vara de hoy, y la vara se sigue moviendo.
 
-### 🔎 9.3b · EN OBSERVACIÓN DESDE EL 29/09: `LinkedIn` EN EL GANCHO (2 casos, sin confirmar)
+### ⛔ 9.3b · `LinkedIn` ESCRITO EN EL POST CAPA LA PUBLICACIÓN (Iker, 2026-09-29) — CONFIRMADO CON UNA RESUBIDA DE UN SOLO CAMBIO
 
-**Los dos posts del mismo día con `LinkedIn` en la primera línea se quedaron sin salir en "Primero los más relevantes":**
+**El caso, cronometrado:**
 
-| caso | cuenta | gancho | lecturas |
+| versión | `LinkedIn` | `teléfono` | resultado |
 |---|---|---|---|
-| meme del globo, 29/09, publicado 13:17 | Iker | `Solo voy a mirar LinkedIn un minuto antes de ponerme a vender 🤞` | min 16 → 15 imp · min 18 → 23 · min 33 → 45 · nunca en el feed · **borrado** |
-| meme de marketing, 29/09 | Mario | gancho con `el algoritmo de LinkedIn` | Iker notó las impresiones raras; cifras en su chat |
+| meme del globo, Iker, publicado **13:17** | **sí**, en el gancho (`Solo voy a mirar LinkedIn un minuto…`) y en el ninja (`Un minuto en LinkedIn nunca…`) | sí, en el cierre | min 16 → 15 imp · min 18 → 23 · min 33 → 45 · **nunca salió en "Primero los más relevantes"** · borrado |
+| **resubida, ~14:00**, único cambio `LinkedIn` → `el móvil` | **no** | **sí, intacto** | ✅ **en "Primero los más relevantes" desde la cuenta de Mario en menos de 1 minuto** |
 
-- **Control del mismo día:** el mapa de Asier (29/09, 11:30, sin `LinkedIn`) repartió con normalidad, **445 impresiones a las ~2 horas**. No fue un día de filtro general.
-- **Lo que NO está probado:** que la culpa sea la palabra. Los dos son memes y los dos se publicaron el mismo día. El único precedente que repartió con `LinkedIn` en el gancho (Unai, 25/08, 23.164) es de hace 35 días y no vale para el filtro de hoy (`§9.2`).
-- **Cómo se cierra:** resubida con **un solo cambio**, `LinkedIn` → `el móvil`, en el gancho y en el ninja (`§9.5`). Si reparte, y la de Mario sin la palabra también, **pasa a la familia de riesgo** de `brand-voice §2c`. Si no reparte, la palabra queda descartada y se busca en otro sitio.
-- **Mientras tanto:** `validar-post.py` avisa si la primera línea lleva `LinkedIn` (aviso, no fallo duro, hasta que haya confirmación).
+- **Segundo caso con la misma palabra:** un meme de Mario (domingo 27/09) con `el algoritmo de LinkedIn` en el gancho también fue raro en impresiones. Iker sospechaba de `algoritmo`; **con el caso de hoy, la sospechosa es `LinkedIn`**. ⚠️ Ese tenía más variables encima (domingo, sin interacción de los jefes, público frío), así que va como indicio, no como prueba.
+- **Control del mismo día:** el mapa de Asier (29/09, 11:30, sin la palabra) salió en el feed y repartió (445 impresiones a las ~2 horas).
+- **Y de paso queda probada `teléfono`:** estaba en la versión capada y en la que salió. **No capa** (29/09). Se suma a la historia de Unai del 11/09 (5.788 imp).
+- **⚠️ Lo que no sabemos, dicho:** si capa `LinkedIn` en cualquier sitio o solo en el gancho. La versión capada la llevaba en los dos. Hasta que alguien lo pruebe, **fuera de todo el texto** (en la URL da igual: el `utm_source=linkedin` lo lleva todo post que ha repartido).
+- **Nuestro precedente en contra es viejo:** Unai 25/08 con `Medio LinkedIn` en el gancho hizo 23.164. De hace 35 días, así que según `§9.2` no vale para el filtro de hoy.
+- **La salida:** nombrar lo que se ve sin nombrar la plataforma. Aquí `el móvil`; en otros casos, `el feed`, `esta red`, `aquí`.
+- **Mecanizado:** fallo duro en `validar-post.py` (`Sin "LinkedIn" en el texto`), fuera de las URLs y salvo `--historico`.
 
 ### 9.4 · Lo que NO informa
 

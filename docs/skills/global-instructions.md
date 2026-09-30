@@ -2823,6 +2823,13 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 | ✅ probadas el 29/09 | `móvil`, `teléfono` | libres |
 - **Mecanizado:** fallo duro en `validar-post.py` (`Sin "LinkedIn" en el texto`), fuera de las URLs y salvo `--historico`.
 
+### ⛔ 9.3c · RESUBIR EL MISMO TEXTO VARIAS VECES EN UNA HORA NO DIAGNOSTICA NADA (30/09, historia de Iker)
+
+Cuatro versiones de la misma historia en ~1 h, cada una con UNA palabra distinta en el gancho, y **ninguna salió en el feed**. A partir de la 2ª ya no se estaba probando una palabra: se estaba subiendo **el mismo texto otra vez** desde una cuenta que acababa de borrar (y en un momento con **dos casi iguales vivas a la vez**, que el buscador de LinkedIn devolvía juntas). *Hipótesis, sin medir: duplicado + enfriamiento de la cuenta.* El barrido de las palabras sospechosas (`alarma`, `software`, `estreno`, `primicia`) en posts de la última semana las encontró todas en posts que reparten.
+- **Regla práctica:** tras el 1er capado, **como mucho UNA resubida ese día** y con el sospechoso cambiado. Si cae, se para: **ese día la cuenta publica OTRO texto** o nada, y la historia vuelve al día siguiente a primera hora.
+- **Y lo que se aprende de paso:** un post capado **sí aparece en el buscador de LinkedIn por palabras**. El buscador no es el feed, y no sirve para saber si está capado.
+- ⛔ **Los capados de la casa nunca han sido anglicismos:** han sido `Comenta "X"`, `conecta conmigo`, `la transcribo` y `LinkedIn`. `software` no tiene ningún precedente de capado.
+
 ### 9.4 · Lo que NO informa
 
 - **⛔ La ausencia de aviso.** LinkedIn **no avisa nunca** — ni en analíticas, ni en notificaciones (a diferencia de TikTok). Los tres capados tampoco tuvieron aviso. **Buscarlo es tiempo perdido y su ausencia no prueba nada** (`post-workflow §4.5.0-SIN-AVISO`).

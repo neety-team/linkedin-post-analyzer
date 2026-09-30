@@ -246,7 +246,9 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 
 **Lo que se comprobó en los metadatos y no se supuso:** los clips se grabaron **el lunes 22/09 entre las 12:36 y las 13:58**, y el evento era el **jueves 24**. `Al día siguiente` habría sido falso: va `En dos días`. **La fecha de grabación se lee siempre en `com.apple.quicktime.creationdate` antes de escribir una marca de tiempo.**
 
-**El caption** repite el gancho en la primera línea, **no desvela el evento** (`El porqué de tanta prisa, al final del vídeo`) y lleva el ninja a `/agendar/`. Se valida con `--pilar meme --referencia-fuera --meme-sobrio`, porque el validador no tiene pilar de vídeo: **57/57** el 29/09.
+**El caption** repite el gancho en la primera línea, **no desvela el evento** (`Todo por algo que pasaba 2 días después`) y lleva el ninja a `/agendar/` con **la persona, no la empresa** (`El nombre de quien decide te lo damos nosotros`). Es el tipo 2 del mapa de clientes del 18/09 (*sabe qué empresas, no a quién llamar*) y el dolor de nuestro mejor clic.
+
+**⛔ EL CAPTION NUNCA MANDA AL FINAL DEL VÍDEO (Iker, 30/09).** Ni `al final del vídeo`, ni `ojo al último plano`, ni nada que diga dónde está el pago. Iker: *"les estamos incitando a que salten el vídeo hasta el final… no quiero que nos destroce la retención"*. **El caption abre el bucle, pero no dice dónde se cierra**: el que lo lee antes de ver el vídeo salta al final, se pierde el medio y hunde la retención, que es la señal que reparte un vídeo. Se valida con `--pilar meme --referencia-fuera --meme-sobrio`, porque el validador no tiene pilar de vídeo: **57/57** el 29/09.
 
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.

@@ -2587,6 +2587,7 @@ La palabra del gancho sigue dentro (`caída`), el chiste sigue girado, **y la pr
 **La casilla es una: clics a `/agendar/` por post, ANTES contra DESPUÉS.** Si caen más de un tercio y las altas de correo no lo compensan, el bloque 2 se retira de los pilares que más convierten y se queda solo en historia y despiece. **Se re-mide a los 10 posts con doble bloque**, y el resultado se anota aquí.
 
 ### 4.5 · La regla del UNO en el cierre (CTA)
+> **⛔ ACTUALIZADO EL 2026-09-30 (Iker): *"¿desde cuándo cerramos las publicaciones con una pregunta?"*.** La opción de *"una pregunta que fuerza postura"* de abajo **ya no la usamos**: medido ese día, **1 de 80 posts de las 3 cuentas desde julio acaba en pregunta**, y es un lead magnet (`¿La quieres?`, donde la pregunta ES la oferta). **El cierre de la casa es una afirmación corta que remata** (Unai, sus 10 últimos: *"Nada de esto se hace solo."* · *"A Dirección no le vende nadie."* · *"Saber a quién llamar sigue caro."*). Fallo duro en `validar-post.py` salvo en `--pilar leadmagnet`.
 Exactamente UN cierre: una pregunta que fuerza postura, O un lead-magnet con la fórmula "Comenta X + Y", O un link directo en el cuerpo, O ningún CTA (un claim fuerte cierra). **Nunca apiles cierres.** (Nota: LinkedIn en 2026 NO penaliza links en el cuerpo — el folklore "ponlo en el primer comentario" está obsoleto. Un link en el cuerpo no suprime alcance; lo hemos verificado con posts >100K imp.)
 
 ### 4.6 · Matriz de elección

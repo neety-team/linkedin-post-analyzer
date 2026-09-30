@@ -250,6 +250,15 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 
 **⛔ EL CAPTION NUNCA MANDA AL FINAL DEL VÍDEO (Iker, 30/09).** Ni `al final del vídeo`, ni `ojo al último plano`, ni nada que diga dónde está el pago. Iker: *"les estamos incitando a que salten el vídeo hasta el final… no quiero que nos destroce la retención"*. **El caption abre el bucle, pero no dice dónde se cierra**: el que lo lee antes de ver el vídeo salta al final, se pierde el medio y hunde la retención, que es la señal que reparte un vídeo. Se valida con `--pilar meme --referencia-fuera --meme-sobrio`, porque el validador no tiene pilar de vídeo: **57/57** el 29/09.
 
+### 6.5b · LA VOZ EN OFF ES NARRACIÓN, NO TELEGRAMA (Iker, 30/09)
+
+> *"Lo veo horrible. Tienen que ser frases realmente de narración, no puntos y tanta pausa de respiración."* La primera versión eran 9 frases sueltas de 2-5 palabras (`11 personas. Una casa rural.`): leídas por ElevenLabs suenan a lista, no a alguien contando algo.
+
+- **La referencia de cómo se escribe es Rodri** (`Documentos/Mario/APRILYNNE/TRANSCRIPCIONES @rodri_qf.txt` y `CHECKLIST @rodri_qf.txt`): frases enteras y conversacionales que encadenan (`Y claro…`, `Lo gracioso es que…`, `Supongo que…`), micro-confesión al arrancar (`Igual es una tontería, pero…`), historia y reflexión alternadas, y **el giro sencillo y sin insinuar antes**. Las frases cortas se reservan para el golpe, no para todo el guion.
+- **Y la estructura, de Jenny Hoyos** (`APUNTES JENNY SHORTS.txt` y `2`): pregunta → progresión constante → tensión → pago → corte seco.
+- **Se entregan 3 propuestas de voz, distintas de verdad** (`working-preferences §1d-BIS`): crónica, confesión y cuenta atrás.
+- **⛔ El caption tampoco insinúa el giro** (Rodri: *"no puede estar insinuado antes"*). `Bueno, casi nadie` salió el 30/09 por eso.
+
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.

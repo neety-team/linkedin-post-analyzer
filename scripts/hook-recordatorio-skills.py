@@ -46,6 +46,25 @@ DISPARADORES = re.compile(
     re.I,
 )
 
+# 2026-09-30 (Iker): el primer video se entrego sin leer la skill de video ni los
+# apuntes (Rodri, Jenny) y el guion "no era de video ni era de nada". Si la peticion
+# es de VIDEO, el recordatorio nombra los ficheros exactos y el validador.
+VIDEO = re.compile(
+    r'\b(video|videos|reel|reels|tiktok|short|shorts|guion|guiones|voz en off|elevenlabs'
+    r'|plano|planos|b-?roll|premiere|subtitulo|subtitulos)\b',
+    re.I,
+)
+
+TEXTO_VIDEO = (
+    " ES UN VIDEO: carga ENTERO docs/skills/video.md (sobre todo §6: el pilar, el "
+    "chequeo de 9 puntos del gancho y §6.5b-c: la voz es NARRACION que COMPLEMENTA "
+    "el plano, nunca lo describe) y LEE los apuntes de "
+    "C:/Users/LENOVO/Documents/Mario/APRILYNNE/ (TRANSCRIPCIONES y CHECKLIST "
+    "@rodri_qf, APUNTES JENNY SHORTS 1 y 2, APUNTES TIKTOK) antes de proponer nada. "
+    "Entrega 3 propuestas de voz y pasa python scripts/validar-video.py <voz.txt> "
+    "--caption <caption.txt> --cuenta X, pegando su resultado."
+)
+
 TEXTO = (
     "RECORDATORIO AUTOMATICO (hook, no lo ha escrito el usuario). Esta peticion "
     "parece tocar un POST DE LINKEDIN o un EMAIL: ABRE Y LEE ENTEROS los "
@@ -68,13 +87,14 @@ def main():
         return
 
     prompt = sin_tildes(str(datos.get('prompt') or ''))
-    if not DISPARADORES.search(prompt):
+    if not DISPARADORES.search(prompt) and not VIDEO.search(prompt):
         return
 
+    texto = TEXTO + (TEXTO_VIDEO if VIDEO.search(prompt) else '')
     print(json.dumps({
         "hookSpecificOutput": {
             "hookEventName": "UserPromptSubmit",
-            "additionalContext": TEXTO,
+            "additionalContext": texto,
         }
     }, ensure_ascii=False))
 

@@ -6,6 +6,16 @@
 
 ---
 
+## 00 · ⛔⛔ PASO 0 DE TODO VÍDEO, SIN EXCEPCIÓN (Iker, 2026-09-30)
+
+> *"Me parece ridículo que te hayas equivocado tan grande y me habías dado un guion que no era de vídeo ni era de nada."* El primer guion de la casa se entregó **sin leer esta skill entera ni los apuntes**: 9 frases sueltas que describían los planos.
+
+1. **Esta skill ENTERA**, y en un vlog, todo el `§6`.
+2. **Los apuntes, en `Documentos/Mario/APRILYNNE/`:** `TRANSCRIPCIONES @rodri_qf.txt` y `CHECKLIST @rodri_qf.txt` (cómo se narra), `APUNTES JENNY SHORTS.txt` y `APUNTES JENNY SHORTS 2.txt` (estructura) y `APUNTES TIKTOK.txt`.
+3. **3 propuestas de voz distintas de verdad**, con la recomendada marcada.
+4. **`python scripts/validar-video.py <voz.txt> --caption <caption.txt> --cuenta X`**, pegando el resultado, y **por escrito** los 5 puntos que imprime y el script no ve.
+5. **El hook de la conversación ya lo recuerda** en cuanto el mensaje dice vídeo, guion, planos, voz en off o ElevenLabs.
+
 ## 0 · Precedencia — el vídeo es OTRO artefacto
 
 Un post de vídeo se consume distinto (autoplay, swipe, sonido normalmente off→on). Por eso **NO aplican** las reglas de post de texto:
@@ -267,7 +277,7 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - **La voz habla de ventas y de lo que hacemos**, con munición del informe de clientes (`global §4.4b-MUNICIÓN`, mapa de 4 tipos del 18/09): *se les van meses buscando empresas y luego no saben a quién llamar dentro*. El evento se retrasa hasta el final.
 - **Desde la perspectiva del dueño de la cuenta, y sin salpicar a nadie de dentro.** `Nunca nos había visto a los 11 tan concentrados` se tumbó el 30/09: en boca del CEO se lee como que normalmente no lo están.
 - **El orden cerrado:** gancho → lo que nos cuentan los clientes → a qué nos dedicamos → la ironía (*esa mañana los que íbamos a contrarreloj éramos nosotros*) → el porqué (el evento) → el giro de la piscina y corte seco.
-- **⛔ La marca de tiempo es la de verdad.** Iker pidió `al día siguiente` dos veces; los clips son del martes 22 y el evento era el jueves 24. Va `Faltaban 2 días`, que además es lenguaje de cuenta atrás.
+- **La marca de tiempo del relato la decide Iker.** Los clips son del martes 22 y el evento era el jueves 24. Aun así, el 30/09 Iker pidió `al día siguiente` sabiéndolo: *"la gente no tiene por qué saber cuándo se grabó"*. **Es el tiempo del relato sobre nuestra propia grabación, no un dato de un tercero** (misma lógica que las escenas construidas de `post-workflow §4.6-INVENTAR`). Se avisa una vez con el dato y, si Iker lo confirma, se aplica igual en voz y caption.
 
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.

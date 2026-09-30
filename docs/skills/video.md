@@ -275,6 +275,9 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
   | la memoria | imperfecto (`las guardaba`, `me decía`) | `éramos`, `presentábamos` |
   | marcas orales | `¿sabes?`, `o sea`, `claro`, `lo gracioso es que`, `no me malinterpretéis` | `¿Sabes…?`, `O sea`, `Lo gracioso es que` |
   | el final | 2 de 5 cierran con una pregunta al que mira y **1 con AUDIO REAL** (la abuela) | el `holaaa` real de la piscina |
+- **LA VOZ POR DEFECTO ES UNA VOZ DE IA, Y DE CHICA (Iker, 30/09):** la misma de los tráileres y cortos del evento, hecha en ElevenLabs. **No se ve quién habla**, aunque lo suba un jefe, y por eso el guion va **en primera del plural por defecto**: habla la casa, no una persona.
+  - **Excepción futura:** si algún vídeo lleva la voz real de un jefe, se puede pasar a la primera del singular, como Rodri. Iker lo ve raro porque *"retrasaría mucho mi trabajo depender de que alguien me grabe la voz"*.
+  - **Ojo con el género:** con voz de chica, **nada que marque el sexo de quien narra en singular** (`estaba agotado`, `me quedé sorprendido`). En plural el masculino genérico del equipo mixto sí vale (`éramos nosotros`).
 - **Música (Iker, 30/09):** sin derechos, de **Pixabay** (licencia de contenido de Pixabay: uso comercial sin atribución), bajita debajo de la voz (Rodri: *"música emocional suave"*), y **se corta en seco en el giro**, para que el audio real suene solo. ⚠️ Las marcadas **"Content ID Registered"** dan reclamaciones en YouTube y Facebook; LinkedIn no tiene Content ID.
 - **Y la estructura, de Jenny Hoyos** (`APUNTES JENNY SHORTS.txt` y `2`): pregunta → progresión constante → tensión → pago → corte seco.
 - **Se entregan 3 propuestas de voz, distintas de verdad** (`working-preferences §1d-BIS`): crónica, confesión y cuenta atrás.

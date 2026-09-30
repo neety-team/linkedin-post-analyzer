@@ -314,6 +314,10 @@ Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-P
 
 > *"Ya que grabé todo el contenido que pude, no puede ser que haya planos que no me hayas incluido."* En el primer mapa se quedaron fuera 5 de 25 clips, entre ellos **4899, un trabajador**, sin decir por qué.
 
+- **⛔ "DUPLICADO" ES EL MISMO ENCUADRE, NO LA MISMA ACTIVIDAD (Iker, 30/09).** Descarté 4918 como *duplicado de 4916* porque los dos son galletas, y **4918 era el mejor de los dos**: ángulo distinto y fondo desenfocado. Iker: *"cuidado al descartar, asegúrate muy bien de lo que dices"*.
+  - Antes de descartar, **se ponen los dos fotogramas uno al lado del otro** y se compara lo que se ve: encuadre, profundidad de campo, luz, si hay cara o gesto. Si cambian, **no es duplicado: son dos planos**, y se puede usar cada uno en un momento (galletas, luego comida, luego otra vez galletas desde otro ángulo: variedad sin salir de la escena).
+  - Entre dos tomas de verdad parecidas gana la **más llamativa**: fondo desenfocado, luz, movimiento dentro del plano.
+  - Y si el motivo es gusto (*no aporta*, *no llama la atención*), se escribe como `porque…`, nunca disfrazado de `duplicado`.
 - **Cada clip de la carpeta sale en el mapa:** usado, o `DESCARTADO` con su motivo (casi siempre, *duplicado de X*: la misma escena desde otro ángulo). Lo comprueba `validar-video.py --carpeta <dir> --planos <mapa.txt>`.
 - **~~Ritmo: un corte cada ~1 s en el medio y ~0,7 s en la prisa~~ → CORREGIDO EL MISMO DÍA CON EL PREMIERE DELANTE (Iker, 30/09).** *"¿Cómo vas a meterme en dos segundos cinco planos?"* `y el nombre de quien decide` duró **1,4 s** y no cabían dos planos. La regla buena:
   - **SOLO el gancho va sobrecargado:** un corte cada ~2 palabras, sin dejar respirar ni un segundo.

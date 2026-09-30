@@ -233,7 +233,9 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
-## 📝 ENTREGADO (v2) · MIÉ 30/09 · ASIER · LEAD MAGNET `/sistema/` (recurso NUEVO: 5 encargos a Claude)
+## ✅ PUBLICADO · MIÉ 30/09 ~13:45 · ASIER · LEAD MAGNET `/sistema/` (recurso NUEVO: 5 encargos a Claude)
+
+> **Publicado ~13:45 (hora de Madrid, la de la conversación; Iker no dio el minuto exacto).** **Sin capado: al primer minuto ya salía en el feed de Relevantes de otra cuenta** (Iker). Imagen: la v2 del generador (tarjetas 4 y 5 bajadas para cuadrar la columna derecha) con la línea de la tarjeta 5 trazada a mano, porque el generador dejó el punto de la mano y el de la tarjeta sin unir. **A medir:** comentarios "SISTEMA" contra los 105 y 22 de los lead magnets anteriores, y registros en `/sistema/`.
 
 | dato | |
 |---|---|

@@ -78,6 +78,8 @@ def main():
     ap.add_argument('--cuenta')
     ap.add_argument('--pilar-video', default='manana', choices=['manana', 'otro'])
     ap.add_argument('--publica-manana', action='store_true')
+    ap.add_argument('--carpeta', help='carpeta con los clips grabados')
+    ap.add_argument('--planos', help='mapa de planos: cada clip usado o DESCARTADO con su motivo')
     a = ap.parse_args()
 
     voz = io.open(a.voz, encoding='utf-8').read().strip()
@@ -122,6 +124,19 @@ def main():
         chk(not m, 'Voz: registro de Unai, sin expresiones de calle (brand-voice §1b)',
             f'"{m.group(0)}"' if m else '')
 
+    # 2026-09-30 (Iker): "no puede ser que haya planos que no me hayas incluido". En el
+    # primer video se quedaron fuera 4899 (un trabajador) y otros cuatro sin decir por que.
+    # Cada clip de la carpeta tiene que salir en el mapa: usado, o DESCARTADO con motivo
+    # (normalmente, duplicado de otro).
+    if a.carpeta and a.planos:
+        clips = sorted({os.path.splitext(f)[0].upper() for f in os.listdir(a.carpeta)
+                        if re.search(r'\.(mov|mp4|m4v)$', f, re.I)})
+        mapa = io.open(a.planos, encoding='utf-8').read().upper()
+        faltan = [c for c in clips if c.replace('IMG_', '') not in mapa]
+        chk(not faltan, f'Planos: los {len(clips)} clips de la carpeta estan en el mapa (usados o descartados con motivo)',
+            f'faltan {faltan}' if faltan else '')
+        sin_motivo = [l.strip() for l in mapa.split('\n') if 'DESCART' in l and 'PORQUE' not in l and 'DUPLICADO' not in l]
+        chk(not sin_motivo, 'Planos: todo descarte dice por que (duplicado de X / porque...)', f'{sin_motivo[:2]}')
     salida_caption = ''
     if a.caption:
         cap = io.open(a.caption, encoding='utf-8').read()

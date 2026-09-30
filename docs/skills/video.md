@@ -310,6 +310,15 @@ Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-P
 
 **⭐ Y EL CONTENIDO QUE FUNCIONÓ, en palabras de Iker:** *"atacamos el punto de dolor del cliente, que es lo que más conversión nos va a generar… no se nos ha ido la cabeza haciendo un primer vídeo de un trend, un baile que no tenga nada que ver."* **El formato viral pone el alcance; el dolor del cliente, dicho en la voz, pone la conversión.** Es la misma separación de palancas que `post-workflow §4.4-CONVERSION`.
 
+### 6.5e · EL MAPA DE PLANOS USA TODO LO GRABADO, Y EL AUDIO NO SE SUPONE (Iker, 30/09)
+
+> *"Ya que grabé todo el contenido que pude, no puede ser que haya planos que no me hayas incluido."* En el primer mapa se quedaron fuera 5 de 25 clips, entre ellos **4899, un trabajador**, sin decir por qué.
+
+- **Cada clip de la carpeta sale en el mapa:** usado, o `DESCARTADO` con su motivo (casi siempre, *duplicado de X*: la misma escena desde otro ángulo). Lo comprueba `validar-video.py --carpeta <dir> --planos <mapa.txt>`.
+- **Ritmo: más planos por frase, no uno por frase.** Un corte cada ~1 s en el medio, y en los momentos de prisa, ~0,7 s. **La excepción es el plano lento a propósito** (4908 tras la intro): Iker lo deja porque *"nuestro público va a ser mayor, no necesita tanta sobrecarga de estímulo"*. Sobrecarga en los 3 s del gancho y en el montaje de la prisa; respiro después del gancho.
+- **⛔ El audio de un clip no se supone.** Escribí que en 4922 sonaba un `holaaa` porque medí un pico de volumen y lo crucé con el texto de ejemplo de una captura de Iker: **era el sonido de ambiente**. Ella no dice nada. Un pico de volumen no es una palabra. **Si el guion depende de lo que se oye en un clip, se pregunta a Iker o se transcribe; nunca se deduce.**
+- **Un giro visual basta:** la compañera de espaldas bañándose, después de 20 s de "contrarreloj", es el giro. La voz solo lo presenta (`¿y este plano?`) y se corta.
+
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.

@@ -353,6 +353,27 @@ Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-P
   ```
 - **Un giro visual basta:** la compañera de espaldas bañándose, después de 20 s de "contrarreloj", es el giro. La voz solo lo presenta (`¿y este plano?`) y se corta.
 
+### 6.5f · FICHA TÉCNICA DEL PRIMER VÍDEO PUBLICADO (Unai, 30/09 16:44), MEDIDA SOBRE EL EXPORT
+
+**La vara para comparar los siguientes.** Medido con ffmpeg sobre `Una mañana de ventas a contrarreloj.mp4`:
+
+| dato | valor |
+|---|---|
+| formato | 1080×1920 (9:16) · 29,97 fps · **22,26 s** |
+| planos | **16 planos, 15 cortes** · **1,4 s de media** por plano |
+| gancho | 3 planos en **2,3 s** (cortes en 0,70 · 1,43 · 2,30) |
+| plano lento tras el gancho | 4908, **2,6 s** |
+| giro | la piscina, **0,87 s** en pantalla y fin: el corte más rápido del vídeo |
+| volumen | **-19,5 LUFS** · pico **-3,5 dBFS** (la voz sola venía de -22,1). **Quedaban ~2,5 dB de margen** sin saturar: en el siguiente, un poco más arriba |
+
+**Lo observado al publicar (Iker):**
+- **LinkedIn repite el vídeo en bucle solo, sin que nadie lo pare.** Con un giro de menos de 1 s al final, el bucle invita a volver a verlo, que es el objetivo de Jenny (*"rewatchability"*).
+- **El giro funciona por contraste de tono:** 20 s de narración formal y, de golpe, la piscina.
+
+**Dos cosas para mirar en el siguiente, sin darlas por malas hasta tener la retención:**
+- **El primer fotograma solo lleva `Una mañana`**: el gancho se va completando línea a línea y está entero a los ~1,4 s. Lo acordado (`§6.4b`) era el gancho entero desde el fotograma 0. Con reproducción automática y wifi, el primer fotograma es lo primero que se ve. La portada, subida aparte, sí lleva el gancho entero.
+- **La piscina ya se ve a los 3-5 s** (el tramo de 4908 que se usó llega a la casa con la piscina). Puede ser una siembra que hace que el giro se entienda, o destripar parte de la sorpresa. **Lo dirá la curva de retención**, si LinkedIn la da.
+
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.

@@ -1352,7 +1352,21 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # outliers-database §3.7 (los outliers usan un 25% MENOS lenguaje de
     # autoridad/prueba que los posts normales). La credencial va en el cuerpo si
     # hace falta, o en la foto, que no presume porque no lo dice: lo enseña.
-    chk(False, 'ENTREGA: ¿el gancho PRESUME? (brand-voice §1)',
+    # ⚠️ EXCEPCION UNAI (Iker, 2026-09-30): "a este jefe le encanta no ir de
+    # humilde". En su cuenta el aviso NO pide la version humilde (eso le jugaba a
+    # la contra): pide que lo grande sea VERDAD, sobrio y sin compararse
+    # (brand-voice §1b, UNAI QUIERE EL GANCHO GRANDIOSO).
+    if (cuenta or '').strip().lower() == 'unai':
+        chk(False, 'ENTREGA: el gancho de UNAI va A LO GRANDE (brand-voice §1b)',
+            'En Unai NO se busca la version humilde: se busca la version GRANDE de la misma '
+            'escena verdadera ("La nueva forma de vender que presentamos no cupo en una sala"). '
+            'Comprueba tres cosas: (1) el hecho es CIERTO, nada de "la mayor" ni cifras '
+            'infladas; (2) la VOZ sigue sobria, sin expresiones de calle (petarlo, reventar, de '
+            'locos), sin ULTIMA HORA y sin revolucionar/transformar; (3) no se compara con '
+            'nadie (mejor que nadie, los demas). Solo en Unai: el resto de cuentas sigue con '
+            'la version humilde de global §2.0c-PRESUMIR', aviso=True)
+    else:
+        chk(False, 'ENTREGA: ¿el gancho PRESUME? (brand-voice §1)',
         'Si la primera linea lleva un logro tuyo, una cifra tuya buena o un premio, el '
         'lector lee "mirame" y no "sigue leyendo". La autoridad se demuestra con el '
         'contenido, nunca se anuncia, y esta medido: los outliers usan un 25% MENOS '

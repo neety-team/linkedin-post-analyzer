@@ -49,6 +49,24 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 - **✅ Y `jamás` NO es una preferencia, está MEDIDO en su propia cuenta (21/08):** su meme del 29/07 abre con *"A mí un cliente no me deja una propuesta en visto. **Jamás** 👇"* y hizo **6.83x · 93.744 impresiones**, uno de sus dos mejores posts del verano. **El intensificador que le pega ya se lo habíamos dado antes y funcionó**; lo que faltaba era tenerlo escrito para no volver a ofrecerle `ni de broma`.
 - **Vale para todo lo que escriba esta cuenta**, no solo el gancho: cuerpo, spam ninja y respuestas a comentarios.
 
+#### 🏆 UNAI QUIERE EL GANCHO GRANDIOSO: SOBRIO EN LA VOZ, A LO GRANDE EN LO QUE CUENTA (Iker, 2026-09-30)
+
+> **Iker, tras tumbar Unai un gancho humilde para el post de cierre de Neety Forward (página de empresa, con su tono):** *"quiere que el gancho transmita la sensación de que hemos roto la sala y que nos posicione más arriba. Piensa más a lo grande, más vender la moto. A este jefe le encanta no ir de humilde"*. El precedente es suyo: el 23/09 eligió `En menos de 24 horas se marca un antes y un después en ventas 👇`.
+
+**Qué cambia en su cuenta (y en la página de empresa cuando va con su tono):** en el GANCHO no se busca la versión humilde de `global §2.0c-PRESUMIR`. Se busca la versión **grande de la misma escena verdadera**: la sala que se quedó pequeña, la forma de vender que presentamos, el antes y el después. El caso: `Jamás pensamos que tendríamos que cambiar de sala para hablar de ventas 🙂` (tumbado, humilde) → `La nueva forma de vender que presentamos no cupo en una sala 👇`.
+
+**Lo que NO cambia, para que esta regla no juegue a la contra:**
+- **Solo Unai.** Iker, Asier, Mario y Helena siguen con `§2.0c-PRESUMIR` tal cual. Si una referencia pide gancho humilde y la cuenta es Unai, se hace grande o se da a otra cuenta.
+- **"Cero hype" de la tabla de arriba sigue en pie, y es otra cosa:** el hype que se veta es el de la VOZ (exclamaciones, jerga de creador, expresiones de calle: `petarlo`, `reventar la sala`, `de locos`). Lo grande va en la **ambición del hecho**, dicho con palabras sobrias. Iker pidió "que hemos roto la sala" como SENSACIÓN: se dice `no cupo en una sala`, no `petamos la sala`.
+- **Grande no es inventado.** El hecho tiene que ser cierto (la sala se quedó pequeña: sí; "la mayor" o "miles": no). `CLAUDE.md`, lo que no se negocia.
+- **Grande no es compararse.** Nada de `mejor que nadie`, `los demás se quedan atrás`: el canónico de no criticar a nadie manda (`§5`).
+- **Y sigue todo lo mecánico del gancho:** bucle abierto, ancla de ventas, ≤1 cifra, sin `LinkedIn`. `ÚLTIMA HORA:` tampoco: a Unai no le gusta (historial, 23/09).
+- **Ni `revolucionar`/`transformar`** (`global §2.9-REVOLUCIONAR`, medido): lo grande sale de un objeto concreto (la sala, el antes y el después), no del verbo gastado.
+
+**Lo medido, y es poco (`working-preferences §0c`: esto es preferencia del jefe, no doctrina de datos):** su historia del 23/09 con el gancho grandioso hizo **9.928 impresiones, 43 clics y 18 comentarios** (el máximo de comentarios de sus historias), por encima de su mediana de historia desde julio (**8.917**, n=6). En contra: el del 24/09 (`Ya solo nos quedan unos minutos para que empiece el después en ventas`) hizo **1.279**, aunque salió 40 minutos antes del evento y sin enlace. n=2: se hace porque lo pide él, y se sigue midiendo.
+
+**Mecanizado:** con `--cuenta unai`, el aviso `ENTREGA: ¿el gancho PRESUME?` de `validar-post.py` ya no pide la versión humilde: pide comprobar que lo grande es verdad, sobrio y sin compararse.
+
 **⚠️ SOBRIO NO ES ACARTONADO.** Los tres siguen siendo naturales, punchy, con clichés y con el formateado de siempre. **Lo que cambia es el volumen, no el idioma.** Un Unai corporativo sería un fallo peor que un Unai informal.
 
 **Lo que dicen los datos, y matiza la regla (medido el 2026-07-16):** el mejor post de la historia de Unai (**16.62x**) abre con *"En ventas, cada año la caja de herramientas engorda pero el comercial cierra menos"*. **Ese texto YA es sobrio**: suena a industrial, no a creador. Lo infantil estaba en la **imagen** (un wojak), no en el texto.

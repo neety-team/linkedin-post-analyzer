@@ -247,7 +247,9 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 
 ### 6.5 · El guion del primer vídeo (29/09, Unai) — la plantilla del pilar
 
-**Estructura, ~17 s y ~40 palabras de voz en off (= subtítulos):**
+**⏱️ DURACIÓN DEL PILAR: unos 21 s de voz, unas 60 palabras (Iker, 30/09: *"máximo 20, si dura unos 21 segundos estaría guay"*).** Rodri hace vídeos de 40 s a 1 min, pero no manda en la duración: manda la rampa (15,8 s, 66% de retención) y Jenny (TikTok 10-20 s, *"cada segundo cuenta"*). `validar-video.py` falla por encima de 70 palabras y avisa por encima de 62.
+
+**Estructura (la versión corta del 29/09; la final está en `§6.5c`):**
 1. **0-3 s · gancho con sobrecarga de planos:** 3 planos, uno por línea y un zoom por palabra. Primero el grupo trabajando en el sitio (el primer frame), luego el detalle de trabajo y al final una cara de agobio.
 2. **3-5 s · dónde y cuántos:** el plano abierto del sitio, cortado **antes** de que se vea el giro. La casa rural sale aquí, dicha en voz, no en el gancho.
 3. **5-10 s · el desarrollo en 3 (`§4` punto 9):** `Unos… / Otros… / Y alguien…`. El segundo plano enseña el material del desvelado sin nombrarlo (`montando esto`).
@@ -292,6 +294,21 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - **Desde la perspectiva del dueño de la cuenta, y sin salpicar a nadie de dentro.** `Nunca nos había visto a los 11 tan concentrados` se tumbó el 30/09: en boca del CEO se lee como que normalmente no lo están.
 - **El orden cerrado:** gancho → lo que nos cuentan los clientes → a qué nos dedicamos → la ironía (*esa mañana los que íbamos a contrarreloj éramos nosotros*) → el porqué (el evento) → el giro de la piscina y corte seco.
 - **La marca de tiempo del relato la decide Iker.** Los clips son del martes 22 y el evento era el jueves 24. Aun así, el 30/09 Iker pidió `al día siguiente` sabiéndolo: *"la gente no tiene por qué saber cuándo se grabó"*. **Es el tiempo del relato sobre nuestra propia grabación, no un dato de un tercero** (misma lógica que las escenas construidas de `post-workflow §4.6-INVENTAR`). Se avisa una vez con el dato y, si Iker lo confirma, se aplica igual en voz y caption.
+
+### 6.5d · LA ENTREGA DE UN POST DE VÍDEO SON DOS TEXTOS Y UNA MÚSICA (Iker, 30/09)
+
+> *"Una cosa es el texto del caption con todos los aprendizajes de publicaciones y otra cosa es la transcripción de la voz en off."*
+
+| pieza | se escribe con | se valida con |
+|---|---|---|
+| **Caption** | todas las reglas de post de texto (`global`, `brand-voice`), ninja incluido | `validar-post.py` (dentro de `validar-video.py`) |
+| **Voz en off = subtítulos** | esta skill, Rodri (cómo se narra) y Jenny (estructura) | `validar-video.py` |
+| **Música** | Pixabay sin derechos, bajita, cortada en el giro | a mano: Content ID sí o no |
+| **Planos** | un plano por frase, la voz complementa | a mano: `§6.5c` |
+
+Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-PREDICCION`, que también es global en vídeo.
+
+**⭐ Y EL CONTENIDO QUE FUNCIONÓ, en palabras de Iker:** *"atacamos el punto de dolor del cliente, que es lo que más conversión nos va a generar… no se nos ha ido la cabeza haciendo un primer vídeo de un trend, un baile que no tenga nada que ver."* **El formato viral pone el alcance; el dolor del cliente, dicho en la voz, pone la conversión.** Es la misma separación de palancas que `post-workflow §4.4-CONVERSION`.
 
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.

@@ -92,7 +92,10 @@ def main():
     m = re.findall(vp.NUMERO_EN_LETRA, voz, re.I)
     chk(not m, 'Voz: cifras en digito, los subtitulos son la voz (global §3.6)', f'{m[:3]}' if m else '')
 
-    chk(n <= 85, 'Voz: dura 30 s o menos (<=85 palabras a 2,8/s)', f'{n} palabras, ~{round(n / 2.8)} s')
+    # 2026-09-30 (Iker): "quiero un video de maximo 20, si dura unos 21 segundos estaria
+    # guay". Referencias: la rampa 15,8 s con 66% de retencion; Jenny, TikTok 10-20 s.
+    chk(n <= 70, 'Voz: 25 s como mucho (<=70 palabras a 2,8/s)', f'{n} palabras, ~{round(n / 2.8)} s')
+    chk(n <= 62, 'Voz: en torno a 21 s, el objetivo de Iker (<=62 palabras)', f'{n} palabras, ~{round(n / 2.8)} s', aviso=True)
     chk(n >= 35, 'Voz: dura 12 s o mas (>=35 palabras)', f'{n} palabras', aviso=True)
 
     cortas = [f for f in fr if len(palabras(f)) <= 4]

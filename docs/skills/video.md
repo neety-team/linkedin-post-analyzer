@@ -227,9 +227,9 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 ### 6.4a · LA PORTADA DE LINKEDIN ES UNA IMAGEN APARTE (Iker, 30/09)
 
 LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir un fotograma de la línea de tiempo. Criterio de Iker: *"un fotograma que luego te vayas a encontrar en el vídeo"*, como en YouTube Shorts.
-- **Como es una imagen aparte, el gancho se agranda en ella.** En el fotograma del vídeo, el bloque de 3 líneas ocupa el **30% del ancho y el 7,6% del alto** (medido el 30/09): sirve para leer mientras corre el vídeo, pero en miniatura en el feed se queda pequeño. En la portada va **al doble, ~60% del ancho**, con el mismo halo.
+- **~~El gancho se agranda en la portada~~ → Iker, 30/09: el texto de la portada va IGUAL que dentro del vídeo** (en el primero, 30% del ancho y 7,6% del alto), *"porque si les aparece la portada y pulsan play, coincidirá; si de repente lo pongo mucho más grande, va a quedar feo"*. Manda la continuidad entre portada y vídeo. Lo que sí se cuida es que el texto **no tape la cara** de quien mira a cámara.
 - **El fotograma, con los criterios de `§6.4`:** identidad y sitio sin sonido. Si el vídeo es de equipo, que se vea el equipo (en el primero, 4897: los 5 con las vigas). Un logo de la casa de fondo (la bolsa de Neety) vale **si es atrezo y no el tema**; el photocall o un cartel, no, porque destripan y se leen como anuncio.
-- *(Deducción, sin medir en vídeo)* con la reproducción automática del feed, la portada pesa sobre todo en el perfil, al compartir y a quien la tiene desactivada; en el feed manda el primer fotograma del vídeo.
+- **Reproducción automática, según la ayuda de LinkedIn (comprobado el 30/09):** los vídeos del feed **arrancan solos y sin sonido** por defecto, y el sonido entra cuando alguien toca el vídeo. **En el móvil, por defecto solo arrancan con wifi**, y cada uno lo puede desactivar en *Ajustes → Preferencias del sitio → Reproducción automática*. Consecuencia: la **portada la ve quien está con datos móviles**, el que lo tiene desactivado y el que entra por el perfil; con wifi, lo primero que se ve es el primer fotograma. Por eso portada y primer fotograma son el mismo plano.
 
 ### 6.4b · TEXTO EN PANTALLA: CUÁNDO, CUÁNTO, FUENTE Y COLOR (2026-09-29)
 

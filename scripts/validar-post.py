@@ -1361,8 +1361,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'En Unai NO se busca la version humilde: se busca la version GRANDE de la misma '
             'escena verdadera ("La nueva forma de vender que presentamos no cupo en una sala"). '
             'Comprueba tres cosas: (1) el hecho es CIERTO, nada de "la mayor" ni cifras '
-            'infladas; (2) la VOZ sigue sobria, sin expresiones de calle (petarlo, reventar, de '
-            'locos), sin ULTIMA HORA y sin revolucionar/transformar; (3) no se compara con '
+            'infladas; (2) la VOZ sin jerga de creador (de locos, flipa), sin ULTIMA HORA y sin '
+            'revolucionar/transformar; romper/reventar SI valen sobre un objeto concreto (la '
+            'sala), "no cupo" se le queda formal (30/09); (3) no se compara con '
             'nadie (mejor que nadie, los demas). Solo en Unai: el resto de cuentas sigue con '
             'la version humilde de global §2.0c-PRESUMIR', aviso=True)
     else:

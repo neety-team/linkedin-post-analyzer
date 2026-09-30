@@ -2783,6 +2783,8 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 | lead magnet 18/08 | `conecta conmigo` | **forzar el algoritmo** |
 | meme 19/08 (133 imp) | `La transcribo` en primera persona | **datos de terceros** |
 
+| historia 30/09 (44 imp a los 30 min) | `Nos entraron a robar…` en el GANCHO, afirmando un delito sufrido (y 10 etiquetas en la foto, variable nueva) | **delito, sin confirmar**: resubida con `Nos saltó la alarma de robo` pendiente (historial 30/09) |
+
 **Iker, y es la lectura que hay que retener:** *"siempre se nos prohíbe cuando forzamos para explotar el algoritmo con cosas como `comenta` o `conecta conmigo`, o cuando el algoritmo saca indicios de que lo que hemos subido puede poner en peligro los datos o la privacidad de los usuarios"*.
 
 **Y el contexto que lo agrava: LinkedIn es cada vez más restrictivo**, y ha añadido un **botón para reportar publicaciones** a mano. Lo que pasaba hace tres meses no es la vara de hoy, y la vara se sigue moviendo.

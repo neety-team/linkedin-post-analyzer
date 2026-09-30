@@ -259,6 +259,16 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - **Se entregan 3 propuestas de voz, distintas de verdad** (`working-preferences §1d-BIS`): crónica, confesión y cuenta atrás.
 - **⛔ El caption tampoco insinúa el giro** (Rodri: *"no puede estar insinuado antes"*). `Bueno, casi nadie` salió el 30/09 por eso.
 
+### 6.5c · LA VOZ NO CUENTA LO QUE SE VE: LO COMPLEMENTA (Iker, 30/09) — REGLA DEL PILAR
+
+> *"El error garrafal que comete mucha gente es que ya haya grabado un plano de la gente trabajando con los portátiles y que tú digas «estábamos trabajando con los portátiles». La voz en off tiene que ser complementaria, que siga la narración del gancho y tenga vinculación con ventas."*
+
+- **La imagen ya enseña qué pasa; la voz cuenta lo que la imagen no puede:** el porqué, a qué nos dedicamos, qué nos dicen los clientes. `Unos, con el portátil` sobre un plano de portátiles es gastar dos canales en decir lo mismo.
+- **La voz habla de ventas y de lo que hacemos**, con munición del informe de clientes (`global §4.4b-MUNICIÓN`, mapa de 4 tipos del 18/09): *se les van meses buscando empresas y luego no saben a quién llamar dentro*. El evento se retrasa hasta el final.
+- **Desde la perspectiva del dueño de la cuenta, y sin salpicar a nadie de dentro.** `Nunca nos había visto a los 11 tan concentrados` se tumbó el 30/09: en boca del CEO se lee como que normalmente no lo están.
+- **El orden cerrado:** gancho → lo que nos cuentan los clientes → a qué nos dedicamos → la ironía (*esa mañana los que íbamos a contrarreloj éramos nosotros*) → el porqué (el evento) → el giro de la piscina y corte seco.
+- **⛔ La marca de tiempo es la de verdad.** Iker pidió `al día siguiente` dos veces; los clips son del martes 22 y el evento era el jueves 24. Va `Faltaban 2 días`, que además es lenguaje de cuenta atrás.
+
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.

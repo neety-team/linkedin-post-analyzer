@@ -690,6 +690,8 @@ que la frase **incluya al que publica**, así no señala a nadie:
 frase y sentirse señalado?* Si la respuesta no es un no rotundo, se reescribe contra
 el proceso.
 
+**⛔ Y TAMPOCO LA AUTOCRÍTICA IMPLÍCITA, AUNQUE EL SUJETO SEA UNA COSA (Iker, 2026-09-30).** En el lead magnet de Asier escribí *"Yo vivo entre código y el comercial, entre programas que no se hablan"*. Nadie sale señalado, pero **se lee como que en casa no nos comunicamos**. Iker: *"nunca pongas algo que nos pueda dejar mal o que deje a huevo que la gente diga: qué mal se organizan"*. **Las carencias se cuentan del SECTOR o del proceso de cualquiera, nunca de nuestra casa, ni en primera persona ni de nuestros programas.** La salida es la cara positiva de lo nuestro: quedó *"En mi código, cada pieza sabe lo que hace la de al lado"*. El test tiene una segunda pregunta: *¿esta frase le deja a alguien decir "qué mal se organizan en Neety"?*
+
 ### ⛔⛔ 5b · Y TAMPOCO SE HABLA **EN NOMBRE** DE OTRO COLECTIVO, AUNQUE SEA PARA DEFENDERLO (Mario, 2026-08-21)
 
 > **Mario, sobre el post de la caída de los influencers:** *"la frase de hostelería la voy a quitar porque me puede perjudicar. Quiero un post blindado"*. La frase era *"Tengo amigos en hostelería que cierran a las 3 y madrugan igual"*.

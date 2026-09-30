@@ -269,7 +269,7 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 
   | recurso | en Rodri | en nuestro guion |
   |---|---|---|
-  | persona | **1ª del singular** en los 5 | `me repiten` (la voz del dueño de la cuenta); `nos dedicamos` solo cuando habla la empresa |
+  | persona | **1ª del singular** en los 5 (habla él solo de su vida) | **⛔ 1ª del PLURAL** cuando en el vídeo sale el equipo (Iker, 30/09): lo sube el CEO y el vídeo es de los 11, así que `nos repiten` / `nos dedicamos` / `éramos`. **Se copia el recurso (primera persona y confesión), no el número:** Rodri habla solo porque sale solo |
   | tiempo del arranque | **presente o pretérito perfecto** en 4 de 5 (`acabo de recibir`, `he tenido`, `he decidido`, `estoy a punto de`): la historia pasa AHORA | la pregunta en presente (`¿Sabes qué me repiten…?`) |
   | la reflexión | salta de `yo` a lo general (`esperamos y esperamos`, `hasta que un día te das cuenta`) | el dolor en presente universal (`se les van meses`) |
   | la memoria | imperfecto (`las guardaba`, `me decía`) | `éramos`, `presentábamos` |

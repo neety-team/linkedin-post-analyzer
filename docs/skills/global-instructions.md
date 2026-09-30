@@ -414,6 +414,8 @@ De la 1ª a la 2ª se fue **el escenario** (`§2.3b-ESCENARIO`); de la 2ª a la 
 
 **LA REGLA, en una línea:** *la tijera de `§2.2c` quita lo REDUNDANTE; el intensificador no es redundante aunque se pueda borrar sin romper la gramática.* Y esto ya estaba escrito en `§2.3d` (*"la prueba es la de siempre: quítalo y mira si el gancho sigue apretando igual"*); lo que faltaba era decirlo **aquí**, que es donde se coge la tijera.
 
+**⛔ Y NO SOLO EL DEL GANCHO: AL RECORTAR UN CUERPO PARA CUADRAR LA LONGITUD, LO PUNCHY NO ENTRA EN LA TIJERA (Iker, 2026-09-30).** Para meter sus correcciones en los 780 caracteres de la historia de la alarma quité `madrugador` de `un jabalí madrugador`. Iker: *"por mucho que yo te dé correcciones, hay cosas de punchy que no tienes que perder. Esa naturalidad, ese punchy, es lo que nos diferencia del resto"*. **Lo que se recorta primero es el decorado informativo** (una ciudad que ya da el hotel, un complemento que ya se deduce); el adjetivo que hace gracia, el remate y el detalle visual que hace reír se quedan. Si aun así no cabe, se pasa un poco del rango y se dice, que el rango es aviso y 800 es el tope.
+
 **EL ORDEN CORRECTO, y son dos pasos, no uno:**
 1. **Primero se comprueba que el intensificador está.** Si no está, el gancho no está terminado.
 2. **Después se recorta lo demás**, y si al final no cabe, **el gancho se queda largo**: 78 caracteres con la emoción puesta baten a 68 sin ella. El tope técnico es 210 y la zona de outliers llega a 110.

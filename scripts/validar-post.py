@@ -1729,7 +1729,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # Y ademas es lo correcto por doctrina: §4.4b dice que el enlace es la unica
     # firma y que el ninja NO nombra a Neety. Lo que se cuenta es la marca escrita
     # en el TEXTO, no el dominio del enlace.
-    _neety = len(re.findall(r'\bNeety\b', re.sub(r'https?://\S+', '', cuerpo), re.I))
+    # "Neety Forward" es el NOMBRE DEL EVENTO, no una mencion del producto: no cuenta
+    # (Iker, 2026-09-30: en la historia de la alarma quiere @Neety Y el evento con su nombre).
+    _neety = len(re.findall(r'\bNeety\b(?!\s+Forward)', re.sub(r'https?://\S+', '', cuerpo), re.I))
     # ⛔ MARIO ES LA EXCEPCION, Y ESTABA ESCRITA PERO NO MECANIZADA (Iker,
     # 2026-08-11). `aboutme §2` lo dice desde el 22/07: en la cuenta de Mario las
     # menciones a @Neety y a los 3 jefes son OBLIGATORIAS en TODOS los posts,

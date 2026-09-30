@@ -64,6 +64,16 @@ El hook es la línea más importante. Si no funciona, no se lee el cuerpo.
 
 > **POR QUÉ ESTÁ AQUÍ ARRIBA Y NO EN UN RUNBOCK (Iker, 2026-07-31).** Yo la tenía escrita **solo en el runbook del lead magnet** (`post-workflow §4.5`), como si fuera una regla de ese pilar, y por eso propuse un gancho de meme que desvelaba el chiste. Iker: *"todos mis ganchos tienen que abrir un bucle abierto porque la estrategia principal de LinkedIn es el gancho corto y que pulsen ver más"*. **El fallo no fue la regla, fue tenerla guardada en el cajón equivocado.** Cuando una regla habla del GANCHO, del CUERPO o del REMIX, vive aquí, en global, aunque la haya aprendido haciendo un pilar concreto.
 
+#### ⛔⛔ 2.0-PAGO · EL BUCLE SE ABRE EN EL GANCHO Y SE CIERRA, EXPLÍCITO, EN EL ÚLTIMO TERCIO (Iker, 2026-09-30) — GLOBAL
+
+> **Iker:** *"cuando se hablan de cosas así, se tiene que mantener el misterio hacia el final de la publicación, pero ya hacia el final sí que se debe resolver ese bucle abierto. Es como en las publicaciones de peloteo, que hacia el final ya desvelamos la región"*.
+
+**Abrir el bucle es la mitad de la regla.** Todo lo que el gancho deja en el aire (la región del mapa, *el día más importante*, *el gran anuncio*, *qué pasó*) **se dice con todas las letras antes de acabar**, igual que el reveal del peloteo (`Sí, hablo de…`). Si el lector termina el post sin saber qué era, el gancho le ha tomado el pelo y el post no se entiende al compartirlo.
+- **Dónde:** en el último tercio, nunca arriba (arriba mata el bucle) y nunca fuera del texto (la foto no cuenta como pago).
+- **Cómo:** explícito y con sus nombres: qué era, dónde y por qué importaba. En la historia del 30/09 el gancho decía `nuestro gran anuncio` y el pago es `En el hotel Arima presentamos en primicia lo nuevo que hemos construido`.
+- **El test:** tapa todo menos el gancho y el último tercio. ¿Se entiende a qué se refería el gancho? Si no, falta el pago.
+- **Mecanizado** como aviso de entrega en `validar-post.py` (`ENTREGA: el cuerpo PAGA el bucle del gancho`), que imprime el gancho y pide señalar la línea que lo cierra.
+
 ### 🤐 2.0c · EL CUERPO NO EXPLICA LA IMAGEN (universal, todo post con imagen — Iker, 2026-07-31)
 
 **Corolario del bucle abierto de `§2.0`, y se falla igual de fácil.** La imagen carga su parte y **el cuerpo aporta OTRA capa**, no la misma. Si el texto describe lo que se ve, el post pierde la mitad: la foto deja de aportar y el texto tampoco.

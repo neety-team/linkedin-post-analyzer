@@ -233,6 +233,17 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## ✅ PUBLICADO · MIÉ 30/09 16:44 · UNAI · VÍDEO: "UNA MAÑANA DE VENTAS A CONTRARRELOJ" (el PRIMER texto más vídeo de la casa)
+
+| dato | |
+|---|---|
+| **Post** | [enlace](https://www.linkedin.com/posts/unai-arambarri-yeregui_una-ma%C3%B1ana-de-ventas-a-contrarreloj-11-activity-7511073375721664512-4dNQ) · **16:44** (Unipile, 14:44 UTC) · pilar nuevo `video.md §6` |
+| **Por qué a esa hora** | Unai llevaba la semana sin publicar. Precedente: su historia del 23/09 a las 18:00 hizo 9.928 impresiones (1 de 2 posts nuestros después de las 17:00 desde agosto; el otro, 1.279) |
+| **Vídeo** | 22,07 s · gancho `Una mañana de ventas a contrarreloj` (6 palabras) · voz en off de IA (la de los tráileres del evento), en plural · 16 planos de 25 clips grabados el 22/09 · subtitulado entero en Bricolage mint con halo berenjena al 75% · música "Making Time (ADHD)" de Pixabay a -18 dB, cortada en seco en el giro · giro: la compañera de espaldas en la piscina · portada: el grupo trabajando (4897) con el gancho igual que en el vídeo |
+| **Validadores** | `validar-video.py` 17/17 · caption 59/59 · enlace `/agendar/`, `utm_campaign=video-contrarreloj-30sep` |
+| **Mismo día** | Iker publicó a las ~12:25 la historia de la alarma en la misma casa rural (misma semana, otro ángulo) y Unai compartió a las 15:59 el post de la página de Neety |
+| 🔔 **MAÑANA 01/10** | **pedirle a Iker las métricas de VÍDEO**, las primeras de la casa: reproducciones, tiempo de visualización total y medio (y la curva de retención si LinkedIn la da), más impresiones, clics, reacciones, comentarios, reposts, guardados, envíos y seguidores. Hay recordatorio programado a las 10:30. **No se declara nada hasta los 3-4 días.** Comparar con la mediana de vídeo (1.950), la de imagen (3.925) y la historia de Unai del 23/09 (9.928) |
+
 ## ✅ PUBLICADO · MIÉ 30/09 ~13:45 · ASIER · LEAD MAGNET `/sistema/` (recurso NUEVO: 5 encargos a Claude)
 
 > **Publicado ~13:45 (hora de Madrid, la de la conversación; Iker no dio el minuto exacto).** **Sin capado: al primer minuto ya salía en el feed de Relevantes de otra cuenta** (Iker). Imagen: la v2 del generador (tarjetas 4 y 5 bajadas para cuadrar la columna derecha) con la línea de la tarjeta 5 trazada a mano, porque el generador dejó el punto de la mano y el de la tarjeta sin unir. **A medir:** comentarios "SISTEMA" contra los 105 y 22 de los lead magnets anteriores, y registros en `/sistema/`.

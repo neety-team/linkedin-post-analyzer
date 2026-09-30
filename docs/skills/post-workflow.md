@@ -2945,6 +2945,10 @@ Pilar NUEVO, distinto de **autoridad** ("mira qué importante soy": premios, eve
 >
 > **LA REGLA: cuando el dueño de la cuenta no tenga selfies, se usa una FOTO DE GRUPO donde el sea identificable, y en la entrega se dice quien es y donde esta.** El selfie sigue siendo el default del pilar; esto es la salida cuando no existe, no una alternativa a elegir.
 >
+> **🧪 CON FOTO DE GRUPO, EL GANCHO PUEDE IR EN 1ª PLURAL (Iker, 2026-09-30).** Si la foto es del equipo entero, un gancho en `yo` habla con otra voz que la imagen: *"es más efectivo si decimos nos… damos esa sensación de familia, de cercanía"*. **Precedente, n=1:** la historia de Unai del 23/09 (foto de los 11, gancho sin `yo`) hizo **9.739 imp, 43 clics y 18 comentarios**, su mejor conversación del pilar. **En contra:** las historias en plural con selfie (6.554 · 6.271 · 3.628 · 2.926 · 1.321). Es prueba, no regla: se valida con `--foto-grupo` y el resultado se anota en el historial. Primer caso propio: Iker 30/09 (`Nos entraron a robar…`, cena de los 11 en la casa rural).
+>
+> **Y UNA FOTO HORIZONTAL DE MUCHOS NO SE FUERZA A CUADRADA** *(deducción mía, sin medir)*: el cuadrado existe porque una foto ALTA se corta en el feed; una horizontal no se corta, solo ocupa menos alto. Si cuadrarla deja fuera a alguien del grupo, se publica en horizontal (o recortada a 4:3 centrando en las caras, medido con rejilla).
+>
 > **LOS TRES FILTROS PARA ELEGIR ENTRE FOTOS DE GRUPO, por orden:**
 > 1. **⛔ La cara que domina el encuadre tiene que ser la SUYA.** El post lo firma el: si el primer plano es de otro y el sale pequeño y de lado, la foto se cae por buena que sea. *(Asi se descarto `oficina grupal`: es un selfie de otra persona con Asier al fondo a la izquierda.)*
 > 2. **⛔ Nitidez antes que resolucion.** Una foto movida se descarta aunque tenga el triple de pixeles. Es el mismo criterio con el que se descarto la de Unai que parecia frame de video. *(Asi se descarto `cena 2 grupal`, 2048px pero blanda, y encima con varios desconocidos reconocibles de fondo.)*

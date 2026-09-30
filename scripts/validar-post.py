@@ -1150,6 +1150,9 @@ def puerta_agendar(texto):
                          'https://recursos.neety.com/agendar')
 
 
+FOTO_GRUPO = False
+
+
 def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fuera=False, remix=False, sin_menciones=False, card=None, solo_correo=False, historico=False, publica_manana=False):
     texto = puerta_agendar(norm(texto))
     if pilar == 'entregable':
@@ -3760,6 +3763,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'HISTORIA: el hook NO abre con alarma 🚨/⚰️ (§4.6)',
             'eso es lead magnet; una historia abre con una ESCENA personal, no gritando')
         _personal = re.search(r'(^|\s)(yo|mi|mis|me|nunca|cuando|hace \w+|aquel\w*|la primera vez|acab[eé]|sub[ií]|di mi|ten[ií]a|hab[ií]a|recuerdo|empec[eé]|\bi\b|\bmy\b)(\s|,|\.)', ' '+h.lower())
+        # 🧪 FOTO DE GRUPO (Iker, 2026-09-30): si la foto es del equipo entero, el
+        # gancho puede ir en 1a PLURAL para que texto e imagen hablen con la misma
+        # voz. Precedente, n=1: la historia de Unai del 23/09 (foto de los 11,
+        # gancho sin "yo") hizo 9.739 imp, 43 clics y 18 comentarios, su mejor
+        # conversacion del pilar. En contra, las historias en plural CON selfie
+        # (6.554 · 6.271 · 3.628 · 2.926 · 1.321). Es prueba, no regla: se mide.
+        if FOTO_GRUPO and not _personal:
+            _personal = re.search(r'(^|\s)(nos|nosotros|nuestr\w+)(\s|,|\.)', ' '+h.lower())
         chk(bool(_personal), 'HISTORIA: hook personal, en primera persona (§4.6)',
             'la vara abre "I [algo que me pasó]" / "Cuando…" / "Nunca…": una escena TUYA, no un claim ni un dato')
         _ls = [l for l in cuerpo.splitlines() if l.strip()]
@@ -4140,10 +4151,16 @@ def main():
                          'mencionadas con su foto, una llamada de una directora de marketing y el '
                          '"Los 10" de Gipuzkoa borrado. Solo se pasa si IKER, en el chat de ESE '
                          'post, ha levantado la prohibicion por escrito. Nunca por deduccion.')
+    ap.add_argument('--foto-grupo', action='store_true', dest='foto_grupo',
+                    help='HISTORIA con FOTO DE GRUPO del equipo (Iker, 2026-09-30): acepta el '
+                         'gancho en 1a PLURAL (nos, nuestro) como personal. Prueba con n=1 (Unai '
+                         '23/09), no regla: se anota el resultado en historial-publicaciones.')
     ap.add_argument('--generico', action='store_true',
                     help='Lead magnet modelo GENÉRICO (Martín Arosa/Guillermo): una palabra igual para '
                          'todos + recurso genérico + landing que captura. Salta el check del 2º dato.')
     a = ap.parse_args()
+    global FOTO_GRUPO
+    FOTO_GRUPO = a.foto_grupo
     texto = io.open(a.fichero, encoding='utf-8').read()
     card = io.open(a.tarjeta, encoding='utf-8').read() if a.tarjeta else None
     res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico, a.publica_manana)

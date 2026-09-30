@@ -96,8 +96,10 @@ def main():
 
     # 2026-09-30 (Iker): "quiero un video de maximo 20, si dura unos 21 segundos estaria
     # guay". Referencias: la rampa 15,8 s con 66% de retencion; Jenny, TikTok 10-20 s.
-    chk(n <= 70, 'Voz: 25 s como mucho (<=70 palabras a 2,8/s)', f'{n} palabras, ~{round(n / 2.8)} s')
-    chk(n <= 62, 'Voz: en torno a 21 s, el objetivo de Iker (<=62 palabras)', f'{n} palabras, ~{round(n / 2.8)} s', aviso=True)
+    # Ritmo MEDIDO en el primer video (30/09, Premiere de Iker): la voz de IA de los
+    # trailers dijo 36 palabras en 11,9 s = 3,0 palabras/s, pausas incluidas.
+    chk(n <= 70, 'Voz: 23 s como mucho (<=70 palabras a 3,0/s, medido)', f'{n} palabras, ~{round(n / 3.0)} s')
+    chk(n <= 62, 'Voz: en torno a 21 s, el objetivo de Iker (<=62 palabras)', f'{n} palabras, ~{round(n / 3.0)} s', aviso=True)
     chk(n >= 35, 'Voz: dura 12 s o mas (>=35 palabras)', f'{n} palabras', aviso=True)
 
     cortas = [f for f in fr if len(palabras(f)) <= 4]
@@ -137,6 +139,24 @@ def main():
             f'faltan {faltan}' if faltan else '')
         sin_motivo = [l.strip() for l in mapa.split('\n') if 'DESCART' in l and 'PORQUE' not in l and 'DUPLICADO' not in l]
         chk(not sin_motivo, 'Planos: todo descarte dice por que (duplicado de X / porque...)', f'{sin_motivo[:2]}')
+        # 2026-09-30 (Iker): "y el nombre de quien decide" le duro 1,4 s en Premiere y no
+        # cabian dos planos. Cada plano necesita ~4 palabras de voz (~1,3 s a 3,0/s). La
+        # fila del gancho esta exenta (sobrecarga a proposito, un corte cada ~2 palabras) y
+        # la del GIRO tambien: su ultimo plano sigue en pantalla despues de la voz.
+        filas = [l for l in io.open(a.planos, encoding='utf-8').read().split(chr(10))
+                 if l.strip() and not l.upper().startswith('DESCART')]
+        apretadas = []
+        for i, l in enumerate(filas):
+            if i == 0 or i == len(filas) - 1:
+                continue
+            ids = re.findall(r'(?<![\d,])\d{4}(?![\d,])', l)
+            m0 = re.search(r'(?<![\d,])\d{4}(?![\d,])', l)
+            frase = re.sub(r'^\s*[\d,\-\s]+s\s+', '', l[:m0.start()] if m0 else l)
+            np = len(re.findall(r'[A-Za-zÀ-ÿ]+', frase))
+            if ids and np / len(ids) < 4:
+                apretadas.append(f'{len(ids)} planos en {np} palabras: {frase.strip()[:45]}')
+        chk(not apretadas, 'Planos: ~4 palabras de voz por plano como minimo, salvo gancho y giro (~1,3 s)',
+            '; '.join(apretadas[:3]))
     salida_caption = ''
     if a.caption:
         cap = io.open(a.caption, encoding='utf-8').read()

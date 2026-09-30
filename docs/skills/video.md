@@ -315,7 +315,13 @@ Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-P
 > *"Ya que grabé todo el contenido que pude, no puede ser que haya planos que no me hayas incluido."* En el primer mapa se quedaron fuera 5 de 25 clips, entre ellos **4899, un trabajador**, sin decir por qué.
 
 - **Cada clip de la carpeta sale en el mapa:** usado, o `DESCARTADO` con su motivo (casi siempre, *duplicado de X*: la misma escena desde otro ángulo). Lo comprueba `validar-video.py --carpeta <dir> --planos <mapa.txt>`.
-- **Ritmo: más planos por frase, no uno por frase.** Un corte cada ~1 s en el medio, y en los momentos de prisa, ~0,7 s. **La excepción es el plano lento a propósito** (4908 tras la intro): Iker lo deja porque *"nuestro público va a ser mayor, no necesita tanta sobrecarga de estímulo"*. Sobrecarga en los 3 s del gancho y en el montaje de la prisa; respiro después del gancho.
+- **~~Ritmo: un corte cada ~1 s en el medio y ~0,7 s en la prisa~~ → CORREGIDO EL MISMO DÍA CON EL PREMIERE DELANTE (Iker, 30/09).** *"¿Cómo vas a meterme en dos segundos cinco planos?"* `y el nombre de quien decide` duró **1,4 s** y no cabían dos planos. La regla buena:
+  - **SOLO el gancho va sobrecargado:** un corte cada ~2 palabras, sin dejar respirar ni un segundo.
+  - **Del gancho en adelante, los planos RESPIRAN: ~4 palabras de voz por plano como mínimo (~1,3 s).** Nuestro público es mayor. Iker: *"los niños sí necesitan esa sobrecarga de planos; en nuestro caso necesitamos que los planos puedan respirar"*.
+  - **Un plano dura lo que tarda en entenderse su acción:** *"la gracia era que se viese cómo colocaba la masa. Si lo hubiese cortado ahí, ni se entendía el plano"*. Se elige el tramo del clip donde la acción se completa.
+  - **El giro:** un plano en `Aunque, bueno…` y otro en `¿y este plano?`, y el último se queda en pantalla después de la voz.
+  - **Ritmo de voz MEDIDO en este vídeo:** 36 palabras en 11,9 s, **3,0 palabras/s** con pausas. Un plano de ~4 palabras dura ~1,3 s.
+  - **Mecanizado** en `validar-video.py` (`~4 palabras de voz por plano como mínimo, salvo gancho y giro`). Con el mapa anterior daba 3 filas en rojo.
 - **⛔ El audio de un clip no se supone.** Escribí que en 4922 sonaba un `holaaa` porque medí un pico de volumen y lo crucé con el texto de ejemplo de una captura de Iker: **era el sonido de ambiente**. Ella no dice nada. Un pico de volumen no es una palabra. **Si el guion depende de lo que se oye en un clip, se pregunta a Iker o se transcribe; nunca se deduce.**
 - **FORMATO DEL MAPA (Iker, 30/09) — tres columnas y UNA fila por frase, dentro de un bloque cercado:**
   1. **los segundos** de esa frase (`5,5-10 s`), orientativos hasta que haya audio;

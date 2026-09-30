@@ -233,6 +233,18 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## 📝 ENTREGADO · MIÉ 30/09 · ASIER · LEAD MAGNET `/sistema/` (recurso NUEVO: 7 encargos a Claude)
+
+| dato | |
+|---|---|
+| **Estado** | entregado, pendiente de publicar · validador **55/55** · sin enlace en el texto |
+| **Por qué este tema** | patrón del mes medido por Unipile (1.572 posts, 30 días): *sistema completo de ventas con Claude, fase a fase*, ~17 creadores y 5 en español, techo **2.315c** (Martín Arosa 21/09). Detalle en `post-workflow §4.5.0-COMPETENCIA` (bloque del 30/09) |
+| **Gancho** | `🚨 ÚLTIMA HORA: Claude se ha tragado entera mi caja de herramientas de ventas 👇` · disparador + Claude + verbo (`tragar`) · objeto del mejor post de la casa (la caja de herramientas, 165.526) |
+| **Recurso** | `recursos.neety.com/sistema/`, NUEVO, montado sobre los textos ya validados de `/criba/` (1-2), `/firma/` (3) y `/errores/` (4) + 3 nuevos (reunión, propuesta según `/propuesta/`, seguimiento según `/mensajes/`). 7 secciones = los 7 puntos del post, palabra por palabra. Asier no había usado ninguno de esos temas; el más cercano en la casa es `/errores/` de Iker (26/08, 35 días) |
+| **Banner de la foto** | `Comenta "SISTEMA" y te la envío` · clave `sistema` en `CATALOGO` con 5 pistas, comprobadas: casa el post, 0 falsos en 45 lead magnets |
+| 🔴 **Experimento real** | Asier pasa los 7 encargos por Claude con una empresa suya antes de publicar: el gancho dice que lo usa |
+| ⏳ | medir comentarios contra **105** (nuestro mejor desde mayo, Unai 12/08) y **22** (último de Asier); minutos hasta aparecer en Principal (post sin enlace); y GA4 de `/sistema/` (tiempo contra el 1m42s de `/agendar/`) |
+
 ## ✅ PUBLICADO · MAR 29/09 · IKER · MEME DEL GLOBO ("solo voy a mirar el móvil un minuto")
 
 | dato | |

@@ -209,6 +209,24 @@ const CATALOGO: RecursoDef[] = [
       '5 mensajes', 'quien decide', 'con quien hablo',
     ],
   },
+  {
+    // SISTEMA (Asier, 2026-09-30). Recurso NUEVO: los 7 encargos a Claude, uno
+    // por paso de la venta, montados sobre los prompts ya validados de /criba/,
+    // /firma/ y /errores/ mas tres nuevos (reunion, propuesta, seguimiento).
+    // La palabra vive DENTRO de la imagen del post (`SISTEMA`) y el texto del
+    // post no la dice, asi que lo reconocen las PISTAS.
+    //
+    // Ojo: el post lleva `quien decide` (la pista de /firma/), asi que estas
+    // pistas tienen que sumar MAS de una. Comprobadas contra el texto real: casan
+    // las cinco, y ninguna casa con los posts de los otros recursos.
+    link: 'https://recursos.neety.com/sistema/',
+    topic: 'los 7 encargos a Claude para cada paso de la venta',
+    claves: ['sistema'],
+    pistas: [
+      'caja de herramientas de ventas', '7 encargos', 'encargos a claude',
+      'pedir por favor', 'confirmo o tacho',
+    ],
+  },
 ];
 
 const RECURSOS: Record<string, Recurso> = Object.fromEntries(

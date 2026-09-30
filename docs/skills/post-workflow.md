@@ -2954,6 +2954,8 @@ Pilar NUEVO, distinto de **autoridad** ("mira qué importante soy": premios, eve
 >
 > **🧪 CON FOTO DE GRUPO, EL GANCHO PUEDE IR EN 1ª PLURAL (Iker, 2026-09-30).** Si la foto es del equipo entero, un gancho en `yo` habla con otra voz que la imagen: *"es más efectivo si decimos nos… damos esa sensación de familia, de cercanía"*. **Precedente, n=1:** la historia de Unai del 23/09 (foto de los 11, gancho sin `yo`) hizo **9.739 imp, 43 clics y 18 comentarios**, su mejor conversación del pilar. **En contra:** las historias en plural con selfie (6.554 · 6.271 · 3.628 · 2.926 · 1.321). Es prueba, no regla: se valida con `--foto-grupo` y el resultado se anota en el historial. Primer caso propio: Iker 30/09 (`Nos entraron a robar…`, cena de los 11 en la casa rural).
 >
+> **🏷️ CON FOTO DE GRUPO, SE ETIQUETA A TODOS EN LA FOTO (Iker, 2026-09-30).** El post colaborativo de LinkedIn (que salga en varios perfiles, hasta 5 coautores) sigue en beta y no se puede usar; lo que sí deja es etiquetar personas en la imagen, y a cada una le llega la notificación. En la historia del 30/09 se etiquetó a los otros 10 del equipo. *Sin medir: se mira si se nota en alcance o en comentarios del equipo.*
+>
 > **Y UNA FOTO HORIZONTAL DE MUCHOS NO SE FUERZA A CUADRADA** *(deducción mía, sin medir)*: el cuadrado existe porque una foto ALTA se corta en el feed; una horizontal no se corta, solo ocupa menos alto. Si cuadrarla deja fuera a alguien del grupo, se publica en horizontal (o recortada a 4:3 centrando en las caras, medido con rejilla).
 >
 > **LOS TRES FILTROS PARA ELEGIR ENTRE FOTOS DE GRUPO, por orden:**

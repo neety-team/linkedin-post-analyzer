@@ -325,6 +325,9 @@ SPAM_QUEMADO = {
     'el despues empieza en la sala': '2026-09-23 historia de equipo de Unai 23/09, sin tilde',
     'y en esa sala aún te hacemos sitio': '2026-09-23 historia de equipo de Unai 23/09',
     'y en esa sala aun te hacemos sitio': '2026-09-23 historia de equipo de Unai 23/09, sin tilde',
+    'una alarma te avisa de que alguien entra': '2026-09-30 historia de Iker 30/09, la linea 1',
+    'eso sí te lo marcamos nosotros': '2026-09-30 historia de Iker 30/09',
+    'eso si te lo marcamos nosotros': '2026-09-30 historia de Iker 30/09, sin tilde',
     # Historia de Iker del 23/09 (la fabrica y el coche), leida del texto publicado
     # en la BD el 2026-09-29: no se habia anotado al publicarse.
     'no lo ves desde el coche': '2026-09-23 historia de Iker 23/09, la linea 1',
@@ -397,7 +400,7 @@ ARRANQUE_QUEMADO = {
         'ni': '2026-08-13 historia de Iker 13/08 ("Ni una pregunta por el precio")',
         # Publicados y leidos, no deducidos (§0f: la lista se toca al PUBLICAR).
         'nadie': '2026-08-21 historia de Unai 21/08 ("Nadie las abria / Nadie me las pedia")',
-        'no': '2026-08-21 historia de Unai 21/08 ("No era la mas bonita / difícil / mejor")',
+        'no': '2026-09-30 historia de Iker 30/09 ("No ardia nada / No era la de incendios / No paro"); antes Unai 21/08',
         'hoy': '2026-08-21 historia de Unai 21/08 ("Hoy no toco el codigo / Hoy levanto dinero")',
         'aquel': '2026-08-25 historia de Asier 25/08 ("Aquel numero era de la casa entera")',
         'me': '2026-08-25 historia de Asier 25/08 ("Me pregunto quien era yo / de que conocia")',

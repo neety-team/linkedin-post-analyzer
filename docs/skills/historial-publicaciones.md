@@ -245,6 +245,20 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | 🔴 **Experimento real** | Asier pasa los 7 encargos por Claude con una empresa suya antes de publicar: el gancho dice que lo usa |
 | ⏳ | medir comentarios contra **105** (nuestro mejor desde mayo, Unai 12/08) y **22** (último de Asier); minutos hasta aparecer en Principal (post sin enlace); y GA4 de `/sistema/` (tiempo contra el 1m42s de `/agendar/`) |
 
+## ✅ PUBLICADO · MIÉ 30/09 · IKER · HISTORIA: LA ALARMA DE ROBO EN LA CASA RURAL (foto de la cena de los 11, `/agendar/`)
+
+| dato | |
+|---|---|
+| **Post** | publicado hacia las **12:05-12:25** (Iker, 30/09; hora exacta y enlace `[PENDIENTE · leer de la BD]`) · validado 64/64 · 796 car · enlace en el 547 |
+| **Pilar** | historia · **rama A** (propia, en 1ª PLURAL de equipo) · no regional en el cuerpo, pero cierra con **Donostia** por orgullo (los 3 jefes son vascos) · 1ª prueba propia de `--foto-grupo` (gancho en plural porque la foto es del equipo entero; precedente Unai 23/09: 9.739 imp · 43 clics · 18 com) |
+| **Gancho** | `Nos entraron a robar horas antes de nuestro gran anuncio en ventas 😅` (64 car) · idea de Iker · bucle: el robo (se desmiente en `Nadie había entrado, salvo quizá un jabalí madrugador`) y el anuncio (se paga al final con la misma palabra: `El gran anuncio fue la nueva generación de @Neety, nuestro software`) → `global §2.0-PAGO` |
+| **Real / inventado** | real: los 11 en la casa rural, la alarma de robo a las 8 el día del evento, sartén y ducha, los que dormían, los que corrían, que pensaron en el humo, el dueño, que no entró nadie, el evento en el ARIMA de Donostia · inventado (decorado): enjabonados, el jabalí |
+| **Ninja → `/agendar/`** | `Una alarma te avisa de que alguien entra, no de quién.` / `A quién venderle, eso sí te lo marcamos nosotros:` · UTM `historia-alarma-30sep` · `utm_content=iker` · dolor: identificación (a quién vender) |
+| **Foto** | `NEETY FORWARD/FOTOS DIA 1/cena1 cuadrada.jpg` (2268², recorte `(746,0,3014,2268)` medido con rejilla: 424 px de aire a cada cara extrema) · la cena de los 11 de noche · 🆕 **Iker etiquetó EN LA FOTO a los otros 10** del equipo para que les llegue la notificación (el post colaborativo de LinkedIn, hasta 5 coautores, sigue en beta y no le deja) |
+| **Menciones** | `@Neety` (página `neetyio`) |
+| **Quemados** | ninja `una alarma te avisa de que alguien entra` / `eso sí te lo marcamos nosotros` · arranque de historia `no` (`No ardía / No era / No paró`) · gancho `nos entraron a robar` · vehículo `la casa rural del evento` |
+| ⏳ | cronometrar el feed (¿en "Primero los más relevantes" antes del min 30? `robar` en el gancho sin precedente reciente) · a los 3-4 días (lunes 05/10): impresiones, clics a `/agendar/`, comentarios, contra Unai 23/09 · y si las 10 etiquetas de la foto se notan en alcance o comentarios del equipo |
+
 ## ✅ PUBLICADO · MAR 29/09 · IKER · MEME DEL GLOBO ("solo voy a mirar el móvil un minuto")
 
 | dato | |

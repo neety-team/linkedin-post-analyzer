@@ -68,6 +68,7 @@ CASOS = [
         'Tras el gancho, LINEA INDIVIDUAL': 'formateado anterior a §3.2',
     }, ['--referencia-fuera']),  # referencia extranjera: su autor no comparte audiencia
     ('caja de herramientas engorda', 'meme', 'Unai', {
+        'El post no cierra con una pregunta': 'regla posterior (Iker, 2026-09-30): entonces se cerraba con pregunta-producto; desde julio solo 1 de 80 posts lo hace, y el cierre de la casa es una afirmacion',
         'muletilla "En ventas,"': (
             'ESPERADO: este post la usa y hace 16.55x. No es un bug, es que el check vigila el '
             'REFLEJO, no la forma. Cuando lo escribió era el primero; el problema es que luego se '
@@ -92,6 +93,7 @@ CASOS = [
     # (EMPRESA_LADRONA) SEPARE al 4.82x sin quejas del 0.66x que sí las tuvo. Un check
     # que tumbara a los tres, o que no tumbara a ninguno, no mediría nada.
     ('hacemos fotos por fuera', 'los10', 'Iker', {
+        'El post no cierra con una pregunta': 'regla posterior (Iker, 2026-09-30): entonces se cerraba con pregunta-producto; desde julio solo 1 de 80 posts lo hace, y el cierre de la casa es una afirmacion',
         'Cada ficha lleva DOS menciones': (
             'ESPERADO por antigüedad, igual que "Menciones con @": los tres "Los 10" del '
             'histórico van sin arroba ninguna (→ Edorta Arriet Azpiroz - Geminis Lathes), '
@@ -220,6 +222,13 @@ def main() -> int:
             [sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'validar-post.py'),
              tmp, '--pilar', pilar, '--cuenta', cuenta, '--historico'] + extra,
             capture_output=True, text=True, encoding='utf-8').stdout
+        # 2026-09-30: si validar-post.py PETA (un SyntaxError tras editarlo), la salida
+        # llega vacia, no hay ninguna linea FALLA y el test daba VERDE. Paso ese mismo
+        # dia: el validador estuvo roto y este test decia "ningun ganador falla".
+        if 'checks' not in (salida or ''):
+            print(f'\n❌ validar-post.py NO ha terminado con "{frag}": esta roto, no es un ganador que falle')
+            malo = True
+            continue
         fallos = [l.strip().replace('FALLA', '').strip() for l in salida.split('\n') if 'FALLA' in l]
         print(f"\n{cuenta} · {post.get('outlier_ratio')}x · {frag}")
         for f in fallos:

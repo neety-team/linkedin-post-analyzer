@@ -72,6 +72,7 @@ El hook es la línea más importante. Si no funciona, no se lee el cuerpo.
 - **Dónde:** en el último tercio, nunca arriba (arriba mata el bucle) y nunca fuera del texto (la foto no cuenta como pago).
 - **Cómo:** explícito y con sus nombres: qué era, dónde y por qué importaba. En la historia del 30/09 el gancho decía `nuestro gran anuncio` y el pago es `En el hotel Arima presentamos en primicia lo nuevo que hemos construido`.
 - **El test:** tapa todo menos el gancho y el último tercio. ¿Se entiende a qué se refería el gancho? Si no, falta el pago.
+- **⛔ Y EL PAGO REPITE LA PALABRA DEL GANCHO, LITERAL (Iker, 2026-09-30).** Contar el qué no basta si no se cose con el gancho: el 30/09 el final decía `presentamos en primicia…` y el gancho `nuestro gran anuncio`, y el lector no unía las dos cosas. Quedó `El gran anuncio fue en Neety Forward, nuestro evento en San Sebastián.` Es exactamente el `Sí, hablo de Navarra` del peloteo: se nombra lo que el gancho dejó en el aire **con la misma palabra**.
 - **Mecanizado** como aviso de entrega en `validar-post.py` (`ENTREGA: el cuerpo PAGA el bucle del gancho`), que imprime el gancho y pide señalar la línea que lo cierra.
 
 ### 🤐 2.0c · EL CUERPO NO EXPLICA LA IMAGEN (universal, todo post con imagen — Iker, 2026-07-31)

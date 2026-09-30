@@ -1241,7 +1241,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # Es criterio: el script solo obliga a mirarlo.
     chk(False, 'ENTREGA: el cuerpo PAGA el bucle del gancho (§2.0-PAGO)',
         'gancho: "%s". Senala la linea del ultimo tercio que dice con todas las letras '
-        'a que se referia (que era, donde, por que importaba). Si el lector acaba sin '
+        'a que se referia (que era, donde, por que importaba), repitiendo la PALABRA del gancho '
+        'como el "Si, hablo de X" del peloteo. Si el lector acaba sin '
         'saberlo, falta el pago' % hook_txt[:90], aviso=True)
     chk(False, 'ENTREGA: ¿el gancho tiene INTENSIFICADOR, y sigue ahi? (§2.3d)',
         ('intensificador: "%s" - NO se recorta para acortar, aunque sea la palabra mas '

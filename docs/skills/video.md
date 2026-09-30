@@ -224,6 +224,13 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - Si salen caras, gana la sonrisa amplia con los ojos abiertos (criterio de CTR de las fotos de la casa).
 - El giro final (en el primer vídeo, la piscina) **no sale en la intro**.
 
+### 6.4a · LA PORTADA DE LINKEDIN ES UNA IMAGEN APARTE (Iker, 30/09)
+
+LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir un fotograma de la línea de tiempo. Criterio de Iker: *"un fotograma que luego te vayas a encontrar en el vídeo"*, como en YouTube Shorts.
+- **Como es una imagen aparte, el gancho se agranda en ella.** En el fotograma del vídeo, el bloque de 3 líneas ocupa el **30% del ancho y el 7,6% del alto** (medido el 30/09): sirve para leer mientras corre el vídeo, pero en miniatura en el feed se queda pequeño. En la portada va **al doble, ~60% del ancho**, con el mismo halo.
+- **El fotograma, con los criterios de `§6.4`:** identidad y sitio sin sonido. Si el vídeo es de equipo, que se vea el equipo (en el primero, 4897: los 5 con las vigas). Un logo de la casa de fondo (la bolsa de Neety) vale **si es atrezo y no el tema**; el photocall o un cartel, no, porque destripan y se leen como anuncio.
+- *(Deducción, sin medir en vídeo)* con la reproducción automática del feed, la portada pesa sobre todo en el perfil, al compartir y a quien la tiene desactivada; en el feed manda el primer fotograma del vídeo.
+
 ### 6.4b · TEXTO EN PANTALLA: CUÁNDO, CUÁNTO, FUENTE Y COLOR (2026-09-29)
 
 - **Lo que NO dice el scraping, para no citarlo mal:** el `VIDEO_SCRIPT` de `postPrompt.ts` sale de las **transcripciones de audio** de 11 TikToks B2B-IA (Apify `clockworks/tiktok-video-scraper`). **Ve lo que se dice, no lo que se ve**: no dice nada de subtítulos, fuente ni color.

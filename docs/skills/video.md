@@ -265,6 +265,17 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 > *"Lo veo horrible. Tienen que ser frases realmente de narración, no puntos y tanta pausa de respiración."* La primera versión eran 9 frases sueltas de 2-5 palabras (`11 personas. Una casa rural.`): leídas por ElevenLabs suenan a lista, no a alguien contando algo.
 
 - **La referencia de cómo se escribe es Rodri** (`Documentos/Mario/APRILYNNE/TRANSCRIPCIONES @rodri_qf.txt` y `CHECKLIST @rodri_qf.txt`): frases enteras y conversacionales que encadenan (`Y claro…`, `Lo gracioso es que…`, `Supongo que…`), micro-confesión al arrancar (`Igual es una tontería, pero…`), historia y reflexión alternadas, y **el giro sencillo y sin insinuar antes**. Las frases cortas se reservan para el golpe, no para todo el guion.
+- **La psicología de Rodri, leída en sus 5 transcripciones (30/09):**
+
+  | recurso | en Rodri | en nuestro guion |
+  |---|---|---|
+  | persona | **1ª del singular** en los 5 | `me repiten` (la voz del dueño de la cuenta); `nos dedicamos` solo cuando habla la empresa |
+  | tiempo del arranque | **presente o pretérito perfecto** en 4 de 5 (`acabo de recibir`, `he tenido`, `he decidido`, `estoy a punto de`): la historia pasa AHORA | la pregunta en presente (`¿Sabes qué me repiten…?`) |
+  | la reflexión | salta de `yo` a lo general (`esperamos y esperamos`, `hasta que un día te das cuenta`) | el dolor en presente universal (`se les van meses`) |
+  | la memoria | imperfecto (`las guardaba`, `me decía`) | `éramos`, `presentábamos` |
+  | marcas orales | `¿sabes?`, `o sea`, `claro`, `lo gracioso es que`, `no me malinterpretéis` | `¿Sabes…?`, `O sea`, `Lo gracioso es que` |
+  | el final | 2 de 5 cierran con una pregunta al que mira y **1 con AUDIO REAL** (la abuela) | el `holaaa` real de la piscina |
+- **Música (Iker, 30/09):** sin derechos, de **Pixabay** (licencia de contenido de Pixabay: uso comercial sin atribución), bajita debajo de la voz (Rodri: *"música emocional suave"*), y **se corta en seco en el giro**, para que el audio real suene solo. ⚠️ Las marcadas **"Content ID Registered"** dan reclamaciones en YouTube y Facebook; LinkedIn no tiene Content ID.
 - **Y la estructura, de Jenny Hoyos** (`APUNTES JENNY SHORTS.txt` y `2`): pregunta → progresión constante → tensión → pago → corte seco.
 - **Se entregan 3 propuestas de voz, distintas de verdad** (`working-preferences §1d-BIS`): crónica, confesión y cuenta atrás.
 - **⛔ El caption tampoco insinúa el giro** (Rodri: *"no puede estar insinuado antes"*). `Bueno, casi nadie` salió el 30/09 por eso.

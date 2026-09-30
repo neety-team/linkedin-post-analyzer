@@ -1247,6 +1247,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'a que se referia (que era, donde, por que importaba), repitiendo la PALABRA del gancho '
         'como el "Si, hablo de X" del peloteo. Si el lector acaba sin '
         'saberlo, falta el pago' % hook_txt[:90], aviso=True)
+    # brand-voice §2c familia 3 (DELITO): en el GANCHO cero familias de riesgo.
+    # Caso 30/09 (historia de Iker): "Nos entraron a robar..." + 10 etiquetas en
+    # la foto -> 44 imp a los 30 min, nunca en el feed. NO esta probado que fuera
+    # la palabra (va confundida con las etiquetas), por eso es AVISO: precaucion
+    # barata, no veto. Lo que se evita es AFIRMAR un delito, sufrido o cometido.
+    _delito = re.findall(r'\b(rob\w*|ladr[oó]n\w*|atrac\w+|asalt\w+|allan\w+|estaf\w+|denunci\w+|destap\w+|hurt[oa]\w*)\b', hook_txt, re.I)
+    chk(not _delito, 'Gancho sin vocabulario de DELITO (brand-voice §2c familia 3)',
+        'lleva "%s". En el gancho, cero familias de riesgo. Caso 30/09: "Nos entraron a robar" '
+        'no salio en el feed (sin probar si por la palabra). Salida que repartio ese dia: contar '
+        'el hecho sin afirmar el delito ("Nos entraron en casa") y dejar el resto al cuerpo' % ', '.join(_delito) if _delito else '',
+        aviso=True)
     chk(False, 'ENTREGA: ¿el gancho tiene INTENSIFICADOR, y sigue ahi? (§2.3d)',
         ('intensificador: "%s" - NO se recorta para acortar, aunque sea la palabra mas '
          'barata de quitar' % _int.group(0) if _int else

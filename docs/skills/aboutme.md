@@ -136,7 +136,10 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 
 **✅ El caso al derecho (Iker, 2026-09-29):** el meme de Dachi Beberashvili (*"I'll just check LinkedIn for a minute before I start calling"*, 41% de risa) se eligió para Iker **porque va de LLAMAR**. Iker: *"es el que mejor encaja con el segundo jefe porque es con el que más libertad tenemos, y este meme no encajaría ni con el primero ni con el tercero, ya que no son comerciales, no hacen llamadas en ese sentido para vender, y encima son más sobrios"*. **Dos filtros a la vez: el rincón (llamar) y el registro (el humor más suelto).** Si una referencia de llamadas aparece cuando a Iker no le toca meme, se guarda para él; no se le da a Unai ni a Asier.
 
-**⛔ Y NO ES SOLO LA REFERENCIA: TAMBIÉN EL NARRADOR DEL CUERPO (Iker, 2026-09-30).** El lead magnet `/sistema/` salió en la v1 contado por alguien que llama y escribe a clientes (*"esa media mañana ahora la paso llamando"*). Iker: *"esta temática para el segundo jefe entraría perfecta porque es comercial y llama, pero el tercer jefe se encarga más del ámbito de la programación, hablando constantemente con el departamento de producto"*. **En Asier el que habla es quien lo MONTA para el comercial**, no el comercial: *"Desde mi mesa de producto…"*, *"Lo he montado como hago el producto, por módulos"*, *"Igual que con mi código, nada sale sin que alguien lo revise"*. El comercial aparece en tercera persona, y el tema de ventas no cambia. **Se comprueba antes de escribir: ¿esta línea en primera persona la podría decir Asier de verdad?**
+**⛔ Y NO ES SOLO LA REFERENCIA: TAMBIÉN EL NARRADOR DEL CUERPO (Iker, 2026-09-30).** El lead magnet `/sistema/` salió en la v1 contado por alguien que llama a clientes, y en la v2 yo lo puse *"desde mi mesa de producto"*. **Las dos mal.** Iker: *"Asier se encarga de la parte de programación. No está dentro de producto, sino que siempre se comunica con el departamento de producto. Él está enfocado en lo de engineering. Tampoco es comercial"*.
+- **Asier = INGENIERÍA / programación.** Habla con producto, pero no es de producto. No llama, no vende, no hace demos.
+- **En su cuenta el que habla es el ingeniero que lo MONTA para el comercial**: *"Yo vivo entre código y el comercial, entre programas que no se hablan"*, *"Se lo he montado por módulos"*, *"Igual que con mi código, nada sale sin que alguien lo revise"*. El comercial va en tercera persona; el tema sigue siendo vender.
+- **Se comprueba antes de entregar: cada línea en primera persona, ¿la diría un ingeniero que programa y habla con producto?** Si suena a comercial o a jefe de producto, se reescribe.
 
 **El caso que lo prueba, y es nuestro:** el meme de Asier del 20/08 (la captura de una búsqueda de Google) hizo **3.010 impresiones · 0.32x**. Iker, al revisarlo: *"originalmente sí era referencia de meme pero NO de ventas, cuando siempre lo tiene que ser"*.
 
@@ -174,7 +177,7 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 |---|---|---|
 | **Unai** (1er jefe, CEO) | ventas **+ dirección**: levantar dinero, fundadores, inversores, la imagen seria de la empresa y de la marca | Sobrio, cero infantil |
 | **Iker** (2º jefe, comercial) | ventas **+ el comercial de calle** | La única que aguanta el registro bruto |
-| **Asier** (3er jefe, técnico) | ventas **+ programación y producto** | Sobrio, cero infantil |
+| **Asier** (3er jefe, técnico) | ventas **+ ingeniería y programación** (habla con producto, pero no es de producto; no es comercial) | Sobrio, cero infantil |
 | **Mario** (marketing) | ventas **+ marketing y contenido** | Ya validado: su meme del 12/08 |
 | **Helena** (customer success) | ventas **+ atención al cliente y partnerships** | Ya validado: su meme del 18/08, de la cantera de Customer Success Collective |
 

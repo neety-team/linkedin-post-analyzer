@@ -2698,6 +2698,10 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 
 **⭐ Y por fin hay un dato para la cola de revisión de Iker** (`post-workflow §4.5.0-REVISION`), que llevaba desde el 18/08 en n=0 **precisamente porque siempre borrábamos antes de comprobarla**: **26/08, aparece a los ~20 min y reparte con normalidad.** No era un bloqueo, era un retraso.
 
+### ✅✅ 9.0c · TERCER Y CUARTO CASO (30/09): DOS POSTS DADOS POR CAPADOS APARECIERON A LOS 15 Y 27 MINUTOS
+
+Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran anuncio` y otra con `gran estreno`): a los pocos minutos no salían en "Primero los más relevantes" y se dieron por capadas. **Aparecieron las dos, a los ~27 y ~15 minutos.** Mientras tanto se había borrado la 2ª **a los 7 minutos**, así que de ella no sabemos nada, y se había sacado la conclusión de que `robo` estaba vetado. **Cuatro casos ya: 20, 18, 27 y 15 minutos.** La sensación de *"en el primer minuto ya sé si está bloqueado"* no se sostiene con estos datos: **el minuto 30 es el umbral, también cuando se resube.**
+
 ### ✅✅ 9.0b · SEGUNDO CASO DE LA COLA DE REVISIÓN (27/08) — Y APARECE UN PATRÓN: **EL PRIMER UTM DE CADA CUENTA**
 
 **El caso, cronometrado por Iker en directo:** meme de la ficha, cuenta de **Iker**, 27/08.

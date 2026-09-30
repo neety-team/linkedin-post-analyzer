@@ -210,9 +210,9 @@ const CATALOGO: RecursoDef[] = [
     ],
   },
   {
-    // SISTEMA (Asier, 2026-09-30). Recurso NUEVO: los 7 encargos a Claude, uno
+    // SISTEMA (Asier, 2026-09-30). Recurso NUEVO: los 5 encargos a Claude, uno
     // por paso de la venta, montados sobre los prompts ya validados de /criba/,
-    // /firma/ y /errores/ mas tres nuevos (reunion, propuesta, seguimiento).
+    // /firma/ y /errores/ mas uno nuevo (el seguimiento del primer mensaje).
     // La palabra vive DENTRO de la imagen del post (`SISTEMA`) y el texto del
     // post no la dice, asi que lo reconocen las PISTAS.
     //
@@ -220,11 +220,11 @@ const CATALOGO: RecursoDef[] = [
     // pistas tienen que sumar MAS de una. Comprobadas contra el texto real: casan
     // las cinco, y ninguna casa con los posts de los otros recursos.
     link: 'https://recursos.neety.com/sistema/',
-    topic: 'los 7 encargos a Claude para cada paso de la venta',
+    topic: 'los 5 encargos a Claude para cada paso de la venta',
     claves: ['sistema'],
     pistas: [
-      'caja de herramientas de ventas', '7 encargos', 'encargos a claude',
-      'pedir por favor', 'confirmo o tacho',
+      'caja de herramientas del comercial', '5 encargos', 'encargos a claude',
+      'suena a desesperado', 'pongo el orden',
     ],
   },
 ];

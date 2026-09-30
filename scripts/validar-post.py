@@ -1507,8 +1507,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # Medido ese dia: 1 de 80 posts de las 3 cuentas desde julio acaba en pregunta, y es
     # un lead magnet ("¿La quieres?"). El cierre de la casa es una afirmacion corta
     # (global §4.5). Fallo duro salvo en lead magnet, donde la pregunta es la oferta.
-    _ult = [l.strip() for l in texto.strip().split('
-') if l.strip()]
+    _ult = [l.strip() for l in texto.strip().split('\n') if l.strip()]
     _ult = _ult[-1] if _ult else ''
     chk(pilar == 'leadmagnet' or not _ult.endswith('?'),
         'El post no cierra con una pregunta (global §4.5)',

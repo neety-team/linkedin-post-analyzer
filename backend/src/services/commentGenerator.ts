@@ -751,7 +751,9 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // Y LO QUE A LA TERCERA SIGUE SIN CABER EN UNA LINEA, IGUAL (ronda 5 del
   // 01/10: 6 de 60 pasaban de la linea). Misma llamada, motivo distinto.
   const largos = out.map((c, i) => ({ i, que: `mide ${largoChat(c, i)} caracteres y no cabe en una linea: maximo 80` })).filter((x) => largoChat(out[x.i], x.i) > LARGO_MAX_CHAT);
-  const aReparar = [...inventados, ...largos.filter((l) => !inventados.some((x) => x.i === l.i))];
+  // Y el que a la tercera sigue nombrando a Neety, tambien (01/10).
+  const conCasa = out.map((c, i) => ({ i, que: 'nombra a Neety, y quien lo pega trabaja alli: no la nombres' })).filter((x) => nombraLaCasa(out[x.i]));
+  const aReparar = [...inventados, ...largos, ...conCasa].filter((x, k, arr) => arr.findIndex((y) => y.i === x.i) === k);
   if (aReparar.length) {
     const malos = [...new Set(aReparar.map((x) => x.i))].sort((a, b) => a - b);
     const buenos = out.filter((_, i) => !malos.includes(i));
@@ -774,7 +776,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
       const otraVez = new Set((await juezDeTanda(nuevos, safePostContent)).map((x) => x.i));
       malos.forEach((i, k) => {
         const c = nuevos[k];
-        if (c && !otraVez.has(k) && !comentarioVacio(c) && largoChat(c, i) <= LARGO_MAX_CHAT && !cifraNueva(c, safePostContent) && !nombreAjeno(c, safePostContent, '', [input.creatorName])) {
+        if (c && !otraVez.has(k) && !comentarioVacio(c) && !nombraLaCasa(c) && largoChat(c, i) <= LARGO_MAX_CHAT && !cifraNueva(c, safePostContent) && !nombreAjeno(c, safePostContent, '', [input.creatorName])) {
           out[i] = c;
           inventados = inventados.filter((x) => x.i !== i);
         }

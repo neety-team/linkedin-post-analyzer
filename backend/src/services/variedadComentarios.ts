@@ -512,7 +512,9 @@ const ARRANQUES = [
   // Sin "Yo" (ronda 3 del 01/10): forzado delante, rompia la frase ("Yo me
   // alegra", "Yo la próxima lo volvemos a hacer").
   'una experiencia propia en primera persona (A mi, En mi caso, Me pasa que), con la frase bien construida',
-  'un nombre propio del post (una empresa, un pueblo, un producto)',
+  // Nunca Neety: en la historia de Asier del 01/10 salio tres veces "Neety me
+  // ha pasado..." / "Buenooo Neety lo de...", porque el post la nombra.
+  'un nombre propio del post (una empresa, un pueblo, un producto), nunca Neety',
 ];
 
 /**

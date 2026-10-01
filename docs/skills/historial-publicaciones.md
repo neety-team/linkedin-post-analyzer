@@ -258,7 +258,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 
 ## 🗑️ PUBLICADO Y BORRADO · JUE 01/10 · UNAI · MEME: LOS SUEÑOS POR CARGO (evolución por cargos, `/agendar/`)
 
-> **Publicado a las 14:04 ([enlace](https://www.linkedin.com/feed/update/urn:li:activity:7511395538748174336/)) y BORRADO por el propio Unai poco después, aunque iba bien** (última lectura de la BD: 107 impresiones, 3 likes, 6 comentarios). **El motivo fue un detalle de la imagen:** la placa *EN REUNIÓN* en la mesilla del director comercial dormido. Para Unai, deja mal al cargo que nos compra. Regla nueva en `post-workflow §4.4-COMPRADOR` (pregunta 6 de `§4.4-STOP`). **Sus frases NO se meten en las listas de quemadas:** casi nadie lo vio. El texto y la imagen, con otra placa (presión del cargo, nunca escaqueo), se pueden reutilizar.
+> **Publicado a las 14:04 ([enlace](https://www.linkedin.com/feed/update/urn:li:activity:7511395538748174336/)) y BORRADO por el propio Unai poco después, aunque iba bien** (última lectura de la BD: 107 impresiones, 3 likes, 6 comentarios). **El motivo fue un detalle de la imagen:** la placa *EN REUNIÓN* en la mesilla del director comercial dormido. Para Unai, deja mal al cargo que nos compra. Regla nueva en `post-workflow §4.4-COMPRADOR` (pregunta 6 de `§4.4-STOP`). **Sus frases NO se meten en las listas de quemadas:** casi nadie lo vio. **En Unai NO se puede reutilizar** ni cambiando la placa: el remate del meme es el director comercial durmiendo y soñando con vacaciones, y es quien compra (Unai: *"la gente senior son muy picados… B2B es muy carca"*).
 
 | dato | |
 |---|---|

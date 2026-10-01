@@ -3652,7 +3652,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             # ocurre DESPUES de que Iker de el visto bueno a la imagen y para
             # entonces la conversacion ya va de otra cosa.
             chk(False, 'ENTREGA: cuando Iker apruebe la ORLA, archivarla en la carpeta del pilar',
-                r'copiarla a C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\ '
+                r'copiarla a C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LAS 10\ '
                 'con el nombre "los 10 <region>.png": minusculas, SIN tildes ni eñes y sin guiones, '
                 'calcando lo que ya hay (los 10 euskadi / cataluna / asturias / andalucia). El nombre '
                 'se lista de la carpeta antes de escribirlo, no se inventa. ⏳ El disparador es su OK '
@@ -3699,7 +3699,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             # orla se renderiza con --salida directamente en la carpeta del pilar,
             # como el despiece en DESPIECE/.
             chk(False, 'ENTREGA: la ORLA de LOGOS, guardada DIRECTAMENTE en la carpeta del pilar, nunca en el Escritorio',
-                r'--salida en C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\ (LAS 10 si ya se renombro) con el nombre '
+                r'--salida en C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LAS 10\ con el nombre '
                 '"las 10 <region>.png" (minusculas, sin tildes, eñes ni guiones: "las 10 castilla la mancha"). Titulo: "LAS 10 QUE LEVANTAN|LA '
                 'INDUSTRIA [XXX]", en escalera y el naranja en la region. El nombre de cada empresa en la orla es su nombre de MARCA (el que se lee en '
                 'su logo), sin S.A. ni tagline; la @ del post sigue siendo el nombre exacto de LinkedIn', aviso=True)

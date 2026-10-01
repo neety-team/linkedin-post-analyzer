@@ -1467,7 +1467,7 @@ sorprende, que es de lo que vive este pilar.
 > | Se calca A MUERTE (es el motor) | Manda SIEMPRE lo nuestro (es el envase) |
 > |---|---|
 > | La **mecánica del GANCHO** (Paso 2) | **Formateado:** bloques de 2/3, línea individual detrás, líneas cortas, el cierre respira (`global §3.2-§3.3`) · **y los SÍMBOLOS: la lista del original con guiones va con `→`** (`global §2.2b-SIMBOLOS`, 29/09) |
-> | La **IMAGEN**: layout, paneles, estilo de dibujo, mecánica cómica (Paso 6) | **Puntuación anti-IA:** cero guion largo, cero coma antes de "y" (`brand-voice §3`) |
+> | La **IMAGEN**: layout, paneles, mecánica cómica (Paso 6); el acabado, siempre dibujo plano minimalista (`images §0a-DIBUJO`) | **Puntuación anti-IA:** cero guion largo, cero coma antes de "y" (`brand-voice §3`) |
 > | La **temática y el esqueleto del cuerpo**: sus etiquetas, su orden (Paso 3) | **Ancla de ventas** y **verbo con techo** (`global §2.3`, `§2.9`) |
 > | La **emoción**: contraste, curiosidad, reto (`outliers-database §3.9c` Paso 5) | **Spam ninja** (`global §4.4b`) y la jerga vetada del hook |
 >
@@ -1689,7 +1689,7 @@ Mira la foto **sola**, tapando el texto del post, y escribe en literal:
   - **Las 4 reglas del texto de la imagen están en `images §0h` y son de obligado cumplimiento:** (1) el **título de la imagen también se ancla a ventas** (el test de §2.3 no es solo del hook); (2) el título **no repite el hook**, es otra frase del mismo chiste; (3) **cero footer** aunque la referencia lo lleve, y cero logos; (4) se traduce **TODO**, incluidos los rincones (badges, botones, `Delivered`, `Send`), no solo las etiquetas grandes.
 - **Roles en la imagen:** español genérico, sin anglicismos, entendibles por industrial 50+ (igual que el cuerpo).
 - **Paleta + detalles de marca** (Brandbook 2026, `images §0a-ter`)**:** aplica **Mint claro `#ebfff6`** (fondo) · **Berenjena `#431b44`** (tinta) · **Naranja `#fe8238`** (highlight), y **añade detalles nuestros** (corbatas naranjas, patrones, siluetas, props en naranja…) — no solo recolorear.
-- **Fidelidad al diseño original:** mantén el **estilo de dibujo** (minimalista→minimalista, recargado→recargado), el **layout, paneles, escena y mecánica cómica** de la referencia.
+- **Fidelidad al diseño original:** mantén el **layout, paneles, escena y mecánica cómica** de la referencia. **El estilo de dibujo NO se hereda: todo lo que pinte el generador sale en ilustración plana minimalista, aunque la referencia sea foto o 3D** (`images §0a-DIBUJO`, Iker 01/10: la v1 fotorrealista de los sueños por cargo *"se nota la copia muy descarada"*).
 - **⛔ EL SUJETO NO SE CAMBIA. Es el motor, no el decorado.** Conserva el elemento y varía solo el detalle: si el original tiene un perro → **otro perro**; café → otro café; avión → otro avión; camión → otro camión, **nunca un gato**. Un perro nuevo con nuestros colores haciendo lo mismo. Punto.
   ❌ **Fallo real (2026-07-14):** referencia con un perro (1.307 likes, 96 reposts) y el prompt salió "el perro pasa a ser un COMERCIAL", razonando que había que anclar la imagen a ventas. **La gracia ERA el perro**; sin él no hay meme, hay una viñeta corporativa. El ancla de ventas se pone en el TEXTO (el del post y el de la imagen), nunca cambiando el sujeto.
   **La regla de "roles en español genérico" NO es permiso para sustituir al protagonista**: aplica cuando el original YA tiene roles, no para meterlos donde no los había.

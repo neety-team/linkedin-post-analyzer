@@ -89,6 +89,23 @@ defecto.
 
 **3. Se tiene que entender en UN SEGUNDO.** Minimalista. El hueco que dejan la marca y los subtitulos se usa para que el titular sea lo primero que se lee, mas grande y mas arriba.
 
+## ✏️✏️ 0a-DIBUJO · TODO LO QUE DIBUJA EL GENERADOR SALE EN DIBUJO MINIMALISTA, AUNQUE LA REFERENCIA SEA FOTO O 3D (Iker, 2026-10-01)
+
+> **Iker, sobre la v1 del meme de Unai (los sueños por cargo, referencia de Mundorf):** *"son imágenes reales. Yo quiero siempre, y siempre te lo he dicho, fotos minimalistas. Aquí literalmente ha calcado, se nota la copia muy descarada, por mucho que haya adaptado bien el formato cuadrado y los colores de la marca… necesito que los dibujos sean realmente dibujos minimalistas"*. Y el precedente bueno: *"ayer en el Lead Magnet me pusiste un hombre en modo minimalista, sin contornos, rollo silueta, aunque la referencia no lo era y era 3D"* (Asier, `/sistema/`, 30/09: *"una silueta de persona de pie en azul bebé"*).
+
+**La regla.** Toda persona, objeto o escena que **pinte el generador** sale en **ilustración plana minimalista**: figuras de color liso de la paleta, sin sombras, sin volumen, sin degradados, sin texturas ni línea de contorno negra, caras sin rasgos o con lo mínimo para leer el gesto (dos puntos y una línea), fondos vacíos o de un solo plano. **Nunca fotorrealista y nunca 3D**, aunque la referencia lo sea. Lo que se calca de la referencia es la **maquetación, el texto y la mecánica del chiste**; **el acabado es siempre el nuestro**.
+
+**Por qué no es un capricho de estilo:** (1) **el calco fotográfico se ve copiado.** Con las mismas camas, las mismas caras y el mismo encuadre, cambiar el idioma y los colores no lo esconde, y el que ha visto el original lo reconoce. El dibujo plano cambia el acabado sin tocar el motor, y la pieza pasa a ser nuestra. (2) **El minimalismo se entiende en un segundo** (punto 3 de arriba) y en miniatura del feed: diez detalles fotográficos son ruido, una silueta y una etiqueta se leen. (3) **Es nuestra seña de casa** en las cinco cuentas: el lector reconoce la pieza antes que el nombre.
+
+**Esto corrige dos líneas viejas** que decían lo contrario: `§0d` y `§5-B` (*"el estilo de dibujo: si es minimalista → minimalista; si es recargado → recargado"*) y `post-workflow §4.4` (*"Fidelidad al diseño original: mantén el estilo de dibujo"*). **Ya no se hereda el estilo de dibujo de la referencia; se heredan su maquetación y su chiste.**
+
+**Lo que NO toca (cuidado con pasarse de frenada):**
+- **Las fotos reales que no pinta el generador:** la foto del jefe en una historia o un lead magnet (`§3.3`, `§0a-octava`), la plantilla fotográfica de un meme famoso que se pega tal cual (Mario, 27/08), los logos de la orla de "Las 10" y la silueta del despiece. Esas no se redibujan.
+- **El pantallazo y el documento fingido** (`§0a-sexta-bis/ter`, `§0a-septima-*`): un chat, un correo, un tuit o una factura calcan la interfaz, que ya es plana. Si dentro del pantallazo sale una persona (el avatar), va en dibujo.
+- **El gesto que hace el chiste NO se pierde por simplificar.** La mano en la frente del jefe agobiado, el calvo, el pelo largo al viento: se dibujan con el mínimo trazo que lo cuenta. Minimalista no es sin expresión.
+
+**Cómo se pide (la frase que va en el prompt, después de la maquetación):** *"Todo en ilustración plana minimalista: figuras de color liso sin sombras, sin volumen y sin contorno negro, caras con lo mínimo para entender el gesto, nada fotorrealista ni en 3D."* Si ya hay una v1 fotorrealista, el prompt de edición es ese cambio y nada más (`§0i-3`): **"redibuja toda la imagen en…"** + la frase + la contención corta.
+
 ## ⭐ 0a-ter · PALETA NUEVA (Brandbook 2026_Saiabera, Iker 2026-07-27) — MANDA SOBRE LA ANTIGUA
 
 Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. **Sustituye al crema/azul-marino/coral de antes en TODA imagen nueva, de cualquier pilar.**
@@ -837,7 +854,7 @@ Sirve para todo lo espacial: separar del borde, llenar un hueco, subir algo que 
 
 - El original lo hizo un humano con prisa. Que algo esté ahí no significa que sea lo que funcionó: puede ser simplemente lo que le salió.
 - **Lo que se arregla siempre, sin preguntar:** encuadre alargado → **1:1** (`§0b`) · textos descentrados → colocados con la técnica de `§0c` · nuestra paleta y nuestros detalles de marca (`§4`).
-- **Lo que NO se toca aunque te pique:** la mecánica cómica, el sujeto, el layout, el estilo de dibujo. Eso es el motor.
+- **Lo que NO se toca aunque te pique:** la mecánica cómica, el sujeto, el layout. Eso es el motor. **El estilo de dibujo SÍ se cambia: siempre a dibujo plano minimalista** (`§0a-DIBUJO`, Iker 01/10).
 - **La pregunta:** ¿esto es lo que hizo volar al post, o es un defecto que nadie ha mirado? Lo primero se calca. Lo segundo se mejora. **Estos detalles de diseño marcan la diferencia entre un remix y una copia peor que el original.**
 
 ### ⛔⛔ 0d-PROPORCION · EL TAMAÑO RELATIVO DE LOS PANELES ES CALCO, NO DECORADO. Y UNA "MEJORA" QUE NO ESTÁ EN LA LISTA DE ARRIBA ES UNA HIPÓTESIS MÍA (Mario, 2026-08-26)
@@ -1297,7 +1314,7 @@ UN párrafo simple en prosa, listo para pegar en un generador de imágenes. Nomb
 ---
 
 ## 3 · Los 3 registros de imagen (elige por tipo de post, no los cruces)
-1. **MEME** → ilustración / cambio corporal, o **calcar la referencia** (§5-B). Dibujado es correcto AQUÍ. (El meme es la EXCEPCIÓN: si la referencia es dibujo, nuestra foto es dibujo.)
+1. **MEME** → ilustración / cambio corporal, o **calcar la referencia** (§5-B). Dibujado es correcto AQUÍ, y **siempre en dibujo plano minimalista, aunque la referencia sea foto o 3D** (`§0a-DIBUJO`, Iker 01/10).
 2. **DESEO / NÚMEROS / CONVERSACIÓN** → **screenshot documental real** que calca una pantalla reconocible: **iMessage de iPhone** (conversación/mensajes simulados), **captura de la app del banco**, Stripe, calendario, CRM, factura. Y para un **post de métricas**: **captura del dashboard oficial de analíticas de LinkedIn** con NUESTROS datos. Prueba real, no ilustración. Conserva el chrome visible (logo, tipografía real, números en su formato) — ahí está la credibilidad. La credibilidad está en que el FORMATO calca una pantalla real, no en que el dato sea literalmente cierto. Funciona muy bien tanto en memes (motor B) como fuera.
 3. **PERSONAL / LEAD-MAGNET / FOUNDER** → **foto natural real** del autor, NO caricatura ni diseño elaborado/complejo. Rinden mejor las **fotos naturales tipo selfie o foto en grupo con compañeros** (cara real, oficina) que las ilustraciones. La cara real es el motor de credibilidad (Iker "desmonto perfiles" foto real 9.13x vs caricatura 0.2x). Especialmente en **lead magnets**: selfie / grupo con el equipo > cualquier caricatura.
    - **⭐ En un post de HISTORIA/anécdota, la foto REAL de la persona gana a una captura de métricas, aunque el post mencione cifras (Iker, 2026-07-24).** La cara ES la historia: si cuentas "di mi primera conferencia", la foto tuya dándola (y que se te vea joven, natural) engancha más que cualquier pantalla de datos. El registro de métricas (§2 de arriba) es para posts de flex de números, no para una historia personal.
@@ -1337,7 +1354,7 @@ UN párrafo simple en prosa, listo para pegar en un generador de imágenes. Nomb
 Un sujeto principal, un scroll-stopper, composición limpia, paleta de marca. Los principios de §2 aplican directos.
 
 ### (B) MEME CON IMAGEN DE REFERENCIA que pasa el usuario → CALCAR LA REFERENCIA
-La referencia manda: layout, nº de paneles, escena, expresiones, lenguaje corporal, mecánica cómica, el chiste, y el **estilo de dibujo** (si es minimalista → minimalista; si es recargado → recargado). Cópiala lo más fielmente posible e **IGNORA la regla minimalista de (A)**. Sea cual sea su forma (un panel, tres, un sketch, una tira, un screenshot, una foto candid, incluso un meme no-Neety) → clávala. Sobrescribe SOLO esto:
+La referencia manda: layout, nº de paneles, escena, expresiones, lenguaje corporal, mecánica cómica y el chiste. Cópiala lo más fielmente posible en todo eso. **El acabado NO se calca: sale siempre en ilustración plana minimalista, aunque la referencia sea foto, 3D o recargada** (`§0a-DIBUJO`, Iker 01/10; aquí ponía *"si es recargado → recargado"* y producía calcos fotográficos que se veían copiados). Sea cual sea su forma (un panel, tres, un sketch, una tira, un screenshot, una foto candid, incluso un meme no-Neety) → clávala. Sobrescribe SOLO esto:
 1. **Remapea los colores** a la paleta Neety **y añade detalles de marca** (no solo recolorear): corbatas naranjas, patrones, siluetas, props narrativos en naranja.
 2. **Textos:** si los hay, tradúcelos al español (adaptados a ventas) en Bricolage Grotesque (títulos) + Switzer (cuerpo) con la regla de la palabra naranja.
 3. **Props específicos:** conserva el elemento pero varía el detalle (café → otro café, avión → otro avión).

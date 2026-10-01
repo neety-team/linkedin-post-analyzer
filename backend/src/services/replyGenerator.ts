@@ -11,6 +11,7 @@ import {
   respuestasPrevias as previasDelPost,
   recordarRespuestaGenerada,
   problemaDeVariedad,
+  quitarExactamente,
 } from './variedadComentarios';
 
 // Generates a single reply that the post author writes back to a commenter.
@@ -1739,7 +1740,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     if (!ultimoEstilo) {
       const nom = input.commenterName?.trim() || '';
       const cuerpoV = nom && candidato.toLowerCase().startsWith(nom.toLowerCase()) ? candidato.slice(nom.length) : candidato;
-      ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText, [input.commenterName, input.authorName]);
+      ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText, [input.commenterName, input.authorName], `${fuentes.postContent}\n${input.commenterHeadline || ''}`);
     }
     if (ultimoEstilo && intento < 3) {
       candidatoTibio = candidato;
@@ -1845,7 +1846,8 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     }
   }
   // 1g. TILDES QUE NO ADMITEN DUDA (tanda del 18/09: "ojala", "culpa mia").
-  text = ponerTildesSeguras(text);
+  //     Y "exactamente" en mitad de frase, que es tic de IA (01/10).
+  text = quitarExactamente(ponerTildesSeguras(text));
   // 1h. SI A LA TERCERA SIGUE INVENTANDO SOBRE EL EVENTO, salida segura: lo
   //     que no sabemos se contesta por privado.
   //     Primero se RECORTA la coletilla del evento; "te lo paso por privado"

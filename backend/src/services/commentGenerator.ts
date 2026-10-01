@@ -21,6 +21,8 @@ import {
   comillasDeArranque,
   sorteaEmoji,
   estirarUna,
+  esEstirada,
+  desestirarTodo,
 } from './replyGenerator';
 import {
   esPostDeEvento,
@@ -43,6 +45,9 @@ import {
   detalleRepetidoEnTanda,
   juezDeTanda,
   pulirComentario,
+  nombreAjeno,
+  cifraNueva,
+  quitarExactamente,
 } from './variedadComentarios';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
@@ -588,16 +593,32 @@ Return JSON only: { "comments": ["...", "..."] }`;
       .map((block) => block.text)
       .join('');
 
+    // ⛔ EL JSON SE BUSCA, NO SE SUPONE (prueba del 01/10): 2 de 6 tandas de
+    // "Las 10" salieron VACIAS con "Unexpected token 'I', "I need to"...": en
+    // el reintento el modelo explica antes de devolver el JSON, el JSON.parse
+    // lanzaba y el aviso de Google Chat salia sin comentarios. Se coge del
+    // primer "{" al ultimo "}", y si aun asi no se lee, se gasta otro intento
+    // en vez de tirar la tanda.
     const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    const parsed = JSON.parse(cleaned) as { comments: unknown };
-    if (!Array.isArray(parsed.comments)) throw new Error('Supportive generator returned no comments array');
-
-    out = parsed.comments
-      .filter((c): c is string => typeof c === 'string')
-      .map((c) => c.trim())
-      .filter(Boolean)
-      .slice(0, n);
-    if (out.length === 0) throw new Error('Supportive generator returned an empty list');
+    let parsed: { comments?: unknown } | null = null;
+    try {
+      parsed = JSON.parse(cleaned.slice(cleaned.indexOf('{'), cleaned.lastIndexOf('}') + 1));
+    } catch {
+      parsed = null;
+    }
+    const leidos = Array.isArray(parsed?.comments)
+      ? (parsed!.comments as unknown[]).filter((c): c is string => typeof c === 'string').map((c) => c.trim()).filter(Boolean).slice(0, n)
+      : [];
+    if (leidos.length === 0) {
+      console.warn(`[commentGenerator] intento ${intento}/3 sin JSON legible: ${cleaned.slice(0, 80)}`);
+      if (intento === 3 && out.length === 0) throw new Error('Supportive generator returned no readable comments');
+      if (intento < 3) {
+        reproche += `\n\nDEVUELVE SOLO EL JSON { "comments": [...] }, sin ninguna palabra antes ni despues.`;
+        continue;
+      }
+      break;
+    }
+    out = leidos;
 
     const apoyaSegunFase = (c: string): boolean =>
       !fase ||
@@ -614,6 +635,11 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (criticaNuestroPost(c) ? 'deja mal a nuestra propia publicacion' : null) ||
           (aperturaHueca(c) ? 'peloteo hueco de apertura' : null) ||
           comentarioVacio(c) ||
+          (c.length > 190 ? `mide ${c.length} caracteres y el tope es 180: una idea, una o dos frases` : null) ||
+          (cifraNueva(c, safePostContent) ? `da una cifra que no esta en el post ("${cifraNueva(c, safePostContent)}")` : null) ||
+          (nombreAjeno(c, safePostContent, '', [input.creatorName])
+            ? `nombra "${nombreAjeno(c, safePostContent, '', [input.creatorName])}", que no sale en el post: del post, solo lo que pone`
+            : null) ||
           (registroFormal(c) ? `suena a informe ("${registroFormal(c)}"): dilo como se habla` : null) ||
           (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
           (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null) ||
@@ -706,7 +732,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
     ({ plan, conEmoji, conEstirar, emojiDe, palabraDe } = repartir(out.length));
   }
   const limpios = out.map((c) => {
-    const base = pulirComentario(ponerTildesSeguras(quitarComaAntesDeY(limitarEstiradas(quitarIncisosSueltos(recortarEventoInventado(c))))));
+    const base = pulirComentario(quitarExactamente(ponerTildesSeguras(quitarComaAntesDeY(limitarEstiradas(quitarIncisosSueltos(recortarEventoInventado(c)))))));
     // Si a la tercera sigue deseando suerte a un evento que ya paso, se quita
     // esa frase: es un error de hecho, no de estilo.
     return fase?.momento === 'despues' ? quitarFraseFutura(base) : base;
@@ -715,11 +741,27 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // sitio; solo si no, se antepone. Y nunca delante de una primera persona
   // (Google Chat 18/09: "Pues exactooo, yo, sin ese contexto…").
   const anteponible = (t: string) => !/^\s*(yo|me|mi|lo veo|nosotros|a mi)\b/i.test(t);
+  // Y nunca dos que abran con la misma alargada (prueba del 01/10: dos
+  // "Perfectooo," en la misma tanda tras quitar un comentario inventado).
+  const baseAlargada = (t: string) => {
+    const w = (t.match(/\p{L}+/gu) || []).find(esEstirada);
+    return w ? desestirarTodo(w).toLowerCase() : null;
+  };
+  const usadas = new Set(limpios.map(baseAlargada).filter(Boolean) as string[]);
+  const palabraLibre = (i: number) => {
+    const p = palabraDe.get(i);
+    if (p && !usadas.has(desestirarTodo(p).toLowerCase())) return p;
+    return ALARGADAS_SUELTAS.find((w) => !usadas.has(desestirarTodo(w).toLowerCase())) || p;
+  };
   const conAlargada = limpios.map((r, i) => {
     if (!conEstirar.has(i)) return r;
     const suave = estirarUna(r, 2);
     if (contarEstiradas(suave) > 0) return suave;
-    return anteponible(r) ? forzarEstirada(r, 2, palabraDe.get(i)) : r;
+    if (!anteponible(r)) return r;
+    const forzada = forzarEstirada(r, 2, palabraLibre(i));
+    const b = baseAlargada(forzada);
+    if (b) usadas.add(b);
+    return forzada;
   });
   // Al menos DOS en la tanda (Iker, 2026-10-01: "que alguna más tenga más
   // vocales"): si las asignadas no pudieron, se busca otra que la admita.

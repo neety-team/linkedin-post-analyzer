@@ -44,7 +44,7 @@ export const FAMILIAS: { id: FamiliaId; nombre: string; re: RegExp }[] = [
   {
     id: 'invisible',
     nombre: 'que nadie lo ve (en silencio, fuera del radar, sin titulares, desde la autovia)',
-    re: /(en silencio|en la sombra|entre bambalinas|sin hacer ruido|sin que (nadie|lo|la|los|las|se) |antes de que nadie|(que|porque|y|pero) nadie (lo |la |los |las )?(ve|veia|vea|mira|miraba|cuenta|contaba|conoce|conocia|habla|hablaba|fotografia|visualiza|sabe|sabia|ponia|habia puesto|recuerda)\b|nadie (se para|lo ve|lo cuenta|lo visualiza|habla de)|(fuera|debajo|bajo|por debajo) del? radar|lejos de los focos|sin focos|el foco (va|se va|se lo lleva|se lo llevan|esta|siempre)|(menos|ninguna|ningun|sin) (portadas?|titulares?|reportajes?|folletos?)\b|no (sale|salen|aparece|aparecen) en (ningun|ninguna|los|las)\b|desapercibid|pasan? de largo|no se ven?\b|(mas alla|desde) (de )?(la|el) (autovia|ventanilla|carretera|tren)\b|no (es )?solo (el )?paisaje|despiste|infravalorad|subestimad|lo que no se cuenta)/,
+    re: /(en silencio|en la sombra|entre bambalinas|sin hacer ruido|sin que (nadie|lo|la|los|las|se) |antes de que nadie|(que|porque|y|pero) nadie (lo |la |los |las )?(ve|veia|vea|mira|miraba|cuenta|contaba|conoce|conocia|habla|hablaba|fotografia|visualiza|sabe|sabia|ponia|habia puesto|recuerda)\b|nadie (se para|lo ve|lo cuenta|lo visualiza|habla de)|(fuera|debajo|bajo|por debajo) del? radar|lejos de los focos|sin focos|el foco (va|se va|se lo lleva|se lo llevan|esta|siempre)|(menos|ninguna|ningun|sin) (portadas?|titulares?|reportajes?|folletos?)\b|(no|tampoco|nunca) (sale|salen|aparece|aparecen) en (ningun|ninguna|los|las)\b|(se )?llevan? (todas )?las miradas|acapara(n)? (las miradas|el foco|la atencion)|desapercibid|pasan? de largo|no se ven?\b|(mas alla|desde) (de )?(la|el) (autovia|ventanilla|carretera|tren)\b|no (es )?solo (el )?paisaje|despiste|infravalorad|subestimad|lo que no se cuenta)/,
   },
   {
     id: 'a_quien_llamar',
@@ -153,6 +153,56 @@ export function nombreRepetido(
   return [...detalles(candidato, ex)].find((d) => usados.has(d) && !/^\d/.test(d)) ?? null;
 }
 
+// ⛔ EL NOMBRE QUE NO ESTA EN NINGUN SITIO (prueba del 01/10): "Ajusa exporta
+// desde Yecla" (es de Albacete, y el post no dice de donde es) o "Señorío de
+// Montanera vende a media Europa". El juez de Haiku se dejo el primero. Un
+// nombre propio que no sale ni en el post ni en el comentario lo ha puesto el
+// modelo: se vuelve a pedir. Lo de la casa (Neety, el evento) no cuenta.
+const NOMBRES_DE_CASA = new Set(['linkedin', 'neety', 'forward', 'donostia']);
+export function nombreAjeno(
+  cuerpo: string,
+  fuentes: string,
+  comentario = '',
+  excluir: (string | null | undefined)[] = []
+): string | null {
+  const fuente = llano(`${fuentes} \n ${comentario}`);
+  const ex = excluidos(excluir);
+  return [...detalles(cuerpo, ex)].find((d) => !/^\d/.test(d) && !NOMBRES_DE_CASA.has(d) && !fuente.includes(d)) ?? null;
+}
+
+// ⛔ LA CIFRA QUE NO ESTA EN EL POST (prueba del 01/10): "un millón de
+// personas vendiendo más que cuatro millones" (Moldavia: el post solo dice
+// "más del doble de gente", y es falso). En digitos y en letra delante de una
+// magnitud. Se compara por numero entero, no por trozo: "4" no esta en "4.074".
+const EN_LETRA: Record<string, number> = {
+  un: 1, uno: 1, una: 1, dos: 2, tres: 3, cuatro: 4, cinco: 5, seis: 6, siete: 7, ocho: 8, nueve: 9, diez: 10,
+  once: 11, doce: 12, quince: 15, veinte: 20, treinta: 30, cuarenta: 40, cincuenta: 50, cien: 100, mil: 1000,
+};
+export function cifraNueva(c: string, fuentes: string): string | null {
+  const f = llano(fuentes);
+  const t = llano(c);
+  const numeros = (x: string) => (x.match(/\d+(?:[.,]\d+)*/g) || []).map((n) => n.replace(/[.,]+$/, ''));
+  const delPost = new Set(numeros(f));
+  const nueva = numeros(t).find((n) => !delPost.has(n));
+  if (nueva) return nueva;
+  for (const m of t.matchAll(/\b(un|uno|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|quince|veinte|treinta|cuarenta|cincuenta|cien|mil)\s+(millon|millones|mil|veces|personas|paises|empresas|habitantes|euros)\b/g)) {
+    if (!f.includes(m[0]) && !delPost.has(String(EN_LETRA[m[1]]))) return m[0];
+  }
+  return null;
+}
+
+/**
+ * "exactamente" en mitad de frase (prueba del 01/10: "es exactamente lo que
+ * falla", "pasa exactamente igual") es tic de IA: la gente dice "justo", o
+ * nada. Se arregla en codigo, sin gastar otro intento.
+ */
+export function quitarExactamente(t: string): string {
+  return (t || '')
+    .replace(/\bexactamente igual\b/gi, 'igual')
+    .replace(/\bexactamente (lo que|la que|el que|eso|esto|ahi|ahí|aqui|aquí|asi|así)\b/gi, 'justo $1')
+    .replace(/\s*\bexactamente\b/gi, '');
+}
+
 // ─────────────────────────────── forma ───────────────────────────────
 
 /**
@@ -188,9 +238,7 @@ export function comentarioVacio(c: string): string | null {
 // compañeros pegados del Google Chat ("demuestra que el músculo industrial",
 // "ecosistemas muy sólidos fuera del radar", "habla de especialización").
 // Nadie que comenta desde el movil el post de un conocido escribe asi.
-// "exactamente" en mitad de frase (prueba del 01/10: "es exactamente lo que
-// falla", "pasa exactamente igual") es el mismo tic: la gente dice "justo".
-const FORMAL = /(\bexactamente\b|demuestra(n)? (que|cuanto|como|lo)|pone(n)? de manifiesto|cabe destacar|habla de (especializacion|compromiso|talento|esfuerzo|la capacidad|continuidad)|\becosistemas?\b|tejido (industrial|comercial|productivo|empresarial|economico)|musculo (industrial|exportador|economico)|motor(es)? (economico|del norte|de la economia|industrial)|grandes motores|fuera del radar|lejos de los focos|(poner|pone|ponen|puesta) en valor|capacidad (exportadora|industrial|productiva)|a nivel (de|nacional|internacional)|sin duda alguna|es fundamental|resulta (clave|fundamental)|en definitiva|asimismo|no obstante|realidad (industrial|empresarial|economica)|\bvisibilidad\b)/;
+const FORMAL = /(\bdemuestra(n)?\b|pone(n)? de manifiesto|cabe destacar|habla de (especializacion|compromiso|talento|esfuerzo|la capacidad|continuidad)|\becosistemas?\b|tejido (industrial|comercial|productivo|empresarial|economico)|musculo (industrial|exportador|economico)|motor(es)? (economico|del norte|de la economia|industrial)|grandes motores|fuera del radar|lejos de los focos|(poner|pone|ponen|puesta) en valor|capacidad (exportadora|industrial|productiva)|a nivel (de|nacional|internacional)|sin duda alguna|es fundamental|resulta (clave|fundamental)|en definitiva|asimismo|no obstante|realidad (industrial|empresarial|economica)|\bvisibilidad\b)/;
 export function registroFormal(c: string): string | null {
   const m = llano(c).match(FORMAL);
   return m ? m[0] : null;
@@ -587,7 +635,8 @@ export function problemaDeVariedad(
   cuerpo: string,
   previas: string[],
   comentario: string,
-  excluir: (string | null | undefined)[] = []
+  excluir: (string | null | undefined)[] = [],
+  fuentes = ''
 ): string | null {
   const fam = familiaRepetida(cuerpo, previas.slice(-4));
   if (fam && !FAMILIAS.find((f) => f.id === fam.id)!.re.test(llano(comentario))) {
@@ -597,6 +646,12 @@ export function problemaDeVariedad(
   if (dato) return `repite el dato "${dato}", que ya usaste en otra respuesta de este post: usa otro detalle o ninguno`;
   const nombre = nombreRepetido(cuerpo, previas.slice(-2), comentario, excluir);
   if (nombre) return `vuelve a "${nombre}", que ya salio en la respuesta anterior de este post: agarrate a otro detalle, el que trae su comentario`;
+  if (fuentes) {
+    const ajeno = nombreAjeno(cuerpo, fuentes, comentario, excluir);
+    if (ajeno) return `nombras "${ajeno}", que no sale ni en el post ni en su comentario: no lo nombres`;
+    const cifra = cifraNueva(cuerpo, `${fuentes}\n${comentario}`);
+    if (cifra) return `das una cifra ("${cifra}") que no esta ni en el post ni en su comentario: quitala`;
+  }
   const formal = registroFormal(cuerpo);
   if (formal) return `suena a informe ("${formal}"): dilo como lo dirias hablando`;
   return null;

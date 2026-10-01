@@ -38,6 +38,9 @@ import {
   detalleRepetidoEnTanda,
   nombreRepetido,
   pulirComentario,
+  nombreAjeno,
+  cifraNueva,
+  quitarExactamente,
 } from '../services/variedadComentarios';
 import { buildPrompt } from '../services/replyGenerator';
 
@@ -219,11 +222,34 @@ const previasAlbacete = ['exactooo, te esperas algo así en el Norte y luego en 
 ok(nombreRepetido('ahí está y el cuchillo con el que cortas el embutido sale de Albacete.', previasAlbacete) !== null, 'Albacete otra vez se tumba');
 ok(nombreRepetido('el vino de Valdepeñas en la cena', previasAlbacete) === null, 'otro sitio pasa');
 ok(nombreRepetido('Albacete es mi tierra y lo sabes', previasAlbacete, 'Soy de Albacete y me ha encantado') === null, 'si lo trae el que comenta, se recoge');
-console.log('\n16 · "exactamente" en mitad de frase es tic de IA');
-ok(registroFormal('repartirnos bien es exactamente lo que falla') !== null, '"exactamente" se tumba');
+console.log('\n16 · "exactamente" en mitad de frase es tic de IA: se cambia en codigo (21), no se reintenta');
+ok(registroFormal('repartirnos bien es exactamente lo que falla') === null, 'no gasta un intento');
 console.log('\n17 · el colon se cambia por coma y la primera letra va en mayuscula');
 ok(pulirComentario('juuusto, me quedé parado con lo de Moldavia: un millón de personas') === 'Juuusto, me quedé parado con lo de Moldavia, un millón de personas', pulirComentario('juuusto, me quedé parado con lo de Moldavia: un millón de personas'));
 ok(pulirComentario('a las 10:30 en punto') === 'A las 10:30 en punto', 'una hora no se toca');
+
+console.log('\n18 · formas de "nadie lo ve" que se colaron en la segunda ronda');
+ok(familiasDe('Ajusa lleva décadas exportando y tampoco sale en los titulares').includes('invisible'), '"tampoco sale en los titulares"');
+ok(familiasDe('el paisaje siempre lleva todas las miradas y mientras tanto Incarlopsa factura').includes('invisible'), '"lleva todas las miradas"');
+ok(registroFormal('lo que demuestran empresas como Siderúrgica Balboa') !== null, '"demuestran" suelto');
+
+console.log('\n19 · nombre que no esta ni en el post ni en el comentario (Ajusa "desde Yecla")');
+const postClm = 'Estas son las 10 que lo levantan. Ajusa exporta más del 85% a más de 80 países. El cuchillo con el que lo cortas, desde Albacete. Las de España.';
+ok(nombreAjeno('"los territorios de siempre" es justo el punto, porque Ajusa exporta desde Yecla', postClm) === 'yecla', 'Yecla se tumba', String(nombreAjeno('porque Ajusa exporta desde Yecla', postClm)));
+ok(nombreAjeno('el cuchillo de Albacete en mi cocina', postClm) === null, 'Albacete esta en el post');
+ok(nombreAjeno('desde Euskadi lo vemos', postClm, 'Desde Euskadi estos datos llaman la atención') === null, 'si lo dice el comentario, vale');
+ok(nombreAjeno('Señorío de Montanera vende el mejor ibérico a media Europa', 'Señorío de Montanera - Ana Espárrago') === 'europa', '"media Europa" se tumba');
+ok(nombreAjeno('qué bien Unai', postClm, '', ['Unai Arambarri Yeregui']) === null, 'el nombre del autor no cuenta');
+
+console.log('\n20 · cifra que no esta en el post (Moldavia "cuatro millones")');
+const postExt = '1 millón de personas venden fuera más que Moldavia entera, que tiene más del doble de gente: 4.074M€ contra 3.354M€. Crecen un 22%.';
+ok(cifraNueva('un millón de personas vendiendo más que cuatro millones...', postExt) !== null, '"cuatro millones" se tumba');
+ok(cifraNueva('Moldavia, 4 millones de personas', postExt) !== null, '"4 millones" se tumba aunque el post tenga 4.074');
+ok(cifraNueva('un millón de personas y crecen un 22%, qué barbaridad', postExt) === null, 'las del post pasan');
+
+console.log('\n21 · "exactamente" se cambia en codigo');
+ok(quitarExactamente('repartirnos bien es exactamente lo que falla') === 'repartirnos bien es justo lo que falla', 'exactamente lo que -> justo lo que');
+ok(quitarExactamente('pasa exactamente igual cuando') === 'pasa igual cuando', 'exactamente igual -> igual');
 
 console.log(fallos === 0 ? '\n✅ variedad y formato en orden' : `\n❌ ${fallos} fallo(s)`);
 process.exit(fallos === 0 ? 0 : 1);

@@ -44,6 +44,7 @@ import {
   inglesColado,
   conservarMayuscula,
   LARGO_MAX_CHAT,
+  esNombrePropio,
 } from '../services/variedadComentarios';
 import { caberEnLinea } from '../services/commentGenerator';
 import { buildPrompt, pulirTrasAlargada, ponerEmojiAlFinal } from '../services/replyGenerator';
@@ -289,6 +290,18 @@ ok(suerteFutura('si no sabes a quién llamar antes de que empiece la cuenta atr�
 // alargada sin conservar la mayuscula). El pase final la devuelve.
 ok(pulirTrasAlargada('Perfectooo, kenia tiene 26 veces más gente', 'exporta más que Kenia entera') === 'Perfectooo Kenia tiene 26 veces más gente', 'el nombre propio recupera la mayuscula', pulirTrasAlargada('Perfectooo, kenia tiene 26 veces más gente', 'exporta más que Kenia entera'));
 ok(pulirTrasAlargada('Clarooo, nadie lo cuenta', 'Vender es un caos.\nNadie te lo dice.') === 'Clarooo nadie lo cuenta', 'una palabra normal no se sube');
+
+// Ronda 7: "Tal cuaal Lo de almorzar migas". En el mapa, "Lo que no cabe..."
+// abre linea detras de "...Óscar García Vega" (sin punto): un salto de linea
+// no es mitad de frase.
+const postLista = '→ Siderúrgica Balboa, S.A. - Óscar García Vega\n\nLo que no cabe en la lista.\n→ Incarlopsa - Jesús Loriente\nY exporta más que Kenia entera';
+ok(!esNombrePropio('Lo', postLista), '"Lo" tras un salto de linea NO es nombre propio');
+ok(esNombrePropio('Incarlopsa', postLista), 'lo que va detras de "→ " en la lista SI');
+ok(esNombrePropio('Kenia', postLista), 'Kenia sigue siendolo');
+ok(pulirTrasAlargada('Tal cuaal, Lo de almorzar migas', postLista) === 'Tal cuaal lo de almorzar migas', '"Tal cuaal lo de..."');
+ok(pulirTrasAlargada('Bieeen, incarlopsa con el mejor año', postLista) === 'Bieeen Incarlopsa con el mejor año', '"incarlopsa" recupera la mayuscula');
+ok(familiasDe('en medio del caos cada uno ya sabía a quién tenía que llamar').includes('a_quien_llamar'), '"a quién tenía que llamar"');
+ok(nombreAjeno('el que viene de ver el tejido vasco', 'post', 'Acostumbrado al peso de la industria vasca') === null, '"vasco" con "vasca" en el comentario no es inventado');
 
 console.log('\n28 · ultimo recurso para la linea: si no cabe, se quita la alargada del principio (ronda 6: 1 de 60 con 101)');
 ok(

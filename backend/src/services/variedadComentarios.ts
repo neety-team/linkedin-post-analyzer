@@ -49,7 +49,7 @@ export const FAMILIAS: { id: FamiliaId; nombre: string; re: RegExp }[] = [
   {
     id: 'a_quien_llamar',
     nombre: 'saber a quien llamar (el que decide, el decisor)',
-    re: /(a quien (llamar|llamas|llamo|hay que llamar|llamaba)|que decide|(dar|das|dio|des) con (el|la) que|el nombre de quien|saber a quien|decisor)/,
+    re: /(a quien ([a-z]+ ){0,3}llama|que decide|(dar|das|dio|des) con (el|la) que|el nombre de quien|saber a quien|decisor)/,
   },
 ];
 
@@ -167,7 +167,9 @@ export function nombreAjeno(
 ): string | null {
   const fuente = llano(`${fuentes} \n ${comentario}`);
   const ex = excluidos(excluir);
-  return [...detalles(cuerpo, ex)].find((d) => !/^\d/.test(d) && !NOMBRES_DE_CASA.has(d) && !fuente.includes(d)) ?? null;
+  // Por la raiz tambien: "Vasco" con "industria vasca" en el comentario (ronda 7).
+  const consta = (d: string) => fuente.includes(d) || (d.length > 4 && fuente.includes(d.slice(0, -1)));
+  return [...detalles(cuerpo, ex)].find((d) => !/^\d/.test(d) && !NOMBRES_DE_CASA.has(d) && !consta(d)) ?? null;
 }
 
 // ⛔ LA CIFRA QUE NO ESTA EN EL POST (prueba del 01/10): "un millón de
@@ -223,7 +225,10 @@ export function esNombrePropio(w: string, fuentes = '', nombres: (string | null 
   if (/^\p{Lu}{2,}/u.test(w)) return true;
   if (nombres.some((n) => (n || '').split(/\s+/).includes(w))) return true;
   const esc = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return new RegExp(`\\p{Ll}[,;]?\\s+${esc}(?![\\p{L}])`, 'u').test(fuentes);
+  // Detras de una minuscula EN LA MISMA LINEA, o detras de "→ " / " - " como
+  // en nuestras listas de empresas. Un salto de linea no es mitad de frase
+  // (ronda 7: "...Óscar García Vega⏎⏎Lo que no cabe" dio "Tal cuaal Lo de...").
+  return new RegExp(`(?:\\p{Ll}[,;]?[ \\t]+|→[ \\t]*|[ \\t]-[ \\t]+)${esc}(?![\\p{L}])`, 'u').test(fuentes);
 }
 
 /**

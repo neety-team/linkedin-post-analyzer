@@ -4188,7 +4188,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'MEME en Unai: confirmado que NO es controversial (§4.4)',
             'Unai es el CEO y firma la casa. Un meme controversial ahi NO se publica: '
             'va a Iker, y si Iker ya tiene meme esa semana, a Asier. Si de verdad es '
-            'sobrio, pasa --meme-sobrio y quedara constancia de que lo decidiste.')
+            'sobrio, pasa --meme-sobrio y quedara constancia de que lo decidiste. '
+            'Pregunta 6 (01/10): ¿algun detalle, tambien de la IMAGEN, deja como vago o '
+            'incompetente a un director comercial, gerente o CEO? Unai borro el meme de los '
+            'suenos por la placa EN REUNION del director dormido: es quien nos compra.')
+    if pilar == 'meme':
+        chk(False, 'MEME: el chiste no deja mal al cargo que COMPRA, tampoco en la imagen (§4.4-COMPRADOR)',
+            'director comercial, gerente, CEO, director de exportacion o de marketing: se puede '
+            'jugar con su presion o con lo que suena, nunca con que no trabaja o no sabe. Repasa '
+            'tambien placas, tazas y rotulos de la imagen. En Unai es filtro duro (borro el meme '
+            'del 01/10); en Iker y Asier, cuidado igual', aviso=True)
 
     if AVISOS_OTRA_CUENTA and not historico:
         chk(True, 'QUEMADAS: otra cuenta lo acaba de usar, no bloquea (2.0b-VENTANA)',
@@ -4248,7 +4257,10 @@ def main():
                          'Es controversial si CUALQUIERA de estas es que si: el chiste depende de '
                          'que alguien se crea que paso de verdad; hay un acto ridiculo o humillante '
                          'atribuido al que publica; alguien podria insultarnos por creerselo; hay '
-                         'tacos, escatologia, sexo, politica o religion; se rie de un colectivo.')
+                         'tacos, escatologia, sexo, politica o religion; se rie de un colectivo; o algun '
+                         'detalle, TAMBIEN DE LA IMAGEN (placa, taza, rotulo), deja como vago o '
+                         'incompetente a un cargo que decide la compra (Unai borro el meme del 01/10 '
+                         'por la placa EN REUNION del director dormido).')
     ap.add_argument('--ref-con-texto', action='store_true', dest='ref_con_texto',
                     help='MEME: confirma que la IMAGEN de la referencia lleva TEXTO DENTRO que '
                          'forma parte del chiste (etiquetas de una evolucion, dialogo, rotulos, '

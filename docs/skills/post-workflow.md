@@ -1416,6 +1416,15 @@ sorprende, que es de lo que vive este pilar.
 > 3. ¿Alguien podría respondernos enfadado por habérselo creído?
 > 4. ¿Hay tacos, escatología, sexo, política o religión?
 > 5. ¿Se ríe de un colectivo?
+> 6. **¿Algún detalle, TAMBIÉN DE LA IMAGEN, deja como vago, incompetente o ridículo a un cargo que decide la compra?** (Iker, 2026-10-01; ver `§4.4-COMPRADOR` abajo)
+>
+> #### 🧑‍💼 4.4-COMPRADOR · EL CHISTE NUNCA DEJA MAL AL CARGO QUE NOS COMPRA (Iker, 2026-10-01) — LAS TRES CUENTAS, Y EN UNAI ES FILTRO DURO
+> **Qué pasó.** El meme de Unai de los sueños por cargo (Mundorf, evolución de Comercial Junior a Director Comercial) iba bien, y **Unai lo borró él mismo** al poco de publicarse. El motivo fue un detalle de la imagen: la placa **EN REUNIÓN** en la mesilla del director comercial, que duerme. Se lee como "el director dice que está reunido y está durmiendo". Unai: **los que nos compran son cargos con poder de decisión, sobre todo directores comerciales**, que son quienes usan la herramienta. No se le hace la burla a quien firma la compra.
+> - **Lo que SÍ vale:** jugar con la presión del cargo, con lo que sueña o con lo que le piden arriba (el caballo en la playa, "la cifra que piden arriba"). Es complicidad: se ríe con él.
+> - **Lo que NO vale:** que no trabaja, que se escaquea, que no sabe, que delega todo, que se lleva el mérito. Es burla: se ríe de él. **Y vale igual para el detalle pequeño de la imagen** (placa, taza, rótulo, nota), que es justo donde se coló.
+> - **Los cargos que compran** son los de `CLAUDE.md` (menciones): CEO, director general, gerente, fundador, director comercial, de exportación, de desarrollo de negocio y de marketing. El comercial raso y el junior aguantan la broma tierna (la taza LLAMA MÁS), nunca la humillante.
+> - **En Unai es filtro duro** (pregunta 6 de arriba; el validador la recuerda en `--meme-sobrio`). **En Iker y Asier, cuidado igual**: el lector es el mismo, aunque esas cuentas aguanten más registro.
+> - **El riesgo de borrado no es solo de la audiencia o de LinkedIn.** El propio jefe puede borrar un post que va bien por cómo ve su cuenta, incluso por un detalle de la imagen. Es su cuenta y manda él. **La cuenta de Unai es la de más restricciones: ante la duda, el detalle se tumba antes de proponerlo, no después.**
 >
 > **La cascada, en este orden y sin saltársela:**
 > - **Iker (2º) casi siempre.** Es la cuenta que aguanta el registro bruto.

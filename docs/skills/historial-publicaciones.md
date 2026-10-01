@@ -238,6 +238,23 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## 📝 ENTREGADO · JUE 01/10 · UNAI · HISTORIA PARA EL VIE 02/10: EL TELÉFONO DEL DIRECTOR COMERCIAL (`/agendar/`)
+
+| dato | |
+|---|---|
+| **Estado** | entregado el 01/10 por la tarde **para publicar mañana, vie 02/10** (lo pidió Iker) · validador **65/65** con `--publica-manana` · **717 car**, enlace en el **544** |
+| **Por qué historia y no lead magnet** | Iker pidió lead magnet para Unai **solo si la BD confirmaba que el problema de comentarios de fuera de la red era solo de Asier**. No lo confirma: desde julio Iker saca 0-2 comentaristas de fuera de la red por lead magnet (5 de 5) y Asier 0-2 (4 de 4); Unai 15 de 45 el 12/08, 4 de 8 el 18/08 y 0 de 11 el 22/07 (`global §6`). Además, en Unai desde julio: lead magnet mediana **3.429 imp** contra historia **10.038 imp y 35-78 clics** (n=5) |
+| **Pilar** | historia · **rama B** (testigo, `§4.6-TESTIGO`) · **no regional** · **no va del evento** (la variedad que pedía Iker: sus últimos posts eran historia, evento, vídeo del evento y el meme borrado) |
+| **Dolor** | el **nº1 del informe del 14/09**: *"buscar empresas a mano come el tiempo de contactar"* (21 empresas, 15 ICP), por la arista de los que dirigen: *"hoy no hay búsqueda de nuevos clientes, se gestiona el cliente actual"* (Franck Teixeira, Export Manager, Couth) · *"los recursos que necesitas para atender tus clientes ya existentes y luego los que destines a buscar nuevos"* (José Ignacio Latorre, Director Comercial, Entreplantas Kepler) · *"sacar tiempo nuestro para investigar, prospectar"* (Juan Alberto Prats, Sales Director, Comercial Douma) |
+| **Gancho** | `Nunca vi sonar tanto el teléfono de un director comercial 😅` (59 car) · negación (los 2 mejores CTR del pilar abren así) · intensificadores `Nunca` + `tanto` con el verbo insustituible (`global §2.9-SIN-VERBO`) · descartados: `Aquel director comercial no soltó el teléfono en todo el viaje` (se lee como maleducado, y es el cargo que compra) y `Fui de copiloto con un director comercial y su teléfono no paró de sonar` (74 car, sin intensificador, y repetía el copiloto del 26/08) |
+| **Vehículo** | **el taxi al aeropuerto** (libre en las 3 cuentas). El 1er borrador iba de copiloto y se cambió: el 26/08 de Unai ya era copiloto y con la misma negación se habría leído igual |
+| **Ninja → `/agendar/`** | `El teléfono te trae al cliente de siempre, al nuevo no.` / `A ese nuevo sí te lo señalamos, con quien decide:` (55/49) · UTM `historia-telefono-02oct` · `utm_content=unai` · eslabón 4 de la cadena (buscar contra contactar) con la persona dentro |
+| **Pago y cierre** | `Aquel teléfono sonó 11 veces y ninguna era un cliente nuevo.` · `A ningún director comercial le faltan ganas de buscar clientes.` · `Le falta la semana.` (el protagonista sale bien: calma, sus clientes le llaman a él, y la lección dice que no le faltan ganas) |
+| **Real / inventado** | real: el dolor y las tres citas · inventado (decorado): el taxi, los 45 minutos, las 11 llamadas, el pedido, el presupuesto, el saludo y lo que dijo al bajar |
+| **Eco declarado** | `señalamos` (el meme de Unai de hoy, borrado con 107 imp), `teléfono` y `director` (núcleo del gancho), `calma`, `trae`, `ganas`, `contó` (otro sentido): se quedan |
+| **Foto** | `HISTORIA/UNAI/unai casa camiseta cuadrada.jpg` (selfie en casa, la de su mejor historia del 26/08). La anterior historia de su cuenta fue la de las sillas (24/09), así que no repite · **individual** → entra en el A/B selfie contra grupo de la revisión del lunes 05/10 |
+| ⏳ | publicado: hora y enlace (de la BD) · **quemadas al confirmar que está subida**: ninja `el teléfono te trae al cliente de siempre` / `a ese nuevo sí te lo señalamos`, vehículo `el taxi al aeropuerto`, arranque de historia `un` · lunes 05/10: clics a `/agendar/` contra 35-78 de sus historias, comentarios contra 18 (23/09) |
+
 ## ✅ PUBLICADO · JUE 01/10 12:46 · IKER · "LAS 10" DE **CASTILLA-LA MANCHA** (1er "Las 10": empresas y logos en la orla)
 
 | dato | |

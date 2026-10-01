@@ -969,10 +969,13 @@ export function pulirTrasAlargada(texto: string, fuentes = '', nombres: (string 
     if (!esEstirada(m[0])) continue;
     const fin = (m.index ?? 0) + m[0].length;
     const resto = texto.slice(fin);
-    const mm = resto.match(/^(\s*,\s*|\s+)(\p{L}+)/u);
+    // Lo que sigue puede ser un numero ("Tal cuaal, 26 veces", ronda 5) y la
+    // mayuscula, de una sola letra ("Pues buenooo, A mí"). Las siglas se quedan.
+    const mm = resto.match(/^(\s*,\s*|\s+)(\S+)/u);
     if (!mm) return texto;
     const sig = mm[2];
-    const bajar = /^\p{Lu}\p{Ll}/u.test(sig) && !esNombrePropio(sig, fuentes, nombres);
+    const palabra = (sig.match(/^\p{L}+/u) || [''])[0];
+    const bajar = /^\p{Lu}(?!\p{Lu})/u.test(sig) && !esNombrePropio(palabra, fuentes, nombres);
     return texto.slice(0, fin) + ' ' + (bajar ? sig[0].toLowerCase() + sig.slice(1) : sig) + resto.slice(mm[0].length);
   }
   return texto;
@@ -1772,6 +1775,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       ultimoTonoBorde =
         'el comentario es despectivo y la respuesta le replica o no le muestra respeto (RULE 3c-quater): corta, respetuosa ("respeto la opinion", "entiendo que no te encaje", "tomo nota") y SIN ningun "pero" ni zasca';
     }
+    if (ultimoTonoBorde) diagnostico.push(`intento ${intento}: tono, ${ultimoTonoBorde}`);
     if (ultimoTonoBorde && intento < 3) {
       candidatoTibio = candidato;
       console.warn(

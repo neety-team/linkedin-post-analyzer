@@ -279,6 +279,12 @@ ok(pulirTrasAlargada('Bieeen, SYMAGA con silos en 150 países') === 'Bieeen SYMA
 ok(pulirTrasAlargada('Juuusto, Unai lo clava', '', ['Unai Arambarri Yeregui']) === 'Juuusto Unai lo clava', 'el nombre del autor tambien');
 ok(pulirTrasAlargada('el comercial llega sin saber nada') === 'el comercial llega sin saber nada', 'sin alargada no toca nada');
 
+// Ronda 5 contra produccion: la coma delante de un NUMERO y la mayuscula de
+// UNA letra se escapaban.
+ok(pulirTrasAlargada('Tal cuaal, 26 veces menos gente') === 'Tal cuaal 26 veces menos gente', 'coma delante de un numero', pulirTrasAlargada('Tal cuaal, 26 veces menos gente'));
+ok(pulirTrasAlargada('Pues buenooo, A mí me quedo con las ganas') === 'Pues buenooo a mí me quedo con las ganas', 'mayuscula de una sola letra', pulirTrasAlargada('Pues buenooo, A mí me quedo con las ganas'));
+ok(suerteFutura('si no sabes a quién llamar antes de que empiece la cuenta atrás, se te va el tiempo') === null, '"cuenta atrás" descriptiva no es desear suerte');
+
 console.log('\n26 · o exclamacion o emoji, nunca los dos ("...del equipo de ventas! 🔥")');
 ok(ponerEmojiAlFinal('Nadie mete en tres líneas lo que pesa cada rol!', '🔥') === 'Nadie mete en tres líneas lo que pesa cada rol 🔥', '"! 🔥" -> " 🔥"');
 ok(ponerEmojiAlFinal('se te queda grabado', '🙌') === 'se te queda grabado 🙌', 'espacio y emoji, como "grabado 🙌"');

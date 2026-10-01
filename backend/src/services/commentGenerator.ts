@@ -462,7 +462,7 @@ REGISTER: every comment is SUPPORTIVE and hangs on the CONCRETE part of the post
 
 ★ ⛔⛔ CADA UNO, UNA IDEA DISTINTA, Y NINGUNO REPITE LA TESIS DEL POST (Iker, 2026-10-01): "siempre hablan de lo mismo, necesito conceptos más originales". En "Las 10" de Castilla-La Mancha, 4 de 5 dijeron con otras palabras la idea central del post ("el foco va a las grandes ciudades", "no aparece en ningún titular", "pedidos que nadie contaba", "los números siempre me pillan por sorpresa"). La idea central YA LA DICE EL POST: repetirla cinco veces es lo que hace que los cinco suenen a la misma mano. Cada comentario va de SU angulo asignado y de nada mas. Como mucho UNO de los ${n} puede rozar la idea central, y con un detalle propio.
 
-LENGTH: entre 40 y ${LARGO_MAX_CHAT} caracteres, en UNA sola linea y UNA frase (Iker, 2026-10-01: uno de 107 caracteres caia a una segunda linea en el Chat, y "siempre queremos comentarios cortos en una línea, una línea larga, pero una línea"). ⛔ NUNCA por debajo de 8 palabras: "Qué post más necesario." salio en una tanda y Iker lo tumbo, "demasiado corto, no aporta absolutamente nada". Corto vale, vacio no: hasta el mas breve nombra algo concreto del post. And vary the length across the ${n}: if they are all the same size they read as one template.
+LENGTH: entre 40 y 80 caracteres (tope duro ${LARGO_MAX_CHAT}), en UNA sola linea y UNA frase (Iker, 2026-10-01: uno de 107 caracteres caia a una segunda linea en el Chat, y "siempre queremos comentarios cortos en una línea, una línea larga, pero una línea"). ⛔ NUNCA por debajo de 8 palabras: "Qué post más necesario." salio en una tanda y Iker lo tumbo, "demasiado corto, no aporta absolutamente nada". Corto vale, vacio no: hasta el mas breve nombra algo concreto del post. And vary the length across the ${n}: if they are all the same size they read as one template.
 
 ★ FIVE DIFFERENT PEOPLE WILL POST THESE. This is the rule everything else hangs off. Each comment is pasted by a DIFFERENT human being into the same thread, under their own name and face. If a reader scrolls the comments and feels they were all written by the same hand, the whole thing backfires and looks coordinated. So vary the length, the opening move, the punctuation and the energy between them, ALWAYS inside a casual register: one more excited, one more dry, one with a small personal aside. ⚠️ This used to say "vary the level of formality", and that is how formal ones crept in.
 
@@ -562,7 +562,7 @@ ${peloteo ? `
 ` : ''}${fase ? `
 ★ ESTE POST ES DE NUESTRO EVENTO (Iker, 2026-09-24). Los ${n} comentarios van del evento. ${textoFase(fase)} Un comentario que solo reflexiona sobre la idea del post y no nombra ni el evento, ni el orgullo, ni las ganas NO VALE. Los pegan compañeros de la misma empresa: nunca "vuestro", "habéis", "contáis" ni "el equipo"; el evento en primera persona del plural o hablandole a la persona.
 ` : ''}
-TASK: Write exactly ${n} supportive comments, each between 40 and ${LARGO_MAX_CHAT} chars, ONE line and ONE sentence each, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image. Cada comentario respeta EL ANGULO, EL ARRANQUE Y EL CIERRE de su numero.
+TASK: Write exactly ${n} supportive comments, each between 40 and 80 chars (hard cap ${LARGO_MAX_CHAT}), ONE line and ONE sentence each, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image. Cada comentario respeta EL ANGULO, EL ARRANQUE Y EL CIERRE de su numero.
 
 Return JSON only: { "comments": ["...", "..."] }`;
 
@@ -583,6 +583,9 @@ Return JSON only: { "comments": ["...", "..."] }`;
   let out: string[] = [];
   let reproche = '';
   let inventados: { i: number; que: string }[] = [];
+  // Lo que medira en el Chat: si le toca alargada y no la trae, el codigo le
+  // antepondra una (~9 caracteres), y eso tambien cuenta para la linea.
+  const largoChat = (c: string, i: number) => c.length + (conEstirar.has(i) && contarEstiradas(c) === 0 ? 9 : 0);
 
   for (let intento = 1; intento <= 3; intento++) {
     const response = await trackedCreate('comment_generator_supportive', {
@@ -639,7 +642,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (criticaNuestroPost(c) ? 'deja mal a nuestra propia publicacion' : null) ||
           (aperturaHueca(c) ? 'peloteo hueco de apertura' : null) ||
           comentarioVacio(c) ||
-          (c.length > LARGO_MAX_CHAT ? `mide ${c.length} caracteres y el tope es ${LARGO_MAX_CHAT}: tiene que caber en UNA linea del Chat, quita una idea` : null) ||
+          (largoChat(c, i) > LARGO_MAX_CHAT ? `mide ${c.length} caracteres y el tope es ${LARGO_MAX_CHAT}: tiene que caber en UNA linea del Chat, quita una idea` : null) ||
           (cifraNueva(c, safePostContent) ? `da una cifra que no esta en el post ("${cifraNueva(c, safePostContent)}")` : null) ||
           (nombreAjeno(c, safePostContent, '', [input.creatorName])
             ? `nombra "${nombreAjeno(c, safePostContent, '', [input.creatorName])}", que no sale en el post: del post, solo lo que pone`
@@ -729,8 +732,12 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // 01/10: 3 de 9 tandas salian con 4 al quitar el inventado, y el equipo
   // necesita 5 lineas). UNA llamada que reescribe solo esos, viendo los que
   // valen para no repetirlos, y vuelve a pasar por el juez.
-  if (inventados.length) {
-    const malos = [...new Set(inventados.map((x) => x.i))].sort((a, b) => a - b);
+  // Y LO QUE A LA TERCERA SIGUE SIN CABER EN UNA LINEA, IGUAL (ronda 5 del
+  // 01/10: 6 de 60 pasaban de la linea). Misma llamada, motivo distinto.
+  const largos = out.map((c, i) => ({ i, que: `mide ${largoChat(c, i)} caracteres y no cabe en una linea: maximo 80` })).filter((x) => largoChat(out[x.i], x.i) > LARGO_MAX_CHAT);
+  const aReparar = [...inventados, ...largos.filter((l) => !inventados.some((x) => x.i === l.i))];
+  if (aReparar.length) {
+    const malos = [...new Set(aReparar.map((x) => x.i))].sort((a, b) => a - b);
     const buenos = out.filter((_, i) => !malos.includes(i));
     try {
       const r = await trackedCreate('comment_generator_supportive_fix', {
@@ -739,8 +746,8 @@ Return JSON only: { "comments": ["...", "..."] }`;
         system,
         messages: [{
           role: 'user',
-          content: `${userMessage}\n\nYA TIENES ESTOS, QUE VALEN (no repitas su idea ni su detalle):\n${buenos.map((b) => `· ${b}`).join('\n')}\n\nREESCRIBE SOLO ESTOS, porque afirmaban algo que el post no dice. Del post, solo lo que pone; de quien comenta, nada que no se pueda decir de cualquiera:\n${malos
-            .map((i) => `${i + 1}. ANGULO: ${angulos[i]}. CIERRE: ${textoCierre(plan.cierres[i])}. FALLABA: ${inventados.find((x) => x.i === i)!.que}`)
+          content: `${userMessage}\n\nYA TIENES ESTOS, QUE VALEN (no repitas su idea ni su detalle):\n${buenos.map((b) => `· ${b}`).join('\n')}\n\nREESCRIBE SOLO ESTOS, cada uno por lo que FALLABA. Del post, solo lo que pone; de quien comenta, nada que no se pueda decir de cualquiera; y entre 40 y 80 caracteres:\n${malos
+            .map((i) => `${i + 1}. ANGULO: ${angulos[i]}. CIERRE: ${textoCierre(plan.cierres[i])}. FALLABA: ${aReparar.find((x) => x.i === i)!.que}`)
             .join('\n')}\n\nDevuelve SOLO el JSON { "comments": [...] } con ${malos.length}, en ese orden.`,
         }],
       });
@@ -751,13 +758,13 @@ Return JSON only: { "comments": ["...", "..."] }`;
       const otraVez = new Set((await juezDeTanda(nuevos, safePostContent)).map((x) => x.i));
       malos.forEach((i, k) => {
         const c = nuevos[k];
-        if (c && !otraVez.has(k) && !comentarioVacio(c) && !cifraNueva(c, safePostContent) && !nombreAjeno(c, safePostContent, '', [input.creatorName])) {
+        if (c && !otraVez.has(k) && !comentarioVacio(c) && largoChat(c, i) <= LARGO_MAX_CHAT && !cifraNueva(c, safePostContent) && !nombreAjeno(c, safePostContent, '', [input.creatorName])) {
           out[i] = c;
           inventados = inventados.filter((x) => x.i !== i);
         }
       });
     } catch (err: any) {
-      console.warn('[commentGenerator] la reparacion de los inventados ha fallado:', err?.message);
+      console.warn('[commentGenerator] la reparacion de la tanda ha fallado:', err?.message);
     }
   }
   // ⛔ Y lo que ni reparado deja de inventar NO se entrega: mejor cuatro

@@ -294,7 +294,7 @@ export function esPeloteo(pillar: string | null | undefined): boolean {
 
 // El video de Unai del 30/09 contaba EN PASADO la mañana de antes de Neety
 // Forward (24/09), y salieron "Mucha suerte mañana" y "Que salga redondo".
-const SUERTE_FUTURA = /(mucha suerte|suerte (hoy|manana|para|con|en el|el (lunes|martes|miercoles|jueves|viernes))|que (salga|vaya|sea) (todo )?(bien|redondo|genial|un exito|de lujo)|salga redondo|ganas de que (llegue|empiece|sea|arranque)|a por (ello|todas)|nos vemos (alli|manana|el|en)|(suerte|hasta|nos vemos|ganas de) manana|manana (es el dia|toca|empieza|arranca)|cuenta atras)/;
+const SUERTE_FUTURA = /(mucha suerte|suerte (hoy|manana|para|con|en el|el (lunes|martes|miercoles|jueves|viernes))|que (salga|vaya|sea) (todo )?(bien|redondo|genial|un exito|de lujo)|salga redondo|ganas de que (llegue|empiece|sea|arranque)|a por (ello|todas)|nos vemos (alli|manana|el|en)|(suerte|hasta|nos vemos|ganas de) manana|manana (es el dia|toca|empieza|arranca))/;
 export function suerteFutura(c: string): string | null {
   const m = llano(c).match(SUERTE_FUTURA);
   return m ? m[0] : null;

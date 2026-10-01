@@ -266,6 +266,12 @@ cómo está escrito. Las dos cosas van al validador como aviso de entrega.
 
 ## ⛔⛔ 1h · ANTES DE QUE SUBA NADA, PREGUNTARLE LA HORA (Iker, 2026-08-11) — GLOBAL
 
+> **🔄 ACTUALIZACIÓN QUE MANDA SOBRE LO DE ABAJO (Iker, 2026-10-01): la hora ELIGE la franja de HOY, nunca aplaza a mañana.** El 01/10 recomendé dos veces subir el meme de Unai *"mañana a las 10:00"* con el argumento de abajo (*"esperar a mañana no le cuesta nada"*). Iker lo subió a las 14:01: *"es más importante subir algo que no subir nada. Todas las semanas tenemos que subir mínimo unas nueve publicaciones, tres por cuenta es lo ideal; si se puede más, más"*.
+> - **Su jornada es de 9:00 a 18:30, y todo lo que esté listo dentro de ella se sube hoy** (`§1h-DIA`). La tabla sirve para decir qué franja de hoy rinde más y para colocar el siguiente post, no para guardar uno que ya está hecho.
+> - **La tarde no es tiempo perdido:** la historia de Unai del 23/09 a las 18:00 hizo 9.928 impresiones. La tabla de abajo no tiene casi muestras después de las 15:00, así que no dice que la tarde sea mala.
+> - **El objetivo de volumen manda sobre el pico de un post:** ~9 a la semana, 3 por cuenta. Un post guardado para mañana ocupa el hueco del de mañana.
+> - **Solo se aplaza si lo dice él.** Lo que sigue valiendo es dar el dato de la franja en una línea, sin recomendar esperar.
+
 **En cuanto Iker diga que el post ya está o que lo va a subir, hay que preguntarle
 a qué hora piensa publicarlo y decirle lo que dice el dato.** Sin esperar a que lo
 pregunte él.
@@ -291,7 +297,7 @@ post bueno publicado ahí rinde la mitad, y no hay forma de recuperarlo.
 
 **Los dos argumentos que hay que darle, porque son los que deciden:**
 1. **Ya no hay prisa de contenido.** Desde que ningún post lleva año
-   (`brand-voice`), esperar a mañana no le cuesta NADA al texto. Antes sí.
+   (`brand-voice`), esperar a mañana no le cuesta NADA al texto. Antes sí. **⛔ Superado el 01/10: ver la actualización de arriba. Al texto no le cuesta nada, pero a las nueve semanales sí.**
 2. **Dos posts buenos al día en buena hora bastan.** El tercero a mala hora no
    suma alcance: gasta una pieza buena.
 

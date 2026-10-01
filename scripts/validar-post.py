@@ -2114,8 +2114,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(False, 'ENTREGA: preguntarle A QUE HORA lo sube (working-preferences §1h)',
             'en cuanto diga que ya esta o que lo sube, preguntar la hora y dar el dato sin '
             'que lo pida: 10:00 rinde 0,80x y 4.850 impresiones de mediana; las 14:00, '
-            '0,43x y 2.989. Un post bueno a mala hora rinde la mitad y no se recupera. Y '
-            'desde que ningun post lleva anio, esperar a manana no le cuesta nada al texto',
+            '0,43x y 2.989 (la tarde casi no tiene muestras: Unai 23/09 a las 18:00, 9.928). Y '
+            'eso sirve para ELEGIR la franja de HOY, nunca para aplazar a manana: dentro de su '
+            'jornada (9:00-18:30) lo que esta listo se sube hoy, porque el objetivo es ~9 posts a '
+            'la semana, 3 por cuenta (Iker 01/10). Solo se aplaza si lo dice el (working-preferences §1h)',
             aviso=True)
         chk(False, 'ENTREGA: los 7 puntos del prompt de imagen (images §0b + §0h)',
             '1) abre con SOLO HAZ LO QUE TE PIDO en mayusculas · 2) UN SOLO PARRAFO, del '

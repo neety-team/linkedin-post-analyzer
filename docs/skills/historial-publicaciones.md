@@ -261,7 +261,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Gancho** | `Nadie en ventas sueña con lo mismo que su jefe 😴` · intensificador `Nadie`, ancla `ventas`, `jefe` = rincón de Unai |
 | **Ninja → `/agendar/`** | `Ningún sueño de jefe te trae el nombre de quien compra.` / `Ese nombre sí lo señalamos nosotros, con su contacto:` · UTM `meme-suenos-01oct` · `utm_content=unai` · dolor: eslabón 2 (la persona) |
 | **Cierre** | `Cambian los sueños, la cuota no 😅` (calco de *Dreams change. Quota doesn't. 😅*) |
-| **Imagen** | calco del gráfico en 1:1 con paleta y tipografía de marca · título `Cuanto más vendes, más vuelas` (naranja: `vuelas`) · cargos Comercial Junior → Director Comercial |
+| **Imagen** | **CERRADA en la v5 (01/10 ~14:00)**, tras 4 ediciones: foto → ilustración plana editorial · 5 personajes distintos · un objeto por bocadillo · cheque `487.350 €` · placa del director `EN REUNIÓN` · gráfica bajando · pelo del comercial castaño (`images §0a-DIBUJO-2`). Título `Cuanto más vendes, más vuelas` (naranja: `vuelas`) · cargos Comercial Junior → Director Comercial |
 | **Quemados (al PUBLICAR, no antes)** | ninja `ningún sueño de jefe te trae` / `ese nombre sí lo señalamos nosotros` · arranque de meme `el` · gancho `nadie en ventas sueña` |
 | ⏳ | publicado: hora y enlace (de la BD) · a los 3-4 días (lunes 05/10): impresiones contra la mediana de meme de Unai, % de risa, clics a `/agendar/` |
 

@@ -215,6 +215,8 @@ export function inglesColado(c: string, fuentes = ''): string | null {
   return new RegExp(`\\b${m[1]}\\b`).test(llano(fuentes)) ? null : m[1];
 }
 
+const FUNCIONALES = new Set(['a', 'al', 'de', 'del', 'el', 'la', 'lo', 'los', 'las', 'en', 'y', 'e', 'o', 'un', 'una', 'con', 'por', 'para', 'que', 'se', 'su', 'sus', 'mi', 'tu', 'yo']);
+
 /**
  * ¿Es un nombre propio? Siglas, el nombre de alguien de la conversacion, o una
  * palabra que en las fuentes va en mayuscula EN MITAD DE FRASE (detras de una
@@ -222,6 +224,9 @@ export function inglesColado(c: string, fuentes = ''): string | null {
  * solo salia asi, se tomo por nombre propio y salio "Tal cuaal, Nadie mete...".
  */
 export function esNombrePropio(w: string, fuentes = '', nombres: (string | null | undefined)[] = []): boolean {
+  // Un articulo o una preposicion sola nunca lo es, aunque abra el nombre de
+  // una empresa (ronda 8: "→ La Chinata" dio "ciertoo La feria").
+  if (FUNCIONALES.has(llano(w))) return false;
   if (/^\p{Lu}{2,}/u.test(w)) return true;
   if (nombres.some((n) => (n || '').split(/\s+/).includes(w))) return true;
   const esc = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

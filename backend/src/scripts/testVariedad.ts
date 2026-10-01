@@ -300,6 +300,9 @@ ok(esNombrePropio('Incarlopsa', postLista), 'lo que va detras de "→ " en la li
 ok(esNombrePropio('Kenia', postLista), 'Kenia sigue siendolo');
 ok(pulirTrasAlargada('Tal cuaal, Lo de almorzar migas', postLista) === 'Tal cuaal lo de almorzar migas', '"Tal cuaal lo de..."');
 ok(pulirTrasAlargada('Bieeen, incarlopsa con el mejor año', postLista) === 'Bieeen Incarlopsa con el mejor año', '"incarlopsa" recupera la mayuscula');
+// Ronda 8: "Jorge A. Osuna Pons ciertoo La feria..." (en el post va "→ La Chinata").
+ok(!esNombrePropio('La', '→ La Chinata - Carlos Oliva'), 'un articulo solo nunca es nombre propio');
+ok(pulirTrasAlargada(' ciertoo, La feria es donde', '→ La Chinata - Carlos Oliva') === ' ciertoo la feria es donde', '"ciertoo la feria"');
 ok(familiasDe('en medio del caos cada uno ya sabía a quién tenía que llamar').includes('a_quien_llamar'), '"a quién tenía que llamar"');
 ok(nombreAjeno('el que viene de ver el tejido vasco', 'post', 'Acostumbrado al peso de la industria vasca') === null, '"vasco" con "vasca" en el comentario no es inventado');
 

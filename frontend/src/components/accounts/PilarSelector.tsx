@@ -13,6 +13,13 @@
  * ⚠️ El cambio marca `pillar_manual = TRUE` en el backend, y eso hace que el
  * reproceso nocturno se salte esa fila. Es lo que impide que el clasificador
  * pise la correccion a la mañana siguiente.
+ *
+ * "PILAR DE CONTENIDO" Y LAPIZ EN TODOS (Iker, 2026-10-01). El texto decia
+ * "categoria" y el lapiz solo salia al pasar el raton y solo en los creados a
+ * mano, asi que no se encontraba. Ahora se ve siempre y tambien en los de
+ * serie: renombrar cambia SOLO la etiqueta (`PATCH /api/pillars/:slug`), el
+ * slug se queda y con el los posts y el clasificador. Primer uso: "Los 10"
+ * paso a "las 10". La papelera sigue siendo solo de los creados a mano.
  */
 import {
   createContext, useCallback, useContext, useEffect, useMemo, useRef, useState,
@@ -190,9 +197,30 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
     }
   };
 
+  // Guardas del renombrado: Esc no debe guardar aunque el blur llegue despues,
+  // y Enter seguido de blur no debe mandar dos PATCH.
+  const cancelarRef = useRef(false);
+  const enviandoRef = useRef(false);
+
+  const empezarRenombrar = (p: Pilar) => {
+    cancelarRef.current = false;
+    setError(null);
+    setRenombrando(p.slug);
+    setNombreNuevo(p.label);
+  };
+
   const renombrar = async (slug: string) => {
+    if (cancelarRef.current) { cancelarRef.current = false; return; }
+    if (enviandoRef.current) return;
     const label = nombreNuevo.trim();
-    if (label.length < 2) return;
+    const pilar = porSlug[slug];
+    // Vacio, 1 caracter o sin cambios: se vuelve a la fila sin llamar a nadie.
+    if (label.length < 2 || !pilar || label === pilar.label) { setRenombrando(null); return; }
+    // El backend no impide dos pilares con el mismo nombre, y en el badge se
+    // leerian igual aunque por dentro sean dos slugs distintos.
+    const repetido = pilares.some((p) => p.slug !== slug && p.label.toLowerCase() === label.toLowerCase());
+    if (repetido) { setError('Ya hay un pilar de contenido con ese nombre'); return; }
+    enviandoRef.current = true;
     setOcupado(true);
     setError(null);
     try {
@@ -200,8 +228,9 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
       await recargar();
       setRenombrando(null);
     } catch (e: any) {
-      setError(e.message);
+      setError(e.message);   // el campo sigue abierto con lo escrito, para reintentar
     } finally {
+      enviandoRef.current = false;
       setOcupado(false);
     }
   };
@@ -210,8 +239,8 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
     // El numero va en la pregunta a proposito: borrar una categoria con 23 posts
     // dentro los manda a "Otro" y eso no se deshace con Ctrl+Z.
     const aviso = p.posts_count > 0
-      ? `Borrar "${p.label}". Sus ${p.posts_count} post${p.posts_count === 1 ? '' : 's'} volveran a Otro. ¿Seguro?`
-      : `Borrar "${p.label}"?`;
+      ? `Borrar el pilar de contenido "${p.label}". Sus ${p.posts_count} post${p.posts_count === 1 ? '' : 's'} volverán a Otro. ¿Seguro?`
+      : `¿Borrar el pilar de contenido "${p.label}"?`;
     if (!window.confirm(aviso)) return;
     setOcupado(true);
     setError(null);
@@ -234,7 +263,7 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
         ref={botonRef}
         onClick={(e) => { e.stopPropagation(); abierto ? setAbierto(false) : abrir(); }}
         className={`px-1.5 py-0.5 rounded text-[10px] font-medium hover:ring-1 hover:ring-accent/50 transition ${clase}`}
-        title={`${meta?.ayuda || 'Sin pilar en el catalogo'}\n\nPulsa para cambiar el pilar`}
+        title={`${meta?.ayuda || 'Sin pilar de contenido en el catálogo'}\n\nPulsa para cambiar el pilar de contenido`}
       >
         {etiqueta || 'Sin pilar'}
       </button>
@@ -249,7 +278,7 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
             autoFocus
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
-            placeholder="Buscar o crear categoria…"
+            placeholder="Buscar o crear pilar de contenido…"
             className="w-full text-xs bg-bg-primary border border-border rounded px-2 py-1.5 focus:outline-none focus:border-accent"
           />
           {error && <p className="text-[10px] text-red-400 leading-snug px-1">✗ {error}</p>}
@@ -261,13 +290,23 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
                   <input
                     autoFocus
                     value={nombreNuevo}
+                    maxLength={40}
+                    disabled={ocupado}
+                    aria-label={`Nuevo nombre para ${p.label}`}
                     onChange={(e) => setNombreNuevo(e.target.value)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') void renombrar(p.slug);
-                      if (e.key === 'Escape') setRenombrando(null);
+                      if (e.key === 'Escape') {
+                        // Sin esto el keydown de document cierra el panel entero
+                        // y el blur del input al desmontarse guardaria lo escrito.
+                        e.stopPropagation();
+                        cancelarRef.current = true;
+                        setError(null);
+                        setRenombrando(null);
+                      }
                     }}
                     onBlur={() => void renombrar(p.slug)}
-                    className="flex-1 text-xs bg-bg-primary border border-accent rounded px-2 py-1 focus:outline-none"
+                    className="flex-1 min-w-0 text-xs bg-bg-primary border border-accent rounded px-2 py-1 focus:outline-none disabled:opacity-60"
                   />
                 ) : (
                   <>
@@ -281,33 +320,38 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
                       </span>
                       {p.slug === actual && <span className="text-accent text-[10px] flex-shrink-0">✓</span>}
                     </button>
-                    {/* Los de serie no llevan lapiz ni papelera: el clasificador
-                        los emite por nombre, asi que borrarlos solo consigue que
-                        el reproceso los reinvente con sus posts ya en Otro. */}
+                    {/* El lapiz, en TODOS y siempre visible: cambia solo la
+                        etiqueta y el slug se queda, asi que tambien vale para
+                        los de serie. */}
+                    <button
+                      onClick={() => empezarRenombrar(p)}
+                      disabled={ocupado}
+                      className="text-[10px] text-text-muted hover:text-accent px-1 flex-shrink-0 disabled:opacity-50 transition-colors"
+                      title="Renombrar"
+                      aria-label={`Renombrar ${p.label}`}
+                    >
+                      ✎
+                    </button>
+                    {/* Los de serie no llevan papelera: el clasificador los emite
+                        por su slug, asi que borrarlos solo consigue que el
+                        reproceso los reinvente con sus posts ya en Otro. */}
                     {!p.builtin && (
-                      <span className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button
-                          onClick={() => { setRenombrando(p.slug); setNombreNuevo(p.label); }}
-                          className="text-[10px] text-text-muted hover:text-accent px-1"
-                          title="Renombrar"
-                        >
-                          ✎
-                        </button>
-                        <button
-                          onClick={() => void borrar(p)}
-                          className="text-[10px] text-text-muted hover:text-red-400 px-1"
-                          title="Borrar"
-                        >
-                          🗑
-                        </button>
-                      </span>
+                      <button
+                        onClick={() => void borrar(p)}
+                        disabled={ocupado}
+                        className="text-[10px] text-text-muted hover:text-red-400 px-1 flex-shrink-0 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
+                        title="Borrar"
+                        aria-label={`Borrar ${p.label}`}
+                      >
+                        🗑
+                      </button>
                     )}
                   </>
                 )}
               </div>
             ))}
             {filtrados.length === 0 && !puedeCrear && (
-              <p className="text-[10px] text-text-muted px-1.5 py-2">Ninguna categoria con ese nombre.</p>
+              <p className="text-[10px] text-text-muted px-1.5 py-2">Ningún pilar de contenido con ese nombre.</p>
             )}
           </div>
 
@@ -322,7 +366,7 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
           )}
 
           <p className="text-[9px] text-text-muted leading-snug px-1 pt-1 border-t border-border">
-            Una categoria que crees tu no se detecta sola: sus posts los marcas a mano.
+            Un pilar de contenido que crees tú no se detecta solo: sus posts los marcas a mano.
           </p>
         </div>
       )}

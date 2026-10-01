@@ -603,6 +603,14 @@ CS_ANCLA = (r'\b(cliente|clientes|soporte|atenci[oó]n al cliente|ticket|tickets
             r'|incidencia|incidencias|queja|quejas|reclamaci[oó]n|posventa|postventa'
             r'|seguimiento|renovaci[oó]n|renovaciones|cuenta|cuentas|partner|partners'
             r'|fidelizar|acompa[ñn]ar|alta|altas|baja|bajas)\b')
+# La cuenta de ANGELA (6a cuenta, Iker 2026-10-01) es la de DISENO DE PRODUCTO:
+# disena las pantallas de Neety. Se le aplica la misma regla que a Mario y Helena
+# (aboutme 2-CARRIL-GANCHO: el gancho ancla en SU oficio y ventas baja al cuerpo).
+# ⚠️ Es una extension por analogia, no una orden de Iker: si la tumba, se borra y
+# su gancho vuelve a exigir ancla de ventas como el de los jefes.
+DISENO_ANCLA = (r'\b(dise[ñn]\w*|pantallas?|bot[oó]n|botones|interfaz|interfaces'
+                r'|producto|usuari[oa]s?|experiencia|bocetos?|prototipos?|flujos?'
+                r'|pulsar|pulsa|clics?)\b')
 # §2.3 — estrechan el alcance, FUERA del hook. Lista canónica: gana a la de
 # "términos naturalizados" de brand-voice §2, que decía lo contrario. El ICP de
 # aboutme desempata: lleva vendiendo desde antes de que existiera Salesforce.
@@ -1254,7 +1262,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # como intensificador. Sin esto, cada peloteo con una frase-rabia NUEVA
     # disparaba este aviso en falso y empujaba a apilar un segundo
     # intensificador, que es justo lo que §2.3d prohibe ("no se apilan dos").
-    _INTENS = (r'\bningun[oa]?\b|\bni un[oa]?\b|\bnunca\b|\bjam[aá]s\b|\bs[oó]lo\b|\bsolo\b'
+    # 01/10: `nadie` dentro. Es la misma negacion absoluta que `ninguno` y `nunca`
+    # (§2.9-SIN-VERBO) y el gancho de Angela ("para que nadie tenga que explicarlas")
+    # salia sin intensificador en falso.
+    _INTENS = (r'\bningun[oa]?\b|\bni un[oa]?\b|\bnunca\b|\bjam[aá]s\b|\bnadie\b|\bs[oó]lo\b|\bsolo\b'
                r'|en la vida|ni de broma|y poco m[aá]s|y para de contar|y a otra cosa'
                r'|lo [uú]ltimo que|en la vida habr[ií]a|todav[ií]a no|ya ha empezado'
                r'|sin tocar|en una tarde|' + FRASE_RABIA)
@@ -1472,13 +1483,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # ancla (los hooks de Martín/Guillermo van de IA/tendencia, §4.5.0b).
     _es_mario = (cuenta or '').strip().lower() == 'mario'
     _es_helena = (cuenta or '').strip().lower() == 'helena'
+    _es_angela = (cuenta or '').strip().lower() == 'angela'
     if _es_mario:
         _mk = re.search(MARKETING_ANCLA, hook_txt, re.I)
         chk(bool(_mk), 'Hook anclado a MARKETING (cuenta Mario, aboutme §2)',
             'Mario es la cuenta de marketing/growth: el hook ancla en contenido/redes/marketing, '
             'no en "vender"' if not _mk else f'ancla marketing: "{_mk.group(0)}"')
-    elif _es_helena:
+    elif _es_helena or _es_angela:
         # ⛔ EL CUERPO DE HELENA NO PUEDE SONAR PREPOTENTE (Iker, 2026-08-27).
+        # Y el de ANGELA tampoco (01/10): Iker la pide "muy humilde", con el mismo
+        # tono que el post de Helena, y tambien la escribe una chica.
         # "Ten en cuenta que el tono de la publicacion esta escrito por una chica,
         # ademas no puede sonar a prepotente tampoco". Es el mismo eje que la
         # EXCEPCION 4 de brand-voice (por lo que Mario paso a hablar en plural) y
@@ -1489,7 +1503,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         _chulo = re.findall(r'antes que nadie|mejor que nadie|como nadie|nadie lo hace'
                             r'|me lo s[eé] todo|lo s[eé] todo|siempre acierto|nunca fallo'
                             r'|religiosamente|de memoria mejor|soy la que', cuerpo, re.I)
-        chk(False, 'ENTREGA: ¿el CUERPO presume? (cuenta Helena, brand-voice EXCEPCION 4)',
+        chk(False, 'ENTREGA: ¿el CUERPO presume? (cuentas Helena y Angela, brand-voice EXCEPCION 4)',
             ('marcas encontradas: %s. ' % ', '.join(sorted(set(_chulo))) if _chulo else '')
             + 'El cuerpo va en 1ª PLURAL cuando el merito es de la casa, y una linea que '
               'presume de lo bien que lo hacemos se lee como chuleria. La salida es siempre '
@@ -1497,12 +1511,26 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
               'religiosamente" -> "me lo se de memoria"). Vale igual para saber mas que el '
               'cliente: "vemos su problema antes de que lo cuenten" presume, "conocemos la '
               'hora a la que es mejor no llamarles" es cercania', aviso=True)
-        _cs = re.search(CS_ANCLA, hook_txt, re.I)
-        chk(bool(_cs), 'Hook anclado a ATENCION AL CLIENTE (cuenta Helena, aboutme 2-CARRIL-GANCHO)',
-            'Helena es la cuenta de customer success y partnerships: el hook ancla en su oficio '
-            '(cliente, cuenta, soporte, seguimiento) y la vinculacion con ventas baja al CUERPO'
-            if not _cs else f'ancla de su oficio: "{_cs.group(0)}" - y la vinculacion con VENTAS '
-            f'tiene que estar en el CUERPO (aboutme 2)')
+        if _es_angela:
+            _ds = re.search(DISENO_ANCLA, hook_txt, re.I)
+            chk(bool(_ds), 'Hook anclado a DISENO DE PRODUCTO (cuenta Angela, aboutme 2-CARRIL-GANCHO)',
+                'Angela disena las pantallas de Neety: el hook ancla en su oficio (pantalla, '
+                'diseno, boton, producto) y la vinculacion con ventas baja al CUERPO'
+                if not _ds else f'ancla de su oficio: "{_ds.group(0)}" - y la vinculacion con '
+                f'VENTAS tiene que estar en el CUERPO (aboutme 2). ⚠️ Regla extendida por '
+                f'analogia con Mario y Helena, pendiente del OK de Iker')
+            _vt = re.search(ANCLA_VENTAS, cuerpo, re.I)
+            chk(bool(_vt), 'El CUERPO lleva la vinculacion con VENTAS (cuenta Angela, aboutme 2)',
+                f'ancla de ventas en el cuerpo: "{_vt.group(0)}"' if _vt else
+                'ni una palabra de ventas en todo el post: el gancho va de su oficio, pero el '
+                'cuerpo o el ninja tienen que atarlo a vender')
+        else:
+            _cs = re.search(CS_ANCLA, hook_txt, re.I)
+            chk(bool(_cs), 'Hook anclado a ATENCION AL CLIENTE (cuenta Helena, aboutme 2-CARRIL-GANCHO)',
+                'Helena es la cuenta de customer success y partnerships: el hook ancla en su oficio '
+                '(cliente, cuenta, soporte, seguimiento) y la vinculacion con ventas baja al CUERPO'
+                if not _cs else f'ancla de su oficio: "{_cs.group(0)}" - y la vinculacion con VENTAS '
+                f'tiene que estar en el CUERPO (aboutme 2)')
     elif not generico:
         chk(bool(fuerte or ambigua), 'Hook anclado a VENTAS (§2.3)', detalle)
     m = re.search(VERBO_FLOJO, hook_txt, re.I)
@@ -4164,10 +4192,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'asier': 'ventas CON LO TECNICO AL LADO (la herramienta, el dato, el producto que el comercial vende), y sin pasarse de especifico: manda el alcance. NO vale un chiste de programacion puro',
         'mario': 'EXCEPCION: aqui la referencia SI puede ser de MARKETING Y CONTENIDO',
         'helena': 'EXCEPCION: aqui la referencia SI puede ser de ATENCION AL CLIENTE Y PARTNERSHIPS',
+        'angela': 'EXCEPCION (por analogia, pendiente de OK): aqui la referencia SI puede ser de DISENO DE PRODUCTO (pantallas, experiencia de usuario)',
     }
     _c = (cuenta or '').strip().lower()
     if _c in _CARRIL:
-        _exc = _c in ('mario', 'helena')
+        _exc = _c in ('mario', 'helena', 'angela')
         chk(False, 'ENTREGA: la REFERENCIA es de VENTAS, y de que rincon',
             ('%s = %s. %s ⛔ SE COMPRUEBA EN EL GANCHO DEL ORIGINAL, no en el cuerpo ni en el '
              'headline del autor: la PRIMERA LINEA de la referencia tiene que llevar una palabra '

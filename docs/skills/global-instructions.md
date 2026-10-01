@@ -1492,7 +1492,7 @@ El resto, con ninja dentro .......   370 clics  ->  15 asistentes
 ```
 - **`utm_campaign` es el que importa** y se lee solo: `historia-euskadi-26ago` · `peloteo-malaga-12sep` · `meme-comerciales-03sep` · `leadmagnet-prospeccion-09sep`. **Pilar + tema en una palabra + día y mes abreviado**, todo en minúsculas, sin tildes y con guiones.
 - **`utm_source=linkedin` no es opcional:** sin `source`, GA4 cuenta la visita como *referral* y la campaña no aparece donde se mira. Es la diferencia entre tener el dato y creer que lo tienes.
-- **`utm_content` = la cuenta** (`unai`, `iker`, `asier`, `mario`, `helena`). Es lo que permite ver qué cuenta trae los clics cuando el mismo concepto sale en varias.
+- **`utm_content` = la cuenta** (`unai`, `iker`, `asier`, `mario`, `helena`, `angela`). Es lo que permite ver qué cuenta trae los clics cuando el mismo concepto sale en varias.
 
 **⚠️ NO CUESTA ALCANCE NI ESTÉTICA, y por eso no hay que negociarlo:** **LinkedIn reescribe el enlace a `lnkd.in/xxxxx` al publicar** (comprobado en nuestros propios posts en la BD), así que el lector nunca ve la cola de parámetros. Y el tope de 55 caracteres del ninja **se mide sin la URL** (`§4.4b`), o sea que la cola no roba ni un carácter de la línea.
 

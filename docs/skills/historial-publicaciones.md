@@ -238,6 +238,21 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## 📝 ENTREGADO · JUE 01/10 · ANGELA (6ª cuenta, Product Designer) · HISTORIA PARA EL VIE 02/10: LAS PANTALLAS QUE NO SE TENDRÍAN QUE EXPLICAR (`/agendar/`)
+
+| dato | |
+|---|---|
+| **Estado** | entregado el 01/10 por la tarde **para publicar mañana, vie 02/10** (lo pidió Iker) · validador **66/66** con `--cuenta angela --publica-manana` · **705 car**, enlace antes del 650 · 🔴 **pendiente: que Ángela confirme el texto** (los nervios de Sarriko y que en mayo también enseñó el producto) |
+| **Pilar** | historia · **rama A** (propia) · **no regional** (guiño a Bilbao: Sarriko en casa, Donostia fuera) · 1er post de la cuenta, **fuera del cuadro de los 3 jefes** como Helena · objetivo: autoridad de haber presentado el producto en el escenario |
+| **Gancho** | `Diseño pantallas para que nadie tenga que explicarlas y otra vez me tocó a mí 🙈` (79 car) · ancla en SU oficio (`diseño`, `pantallas`, regla de Mario y Helena extendida por analogía, **pendiente de OK**) · intensificador `nadie` + `otra vez` (no es su primer escenario) · descartados: `…y otra vez me tocó dar la cara por ellas` (87, sin intensificador) y `Diseño pantallas para que nadie tenga que explicarlas y otra vez me tocó dar la cara` (86, se lee como responder de un fallo) |
+| **Real / inventado** | real: llegó en abril, 28/05 en Sarriko con Unai (sesión de AMA, post de Unai del 01/06), 24/09 en Neety Forward con Asier, ~100 personas (post de la página de Neety), la pantalla LED con el producto · ⚠️ **sin confirmar con ella**: que le temblaron las manos en Sarriko, `Lo mío casi nunca sale del ordenador` (trabaja en remoto) |
+| **Pago** | `Eran las pantallas del nuevo @Neety, nuestro software de ventas.` (64% del post, justo antes del ninja) · cierre `Las pantallas ya se explican solas, mis nervios todavía no.` |
+| **Ninja → `/agendar/`** | `Una pantalla bonita no te dice quién te puede comprar.` / `La nuestra sí, incluso a quién llamar dentro:` (54/45) · UTM `historia-pantallas-02oct` · `utm_content=angela` · `con quien decide` cambiado a `a quién llamar` porque el ninja de Unai del mismo día lo lleva |
+| **Menciones** | `@Asier Olaizola` (pedido por Iker) · `@Neety` |
+| **Foto** | Flickr del evento, `_DSC1198` (id `55556830579`, original 6048×4024): Ángela hablando de cara, Asier girado escuchándola, pantalla del producto a la izquierda. Cuadrado centrado en las cabezas, medido con rejilla sobre la de 1023: Asier 375, Ángela 650, caja `(172,0,853,681)` = **`(1018,0,5042,4024)` en el original**, 1.199 px de aire a cada lado · **nombre y empresa reales en la pantalla (`Mikel Sáez Arrieta · ITP Aero`) desenfocados** · alternativas: `_DSC1195` (ella sonriendo mirando a Asier) y `_DSC1200` (ella nítida, Asier desenfocado) · ⏳ **Iker la descarga en original** y se recorta con esa caja |
+| **Mismo día** | Unai publica también historia (el teléfono, rama B): que no salgan a la misma hora |
+| ⏳ | publicado: hora y enlace · **quemadas al confirmar que está subida** (ninja `una pantalla bonita no te dice` / `la nuestra sí, incluso a quién llamar`, arranque `con`, vehículo `el escenario del evento`) · métricas a mano si su cuenta no está en Unipile · medir impresiones absolutas y conversación, nunca el ratio (cuenta sin baseline; vara: los 32.244 del primer post bueno de Mario) |
+
 ## 📝 ENTREGADO · JUE 01/10 · UNAI · HISTORIA PARA EL VIE 02/10: EL TELÉFONO DEL DIRECTOR COMERCIAL (`/agendar/`)
 
 | dato | |

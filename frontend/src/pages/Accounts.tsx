@@ -116,6 +116,10 @@ interface TopPost {
   followers_gained_count?: number | null;
   saves_count?: number | null;
   sends_count?: number | null;
+  video_views?: number | null;
+  video_watch_time_s?: number | null;
+  video_avg_watch_s?: number | null;
+  video_duration_s?: number | string | null;
   link_clicks_count?: number | null;
   premium_button_clicks?: number | null;
   link_url?: string | null;
@@ -143,6 +147,10 @@ interface LivePost {
   followers_gained_count?: number | null;
   saves_count?: number | null;
   sends_count?: number | null;
+  video_views?: number | null;
+  video_watch_time_s?: number | null;
+  video_avg_watch_s?: number | null;
+  video_duration_s?: number | string | null;
   link_clicks_count?: number | null;
   premium_button_clicks?: number | null;
   link_url?: string | null;
@@ -193,6 +201,10 @@ interface Snapshot {
   followers_gained_count?: number | null;
   saves_count?: number | null;
   sends_count?: number | null;
+  video_views?: number | null;
+  video_watch_time_s?: number | null;
+  video_avg_watch_s?: number | null;
+  video_duration_s?: number | string | null;
   link_clicks_count?: number | null;
   premium_button_clicks?: number | null;
   link_url?: string | null;
@@ -404,13 +416,63 @@ function sinMedicion(post: {
        enlace y dato                    → la cifra (0 incluido), en ambar. */
 type PostPremium = {
   content_text: string | null;
+  content_type?: string;
   saves_count?: number | null;
   sends_count?: number | null;
+  video_views?: number | null;
+  video_watch_time_s?: number | null;
+  video_avg_watch_s?: number | null;
+  video_duration_s?: number | string | null;
   profile_viewers_count?: number | null;
   followers_gained_count?: number | null;
   link_clicks_count?: number | null;
   link_url?: string | null;
 };
+
+/* PORCENTAJE MEDIO VISTO (Iker, 2026-10-01). Como en YouTube Shorts: el
+   tiempo medio que LinkedIn da de un video, sobre su duracion. Por encima del
+   100% el video se ve mas de una vez de media (el objetivo de un video en bucle).
+   Colores: verde desde el 80% (Iker); ambar desde el objetivo de Jenny Hoyos,
+   que depende de la duracion: <30 s pide 100%, 30 s o mas, 90% (APUNTES JENNY
+   SHORTS: "Under 30s needs 100%+ retention. 30-40s 90%+"). */
+function porcentajeVisto(p: PostPremium): number | null {
+  const d = Number(p.video_duration_s);
+  if (p.video_avg_watch_s == null || !d) return null;
+  return (p.video_avg_watch_s / d) * 100;
+}
+
+function objetivoVisto(duracion: number): number {
+  return duracion < 30 ? 100 : 90;
+}
+
+function nivelVisto(pct: number, duracion: number): 'neutro' | 'bueno' | 'objetivo' {
+  if (pct >= objetivoVisto(duracion)) return 'objetivo';
+  if (pct >= 80) return 'bueno';
+  return 'neutro';
+}
+
+function MetricaVisto({ post }: { post: PostPremium }) {
+  const pct = porcentajeVisto(post);
+  const dur = Number(post.video_duration_s);
+  if (pct == null) {
+    return (
+      <span className="inline-flex items-center gap-1 text-text-muted" title="Porcentaje medio visto: aún sin leer (falta la analítica de LinkedIn o la duración del vídeo)">
+        <MetricIcon d={ICON_PLAY} /> —
+      </span>
+    );
+  }
+  const nivel = nivelVisto(pct, dur);
+  const color = nivel === 'objetivo' ? 'font-medium text-amber-400' : nivel === 'bueno' ? 'text-emerald-400' : '';
+  const titulo =
+    `Porcentaje medio visto: de media se ven ${post.video_avg_watch_s} s de los ${Math.round(dur)} s del vídeo. ` +
+    `Verde desde el 80%; ámbar desde el objetivo para su duración (${objetivoVisto(dur)}%). ` +
+    `Por encima del 100%, se ve más de una vez. LinkedIn redondea la media al segundo (±2-3 puntos).`;
+  return (
+    <span className={`inline-flex items-center gap-1 ${color}`} title={titulo}>
+      <MetricIcon d={ICON_PLAY} /> {Math.round(pct)}%
+    </span>
+  );
+}
 
 function FranjaPremium({ post }: { post: PostPremium }) {
   const leida = [post.saves_count, post.sends_count, post.profile_viewers_count, post.followers_gained_count]
@@ -451,6 +513,7 @@ function FranjaPremium({ post }: { post: PostPremium }) {
   return (
     <>
       {sep}
+      {post.content_type === 'text_video' && <MetricaVisto post={post} />}
       {leida ? (
         <>
           <span className="inline-flex items-center gap-1" title="Guardados. Cuesta mas que un like y nadie guarda por compromiso.">
@@ -500,6 +563,8 @@ const ICON_COMMENT = 'M8 2a6 6 0 0 0-6 6c0 1.2.4 2.3 1 3.2L2.3 14l2.9-.7c.8.5 1.
 const ICON_REPOST = 'M11 3.5 13.5 6 11 8.5V7H5.5A1.5 1.5 0 0 0 4 8.5v1H2.5v-1A3 3 0 0 1 5.5 5.5H11zM5 12.5 2.5 10 5 7.5V9h5.5A1.5 1.5 0 0 0 12 7.5v-1h1.5v1a3 3 0 0 1-3 3H5z';
 const ICON_SAVE = 'M4 2h8a1 1 0 0 1 1 1v11l-5-3.2L3 14V3a1 1 0 0 1 1-1z';
 const ICON_SEND = 'M14.5 1.5 1 7.2l4.6 1.6L13 3.4 7.6 10v4.5l2.2-3.3 3.1 1.1z';
+// Play: porcentaje medio visto de los posts de video (2026-10-01).
+const ICON_PLAY = 'M5 3.2v9.6L12.5 8z';
 const ICON_LINK = 'M6.9 9.1a2.6 2.6 0 0 0 3.7 0l2.2-2.2a2.6 2.6 0 0 0-3.7-3.7l-1 1 1 1 1-1a1.2 1.2 0 0 1 1.7 1.7L9.6 8.1a1.2 1.2 0 0 1-1.7 0zM9.1 6.9a2.6 2.6 0 0 0-3.7 0L3.2 9.1a2.6 2.6 0 0 0 3.7 3.7l1-1-1-1-1 1a1.2 1.2 0 0 1-1.7-1.7l2.2-2.2a1.2 1.2 0 0 1 1.7 0z';
 const ICON_EYE = 'M8 3C4.7 3 2 5.5 1 8c1 2.5 3.7 5 7 5s6-2.5 7-5c-1-2.5-3.7-5-7-5zm0 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0-1.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z';
 

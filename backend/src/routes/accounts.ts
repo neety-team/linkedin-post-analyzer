@@ -1561,6 +1561,7 @@ router.get('/analytics', async (req: Request, res: Response) => {
         p.likes_count, p.comments_count, p.reposts_count, p.impressions_count,
         p.profile_viewers_count, p.followers_gained_count,
               p.saves_count, p.sends_count, p.link_clicks_count, p.premium_button_clicks, p.link_url, p.pillar,
+              p.video_views, p.video_watch_time_s, p.video_avg_watch_s, p.video_duration_s,
         p.engagement_score, p.outlier_ratio, p.is_outlier,
         p.post_url, p.hook_text,
         c.name AS creator_name, c.profile_image_url AS creator_image
@@ -1792,6 +1793,7 @@ router.get('/live-posts', async (req: Request, res: Response) => {
          p.likes_count, p.comments_count, p.reposts_count, p.impressions_count,
          p.profile_viewers_count, p.followers_gained_count,
               p.saves_count, p.sends_count, p.link_clicks_count, p.premium_button_clicks, p.link_url, p.pillar,
+              p.video_views, p.video_watch_time_s, p.video_avg_watch_s, p.video_duration_s,
          p.engagement_score, p.outlier_ratio, p.is_outlier, p.post_url,
          c.id AS creator_id, c.name AS creator_name, c.profile_image_url AS creator_image,
          c.is_manual AS creator_is_manual,
@@ -2128,6 +2130,7 @@ router.get('/posts/:id/snapshots', async (req: Request, res: Response) => {
               p.likes_count, p.comments_count, p.reposts_count, p.impressions_count,
               p.profile_viewers_count, p.followers_gained_count,
               p.saves_count, p.sends_count, p.link_clicks_count, p.premium_button_clicks, p.link_url, p.pillar,
+              p.video_views, p.video_watch_time_s, p.video_avg_watch_s, p.video_duration_s, p.content_type,
               p.post_url, c.name AS creator_name, c.profile_image_url AS creator_image
        FROM posts p JOIN creators c ON c.id = p.creator_id
        WHERE p.id = $1`,

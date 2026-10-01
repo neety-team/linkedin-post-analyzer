@@ -24,6 +24,11 @@ export interface Post {
   link_clicks_count: number | null;
   /** LinkedIn Premium: clics al boton de accion del perfil. */
   premium_button_clicks: number | null;
+  /** VIDEO (2026-10-01): reproducciones, tiempo total y medio (s), duracion (s). */
+  video_views?: number | null;
+  video_watch_time_s?: number | null;
+  video_avg_watch_s?: number | null;
+  video_duration_s?: number | string | null;
   /** A donde apuntaba el enlace (para saber que se medía). */
   link_url: string | null;
   engagement_score: number;
@@ -92,6 +97,7 @@ export const PostModel = {
               published_at, likes_count, comments_count, reposts_count,
               impressions_count, profile_viewers_count, followers_gained_count,
               saves_count, sends_count, link_clicks_count, premium_button_clicks, link_url, pillar,
+              video_views, video_watch_time_s, video_avg_watch_s, video_duration_s,
               engagement_score, outlier_ratio, is_outlier, top_del_creador,
               hook_text, word_count, char_count, line_break_count,
               has_aggressive_spacing, hook_type, post_structure,

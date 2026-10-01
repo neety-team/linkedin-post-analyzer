@@ -668,6 +668,8 @@ export function registrarTools(servidor: McpServer): void {
           p.impressions_count != null ? `${numero(p.impressions_count)} impresiones` : null,
           p.saves_count != null ? `${numero(p.saves_count)} guardados` : null,
           p.sends_count != null ? `${numero(p.sends_count)} envíos` : null,
+          p.video_avg_watch_s != null && Number(p.video_duration_s) > 0
+            ? `${Math.round((p.video_avg_watch_s / Number(p.video_duration_s)) * 100)}% medio visto` : null,
           p.link_clicks_count != null ? `${numero(p.link_clicks_count)} clics al enlace` : null,
           p.followers_gained_count != null ? `+${numero(p.followers_gained_count)} seguidores` : null,
           p.pct_risa != null ? `${p.pct_risa}% reacciones de risa` : null,

@@ -40,6 +40,9 @@ import {
   quitarFraseFutura,
   afirmaQueEstuvo,
   apoyaEventoPasado,
+  detalleRepetidoEnTanda,
+  juezDeTanda,
+  pulirComentario,
 } from './variedadComentarios';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
@@ -503,23 +506,25 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
   // EMOJI, VOCALES Y CIERRE, DECIDIDOS EN CODIGO (`planTanda`, Iker 2026-10-01):
   // dos o tres con emoji y nunca dos seguidos, dos o tres con vocales, y
   // siempre alguno acabado en exclamacion. Detalle y por que en el plan.
-  const plan = planTanda(n);
-  const conEmoji = plan.conEmoji;
-  const conEstirar = plan.conAlargada;
-  const emojiDe = new Map<number, string>();
-  for (const i of conEmoji) {
-    let e = sorteaEmoji();
-    while ([...emojiDe.values()].includes(e)) e = sorteaEmoji();
-    emojiDe.set(i, e);
-  }
   // La palabra alargada se ASIGNA, no se deja al modelo: con "lleva una palabra
   // alargada" a secas, el 16/09 salieron 0 de 5.
-  const palabraDe = new Map<number, string>();
-  for (const i of conEstirar) {
-    let p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
-    while ([...palabraDe.values()].includes(p)) p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
-    palabraDe.set(i, p);
-  }
+  const repartir = (k: number) => {
+    const plan = planTanda(k);
+    const emojiDe = new Map<number, string>();
+    for (const i of plan.conEmoji) {
+      let e = sorteaEmoji();
+      while ([...emojiDe.values()].includes(e)) e = sorteaEmoji();
+      emojiDe.set(i, e);
+    }
+    const palabraDe = new Map<number, string>();
+    for (const i of plan.conAlargada) {
+      let p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
+      while ([...palabraDe.values()].includes(p)) p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
+      palabraDe.set(i, p);
+    }
+    return { plan, conEmoji: plan.conEmoji, conEstirar: plan.conAlargada, emojiDe, palabraDe };
+  };
+  let { plan, conEmoji, conEstirar, emojiDe, palabraDe } = repartir(n);
   const asignacion = angulos
     .map(
       (a, i) =>
@@ -568,6 +573,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // puede editarlos antes de publicar.
   let out: string[] = [];
   let reproche = '';
+  let inventados: { i: number; que: string }[] = [];
 
   for (let intento = 1; intento <= 3; intento++) {
     const response = await trackedCreate('comment_generator_supportive', {
@@ -646,6 +652,21 @@ Return JSON only: { "comments": ["...", "..."] }`;
     if (familia) {
       genericas.push({ c: `${familia.veces} de ${n}`, que: `repiten la misma idea (${familia.nombre}): como mucho UNO, los demas van a lo concreto de su angulo` } as any);
     }
+    // EL MISMO DETALLE EN DOS (prueba del 01/10: "Kenia, 26 veces" en dos de cinco).
+    const detalle = detalleRepetidoEnTanda(out, [input.creatorName]);
+    if (detalle) {
+      genericas.push({ c: detalle, que: `dos comentarios se agarran al mismo detalle ("${detalle}"): cada uno a una parte DISTINTA del post` } as any);
+    }
+    // EL JUEZ DE INVENTOS, solo cuando lo demas ya pasa (o en el ultimo
+    // intento): es una llamada mas y no se gasta en una tanda que se va a
+    // rehacer igualmente.
+    inventados = [];
+    if ((genericas.length === 0 && repetidas.length === 0) || intento === 3) {
+      inventados = await juezDeTanda(out, safePostContent);
+      for (const x of inventados) {
+        genericas.push({ c: out[x.i] || '', que: `afirma algo que el post no dice (${x.que}): del post, solo lo que pone; de quien comenta, nada que no se pueda decir de cualquiera` } as any);
+      }
+    }
     if ((genericas.length === 0 && repetidas.length === 0) || intento === 3) {
       if (genericas.length || repetidas.length) {
         console.warn(
@@ -673,8 +694,19 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // Lo que se garantiza en codigo, sin gastar otra llamada: una sola palabra
   // alargada por comentario, el emoji y el cierre que le tocaron.
   // Antes de limitar: si no, la alargada mal puesta se queda huerfana (18/09).
+  // ⛔ Lo que a la tercera sigue inventando un hecho NO se entrega: mejor
+  // cuatro comentarios que uno con un dato falso sobre una empresa real que
+  // un compañero firma con su nombre (innegociable de la casa).
+  if (inventados.length && out.length - inventados.length >= 3) {
+    const fuera = new Set(inventados.map((x) => x.i));
+    console.warn(`[commentGenerator] se quitan ${fuera.size} comentario(s) que inventan: ${inventados.map((x) => x.que).join(' | ')}`);
+    out = out.filter((_, i) => !fuera.has(i));
+    // Las posiciones se mueven al quitar uno: plan nuevo para que dos emojis
+    // no queden seguidos.
+    ({ plan, conEmoji, conEstirar, emojiDe, palabraDe } = repartir(out.length));
+  }
   const limpios = out.map((c) => {
-    const base = ponerTildesSeguras(quitarComaAntesDeY(limitarEstiradas(quitarIncisosSueltos(recortarEventoInventado(c)))));
+    const base = pulirComentario(ponerTildesSeguras(quitarComaAntesDeY(limitarEstiradas(quitarIncisosSueltos(recortarEventoInventado(c))))));
     // Si a la tercera sigue deseando suerte a un evento que ya paso, se quita
     // esa frase: es un error de hecho, no de estilo.
     return fase?.momento === 'despues' ? quitarFraseFutura(base) : base;
@@ -699,7 +731,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
     conAlargada[k] = j >= 0 ? estirarUna(conAlargada[k], 2) : forzarEstirada(conAlargada[k], 2, [...palabraDe.values()][0]);
   }
   return conAlargada.map((r, i) => {
-    const cerrado = aplicarCierre(quitarEmojis(r), plan.cierres[i]);
+    const cerrado = pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i]));
     return conEmoji.has(i) ? ponerEmojiAlFinal(cerrado, emojiDe.get(i)) : cerrado;
   });
 }

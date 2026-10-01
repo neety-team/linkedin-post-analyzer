@@ -1,4 +1,5 @@
 import { trackedCreate } from './claudeClient';
+import pool from '../db';
 
 // ⛔⛔ VARIEDAD DE CONCEPTO, NO SOLO DE APERTURA (Iker, 2026-10-01)
 //
@@ -101,7 +102,69 @@ export function datoRepetido(candidato: string, previas: string[], comentario = 
   return nums(candidato).find((n) => usados.has(n) && !delComentario.has(n)) || null;
 }
 
+// EL MISMO DETALLE (prueba en produccion del 01/10, ya con lo de arriba): en
+// "Las 10" dos de cinco se fueron a "Kenia, 26 veces", y dos respuestas
+// seguidas a "los cuchillos de Albacete". No es la tesis, pero se lee igual de
+// repetido. Detalle = nombre propio en mitad de frase o numero de mas de 20.
+function detalles(t: string, excluir: Set<string>): Set<string> {
+  const out = new Set<string>();
+  const palabras = [...(t || '').matchAll(/[\p{L}\d][\p{L}\d.,'’-]*/gu)];
+  palabras.forEach((m, k) => {
+    const w = m[0].replace(/[.,]+$/, '');
+    const antes = (t || '').slice(0, m.index ?? 0);
+    if (/^\d/.test(w)) {
+      if (parseFloat(w.replace(',', '.')) > 20) out.add(w);
+      return;
+    }
+    if (k === 0 || /[.!?…]\s*$/.test(antes)) return;
+    if (!/^\p{Lu}\p{Ll}{3,}/u.test(w)) return;
+    const l = llano(w);
+    if (!excluir.has(l)) out.add(l);
+  });
+  return out;
+}
+
+function excluidos(nombres: (string | null | undefined)[]): Set<string> {
+  return new Set(nombres.filter(Boolean).flatMap((n) => llano(n as string).split(/[\s-]+/)));
+}
+
+/** En una tanda, el detalle (nombre propio o dato) que sale en dos o mas. */
+export function detalleRepetidoEnTanda(textos: string[], excluir: (string | null | undefined)[] = []): string | null {
+  const ex = excluidos(excluir);
+  const veces = new Map<string, number>();
+  for (const t of textos) for (const d of detalles(t, ex)) veces.set(d, (veces.get(d) || 0) + 1);
+  return [...veces.entries()].find(([, v]) => v > 1)?.[0] ?? null;
+}
+
+/**
+ * El nombre propio que el candidato repite de las respuestas anteriores. Si lo
+ * trae el que comenta, recogerlo es contestarle.
+ */
+export function nombreRepetido(
+  candidato: string,
+  previas: string[],
+  comentario = '',
+  excluir: (string | null | undefined)[] = []
+): string | null {
+  const ex = excluidos(excluir);
+  for (const d of detalles(comentario, ex)) ex.add(d);
+  for (const w of (comentario.match(/\p{L}+/gu) || [])) ex.add(llano(w));
+  const usados = new Set(previas.flatMap((p) => [...detalles(p, ex)]));
+  return [...detalles(candidato, ex)].find((d) => usados.has(d) && !/^\d/.test(d)) ?? null;
+}
+
 // ─────────────────────────────── forma ───────────────────────────────
+
+/**
+ * Lo que se arregla en codigo sin pedir otra tanda: los dos puntos (prohibidos
+ * desde el 12/08, `brand-voice §7.1`, y en la prueba del 01/10 salio "lo de
+ * Moldavia: un millón") y la primera letra en minuscula ("exactooo, el
+ * cuchillo..."): el movil la pone en mayuscula.
+ */
+export function pulirComentario(c: string): string {
+  const t = (c || '').replace(/\s*:\s+/g, ', ').replace(/,\s*,/g, ',').trim();
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
 
 const EMOJI_G = /\p{Extended_Pictographic}️?/gu;
 
@@ -125,7 +188,9 @@ export function comentarioVacio(c: string): string | null {
 // compañeros pegados del Google Chat ("demuestra que el músculo industrial",
 // "ecosistemas muy sólidos fuera del radar", "habla de especialización").
 // Nadie que comenta desde el movil el post de un conocido escribe asi.
-const FORMAL = /(demuestra(n)? (que|cuanto|como|lo)|pone(n)? de manifiesto|cabe destacar|habla de (especializacion|compromiso|talento|esfuerzo|la capacidad|continuidad)|\becosistemas?\b|tejido (industrial|comercial|productivo|empresarial|economico)|musculo (industrial|exportador|economico)|motor(es)? (economico|del norte|de la economia|industrial)|grandes motores|fuera del radar|lejos de los focos|(poner|pone|ponen|puesta) en valor|capacidad (exportadora|industrial|productiva)|a nivel (de|nacional|internacional)|sin duda alguna|es fundamental|resulta (clave|fundamental)|en definitiva|asimismo|no obstante|realidad (industrial|empresarial|economica)|\bvisibilidad\b)/;
+// "exactamente" en mitad de frase (prueba del 01/10: "es exactamente lo que
+// falla", "pasa exactamente igual") es el mismo tic: la gente dice "justo".
+const FORMAL = /(\bexactamente\b|demuestra(n)? (que|cuanto|como|lo)|pone(n)? de manifiesto|cabe destacar|habla de (especializacion|compromiso|talento|esfuerzo|la capacidad|continuidad)|\becosistemas?\b|tejido (industrial|comercial|productivo|empresarial|economico)|musculo (industrial|exportador|economico)|motor(es)? (economico|del norte|de la economia|industrial)|grandes motores|fuera del radar|lejos de los focos|(poner|pone|ponen|puesta) en valor|capacidad (exportadora|industrial|productiva)|a nivel (de|nacional|internacional)|sin duda alguna|es fundamental|resulta (clave|fundamental)|en definitiva|asimismo|no obstante|realidad (industrial|empresarial|economica)|\bvisibilidad\b)/;
 export function registroFormal(c: string): string | null {
   const m = llano(c).match(FORMAL);
   return m ? m[0] : null;
@@ -199,6 +264,38 @@ export function fechaMadrid(d: Date = new Date()): string {
 // de ayer es un evento pasado hoy), y dentro del dia no cambia.
 const FASES = new Map<string, FaseEvento>();
 
+// ⛔ EL CALENDARIO, PORQUE EL POST NO SIEMPRE LLEVA LA FECHA (prueba del
+// 01/10). El video de Unai cuenta "la mañana de antes" sin decir de que dia, y
+// con solo la fecha de publicacion (30/09) Haiku fecho el evento al dia
+// siguiente, HOY, y salieron "mucha suerte hoy Unai" y "hoy es el día". El
+// evento fue el 24/09. Dos fuentes, por orden: los eventos con fecha conocida
+// (se añade aqui cada uno nuevo) y nuestros otros posts del evento de los
+// ultimos meses, con su fecha, que es como lo fecharia una persona.
+export const EVENTOS_CONOCIDOS: { nombre: string; fecha: string; sitio: string }[] = [
+  { nombre: 'Neety Forward 2026', fecha: '2026-09-24', sitio: 'Donostia' },
+];
+
+async function otrosPostsDelEvento(postId: string | null | undefined): Promise<string> {
+  try {
+    const { rows } = await pool.query(
+      `SELECT to_char(p.published_at, 'YYYY-MM-DD') AS f, left(p.content_text, 200) AS t
+         FROM posts p JOIN creators c ON c.id = p.creator_id
+        WHERE c.is_managed = TRUE
+          AND p.id::text <> $1
+          AND (p.pillar = 'evento' OR p.content_text ILIKE '%neety forward%'
+               OR p.content_text ILIKE '%lu.ma/%' OR p.content_text ILIKE '%luma.com/%')
+          AND p.published_at > NOW() - INTERVAL '120 days'
+        ORDER BY p.published_at DESC
+        LIMIT 8`,
+      [postId || '']
+    );
+    return rows.map((r: any) => `· ${r.f}: ${String(r.t || '').replace(/\s+/g, ' ')}`).join('\n');
+  } catch (err: any) {
+    console.warn('[variedadComentarios] no he podido leer los otros posts del evento:', err?.message);
+    return '';
+  }
+}
+
 /**
  * ¿El evento del post ya paso, es hoy o esta por venir? ¿Estuvimos todos?
  *
@@ -220,6 +317,8 @@ export async function analizarEvento(input: {
   if (cacheada) return cacheada;
   let fase: FaseEvento;
   try {
+    const calendario = EVENTOS_CONOCIDOS.map((e) => `· ${e.nombre}: ${e.fecha}, ${e.sitio}`).join('\n');
+    const otros = await otrosPostsDelEvento(input.postId);
     const msg = await trackedCreate('event_phase', {
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 200,
@@ -230,13 +329,19 @@ export async function analizarEvento(input: {
    · "durante": el evento es HOY y está pasando.
    · "despues": el evento ya ha ocurrido. Lo cuenta en pasado ("fue", "llegaba al día siguiente", "gracias a los que vinisteis"), o nombra una fecha anterior a HOY.
    ⚠️ Lo que importa es HOY, no el día que se publicó: un post que cuenta en pasado la víspera del evento es "despues", y un post que anunciaba un evento cuya fecha ya ha pasado también.
+   ⛔ FECHA EL EVENTO CON EL CALENDARIO Y CON LOS OTROS POSTS que te paso, NUNCA con el día de publicación. Un post que cuenta "la mañana de antes" o "lo que llegaba al día siguiente" sin decir la fecha NO significa que el evento sea el día después de publicarlo: casi siempre es un vídeo o un recuerdo publicado días después. Si el calendario dice que el evento fue antes de HOY, es "despues".
 
 2. juntos: true SOLO si el post cuenta que el equipo estuvo junto en el evento o preparándolo ("estábamos todos", "11 personas y una casa rural", "cada uno a lo suyo"). false si no consta o si nombra solo a algunos.
 
 pistas: las palabras del post en las que te basas, 15 como mucho.
 
 Responde SOLO con JSON: {"momento": "antes|durante|despues", "juntos": true|false, "pistas": "..."}`,
-      messages: [{ role: 'user', content: `HOY es ${hoy}. El post se publicó el ${publicado}.\n\nPOST:\n${input.texto.slice(0, 3000)}` }],
+      messages: [{
+        role: 'user',
+        content: `HOY es ${hoy}. El post se publicó el ${publicado}.\n\nEVENTOS DE NEETY CON FECHA CONOCIDA:\n${calendario}\n\n${
+          otros ? `OTROS POSTS NUESTROS DEL EVENTO (fecha de publicación y comienzo):\n${otros}\n\n` : ''
+        }POST A ANALIZAR:\n${input.texto.slice(0, 3000)}`,
+      }],
     });
     const block = msg.content.find((b) => b.type === 'text') as { type: 'text'; text: string } | undefined;
     const crudo = (block?.text || '').trim();
@@ -286,7 +391,9 @@ const ANGULOS_GENERALES = [
 ];
 
 const ANGULOS_PELOTEO = [
-  'UNA empresa concreta de la lista y su merito (el que pone el post), dicho con admiracion',
+  // SOLO lo que dice el post: en un mapa no hay merito por empresa, y la prueba
+  // del 01/10 se invento que Señorío de Montanera vende ibérico a media Europa.
+  'UNA empresa concreta de la lista y SOLO lo que el post dice de ella (si no dice su merito, tu reaccion a verla ahi; nunca a que se dedica, a quien vende ni desde cuando)',
   'uno de los productos de casa que nombra el post y el pueblo de donde sale, con tu reaccion',
   'la comparacion con el otro pais del post y lo que te ha llamado la atencion, en palabras de calle',
   'la gente: los que empezaron con poco y hoy venden fuera (la frase del oficio del post), con cariño',
@@ -476,14 +583,68 @@ export function respuestasPrevias(postId: string | null | undefined, extra: stri
  * Lo que falla de variedad en una respuesta, o null. La ventana es de las 4
  * ultimas: una idea de la familia vale una vez de cada cinco respuestas.
  */
-export function problemaDeVariedad(cuerpo: string, previas: string[], comentario: string): string | null {
+export function problemaDeVariedad(
+  cuerpo: string,
+  previas: string[],
+  comentario: string,
+  excluir: (string | null | undefined)[] = []
+): string | null {
   const fam = familiaRepetida(cuerpo, previas.slice(-4));
   if (fam && !FAMILIAS.find((f) => f.id === fam.id)!.re.test(llano(comentario))) {
     return `repite una idea que ya has dicho en otra respuesta de este post (${fam.nombre}): busca OTRA cosa, lo concreto que trae su comentario`;
   }
   const dato = datoRepetido(cuerpo, previas.slice(-6), comentario);
   if (dato) return `repite el dato "${dato}", que ya usaste en otra respuesta de este post: usa otro detalle o ninguno`;
+  const nombre = nombreRepetido(cuerpo, previas.slice(-2), comentario, excluir);
+  if (nombre) return `vuelve a "${nombre}", que ya salio en la respuesta anterior de este post: agarrate a otro detalle, el que trae su comentario`;
   const formal = registroFormal(cuerpo);
   if (formal) return `suena a informe ("${formal}"): dilo como lo dirias hablando`;
   return null;
+}
+
+// ─────────────────────────────── el juez de la tanda ───────────────────────────────
+//
+// ⛔ LO QUE NINGUNA LISTA CAZA (prueba en produccion del 01/10). Con los
+// angulos anclados a una parte concreta del post, el modelo rellena lo que el
+// post no dice: "Señorío de Montanera lleva años vendiéndole el mejor ibérico a
+// media Europa" (el mapa no dice nada de ella), "Moldavia, 4 millones de
+// personas" (no esta en el post, y es falso) y "Yo conocí a gente que heredó
+// una finca". Lo pega un compañero con su nombre debajo de un post que menciona
+// a esa empresa: es el innegociable de la casa, no inventar una empresa, una
+// persona ni un dato. Misma solucion que `juezDeInventos` en las respuestas,
+// pero UNA llamada para los cinco.
+export async function juezDeTanda(comentarios: string[], post: string): Promise<{ i: number; que: string }[]> {
+  try {
+    const msg = await trackedCreate('supportive_invention_judge', {
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 300,
+      system: `Revisas comentarios de apoyo que van a pegar personas reales, con su nombre, debajo de un post de LinkedIn. Tu único trabajo: marcar los que AFIRMAN UN HECHO QUE NO ESTÁ EN EL POST.
+
+MÁRCALO si:
+- dice algo de una EMPRESA, una persona o un sitio que el post no dice (a qué se dedica, a quién vende, dónde, desde cuándo, cuánto, premios, "la mejor de", "media Europa");
+- da una cifra, una población o una cantidad que no está en el post, o una que está pero con otro significado;
+- cuenta una vivencia concreta con escena o con otras personas ("conocí a", "un amigo mío", "mi padre trabajaba en", "el otro día", "estuve en", "trabajé con").
+
+NO lo marques si:
+- es una opinión, una reacción, una broma o un deseo;
+- recoge o reformula lo que ya dice el post;
+- es una costumbre cotidiana e incomprobable de quien comenta ("el pimentón de mis lentejas", "lo tengo pendiente", "me ha pasado algo parecido", "lo tengo en la cocina").
+
+Responde SOLO con JSON: {"inventados": [{"n": <número del comentario>, "que": "<lo inventado, 8 palabras como mucho>"}]} (lista vacía si no hay ninguno)`,
+      messages: [{
+        role: 'user',
+        content: `POST:\n${post.slice(0, 4000)}\n\nCOMENTARIOS:\n${comentarios.map((c, i) => `${i + 1}. ${c}`).join('\n')}`,
+      }],
+    });
+    const block = msg.content.find((b) => b.type === 'text') as { type: 'text'; text: string } | undefined;
+    const crudo = (block?.text || '').trim();
+    const v = JSON.parse(crudo.slice(crudo.indexOf('{'), crudo.lastIndexOf('}') + 1)) as { inventados?: { n?: number; que?: string }[] };
+    return (v.inventados || [])
+      .filter((x) => typeof x.n === 'number' && x.n >= 1 && x.n <= comentarios.length)
+      .map((x) => ({ i: (x.n as number) - 1, que: x.que || 'un hecho que no esta en el post' }));
+  } catch (err: any) {
+    // Que falle el juez no tumba la tanda: los pega una persona que la lee.
+    console.warn('[variedadComentarios] el juez de la tanda no ha podido opinar:', err?.message);
+    return [];
+  }
 }

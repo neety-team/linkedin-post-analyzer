@@ -35,6 +35,9 @@ import {
   arranquesApoyo,
   esPostDeEvento,
   normalizarFase,
+  detalleRepetidoEnTanda,
+  nombreRepetido,
+  pulirComentario,
 } from '../services/variedadComentarios';
 import { buildPrompt } from '../services/replyGenerator';
 
@@ -198,6 +201,29 @@ const { prompt } = buildPrompt(
 ok(prompt.includes(INVISIBLES[0].slice(0, 40)), 'el prompt trae las respuestas previas');
 ok(/ya (la )?has (dicho|usado)|no repitas/i.test(prompt), 'y le prohibe repetir su idea');
 ok(/nadie (lo|la) ve|tesis/i.test(prompt), 'y en peloteo nombra la tesis quemada');
+
+console.log('\n14 · el mismo DETALLE en dos de la tanda (prueba en produccion del 01/10)');
+const tandaKenia = [
+  'Me flipa que con 26 veces menos gente le vendan al mundo un 40% más que Kenia!',
+  'Valdepeñas en la cena de cualquier mesa de España y encima exportando a medio mundo.',
+  'Menudo dato lo de Kenia con 26 veces más habitantes y aun así por debajo en exportaciones...',
+];
+ok(detalleRepetidoEnTanda(tandaKenia) !== null, 'Kenia dos veces se tumba', String(detalleRepetidoEnTanda(tandaKenia)));
+ok(detalleRepetidoEnTanda([tandaKenia[0], tandaKenia[1]]) === null, 'detalles distintos pasan');
+ok(
+  detalleRepetidoEnTanda(['Mucha suerte hoy Unai con todo', 'Qué orgullo esto Unai, de verdad'], ['Unai Arambarri Yeregui']) === null,
+  'el nombre del autor no cuenta como detalle'
+);
+console.log('\n15 · el mismo nombre propio en respuestas seguidas del post');
+const previasAlbacete = ['exactooo, te esperas algo así en el Norte y luego en Albacete hay cuchillos en 94 países.'];
+ok(nombreRepetido('ahí está y el cuchillo con el que cortas el embutido sale de Albacete.', previasAlbacete) !== null, 'Albacete otra vez se tumba');
+ok(nombreRepetido('el vino de Valdepeñas en la cena', previasAlbacete) === null, 'otro sitio pasa');
+ok(nombreRepetido('Albacete es mi tierra y lo sabes', previasAlbacete, 'Soy de Albacete y me ha encantado') === null, 'si lo trae el que comenta, se recoge');
+console.log('\n16 · "exactamente" en mitad de frase es tic de IA');
+ok(registroFormal('repartirnos bien es exactamente lo que falla') !== null, '"exactamente" se tumba');
+console.log('\n17 · el colon se cambia por coma y la primera letra va en mayuscula');
+ok(pulirComentario('juuusto, me quedé parado con lo de Moldavia: un millón de personas') === 'Juuusto, me quedé parado con lo de Moldavia, un millón de personas', pulirComentario('juuusto, me quedé parado con lo de Moldavia: un millón de personas'));
+ok(pulirComentario('a las 10:30 en punto') === 'A las 10:30 en punto', 'una hora no se toca');
 
 console.log(fallos === 0 ? '\n✅ variedad y formato en orden' : `\n❌ ${fallos} fallo(s)`);
 process.exit(fallos === 0 ? 0 : 1);

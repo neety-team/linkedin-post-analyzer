@@ -1739,7 +1739,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     if (!ultimoEstilo) {
       const nom = input.commenterName?.trim() || '';
       const cuerpoV = nom && candidato.toLowerCase().startsWith(nom.toLowerCase()) ? candidato.slice(nom.length) : candidato;
-      ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText);
+      ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText, [input.commenterName, input.authorName]);
     }
     if (ultimoEstilo && intento < 3) {
       candidatoTibio = candidato;

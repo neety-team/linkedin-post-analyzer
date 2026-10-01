@@ -303,6 +303,9 @@ ok(pulirTrasAlargada('Bieeen, incarlopsa con el mejor año', postLista) === 'Bie
 // Ronda 8: "Jorge A. Osuna Pons ciertoo La feria..." (en el post va "→ La Chinata").
 ok(!esNombrePropio('La', '→ La Chinata - Carlos Oliva'), 'un articulo solo nunca es nombre propio');
 ok(pulirTrasAlargada(' ciertoo, La feria es donde', '→ La Chinata - Carlos Oliva') === ' ciertoo la feria es donde', '"ciertoo la feria"');
+// Ronda 9: dos respuestas seguidas con "...y casi nadie en Euskadi sabe ni que existe".
+ok(familiasDe('Ajusa manda el 85% fuera y casi nadie en el norte sabe ni que existe').includes('invisible'), '"casi nadie en el norte sabe ni que existe"');
+ok(!familiasDe('nadie corre tan rápido como cuando no sabe a quién llamar').includes('invisible'), 'y "nadie corre tan rapido" no lo es');
 ok(familiasDe('en medio del caos cada uno ya sabía a quién tenía que llamar').includes('a_quien_llamar'), '"a quién tenía que llamar"');
 ok(nombreAjeno('el que viene de ver el tejido vasco', 'post', 'Acostumbrado al peso de la industria vasca') === null, '"vasco" con "vasca" en el comentario no es inventado');
 

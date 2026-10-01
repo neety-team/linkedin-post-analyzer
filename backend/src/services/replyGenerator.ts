@@ -1380,7 +1380,10 @@ export function problemaDeEstilo(
     cuerpo = cuerpo.slice(nombre.trim().length).trim();
   }
   const tope = comentario.trim().length > 300 ? 300 : 175;
-  if (cuerpo.length > tope) {
+  // Pasarse un pelo no gasta un intento (ronda 9 del 01/10: el tercero se
+  // tumbo por 176/175 y se devolvio uno peor). Una linea larga sigue siendo
+  // una linea.
+  if (cuerpo.length > tope + 10) {
     return `mide ${cuerpo.length} caracteres y el tope es ${tope}: tiene que caber en UNA linea, quita una idea`;
   }
   const cita = comillasDeArranque(respuesta, nombre);
@@ -1684,7 +1687,16 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
   let ultimoEstilo: string | null = null;
   let candidatoTibio = '';
 
+  // ⛔ EL REPROCHE ACUMULA (ronda 9 del 01/10). Al modelo solo se le decia el
+  // ULTIMO fallo y oscilaba: intento 1 "repites el 85%", intento 2 "repites
+  // Tarancón", intento 3 vuelta al 85%. Ahora ve todo lo que ya fallo.
+  const fallosVistos: string[] = [];
   for (let intento = 1; intento <= 3; intento++) {
+    const nuevos = diagnostico.slice(1).map((d) => d.replace(/^intento \d+: /, ''));
+    for (const f of nuevos) if (!fallosVistos.includes(f)) fallosVistos.push(f);
+    const yaFallo = intento > 2 && fallosVistos.length > 1
+      ? `\n\nY NO VUELVAS A NINGUNO DE LOS FALLOS DE LOS INTENTOS ANTERIORES: ${fallosVistos.slice(0, -1).join(' · ')}.`
+      : '';
     const correccion =
       intento === 1
         ? ''
@@ -1702,7 +1714,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       model: 'claude-sonnet-4-6',
       max_tokens: 400,
       system: buildSystemPrompt(voice),
-      messages: [{ role: 'user', content: prompt + correccion }],
+      messages: [{ role: 'user', content: prompt + correccion + yaFallo }],
     });
     const block = message.content.find((b) => b.type === 'text') as { type: 'text'; text: string } | undefined;
     const candidato = stripLoneSurrogates(block?.text ?? '').trim();

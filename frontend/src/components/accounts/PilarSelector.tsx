@@ -339,6 +339,27 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
                       >
                         <span className="inline-block" style={{ transform: 'scaleX(-1)' }}>✎</span>
                       </button>
+                      {/* La papelera, a la derecha del lapiz y siempre a la vista
+                          (Iker, 2026-10-01). En los de serie va APAGADA: el
+                          backend los rechaza (409) porque el clasificador los
+                          emite por su slug y el reproceso los reinventaria con
+                          sus posts ya en Otro. Se enseña igual para que la fila
+                          no cambie de forma, y el title dice por que. */}
+                      <button
+                        onClick={() => { if (!p.builtin) void borrar(p); }}
+                        disabled={ocupado || p.builtin}
+                        className={`text-[10px] px-1 py-1 flex-shrink-0 transition-colors ${
+                          p.builtin
+                            ? 'text-text-muted opacity-30 cursor-not-allowed'
+                            : 'text-text-muted hover:text-red-400 disabled:opacity-50'
+                        }`}
+                        title={p.builtin
+                          ? 'Los pilares de serie no se borran: el clasificador los vuelve a crear solo. Renómbralo si quieres.'
+                          : 'Borrar'}
+                        aria-label={p.builtin ? `${p.label} no se puede borrar` : `Borrar ${p.label}`}
+                      >
+                        🗑
+                      </button>
                       <button
                         onClick={() => void asignar(p.slug)}
                         disabled={ocupado}
@@ -347,20 +368,6 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
                         className="flex-1 self-stretch disabled:opacity-50"
                       />
                     </div>
-                    {/* Los de serie no llevan papelera: el clasificador los emite
-                        por su slug, asi que borrarlos solo consigue que el
-                        reproceso los reinvente con sus posts ya en Otro. */}
-                    {!p.builtin && (
-                      <button
-                        onClick={() => void borrar(p)}
-                        disabled={ocupado}
-                        className="text-[10px] text-text-muted hover:text-red-400 px-1 flex-shrink-0 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
-                        title="Borrar"
-                        aria-label={`Borrar ${p.label}`}
-                      >
-                        🗑
-                      </button>
-                    )}
                   </>
                 )}
               </div>

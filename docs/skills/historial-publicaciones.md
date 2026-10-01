@@ -270,6 +270,22 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Quemados (al PUBLICAR, no antes)** | ninja `ningún sueño de jefe te trae` / `ese nombre sí lo señalamos nosotros` · arranque de meme `el` · gancho `nadie en ventas sueña` |
 | ⏳ | publicado: hora y enlace (de la BD) · a los 3-4 días (lunes 05/10): impresiones contra la mediana de meme de Unai, % de risa, clics a `/agendar/` |
 
+## 📝 APROBADO · JUE 01/10 ~14:45 · ASIER · HISTORIA: EL FILTRO QUE SE DEJÓ FUERA AL MEJOR CLIENTE (`/agendar/`)
+
+| dato | |
+|---|---|
+| **Estado** | aprobado por Iker y publicándose hacia las 14:45 (franja floja, decidido por él). Validador **65/65**, 798 car (aviso: rango 700-780, tope 800), enlace en el 583. Enlace y hora exacta: **leerlos de la BD**, no pedirlos |
+| **Mismo día** | Iker: "Las 10" (1er peloteo con el formato de empresas) · Unai: meme · Asier: esta historia |
+| **Pilar** | historia · **rama A** (propia) · **no regional** · escenario: *el compañero que te enseña algo sin querer* (el comercial al ingeniero) |
+| **Dolor** | *"Temen que un descarte impreciso les borre del radar empresas válidas"*: **3 empresas, 3 de 3 ICP** (Composites Martiartu, Betsaide, Wittenstein), patrón del informe del 14/09, **1er uso en historia** · respaldo del deck: *"los mejores clientes no salen en ningún filtro"* |
+| **Gancho** | `Programé un filtro para un comercial y me lo tumbó con una sola pregunta 😬` (74 car) · escena, verbo `tumbó`, intensificador `una sola`, carril de Asier (`programé`) |
+| **Ninja → `/agendar/`** | `Filtrar por sector lo hace cualquiera, acertar ya no.` / `Eso lo hacemos empresa a empresa y con quien decide:` · UTM `historia-filtro-01oct` · `utm_content=asier` · promete empresa que encaja + quien decide |
+| **Cierre** | pago `Aquella pregunta tumbó mi filtro y mi forma de programar.` + origen `Por eso @Neety, nuestro software, nació mirando lo que hace cada empresa.` + `Una empresa te compra por lo que hace, no por cómo se dio de alta.` |
+| **Real / inventado** | real: el dolor y que Asier programa · inventado (decorado): el comercial, el despacho, las 317, la empresa dada de alta como comercio al por mayor, los 25 años, la pregunta y que fuera antes de Neety |
+| **Foto** | `HISTORIA/ASIER/asier historia 03.jpg` (de `IMG_0271.HEIC`, Asier solo en el stand de la Web Summit, caja `(0,1008,3024,4032)` medida con rejilla). **Foto individual, no selfie** → cuenta para el A/B grupo contra individual |
+| **Correcciones de Iker (01/10), ya en receta** | ninja que sonaba a "imposible" → `global §4.4b-POSIBLE` · fallo pasado sin "hoy" explícito y luego "nueva versión" → contado como ORIGEN (`brand-voice`, canónico de no criticarnos) |
+| ⏳ | **quemadas al confirmar en la BD que está subida** (ninja `filtrar por sector lo hace cualquiera` / `eso lo hacemos empresa a empresa`, arranque de historia `lo`, vehículo) · lunes 05/10: clics a `/agendar/` contra ~35 de una historia y los 48 de su historia del 25/08 |
+
 ## ✅ PUBLICADO · MIÉ 30/09 16:44 · UNAI · VÍDEO: "UNA MAÑANA DE VENTAS A CONTRARRELOJ" (el PRIMER texto más vídeo de la casa)
 
 | dato | |

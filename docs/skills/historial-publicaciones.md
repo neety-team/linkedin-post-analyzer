@@ -8,6 +8,11 @@
 
 ## ⚠️ SI ES LUNES Y SE HABLA DE PUBLICACIONES: PRIMERO SE ANALIZA LA SEMANA PASADA (Iker, 2026-08-10)
 
+> 🔔 **PARA LA REVISIÓN DEL LUNES 05/10 (lo pide Iker el 01/10), sin que haga falta recordárselo:**
+> 1. **Web nueva:** en cada post que se prepare, preguntar si el enlace pasa ya a `https://neety.com/solicitar-demo` (`aboutme §1`).
+> 2. **PELOTEO, POSICIÓN DEL ENLACE:** validar si haberlo adelantado justo detrás de las menciones (brazo B) ha subido o bajado los clics y el CTR contra el brazo A de cada cuenta. Casos: Cantabria (Asier 01/09), despiece de Bizkaia (Asier 16/09), Álava (Iker 22/09), Extremadura (Asier 29/09) y "Las 10" de Iker (01/10). Pedirle a Iker los **clics por UTM de GA4**, porque LinkedIn devuelve ceros sin medir. Si no da, se dice que no da y el A/B sigue (bloque de arriba).
+> 3. **HISTORIA, FOTO DE GRUPO CONTRA SELFIE INDIVIDUAL:** ¿convierte más, menos o no hay relación? Grupo: Asier 25/08 y 09/09, Unai 23/09 e Iker 30/09. Individual: el resto de la serie (`§4.6-SERIE` de `post-workflow`). Se compara por **clics y CTR a la web y por comentarios**, nunca por impresiones, y dentro de la misma cuenta cuando se pueda. Si sale sin relación, se dice así y no se convierte en regla.
+
 > 🧪 **A/B ABIERTO DEL ENLACE EN PELOTEO (Iker, 2026-09-29), se recuerda en CADA peloteo hasta cerrarlo:** posición **B fija** (justo detrás de la lista) y **forma alterna**: línea sola (`Mapa completo aquí: {link}`) contra bloque de 2. Ninguna de las dos está validada. Llevamos: **bloque de 2** → Extremadura, Asier 29/09 (primero limpio: `/mapas/`, línea 1 sin olor a venta, `Lo que no cabe en la lista es dónde fabrica cada una.`), Cantabria, Asier 01/09 (LinkedIn no lo midió; 21 clics en GA4) y Álava, Iker 22/09 (a Luma, no cuenta limpio). **Línea sola** → ninguno todavía en brazo B. **El siguiente peloteo va con línea sola.** Apuesta de Iker y mía: bloque de 2. Con 3-4 por forma, pedirle a Iker los clics por UTM de GA4 y cerrarlo en `post-workflow §4.0d` punto 6.
 
 > 🔔 **PARA LA REVISIÓN DEL LUNES 28/09 (lo pide Iker el 22/09, sin que haga falta recordárselo):**

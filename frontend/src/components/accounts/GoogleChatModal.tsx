@@ -44,7 +44,9 @@ function pick<T>(xs: T[]): T {
 const CABECERAS: Record<string, string[]> = {
   meme: ['Nuevo MEME de {N}', 'Nuevo MEMEEE de {N}', 'MEMAZO nuevo de {N}', '{N} tiene MEME nuevo', 'Nuevo MEME {N}'],
   peloteo_mapa: ['Nuevo MAPA de {N}', 'Nuevo MAPAAA de {N}', 'MAPA nuevo de {N}', '{N} tiene MAPA nuevo'],
-  peloteo_los10: ['Nuevo TOP 10 de {N}', 'Nuevos 10 de {N}', 'LOS 10 de {N}, recién salidos', '{N} tiene TOP 10 nuevo'],
+  // Desde el 2026-10-01 este pilar es "LAS 10" (las 10 EMPRESAS, con logos):
+  // el femenino concuerda con empresas. "Los 10" de personas está prohibido.
+  peloteo_los10: ['Nuevo TOP 10 de {N}', 'Nuevas 10 de {N}', 'LAS 10 de {N}, recién salidas', '{N} tiene TOP 10 nuevo'],
   lead_magnet: ['Nuevo LEAD MAGNET de {N}', 'Nuevo LEAD MAGNEEET de {N}', 'LEAD MAGNET nuevo de {N}', '{N} tiene LEAD MAGNET nuevo'],
   historia: ['Nueva HISTORIA de {N}', 'Nueva HISTORIAAA de {N}', 'HISTORIA nueva de {N}', '{N} tiene HISTORIA nueva'],
   // Estos dos faltaban (Iker, 2026-08-11), asi que un DESPIECE y un EVENTO se

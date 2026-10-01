@@ -81,13 +81,28 @@ def actividad(pid):
             best, tipo = d, 'comentario'
     return best, tipo
 
+def logo_grande(emp):
+    """El logo MAS GRANDE de la ficha, mirando el tamaño que lleva la propia URL.
+
+    🔧 2026-10-01 (orla de "Las 10" de Castilla-La Mancha): `logo_large` NO es
+    siempre el grande. En Incarlopsa y Tecnove `logo_large` es el de 100x100 y
+    `logo` el de 400x400; en Cojali, al reves (200 y 100). Con `logo_large` a
+    ciegas, dos de los diez logos de la orla salian ampliados x2 y borrosos.
+    """
+    def lado(u):
+        m = re.search(r'company-logo_(\d+)_\d+', u or '')
+        return int(m.group(1)) if m else 0
+    cands = [u for u in (emp.get('logo_large'), emp.get('logo')) if u]
+    return max(cands, key=lado) if cands else None
+
+
 def procesa(cid, max_personas=10):
     emp = uni.company(cid)
     if '_error' in emp:
         return {'id': cid, 'error': emp}
     loc = (emp.get('locations') or [{}])[0]
     ficha = {'id': cid, 'name': emp.get('name'), 'pid': emp.get('public_identifier'),
-             'logo': emp.get('logo_large'), 'city': loc.get('city'), 'area': loc.get('area'),
+             'logo': logo_grande(emp), 'city': loc.get('city'), 'area': loc.get('area'),
              'street': (loc.get('street') or [''])[0], 'cp': loc.get('postalCode'),
              'desc': (emp.get('description') or '')[:400], 'personas': []}
     # 🔧 2026-09-16 (Iker: "Light Systems tiene un director, ¿por qué lo has

@@ -233,6 +233,23 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## 📝 ENTREGADO · JUE 01/10 · IKER · "LAS 10" DE **CASTILLA-LA MANCHA** (1er "Las 10": empresas y logos en la orla)
+
+| dato | |
+|---|---|
+| **Estado** | entregado el 01/10 ~10:55 para publicar hoy · validador **71/71** (`--pilar las10`, pilar nuevo) · enlace al **68%** (brazo B, justo detrás de la lista, bloque de 2 a `/agendar/`) |
+| **Por qué existe** | Iker levanta el veto de "Los 10" a nivel global, pero **con las EMPRESAS de protagonistas y sus LOGOS en la orla**, nunca caras (`post-workflow §4.3-LAS10`) |
+| **Por qué Castilla-La Mancha** | ninguna cuenta la había hecho (repetir región de otra cuenta rinde mucho menos: Cataluña 7.123 contra 49.740; Álava 24.918 contra 50.996) · Sales Navigator, directivos con actividad (30 días): **1.686** en CLM y **139** en maquinaria, automoción y alimentación, contra 849/62 de Extremadura (que acaba de funcionar en Asier), 399/30 de La Rioja, 2.883/69 de Canarias y 2.559/44 de Baleares · región de paso con prejuicio claro, sin efecto Madrid |
+| **Gancho** | `Al descansillo de la Península solo paran a por queso y gasolina. Y sus fábricas no paran de vender 👇` (101 car) · concepto `descansillo de la Península` · prejuicio en impersonal `solo paran` · frase-rabia `y gasolina` · juego `paran / no paran` · ancla `vender` · sin comparación-país · pago: `El descansillo es Castilla-La Mancha.` |
+| **Descartados** | `Donde todos paran a repostar, sus fábricas no paran de vender` (sin concepto ni clichés) · `Al descansillo de la Península lo despachan con molinos, queso y a seguir. Y sus fábricas venden cada año más` (110 car, `despachan` ya gastado por Iker en Murcia) |
+| **Las 10 (empresa · persona · logro)** | Cojali S. L. · Venancio Alberca · Premio Nacional de Industria "Bien hecho en España" 2025 ‖ Incarlopsa · Jesús Loriente de la Ossa · 1.263 M€ en 2025, el mejor año de su historia (Las Noticias de Cuenca, 15/07/2026) ‖ JULIAN SOLER S.A. · Ramiro Martínez Pérez · Premio al Mérito Empresarial de CLM como exportadora (17/12/2025) ‖ SYMAGA SILOS · Alfonso Garrido Parejo · silos en +150 países (symaga.com, 2025) ‖ Industrias Metálicas Anro · Rafael Rodríguez · estructuras en 21 países, Roig Arena (El Debate, 03/03/2026) ‖ ARCOS · Jurgen Wolflik · cuchillos en 94 países (El Español, 07/2024) ‖ Félix Solís Avantis · Felix Solis Ramos · 420 M€ en 2025, +5% (Aral, 23/06/2026) ‖ TECNOVE · Martin Diaz Guzman · ventas +12,22% en 2024 (einforma) ‖ Ajusa · Juan Carlos Arnáu · exporta +85% a +80 países (Sernauto / El Digital de Albacete) ‖ Grupo Tello Alimentación · Alfonso Alcázar Martínez · 410 M€ en 2025 y +50 países (El Español, 16/04/2026) |
+| **Fuera de la región** | Felix Solis Ramos (Madrid), Jurgen Wolflik (Comunidad Valenciana, y hay un 2º perfil suyo con el mismo nombre: el bueno es `jurgenwolflik`), Alfonso Alcázar Martínez (Madrid, 81 días) |
+| **Descartadas** | Bezares (nació en Móstoles) · Monedero (−21%), Agrovin (−8%), Mundopalet, Martech, Dehesa de los Llanos (ventas a la baja) · Velas Martínez Morales, Prefabricados Arquitectónicos (+2%) · Zefrict, Infrilux, Vinumar (sin tamaño) · Ebro Globalmaor (concesionario de Huesca) · Pablosky (último dato de 2023) |
+| **Imagen** | `Escritorio/las10-castilla-la-mancha/las 10 castilla-la mancha.png`, `montar-orla.py --logos` sobre `LOS 10 PLANTILLA.psd` · título en 3 líneas (`LAS 10 QUE LEVANTAN / LA INDUSTRIA / CASTELLANOMANCHEGA`, 72,9 px, 25 px de aire) · logo de Symaga sacado de su web (el de LinkedIn es un icono gris sin nombre) |
+| **Ninja → `/agendar/`** | `Parar en cada fábrica no te dice quién firma dentro.` / `A ese ya le ponemos nombre nosotros:` · UTM `las10-castillalamancha-01oct` · `utm_content=iker` · dolor: eslabón 2 (la persona) · hermano del de Unai de hoy (`Ese nombre sí lo señalamos nosotros`), con otras palabras |
+| **Quemados (al PUBLICAR, no antes)** | concepto `descansillo` · frase-rabia `y gasolina` · verbo `solo paran` · ninja `parar en cada fábrica no te dice` / `a ese ya le ponemos nombre` · arranques `desde`, `el` · regenerar `menciones-usadas.json` · CLM a la tabla de cobertura de Iker |
+| ⏳ | publicado: hora y enlace (de la BD) · cronometrar el feed (pilar nuevo) · a los 3-4 días (lunes 05/10): impresiones contra los "Los 10" de Iker (55.168 y 42.489) y su mapa de Álava (24.918), reposts (motor del peloteo), clics a `/agendar/` y si algún mencionado se queja de su cifra |
+
 ## 📝 ENTREGADO · JUE 01/10 · UNAI · MEME: LOS SUEÑOS POR CARGO (evolución por cargos, `/agendar/`)
 
 | dato | |
@@ -646,7 +663,7 @@ El de automoción ya está hecho (Asier, 07/08). El siguiente **no repite sector
 
 | Cuenta | MAPAS usados (no repetir en esa cuenta) | "LOS 10" usados | Conceptos gastados por esa cuenta |
 |---|---|---|---|
-| **Iker** | Gipuzkoa · Cataluña · Andalucía · Valencia · Galicia · Navarra · Murcia · Castilla y León · **Álava** (22/09) | País Vasco · **Asturias** · **Navarra** (03/09) | "pueblo de 7.000 hab" · "esquina del Atlántico" · "patio trasero de los Pirineos" · "playa y paella" · "8,7 millones" · "el tejado de la Península" · "la nevera del norte" |
+| **Iker** | Gipuzkoa · Cataluña · Andalucía · Valencia · Galicia · Navarra · Murcia · Castilla y León · **Álava** (22/09) | País Vasco · **Asturias** (el de Navarra del plan de septiembre NO se publicó: no está en la BD) | "pueblo de 7.000 hab" · "esquina del Atlántico" · "patio trasero de los Pirineos" · "playa y paella" · "8,7 millones" · "el tejado de la Península" · "la nevera del norte" |
 | **Unai** | País Vasco · Bizkaia · Álava · **Cataluña** | **Gipuzkoa** (15/09) | "pueblo de 2,2 millones" · "trastienda del norte" · "lluvia y pintxos" · "última parada antes de Francia" |
 | **Asier** | Aragón · Cantabria (01/09) · **Extremadura** (29/09) | — | "secarral que peina el cierzo" · "el felpudo del Pirineo" · "el tendedero del Cantábrico" · "la despensa del oeste" |
 

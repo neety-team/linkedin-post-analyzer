@@ -86,12 +86,12 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 
 **Tenía razón y la auditoría lo confirma:** cada runbook se había ido corrigiendo por separado y el despiece arrastraba reglas viejas (menciones "que COMENTEN", enlace "tras las menciones", nada sobre clichés ni barrido). **Lo que es igual en los tres vive AQUÍ. Los runbooks solo guardan lo que de verdad los separa**, y cuando una regla de aquí se toque, se toca aquí (`working-preferences §0c-BIS`).
 
-| | MAPA (`§4.2`) | "LOS 10" (`§4.3`) | DESPIECE (`§4.7`) |
+| | MAPA (`§4.2`) | "LAS 10" (`§4.3`) | DESPIECE (`§4.7`) |
 |---|---|---|---|
-| **Protagonista** | la empresa | la persona | la empresa, pieza a pieza |
-| **Gancho** | 4 inamovibles | 3 inamovibles propios | los 4 del mapa, con el objeto dentro del remate |
-| **Fichas** | 20, bloques de 4 | 10, bloques de 5, con logro | 12 exactas, bloques de 4, `→ Pieza: @Empresa - @Persona` |
-| **Imagen** | PamPam | orla | llanta |
+| **Protagonista** | la empresa | la empresa (desde el 01/10; antes, la persona) | la empresa, pieza a pieza |
+| **Gancho** | 4 inamovibles | orgullo regional del mapa SIN la comparación-país (`§4.3-LAS10`, n=0) | los 4 del mapa, con el objeto dentro del remate |
+| **Fichas** | 20, bloques de 4 | 10, bloques de 5, `→ @Empresa - @Persona · logro` | 12 exactas, bloques de 4, `→ Pieza: @Empresa - @Persona` |
+| **Imagen** | PamPam | orla de LOGOS | llanta |
 | **Todo lo demás** | ⬇️ tronco común | ⬇️ tronco común | ⬇️ tronco común |
 
 **1 · LA VENTANA ANTES QUE LA REGIÓN.** Se cuentan los peloteos de las 3 cuentas en los 21 días previos: mediana **39.310** con 0-3, **16.726** con 4-5 y **2.360** con 6-7 (22 peloteos, medido el 2026-09-15). Con 4 o más se avisa; con 6 o más se mueve el post. Detalle en `§4.7` Paso 0.
@@ -357,6 +357,7 @@ Objetivo: 20 empresas industriales B2B de la región, cada una con UNA persona c
   GET {BASE}/api/v1/linkedin/company/{id}?account_id={A}   →   logo_large
   ```
   Devuelve una URL de `media.licdn.com/dms/image/…/company-logo_400_400/…`. Esa URL va **tal cual** en la columna **`Media`** del CSV (Paso 8). Medido en Cataluña: **16 de 16**, ninguna en blanco.
+  - 🔧 **CORREGIDO EL 2026-10-01: `logo_large` NO es siempre el grande.** En Incarlopsa y Tecnove `logo_large` era el de **100x100** y `logo` el de **400x400**; en Cojali, al revés. Se coge **el de mayor tamaño de los dos**, leyendo el número que lleva la propia URL (`company-logo_400_400`). Lo hace `scripts/menciones.py` (`logo_grande`).
   - **UNA EMPRESA NO SE SACA COMO UNA PERSONA.** Son dos endpoints y dos campos distintos, y confundirlos devuelve vacío:
     | | endpoint | campo |
     |---|---|---|
@@ -570,7 +571,53 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 
 **📌 LA LECCIÓN, que es la que hay que retener: LA BASE DE DATOS TIENE LOS NÚMEROS, EL HISTORIAL TIENE EL PORQUÉ.** Yo hice el análisis contra la BD y no abrí el historial, que ya tenía el diagnóstico correcto de los dos posts. **Antes de sacar cualquier conclusión sobre un post publicado, se lee su ficha del historial.** Un número sin su ficha te lleva a inventarte un pilar.
 
-### 4.3 · Runbook "LOS 10" (encadenado) — ⛔ PROHIBIDO DESDE EL 2026-09-16 (la receta se conserva)
+### 4.3 · Runbook "LAS 10" (encadenado) — las 10 EMPRESAS de una región, con sus LOGOS en una orla (Iker, 2026-10-01). Debajo, la receta de "LOS 10" (personas), que sigue prohibida y se conserva
+
+> ### 🔄🔄🔄 4.3-LAS10 · EL VETO SE LEVANTA, PERO SOLO SOBRE LA EMPRESA (Iker, 2026-10-01) — MANDA SOBRE TODO LO DE ABAJO
+>
+> **Iker:** *"¿por qué nunca he tenido quejas ni en mapas ni en despiece? Porque las imágenes que se muestran nunca contienen fotos de las personas, por mucho que estén públicas en LinkedIn… siempre tiene que ser logos para no recibir quejas, pero cambiar su tipo de representación para por lo menos aportar variedad"*. Y: *"A partir de hoy, a nivel global, te estoy levantando el prohibimiento de la receta de los 10. Lo que pasa que ya no va a ser los 10, va a ser las 10"*.
+>
+> **Los TRES peloteos regionales pelotean EMPRESAS de una región. Lo único que cambia es cómo se representan los logos:**
+>
+> | formato | representación | receta |
+> |---|---|---|
+> | MAPA | los logos sobre el mapa de PamPam | `§4.2` |
+> | **"LAS 10"** | **los logos en una ORLA de graduación** | **aquí** |
+> | DESPIECE | los logos en la silueta del sector (llanta, engranaje, cesta) | `§4.7` |
+>
+> **Qué cambia frente a la receta vieja de "Los 10" (la de abajo):**
+>
+> | | "LOS 10" (personas) ⛔ sigue prohibido | **"LAS 10" (empresas)** |
+> |---|---|---|
+> | protagonista | la persona invisible | **la empresa** |
+> | imagen | orla de CARAS | **orla de LOGOS** (`montar-orla.py --logos`) |
+> | ficha | `→ @Persona - @Empresa · logro` | **`→ @Empresa - @Persona · logro`** |
+> | gancho | 3 inamovibles de persona (puente, gerundio de herida) | **el orgullo regional del mapa: prejuicio dicho por OTRO + clichés + frase-rabia + ancla de ventas, SIN la comparación-país** (es la firma del mapa y lo que hace que los tres no se canibalicen). n=0, así que en el validador va de aviso |
+> | beat de equipo y "la empresa que tapa a la persona" | obligatorios | **no aplican**: no hay persona protagonista |
+> | foto de la persona | obligatoria (sin foto no hay orla) | **no hace falta**: el filtro "sin foto" desaparece y la ficha la deciden el cargo y la actividad |
+>
+> **Lo que se queda igual, y es casi todo:** 10 exactas en 5+5 · las dos @ en cada ficha · logro tras `·` verificado con fuente del último año (crecimiento, récord, premio, inversión, internacionalización) · empresa ICP **nacida** en la región · ninguna cifra regional fuera de las fichas · la región callada en el gancho y revelada tarde **con la palabra del gancho** (`global §2.0-PAGO`) · ≥8 clichés y pueblos con su oficio después del reveal · una sola puerta (`/agendar/`) · todo el tronco común (`§4.0d`).
+>
+> **LA IMAGEN, y la plantilla ya sirve sin tocar el PSD:**
+> ```
+> python scripts/montar-orla.py --plantilla ".../PELOTEO REGIONAL/LOS 10/LOS 10 PLANTILLA.psd" --fotos <carpeta 01-…10- de LOGOS> --logos --titulo "LAS 10 QUE [LEVANTAN]|LA INDUSTRIA XXX" --region <GENTILICIO> --fuente ".../BricolageGrotesque-ExtraBold.ttf" --nombres "Marca1 | … | Marca10" --salida ".../las 10 <region>.png"
+> ```
+> - **El título se AJUSTA solo** para no salirse: si el gentilicio no cabe (CASTELLANOMANCHEGA, 1.607 px al cuerpo del PSD contra 1.190 de ancho útil), parte la última línea y baja el cuerpo lo justo. En Castilla-La Mancha quedó en tres líneas a 72,9 px con 25 px de aire arriba y abajo (medido). Los nombres también: la misma letra para los diez, y en dos líneas si uno no cabe.
+> - **El logo entra CONTENIDO en un disco blanco**, el `contener` de la llanta (`§4.7`), nunca recortado.
+> - **El logo más grande entre `logo` y `logo_large`** (`menciones.py`, `logo_grande`). 🔧 01/10: en Incarlopsa y Tecnove `logo_large` era el de 100 px y `logo` el de 400; con el campo a ciegas salían ampliados y borrosos.
+> - **Si el logo de LinkedIn es un icono sin nombre y casi blanco** (Symaga: un arco gris claro), se usa el de su web, que es su marca igual, y se dice en la entrega.
+> - **El nombre de la orla es la MARCA** (`Julián Soler`, `Grupo Tello`), sin `S.A.` ni tagline. La @ del post sigue siendo el nombre exacto de LinkedIn (`images §0e`).
+> - **Archivo:** al OK de Iker, `las 10 <region>.png` en `PELOTEO REGIONAL/LOS 10/`.
+>
+> **⭐ EL TÍTULO: `LAS 10 QUE LEVANTAN`, y por qué no otro (decidido el 01/10; Iker pidió criterio):**
+> - **Sin `EMPRESAS`.** Los logos ya dicen que son empresas, así que la palabra es redundante (`global §2.2c`), y además no cabe: `LAS 10 EMPRESAS QUE LEVANTAN` mide 1.386 px al cuerpo del PSD contra 1.190 útiles. El femenino solo ya lo dice.
+> - **`LEVANTAN` y no `SOSTIENEN`.** `Sostener` es estático (mantener lo que hay) y el criterio de la lista es CRECER: `levantar` dice que suben la industria. `Tiran de`, `mueven` o `empujan` son más planos o más largos; `revientan` sobre un abstracto como `la industria` suena a fanfarronada (`global §2.9-ABSTRACTO`). Y es la cabecera que ya llevaban los dos mejores posts de orla (55.168 y 42.489 impresiones).
+>
+> **Riesgos que van en cada entrega:** las cifras en € de una empresa (récord, ventas) son públicas, pero son lo que más puede escocer a un directivo (en Asturias un CEO pidió retirar su ficha); si llega una queja, se cambian por logros no financieros (premio, países, planta nueva). Y el aviso honesto de siempre: los logos tampoco son riesgo cero; si llega una queja por un logo, se retira sin discutir y se anota aquí.
+>
+> **Primer caso:** Castilla-La Mancha, Iker, 01/10 (`historial-publicaciones`).
+
+### 4.3-OLD · "LOS 10" de PERSONAS (encadenado) — ⛔ PROHIBIDO DESDE EL 2026-09-16 (la receta se conserva)
 
 > ### ⛔⛔⛔ 4.3-VETO · "LOS 10" NO SE ESCRIBE, NO SE PROPONE Y NO SE PLANIFICA (Iker, 2026-09-16)
 >
@@ -578,7 +625,7 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 >
 > **Por qué, y no es por rendimiento:** el formato pone **la cara de personas de otras empresas** en una orla. Ha costado **una queja de un mencionado** (hace meses), **varias ediciones forzadas**, **la llamada de una directora de marketing de otra empresa** el 16/09 al primer jefe (Unai) y **el borrado del "Los 10" de Gipuzkoa** (publicado el 15/09). Convertía bien (trajo inscritos al evento), pero **el coste reputacional es de la marca, y lo pagan los jefes**.
 >
-> **Qué hago si me lo piden:** una línea diciendo que está prohibido y ofrezco **mapa o despiece**. Solo si Iker lo levanta **por escrito en ese chat** se escribe, y el validador lo exige con `--los10-autorizado` (sin el flag, `--pilar los10` es **fallo duro**). El Post Creator (`backend/src/services/postPrompt.ts`) lleva el mismo veto.
+> **Qué hago si me lo piden:** 🔄 desde el 01/10 se hace **"LAS 10"** (empresas y logos, `§4.3-LAS10`). Lo que sigue prohibido es la versión de PERSONAS con su cara. Solo si Iker lo levanta **por escrito en ese chat** se escribe, y el validador lo exige con `--los10-autorizado` (sin el flag, `--pilar los10` es **fallo duro**). El Post Creator (`backend/src/services/postPrompt.ts`) lleva el mismo veto.
 >
 > **Por qué se conserva la receta de abajo:** Iker lo pidió (*"no borres de tu memoria la inteligencia"*), y porque buena parte vive ya en el tronco común (`§4.0d`) y en el mapa. **Lo que se aprendió aquí y SÍ se lleva a los otros peloteos:** el sujeto que tapa a la persona nunca es la empresa (Paso 3d), conceder el trabajo en equipo (3e) y la guía de menciones en tabla.
 >
@@ -3471,7 +3518,7 @@ Durante esas dos semanas **no va a estar la capa manual que hace funcionar el si
 **⛔ Y lo que esto NO autoriza, que es la lectura peligrosa:** no dice que el sistema funcione igual sin la capa manual. En esa misma ventana la frecuencia bajó a la mitad, las cuentas no se comentaron entre sí y se quedaron comentarios sin responder — y **la mediana de impresiones de la segunda semana fue de 1.364 contra 20.260 de la primera**. Lo que está medido es la fontanería (publica o no publica), no el rendimiento. **Programar más no sustituye a estar delante**, y el volumen de las semanas sin nadie sigue cerrado donde está (`§8.0-SEPTIEMBRE`).
 
 ### 8.1 · Las 3 categorías de pilar (unidad de rotación)
-- **PELOTEO (regional)** = { **Mapa regional** | **Despiece** (uno por sector con plantilla) }. ~~"Los 10"~~ **prohibido desde el 16/09** (`§4.3-VETO`). Ensalzan una zona o a personas. Los dos formatos cuentan como **la MISMA categoría** a efectos de intercalado (no pueden coincidir dos peloteos el mismo día).
+- **PELOTEO (regional)** = { **Mapa regional** | **"Las 10"** (orla de logos, desde el 01/10, `§4.3-LAS10`) | **Despiece** (uno por sector con plantilla) }. ~~"Los 10" de personas~~ sigue **prohibido** (`§4.3-VETO`). Los tres pelotean EMPRESAS de una región y solo cambia la representación. Los tres formatos cuentan como **la MISMA categoría** a efectos de intercalado (no pueden coincidir dos peloteos el mismo día).
 - **LEAD MAGNET** (comment-gated).
 - **MEME** (con motor).
 
@@ -3487,7 +3534,7 @@ Cada día de publicación, las 3 cuentas cubren las **3 categorías DISTINTAS** 
 | Jueves | Lead magnet | Meme | Peloteo |
 
 - **Frecuencia por defecto:** 3 posts/semana/cuenta (tú confirmas la frecuencia al lanzar).
-- **🔄 (16/09) LOS TRES PELOTEOS DE LA SEMANA, sin "Los 10":** mapa + despiece de un sector + despiece de otro sector (automoción · maquinaria · alimentación, `§4.7-SECTORES`). **Nunca dos despieces del mismo sector en la misma semana.** ⚠️ Tres peloteos por semana son **9 en 21 días**, por encima de todo lo medido (`§4.0d` punto 1: con 6-7, la mediana cae a 2.360). Iker lo decide sabiéndolo, así que va como **prueba de 2 semanas con corte**: si la mediana de impresiones de los peloteos de esas dos semanas queda por debajo de **8.000**, se vuelve a 1-2 por semana.
+- **🔄 (01/10) VUELVE "LAS 10" como tercer formato** (`§4.3-LAS10`): la semana puede ser mapa + "Las 10" + despiece, y el despiece deja de cargar con dos huecos. **🔄 (16/09) LOS TRES PELOTEOS DE LA SEMANA, sin "Los 10":** mapa + despiece de un sector + despiece de otro sector (automoción · maquinaria · alimentación, `§4.7-SECTORES`). **Nunca dos despieces del mismo sector en la misma semana.** ⚠️ Tres peloteos por semana son **9 en 21 días**, por encima de todo lo medido (`§4.0d` punto 1: con 6-7, la mediana cae a 2.360). Iker lo decide sabiéndolo, así que va como **prueba de 2 semanas con corte**: si la mediana de impresiones de los peloteos de esas dos semanas queda por debajo de **8.000**, se vuelve a 1-2 por semana.
 - **Días/horas por defecto:** martes-jueves; 11:00-12:00 y 14:00-15:00 (hora local). Configurable.
 - **Rota semana a semana** quién hace qué (que no salga idéntico).
 - **🔄 (16/09) "Los 10" está prohibido (`§4.3-VETO`): la alternancia es mapa → despiece → mapa…, y el despiece rota de SECTOR (§8.1c).** Lo de abajo es la regla vieja. ~~Dentro de PELOTEO, cada cuenta ALTERNA semana a semana: mapa → "Los 10" → mapa → "Los 10"…~~ Si la semana pasada esa cuenta sacó mapa, esta semana le toca "Los 10", y al revés. **Esa alternancia ES lo que produce el espaciado de ≥2 semanas entre mapas** (§8.3): no hay que calcularlo aparte, sale solo. Cambia siempre región/tema.
@@ -3524,7 +3571,7 @@ El workflow SIEMPRE arranca preguntando:
 
 ### 8.5 · Flujo del workflow (paralelo por cuenta)
 1. **Pregunta previa** (8.4) + confirmar frecuencia y días.
-2. **Proponer la MATRIZ semanal** (tabla cuenta × día × categoría) aplicando 8.2 + 8.3. Para cada celda de PELOTEO, decidir si mapa o despiece (y de qué sector), y la región. **Nunca "Los 10"** (`§4.3-VETO`).
+2. **Proponer la MATRIZ semanal** (tabla cuenta × día × categoría) aplicando 8.2 + 8.3. Para cada celda de PELOTEO, decidir si mapa, "Las 10" o despiece (y de qué sector), y la región. **Nunca "Los 10" de personas** (`§4.3-VETO`).
 3. **[Checkpoint] Enseñarte la matriz** para aprobar o ajustar ANTES de generar (recomendado siempre; imprescindible las primeras semanas).
 4. **Generar los posts en PARALELO** (una rama por cuenta; dentro de cada post, el runbook del pilar §4.2-4.5, encadenado): verificar datos → hook → cuerpo → CTA → concepto de imagen → Loop de validación (§8).
 5. **Entregar:** la matriz + todos los posts, cada uno con su texto en bloque cercado, tag, "por qué", riesgos, concepto de imagen y "revisa estas" (empresas/cifras/menciones). Y **di qué esperas de mí** para el siguiente paso.

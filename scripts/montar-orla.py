@@ -28,6 +28,19 @@ USO:
 
 Las fotos se ordenan por nombre de fichero (01_…, 02_…, …), que es el mismo
 orden de mención del post y el de los nombres de la plantilla.
+
+"LAS 10" (Iker, 2026-10-01): la misma orla, pero con LOGOS de empresa en vez de
+caras. Las caras de personas de otras empresas son lo que costó las quejas y el
+veto de "Los 10"; el mapa y el despiece, que solo enseñan logos, no han tenido
+ni una. Tres cosas nuevas, y las tres son opcionales para no romper lo de antes:
+  --logos           cada logo entra CONTENIDO en un disco blanco, sin recortar
+                    (el `contener` de montar-llanta.py, el mismo de la llanta).
+  --titulo          sustituye el texto del título del PSD. La palabra entre
+                    corchetes va en el color de acento del PSD (el naranja):
+                    "LAS 10 QUE [LEVANTAN]|LA INDUSTRIA XXX".
+  (siempre)         título y nombres se AJUSTAN para no salirse de la franja ni
+                    del lienzo: un gentilicio largo (CASTELLANOMANCHEGA) o un
+                    nombre de empresa largo ya no se cortan por el borde.
 """
 import argparse
 import os
@@ -245,6 +258,109 @@ def sustituir_region(texto: str, region: str) -> str:
     return '\n'.join(lineas)
 
 
+# Margen minimo a cada lado del titulo y de los nombres. El 32 sale de la orla
+# de Gipuzkoa (15/09): `LA INDUSTRIA GUIPUZCOANA` mide 1.189 px en el cuerpo
+# del PSD y quedo a 32-35 px de cada borde, y Iker la dio por buena.
+MARGEN_TITULO = 32
+MARGEN_VERTICAL = 26
+
+
+def _franja_alto(img: Image.Image) -> int:
+    """Alto de la franja del titulo: donde la columna x=12 deja de ser su color."""
+    col = img.getpixel((12, 4))[:3]
+    for y in range(4, img.height):
+        if sum(abs(a - b) for a, b in zip(img.getpixel((12, y))[:3], col)) > 40:
+            return y
+    return 256
+
+
+def _lineas_titulo(texto: str, base_color, acento):
+    """'LAS 10 QUE [LEVANTAN]|LA INDUSTRIA X' -> lineas de tramos con su color."""
+    lineas = []
+    for linea in texto.replace('\n', '|').split('|'):
+        segs, buf, dentro = [], '', False
+        for ch in linea:
+            if ch in '[]':
+                if buf:
+                    segs.append({'txt': buf, 'color': acento if dentro else base_color})
+                buf, dentro = '', ch == '['
+            else:
+                buf += ch
+        if buf:
+            segs.append({'txt': buf, 'color': acento if dentro else base_color})
+        if segs:
+            lineas.append(segs)
+    return lineas
+
+
+def dibujar_titulo_ajustado(img: Image.Image, titulo: dict, texto: str, ruta_fuente: str) -> str:
+    """Dibuja el titulo SIN salirse de la franja ni del lienzo (Iker, 2026-10-01).
+
+    Parte del cuerpo del PSD y solo lo baja si hace falta. Prueba dos montajes y
+    se queda con el de letra mas grande: (A) las lineas tal cual vienen y (B) la
+    linea mas ancha partida antes de su ultima palabra (`LA INDUSTRIA` /
+    `CASTELLANOMANCHEGA`). B solo gana si da al menos un 8% mas de cuerpo: dos
+    lineas es el formato que ya conoce el lector. El bloque se centra en vertical
+    en la franja, que es donde lo colocaba el diseñador (127 px de centro en una
+    franja de 256).
+    """
+    colores = [t['color'] for t in titulo['tramos']]
+    base_color = colores[0]
+    acento = next((c for c in colores if c != base_color), base_color)
+    lineas = _lineas_titulo(texto, base_color, acento)
+    d = ImageDraw.Draw(img)
+    franja = _franja_alto(img)
+    ancho_max = img.width - 2 * MARGEN_TITULO
+    ratio_salto = titulo['salto'] / titulo['cuerpo']
+
+    def ancho(linea, f):
+        return sum(d.textlength(s['txt'], font=f) for s in linea)
+
+    def medir(lns):
+        """Mayor cuerpo (<= el del PSD) con el que el bloque cabe a lo ancho y a lo alto."""
+        cuerpo = titulo['cuerpo']
+        f = ImageFont.truetype(ruta_fuente, round(cuerpo))
+        mas_ancha = max(ancho(l, f) for l in lns)
+        cuerpo = min(cuerpo, cuerpo * ancho_max / mas_ancha)
+        # Alto del bloque = (n-1) saltos + altura de mayusculas de la primera.
+        f = ImageFont.truetype(ruta_fuente, round(cuerpo))
+        cap = -f.getbbox('H', anchor='ls')[1]
+        alto = (len(lns) - 1) * cuerpo * ratio_salto + cap
+        limite = franja - 2 * MARGEN_VERTICAL
+        if alto > limite:
+            cuerpo *= limite / alto
+        return cuerpo
+
+    opciones = [(medir(lineas), lineas)]
+    i_ancha = max(range(len(lineas)), key=lambda i: ancho(lineas[i], ImageFont.truetype(ruta_fuente, 40)))
+    ultima = lineas[i_ancha]
+    txt = ''.join(s['txt'] for s in ultima).strip()
+    if ' ' in txt and len(ultima) == 1:
+        cabeza, cola = txt.rsplit(' ', 1)
+        partida = lineas[:i_ancha] + [[{'txt': cabeza, 'color': ultima[0]['color']}],
+                                      [{'txt': cola, 'color': ultima[0]['color']}]] + lineas[i_ancha + 1:]
+        opciones.append((medir(partida), partida))
+    cuerpo, lineas = opciones[0]
+    if len(opciones) > 1 and opciones[1][0] >= opciones[0][0] * 1.08:
+        cuerpo, lineas = opciones[1]
+
+    f = ImageFont.truetype(ruta_fuente, round(cuerpo))
+    salto = cuerpo * ratio_salto
+    cap = -f.getbbox('H', anchor='ls')[1]
+    alto = (len(lineas) - 1) * salto + cap
+    base = (franja - alto) / 2 + cap
+    for linea in lineas:
+        x = titulo['cx'] - ancho(linea, f) / 2
+        for s in linea:
+            d.text((x, base), s['txt'], font=f, fill=s['color'] + (255,), anchor='ls')
+            x += d.textlength(s['txt'], font=f)
+        base += salto
+    resumen = ' / '.join(''.join(s['txt'] for s in l) for l in lineas)
+    print(f'  titulo    : {resumen}  ·  {cuerpo:.1f} px (PSD {titulo["cuerpo"]:.1f})'
+          + ('  ⚠️ reducido para que quepa' if cuerpo < titulo['cuerpo'] - 0.5 else ''))
+    return resumen
+
+
 def dibujar_titulo(img: Image.Image, titulo: dict, region: str, ruta_fuente: str) -> None:
     """Redibuja el titulo con la region puesta, en el MISMO cuerpo y sitio del PSD."""
     texto = sustituir_region(titulo['texto'], region)
@@ -300,7 +416,14 @@ def main() -> int:
                    help='No acercar las caras lejanas: pega cada foto tal cual venga')
     p.add_argument('--umbral-cara', type=float, default=0.6,
                    help='Se acerca la cara si baja de este múltiplo de la mediana (0.6 por defecto)')
+    p.add_argument('--logos', action='store_true',
+                   help='"LAS 10": la carpeta trae LOGOS de empresa, que entran contenidos en un disco blanco')
+    p.add_argument('--titulo',
+                   help='Texto del título; "|" parte la línea y [palabra] va en el color de acento. '
+                        'Ej: "LAS 10 QUE [LEVANTAN]|LA INDUSTRIA XXX"')
     a = p.parse_args()
+    if a.logos:
+        a.sin_encuadre = True   # el detector de caras no pinta nada con un logo
 
     plantilla = Image.open(a.plantilla).convert('RGBA')
     huecos = buscar_huecos(np.array(plantilla.split()[3]))
@@ -340,7 +463,33 @@ def main() -> int:
 
     capa = Image.new('RGBA', plantilla.size, (0, 0, 0, 0))
     print()
-    for hueco, fichero in zip(huecos, ficheros):
+    if a.logos:
+        # El `contener` de la llanta: logo lo mas grande posible dentro del
+        # CIRCULO, sin recortarle el nombre y centrado como lo ve el ojo. El
+        # hueco de esta plantilla es una elipse de 213x224, asi que el disco es
+        # el circulo de 213 inscrito, y debajo va blanco en toda la caja para
+        # que no asome una media luna menta arriba y abajo.
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            'llanta', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'montar-llanta.py'))
+        llanta = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(llanta)
+        for hueco, fichero in zip(huecos, ficheros):
+            ancho = hueco['x1'] - hueco['x0'] + 1
+            alto = hueco['y1'] - hueco['y0'] + 1
+            lado = min(ancho, alto)
+            logo = Image.open(os.path.join(a.fotos, fichero))
+            disco = llanta.contener(logo, lado)
+            capa.paste(Image.new('RGBA', (ancho, alto), (255, 255, 255, 255)), (hueco['x0'], hueco['y0']))
+            capa.paste(disco, (hueco['x0'] + (ancho - lado) // 2, hueco['y0'] + (alto - lado) // 2))
+            nota = ''
+            if min(logo.size) < lado * (1 - 2 * llanta.MARGEN):
+                nota = f'  ⚠️ logo de {min(logo.size)} px para {lado}: se amplía y pierde nitidez'
+            de = llanta.desequilibrio_vertical(disco)
+            if abs(de) > 0.10:
+                nota += f'  ⚠️ descentrado en vertical {100 * de:+.0f}%'
+            print(f"  ({hueco['x0']:4d},{hueco['y0']:4d})  logo {logo.width}x{logo.height} → disco {lado}px  {fichero}{nota}")
+    for hueco, fichero in ([] if a.logos else zip(huecos, ficheros)):
         ancho = hueco['x1'] - hueco['x0'] + 1
         alto = hueco['y1'] - hueco['y0'] + 1
         foto = Image.open(os.path.join(a.fotos, fichero)).convert('RGBA')
@@ -385,17 +534,57 @@ def main() -> int:
         for caja in cajas:
             fondo_txt = plantilla.getpixel((8, (caja['y0'] + caja['y1']) // 2))[:3]
             lienzo.rectangle((caja['x0'] - 2, caja['y0'] - 4, caja['x1'] + 2, caja['y1'] + 4), fill=fondo_txt)
-        for caja, nombre in zip(cajas, nombres):
-            cx = (caja['x0'] + caja['x1']) / 2
-            cy = (caja['y0'] + caja['y1']) / 2
-            lienzo.text((cx, cy), nombre, font=fuente, fill=estilo['color'], anchor='mm')
-            ancho_txt = lienzo.textlength(nombre, font=fuente)
-            print(f"  ({caja['x0']:4d},{caja['y0']:4d})  {nombre:24s} ancho {ancho_txt:.0f}px")
+        # ANCHO MAXIMO de cada nombre (Iker, 2026-10-01: "sin que se salgan de
+        # las lineas, sin que se salga de la pantalla"). Hasta hoy el nombre se
+        # pintaba a 29 px pasara lo que pasara: `Gustavo Lascurain` llego a 34 px
+        # del borde derecho, y un nombre de empresa largo se habria cortado.
+        # Cada nombre tiene de sitio la mitad del hueco hasta su vecino de fila
+        # y hasta el borde del lienzo. Todos van al MISMO cuerpo (el que quepa
+        # en la caja mas apretada), porque una orla con letras de tres tamaños
+        # se lee como un error; solo si a 21 px aun no cabe, ese nombre se parte
+        # en dos lineas.
+        centros = [((c['x0'] + c['x1']) / 2, (c['y0'] + c['y1']) / 2) for c in cajas]
+        maximos = []
+        for cx, cy in centros:
+            vecinos = [abs(ox - cx) for ox, oy in centros if abs(oy - cy) < 30 and ox != cx]
+            medio = min(vecinos) / 2 - 12 if vecinos else 9999
+            borde = min(cx, final.width - cx) - MARGEN_TITULO
+            maximos.append(2 * min(medio, borde))
+        def partir(nombre, f, maximo):
+            """El nombre en una linea si cabe; si no, en dos, cortado por el medio."""
+            if lienzo.textlength(nombre, font=f) <= maximo or ' ' not in nombre:
+                return [nombre]
+            pal = nombre.split()
+            corte = min(range(1, len(pal)), key=lambda k: abs(len(' '.join(pal[:k])) - len(' '.join(pal[k:]))))
+            return [' '.join(pal[:corte]), ' '.join(pal[corte:])]
+
+        # Primero se intenta partir en dos lineas al cuerpo del PSD; solo si aun
+        # asi no cabe (una palabra sola muy larga) se baja el cuerpo, y entonces
+        # a TODOS por igual.
+        cuerpo = estilo['cuerpo']
+        for nombre, maximo in zip(nombres, maximos):
+            w = max(lienzo.textlength(ln, font=fuente) for ln in partir(nombre, fuente, maximo))
+            if w > maximo:
+                cuerpo = min(cuerpo, estilo['cuerpo'] * maximo / w)
+        cuerpo = max(int(cuerpo), 21)
+        if cuerpo < estilo['cuerpo'] - 0.5:
+            print(f'  ⚠️ nombres a {cuerpo} px (PSD {estilo["cuerpo"]:.0f}) para que quepa el mas largo')
+        fuente = ImageFont.truetype(ruta, cuerpo)
+        for (cx, cy), nombre, maximo in zip(centros, nombres, maximos):
+            lineas = partir(nombre, fuente, maximo)
+            salto = cuerpo * 1.1
+            y = cy - salto * (len(lineas) - 1) / 2
+            for ln in lineas:
+                lienzo.text((cx, y), ln, font=fuente, fill=estilo['color'], anchor='mm')
+                y += salto
+            ancho_txt = max(lienzo.textlength(ln, font=fuente) for ln in lineas)
+            aviso = '' if ancho_txt <= maximo else '  ⚠️ SE SALE'
+            print(f"  ({cx:6.0f},{cy:5.0f})  {' / '.join(lineas):30s} ancho {ancho_txt:.0f}/{maximo:.0f}px{aviso}")
 
     # Quedan los pinholes de antialiasing (20 px sueltos en el borde de los
     # círculos). Se aplanan sobre el color de fondo de la propia plantilla, no
     # sobre blanco: sobre negro cantarían como puntitos.
-    if a.region:
+    if a.region or a.titulo:
         titulo = leer_titulo(a.plantilla)
         if not titulo:
             print('⚠️  El PSD no tiene capa de titulo: no se toca.', file=sys.stderr)
@@ -406,11 +595,20 @@ def main() -> int:
             # La misma fuente que los nombres. El Bricolage del sistema es la
             # variable y no la ExtraBold, asi que si Iker pasa --fuente se usa esa.
             ruta_ttf = a.fuente or FUENTE_TITULO
-            dibujar_titulo(final, titulo, a.region, ruta_ttf)
-            if MARCADOR_REGION not in titulo['texto']:
-                print(f'  ⚠️  El PSD no lleva {MARCADOR_REGION}: se ha sustituido la ULTIMA PALABRA. '
-                      f'Cambia el titulo del PSD a "{MARCADOR_REGION}" para que sea explicito.')
-            print(f"  titulo: {sustituir_region(titulo['texto'], a.region).replace(chr(10), ' / ')}")
+            if a.titulo:
+                texto = a.titulo
+            else:
+                # El del PSD, con el acento donde lo tiene el diseñador.
+                texto = ''.join(f"[{t['txt'].rstrip(chr(10))}]" + ('\n' if t['txt'].endswith('\n') else '')
+                                if t['color'] != titulo['tramos'][0]['color'] else t['txt']
+                                for t in titulo['tramos'])
+            region = (a.region or '').upper()
+            if MARCADOR_REGION in texto and region:
+                texto = texto.replace(MARCADOR_REGION, region)
+            elif region:
+                texto = sustituir_region(texto.replace('|', '\n'), region)
+                print(f'  ⚠️  El título no lleva {MARCADOR_REGION}: se ha sustituido la ULTIMA PALABRA.')
+            dibujar_titulo_ajustado(final, titulo, texto, ruta_ttf)
 
     fondo = plantilla.getpixel((8, plantilla.height // 2))[:3]
     plano = Image.new('RGB', final.size, fondo)

@@ -114,7 +114,8 @@ THREE MECHANICS THAT PRODUCE 2x+ OUTLIERS — pick the one the raw idea naturall
    - Regions still to mine: La Rioja (vino + tech), Asturias (siderurgia), Murcia (agritech), Castilla-La Mancha, Aragón, Extremadura.
    - Frequency cap: max 1 every 10–14 days per account
 
-4. "LOS 10" — DIRECTORES COMERCIALES POR REGIÓN — ⛔ BANNED (see RECENT_DIAGNOSIS § 1b)
+4. "LAS 10" — LAS 10 EMPRESAS DE UNA REGIÓN, CON SUS LOGOS EN UNA ORLA (the old "LOS 10" of people is ⛔ BANNED, see RECENT_DIAGNOSIS § 1b)
+   - "LAS 10" (since 2026-10-01, Iker): the format is back, but the protagonists are the 10 COMPANIES of a region and the orla shows their LOGOS, never faces (faces of people from other companies were what caused the complaints; maps and despieces, which only show logos, never had one). Card: "→ @Company - @Person · verified achievement of the last year" (growth, record, award, investment, countries). Hook: the regional-pride engine of the map (the prejudice said by OTHERS + clichés + a dismissive tail + a sales anchor such as "vender") WITHOUT the map's "exporta más que [PAÍS] entero" comparison. Region never named in the hook; revealed late repeating the hook's key word. Image header: "LAS 10 QUE LEVANTAN LA INDUSTRIA [GENTILICIO]". The PEOPLE version ("Los 10" with faces) is still banned unless the user explicitly lifts it in this conversation.
    - ⛔ BANNED SINCE 2026-09-16 (Iker): "LOS 10" IS PROHIBITED. Never write it, never propose it, never suggest it as an option — unless the user explicitly lifts the ban in this conversation. Reason: it puts the FACE of people from other companies in a portrait grid, and it has cost a complaint from a mentioned person, several forced edits, an angry call from a marketing director and a deleted post (Gipuzkoa, 15/09). If asked for one, say it is banned and offer a regional MAP or a DESPIECE instead. The notes below are kept only as knowledge.
    - Real outliers: 4.8x · 49.4K imp (País Vasco, Iker 25 jun)
    - Format: celebrate the infravalorado comercial behind the region's top companies — NOT the companies or region per se.
@@ -155,7 +156,7 @@ CHOOSING MATRIX (apply only when the raw idea fits — never force):
 - Need a lead spike this week + the topic has a real deliverable → COMMENT-GATED LEAD MAGNET
 - Need broad reach + reposts + the idea is meme-able → PUNCHY + MEME
 - Need both reach AND brand identity + the topic has regional / industrial angle → MAP + REGION
-- Need to celebrate a region's infravalorado comercials → ⛔ NOT "LOS 10" (banned 2026-09-16): use a MAP or a DESPIECE
+- Need to celebrate a region's companies → MAP, DESPIECE or "LAS 10" (companies + logos in an orla). Never "LOS 10" with people's faces (banned 2026-09-16)
 - Idea doesn't fit any of the four → fall back to the archetype the system already picked and a clean execution. Don't bolt a mechanic on top of a misfit idea — that's how the 0.3x flops above happened.`;
 
 // The single highest-priority rule about how the hook reaches the reader.
@@ -963,7 +964,9 @@ THREE EXECUTION RULES THAT ARE NON-NEGOTIABLE FOR MAPS (added after the first wa
 
 11. AGENDAR LINK — ALWAYS include spam ninja agendar link (https://recursos.neety.com/agendar/) at the end of the map post, embedded naturally (tied to something funny or to the hook's logic). DO NOT link to the pampam official map — that traffic doesn't convert. DO NOT use the old "Comenta tu empresa y la añado al mapa" CTA as the ONLY CTA — the primary goal is now demo bookings, not map data collection. If you keep a comment ask, it must coexist with the spam ninja agendar link, not replace it.
 
-═══ 1b. "LOS 10" FORMAT — DIRECTORES COMERCIALES POR REGIÓN — ⛔ BANNED ═══
+═══ 1b. "LOS 10" FORMAT — DIRECTORES COMERCIALES POR REGIÓN — ⛔ BANNED (replaced by "LAS 10") ═══
+
+"LAS 10" (since 2026-10-01, Iker): the format is back, but the protagonists are the 10 COMPANIES of a region and the orla shows their LOGOS, never faces (faces of people from other companies were what caused the complaints; maps and despieces, which only show logos, never had one). Card: "→ @Company - @Person · verified achievement of the last year" (growth, record, award, investment, countries). Hook: the regional-pride engine of the map (the prejudice said by OTHERS + clichés + a dismissive tail + a sales anchor such as "vender") WITHOUT the map's "exporta más que [PAÍS] entero" comparison. Region never named in the hook; revealed late repeating the hook's key word. Image header: "LAS 10 QUE LEVANTAN LA INDUSTRIA [GENTILICIO]". The PEOPLE version ("Los 10" with faces) is still banned unless the user explicitly lifts it in this conversation.
 
 ⛔ BANNED SINCE 2026-09-16 (Iker): "LOS 10" IS PROHIBITED. Never write it, never propose it, never suggest it as an option — unless the user explicitly lifts the ban in this conversation. Reason: it puts the FACE of people from other companies in a portrait grid, and it has cost a complaint from a mentioned person, several forced edits, an angry call from a marketing director and a deleted post (Gipuzkoa, 15/09). If asked for one, say it is banned and offer a regional MAP or a DESPIECE instead. The notes below are kept only as knowledge.
 
@@ -1249,7 +1252,7 @@ WHEN THE USER WANTS TO INCLUDE THE AGENDAR LINK (https://recursos.neety.com/agen
 - Reminder that the link does NOT kill reach when embedded correctly — the iMessage meme (7.9x · 80.9K) proved this.
 
 WHEN THE USER ASKS FOR A "LOS 10" POST:
-- FIRST: it is BANNED (2026-09-16). Do not write it. Say so in one line and offer a MAP or a DESPIECE. Only if the user explicitly lifts the ban in this conversation, follow the rules below.
+- FIRST: since 2026-10-01 it is written as "LAS 10" (the 10 companies, logos in the orla, card "→ @Company - @Person · achievement"). The version with people's faces stays BANNED (2026-09-16): only if the user explicitly lifts it in this conversation, follow the people rules below.
 - Run the HOOK CHECK first: does the hook make the INFRAVALORADO COMERCIAL feel identified? Physical verb + own wound → "quemando el teléfono" ✓ / "no sale en ninguna" ✗ (too abstract, reads as criticism).
 - Check: does the hook sound like CRITICISM of companies? If yes → rewrite. "Los 10" CELEBRATES, it never signals/criticises companies. If a mentioned director/founder would feel attacked rather than celebrated → the hook fails.
 - Propose orla de retratos (portrait grid) image with strong header in Neety palette, key word Persian Orange.

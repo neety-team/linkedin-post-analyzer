@@ -967,6 +967,8 @@ Los nombres van **exactos como en LinkedIn** (el campo `name` de Unipile, sin em
 **Imagen del POST:** la genera el USUARIO (captura de la web PamPam) — el workflow NO genera ni describe la imagen del post en mapas. Lo que sí entrega el workflow: el **CSV** para importar en PamPam (las 20 empresas) y una **foto de portada de la región para la WEB del mapa** (distinta de la imagen del post) sacada de fuente con **licencia libre verificada** — nunca de Google Imágenes, que es material con copyright y esto es uso comercial. Receta completa y sub-procedimientos (país, empresas vía Unipile, CSV, foto) en `post-workflow §4.2`.
 
 ### 4.2 · "LOS 10" — directores/comerciales por región
+> 🔄 **DESDE EL 2026-10-01 ESTE FORMATO ES "LAS 10" (Iker):** las 10 EMPRESAS de una región con sus LOGOS en la orla, nunca las caras. El foco pasa de la persona a la empresa, igual que en el mapa y el despiece; cambia solo la representación. Receta en `post-workflow §4.3-LAS10`. Lo de abajo es la versión de PERSONAS, que sigue prohibida desde el 16/09 y se conserva como conocimiento.
+
 Outlier validado: País Vasco 4.8x · 49.4K. Formato NUEVO a repetir.
 
 **Foco = LA PERSONA (el comercial infravalorado), NO la región.** El objetivo: que el comercial anónimo se sienta IDENTIFICADO al leer el hook.

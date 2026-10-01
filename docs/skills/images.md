@@ -874,6 +874,8 @@ Son artefactos distintos con reglas opuestas. **No apliques la del post a la ima
    - **El guion NO separa apellidos:** `Fernández-Catuxo García` es UN primer apellido (`Javier Fernández-Catuxo`), no dos.
 3. **⚠️ Comprueba que los campos no estén INVERTIDOS.** Mucha gente rellena LinkedIn al revés, sobre todo con convenciones no españolas. Caso real: Asma tenía `first_name="OUAZZANI TOUHAMI"` y `last_name="ASMA"`. **El desempate lo da su `public_identifier`**, que es lo que ella misma eligió: `asma-ouazzani` → Asma es el NOMBRE. Aplicar la regla a ciegas habría puesto el apellido delante del nombre en la orla.
 
+**EN "LAS 10" (empresas, desde el 2026-10-01) el nombre de la orla es la MARCA**, el que se lee en su logo y dice la gente: `Julián Soler` y no `JULIAN SOLER S.A.`, `Grupo Tello` y no `Grupo Tello Alimentación`, `Symaga` y no `SYMAGA SILOS`. Title Case, sin forma jurídica ni tagline. La @ del post sigue siendo el `name` exacto de LinkedIn. Si un nombre no cabe, `montar-orla.py` lo parte en dos líneas antes que achicar los diez.
+
 **Lo que NO se toca: las tildes.** Si escribe `Jose Antonio Garcia` sin tildes, va sin tildes. Así escribe él su nombre y corregírselo es inventar. La incoherencia de tildes no canta; la de MAYÚSCULAS sí.
 
 ## 0f · ⛔ LO QUE UN MODELO DE IMAGEN NO PUEDE HACER: PEGAR
@@ -1393,6 +1395,7 @@ Una infografía (tabla/diagrama/multi-caja resumiendo herramientas/pasos) va 0-d
 
 ## 8 · Registro de imagen por tipo de post (atajo)
 - **Mapa regional** → la imagen del POST la hace el USUARIO (captura de la web PamPam); el workflow NO genera imagen de post para mapas (entrega un CSV para PamPam en su lugar — ver `post-workflow §4.2`). Esta skill no aplica al mapa. **Excepción que NO es imagen de post:** el workflow sí entrega una **foto de portada de la región para la web del mapa** (`post-workflow §4.2` Paso 11) — no se genera ni se diseña, se busca en **fuentes de licencia libre** (Wikimedia Commons / Unsplash / Pexels), nunca en Google Imágenes, y se entrega con licencia y autor.
+- **"Las 10"** (desde el 2026-10-01) → **orla de LOGOS**, nunca caras: la misma plantilla de "Los 10" con `montar-orla.py --logos --titulo "LAS 10 QUE [LEVANTAN]|LA INDUSTRIA XXX"`. El logo entra contenido en un disco blanco y el nombre de debajo es la MARCA, sin `S.A.` (`post-workflow §4.3-LAS10`). Lo de la línea siguiente es la versión de personas, prohibida.
 - **"Los 10"** → orla de retratos (cabezas), NO personas sobre mapa. Cabecera fuerte en paleta Neety, palabra clave en naranja (validado: "LOS 10 QUE **LEVANTAN** LA INDUSTRIA VASCA", 4.81x). **El usuario la monta con SU plantilla en otra herramienta**; el workflow NO genera la imagen — entrega las **10 fotos en un ZIP en orden de mención** + **los 2 PROMPTS literales** para su plantilla (`post-workflow §4.3` Paso 6b: uno cambia el gentilicio de la cabecera, otro inserta las caras sin deformarlas).
 - **Meme** → §6 (o calcar referencia, §5-B).
 - **TARJETA** (pilar en prueba, `post-workflow §4.6`) → **tarjeta que finge un post de X**, registro 2 con la excepción de `§0a-sexta-ter`: sin paleta Neety, sin Bricolage/Switzer y sin palabra naranja. Ver `§9`.

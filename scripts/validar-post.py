@@ -13,7 +13,7 @@ Lo que NO hace: no juzga si un dato es cierto, si el ángulo es aburrido o si el
 hueso del remix está bien robado. Eso es criterio y vive en global-instructions §8.
 
 Uso:
-    python scripts/validar-post.py <fichero.txt> --pilar mapa|los10|meme|leadmagnet|tarjeta
+    python scripts/validar-post.py <fichero.txt> --pilar mapa|las10|objeto|meme|leadmagnet|historia|tarjeta
     (pilar tarjeta: ademas --tarjeta <fichero con el texto de dentro de la imagen>)
                                    [--cuenta Iker|Unai|Asier]
 
@@ -68,7 +68,10 @@ SUJETO_ES_MODELO = (r'(claude\s*(opus|sonnet|haiku)?\s*\d|gpt-?\d|gemini\s*\d'
 # §4.2 Paso 1 — En el peloteo el prejuicio SIEMPRE lo dice otro: "la ven como…",
 # "nadie habla de…". Sin ese sujeto, el desprecio se lee como NUESTRO y ofende a
 # quien queriamos que comentara defendiendo lo suyo (Iker, 2026-07-30).
-SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina)'
+SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan))'
+# 2026-10-01, "Las 10" de Castilla-La Mancha (Iker): el prejuicio tambien lo dice
+# OTRO cuando es un GESTO de la gente en impersonal ("solo paran a por queso y
+# gasolina"): es el desprecio de la region de paso sin ponerlo en nuestra boca.
 
 # §4.2 Paso 1 — VERBOS DE PREJUICIO QUEMADOS. El sujeto ajeno es obligatorio,
 # pero el VERBO tiene que rotar. "Fichada" salio el 30/07 en el despiece de
@@ -114,7 +117,10 @@ FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|pa
                # 2026-09-28, mapa de Extremadura (Asier): el gesto de despacharla
                # es seguir viaje hacia el pais de al lado, que es el prejuicio real
                # de la region (tierra de paso camino de Lisboa).
-               r'|y a portugal)')
+               r'|y a portugal'
+               # 2026-10-01, "Las 10" de Castilla-La Mancha (Iker): la region de paso
+               # se despacha con la parada de la autovia, el queso y la gasolinera.
+               r'|y gasolina)')
 
 # §4.4b — FRASES DEL SPAM NINJA QUEMADAS. El dolor es SIEMPRE el mismo (dar con
 # el cliente ideal, empresa y persona), pero la FORMA rota en cada post. Iker,
@@ -1162,6 +1168,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         return validar_entregable(texto)
     if pilar == 'tarjeta':
         return validar_tarjeta(texto, card, cuenta, historico, publica_manana)
+    # "LAS 10" (Iker, 2026-10-01): vuelve "Los 10", pero con las EMPRESAS de
+    # protagonistas y sus LOGOS en la orla, no las caras de las personas (que es
+    # lo que costo las quejas y el veto del 16/09). Comparte con "Los 10" todo
+    # lo que no depende de que el protagonista sea una persona (10 fichas en
+    # 5+5, dos @ por ficha, logro tras "·", cero cifra regional, region callada
+    # en el gancho, menciones sin repetir), asi que corre como 'los10' y se
+    # apagan solo los checks de persona (puente empresa->persona, gerundio de
+    # herida del comercial, beat de equipo, empresa que tapa a la persona).
+    LAS10 = pilar == 'las10'
+    if LAS10:
+        pilar = 'los10'
     bs = bloques(texto)
     hook = bs[0] if bs else []
     hook_txt = ' '.join(hook)
@@ -3059,7 +3076,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         m = re.search(COMODIN_LISTA, cuerpo, re.I)
         chk(not m, 'Frase de entrada a la lista sin comodín (§4.1)',
             f'"{m.group(0)}" → ya repetida entre mapas' if m else '')
-    if pilar == 'los10':
+    if pilar == 'los10' and not LAS10:
         m = re.search(BEAT_EQUIPO, cuerpo, re.I)
         chk(bool(m), 'Concede que es trabajo en equipo (§4.3 Paso 3e)',
             'sin esta línea se nos echan encima: el "gracias, PERO esto es trabajo en '
@@ -3576,13 +3593,13 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # n=4, asi que van de AVISO y no de fallo duro, salvo la region, que
         # ademas ya era regla escrita (§4.3 Paso 3b: no se nombra hasta el reveal).
         _g10 = cuerpo.splitlines()[0]
-        _puente = re.search(r'^(las?|ningun[ao]|est[ae]s?)\s+(empresas?|f[aá]bricas?|'
+        _puente = LAS10 or re.search(r'^(las?|ningun[ao]|est[ae]s?)\s+(empresas?|f[aá]bricas?|'
                             r'compa[nñ][ií]as?|firmas?|negocios?)', _g10, re.I)
         chk(bool(_puente), 'LOS 10: el gancho abre por la EMPRESA y gira a la PERSONA (§4.3 Paso 1)',
             'arranca en la persona. Los dos que vuelan (4.43x y 2.49x) abren por la empresa o '
             'su resultado y giran a alguien sin nombre dentro de la misma frase; el que arranca '
             'directo en el comercial se quedo en 0.75x', aviso=True)
-        _ger = re.search(r'\b\w+(ando|iendo|[eé]ndose|[aá]ndose)\b', _g10, re.I)
+        _ger = LAS10 or re.search(r'\b\w+(ando|iendo|[eé]ndose|[aá]ndose)\b', _g10, re.I)
         chk(bool(_ger), 'LOS 10: el gancho lleva la HERIDA FISICA en gerundio (§4.3 Paso 1)',
             'sin gerundio de herida. Los tres que pasan de 0.75x lo llevan (quemando el '
             'telefono, comiendose noes, aguantando el no); el unico sin el es el 0.53x, que '
@@ -3597,44 +3614,87 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             ('dice "%s". La region se revela al final, despues de la lista y de los cliches. '
              'El unico "Los 10" que la nombra arriba es el de Cataluna, 0.53x, el peor del '
              'pilar') % _reg10.group(0) if _reg10 else '')
-        # El bloque que Iker pide ver en CADA entrega, para validar el gancho de un
-        # vistazo contra los que ya funcionaron.
-        # §4.3 Paso 7 (Iker, 2026-07-29; reincidido el 2026-09-15). La frontera del
-        # formato es el NUMERO de menciones y yo daba el del mapa cuatro entregas
-        # seguidas: con 20 va linea a linea, con 10 o menos va en TABLA.
-        chk(False, 'ENTREGA: la guia de menciones de "Los 10" va en TABLA, no linea a linea',
-            'columnas: # · Persona (enlace) · Cargo · Empresa (enlace) + sede · Ultima '
-            'actividad · Logro. Persona primero, que es el orden del cuerpo en este pilar, '
-            'y el logro se mantiene porque aqui es el criterio de seleccion. Enlaces '
-            'markdown CLICABLES y FUERA de bloque cercado. Debajo, una linea por cada ficha '
-            'con peculiaridad (nombre de LinkedIn raro, persona fuera de la region, '
-            'actividad al limite): es lo que le ahorra abrir los diez perfiles', aviso=True)
-        chk(False, 'ENTREGA: el bloque de los GANCHOS del pilar, de mas outlier a menos',
-            'despues del texto va un bloque cercado con los ganchos reales de "Los 10" '
-            'ordenados por ratio, para poder comparar el nuevo de un vistazo: '
-            '4.43x/49.426 "Las empresas que mas vendieron este año tienen algo en comun: '
-            'personas desconocidas quemando el telefono" · 2.49x/27.795 "Ninguna empresa '
-            'vende mas por suerte. Alguien lleva un año comiendose noes para arrancar un si" '
-            '· 0.75x/8.486 "Hay comerciales aguantando el no a primera hora para que su '
-            'fabrica no pare" · 0.53x/6.572 "Las empresas catalanas que mas venden salen en '
-            'la foto. Quien las hace vender no sale en ninguna". Son CUATRO, no cinco: el '
-            'pilar tenia cuatro publicados. ⭐ QUINTO, subido el 15/09 y pendiente de ratio: '
-            '"Las empresas que mas venden no tienen mejor producto. Tienen a alguien '
-            'tragandose carretera" (Unai, Gipuzkoa), el primero escrito con los tres '
-            'inamovibles delante. Cuando tenga numero, entra ordenado',
-            aviso=True)
-        # §4.3 Paso 6c (Iker, 2026-09-15) - la orla aprobada se archiva. No es
-        # un check del texto: es el paso que se cae al cerrar el post, porque
-        # ocurre DESPUES de que Iker de el visto bueno a la imagen y para
-        # entonces la conversacion ya va de otra cosa.
-        chk(False, 'ENTREGA: cuando Iker apruebe la ORLA, archivarla en la carpeta del pilar',
-            r'copiarla a C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\ '
-            'con el nombre "los 10 <region>.png": minusculas, SIN tildes ni eñes y sin guiones, '
-            'calcando lo que ya hay (los 10 euskadi / cataluna / asturias / andalucia). El nombre '
-            'se lista de la carpeta antes de escribirlo, no se inventa. ⏳ El disparador es su OK '
-            'sobre la IMAGEN, no la entrega del post: mientras pueda llegar una foto mejor, un '
-            'fichero viejo ahi es peor que ninguno, porque la siguiente region se clona de el. '
-            'La copia del Escritorio se queda: esto es el archivo del pilar', aviso=True)
+        if not LAS10:
+            # El bloque que Iker pide ver en CADA entrega, para validar el gancho de un
+            # vistazo contra los que ya funcionaron.
+            # §4.3 Paso 7 (Iker, 2026-07-29; reincidido el 2026-09-15). La frontera del
+            # formato es el NUMERO de menciones y yo daba el del mapa cuatro entregas
+            # seguidas: con 20 va linea a linea, con 10 o menos va en TABLA.
+            chk(False, 'ENTREGA: la guia de menciones de "Los 10" va en TABLA, no linea a linea',
+                'columnas: # · Persona (enlace) · Cargo · Empresa (enlace) + sede · Ultima '
+                'actividad · Logro. Persona primero, que es el orden del cuerpo en este pilar, '
+                'y el logro se mantiene porque aqui es el criterio de seleccion. Enlaces '
+                'markdown CLICABLES y FUERA de bloque cercado. Debajo, una linea por cada ficha '
+                'con peculiaridad (nombre de LinkedIn raro, persona fuera de la region, '
+                'actividad al limite): es lo que le ahorra abrir los diez perfiles', aviso=True)
+            chk(False, 'ENTREGA: el bloque de los GANCHOS del pilar, de mas outlier a menos',
+                'despues del texto va un bloque cercado con los ganchos reales de "Los 10" '
+                'ordenados por ratio, para poder comparar el nuevo de un vistazo: '
+                '4.43x/49.426 "Las empresas que mas vendieron este año tienen algo en comun: '
+                'personas desconocidas quemando el telefono" · 2.49x/27.795 "Ninguna empresa '
+                'vende mas por suerte. Alguien lleva un año comiendose noes para arrancar un si" '
+                '· 0.75x/8.486 "Hay comerciales aguantando el no a primera hora para que su '
+                'fabrica no pare" · 0.53x/6.572 "Las empresas catalanas que mas venden salen en '
+                'la foto. Quien las hace vender no sale en ninguna". Son CUATRO, no cinco: el '
+                'pilar tenia cuatro publicados. ⭐ QUINTO, subido el 15/09 y pendiente de ratio: '
+                '"Las empresas que mas venden no tienen mejor producto. Tienen a alguien '
+                'tragandose carretera" (Unai, Gipuzkoa), el primero escrito con los tres '
+                'inamovibles delante. Cuando tenga numero, entra ordenado',
+                aviso=True)
+            # §4.3 Paso 6c (Iker, 2026-09-15) - la orla aprobada se archiva. No es
+            # un check del texto: es el paso que se cae al cerrar el post, porque
+            # ocurre DESPUES de que Iker de el visto bueno a la imagen y para
+            # entonces la conversacion ya va de otra cosa.
+            chk(False, 'ENTREGA: cuando Iker apruebe la ORLA, archivarla en la carpeta del pilar',
+                r'copiarla a C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\ '
+                'con el nombre "los 10 <region>.png": minusculas, SIN tildes ni eñes y sin guiones, '
+                'calcando lo que ya hay (los 10 euskadi / cataluna / asturias / andalucia). El nombre '
+                'se lista de la carpeta antes de escribirlo, no se inventa. ⏳ El disparador es su OK '
+                'sobre la IMAGEN, no la entrega del post: mientras pueda llegar una foto mejor, un '
+                'fichero viejo ahi es peor que ninguno, porque la siguiente region se clona de el. '
+                'La copia del Escritorio se queda: esto es el archivo del pilar', aviso=True)
+        else:
+            # ---------- "LAS 10": EL GANCHO (Iker, 2026-10-01, n=0) ----------
+            # Las empresas son las protagonistas, igual que en el mapa y el
+            # despiece, asi que el motor del gancho es el del ORGULLO REGIONAL:
+            # el prejuicio dicho por otro + 2 cliches + frase-rabia. Lo que NO
+            # entra es la firma del mapa (`exporta mas que [PAIS] entero`): es lo
+            # que hace que tres peloteos de la misma region no se canibalicen.
+            # Todo de AVISO: el pilar no tiene ni un post publicado.
+            chk(bool(re.search(SUJETO_AJENO, _g10, re.I)),
+                'LAS 10: el prejuicio lo dice OTRO, no nosotros (§4.3, de §4.2 Paso 1)',
+                'en el mapa y el despiece es fallo duro: sin sujeto ajeno el desprecio se lee como '
+                'NUESTRO y ofende a quien tenia que defender lo suyo', aviso=True)
+            chk(bool(re.search(FRASE_RABIA, _g10, re.I)),
+                'LAS 10: lleva frase-rabia que despacha la region (§4.3)',
+                'es el intensificador del peloteo: sin el, el local no salta a defender', aviso=True)
+            _cmp = re.search(r'm[aá]s (?:\w+ ){0,4}que .+\benter[oa]s?\b', _g10, re.I)
+            chk(not _cmp, 'LAS 10: sin la comparacion-pais del mapa (§4.3)',
+                'el "mas que [PAIS] entero" es la firma del MAPA; aqui el remate es lo que hacen '
+                'esas empresas (vender, crecer)' if _cmp else '', aviso=True)
+            _conc = [] if historico else sorted(c for c in CONCEPTO_QUEMADO if c in _g10.lower() and quemada(c, CONCEPTO_QUEMADO[c], VENTANA_IDENTIDAD_DIAS, cuenta))
+            chk(not _conc, 'LAS 10: el concepto no esta usado (§4.0d punto 7)',
+                ' · '.join(f'"{c}" fue {CONCEPTO_QUEMADO[c]}' for c in _conc))
+            _rab = [] if historico else sorted(f for f in FRASE_RABIA_USADA if f in _g10.lower() and quemada(f, FRASE_RABIA_USADA[f], VENTANA_IDENTIDAD_DIAS, cuenta))
+            chk(not _rab, 'LAS 10: la frase-rabia no esta usada (§4.0d punto 7)',
+                ' · '.join(f'"{f}" fue {FRASE_RABIA_USADA[f]}' for f in _rab))
+            _vq = [] if historico else sorted(v for v in VERBO_PREJUICIO_QUEMADO
+                     if re.search(r'\b' + v + r'\b', _g10, re.I) and quemada(v, VERBO_PREJUICIO_QUEMADO[v], VENTANA_IDENTIDAD_DIAS, cuenta))
+            chk(not _vq, 'LAS 10: el verbo del prejuicio no esta quemado (§4.0d punto 7)',
+                ' · '.join(f'"{v}" ya salio en {VERBO_PREJUICIO_QUEMADO[v]}' for v in _vq))
+            chk(False, 'ENTREGA: la guia de menciones de "Las 10" va en TABLA, EMPRESA primero',
+                'columnas: # · Empresa (enlace) + sede · Persona (enlace) · Cargo · Ultima actividad '
+                '· Logro con su fuente. La empresa primero, que es el orden del cuerpo en este pilar '
+                '(`→ @Empresa - @Persona · logro`). Enlaces markdown CLICABLES fuera de bloque cercado', aviso=True)
+            chk(False, 'ENTREGA: el bloque de los GANCHOS de "Los 10" y "Las 10", de mas a menos',
+                'son los del mismo formato de orla; hasta que "Las 10" tenga los suyos, se compara '
+                'contra los cinco "Los 10" publicados (sacados de la BD, no de memoria) y contra el '
+                'mejor mapa de la cuenta, que es la otra familia de su gancho', aviso=True)
+            chk(False, 'ENTREGA: la ORLA de LOGOS, montada con montar-orla.py --logos y archivada al OK',
+                r'C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\ con el nombre '
+                '"las 10 <region>.png" (minusculas, sin tildes ni eñes). Titulo: "LAS 10 QUE [LEVANTAN]|LA '
+                'INDUSTRIA XXX". El nombre de cada empresa en la orla es su nombre de MARCA (el que se lee en '
+                'su logo), sin S.A. ni tagline; la @ del post sigue siendo el nombre exacto de LinkedIn', aviso=True)
         # ⛔⛔ CADA FICHA LLEVA LAS DOS MENCIONES, SIEMPRE (Iker, 2026-09-15).
         # Casuistica nueva: cuando el NOMBRE de LinkedIn de la persona ya incluye
         # el de su empresa ("Aitor Lizarraga - AMPO-POYAM Valves"), la ficha PARECE
@@ -3680,7 +3740,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             f'{len(_fuera)}: "{_fuera[0][:52]}"' if _fuera else '')
         # §4.3 Paso 3e — el beat de equipo va en el SETUP, antes de la lista.
         # Despues solo corrige la objecion; antes, la evita.
-        _mb = re.search(BEAT_EQUIPO, cuerpo, re.I)
+        _mb = None if LAS10 else re.search(BEAT_EQUIPO, cuerpo, re.I)
         if _mb and _flechas:
             _pos_beat = cuerpo.index(_mb.group(0))
             _pos_lista = cuerpo.index(_flechas[0])
@@ -4147,7 +4207,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('fichero')
     ap.add_argument('--pilar', required=True,
-                    choices=['mapa', 'los10', 'objeto', 'meme', 'leadmagnet', 'historia', 'entregable', 'evento', 'tarjeta'])
+                    choices=['mapa', 'los10', 'las10', 'objeto', 'meme', 'leadmagnet', 'historia', 'entregable', 'evento', 'tarjeta'])
     ap.add_argument('--cuenta', default=None)
     ap.add_argument('--tarjeta', default=None, dest='tarjeta',
                     help='Fichero con el texto que va DENTRO de la tarjeta (pilar tarjeta). '
@@ -4225,9 +4285,10 @@ def main():
     # directora de marketing y el borrado del "Los 10" de Gipuzkoa (Unai, 15/09).
     # --historico lo deja pasar porque test-validador valida posts YA publicados.
     if a.pilar == 'los10' and not (a.los10_autorizado or a.historico):
-        res.insert(0, (False, 'LOS 10: formato PROHIBIDO desde el 16/09',
-                       'No se escribe ni se entrega salvo que Iker lo levante por escrito en ese chat '
-                       '(--los10-autorizado). El hueco de peloteo va a MAPA o DESPIECE (post-workflow §4.3-VETO).', False))
+        res.insert(0, (False, 'LOS 10 con CARAS: prohibido desde el 16/09. Usa --pilar las10',
+                       'Desde el 01/10 el formato vuelve como "LAS 10": las 10 EMPRESAS de protagonistas y sus '
+                       'LOGOS en la orla, nunca las caras (post-workflow §4.3). La version de personas solo con '
+                       '--los10-autorizado, si Iker la levanta por escrito en ese chat.', False))
     # ⛔ LA REFERENCIA DE UN MEME LLEVA TEXTO DENTRO DE LA IMAGEN (Iker, 2026-10-01).
     # El 22/09 propuse para Unai la cara gritando de Alex Murphy: 49% de risa y ni
     # una palabra escrita. Iker: "nunca quiero que cojas una referencia que

@@ -460,10 +460,11 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 | qué | respuestas | Google Chat |
 |---|---|---|
 | **longitud** | **una línea**: ~160 caracteres tras el nombre; hasta ~280 solo si el comentario es un parrafazo (+300). Se comprueba y se reintenta | una frase por comentario; como mucho 1-2 de los 5 con dos |
-| **palabra alargada** | sorteada por voz (15/35/55%) y **nunca más de una**: si salen dos, el código normaliza la segunda | 1 o 2 comentarios, **posición barajada**, y nunca más de una por comentario |
+| **palabra alargada** | sorteada por voz (15/35/55%) y **nunca más de una**: si salen dos, el código normaliza la segunda | **2 o 3 comentarios** desde el 01/10 (antes 1 o 2), **posición barajada**, y nunca más de una por comentario. Pueden coincidir con el emoji |
 | **cuál se alarga** | una palabra corta de reacción, **vocal final**: `clarooo`, `siii`, `buenoo`, `nooo`, `bieeen`, `valeee`, `geniaaal`. Nunca un sustantivo en mitad de la frase | igual |
 | **dónde va** | ⛔ **nunca en un sitio predecible** (Iker, 2026-09-16): el sitio también se sortea (principio · medio · final), y si la alarga el código elige una palabra de reacción al azar, no la primera | igual, sorteado por comentario |
-| **emoji** | sorteado por voz (0/25/50%), al final, **nunca** en respuestas delicadas (no entiende, se queja, viene de malas). Si le tocaba y no lo puso, el código añade uno "seguro" (🙌 💪 👏 🙂 🤝) | 1 o 2 de los 5, posición barajada, con la misma red |
+| **emoji** | sorteado por voz (0/25/50%), al final, **nunca** en respuestas delicadas (no entiende, se queja, viene de malas). Si le tocaba y no lo puso, el código añade uno "seguro" (🙌 💪 👏 🙂 🤝) | **2 de los 5 como mínimo y NUNCA dos seguidos** (01/10); a veces 3, en las posiciones 1, 3 y 5 |
+| **cierre** | sorteado por voz (`§7.1d`) | **siempre uno sin emoji acaba en `!`**, a menudo otro en `...`, a veces uno con emoji lleva `!` delante. Nunca más de dos `!`. Lo aplica el código (01/10) |
 | **comillas al empezar** | ⛔ salvo que cite algo que dijo **el que comenta** | ⛔ nunca: la cita del post va dentro de la frase |
 | **punto antes del emoji** | ⛔ nunca: `contarlo 👏`, no `contarlo. 👏` (los suspensivos sí se quedan). Lo quita el código | igual |
 | **coma antes de "y"** | ⛔ la quita el código | ⛔ igual (`Sirimiri, y mientras…` salió el 16/09) |
@@ -477,6 +478,39 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 **Lo común a las palabras que le gustan a Iker**, y es lo que se le pide al modelo: son **cortas**, son **de reacción** (asentir, negar, valorar) y lo que se estira es **la última vocal**. Por eso suenan a alguien tecleando y no a un anuncio.
 
 **⚠️ Y el detector es conservador a propósito:** el castellano tiene dobles vocales legítimas (`lee`, `cree`, `desee`, `coordinar`) y en los textos se cuelan palabras inglesas (`Neety`, `feedback`, `Google`). Solo cuenta como alargada una racha de 3 letras, una doble a/i/u/o **al final**, una doble a/i/u en medio o una `ss` final. Probado contra todas esas: no toca ninguna.
+
+#### ⛔⛔ 7.1i · CADA RESPUESTA, UNA IDEA DISTINTA. Y CUÁNDO ES EL EVENTO (Iker, 2026-10-01) — vale para respuestas Y Google Chat
+
+> *"Cuando respondo a comentarios de publicaciones de peloteo siempre me generas comentarios que hablan de lo mismo, siempre del silencio, antes de que nadie los pusiese en el mapa… necesito conceptos más originales. Genérame siempre comentarios de apoyo, pero diferentes."* Del Google Chat: *"muy formales, que no son naturales… 'Qué post más necesario' es horrible, demasiado corto, no aporta absolutamente nada"*. Del vídeo del evento: *"no desear suerte en el futuro… es un evento en pasado"*.
+
+**LO MEDIDO, sobre lo publicado (Unipile, 01/10):**
+
+| dónde | cuántas repiten la MISMA idea | la idea |
+|---|---|---|
+| respuestas de Iker, Las 10 CLM (01/10) | **3 de 3** (y 2 de 3 el mismo dato, "silos en 150 países") | *"trabajo de despiste"*, *"antes de que nadie hablara de internacionalización"*, *"no salen en ningún reportaje"* |
+| respuestas de Asier, despiece Bizkaia (16/09) | **4 de 5** | *"no se suele ver"*, *"sin que nadie lo vea en ningún anuncio"* |
+| respuestas de Asier, mapa Extremadura (29/09) | **7 de 12** | *"creciendo en silencio"*, *"menos portadas"*, *"debajo del radar"*, *"más allá de la autovía"* |
+| respuestas de Unai, vídeo del evento (30/09) | **3 de 3** | *"no saber a quién llamar"* (la llamada del ninja) |
+| Google Chat, Las 10 CLM (01/10) | **4 de 5** | *"el foco va a las grandes ciudades"*, *"no aparece en ningún titular"*, *"pedidos que nadie contaba"* |
+
+**LA CAUSA, y es la de siempre un piso más arriba:** lo que se sorteaba era la **forma** (el movimiento, la primera palabra) y el **contenido** lo elegía el modelo, que con el mismo post delante cae siempre en lo más fuerte del post: **su tesis**. En un peloteo la tesis es siempre *"a esta región no la ve nadie"*. Encima: la única memoria entre respuestas eran las 4 primeras palabras; dos de los movimientos sorteados (*"conecta con lo que ya dice el post"*, *"di la regla general"*) llevaban derechos a la tesis; los 7 ángulos del Google Chat colgaban de *"la idea principal del post"*; el perfil por defecto del Google Chat decía literalmente **"neutral, warm, professional"** y la regla de las cinco personas pedía *"variar el nivel de formalidad"*. Y el banco del evento era **todo futuro** (suerte, ganas de que llegue, que salga redondo) sin mirar si ya había pasado.
+
+**LAS REGLAS:**
+- **La tesis del post ya la dice el post.** La respuesta se construye con **lo que trae el comentario** (su empresa, su pueblo, su producto, su oficio, su broma) o con un **detalle concreto** del post (una empresa, un producto con su pueblo, una costumbre, un número), nunca con la idea central ni con la llamada del ninja.
+- **Una idea, una vez.** De la familia *"nadie lo ve"* o de *"a quién llamar"*, como mucho **una de cada cinco** respuestas de un post y **uno de los cinco** del Google Chat. **Y el mismo dato no sale en dos respuestas.** Si el que comenta trae él la idea, recogerla vale.
+- **Se habla, no se redacta:** fuera *demuestra que, ecosistema, tejido industrial, músculo industrial, motor económico, fuera del radar, lejos de los focos, poner en valor, visibilidad, a nivel de*.
+- **Nada vacío:** menos de 35 caracteres o peloteo sin nada concreto (*"Qué post más necesario."*) no vale.
+- **EL EVENTO, SEGÚN CUÁNDO.** Antes: suerte, ganas, orgullo. **Después: orgullo, enhorabuena, recordarlo; nunca "suerte", "que salga redondo" ni "ganas de que llegue".** Si el post cuenta que **estábamos todos** (*"11 personas y una casa rural"*), se puede recordar en plural (*"qué mañana aquella"*); si no consta, **no se dice que estuviste** (a los eventos no siempre vamos todos).
+
+**LAS TRES CAPAS** (`backend/src/services/variedadComentarios.ts`):
+
+| capa | qué hace |
+|---|---|
+| **1 · el prompt** | `RULE 3h` (una idea distinta, la tesis ya está dicha) y `RULE 3i` (hablas, no redactas) en respuestas; en Google Chat, ángulos **anclados a una parte concreta del post** (banco propio de peloteo: una empresa, un producto con su pueblo, la comparación con el país, la gente, una costumbre…) y sin los arranques *"Nadie…"* / *"Casi siempre…"* en peloteo |
+| **2 · el código** | **la respuesta ve lo ya contestado en el post**: las publicadas (las apunta `buildThreadsForPost` al abrir la pestaña) y los borradores de la sesión. **La fase del evento la lee Haiku una vez por post y día** (`analizarEvento`: antes / durante / después + si fuimos todos) con la fecha de HOY, y de ahí sale el banco. **El plan de la tanda** (`planTanda`) decide emoji, vocales y cierre |
+| **3 · el guardarraíl** | `familiaRepetida` / `familiaEnTanda`, `datoRepetido`, `registroFormal`, `comentarioVacio`, `suerteFutura`, `afirmaQueEstuvo` → reintento con el fallo delante. Si a la tercera un evento pasado sigue con suerte en futuro, **se quita esa frase** (es un error de hecho, no de estilo) |
+
+**⚠️ Lo que NO cubre, dicho:** las familias son las dos que **hemos visto** salir en bucle. Si aparece otra idea repetida, se añade a `FAMILIAS` con sus frases reales el mismo día. La memoria vive en el proceso: si el servidor se reinicia, las publicadas vuelven al abrir la pestaña; los borradores sin publicar, no. Prueba: `npx tsx src/scripts/testVariedad.ts`.
 
 #### ⛔ 7.1f · LA RESPUESTA NUNCA ES UNA PREGUNTA (Iker, 2026-09-16)
 
@@ -503,9 +537,9 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 | **quién firma** | **el jefe**, en su propio post | **otra persona** del equipo, con su nombre y su cara |
 | voz por cuenta | ✅ `sobrio` Unai · `medio` Asier · `cercano` Iker | ⛔ **neutra a propósito** |
 | alargar vocales | ✅ **UNA palabra como mucho**, sorteada: Unai 15% · Asier 35% · Iker 55% | ✅ **UNA palabra** en 1 o 2 de los 5, en posición sorteada |
-| exclamación | ✅ sorteada por voz: Unai 15%, Asier 25%, Iker libre | — |
-| puntos suspensivos | ✅ Unai 25%, Asier 20%, Iker libre | — |
-| emojis | ✅ sorteado: Unai **nunca** · Asier 25% · Iker 50%, y **nunca** en respuestas delicadas | ✅ 1 o 2 de los 5, en posición sorteada |
+| exclamación | ✅ sorteada por voz: Unai 15%, Asier 25%, Iker libre | ✅ **siempre al menos una** de las 5 (01/10) |
+| puntos suspensivos | ✅ Unai 25%, Asier 20%, Iker libre | ✅ a menudo una (65%) |
+| emojis | ✅ sorteado: Unai **nunca** · Asier 25% · Iker 50%, y **nunca** en respuestas delicadas | ✅ **2 o 3 de los 5, nunca dos seguidos** (01/10) |
 | agradecer un elogio | ✅ obligatorio y **comprobado** (`faltaElGracias`) | — |
 
 **⚠️ Y LO DEL GOOGLE CHAT NO ES UN OLVIDO, ES TU PROPIA REGLA (`§7.2b`):** *"los escriben CINCO PERSONAS DISTINTAS… cada uno lo pega con su nombre y su cara en el mismo hilo. Si al lector le suenan a la misma mano, se lee como coordinado y el tiro sale por la culata"*. **Ponerles la voz del jefe haría justo eso**, y encima sería raro: el jefe no se comenta a sí mismo. Lo que sí comparten con el jefe son las reglas de CASA (puntuación, cero anglicismos, cero cifras inventadas, registro de apoyo).
@@ -621,8 +655,8 @@ Los que genera el botón **Enviar a Google Chat** de Accounts, para que los comp
 
 - **SIEMPRE 5, fijo.** Antes se sorteaba entre 3 y 5 para que el mensaje diario no repitiera forma. El equipo ha crecido, así que sortear solo dejaba compañeros sin línea que pegar. **La variedad la da el texto, no la cantidad.**
 - **★ Los escriben CINCO PERSONAS DISTINTAS.** Es la regla de la que cuelga todo lo demás: cada uno lo pega con su nombre y su cara en el mismo hilo. Si el lector baja por los comentarios y le suenan a la misma mano, se lee como coordinado y **el tiro sale por la culata**. Varían registro, longitud, arranque y grado de formalidad.
-- **Puntuación de persona real** (`§3`): cero guion largo, cero coma antes de "y", cero markdown, y como mucho un emoji en uno de los cinco.
-- **Alargar una vocal en UNO o DOS**, no en los cinco (`§7.1`). En todos es try-hard y peor que no hacerlo.
+- **Puntuación de persona real** (`§3`): cero guion largo, cero coma antes de "y", cero markdown. ~~como mucho un emoji en uno de los cinco~~ → **desde el 01/10, 2 o 3 con emoji y nunca dos seguidos** (`§7.1i`).
+- **Alargar una vocal en DOS o TRES** (antes uno o dos), nunca en los cinco (`§7.1`). En todos es try-hard y peor que no hacerlo.
 - **Nunca delatarse:** nada de "el equipo", "nosotros" ni hablar en nombre de la empresa. Cada uno es un contacto normal reaccionando.
 - **Cero cifras o casos inventados.** Si hace falta un ángulo personal, que sea incomprobable ("me ha pasado algo parecido"), nunca un caso con datos.
 - **Cinco ángulos obligatoriamente distintos** y sin que dos se agarren a la misma palabra del post.
@@ -635,7 +669,8 @@ Los que genera el botón **Enviar a Google Chat** de Accounts, para que los comp
 **⛔⛔ Y SI EL POST ES DEL EVENTO, LOS CINCO VAN DEL EVENTO (Iker, 2026-09-24).** El post de las sillas de Unai, a 40 minutos de Neety Forward, salió con cinco comentarios genéricos (*"Casi siempre el resultado que parece espontáneo…"*) y ninguno nombraba el evento. **Los pegan compañeros de la misma empresa: vayan o no, cada comentario como mínimo desea suerte o dice las ganas que tiene** (y si el post ya lo cuenta como pasado, el orgullo de cómo salió).
 - **Suerte a la PERSONA o al DÍA, nunca al evento "de otros":** `Mucha suerte hoy Unai`, `que salga redondo` sí; `vuestro evento`, `lo que habéis montado`, `todo el equipo` no (la regla del 27/08 sigue: el evento en primera persona del plural, y sin dar por hecho que el que comenta asiste).
 - **Cuándo salta:** pilar `evento` **o** el texto nombra el evento (`Neety Forward`, `evento`, enlace de Luma). Hace falta mirar el texto porque el clasificador solo etiqueta `evento` por el enlace de Luma, y el post de las sillas no llevaba enlace.
-- **Mecanizado** en `commentGenerator.ts` (`esPostDeEvento`, banco `ANGULOS_EVENTO`, y el reintento si un comentario no lleva suerte/ganas/orgullo o habla desde fuera).
+- **Mecanizado** en `commentGenerator.ts` (`esPostDeEvento`, y el reintento si un comentario no lleva suerte/ganas/orgullo o habla desde fuera).
+- **⛔ Y SEGÚN CUÁNDO (01/10, `§7.1i`):** el banco era todo futuro y al vídeo del 30/09, que contaba en pasado la mañana de antes, le salieron *"Mucha suerte mañana"* y *"Que salga redondo"*. Ahora `analizarEvento` lee si ya pasó y si fuimos todos, y hay tres bancos: antes, después juntos, después sin constar.
 
 **La cabecera y el recordatorio del mensaje también rotan** (`frontend/src/components/accounts/GoogleChatModal.tsx`). La cabecera usa el **pilar ya etiquetado** del post (`NUEVO MEMEEE DE UNAI`, `NUEVA HISTORIA DE IKER`, `NUEVOS 10 DE ASIER`), que es lo que Iker venía corrigiendo a mano cada día, y el recordatorio sortea entre 7 formas distintas de pedir las cuatro acciones. **Frases completas por pilar, nunca ensambladas**: componer "NUEVO" + etiqueta daba `NUEVO LOS 10` y `HISTORIA NUEVO`, porque género y número cambian con el pilar.
 

@@ -127,6 +127,13 @@ def esencia(texto):
 
 
 if __name__ == '__main__':
+    # La consola de Windows es cp1252 y el post lleva emojis: sin esto el
+    # script peta con UnicodeEncodeError a mitad de la salida (01/10).
+    for _f in (sys.stdout, sys.stderr):
+        try:
+            _f.reconfigure(encoding='utf-8', errors='replace')
+        except Exception:
+            pass
     if len(sys.argv) < 3:
         sys.exit(__doc__)
     original = io.open(sys.argv[1], encoding='utf-8').read()

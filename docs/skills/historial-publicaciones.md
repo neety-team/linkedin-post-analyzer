@@ -233,6 +233,20 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## 📝 ENTREGADO · JUE 01/10 · UNAI · MEME: LOS SUEÑOS POR CARGO (evolución por cargos, `/agendar/`)
+
+| dato | |
+|---|---|
+| **Estado** | entregado el 01/10 ~10:45, para publicar hoy (franja 10-11 si la imagen llega a tiempo, si no 12:00) · validador **59/59** (`--meme-sobrio --referencia-fuera --ref-con-texto`) · **450 car** publicados |
+| **Referencia** | [Jan Benedikt Mundorf, 29/06, *A sales team in 2026 (dream edition)*](https://www.linkedin.com/posts/jan-b-mundorf_a-sales-team-in-2026-dream-edition-sdr-activity-7477283329248161792-C3R3) · 361 reac · 40 com · 5 reposts · **34% de risa (~123 risas, por debajo de las 150: declarado)** · gráfico de 5 cargos durmiendo con su sueño, CON TEXTO dentro (`post-workflow §4.4-TEXTO`, regla nueva del mismo día) · misma familia que las escaleras de Asier 12/08 y de Iker 01/09 (otras referencias de Mundorf) |
+| **Descartadas** | *forecast edition* de Mundorf (38%, ~71 risas, rincón exacto pero The Office con cara gritando, que en Unai se evita desde el 22/09) · Kiril Strilka *Sales & Marketing* (~593 risas, pero ventas contra marketing en la cuenta del CEO se lee como bronca de la casa, y caras de actrices que el generador bloquea) · *sales jargon edition* (~385 risas, ángulo del eufemismo ya gastado dos veces en Unai: perro 15/07 y traductor 23/07) · fotogramas de Alex Murphy (sin texto) |
+| **Gancho** | `Nadie en ventas sueña con lo mismo que su jefe 😴` · intensificador `Nadie`, ancla `ventas`, `jefe` = rincón de Unai |
+| **Ninja → `/agendar/`** | `Ningún sueño de jefe te trae el nombre de quien compra.` / `Ese nombre sí lo señalamos nosotros, con su contacto:` · UTM `meme-suenos-01oct` · `utm_content=unai` · dolor: eslabón 2 (la persona) |
+| **Cierre** | `Cambian los sueños, la cuota no 😅` (calco de *Dreams change. Quota doesn't. 😅*) |
+| **Imagen** | calco del gráfico en 1:1 con paleta y tipografía de marca · título `Cuanto más vendes, más vuelas` (naranja: `vuelas`) · cargos Comercial Junior → Director Comercial |
+| **Quemados (al PUBLICAR, no antes)** | ninja `ningún sueño de jefe te trae` / `ese nombre sí lo señalamos nosotros` · arranque de meme `el` · gancho `nadie en ventas sueña` |
+| ⏳ | publicado: hora y enlace (de la BD) · a los 3-4 días (lunes 05/10): impresiones contra la mediana de meme de Unai, % de risa, clics a `/agendar/` |
+
 ## ✅ PUBLICADO · MIÉ 30/09 16:44 · UNAI · VÍDEO: "UNA MAÑANA DE VENTAS A CONTRARRELOJ" (el PRIMER texto más vídeo de la casa)
 
 | dato | |

@@ -203,6 +203,12 @@ def bajar(cuenta: str) -> list:
 
 
 def main() -> int:
+    # Consola cp1252 de Windows: sin esto el test petaba al imprimir "└─" (01/10).
+    for _f in (sys.stdout, sys.stderr):
+        try:
+            _f.reconfigure(encoding='utf-8', errors='replace')
+        except Exception:
+            pass
     if not os.environ.get('APP_BASIC_USER'):
         print('Faltan APP_BASIC_USER / APP_BASIC_PASS en el entorno.', file=sys.stderr)
         return 2

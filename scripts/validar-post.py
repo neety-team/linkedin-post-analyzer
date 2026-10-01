@@ -4159,6 +4159,13 @@ def main():
                          'que alguien se crea que paso de verdad; hay un acto ridiculo o humillante '
                          'atribuido al que publica; alguien podria insultarnos por creerselo; hay '
                          'tacos, escatologia, sexo, politica o religion; se rie de un colectivo.')
+    ap.add_argument('--ref-con-texto', action='store_true', dest='ref_con_texto',
+                    help='MEME: confirma que la IMAGEN de la referencia lleva TEXTO DENTRO que '
+                         'forma parte del chiste (etiquetas de una evolucion, dialogo, rotulos, '
+                         'captura de correo, chat o tuit). Una foto o fotograma de una persona '
+                         'sin texto NO vale de referencia en ninguna cuenta (Iker, 2026-10-01; '
+                         'medido: 20 de 20 memes nuestros de 2026 con 18.000+ impresiones llevan '
+                         'texto en la imagen). Solo se pasa DESPUES de mirar la imagen.')
     ap.add_argument('--referencia-fuera', action='store_true', dest='ref_fuera',
                     help='La referencia del meme NO es española ni del sector de ventas, asi que su '
                          'autor no comparte audiencia con nosotros y no hace falta acreditarlo en el '
@@ -4221,6 +4228,20 @@ def main():
         res.insert(0, (False, 'LOS 10: formato PROHIBIDO desde el 16/09',
                        'No se escribe ni se entrega salvo que Iker lo levante por escrito en ese chat '
                        '(--los10-autorizado). El hueco de peloteo va a MAPA o DESPIECE (post-workflow §4.3-VETO).', False))
+    # ⛔ LA REFERENCIA DE UN MEME LLEVA TEXTO DENTRO DE LA IMAGEN (Iker, 2026-10-01).
+    # El 22/09 propuse para Unai la cara gritando de Alex Murphy: 49% de risa y ni
+    # una palabra escrita. Iker: "nunca quiero que cojas una referencia que
+    # simplemente sea una foto de una persona, sin ningun tipo de texto". Medido el
+    # 01/10: los 20 memes de la casa de 2026 con 18.000+ impresiones llevan TODOS
+    # texto dentro de la imagen. El script no ve la imagen, asi que se declara con
+    # --ref-con-texto, igual que --meme-sobrio: es la pregunta que tiene que saltar
+    # SIEMPRE al elegir referencia. --historico lo deja pasar (posts ya publicados).
+    if a.pilar == 'meme' and not (a.ref_con_texto or a.historico):
+        res.insert(0, (False, 'MEME: la IMAGEN de la referencia lleva TEXTO dentro (§4.4-TEXTO)',
+                       'Tapa el post y mira la foto de la referencia: ¿hay palabras escritas DENTRO '
+                       'sin las que el chiste no se entiende (etiquetas, dialogo, rotulos, captura)? '
+                       'Si es una foto o un fotograma de una persona sin texto, se descarta por mucha '
+                       'risa que tenga, en las cinco cuentas. Si lo lleva, pasa --ref-con-texto.', False))
     # Los avisos se imprimen pero NO cuentan: son sospechas, no infracciones.
     # Mezclarlos vaciaría de significado el marcador, y el marcador es lo único
     # que se pega en la entrega.

@@ -52,6 +52,8 @@ import {
   inglesColado,
   conservarMayuscula,
   LARGO_MAX_CHAT,
+  huecosAlargada,
+  nombraLaCasa,
 } from './variedadComentarios';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
@@ -662,6 +664,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
             : null) ||
           (registroFormal(c) ? `suena a informe ("${registroFormal(c)}"): dilo como se habla` : null) ||
           (inglesColado(c, safePostContent) ? `se cuela una palabra en ingles ("${inglesColado(c, safePostContent)}")` : null) ||
+          (nombraLaCasa(c) ? 'nombra a Neety, y quien lo pega trabaja alli: nunca se nombra la casa' : null) ||
           (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
           (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null) ||
           (eventoInventado(c) ? 'se inventa lo que se hace en el evento o sus condiciones: del evento solo se dice lo que pone el post' : null) ||
@@ -814,7 +817,9 @@ Return JSON only: { "comments": ["...", "..."] }`;
     return ALARGADAS_SUELTAS.find((w) => !usadas.has(desestirarTodo(w).toLowerCase())) || p;
   };
   const conAlargada = limpios.map((r, i) => {
-    if (!conEstirar.has(i)) return r;
+    // Las vocales solo donde tocan: si el modelo alarga una que no, se quita,
+    // para que nunca queden dos seguidas (Iker, 01/10).
+    if (!conEstirar.has(i)) return desestirarTodo(r);
     const suave = estirarUna(r, 2);
     if (contarEstiradas(suave) > 0) return suave;
     if (!anteponible(r)) return r;
@@ -825,10 +830,12 @@ Return JSON only: { "comments": ["...", "..."] }`;
   });
   // Al menos DOS en la tanda (Iker, 2026-10-01: "que alguna más tenga más
   // vocales"): si las asignadas no pudieron, se busca otra que la admita.
+  // Y la que se añade va en un hueco que no toque a otra: nunca dos seguidas.
   for (let falta = 2 - conAlargada.filter((r) => contarEstiradas(r) > 0).length; falta > 0; falta--) {
-    const libre = (k: number) => contarEstiradas(conAlargada[k]) === 0;
-    const j = conAlargada.findIndex((r, k) => libre(k) && contarEstiradas(estirarUna(r, 2)) > 0);
-    const k = j >= 0 ? j : conAlargada.findIndex((r, k2) => libre(k2) && anteponible(r));
+    const ocupadas = conAlargada.map((r, k) => (contarEstiradas(r) > 0 ? k : -9)).filter((k) => k >= 0);
+    const huecos = huecosAlargada(ocupadas, conAlargada.length);
+    const j = huecos.find((k) => contarEstiradas(estirarUna(conAlargada[k], 2)) > 0) ?? -1;
+    const k = j >= 0 ? j : huecos.find((k2) => anteponible(conAlargada[k2])) ?? -1;
     if (k < 0) break;
     conAlargada[k] = j >= 0 ? estirarUna(conAlargada[k], 2) : forzarEstirada(conAlargada[k], 2, [...palabraDe.values()][0]);
   }

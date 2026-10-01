@@ -45,6 +45,8 @@ import {
   conservarMayuscula,
   LARGO_MAX_CHAT,
   esNombrePropio,
+  ponerAlargadaLibre,
+  nombraLaCasa,
 } from '../services/variedadComentarios';
 import { caberEnLinea } from '../services/commentGenerator';
 import { buildPrompt, pulirTrasAlargada, ponerEmojiAlFinal } from '../services/replyGenerator';
@@ -326,6 +328,21 @@ for (let i = 0; i < 2000; i++) {
   if ([...p.conEmoji].some((j) => p.cierres[j] === '!')) exclConEmoji++;
 }
 ok(exclConEmoji === 0, 'el plan nunca le pone "!" a uno con emoji', `${exclConEmoji} tandas`);
+
+console.log('\n26b · vocales como los emojis: nunca dos seguidas y la primera en la posicion 1 o 2 (Iker, captura del 01/10: las dos ultimas con vocales)');
+let alargSeguidas = 0, primeraTarde = 0;
+for (let i = 0; i < 3000; i++) {
+  const a = [...planTanda(5).conAlargada].sort();
+  for (let k = 1; k < a.length; k++) if (a[k] - a[k - 1] === 1) alargSeguidas++;
+  if (a[0] > 1) primeraTarde++;
+}
+ok(alargSeguidas === 0, 'nunca dos con vocales seguidas', `${alargSeguidas} casos`);
+ok(primeraTarde === 0, 'la primera con vocales va en la posicion 1 o 2', `${primeraTarde} tandas`);
+ok(ponerAlargadaLibre([0, 2], 5) === 4, 'la que falta va donde no toque a otra');
+ok(ponerAlargadaLibre([0, 2, 4], 5) === null, 'si no cabe sin tocarse, no se pone');
+console.log('\n26c · un compañero no nombra a Neety ("Neety me ha pasado algo muy parecido...")');
+ok(nombraLaCasa('Neety me ha pasado algo muy parecido con un cliente') !== null, '"Neety" se tumba');
+ok(nombraLaCasa('Me ha pasado algo muy parecido con un cliente') === null, 'sin Neety pasa');
 
 console.log('\n27 · Google Chat en UNA linea (la tercera de la captura caia a dos: 107 caracteres)');
 ok(LARGO_MAX_CHAT <= 90, `tope del Chat en ${LARGO_MAX_CHAT}`);

@@ -617,8 +617,19 @@ export function planTanda(n: number, rnd: () => number = Math.random): PlanTanda
     emoji = pares[Math.floor(rnd() * pares.length)] || [0];
   }
   const conEmoji = new Set(emoji);
-  const nAlarg = Math.min(n - 1, 2 + (n >= 5 && rnd() < 0.35 ? 1 : 0));
-  const conAlargada = new Set(baraja(idx, rnd).slice(0, nAlarg));
+  // ⛔ LAS VOCALES, IGUAL QUE LOS EMOJIS (Iker, 2026-10-01, captura de la
+  // historia de Asier: las dos ultimas con vocales y las tres primeras sin):
+  // nunca dos seguidas, y la primera en la posicion 1 o 2 para que vayan
+  // intercaladas. Pueden coincidir con un emoji.
+  let alarg: number[];
+  if (n >= 5 && rnd() < 0.35) {
+    alarg = [0, 2, 4];
+  } else {
+    const pares: number[][] = [];
+    for (let i = 0; i <= 1; i++) for (let j = i + 2; j < n; j++) pares.push([i, j]);
+    alarg = pares[Math.floor(rnd() * pares.length)] || [0];
+  }
+  const conAlargada = new Set(alarg);
   const cierres: Cierre[] = idx.map(() => '.');
   const sinEmoji = baraja(idx.filter((i) => !conEmoji.has(i)), rnd);
   if (sinEmoji.length) cierres[sinEmoji[0]] = '!';
@@ -629,6 +640,22 @@ export function planTanda(n: number, rnd: () => number = Math.random): PlanTanda
 }
 
 /** Deja el texto acabado en el cierre que le toca. Tras un "jaja", el punto sobra. */
+/** Huecos donde cabe otra alargada sin tocar a ninguna (ni repetir sitio). */
+export function huecosAlargada(ocupadas: number[], n: number): number[] {
+  return Array.from({ length: n }, (_, k) => k).filter((k) => !ocupadas.some((o) => Math.abs(o - k) <= 1));
+}
+export function ponerAlargadaLibre(ocupadas: number[], n: number): number | null {
+  return huecosAlargada(ocupadas, n)[0] ?? null;
+}
+
+// ⛔ UN COMPAÑERO NO NOMBRA A NEETY (Google Chat del 01/10: "Neety me ha
+// pasado algo muy parecido con un cliente..."). Lo pegan con su nombre en un
+// post de la casa: nombrarla delata la coordinacion (`§7.2b`, nunca delatarse).
+export function nombraLaCasa(c: string): string | null {
+  // El nombre del evento si vale: es publico y se habla de el en plural.
+  return /\bneety\b(?! forward)/.test(llano(c)) ? 'neety' : null;
+}
+
 export function aplicarCierre(texto: string, cierre: Cierre): string {
   const base = texto.trimEnd().replace(/[.!…]+$/u, '').trimEnd();
   if (cierre === '.' && /(ja|je|ji){2,}$/i.test(base)) return base;

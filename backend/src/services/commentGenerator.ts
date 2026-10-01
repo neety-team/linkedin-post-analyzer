@@ -48,6 +48,8 @@ import {
   nombreAjeno,
   cifraNueva,
   quitarExactamente,
+  inglesColado,
+  conservarMayuscula,
 } from './variedadComentarios';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
@@ -641,6 +643,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
             ? `nombra "${nombreAjeno(c, safePostContent, '', [input.creatorName])}", que no sale en el post: del post, solo lo que pone`
             : null) ||
           (registroFormal(c) ? `suena a informe ("${registroFormal(c)}"): dilo como se habla` : null) ||
+          (inglesColado(c, safePostContent) ? `se cuela una palabra en ingles ("${inglesColado(c, safePostContent)}")` : null) ||
           (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
           (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null) ||
           (eventoInventado(c) ? 'se inventa lo que se hace en el evento o sus condiciones: del evento solo se dice lo que pone el post' : null) ||
@@ -720,9 +723,44 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // Lo que se garantiza en codigo, sin gastar otra llamada: una sola palabra
   // alargada por comentario, el emoji y el cierre que le tocaron.
   // Antes de limitar: si no, la alargada mal puesta se queda huerfana (18/09).
-  // ⛔ Lo que a la tercera sigue inventando un hecho NO se entrega: mejor
-  // cuatro comentarios que uno con un dato falso sobre una empresa real que
-  // un compañero firma con su nombre (innegociable de la casa).
+  // ⛔ LO QUE A LA TERCERA SIGUE INVENTANDO, PRIMERO SE REPARA (ronda 3 del
+  // 01/10: 3 de 9 tandas salian con 4 al quitar el inventado, y el equipo
+  // necesita 5 lineas). UNA llamada que reescribe solo esos, viendo los que
+  // valen para no repetirlos, y vuelve a pasar por el juez.
+  if (inventados.length) {
+    const malos = [...new Set(inventados.map((x) => x.i))].sort((a, b) => a - b);
+    const buenos = out.filter((_, i) => !malos.includes(i));
+    try {
+      const r = await trackedCreate('comment_generator_supportive_fix', {
+        model: 'claude-sonnet-4-6',
+        max_tokens: 600,
+        system,
+        messages: [{
+          role: 'user',
+          content: `${userMessage}\n\nYA TIENES ESTOS, QUE VALEN (no repitas su idea ni su detalle):\n${buenos.map((b) => `· ${b}`).join('\n')}\n\nREESCRIBE SOLO ESTOS, porque afirmaban algo que el post no dice. Del post, solo lo que pone; de quien comenta, nada que no se pueda decir de cualquiera:\n${malos
+            .map((i) => `${i + 1}. ANGULO: ${angulos[i]}. CIERRE: ${textoCierre(plan.cierres[i])}. FALLABA: ${inventados.find((x) => x.i === i)!.que}`)
+            .join('\n')}\n\nDevuelve SOLO el JSON { "comments": [...] } con ${malos.length}, en ese orden.`,
+        }],
+      });
+      const t = r.content.filter((b): b is Anthropic.TextBlock => b.type === 'text').map((b) => b.text).join('');
+      const nuevos = ((JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1)) as { comments?: unknown }).comments as unknown[] || [])
+        .filter((c): c is string => typeof c === 'string')
+        .map((c) => c.trim());
+      const otraVez = new Set((await juezDeTanda(nuevos, safePostContent)).map((x) => x.i));
+      malos.forEach((i, k) => {
+        const c = nuevos[k];
+        if (c && !otraVez.has(k) && !comentarioVacio(c) && !cifraNueva(c, safePostContent) && !nombreAjeno(c, safePostContent, '', [input.creatorName])) {
+          out[i] = c;
+          inventados = inventados.filter((x) => x.i !== i);
+        }
+      });
+    } catch (err: any) {
+      console.warn('[commentGenerator] la reparacion de los inventados ha fallado:', err?.message);
+    }
+  }
+  // ⛔ Y lo que ni reparado deja de inventar NO se entrega: mejor cuatro
+  // comentarios que uno con un dato falso sobre una empresa real que un
+  // compañero firma con su nombre (innegociable de la casa).
   if (inventados.length && out.length - inventados.length >= 3) {
     const fuera = new Set(inventados.map((x) => x.i));
     console.warn(`[commentGenerator] se quitan ${fuera.size} comentario(s) que inventan: ${inventados.map((x) => x.que).join(' | ')}`);
@@ -758,7 +796,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
     const suave = estirarUna(r, 2);
     if (contarEstiradas(suave) > 0) return suave;
     if (!anteponible(r)) return r;
-    const forzada = forzarEstirada(r, 2, palabraLibre(i));
+    const forzada = conservarMayuscula(forzarEstirada(r, 2, palabraLibre(i)), r, safePostContent);
     const b = baseAlargada(forzada);
     if (b) usadas.add(b);
     return forzada;

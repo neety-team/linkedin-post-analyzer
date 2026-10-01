@@ -13,7 +13,7 @@ import { CommenterProfileModel } from '../models/commenterProfile';
 import { sendToGoogleChat } from '../services/googleChat';
 import { captureAccountSnapshots } from '../services/accountSnapshots';
 import { extractViewerTimestamps } from '../utils/wvmp';
-import { generateReply, respuestaDeApoyo } from '../services/replyGenerator';
+import { generateReply, respuestaDeApoyo, diagnosticoUltimaRespuesta } from '../services/replyGenerator';
 import { recordarRespuestasPublicadas } from '../services/variedadComentarios';
 import { getMemeImageSummary } from '../services/postImageText';
 import { roastProfile } from '../services/roaster';
@@ -3344,6 +3344,8 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
     res.json({
       reply,
       voice: profile.name,
+      // Lo que fallo intento a intento, solo si se pide (verificacion, 01/10).
+      ...(req.query.debug === '1' ? { diagnostico: diagnosticoUltimaRespuesta() } : {}),
       comment_id: commentId,
       mention: commenter_name && commenter_profile_id
         ? { name: String(commenter_name), profile_id: String(commenter_profile_id) }

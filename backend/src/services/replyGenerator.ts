@@ -12,7 +12,17 @@ import {
   recordarRespuestaGenerada,
   problemaDeVariedad,
   quitarExactamente,
+  inglesColado,
+  conservarMayuscula,
 } from './variedadComentarios';
+
+// LO QUE PASO EN LA ULTIMA GENERACION, intento a intento. Solo para mirar con
+// `?debug=1` (verificacion del 01/10: una respuesta salia con un fallo que el
+// guardarrail caza y no habia forma de saber si se habia reintentado).
+let diagnostico: string[] = [];
+export function diagnosticoUltimaRespuesta(): string[] {
+  return diagnostico;
+}
 
 // Generates a single reply that the post author writes back to a commenter.
 // Distinct from commentGenerator (which produces 9 angles for someone OTHER
@@ -1601,6 +1611,7 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
   // Lo ya contestado en el post (publicado + borradores de esta sesion) y la
   // fase del evento, ANTES del prompt: los dos cambian lo que se le pide.
   const previas = previasDelPost(input.postId, input.respuestasPrevias || []);
+  diagnostico = [`previas en el post: ${previas.length}`];
   const faseEvento =
     input.faseEvento ??
     (esPostDeEvento(input.pillar, input.postContent)
@@ -1678,6 +1689,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       ultimosInventos = await juezDeInventos(candidato, fuentes);
     }
     if (ultimosInventos.length > 0) {
+      diagnostico.push(`intento ${intento}: inventa ${textoDelAviso(ultimosInventos)}`);
       console.warn(
         `[replyGenerator] intento ${intento}/3 descartado, se ha inventado ${textoDelAviso(ultimosInventos)}`
       );
@@ -1741,6 +1753,11 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       const nom = input.commenterName?.trim() || '';
       const cuerpoV = nom && candidato.toLowerCase().startsWith(nom.toLowerCase()) ? candidato.slice(nom.length) : candidato;
       ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText, [input.commenterName, input.authorName], `${fuentes.postContent}\n${input.commenterHeadline || ''}`);
+      const ingles = inglesColado(cuerpoV, `${fuentes.postContent}\n${input.commentText}`);
+      if (!ultimoEstilo && ingles) ultimoEstilo = `se cuela una palabra en ingles ("${ingles}"): todo en castellano`;
+    }
+    if (ultimoEstilo || ultimoTonoBorde || ultimosInventos.length) {
+      diagnostico.push(`intento ${intento}: ${ultimoTonoBorde || ultimoEstilo || textoDelAviso(ultimosInventos)}`);
     }
     if (ultimoEstilo && intento < 3) {
       candidatoTibio = candidato;
@@ -1752,6 +1769,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     // Lo que no miente pero abre como un folleto: se reintenta, y si a la
     // tercera sigue igual se publica igualmente (ver la nota de severidad).
     ultimaAperturaMala = detectarAperturaGenerica(candidato, input.commenterName);
+    if (ultimaAperturaMala) diagnostico.push(`intento ${intento}: abre con "${ultimaAperturaMala}"`);
     if (ultimaAperturaMala && intento < 3) {
       candidatoTibio = candidato;
       console.warn(
@@ -1821,7 +1839,10 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       // abre con la palabra sorteada (Iker, 2026-09-18): antes estirarUna la
       // soltaba en cualquier palabra de reaccion, tambien entre dos comas.
       // En un elogio solo se alarga el gracias que haya: nunca se le antepone otra.
-      const alarga = (t: string) => (palabraAlargar === 'gracias' ? estirarUna(t, letrasVoz) : forzarEstirada(t, letrasVoz, palabraAlargar));
+      const alarga = (t: string) =>
+        palabraAlargar === 'gracias'
+          ? estirarUna(t, letrasVoz)
+          : conservarMayuscula(forzarEstirada(t, letrasVoz, palabraAlargar), t, input.postContent);
       text = estirar
         ? `${text.slice(0, nom.length)} ${alarga(cuerpo.replace(/^[\s,]+/, ''))}`
         : text.slice(0, nom.length) + cuerpo;

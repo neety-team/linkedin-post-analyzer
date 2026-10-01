@@ -203,6 +203,31 @@ export function quitarExactamente(t: string): string {
     .replace(/\s*\bexactamente\b/gi, '');
 }
 
+// INGLES COLADO (ronda 3 del 01/10: "mientras others cocinaban"). Palabras
+// funcionales inglesas que en castellano no existen; si estan en el post (una
+// marca, "Tomato Paste and Tomato Powder"), no cuentan.
+const INGLES = /\b(others|the|and|with|while|which|really|very|people|because|about|their|they|anyway|actually)\b/;
+export function inglesColado(c: string, fuentes = ''): string | null {
+  const m = llano(c).match(INGLES);
+  if (!m) return null;
+  return new RegExp(`\\b${m[1]}\\b`).test(llano(fuentes)) ? null : m[1];
+}
+
+/**
+ * `forzarEstirada` baja la primera letra de lo que sigue a la alargada, y con
+ * un nombre propio sale "Tal cuaal, kenia con 26 veces" (ronda 3). Si esa
+ * palabra va en mayuscula en el post y nunca en minuscula, se le devuelve.
+ */
+export function conservarMayuscula(forzada: string, original: string, fuentes: string): string {
+  const w = (original.trim().match(/^\p{Lu}\p{Ll}+/u) || [])[0];
+  if (!w) return forzada;
+  const bajo = w.toLowerCase();
+  const enFuentes: string[] = fuentes.match(/\p{L}+/gu) || [];
+  if (!enFuentes.includes(w) || enFuentes.includes(bajo)) return forzada;
+  const i = forzada.indexOf(bajo);
+  return i >= 0 ? forzada.slice(0, i) + w + forzada.slice(i + bajo.length) : forzada;
+}
+
 // ─────────────────────────────── forma ───────────────────────────────
 
 /**
@@ -463,7 +488,9 @@ const ARRANQUES = [
   'un adverbio de frecuencia (Casi siempre, Rara vez, Normalmente, Al final)',
   'una reaccion de dos o tres palabras seguida de un detalle concreto del post (Qué pasada lo de..., Menudo dato...)',
   'el sujeto concreto de la escena del post (el comercial, el cliente, la lista)',
-  'el pronombre de la experiencia propia (Yo, A mi, En mi caso)',
+  // Sin "Yo" (ronda 3 del 01/10): forzado delante, rompia la frase ("Yo me
+  // alegra", "Yo la próxima lo volvemos a hacer").
+  'una experiencia propia en primera persona (A mi, En mi caso, Me pasa que), con la frase bien construida',
   'un nombre propio del post (una empresa, un pueblo, un producto)',
 ];
 

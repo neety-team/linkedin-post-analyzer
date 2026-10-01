@@ -41,6 +41,8 @@ import {
   nombreAjeno,
   cifraNueva,
   quitarExactamente,
+  inglesColado,
+  conservarMayuscula,
 } from '../services/variedadComentarios';
 import { buildPrompt } from '../services/replyGenerator';
 
@@ -250,6 +252,18 @@ ok(cifraNueva('un millón de personas y crecen un 22%, qué barbaridad', postExt
 console.log('\n21 · "exactamente" se cambia en codigo');
 ok(quitarExactamente('repartirnos bien es exactamente lo que falla') === 'repartirnos bien es justo lo que falla', 'exactamente lo que -> justo lo que');
 ok(quitarExactamente('pasa exactamente igual cuando') === 'pasa igual cuando', 'exactamente igual -> igual');
+
+console.log('\n22 · ingles colado en un comentario en castellano (ronda 3: "mientras others cocinaban")');
+ok(inglesColado('lo del photocall montándose mientras others cocinaban', 'Unos con el portátil. Otros montando el photocall.') === 'others', '"others" se tumba');
+ok(inglesColado('TRANSA and co, qué pasada', 'TRANSA S.A. Tomato Paste and Tomato Powder') === null, 'si esta en el post, no');
+ok(inglesColado('qué pasada lo del photocall', 'photocall') === null, 'castellano normal pasa');
+
+console.log('\n23 · la mayuscula del nombre propio vuelve tras la alargada (ronda 3: "Tal cuaal, kenia con 26 veces")');
+ok(conservarMayuscula('Tal cuaal, kenia con 26 veces', 'Kenia con 26 veces', 'Kenia, con 26 veces más gente') === 'Tal cuaal, Kenia con 26 veces', 'Kenia');
+ok(conservarMayuscula('Clarooo, casi siempre', 'Casi siempre', 'casi siempre pasa. Casi nunca') === 'Clarooo, casi siempre', 'una palabra normal se queda en minuscula');
+
+console.log('\n24 · el arranque "Yo..." fuera (ronda 3: "Yo me alegra", "Yo la próxima lo volvemos")');
+ok(arranquesApoyo('meme').every((a) => !/\(Yo,/.test(a)), 'sin "Yo" como arranque');
 
 console.log(fallos === 0 ? '\n✅ variedad y formato en orden' : `\n❌ ${fallos} fallo(s)`);
 process.exit(fallos === 0 ? 0 : 1);

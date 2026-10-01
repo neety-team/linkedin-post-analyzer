@@ -976,7 +976,11 @@ export function pulirTrasAlargada(texto: string, fuentes = '', nombres: (string 
     const sig = mm[2];
     const palabra = (sig.match(/^\p{L}+/u) || [''])[0];
     const bajar = /^\p{Lu}(?!\p{Lu})/u.test(sig) && !esNombrePropio(palabra, fuentes, nombres);
-    return texto.slice(0, fin) + ' ' + (bajar ? sig[0].toLowerCase() + sig.slice(1) : sig) + resto.slice(mm[0].length);
+    // Y al reves: un nombre propio que llego en minuscula ("Perfectooo kenia",
+    // ronda 6) recupera la mayuscula.
+    const subir = /^\p{Ll}/u.test(sig) && palabra.length > 1 && esNombrePropio(palabra[0].toUpperCase() + palabra.slice(1), fuentes, nombres);
+    const nueva = bajar ? sig[0].toLowerCase() + sig.slice(1) : subir ? sig[0].toUpperCase() + sig.slice(1) : sig;
+    return texto.slice(0, fin) + ' ' + nueva + resto.slice(mm[0].length);
   }
   return texto;
 }

@@ -129,6 +129,19 @@ export function aperturaHueca(c: string): boolean {
 // fuimos todos, y el banco sale de ahi.
 export { esPostDeEvento };
 
+/**
+ * ULTIMO RECURSO PARA LA LINEA (ronda 6 del 01/10: 1 de 60 con 101 caracteres
+ * tras reintentar y reparar). "Siempre una línea" pesa mas que la alargada:
+ * si no cabe y abre con ella (o con "Pues" + ella), se quita la alargada.
+ */
+export function caberEnLinea(c: string): string {
+  if (c.length <= LARGO_MAX_CHAT) return c;
+  const m = c.match(/^(pues\s+)?(\p{L}+)\s*,?\s+/iu);
+  if (!m || !esEstirada(m[2])) return c;
+  const resto = c.slice(m[0].length);
+  return resto.charAt(0).toUpperCase() + resto.slice(1);
+}
+
 /** Lo minimo de cada comentario en modo evento: suerte, ganas u orgullo. */
 export function apoyaElEvento(c: string): boolean {
   const t = c.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -821,7 +834,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
   }
   return conAlargada.map((r, i) => {
     // Al final, ni coma ni mayuscula detras de la alargada (Iker, 01/10).
-    const cerrado = pulirTrasAlargada(pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i])), safePostContent, [input.creatorName]);
+    const cerrado = caberEnLinea(pulirTrasAlargada(pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i])), safePostContent, [input.creatorName]));
     return conEmoji.has(i) ? ponerEmojiAlFinal(cerrado, emojiDe.get(i)) : cerrado;
   });
 }

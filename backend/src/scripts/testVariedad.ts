@@ -45,6 +45,7 @@ import {
   conservarMayuscula,
   LARGO_MAX_CHAT,
 } from '../services/variedadComentarios';
+import { caberEnLinea } from '../services/commentGenerator';
 import { buildPrompt, pulirTrasAlargada, ponerEmojiAlFinal } from '../services/replyGenerator';
 
 let fallos = 0;
@@ -284,6 +285,18 @@ ok(pulirTrasAlargada('el comercial llega sin saber nada') === 'el comercial lleg
 ok(pulirTrasAlargada('Tal cuaal, 26 veces menos gente') === 'Tal cuaal 26 veces menos gente', 'coma delante de un numero', pulirTrasAlargada('Tal cuaal, 26 veces menos gente'));
 ok(pulirTrasAlargada('Pues buenooo, A mí me quedo con las ganas') === 'Pues buenooo a mí me quedo con las ganas', 'mayuscula de una sola letra', pulirTrasAlargada('Pues buenooo, A mí me quedo con las ganas'));
 ok(suerteFutura('si no sabes a quién llamar antes de que empiece la cuenta atrás, se te va el tiempo') === null, '"cuenta atrás" descriptiva no es desear suerte');
+// Ronda 6: "Perfectooo kenia tiene 26 veces más gente" (otra ruta forzaba la
+// alargada sin conservar la mayuscula). El pase final la devuelve.
+ok(pulirTrasAlargada('Perfectooo, kenia tiene 26 veces más gente', 'exporta más que Kenia entera') === 'Perfectooo Kenia tiene 26 veces más gente', 'el nombre propio recupera la mayuscula', pulirTrasAlargada('Perfectooo, kenia tiene 26 veces más gente', 'exporta más que Kenia entera'));
+ok(pulirTrasAlargada('Clarooo, nadie lo cuenta', 'Vender es un caos.\nNadie te lo dice.') === 'Clarooo nadie lo cuenta', 'una palabra normal no se sube');
+
+console.log('\n28 · ultimo recurso para la linea: si no cabe, se quita la alargada del principio (ronda 6: 1 de 60 con 101)');
+ok(
+  caberEnLinea('Buenooo menudo dato Extremadura con la mitad de gente vendiéndole al mundo más que Moldavia entera') === 'Menudo dato Extremadura con la mitad de gente vendiéndole al mundo más que Moldavia entera',
+  'quita "Buenooo"',
+  caberEnLinea('Buenooo menudo dato Extremadura con la mitad de gente vendiéndole al mundo más que Moldavia entera')
+);
+ok(caberEnLinea('Totaaal el vino de Valdepeñas lo tengo en casa cada semana.') === 'Totaaal el vino de Valdepeñas lo tengo en casa cada semana.', 'si cabe, no se toca');
 
 console.log('\n26 · o exclamacion o emoji, nunca los dos ("...del equipo de ventas! 🔥")');
 ok(ponerEmojiAlFinal('Nadie mete en tres líneas lo que pesa cada rol!', '🔥') === 'Nadie mete en tres líneas lo que pesa cada rol 🔥', '"! 🔥" -> " 🔥"');

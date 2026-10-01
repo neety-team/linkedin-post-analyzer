@@ -310,28 +310,43 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
                   />
                 ) : (
                   <>
-                    <button
-                      onClick={() => void asignar(p.slug)}
-                      disabled={ocupado}
-                      className="flex-1 flex items-center gap-2 text-left px-1.5 py-1 rounded hover:bg-bg-secondary disabled:opacity-50 transition-colors min-w-0"
-                    >
-                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium truncate ${PALETA_PILAR[p.color] || CLASE_DESCONOCIDO}`}>
-                        {p.label}
-                      </span>
-                      {p.slug === actual && <span className="text-accent text-[10px] flex-shrink-0">✓</span>}
-                    </button>
-                    {/* El lapiz, en TODOS y siempre visible: cambia solo la
-                        etiqueta y el slug se queda, asi que tambien vale para
-                        los de serie. */}
-                    <button
-                      onClick={() => empezarRenombrar(p)}
-                      disabled={ocupado}
-                      className="text-[10px] text-text-muted hover:text-accent px-1 flex-shrink-0 disabled:opacity-50 transition-colors"
-                      title="Renombrar"
-                      aria-label={`Renombrar ${p.label}`}
-                    >
-                      ✎
-                    </button>
+                    {/* La fila entera sigue asignando el pilar: etiqueta, ✓ y el
+                        hueco de la derecha. El lapiz va PEGADO a la etiqueta
+                        (Iker, 2026-10-01), justo donde va el ✓, y detras del ✓
+                        en el pilar elegido. No puede ir dentro del boton de
+                        asignar porque un boton no puede llevar otro dentro. */}
+                    <div className="flex-1 flex items-center min-w-0 rounded hover:bg-bg-secondary transition-colors">
+                      <button
+                        onClick={() => void asignar(p.slug)}
+                        disabled={ocupado}
+                        className="flex items-center gap-2 text-left pl-1.5 py-1 disabled:opacity-50 min-w-0"
+                      >
+                        <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium truncate ${PALETA_PILAR[p.color] || CLASE_DESCONOCIDO}`}>
+                          {p.label}
+                        </span>
+                        {p.slug === actual && <span className="text-accent text-[10px] flex-shrink-0">✓</span>}
+                      </button>
+                      {/* El lapiz, en TODOS y siempre visible: cambia solo la
+                          etiqueta y el slug se queda, asi que tambien vale para
+                          los de serie. Volteado para que mire a la izquierda,
+                          hacia el nombre que edita. */}
+                      <button
+                        onClick={() => empezarRenombrar(p)}
+                        disabled={ocupado}
+                        className="text-[10px] text-text-muted hover:text-accent pl-2 pr-1 py-1 flex-shrink-0 disabled:opacity-50 transition-colors"
+                        title="Renombrar"
+                        aria-label={`Renombrar ${p.label}`}
+                      >
+                        <span className="inline-block" style={{ transform: 'scaleX(-1)' }}>✎</span>
+                      </button>
+                      <button
+                        onClick={() => void asignar(p.slug)}
+                        disabled={ocupado}
+                        tabIndex={-1}
+                        aria-hidden="true"
+                        className="flex-1 self-stretch disabled:opacity-50"
+                      />
+                    </div>
                     {/* Los de serie no llevan papelera: el clasificador los emite
                         por su slug, asi que borrarlos solo consigue que el
                         reproceso los reinvente con sus posts ya en Otro. */}

@@ -106,6 +106,15 @@ defecto.
 
 **Cómo se pide (la frase que va en el prompt, después de la maquetación):** *"Todo en ilustración plana minimalista: figuras de color liso sin sombras, sin volumen y sin contorno negro, caras con lo mínimo para entender el gesto, nada fotorrealista ni en 3D."* Si ya hay una v1 fotorrealista, el prompt de edición es ese cambio y nada más (`§0i-3`): **"redibuja toda la imagen en…"** + la frase + la contención corta.
 
+### ✏️ 0a-DIBUJO-2 · LA V2 DEL MISMO MEME: TRES COSAS QUE EL DIBUJO NO ARREGLA SOLO (Iker, 2026-10-01)
+
+> Sobre la v2 ya dibujada de los sueños por cargo: *"siempre que generamos fotos hay que pensar que en tamaño pequeño se vean bien… cada uno te ha faltado ponerle un pijama diferente… se parecen mucho. Asegúrate de que los cinco personajes son diferentes… queremos siempre variedad"*. Y la cifra del cheque, 777.777 €: *"no es realista… no me gusta"*.
+
+1. **Grado de minimalismo: plano SIN contorno, no silueta pura.** La v2 aún llevaba línea de contorno berenjena, rizos, pliegues de sábana y arrugas, y todo eso es ruido a tamaño de móvil. Se quitan, y cada cosa queda como una forma de un solo color. **La silueta monocroma (una figura de un color, sin cara) vale cuando hay UNA figura de adorno**, como el lead magnet `/sistema/` del 30/09. **No vale cuando hay varios personajes que actúan**, porque se pierden lo que los diferencia y la cara que hace el chiste (dormir a gusto frente a dormir agobiado). Ahí la cara se queda, reducida a ojos, cejas y boca.
+2. **Cada personaje, distinto a los demás en TRES cosas como mínimo: edad, pelo y ropa** (más complexión, barba o gafas si hace falta). El generador repite por defecto la misma cara, el mismo pelo y el mismo pijama. En la v2, el junior, el comercial y el jefe de equipo eran el mismo chico moreno con el mismo pijama berenjena. Que sean siempre distintos va dentro de "calcar y mejorar" (`§0d`), igual que cambiar la hora del reloj o la cifra. **En el prompt se describe a cada uno por separado**; pedir "que sean distintos" no basta.
+3. **La prueba de la miniatura: se reduce la imagen a 360 px de ancho y se mira.** Medido en la v2: a ese tamaño se leían el título, las etiquetas de cargo, el caballo, los cascos, el calvo y la mano en la frente. **No se leían los pósits de la previsión, el "Páguese a TI", el letrero de la clínica ni las horas del reloj y el móvil.** La regla: **un objeto grande por bocadillo, con sus palabras grandes**, y el texto pequeño fuera. Un bocadillo con cuatro cosas dentro es un bocadillo vacío en el feed.
+4. **La cifra dentro de la imagen es CREÍBLE: ni redonda ni de dígitos repetidos.** 500.000 € (la del original) es redonda, y 777.777 € suena a lotería y a cifra inventada. Una comisión soñada va grande pero con aspecto de cifra de verdad (**487.350 €**). Es la misma regla que el texto (la de las cifras creíbles del texto), aplicada al atrezo.
+
 ## ⭐ 0a-ter · PALETA NUEVA (Brandbook 2026_Saiabera, Iker 2026-07-27) — MANDA SOBRE LA ANTIGUA
 
 Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. **Sustituye al crema/azul-marino/coral de antes en TODA imagen nueva, de cualquier pilar.**

@@ -145,7 +145,7 @@ export async function anunciarPostsDeHoy(): Promise<ResultadoAnuncio> {
   // porque estaba capado, anunciarlo al equipo entero manda a doce personas a
   // un enlace muerto.
   const { rows: pendientes } = await pool.query(
-    `SELECT p.id, p.post_url, p.content_text, p.pillar,
+    `SELECT p.id, p.post_url, p.content_text, p.pillar, p.published_at,
             c.name AS creator_name, c.headline AS creator_headline
        FROM posts p
        JOIN creators c ON c.id = p.creator_id
@@ -169,6 +169,8 @@ export async function anunciarPostsDeHoy(): Promise<ResultadoAnuncio> {
             postContent: post.content_text || '',
             creatorName: post.creator_name,
             pillar: post.pillar,
+            postId: post.id,
+            publishedAt: post.published_at,
             creatorHeadline: post.creator_headline || null,
             profile: { headline: null, voice_style: null, worldview: null, signature_moves: null, avoid: null },
           },

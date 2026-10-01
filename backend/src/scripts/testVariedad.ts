@@ -1,0 +1,203 @@
+/**
+ * Prueba de la VARIEDAD DE CONCEPTO y del FORMATO de los comentarios de apoyo
+ * (Google Chat) y de las respuestas a comentarios (Iker, 2026-10-01).
+ *
+ * El fallo que la motiva, MEDIDO el 01/10 sobre lo publicado (Unipile):
+ *   · respuestas en peloteos: 3 de 3 en "Las 10" de CLM, 4 de 5 en el despiece
+ *     de Bizkaia y 7 de 12 en el mapa de Extremadura repiten LA MISMA IDEA, que
+ *     es la tesis del post: "nadie lo ve", "en silencio", "debajo del radar",
+ *     "antes de que nadie hablara de...".
+ *   · respuestas del video de Unai: 3 de 3 repiten "no saber a quien llamar".
+ *   · Google Chat de "Las 10": 4 de 5 con la misma idea, y el quinto era
+ *     "Qué post más necesario." (23 caracteres, no aporta nada).
+ *   · Google Chat del video: "Mucha suerte mañana" y "Que salga redondo" en un
+ *     post de un evento que ya habia pasado.
+ *
+ * Como `testAperturas.ts`, no llama al modelo: comprueba lo DETERMINISTA, que
+ * es lo que hace cumplir las reglas. La salida del modelo se mira en produccion.
+ *
+ *   npx tsx src/scripts/testVariedad.ts
+ */
+import {
+  familiasDe,
+  familiaRepetida,
+  familiaEnTanda,
+  datoRepetido,
+  comentarioVacio,
+  registroFormal,
+  suerteFutura,
+  afirmaQueEstuvo,
+  apoyaEventoPasado,
+  planTanda,
+  aplicarCierre,
+  angulosEvento,
+  angulosApoyo,
+  arranquesApoyo,
+  esPostDeEvento,
+  normalizarFase,
+} from '../services/variedadComentarios';
+import { buildPrompt } from '../services/replyGenerator';
+
+let fallos = 0;
+const ok = (cond: boolean, label: string, extra = '') => {
+  console.log(`  ${cond ? 'ok  ' : 'FALLA'}  ${label}${extra ? ` — ${extra}` : ''}`);
+  if (!cond) fallos++;
+};
+
+// 1 · LA FAMILIA "NADIE LO VE". Todas son respuestas o comentarios REALES.
+console.log('\n1 · la familia "nadie lo ve" se reconoce');
+const INVISIBLES = [
+  'lo que más sorprende es que muchas de estas empresas llevan décadas exportando antes de que nadie hablara de internacionalización',
+  'siii los polígonos de Tarancón o Campo de Criptana no salen en ningún reportaje, pero dentro hay gente soldando estadios',
+  'totaaal, el queso y los molinos hacen bien su trabajo de despiste',
+  'ese es el tema y lo que sorprende más es que ese músculo lleva años creciendo en silencio sin que lo cuenten...',
+  'lo curioso es que esos datos llevan años ahí pero nadie los había puesto juntos hasta que alguien se para a mirar más allá de la autovía!',
+  'casi siempre los ecosistemas más sólidos son los que menos portadas tienen 😅',
+  'muchas veces las cifras que más impresionan son las que están debajo del radar',
+  'el esfuerzo en la sombra es exactamente lo que retrata cada nombre de esa lista',
+  'nadie lo visualiza porque nadie se para a contarlo y lo que no se cuenta no pesa',
+  'Ciertooo, casi siempre el foco va a las grandes ciudades y nos perdemos lo que mueve el país de verdad.',
+  'El tráiler que sale hacia el puerto no aparece en ningún titular y así se queda sin nombre quien más lo merece 🤝',
+  'Nadie suelda un estadio de la noche a la mañana, detrás hay décadas de aperos y pedidos que nadie contaba.',
+  'hay ecosistemas muy sólidos fuera del radar',
+  'hay tejido comercial muy potente también lejos de los focos habituales',
+  'más gente va a entender que Extremadura no es solo el paisaje que ven desde el tren!',
+  'desde una región que muchos pasan de largo se está compitiendo y ganando',
+];
+for (const t of INVISIBLES) ok(familiasDe(t).includes('invisible'), 'invisible', t.slice(0, 70));
+
+console.log('\n2 · y NO salta en respuestas con otra idea');
+const OTRAS = [
+  'gracias por leerlo y lo de las alianzas que mencionas es justo lo que más dice de ellos',
+  'la lista podría ser el doble de larga y seguiría sin hacer justicia a todo lo que sale de allí',
+  'lo de "tierruca" lo dice todo y encima con una palabra que solo entiende el que de verdad es de ahí 😉',
+  'Lo del cuchillo de Albacete me ha matado, lo tengo en la cabeza cada vez que corto pan jaja',
+  'Kenia con 26 veces más gente y aun así se queda por detrás, qué barbaridad',
+  'Qué orgullo da leer lo de Valdepeñas, Tarancón y Albacete juntos en la misma lista!',
+];
+for (const t of OTRAS) ok(!familiasDe(t).includes('invisible'), 'no es invisible', t.slice(0, 70));
+
+console.log('\n3 · la familia "a quien llamar" (las 3 respuestas del video de Unai)');
+const A_QUIEN = [
+  'nadie corre tan rápido como cuando no sabe a quién llamar al llegar.',
+  'exacto y el paso siguiente es que ni siquiera tengas que correr porque ya sabes exactamente a quién llamar',
+  'la presión del deadline es lo que no dije y que sin saber a quién llamar corres igual pero llegas tarde...',
+];
+for (const t of A_QUIEN) ok(familiasDe(t).includes('a_quien_llamar'), 'a quien llamar', t.slice(0, 60));
+
+console.log('\n4 · la memoria de tanda: una idea vale UNA vez, no en cada respuesta');
+ok(familiaRepetida(INVISIBLES[2], [INVISIBLES[0]]) !== null, 'la segunda "invisible" del post se tumba');
+ok(familiaRepetida(INVISIBLES[2], [OTRAS[0], OTRAS[1]]) === null, 'la primera "invisible" del post pasa');
+ok(familiaRepetida(OTRAS[3], [INVISIBLES[0], INVISIBLES[1]]) === null, 'otra idea pasa aunque el post ya tenga invisibles');
+ok(familiaEnTanda(INVISIBLES.slice(9, 12).concat(OTRAS.slice(3, 5))) !== null, 'Google Chat: 3 de 5 con la misma idea se tumba');
+ok(familiaEnTanda([INVISIBLES[9], ...OTRAS.slice(2, 6)]) === null, 'Google Chat: 1 de 5 con la tesis pasa');
+
+console.log('\n5 · el mismo dato no se repite en dos respuestas del post');
+ok(
+  datoRepetido('los polígonos de Tarancón mandan silos a 150 países', ['detrás de esa llanura hay silos en 150 países y cuchillos en 94']) === '150',
+  'silos en 150 paises dos veces'
+);
+ok(datoRepetido('esas 10 empresas son la prueba', ['lo que mueve Foronda de noche']) === null, 'sin dato repetido');
+ok(
+  datoRepetido('el 30% que dices es enorme', ['el 30% del PIB industrial'], 'el 30% del PIB industrial de Cantabria') === null,
+  'si el dato lo trae el que comenta, se puede recoger'
+);
+
+console.log('\n6 · comentario vacio: corto o peloteo sin contenido');
+ok(comentarioVacio('Qué post más necesario.') !== null, '"Qué post más necesario." se tumba');
+ok(comentarioVacio('Gran post!') !== null, '"Gran post!" se tumba');
+ok(comentarioVacio('Qué post más necesario, lo de Kenia con 26 veces más gente me ha dejado loco.') === null, 'con contenido detras, pasa');
+ok(comentarioVacio(INVISIBLES[11]) === null, 'uno normal pasa');
+
+console.log('\n7 · registro formal (Iker: "muy formales, que no son naturales")');
+const FORMALES = [
+  'Crecer en exportaciones a ese ritmo demuestra que el músculo industrial no está concentrado solo en los territorios de siempre.',
+  'Este tipo de ecosistemas demuestran cuánto valor puede concentrarse en una provincia.',
+  'Que una provincia de este tamaño exporte a ese nivel habla de especialización, continuidad y empresas que llevan décadas compitiendo fuera.',
+  'El tejido industrial alavés es uno de los grandes motores del norte.',
+  'Gracias por poner en valor la capacidad exportadora de la región.',
+];
+for (const t of FORMALES) ok(registroFormal(t) !== null, 'formal', t.slice(0, 60));
+for (const t of OTRAS.slice(3)) ok(registroFormal(t) === null, 'natural', t.slice(0, 60));
+
+console.log('\n8 · evento que YA PASO: nada de desear suerte');
+ok(suerteFutura('Ningún día como hoy para darlo todo, Unai. Mucha suerte mañana 💪') !== null, '"Mucha suerte mañana"');
+ok(suerteFutura('Once personas, una casa rural y alguien haciendo la comida. Que salga redondo.') !== null, '"Que salga redondo"');
+ok(suerteFutura('El reloj corriendo y sin saber a quién llamar... ganas de que llegue el día y ver esto en marcha.') !== null, '"ganas de que llegue el dia"');
+ok(suerteFutura('Qué mañana más loca aquella, y mira cómo salió todo!') === null, 'en pasado pasa');
+ok(apoyaEventoPasado('Qué mañana más loca aquella, y mira cómo salió todo!'), 'recordar en pasado cuenta como apoyo');
+ok(apoyaEventoPasado('Orgullo de lo que salió de esa casa rural 💪'), 'orgullo cuenta como apoyo');
+ok(!apoyaEventoPasado('Correr no vende, llegar a tiempo sí.'), 'una reflexion suelta no apoya el evento');
+ok(afirmaQueEstuvo('Qué bien lo pasamos esa mañana') !== null, '"lo pasamos" afirma que estuvo');
+ok(afirmaQueEstuvo('Se nota el curro que hubo detrás') === null, 'sin afirmar que estuvo');
+
+console.log('\n9 · el banco del evento depende de CUANDO es');
+const despuesJuntos = angulosEvento(normalizarFase({ momento: 'despues', juntos: true }));
+const despuesSolo = angulosEvento(normalizarFase({ momento: 'despues', juntos: false }));
+const antes = angulosEvento(normalizarFase({ momento: 'antes', juntos: false }));
+const futuro = /suerte|redond|ganas de que|que llegue|que empiece|salga bien/i;
+ok(despuesJuntos.every((a) => !futuro.test(a)), 'despues (juntos): ningun angulo desea suerte', despuesJuntos.find((a) => futuro.test(a)) || '');
+ok(despuesSolo.every((a) => !futuro.test(a)), 'despues (no consta): ningun angulo desea suerte');
+ok(despuesJuntos.some((a) => /primera persona del plural|lo pasamos|estuvimos/i.test(a)), 'despues (juntos): se puede hablar en plural');
+ok(despuesSolo.every((a) => !/lo pasamos|estuvimos/i.test(a) || /nunca|sin /i.test(a)), 'despues (no consta): no da por hecho que estuvo');
+ok(antes.some((a) => /suerte/i.test(a)), 'antes: si desea suerte');
+ok(normalizarFase({ momento: 'pasado' as any, juntos: 'si' as any }).momento === 'desconocido', 'una fase rara cae en desconocido');
+ok(esPostDeEvento('evento', 'Una mañana de ventas a contrarreloj'), 'el pilar evento manda');
+ok(esPostDeEvento(null, 'Mañana en Neety Forward'), 'el texto tambien');
+
+console.log('\n10 · los angulos del peloteo no empujan a la tesis');
+const pel = angulosApoyo('peloteo_los10');
+ok(pel.length >= 7, 'banco de peloteo con margen para rotar', String(pel.length));
+ok(pel.every((a) => !/idea principal|nadie|no se ve|desapercib/i.test(a)), 'ningun angulo pide la idea principal del post');
+ok(arranquesApoyo('peloteo_mapa').every((a) => !/negacion/i.test(a)), 'en peloteo no se arranca con "nadie/no/ni"');
+ok(arranquesApoyo('meme').some((a) => /negacion/i.test(a)), 'en el resto si');
+ok(angulosApoyo('meme').every((a) => !/corta y seca/i.test(a)), 'sin el angulo "corta y seca" que dio "Qué post más necesario."');
+
+console.log('\n11 · el plan de la tanda: emojis, vocales y cierres');
+let minEmoji = 9, adyacentes = 0, conTres = 0, sinExcl = 0, minAlarg = 9, todosIguales = 0;
+for (let i = 0; i < 3000; i++) {
+  const p = planTanda(5);
+  const e = [...p.conEmoji].sort();
+  minEmoji = Math.min(minEmoji, e.length);
+  if (e.length === 3) conTres++;
+  for (let k = 1; k < e.length; k++) if (e[k] - e[k - 1] === 1) adyacentes++;
+  if (!p.cierres.some((c, j) => c === '!' && !p.conEmoji.has(j))) sinExcl++;
+  minAlarg = Math.min(minAlarg, p.conAlargada.size);
+  if (p.conAlargada.size === 5) todosIguales++;
+}
+ok(minEmoji >= 2, 'siempre 2 o mas con emoji', `minimo ${minEmoji}`);
+ok(adyacentes === 0, 'nunca dos con emoji seguidos', `${adyacentes} casos`);
+ok(conTres > 0, 'a veces 3 (posiciones 1, 3 y 5)');
+ok(sinExcl === 0, 'siempre al menos uno sin emoji que acaba en exclamacion', `${sinExcl} tandas sin`);
+ok(minAlarg >= 2, 'siempre 2 o mas con vocales alargadas', `minimo ${minAlarg}`);
+ok(todosIguales === 0, 'nunca los 5 con vocales');
+
+console.log('\n12 · el cierre se aplica en codigo');
+ok(aplicarCierre('Qué pasada lo de Albacete.', '!') === 'Qué pasada lo de Albacete!', '. -> !');
+ok(aplicarCierre('Qué pasada lo de Albacete', '...') === 'Qué pasada lo de Albacete...', 'sin punto -> ...');
+ok(aplicarCierre('Qué pasada lo de Albacete!', '.') === 'Qué pasada lo de Albacete.', '! -> .');
+ok(aplicarCierre('Me lo apunto jaja', '.') === 'Me lo apunto jaja', 'tras un jaja no se pone punto');
+ok(aplicarCierre('Me lo apunto jaja', '!') === 'Me lo apunto jaja!', 'pero exclamacion si');
+ok(aplicarCierre('Qué ganas…', '!') === 'Qué ganas!', 'los suspensivos de un caracter tambien se cambian');
+
+console.log('\n13 · la respuesta lleva lo ya contestado en el post');
+const { prompt } = buildPrompt(
+  {
+    postContent: 'Al descansillo de la Península se lo ventilan con queso, molinos y a repostar.',
+    commentText: 'Siendo valenciano, Castilla-La Mancha siempre me pillaba más por el paisaje que por la industria.',
+    commenterName: 'Mario Carrillo',
+    commenterHeadline: null,
+    authorName: 'Iker Galarza Rodríguez',
+    authorVoice: { voice_style: null, worldview: null, signature_moves: null, avoid: null },
+    postId: 'test-post',
+    pillar: 'peloteo_los10',
+    respuestasPrevias: [INVISIBLES[0], INVISIBLES[1]],
+  },
+  'cercano'
+);
+ok(prompt.includes(INVISIBLES[0].slice(0, 40)), 'el prompt trae las respuestas previas');
+ok(/ya (la )?has (dicho|usado)|no repitas/i.test(prompt), 'y le prohibe repetir su idea');
+ok(/nadie (lo|la) ve|tesis/i.test(prompt), 'y en peloteo nombra la tesis quemada');
+
+console.log(fallos === 0 ? '\n✅ variedad y formato en orden' : `\n❌ ${fallos} fallo(s)`);
+process.exit(fallos === 0 ? 0 : 1);

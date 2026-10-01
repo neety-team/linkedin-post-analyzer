@@ -14,6 +14,7 @@ import { sendToGoogleChat } from '../services/googleChat';
 import { captureAccountSnapshots } from '../services/accountSnapshots';
 import { extractViewerTimestamps } from '../utils/wvmp';
 import { generateReply, respuestaDeApoyo } from '../services/replyGenerator';
+import { recordarRespuestasPublicadas } from '../services/variedadComentarios';
 import { getMemeImageSummary } from '../services/postImageText';
 import { roastProfile } from '../services/roaster';
 import { generarRastro } from '../services/rastroGenerator';
@@ -1858,13 +1859,13 @@ router.post('/anuncio-chat/run', async (req: Request, res: Response) => {
       const unPost = typeof req.query.post_id === 'string' ? req.query.post_id : null;
       const { rows } = unPost
         ? await pool.query(
-            `SELECT p.id, p.post_url, p.content_text, p.pillar, c.name AS creator_name
+            `SELECT p.id, p.post_url, p.content_text, p.pillar, p.published_at, c.name AS creator_name
                FROM posts p JOIN creators c ON c.id = p.creator_id
               WHERE p.id = $1`,
             [unPost]
           )
         : await pool.query(
-        `SELECT p.id, p.post_url, p.content_text, p.pillar, c.name AS creator_name
+        `SELECT p.id, p.post_url, p.content_text, p.pillar, p.published_at, c.name AS creator_name
            FROM posts p JOIN creators c ON c.id = p.creator_id
           WHERE c.is_managed = TRUE
             AND p.chat_announced_at IS NULL
@@ -1886,6 +1887,8 @@ router.post('/anuncio-chat/run', async (req: Request, res: Response) => {
                 postContent: p.content_text || '',
                 creatorName: p.creator_name,
                 pillar: p.pillar,
+                postId: p.id,
+                publishedAt: p.published_at,
                 creatorHeadline: null,
                 profile: { headline: null, voice_style: null, worldview: null, signature_moves: null, avoid: null },
               },
@@ -2244,7 +2247,7 @@ router.get('/posts/:postId/google-chat-preview', async (req: Request, res: Respo
     const postId = req.params.postId;
 
     const { rows } = await pool.query(
-      `SELECT p.id, p.content_text, p.post_url, p.hook_text, p.pillar,
+      `SELECT p.id, p.content_text, p.post_url, p.hook_text, p.pillar, p.published_at,
               c.name AS creator_name, c.headline AS creator_headline
        FROM posts p
        JOIN creators c ON c.id = p.creator_id
@@ -2267,6 +2270,9 @@ router.get('/posts/:postId/google-chat-preview', async (req: Request, res: Respo
         postContent: post.content_text || '',
         creatorName: post.creator_name,
         pillar: post.pillar,
+        // Para leer UNA vez por post y dia si el evento ya paso (01/10).
+        postId: post.id,
+        publishedAt: post.published_at,
         creatorHeadline: post.creator_headline || null,
         // Neutral voice on purpose — these are network-support comments any
         // teammate can paste, not a specific person's voice.
@@ -2733,6 +2739,20 @@ async function buildThreadsForPost(post: any): Promise<{ threads: ThreadedCommen
     // comentario de arriba.
     const cola = t.replies.length ? t.replies[t.replies.length - 1] : t;
     t.answered_by_author = cola.author.profile_id === authorLinkedInId || !!cola.my_reaction;
+  }
+
+  // LO YA CONTESTADO EN ESTE POST, para que la siguiente respuesta no repita
+  // la idea (Iker, 2026-10-01: en "Las 10" de CLM las 3 dijeron que "nadie lo
+  // ve"). Se apunta aqui porque es lo que corre al abrir la pestaña de
+  // comentarios, justo antes de ponerse a contestar, y ya trae el hilo entero.
+  if (authorLinkedInId) {
+    const nuestras = topLevel
+      .flatMap((t) => [t, ...t.replies])
+      .filter((c) => c.author.profile_id === authorLinkedInId && c.text)
+      .sort((a, b) => tsOf(a.date) - tsOf(b.date))
+      // Sin el nombre de la mencion del principio: lo que importa es la idea.
+      .map((c) => c.text.replace(/^(\p{Lu}[\p{L}.'’-]*\s+){1,4}(?=\p{Ll})/u, '').trim());
+    recordarRespuestasPublicadas(post.id, nuestras);
   }
 
   return { threads: topLevel, rawSample: raw[0] };
@@ -3255,7 +3275,7 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
     }
 
     const postQ = await pool.query(
-      `SELECT p.content_text, c.name AS creator_name
+      `SELECT p.content_text, p.pillar, p.published_at, c.name AS creator_name
          FROM posts p
          JOIN creators c ON c.id = p.creator_id
         WHERE p.id = $1`,
@@ -3290,6 +3310,11 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
       // es independiente y no sabe con que abrio la anterior, que es la causa
       // que este fichero lleva documentada desde el 17/07.
       postId,
+      // El pilar quita los movimientos que llevan a la tesis en un peloteo, y
+      // con la fecha se lee si el evento del post ya paso (Iker, 2026-10-01).
+      // Lo ya contestado en el post lo pone `buildThreadsForPost`.
+      pillar: post.pillar || null,
+      publishedAt: post.published_at || null,
       commenterName: commenter_name || null,
       commenterHeadline: commenter_headline || null,
       // The reply is authored by the real post owner (Iker / Unai / Asier),

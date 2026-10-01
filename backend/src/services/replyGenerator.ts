@@ -1,5 +1,17 @@
 import { trackedCreate } from './claudeClient';
 import { stripLoneSurrogates } from '../utils/sanitizeText';
+import {
+  type FaseEvento,
+  esPeloteo,
+  esPostDeEvento,
+  analizarEvento,
+  textoFase,
+  suerteFutura,
+  quitarFraseFutura,
+  respuestasPrevias as previasDelPost,
+  recordarRespuestaGenerada,
+  problemaDeVariedad,
+} from './variedadComentarios';
 
 // Generates a single reply that the post author writes back to a commenter.
 // Distinct from commentGenerator (which produces 9 angles for someone OTHER
@@ -48,6 +60,18 @@ export interface ReplyGenerationInput {
   // un hilo se entiende por lo que se dijo antes: Antonio N. contesto a un
   // "jajajaj" nuestro siguiendo la broma, y sin eso parecia una frase suelta.
   hilo?: { autor: string | null; texto: string }[];
+  // LO YA CONTESTADO EN ESTE POST (Iker, 2026-10-01). Sin esto cada respuesta
+  // re-lee el mismo post y cae en su tesis: 3 de 3 en "Las 10" de CLM dijeron
+  // que "nadie lo ve". Las publicadas las apunta `buildThreadsForPost`; aqui
+  // llegan las que quiera sumar el que llama (`variedadComentarios`).
+  respuestasPrevias?: string[];
+  // El pilar decide el banco de movimientos (en peloteo, fuera los que llevan
+  // a la tesis) y si hay que leer la fase del evento.
+  pillar?: string | null;
+  publishedAt?: string | Date | null;
+  // Si el evento del post ya paso, es hoy o esta por venir. Lo calcula
+  // `generateReply` si no llega.
+  faseEvento?: FaseEvento | null;
 }
 
 // Las 3 cuentas comparten QUÉ decimos (la voz Neety del commenter_profile, que
@@ -145,6 +169,12 @@ El caso real: en un meme, Antonio N. contesto dentro de un hilo "una que funcion
 ⛔ PROHIBIDO ante una broma: explicar por que "funciona", analizarla, valorarla como tecnica, sacar la leccion de ventas, o contestar en serio.
 ✅ LO QUE SE HACE: seguirle el rollo en su mismo registro, corto y con complicidad. Reirse con el ("jajaja"), hacer como que te la quedas, subir un pelin la exageracion o rematarla. Lee el TONO antes que las palabras: si la frase es absurda, exagerada o viene con risas o emojis de risa, es una broma aunque suene a consejo.
 ⚠️ Lo de la RULE 3c-bis y 3c-quater sigue mandando: seguir la broma nunca es reirse DE el, y una broma racista, machista u ofensiva no se sigue (RULE 3c).
+
+RULE 3h — ⛔⛔ CADA RESPUESTA, UNA IDEA DISTINTA, Y LA TESIS DEL POST YA ESTA DICHA (Iker, 2026-10-01). Contestas 15 o 20 comentarios del MISMO post y el que baja por el hilo los lee todos seguidos. Medido en lo publicado: en "Las 10" de Castilla-La Mancha las 3 respuestas dijeron lo mismo con otras palabras ("trabajo de despiste", "antes de que nadie hablara", "no salen en ningun reportaje"), y en el video del evento las 3 repitieron "no saber a quien llamar". Eso es la idea central del post contada otra vez, y el post ya la cuenta.
+✅ La respuesta se construye con lo que TRAE EL COMENTARIO: su empresa, su pueblo, su producto, su oficio, su experiencia, su broma, el dato que aporta. Si hace falta algo del post, un detalle CONCRETO (una empresa, un producto, un pueblo, una costumbre, una frase), nunca su tesis ni su llamada a la accion.
+⛔ Si el mensaje de usuario te enseña lo que ya has contestado en este post, ninguna idea, dato, empresa o imagen de esas se repite.
+
+RULE 3i — HABLAS, NO REDACTAS (Iker, 2026-10-01: "muy formales, que no son naturales"). Nada de registro de informe: "demuestra que", "pone de manifiesto", "ecosistema", "tejido industrial", "musculo industrial", "motor economico", "fuera del radar", "lejos de los focos", "poner en valor", "visibilidad", "a nivel de". Escribe como contestarias desde el movil a alguien que conoces.
 
 RULE 3d — CERO CIFRAS INVENTADAS (Iker, 2026-08-12). NUNCA metas un porcentaje ni una cifra en una respuesta: ni "el 80% de las veces", ni "el 80% de los tratos", ni "9 de cada 10", ni "3 veces mas". Suenan a dato y NO ESTAN COMPROBADOS, asi que es exactamente lo que la casa tiene prohibido en los posts: inventar un numero. Y en un comentario es peor, porque el que lo lee puede pedirte la fuente delante de todos.
 Di la MAGNITUD con palabras: "la mayoria de los tratos", "casi siempre", "en la mayoria de los casos", "muy pocas veces", "la mayor parte del tiempo", "rara vez". Dicen lo mismo, se leen igual de fuerte y no se pueden desmentir.
@@ -282,24 +312,35 @@ export function buildPrompt(
       move: 'pick up a specific word or phrase THEY used and run with it',
       arranque: 'esa misma palabra suya, literal',
     },
+    // ⛔ CAMBIADOS EL 2026-10-01: eran "connect their point back to something
+    // the POST already says" y "state the general rule their comment is an
+    // instance of", y los dos llevaban a la TESIS del post. En un peloteo la
+    // regla general es siempre la misma ("casi siempre los ecosistemas mas
+    // solidos son los que menos portadas tienen", publicada el 29/09). Ahora
+    // los dos se agarran a algo CONCRETO.
     {
-      move: 'connect their point back to something the POST already says',
-      arranque: 'una persona o un objeto del post (el comercial, el cliente, la lista, el telefono)',
+      move: 'pick ONE concrete detail of the post that connects with what they said (a company, a product, a town, a custom, a phrase), never the post\'s main idea',
+      arranque: 'una persona, un objeto o un nombre propio del post (el comercial, la lista, una empresa, un pueblo)',
     },
     {
       move: 'name the thing they left implicit, the part they did not say out loud',
       arranque: 'el SUSTANTIVO CONCRETO de eso que no dijo, nunca "lo que nadie..."',
     },
     {
-      move: 'state the general rule their comment is an instance of',
-      arranque: 'un adverbio de frecuencia (casi siempre, rara vez, al final, normalmente)',
+      move: 'celebrate the specific thing THEY bring (their company, their town, their product, their trade or their experience) and add one concrete detail',
+      arranque: 'lo concreto que nombra el (su empresa, su pueblo, su producto, su oficio)',
     },
     {
       move: 'point at the cost of NOT doing what they describe',
       arranque: 'una negacion (no, nadie, ninguno, ni)',
     },
   ];
-  const elegido = OPENING_MOVES[Math.floor(Math.random() * OPENING_MOVES.length)];
+  // En un peloteo, la negacion es la puerta a la tesis ("nadie lo visualiza
+  // porque nadie se para a contarlo", 01/09): fuera.
+  const movimientos = esPeloteo(input.pillar)
+    ? OPENING_MOVES.filter((m) => !m.arranque.startsWith('una negacion'))
+    : OPENING_MOVES;
+  const elegido = movimientos[Math.floor(Math.random() * movimientos.length)];
   const move = elegido.move;
 
   // La palabra de asentimiento tambien se SORTEA (Iker, 2026-08-06). El sorteo de
@@ -444,8 +485,26 @@ ${sinAsentir
   // ⛔ EL EVENTO: SOLO LO QUE DICE EL POST (tandas del 18/09). Sin esto el
   // modelo contestaba "gratis, esta el enlace en el post" a "¿el evento es
   // gratis?" y "es justo lo que queremos resolver el jueves".
-  const eventoNudge = /(evento|donostia)/i.test(input.postContent)
-    ? `EVENTO: del evento solo sabes lo que pone el post (dia, sitio, plazas). NO sabes el precio, si es gratis, el programa ni los ponentes: no lo afirmes ni digas que alli se trabaja o se resuelve algo concreto. Si te preguntan algo que no sabes, la respuesta es que se lo pasas por privado. No mandes a buscar el enlace al post y no des por hecho que viene salvo que lo diga.\n`
+  // Y CUANDO ES (Iker, 2026-10-01): el video del 30/09 contaba en pasado la
+  // mañana de antes del evento y se le deseo "suerte mañana".
+  const eventoNudge = /(evento|donostia)/i.test(input.postContent) || input.faseEvento
+    ? `EVENTO: del evento solo sabes lo que pone el post (dia, sitio, plazas). NO sabes el precio, si es gratis, el programa ni los ponentes: no lo afirmes ni digas que alli se trabaja o se resuelve algo concreto. Si te preguntan algo que no sabes, la respuesta es que se lo pasas por privado. No mandes a buscar el enlace al post y no des por hecho que viene salvo que lo diga.${
+        input.faseEvento ? ` ${textoFase(input.faseEvento)} Tu eres el autor y estuviste.` : ''
+      }\n`
+    : '';
+  // ⛔⛔ LO YA CONTESTADO EN ESTE POST (RULE 3h). Se le enseña entero: con las
+  // 4 primeras palabras (`APERTURAS_POR_POST`) cambiaba el arranque y repetia
+  // la idea.
+  const previas = (input.respuestasPrevias || []).filter((t) => t && t.trim()).slice(-8);
+  const previasBloque = previas.length
+    ? `═══ LO QUE YA HAS CONTESTADO EN ESTE POST (RULE 3h) ═══
+${previas.map((t) => `· ${t.trim().slice(0, 240)}`).join('\n')}
+⛔ No repitas la idea de NINGUNA de estas, ni su dato, ni su empresa, ni su imagen. Si tu respuesta se puede leer como otra version de una de ellas, busca otra cosa: lo que trae SU comentario.
+
+`
+    : '';
+  const tesisNudge = esPeloteo(input.pillar)
+    ? `⛔ LA TESIS DE ESTE POST YA ESTA DICHA EN EL POST: que a esa region no la ve nadie, que trabaja en silencio, que pasa desapercibida, que no sale en los titulares, que se ve desde la autovia, que esta fuera del radar o lejos de los focos. NO la repitas con otras palabras: tu respuesta va a lo concreto de SU comentario (su empresa, su pueblo, su producto, lo que añade a la lista) o a un detalle concreto del post (una empresa, un producto, una costumbre).\n`
     : '';
   // ⛔ A QUIEN DISCREPA (tanda del 18/09): "no es una trampa, es que…" le
   // corrige. Se le reconoce lo que dice y se aporta, sin enmendarle.
@@ -554,14 +613,14 @@ ${voiceBlock || '(No detailed voice profile — default to a natural, direct ton
 ═══ YOUR POST ═══
 ${input.postContent}
 
-${imagenBloque}${hiloBloque}═══ THE COMMENT YOU ARE REPLYING TO ═══
+${imagenBloque}${hiloBloque}${previasBloque}═══ THE COMMENT YOU ARE REPLYING TO ═══
 ${commenterLine}
 "${input.commentText}"
 
 ${mentionInstruction}
 ${leadMagnetInstruction}
 ${varietyNudge}
-${eventoNudge}${discrepaNudge}
+${tesisNudge}${eventoNudge}${discrepaNudge}
 ${ellipsisNudge}
 
 ${emojiNudge}
@@ -1538,7 +1597,18 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
     throw new Error('ANTHROPIC_API_KEY not set');
   }
   const voice = voiceForAuthor(input.authorName);
-  const { prompt, arranque: elegidoArranque, conEmoji, estirar, emojiElegido, palabraAlargar, thanks } = buildPrompt(input, voice);
+  // Lo ya contestado en el post (publicado + borradores de esta sesion) y la
+  // fase del evento, ANTES del prompt: los dos cambian lo que se le pide.
+  const previas = previasDelPost(input.postId, input.respuestasPrevias || []);
+  const faseEvento =
+    input.faseEvento ??
+    (esPostDeEvento(input.pillar, input.postContent)
+      ? await analizarEvento({ postId: input.postId, texto: input.postContent, publicadoEl: input.publishedAt })
+      : null);
+  const { prompt, arranque: elegidoArranque, conEmoji, estirar, emojiElegido, palabraAlargar, thanks } = buildPrompt(
+    { ...input, respuestasPrevias: previas, faseEvento },
+    voice
+  );
 
   // Se genera y se COMPRUEBA. Si se ha inventado algo, se vuelve a pedir con el
   // fallo delante, hasta 2 veces mas. Un reproche concreto ("te has inventado
@@ -1640,6 +1710,9 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     if (!ultimoTonoBorde && graciasSeco(input.commentText, candidato, input.commenterName)) {
       ultimoTonoBorde = 'el comentario es un elogio y el gracias va seco ("gracias, ..."): usa la variante de gracias sorteada (RULE 13)';
     }
+    if (!ultimoTonoBorde && faseEvento?.momento === 'despues' && suerteFutura(candidato)) {
+      ultimoTonoBorde = `el evento YA HA PASADO y la respuesta habla en futuro ("${suerteFutura(candidato)}"): todo en pasado, nada de suerte ni de que salga bien`;
+    }
     if (!ultimoTonoBorde && respuestaAHostilMal(input.commentText, candidato)) {
       ultimoTonoBorde =
         'el comentario es despectivo y la respuesta le replica o no le muestra respeto (RULE 3c-quater): corta, respetuosa ("respeto la opinion", "entiendo que no te encaje", "tomo nota") y SIN ningun "pero" ni zasca';
@@ -1660,6 +1733,14 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     // LONGITUD Y COMILLAS (Iker, 2026-09-16), con la misma severidad que la
     // apertura: se reintenta y, si a la tercera sigue, se devuelve igual.
     ultimoEstilo = problemaDeEstilo(input.commentText, candidato, input.commenterName);
+    // VARIEDAD (RULE 3h/3i, Iker 2026-10-01): la misma idea, el mismo dato o el
+    // registro de informe. Misma severidad que el estilo: se reintenta y, a la
+    // tercera, se devuelve igual.
+    if (!ultimoEstilo) {
+      const nom = input.commenterName?.trim() || '';
+      const cuerpoV = nom && candidato.toLowerCase().startsWith(nom.toLowerCase()) ? candidato.slice(nom.length) : candidato;
+      ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText);
+    }
     if (ultimoEstilo && intento < 3) {
       candidatoTibio = candidato;
       ultimaAperturaMala = null;
@@ -1793,6 +1874,15 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       }
     }
   }
+  // 1h-bis. Y SI EL EVENTO YA PASO y a la tercera sigue deseando suerte, se
+  //     quita esa frase (si queda algo con sentido): desearle suerte a algo
+  //     que ya ocurrio es un error de hecho, no de estilo.
+  if (faseEvento?.momento === 'despues' && suerteFutura(text)) {
+    const nomF = input.commenterName?.trim() || '';
+    const cuerpoF = nomF && text.toLowerCase().startsWith(nomF.toLowerCase()) ? text.slice(nomF.length).trim() : text.trim();
+    const sinFutura = quitarFraseFutura(cuerpoF);
+    if (sinFutura !== cuerpoF) text = `${nomF ? nomF + ' ' : ''}${sinFutura}`;
+  }
   // 1d. (va DESPUES del limite de alargadas, para que el colapso no esconda
   //     ninguna) VOCES SOBRIAS (Unai y Asier, NO Iker): colapsa cualquier racha de 3+
   //     letras iguales a 2 ("síííí" → "síí", "graciasss" → "graciass"). La
@@ -1834,5 +1924,6 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   // devuelve de verdad: si se ha descartado por inventar, nunca existio.
   recordarApertura(input.postId, apertura(limpio, input.commenterName));
   recordarAlargada(input.postId, limpio.slice(input.commenterName?.trim().length || 0));
+  recordarRespuestaGenerada(input.postId, limpio.slice(input.commenterName?.trim().length || 0).trim());
   return limpio;
 }

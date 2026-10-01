@@ -272,6 +272,12 @@ cómo está escrito. Las dos cosas van al validador como aviso de entrega.
 > - **El objetivo de volumen manda sobre el pico de un post:** ~9 a la semana, 3 por cuenta. Un post guardado para mañana ocupa el hueco del de mañana.
 > - **Solo se aplaza si lo dice él.** Lo que sigue valiendo es dar el dato de la franja en una línea, sin recomendar esperar.
 
+> **📊 Y LA TABLA DE ABAJO EXAGERA: REMEDIDO EL 01/10 CON CONTROLES (Iker pidió comprobar si lo de las 10:00 era una teoría).**
+> - **Nuestras 3 cuentas, abril-septiembre 2026, sin vacaciones (146 posts):** en bruto, antes de las 11:00 rinde **1,94x** (de ahí el 0,80x contra 0,43x de abajo). **Pero en abril y mayo el 55% de los posts salía antes de las 11:00, y en junio-septiembre solo el 15%**, así que la tabla mezcla la hora con la época. **Comparando cada post con los de su misma cuenta y su mismo mes, la ventaja baja a 1,40x y deja de ser significativa (p=0,16).** Con cuenta, mes y pilar a la vez sale 1,55x (p=0,01), pero con solo 26 posts de mañana. Además Iker guardaba los mejores para las 10:00 (cita del 11/08 de abajo), lo que infla la mañana por selección.
+> - **Los 33 creadores españoles de la BD (9.400 posts desde 2025, interacción comparada con la de su mismo creador y mes):** de 8:00 a 12:00 rinde **~1,10x**, de 13:00 a 16:00 **~1,00x**, de 17:00 a 18:00 **~0,88x** y desde las 19:00 **~0,65-0,90x**. **El fin de semana, 0,89x.** Por creador, 8 de 13 rinden mejor por la mañana que por la tarde.
+> - **Lo viral no depende de la hora:** de nuestros 12 mejores posts, 3 salieron de 10:00 a 11:00, 5 de 12:00 a 13:00 y 4 de 13:00 a 15:30 (Unai, 15/07 a las 15:21: 193.374 impresiones).
+> - **Conclusión de trabajo:** la mañana da una ventaja real pero pequeña, de un 10-40%, nunca la mitad. Entre semana y antes de las 19:00, **subirlo hoy gana siempre a guardarlo**. Si hay dos listos el mismo día, el primero por la mañana. Lo único que conviene evitar es el fin de semana y la noche.
+
 **En cuanto Iker diga que el post ya está o que lo va a subir, hay que preguntarle
 a qué hora piensa publicarlo y decirle lo que dice el dato.** Sin esperar a que lo
 pregunte él.

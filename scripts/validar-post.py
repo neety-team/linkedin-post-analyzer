@@ -2113,8 +2113,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # Ninguno era una regla nueva: las cinco llevaban semanas escritas.
         chk(False, 'ENTREGA: preguntarle A QUE HORA lo sube (working-preferences §1h)',
             'en cuanto diga que ya esta o que lo sube, preguntar la hora y dar el dato sin '
-            'que lo pida: 10:00 rinde 0,80x y 4.850 impresiones de mediana; las 14:00, '
-            '0,43x y 2.989 (la tarde casi no tiene muestras: Unai 23/09 a las 18:00, 9.928). Y '
+            'que lo pida, pero el dato BUENO (remedido 01/10 con controles): la manana da solo '
+            'un 10-40% mas, no el doble; despues de las 19:00 y el fin de semana, peor. Y '
             'eso sirve para ELEGIR la franja de HOY, nunca para aplazar a manana: dentro de su '
             'jornada (9:00-18:30) lo que esta listo se sube hoy, porque el objetivo es ~9 posts a '
             'la semana, 3 por cuenta (Iker 01/10). Solo se aplaza si lo dice el (working-preferences §1h)',

@@ -43,8 +43,9 @@ import {
   quitarExactamente,
   inglesColado,
   conservarMayuscula,
+  LARGO_MAX_CHAT,
 } from '../services/variedadComentarios';
-import { buildPrompt } from '../services/replyGenerator';
+import { buildPrompt, pulirTrasAlargada, ponerEmojiAlFinal } from '../services/replyGenerator';
 
 let fallos = 0;
 const ok = (cond: boolean, label: string, extra = '') => {
@@ -259,8 +260,37 @@ ok(inglesColado('TRANSA and co, qué pasada', 'TRANSA S.A. Tomato Paste and Toma
 ok(inglesColado('qué pasada lo del photocall', 'photocall') === null, 'castellano normal pasa');
 
 console.log('\n23 · la mayuscula del nombre propio vuelve tras la alargada (ronda 3: "Tal cuaal, kenia con 26 veces")');
-ok(conservarMayuscula('Tal cuaal, kenia con 26 veces', 'Kenia con 26 veces', 'Kenia, con 26 veces más gente') === 'Tal cuaal, Kenia con 26 veces', 'Kenia');
+ok(conservarMayuscula('Tal cuaal, kenia con 26 veces', 'Kenia con 26 veces', 'Y exporta más que Kenia entera') === 'Tal cuaal, Kenia con 26 veces', 'Kenia');
 ok(conservarMayuscula('Clarooo, casi siempre', 'Casi siempre', 'casi siempre pasa. Casi nunca') === 'Clarooo, casi siempre', 'una palabra normal se queda en minuscula');
+// ⛔ Google Chat del 01/10, captura de Iker: "Tal cuaal, Nadie mete en tres
+// líneas...". En el meme "Nadie" solo salia a principio de linea, y eso no la
+// hace nombre propio.
+ok(
+  conservarMayuscula('Tal cuaal, nadie mete en tres líneas', 'Nadie mete en tres líneas', 'Vender es un caos.\nNadie te lo dice.\nCada rol pesa') === 'Tal cuaal, nadie mete en tres líneas',
+  '"Nadie" a principio de linea NO es nombre propio'
+);
+
+console.log('\n25 · nunca coma ni mayuscula detras de la alargada (Iker, captura del 01/10)');
+ok(pulirTrasAlargada('Tal cuaal, Nadie mete en tres líneas', 'Vender es un caos.\nNadie te lo dice.') === 'Tal cuaal nadie mete en tres líneas', 'sin coma y en minuscula', pulirTrasAlargada('Tal cuaal, Nadie mete en tres líneas', 'Vender es un caos.\nNadie te lo dice.'));
+ok(pulirTrasAlargada('Clarooo, el giro de la cuota') === 'Clarooo el giro de la cuota', 'sin coma');
+ok(pulirTrasAlargada('Pues valeee, la lista encoge') === 'Pues valeee la lista encoge', 'detras de una muletilla igual');
+ok(pulirTrasAlargada('Tal cuaal, Kenia con 26 veces', 'exporta más que Kenia entera') === 'Tal cuaal Kenia con 26 veces', 'el nombre propio conserva la mayuscula');
+ok(pulirTrasAlargada('Bieeen, SYMAGA con silos en 150 países') === 'Bieeen SYMAGA con silos en 150 países', 'las siglas tambien');
+ok(pulirTrasAlargada('Juuusto, Unai lo clava', '', ['Unai Arambarri Yeregui']) === 'Juuusto Unai lo clava', 'el nombre del autor tambien');
+ok(pulirTrasAlargada('el comercial llega sin saber nada') === 'el comercial llega sin saber nada', 'sin alargada no toca nada');
+
+console.log('\n26 · o exclamacion o emoji, nunca los dos ("...del equipo de ventas! 🔥")');
+ok(ponerEmojiAlFinal('Nadie mete en tres líneas lo que pesa cada rol!', '🔥') === 'Nadie mete en tres líneas lo que pesa cada rol 🔥', '"! 🔥" -> " 🔥"');
+ok(ponerEmojiAlFinal('se te queda grabado', '🙌') === 'se te queda grabado 🙌', 'espacio y emoji, como "grabado 🙌"');
+let exclConEmoji = 0;
+for (let i = 0; i < 2000; i++) {
+  const p = planTanda(5);
+  if ([...p.conEmoji].some((j) => p.cierres[j] === '!')) exclConEmoji++;
+}
+ok(exclConEmoji === 0, 'el plan nunca le pone "!" a uno con emoji', `${exclConEmoji} tandas`);
+
+console.log('\n27 · Google Chat en UNA linea (la tercera de la captura caia a dos: 107 caracteres)');
+ok(LARGO_MAX_CHAT <= 90, `tope del Chat en ${LARGO_MAX_CHAT}`);
 
 console.log('\n24 · el arranque "Yo..." fuera (ronda 3: "Yo me alegra", "Yo la próxima lo volvemos")');
 ok(arranquesApoyo('meme').every((a) => !/\(Yo,/.test(a)), 'sin "Yo" como arranque');

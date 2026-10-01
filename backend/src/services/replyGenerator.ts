@@ -14,6 +14,9 @@ import {
   quitarExactamente,
   inglesColado,
   conservarMayuscula,
+  esNombrePropio,
+  nombreAjeno,
+  cifraNueva,
 } from './variedadComentarios';
 
 // LO QUE PASO EN LA ULTIMA GENERACION, intento a intento. Solo para mirar con
@@ -803,10 +806,11 @@ export function respuestaDeApoyo(commenterName?: string | null): string {
  */
 export function ponerEmojiAlFinal(texto: string, emoji?: string): string {
   const e = emoji || EMOJI_SEGUROS[Math.floor(Math.random() * EMOJI_SEGUROS.length)];
-  if (!emoji && EMOJI_RE.test(texto)) return texto.replace(/(?<!\.)\.\s*(\p{Extended_Pictographic})/gu, ' $1');
+  if (!emoji && EMOJI_RE.test(texto)) return texto.replace(/((?<!\.)\.|!+)\s*(\p{Extended_Pictographic})/gu, ' $2');
   // ⛔ Nunca un punto justo antes del emoji (Iker, 2026-09-16: "queda mal").
-  // Los puntos suspensivos si se quedan.
-  const sinPunto = quitarEmojis(texto).replace(/(?<!\.)\.\s*$/, '');
+  // Los puntos suspensivos si se quedan. ⛔ Y tampoco una exclamacion (Iker,
+  // 2026-10-01: "...del equipo de ventas! 🔥"): o "!", o espacio y emoji.
+  const sinPunto = quitarEmojis(texto).replace(/(?<!\.)\.\s*$/, '').replace(/!+\s*$/, '');
   return `${sinPunto} ${e}`;
 }
 
@@ -945,6 +949,33 @@ export function forzarEstirada(texto: string, letras = 2, palabra?: string, mule
   // propios que empiecen la frase: solo se baja si la segunda letra es minuscula)
   const bajada = /^\p{Lu}\p{Ll}/u.test(resto) ? resto[0].toLowerCase() + resto.slice(1) : resto;
   return `${p}, ${bajada}`;
+}
+
+/**
+ * ⛔⛔ NI COMA NI MAYUSCULA DETRAS DE LA ALARGADA (Iker, 2026-10-01, captura
+ * del Chat: "Tal cuaal, Nadie mete en tres líneas..."): *"después de una
+ * palabra con vocales nunca pongas una mayúscula... y nunca pongas después de
+ * la palabra con vocales una coma, no queda natural"*. Cambia la regla del
+ * 18/09, que pedia pausa detras ("siii, ...").
+ *
+ * Por que es un pase FINAL y no un cambio en `forzarEstirada`: todo el proceso
+ * usa esa coma como marca de pausa (`sitioAlargable` decide con ella que
+ * alargadas se quedan y cuales no), y quitarla antes rompia esa decision. Se
+ * quita al final, cuando ya no la mira nadie. La palabra siguiente va en
+ * minuscula salvo nombre propio de verdad (`esNombrePropio`).
+ */
+export function pulirTrasAlargada(texto: string, fuentes = '', nombres: (string | null | undefined)[] = []): string {
+  for (const m of texto.matchAll(/\p{L}+/gu)) {
+    if (!esEstirada(m[0])) continue;
+    const fin = (m.index ?? 0) + m[0].length;
+    const resto = texto.slice(fin);
+    const mm = resto.match(/^(\s*,\s*|\s+)(\p{L}+)/u);
+    if (!mm) return texto;
+    const sig = mm[2];
+    const bajar = /^\p{Lu}\p{Ll}/u.test(sig) && !esNombrePropio(sig, fuentes, nombres);
+    return texto.slice(0, fin) + ' ' + (bajar ? sig[0].toLowerCase() + sig.slice(1) : sig) + resto.slice(mm[0].length);
+  }
+  return texto;
 }
 
 export function quitarEmojis(texto: string): string {
@@ -1685,6 +1716,17 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     // Primero los patrones (gratis). Solo si pasan se le pregunta al juez, que
     // es una llamada mas y no hace falta gastarla en lo que ya esta cazado.
     ultimosInventos = detectarInventos(candidato, fuentes);
+    // UN NOMBRE O UNA CIFRA QUE NO ESTAN EN NINGUN SITIO SON INVENTOS, no
+    // estilo (verificacion del 01/10: "Ajusa exporta desde Murcia", y es de
+    // Albacete; como fallo de estilo se devolvia igual a la tercera).
+    if (ultimosInventos.length === 0) {
+      const nomI = input.commenterName?.trim() || '';
+      const cuerpoI = nomI && candidato.toLowerCase().startsWith(nomI.toLowerCase()) ? candidato.slice(nomI.length) : candidato;
+      const ajeno = nombreAjeno(cuerpoI, `${fuentes.postContent}\n${input.commenterHeadline || ''}`, input.commentText, [input.commenterName, input.authorName]);
+      const cifra = cifraNueva(cuerpoI, `${fuentes.postContent}\n${input.commentText}`);
+      if (ajeno) ultimosInventos = [{ tipo: 'anecdota', fragmento: `nombra "${ajeno}", que no sale ni en el post ni en el comentario` }];
+      else if (cifra) ultimosInventos = [{ tipo: 'cifra', fragmento: cifra }];
+    }
     if (ultimosInventos.length === 0) {
       ultimosInventos = await juezDeInventos(candidato, fuentes);
     }
@@ -1752,7 +1794,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
     if (!ultimoEstilo) {
       const nom = input.commenterName?.trim() || '';
       const cuerpoV = nom && candidato.toLowerCase().startsWith(nom.toLowerCase()) ? candidato.slice(nom.length) : candidato;
-      ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText, [input.commenterName, input.authorName], `${fuentes.postContent}\n${input.commenterHeadline || ''}`);
+      ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText, [input.commenterName, input.authorName]);
       const ingles = inglesColado(cuerpoV, `${fuentes.postContent}\n${input.commentText}`);
       if (!ultimoEstilo && ingles) ultimoEstilo = `se cuela una palabra en ingles ("${ingles}"): todo en castellano`;
     }
@@ -1896,6 +1938,14 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
         text = con(`${frase}${voice === 'sobrio' ? '.' : ''}`);
       }
     }
+  }
+  // 1e-bis. NI COMA NI MAYUSCULA DETRAS DE LA ALARGADA (Iker, 2026-10-01).
+  //     Al final y no antes: hasta aqui la coma es la marca de pausa con la
+  //     que `sitioAlargable` decide (`pulirTrasAlargada`).
+  {
+    const nomP = input.commenterName?.trim() || '';
+    const cabeza = nomP && text.toLowerCase().startsWith(nomP.toLowerCase()) ? text.slice(0, nomP.length) : '';
+    text = cabeza + pulirTrasAlargada(text.slice(cabeza.length), `${input.postContent}\n${input.commentText}`, [input.commenterName, input.authorName]);
   }
   // 1h-bis. Y SI EL EVENTO YA PASO y a la tercera sigue deseando suerte, se
   //     quita esa frase (si queda algo con sentido): desearle suerte a algo

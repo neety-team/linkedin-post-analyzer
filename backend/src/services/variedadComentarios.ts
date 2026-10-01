@@ -49,7 +49,7 @@ export const FAMILIAS: { id: FamiliaId; nombre: string; re: RegExp }[] = [
   {
     id: 'a_quien_llamar',
     nombre: 'saber a quien llamar (el que decide, el decisor)',
-    re: /(a quien (llamar|llamas|llamo|hay que llamar|llamaba)|quien decide|(el|la) que decide|(dar|das|dio|des) con (el|la) que|el nombre de quien|saber a quien|decisor)/,
+    re: /(a quien (llamar|llamas|llamo|hay que llamar|llamaba)|que decide|(dar|das|dio|des) con (el|la) que|el nombre de quien|saber a quien|decisor)/,
   },
 ];
 
@@ -214,16 +214,27 @@ export function inglesColado(c: string, fuentes = ''): string | null {
 }
 
 /**
+ * ¿Es un nombre propio? Siglas, el nombre de alguien de la conversacion, o una
+ * palabra que en las fuentes va en mayuscula EN MITAD DE FRASE (detras de una
+ * minuscula). A principio de linea no cuenta: en el meme del 01/10 "Nadie"
+ * solo salia asi, se tomo por nombre propio y salio "Tal cuaal, Nadie mete...".
+ */
+export function esNombrePropio(w: string, fuentes = '', nombres: (string | null | undefined)[] = []): boolean {
+  if (/^\p{Lu}{2,}/u.test(w)) return true;
+  if (nombres.some((n) => (n || '').split(/\s+/).includes(w))) return true;
+  const esc = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`\\p{Ll}[,;]?\\s+${esc}(?![\\p{L}])`, 'u').test(fuentes);
+}
+
+/**
  * `forzarEstirada` baja la primera letra de lo que sigue a la alargada, y con
  * un nombre propio sale "Tal cuaal, kenia con 26 veces" (ronda 3). Si esa
  * palabra va en mayuscula en el post y nunca en minuscula, se le devuelve.
  */
 export function conservarMayuscula(forzada: string, original: string, fuentes: string): string {
   const w = (original.trim().match(/^\p{Lu}\p{Ll}+/u) || [])[0];
-  if (!w) return forzada;
+  if (!w || !esNombrePropio(w, fuentes)) return forzada;
   const bajo = w.toLowerCase();
-  const enFuentes: string[] = fuentes.match(/\p{L}+/gu) || [];
-  if (!enFuentes.includes(w) || enFuentes.includes(bajo)) return forzada;
   const i = forzada.indexOf(bajo);
   return i >= 0 ? forzada.slice(0, i) + w + forzada.slice(i + bajo.length) : forzada;
 }
@@ -550,6 +561,11 @@ export function angulosEvento(fase: FaseEvento): string[] {
 
 // ─────────────────────────────── el plan de la tanda ───────────────────────────────
 
+// ⛔ UNA LINEA EN EL CHAT (Iker, 01/10, captura): "Me flipa que el director
+// tenga en la cabeza una cifra..." (107 caracteres) caia a una segunda linea,
+// y el Chat corta en torno a los 95. "Una línea larga, pero una línea".
+export const LARGO_MAX_CHAT = 90;
+
 export type Cierre = '.' | '!' | '...';
 
 export interface PlanTanda {
@@ -577,8 +593,8 @@ function baraja<T>(xs: T[], rnd: () => number): T[] {
  *    los cinco, en cualquier sitio, y pueden coincidir con el emoji ("alguna
  *    puede tener varias vocales y también emoji o exclamaciones").
  *  · CIERRE: *"nunca veo respuestas con exclamación al final"*. Siempre una sin
- *    emoji acaba en "!", a menudo otra en "...", y a veces una con emoji lleva
- *    "!" delante del emoji. Nunca mas de dos "!".
+ *    emoji acaba en "!" y a menudo otra en "...". Los del emoji acaban en el
+ *    emoji, sin "!" delante (Iker, 01/10: "o exclamación, o emoji").
  */
 export function planTanda(n: number, rnd: () => number = Math.random): PlanTanda {
   const idx = Array.from({ length: n }, (_, i) => i);
@@ -597,8 +613,8 @@ export function planTanda(n: number, rnd: () => number = Math.random): PlanTanda
   const sinEmoji = baraja(idx.filter((i) => !conEmoji.has(i)), rnd);
   if (sinEmoji.length) cierres[sinEmoji[0]] = '!';
   if (sinEmoji.length > 1 && rnd() < 0.65) cierres[sinEmoji[1]] = '...';
-  const conEmojiBaraj = baraja([...conEmoji], rnd);
-  if (conEmojiBaraj.length && rnd() < 0.4) cierres[conEmojiBaraj[0]] = '!';
+  // ⛔ Y NUNCA "!" EN UNO CON EMOJI (Iker, 01/10, captura: "...del equipo de
+  // ventas! 🔥"): o exclamacion, o espacio y emoji ("grabado 🙌").
   return { conEmoji, conAlargada, cierres };
 }
 

@@ -23,6 +23,7 @@ import {
   estirarUna,
   esEstirada,
   desestirarTodo,
+  pulirTrasAlargada,
 } from './replyGenerator';
 import {
   esPostDeEvento,
@@ -50,6 +51,7 @@ import {
   quitarExactamente,
   inglesColado,
   conservarMayuscula,
+  LARGO_MAX_CHAT,
 } from './variedadComentarios';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
@@ -460,7 +462,7 @@ REGISTER: every comment is SUPPORTIVE and hangs on the CONCRETE part of the post
 
 ★ ⛔⛔ CADA UNO, UNA IDEA DISTINTA, Y NINGUNO REPITE LA TESIS DEL POST (Iker, 2026-10-01): "siempre hablan de lo mismo, necesito conceptos más originales". En "Las 10" de Castilla-La Mancha, 4 de 5 dijeron con otras palabras la idea central del post ("el foco va a las grandes ciudades", "no aparece en ningún titular", "pedidos que nadie contaba", "los números siempre me pillan por sorpresa"). La idea central YA LA DICE EL POST: repetirla cinco veces es lo que hace que los cinco suenen a la misma mano. Cada comentario va de SU angulo asignado y de nada mas. Como mucho UNO de los ${n} puede rozar la idea central, y con un detalle propio.
 
-LENGTH: entre 50 y 180 caracteres, MAX 2 lines. ⛔ NUNCA por debajo de 8 palabras: "Qué post más necesario." salio en una tanda y Iker lo tumbo, "demasiado corto, no aporta absolutamente nada". Corto vale, vacio no: hasta el mas breve nombra algo concreto del post. And vary the length across the ${n}: if they are all the same size they read as one template.
+LENGTH: entre 40 y ${LARGO_MAX_CHAT} caracteres, en UNA sola linea y UNA frase (Iker, 2026-10-01: uno de 107 caracteres caia a una segunda linea en el Chat, y "siempre queremos comentarios cortos en una línea, una línea larga, pero una línea"). ⛔ NUNCA por debajo de 8 palabras: "Qué post más necesario." salio en una tanda y Iker lo tumbo, "demasiado corto, no aporta absolutamente nada". Corto vale, vacio no: hasta el mas breve nombra algo concreto del post. And vary the length across the ${n}: if they are all the same size they read as one template.
 
 ★ FIVE DIFFERENT PEOPLE WILL POST THESE. This is the rule everything else hangs off. Each comment is pasted by a DIFFERENT human being into the same thread, under their own name and face. If a reader scrolls the comments and feels they were all written by the same hand, the whole thing backfires and looks coordinated. So vary the length, the opening move, the punctuation and the energy between them, ALWAYS inside a casual register: one more excited, one more dry, one with a small personal aside. ⚠️ This used to say "vary the level of formality", and that is how formal ones crept in.
 
@@ -560,7 +562,7 @@ ${peloteo ? `
 ` : ''}${fase ? `
 ★ ESTE POST ES DE NUESTRO EVENTO (Iker, 2026-09-24). Los ${n} comentarios van del evento. ${textoFase(fase)} Un comentario que solo reflexiona sobre la idea del post y no nombra ni el evento, ni el orgullo, ni las ganas NO VALE. Los pegan compañeros de la misma empresa: nunca "vuestro", "habéis", "contáis" ni "el equipo"; el evento en primera persona del plural o hablandole a la persona.
 ` : ''}
-TASK: Write exactly ${n} supportive comments, each between 50 and 180 chars, each ≤ 2 lines, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image. Cada comentario respeta EL ANGULO, EL ARRANQUE Y EL CIERRE de su numero.
+TASK: Write exactly ${n} supportive comments, each between 40 and ${LARGO_MAX_CHAT} chars, ONE line and ONE sentence each, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image. Cada comentario respeta EL ANGULO, EL ARRANQUE Y EL CIERRE de su numero.
 
 Return JSON only: { "comments": ["...", "..."] }`;
 
@@ -637,7 +639,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (criticaNuestroPost(c) ? 'deja mal a nuestra propia publicacion' : null) ||
           (aperturaHueca(c) ? 'peloteo hueco de apertura' : null) ||
           comentarioVacio(c) ||
-          (c.length > 190 ? `mide ${c.length} caracteres y el tope es 180: una idea, una o dos frases` : null) ||
+          (c.length > LARGO_MAX_CHAT ? `mide ${c.length} caracteres y el tope es ${LARGO_MAX_CHAT}: tiene que caber en UNA linea del Chat, quita una idea` : null) ||
           (cifraNueva(c, safePostContent) ? `da una cifra que no esta en el post ("${cifraNueva(c, safePostContent)}")` : null) ||
           (nombreAjeno(c, safePostContent, '', [input.creatorName])
             ? `nombra "${nombreAjeno(c, safePostContent, '', [input.creatorName])}", que no sale en el post: del post, solo lo que pone`
@@ -811,7 +813,8 @@ Return JSON only: { "comments": ["...", "..."] }`;
     conAlargada[k] = j >= 0 ? estirarUna(conAlargada[k], 2) : forzarEstirada(conAlargada[k], 2, [...palabraDe.values()][0]);
   }
   return conAlargada.map((r, i) => {
-    const cerrado = pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i]));
+    // Al final, ni coma ni mayuscula detras de la alargada (Iker, 01/10).
+    const cerrado = pulirTrasAlargada(pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i])), safePostContent, [input.creatorName]);
     return conEmoji.has(i) ? ponerEmojiAlFinal(cerrado, emojiDe.get(i)) : cerrado;
   });
 }

@@ -610,7 +610,7 @@ CS_ANCLA = (r'\b(cliente|clientes|soporte|atenci[oó]n al cliente|ticket|tickets
 # su gancho vuelve a exigir ancla de ventas como el de los jefes.
 DISENO_ANCLA = (r'\b(dise[ñn]\w*|pantallas?|bot[oó]n|botones|interfaz|interfaces'
                 r'|producto|usuari[oa]s?|experiencia|bocetos?|prototipos?|flujos?'
-                r'|pulsar|pulsa|clics?)\b')
+                r'|pulsar|pulsa|clics?|dibuj\w+)\b')
 # §2.3 — estrechan el alcance, FUERA del hook. Lista canónica: gana a la de
 # "términos naturalizados" de brand-voice §2, que decía lo contrario. El ICP de
 # aboutme desempata: lleva vendiendo desde antes de que existiera Salesforce.

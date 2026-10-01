@@ -139,6 +139,8 @@ El hook es la línea más importante. Si no funciona, no se lee el cuerpo.
 |---|---|
 | `con la placa de 100.000 seguidores en la mano` | `con el trípode montado en el salón` |
 
+**⛔ HUMILDE NO ES DESGANADO (Iker, 2026-10-01).** En el gancho de Ángela (`…y otra vez me tocó a mí 🙈`) la humildad se pasó de frenada: `me tocó`, `otra vez me toca` y `siempre yo` se leen como **obligación, cansancio o que no le apetecía**, y de algo de lo que la persona está orgullosa. La versión humilde rebaja el MÉRITO (sorpresa, nervios, `jamás pensé que`), nunca las GANAS. Test: ¿se puede leer que el protagonista no quería estar ahí? Si sí, se cambia.
+
 **Y la credencial no se pierde, se MUEVE:** al cuerpo si hace falta, o a la foto. **La foto no presume, porque no lo dice: lo enseña**, y encima así paga el bucle que abre el gancho en vez de repetirlo (`§2.0c-VISUAL`).
 
 **⚠️ LA EXCEPCIÓN ES UNAI, Y SOLO UNAI (Iker, 2026-09-30):** en su cuenta (y en la página de empresa cuando va con su tono) el gancho va **a lo grande**: la versión grandiosa de la misma escena verdadera, dicha con voz sobria, sin inventar y sin compararse con nadie. Condiciones enteras en `brand-voice §1b` (`UNAI QUIERE EL GANCHO GRANDIOSO`). En el resto de cuentas, esta sección tal cual.

@@ -176,6 +176,14 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 
 **Y si es global, se dice en la entrega.** Una línea: *"esto lo he metido en `global` porque afecta a todos los pilares"*. Así Iker puede corregir la decisión antes de que envejezca dentro del sitio equivocado.
 
+## 🔴🔴 0c-TER · UN FORMATO NUEVO QUE COMPARTE MOTOR CON UNO VALIDADO HEREDA SU RECETA ENTERA (Iker, 2026-10-01) — GLOBAL
+
+**El caso:** "Las 10" (las 10 empresas de una región en una orla de logos) es un peloteo regional, igual que el mapa. Yo le quité al gancho `exporta` y la comparación con un país "para no canibalizar el mapa", y al cuerpo le resumí el bloque de números en una línea y le quité la anáfora. Iker: *"si sabemos que eso funciona, lo copiamos y ya está. ¿Para qué vamos a arriesgar con un gancho nuevo?"* y *"lo inteligente va a ser que copies todos los elementos, todos los bloques, toda la psicología"*.
+
+**La regla:** antes de escribir un formato nuevo, pregúntate **qué formato validado comparte su MOTOR** (aquí: el orgullo regional) y **copia su receta entera**, gancho y cuerpo. Lo nuevo es la REPRESENTACIÓN (la imagen), que además ya diferencia el post de un vistazo. Lo que se renueva en cada post es lo de siempre: concepto, clichés, país, frase-rabia y verbo. **Quitar una pieza validada para "diferenciar" es una hipótesis sin dato, y no entra** (`§0c`).
+
+**Dónde aplica, y por eso es global:** cualquier pilar que mañana cambie de imagen o de soporte (un despiece de otro sector, una tarjeta de un meme, un vídeo de un mapa) arrastra la receta del pilar del que sale.
+
 ## ⭐ 0c · MIS DEDUCCIONES NO ENTRAN EN LAS RECETAS SIN QUE IKER LAS APRUEBE (Iker, 2026-07-27)
 
 **El fallo real:** el 21-jul observé que un prompt de imagen que funcionó estaba escrito en líneas sueltas, deduje que ESA era la forma correcta y lo escribí en `images §0i-3` **junto a las reglas de Iker, como si fuera una de ellas**. Encima creé una contradicción con su regla de siempre (párrafo único) que arrastré seis días. Cuando lo vio: *"yo eso no te lo he dicho en la vida, ¿alguien ha hecho un commit?"*.

@@ -3666,6 +3666,27 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             # GANCHO DEL PELOTEO, igual que en mapa y despiece. Aqui ponia
             # "SIN la comparacion-pais" y era criterio mio sin dato: Iker lo
             # tumbo el mismo dia ("si sabemos que eso funciona, lo copiamos").
+            # ---------- "LAS 10": EL CUERPO TAMBIEN ES EL DEL MAPA (Iker, 2026-10-01) ----------
+            # La v2 del primer caso resumio el bloque de numeros en UNA linea y no
+            # llevaba la anafora de negacion: Iker lo echo en falta. Se mecaniza
+            # aqui y no en el mapa para no reabrir el historico del mapa.
+            _nums = [l for l in cuerpo.splitlines() if re.match(r'^\s*[1-3]\.\s', l)]
+            _con_fuente = [l for l in _nums if re.search(r'\([^)]*[A-Za-zÁÉÍÓÚ][^)]*\)\s*\.?\s*$', l)]
+            chk(len(_nums) >= 3 and len(_con_fuente) >= 3,
+                'LAS 10: bloque de 3 NUMEROS con su fuente, como el mapa (§4.3-LAS10 punto 5)',
+                f'{len(_nums)} lineas numeradas, {len(_con_fuente)} con fuente entre parentesis al final. '
+                'El molde: 1. gente que vende X · 2. el pais con N veces mas gente se queda en Y · '
+                '3. un dato de estructura o crecimiento. Y debajo, la linea resumen')
+            _anaf = re.search(r'^No (?:paga|pagan)\b.*\n(?:No|Ni)\b', cuerpo, re.M | re.I)
+            chk(bool(_anaf), 'LAS 10: anafora de negacion con cliches, como el mapa (§4.3-LAS10 punto 11)',
+                'falta el "No pagan las nominas X. / No las paga Y. / Ni Z." con cliches del CUERPO: '
+                'es lo que da el merito sin caer en el eje "callado"')
+            _desde = re.findall(r',\s+desde\s+[A-ZÁÉÍÓÚ]', cuerpo)
+            chk(len(_desde) >= 2, 'LAS 10: productos de casa con su PUEBLO (§4.3-LAS10 punto 10)',
+                f'{len(_desde)} lineas "[producto de casa], desde [pueblo]". Salen de las propias fichas', aviso=True)
+            _callado = re.search(EJE_CALLADO, cuerpo, re.I)
+            chk(not _callado, 'LAS 10: sin el eje "callado" (§4.2 Paso 3.5)',
+                f'"{_callado.group(0)}": con las EMPRESAS de protagonistas vale lo del mapa' if _callado else '')
             chk(False, 'ENTREGA: la guia de menciones de "Las 10" va en TABLA, EMPRESA primero',
                 'columnas: # · Empresa (enlace) + sede · Persona (enlace) · Cargo · Ultima actividad '
                 '· Logro con su fuente. La empresa primero, que es el orden del cuerpo en este pilar '

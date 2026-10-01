@@ -38,7 +38,7 @@ ni una. Tres cosas nuevas, y las tres son opcionales para no romper lo de antes:
   --titulo          sustituye el texto del título del PSD. La palabra entre
                     corchetes va en el color de acento del PSD (el naranja):
                     "LAS 10 QUE LEVANTAN|LA INDUSTRIA [XXX]" (el naranja, en la region).
-  --aro N           aro berenjena de N px alrededor de cada logo (4 con --logos).
+  --aro N           aro berenjena de N px alrededor de cada logo (5 con --logos: el grosor del trazo de los nombres).
   (siempre)         título y nombres se AJUSTAN para no salirse de la franja ni
                     del lienzo: un gentilicio largo (CASTELLANOMANCHEGA) o un
                     nombre de empresa largo ya no se cortan por el borde.
@@ -269,6 +269,10 @@ MARGEN_VERTICAL = 26
 # tanto sobre el cuerpo del PSD; y por debajo de ARRIBA_MIN del PSD la de
 # arriba ya no se lee y ese corte no vale.
 ESCALERA = 0.85
+# Aire EXTRA entre las dos lineas del titulo, sobre el interlineado del PSD
+# (Iker, 2026-10-01: con la de abajo mas grande "lo veo muy apretado", y pidio
+# entre 2 y 5 px). Con cuerpos distintos el salto del PSD se queda corto.
+INTERLINEA_EXTRA = int(__import__('os').environ.get('ORLA_INTERLINEA', 4))
 ESCALA_MAX_ABAJO = 1.2
 ARRIBA_MIN = 0.55
 # Un renglon del titulo no acaba nunca en una de estas: se leeria cortado.
@@ -368,7 +372,7 @@ def dibujar_titulo_ajustado(img: Image.Image, titulo: dict, texto: str, ruta_fue
         """Mayusculas de la primera + (salto - mayusculas) de cada una de arriba + mayusculas de la siguiente."""
         alto = cap(cs[0])
         for a, b in zip(cs, cs[1:]):
-            alto += (a * ratio_salto - cap(a)) + cap(b)
+            alto += (a * ratio_salto - cap(a)) + INTERLINEA_EXTRA + cap(b)
         return alto
 
     def medir(lns):
@@ -416,7 +420,7 @@ def dibujar_titulo_ajustado(img: Image.Image, titulo: dict, texto: str, ruta_fue
     base = (franja - alto) / 2 + cap(cuerpos[0])
     for i, (linea, c) in enumerate(zip(lineas, cuerpos)):
         if i:
-            base += (cuerpos[i - 1] * ratio_salto - cap(cuerpos[i - 1])) + cap(c)
+            base += (cuerpos[i - 1] * ratio_salto - cap(cuerpos[i - 1])) + INTERLINEA_EXTRA + cap(c)
         f = fuente(c)
         x = titulo['cx'] - ancho(linea, f) / 2
         for s in linea:
@@ -487,7 +491,7 @@ def main() -> int:
     p.add_argument('--logos', action='store_true',
                    help='"LAS 10": la carpeta trae LOGOS de empresa, que entran contenidos en un disco blanco')
     p.add_argument('--aro', type=int, default=None,
-                   help='Grosor en px del aro berenjena alrededor de cada logo (por defecto 4 con --logos, 0 lo quita)')
+                   help='Grosor en px del aro berenjena alrededor de cada logo (por defecto 5 con --logos, 0 lo quita)')
     p.add_argument('--titulo',
                    help='Texto del título; "|" parte la línea y [palabra] va en el color de acento. '
                         'Ej: "LAS 10 QUE LEVANTAN|LA INDUSTRIA [XXX]"')
@@ -579,7 +583,10 @@ def main() -> int:
         print(f"  ({hueco['x0']:4d},{hueco['y0']:4d})  {foto.width}x{foto.height} → {ancho}x{alto}  x{escala:.2f}  {fichero}{nota}")
 
     final = Image.alpha_composite(capa, plantilla)
-    grosor_aro = (4 if a.logos else 0) if a.aro is None else a.aro
+    # 5 px (Iker, 2026-10-01: "un poco mas gordo"): es el trazo del ExtraBold de los
+    # nombres de debajo, asi aro y texto pesan igual. A 4 se quedaba fino; a 6 los
+    # logos que ya son un disco de color (Ajusa, Julian Soler) parecian llevar doble aro.
+    grosor_aro = (5 if a.logos else 0) if a.aro is None else a.aro
     if grosor_aro:
         berenjena_aro = plantilla.getpixel((12, 4))
         for hueco in huecos:

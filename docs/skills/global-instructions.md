@@ -1688,6 +1688,26 @@ En esta/eso sí [lo mismo] y [la escasez]:      <- la excepción, cosida con dem
 ```
 **Y las tres palabras que la delatan cuando está bien hecha:** un **`no`** en la línea 1, un **`sí`** en la 2, y un **demostrativo** que las cose. Si falta el `sí`, la línea 2 informa en vez de resolver — que es exactamente el fallo del 27/08 (`A esa sala solo entran 80 personas`: recogía la sala pero no daba la vuelta).
 
+##### ⛔⛔ 4.4b-POSIBLE · LA NORMA DE LA LÍNEA 1 ES LO QUE FALLA EN EL SECTOR, NUNCA QUE SEA IMPOSIBLE (Iker, 2026-10-01)
+
+> **Iker, sobre el ninja de la historia de Asier del 01/10:** *"¿estás dando a entender que es imposible saber quién te puede comprar? Yo afilaría más dando a entender con el spam ninja esa solución del punto de dolor que nosotros sí tenemos en nuestra herramienta"*.
+
+**El fallo:** `Un filtro por sectores nunca ve a quien te compraría.` / `Esa empresa sí te la damos, por lo que es de verdad:`. Pasaba 65/65 y cumplía la plantilla de arriba, pero el `nunca` se pegó al OBJETO (`a quien te compraría`) y no a la HERRAMIENTA. Leído rápido, la línea 1 dice que nadie puede saber quién compra, y entonces la línea 2 parece prometer algo imposible.
+
+**LA REGLA:** la línea 1 confirma **lo que hace mal la forma de siempre** (es fácil, lo hace cualquiera, te da X y no Y). **Nunca afirma que el resultado sea inalcanzable.** Y la línea 2 dice **cómo lo hacemos nosotros**, con las palabras de la página de destino.
+```
+⛔ Un filtro por sectores nunca ve a quien te compraría.        <- suena a imposible
+✅ Filtrar por sector lo hace cualquiera, acertar ya no.         <- lo fácil frente a lo difícil
+   Eso lo hacemos empresa a empresa y con quien decide: {link}  <- la solución, explícita
+```
+**El test:** lee la línea 1 sola. ¿Podría pensar el lector que *nadie* lo consigue? Si sí, el `no` o el `nunca` está colgado del sitio equivocado.
+
+**Banco de lo que promete la web (leído en `neety.com` y `/solicitar-demo` el 01/10).** Sirve para decidir de qué habla la línea 2; la frase sigue saliendo del gancho:
+- *"Detecta a quién vender, cuándo hacerlo y qué acción tomar"* (Detecta · Prioriza · Actúa).
+- *"El software que detecta las empresas que encajan de verdad con lo que vendes"*, *"segmentas con tu criterio técnico"* y *"Neety puntúa la confianza en cada empresa"*.
+- *"Da con quién decide dentro"* y *"el siguiente paso de cada cuenta y por qué canal"*.
+- ⛔ **Sigue fuera del ninja:** la señal o la intención de compra como argumento (`§4.4b-ORDEN`, 15 empresas la objetan), el automatismo y el volumen. **Un ninja vende un eslabón** (`§4.4b-CADENA`): empresa con acierto **y** persona es lo que más convierte; el canal y el momento se quedan para la demo.
+
 
 ##### ⛔⛔ 4.4b-ANTECEDENTE · EL DEMOSTRATIVO DE LA BISAGRA NO PUEDE TENER DOS ANTECEDENTES POSIBLES (Mario, 2026-08-27)
 

@@ -68,7 +68,7 @@ SUJETO_ES_MODELO = (r'(claude\s*(opus|sonnet|haiku)?\s*\d|gpt-?\d|gemini\s*\d'
 # §4.2 Paso 1 — En el peloteo el prejuicio SIEMPRE lo dice otro: "la ven como…",
 # "nadie habla de…". Sin ese sujeto, el desprecio se lee como NUESTRO y ofende a
 # quien queriamos que comentara defendiendo lo suyo (Iker, 2026-07-30).
-SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan))'
+SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de))'
 # 2026-10-01, "Las 10" de Castilla-La Mancha (Iker): el prejuicio tambien lo dice
 # OTRO cuando es un GESTO de la gente en impersonal ("solo paran a por queso y
 # gasolina"): es el desprecio de la region de paso sin ponerlo en nuestra boca.
@@ -120,7 +120,7 @@ FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|pa
                r'|y a portugal'
                # 2026-10-01, "Las 10" de Castilla-La Mancha (Iker): la region de paso
                # se despacha con la parada de la autovia, el queso y la gasolinera.
-               r'|y gasolina)')
+               r'|y gasolina|y la gasolinera|y el [aá]rea de servicio)')
 
 # §4.4b — FRASES DEL SPAM NINJA QUEMADAS. El dolor es SIEMPRE el mismo (dar con
 # el cliente ideal, empresa y persona), pero la FORMA rota en cada post. Iker,
@@ -3152,10 +3152,13 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         ('%s es masculino: el sirimiri, el txakoli, el pacharan, el txoko, el caserio' % sorted(set(g.lower() for g in _gm))) if _gm else '')
     # ---------- GANCHO DEL PELOTEO (§4.2 Paso 1) ----------
     # Mecanizado el 2026-07-30 porque como criterio se me olvidaba.
-    # SOLO mapa y objeto. "Los 10" NO usa el gancho de prejuicio regional: su
-    # foco es LA PERSONA, el comercial invisible (§4.3). Aplicarselo tumbaba los
-    # cuatro "Los 10" del historico, incluido el 4.83x.
-    if pilar in ('mapa', 'objeto'):
+    # Mapa, objeto y "LAS 10". "Los 10" de PERSONAS no usa el gancho de prejuicio
+    # regional: su foco era la persona, el comercial invisible (§4.3-OLD), y
+    # aplicarselo tumbaba los cuatro del historico, incluido el 4.83x. "LAS 10"
+    # SI (Iker, 2026-10-01): las protagonistas son las EMPRESAS de la region,
+    # asi que es un peloteo regional con otra imagen y su gancho es el del mapa
+    # con sus cuatro inamovibles. La orla ya dice que no es un mapa.
+    if pilar in ('mapa', 'objeto') or LAS10:
         chk(bool(re.search(SUJETO_AJENO, hook_txt, re.I)),
             'GANCHO: el prejuicio lo dice OTRO, no nosotros (§4.2 Paso 1)',
             'el hook afirma el desprecio en seco y se lee como NUESTRO. Necesita un sujeto '
@@ -3654,34 +3657,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 'fichero viejo ahi es peor que ninguno, porque la siguiente region se clona de el. '
                 'La copia del Escritorio se queda: esto es el archivo del pilar', aviso=True)
         else:
-            # ---------- "LAS 10": EL GANCHO (Iker, 2026-10-01, n=0) ----------
-            # Las empresas son las protagonistas, igual que en el mapa y el
-            # despiece, asi que el motor del gancho es el del ORGULLO REGIONAL:
-            # el prejuicio dicho por otro + 2 cliches + frase-rabia. Lo que NO
-            # entra es la firma del mapa (`exporta mas que [PAIS] entero`): es lo
-            # que hace que tres peloteos de la misma region no se canibalicen.
-            # Todo de AVISO: el pilar no tiene ni un post publicado.
-            chk(bool(re.search(SUJETO_AJENO, _g10, re.I)),
-                'LAS 10: el prejuicio lo dice OTRO, no nosotros (§4.3, de §4.2 Paso 1)',
-                'en el mapa y el despiece es fallo duro: sin sujeto ajeno el desprecio se lee como '
-                'NUESTRO y ofende a quien tenia que defender lo suyo', aviso=True)
-            chk(bool(re.search(FRASE_RABIA, _g10, re.I)),
-                'LAS 10: lleva frase-rabia que despacha la region (§4.3)',
-                'es el intensificador del peloteo: sin el, el local no salta a defender', aviso=True)
-            _cmp = re.search(r'm[aá]s (?:\w+ ){0,4}que .+\benter[oa]s?\b', _g10, re.I)
-            chk(not _cmp, 'LAS 10: sin la comparacion-pais del mapa (§4.3)',
-                'el "mas que [PAIS] entero" es la firma del MAPA; aqui el remate es lo que hacen '
-                'esas empresas (vender, crecer)' if _cmp else '', aviso=True)
-            _conc = [] if historico else sorted(c for c in CONCEPTO_QUEMADO if c in _g10.lower() and quemada(c, CONCEPTO_QUEMADO[c], VENTANA_IDENTIDAD_DIAS, cuenta))
-            chk(not _conc, 'LAS 10: el concepto no esta usado (§4.0d punto 7)',
-                ' · '.join(f'"{c}" fue {CONCEPTO_QUEMADO[c]}' for c in _conc))
-            _rab = [] if historico else sorted(f for f in FRASE_RABIA_USADA if f in _g10.lower() and quemada(f, FRASE_RABIA_USADA[f], VENTANA_IDENTIDAD_DIAS, cuenta))
-            chk(not _rab, 'LAS 10: la frase-rabia no esta usada (§4.0d punto 7)',
-                ' · '.join(f'"{f}" fue {FRASE_RABIA_USADA[f]}' for f in _rab))
-            _vq = [] if historico else sorted(v for v in VERBO_PREJUICIO_QUEMADO
-                     if re.search(r'\b' + v + r'\b', _g10, re.I) and quemada(v, VERBO_PREJUICIO_QUEMADO[v], VENTANA_IDENTIDAD_DIAS, cuenta))
-            chk(not _vq, 'LAS 10: el verbo del prejuicio no esta quemado (§4.0d punto 7)',
-                ' · '.join(f'"{v}" ya salio en {VERBO_PREJUICIO_QUEMADO[v]}' for v in _vq))
+            # ---------- "LAS 10": EL GANCHO ES EL DEL MAPA (Iker, 2026-10-01) ----------
+            # Los cuatro inamovibles (sujeto ajeno, 2 cliches, `exporta`, pais
+            # concreto) y sus listas de quemadas los comprueba el bloque del
+            # GANCHO DEL PELOTEO, igual que en mapa y despiece. Aqui ponia
+            # "SIN la comparacion-pais" y era criterio mio sin dato: Iker lo
+            # tumbo el mismo dia ("si sabemos que eso funciona, lo copiamos").
             chk(False, 'ENTREGA: la guia de menciones de "Las 10" va en TABLA, EMPRESA primero',
                 'columnas: # · Empresa (enlace) + sede · Persona (enlace) · Cargo · Ultima actividad '
                 '· Logro con su fuente. La empresa primero, que es el orden del cuerpo en este pilar '
@@ -3692,8 +3673,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 'mejor mapa de la cuenta, que es la otra familia de su gancho', aviso=True)
             chk(False, 'ENTREGA: la ORLA de LOGOS, montada con montar-orla.py --logos y archivada al OK',
                 r'C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\ con el nombre '
-                '"las 10 <region>.png" (minusculas, sin tildes ni eñes). Titulo: "LAS 10 QUE [LEVANTAN]|LA '
-                'INDUSTRIA XXX". El nombre de cada empresa en la orla es su nombre de MARCA (el que se lee en '
+                '"las 10 <region>.png" (minusculas, sin tildes ni eñes). Titulo: "LAS 10 QUE LEVANTAN|LA '
+                'INDUSTRIA [XXX]", en dos lineas y el naranja en la region. El nombre de cada empresa en la orla es su nombre de MARCA (el que se lee en '
                 'su logo), sin S.A. ni tagline; la @ del post sigue siendo el nombre exacto de LinkedIn', aviso=True)
         # ⛔⛔ CADA FICHA LLEVA LAS DOS MENCIONES, SIEMPRE (Iker, 2026-09-15).
         # Casuistica nueva: cuando el NOMBRE de LinkedIn de la persona ya incluye
@@ -3732,7 +3713,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                      r'|empresas|habitantes|empleos|puestos de trabajo|toneladas|km2|km²)'
                      r'|(pib|factura|facturaci[oó]n|exporta|exportaci[oó]n)\D{0,25}\d'
                      r'|m[aá]s que \w+ enter[oa])')
-        _fuera = [l for l in cuerpo.splitlines()[1:]
+        # "LAS 10" (Iker, 2026-10-01) lleva el gancho del MAPA, con su "mas que
+        # [PAIS] entero", asi que el cuerpo puede respaldar esa comparacion con su
+        # fuente, igual que el mapa. La regla era de "Los 10" de personas.
+        _fuera = [] if LAS10 else [l for l in cuerpo.splitlines()[1:]
                   if l.strip() and not re.match(r'^\s*→\s', l)
                   and re.search(_REGIONAL, l, re.I)
                   and 'recursos.neety.com' not in l]

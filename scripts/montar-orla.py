@@ -37,7 +37,8 @@ ni una. Tres cosas nuevas, y las tres son opcionales para no romper lo de antes:
                     (el `contener` de montar-llanta.py, el mismo de la llanta).
   --titulo          sustituye el texto del título del PSD. La palabra entre
                     corchetes va en el color de acento del PSD (el naranja):
-                    "LAS 10 QUE [LEVANTAN]|LA INDUSTRIA XXX".
+                    "LAS 10 QUE LEVANTAN|LA INDUSTRIA [XXX]" (el naranja, en la region).
+  --aro N           aro berenjena de N px alrededor de cada logo (4 con --logos).
   (siempre)         título y nombres se AJUSTAN para no salirse de la franja ni
                     del lienzo: un gentilicio largo (CASTELLANOMANCHEGA) o un
                     nombre de empresa largo ya no se cortan por el borde.
@@ -263,6 +264,30 @@ def sustituir_region(texto: str, region: str) -> str:
 # del PSD y quedo a 32-35 px de cada borde, y Iker la dio por buena.
 MARGEN_TITULO = 32
 MARGEN_VERTICAL = 26
+# Un renglon del titulo no acaba nunca en una de estas: se leeria cortado.
+NO_CIERRAN_LINEA = {'LA', 'LAS', 'EL', 'LOS', 'QUE', 'DE', 'DEL', 'Y', 'A', 'AL', 'EN', 'CON', 'POR', 'PARA', 'SU', 'SUS'}
+
+
+def dibujar_aro(img: Image.Image, hueco: dict, grosor: int, color) -> None:
+    """Aro berenjena alrededor del hueco del logo (Iker, 2026-10-01).
+
+    Un disco blanco sobre el menta claro no se despega del fondo: los logos se
+    funden. Es lo mismo que ya decidio Iker en la llanta el 30/07 (`images
+    §0a-novena`, "un logo blanco sobre el menta claro no se despega"). Va FUERA
+    del hueco, pegado a su borde, para no comerle sitio al logo, y fino: es un
+    marco de orla, no un adorno. Se dibuja a 4x y se reduce para que el borde
+    salga suave.
+    """
+    k = 4
+    x0, y0, x1, y1 = hueco['x0'] - 1, hueco['y0'] - 1, hueco['x1'] + 2, hueco['y1'] + 2
+    m = grosor + 2
+    w, h = x1 - x0 + 2 * m, y1 - y0 + 2 * m
+    capa = Image.new('L', (w * k, h * k), 0)
+    ImageDraw.Draw(capa).ellipse(
+        ((m - grosor) * k, (m - grosor) * k, (w - m + grosor) * k, (h - m + grosor) * k), fill=255)
+    ImageDraw.Draw(capa).ellipse((m * k, m * k, (w - m) * k, (h - m) * k), fill=0)
+    capa = capa.resize((w, h), Image.LANCZOS)
+    img.paste(Image.new('RGBA', (w, h), tuple(color[:3]) + (255,)), (x0 - m, y0 - m), mask=capa)
 
 
 def _franja_alto(img: Image.Image) -> int:
@@ -294,20 +319,20 @@ def _lineas_titulo(texto: str, base_color, acento):
 
 
 def dibujar_titulo_ajustado(img: Image.Image, titulo: dict, texto: str, ruta_fuente: str) -> str:
-    """Dibuja el titulo SIN salirse de la franja ni del lienzo (Iker, 2026-10-01).
+    """Dibuja el titulo en DOS lineas como mucho, sin salirse de la franja (Iker, 2026-10-01).
 
-    Parte del cuerpo del PSD y solo lo baja si hace falta. Prueba dos montajes y
-    se queda con el de letra mas grande: (A) las lineas tal cual vienen y (B) la
-    linea mas ancha partida antes de su ultima palabra (`LA INDUSTRIA` /
-    `CASTELLANOMANCHEGA`). B solo gana si da al menos un 8% mas de cuerpo: dos
-    lineas es el formato que ya conoce el lector. El bloque se centra en vertical
-    en la franja, que es donde lo colocaba el diseñador (127 px de centro en una
-    franja de 256).
+    Iker, viendo `LAS 10 QUE LEVANTAN / LA INDUSTRIA / CASTELLANOMANCHEGA`: tres
+    lineas no, se baja la letra hasta que quepa en dos. Asi que se prueban TODOS
+    los cortes en dos lineas y gana el que deja la letra mas grande, que es el
+    mas equilibrado. Un renglon nunca acaba en articulo, relativo ni preposicion
+    (`LAS 10 QUE LEVANTAN LA / INDUSTRIA` se lee roto). El corte que trae `|` solo
+    gana si empata (3%): con un gentilicio corto (`ASTURIANA`) es justo el suyo.
+    El cuerpo nunca pasa del PSD. El bloque se centra en vertical en la franja.
     """
     colores = [t['color'] for t in titulo['tramos']]
     base_color = colores[0]
     acento = next((c for c in colores if c != base_color), base_color)
-    lineas = _lineas_titulo(texto, base_color, acento)
+    lineas_pedidas = _lineas_titulo(texto, base_color, acento)
     d = ImageDraw.Draw(img)
     franja = _franja_alto(img)
     ancho_max = img.width - 2 * MARGEN_TITULO
@@ -331,18 +356,35 @@ def dibujar_titulo_ajustado(img: Image.Image, titulo: dict, texto: str, ruta_fue
             cuerpo *= limite / alto
         return cuerpo
 
-    opciones = [(medir(lineas), lineas)]
-    i_ancha = max(range(len(lineas)), key=lambda i: ancho(lineas[i], ImageFont.truetype(ruta_fuente, 40)))
-    ultima = lineas[i_ancha]
-    txt = ''.join(s['txt'] for s in ultima).strip()
-    if ' ' in txt and len(ultima) == 1:
-        cabeza, cola = txt.rsplit(' ', 1)
-        partida = lineas[:i_ancha] + [[{'txt': cabeza, 'color': ultima[0]['color']}],
-                                      [{'txt': cola, 'color': ultima[0]['color']}]] + lineas[i_ancha + 1:]
-        opciones.append((medir(partida), partida))
-    cuerpo, lineas = opciones[0]
-    if len(opciones) > 1 and opciones[1][0] >= opciones[0][0] * 1.08:
-        cuerpo, lineas = opciones[1]
+    # Palabras sueltas con su color, para poder cortar por cualquier sitio.
+    palabras = []
+    for linea in lineas_pedidas:
+        for seg in linea:
+            palabras += [(w, seg['color']) for w in seg['txt'].split()]
+    corte_pedido = len(''.join(s['txt'] for s in lineas_pedidas[0]).split()) if len(lineas_pedidas) == 2 else None
+
+    def montar(trozo):
+        """Palabras -> tramos, juntando las seguidas del mismo color."""
+        segs = []
+        for i, (w, c) in enumerate(trozo):
+            txt = w if i == 0 else ' ' + w
+            if segs and segs[-1]['color'] == c:
+                segs[-1]['txt'] += txt
+            else:
+                segs.append({'txt': txt, 'color': c})
+        return segs
+
+    opciones = []
+    if len(palabras) == 1 or len(lineas_pedidas) == 1:
+        opciones.append((medir([montar(palabras)]), [montar(palabras)], True))
+    for k in range(1, len(palabras)):
+        if palabras[k - 1][0].upper() in NO_CIERRAN_LINEA:
+            continue
+        lns = [montar(palabras[:k]), montar(palabras[k:])]
+        opciones.append((medir(lns), lns, k == corte_pedido))
+    mejor = max(o[0] for o in opciones)
+    pedidas = [o for o in opciones if o[2] and o[0] >= mejor * 0.97]
+    cuerpo, lineas, _ = pedidas[0] if pedidas else max(opciones, key=lambda o: o[0])
 
     f = ImageFont.truetype(ruta_fuente, round(cuerpo))
     salto = cuerpo * ratio_salto
@@ -418,9 +460,11 @@ def main() -> int:
                    help='Se acerca la cara si baja de este múltiplo de la mediana (0.6 por defecto)')
     p.add_argument('--logos', action='store_true',
                    help='"LAS 10": la carpeta trae LOGOS de empresa, que entran contenidos en un disco blanco')
+    p.add_argument('--aro', type=int, default=None,
+                   help='Grosor en px del aro berenjena alrededor de cada logo (por defecto 4 con --logos, 0 lo quita)')
     p.add_argument('--titulo',
                    help='Texto del título; "|" parte la línea y [palabra] va en el color de acento. '
-                        'Ej: "LAS 10 QUE [LEVANTAN]|LA INDUSTRIA XXX"')
+                        'Ej: "LAS 10 QUE LEVANTAN|LA INDUSTRIA [XXX]"')
     a = p.parse_args()
     if a.logos:
         a.sin_encuadre = True   # el detector de caras no pinta nada con un logo
@@ -509,6 +553,12 @@ def main() -> int:
         print(f"  ({hueco['x0']:4d},{hueco['y0']:4d})  {foto.width}x{foto.height} → {ancho}x{alto}  x{escala:.2f}  {fichero}{nota}")
 
     final = Image.alpha_composite(capa, plantilla)
+    grosor_aro = (4 if a.logos else 0) if a.aro is None else a.aro
+    if grosor_aro:
+        berenjena_aro = plantilla.getpixel((12, 4))
+        for hueco in huecos:
+            dibujar_aro(final, hueco, grosor_aro, berenjena_aro)
+        print(f'\naro       : {grosor_aro} px en rgb{tuple(berenjena_aro[:3])} alrededor de cada logo')
 
     # Los nombres. La plantilla los trae como "Nombre" ×10, así que hay que
     # escribirlos encima: es lo ÚNICO que se dibuja sobre la plantilla, y solo

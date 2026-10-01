@@ -89,7 +89,7 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 | | MAPA (`§4.2`) | "LAS 10" (`§4.3`) | DESPIECE (`§4.7`) |
 |---|---|---|---|
 | **Protagonista** | la empresa | la empresa (desde el 01/10; antes, la persona) | la empresa, pieza a pieza |
-| **Gancho** | 4 inamovibles | orgullo regional del mapa SIN la comparación-país (`§4.3-LAS10`, n=0) | los 4 del mapa, con el objeto dentro del remate |
+| **Gancho** | 4 inamovibles | **los 4 inamovibles del mapa**, `exporta más que [PAÍS] entero` incluido (Iker, 01/10, `§4.3-LAS10`) | los 4 del mapa, con el objeto dentro del remate |
 | **Fichas** | 20, bloques de 4 | 10, bloques de 5, `→ @Empresa - @Persona · logro` | 12 exactas, bloques de 4, `→ Pieza: @Empresa - @Persona` |
 | **Imagen** | PamPam | orla de LOGOS | llanta |
 | **Todo lo demás** | ⬇️ tronco común | ⬇️ tronco común | ⬇️ tronco común |
@@ -202,7 +202,7 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 > - **Portada de la WEB del mapa** = captura del propio mapa → **la saca el PROGRAMADOR** (confirmado por él el 2026-07-31).
 > - **Portada de PAMPAM** = foto icónica de la región con licencia libre → **la das TÚ** (Paso 11).
 
-**⛔⛔ LOS CUATRO INAMOVIBLES DEL GANCHO DE PELOTEO (Iker, 2026-07-31). Aplican al MAPA y al DESPIECE. NO a "LOS 10".** Se puede iterar todo lo demás, pero estas cuatro piezas **no se quitan, no se sustituyen y no se mejoran**, por muy punchy que parezca la alternativa:
+**⛔⛔ LOS CUATRO INAMOVIBLES DEL GANCHO DE PELOTEO (Iker, 2026-07-31). Aplican al MAPA, al DESPIECE y, desde el 01/10, a "LAS 10". NO a "LOS 10" de personas.** Se puede iterar todo lo demás, pero estas cuatro piezas **no se quitan, no se sustituyen y no se mejoran**, por muy punchy que parezca la alternativa:
 > 1. **El PREJUICIO dicho por otro** (`la ven`, `la tienen`, `nadie la cuenta`). No se afirma en primera persona.
 > 2. **EXACTAMENTE 2 clichés** de la región.
 > 3. **La palabra `exporta`.** Es lo que ata el pilar a **VENTAS** de forma indirecta: **si alguien exporta es porque VENDE**. Sin ella el post es peloteo bonito que podría subir cualquiera.
@@ -210,7 +210,9 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 >
 > **POR QUÉ ESTÁ AQUÍ EN MAYÚSCULAS: me las cargué dos días seguidos y las dos veces me pareció una mejora.** El **30/07**, en el despiece de Euskadi, cambié el remate de `exporta` por el objeto (*"Y ahí se hace tu coche"*), puse un concepto flojo (*"el sitio de comer"*) y me salté el prejuicio ajeno: **está rindiendo peor**. El **31/07**, en el mapa de Asturias, cambié `exporta más que [PAÍS]` por un shock de producción (*"y aún funde zinc para medio mundo"*) porque el total exportado no daba un titular redondo. **Las dos veces el validador me lo dijo con el fallo "Hook anclado a VENTAS" y las dos veces yo lo despaché como "fallo esperado del pilar".** No lo era: en cuanto volvió `exporta`, el check pasó solo. **Si el validador marca ancla de ventas en un peloteo, es que falta `exporta`. Punto.**
 >
-> **⛔ "LOS 10" QUEDA FUERA, y no por descuido (Iker, 2026-07-31).** Ahí el foco es **LA PERSONA**, el comercial invisible, no la región: su gancho es de otra familia y **el que más alcance nos ha dado no lleva `exporta` ni comparación de país**. Meterle estas cuatro reglas tumbaría los cuatro "Los 10" del histórico, incluido el 4.81x. En ese pilar el listón es otro (`§4.3`). Por eso los checks del validador van sobre `('mapa', 'objeto')` y no sobre `los10`.
+> **🔄 "LAS 10" ENTRA (Iker, 2026-10-01).** En cuanto la protagonista pasó a ser la EMPRESA, el motivo de abajo dejó de existir: es un peloteo regional con otra imagen, y la orla ya dice de un vistazo que no es un mapa. Iker: *"si sabemos que eso funciona, lo copiamos y ya está. ¿Para qué vamos a arriesgar con un gancho nuevo?"*. Mi primera versión lo dejaba fuera "para no canibalizar el mapa", y eso era criterio mío sin un solo dato contra 20 mapas medidos.
+>
+> **⛔ "LOS 10" DE PERSONAS QUEDA FUERA, y no por descuido (Iker, 2026-07-31).** Ahí el foco es **LA PERSONA**, el comercial invisible, no la región: su gancho es de otra familia y **el que más alcance nos ha dado no lleva `exporta` ni comparación de país**. Meterle estas cuatro reglas tumbaría los cuatro "Los 10" del histórico, incluido el 4.81x. En ese pilar el listón es otro (`§4.3`). Por eso los checks del validador van sobre `('mapa', 'objeto')` y no sobre `los10`.
 >
 > **Y si la comparación no sale redonda, se busca mejor, no se quita.** En Asturias di por muerta la comparación creyendo que solo batía a Chipre por un 1,8%, y era falso: **Chipre exporta 4.383 M$ en bienes (OMC, 2024) y Asturias 5.654 M€, casi un 40% más.** El error fue mío al comparar, no del dato. Mecanizado en `validar-post.py` como dos fallos duros.
 
@@ -592,7 +594,7 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 > | protagonista | la persona invisible | **la empresa** |
 > | imagen | orla de CARAS | **orla de LOGOS** (`montar-orla.py --logos`) |
 > | ficha | `→ @Persona - @Empresa · logro` | **`→ @Empresa - @Persona · logro`** |
-> | gancho | 3 inamovibles de persona (puente, gerundio de herida) | **el orgullo regional del mapa: prejuicio dicho por OTRO + clichés + frase-rabia + ancla de ventas, SIN la comparación-país** (es la firma del mapa y lo que hace que los tres no se canibalicen). n=0, así que en el validador va de aviso |
+> | gancho | 3 inamovibles de persona (puente, gerundio de herida) | **EL DEL MAPA, con sus 4 inamovibles** (`§4.2` Paso 1): prejuicio dicho por OTRO · exactamente 2 clichés universales · `exporta` · `más que [PAÍS] entero` con el país verificado (`§4.2` Paso 2) · más la frase-rabia y el concepto doméstico. Fallo duro en el validador, igual que en el mapa. Y el cuerpo **respalda la comparación** en una línea con su fuente (`un 40% más que toda Kenia (ICEX y OMC)`) |
 > | beat de equipo y "la empresa que tapa a la persona" | obligatorios | **no aplican**: no hay persona protagonista |
 > | foto de la persona | obligatoria (sin foto no hay orla) | **no hace falta**: el filtro "sin foto" desaparece y la ficha la deciden el cargo y la actividad |
 >
@@ -600,9 +602,11 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 >
 > **LA IMAGEN, y la plantilla ya sirve sin tocar el PSD:**
 > ```
-> python scripts/montar-orla.py --plantilla ".../PELOTEO REGIONAL/LOS 10/LOS 10 PLANTILLA.psd" --fotos <carpeta 01-…10- de LOGOS> --logos --titulo "LAS 10 QUE [LEVANTAN]|LA INDUSTRIA XXX" --region <GENTILICIO> --fuente ".../BricolageGrotesque-ExtraBold.ttf" --nombres "Marca1 | … | Marca10" --salida ".../las 10 <region>.png"
+> python scripts/montar-orla.py --plantilla ".../PELOTEO REGIONAL/LOS 10/LOS 10 PLANTILLA.psd" --fotos <carpeta 01-…10- de LOGOS> --logos --titulo "LAS 10 QUE LEVANTAN|LA INDUSTRIA [XXX]" --region <GENTILICIO> --fuente ".../BricolageGrotesque-ExtraBold.ttf" --nombres "Marca1 | … | Marca10" --salida ".../las 10 <region>.png"
 > ```
-> - **El título se AJUSTA solo** para no salirse: si el gentilicio no cabe (CASTELLANOMANCHEGA, 1.607 px al cuerpo del PSD contra 1.190 de ancho útil), parte la última línea y baja el cuerpo lo justo. En Castilla-La Mancha quedó en tres líneas a 72,9 px con 25 px de aire arriba y abajo (medido). Los nombres también: la misma letra para los diez, y en dos líneas si uno no cabe.
+> - **⛔ EL TÍTULO VA EN DOS LÍNEAS COMO MUCHO (Iker, 2026-10-01).** La primera versión salió en tres (`LAS 10 QUE LEVANTAN / LA INDUSTRIA / CASTELLANOMANCHEGA`) e Iker: *"podrías haber sido más inteligente y bajar el tamaño de la fuente hasta que ocupa perfectamente dos líneas"*. El script prueba **todos los cortes en dos líneas** y se queda con el que da la letra más grande, sin dejar nunca un renglón acabado en artículo o relativo (`LA`, `QUE`, `DE`…). En Castilla-La Mancha: `LAS 10 QUE LEVANTAN LA INDUSTRIA / CASTELLANOMANCHEGA` a 65,2 px, 37 px a cada lado y 72/71 de aire arriba y abajo (medido). Con un gentilicio corto gana el corte de `|`. Los nombres de debajo: la misma letra para los diez, y en dos líneas si uno no cabe.
+> - **⭐ EL NARANJA VA EN LA REGIÓN, no en el verbo (decidido el 01/10; Iker pidió criterio).** (1) **Regla de la casa** (`images §0h`): la palabra naranja *"cierra el concepto, nunca a mitad de frase"*, y `LEVANTAN` va a mitad. (2) **Es el disparador del motor:** el que se para es el de allí al ver SU región resaltada (efecto de autorreferencia), y ese es el que repostea. `LEVANTAN` sin contexto no le dice nada a nadie, y `LAS 10` ya lo dicen los diez círculos. (3) **Todo en blanco** quita el único punto de parada del título. Con el corte en dos líneas, además, la región va sola en la segunda: una línea entera en naranja. No hay A/B de esto: es regla y psicología, no dato.
+> - **⭐ AROS BERENJENA ALREDEDOR DE CADA LOGO (Iker, 2026-10-01: "los logos se funden con el fondo").** Medido: el disco blanco sobre el menta tiene un contraste de **1,12:1** (prácticamente invisible); el aro berenjena, **12,7:1**. Es lo que Iker ya decidió en la llanta el 30/07 (`images §0a-novena`). **4 px**, fuera del hueco para no quitarle sitio al logo: a 3 desaparece en el móvil y a 8 queda de pegatina, que es el "cutre" que recordaba Iker. `--aro N` lo cambia y `--aro 0` lo quita; con `--logos` va por defecto.
 > - **El logo entra CONTENIDO en un disco blanco**, el `contener` de la llanta (`§4.7`), nunca recortado.
 > - **El logo más grande entre `logo` y `logo_large`** (`menciones.py`, `logo_grande`). 🔧 01/10: en Incarlopsa y Tecnove `logo_large` era el de 100 px y `logo` el de 400; con el campo a ciegas salían ampliados y borrosos.
 > - **Si el logo de LinkedIn es un icono sin nombre y casi blanco** (Symaga: un arco gris claro), se usa el de su web, que es su marca igual, y se dice en la entrega.
@@ -615,7 +619,7 @@ Auditando el cajón `otro` vi el post de Unai del 12/06 (*"Nadie habla de este p
 >
 > **Riesgos que van en cada entrega:** las cifras en € de una empresa (récord, ventas) son públicas, pero son lo que más puede escocer a un directivo (en Asturias un CEO pidió retirar su ficha); si llega una queja, se cambian por logros no financieros (premio, países, planta nueva). Y el aviso honesto de siempre: los logos tampoco son riesgo cero; si llega una queja por un logo, se retira sin discutir y se anota aquí.
 >
-> **Primer caso:** Castilla-La Mancha, Iker, 01/10 (`historial-publicaciones`).
+> **Primer caso:** Castilla-La Mancha, Iker, 01/10 (`historial-publicaciones`): `Del descansillo de la Península solo conocen queso, molinos y la gasolinera. Y exporta más que Kenia entera 👇`. El primer borrador llevaba `Y sus fábricas no paran de vender` y lo tumbó Iker: *"me da un poco de miedo… la vez que fue mal mencionaste algo de fábricas o fabricar"* (el despiece de Euskadi y el mapa de Asturias, `§4.2` Paso 1).
 
 ### 4.3-OLD · "LOS 10" de PERSONAS (encadenado) — ⛔ PROHIBIDO DESDE EL 2026-09-16 (la receta se conserva)
 

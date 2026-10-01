@@ -708,6 +708,14 @@ const migration = `
   -- Cuando se leyo por ultima vez. Permite reintentar los que fallaron sin
   -- confundirlos con los que de verdad tienen 0 clics.
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS premium_analytics_at TIMESTAMPTZ;
+  -- v-video (2026-10-01): metricas de VIDEO de LinkedIn y duracion del video.
+  -- El dashboard solo enseña el porcentaje medio visto (media / duracion); el
+  -- resto se guarda para analizar los siguientes videos. La duracion no la da
+  -- la pagina de analiticas: se lee de la cabecera del mp4 (videoMetrics.ts).
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS video_views INTEGER;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS video_watch_time_s INTEGER;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS video_avg_watch_s INTEGER;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS video_duration_s NUMERIC(8,3);
 
   -- v33: SEGUIMIENTO del lead magnet "lista" para quien NO es 1er grado.
   -- A esa gente se le manda una INVITACIÓN con nota (la lista entera no cabe en

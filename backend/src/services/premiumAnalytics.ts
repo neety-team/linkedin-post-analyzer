@@ -28,6 +28,8 @@
  *    distinguen porque al tooltip le sigue una frase, no una cifra.
  */
 
+import { aSegundos, fetchVideoDuration } from './videoMetrics';
+
 const BASE = () => process.env.UNIPILE_BASE_URL || 'https://api18.unipile.com:14891';
 const KEY = () => process.env.UNIPILE_API_KEY || '';
 
@@ -43,6 +45,10 @@ export interface PremiumAnalytics {
   premiumButtonClicks: number | null;
   linkClicks: number | null;
   linkUrl: string | null;
+  /** Solo en posts de VIDEO (bloque "Video performance"); en el resto, null. */
+  videoViews: number | null;
+  videoWatchTimeS: number | null;
+  videoAvgWatchS: number | null;
 }
 
 /** Numero con separador de miles ("22,420") -> 22420 */
@@ -71,6 +77,20 @@ function fila(html: string, etiqueta: string): number | null {
   for (const m of html.matchAll(re)) {
     if (/The (number|total number|percentage)/i.test(m[0])) continue;
     return aNumero(m[1]);
+  }
+  return null;
+}
+
+/**
+ * Como `fila`, pero el valor es TEXTO con cifras: los tiempos de video vienen
+ * como "3h 57m" o "17s" (2026-10-01). Debe empezar por un digito, para no
+ * confundirse con la prosa del tooltip.
+ */
+function filaTexto(html: string, etiqueta: string): string | null {
+  const re = new RegExp(`"children":\\["${etiqueta}"\\][\\s\\S]{0,3000}?"children":\\["(\\d[^"]{0,19})"\\]`, 'g');
+  for (const m of html.matchAll(re)) {
+    if (/The (number|total number|percentage|average)/i.test(m[0])) continue;
+    return m[1];
   }
   return null;
 }
@@ -145,6 +165,9 @@ export async function fetchPremiumAnalytics(
     linkUrl:
       html.match(/"children":\["Visits to links from this post"\][\s\S]{0,600}?"children":\["(https?:[^"]+)"\]/)?.[1] ??
       null,
+    videoViews: destacada(html, 'Video views'),
+    videoWatchTimeS: aSegundos(filaTexto(html, 'Watch time')),
+    videoAvgWatchS: aSegundos(filaTexto(html, 'Average watch time')),
   };
 }
 
@@ -156,8 +179,14 @@ export async function fetchPremiumAnalytics(
 export async function savePremiumAnalytics(
   pool: { query: (q: string, v?: any[]) => Promise<any> },
   postId: string,
-  a: PremiumAnalytics
+  a: PremiumAnalytics,
+  /** Si viene y el post es de video, se lee la duracion del video (una vez). */
+  ctx?: { linkedinPostId: string; accountId: string }
 ): Promise<void> {
+  // El tiempo MEDIO puede bajar (no es un acumulado), asi que no lleva GREATEST.
+  // Pero un 0 con reproducciones es LinkedIn sirviendo ceros, no un dato.
+  const avgVisto =
+    a.videoAvgWatchS === 0 && (a.videoViews ?? 0) > 0 ? null : a.videoAvgWatchS;
   // GREATEST ademas del COALESCE (2026-09-17): son contadores acumulados, no
   // bajan nunca. Ese dia una lectura dejo los clics al enlace del meme de Iker
   // en 0 cuando la misma pagina, leida tres veces justo despues, daba 119;
@@ -172,6 +201,9 @@ export async function savePremiumAnalytics(
        link_clicks_count       = GREATEST(COALESCE($6, link_clicks_count), link_clicks_count),
        premium_button_clicks   = GREATEST(COALESCE($7, premium_button_clicks), premium_button_clicks),
        link_url                = COALESCE($8, link_url),
+       video_views             = GREATEST(COALESCE($9, video_views), video_views),
+       video_watch_time_s      = GREATEST(COALESCE($10, video_watch_time_s), video_watch_time_s),
+       video_avg_watch_s       = COALESCE($11, video_avg_watch_s),
        premium_analytics_at    = NOW()
      WHERE id = $1`,
     [
@@ -183,6 +215,23 @@ export async function savePremiumAnalytics(
       a.linkClicks,
       a.premiumButtonClicks,
       a.linkUrl,
+      a.videoViews,
+      a.videoWatchTimeS,
+      avgVisto,
     ]
   );
+
+  // Duracion del video: una sola vez por post (no cambia nunca). Solo si la
+  // pagina trajo el bloque de video. Va aparte: si falla, lo de arriba ya esta.
+  if (ctx && a.videoViews != null) {
+    try {
+      const { rows } = await pool.query(`SELECT video_duration_s FROM posts WHERE id = $1`, [postId]);
+      if (rows?.[0] && rows[0].video_duration_s == null) {
+        const d = await fetchVideoDuration(ctx.linkedinPostId, ctx.accountId);
+        if (d) await pool.query(`UPDATE posts SET video_duration_s = $2 WHERE id = $1`, [postId, d]);
+      }
+    } catch (e: any) {
+      console.warn(`[premiumAnalytics] duracion del video de ${postId}:`, e?.message);
+    }
+  }
 }

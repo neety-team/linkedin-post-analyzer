@@ -4805,7 +4805,7 @@ router.post('/backfill-premium-analytics', async (req: Request, res: Response) =
       try {
         const a = await fetchPremiumAnalytics(String(p.linkedin_post_id), p.unipile_account_id);
         if (a) {
-          await savePremiumAnalytics(pool, p.id, a);
+          await savePremiumAnalytics(pool, p.id, a, { linkedinPostId: String(p.linkedin_post_id), accountId: p.unipile_account_id });
           resultados.push({ id: p.id, creador: p.creador, clics: a.linkClicks, guardados: a.saves, envios: a.sends });
         } else {
           // Marcamos el intento igualmente: si no, el siguiente lote vuelve a

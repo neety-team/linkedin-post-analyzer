@@ -336,7 +336,7 @@ async function refrescarAnaliticaPostsRecientes(candidates: any[]): Promise<numb
     try {
       const a = await fetchPremiumAnalytics(String(p.linkedin_post_id), p.unipile_account_id);
       if (a) {
-        await savePremiumAnalytics(pool, p.id, a);
+        await savePremiumAnalytics(pool, p.id, a, { linkedinPostId: String(p.linkedin_post_id), accountId: p.unipile_account_id });
         hechos++;
       } else {
         await reintentarAnaliticaReciente(p.id);
@@ -385,7 +385,7 @@ async function refrescarAnaliticaPostsViejos(): Promise<number> {
     try {
       const a = await fetchPremiumAnalytics(String(p.linkedin_post_id), p.unipile_account_id);
       if (a) {
-        await savePremiumAnalytics(pool, p.id, a);
+        await savePremiumAnalytics(pool, p.id, a, { linkedinPostId: String(p.linkedin_post_id), accountId: p.unipile_account_id });
         hechos++;
       } else {
         // La pagina no se pudo leer. Se reprograma para MANANA, no para la
@@ -742,7 +742,7 @@ export async function capturePostSnapshot(postId: string): Promise<{
       const a = await fetchPremiumAnalytics(
         String(target.linkedin_post_id), target.unipile_account_id
       );
-      if (a) await savePremiumAnalytics(pool, target.id, a);
+      if (a) await savePremiumAnalytics(pool, target.id, a, { linkedinPostId: String(target.linkedin_post_id), accountId: target.unipile_account_id });
     } catch (e: any) {
       console.warn('[capturePostSnapshot] analytics failed:', e?.message);
     }

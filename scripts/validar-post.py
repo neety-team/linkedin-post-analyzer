@@ -3695,10 +3695,13 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 'son los del mismo formato de orla; hasta que "Las 10" tenga los suyos, se compara '
                 'contra los cinco "Los 10" publicados (sacados de la BD, no de memoria) y contra el '
                 'mejor mapa de la cuenta, que es la otra familia de su gancho', aviso=True)
-            chk(False, 'ENTREGA: la ORLA de LOGOS, montada con montar-orla.py --logos y archivada al OK',
-                r'C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\ con el nombre '
-                '"las 10 <region>.png" (minusculas, sin tildes ni eñes). Titulo: "LAS 10 QUE LEVANTAN|LA '
-                'INDUSTRIA [XXX]", en dos lineas y el naranja en la region. El nombre de cada empresa en la orla es su nombre de MARCA (el que se lee en '
+            # Iker, 2026-10-01: "no me las tienes que guardar en el escritorio". La
+            # orla se renderiza con --salida directamente en la carpeta del pilar,
+            # como el despiece en DESPIECE/.
+            chk(False, 'ENTREGA: la ORLA de LOGOS, guardada DIRECTAMENTE en la carpeta del pilar, nunca en el Escritorio',
+                r'--salida en C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\PELOTEO REGIONAL\LOS 10\ (LAS 10 si ya se renombro) con el nombre '
+                '"las 10 <region>.png" (minusculas, sin tildes, eñes ni guiones: "las 10 castilla la mancha"). Titulo: "LAS 10 QUE LEVANTAN|LA '
+                'INDUSTRIA [XXX]", en escalera y el naranja en la region. El nombre de cada empresa en la orla es su nombre de MARCA (el que se lee en '
                 'su logo), sin S.A. ni tagline; la @ del post sigue siendo el nombre exacto de LinkedIn', aviso=True)
         # ⛔⛔ CADA FICHA LLEVA LAS DOS MENCIONES, SIEMPRE (Iker, 2026-09-15).
         # Casuistica nueva: cuando el NOMBRE de LinkedIn de la persona ya incluye

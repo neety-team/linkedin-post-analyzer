@@ -374,6 +374,13 @@ Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-P
 - **El primer fotograma solo lleva `Una mañana`**: el gancho se va completando línea a línea y está entero a los ~1,4 s. Lo acordado (`§6.4b`) era el gancho entero desde el fotograma 0. Con reproducción automática y wifi, el primer fotograma es lo primero que se ve. La portada, subida aparte, sí lleva el gancho entero.
 - **La piscina ya se ve a los 3-5 s** (el tramo de 4908 que se usó llega a la casa con la piscina). Puede ser una siembra que hace que el giro se entienda, o destripar parte de la sorpresa. **Lo dirá la curva de retención**, si LinkedIn la da.
 
+### 6.5g · LA MÉTRICA DEL PILAR: PORCENTAJE MEDIO VISTO (Iker, 01/10)
+
+LinkedIn da tres métricas de vídeo (reproducciones, tiempo total y tiempo medio) en la analítica del post. El dashboard guarda las tres y la duración (leída de la cabecera del mp4), y **enseña solo el porcentaje medio visto**, como YouTube Shorts: `▶ 76%` en la franja de cada post de vídeo.
+- **Colores:** neutro por debajo del 80% · **verde desde el 80%** (Iker) · **ámbar desde el objetivo de Jenny para su duración**: 100% si dura menos de 30 s, 90% si dura más. Por encima del 100% se ve más de una vez de media, que es pasarse el juego en un vídeo en bucle.
+- **Primer vídeo:** 17 s de media sobre 22,27 s = **76%**, sin color. Iker lo ve altísimo para ser el primero, y en un LinkedIn donde el vídeo reparte poco.
+- Diseño y plan: `docs/superpowers/specs/2026-10-01-porcentaje-medio-visto-design.md`.
+
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.

@@ -264,6 +264,13 @@ def sustituir_region(texto: str, region: str) -> str:
 # del PSD y quedo a 32-35 px de cada borde, y Iker la dio por buena.
 MARGEN_TITULO = 32
 MARGEN_VERTICAL = 26
+# ESCALERA del titulo (Iker, 2026-10-01): la linea de arriba ocupa como mucho
+# este tanto del ancho de la de abajo; la de abajo puede crecer hasta este
+# tanto sobre el cuerpo del PSD; y por debajo de ARRIBA_MIN del PSD la de
+# arriba ya no se lee y ese corte no vale.
+ESCALERA = 0.85
+ESCALA_MAX_ABAJO = 1.2
+ARRIBA_MIN = 0.55
 # Un renglon del titulo no acaba nunca en una de estas: se leeria cortado.
 NO_CIERRAN_LINEA = {'LA', 'LAS', 'EL', 'LOS', 'QUE', 'DE', 'DEL', 'Y', 'A', 'AL', 'EN', 'CON', 'POR', 'PARA', 'SU', 'SUS'}
 
@@ -319,15 +326,20 @@ def _lineas_titulo(texto: str, base_color, acento):
 
 
 def dibujar_titulo_ajustado(img: Image.Image, titulo: dict, texto: str, ruta_fuente: str) -> str:
-    """Dibuja el titulo en DOS lineas como mucho, sin salirse de la franja (Iker, 2026-10-01).
+    """Titulo en ESCALERA: dos lineas, la de abajo MAS ANCHA y mas grande (Iker, 2026-10-01).
 
-    Iker, viendo `LAS 10 QUE LEVANTAN / LA INDUSTRIA / CASTELLANOMANCHEGA`: tres
-    lineas no, se baja la letra hasta que quepa en dos. Asi que se prueban TODOS
-    los cortes en dos lineas y gana el que deja la letra mas grande, que es el
-    mas equilibrado. Un renglon nunca acaba en articulo, relativo ni preposicion
-    (`LAS 10 QUE LEVANTAN LA / INDUSTRIA` se lee roto). El corte que trae `|` solo
-    gana si empata (3%): con un gentilicio corto (`ASTURIANA`) es justo el suyo.
-    El cuerpo nunca pasa del PSD. El bloque se centra en vertical en la franja.
+    Dos correcciones de Iker el mismo dia. (1) Tres lineas no: `LAS 10 QUE
+    LEVANTAN / LA INDUSTRIA / CASTELLANOMANCHEGA` se baja de letra hasta caber en
+    dos. (2) Y la segunda no puede quedar mas estrecha que la primera: la orla
+    siempre fue escalera (`LAS 10 QUE LEVANTAN` / `LA INDUSTRIA GUIPUZCOANA`), y
+    la linea de abajo es la que lleva la region en naranja, que es lo que para al
+    de alli. Asi que cada linea va a SU cuerpo:
+      - la de abajo, tan grande como quepa a lo ancho (hasta un 20% sobre el PSD);
+      - la de arriba, como mucho el 85% del ancho de la de abajo y nunca mayor que
+        ella ni que el PSD.
+    Se prueban todos los cortes en dos lineas (ninguno deja un renglon acabado en
+    articulo o relativo) y gana el que mas letra da entre las dos. Un corte cuya
+    linea de arriba bajaria del 55% del PSD no vale: ya no se lee.
     """
     colores = [t['color'] for t in titulo['tramos']]
     base_color = colores[0]
@@ -336,32 +348,47 @@ def dibujar_titulo_ajustado(img: Image.Image, titulo: dict, texto: str, ruta_fue
     d = ImageDraw.Draw(img)
     franja = _franja_alto(img)
     ancho_max = img.width - 2 * MARGEN_TITULO
-    ratio_salto = titulo['salto'] / titulo['cuerpo']
+    limite = franja - 2 * MARGEN_VERTICAL
+    psd = titulo['cuerpo']
+    ratio_salto = titulo['salto'] / psd
+    ref = ImageFont.truetype(ruta_fuente, 100)
+
+    def fuente(c):
+        # A la baja: Pillow solo pinta cuerpos enteros, y redondear hacia arriba
+        # dejaba la linea de abajo 6 px mas ancha que el hueco medido.
+        return ImageFont.truetype(ruta_fuente, max(8, int(c)))
 
     def ancho(linea, f):
         return sum(d.textlength(s['txt'], font=f) for s in linea)
 
+    def cap(c):
+        return -fuente(c).getbbox('H', anchor='ls')[1]
+
+    def alto_bloque(cs):
+        """Mayusculas de la primera + (salto - mayusculas) de cada una de arriba + mayusculas de la siguiente."""
+        alto = cap(cs[0])
+        for a, b in zip(cs, cs[1:]):
+            alto += (a * ratio_salto - cap(a)) + cap(b)
+        return alto
+
     def medir(lns):
-        """Mayor cuerpo (<= el del PSD) con el que el bloque cabe a lo ancho y a lo alto."""
-        cuerpo = titulo['cuerpo']
-        f = ImageFont.truetype(ruta_fuente, round(cuerpo))
-        mas_ancha = max(ancho(l, f) for l in lns)
-        cuerpo = min(cuerpo, cuerpo * ancho_max / mas_ancha)
-        # Alto del bloque = (n-1) saltos + altura de mayusculas de la primera.
-        f = ImageFont.truetype(ruta_fuente, round(cuerpo))
-        cap = -f.getbbox('H', anchor='ls')[1]
-        alto = (len(lns) - 1) * cuerpo * ratio_salto + cap
-        limite = franja - 2 * MARGEN_VERTICAL
+        w = [ancho(l, ref) / 100 for l in lns]       # px por punto de cuerpo
+        if len(lns) == 1:
+            cs = [min(psd, ancho_max / w[0])]
+        else:
+            abajo = min(psd * ESCALA_MAX_ABAJO, ancho_max / w[1])
+            arriba = min(psd, abajo, ancho_max / w[0], ESCALERA * abajo * w[1] / w[0])
+            cs = [arriba, abajo]
+        alto = alto_bloque(cs)
         if alto > limite:
-            cuerpo *= limite / alto
-        return cuerpo
+            cs = [c * limite / alto for c in cs]
+        return cs
 
     # Palabras sueltas con su color, para poder cortar por cualquier sitio.
     palabras = []
     for linea in lineas_pedidas:
         for seg in linea:
             palabras += [(w, seg['color']) for w in seg['txt'].split()]
-    corte_pedido = len(''.join(s['txt'] for s in lineas_pedidas[0]).split()) if len(lineas_pedidas) == 2 else None
 
     def montar(trozo):
         """Palabras -> tramos, juntando las seguidas del mismo color."""
@@ -375,31 +402,30 @@ def dibujar_titulo_ajustado(img: Image.Image, titulo: dict, texto: str, ruta_fue
         return segs
 
     opciones = []
-    if len(palabras) == 1 or len(lineas_pedidas) == 1:
-        opciones.append((medir([montar(palabras)]), [montar(palabras)], True))
     for k in range(1, len(palabras)):
         if palabras[k - 1][0].upper() in NO_CIERRAN_LINEA:
             continue
         lns = [montar(palabras[:k]), montar(palabras[k:])]
-        opciones.append((medir(lns), lns, k == corte_pedido))
-    mejor = max(o[0] for o in opciones)
-    pedidas = [o for o in opciones if o[2] and o[0] >= mejor * 0.97]
-    cuerpo, lineas, _ = pedidas[0] if pedidas else max(opciones, key=lambda o: o[0])
+        opciones.append((medir(lns), lns))
+    validas = [o for o in opciones if o[0][0] >= psd * ARRIBA_MIN]
+    if not opciones:
+        opciones = [(medir([montar(palabras)]), [montar(palabras)])]
+    cuerpos, lineas = max(validas or opciones, key=lambda o: sum(o[0]))
 
-    f = ImageFont.truetype(ruta_fuente, round(cuerpo))
-    salto = cuerpo * ratio_salto
-    cap = -f.getbbox('H', anchor='ls')[1]
-    alto = (len(lineas) - 1) * salto + cap
-    base = (franja - alto) / 2 + cap
-    for linea in lineas:
+    alto = alto_bloque(cuerpos)
+    base = (franja - alto) / 2 + cap(cuerpos[0])
+    for i, (linea, c) in enumerate(zip(lineas, cuerpos)):
+        if i:
+            base += (cuerpos[i - 1] * ratio_salto - cap(cuerpos[i - 1])) + cap(c)
+        f = fuente(c)
         x = titulo['cx'] - ancho(linea, f) / 2
         for s in linea:
             d.text((x, base), s['txt'], font=f, fill=s['color'] + (255,), anchor='ls')
             x += d.textlength(s['txt'], font=f)
-        base += salto
     resumen = ' / '.join(''.join(s['txt'] for s in l) for l in lineas)
-    print(f'  titulo    : {resumen}  ·  {cuerpo:.1f} px (PSD {titulo["cuerpo"]:.1f})'
-          + ('  ⚠️ reducido para que quepa' if cuerpo < titulo['cuerpo'] - 0.5 else ''))
+    anchos = [round(ancho(l, fuente(c))) for l, c in zip(lineas, cuerpos)]
+    print(f'  titulo    : {resumen}  ·  {" / ".join(f"{c:.1f}" for c in cuerpos)} px (PSD {psd:.1f})'
+          f'  ·  anchos {" / ".join(map(str, anchos))} px')
     return resumen
 
 

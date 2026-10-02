@@ -3032,6 +3032,14 @@ Pilar NUEVO, distinto de **autoridad** ("mira qué importante soy": premios, eve
 >   - ⚠️ **Con una excepción declarada: cuando la foto ES el concepto.** La historia pendiente de Unai con su foto de pequeño va al revés a propósito, y por eso se declara la divergencia al entregar.
 > - **Y esta señal es para el HUMANO, no para el clasificador.** El código no distingue un selfie de un wojak: los dos entran en la base como `text_image` y no hay visión por ordenador en el backend. Al clasificador lo separa el **tiempo verbal** (`services/pillar.ts`: una historia narra en pretérito, un meme describe en presente). Si alguna vez dudas mirando la parrilla, la foto te lo dice a ti en medio segundo; al script hay que seguir diciéndoselo por el texto.
 
+> ### 👔👔 4.6-FOTO-UNAI · EN EL PRIMER JEFE LA FOTO VA CORPORATIVA Y CON AUTORIDAD, NO DE SELFIE CASERO (Iker, 2026-10-02)
+> **Iker, eligiendo la foto de la historia del 02/10:** *"me parece muy corporativa, muy bonita y encima a él le va a dar esa autoridad que le encanta, esa grandiosidad… prioriza a partir de ahora elegir este tipo de fotos, solo en el caso del primer jefe, que ya sabes que es el más restrictivo. Ayer ya tuvimos problemas otra vez, que nos borró una publicación"*.
+> - **Solo Unai.** En Iker, Asier, Mario y Helena sigue el selfie de `§4.6-FOTO`.
+> - **Qué se busca:** Unai en su puesto o en un sitio de trabajo, bien vestido (polo, camisa, acreditación), plano limpio y luz natural; vale de perfil y serio si transmite autoridad. Es la foto que acompaña a su gancho grandioso (`brand-voice §1b`). El caso: `HISTORIA/UNAI/unai puesto polo cuadrada.jpg`, de perfil junto a la ventana.
+> - **Va por delante del criterio de la sonrisa amplia** (`feedback-elegir-foto-real-ctr`), que en Unai pasa a desempatar entre fotos que ya son corporativas. Los selfies caseros (`casa camiseta`, `casa camisa`, la V con los dedos) dejan de ser la primera opción en su cuenta.
+> - **⛔ Y NUNCA UNA FOTO CON ALGUIEN QUE YA NO ESTÁ EN LA CASA.** `unai oficina companero` se descartó por eso: antes de proponer una foto con más gente, se pregunta si siguen todos en Neety.
+> - Se sigue sin repetir la foto de su historia anterior (`§4.6-FOTO`) y se anota cuál salió en el historial.
+
 > ### 👥👥 4.6-FOTO-GRUPO · SI UNA CUENTA NO TIENE SELFIES, LA HISTORIA NO SE BLOQUEA: VA FOTO DE GRUPO (Mario, 2026-08-26)
 > **El caso, y no es un capricho:** Asier lleva **un mes** sin pasar una sola foto suya y dice que no se las hace. `§4.6-FOTO` pide selfie con el movil en la mano, y con esa regla su cuenta se quedaba fuera del pilar para siempre. Iker: *"la unica alternativa que se me ha ocurrido son fotos grupales en las que el esta incluido"*.
 >

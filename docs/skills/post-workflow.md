@@ -1119,6 +1119,8 @@ hemos gastado. Lo nuevo hay que ir a buscarlo.
 > 3. **Nunca por páginas de volumen** (GeeksforGeeks y similares): su ratio de risa las descalifica de entrada, por muchas reacciones que tengan.
 > 4. **Y si aun así no sale**, se dice y se pide referencia, que es lo que manda el runbook. **No se rellena con una plantilla genérica.**
 >
+> **✅ CANTERA ENCONTRADA EL 2026-10-02: `1up` (página de empresa `1up-ai`, id `76991989`, software de respuestas a RFP).** Publica memes de ventas con lo técnico al lado (la propuesta, la pregunta técnica del cliente, la IA en ventas) con el hashtag `#salesmemes`. **Medido ese día: 8 de sus posts con imagen y texto dentro entre 31% y 46% de risa**, el mejor con **1.262 reacciones, 50 reposts y ~467 risas** (*"AI is coming for your sales job."*, usado para Asier el 02/10). Se leen con `GET /api/v1/users/76991989/posts?account_id=…&is_company=true`. **Ojo con su sesgo:** varios ganchos no llevan palabra de ventas (*"How long are you willing to wait?"*) y algunos se ríen de un equipo interno (legal) o del jefe: se pasan los filtros de siempre. Y la búsqueda por hashtag (`saleshumor`, `salesmemes`) en Unipile es la que la sacó; por keyword de rol salían memes de administradores de Salesforce, demasiado de nicho.
+>
 > **⚠️ Y el suelo de risas absolutas no se baja en silencio.** Si para este carril hay que aceptar una referencia de 150-350 reacciones, **es una decisión de Iker y se declara en la entrega**, con la comparación delante.
 
 La otra vía, que sigue valiendo para exprimir a un autor que ya conoces:
@@ -1404,11 +1406,11 @@ sorprende, que es de lo que vive este pilar.
 >
 > **Mecanizado:** `validar-post.py --pilar meme` **falla** si no encuentra línea de crédito, salvo que se pase `--referencia-fuera`. Y si la encuentra, comprueba **que no esté ni en las 2 primeras líneas ni en la última**.
 >
-> ### 🚫🚫 4.4-STOP · MEME CONTROVERSIAL EN UNAI: PROHIBIDO (Iker, 2026-07-29)
+> ### 🚫🚫 4.4-STOP · MEME CONTROVERSIAL EN UNAI (Y DESDE EL 02/10, EN ASIER): PROHIBIDO (Iker, 2026-07-29 · 2026-10-02)
 >
 > **Lo de arriba ya estaba escrito y aun así recomendé el meme del tatuaje para Unai. Pasó lo que tenía que pasar.** El meme se viralizó (14.000 impresiones en horas) **y un directivo nos insultó CON SU NOMBRE REAL**, porque se creyó que el tatuaje era de verdad. Unai es el **FUNDADOR y CEO**: firma la casa, y lo que le llega a él no se borra con un buen ratio.
 >
-> **Deja de ser criterio y pasa a ser un bloqueo:** `validar-post.py --pilar meme --cuenta unai` **FALLA siempre** salvo que se pase `--meme-sobrio`. El flag no se pasa por inercia: se pasa después de contestar que NO a las cinco preguntas de abajo.
+> **Deja de ser criterio y pasa a ser un bloqueo:** `validar-post.py --pilar meme --cuenta unai` **FALLA siempre** salvo que se pase `--meme-sobrio` (**y `--cuenta asier` también desde el 02/10**, ver la cascada de abajo). El flag no se pasa por inercia: se pasa después de contestar que NO a las cinco preguntas de abajo.
 >
 > **Un meme es CONTROVERSIAL si CUALQUIERA de estas es que sí:**
 > 1. **¿El chiste depende de que alguien se crea que pasó de verdad?** (el tatuaje: sí, y ahí estuvo el insulto)
@@ -1418,19 +1420,19 @@ sorprende, que es de lo que vive este pilar.
 > 5. ¿Se ríe de un colectivo?
 > 6. **¿Algún detalle, TAMBIÉN DE LA IMAGEN, deja como vago, incompetente o ridículo a un cargo que decide la compra?** (Iker, 2026-10-01; ver `§4.4-COMPRADOR` abajo)
 >
-> #### 🧑‍💼 4.4-COMPRADOR · EL CHISTE NUNCA DEJA MAL AL CARGO QUE NOS COMPRA (Iker, 2026-10-01) — LAS TRES CUENTAS, Y EN UNAI ES FILTRO DURO
+> #### 🧑‍💼 4.4-COMPRADOR · EL CHISTE NUNCA DEJA MAL AL CARGO QUE NOS COMPRA (Iker, 2026-10-01 · filtro duro en las TRES cuentas desde el 2026-10-02)
 > **Qué pasó.** El meme de Unai de los sueños por cargo (Mundorf, evolución de Comercial Junior a Director Comercial) iba bien, y **Unai lo borró él mismo** al poco de publicarse. El motivo fue un detalle de la imagen: la placa **EN REUNIÓN** en la mesilla del director comercial, que duerme. Se lee como "el director dice que está reunido y está durmiendo". Unai: **los que nos compran son cargos con poder de decisión, sobre todo directores comerciales**, que son quienes usan la herramienta. No se le hace la burla a quien firma la compra.
 > - **Lo que SÍ vale:** jugar con la presión del cargo, con lo que sueña o con lo que le piden arriba (el caballo en la playa, "la cifra que piden arriba"). Es complicidad: se ríe con él.
 > - **Lo que NO vale:** que no trabaja, que se escaquea, que no sabe, que delega todo, que se lleva el mérito. Es burla: se ríe de él. **Y vale igual para el detalle pequeño de la imagen** (placa, taza, rótulo, nota), que es justo donde se coló.
 > - **Los cargos que compran** son los de `CLAUDE.md` (menciones): CEO, director general, gerente, fundador, director comercial, de exportación, de desarrollo de negocio y de marketing. El comercial raso y el junior aguantan la broma tierna (la taza LLAMA MÁS), nunca la humillante.
-> - **En Unai es filtro duro** (pregunta 6 de arriba; el validador la recuerda en `--meme-sobrio`). **En Iker y Asier, cuidado igual**: el lector es el mismo, aunque esas cuentas aguanten más registro.
+> - ~~En Unai es filtro duro; en Iker y Asier, cuidado igual~~ → **🔄 DESDE EL 02/10 ES FILTRO DURO EN LAS TRES CUENTAS, IKER INCLUIDO (Iker, 2026-10-02).** *"Espero que lo de ayer lo inyectases a nivel global: que nunca ningún meme en ninguna de las tres cuentas explícitamente se nos meta con directores comerciales, que son los que nos pueden llegar a comprar"*. **Lo escrito el 01/10 se quedó a medias**: era bloqueo solo en Unai y en Iker y Asier un aviso que no contaba, así que el validador dejaba pasar en esas dos cuentas justo lo que borró Unai. Ahora `validar-post.py --pilar meme` **falla en cualquier cuenta** sin `--comprador-ok`, que se pasa después de repasar texto e imagen (mismo patrón que `--ref-con-texto`). **Lo que NO cambia en Iker:** su cuenta sigue aguantando lo absurdo y lo bruto (*"él puede seguir teniendo los memes más absurdos y todo"*); lo único que se le cierra es reírse del que compra.
 > - **⛔ Y NO SE ARREGLA CON EL DETALLE SI EL COMPRADOR ES EL REMATE DEL CHISTE.** Propuse cambiar la placa por *OBJETIVO ANUAL* y no bastaba. Unai, literal: *"ponía al director comercial como en reunión y estaba dormido y pensando en vacaciones… es el que nos va a comprar, no se va a identificar con eso"* y *"hay que tener ojo con gente senior, son muy picados, y eso nos da mala imagen, al final B2B es muy carca"*. **En una evolución por cargos el último peldaño ES el remate**, y si ese peldaño es el director comercial soñando con escaparse, el chiste entero se ríe del que compra. **El test antes de proponerla:** ¿quién está en el peldaño de arriba y qué dice de él el remate? Si es un cargo que compra y el remate es desconexión, vagancia o vacaciones, **esa referencia no va a Unai, con ningún retoque.**
 > - **El riesgo de borrado no es solo de la audiencia o de LinkedIn.** El propio jefe puede borrar un post que va bien por cómo ve su cuenta, incluso por un detalle de la imagen. Es su cuenta y manda él. **La cuenta de Unai es la de más restricciones: ante la duda, el detalle se tumba antes de proponerlo, no después.**
 >
-> **La cascada, en este orden y sin saltársela:**
-> - **Iker (2º) casi siempre.** Es la cuenta que aguanta el registro bruto.
-> - **Asier (3º) si Iker ya tiene meme esa semana.** Ahí cuela.
-> - **Unai: nunca.** Si el chiste solo funciona siendo controversial y ni Iker ni Asier pueden esa semana, **no se publica**. Se cambia el chiste o se espera. No se suaviza para meterlo en Unai, que eso ya lo probamos y dio 0,31x.
+> **La cascada, en este orden y sin saltársela (🔄 corregida el 02/10):**
+> - **Iker (2º), y solo Iker.** Es la cuenta que aguanta el registro bruto y lo absurdo.
+> - ~~Asier (3º) si Iker ya tiene meme esa semana. Ahí cuela.~~ → **⛔ ASIER YA NO RECIBE MEME CONTROVERSIAL (Iker, 2026-10-02):** *"es como lo que ayer te expliqué para el primer jefe de restrictivo, pues ya sabes que el tercer jefe es parecido"*. Iba en la misma dirección desde agosto: borró él mismo la katana (26/08) y el post de `soñé con ella`, y tiene los vetos de `aboutme §2-ASIER-VETOS`. **Desde hoy Asier va con Unai:** `validar-post.py --pilar meme --cuenta asier` falla sin `--meme-sobrio`, igual que Unai, y el flag solo se pasa tras contestar que NO a las seis preguntas de arriba.
+> - **Unai y Asier: nunca.** Si el chiste solo funciona siendo controversial e Iker no puede esa semana, **no se publica**. Se cambia el chiste o se espera. No se suaviza para meterlo en una cuenta sobria, que eso ya lo probamos y dio 0,31x.
 >
 > **⚠️ Y el coste oculto del realismo:** `images §0a-sexta-bis` dice que en un pantallazo documental el realismo ES la credibilidad, y es verdad, **pero esa credibilidad tiene precio**: cuanto más se lo cree la gente, más real es el enfado del que se lo cree. Ese precio lo paga la persona que firma el post. **Cuanto más creíble sea el montaje, más lejos tiene que estar de la cuenta de Unai.**
 >

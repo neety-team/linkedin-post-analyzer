@@ -236,6 +236,8 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 
 **No son preferencias, son vetos, y ya nos ha costado un post borrado por él mismo.**
 
+**🔄 Y DESDE EL 2026-10-02 SU CUENTA ES RESTRINGIDA COMO LA DE UNAI EN MEMES (Iker):** *"es como lo que ayer te expliqué para el primer jefe de restrictivo, pues ya sabes que el tercer jefe es parecido"*. Ningún meme controversial va a Asier (solo a Iker, `post-workflow §4.4-STOP`) y el validador le exige `--meme-sobrio` igual que a Unai. Y en las tres cuentas, ningún meme deja mal al cargo que compra (`§4.4-COMPRADOR`, `--comprador-ok`).
+
 | ⛔ veto | por qué |
 |---|---|
 | **Fútbol, en cualquier forma** | Iker, 26/08: el meme del Mundial de los calvos *"al ser de fútbol a él no le hubiese gustado"*. Se subió en otra cuenta por eso |

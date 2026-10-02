@@ -270,7 +270,7 @@ LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir
 
 **El caption** repite el gancho en la primera línea, **no desvela el evento** (`Todo por algo que llegaba pasado mañana`) y lleva el ninja a `/agendar/` con **la persona, no la empresa** (`El nombre de quien decide te lo damos nosotros`). Es el tipo 2 del mapa de clientes del 18/09 (*sabe qué empresas, no a quién llamar*) y el dolor de nuestro mejor clic.
 
-**⛔ EL CAPTION NUNCA MANDA AL FINAL DEL VÍDEO (Iker, 30/09).** Ni `al final del vídeo`, ni `ojo al último plano`, ni nada que diga dónde está el pago. Iker: *"les estamos incitando a que salten el vídeo hasta el final… no quiero que nos destroce la retención"*. **El caption abre el bucle, pero no dice dónde se cierra**: el que lo lee antes de ver el vídeo salta al final, se pierde el medio y hunde la retención, que es la señal que reparte un vídeo. Se valida con `--pilar meme --referencia-fuera --meme-sobrio`, porque el validador no tiene pilar de vídeo: **57/57** el 29/09.
+**⛔ EL CAPTION NUNCA MANDA AL FINAL DEL VÍDEO (Iker, 30/09).** Ni `al final del vídeo`, ni `ojo al último plano`, ni nada que diga dónde está el pago. Iker: *"les estamos incitando a que salten el vídeo hasta el final… no quiero que nos destroce la retención"*. **El caption abre el bucle, pero no dice dónde se cierra**: el que lo lee antes de ver el vídeo salta al final, se pierde el medio y hunde la retención, que es la señal que reparte un vídeo. Se valida con `--pilar meme --referencia-fuera --meme-sobrio` (y desde el 02/10 también `--comprador-ok`, que todo `--pilar meme` exige), porque el validador no tiene pilar de vídeo: **57/57** el 29/09.
 
 ### 6.5b · LA VOZ EN OFF ES NARRACIÓN, NO TELEGRAMA (Iker, 30/09)
 

@@ -4212,21 +4212,20 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                '' if _exc else 'En los TRES JEFES la referencia nace SIEMPRE dentro de ventas, en cualquier idioma; lo que cambia con la cuenta es de que parte de ventas.'),
             aviso=True)
 
-    if pilar == 'meme' and (cuenta or '').strip().lower() == 'unai':
+    # 2026-10-02 (Iker): Asier pasa a ser cuenta restringida como Unai. "Es como lo
+    # que te explique para el primer jefe de restrictivo, el tercero es parecido".
+    # Asier ya habia borrado dos posts suyos por gusto propio (la katana del 26/08 y
+    # el "soñe con ella"), asi que el bloqueo es el mismo: solo Iker aguanta lo bruto.
+    if pilar == 'meme' and (cuenta or '').strip().lower() in ('unai', 'asier'):
         chk(meme_sobrio,
-            'MEME en Unai: confirmado que NO es controversial (§4.4)',
-            'Unai es el CEO y firma la casa. Un meme controversial ahi NO se publica: '
-            'va a Iker, y si Iker ya tiene meme esa semana, a Asier. Si de verdad es '
-            'sobrio, pasa --meme-sobrio y quedara constancia de que lo decidiste. '
-            'Pregunta 6 (01/10): ¿algun detalle, tambien de la IMAGEN, deja como vago o '
-            'incompetente a un director comercial, gerente o CEO? Unai borro el meme de los '
-            'suenos por la placa EN REUNION del director dormido: es quien nos compra.')
-    if pilar == 'meme':
-        chk(False, 'MEME: el chiste no deja mal al cargo que COMPRA, tampoco en la imagen (§4.4-COMPRADOR)',
-            'director comercial, gerente, CEO, director de exportacion o de marketing: se puede '
-            'jugar con su presion o con lo que suena, nunca con que no trabaja o no sabe. Repasa '
-            'tambien placas, tazas y rotulos de la imagen. En Unai es filtro duro (borro el meme '
-            'del 01/10); en Iker y Asier, cuidado igual', aviso=True)
+            'MEME en %s: confirmado que NO es controversial (§4.4-STOP)' % (cuenta or '').strip().capitalize(),
+            'Unai (CEO) y Asier son las dos cuentas restringidas desde el 02/10. Un meme '
+            'controversial ahi NO se publica: va a IKER, y si Iker no puede, no se publica '
+            '(se cambia el chiste, nunca se suaviza). Si de verdad es sobrio, pasa '
+            '--meme-sobrio y quedara constancia de que lo decidiste. Pregunta 6 (01/10): '
+            '¿algun detalle, tambien de la IMAGEN, deja como vago o incompetente a un '
+            'director comercial, gerente o CEO? Unai borro el meme de los suenos por la '
+            'placa EN REUNION del director dormido: es quien nos compra.')
 
     if AVISOS_OTRA_CUENTA and not historico:
         chk(True, 'QUEMADAS: otra cuenta lo acaba de usar, no bloquea (2.0b-VENTANA)',
@@ -4282,7 +4281,8 @@ def main():
                          'Sin el no se puede comprobar la anatomia de 3 parrafos, que ES el '
                          'pilar, asi que su ausencia cuenta como fallo.')
     ap.add_argument('--meme-sobrio', action='store_true', dest='meme_sobrio',
-                    help='Confirma que un meme para la cuenta de UNAI no es controversial. '
+                    help='Confirma que un meme para la cuenta de UNAI o de ASIER (restringida '
+                         'desde el 2026-10-02) no es controversial. '
                          'Es controversial si CUALQUIERA de estas es que si: el chiste depende de '
                          'que alguien se crea que paso de verdad; hay un acto ridiculo o humillante '
                          'atribuido al que publica; alguien podria insultarnos por creerselo; hay '
@@ -4290,6 +4290,15 @@ def main():
                          'detalle, TAMBIEN DE LA IMAGEN (placa, taza, rotulo), deja como vago o '
                          'incompetente a un cargo que decide la compra (Unai borro el meme del 01/10 '
                          'por la placa EN REUNION del director dormido).')
+    ap.add_argument('--comprador-ok', action='store_true', dest='comprador_ok',
+                    help='MEME, EN TODAS LAS CUENTAS (Iker, 2026-10-02): confirma que ni el '
+                         'texto ni la IMAGEN (placa, taza, rotulo, etiqueta, remate de una '
+                         'evolucion por cargos) dejan como vago, incompetente o ridiculo a un '
+                         'cargo que compra: director comercial, gerente, CEO, fundador, director '
+                         'de exportacion, de desarrollo de negocio o de marketing. Se puede jugar '
+                         'con su presion o con lo que sueña; nunca con que no trabaja, se escaquea '
+                         'o no sabe. Vale tambien en Iker: su cuenta aguanta lo absurdo, no '
+                         'burlarse del que nos compra. Solo se pasa DESPUES de repasar la imagen.')
     ap.add_argument('--ref-con-texto', action='store_true', dest='ref_con_texto',
                     help='MEME: confirma que la IMAGEN de la referencia lleva TEXTO DENTRO que '
                          'forma parte del chiste (etiquetas de una evolucion, dialogo, rotulos, '
@@ -4374,6 +4383,19 @@ def main():
                        'sin las que el chiste no se entiende (etiquetas, dialogo, rotulos, captura)? '
                        'Si es una foto o un fotograma de una persona sin texto, se descarta por mucha '
                        'risa que tenga, en las cinco cuentas. Si lo lleva, pasa --ref-con-texto.', False))
+    # ⛔ EL MEME NUNCA DEJA MAL AL CARGO QUE NOS COMPRA, EN NINGUNA CUENTA (Iker,
+    # 2026-10-02). Hasta hoy era filtro duro solo en Unai y "cuidado igual" en Iker y
+    # Asier, como aviso que no contaba. Unai borro el meme de los sueños (01/10) por la
+    # placa EN REUNION del director dormido. Iker: "nunca ningun meme en ninguna de las
+    # tres cuentas se meta con directores comerciales, que son los que nos compran".
+    # El script no ve la imagen: se declara con --comprador-ok tras repasarla.
+    if a.pilar == 'meme' and not (a.comprador_ok or a.historico):
+        res.insert(0, (False, 'MEME: el chiste no deja mal al cargo que COMPRA, en ninguna cuenta (§4.4-COMPRADOR)',
+                       'Director comercial, gerente, CEO, fundador, director de exportacion o de marketing: '
+                       'se juega con su presion o con lo que sueña (complicidad), nunca con que no trabaja, '
+                       'se escaquea o no sabe (burla). Repasa tambien placas, tazas, rotulos y el peldaño de '
+                       'arriba de una evolucion por cargos. Vale en las TRES cuentas, Iker incluido. '
+                       'Si pasa, --comprador-ok.', False))
     # Los avisos se imprimen pero NO cuentan: son sospechas, no infracciones.
     # Mezclarlos vaciaría de significado el marcador, y el marcador es lo único
     # que se pega en la entrega.

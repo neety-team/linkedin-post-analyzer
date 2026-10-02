@@ -3905,6 +3905,25 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 f'{_n_hist} car, fuera del rango donde estan las 5 que convierten (694-762). '
                 f'No es fallo, pero mira si sobra cuerpo o falta escena' if not (700 <= _n_hist <= 780) else '',
                 aviso=True)
+        # ⛔ LA MARCA Y EL EVENTO SE DESVELAN EN EL ULTIMO TERCIO (Mario, 2026-10-02).
+        # El 02/10 entregue la historia de Mario con "@Neety" en la 3ª linea (23% del
+        # texto) porque en su cuenta la mencion era obligatoria y el check solo
+        # miraba que ESTUVIERA, no DONDE. Medido en la BD ese dia: de las 13 historias
+        # de la receta (desde el 29/07), 10 no nombran Neety ni el evento y las demas
+        # lo hacen entre el 66% y el 85% (Neety 78% y 83%; evento 66-85%). Es el
+        # "Si, hablo de X" del peloteo (global §2.0-PAGO) y brand-voice §4 (la marca,
+        # casi como firma, cerca del final). Corte en el 60%: no tumba ninguna de las 13.
+        _txt_marca = re.sub(r'https?://\S+', 'x' * 25, cuerpo)
+        _cuerpo_marca = _txt_marca[len(hook_txt):] if _txt_marca.startswith(hook_txt) else _txt_marca
+        _m_marca = re.search(r'\bNeety\b|\bevento\b', _cuerpo_marca, re.I)
+        if _m_marca:
+            _pos_marca = (len(_txt_marca) - len(_cuerpo_marca) + _m_marca.start()) / max(len(_txt_marca), 1)
+            chk(_pos_marca >= 0.60, 'HISTORIA: la marca y el evento se desvelan en el ultimo tercio (global §2.0-PAGO)',
+                f'"{_m_marca.group(0)}" aparece en el {round(100 * _pos_marca)}% del texto. En las 13 '
+                f'historias de la receta, Neety y el evento salen entre el 66% y el 85% o no salen. '
+                f'Pegado al gancho se lee como anuncio antes de que la escena enganche: se mueve al '
+                f'pago, detras del ninja' if _pos_marca < 0.60 else
+                f'primera vez en el {round(100 * _pos_marca)}% del texto')
         # ⛔ NO SE ABRE CON "MI PRIMERA..." (§4.6-SERIE, 2026-08-27). Los DOS peores
         # CTR del pilar abren asi (0,276% y 0,265%); los dos mejores abren por
         # NEGACION ("Nunca le vi") o por PROMESA ("jamas me imagine"). Una escena

@@ -275,6 +275,9 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'nadie se plancha la camisa': '2026-10-02 historia de Mario 02/10 (la camisa planchada), la linea 1 del ninja',
+    'por saber quién te comprará sí': '2026-10-02 historia de Mario 02/10, la linea 2 del ninja',
+    'por saber quien te comprara si': '2026-10-02 historia de Mario 02/10, sin tildes',
     'te trae lectores. al que te compra, no': '2026-09-29 meme de Mario 29/09 (resubida del algoritmo), la linea 1 del ninja',
     'con nombre y apellidos': '2026-09-29 meme de Mario 29/09, la linea 2 del ninja',
     'nunca te dice a quién llamar': '2026-09-29 meme de Iker 29/09 (el del globo), la linea 1 del ninja',
@@ -430,6 +433,7 @@ ARRANQUE_QUEMADO = {
         'gaste': '2026-09-15 historia de Iker 15/09 ("Gaste 3 semanas / Gaste 7 llamadas")',
         'volvi': '2026-09-15 historia de Iker 15/09 ("Volvi al coche / Volvi a la lista / Volvi a mirarla")',
         'el': '2026-09-23 historia de Iker 23/09 ("El otro no lo leyo / El otro entro / El otro comio")',
+        'gente': '2026-10-02 historia de Mario 02/10 ("Gente que condujo / Gente de traje / Gente que vino")',
     },
     'mapa': {
         'ni': '2026-09-22 mapa de Álava, Iker ("Ni la llena Celedón / Ni la llenan los blusas")',

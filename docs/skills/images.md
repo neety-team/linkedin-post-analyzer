@@ -700,6 +700,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 
 - **Vale para cualquier serie apoyada en un eje, una diagonal o una guía:** la colocación se pide como **igualdad entre dos distancias que se ven**, nunca como una cantidad.
 - **Es la misma familia que `§0c-TAMAÑO`:** una orden de colocación sin decir de dónde sale el espacio la resuelve el generador como quiere. Aquí el espacio sale del hueco sobrante de arriba, y la igualdad lo dice sin tener que nombrarlo.
+- **⚠️ Y SOLO PARA ESO (02/10):** la igualdad de huecos es para una SERIE apoyada en una diagonal o un eje. Para subir o bajar un texto sobre fondo liso falló (agrandó el título y lo bajó); ahí manda la frase de dirección de `§0c`: `sube las 2 lineas de texto hacia arriba para aprovechar el espacio que tiene`.
 
 ## 🔄🔄 0i-CHAT-NUEVO · CUANDO EL GENERADOR SE ATASCA EN LA CUARTA EDICIÓN, SE ABRE CHAT NUEVO CON LA ÚLTIMA VERSIÓN BUENA (Iker, 2026-08-27)
 
@@ -728,7 +729,7 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
 ```
 **Lo que falló justo antes, en el mismo hilo:** un prompt que pedía *"el mismo hueco arriba, entre el título y la caja, y abajo"*, bajar el tamaño del título y enumeraba lo que no tocar. El generador rehízo la imagen entera y rompió la caja. Iker: *"ese es el tipo de prompts que tienes que darle, funciona mejor"*.
 
-**LA REGLA:** para retocar, **se describe cómo tiene que VERSE, no cómo medirlo**: `que respire`, `que no quede pegado al borde`, `igual que la frase de abajo`. Una o dos frases y la contención seca (`§0i-3-CONTENCION-CORTA`). Las igualdades de huecos de `§0b-DENTRO-DEL-MARCO-BIS` se quedan para cuando el efecto no baste. Y si el hilo ya lleva varias ediciones, chat nuevo (`§0i-CHAT-NUEVO`).
+**🔄 02/10: el ejemplo de aquí arriba lleva `centra`, y Iker ya no la quiere en ningún prompt** (`§0c`): para mover se usa la frase de dirección. **LA REGLA:** para retocar, **se describe cómo tiene que VERSE, no cómo medirlo**: `que respire`, `que no quede pegado al borde`, `igual que la frase de abajo`. Una o dos frases y la contención seca (`§0i-3-CONTENCION-CORTA`). Las igualdades de huecos de `§0b-DENTRO-DEL-MARCO-BIS` se quedan para cuando el efecto no baste. Y si el hilo ya lleva varias ediciones, chat nuevo (`§0i-CHAT-NUEVO`).
 
 ## ✂️✂️ 0i-3-CONTENCION-CORTA · EL CIERRE ES LA FRASE SECA, SIN LISTA DE LO QUE SE QUEDA (Iker, 2026-08-27)
 
@@ -839,8 +840,19 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
 
 **Validado (2026-07-14):** en la referencia del meme del perro, el título "Realidad" tiraba al centro en vez de a la izquierda. Con `céntralo` fallaba; con **"aprovecha el espacio que tiene a la izquierda para centrarlo"** salió perfecto a la primera.
 
-**La plantilla:** `aprovecha el espacio que [elemento] tiene hacia [la izquierda/la derecha/arriba/abajo] para que [quede centrado / respire / llene el ancho]`.
-Sirve para todo lo espacial: separar del borde, llenar un hueco, subir algo que cuelga. **Describe el movimiento y el espacio, nunca el resultado abstracto.**
+~~**La plantilla:** `aprovecha el espacio que [elemento] tiene hacia [la izquierda/la derecha/arriba/abajo] para que [quede centrado / respire / llene el ancho]`.~~
+
+**🔄 LA PLANTILLA BUENA, ESCRITA POR IKER EL 2026-10-02 Y VALIDADA A LA PRIMERA EN CHAT NUEVO:**
+```
+solo haz lo que te pido. sube las 2 lineas de texto hacia arriba para aprovechar el espacio que tiene, deja todo lo demás intacto
+```
+**`[verbo de dirección] + [qué, nombrado en concreto] + hacia [dónde] + para aprovechar el espacio que tiene`.** Nada más.
+- **⛔ Ni la palabra `centrado` ni `centra`, tampoco dentro de la frase** (Iker: *"la palabra centrado hace que el generador se vuelva loca… nunca hay que decir centrado"*). La plantilla vieja la llevaba al final y por eso se colaba.
+- **⛔ Ni la igualdad de huecos ni medidas** para mover un texto sobre fondo liso: mi prompt del mismo día (*"hasta que el hueco de arriba sea igual que el de abajo"*) hizo el título más grande y lo bajó aún más. Medido: de 139/68 px a 162/51. Con la frase de Iker quedó en **108/105**.
+- **El elemento, nombrado como se ve:** `las 2 lineas de texto`, no `el título`.
+- **Y si el hilo ya lleva varias ediciones, chat nuevo** con la última versión buena (`§0i-CHAT-NUEVO`), que es como lo hizo Iker.
+
+Sirve para todo lo espacial: separar del borde, llenar un hueco, subir algo que cuelga. **Describe el movimiento y el espacio, nunca el resultado.**
 
 ### ⭐⭐ 0c-TAMAÑO · TODA ORDEN DE TAMAÑO VA CON LA DEL ESPACIO QUE SOBRA, EN LA MISMA FRASE (Iker, 2026-08-19)
 

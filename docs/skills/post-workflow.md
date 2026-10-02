@@ -2856,6 +2856,8 @@ Acceso libre.
 >
 > **5 · Lo que NO discrimina, dicho para que nadie lo persiga:** la **estructura** (`narrative_arc` está en el mejor y en los dos peores) y los **guardados/envíos** (3-6 y 3-7 en todos, sin señal). Las tres historias con `likes ≫ comentarios` cumplen la vara del pilar de `§8.0`.
 
+> **6 · ⭐ EL VERBO PUNCHY VA EN LA SEGUNDA MITAD DEL GANCHO, PEGADO A UN OBJETO QUE SE VE. NO LO ABRE (patrón cruzado de las 3 cuentas, BD, 2026-10-02).** Mario preguntó si nuestras mejores historias empiezan con el verbo punchy. No: las 5 de más alcance (**20.470 · 16.610 · 16.419 · 10.674 · 10.406**) abren con el contexto o el objeto y sueltan el golpe al final, con algo físico al lado: `me la soltó… por teléfono` · `la cerré saltándome medio barrio` · `se encerró a llamar` · `me plantó el portátil delante`. Las que abren con el verbo fuerte quedan por debajo (`Me quitaron la venta…` 6.884 · `Programé un filtro…` 2.394 a las 24 h). Es `global §2.9` (un verbo con techo, *preferiblemente el último*) confirmado dentro del pilar, y es el molde del mejor gancho de Mario (`…me pilló con el trípode montado en el salón`). **Un gancho que acaba en una REACCIÓN (`y yo aún flipo`) y no en una escena se queda flojo.** n=16 con cuentas y semanas mezcladas: es patrón, no ley. **Mecanizado** como aviso de entrega en `validar-post.py --pilar historia`.
+>
 > ### 📊 4.6-MEDIDO · LOS DOS DE IKER, CON NÚMEROS REALES (2026-08-14, sacados de la BD, no de memoria)
 >
 > | Fecha | Impresiones | Ratio | Likes | Com. | Reposts | Clics enlace | **CTR** |

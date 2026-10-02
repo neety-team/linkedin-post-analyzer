@@ -3931,6 +3931,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 f'Pegado al gancho se lee como anuncio antes de que la escena enganche: se mueve al '
                 f'pago, detras del ninja' if _pos_marca < 0.60 else
                 f'primera vez en el {round(100 * _pos_marca)}% del texto')
+        # EL VERBO PUNCHY VA AL FINAL DEL GANCHO, CON UN OBJETO (§4.6-SERIE punto 6,
+        # patron cruzado de las 3 cuentas, 2026-10-02). Es criterio: aviso que
+        # imprime la segunda mitad del gancho para MIRARLA.
+        _pal_h = hook_txt.split()
+        chk(False, 'ENTREGA: el golpe del gancho va en la SEGUNDA mitad, con un objeto (§4.6-SERIE 6)',
+            'segunda mitad: "%s". Las 5 historias de mas alcance (20.470 a 10.406) abren con el '
+            'contexto y sueltan el verbo punchy al final, pegado a algo que se ve ("me planto el '
+            'portatil delante", "saltandome medio barrio", "me pillo con el tripode montado"). '
+            'Abrir con el verbo fuerte rinde menos (6.884 y 2.394), y acabar en una REACCION '
+            '("y yo aun flipo") en vez de en una escena queda flojo'
+            % ' '.join(_pal_h[len(_pal_h) // 2:]), aviso=True)
         # ⛔ NO SE ABRE CON "MI PRIMERA..." (§4.6-SERIE, 2026-08-27). Los DOS peores
         # CTR del pilar abren asi (0,276% y 0,265%); los dos mejores abren por
         # NEGACION ("Nunca le vi") o por PROMESA ("jamas me imagine"). Una escena

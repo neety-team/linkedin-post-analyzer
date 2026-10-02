@@ -2788,6 +2788,20 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                     'complemento de sitio), NUNCA la palabra que dice de que hablamos'
                     + (' — aqui: %s' % ', '.join('"%s"' % w for w in _hueros)
                        if _hueros else ''), aviso=True)
+                # LA LINEA DEL ENLACE DICE QUIEN LO HACE: "nosotros" (Iker 22/09 y
+                # Mario 02/10). Lo quitaba para caber en los 55 y la regla ya
+                # estaba escrita. Medido el 02/10 (posts a /agendar/ desde julio):
+                # con y sin "nosotros" el CTR empata (historia 0,295% contra 0,319%,
+                # n=4 y 4; meme 0,118% contra 0,099%, n=8 y 7), asi que decide la
+                # claridad para el lector mayor. Aviso: hay ganadores sin el.
+                _l2n = re.sub(r'https?://\S+', '', b[-1])
+                if not re.search(r'\bnosotros\b', _l2n, re.I):
+                    chk(False, 'ENTREGA: la linea del enlace dice QUIEN lo hace ("nosotros")',
+                        'linea: "%s". Falta el sujeto explicito. Si no cabe en los 55, se '
+                        'recorta otra palabra (un "te", un tiempo verbal), nunca el '
+                        '"nosotros". En CTR empata con y sin el (n pequeno): manda que '
+                        'el lector no tenga que deducir quien ofrece' % _l2n.strip(),
+                        aviso=True)
                 # 4.4b-BLOQUE (Iker, 2026-08-27) - LAS DOS LINEAS SON UNA UNIDAD.
                 # La 1 nombra la CARENCIA y la 2 cubre EXACTAMENTE esa carencia.
                 # Si la 1 solo afirma algo, la 2 llega de la nada y el lector se

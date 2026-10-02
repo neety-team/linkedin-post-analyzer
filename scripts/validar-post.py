@@ -2802,6 +2802,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                         '"nosotros". En CTR empata con y sin el (n pequeno): manda que '
                         'el lector no tenga que deducir quien ofrece' % _l2n.strip(),
                         aviso=True)
+                # QUE EL BLOQUE NO CAIGA A TRES LINEAS EN ESCRITORIO (Mario, 2026-10-02).
+                # Medido sobre su captura de un post publicado: 75 caracteres ocupan
+                # 674 px de ~706 utiles (9 px por caracter), o sea que caben ~78.
+                # LinkedIn deja el enlace en ~24 (lnkd.in/xxxxxxxx) + 1 espacio, asi
+                # que el TEXTO de la linea del enlace tiene ~53 de techo y 51 con
+                # margen. El tope duro sigue en 55 (movil); esto es aviso.
+                if len(_l2n.strip()) > 51:
+                    chk(False, 'ENTREGA: la linea del enlace <=51 para que no caiga a 3 lineas (escritorio)',
+                        '%d car + 25 del enlace acortado = %d. Medido el 02/10: caben ~78 por '
+                        'linea en escritorio; por encima de 51 de texto el enlace puede saltar '
+                        'a una tercera linea' % (len(_l2n.strip()), len(_l2n.strip()) + 25),
+                        aviso=True)
                 # 4.4b-BLOQUE (Iker, 2026-08-27) - LAS DOS LINEAS SON UNA UNIDAD.
                 # La 1 nombra la CARENCIA y la 2 cubre EXACTAMENTE esa carencia.
                 # Si la 1 solo afirma algo, la 2 llega de la nada y el lector se

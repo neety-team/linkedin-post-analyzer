@@ -2795,13 +2795,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 # n=4 y 4; meme 0,118% contra 0,099%, n=8 y 7), asi que decide la
                 # claridad para el lector mayor. Aviso: hay ganadores sin el.
                 _l2n = re.sub(r'https?://\S+', '', b[-1])
-                if not re.search(r'\bnosotros\b', _l2n, re.I):
-                    chk(False, 'ENTREGA: la linea del enlace dice QUIEN lo hace ("nosotros")',
-                        'linea: "%s". Falta el sujeto explicito. Si no cabe en los 55, se '
-                        'recorta otra palabra (un "te", un tiempo verbal), nunca el '
-                        '"nosotros". En CTR empata con y sin el (n pequeno): manda que '
-                        'el lector no tenga que deducir quien ofrece' % _l2n.strip(),
-                        aviso=True)
+                # Afinado el mismo 02/10 (Mario): "te lo decimos" ya dice quien, porque
+                # el "te" le habla al lector y el verbo va en 1a plural. Si no caben
+                # los dos, se queda el "te" y sale el "nosotros", nunca al reves.
+                if (not re.search(r'\bnosotros\b', _l2n, re.I)
+                        and not re.search(r'\bte\b(\s+\w+){0,2}\s+\w+mos\b', _l2n, re.I)):
+                    chk(False, 'ENTREGA: la linea del enlace dice QUIEN lo hace ("te lo ...mos" o "nosotros")',
+                        'linea: "%s". No lleva ni "nosotros" ni "te + verbo en -mos" ("te lo '
+                        'decimos", "te lo damos"). Si no caben los dos, se queda el "te", '
+                        'que le habla al lector. En CTR empata con y sin "nosotros" (n '
+                        'pequeno): manda que el lector no tenga que deducir quien ofrece'
+                        % _l2n.strip(), aviso=True)
                 # QUE EL BLOQUE NO CAIGA A TRES LINEAS EN ESCRITORIO (Mario, 2026-10-02).
                 # Medido sobre su captura de un post publicado: 75 caracteres ocupan
                 # 674 px de ~706 utiles (9 px por caracter), o sea que caben ~78.

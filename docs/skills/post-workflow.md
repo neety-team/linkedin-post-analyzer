@@ -1635,6 +1635,7 @@ Mira la foto **sola**, tapando el texto del post, y escribe en literal:
 3. **¿La imagen lleva texto? ¿De quién y qué dice?** ¿Es diálogo, son etiquetas, es un titular?
 4. **¿Qué NO lleva la imagen?** ← el más importante. Aquí es donde se cuela lo que solo estaba en el post.
 5. **⭐ ¿DE QUIÉN es la identidad que sale dentro de la imagen?** ← pregunta nueva, ver el bloque de abajo.
+6. **📱 ¿Es una captura o un collage de una APP** (TikTok, X, correo, chat)? Entonces se calca su interfaz (botones, avatar, subtítulo), el número de líneas y el tamaño de cada texto, aunque la persona se redibuje (`images §0a-sexta-TIKTOK`, 02/10).
 
 ### ⛔⛔ 4.4-IDENTIDAD · EN UN PANTALLAZO, DE QUIÉN ES LA CUENTA LO DECIDE EL ORIGINAL (Iker, 2026-08-13)
 

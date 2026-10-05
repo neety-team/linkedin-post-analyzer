@@ -1423,7 +1423,9 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 4. **🔴 Clics sí, reservas no.** 12 clics de lead en los correos 5 y 6 y **0 reuniones**. Desde el correo 0 (1 reunión el 07/08 en MailerLite) la newsletter no ha traído ninguna. **El cuello de botella ya no es el correo: es lo que pasa después del clic.**
 5. **Las bajas viven en la cohorte del evento.** 0 en 45 durante 4 correos con la lista de siempre; 3 en 111 en cuanto la cohorte nueva recibe su segundo correo en 6 días.
 
-## 📝 CORREO 7 · Kaixito · MITO + colaboración AMA (BORRADOR 2026-10-05, para el mar 06/10, pendiente del OK de Iker)
+## 📝 CORREO 7 · Kaixito · MITO + colaboración AMA (BORRADOR 2026-10-05, para el mar 06/10, pendiente del test de Iker)
+
+**Campaña Brevo 28**, `draft` releído de la API, **sin `scheduledAt`**, remitente `Kaixito de Neety` (`hola@neety.com`), listas **15 + 4 + 17 + 18** (40 + 5 + 33 + 29 según `totalSubscribers`), pie de la casa copiado del correo 6, GIF `enfado`. Los dos `href` con su UTM intacto y **auditor en verde**. El texto visible de los enlaces sale del propio URL desde hoy (`montar-correo-brevo.py`): `neety.com/solicitar-demo` y **solo el dominio `asociacionmarketing.com`**, porque con la ruta la línea del bloque de AMA se partía en el móvil.
 
 | | |
 |---|---|

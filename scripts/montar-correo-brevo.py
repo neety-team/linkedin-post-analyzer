@@ -25,6 +25,16 @@ GIF_TPL = ('<p style="margin:0 0 24px;text-align:center;"><img src="{url}" alt="
            'max-width:70%;height:auto;border:0;outline:none;text-decoration:none;"></p>')
 
 
+def texto_corto(url):
+    """https://neety.com/solicitar-demo?utm_... -> neety.com/solicitar-demo"""
+    u = H.unescape(url).split('?')[0].split('#')[0]
+    corto = re.sub(r'^https?://(www\.)?', '', u).rstrip('/')
+    # Si con la ruta pasa de 26 (lo que medía recursos.neety.com/agendar), solo el
+    # dominio: el texto del enlace se suma a la linea del ninja, y una linea que se
+    # parte en dos en el movil es justo lo que el bloque corto evita (Iker, 05/10).
+    return corto if len(corto) <= 26 else corto.split('/')[0]
+
+
 def bloques_de(txt):
     """Los bloques del cuerpo, sin la cabecera REMITENTE/ASUNTO/PREVIEW."""
     lineas = txt.splitlines()
@@ -41,7 +51,10 @@ def main():
     ap.add_argument('fichero')
     ap.add_argument('--gif', default=None)
     ap.add_argument('--alt', default='')
-    ap.add_argument('--enlace-texto', default='forward.neety.com')
+    # Sin --enlace-texto, cada enlace se pinta con SU dominio + ruta, sin el UTM
+    # (2026-10-05, correo 7: dos destinos distintos, el nuestro y el de AMA, y un
+    # texto unico para los dos habria mentido en uno de ellos).
+    ap.add_argument('--enlace-texto', default=None)
     a = ap.parse_args()
 
     txt = io.open(a.fichero, encoding='utf-8').read()
@@ -56,7 +69,7 @@ def main():
         # el enlace: texto corto visible, URL entera (con su UTM) solo en el href
         html = re.sub(r'(https?://\S+)',
                       lambda m: '<a href="%s" style="color:#fe8238;">%s</a>'
-                                % (m.group(1), a.enlace_texto), html)
+                                % (m.group(1), a.enlace_texto or texto_corto(m.group(1))), html)
         partes.append('<p style="margin:0 0 20px;">%s</p>' % html)
 
     print('<html><body>\n'

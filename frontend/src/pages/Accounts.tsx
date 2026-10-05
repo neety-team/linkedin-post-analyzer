@@ -194,6 +194,10 @@ const ZOOM_PRESETS: { label: string; maxMin: number | null }[] = [
 interface Snapshot {
   captured_at: string;
   impressions_count: number | null;
+  // Lo que pinta la curva: la lectura, la estimacion entre dos lecturas o null
+  // (backend/src/services/curvaImpresiones.ts).
+  impressions_chart?: number | null;
+  impressions_estimated?: boolean;
   likes_count: number;
   comments_count: number;
   reposts_count: number;
@@ -214,9 +218,12 @@ interface Snapshot {
 interface TypicalBucket {
   ageMin: number;
   sampleCount: number;
-  p25Imp: number;
-  p50Imp: number;
-  p75Imp: number;
+  // Las impresiones pueden tener menos muestras que el engagement (snapshots
+  // sin lectura ni estimacion); con menos de 2, sus percentiles vienen null.
+  sampleCountImp?: number;
+  p25Imp: number | null;
+  p50Imp: number | null;
+  p75Imp: number | null;
   p25Eng: number;
   p50Eng: number;
   p75Eng: number;
@@ -2070,68 +2077,66 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     if (!data) return [];
     const publishedMs = new Date(publishedAt).getTime();
     const typicalSorted = (data.typical || []).slice().sort((a, b) => a.ageMin - b.ageMin);
+    // Impresiones y engagement van por separado: un tramo puede tener banda de
+    // engagement y no de impresiones (menos de 2 posts con lectura a esa edad).
+    const impBuckets = typicalSorted.filter((b) => b.p25Imp != null && b.p75Imp != null);
 
-    const typicalAt = (age: number) => {
-      const empty = {
-        impRange: null as [number, number] | null,
-        engRange: null as [number, number] | null,
-        sampleCount: null as number | null,
-      };
-      if (typicalSorted.length === 0) return empty;
+    const bandAt = (
+      age: number,
+      buckets: TypicalBucket[],
+      p25: (b: TypicalBucket) => number,
+      p75: (b: TypicalBucket) => number,
+      n: (b: TypicalBucket) => number
+    ): { range: [number, number]; n: number } | null => {
+      if (buckets.length === 0) return null;
       // Only interpolate WITHIN the real bucket range; outside → null (no
       // band drawn). This is what keeps the band honest when there's no
       // overlap between other posts' buckets and this post's age range.
-      if (age < typicalSorted[0].ageMin || age > typicalSorted[typicalSorted.length - 1].ageMin) {
-        return empty;
-      }
-      let lo = typicalSorted[0];
-      let hi = typicalSorted[typicalSorted.length - 1];
-      for (let i = 0; i < typicalSorted.length - 1; i++) {
-        if (typicalSorted[i].ageMin <= age && age <= typicalSorted[i + 1].ageMin) {
-          lo = typicalSorted[i];
-          hi = typicalSorted[i + 1];
+      if (age < buckets[0].ageMin || age > buckets[buckets.length - 1].ageMin) return null;
+      let lo = buckets[0];
+      let hi = buckets[buckets.length - 1];
+      for (let i = 0; i < buckets.length - 1; i++) {
+        if (buckets[i].ageMin <= age && age <= buckets[i + 1].ageMin) {
+          lo = buckets[i];
+          hi = buckets[i + 1];
           break;
         }
       }
-      if (lo.ageMin === hi.ageMin) {
-        return {
-          impRange: [lo.p25Imp, lo.p75Imp] as [number, number],
-          engRange: [lo.p25Eng, lo.p75Eng] as [number, number],
-          sampleCount: lo.sampleCount,
-        };
-      }
+      if (lo.ageMin === hi.ageMin) return { range: [p25(lo), p75(lo)], n: n(lo) };
       const t = (age - lo.ageMin) / (hi.ageMin - lo.ageMin);
       return {
-        impRange: [
-          Math.round(lo.p25Imp + (hi.p25Imp - lo.p25Imp) * t),
-          Math.round(lo.p75Imp + (hi.p75Imp - lo.p75Imp) * t),
-        ] as [number, number],
-        engRange: [
-          Math.round(lo.p25Eng + (hi.p25Eng - lo.p25Eng) * t),
-          Math.round(lo.p75Eng + (hi.p75Eng - lo.p75Eng) * t),
-        ] as [number, number],
-        sampleCount: Math.max(lo.sampleCount, hi.sampleCount),
+        range: [
+          Math.round(p25(lo) + (p25(hi) - p25(lo)) * t),
+          Math.round(p75(lo) + (p75(hi) - p75(lo)) * t),
+        ],
+        n: Math.max(n(lo), n(hi)),
       };
     };
 
     const mine = data.snapshots.map((s) => {
       const ageMin = Math.max(0, Math.round((new Date(s.captured_at).getTime() - publishedMs) / 60000));
-      const t = typicalAt(ageMin);
+      const imp = bandAt(ageMin, impBuckets, (b) => b.p25Imp as number, (b) => b.p75Imp as number, (b) => b.sampleCountImp ?? b.sampleCount);
+      const eng = bandAt(ageMin, typicalSorted, (b) => b.p25Eng, (b) => b.p75Eng, (b) => b.sampleCount);
       const likes = s.likes_count;
       const comments = s.comments_count;
       const reposts = s.reposts_count;
       return {
         ageMin,
         label: ageMin < 60 ? `${ageMin}m` : `${(ageMin / 60).toFixed(1)}h`,
-        impressions: s.impressions_count ?? 0,
+        // Nunca `?? 0`: un snapshot sin lectura no es un post con 0 impresiones.
+        // Pintarlo como 0 fue lo que obligo a arrastrar la ultima cifra manual,
+        // y eso dibujaba mesetas y acantilados en las cuentas manuales.
+        impressions: s.impressions_chart !== undefined ? s.impressions_chart : s.impressions_count,
+        impressionsEstimated: !!s.impressions_estimated,
         likes,
         comments,
         reposts,
         // Same engagement formula as the rest of the app (likes + 2·comments + 3·reposts)
         engagement: likes + comments * 2 + reposts * 3,
-        typicalImpRange: t.impRange,
-        typicalEngRange: t.engRange,
-        typicalSampleCount: t.sampleCount,
+        typicalImpRange: imp?.range ?? null,
+        typicalImpSampleCount: imp?.n ?? null,
+        typicalEngRange: eng?.range ?? null,
+        typicalEngSampleCount: eng?.n ?? null,
       };
     });
 
@@ -2148,7 +2153,11 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
   // If yes, we render the gray shadow under the curves; if no (e.g. the
   // post is 20h old but the creator's other posts only have buckets at
   // 125h+), we hide the band and tell the user why in the chip.
-  const hasTypicalOverlap = curveDataAll.some((d) => d.typicalImpRange != null);
+  const hasImpOverlap = curveDataAll.some((d) => d.typicalImpRange != null);
+  const hasEngOverlap = curveDataAll.some((d) => d.typicalEngRange != null);
+  // Si alguna impresion es estimada (cuenta manual entre dos lecturas), las
+  // lecturas de verdad se marcan con un punto para que se vea que es dato.
+  const hasEstimatedImp = curveDataAll.some((d) => d.impressionsEstimated);
   const maxAgeMin = hasSnapshots
     ? Math.max(0, ...data!.snapshots.map((s) => Math.round((new Date(s.captured_at).getTime() - new Date(publishedAt).getTime()) / 60000)))
     : 0;
@@ -2165,7 +2174,9 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
   }
 
   const snapshotCount = data?.snapshots.length || 0;
-  const snapshotsInView = curveData.filter((d) => d.impressions != null).length;
+  // Todos los snapshots del zoom, tengan lectura de impresiones o no: el
+  // engagement se pinta igual.
+  const snapshotsInView = curveData.length;
 
   const xAxisProps = {
     dataKey: 'ageMin' as const,
@@ -2183,8 +2194,8 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     { x: 72 * 60, label: '72h' },
   ].filter((ref) => (zoomMax === null ? true : ref.x <= zoomMax));
 
-  const typicalBandChip = (metricLabel: string) =>
-    hasTypical && hasTypicalOverlap ? (
+  const typicalBandChip = (metricLabel: string, hasOverlap: boolean) =>
+    hasTypical && hasOverlap ? (
       <span
         className="inline-flex items-center gap-1 text-[10px] text-text-muted"
         title={`Typical ${metricLabel} for this creator's other posts at the same age (p25–p75)`}
@@ -2243,7 +2254,15 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
                   <span className="w-3 h-[2px] bg-sky-400" /> this post
                 </span>
-                {typicalBandChip('impressions')}
+                {hasEstimatedImp && (
+                  <span
+                    className="inline-flex items-center gap-1 text-[10px] text-text-muted"
+                    title="Impressions are only known when someone reads them from LinkedIn. Between two readings the line is an estimate: half linear in time, half following this post's likes."
+                  >
+                    <span className="inline-block w-2 h-2 rounded-full bg-sky-400" /> reading · line between = estimate
+                  </span>
+                )}
+                {typicalBandChip('impressions', hasImpOverlap)}
               </div>
             </div>
             <ResponsiveContainer width="100%" height={180}>
@@ -2265,12 +2284,21 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     return (
                       <div style={CHART_TOOLTIP_STYLE} className="p-2">
                         <div className="text-text-secondary text-[11px] mb-1">+{p.label} since publish</div>
-                        {p.impressions != null && (
+                        {p.impressions != null && !p.impressionsEstimated && (
                           <div className="text-sky-400 text-xs">👁️ {fmtNum(p.impressions)} impressions</div>
+                        )}
+                        {p.impressions != null && p.impressionsEstimated && (
+                          <>
+                            <div className="text-sky-400 text-xs">👁️ ≈ {fmtNum(p.impressions)} impressions</div>
+                            <div className="text-text-muted text-[10px]">estimate between two readings</div>
+                          </>
+                        )}
+                        {p.impressions == null && (
+                          <div className="text-text-muted text-[11px]">👁️ no impressions reading here</div>
                         )}
                         {p.typicalImpRange && (
                           <div className="text-slate-400 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
-                            Typical at this age (n={p.typicalSampleCount}):<br />
+                            Typical at this age (n={p.typicalImpSampleCount}):<br />
                             👁️ {fmtNum(p.typicalImpRange[0])}–{fmtNum(p.typicalImpRange[1])}
                           </div>
                         )}
@@ -2287,7 +2315,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     label={{ value: ref.label, fill: '#6b7280', fontSize: 10, position: 'top' }}
                   />
                 ))}
-                {hasTypicalOverlap && (
+                {hasImpOverlap && (
                   <Area
                     type="monotone"
                     dataKey="typicalImpRange"
@@ -2306,6 +2334,16 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                   strokeWidth={2}
                   fill={`url(#liveImp-${postId})`}
                   connectNulls
+                  dot={
+                    hasEstimatedImp
+                      ? (props: any) =>
+                          props.payload?.impressions != null && !props.payload?.impressionsEstimated ? (
+                            <circle key={`imp-dot-${props.index}`} cx={props.cx} cy={props.cy} r={3.5} fill="#38bdf8" stroke="#0f172a" strokeWidth={1.5} />
+                          ) : (
+                            <g key={`imp-dot-${props.index}`} />
+                          )
+                      : false
+                  }
                   isAnimationActive={false}
                 />
               </ComposedChart>
@@ -2322,7 +2360,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
                   <span className="w-3 h-[2px] bg-accent" /> this post
                 </span>
-                {typicalBandChip('engagement')}
+                {typicalBandChip('engagement', hasEngOverlap)}
               </div>
             </div>
             <ResponsiveContainer width="100%" height={180}>
@@ -2352,7 +2390,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                         </div>
                         {p.typicalEngRange && (
                           <div className="text-slate-400 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
-                            Typical at this age (n={p.typicalSampleCount}):<br />
+                            Typical at this age (n={p.typicalEngSampleCount}):<br />
                             {fmtNum(p.typicalEngRange[0])}–{fmtNum(p.typicalEngRange[1])}
                           </div>
                         )}
@@ -2369,7 +2407,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     label={{ value: ref.label, fill: '#6b7280', fontSize: 10, position: 'top' }}
                   />
                 ))}
-                {hasTypicalOverlap && (
+                {hasEngOverlap && (
                   <Area
                     type="monotone"
                     dataKey="typicalEngRange"

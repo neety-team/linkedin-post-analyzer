@@ -438,9 +438,9 @@ export async function guardarPostManual(
 
   const postId = String(rows[0].id);
   // Las impresiones del snapshot son las EFECTIVAS tras el COALESCE, no las que
-  // venian en el formulario. Si el post ya existia con impresiones y se vuelve a
-  // pegar su URL sin escribir nada, usar el formulario (vacio) meteria un punto
-  // nulo en medio de la curva y la partiria en dos.
+  // venian en el formulario. Si el post ya existia y se vuelve a pegar su URL
+  // sin escribir nada, el punto lleva la cifra de antes; la curva lo reconoce
+  // como copia y no como lectura (services/curvaImpresiones.ts).
   await insertarSnapshot(postId, {
     likes_count: vista.likes_count,
     comments_count: vista.comments_count,
@@ -549,9 +549,8 @@ export async function actualizarMetricasPrivadas(
  * recorrer el feed del autor: son pocos posts y recorrer el feed entero de un
  * tercero es mucho mas caro y trae contenido que no queremos.
  *
- * Las metricas privadas del ultimo snapshot se ARRASTRAN al nuevo. Sin eso, la
- * curva de impresiones caeria a cero cada 15 minutos entre dos ediciones
- * manuales y no se podria leer.
+ * Las impresiones del snapshot van a null: entre dos ediciones manuales no las
+ * ha leido nadie. Ver la nota de dentro.
  */
 export async function refrescarPostManual(
   postId: string,
@@ -564,11 +563,8 @@ export async function refrescarPostManual(
     return { ok: false, motivo: err?.message || 'Unipile no responde' };
   }
 
-  // Las impresiones del post (escritas a mano) se ARRASTRAN al snapshot nuevo.
-  // Sin esto la curva caeria a cero cada 15 minutos entre dos ediciones
-  // manuales, y una curva que baja a cero y vuelve a subir no se puede leer.
   const { rows: actual } = await pool.query(
-    `SELECT impressions_count, likes_count, comments_count, reposts_count FROM posts WHERE id = $1`,
+    `SELECT likes_count, comments_count, reposts_count FROM posts WHERE id = $1`,
     [postId]
   );
 
@@ -582,11 +578,18 @@ export async function refrescarPostManual(
   const comentarios = noBaja(raw.comment_counter, actual[0]?.comments_count);
   const reposts = noBaja(raw.repost_counter, actual[0]?.reposts_count);
 
+  // IMPRESIONES A NULL, NO ARRASTRADAS (Iker, 2026-10-05). Hasta hoy se copiaba
+  // aqui la ultima cifra tecleada para que la curva no cayera a cero, y lo que
+  // salia era una meseta y un acantilado: el post de Mario del 02/10 se quedo en
+  // 102 durante 65 horas y salto a 3.766 en una. La grafica ya no pinta un null
+  // como 0: entre dos lecturas lo estima services/curvaImpresiones.ts con los
+  // likes de estos snapshots, que son reales. Las copias que ya estan en la BD
+  // las reconoce esa misma funcion (cifra igual a la ultima lectura).
   await insertarSnapshot(postId, {
     likes_count: likes,
     comments_count: comentarios,
     reposts_count: reposts,
-    impressions_count: actual[0]?.impressions_count ?? null,
+    impressions_count: null,
   });
 
   // En el post solo se tocan los contadores publicos y lo derivado de ellos.

@@ -16,6 +16,7 @@ import { extractViewerTimestamps } from '../utils/wvmp';
 import { generateReply, respuestaDeApoyo, diagnosticoUltimaRespuesta } from '../services/replyGenerator';
 import { recordarRespuestasPublicadas } from '../services/variedadComentarios';
 import { getMemeImageSummary } from '../services/postImageText';
+import { curvaImpresiones, curvaTipica } from '../services/curvaImpresiones';
 import { roastProfile } from '../services/roaster';
 import { generarRastro } from '../services/rastroGenerator';
 import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSync';
@@ -2134,12 +2135,16 @@ router.get('/posts/:id/snapshots', async (req: Request, res: Response) => {
               p.profile_viewers_count, p.followers_gained_count,
               p.saves_count, p.sends_count, p.link_clicks_count, p.premium_button_clicks, p.link_url, p.pillar,
               p.video_views, p.video_watch_time_s, p.video_avg_watch_s, p.video_duration_s, p.content_type,
-              p.post_url, c.name AS creator_name, c.profile_image_url AS creator_image
+              p.post_url, c.name AS creator_name, c.profile_image_url AS creator_image,
+              c.is_manual AS creator_is_manual
        FROM posts p JOIN creators c ON c.id = p.creator_id
        WHERE p.id = $1`,
       [req.params.id]
     );
     if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    const post = postQ.rows[0];
+    const esManual = !!post.creator_is_manual;
+    const publicadoMs = new Date(post.published_at).getTime();
 
     const snapsQ = await pool.query(
       `SELECT captured_at, impressions_count, likes_count, comments_count, reposts_count
@@ -2149,78 +2154,56 @@ router.get('/posts/:id/snapshots', async (req: Request, res: Response) => {
       [req.params.id]
     );
 
-    // Typical curve: for each age bucket, compute p25/p50/p75 of impressions
-    // and engagement across the creator's *other* posts at the same age.
-    // Buckets mirror the monitor cadence (15m in golden hour, then 30m, 2h,
-    // 6h, 24h) so we don't over-resolve the band where captures are sparse.
-    // HAVING sample_count >= 2 — kept as low as PERCENTILE_CONT can produce
-    // meaningful values. We had this at 3 before, which silently nuked the
-    // typical band for any creator with a small monitored-post pool (e.g.
-    // newer managed accounts where most age buckets only had 1–2 samples).
-    // Two samples give a min–max range that's still informative; below that
-    // the band would just be a flat line so we drop those buckets.
-    const typicalQ = await pool.query(
-      `WITH target AS (
-         SELECT creator_id FROM posts WHERE id = $1
-       ),
-       other_posts AS (
-         SELECT p.id, p.published_at
-         FROM posts p, target t
-         WHERE p.creator_id = t.creator_id
-           AND p.id <> $1
-           AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
-           AND p.published_at IS NOT NULL
-       ),
-       other_snapshots AS (
-         SELECT
-           op.id AS post_id,
-           EXTRACT(EPOCH FROM (s.captured_at - op.published_at)) / 60.0 AS age_min,
-           COALESCE(s.impressions_count, 0)::int AS impressions,
-           (s.likes_count + 2 * s.comments_count + 3 * s.reposts_count)::int AS engagement
-         FROM other_posts op
-         JOIN post_snapshots s ON s.post_id = op.id
-         WHERE s.captured_at >= op.published_at
-           AND s.captured_at <= op.published_at + INTERVAL '7 days'
-       ),
-       bucketed AS (
-         SELECT
-           -- Label each bucket by its MIDPOINT (not upper bound) so the
-           -- typical band plots where the bucket's data "actually sits"
-           -- rather than at the end of its age range. A snapshot at age 5m
-           -- falls in bucket [0,15) → midpoint 7, so the gray band visually
-           -- aligns with the blue snapshot point at x=5 instead of x=15.
-           CASE
-             WHEN age_min < 60   THEN (FLOOR(age_min / 15) * 15 + 7)::int     -- [0,60)   buckets width 15
-             WHEN age_min < 360  THEN (FLOOR(age_min / 30) * 30 + 15)::int    -- [60,360) buckets width 30
-             WHEN age_min < 1440 THEN (FLOOR(age_min / 120) * 120 + 60)::int  -- [6h,24h) width 120
-             WHEN age_min < 4320 THEN (FLOOR(age_min / 360) * 360 + 180)::int -- [24h,72h) width 360
-             ELSE (FLOOR(age_min / 1440) * 1440 + 720)::int                   -- [72h,…)  width 1440
-           END AS bucket_min,
-           impressions,
-           engagement
-         FROM other_snapshots
-       )
-       SELECT
-         bucket_min AS "ageMin",
-         COUNT(*)::int AS "sampleCount",
-         ROUND(PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY impressions))::int AS "p25Imp",
-         ROUND(PERCENTILE_CONT(0.5)  WITHIN GROUP (ORDER BY impressions))::int AS "p50Imp",
-         ROUND(PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY impressions))::int AS "p75Imp",
-         ROUND(PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY engagement))::int AS "p25Eng",
-         ROUND(PERCENTILE_CONT(0.5)  WITHIN GROUP (ORDER BY engagement))::int AS "p50Eng",
-         ROUND(PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY engagement))::int AS "p75Eng"
-       FROM bucketed
-       GROUP BY bucket_min
-       HAVING COUNT(*) >= 2
-       ORDER BY bucket_min ASC`,
-      [req.params.id]
+    // impressions_count sale tal cual esta en la BD. Lo que pinta la grafica es
+    // impressions_chart: la lectura, la estimacion entre dos lecturas o null
+    // (ver services/curvaImpresiones.ts, con la medicion que eligio la formula).
+    const curva = curvaImpresiones(
+      snapsQ.rows.map((s) => ({
+        ageMin: (new Date(s.captured_at).getTime() - publicadoMs) / 60000,
+        impressions: s.impressions_count,
+        likes: s.likes_count,
+      })),
+      esManual
+    );
+    const snapshots = snapsQ.rows.map((s, i) => ({
+      ...s,
+      impressions_chart: curva[i].impressions,
+      impressions_estimated: curva[i].estimated,
+    }));
+
+    // Banda tipica: p25/p50/p75 de impresiones y engagement de los OTROS posts
+    // de la cuenta a la misma edad, por tramos que siguen la cadencia del
+    // monitor. Se trae cada snapshot en bruto y se agrupa en curvaTipica, que
+    // antes de agrupar pasa cada post por la misma estimacion de impresiones.
+    // Sin limite de 7 dias en la consulta: una lectura del dia 8 sirve para
+    // estimar el dia 6; la ventana se aplica al agrupar.
+    const otrosQ = await pool.query(
+      `SELECT s.post_id,
+              EXTRACT(EPOCH FROM (s.captured_at - p.published_at)) / 60.0 AS age_min,
+              s.impressions_count, s.likes_count, s.comments_count, s.reposts_count
+         FROM posts p
+         JOIN post_snapshots s ON s.post_id = p.id
+        WHERE p.creator_id = $2
+          AND p.id <> $1
+          AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
+          AND p.published_at IS NOT NULL
+          AND s.captured_at >= p.published_at
+        ORDER BY s.post_id, s.captured_at ASC`,
+      [req.params.id, post.creator_id]
+    );
+    const typical = curvaTipica(
+      otrosQ.rows.map((s) => ({
+        postId: String(s.post_id),
+        ageMin: Number(s.age_min),
+        impressions: s.impressions_count,
+        likes: s.likes_count,
+        comments: s.comments_count,
+        reposts: s.reposts_count,
+      })),
+      esManual
     );
 
-    res.json({
-      post: postQ.rows[0],
-      snapshots: snapsQ.rows,
-      typical: typicalQ.rows,
-    });
+    res.json({ post, snapshots, typical });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

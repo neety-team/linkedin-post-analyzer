@@ -4429,6 +4429,14 @@ def main():
                     help='HISTORIA con FOTO DE GRUPO del equipo (Iker, 2026-09-30): acepta el '
                          'gancho en 1a PLURAL (nos, nuestro) como personal. Prueba con n=1 (Unai '
                          '23/09), no regla: se anota el resultado en historial-publicaciones.')
+    ap.add_argument('--voz-ajena', action='store_true', dest='voz_ajena',
+                    help='BORRADOR DE UN PERFIL QUE NO ES DE LOS 3 JEFES (Iker, 2026-10-05): un '
+                         'empleado nuevo pasa SU texto para pulirlo. Se respeta su forma de escribir, '
+                         'sus muletillas y sus frases, asi que los checks de FORMATO de la casa '
+                         '(longitud, ritmo, bloques, cifras en letra, cierre en pregunta o leccion, '
+                         'dos puntos) pasan a AVISO. Siguen duros el gancho, la puntuacion anti-IA '
+                         '(guion largo, coma antes de "y"), la senal de ilegalidad, el spam ninja y el '
+                         'UTM. Nunca en una cuenta de Iker, Unai o Asier.')
     ap.add_argument('--generico', action='store_true',
                     help='Lead magnet modelo GENÉRICO (Martín Arosa/Guillermo): una palabra igual para '
                          'todos + recurso genérico + landing que captura. Salta el check del 2º dato.')
@@ -4475,6 +4483,24 @@ def main():
                        'se escaquea o no sabe (burla). Repasa tambien placas, tazas, rotulos y el peldaño de '
                        'arriba de una evolucion por cargos. Vale en las TRES cuentas, Iker incluido. '
                        'Si pasa, --comprador-ok.', False))
+    # VOZ AJENA (Iker, 2026-10-05, borrador de Ismael): en el texto de un perfil
+    # nuevo manda SU forma de escribir. La chica de producto reescribio varias
+    # veces el gancho que le pulimos porque "no sonaba a ella". El FORMATO de la
+    # casa pasa a aviso; lo que protege el alcance, la marca o la ley sigue duro.
+    if a.voz_ajena and (a.cuenta or '').strip().lower() in ('iker', 'unai', 'asier'):
+        res.insert(0, (False, '--voz-ajena NO vale en las cuentas de los 3 jefes',
+                       'Es para el borrador de un perfil nuevo (Ismael, la chica de producto...). '
+                       'En Iker, Unai y Asier el formato de la casa es obligatorio.', False))
+    elif a.voz_ajena:
+        _FORMATO = ('Al menos un bloque de DOS', 'Bloques de 2-3 en escalera',
+                    'Bloques de prosa', 'Cierre punchy de UNA linea', 'Cifras en digito',
+                    'Cifras en dígito', 'El primer bloque multiple', 'HISTORIA: <=800',
+                    'HISTORIA: ritmo de historia', 'HISTORIA: cierra con una LECCI',
+                    'Línea individual tras cada bloque', 'Ninguna linea pasa de 80',
+                    'Ninguna linea termina en dos puntos', 'RITMO:', 'Sin dos puntos en medio',
+                    'El post no cierra con una pregunta', 'Tras el gancho, LINEA INDIVIDUAL')
+        res = [(b, ('VOZ AJENA · ' + n) if (not x and n.startswith(_FORMATO)) else n, d,
+                True if n.startswith(_FORMATO) else x) for b, n, d, x in res]
     # Los avisos se imprimen pero NO cuentan: son sospechas, no infracciones.
     # Mezclarlos vaciaría de significado el marcador, y el marcador es lo único
     # que se pega en la entrega.

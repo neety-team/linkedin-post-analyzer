@@ -184,6 +184,19 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 
 **Dónde aplica, y por eso es global:** cualquier pilar que mañana cambie de imagen o de soporte (un despiece de otro sector, una tarjeta de un meme, un vídeo de un mapa) arrastra la receta del pilar del que sale.
 
+## ✍️✍️ 0c-VOZ · EL BORRADOR DE UN PERFIL QUE NO ES DE LOS 3 JEFES SE PULE CON SU VOZ, NO CON LA NUESTRA (Iker, 2026-10-05) — GLOBAL
+
+**Cuándo aplica:** Iker pasa un post YA ESCRITO por alguien que no es Iker, Unai ni Asier (un empleado nuevo, un perfil que acaba de empezar) para retocarlo. Primer caso: Ismael, Sales Consultant, historia del director comercial que "se conocía a todos" (05/10). El precedente: la chica de producto reescribió varias veces el gancho que le pulimos porque *"no sonaba a ella"*.
+
+**Iker, literal:** *"que siempre intente respetar, si es un borrador que me ha pasado esa persona, su manera de escribir, sus muletillas, sus frases"*.
+
+- **Lo que SÍ se trabaja con la receta entera:** el **gancho** (es lo más importante: bucle abierto, una oración, sin desvelar), la **puntuación anti-IA** (guion largo, coma antes de "y"), la **señal de ilegalidad** (`brand-voice §2c-DATOS`), el **spam ninja y su UTM** si lleva enlace, y que el **dolor** de Neety se note.
+- **Lo que se RESPETA aunque choque con la casa:** sus frases, sus muletillas (*"no te hago el rollo entero, que para eso ya está la web"*), los números en letra, las líneas largas, el cierre en pregunta, la longitud. Se toca solo lo que estorba la lectura (un párrafo con tres datos pasa a bloque, un golpe enterrado sale a línea suelta).
+- **Para recortar, se quita lo redundante, no lo suyo:** primero la frase que repite una idea ya dicha, luego el dato secundario. Sus giros se quedan.
+- **No se verifican sus datos ni sus menciones** (`feedback-revision-post-ajeno-solo-lo-pedido`).
+- **Validador:** `--voz-ajena` (y `--cuenta <Nombre>`). Pasa a AVISO los checks de formato de la casa y deja duros el gancho, la puntuación, la ilegalidad, el ninja y el UTM. **Falla si se usa con Iker, Unai o Asier.**
+- **Si Iker pide además "cómo quedaría en una cuenta de los jefes"**, esa segunda versión va con la receta entera y sin `--voz-ajena`.
+
 ## ⭐ 0c · MIS DEDUCCIONES NO ENTRAN EN LAS RECETAS SIN QUE IKER LAS APRUEBE (Iker, 2026-07-27)
 
 **El fallo real:** el 21-jul observé que un prompt de imagen que funcionó estaba escrito en líneas sueltas, deduje que ESA era la forma correcta y lo escribí en `images §0i-3` **junto a las reglas de Iker, como si fuera una de ellas**. Encima creé una contradicción con su regla de siempre (párrafo único) que arrastré seis días. Cuando lo vio: *"yo eso no te lo he dicho en la vida, ¿alguien ha hecho un commit?"*.

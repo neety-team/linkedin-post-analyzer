@@ -1389,3 +1389,66 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Al salir:** pegar el cuerpo literal en `corpus-correos-enviados.md` y el ninja en las QUEMADAS de `validar-email.py`. **Revisión de métricas: lunes 05/10** (Iker no trabaja fines de semana), con `metricas-brevo.py --quien`, descontando los clics de escáner y mirando en el CRM si alguien reservó.
 
+
+### 📈 RESULTADO DEL CORREO 6 (leído el 2026-10-05 con `metricas-brevo.py --quien --listas 15,4,17,18`)
+
+| | correo 6 |
+|---|---|
+| Enviados / entregados | 111 / 111 |
+| Aperturas únicas | 63 · 56,8% |
+| **Clics de lead al enlace** | **5** (4,5%) · el 6º es Mario a las 09:24 |
+| **Bajas** | 🔴 **3 · 2,7%** (correo 5: 0 en 111) |
+| Reuniones atribuidas | **0** |
+
+- **De dónde salen los clics y las bajas, mirado contacto a contacto en Brevo:** 4 de los 5 clics son de la cohorte del evento (listas 16-18) y **2 de las 3 bajas también** (lista 18). La tercera, `jurzelai@fex.eus`, había pulsado el correo 5. **La cohorte del evento es a la vez la que más pulsa y la que más se va.** Era su segundo correo en 6 días (correo 5 tanda 2 el 24/09, correo 6 el 29/09) y no se apuntó a ninguna newsletter (`§ LOS INSCRITOS AL EVENTO ENTRAN EN LA LISTA`).
+- **Reuniones, cruzado en HubSpot el 05/10:** ninguno de los 12 que pulsaron los correos 5 y 6 existe como contacto en HubSpot ni tiene reunión. Las 4 reservas públicas del periodo (`MEETINGS_PUBLIC`) vienen todas del enlace del perfil de LinkedIn de Iker (`30-min-perfil-iker-link`), no de la newsletter. ⚠️ **La tabla `meeting_requests` de recursos no se pudo leer** (la conexión directa da timeout): falta mirar en `recursos.neety.com/admin/` si alguno de los 12 rellenó el formulario de `/agendar/` y se quedó sin calendario por la cualificación. **Es el sitio más probable de la fuga y es una comprobación de Iker** (tiene la contraseña).
+- 🟡 **Dos coincidencias que NO se atribuyen:** `rarteche@kruce.es` pulsó el correo 5 y el 01/10 hay `Partnership Neety- Kruce`; `victor.maciel.1@hydro.com` pulsó el correo 5 a los 8 minutos (huella de escáner) y el 29/09 se crea `Neety <> NORSK HYDRO`. Las dos pueden venir de prospección normal. **Se preguntan, no se cuentan.**
+- ⭐ **`anderalberdi94@gmail.com` ha pulsado tres correos (3, 4 y 6) y no ha reservado nunca.** Es el lead más caliente de la lista y no hay CTA de newsletter que le falte: le falta un correo uno a uno.
+
+### 🔁 LO QUE DICEN NUESTROS 7 CORREOS CRUZADOS (2026-10-05, n pequeño: dirección, no prueba)
+
+| correo | remitente | pilar | asunto | entregados | % apertura | clics lead | bajas |
+|---|---|---|---|---|---|---|---|
+| 2 | Iker | HISTORIA | `me traje 200 tarjetas…` (afirmación) | 45 | 35,6 | 0 | 0 |
+| 3 | Unai | HISTORIA-TESTIGO | `en euskadi nos juntamos sin ti` (afirmación) | 45 | 31,1 | 1 | 1 |
+| 4 | Kaixito | NOVEDADES | `te guardo la silla o no?` (pregunta) | 45 | 46,7 | 3 | 0 |
+| 5 | Iker | OBJECIÓN | `tú lo abrirías?` (pregunta) | 111 | 71,2* | 7 (5 sin escáner) | 0 |
+| 6 | Unai | CALENDARIO | `a quién vas a llamar en octubre?` (pregunta) | 111 | 56,8 | 5 | 3 |
+
+\* tanda 2 inflada por escáneres corporativos.
+
+1. **Asunto: las 4 preguntas cortas de tú a tú (contando el correo 0, 46,8%) están por encima de las 2 afirmaciones.** Dentro de la misma lista de 45 la diferencia es 46,7 contra 35,6/31,1. Pasa de hipótesis n=2 a **n=4 contra 2**: se sigue haciendo y se propone como regla cuando haya un correo-afirmación que la desmienta o la confirme con la lista de 111.
+2. **Pilar: los que ARGUMENTAN sacan más clics que los que CUENTAN.** Historia (2 y 3): 0 y 1 clic. Novedades, objeción y calendario: 3, 5-7 y 5. ⚠️ Confundido con la lista (de 45 a 111 desde el 5) y con la puerta (Luma en 3-4, `/agendar/` desde el 5). Lo que sí aguanta sin confusión es la comparación 2 contra 4, misma lista y misma época: 0 contra 3.
+3. **Remitente: Kaixito es el que más abre en la lista comparable** (46,7 contra 35,6 de Iker y 31,1 de Unai) **y el único con 0 bajas en sus dos envíos de Brevo**. `email-marketing §1` decía *"si abre más, gana papel"*: ya abre más.
+4. **🔴 Clics sí, reservas no.** 12 clics de lead en los correos 5 y 6 y **0 reuniones**. Desde el correo 0 (1 reunión el 07/08 en MailerLite) la newsletter no ha traído ninguna. **El cuello de botella ya no es el correo: es lo que pasa después del clic.**
+5. **Las bajas viven en la cohorte del evento.** 0 en 45 durante 4 correos con la lista de siempre; 3 en 111 en cuanto la cohorte nueva recibe su segundo correo en 6 días.
+
+## 📝 CORREO 7 · Kaixito · MITO + colaboración AMA (BORRADOR 2026-10-05, para el mar 06/10, pendiente del OK de Iker)
+
+| | |
+|---|---|
+| Asunto | `cuántas empresas tiene tu lista?` (32 car, pregunta de tú a tú sin `¿`) |
+| Preview | `No me lo digas, que me enfado.` |
+| Pilar | **MITO (3), primera vez.** El mito: *cuantas más empresas tenga una lista, más clientes salen* |
+| Dolor | el listado que acierta y ahorra limpiarlo (8 empresas, 7 ICP) + no pagar por buscar lo que no vale (8 de 8 ICP), en MESES |
+| GIF | **`enfado`, estreno** (`email-marketing §3b`: romper una creencia) |
+| Micro-apertura | `Hoy vengo enfadado.` (la de Kaixito en el 4 fue `Aviso de mascota.`) |
+| Ninja | `La lista larga te la vende cualquiera.` / `La corta, con quien decide, nosotros:` → `/agendar/` con `utm_campaign=correo-07-kaixito-mito` |
+| Segundo enlace | **colaboración con AMA**: Premios de Marketing de Euskadi, en la PD, con `utm_source=neety` para que AMA vea el tráfico que le llega de nosotros |
+| Validador | **38/38** con `--colaboracion` (check nuevo, probado rompiéndolo) |
+| Destinatarios previstos | listas 15 + 4 + 17 + 18 (los 3 de baja del correo 6 ya están bloqueados) |
+
+- ⚠️ **Fecha de cierre de los premios sin cuadrar:** las bases en PDF (subidas en julio) dicen **15 de octubre a las 23:59**; la web y el mensaje de AMA dicen **30 de octubre**. El correo dice `este mes`, que es verdad en los dos casos. Confirmar con AMA.
+- **Al enviar:** ninja a `QUEMADAS`, cuerpo literal al corpus el MISMO día, y leer el clic del enlace de AMA en `linksStats` para poder decirle a AMA cuántos de nuestra red pulsaron.
+
+## Ángulos y vehículos usados, puesto al día (2026-10-05)
+- Correo 4 · Kaixito: la lista de invitados en su libro (evento).
+- Correo 5 · Iker: la objeción de la IA que escribe mensajes.
+- Correo 6 · Unai: el cierre del trimestre y la lista de enero.
+- Correo 7 · Kaixito (borrador): la lista de 2.000 empresas apuntada en su libro y tachada a mano.
+
+## Micro-aperturas usadas por remitente (2026-10-05)
+- **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
+- **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7, borrador)
+- Asier: sin estrenar

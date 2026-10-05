@@ -212,6 +212,10 @@ def main():
     # que ACABA en ':' presentando algo debajo (esa la mira su propio check si lo hay).
     _dp = []
     for _l in cuerpo.split('\n'):
+        # el marcador [GIF: ...] no es una frase: es la instruccion que lee
+        # montar-correo-brevo.py, y lleva ':' desde el correo 4 (2026-10-05)
+        if _l.strip().startswith('['):
+            continue
         _s = re.sub(r'https?://\S+', '', _l)
         _s = re.sub(r'\d:\d', '', _s)
         if re.search(r':\s*\S', _s):
@@ -339,10 +343,34 @@ def main():
 
     # --- enlaces: 1 principal como máximo ---
     links = re.findall(r'https?://\S+', cuerpo)
+    # --colaboracion (2026-10-05, correo 7): una COLABORACION con un tercero (difundir
+    # algo de otra entidad) permite UN segundo enlace, con dos condiciones que se
+    # comprueban aqui y no se dan por supuestas: (1) el segundo enlace NO es nuestro
+    # y (2) va DETRAS de la firma, en la PD. El nuestro sigue siendo el unico del
+    # cuerpo, que es donde salen los clics (x12 al subirlo, email-marketing §5-NINJA).
+    # En el corpus de la sexta y septima ventana nadie pone dos CTA en el cuerpo:
+    # el del tercero va siempre separado (bloque de patrocinio, pie de eventos o PD).
+    colab = '--colaboracion' in sys.argv
     if len(links) <= 1:
         checks.append(ok(f'{len(links)} enlace(s) (máx 1)'))
+    elif colab and len(links) == 2:
+        i_firma = next((i for i, l in enumerate(cuerpo_lineas)
+                        if re.match(r'^\s*(Iker|Unai|Asier|Kaixito)\b.*Neety', l)), None)
+        i_seg = next((i for i, l in enumerate(cuerpo_lineas) if links[1] in l), None)
+        nuestro = lambda u: 'neety.' in u
+        if not nuestro(links[0]) or nuestro(links[1]):
+            checks.append(fallo('Colaboración: el PRIMER enlace tiene que ser el nuestro y el '
+                                'segundo el del tercero'))
+        elif i_firma is None or i_seg is None or i_seg < i_firma:
+            checks.append(fallo('Colaboración: el enlace del tercero va DETRÁS de la firma '
+                                '(PD), nunca en el cuerpo compitiendo con el nuestro'))
+        else:
+            checks.append(ok('Colaboración: 2 enlaces, el nuestro en el cuerpo y el del '
+                             'tercero en la PD (excepción --colaboracion)'))
     else:
-        checks.append(fallo(f'{len(links)} enlaces compitiendo (máx 1 principal)'))
+        checks.append(fallo(f'{len(links)} enlaces compitiendo (máx 1 principal'
+                            + ('' if colab else '; si es una colaboración con un tercero, --colaboracion')
+                            + ')'))
 
     # --- SPAM NINJA EN EL CORREO (email-marketing §5-NINJA, Iker 2026-08-26) ---
     # La forma del ninja NO es de un pilar ni de un canal: es global (global §4.4b-FORMA).
@@ -451,6 +479,9 @@ def main():
             # correo 4 · Kaixito · el evento, ultima semana
             'por correo no te guardo sitio': '2026-09-16',
             'de las 20 sillas que quedan elegimos': '2026-09-16',
+            # correo 6 · Unai · CALENDARIO (enviado 29/09)
+            'llamar en octubre es facil. lo caro es saber a quien': '2026-09-29',
+            'eso lo hacemos nosotros, con quien decide dentro': '2026-09-29',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el

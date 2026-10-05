@@ -691,6 +691,8 @@ En los emails importantes, SIEMPRE (Timepack lo lleva en el 86% de los correos, 
 | 9 | **RECETA** | el método entero a mano; se vende aplicarlo a su caso |
 ⚠️ **Los cinco son n=0 y NO entran en el reparto de arriba hasta que se prueben.** El orden recomendado y el porqué de no lanzarlos a la vez, en `§8g`.
 
+**📍 Estado a 2026-10-05:** estrenados HISTORIA (2, 3) · BASTIDORES/novedades (4) · OBJECIÓN (5) · CALENDARIO (6). **MITO en borrador** (correo 7, Kaixito). Sin estrenar: DOLOR puro, CICATRIZ, ANZUELOS y RECETA (reservada para el estreno de Asier). Lo que dicen los 7 correos cruzados (clics por pilar, asunto pregunta contra afirmación, Kaixito contra founders, las bajas de la cohorte del evento) está en `historial-newsletter`, 05/10.
+
 **⭐ LA PROMESA CENTRAL, Y ES UNA SOLA (confirmada por Mario con feedback de clientes, 2026-08-10):**
 > **Encontrar las empresas que de verdad te pueden comprar, y la persona exacta con la que hablar dentro.**
 
@@ -2249,7 +2251,78 @@ haven't done yet`, 07:01.
   competencia.
 - **Content Playbook → The B2B Creator:** vuelve al corpus (arriba).
 
+---
+
+### 8j · ⭐ SÉPTIMA VENTANA — 21 newsletters, 9 remitentes, 8 días (28 sep - 5 oct 2026, analizado el 2026-10-05)
+
+ZIP `newslettershasta5oct.zip`, 30 ficheros. **Fuera del conteo (9):** SINGULARU (7, contraste de siempre), Lavender (2, **cuarta semana llegando la mala**), 1 aviso de notas de Substack y 1 correo de alta de producto de **HappyScribe** (no es newsletter). **Dentro (21):** **Isra Bravo (7)**, **RunnerPro (4)**, **Juan Domínguez (3)**, Cosas de Freelance (2), Hugo López (1), BOGA/EDEM (1), Kieran Flanagan (1), The B2B Creator (1). **lemlist, Hoppy Copy y Tendios: tercera semana sin nada** → las suscripciones están caídas o en Spam: lo comprueba Mario.
+
+**Método:** horas a +02:00 desde el `Date`; ritmo por script sobre el texto plano (RunnerPro sale 100% suelto porque su texto plano separa cada párrafo: **no se toma como medida**, igual que en `§8h`).
+
+#### ⏰ Horas: séptima semana del bloque de las 15:00
+RunnerPro **15:01-15:07** (lun · mié · vie · dom) · Isra **15:29** (7 de 7) · Juan **16:01-16:03** (lun · mié · vie) · EDEM 12:06 (martes) · Hugo 12:05 · Cosas de Freelance **08:01** el jueves y **un domingo extra a las 12:03 que anuncia él mismo** (*"Rara vez hago esto, pero ya verás que lo hago por un buen motivo"*). **Nada cambia en nuestras 09:01/09:05.**
+
+#### ✉️ Asunto
+- **Remitentes-persona (n=19): mediana 34 caracteres y 6 palabras.** Dentro de la banda 31-37 por tercera ventana. La regla de ≤40 no se toca.
+- **🔄 Vuelven las preguntas: 4 de 19** (`¿Has terminado?` · `¿Magia?` · `Una pregunta rara: ¿te gusta correr?` · `Y si eso que no compartes, es justo lo que te diferencia?`) tras 0 de 21 la semana pasada. Coincide con nuestro dato (las preguntas de tú a tú son nuestros 4 asuntos que más abren, `historial-newsletter`, 05/10).
+- **Punto dentro del asunto, segunda ventana:** `Domingo. La carrera que no terminé`. **RunnerPro, quinto domingo seguido con `Domingo.` y pilar personal**: el día fijo para un pilar ya es sistema.
+- **Asunto + preheader como dos mitades, tercera ventana:** Juan 3 de 3 (`Con 18 años compré el negocio perfecto` + `Y me estafaron 🤣`) y EDEM (`Ahora lo entiendo.` + `Entonces no tenía ni idea.`). Juan mete el emoji **en el preheader**, nunca en el asunto.
+- **La cifra pequeña y rara:** `Le quité 16 segundos a un anuncio (y mira qué pasó)` (Hugo), con el paréntesis de segundo golpe.
+
+#### 🧩 LOS PILARES DE LA SEMANA, y el que domina es el MITO
+| remitente | pilares |
+|---|---|
+| **Juan (3)** | **mito** (el gurú que vende la tienda que *"vende sola"*) · **mito de calendario** (`No intentes salvar ahora el año`, contra el *"quedan 90 días"*) · reflexión personal |
+| **RunnerPro (4)** | **mito** (`¿te gusta correr?`: *"te han estado vendiendo la película equivocada"*) · **calendario** (`Mañana es uno de octubre`) · **receta** (`La regla de los 10 grados`) · **cicatriz** de domingo (la media maratón que abandonó) |
+| **Isra (7)** | 6 de 7 venden el mismo libro (Storytelling Salvaje) · **anzuelos** como cierre de semana (`Montoya, no huyas`, 9 viñetas con su capítulo) · un **mito** (*"eso de que nada es imposible es un gran eslogan de marketing"*) |
+| Kieran (1) | **mito**: la IA escribe mejor y por eso todo suena igual |
+| The B2B Creator (1) | lo da como plantilla de lunes: **"Myths I Had To Unlearn"**, *"open by admitting how long it took you to learn something, then list false beliefs you used to hold"* |
+| Cosas de Freelance (2) | anuncio de masterclass **con un tercero** · receta larga |
+| EDEM (1) | historia personal (el abuelo) → curso |
+| Hugo (1) | crónica con cifra propia → programa |
+
+**⭐ Cinco remitentes independientes rompen una creencia esta semana.** Es la primera ventana en la que el pilar 3 (`§5`, MITO) es el más usado del corpus. **Y su molde es el mismo en los cinco:** la creencia la dice OTRO (*"te han vendido"*, *"te repiten"*, *"te cuentan"*), el narrador confiesa que **él también se la creyó**, y la verdad llega con **un matiz que no tira la categoría entera** (Juan: *"Esto no va contra los cursos online. Yo sigo comprándolos"*). **Ese matiz es lo que separa un mito de un ataque**, y encaja con `brand-voice` (no criticamos a nadie): se rompe la creencia, no a quien la vende.
+
+**🗓️ Y el calendario del trimestre llegó a dos remitentes a la vez que a nosotros** (RunnerPro el 30/09, Juan el 02/10; nuestro correo 6 salió el 29/09). **Las dos lecturas opuestas son robables:** RunnerPro (*"octubre no tiene épica, por eso es el mejor mes para empezar"*) y Juan (*"no conviertas los 3 meses en una carrera desesperada"*). **Nuestro correo 6 llegó el primero**, que es lo que el pilar CALENDARIO pide: adelantarse a la fecha.
+
+#### ⭐⭐ LOS 8 MECANISMOS NUEVOS QUE MERECEN ROBARSE
+1. **⭐⭐ El mito confesado: "yo también me lo creí".** Juan: *"Yo veía esos vídeos y pensaba: Juanito, tú también puedes"*. RunnerPro: *"yo soy del segundo grupo"*. **La creencia rota en primera persona no acusa al lector**: le deja reconocerse solo (`brand-voice`, YO > NOSOTROS > TÚ). Es el molde del correo 7.
+2. **⭐ El matiz que salva al mito.** *"Esto no va contra los cursos online"* · *"No te digo que no la compres"*. Una línea que delimita el mito evita que el lector que sí usa esa cosa se sienta tonto.
+3. **⭐⭐ El CTA de respuesta con DOS opciones de identidad.** RunnerPro: *"Dale a responder… y escríbeme una de las dos: «Me gusta correr.» «Me gusta haber corrido.» Con eso me vale. Una línea. Las leo todas."* **Dos opciones, no cinco** (nuestro correo 0 dio 5 y sacó 0 respuestas de 191), y cada opción **le dice al lector algo de sí mismo**. Versión Neety para cuando un correo vaya sin enlace: *«Busco yo.» / «Busca otro.»*.
+4. **La venta declarada, con la costura nombrada.** RunnerPro, el único correo de venta dura de su semana: *"Te lo pongo directo porque hoy sí toca… Si llevas meses leyéndome y aún no has entrado, este es el email."* Quinta forma de nombrar la costura (`§8g` punto 10). ⚠️ Su puente promete *"el plan que se ajusta solo"*: automatismo, no se copia.
+5. **La regla única con número.** *"Vístete como si hiciera 10 grados más"* y *"tres cosas más, rápido"* numeradas. **El pilar RECETA en su forma mínima: una regla que cabe en una línea**, y luego tres matices. Es el formato para el estreno de Asier.
+6. **La cicatriz con la causa desplazada.** *"Ese día no me falló la cabeza. Me falló el kilómetro uno."* El fallo que se ve al final se causó al principio. Es la palanca `§8i` (*"lo que cenas hoy lo corres mañana"*) dentro de una historia.
+7. **El índice como cierre de la semana de venta, otra vez.** Isra `Montoya, no huyas` el sábado: 9 viñetas con su capítulo, el día antes de cerrar. Tercera ventana: **los anzuelos cierran campañas, no rellenan.**
+8. **Los números propios como contenido.** Hugo: *"El CTR subió un 28%. Y el CPL bajó un 22%. Con un recorte de 16 segundos."* Cifra grande del resultado, cifra pequeña de la causa. Para nosotros solo con cifra propia verificada (`§7`).
+
+#### 🤝 CÓMO METE EL CORPUS LA LLAMADA A LA ACCIÓN DE UN TERCERO (y es lo que pedía el correo 7)
+Cuatro formas en la misma semana, y **ninguna pone dos enlaces compitiendo en el cuerpo**:
+| quién | cómo |
+|---|---|
+| **The B2B Creator** | bloque de patrocinio **arriba del todo**, marcado (`Together with KLEO`), separado por una raya del contenido |
+| **EDEM** | el CTA propio va en el cuerpo; los eventos ajenos, en un bloque `Eventos gratuitos` **detrás de la firma** |
+| **Cosas de Freelance** | el tercero es **el origen del regalo** (*"Los culpables de lo que te voy a contar son los chicos de Raiola"*) y en la **PD3** lo elogia y abre la puerta a otras marcas |
+| **Hugo López** | nombra el evento y al organizador de otro (Raiola, Álvaro Fontela) **sin enlace**: autoridad por asociación |
+
+**De aquí sale `§5-COLABORACION`** (abajo, en `§9`): el nuestro en el cuerpo, el del tercero detrás de la firma.
+
+#### ⛔ Lo que NO se copia de esta ventana
+- **Las erratas**, que siguen (`Froma` en un asunto de Isra, `te de su dinero`, `huega`, `qeu`, `directamenteno`).
+- **El registro y la política de Isra** (*"perruflautas"*, *"huelga, perros"*): ya estaba en `§8f`.
+- **El puente de automatismo de RunnerPro** (*"se ajusta solo"*) y las cifras sin verificar de otros (*"+14.000 freelancers"*, *"850.000 freelancers"* de Malt).
+- **Los 15+ enlaces y el menú de "3 formas en las que puedo ayudarte"** de Cosas de Freelance: es la lista de CTA que nuestra regla de uno evita.
+
 ## 9 · Entrega y validación (cada email, sin excepción)
+
+### 🤝 5-COLABORACION · CUANDO EL CORREO DIFUNDE ALGO DE UN TERCERO (2026-10-05, correo 7)
+Hay correos en los que, además del nuestro, toca dar visibilidad a algo de otra entidad con la que colaboramos (el primero: los Premios de Marketing de Euskadi de AMA, con quien Unai y Angela ya dieron una sesión en mayo, `aboutme §2`). **Se hace sin regalarle el correo y sin estropear el nuestro:**
+1. **El correo se escribe con nuestro pilar y nuestro ninja, como cualquier otro.** Lo del tercero no es el tema: va de añadido.
+2. **El enlace del tercero va DETRÁS de la firma, en la PD**, nunca en el cuerpo. Es lo que hace el corpus entero (`§8j`) y protege el único dato que tenemos de verdad: el ninja en el cuerpo saca 12 veces más clics que al final (`§5-NINJA-POSICION`).
+3. **La PD del tercero hace el trabajo que ya tenía la PD: el reenvío.** Lo que pide quien difunde es que llegue a más gente, y eso es exactamente nuestra PD de referidos (`§4b`).
+4. **Siempre en positivo y con su nombre completo** (`brand-voice §5`), con el dato que le sirve al lector (para quién es, si cuesta algo, cuándo cierra), **verificado en la fuente del tercero**. Si dos fuentes del tercero no coinciden, se escribe lo que es verdad en las dos (`este mes`) y se pregunta.
+5. **Su enlace lleva nuestro UTM** (`utm_source=neety`): así el tercero ve en su analítica el tráfico que le mandamos, y nosotros lo leemos en `linksStats`. Es lo que se le puede devolver con un número.
+6. **Mecanizado:** `validar-email.py <fichero> --colaboracion` permite dos enlaces solo si el primero es nuestro y el segundo va detrás de la firma. Probado rompiéndolo en los dos sentidos.
+7. **Es excepción, no pilar:** un correo con dos llamadas a la acción como mucho cada 6-8 correos, y nunca dos seguidos.
 
 - **Cada email va en su bloque cercado** (` ``` ` sin lenguaje), formato exacto:
   ```

@@ -396,6 +396,67 @@ PPD. Si contestas a este correo, te responde una persona.
 
 ---
 
+## Unai 06 · el calendario del trimestre (pilar CALENDARIO, el primero del pilar · puerta `/agendar/`)
+
+**Enviado:** 2026-09-29 09:07 · campaña Brevo 27 · listas 15 + 4 + 17 + 18 (111)
+**Remitente:** `Unai de Neety` (`hola@neety.com`) · firma `Unai Arambarri, CEO de Neety`
+**`utm_campaign` escrito a mano:** `correo-06-unai-calendario` (seguimiento UTM de Brevo apagado en la cuenta)
+
+| | Correo 6 (leído el 2026-10-05 con `metricas-brevo.py --quien`) |
+|---|---|
+| Enviados / entregados | 111 / 111 |
+| Aperturas únicas | 63 · 56,8% |
+| **Clic al ENLACE** | **6**, uno es Mario → **5 de lead** (`tgoni@cein.es`, `isantander@smartlg.com`, `josebafernandez@blug.es`, `anderalberdi94@gmail.com`, `julen.cuesta@baskeat.com`) |
+| **Bajas** | 🔴 **3** (2,7%): `andres.saguillo@agencia-gas-axpo.es` y `jmolina@battera.tech` (lista 18, inscritos del evento) y `jurzelai@fex.eus` (que había pulsado el correo 5) |
+| Reuniones | **0**: ninguno de los 5 está en HubSpot ni tiene reunión (comprobado el 05/10) |
+
+> ⚠️ **Rescatado de la API el 2026-10-05, 6 días después de salir.** La regla del disparador (`el ENVÍO`) se volvió a incumplir.
+
+### El asunto y el preheader
+
+```
+a quién vas a llamar en octubre?
+```
+```
+Te lo pregunto por algo que pasa en enero.
+```
+
+### El cuerpo, literal
+
+```
+Calendario en mano.
+
+El miércoles se cierra el trimestre.
+A partir del jueves quedan 13 semanas de año.
+Con el puente de diciembre y la Navidad, bastantes menos.
+
+Y hay una cuenta que casi nadie hace en esta fecha.
+
+Un cliente nuevo tarda meses en firmar.
+Lo que abras en octubre se firma el año que viene.
+
+Así que la lista de octubre no es para este trimestre.
+
+Es la de enero.
+
+Octubre se va en mirar webs.
+En preguntar quién lleva las compras.
+En semanas enteras sin descolgar el teléfono.
+
+Llamar en octubre es fácil. Lo caro es saber a quién.
+Eso lo hacemos nosotros, con quien decide dentro: recursos.neety.com/agendar
+
+La llamada, eso sí, la sigues haciendo tú.
+
+Unai Arambarri, CEO de Neety
+
+PD. Si el jueves estuviste con nosotros en Donostia, gracias por venir.
+
+PPD. Si en tu empresa alguien está preparando ya la lista de octubre, reenvíaselo.
+```
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

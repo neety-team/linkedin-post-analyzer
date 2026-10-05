@@ -2062,6 +2062,9 @@ function fmtPublishedAt(iso: string): string {
 function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; publishedAt: string; autoRefresh?: boolean }) {
   const [zoomMax, setZoomMax] = useState<number | null>(null);
   const { data, loading, refetch } = useApi<SnapshotsResponse>(`/api/accounts/posts/${postId}/snapshots`);
+  // Cuenta sin Unipile conectado: las impresiones solo existen donde alguien
+  // las copio a mano, y eso cambia como se pintan los puntos.
+  const isManualPost = !!data?.post?.creator_is_manual;
 
   useEffect(() => {
     if (!autoRefresh) return;
@@ -2144,6 +2147,9 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
         // Null cuando el snapshot era una copia sin lectura despues.
         engagement: likes == null ? null : likes + (comments ?? 0) * 2 + (reposts ?? 0) * 3,
         engagementEstimated: !!s.counters_estimated,
+        // Snapshot que alguien añadio a mano (alta o "Añadir métricas"): en una
+        // cuenta manual, el unico que trae una lectura de impresiones.
+        manualSnapshot: isManualPost && s.impressions_chart != null && !s.impressions_estimated,
         typicalImpRange: imp?.range ?? null,
         typicalImpSampleCount: imp?.n ?? null,
         typicalEngRange: eng?.range ?? null,
@@ -2152,7 +2158,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     });
 
     return mine.sort((a, b) => a.ageMin - b.ageMin);
-  }, [data, publishedAt]);
+  }, [data, publishedAt, isManualPost]);
 
   const curveData = useMemo(
     () => (zoomMax === null ? curveDataAll : curveDataAll.filter((d) => d.ageMin <= zoomMax)),
@@ -2166,9 +2172,26 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
   // 125h+), we hide the band and tell the user why in the chip.
   const hasImpOverlap = curveDataAll.some((d) => d.typicalImpRange != null);
   const hasEngOverlap = curveDataAll.some((d) => d.typicalEngRange != null);
-  // Si alguna impresion es estimada (cuenta manual entre dos lecturas), las
-  // lecturas de verdad se marcan con un punto para que se vea que es dato.
-  const hasEstimatedImp = curveDataAll.some((d) => d.impressionsEstimated);
+  // PUNTOS FIJOS EN CADA SNAPSHOT MANUAL (Iker, 2026-10-05). Solo en posts
+  // manuales: ahi la linea entre dos lecturas es estimada y hace falta ver
+  // donde estan las de verdad. En las conectadas cada snapshot es una lectura
+  // y 30 puntos solo ensuciarian. Es el mismo punto que pinta Recharts al pasar
+  // el raton (activeDot: color de la linea con borde blanco), para que se lea
+  // igual. Sin valor en ese snapshot (copia sin lectura despues), sin punto.
+  const manualDot = (color: string, metric: 'impressions' | 'engagement') => (props: any) =>
+    props.payload?.manualSnapshot && props.payload?.[metric] != null && props.cy != null ? (
+      <circle key={`${metric}-dot-${props.index}`} cx={props.cx} cy={props.cy} r={4} fill={color} stroke="#fff" strokeWidth={2} />
+    ) : (
+      <g key={`${metric}-dot-${props.index}`} />
+    );
+  const manualDotChip = (color: string, label: string) => (
+    <span
+      className="inline-flex items-center gap-1 text-[10px] text-text-muted"
+      title="Each dot is a snapshot added by hand (when the post was added or from ⋮ → Añadir métricas). Impressions are only known there; between two dots the blue line is an estimate: half linear in time, half following this post's likes."
+    >
+      <span className="inline-block w-2.5 h-2.5 rounded-full border-2 border-white" style={{ background: color }} /> {label}
+    </span>
+  );
   // Cuenta manual sin ninguna lectura todavia: antes salia una linea plana en 0
   // (falso) y ahora saldria una grafica vacia; mejor decir que falta y donde.
   const hasAnyImp = curveDataAll.some((d) => d.impressions != null);
@@ -2268,14 +2291,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
                   <span className="w-3 h-[2px] bg-sky-400" /> this post
                 </span>
-                {hasEstimatedImp && (
-                  <span
-                    className="inline-flex items-center gap-1 text-[10px] text-text-muted"
-                    title="Impressions are only known when someone reads them from LinkedIn. Between two readings the line is an estimate: half linear in time, half following this post's likes."
-                  >
-                    <span className="inline-block w-2 h-2 rounded-full bg-sky-400" /> reading · line between = estimate
-                  </span>
-                )}
+                {isManualPost && manualDotChip('#38bdf8', 'manual snapshot · line between = estimate')}
                 {typicalBandChip('impressions', hasImpOverlap)}
               </div>
             </div>
@@ -2303,6 +2319,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     return (
                       <div style={CHART_TOOLTIP_STYLE} className="p-2">
                         <div className="text-text-secondary text-[11px] mb-1">+{p.label} since publish</div>
+                        {p.manualSnapshot && <div className="text-text-muted text-[10px] mb-1">● manual snapshot</div>}
                         {p.impressions != null && !p.impressionsEstimated && (
                           <div className="text-sky-400 text-xs">👁️ {fmtNum(p.impressions)} impressions</div>
                         )}
@@ -2317,7 +2334,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                         )}
                         {p.typicalImpRange && (
                           <div className="text-slate-400 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
-                            Typical at this age (n={p.typicalImpSampleCount}):<br />
+                            Typical at this age ({p.typicalImpSampleCount} post{p.typicalImpSampleCount === 1 ? '' : 's'}):<br />
                             👁️ {fmtNum(p.typicalImpRange[0])}–{fmtNum(p.typicalImpRange[1])}
                           </div>
                         )}
@@ -2353,16 +2370,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                   strokeWidth={2}
                   fill={`url(#liveImp-${postId})`}
                   connectNulls
-                  dot={
-                    hasEstimatedImp
-                      ? (props: any) =>
-                          props.payload?.impressions != null && !props.payload?.impressionsEstimated ? (
-                            <circle key={`imp-dot-${props.index}`} cx={props.cx} cy={props.cy} r={3.5} fill="#38bdf8" stroke="#0f172a" strokeWidth={1.5} />
-                          ) : (
-                            <g key={`imp-dot-${props.index}`} />
-                          )
-                      : false
-                  }
+                  dot={isManualPost ? manualDot('#38bdf8', 'impressions') : false}
                   isAnimationActive={false}
                 />
               </ComposedChart>
@@ -2380,6 +2388,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
                   <span className="w-3 h-[2px] bg-accent" /> this post
                 </span>
+                {isManualPost && manualDotChip('#e8935a', 'manual snapshot')}
                 {typicalBandChip('engagement', hasEngOverlap)}
               </div>
             </div>
@@ -2402,6 +2411,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     return (
                       <div style={CHART_TOOLTIP_STYLE} className="p-2">
                         <div className="text-text-secondary text-[11px] mb-1">+{p.label} since publish</div>
+                        {p.manualSnapshot && <div className="text-text-muted text-[10px] mb-1">● manual snapshot</div>}
                         {p.engagement == null ? (
                           <div className="text-text-muted text-[11px]">no engagement reading here</div>
                         ) : (
@@ -2419,7 +2429,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                         )}
                         {p.typicalEngRange && (
                           <div className="text-slate-400 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
-                            Typical at this age (n={p.typicalEngSampleCount}):<br />
+                            Typical at this age ({p.typicalEngSampleCount} post{p.typicalEngSampleCount === 1 ? '' : 's'}):<br />
                             {fmtNum(p.typicalEngRange[0])}–{fmtNum(p.typicalEngRange[1])}
                           </div>
                         )}
@@ -2455,6 +2465,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                   strokeWidth={2}
                   fill={`url(#liveEng-${postId})`}
                   connectNulls
+                  dot={isManualPost ? manualDot('#e8935a', 'engagement') : false}
                   isAnimationActive={false}
                 />
               </ComposedChart>

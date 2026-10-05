@@ -253,6 +253,14 @@ export function curvaPost(lecturas: LecturaPost[], esManual: boolean): PuntoPost
 // otros posts. Ahora cada post pasa por curvaPost antes de agruparse, y un
 // snapshot sin lectura ni estimacion no cuenta (ni para impresiones ni, si es
 // una copia de contadores sin lectura despues, para el engagement).
+//
+// UN POST, UN VOTO POR TRAMO (Iker, 2026-10-05, tercera vuelta). Se contaban
+// SNAPSHOTS, no posts, y cada lectura manual añade un snapshot: el post que la
+// tenia contaba doble en ese tramo. Con los 2 posts de Mario, la banda bajaba
+// de golpe a las 21h ("Trabajo en growth" dos veces, a las 20.13h y en la
+// lectura de las 20.54h: 899-9.399 en vez de 5.150-13.650) y saltaba a las 69h
+// (el meme dos veces). Ahora cada post entra una vez con la media de sus
+// snapshots del tramo, y el n del tooltip son posts.
 
 export interface SnapshotTipico {
   postId: string;
@@ -303,26 +311,34 @@ export function curvaTipica(snaps: SnapshotTipico[], esManual: boolean): TramoTi
     porPost.set(s.postId, lista);
   }
 
+  const media = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
   const tramos = new Map<number, { imp: number[]; eng: number[] }>();
   for (const lista of porPost.values()) {
     // La curva se calcula con TODOS los snapshots del post: una lectura del dia
     // 8 sirve para estimar el dia 6. La ventana de 7 dias se aplica despues.
     const curva = curvaPost(lista, esManual);
+    const delPost = new Map<number, { imp: number[]; eng: number[] }>();
     lista.forEach((s, i) => {
       if (s.ageMin < 0 || s.ageMin > VENTANA_TIPICA_MIN) return;
       const t = tramoDeEdad(s.ageMin);
-      const tramo = tramos.get(t) || { imp: [], eng: [] };
+      const tramo = delPost.get(t) || { imp: [], eng: [] };
       const c = curva[i];
       if (c.likes != null) tramo.eng.push(c.likes + 2 * (c.comments ?? 0) + 3 * (c.reposts ?? 0));
       if (c.impressions != null) tramo.imp.push(c.impressions);
-      tramos.set(t, tramo);
+      delPost.set(t, tramo);
     });
+    for (const [t, { imp, eng }] of delPost) {
+      const tramo = tramos.get(t) || { imp: [], eng: [] };
+      if (eng.length) tramo.eng.push(media(eng));
+      if (imp.length) tramo.imp.push(media(imp));
+      tramos.set(t, tramo);
+    }
   }
 
   const salida: TramoTipico[] = [];
   for (const [ageMin, { imp, eng }] of tramos) {
-    // Con una sola muestra la banda seria una linea plana: esa metrica va a
-    // null, y el tramo entero fuera si no le queda ninguna de las dos.
+    // Con un solo post la banda seria una linea plana: esa metrica va a null,
+    // y el tramo entero fuera si no le queda ninguna de las dos.
     const e = eng.slice().sort((a, b) => a - b);
     const i = imp.slice().sort((a, b) => a - b);
     const hayImp = i.length >= 2;

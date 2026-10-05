@@ -2304,7 +2304,7 @@ Cuatro formas en la misma semana, y **ninguna pone dos enlaces compitiendo en el
 | **Cosas de Freelance** | el tercero es **el origen del regalo** (*"Los culpables de lo que te voy a contar son los chicos de Raiola"*) y en la **PD3** lo elogia y abre la puerta a otras marcas |
 | **Hugo López** | nombra el evento y al organizador de otro (Raiola, Álvaro Fontela) **sin enlace**: autoridad por asociación |
 
-**De aquí sale `§5-COLABORACION`** (abajo, en `§9`): el nuestro en el cuerpo, el del tercero detrás de la firma.
+**De aquí sale `§5-COLABORACION`** (abajo, en `§9`). ⚠️ El corpus pone el del tercero aparte, pero **Iker lo quiere en el cuerpo, separado del nuestro y antes de la firma**: nuestro dato de clics manda sobre el corpus.
 
 #### ⛔ Lo que NO se copia de esta ventana
 - **Las erratas**, que siguen (`Froma` en un asunto de Isra, `te de su dinero`, `huega`, `qeu`, `directamenteno`).
@@ -2317,11 +2317,12 @@ Cuatro formas en la misma semana, y **ninguna pone dos enlaces compitiendo en el
 ### 🤝 5-COLABORACION · CUANDO EL CORREO DIFUNDE ALGO DE UN TERCERO (2026-10-05, correo 7)
 Hay correos en los que, además del nuestro, toca dar visibilidad a algo de otra entidad con la que colaboramos (el primero: los Premios de Marketing de Euskadi de AMA, con quien Unai y Angela ya dieron una sesión en mayo, `aboutme §2`). **Se hace sin regalarle el correo y sin estropear el nuestro:**
 1. **El correo se escribe con nuestro pilar y nuestro ninja, como cualquier otro.** Lo del tercero no es el tema: va de añadido.
-2. **El enlace del tercero va DETRÁS de la firma, en la PD**, nunca en el cuerpo. Es lo que hace el corpus entero (`§8j`) y protege el único dato que tenemos de verdad: el ninja en el cuerpo saca 12 veces más clics que al final (`§5-NINJA-POSICION`).
-3. **La PD del tercero hace el trabajo que ya tenía la PD: el reenvío.** Lo que pide quien difunde es que llegue a más gente, y eso es exactamente nuestra PD de referidos (`§4b`).
-4. **Siempre en positivo y con su nombre completo** (`brand-voice §5`), con el dato que le sirve al lector (para quién es, si cuesta algo, cuándo cierra), **verificado en la fuente del tercero**. Si dos fuentes del tercero no coinciden, se escribe lo que es verdad en las dos (`este mes`) y se pregunta.
-5. **Su enlace lleva nuestro UTM** (`utm_source=neety`): así el tercero ve en su analítica el tráfico que le mandamos, y nosotros lo leemos en `linksStats`. Es lo que se le puede devolver con un número.
-6. **Mecanizado:** `validar-email.py <fichero> --colaboracion` permite dos enlaces solo si el primero es nuestro y el segundo va detrás de la firma. Probado rompiéndolo en los dos sentidos.
+2. **⛔ CORREGIDO POR IKER EL MISMO DÍA: LOS DOS VAN EN EL CUERPO, ANTES DE LA FIRMA.** La primera versión mandaba el del tercero a la PD y Iker lo tumbó: *"ponerlo después de la despedida y entre las postdatas queda fatal… si no, nadie va a pulsar en la web de la otra empresa"*. Es nuestro propio dato aplicado al tercero: **con el enlace al final, 0 clics de 336** (`§5-NINJA-POSICION`). Si el compromiso es difundir, el enlace tiene que estar donde se pulsa.
+3. **Bien separados entre ellos:** el nuestro donde la historia toca fondo, el del tercero **al final del cuerpo**, con al menos dos bloques de por medio (una frase que lo presente en la voz del remitente, p. ej. Kaixito: *"Y un recado que apunto con letra grande."*). Juntos se roban el clic (`§3`).
+4. **El bloque del tercero tiene la MISMA FORMA que nuestro ninja:** 2-3 líneas pegadas, **cada una ≤55 caracteres sin la URL** para que ninguna se parta en dos en el móvil, y la última es UNA oración + `:` + enlace. Iker: *"cada línea del bloque es corta; nunca hacemos líneas tan largas que caigan en dos líneas"*. Lo que no cabe ahí (el plazo, el reenvío) va a la PD, sin enlace.
+5. **Siempre en positivo y con su nombre completo** (`brand-voice §5`), con el dato que le sirve al lector (para quién es, si cuesta algo, cuándo cierra), **verificado en la fuente del tercero**. Si dos fuentes del tercero no coinciden, se escribe lo que es verdad en las dos (`este mes`) y se pregunta.
+6. **Su enlace lleva un UTM en ESPAÑOL y que se entienda sin explicación**, porque quien lo va a leer es el que lleva la web del tercero, no nosotros: `utm_source=newsletter-neety&utm_medium=correo&utm_campaign=correo-07`. Así ven en su analítica que el tráfico les llega de nuestra newsletter, y nosotros lo contamos en `linksStats` para poder darles el número.
+6b. **Mecanizado:** `validar-email.py <fichero> --colaboracion` exige que el primer enlace sea el nuestro, que los dos vayan antes de la firma, separados por al menos dos bloques, y que el del tercero sea un bloque de 2-3 líneas ≤55 acabado en oración + `:` + enlace. Probado rompiéndolo en los tres sentidos (en la PD, pegado al nuestro, línea larga).
 7. **Es excepción, no pilar:** un correo con dos llamadas a la acción como mucho cada 6-8 correos, y nunca dos seguidos.
 
 - **Cada email va en su bloque cercado** (` ``` ` sin lenguaje), formato exacto:

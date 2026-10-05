@@ -1434,7 +1434,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | GIF | **`enfado`, estreno** (`email-marketing §3b`: romper una creencia) |
 | Micro-apertura | `Hoy vengo enfadado.` (la de Kaixito en el 4 fue `Aviso de mascota.`) |
 | Ninja | `La lista larga te la vende cualquiera.` / `La corta, con quien decide, nosotros:` → `/agendar/` con `utm_campaign=correo-07-kaixito-mito` |
-| Segundo enlace | **colaboración con AMA**: Premios de Marketing de Euskadi, en la PD, con `utm_source=neety` para que AMA vea el tráfico que le llega de nosotros |
+| Segundo enlace | **colaboración con AMA**: Premios de Marketing de Euskadi, **en el cuerpo, al final y separado del nuestro** (Iker, 05/10: en la PD nadie pulsa), bloque de 2 líneas cortas, UTM en español `utm_source=newsletter-neety&utm_medium=correo&utm_campaign=correo-07` para que lo entienda quien lleva su web |
 | Validador | **38/38** con `--colaboracion` (check nuevo, probado rompiéndolo) |
 | Destinatarios previstos | listas 15 + 4 + 17 + 18 (los 3 de baja del correo 6 ya están bloqueados) |
 

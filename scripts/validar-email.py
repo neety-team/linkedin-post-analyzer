@@ -344,12 +344,13 @@ def main():
     # --- enlaces: 1 principal como máximo ---
     links = re.findall(r'https?://\S+', cuerpo)
     # --colaboracion (2026-10-05, correo 7): una COLABORACION con un tercero (difundir
-    # algo de otra entidad) permite UN segundo enlace, con dos condiciones que se
-    # comprueban aqui y no se dan por supuestas: (1) el segundo enlace NO es nuestro
-    # y (2) va DETRAS de la firma, en la PD. El nuestro sigue siendo el unico del
-    # cuerpo, que es donde salen los clics (x12 al subirlo, email-marketing §5-NINJA).
-    # En el corpus de la sexta y septima ventana nadie pone dos CTA en el cuerpo:
-    # el del tercero va siempre separado (bloque de patrocinio, pie de eventos o PD).
+    # algo de otra entidad) permite UN segundo enlace. ⛔ CORREGIDO EL MISMO DIA POR
+    # IKER: la primera version lo mandaba a la PD, detras de la firma, y eso "queda
+    # fatal": ahi nadie pulsa (0 clics de 336 con el enlace al final, §5-NINJA-POSICION).
+    # La regla buena, que es la que se comprueba: (1) el primero es el nuestro, (2) LOS
+    # DOS van en el CUERPO, antes de la firma, (3) separados por al menos 2 bloques, y
+    # (4) el del tercero tambien es un bloque de 2-3 lineas cortas (<=55 sin la URL)
+    # cuya ultima linea es UNA oracion + ":" + enlace.
     colab = '--colaboracion' in sys.argv
     if len(links) <= 1:
         checks.append(ok(f'{len(links)} enlace(s) (máx 1)'))
@@ -358,15 +359,28 @@ def main():
                         if re.match(r'^\s*(Iker|Unai|Asier|Kaixito)\b.*Neety', l)), None)
         i_seg = next((i for i, l in enumerate(cuerpo_lineas) if links[1] in l), None)
         nuestro = lambda u: 'neety.' in u
+        bl2 = next((b.splitlines() for b in bloques if links[1] in b), [])
+        bl2 = [l for l in bl2 if l.strip()]
+        i_b1 = next((i for i, b in enumerate(bloques) if links[0] in b), None)
+        i_b2 = next((i for i, b in enumerate(bloques) if links[1] in b), None)
+        sin_u = lambda x: re.sub(r'https?://\S+', '', x).strip()
         if not nuestro(links[0]) or nuestro(links[1]):
             checks.append(fallo('Colaboración: el PRIMER enlace tiene que ser el nuestro y el '
                                 'segundo el del tercero'))
-        elif i_firma is None or i_seg is None or i_seg < i_firma:
-            checks.append(fallo('Colaboración: el enlace del tercero va DETRÁS de la firma '
-                                '(PD), nunca en el cuerpo compitiendo con el nuestro'))
+        elif i_firma is None or i_seg is None or i_seg > i_firma:
+            checks.append(fallo('Colaboración: el enlace del tercero va en el CUERPO, antes de '
+                                'la firma. En la PD nadie lo pulsa (Iker, 05/10)'))
+        elif i_b1 is None or i_b2 is None or i_b2 - i_b1 < 3:
+            checks.append(fallo('Colaboración: los dos bloques con enlace tienen que ir bien '
+                                'separados (al menos 2 bloques entre ellos)'))
+        elif not (2 <= len(bl2) <= 3) or any(len(sin_u(l)) > 55 for l in bl2) \
+                or not sin_u(bl2[-1]).endswith(':') or links[1] not in bl2[-1]:
+            checks.append(fallo('Colaboración: el bloque del tercero es de 2-3 líneas cortas '
+                                '(≤55 sin la URL) y la última es UNA oración + ":" + enlace'))
         else:
-            checks.append(ok('Colaboración: 2 enlaces, el nuestro en el cuerpo y el del '
-                             'tercero en la PD (excepción --colaboracion)'))
+            checks.append(ok('Colaboración: 2 enlaces en el cuerpo, separados, el del tercero '
+                             'en su propio bloque corto (' + ' / '.join(str(len(sin_u(l))) for l in bl2)
+                             + ' car)'))
     else:
         checks.append(fallo(f'{len(links)} enlaces compitiendo (máx 1 principal'
                             + ('' if colab else '; si es una colaboración con un tercero, --colaboracion')

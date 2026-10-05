@@ -1429,6 +1429,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 - **Primer correo de la newsletter que manda a la web nueva** (`neety.com/solicitar-demo`). Iker probó el 05/10 que el calendario nuevo notifica bien.
 - **Dos llamadas a la acción solo por esta colaboración** (`email-marketing §5-COLABORACION`): lo normal sigue siendo una.
+- 🔴 **REVISIÓN DEL LUNES 12/10 (Iker lo pidió expresamente): mirar el IMPACTO DE LA POSICIÓN del ninja adelantado**, además de clics, reservas en la web nueva, clics a AMA y bajas de la cohorte del evento.
 - 🧪 **A/B de posición que sale gratis:** el ninja va al ~25% del cuerpo, contra el 45-50% de los correos 5 y 6. Si saca más clics de lead por entregado que el 6 (5 de 111), se prueba otra vez con un solo ninja antes de convertirlo en regla, porque aquí cambian a la vez remitente, pilar, web y posición.
 
 **Campaña Brevo 28**, `draft` releído de la API, **sin `scheduledAt`**, remitente `Kaixito de Neety` (`hola@neety.com`), listas **15 + 4 + 17 + 18** (40 + 5 + 33 + 29 según `totalSubscribers`), pie de la casa copiado del correo 6, GIF `enfado`. Los dos `href` con su UTM intacto y **auditor en verde**. El texto visible de los enlaces sale del propio URL desde hoy (`montar-correo-brevo.py`): `neety.com/solicitar-demo` y **solo el dominio `asociacionmarketing.com`**, porque con la ruta la línea del bloque de AMA se partía en el móvil.
@@ -1447,7 +1448,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Validador | **38/38** con `--colaboracion`: los dos bloques en el cuerpo, separados por 6 bloques y un GIF, el de AMA de 3 líneas (55/52/47) |
 | Destinatarios previstos | listas 15 + 4 + 17 + 18 (los 3 de baja del correo 6 ya están bloqueados) |
 
-- ⚠️ **Fecha de cierre de los premios sin cuadrar:** las bases en PDF (subidas en julio) dicen **15 de octubre a las 23:59**; la web y el mensaje de AMA dicen **30 de octubre**. El correo dice `este mes`, que es verdad en los dos casos. Confirmar con AMA.
+- **Fecha de cierre de los premios: 30 de octubre**, la que da AMA en su mensaje y en su web. Las bases en PDF (subidas en julio) dicen 15/10, pero **lo que nos dice el tercero directamente es la fuente** (Iker, 05/10): no hay nada que confirmar. El correo dice `este mes`.
 - **Al enviar:** ninja a `QUEMADAS`, cuerpo literal al corpus el MISMO día, y leer el clic del enlace de AMA en `linksStats` para poder decirle a AMA cuántos de nuestra red pulsaron.
 
 ## Ángulos y vehículos usados, puesto al día (2026-10-05)

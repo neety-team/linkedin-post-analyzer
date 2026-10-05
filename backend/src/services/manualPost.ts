@@ -524,15 +524,38 @@ export async function actualizarMetricasPrivadas(
   );
   if (rows.length === 0) throw new Error('Ese post no existe.');
 
-  // El snapshot se siembra con la fila YA actualizada, para que el punto de la
-  // curva lleve tambien los contadores publicos del momento y no solo lo que
-  // se acaba de teclear.
-  await insertarSnapshot(postId, rows[0]);
+  // CONTADORES DEL MOMENTO, NO LOS DE LA FILA (Iker, 2026-10-05). Hasta hoy el
+  // snapshot se sembraba con la fila del post, y sus likes, comentarios y
+  // reposts son los de la ultima pasada del monitor: de hace 30 min o de hace
+  // dias. Medido ese dia: 15 de 15 lecturas manuales con los contadores
+  // identicos al snapshot anterior, y la curva de engagement plana hasta la
+  // lectura y vertical despues. Ahora se leen de Unipile al guardar. Si Unipile
+  // falla, se guardan los de la fila como antes y la curva los reconoce como
+  // copia (services/curvaImpresiones.ts, curvaPost).
+  const { rows: duenio } = await pool.query(
+    `SELECT p.creator_id, p.linkedin_post_id, c.is_manual
+       FROM posts p JOIN creators c ON c.id = p.creator_id
+      WHERE p.id = $1`,
+    [postId]
+  );
+  let contadores = {
+    likes_count: rows[0].likes_count,
+    comments_count: rows[0].comments_count,
+    reposts_count: rows[0].reposts_count,
+  };
+  if (duenio[0]?.is_manual && duenio[0]?.linkedin_post_id) {
+    const leido = await leerContadoresPublicos(postId, String(duenio[0].linkedin_post_id));
+    if (leido.ok) {
+      contadores = { likes_count: leido.likes, comments_count: leido.comentarios, reposts_count: leido.reposts };
+    } else {
+      console.warn(`[manualPost] contadores de ${postId} sin leer al guardar (${leido.motivo}): van los de la fila`);
+    }
+  }
+  await insertarSnapshot(postId, { ...contadores, impressions_count: rows[0].impressions_count });
 
   // Escribir las impresiones cambia la media de impresiones de la cuenta, y con
   // ella el multiplicador de sus posts. Sin este recalculo, el numero grande de
   // la derecha se queda con el valor de antes de teclear.
-  const { rows: duenio } = await pool.query(`SELECT creator_id FROM posts WHERE id = $1`, [postId]);
   if (duenio[0]?.creator_id) {
     await recalcCreatorOutliers(String(duenio[0].creator_id)).catch((e: any) =>
       console.warn('[manualPost] recalc outliers fallo:', e?.message)
@@ -543,19 +566,21 @@ export async function actualizarMetricasPrivadas(
 }
 
 /**
- * Relee los contadores PUBLICOS de un post manual y añade un snapshot.
+ * Lee de Unipile los contadores PUBLICOS de un post manual y los deja en `posts`.
  *
- * Lo llama el tick de postMonitor. Va post a post con getPostById en vez de
+ * No escribe snapshot: lo decide quien llama. El monitor (refrescarPostManual)
+ * lo guarda sin impresiones; el guardado a mano (actualizarMetricasPrivadas),
+ * con las que se acaban de teclear. Va post a post con getPostById en vez de
  * recorrer el feed del autor: son pocos posts y recorrer el feed entero de un
  * tercero es mucho mas caro y trae contenido que no queremos.
- *
- * Las impresiones del snapshot van a null: entre dos ediciones manuales no las
- * ha leido nadie. Ver la nota de dentro.
  */
-export async function refrescarPostManual(
+async function leerContadoresPublicos(
   postId: string,
   urn: string
-): Promise<{ ok: boolean; motivo?: string }> {
+): Promise<
+  | { ok: true; likes: number; comentarios: number; reposts: number }
+  | { ok: false; motivo: string }
+> {
   let raw: any;
   try {
     raw = await unipileService.getPostById(urn);
@@ -577,20 +602,6 @@ export async function refrescarPostManual(
   const likes = noBaja(raw.reaction_counter, actual[0]?.likes_count);
   const comentarios = noBaja(raw.comment_counter, actual[0]?.comments_count);
   const reposts = noBaja(raw.repost_counter, actual[0]?.reposts_count);
-
-  // IMPRESIONES A NULL, NO ARRASTRADAS (Iker, 2026-10-05). Hasta hoy se copiaba
-  // aqui la ultima cifra tecleada para que la curva no cayera a cero, y lo que
-  // salia era una meseta y un acantilado: el post de Mario del 02/10 se quedo en
-  // 102 durante 65 horas y salto a 3.766 en una. La grafica ya no pinta un null
-  // como 0: entre dos lecturas lo estima services/curvaImpresiones.ts con los
-  // likes de estos snapshots, que son reales. Las copias que ya estan en la BD
-  // las reconoce esa misma funcion (cifra igual a la ultima lectura).
-  await insertarSnapshot(postId, {
-    likes_count: likes,
-    comments_count: comentarios,
-    reposts_count: reposts,
-    impressions_count: null,
-  });
 
   // En el post solo se tocan los contadores publicos y lo derivado de ellos.
   // impressions_count y las demas privadas NO se tocan aqui: son del usuario.
@@ -618,6 +629,35 @@ export async function refrescarPostManual(
       JSON.stringify(raw),
     ]
   );
+
+  return { ok: true, likes, comentarios, reposts };
+}
+
+/**
+ * Relee los contadores PUBLICOS de un post manual y añade un snapshot.
+ *
+ * Lo llaman el tick de postMonitor y el boton de refrescar de la fila.
+ */
+export async function refrescarPostManual(
+  postId: string,
+  urn: string
+): Promise<{ ok: boolean; motivo?: string }> {
+  const leido = await leerContadoresPublicos(postId, urn);
+  if (!leido.ok) return { ok: false, motivo: leido.motivo };
+
+  // IMPRESIONES A NULL, NO ARRASTRADAS (Iker, 2026-10-05). Hasta hoy se copiaba
+  // aqui la ultima cifra tecleada para que la curva no cayera a cero, y lo que
+  // salia era una meseta y un acantilado: el post de Mario del 02/10 se quedo en
+  // 102 durante 65 horas y salto a 3.766 en una. La grafica ya no pinta un null
+  // como 0: entre dos lecturas lo estima services/curvaImpresiones.ts con los
+  // likes de estos snapshots, que son reales. Las copias que ya estan en la BD
+  // las reconoce esa misma funcion (cifra igual a la ultima lectura).
+  await insertarSnapshot(postId, {
+    likes_count: leido.likes,
+    comments_count: leido.comentarios,
+    reposts_count: leido.reposts,
+    impressions_count: null,
+  });
 
   return { ok: true };
 }

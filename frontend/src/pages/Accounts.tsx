@@ -198,6 +198,12 @@ interface Snapshot {
   // (backend/src/services/curvaImpresiones.ts).
   impressions_chart?: number | null;
   impressions_estimated?: boolean;
+  // Igual para los contadores: en una lectura manual la BD guardaba una copia
+  // de los del monitor; aqui llegan estimados (o null si no hay lectura despues).
+  likes_chart?: number | null;
+  comments_chart?: number | null;
+  reposts_chart?: number | null;
+  counters_estimated?: boolean;
   likes_count: number;
   comments_count: number;
   reposts_count: number;
@@ -224,9 +230,11 @@ interface TypicalBucket {
   p25Imp: number | null;
   p50Imp: number | null;
   p75Imp: number | null;
-  p25Eng: number;
-  p50Eng: number;
-  p75Eng: number;
+  // Null si en ese tramo hay menos de 2 muestras de engagement (pero si de
+  // impresiones).
+  p25Eng: number | null;
+  p50Eng: number | null;
+  p75Eng: number | null;
 }
 
 interface SnapshotsResponse {
@@ -2080,6 +2088,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     // Impresiones y engagement van por separado: un tramo puede tener banda de
     // engagement y no de impresiones (menos de 2 posts con lectura a esa edad).
     const impBuckets = typicalSorted.filter((b) => b.p25Imp != null && b.p75Imp != null);
+    const engBuckets = typicalSorted.filter((b) => b.p25Eng != null && b.p75Eng != null);
 
     const bandAt = (
       age: number,
@@ -2116,10 +2125,10 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     const mine = data.snapshots.map((s) => {
       const ageMin = Math.max(0, Math.round((new Date(s.captured_at).getTime() - publishedMs) / 60000));
       const imp = bandAt(ageMin, impBuckets, (b) => b.p25Imp as number, (b) => b.p75Imp as number, (b) => b.sampleCountImp ?? b.sampleCount);
-      const eng = bandAt(ageMin, typicalSorted, (b) => b.p25Eng, (b) => b.p75Eng, (b) => b.sampleCount);
-      const likes = s.likes_count;
-      const comments = s.comments_count;
-      const reposts = s.reposts_count;
+      const eng = bandAt(ageMin, engBuckets, (b) => b.p25Eng as number, (b) => b.p75Eng as number, (b) => b.sampleCount);
+      const likes = s.likes_chart !== undefined ? s.likes_chart : s.likes_count;
+      const comments = s.comments_chart !== undefined ? s.comments_chart : s.comments_count;
+      const reposts = s.reposts_chart !== undefined ? s.reposts_chart : s.reposts_count;
       return {
         ageMin,
         label: ageMin < 60 ? `${ageMin}m` : `${(ageMin / 60).toFixed(1)}h`,
@@ -2131,8 +2140,10 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
         likes,
         comments,
         reposts,
-        // Same engagement formula as the rest of the app (likes + 2·comments + 3·reposts)
-        engagement: likes + comments * 2 + reposts * 3,
+        // Same engagement formula as the rest of the app (likes + 2·comments + 3·reposts).
+        // Null cuando el snapshot era una copia sin lectura despues.
+        engagement: likes == null ? null : likes + (comments ?? 0) * 2 + (reposts ?? 0) * 3,
+        engagementEstimated: !!s.counters_estimated,
         typicalImpRange: imp?.range ?? null,
         typicalImpSampleCount: imp?.n ?? null,
         typicalEngRange: eng?.range ?? null,
@@ -2391,12 +2402,21 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     return (
                       <div style={CHART_TOOLTIP_STYLE} className="p-2">
                         <div className="text-text-secondary text-[11px] mb-1">+{p.label} since publish</div>
-                        <div className="text-accent text-xs font-medium">
-                          {fmtNum(p.engagement)} engagement
-                        </div>
-                        <div className="text-text-muted text-[11px]">
-                          {p.likes} likes · {p.comments} comments · {p.reposts} reposts
-                        </div>
+                        {p.engagement == null ? (
+                          <div className="text-text-muted text-[11px]">no engagement reading here</div>
+                        ) : (
+                          <>
+                            <div className="text-accent text-xs font-medium">
+                              {p.engagementEstimated ? '≈ ' : ''}{fmtNum(p.engagement)} engagement
+                            </div>
+                            <div className="text-text-muted text-[11px]">
+                              {p.likes} likes · {p.comments} comments · {p.reposts} reposts
+                            </div>
+                            {p.engagementEstimated && (
+                              <div className="text-text-muted text-[10px]">estimate: counters weren't read at this moment</div>
+                            )}
+                          </>
+                        )}
                         {p.typicalEngRange && (
                           <div className="text-slate-400 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
                             Typical at this age (n={p.typicalEngSampleCount}):<br />

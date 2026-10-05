@@ -16,7 +16,7 @@ import { extractViewerTimestamps } from '../utils/wvmp';
 import { generateReply, respuestaDeApoyo, diagnosticoUltimaRespuesta } from '../services/replyGenerator';
 import { recordarRespuestasPublicadas } from '../services/variedadComentarios';
 import { getMemeImageSummary } from '../services/postImageText';
-import { curvaImpresiones, curvaTipica } from '../services/curvaImpresiones';
+import { curvaPost, curvaTipica } from '../services/curvaImpresiones';
 import { roastProfile } from '../services/roaster';
 import { generarRastro } from '../services/rastroGenerator';
 import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSync';
@@ -2154,21 +2154,30 @@ router.get('/posts/:id/snapshots', async (req: Request, res: Response) => {
       [req.params.id]
     );
 
-    // impressions_count sale tal cual esta en la BD. Lo que pinta la grafica es
-    // impressions_chart: la lectura, la estimacion entre dos lecturas o null
-    // (ver services/curvaImpresiones.ts, con la medicion que eligio la formula).
-    const curva = curvaImpresiones(
+    // Los *_count salen tal cual estan en la BD. Lo que pinta la grafica son
+    // los *_chart: la lectura, la estimacion entre dos lecturas o null. En las
+    // cuentas manuales la BD guarda copias (la ultima cifra tecleada en los
+    // snapshots del monitor, y los ultimos contadores del monitor en cada
+    // lectura manual): ver services/curvaImpresiones.ts, con la medicion que
+    // eligio la formula.
+    const curva = curvaPost(
       snapsQ.rows.map((s) => ({
         ageMin: (new Date(s.captured_at).getTime() - publicadoMs) / 60000,
         impressions: s.impressions_count,
         likes: s.likes_count,
+        comments: s.comments_count,
+        reposts: s.reposts_count,
       })),
       esManual
     );
     const snapshots = snapsQ.rows.map((s, i) => ({
       ...s,
       impressions_chart: curva[i].impressions,
-      impressions_estimated: curva[i].estimated,
+      impressions_estimated: curva[i].impressionsEstimated,
+      likes_chart: curva[i].likes,
+      comments_chart: curva[i].comments,
+      reposts_chart: curva[i].reposts,
+      counters_estimated: curva[i].countersEstimated,
     }));
 
     // Banda tipica: p25/p50/p75 de impresiones y engagement de los OTROS posts

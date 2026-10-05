@@ -1433,9 +1433,10 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Dolor | el listado que acierta y ahorra limpiarlo (8 empresas, 7 ICP) + no pagar por buscar lo que no vale (8 de 8 ICP), en MESES |
 | GIF | **`enfado`, estreno** (`email-marketing §3b`: romper una creencia) |
 | Micro-apertura | `Hoy vengo enfadado.` (la de Kaixito en el 4 fue `Aviso de mascota.`) |
-| Ninja | `La lista larga te la vende cualquiera.` / `La corta, con quien decide, nosotros:` → `/agendar/` con `utm_campaign=correo-07-kaixito-mito` |
+| Ninja | `La lista larga te la vende cualquiera.` / `La corta, con quien decide, nosotros:` → **`https://neety.com/solicitar-demo`** (primer correo con la web nueva, Iker 05/10) con `utm_campaign=correo-07-kaixito-mito` |
+| 🧪 Posición del ninja | **subido al ~25% del cuerpo, justo detrás de `De esas 2.000, me podían comprar 40.`, y el GIF baja a donde estaba** (propuesta de Iker, 05/10). Es una prueba nueva: hasta ahora iba al 45-50%. Se compara su clic con los correos 5 y 6 sabiendo que cambian más cosas a la vez (remitente, pilar, web) |
 | Segundo enlace | **colaboración con AMA**: Premios de Marketing de Euskadi, **en el cuerpo, al final y separado del nuestro** (Iker, 05/10: en la PD nadie pulsa), bloque de 2 líneas cortas, UTM en español `utm_source=newsletter-neety&utm_medium=correo&utm_campaign=correo-07` para que lo entienda quien lleva su web |
-| Validador | **38/38** con `--colaboracion` (check nuevo, probado rompiéndolo) |
+| Validador | **38/38** con `--colaboracion`: los dos bloques en el cuerpo, separados por 6 bloques y un GIF, el de AMA de 3 líneas (55/52/47) |
 | Destinatarios previstos | listas 15 + 4 + 17 + 18 (los 3 de baja del correo 6 ya están bloqueados) |
 
 - ⚠️ **Fecha de cierre de los premios sin cuadrar:** las bases en PDF (subidas en julio) dicen **15 de octubre a las 23:59**; la web y el mensaje de AMA dicen **30 de octubre**. El correo dice `este mes`, que es verdad en los dos casos. Confirmar con AMA.

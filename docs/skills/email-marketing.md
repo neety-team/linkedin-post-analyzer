@@ -10,7 +10,7 @@
 
 - **NO es cold email.** La lista es audiencia TEMPLADA: ya nos conocen (descargaron un lead magnet, comentaron un post, vinieron de un webinar o dejaron el correo). No se escribe como desconocido pidiendo reunión.
 - **La escalera:** familiaridad → confianza → conversación → diagnóstico/demo. Cada email empuja UN peldaño, no los cuatro.
-- **Objetivo primario de cada campaña:** que agenden demo/diagnóstico (https://recursos.neety.com/agendar/). **Secundario:** que RESPONDAN al email (la respuesta abre conversación Y mejora entregabilidad).
+- **Objetivo primario de cada campaña:** que agenden demo/diagnóstico en **`https://neety.com/solicitar-demo`** (⛔ desde el 2026-10-05 en correos y posts, Iker; antes `recursos.neety.com/agendar/`, que ya es fallo en `validar-email.py`. Donde el resto de este fichero diga `/agendar/`, léase la web nueva). **Secundario:** que RESPONDAN al email (la respuesta abre conversación Y mejora entregabilidad).
 - **Nunca se vende la suscripción a Neety en el email.** Se vende el siguiente paso: el diagnóstico, la demo, la respuesta.
 - La demo no se vende como "te enseñamos el software": se vende como **"revisamos dónde pierdes tiempo y oportunidades en tu proceso comercial"**. La palabra "diagnóstico" baja fricción; "demo" para leads calientes.
 

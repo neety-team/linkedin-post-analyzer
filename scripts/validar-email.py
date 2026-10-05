@@ -343,6 +343,13 @@ def main():
 
     # --- enlaces: 1 principal como máximo ---
     links = re.findall(r'https?://\S+', cuerpo)
+    # ⛔ PUERTA NUEVA (Iker, 2026-10-05): "ya no mandamos a la web de recursos a
+    # agendar, vamos a mandar a la web principal a solicitar demo", en posts y en
+    # correos. https://neety.com/solicitar-demo guarda el UTM igual (aboutme §1).
+    import datetime as _dt
+    if _dt.date.today() >= _dt.date(2026, 10, 5) and 'recursos.neety.com/agendar' in cuerpo:
+        checks.append(fallo('La puerta de agendar es https://neety.com/solicitar-demo, no '
+                            'recursos.neety.com/agendar (Iker, 05/10)'))
     # --colaboracion (2026-10-05, correo 7): una COLABORACION con un tercero (difundir
     # algo de otra entidad) permite UN segundo enlace. ⛔ CORREGIDO EL MISMO DIA POR
     # IKER: la primera version lo mandaba a la PD, detras de la firma, y eso "queda

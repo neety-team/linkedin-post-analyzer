@@ -1177,7 +1177,13 @@ def puerta_agendar(texto):
 FOTO_GRUPO = False
 
 
+PUERTA_VIEJA = False
+
+
 def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fuera=False, remix=False, sin_menciones=False, card=None, solo_correo=False, historico=False, publica_manana=False):
+    global PUERTA_VIEJA
+    # se mira ANTES de traducir: puerta_agendar() convierte la URL nueva en la vieja
+    PUERTA_VIEJA = 'recursos.neety.com/agendar' in texto
     texto = puerta_agendar(norm(texto))
     if pilar == 'entregable':
         return validar_entregable(texto)
@@ -1785,17 +1791,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not m, 'Sin negrita Unicode tipo 𝗟𝗮𝘀 𝟭𝟬 (§6)',
         'el check de markdown no la caza: es otro bloque Unicode' if m else '')
 
-    # aboutme §1 (Iker, 2026-09-29): la puerta de agendar se muda a
-    # neety.com/solicitar-demo, pero NO todavia (faltan las notificaciones a
-    # Google Chat y migrar recursos y mapas). Desde el lunes 05/10 hay que
-    # preguntarle en CADA post si ya va a la web nueva. Aviso, no fallo: la
-    # decision es suya post a post hasta que la migracion este cerrada.
-    if not historico and datetime.date.today() >= datetime.date(2026, 10, 5) \
-            and 'recursos.neety.com' in cuerpo:
-        chk(False, 'ENTREGA: ¿este post ya va a la WEB NUEVA? (aboutme §1, migracion)',
-            'desde el 05/10 se pregunta en cada publicacion si el enlace pasa de '
-            'recursos.neety.com a https://neety.com/solicitar-demo. Pregunta en el chat antes '
-            'de entregar. Ojo: la web nueva aun no tiene seccion de mapas', aviso=True)
+    # aboutme §1: la puerta de agendar se muda a neety.com/solicitar-demo.
+    # El 29/09 Iker lo freno y del 05/10 se le preguntaba post a post. ⛔ CERRADO
+    # EL 2026-10-05 (Iker): "a partir de ahora, tanto en publicaciones de LinkedIn
+    # como en correos, ya no mandamos a la web de recursos a agendar". Desde ese
+    # dia la URL vieja de agendar es FALLO. El resto de recursos.neety.com (mapas,
+    # /correo/, recursos de lead magnet) NO entra: la web nueva aun no los tiene.
+    if not historico and datetime.date.today() >= datetime.date(2026, 10, 5) and PUERTA_VIEJA:
+        chk(False, 'La puerta de agendar es https://neety.com/solicitar-demo (aboutme §1, desde el 05/10)',
+            'recursos.neety.com/agendar ya no se usa ni en posts ni en correos (Iker, 05/10). '
+            'Mismo formato de UTM. Los mapas y /correo/ siguen en recursos')
 
     # global §2.2b-SIMBOLOS (Iker, 2026-09-29) — los marcadores de lista son
     # ENVASE, no motor: se calca que haya una lista, nunca con que simbolo la

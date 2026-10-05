@@ -254,6 +254,24 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Comprador** | el cliente del chiste no tiene cargo; el cuerpo le deja bien (`Su empresa encaja / Su compra está aprobada`) y el blanco del chiste es la risa del comercial |
 | ⏳ | publicado: hora y enlace (de la BD) · **quemadas al confirmar que está subido**: ninja `un chiste se lo ríe cualquiera` / `ese cliente sí te lo damos`, arranques de meme `3` y `su`, gancho `suelta el peor chiste` · a los 3-4 días: impresiones contra su mediana de meme desde julio (18.9k), % de risa, clics a `/solicitar-demo` por UTM |
 
+## 📝 ENTREGADO · LUN 05/10 · UNAI · HISTORIA PARA EL MAR 06/10: LA MESA REDONDA DE NEETY FORWARD (`/solicitar-demo`)
+
+| dato | |
+|---|---|
+| **Estado** | entregado el 05/10 por la tarde **para publicar mañana, mar 06/10** (lo pidió Iker) · validador **66/66** con `--publica-manana` · **776 car** · 1er post de Unai a la **web nueva** (`neety.com/solicitar-demo`) |
+| **Por qué** | Unai quiere seguir dando bombo al evento 12 días después (FOMO para quien no fue + la nueva versión ya pública). La mesa redonda era lo único del evento sin contar en las 3 cuentas (ya contados: víspera, sillas, alarma, vídeo, camisa de Mario, pantallas de Angela) |
+| **Fuente** | **real**: transcripción del vídeo completo (`NEETY_STREAM_V1.mp4`, faster-whisper en local), mesa *"El próximo equipo comercial no será solo humano"* (09:22-51:20). Citas atribuidas con fotogramas del vídeo, no a ojo |
+| **Pilar** | historia · **rama B** (testigo: los protagonistas son los ponentes, Unai narra desde el público) · **no regional** · historia REAL, no inventada |
+| **Dolor** | nº1 del informe del 14/09, buscar contra contactar (21 empresas): *"eliminar un tiempo de trabajo en prospección y dedicarlo a contactar"* (bigD), dicho en la mesa por Jon Heras (35:13): *"Yo no he visto ningún equipo comercial que se aburra. Siempre están a tope"* + menos tiempo con clientes y más con el CRM |
+| **Gancho** | `Nunca había visto defender así al comercial delante de una sala llena 🙂` (71) · alternativa limpia `Nunca vi a tanta gente tan distinta darle la razón al comercial a la vez 🙂` · descartado `Jamás pensé que en nuestra propia sala…` (falla hook personal) |
+| **Menciones (5, todas en el cuerpo)** | `@Jon Heras Landa` (35:13) · `@Maite Ruiz Roqueñi` (29:10, los que más venden no nutren el CRM) · `@Juanjo Gómez` (36:36, la relación con el cliente nunca te la da la IA) · `@Telmo E.` (43:53, automatizar lo pesado para centrarse en las relaciones) · `@Iker Galarza Rodríguez` (moderador). Ya anunciados como ponentes por la página de Neety (OK vía primer jefe, `global §4.4b`) |
+| **Ninja → `/solicitar-demo`** | `Aplaudir al comercial es fácil, librarle de buscar no.` / `Eso sí lo hacemos nosotros, empresa y quien decide:` · UTM `historia-mesa-06oct` · `utm_content=unai` · eslabones 1+2 (empresa + persona), lo que promete la web nueva |
+| **Pago y cierre** | `Esa sala llena fue Neety Forward, el evento donde estrenamos nuestro software nuevo.` (repite `sala llena` del gancho) · `Ningún comercial se aburre, se le va el día lejos del cliente.` |
+| **Real / inventado** | real: todas las citas y quién las dijo, la sala llena, Iker de moderador, el estreno · ⚠️ sin confirmar: que Unai viera la mesa desde el público (`Yo escuchaba desde el público.`) |
+| **Foto** | `HISTORIA/UNAI/unai escenario forward cuadrada.jpg` (de `_DSC0997`, caja `(342,0,4366,4024)` centrada en Unai): Unai abriendo el evento en el escenario, traje, pantalla LED, cabezas del público delante · corporativa y con autoridad (`§4.6-FOTO-UNAI`) · descartada `_DSC1029` (sonríe, pero el cuadrado deja a la vista la fila de sillas vacías) · alternativa: la mesa entera `_DSC1053` |
+| **Eco declarado** | `forward`, `llena`, `buscar`, `hacemos` (Asier 01/10 `Eso lo hacemos empresa a empresa…`): se quedan, son núcleo o pago |
+| ⏳ | publicado: hora y enlace (de la BD) · cronometrar el feed (1er enlace a `neety.com` de Unai: posible cola de revisión ~20 min, no borrar antes de 30) · **quemadas al confirmar que está subida**: ninja `aplaudir al comercial es fácil` / `eso sí lo hacemos nosotros, empresa y quien decide`, vehículo `la mesa redonda del evento`, gancho `defender así al comercial` · a los 3-4 días: clics por UTM en GA4 (la web nueva) contra 35-78 de sus historias y comentarios de los ponentes |
+
 ## ✅ PUBLICADO · VIE 02/10 ~15:25 · MARIO · HISTORIA: LA CAMISA PLANCHADA (1ª historia de su cuenta, `/agendar/`)
 
 | dato | |

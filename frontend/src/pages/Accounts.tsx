@@ -2158,6 +2158,9 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
   // Si alguna impresion es estimada (cuenta manual entre dos lecturas), las
   // lecturas de verdad se marcan con un punto para que se vea que es dato.
   const hasEstimatedImp = curveDataAll.some((d) => d.impressionsEstimated);
+  // Cuenta manual sin ninguna lectura todavia: antes salia una linea plana en 0
+  // (falso) y ahora saldria una grafica vacia; mejor decir que falta y donde.
+  const hasAnyImp = curveDataAll.some((d) => d.impressions != null);
   const maxAgeMin = hasSnapshots
     ? Math.max(0, ...data!.snapshots.map((s) => Math.round((new Date(s.captured_at).getTime() - new Date(publishedAt).getTime()) / 60000)))
     : 0;
@@ -2265,6 +2268,11 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 {typicalBandChip('impressions', hasImpOverlap)}
               </div>
             </div>
+            {!hasAnyImp ? (
+              <p className="text-xs text-text-muted py-6 text-center">
+                No impressions reading yet. Add them from ⋮ → Añadir métricas; between two readings the curve is estimated.
+              </p>
+            ) : (
             <ResponsiveContainer width="100%" height={180}>
               <ComposedChart data={curveData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                 <defs>
@@ -2348,6 +2356,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 />
               </ComposedChart>
             </ResponsiveContainer>
+            )}
           </div>
 
           {/* Engagement: this post vs typical engagement for the creator */}

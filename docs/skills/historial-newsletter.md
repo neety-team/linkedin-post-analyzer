@@ -1423,7 +1423,13 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 4. **🔴 Clics sí, reservas no.** 12 clics de lead en los correos 5 y 6 y **0 reuniones**. Desde el correo 0 (1 reunión el 07/08 en MailerLite) la newsletter no ha traído ninguna. **El cuello de botella ya no es el correo: es lo que pasa después del clic.**
 5. **Las bajas viven en la cohorte del evento.** 0 en 45 durante 4 correos con la lista de siempre; 3 en 111 en cuanto la cohorte nueva recibe su segundo correo en 6 días.
 
-## 📝 CORREO 7 · Kaixito · MITO + colaboración AMA (BORRADOR 2026-10-05, para el mar 06/10, pendiente del test de Iker)
+## ✅ CORREO 7 · Kaixito · MITO + colaboración AMA (PROGRAMADO mar 06/10 09:05)
+
+**Test revisado por Iker en Gmail el 05/10 a las 18:46** (remitente, preheader una vez, GIF animado, pie en español, los dos enlaces con su texto corto) **y programado a las 18:48**: `queued`, `scheduledAt 2026-10-06T09:05+02:00`, releído de la API con pie, preheader, GIF y los dos `href` intactos; auditor en verde. ⚠️ **Mañana se comprueba que salió** (en Brevo el programado sale solo y no avisa).
+
+- **Primer correo de la newsletter que manda a la web nueva** (`neety.com/solicitar-demo`). Iker probó el 05/10 que el calendario nuevo notifica bien.
+- **Dos llamadas a la acción solo por esta colaboración** (`email-marketing §5-COLABORACION`): lo normal sigue siendo una.
+- 🧪 **A/B de posición que sale gratis:** el ninja va al ~25% del cuerpo, contra el 45-50% de los correos 5 y 6. Si saca más clics de lead por entregado que el 6 (5 de 111), se prueba otra vez con un solo ninja antes de convertirlo en regla, porque aquí cambian a la vez remitente, pilar, web y posición.
 
 **Campaña Brevo 28**, `draft` releído de la API, **sin `scheduledAt`**, remitente `Kaixito de Neety` (`hola@neety.com`), listas **15 + 4 + 17 + 18** (40 + 5 + 33 + 29 según `totalSubscribers`), pie de la casa copiado del correo 6, GIF `enfado`. Los dos `href` con su UTM intacto y **auditor en verde**. El texto visible de los enlaces sale del propio URL desde hoy (`montar-correo-brevo.py`): `neety.com/solicitar-demo` y **solo el dominio `asociacionmarketing.com`**, porque con la ruta la línea del bloque de AMA se partía en el móvil.
 

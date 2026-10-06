@@ -1778,7 +1778,18 @@ router.get('/live-posts', async (req: Request, res: Response) => {
       `WITH candidate_posts AS (
          SELECT p.*,
                 (SELECT COUNT(*)::int FROM post_snapshots s WHERE s.post_id = p.id) AS snapshot_count,
-                (SELECT MAX(s.captured_at) FROM post_snapshots s WHERE s.post_id = p.id) AS last_snapshot_at
+                (SELECT MAX(s.captured_at) FROM post_snapshots s WHERE s.post_id = p.id) AS last_snapshot_at,
+                -- Los snapshots cierran al dia 7; despues los contadores los
+                -- pone al dia el pase de post_metric_readings (diario hasta
+                -- 90 dias, semanal despues). "Ultima actualizacion" real del
+                -- post = la mas reciente de las dos (Iker, 2026-10-06: con
+                -- solo last_snapshot_at, Live posts decia "77d" en posts que
+                -- se habian releido esa misma semana).
+                (SELECT COUNT(*)::int FROM post_metric_readings r WHERE r.post_id = p.id) AS readings_count,
+                GREATEST(
+                  (SELECT MAX(s.captured_at) FROM post_snapshots s WHERE s.post_id = p.id),
+                  (SELECT MAX(r.captured_at) FROM post_metric_readings r WHERE r.post_id = p.id)
+                ) AS last_reading_at
          FROM posts p
          JOIN creators c ON c.id = p.creator_id
          WHERE c.is_managed = TRUE
@@ -1801,6 +1812,8 @@ router.get('/live-posts', async (req: Request, res: Response) => {
          c.is_manual AS creator_is_manual,
          p.snapshot_count,
          p.last_snapshot_at,
+         p.readings_count,
+         p.last_reading_at,
          (NOW() - p.published_at < INTERVAL '6 hours') AS is_live,
          CASE
            WHEN NOW() - p.published_at < INTERVAL '1 hour'  THEN 'golden'

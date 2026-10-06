@@ -165,6 +165,12 @@ interface LivePost {
   creator_image: string | null;
   snapshot_count: number;
   last_snapshot_at: string | null;
+  // Lecturas del pase de contadores de posts de mas de 7 dias (diario hasta
+  // los 90 dias, semanal despues) y fecha de la ULTIMA actualizacion real del
+  // post, sea snapshot o lectura. Es la que se enseña: el snapshot cierra al
+  // dia 7 y su edad sola hacia creer que nadie tocaba los posts viejos.
+  readings_count: number;
+  last_reading_at: string | null;
   is_live: boolean;
   phase: 'golden' | 'first_wave' | 'consolidation' | 'long_tail' | 'tail' | 'closed';
   // Cuenta de la empresa que NO esta conectada a Unipile: el post se pego a
@@ -2029,6 +2035,19 @@ function minutesSince(iso: string): number {
   return Math.round((Date.now() - new Date(iso).getTime()) / 60000);
 }
 
+// Tooltip de la chapa "N snaps · Xd ago". La edad que se pinta es la de la
+// ULTIMA actualizacion del post: snapshot (primeros 7 dias) o lectura del
+// pase de contadores (diario hasta 90 dias, semanal despues). Antes se
+// pintaba solo la del snapshot y un post releido ayer decia "77d ago".
+function fmtActualizacion(post: { snapshot_count: number; last_snapshot_at: string | null; readings_count: number; last_reading_at: string | null }): string {
+  const ultima = post.last_reading_at || post.last_snapshot_at;
+  if (!ultima) return 'No captures yet';
+  const partes = [`Counters last updated ${fmtAge(ultima)}`];
+  if (post.last_snapshot_at) partes.push(`${post.snapshot_count} snapshots in the first 7 days (last ${fmtAge(post.last_snapshot_at)})`);
+  if (post.readings_count > 0) partes.push(`${post.readings_count} later readings (daily until day 90, weekly after)`);
+  return partes.join(' · ');
+}
+
 function fmtAge(iso: string): string {
   const m = minutesSince(iso);
   if (m < 60) return `${m}m ago`;
@@ -2639,11 +2658,11 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
               <span title={new Date(post.published_at).toLocaleString()}>{fmtPublishedAt(post.published_at)}</span>
               <span
                 className="px-1.5 py-0.5 rounded bg-bg-secondary border border-border text-text-muted text-[10px]"
-                title={post.last_snapshot_at ? `Last capture ${fmtAge(post.last_snapshot_at)}` : 'No captures yet'}
+                title={fmtActualizacion(post)}
               >
                 {post.snapshot_count} snap{post.snapshot_count === 1 ? '' : 's'}
-                {post.last_snapshot_at && post.snapshot_count > 0 && (
-                  <span className="ml-1 opacity-60">· {fmtAge(post.last_snapshot_at)}</span>
+                {(post.last_reading_at || post.last_snapshot_at) && (
+                  <span className="ml-1 opacity-60">· {fmtAge((post.last_reading_at || post.last_snapshot_at) as string)}</span>
                 )}
               </span>
             </div>

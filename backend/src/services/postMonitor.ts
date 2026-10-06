@@ -7,6 +7,7 @@ import { captureAccountSnapshots } from './accountSnapshots';
 import { runFollowerSync } from './followerSync';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from './premiumAnalytics';
 import { resumirMemesPendientes } from './postImageText';
+import { enVentana, proximoPase, evaluarFeed, contadorReal, CORTA_MAX_DIAS, type Ventana } from './contadoresCadencia';
 import {
   fetchResumenLinkedIn, guardarResumenLinkedIn, fetchSeriesDiarias, guardarSeriesDiarias,
   fetchSeguidoresDiarios, guardarSeguidoresDiarios,
@@ -444,36 +445,59 @@ async function descubrirPostsNuevos(): Promise<number> {
   return nuevos;
 }
 
-// ⭐⭐ PASE SEMANAL DE CONTADORES PUBLICOS PARA POSTS DE MAS DE 7 DIAS (Iker, 2026-09-17)
+// ⭐⭐ PASE DE CONTADORES PUBLICOS PARA POSTS DE MAS DE 7 DIAS
+// (Iker, 2026-09-17; en DOS VENTANAS desde el 2026-10-06)
 //
-// EL AGUJERO: likes, comentarios, reposts e impresiones solo los escribia el
-// bucle del tick, que cierra a los 7 dias. El 14/09 se dio por hecho que los
-// ponia al dia `bulkUpsert` en cada re-escaneo, y es FALSO: el re-escaneo es
+// EL AGUJERO ORIGINAL: likes, comentarios, reposts e impresiones solo los
+// escribia el bucle del tick, que cierra a los 7 dias. El re-escaneo es
 // incremental y para en el primer post que ya tenemos, asi que los viejos no
 // los vuelve a ver. Medido el 17/09: un post de Iker del 26/08 tenia 2.448
 // impresiones en la BD y 3.116 en LinkedIn (+27%). Con 6 meses de historico,
 // los multiplicadores y el analisis por pilar salian calculados sobre cifras
 // del dia 7, y los posts que resurgen no se veian nunca.
 //
-// POR QUE EL FEED Y NO LA PAGINA DE ANALITICAS (que ya pedimos cada semana y
-// tambien trae estos cuatro numeros): en un post de 2023 la pagina dio 0
-// reacciones y 0 comentarios cuando el feed daba 53 y 10. Un cero no lo frena
-// el COALESCE. El feed da bien los cuatro a cualquier edad y es la misma
-// fuente que los snapshots, asi que las cifras no cambian de criterio al dia 8.
+// EL SEGUNDO AGUJERO (06/10): el pase era UNO por cuenta cada 7 dias. Medido
+// contra LinkedIn ese dia: en los posts de mas de 30 dias la diferencia en una
+// semana es de decimas de punto, pero un post de 13 dias de Iker llevaba 167
+// likes y 24.918 impresiones aqui y 194 y 29.308 en LinkedIn (+17%). Y el
+// dashboard enseñaba solo la edad del ultimo SNAPSHOT ("77d"), con lo que
+// parecia que nadie los tocaba. Ahora (services/contadoresCadencia.ts):
+//   - CORTA: posts de 7 a 90 dias, feed hasta 90 dias atras (1-2 paginas por
+//     cuenta), cada 24h. ~3-6 llamadas al dia entre las tres cuentas.
+//   - LARGA: todos los de mas de 7 dias, feed ENTERO, cada 7 dias o el dia 1
+//     del mes (lo que llegue antes). Sin techo de edad.
+// Cada pase guarda una lectura en `post_metric_readings`, y Live posts enseña
+// la fecha de la ultima lectura (snapshot o pase) como "ultima actualizacion".
 //
-// COSTE: una cuenta por vuelta y una vez por semana. El feed entero de Iker
-// (173 posts) son 4 paginas, o sea ~12 llamadas a la semana entre las tres.
+// POR QUE EL FEED Y NO LA PAGINA DE ANALITICAS (que ya pedimos y tambien trae
+// estos cuatro numeros): en un post de 2023 la pagina dio 0 reacciones y 0
+// comentarios cuando el feed daba 53 y 10. El feed da bien los cuatro a
+// cualquier edad y es la misma fuente que los snapshots, asi que las cifras no
+// cambian de criterio al dia 8.
 //
-// SIN TECHO DE EDAD: el limite de 90 dias es de la pagina de analiticas
-// Premium, no del feed.
-//
-// NO HACE SNAPSHOT, igual que el pase de analitica: solo contadores.
-const COUNTERS_RESYNC_DAYS = 7;
-// Si el feed vuelve vacio (rate limit de LinkedIn) no se da la semana por
-// hecha: se reintenta en un dia, no en la vuelta siguiente, para no machacar.
-const COUNTERS_RETRY_HOURS = 24;
+// NO HACE SNAPSHOT a proposito: la curva de 7 dias del post ya esta cerrada y
+// un punto suelto cada dia la ensuciaria. La serie larga vive en las lecturas.
+const COLUMNAS_CONTADORES: Record<Ventana, { next: string; synced: string }> = {
+  corta: { next: 'public_counters_90d_next_at', synced: 'public_counters_90d_synced_at' },
+  larga: { next: 'public_counters_next_at', synced: 'public_counters_synced_at' },
+};
 
 async function refrescarContadoresPostsViejos(): Promise<number> {
+  // Una cuenta por ventana y por vuelta (la mas atrasada primero), para que el
+  // tick siga ligero: como mucho dos lecturas de feed cada 15 min.
+  let hechos = 0;
+  for (const ventana of ['corta', 'larga'] as Ventana[]) {
+    try {
+      hechos += await refrescarContadoresVentana(ventana);
+    } catch (e: any) {
+      console.warn(`[postMonitor] contadores (${ventana}) fallo:`, e?.message);
+    }
+  }
+  return hechos;
+}
+
+async function refrescarContadoresVentana(ventana: Ventana): Promise<number> {
+  const col = COLUMNAS_CONTADORES[ventana];
   const { rows: cuentas } = await pool.query(
     `SELECT id, linkedin_id, unipile_account_id
        FROM creators
@@ -481,101 +505,88 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
         AND unipile_account_id IS NOT NULL
         AND linkedin_id IS NOT NULL
         AND is_manual IS NOT TRUE
-        AND (public_counters_next_at IS NULL OR public_counters_next_at <= NOW())
-      ORDER BY public_counters_next_at ASC NULLS FIRST
+        AND (${col.next} IS NULL OR ${col.next} <= NOW())
+      ORDER BY ${col.next} ASC NULLS FIRST
       LIMIT 1`
   );
   const cuenta = cuentas[0];
   if (!cuenta) return 0;
+  const etiqueta = `[postMonitor] contadores ${ventana} (${cuenta.id})`;
 
-  // Siguiente pase: dentro de 7 dias o el dia 1 del mes que viene (hora de
-  // Madrid, la de la sesion), lo que llegue antes, para que las impresiones
-  // ganadas caigan en su mes. Si fallo, en 24h.
-  const marcar = (reintentarEnHoras: number | null) =>
-    reintentarEnHoras == null
-      ? pool.query(
-          `UPDATE creators
-              SET public_counters_synced_at = NOW(),
-                  public_counters_next_at = LEAST(NOW() + ($2 || ' days')::interval,
-                                                  date_trunc('month', NOW()) + INTERVAL '1 month')
-            WHERE id = $1`,
-          [cuenta.id, String(COUNTERS_RESYNC_DAYS)]
-        )
-      : pool.query(
-          `UPDATE creators SET public_counters_next_at = NOW() + ($2 || ' hours')::interval WHERE id = $1`,
-          [cuenta.id, String(reintentarEnHoras)]
-        );
+  // Siguiente pase segun la ventana (contadoresCadencia.proximoPase). El tope
+  // del dia 1 del mes va en SQL, en la hora de la sesion (Madrid), para que
+  // las impresiones ganadas caigan en su mes. Si fallo, no se marca como hecho.
+  const marcar = async (fallo: boolean) => {
+    const { horas, topeMes } = proximoPase(ventana, fallo);
+    const siguiente = topeMes
+      ? `LEAST(NOW() + ($2 || ' hours')::interval, date_trunc('month', NOW()) + INTERVAL '1 month')`
+      : `NOW() + ($2 || ' hours')::interval`;
+    await pool.query(
+      `UPDATE creators SET ${col.next} = ${siguiente}${fallo ? '' : `, ${col.synced} = NOW()`} WHERE id = $1`,
+      [cuenta.id, String(horas)]
+    );
+  };
 
+  const ahora = new Date();
+  // Corta: `since` corta el feed al llegar a los 90 dias (getPosts para en el
+  // primer post no-repost mas viejo que el suelo). Larga: sin `since` y sin
+  // knownIds, el feed ENTERO; con cualquiera de los dos, getPosts para antes
+  // de llegar a los posts viejos, que son los que buscamos.
+  const since = ventana === 'corta' ? new Date(ahora.getTime() - CORTA_MAX_DIAS * 24 * HOUR_MS) : undefined;
   let raws: any[];
   try {
-    // Sin `since` y sin knownIds: el feed ENTERO. Con cualquiera de los dos,
-    // getPosts para antes de llegar a los posts viejos, que son los que buscamos.
-    raws = await unipileService.getPosts(cuenta.linkedin_id, undefined, cuenta.unipile_account_id);
+    raws = await unipileService.getPosts(cuenta.linkedin_id, since, cuenta.unipile_account_id);
   } catch (e: any) {
-    await marcar(COUNTERS_RETRY_HOURS);
+    await marcar(true);
     throw e;
   }
   if (raws.length === 0) {
-    console.warn(`[postMonitor] contadores semanales: feed vacio para ${cuenta.id}, reintento en ${COUNTERS_RETRY_HOURS}h`);
-    await marcar(COUNTERS_RETRY_HOURS);
+    console.warn(`${etiqueta}: feed vacio, reintento en ${proximoPase(ventana, true).horas}h`);
+    await marcar(true);
     return 0;
   }
 
-  const { rows: viejos } = await pool.query(
-    `SELECT id, linkedin_post_id, impressions_count, likes_count, comments_count, reposts_count
+  const { rows: candidatos } = await pool.query(
+    `SELECT id, linkedin_post_id, published_at, impressions_count, likes_count, comments_count, reposts_count
        FROM posts
       WHERE creator_id = $1
         AND linkedin_post_id IS NOT NULL
-        AND published_at < NOW() - INTERVAL '7 days'`,
+        AND published_at IS NOT NULL
+        AND linkedin_post_id <> 'DEMO_LIVE_POST'
+        -- Un post borrado de LinkedIn no va a aparecer en el feed: fuera del
+        -- calculo de cobertura, que si no un par de borrados tumban el pase.
+        AND deleted_from_linkedin_at IS NULL`,
     [cuenta.id]
   );
+  const viejos = candidatos.filter((p) => enVentana(new Date(p.published_at), ventana, ahora));
   const porLinkedInId = new Map<string, any>();
   for (const r of raws) {
     const id = r.social_id || r.id;
     if (id) porLinkedInId.set(String(id), r);
   }
-
-  // ⛔ ESCUDO CONTRA EL FEED DEGRADADO (2026-09-17). La primera pasada sobre
-  // Iker escribio likes=0 y comentarios=0 en ~100 posts (el del 01/09 paso de
-  // 301 likes a 0) mientras las impresiones llegaban bien: Unipile devuelve
-  // reacciones a 0 en parte del feed. Un post no pierde todos sus likes, asi
-  // que un 0 nunca pisa un valor real, contador a contador. Y si muchos posts
-  // vienen asi, el feed entero no es de fiar: no se escribe nada y se reintenta.
   const pares: { p: any; n: any }[] = [];
   for (const p of viejos) {
     const raw = porLinkedInId.get(String(p.linkedin_post_id));
     if (raw) pares.push({ p, n: unipileService.normalizePost(raw, cuenta.id) });
   }
-  // Feed a medias: getPosts corta en la primera pagina vacia y devuelve lo que
-  // lleve. Si no aparecen ni el 70% de los posts viejos, no se da la semana
-  // por hecha (los que faltan se quedarian otros 7 dias sin tocar).
-  if (viejos.length > 0 && pares.length / viejos.length < 0.7) {
-    console.warn(
-      `[postMonitor] contadores semanales: feed incompleto para ${cuenta.id} ` +
-        `(${pares.length}/${viejos.length} posts encontrados); reintento en ${COUNTERS_RETRY_HOURS}h`
-    );
-    await marcar(COUNTERS_RETRY_HOURS);
-    return 0;
-  }
-  const conLikes = pares.filter(({ p }) => Number(p.likes_count) > 0);
-  const ceros = conLikes.filter(({ n }) => !(Number(n.likes_count) > 0));
-  if (conLikes.length > 0 && ceros.length / conLikes.length > 0.1) {
-    console.warn(
-      `[postMonitor] contadores semanales: feed degradado para ${cuenta.id} ` +
-        `(${ceros.length}/${conLikes.length} posts con likes a 0), no se escribe nada; reintento en ${COUNTERS_RETRY_HOURS}h`
-    );
-    await marcar(COUNTERS_RETRY_HOURS);
-    return 0;
-  }
 
-  const real = (nuevo: any, viejo: any) =>
-    Number(nuevo) > 0 ? Number(nuevo) : Number(viejo) || 0;
+  // ⛔ ESCUDO CONTRA EL FEED DEGRADADO O A MEDIAS (contadoresCadencia.evaluarFeed):
+  // si faltan posts o vienen muchos likes a 0, no se escribe nada y se reintenta.
+  const evaluacion = evaluarFeed(viejos, pares);
+  if (!evaluacion.ok) {
+    console.warn(
+      `${etiqueta}: feed ${evaluacion.motivo} (${evaluacion.detalle}), no se escribe nada; ` +
+        `reintento en ${proximoPase(ventana, true).horas}h`
+    );
+    await marcar(true);
+    return 0;
+  }
 
   let hechos = 0;
   for (const { p, n } of pares) {
-    const likes = real(n.likes_count, p.likes_count);
-    const comments = real(n.comments_count, p.comments_count);
-    const reposts = real(n.reposts_count, p.reposts_count);
+    const likes = contadorReal(n.likes_count, p.likes_count);
+    const comments = contadorReal(n.comments_count, p.comments_count);
+    const reposts = contadorReal(n.reposts_count, p.reposts_count);
     // Mismo escudo para las impresiones: un 0/null con un valor real guardado
     // es un fallo puntual de Unipile, no un post que ha perdido lectores.
     const imp = Number(n.impressions_count) > 0 ? Number(n.impressions_count) : null;
@@ -590,7 +601,8 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
       [p.id, likes, comments, reposts, imp,
        calculateEngagement({ likes_count: likes, comments_count: comments, reposts_count: reposts })]
     );
-    // La lectura queda guardada: de la serie sale "impresiones ganadas cada mes".
+    // La lectura queda guardada: de la serie sale "impresiones ganadas cada
+    // mes" (manuales) y la fecha de "ultima actualizacion" de Live posts.
     await pool.query(
       `INSERT INTO post_metric_readings (post_id, impressions_count, likes_count, comments_count, reposts_count)
        VALUES ($1, COALESCE($2, (SELECT impressions_count FROM posts WHERE id = $1)), $3, $4, $5)`,
@@ -598,9 +610,9 @@ async function refrescarContadoresPostsViejos(): Promise<number> {
     );
     hechos++;
   }
-  await marcar(null);
+  await marcar(false);
   if (hechos) await recalcCreatorOutliers(cuenta.id);
-  console.log(`[postMonitor] contadores semanales: ${hechos}/${viejos.length} post(s) de mas de 7 dias al dia para ${cuenta.id}`);
+  console.log(`${etiqueta}: ${hechos}/${viejos.length} post(s) al dia (${raws.length} items de feed)`);
   return hechos;
 }
 

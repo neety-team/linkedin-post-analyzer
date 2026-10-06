@@ -1065,6 +1065,13 @@ const migration = `
   -- Cuando toca el siguiente pase (NULL = ya). Lo fija el propio pase: dentro
   -- de 7 dias o el dia 1 del mes siguiente, lo que llegue antes; 24h si fallo.
   ALTER TABLE creators ADD COLUMN IF NOT EXISTS public_counters_next_at TIMESTAMPTZ;
+  -- Ventana CORTA del mismo pase (Iker, 2026-10-06): los posts de 7 a 90 dias
+  -- siguen vivos (un post de 13 dias crecio un 17% en impresiones en la semana
+  -- entre dos pases), asi que se releen a diario con una pagina o dos del feed.
+  -- La ventana larga (feed entero, semanal) usa las dos columnas de arriba.
+  -- Logica en services/contadoresCadencia.ts.
+  ALTER TABLE creators ADD COLUMN IF NOT EXISTS public_counters_90d_synced_at TIMESTAMPTZ;
+  ALTER TABLE creators ADD COLUMN IF NOT EXISTS public_counters_90d_next_at TIMESTAMPTZ;
 
   -- Cifras OFICIALES de la pagina de resumen de LinkedIn, una fila por cuenta y
   -- dia (services/linkedinOverview.ts). Son el numero que la persona ve en

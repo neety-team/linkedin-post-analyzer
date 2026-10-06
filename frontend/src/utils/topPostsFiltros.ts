@@ -90,7 +90,7 @@ export const pilarDe = (p: PostFiltrable): string => p.pillar || SIN_PILAR;
 // www por si llega sin reescribir. `link_url` queda de respaldo. (Iker,
 // 2026-10-06: los posts manuales de Mario e Ismael salian como "sin enlace"
 // con el acortado en el cuerpo, porque solo se miraba la columna.)
-export const RE_ENLACE = /(?:https?:\/\/|lnkd\.in\/|www\.)\S+/i;
+export const RE_ENLACE = /\b(?:https?:\/\/|lnkd\.in\/|www\.)\S+/i;
 export const tieneEnlace = (p: PostFiltrable): boolean =>
   (!!p.content_text && RE_ENLACE.test(p.content_text)) || !!p.link_url;
 

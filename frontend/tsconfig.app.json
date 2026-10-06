@@ -21,5 +21,8 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  // Los *.test.ts usan node:assert y se corren con el tsx del backend (sin
+  // runner aqui); fuera del typecheck del app para no exigir @types/node.
+  "exclude": ["src/**/*.test.ts"]
 }

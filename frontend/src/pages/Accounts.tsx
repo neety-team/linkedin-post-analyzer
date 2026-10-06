@@ -1,4 +1,5 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useApi, apiPatch, apiPost, apiDelete } from '../hooks/useApi';
 import AddManualPostModal from '../components/accounts/AddManualPostModal';
 import { DateRangeCalendar } from '../components/DateRangeCalendar';
@@ -15,7 +16,12 @@ import MediaViewer, { NO_MEDIA_TYPES } from '../components/MediaViewer';
 import MonthlyBarChart from '../components/MonthlyBarChart';
 import RepliesPanel from '../components/accounts/RepliesPanel';
 import LeadMagnetPanel from '../components/accounts/LeadMagnetPanel';
-import PilarSelector, { PilaresProvider } from '../components/accounts/PilarSelector';
+import PilarSelector, { PilaresProvider, usePilares } from '../components/accounts/PilarSelector';
+import FiltroDesplegable from '../components/accounts/FiltroDesplegable';
+import {
+  aplicarFiltrosTop, recuentosFacetados, filtrosDesdeParams, filtrosAParams, hayFiltrosTop,
+  ORDENES_TOP, ENLACE_OPCIONES, SIN_PILAR, type FiltrosTop, type OrdenTop, type FiltroEnlace,
+} from '../utils/topPostsFiltros';
 
 interface ManagedAccount {
   id: string;
@@ -778,19 +784,22 @@ function AccountsInner() {
   // re-fetch — they own their data fetch internally and otherwise wouldn't
   // notice that the backend just captured fresh snapshots.
   const [refreshSignal, setRefreshSignal] = useState(0);
-  const [topPostsTypeFilter, setTopPostsTypeFilter] = useState<string>('all');
-  // Sort key for the Top posts list. Defaults to outlier ratio (the headline
-  // signal) but the user can re-rank by raw engagement metrics to see e.g.
-  // "highest impressions regardless of multiplier".
+  // FILTROS DE TOP POSTS (Iker, 2026-10-06): cuatro desplegables por categoria
+  // (Ordenar por, Pilar, Formato, Enlace) en vez de 15 botones sueltos de una
+  // sola opcion. La logica (Y entre categorias, O dentro, recuentos como en
+  // una tienda, ida y vuelta a la URL) vive en utils/topPostsFiltros.ts. El
+  // estado ES la URL: `?top_pilar=historia,meme&top_orden=ctr&top_enlace=con`
+  // reproduce la vista, que es lo que necesita el analisis semanal.
   // 'clicks' / 'saves' / 'sends' son metricas de LinkedIn Premium (v32). Valen
   // mas que el alcance para juzgar un post: el meme de 86.815 impresiones tiene
   // 0,09% de CTR y un mapa de 21.071 tiene 1,10% — doce veces mejor con cuatro
   // veces menos alcance. 'ctr' ordena por eso mismo, clics entre impresiones,
   // que es lo unico que compara posts de tamaños distintos de forma justa.
-  type TopPostsSortKey =
-    | 'outlier_ratio' | 'impressions' | 'likes' | 'comments' | 'reposts'
-    | 'engagement' | 'clicks' | 'ctr' | 'saves' | 'sends' | 'recent';
-  const [topPostsSort, setTopPostsSort] = useState<TopPostsSortKey>('outlier_ratio');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const topFiltros = useMemo<FiltrosTop>(() => filtrosDesdeParams(searchParams), [searchParams]);
+  const setTopFiltros = useCallback((cambio: Partial<FiltrosTop>) => {
+    setSearchParams((prev) => filtrosAParams({ ...filtrosDesdeParams(prev), ...cambio }, prev), { replace: true });
+  }, [setSearchParams]);
   const [chatPostId, setChatPostId] = useState<string | null>(null);
   // Top-level tab. BI is the original Accounts dashboard; Replies is the
   // inbox for answering unanswered comments in the author's own voice
@@ -807,11 +816,11 @@ function AccountsInner() {
   // the head of the ranking by default, let the user expand to dig deeper.
   const TOP_PAGE = 8;
   const [visibleTop, setVisibleTop] = useState(TOP_PAGE);
-  // Reset visibility when the content-type filter changes so we never
-  // show a "ver más" with a stale count from the previous filter.
+  // Reset visibility when any Top posts filter changes so we never show a
+  // "ver más" with a stale count from the previous filter.
   useEffect(() => {
     setVisibleTop(TOP_PAGE);
-  }, [topPostsTypeFilter]);
+  }, [topFiltros]);
 
   // `loading` NO es decorativo aqui, es lo que arregla el panel fantasma
   // (Iker, 2026-08-13): `useApi` arranca con `data = null`, asi que en CADA
@@ -952,69 +961,46 @@ function AccountsInner() {
     ? Math.round((analytics.totals.total_outliers / analytics.totals.total_posts) * 100)
     : 0;
 
-  const topPostsTypeCounts = useMemo(() => {
-    const map = new Map<string, number>();
-    if (!analytics) return map;
-    for (const p of analytics.top_posts) {
-      const t = p.content_type || 'text';
-      map.set(t, (map.get(t) || 0) + 1);
+  // Recuentos de cada opcion con los OTROS filtros aplicados, y la lista
+  // filtrada y ordenada. Todo en utils/topPostsFiltros.ts (con test).
+  const topRecuentos = useMemo(
+    () => recuentosFacetados(analytics?.top_posts ?? [], topFiltros),
+    [analytics, topFiltros]
+  );
+  const filteredTopPosts = useMemo(
+    () => (analytics ? aplicarFiltrosTop(analytics.top_posts, topFiltros) : []),
+    [analytics, topFiltros]
+  );
+  // Opciones de los desplegables. Pilar: el catalogo en su orden, solo los que
+  // tienen algun post en el rango (o estan marcados), mas "Sin pilar" si hay
+  // posts sin clasificar. Formato: los content_type presentes.
+  const { pilares: catalogoPilares, porSlug: pilarPorSlug } = usePilares();
+  const opcionesPilar = useMemo(() => {
+    const presentes = new Set<string>([...topRecuentos.pilares.keys(), ...topFiltros.pilares]);
+    if (analytics) for (const p of analytics.top_posts) presentes.add(p.pillar || SIN_PILAR);
+    const ordenados = [...catalogoPilares]
+      .sort((a, b) => a.sort_order - b.sort_order)
+      .filter((pl) => presentes.has(pl.slug))
+      .map((pl) => ({ valor: pl.slug, etiqueta: pl.label, recuento: topRecuentos.pilares.get(pl.slug) || 0 }));
+    // Slugs que no estan en el catalogo (borrados o renombrados): se enseñan tal cual.
+    const conocidos = new Set(catalogoPilares.map((pl) => pl.slug));
+    for (const slug of presentes) {
+      if (slug === SIN_PILAR || conocidos.has(slug)) continue;
+      ordenados.push({ valor: slug, etiqueta: slug, recuento: topRecuentos.pilares.get(slug) || 0 });
     }
-    return map;
-  }, [analytics]);
-
-  const filteredTopPosts = useMemo(() => {
-    if (!analytics) return [];
-    const base = topPostsTypeFilter === 'all'
-      ? analytics.top_posts
-      : analytics.top_posts.filter((p) => (p.content_type || 'text') === topPostsTypeFilter);
-    // Copy before sorting — analytics.top_posts is consumed elsewhere
-    // (e.g. type-count chips) and we don't want to mutate it.
-    const list = [...base];
-    const num = (v: number | null | undefined) => (typeof v === 'number' ? v : -Infinity);
-    switch (topPostsSort) {
-      case 'impressions':
-        list.sort((a, b) => num(b.impressions_count) - num(a.impressions_count));
-        break;
-      case 'likes':
-        list.sort((a, b) => b.likes_count - a.likes_count);
-        break;
-      case 'comments':
-        list.sort((a, b) => b.comments_count - a.comments_count);
-        break;
-      case 'reposts':
-        list.sort((a, b) => b.reposts_count - a.reposts_count);
-        break;
-      case 'engagement':
-        list.sort((a, b) => b.engagement_score - a.engagement_score);
-        break;
-      case 'clicks':
-        list.sort((a, b) => num(b.link_clicks_count) - num(a.link_clicks_count));
-        break;
-      case 'ctr': {
-        // Solo posts que llevaban enlace Y tienen alcance medido: un CTR sobre 0
-        // impresiones no es "malo", es que no hay dato. Los demas caen al final
-        // en vez de ensuciar la cabeza del ranking con divisiones raras.
-        const ctr = (p: typeof list[number]) =>
-          p.link_clicks_count != null && p.impressions_count
-            ? p.link_clicks_count / p.impressions_count
-            : -Infinity;
-        list.sort((a, b) => ctr(b) - ctr(a));
-        break;
-      }
-      case 'saves':
-        list.sort((a, b) => num(b.saves_count) - num(a.saves_count));
-        break;
-      case 'sends':
-        list.sort((a, b) => num(b.sends_count) - num(a.sends_count));
-        break;
-      case 'recent':
-        list.sort((a, b) => new Date(b.published_at || 0).getTime() - new Date(a.published_at || 0).getTime());
-        break;
-      default:
-        list.sort((a, b) => b.outlier_ratio - a.outlier_ratio);
+    if (presentes.has(SIN_PILAR)) {
+      ordenados.push({ valor: SIN_PILAR, etiqueta: 'Sin pilar', recuento: topRecuentos.pilares.get(SIN_PILAR) || 0 });
     }
-    return list;
-  }, [analytics, topPostsTypeFilter, topPostsSort]);
+    return ordenados;
+  }, [catalogoPilares, topRecuentos, topFiltros.pilares, analytics]);
+  const opcionesFormato = useMemo(() => {
+    const presentes = new Set<string>(topFiltros.formatos);
+    if (analytics) for (const p of analytics.top_posts) presentes.add(p.content_type || 'text');
+    return [...presentes].sort().map((t) => ({
+      valor: t, etiqueta: FORMAT_LABELS[t] || t, recuento: topRecuentos.formatos.get(t) || 0,
+    }));
+  }, [analytics, topRecuentos, topFiltros.formatos]);
+  const etiquetaPilar = (slug: string) => slug === SIN_PILAR ? 'Sin pilar' : (pilarPorSlug[slug]?.label || slug);
 
   return (
     <div className="space-y-6">
@@ -1868,85 +1854,92 @@ function AccountsInner() {
           {/* Top posts */}
           {analytics.top_posts.length > 0 && (
             <div className="bg-bg-card border border-border rounded-xl p-5">
-              <div className="flex items-start justify-between gap-4 mb-4 flex-wrap">
-                <div>
-                  <h3 className="text-lg font-semibold">
-                    Top posts
-                    <span className="text-text-muted text-sm font-normal ml-2">
-                      ({filteredTopPosts.length}{topPostsTypeFilter !== 'all' ? ` of ${analytics.top_posts.length}` : ''})
-                    </span>
-                  </h3>
-                  <p className="text-xs text-text-muted">
-                    {{
-                      outlier_ratio: "Sorted by outlier ratio (highest multiplier vs. each creator's baseline)",
-                      impressions: 'Sorted by impressions (highest reach first)',
-                      likes: 'Sorted by likes',
-                      comments: 'Sorted by comments',
-                      reposts: 'Sorted by reposts',
-                      engagement: 'Sorted by engagement score',
-                      clicks: 'Ordenado por clics al enlace (solo posts que llevaban enlace)',
-                      ctr: 'Ordenado por CTR: clics ÷ impresiones. Compara justo posts de tamaños distintos',
-                      saves: 'Ordenado por guardados. Cuesta más que un like y nadie guarda por compromiso',
-                      sends: 'Ordenado por envíos por privado. Alguien se lo mandó a otra persona',
-                      recent: 'Sorted by most recent',
-                    }[topPostsSort]}
-                  </p>
-                  <div className="flex items-center gap-2 flex-wrap mt-2">
-                    <span className="text-xs text-text-muted">Sort:</span>
-                    {([
-                      /* Ordenados por utilidad real, no por antigüedad del filtro.
-                         Primero lo que mide INTENCIÓN (outlier, CTR, clics,
-                         guardados, envíos): responde a "¿esto sirvió?".
-                         Luego el ALCANCE bruto. Después las piezas sueltas del
-                         engagement. Engagement compuesto va casi al final porque
-                         es redundante con Outlier, que es lo mismo normalizado
-                         por cuenta — y por tanto más justo. */
-                      ['outlier_ratio', '🔥 Outlier'],
-                      ['ctr', '🎯 CTR'],
-                      ['clicks', '🔗 Clics'],
-                      ['saves', '🔖 Guardados'],
-                      ['sends', '✈️ Envíos'],
-                      ['impressions', '👁 Impressions'],
-                      ['comments', '💬 Comments'],
-                      ['reposts', '🔁 Reposts'],
-                      ['likes', '👍 Likes'],
-                      ['engagement', '⚡ Engagement'],
-                      ['recent', '🕐 Recent'],
-                    ] as const).map(([key, label]) => (
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold">
+                  Top posts
+                  <span className="text-text-muted text-sm font-normal ml-2">
+                    ({filteredTopPosts.length}{hayFiltrosTop(topFiltros) ? ` of ${analytics.top_posts.length}` : ''})
+                  </span>
+                </h3>
+                <p className="text-xs text-text-muted">
+                  {ORDENES_TOP.find((o) => o.valor === topFiltros.orden)?.descripcion}
+                </p>
+                {/* Cuatro desplegables por categoria, como en una tienda de ropa
+                    (Iker, 2026-10-06). Ordenar por y Enlace son de una opcion;
+                    Pilar y Formato admiten varias (O dentro de la categoria, Y
+                    entre categorias). Los recuentos son facetados: lo que
+                    quedaria al marcar esa opcion con los demas filtros puestos. */}
+                <div className="flex items-center gap-2 flex-wrap mt-2">
+                  <FiltroDesplegable
+                    etiqueta="Ordenar por"
+                    multiple={false}
+                    opciones={ORDENES_TOP.map((o) => ({ valor: o.valor, etiqueta: o.etiqueta, grupo: o.grupo }))}
+                    seleccion={[topFiltros.orden]}
+                    onChange={([v]) => setTopFiltros({ orden: v as OrdenTop })}
+                  />
+                  <FiltroDesplegable
+                    etiqueta="Pilar"
+                    multiple
+                    opciones={opcionesPilar}
+                    seleccion={topFiltros.pilares}
+                    onChange={(v) => setTopFiltros({ pilares: v })}
+                  />
+                  {opcionesFormato.length > 1 && (
+                    <FiltroDesplegable
+                      etiqueta="Formato"
+                      multiple
+                      opciones={opcionesFormato}
+                      seleccion={topFiltros.formatos}
+                      onChange={(v) => setTopFiltros({ formatos: v })}
+                    />
+                  )}
+                  <FiltroDesplegable
+                    etiqueta="Enlace"
+                    multiple={false}
+                    valorNeutro="todos"
+                    opciones={ENLACE_OPCIONES.map((o) => ({ valor: o.valor, etiqueta: o.etiqueta, recuento: topRecuentos.enlace[o.valor] }))}
+                    seleccion={[topFiltros.enlace]}
+                    onChange={([v]) => setTopFiltros({ enlace: v as FiltroEnlace })}
+                  />
+                </div>
+                {hayFiltrosTop(topFiltros) && (
+                  <div className="flex items-center gap-1.5 flex-wrap mt-2 text-[11px]">
+                    <span className="text-text-muted">Filtros:</span>
+                    {topFiltros.pilares.map((slug) => (
                       <button
-                        key={key}
-                        onClick={() => setTopPostsSort(key)}
-                        className={`px-2.5 py-1 rounded text-xs transition-colors ${
-                          topPostsSort === key
-                            ? 'bg-accent/20 text-accent border border-accent/30'
-                            : 'bg-bg-secondary text-text-muted border border-border hover:border-accent/30'
-                        }`}
+                        key={`pil-${slug}`}
+                        onClick={() => setTopFiltros({ pilares: topFiltros.pilares.filter((x) => x !== slug) })}
+                        className="px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20"
+                        title="Quitar este filtro"
                       >
-                        {label}
+                        Pilar: {etiquetaPilar(slug)} ×
                       </button>
                     ))}
-                  </div>
-                </div>
-                {topPostsTypeCounts.size > 1 && (
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs text-text-muted">Type:</span>
-                    {['all', ...Array.from(topPostsTypeCounts.keys()).sort()].map((type) => {
-                      const label = type === 'all' ? 'All' : FORMAT_LABELS[type] || type;
-                      const count = type === 'all' ? analytics.top_posts.length : (topPostsTypeCounts.get(type) || 0);
-                      return (
-                        <button
-                          key={type}
-                          onClick={() => setTopPostsTypeFilter(type)}
-                          className={`px-2.5 py-1 rounded text-xs transition-colors ${
-                            topPostsTypeFilter === type
-                              ? 'bg-accent/20 text-accent border border-accent/30'
-                              : 'bg-bg-secondary text-text-muted border border-border hover:border-accent/30'
-                          }`}
-                        >
-                          {label} ({count})
-                        </button>
-                      );
-                    })}
+                    {topFiltros.formatos.map((t) => (
+                      <button
+                        key={`fmt-${t}`}
+                        onClick={() => setTopFiltros({ formatos: topFiltros.formatos.filter((x) => x !== t) })}
+                        className="px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20"
+                        title="Quitar este filtro"
+                      >
+                        Formato: {FORMAT_LABELS[t] || t} ×
+                      </button>
+                    ))}
+                    {topFiltros.enlace !== 'todos' && (
+                      <button
+                        onClick={() => setTopFiltros({ enlace: 'todos' })}
+                        className="px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20"
+                        title="Quitar este filtro"
+                      >
+                        {topFiltros.enlace === 'con' ? 'Con enlace' : 'Sin enlace'} ×
+                      </button>
+                    )}
+                    <button
+                      onClick={() => setTopFiltros({ pilares: [], formatos: [], enlace: 'todos' })}
+                      className="ml-1 text-text-muted hover:text-text-primary underline-offset-2 hover:underline"
+                    >
+                      Limpiar
+                    </button>
                   </div>
                 )}
               </div>
@@ -1958,7 +1951,7 @@ function AccountsInner() {
                     <TopPostRow
                       key={p.id}
                       post={p}
-                      destacar={topPostsSort === 'ctr' ? 'ctr' : topPostsSort === 'outlier_ratio' ? 'outlier' : null}
+                      destacar={topFiltros.orden === 'ctr' ? 'ctr' : topFiltros.orden === 'outlier_ratio' ? 'outlier' : null}
                     />
                   ))}
                   {filteredTopPosts.length > visibleTop && (

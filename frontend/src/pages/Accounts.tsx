@@ -18,6 +18,7 @@ import RepliesPanel from '../components/accounts/RepliesPanel';
 import LeadMagnetPanel from '../components/accounts/LeadMagnetPanel';
 import PilarSelector, { PilaresProvider, usePilares } from '../components/accounts/PilarSelector';
 import FiltroDesplegable from '../components/accounts/FiltroDesplegable';
+import LinkedInPreviewModal from '../components/accounts/LinkedInPreviewModal';
 import {
   aplicarFiltrosTop, recuentosFacetados, filtrosDesdeParams, filtrosAParams, hayFiltrosTop,
   ORDENES_TOP, ENLACE_OPCIONES, SIN_PILAR, type FiltrosTop, type OrdenTop, type FiltroEnlace,
@@ -767,6 +768,8 @@ function AccountsInner() {
   // otra mitad del arreglo del panel fantasma, porque ningun estado de carga
   // puede abrirlo por su cuenta (Iker, 2026-08-13).
   const [unipileOpen, setUnipileOpen] = useState(false);
+  // LinkedIn Preview en modal (Iker, 2026-10-06): lo unico que sobrevivio de Post Creator.
+  const [previewOpen, setPreviewOpen] = useState(false);
   const [unipileEdits, setUnipileEdits] = useState<Record<string, string>>({});
   const [scrapingId, setScrapingId] = useState<string | null>(null);
   const [scrapeResult, setScrapeResult] = useState<Record<string, string>>({});
@@ -1014,14 +1017,24 @@ function AccountsInner() {
             siempre las mismas tres, asi que no hay nada que gestionar. Lo unico que
             queda es pegar el account_id de Unipile, que se abre a mano y NUNCA solo. */}
         {hasAccounts && (
-          <button
-            onClick={() => setUnipileOpen((v) => !v)}
-            className="px-3 py-1.5 bg-bg-card border border-border text-text-muted text-xs rounded-lg hover:border-accent/40 hover:text-text-primary transition-colors"
-          >
-            {unipileOpen ? 'Hide' : 'Unipile IDs'}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPreviewOpen(true)}
+              className="px-3 py-1.5 bg-accent/10 border border-accent/30 text-accent text-xs font-medium rounded-lg hover:bg-accent/20 transition-colors"
+              title="Pega un post y mira como lo corta LinkedIn con la foto de cada cuenta"
+            >
+              👁 LinkedIn Preview
+            </button>
+            <button
+              onClick={() => setUnipileOpen((v) => !v)}
+              className="px-3 py-1.5 bg-bg-card border border-border text-text-muted text-xs rounded-lg hover:border-accent/40 hover:text-text-primary transition-colors"
+            >
+              {unipileOpen ? 'Hide' : 'Unipile IDs'}
+            </button>
+          </div>
         )}
       </div>
+      <LinkedInPreviewModal open={previewOpen} onClose={() => setPreviewOpen(false)} />
 
       {/* Unipile account ID per managed account — needed to scrape impressions */}
       {unipileOpen && hasAccounts && (
@@ -1280,7 +1293,7 @@ function AccountsInner() {
                 Live posts
               </h3>
               <p className="text-xs text-text-muted">
-                Phase-based snapshots for 7 days; after that, likes, comments, reposts and impressions refresh weekly with no age limit, and Premium analytics weekly up to a year.
+                Phase-based snapshots for 7 days; after that, likes, comments, reposts and impressions refresh daily until day 90 and weekly beyond (no age limit), and Premium analytics every 2 days until day 30, weekly until 90, fortnightly up to a year.
               </p>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0 whitespace-nowrap">

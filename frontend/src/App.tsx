@@ -2,8 +2,6 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import CreatorDetail from './pages/CreatorDetail'
 import OutlierExplorer from './pages/OutlierExplorer'
-import PostCreator from './pages/PostCreator'
-import StrategicNetwork from './pages/StrategicNetwork'
 import Ideas from './pages/Ideas'
 import Swipe from './pages/Swipe'
 import Inspiration from './pages/Inspiration'
@@ -43,13 +41,14 @@ export default function App() {
               {navLink('/swipe', '🔥 Swipe')}
               {navLink('/ideas', '💡 Ideas')}
               {navLink('/inspiration', '✨ Inspiration')}
-              {navLink('/create', '✍️ Post Creator')}
             </div>
-            <span className="text-border mx-1">|</span>
-            {/* Engage */}
-            <div className="flex gap-1 px-2 py-1 rounded-lg bg-bg-secondary/50">
-              {navLink('/network', '🤝 Network')}
-            </div>
+            {/* Post Creator y Network se retiraron el 2026-10-06 (Iker): los
+                posts se escriben por Claude Code y los feeds de los jefes se
+                miran en sus propios navegadores. Del creador se salvo solo el
+                LinkedIn Preview, que vive en Accounts (boton arriba a la
+                derecha). El backend (chat, network) sigue intacto: el prompt
+                del chat es el cerebro en produccion y el perfil de comentarista
+                lo leen el generador de respuestas y el de rastro. */}
           </div>
         </div>
       </nav>
@@ -62,8 +61,6 @@ export default function App() {
           <Route path="/swipe" element={<Swipe />} />
           <Route path="/ideas" element={<Ideas />} />
           <Route path="/inspiration" element={<Inspiration />} />
-          <Route path="/network" element={<StrategicNetwork />} />
-          <Route path="/create" element={<PostCreator />} />
         </Routes>
       </main>
     </div>

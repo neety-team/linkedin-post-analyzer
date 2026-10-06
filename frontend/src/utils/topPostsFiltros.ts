@@ -67,6 +67,9 @@ export const ENLACE_OPCIONES: { valor: FiltroEnlace; etiqueta: string }[] = [
 export interface PostFiltrable {
   content_type?: string | null;
   pillar?: string | null;
+  content_text?: string | null;
+  // URL de destino que LinkedIn MIDE en la analitica Premium. Solo la tienen
+  // las cuentas conectadas: en un post manual es null aunque lleve enlace.
   link_url?: string | null;
   impressions_count: number | null;
   likes_count: number;
@@ -82,7 +85,14 @@ export interface PostFiltrable {
 
 export const formatoDe = (p: PostFiltrable): string => p.content_type || 'text';
 export const pilarDe = (p: PostFiltrable): string => p.pillar || SIN_PILAR;
-export const tieneEnlace = (p: PostFiltrable): boolean => !!p.link_url;
+// ¿Lleva enlace? Se mira el TEXTO, como hace la chapa de clics: LinkedIn
+// reescribe todo enlace del cuerpo a `lnkd.in/xxxx`, y se aceptan http(s) y
+// www por si llega sin reescribir. `link_url` queda de respaldo. (Iker,
+// 2026-10-06: los posts manuales de Mario e Ismael salian como "sin enlace"
+// con el acortado en el cuerpo, porque solo se miraba la columna.)
+export const RE_ENLACE = /(?:https?:\/\/|lnkd\.in\/|www\.)\S+/i;
+export const tieneEnlace = (p: PostFiltrable): boolean =>
+  (!!p.content_text && RE_ENLACE.test(p.content_text)) || !!p.link_url;
 
 type Categoria = 'pilares' | 'formatos' | 'enlace';
 

@@ -20,6 +20,15 @@ const posts = [
   post({ id: 'm2', pillar: 'meme', content_type: 'text_video', outlier_ratio: 1 }),
   post({ id: 's1', pillar: null, content_type: null, outlier_ratio: 3 }),
 ];
+// Enlace detectado por el TEXTO aunque link_url sea null (post manual con el
+// acortado de LinkedIn en el cuerpo), y nunca por una palabra suelta.
+const manualConEnlace = post({ id: 'man', pillar: 'historia', link_url: null, content_text: 'Eso te lo damos nosotros: https://lnkd.in/ebFtmB6Z
+
+Y sigue.' });
+const manualAcortado = post({ id: 'man2', pillar: 'historia', link_url: null, content_text: 'mira lnkd.in/abc y ya' });
+const manualSinEnlace = post({ id: 'man3', pillar: 'historia', link_url: null, content_text: 'Un director comercial me solto una frase. Sin enlace.' });
+assert.deepEqual(ids(aplicarFiltrosTop([manualConEnlace, manualAcortado, manualSinEnlace], con({ enlace: 'con' }))), ['man', 'man2']);
+assert.deepEqual(ids(aplicarFiltrosTop([manualConEnlace, manualAcortado, manualSinEnlace], con({ enlace: 'sin' }))), ['man3']);
 const ids = (l: { id: string }[]) => l.map((p) => p.id);
 const con = (o: Partial<FiltrosTop>): FiltrosTop => ({ ...FILTROS_TOP_DEFECTO, ...o });
 

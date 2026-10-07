@@ -1046,6 +1046,14 @@ async function accountSnapshotTick(): Promise<void> {
   }
 }
 
+// ⛔ CADA REINICIO DEL PROCESO REINICIA ESTE CALENDARIO (2026-10-07). Todo lo de
+// aqui vive en memoria: al arrancar, la primera vuelta sale al minuto y coincide
+// con backfillOutliers, accountSnapshotTick (2 min) y runFollowerSync (5 min).
+// Esa vuelta de arranque tardo mas de 15 min, la siguiente se salto por
+// `tickInFlight` y un post de Unai entro 28 min tarde en vez de 1-14. El
+// reinicio lo provocaba un push a main que solo tocaba docs/: Railway
+// redesplegaba con CUALQUIER push (33 el 02/10, 0 de codigo). Desde ese dia
+// `railway.json` lleva watchPatterns (backend/, frontend/ y la config de build).
 export function startPostMonitor() {
   console.log(`[postMonitor] starting — tick every ${TICK_MS / 60000} min, window ${MONITOR_WINDOW_MS / 3600000}h, phase-based cadence`);
   // One-shot heal for any posts whose outlier_ratio got zeroed by the pre-fix monitor

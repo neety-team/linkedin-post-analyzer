@@ -1,5 +1,12 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
-  "build": {},
+  "build": {
+    "watchPatterns": [
+      "backend/**",
+      "frontend/**",
+      "nixpacks.toml",
+      "railway.json"
+    ]
+  },
   "deploy": {}
 }

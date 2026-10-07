@@ -84,6 +84,7 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
+    'liquidan': '2026-10-07 La Rioja, "Las 10" de Asier',
     'ventilan': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'dejan atrás': '2026-09-29 Extremadura, mapa de Asier',
     'dejan atras': '2026-09-29 Extremadura, mapa de Asier',
@@ -276,6 +277,12 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'ninguna charla te dice a quién llamar': '2026-10-07 meme de Iker 07/10 (el leon que dimite), la linea 1 del ninja',
+    'ninguna charla te dice a quien llamar': '2026-10-07 meme de Iker 07/10, sin tilde',
+    'eso sí te lo damos, hasta con nombre y cargo': '2026-10-07 meme de Iker 07/10, la linea 2 del ninja',
+    'eso si te lo damos, hasta con nombre y cargo': '2026-10-07 meme de Iker 07/10, sin tilde',
+    'del vino sabe todo el mundo': '2026-10-07 La Rioja, "Las 10" de Asier, la linea 1 del ninja',
+    'eso ya te lo decimos nosotros, con nombre': '2026-10-07 La Rioja, "Las 10" de Asier, la linea 2 del ninja',
     'aplaudir al comercial es fácil': '2026-10-07 historia de Unai 07/10 (la mesa redonda de Neety Forward), la linea 1 del ninja',
     'aplaudir al comercial es facil': '2026-10-07 historia de Unai 07/10, sin tilde',
     'eso sí lo hacemos nosotros, empresa y quien decide': '2026-10-07 historia de Unai 07/10, la linea 2 del ninja',
@@ -383,7 +390,7 @@ PAIS_QUEMADO = {
     'finlandia': '2026-07-17 Cataluña (Unai)',
     'honduras': '2026-07-07 Álava (Unai)',
     'paraguay': '2026-08-04 Castilla y León (Iker)',
-    'montenegro': '2026-08-07 Navarra, despiece de Asier',
+    'montenegro': '2026-10-07 La Rioja, "Las 10" de Asier; antes Navarra, despiece de Asier 07/08',
     'jamaica': '2026-09-01 Cantabria, mapa de Asier',
     'noruega': '2026-09-16 Bizkaia, despiece de Asier',
 }
@@ -479,6 +486,7 @@ ARRANQUE_QUEMADO = {
         'filtran': '2026-09-16 meme de Iker 16/09 ("Filtran por quien pregunto / Filtran antes de oirme")',
         'sin': '2026-09-16 meme de Iker 16/09 ("Sin nombre no paso / no hay cita / no hay pedido")',
         'con': '2026-09-18 meme de Asier 18/09 ("Con 3 clientes a punto / Con 15 / Con 35")',
+        'otro': '2026-10-07 meme de Iker 07/10 ("Uno, que no le interesa / Otro, que le mande un correo / Otro, que le llame la semana que viene")',
     },
     # El pilar lead magnet tampoco tenia lista. Anotado al PUBLICAR (§0f).
     # El pilar DESPIECE tampoco tenia lista. Leidos los dos publicados.
@@ -488,12 +496,18 @@ ARRANQUE_QUEMADO = {
         'las': '2026-09-16 despiece de Bizkaia, Asier ("Las piezas salen de Zamudio / de Berriz / de Gernika")',
         'eso': '2026-09-16 despiece de Bizkaia, Asier ("Eso no lo paga el txakoli / Eso lo paga un turno")',
     },
+    'las10': {
+        'no': '2026-10-07 La Rioja, "Las 10" de Asier ("No pagan las nominas las rondas de la calle Laurel / No las paga el Camino"); antes Castilla-La Mancha, Iker 01/10',
+        'desde': '2026-10-01 Castilla-La Mancha, Iker ("Desde la autovia / Desde dentro")',
+        'aqui': '2026-10-01 Castilla-La Mancha, Iker ("Aqui se mojan gachas / Aqui se sube")',
+    },
     'leadmagnet': {
         'ninguno': '2026-08-26 lead magnet de Iker 26/08 ("Ninguno es de redaccion / de personalizacion / se arregla escribiendo mejor")',
     },
 }
 
 CONCEPTO_QUEMADO = {
+    'cuarto peque': '2026-10-07 La Rioja, "Las 10" de Asier',
     'descansillo': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'despensa del oeste': '2026-09-29 Extremadura, mapa de Asier',
     'nevera del norte': '2026-09-22 Álava, mapa de Iker',
@@ -527,7 +541,7 @@ FRASE_RABIA_USADA = {
     'y a seguir': '2026-07-17 Cataluña (Unai)',
     'para irse': '2026-07-07 Álava (Unai)',
     'antes de seguir carretera': '2026-07-14 Aragón (Asier)',
-    'y a otra cosa': '2026-08-04 Castilla y León (Iker)',
+    'y a otra cosa': '2026-10-07 La Rioja, "Las 10" de Asier; antes Castilla y León (Iker 04/08)',
     'nada m': '2026-08-07 Navarra, despiece de Asier',
     'a la autov': '2026-09-01 Cantabria, mapa de Asier',
     'y a casa': '2026-09-16 Bizkaia, despiece de Asier',

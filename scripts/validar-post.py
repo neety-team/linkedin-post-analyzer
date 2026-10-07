@@ -4312,13 +4312,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     if _c in _CARRIL:
         _exc = _c in ('mario', 'helena', 'angela')
         chk(False, 'ENTREGA: la REFERENCIA es de VENTAS, y de que rincon',
-            ('%s = %s. %s ⛔ SE COMPRUEBA EN LA REFERENCIA, no en el headline ni en los hashtags '
-             'del autor: una palabra explicita del oficio (sales, sell, prospect, cold call, SDR, '
-             'AE, deal, quota, pipeline, client, buyer, ventas, comercial, cliente, cuota) en la '
-             'PRIMERA LINEA del original, o en el TEXTO DE SU IMAGEN, o en su CUERPO (Iker 07/10, '
-             'el leon de Dachi: gancho sin ventas, imagen y cuerpo de llamadas en frio, valida). '
-             'Si no esta en ninguno de los tres, se descarta por buen chiste que sea: la gracia no '
-             'viaja entre sectores, el formato si. Y NUESTRO gancho ancla a ventas SIEMPRE. '
+            ('%s = %s. %s ⛔ SE COMPRUEBA EN LA REFERENCIA, nunca en el headline ni en los hashtags '
+             'del autor. PRIORIDAD: la PRIMERA LINEA del original lleva una palabra explicita del '
+             'oficio (sales, sell, prospect, cold call, SDR, AE, deal, quota, pipeline, client, '
+             'buyer, ventas, comercial, cliente, cuota); entre dos parecidas gana la que la lleva. '
+             'EXCEPCION (Iker 07/10, el leon de Dachi), solo si se cumplen LAS DOS: el chiste de la '
+             'IMAGEN es de ventas Y todo el cuerpo o su gran mayoria va de ventas. Una palabra '
+             'suelta en el cuerpo NO vale. Test: quita el gancho, ¿la broma solo se entiende desde '
+             'ventas? Si no, se descarta. La excepcion se declara en la entrega. Y NUESTRO gancho '
+             'ancla a ventas SIEMPRE. '
              '⛔ Y NUESTRO GANCHO TIENE QUE RECORDAR AL SUYO: pon los dos uno al lado del otro y '
              'mira si se nota el parentesco; si no, no es un remix, es otro post. Y si la '
              'referencia no es del rincon de esta cuenta, se le da a la cuenta que si lo tiene y '

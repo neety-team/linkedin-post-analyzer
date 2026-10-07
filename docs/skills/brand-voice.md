@@ -68,6 +68,28 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 
 **Mecanizado:** con `--cuenta unai`, el aviso `ENTREGA: ¿el gancho PRESUME?` de `validar-post.py` ya no pide la versión humilde: pide comprobar que lo grande es verdad, sobrio y sin compararse.
 
+#### 🔭 LA LENTE DEL INVERSOR: LO QUE UN FONDO LEE EN LA CUENTA DE UNAI (Unai vía Iker, 2026-10-07)
+
+> **De dónde sale:** Unai le pasó a Iker, como indirecta, un post de **Orfeo Balboa** (Investment Manager en First Drop VC; su fondo es de sostenibilidad, pero conoce a los inversores españoles). La tesis: en preseed el inversor lee **durante meses** cómo piensa el founder antes de ver su deck, y los que mejor salen son los que dejan **"rastros de criterio"**. Unai es el CEO y su carril incluye inversores (`§2`), así que su cuenta la leen también ellos. Iker: *"no quiero que te pases de estricto ni que los ganchos pierdan el punch; que sirva para saber qué tipo de lenguaje usar"*.
+
+**Lo que mira un inversor, según ese post, y lo que significa para nosotros:**
+
+| Lo que mira | En la cuenta de Unai |
+|---|---|
+| Cómo habla de sus clientes cuando nadie le pide métricas | Del cliente y del que compra se habla con **respeto y curiosidad**, nunca con burla. Es `--comprador-ok` de los memes llevado también al cuerpo y a las historias |
+| Cómo explica un error | Un fallo contado **con lo que aprendimos** suma; uno escondido o puesto de chiste resta. Encaja con "nunca dejar mal a la casa": el fallo pasado lleva su línea de cómo quedó resuelto |
+| Qué sabe de su mercado | Que haya **una línea que solo escribe quien conoce la venta industrial**: un dato verificado, un matiz del sector, un porqué. Preferencia, no requisito; en un meme ya lo pone la referencia de ventas |
+| Cómo responde cuando le discrepan | Ya está en código (`replyGenerator.ts`, `DISCREPA`): se le reconoce lo que tiene de razón y se matiza. **Nada de zascas desde su cuenta** |
+| ⛔ El founder que usa LinkedIn como base de datos y manda **el mismo mensaje con veinte nombres** | **Es el que más nos toca, porque vendemos prospección.** Desde Unai nunca se presenta la prospección como masiva, de plantilla o de volumen (ya lo veta `global §4.4b` en el ninja). Lo nuestro es lo contrario: elegir a quién, no escribir a más |
+
+**Lo que NO cambia, para que no le quite fuerza:**
+- **Es una lente de desempate, no un filtro nuevo.** El gancho sigue con toda su mecánica y sigue siendo grandioso (sección de arriba); los memes siguen con `--meme-sobrio`. Nada de convertir su cuenta en posts de "liderazgo" acartonados ni en hablar de rondas.
+- **El desempate:** entre dos ganchos o dos cuerpos igual de fuertes, gana el que deja **rastro de criterio** (una opinión o una observación del mercado) sobre el que solo hace gracia.
+- **La prueba de 5 segundos:** un inversor que no conoce a Unai lee SOLO este post. Si piensa *"sabe de lo que habla y trata bien a sus clientes"*, vale. Si piensa *"se ríe de sus clientes"* o *"este manda spam"*, se cambia la frase que lo provoca, no el post entero.
+- **Solo Unai.** Iker y Asier no cambian por esto. Y es preferencia del jefe, no doctrina de datos (`working-preferences §0c`): n=0 medido.
+
+**Mecanizado:** con `--cuenta unai`, `validar-post.py` saca el aviso `ENTREGA: lente del inversor (brand-voice §1b)` con la prueba de 5 segundos. Es aviso: no suspende.
+
 **⚠️ SOBRIO NO ES ACARTONADO.** Los tres siguen siendo naturales, punchy, con clichés y con el formateado de siempre. **Lo que cambia es el volumen, no el idioma.** Un Unai corporativo sería un fallo peor que un Unai informal.
 
 **Lo que dicen los datos, y matiza la regla (medido el 2026-07-16):** el mejor post de la historia de Unai (**16.62x**) abre con *"En ventas, cada año la caja de herramientas engorda pero el comercial cierra menos"*. **Ese texto YA es sobrio**: suena a industrial, no a creador. Lo infantil estaba en la **imagen** (un wojak), no en el texto.

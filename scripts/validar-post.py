@@ -1424,6 +1424,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'sala), "no cupo" se le queda formal (30/09); (3) no se compara con '
             'nadie (mejor que nadie, los demas). Solo en Unai: el resto de cuentas sigue con '
             'la version humilde de global §2.0c-PRESUMIR', aviso=True)
+        # 🔭 LA LENTE DEL INVERSOR (Unai via Iker, 2026-10-07): su cuenta la leen
+        # tambien inversores, que miran como habla de sus clientes, como cuenta un
+        # error y si usa LinkedIn para mandar el mismo mensaje a veinte. Desempate,
+        # no filtro: es aviso y no suspende.
+        chk(False, 'ENTREGA: lente del inversor (brand-voice §1b)',
+            'Prueba de 5 segundos: un inversor que no conoce a Unai lee SOLO este post. '
+            'Si piensa "sabe de lo que habla y trata bien a sus clientes", vale. Si piensa '
+            '"se rie de sus clientes" o "este manda spam" (prospeccion masiva, de plantilla, '
+            'el mismo mensaje a muchos), se cambia LA FRASE que lo provoca, no el post. '
+            'Entre dos versiones igual de fuertes, gana la que deja rastro de criterio '
+            '(una opinion o un matiz del mercado). No quita punch: el gancho sigue grande', aviso=True)
     else:
         chk(False, 'ENTREGA: ¿el gancho PRESUME? (brand-voice §1)',
         'Si la primera linea lleva un logro tuyo, una cifra tuya buena o un premio, el '

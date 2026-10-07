@@ -99,11 +99,13 @@ interface Comparison {
 }
 
 // Psicologia del gancho agregada (backend: services/ganchoPsicologia.ts).
-// avg_ratio = multiplicador medio frente a la media de cada cuenta.
+// med_ratio = multiplicador del post TIPICO (mediana) frente a la media de
+// cada cuenta; avg_ratio, la media, que un solo viral dispara (solo tooltip).
 interface GanchoRow {
   gancho_palanca: string;
   count: number;
   avg_ratio: number | null;
+  med_ratio: number | null;
   avg_impressions: number;
   avg_engagement: number;
   outliers: number;
@@ -2901,10 +2903,10 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
     const pocos = g.count < GANCHO_POCOS_DATOS;
     return {
       ...g,
-      ratio: g.avg_ratio ?? 0,
+      ratio: g.med_ratio ?? 0,
       label: etiquetaGancho(g.gancho_palanca),
       pocos,
-      lado: `${fmtX(g.avg_ratio)} · ${g.count} ${g.count === 1 ? 'post' : 'posts'}${pocos ? ' (pocos datos)' : ''}`,
+      lado: `${fmtX(g.med_ratio)} · ${g.count} ${g.count === 1 ? 'post' : 'posts'}${pocos ? ' (pocos datos)' : ''}`,
     };
   });
   type Fila = (typeof datos)[number];
@@ -2926,7 +2928,7 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
       <div className="mb-3">
         <h3 className="text-lg font-semibold">Psicología del gancho</h3>
         <p className="text-xs text-text-muted mt-0.5">
-          Qué le hace el gancho al lector y cómo rinde · multiplicador medio frente a la media de cada cuenta
+          Qué le hace el gancho al lector y cómo rinde · multiplicador del post típico (mediana) frente a la media de cada cuenta
         </p>
       </div>
       {datos.length === 0 ? (
@@ -2954,11 +2956,12 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
                 return (
                   <div style={{ ...CHART_TOOLTIP_STYLE, padding: '8px 10px', maxWidth: 320 }}>
                     <div className="font-semibold mb-1">
-                      {fila.label} · {fmtX(fila.avg_ratio)}
+                      {fila.label} · {fmtX(fila.med_ratio)} el post típico
                       {fila.pocos && <span className="font-normal opacity-60"> (pocos datos)</span>}
                     </div>
                     {que && <div className="mb-1.5 opacity-80 leading-snug">{que}</div>}
                     <div className="opacity-90">{fila.count} {fila.count === 1 ? 'post' : 'posts'} · {fila.outliers} {fila.outliers === 1 ? 'outlier' : 'outliers'}</div>
+                    <div className="opacity-90">Multiplicador medio: {fmtX(fila.avg_ratio)} (lo suben los virales)</div>
                     <div className="opacity-90">Impresiones medias: {fmtNum(fila.avg_impressions)}</div>
                     <div className="opacity-90">Interacciones medias: {fmtNum(fila.avg_engagement)}</div>
                     <div className="mt-1 opacity-60">Clic para ver estos posts</div>

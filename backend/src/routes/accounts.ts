@@ -1595,20 +1595,23 @@ router.get('/analytics', async (req: Request, res: Response) => {
     // PSICOLOGIA DEL GANCHO (2026-10-07): que palanca usa el gancho y como
     // rinde. Se ordena por MULTIPLICADOR medio (outlier_ratio), que va contra la
     // media de CADA cuenta: comparar impresiones a pelo mezclaria audiencias de
-    // tamanos distintos. Solo palanca principal.
+    // tamanos distintos. Solo palanca principal. Se ordena por la MEDIANA
+    // (el post tipico): con la media, un solo viral disparaba la familia
+    // (medido el 07/10: absoluto_discutible 4,4x de media y 1,5x de mediana).
     const ganchoScope = scope(3);
     const ganchosQ = await pool.query(
       `SELECT
         p.gancho_palanca,
         COUNT(*)::int AS count,
         ROUND(AVG(p.outlier_ratio)::numeric, 2)::float AS avg_ratio,
+        ROUND((PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY p.outlier_ratio))::numeric, 2)::float AS med_ratio,
         COALESCE(ROUND(AVG(p.impressions_count))::int, 0) AS avg_impressions,
         COALESCE(ROUND(AVG(p.engagement_score))::int, 0) AS avg_engagement,
         COUNT(*) FILTER (WHERE p.is_outlier = TRUE)::int AS outliers
        FROM posts p
        WHERE p.published_at >= $1 AND p.published_at <= $2 AND ${ganchoScope.sql} AND p.gancho_palanca IS NOT NULL
        GROUP BY p.gancho_palanca
-       ORDER BY avg_ratio DESC NULLS LAST`,
+       ORDER BY med_ratio DESC NULLS LAST`,
       [currentStartIso, currentEndIso, ...ganchoScope.params]
     );
 

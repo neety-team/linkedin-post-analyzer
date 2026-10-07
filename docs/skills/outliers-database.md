@@ -92,6 +92,11 @@ La herramienta clasifica cada post por **hook_type × post_structure × tone**. 
 
 - **Las familias salen de los 309 ganchos reales de las 3 cuentas** cruzados con la tabla de psicología de `email-marketing.md` y los patrones de `post-workflow §4.6-SERIE`. Los ejemplos de cada una, en el propio servicio.
 - **Para cruzar patrones:** `neety_outliers_agrupar` con `dimension: 'gancho'` (y `filtros.gancho` en el buscador). Ordenar por **multiplicador**, nunca por impresiones a pelo: mezcla audiencias de tamaños distintos.
+- **⚠️ La palanca va muy pegada al pilar** (`prejuicio_ajeno` son 17 mapas de 27; `escena` y `confesion`, historias). Una palanca se compara con otra **dentro del mismo pilar**, nunca en el total, o se está midiendo el pilar.
+- **📊 PRIMERA LECTURA (BD, 07/10, 12 meses, 3 cuentas, mediana del multiplicador DENTRO de cada pilar). Patrón, no ley:**
+  - **Meme:** `absoluto_discutible` **4,33×** (n=8, 65.712 imp. de mediana) ≫ `bucle_abierto` 2,62× (n=4) > `identificacion` 1,13× (n=7) ≈ `prejuicio_ajeno` 1,15× (n=3) > `humor_absurdo` **0,87×** (n=13, la más usada) > `confesion` 0,65× > `rompe_creencia` **0,29×** (n=8). En meme rinde la verdad tajante sobre ventas que el lector compara con la suya (`Cada ascenso en ventas se cobra en otro sitio`), no el absurdo ni el "esto no es así".
+  - **Historia:** `escena` 0,62× (n=8) y `confesion` 0,59× (n=8) son el grueso; `absoluto_discutible` 0,83× (n=4); `identificacion` 1,95× con n=2 (sin peso). Cuadra con `post-workflow §4.6-SERIE` 7: lo que más alcanza es la identificación, no el dolor.
+  - **Lead magnet:** `logro` 3,57× (n=4) > `regalo` 1,00× (n=6) ≈ `urgencia` 0,98× (n=8). n pequeños.
 - **Si se cambian las familias o el prompt, se sube `GANCHO_VERSION`** y el monitor reclasifica solo (20 por vuelta), o al momento con `POST /api/accounts/ganchos/reclasificar`.
 
 ### Tipos de hook (hook_type)

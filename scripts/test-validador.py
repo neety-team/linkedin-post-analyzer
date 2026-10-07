@@ -127,6 +127,7 @@ CASOS = [
         ),
     }),
     ('le doy la vuelta', 'los10', 'Unai', {
+        'NUNCA pegado al bloque de menciones': 'regla posterior (Iker, 2026-10-07): entonces el enlace iba justo detras de la lista',
         'Cada ficha lleva DOS menciones': (
             'ESPERADO por antigüedad, igual que "Menciones con @": los tres "Los 10" del '
             'histórico van sin arroba ninguna (→ Edorta Arriet Azpiroz - Geminis Lathes), '
@@ -173,6 +174,7 @@ CASOS = [
         'Concede que es trabajo en equipo': 'regla §4.3 Paso 3e, adoptada el 2026-07-17; ninguno de los 3 la cumple',
     }),
     ('patio trasero de los Pirineos', 'mapa', 'Iker', {
+        'NUNCA pegado al bloque de menciones': 'regla posterior (Iker, 2026-10-07): entonces el enlace iba justo detras de la lista',
         'Spam ninja presente': 'este mapa llevaba link de PamPam, no el de agendar',
         'El enlace apunta a recursos.neety.com': (
             'ESPERADO: mismo motivo que el de arriba y la misma decisión. Este mapa '

@@ -68,7 +68,7 @@ SUJETO_ES_MODELO = (r'(claude\s*(opus|sonnet|haiku)?\s*\d|gpt-?\d|gemini\s*\d'
 # §4.2 Paso 1 — En el peloteo el prejuicio SIEMPRE lo dice otro: "la ven como…",
 # "nadie habla de…". Sin ese sujeto, el desprecio se lee como NUESTRO y ofende a
 # quien queriamos que comentara defendiendo lo suyo (Iker, 2026-07-30).
-SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan)'
+SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan|l[ao] liquidan)'
 # 2026-10-01, "Las 10" de Castilla-La Mancha (Iker): el prejuicio tambien lo dice
 # OTRO cuando es un GESTO de la gente en impersonal ("solo paran a por queso y
 # gasolina"): es el desprecio de la region de paso sin ponerlo en nuestra boca.
@@ -84,6 +84,7 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
+    'ventilan': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'dejan atrás': '2026-09-29 Extremadura, mapa de Asier',
     'dejan atras': '2026-09-29 Extremadura, mapa de Asier',
     'tienen calada': '2026-09-22 Álava, mapa de Iker',
@@ -275,6 +276,8 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'al repostar no se ve': '2026-10-01 "Las 10" de Castilla-La Mancha, Iker, la linea 1 del ninja',
+    'ya le ponemos nombre nosotros': '2026-10-01 "Las 10" de Castilla-La Mancha, Iker, la linea 2 del ninja',
     'nadie se plancha la camisa': '2026-10-02 historia de Mario 02/10 (la camisa planchada), la linea 1 del ninja',
     'por saber quién te comprará sí': '2026-10-02 historia de Mario 02/10, la linea 2 del ninja',
     'por saber quien te comprara si': '2026-10-02 historia de Mario 02/10, sin tildes',
@@ -355,6 +358,7 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
+    'kenia': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker; antes Aragón (Asier 14/07)',
     'moldavia': '2026-09-29 Extremadura, mapa de Asier',
     'islandia': '2026-09-22 Álava, mapa de Iker',
     'uruguay': '2026-07-23 Murcia (Iker)',
@@ -366,7 +370,6 @@ PAIS_QUEMADO = {
     'chipre': '2026-07-31 Asturias (Unai)',
     'finlandia': '2026-07-17 Cataluña (Unai)',
     'honduras': '2026-07-07 Álava (Unai)',
-    'kenia': '2026-07-14 Aragón (Asier)',
     'paraguay': '2026-08-04 Castilla y León (Iker)',
     'montenegro': '2026-08-07 Navarra, despiece de Asier',
     'jamaica': '2026-09-01 Cantabria, mapa de Asier',
@@ -479,6 +482,7 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'descansillo': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'despensa del oeste': '2026-09-29 Extremadura, mapa de Asier',
     'nevera del norte': '2026-09-22 Álava, mapa de Iker',
     'sitio de comer': '2026-07-30 Euskadi (Iker)',
@@ -501,6 +505,7 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'y a repostar': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'y a portugal': '2026-09-29 Extremadura, mapa de Asier',
     'y hasta ah': '2026-09-22 Álava, mapa de Iker',
     'de vuelta al aeropuerto': '2026-07-30 Euskadi (Iker)',
@@ -3205,6 +3210,31 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             chk(True, 'PELOTEO: posicion del enlace, apuntala en la ficha (4.0d)',
                 'enlace al %.0f%% del texto -> brazo %s. A/B abierto: brazo A = 20 posts, brazo B = '
                 'Cantabria 01/09 y Bizkaia 16/09. Nunca en la ultima linea ni suelto' % (_pos, _brazo), aviso=True)
+    # ---------- EL NINJA NUNCA VA PEGADO A LAS MENCIONES (Iker, 2026-10-07) ----------
+    # Iker: "si te saltas con el ojo las menciones, te has saltado tambien el spam
+    # ninja", igual que cuando iba en la ultima linea. Caso: "Las 10" de Castilla-La
+    # Mancha (01/10), bloque del enlace justo detras del 2o bloque de menciones,
+    # 37.779 imp y 22 clics (0,058%). ⚠️ CRITERIO, NO DATO MEDIDO: en la BD (07/10)
+    # separacion 0 = 0,12% (n=4) contra >=1 linea = 0,27% (n=11), p=0,17, y el mejor
+    # CTR de Asier (Extremadura, 0,419%) iba pegado; el destino (/mapas/ contra
+    # /agendar/) explica mas que la posicion. Se mecaniza porque no cuesta nada y
+    # nada medido lo contradice. Vale en TODOS los pilares: entre la ultima linea
+    # que empieza por "→" y la 1a linea del bloque del enlace tiene que haber al
+    # menos UNA linea con texto, separada por blancos.
+    _ls = texto.splitlines()
+    _fin = max((i for i, l in enumerate(_ls) if l.lstrip().startswith('→')), default=None)
+    if _fin is not None:
+        _il = next((i for i in range(_fin + 1, len(_ls))
+                    if re.search(r'(https?://|lnkd\.in|neety\.com|lu\.ma|luma\.com)', _ls[i])), None)
+        if _il is not None:
+            _ini = _il - 1 if (_ls[_il - 1].strip() and not _ls[_il - 1].lstrip().startswith('→')) else _il
+            _sep = sum(1 for l in _ls[_fin + 1:_ini] if l.strip())
+            chk(_sep >= 1, 'Spam ninja: NUNCA pegado al bloque de menciones (Iker, 07/10)',
+                ('%d linea(s) con texto entre la ultima "→" y el bloque del enlace. ' % _sep) +
+                ('Mete al menos una suelta que respire (un cliche, el reveal o la que cose la lista '
+                 'con el ninja): quien salta las menciones con el ojo se salta tambien lo que va pegado. '
+                 'Criterio de Iker, no medido (post-workflow 4.0d punto 6)' if _sep < 1 else
+                 'apuntala en la ficha del historial junto al % del enlace'))
     # ---------- LA LINEA DEL ENLACE NO ORDENA (Iker, 2026-09-16) ----------
     # Propuso "Solo quedan 15 plazas. Corre:" / "date prisa". El imperativo de
     # urgencia es la voz del anuncio (4.4b-EVENTO-EXPLICITO: el post que suena a

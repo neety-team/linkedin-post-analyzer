@@ -159,6 +159,18 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 
 **Mecanizado** como aviso en `validar-post.py` (`PELOTEO: posicion del enlace`), que imprime el % y dice a qué brazo pertenece el post.
 
+**⛔⛔ 6b · EL BLOQUE DEL ENLACE NUNCA VA PEGADO AL BLOQUE DE MENCIONES, EN NINGÚN PILAR (Iker, 2026-10-07). CRITERIO SUYO, NO DATO MEDIDO.**
+> **Iker:** *"si te saltas con el ojo las menciones, te has saltado también el spam ninja"*, igual que cuando iba en la última línea. El caso: "Las 10" de Castilla-La Mancha (01/10), bloque del enlace justo detrás del 2º bloque de menciones, **37.779 impresiones y 22 clics (0,058%)**.
+- **LA REGLA:** entre la última línea que empieza por `→` y la primera línea del bloque del enlace va **al menos UNA línea suelta con texto**, separada por blancos (la que cose la lista con el ninja, un cliché o el reveal). El brazo B del A/B (justo después del valor) **se mantiene**: se sube detrás de la lista, pero con una línea que respire.
+- **Lo que dice la BD (07/10, 15 peloteos medidos a nuestra web o a Luma), dicho entero:** separación 0 → **0,12%** (n=4) · ≥1 línea → **0,27%** (n=11), p=0,17. Solo `/agendar/`: 0,11% (n=3) contra 0,28% (n=7), p=0,09. **Va en la dirección de Iker en Iker y en Unai, y la contradice Asier**: su mejor CTR (Extremadura, **0,419%**) iba pegado, pero a `/mapas/`, que continúa la lista y no vende. **Lo que más separa los CTR es el DESTINO, no la posición**: `/mapas/` 0,27-0,42% contra `/agendar/` 0,06-0,38%, y "Las 10"/"Los 10" convierte la mitad que el mapa (Asturias con 9 líneas de separación dio 0,113%).
+- **Por qué se mecaniza igual:** no cuesta nada y nada de lo medido la contradice. **Fallo duro en `validar-post.py`** (`Spam ninja: NUNCA pegado al bloque de menciones`), todos los pilares. El test de ganadores lo marca como regla posterior en el "Los 10" de Cataluña y el mapa de Navarra.
+- **Cada ficha de peloteo apunta ya DOS números del enlace:** el % de posición y las líneas de separación. Se relee con 4+ posts por brazo a `/solicitar-demo` y los clics por UTM de GA4.
+- **⚠️ Y el correo ya NO empuja hacia arriba (corregido el 07/10).** El correo 7 de la newsletter (06/10) adelantó el enlace al **25%** (antes, 46-61%): **2 personas de 107 pulsaron, contra 4 de 111 del correo 6 a la misma edad (24 h)**. El "más clics" que se veía era el contador del panel de Brevo, inflado por bajas y escáneres. La única prueba de correo que sigue en pie es sacarlo de la **posdata** al cuerpo (7 de 327 contra 2 de 682, agosto). Detalle en `historial-newsletter.md`.
+
+**7b · COMUNIDAD CONTRA PROVINCIA Y REGIÓN NUEVA CONTRA REPETIDA (cruce de los 27 peloteos de las 3 cuentas, BD del 07/10).**
+- **Comunidad entera contra provincia o ciudad: NO HAY EVIDENCIA en ningún sentido.** Rendimiento contra la mediana de su cuenta: provincia 8,6 (n=6) · uniprovincial 8,5 (n=7) · comunidad de varias provincias 9,2 (n=14). **Las 6 provincias son vascas** (Gipuzkoa, Bizkaia, Álava), el territorio de casa de las 3 cuentas, así que "provincia" hoy significa "casa" y no se puede separar. **Se sigue prefiriendo la comunidad por criterio** (`§4.2` guardarraíles: más gente que se da por aludida), no por dato. Iker lo pidió el 07/10: Valencia → Comunidad Valenciana, Barcelona → Cataluña. Ya lo hacíamos en todas menos en las vascas.
+- **Región NUEVA (ninguna cuenta la había hecho) contra REPETIDA: la señal más fuerte del pilar.** Nueva **11,7x** su mediana (n=15) contra repetida **2,0x** (n=10). En las parejas de la misma región, la segunda rinde menos en **7 de 8** (Gipuzkoa 33,4 → 1,8 · Cataluña 14,6 → 1,7 · Navarra 31,5 → 0,9 · Álava 11,7 → 8,6…). No es limpia (la repetida siempre es posterior y 5 de las 10 son despiece o "Los 10"), pero **ante la duda, región que no haya hecho nadie**. Las que quedan sin tocar por ninguna cuenta: **La Rioja (usada por Asier el 07/10), Canarias y Baleares**; Madrid sigue baneada.
+
 **7 · LAS LISTAS DE QUEMADAS SON POR CUENTA Y CADUCAN** (Iker, 2026-09-15 y 16/09). País, concepto, frase-rabia y verbo del prejuicio **solo frenan a la cuenta que los usó, y se liberan a los 42 días** (sus 3 peloteos siguientes); otra cuenta puede usarlos, con aviso si fue hace menos de 7 días. **Los clichés de la región no entran en ninguna lista y se pueden repetir** cuando la región se vuelva a hacer. Lo que no caduca: **la región dentro de la misma cuenta** (es espaciado de tema) y los vetos de contenido, que van sin fecha (`global §2.0b-VENTANA`).
 
 ### ⛔ 4.1-GANCHO · SI EL PILAR NO ESTÁ DEFINIDO, PRIMERO SOLO EL GANCHO (Iker, 2026-08-05)
@@ -1859,6 +1871,40 @@ CLAUDE (nombrado en el gancho)  +  un RESULTADO DE VENTAS  +  una variante de PR
 - **Nuestros datos lo respaldan por el otro lado:** los 5 lead magnets con Claude pasan de 100 comentarios (632 · 285 · 232 · 183 · 167) y la mediana sin IA es 20. **Lo que faltaba escrito es que los cinco, además, van de prospección.**
 
 **⚠️ Y EL AVISO QUE ACOMPAÑA A ESTO: el tema es de él, así que el ÁNGULO tiene que ser NUESTRO.** Su promesa siempre es **volumen** (*"entre 50 y 200 prospectos cualificados en 15 minutos"*). La nuestra, por el informe de 50 demos, es lo contrario: **la criba y la prueba** (`aboutme §1b` pilar 1). Ahí es donde se le gana (`global §2.2b`, ser el segundo mejor), y no copiándole el número.
+
+#### 🧮🧮 4.5.0-CRUCE · LOS 25 LEAD MAGNETS DE LAS 3 CUENTAS, CRUZADOS POR COMENTARIOS (pedido por Iker el 2026-10-07)
+
+> **Iker:** *"quiero que aproveches para hacer un análisis y guardar los patrones cruzados de datos en nuestras cuentas del rendimiento de los lead magnets, sobre todo a nivel de comentarios"*. Medido sobre la BD y los TEXTOS de los comentarios (endpoint de comentarios del backend, con el grado de cada autor). Scripts en el scratchpad de la sesión del 07/10 (`lmx/`).
+
+**Cómo se mide desde hoy, y por qué no con el número de la BD:** el `comments_count` cuenta también **nuestras respuestas** (sale ~el doble) y el equipo pone **4-9 comentarios fijos** por post. La métrica buena es **comentaristas NUEVOS de fuera del equipo** (nunca habían comentado un lead magnet nuestro) y **comentarios con la palabra clave por cada 1.000 impresiones**. El grado (2º-3er) se lee hoy, no el día del post, así que es un mínimo.
+
+| periodo | n | con palabra (mediana) | comentaristas nuevos | con palabra / 1.000 imp |
+|---|---|---|---|---|
+| abril-mayo | 9 | **73** | **65** | **6,7** |
+| junio | 4 | 7,5 | 4 | 4,7 |
+| desde julio | 12 | 4,5 | 3 | 1,9 |
+
+| cuenta | periodo | n | imp | con palabra | autores de fuera | de 2º-3er grado | peso del equipo en el hilo |
+|---|---|---|---|---|---|---|---|
+| Iker | abr-jun | 7 | 9.321 | 63 | 66 | 20 | 8% |
+| Iker | desde julio | 5 | 3.944 | 6 | 7 | 1 | 47% |
+| Unai | abr-jun | 6 | 4.974 | 42,5 | 43,5 | 12 | 6% |
+| Unai | desde julio | 3 | 3.432 | 9 | 10 | 4 | 29% |
+| Asier | desde julio | 4 | 1.033 | 2 | 2,5 | 0,5 | 73% |
+
+**LO QUE SALE, y es lo que se aplica:**
+1. **La caída es real, empieza en JUNIO y toca a las tres cuentas.** Antes del cambio de mecánica del 05/08 y antes de agosto. No es solo que llegue a menos gente: **convierte peor a la que llega** (6,7 → 1,9 por 1.000 impresiones). El equipo no comenta más; pesa más porque lo de fuera se ha hundido.
+2. **La cuenta más validada es UNAI**, por poco: tiene el mejor de la casa (30/04, *"🚨 ÚLTIMA HORA: Claude acaba de matar el cold outbound…"*, **solo texto**, 25.467 imp, **293 VIBE de fuera, 294 comentaristas primerizos, 147 de fuera de la red**) y es **la única que ha despegado desde julio**: el 12/08 (resubida de VIBE, +104 días) sacó 39 con palabra, 30 nuevos y 15 de fuera de la red, **11,4 por 1.000 impresiones**, el ritmo de mayo. Iker iba igual que Unai en abril-mayo, pero sus 5 desde julio están planos (techo 13). **El próximo lead magnet, en Unai.** Hipótesis con n=3 en Unai desde julio: la ventaja sale de un post.
+3. **El "sexto sentido" de Iker, confirmado: el lead magnet que más pilló fue de Unai, de solo texto y hace meses (30/04).** Lo que NO se puede demostrar es que fuera POR el solo texto: en abril-mayo, solo texto (n=4) ~10.900 imp de mediana contra imagen (n=5) 9.321. Y desde el 12/08 no se puede repetir tal cual: la palabra va dentro de la imagen (`§4.5.0-CTA-IMAGEN`).
+4. **El fallo no es reutilizar: es QUÉ se reutiliza.** Reutilizar un tema que en su día pasó de ~70 comentarios con palabra funciona (104, 73, 179 y 39 al repetirse). **Reutilizar uno flojo o hacer un PAQUETE de varios recursos, no** (arsenal 12, biblia 22, sistema 4, mensajes 3, auditoría 0). Y los recursos NUEVOS desde julio tampoco se salvan: ninguno pasa de 13. Iker tenía razón a medias: es temática, pero de tema flojo, no de tema repetido.
+5. **ASIER: 4 de 4 en torno a 1.000 impresiones con 4 temas distintos** (comité 15/07, criba 14/08, perfil 17/09, sistema 30/09: 1, 0, 3 y 4 con palabra). El de `/sistema/` del 30/09 es, por comentarios de fuera, su MEJOR lead magnet, no el peor. En Asier el problema no es el tema: mitad de seguidores que Iker y Unai (4.586), el equipo pone 7 de 12 hilos, publicó a las 13:37, el recurso era un paquete de textos ya usados y llegó **9 días tarde** al pico del tema fuera (Martín Arosa, 2.315 comentarios el 21/09; sus siguientes del mismo tema, 102 y 128). **Su cuenta sí reparte otros pilares** (mapas de septiembre 20.000-22.000 impresiones). **No más lead magnets en Asier hasta tener otra palanca.**
+6. **Fuera el formato sigue vivo, pero también se enfría:** desde el 15/08, 65 posts en español con pinta de lead magnet y 80+ comentarios (Martín Arosa 2.315 y 1.400, Juan Cruz Sinkec 917, Ignasi Mellado 449). La mediana de Martín Arosa cae de ~970 (julio, n=17) a 432 (agosto) y ~146 (septiembre, n=20). Lo que domina: *"el sistema completo con Claude"* y *"ADIÓS / D.E.P. X"*.
+
+**REGLAS CANDIDATAS (deducciones mías con su n; entran como guía hasta que Iker las confirme, `working-preferences §0c`):**
+- **Termómetro a las 24 h: comentarios con palabra por cada 1.000 impresiones.** Por debajo de 3, el tema no pica, al margen del alcance (mayo 6,7 · desde julio 1,9 · 12/08 11,4).
+- **Solo se reutiliza un tema que pasó de ~70 con palabra, y nunca como paquete** (n=10).
+- **Un tema copiado de fuera solo vale si su pico tiene menos de una semana** (n=1 nuestro + la serie de Martín Arosa: hipótesis).
+- **El listón de un lead magnet "que ha pillado": 30+ comentaristas nuevos de fuera**, como el 12/08.
 
 #### 🔎🔎 4.5.0-COMPETENCIA · PASO 0 OBLIGATORIO: LA INVESTIGACIÓN DE REFERENTES, ANTES DE ELEGIR TEMA (Mario, 2026-08-26)
 

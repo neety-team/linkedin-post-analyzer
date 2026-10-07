@@ -1429,13 +1429,14 @@ Es `working-preferences §0c-BIS` otra vez: **una regla universal guardada dentr
 [línea 2] la COBERTURA de esa carencia + ":" + {enlace}   <= 55 car, y MÁS CORTA que la 1
 ```
 
-**LAS SEIS REGLAS DE FORMA, que NO cambian nunca y no dependen del destino:**
+**LAS SIETE REGLAS DE FORMA (la 7ª desde el 07/10), que NO cambian nunca y no dependen del destino:**
 1. **Dos líneas pegadas**, un solo salto entre ellas, nunca el enlace en línea suelta (`§4.4b-FORMA`).
 2. **Las dos ≤55 caracteres** sin contar la URL, y la 2 más corta que la 1 (`§4.4b-FORMA`).
 3. **La 1 nombra la carencia; la 2 la cubre y solo eso** (`§4.4b-BLOQUE`). La bisagra es un **demostrativo que recoge la línea 1** (`Esa parte…`, `A esa sala…`).
 4. **La palabra del gancho va dentro del bloque** (`§4.4b` regla 3). Es el SUELO, no la forma: puede estar en cualquiera de las dos.
 5. **El bloque se lee solo**, sin el post delante: ningún sustantivo sin su complemento (`§4.4b-EXPLICITO`).
 6. **Un intensificador en la línea 2** (`§2.3d-ENLACE`): cuesta 4 caracteres y es la mejora más barata del post.
+7. **⛔ Nunca pegado al bloque de menciones (Iker, 2026-10-07):** si el post lleva lista de `→`, entre la última y el bloque del enlace va al menos una línea suelta con texto. Quien salta las menciones con el ojo se salta lo que va pegado. Criterio suyo, no medido (BD: 0,12% pegado contra 0,27% separado, n=4 y 11, p=0,17). Fallo duro en `validar-post.py`. Detalle en `post-workflow §4.0d` punto 6b.
 
 **LO ÚNICO QUE CAMBIA POR DESTINO ES QUÉ SE DICE:**
 

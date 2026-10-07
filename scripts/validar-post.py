@@ -276,6 +276,18 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'aplaudir al comercial es fácil': '2026-10-07 historia de Unai 07/10 (la mesa redonda de Neety Forward), la linea 1 del ninja',
+    'aplaudir al comercial es facil': '2026-10-07 historia de Unai 07/10, sin tilde',
+    'eso sí lo hacemos nosotros, empresa y quien decide': '2026-10-07 historia de Unai 07/10, la linea 2 del ninja',
+    'eso si lo hacemos nosotros, empresa y quien decide': '2026-10-07 historia de Unai 07/10, sin tilde',
+    'el teléfono te trae al cliente de siempre': '2026-10-02 historia de Unai 02/10 (el teléfono del director comercial), la linea 1 del ninja',
+    'el telefono te trae al cliente de siempre': '2026-10-02 historia de Unai 02/10, sin tilde',
+    'a ese nuevo sí te lo señalamos': '2026-10-02 historia de Unai 02/10, la linea 2 del ninja',
+    'a ese nuevo si te lo senalamos': '2026-10-02 historia de Unai 02/10, sin tildes',
+    'vender es cosa del comercial': '2026-10-02 meme de Asier 02/10 (la IA viene a por el puesto), la linea 1 del ninja',
+    'esa parte ya te la damos hecha': '2026-10-02 meme de Asier 02/10, la linea 2 del ninja',
+    'filtrar por sector lo hace cualquiera': '2026-10-01 historia de Asier 01/10 (el filtro), la linea 1 del ninja',
+    'eso lo hacemos empresa a empresa': '2026-10-01 historia de Asier 01/10, la linea 2 del ninja',
     'al repostar no se ve': '2026-10-01 "Las 10" de Castilla-La Mancha, Iker, la linea 1 del ninja',
     'ya le ponemos nombre nosotros': '2026-10-01 "Las 10" de Castilla-La Mancha, Iker, la linea 2 del ninja',
     'nadie se plancha la camisa': '2026-10-02 historia de Mario 02/10 (la camisa planchada), la linea 1 del ninja',

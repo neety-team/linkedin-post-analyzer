@@ -8,6 +8,8 @@
 
 ## ⚠️ SI ES LUNES Y SE HABLA DE PUBLICACIONES: PRIMERO SE ANALIZA LA SEMANA PASADA (Iker, 2026-08-10)
 
+> 🔔 **PARA LA REVISIÓN DEL LUNES 12/10 (lo pide Iker el 07/10), sin que haga falta recordárselo: A/B DE LA SEPARACIÓN DEL NINJA EN "LAS 10".** Castilla-La Mancha (Iker 01/10): enlace al 66%, **pegado** a las menciones, a `/agendar/` → 0,058% (22/37.779). La Rioja (Asier 07/10): enlace al 65%, **1 línea suelta de separación**, a `/solicitar-demo`. La posición se dejó igual a propósito para que la única variable sea la separación (`post-workflow §4.0d` 6b). Se compara CTR en LinkedIn y clics por UTM en GA4 (pedírselos a Iker), sabiendo que son cuentas distintas. Si La Rioja no mejora, la separación no explica el 0,058% y se mira el destino y el formato. Y se recuerda en CADA análisis de peloteo hasta cerrarlo.
+
 > 🔔 **PARA LA REVISIÓN DEL LUNES 05/10 (lo pide Iker el 01/10), sin que haga falta recordárselo:**
 > 1. **Web nueva:** en cada post que se prepare, preguntar si el enlace pasa ya a `https://neety.com/solicitar-demo` (`aboutme §1`).
 > 2. **PELOTEO, POSICIÓN DEL ENLACE:** validar si haberlo adelantado justo detrás de las menciones (brazo B) ha subido o bajado los clics y el CTR contra el brazo A de cada cuenta. Casos: Cantabria (Asier 01/09), despiece de Bizkaia (Asier 16/09), Álava (Iker 22/09), Extremadura (Asier 29/09) y "Las 10" de Iker (01/10). Pedirle a Iker los **clics por UTM de GA4**, porque LinkedIn devuelve ceros sin medir. Si no da, se dice que no da y el A/B sigue (bloque de arriba).

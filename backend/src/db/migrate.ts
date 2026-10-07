@@ -1143,6 +1143,16 @@ const migration = `
   -- Ultimo intento de resumir (haya salido o no): un fallo no se reintenta
   -- hasta pasadas 6 horas, ni en cada vuelta del monitor ni en cada respuesta.
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS image_summary_tried_at TIMESTAMPTZ;
+
+  -- LA PSICOLOGIA DEL GANCHO (Iker, 2026-10-07). Que le hace el gancho al
+  -- lector, clasificado con IA en las cuentas propias (services/ganchoPsicologia.ts).
+  -- hook_type sigue siendo el de las regex, para comparar con la competencia.
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS gancho_palanca TEXT;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS gancho_palanca_2 TEXT;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS gancho_motivo TEXT;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS gancho_version INTEGER;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS gancho_intentado_at TIMESTAMPTZ;
+  CREATE INDEX IF NOT EXISTS idx_posts_gancho_palanca ON posts (gancho_palanca) WHERE gancho_palanca IS NOT NULL;
 `;
 
 /**

@@ -23,15 +23,20 @@ export interface FiltrosTop {
   pilares: string[];
   // content_type marcados (vacio = todos).
   formatos: string[];
+  // Palanca PRINCIPAL del gancho (gancho_palanca) marcadas (vacio = todas).
+  // SIN_GANCHO representa los posts que la IA aun no ha clasificado.
+  ganchos: string[];
   enlace: FiltroEnlace;
 }
 
 export const SIN_PILAR = '__sin_pilar__';
+export const SIN_GANCHO = '__sin_gancho__';
 
 export const FILTROS_TOP_DEFECTO: FiltrosTop = {
   orden: 'outlier_ratio',
   pilares: [],
   formatos: [],
+  ganchos: [],
   enlace: 'todos',
 };
 
@@ -67,6 +72,8 @@ export const ENLACE_OPCIONES: { valor: FiltroEnlace; etiqueta: string }[] = [
 export interface PostFiltrable {
   content_type?: string | null;
   pillar?: string | null;
+  // Palanca psicologica principal del gancho (null = sin clasificar todavia).
+  gancho_palanca?: string | null;
   content_text?: string | null;
   // URL de destino que LinkedIn MIDE en la analitica Premium. Solo la tienen
   // las cuentas conectadas: en un post manual es null aunque lleve enlace.
@@ -85,6 +92,7 @@ export interface PostFiltrable {
 
 export const formatoDe = (p: PostFiltrable): string => p.content_type || 'text';
 export const pilarDe = (p: PostFiltrable): string => p.pillar || SIN_PILAR;
+export const ganchoDe = (p: PostFiltrable): string => p.gancho_palanca || SIN_GANCHO;
 // ¿Lleva enlace? Se mira el TEXTO, como hace la chapa de clics: LinkedIn
 // reescribe todo enlace del cuerpo a `lnkd.in/xxxx`, y se aceptan http(s) y
 // www por si llega sin reescribir. `link_url` queda de respaldo. (Iker,
@@ -94,7 +102,7 @@ export const RE_ENLACE = /\b(?:https?:\/\/|lnkd\.in\/|www\.)\S+/i;
 export const tieneEnlace = (p: PostFiltrable): boolean =>
   (!!p.content_text && RE_ENLACE.test(p.content_text)) || !!p.link_url;
 
-type Categoria = 'pilares' | 'formatos' | 'enlace';
+type Categoria = 'pilares' | 'formatos' | 'ganchos' | 'enlace';
 
 // `ignorar` deja fuera UNA categoria: es lo que permite los recuentos
 // facetados (cuantos posts tendria cada opcion de Pilar con los demas filtros
@@ -102,6 +110,7 @@ type Categoria = 'pilares' | 'formatos' | 'enlace';
 export function pasaFiltros(p: PostFiltrable, f: FiltrosTop, ignorar?: Categoria): boolean {
   if (ignorar !== 'pilares' && f.pilares.length > 0 && !f.pilares.includes(pilarDe(p))) return false;
   if (ignorar !== 'formatos' && f.formatos.length > 0 && !f.formatos.includes(formatoDe(p))) return false;
+  if (ignorar !== 'ganchos' && f.ganchos.length > 0 && !f.ganchos.includes(ganchoDe(p))) return false;
   if (ignorar !== 'enlace' && f.enlace !== 'todos' && tieneEnlace(p) !== (f.enlace === 'con')) return false;
   return true;
 }
@@ -145,6 +154,7 @@ export function aplicarFiltrosTop<T extends PostFiltrable>(posts: T[], f: Filtro
 export interface RecuentosTop {
   pilares: Map<string, number>;
   formatos: Map<string, number>;
+  ganchos: Map<string, number>;
   enlace: Record<FiltroEnlace, number>;
 }
 
@@ -154,29 +164,31 @@ export interface RecuentosTop {
 export function recuentosFacetados(posts: PostFiltrable[], f: FiltrosTop): RecuentosTop {
   const pilares = new Map<string, number>();
   const formatos = new Map<string, number>();
+  const ganchos = new Map<string, number>();
   const enlace: Record<FiltroEnlace, number> = { todos: 0, con: 0, sin: 0 };
   for (const p of posts) {
     if (pasaFiltros(p, f, 'pilares')) pilares.set(pilarDe(p), (pilares.get(pilarDe(p)) || 0) + 1);
     if (pasaFiltros(p, f, 'formatos')) formatos.set(formatoDe(p), (formatos.get(formatoDe(p)) || 0) + 1);
+    if (pasaFiltros(p, f, 'ganchos')) ganchos.set(ganchoDe(p), (ganchos.get(ganchoDe(p)) || 0) + 1);
     if (pasaFiltros(p, f, 'enlace')) {
       enlace.todos++;
       if (tieneEnlace(p)) enlace.con++; else enlace.sin++;
     }
   }
-  return { pilares, formatos, enlace };
+  return { pilares, formatos, ganchos, enlace };
 }
 
 // ¿Hay algun FILTRO activo? El orden no cuenta: siempre hay uno.
 export function hayFiltrosTop(f: FiltrosTop): boolean {
-  return f.pilares.length > 0 || f.formatos.length > 0 || f.enlace !== 'todos';
+  return f.pilares.length > 0 || f.formatos.length > 0 || f.ganchos.length > 0 || f.enlace !== 'todos';
 }
 
 // ── URL ─────────────────────────────────────────────────────────────────────
-// `?top_orden=ctr&top_pilar=historia,meme&top_formato=text_image&top_enlace=con`
+// `?top_orden=ctr&top_pilar=historia,meme&top_formato=text_image&top_gancho=escena&top_enlace=con`
 // Solo se escribe lo que no esta en su valor por defecto, y se respetan los
 // demas parametros de la pagina. Un enlace pegado en el chat reproduce la vista
 // (sirve para el analisis semanal de patrones cruzados).
-const CLAVES = { orden: 'top_orden', pilares: 'top_pilar', formatos: 'top_formato', enlace: 'top_enlace' } as const;
+const CLAVES = { orden: 'top_orden', pilares: 'top_pilar', formatos: 'top_formato', ganchos: 'top_gancho', enlace: 'top_enlace' } as const;
 
 const lista = (v: string | null): string[] =>
   (v || '').split(',').map((s) => s.trim()).filter(Boolean);
@@ -188,6 +200,7 @@ export function filtrosDesdeParams(sp: URLSearchParams): FiltrosTop {
     orden: orden && ORDENES_VALIDOS.has(orden) ? (orden as OrdenTop) : FILTROS_TOP_DEFECTO.orden,
     pilares: lista(sp.get(CLAVES.pilares)),
     formatos: lista(sp.get(CLAVES.formatos)),
+    ganchos: lista(sp.get(CLAVES.ganchos)),
     enlace: enlace === 'con' || enlace === 'sin' ? enlace : 'todos',
   };
 }
@@ -198,6 +211,7 @@ export function filtrosAParams(f: FiltrosTop, base: URLSearchParams): URLSearchP
   poner(CLAVES.orden, f.orden !== FILTROS_TOP_DEFECTO.orden ? f.orden : null);
   poner(CLAVES.pilares, f.pilares.length ? f.pilares.join(',') : null);
   poner(CLAVES.formatos, f.formatos.length ? f.formatos.join(',') : null);
+  poner(CLAVES.ganchos, f.ganchos.length ? f.ganchos.join(',') : null);
   poner(CLAVES.enlace, f.enlace !== 'todos' ? f.enlace : null);
   return sp;
 }

@@ -69,6 +69,31 @@ GA4, misma ventana ..... /mapas/cantabria/  =  27 vistas, 21 usuarios activos
 
 La herramienta clasifica cada post por **hook_type × post_structure × tone**. Estas son las etiquetas canónicas — úsalas al referirte a arquetipos.
 
+### 🧠 PSICOLOGÍA DEL GANCHO (`gancho_palanca`) · LA QUE MANDA EN NUESTRAS CUENTAS (Iker, 2026-10-07)
+
+**En las 3 cuentas propias (y las manuales), el gancho se analiza por `gancho_palanca`, no por `hook_type`.** `hook_type` lo ponen unas regex pensadas para ganchos en inglés: medido el 07/10, el **68%** de nuestros posts desde abril salía `other` (116 de 170). `gancho_palanca` lo pone la IA (`backend/src/services/ganchoPsicologia.ts`, Sonnet) y mide **qué le hace el gancho al lector**, no qué forma tiene (Iker: *"lo que más nos interesa es la psicología detrás de ese gancho"*). Por post: `gancho_palanca` (la principal), `gancho_palanca_2` (si hay otra clara) y `gancho_motivo` (una frase). La competencia sigue solo con `hook_type`: **comparar ganchos entre nosotros y ellos no es directo** hasta que se reclasifique su corpus.
+
+| clave | etiqueta | qué activa |
+|---|---|---|
+| identificacion | Identificación | se ve retratado en algo que ya ha vivido |
+| absoluto_discutible | Absoluto discutible | un nunca/siempre que compara con lo suyo: identificación, rebate o matiz (`post-workflow §4.6-SERIE` 10) |
+| prejuicio_ajeno | Prejuicio ajeno | orgullo herido: el tópico lo dice otro (`brand-voice`, peloteos) |
+| rompe_creencia | Rompe una creencia | choca con lo que ya cree |
+| bucle_abierto | Curiosidad (bucle abierto) | una respuesta que solo está en el cuerpo |
+| escena | Escena con final abierto | quiere saber cómo acaba |
+| confesion | Confesión | simpatía + qué pasó |
+| acusacion | Acusación al lector | incomodidad, defenderse |
+| humor_absurdo | Humor absurdo | imagen imposible que hace gracia |
+| urgencia | Urgencia o novedad | miedo a quedarse atrás |
+| regalo | Regalo o beneficio directo | interés propio, reciprocidad |
+| logro | Logro o prueba social | estatus, autoridad |
+| pregunta | Pregunta al lector | opinión o experiencia propia |
+| anuncio | Anuncio sin palanca | ninguna tensión |
+
+- **Las familias salen de los 309 ganchos reales de las 3 cuentas** cruzados con la tabla de psicología de `email-marketing.md` y los patrones de `post-workflow §4.6-SERIE`. Los ejemplos de cada una, en el propio servicio.
+- **Para cruzar patrones:** `neety_outliers_agrupar` con `dimension: 'gancho'` (y `filtros.gancho` en el buscador). Ordenar por **multiplicador**, nunca por impresiones a pelo: mezcla audiencias de tamaños distintos.
+- **Si se cambian las familias o el prompt, se sube `GANCHO_VERSION`** y el monitor reclasifica solo (20 por vuelta), o al momento con `POST /api/accounts/ganchos/reclasificar`.
+
 ### Tipos de hook (hook_type)
 | clave | etiqueta |
 |---|---|

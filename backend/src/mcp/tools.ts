@@ -87,6 +87,10 @@ const filtrosBase = {
     .optional()
     .describe('Consulta antes neety_outliers_valores: el tema es texto libre y hay sinónimos'),
   hook_type: z.array(z.string()).optional(),
+  gancho: z
+    .array(z.string())
+    .optional()
+    .describe('Psicología del gancho, solo cuentas propias: identificacion | absoluto_discutible | prejuicio_ajeno | rompe_creencia | bucle_abierto | escena | confesion | acusacion | humor_absurdo | urgencia | regalo | logro | pregunta | anuncio'),
   estructura: z.array(z.string()).optional(),
   tono: z.array(z.string()).optional(),
   tipo_contenido: z.array(z.string()).optional().describe('text, text_image, text_video…'),
@@ -491,6 +495,7 @@ export function registrarTools(servidor: McpServer): void {
           'tema',
           'pilar',
           'hook',
+          'gancho',
           'estructura',
           'tono',
           'tipo_contenido',
@@ -535,6 +540,7 @@ export function registrarTools(servidor: McpServer): void {
           'pilar',
           'tema',
           'hook',
+          'gancho',
           'estructura',
           'tono',
           'tipo_contenido',
@@ -587,7 +593,7 @@ export function registrarTools(servidor: McpServer): void {
         'con menos de 3 posts por lado.',
       inputSchema: {
         dimension: z
-          .enum(['pilar', 'tema', 'hook', 'estructura', 'tono', 'tipo_contenido', 'creador', 'cuenta'])
+          .enum(['pilar', 'tema', 'hook', 'gancho', 'estructura', 'tono', 'tipo_contenido', 'creador', 'cuenta'])
           .optional(),
         dias: z.number().optional().describe('Tamaño de cada ventana. Por defecto 90'),
         ...filtrosBase,
@@ -683,7 +689,7 @@ export function registrarTools(servidor: McpServer): void {
             p.post_url || '',
             '',
             metricas.join(' · '),
-            `hook: ${p.hook_type} · estructura: ${p.post_structure} · tono: ${p.text_tone} · ` +
+            `${p.gancho_palanca ? `gancho: ${p.gancho_palanca}${p.gancho_palanca_2 ? ` + ${p.gancho_palanca_2}` : ''} (${p.gancho_motivo || ''}) · ` : ''}hook: ${p.hook_type} · estructura: ${p.post_structure} · tono: ${p.text_tone} · ` +
               `${p.char_count} car. · ${p.content_type}`,
             '',
             '--- TEXTO ---',

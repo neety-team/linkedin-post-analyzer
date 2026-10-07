@@ -49,6 +49,8 @@ export interface FiltrosOutliers {
   pilar?: string[];
   tema?: string[];
   hook_type?: string[];
+  // Psicologia del gancho (IA, solo cuentas propias; services/ganchoPsicologia.ts)
+  gancho?: string[];
   estructura?: string[];
   tono?: string[];
   tipo_contenido?: string[];
@@ -78,6 +80,7 @@ export interface FilaOutlier {
   tema: string | null;
   tipo_contenido: string;
   hook_type: string;
+  gancho: string | null;
   estructura: string;
   tono: string;
   hook: string | null;
@@ -228,6 +231,7 @@ function construirWhere(f: FiltrosOutliers): Construccion {
     ['pilar', 'p.pillar = ANY($?::text[])'],
     ['tema', 'p.topic = ANY($?::text[])'],
     ['hook_type', 'p.hook_type = ANY($?::text[])'],
+    ['gancho', 'p.gancho_palanca = ANY($?::text[])'],
     ['estructura', 'p.post_structure = ANY($?::text[])'],
     ['tono', 'p.text_tone = ANY($?::text[])'],
     ['tipo_contenido', 'p.content_type = ANY($?::text[])'],
@@ -356,7 +360,7 @@ export async function buscarOutliers(f: FiltrosOutliers): Promise<{
             COALESCE(c.is_managed, FALSE) AS es_gestionada,
             COALESCE(c.followers_count, 0) AS seguidores,
             p.published_at, p.pillar AS pilar, p.topic AS tema,
-            p.content_type AS tipo_contenido, p.hook_type, p.post_structure AS estructura,
+            p.content_type AS tipo_contenido, p.hook_type, p.gancho_palanca AS gancho, p.post_structure AS estructura,
             p.text_tone AS tono, p.hook_text AS hook,
             p.likes_count AS likes, p.comments_count AS comentarios,
             p.reposts_count AS reposts, p.impressions_count AS impresiones,
@@ -395,6 +399,7 @@ const EJES: Record<string, string> = {
   tema: 'p.topic',
   pilar: 'p.pillar',
   hook: 'p.hook_type',
+  gancho: 'p.gancho_palanca',
   estructura: 'p.post_structure',
   tono: 'p.text_tone',
   tipo_contenido: 'p.content_type',

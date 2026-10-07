@@ -7,6 +7,7 @@ import { captureAccountSnapshots } from './accountSnapshots';
 import { runFollowerSync } from './followerSync';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from './premiumAnalytics';
 import { resumirMemesPendientes } from './postImageText';
+import { clasificarGanchosPendientes } from './ganchoPsicologia';
 import { enVentana, proximoPase, evaluarFeed, contadorReal, CORTA_MAX_DIAS, type Ventana } from './contadoresCadencia';
 import {
   fetchResumenLinkedIn, guardarResumenLinkedIn, fetchSeriesDiarias, guardarSeriesDiarias,
@@ -256,6 +257,9 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
     // antes si no hay snapshots que tomar, y el meme recien publicado tambien
     // tiene que resumirse. Sin await: no retrasa el monitor.
     void resumirMemesPendientes();
+    // La psicologia del gancho de cada post propio nuevo (o de version vieja),
+    // unos pocos por vuelta. Sin await, como los memes.
+    void clasificarGanchosPendientes().catch((e) => console.warn('[postMonitor] ganchos:', e?.message));
   }
 }
 

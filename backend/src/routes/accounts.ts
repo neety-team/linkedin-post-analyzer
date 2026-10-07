@@ -20,6 +20,7 @@ import { curvaPost, curvaTipica } from '../services/curvaImpresiones';
 import { roastProfile } from '../services/roaster';
 import { generarRastro } from '../services/rastroGenerator';
 import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSync';
+import { clasificarGanchosPendientes, estadoGanchos } from '../services/ganchoPsicologia';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from '../services/premiumAnalytics';
 import {
   extraerPost,
@@ -1565,7 +1566,7 @@ router.get('/analytics', async (req: Request, res: Response) => {
               p.saves_count, p.sends_count, p.link_clicks_count, p.premium_button_clicks, p.link_url, p.pillar,
               p.video_views, p.video_watch_time_s, p.video_avg_watch_s, p.video_duration_s,
         p.engagement_score, p.outlier_ratio, p.is_outlier,
-        p.post_url, p.hook_text,
+        p.post_url, p.hook_text, p.gancho_palanca, p.gancho_palanca_2, p.gancho_motivo,
         c.name AS creator_name, c.profile_image_url AS creator_image
        FROM posts p
        JOIN creators c ON c.id = p.creator_id
@@ -1589,6 +1590,26 @@ router.get('/analytics', async (req: Request, res: Response) => {
        GROUP BY p.hook_type
        ORDER BY avg_engagement DESC`,
       [currentStartIso, currentEndIso, ...hookScope.params]
+    );
+
+    // PSICOLOGIA DEL GANCHO (2026-10-07): que palanca usa el gancho y como
+    // rinde. Se ordena por MULTIPLICADOR medio (outlier_ratio), que va contra la
+    // media de CADA cuenta: comparar impresiones a pelo mezclaria audiencias de
+    // tamanos distintos. Solo palanca principal.
+    const ganchoScope = scope(3);
+    const ganchosQ = await pool.query(
+      `SELECT
+        p.gancho_palanca,
+        COUNT(*)::int AS count,
+        ROUND(AVG(p.outlier_ratio)::numeric, 2)::float AS avg_ratio,
+        COALESCE(ROUND(AVG(p.impressions_count))::int, 0) AS avg_impressions,
+        COALESCE(ROUND(AVG(p.engagement_score))::int, 0) AS avg_engagement,
+        COUNT(*) FILTER (WHERE p.is_outlier = TRUE)::int AS outliers
+       FROM posts p
+       WHERE p.published_at >= $1 AND p.published_at <= $2 AND ${ganchoScope.sql} AND p.gancho_palanca IS NOT NULL
+       GROUP BY p.gancho_palanca
+       ORDER BY avg_ratio DESC NULLS LAST`,
+      [currentStartIso, currentEndIso, ...ganchoScope.params]
     );
 
     // Account-level deltas across the same date range. We track followers
@@ -1729,6 +1750,7 @@ router.get('/analytics', async (req: Request, res: Response) => {
       format_mix: formatQ.rows,
       top_posts: topPostsQ.rows,
       hook_types: hookQ.rows,
+      ganchos: ganchosQ.rows,
       per_account: perAccount,
     });
   } catch (err: any) {
@@ -4868,6 +4890,40 @@ router.post('/backfill-premium-analytics', async (req: Request, res: Response) =
     console.error('[backfill-premium-analytics]', err);
     res.status(500).json({ error: err.message });
   }
+});
+
+// ⭐ PSICOLOGIA DEL GANCHO (2026-10-07, services/ganchoPsicologia.ts).
+// GET  /api/accounts/ganchos/estado        — cuantos posts propios llevan la version actual.
+// POST /api/accounts/ganchos/reclasificar  — vacia la cola ya, en segundo plano
+//   (el monitor lo hace solo, 20 por vuelta; esto es para no esperar).
+let reclasificandoGanchos = false;
+router.get('/ganchos/estado', async (_req: Request, res: Response) => {
+  try {
+    res.json({ ...(await estadoGanchos()), en_marcha: reclasificandoGanchos });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+router.post('/ganchos/reclasificar', async (_req: Request, res: Response) => {
+  if (reclasificandoGanchos) return res.json({ started: false, reason: 'ya está en marcha' });
+  reclasificandoGanchos = true;
+  res.json({ started: true, ...(await estadoGanchos().catch(() => ({}))) });
+  void (async () => {
+    try {
+      for (let vuelta = 0; vuelta < 100; vuelta++) {
+        const r = await clasificarGanchosPendientes(25);
+        if (r.hechos > 0) continue;
+        if (r.fallidos > 0) break; // todo lo que queda falla: lo reintenta el monitor en 6 h
+        // 0 y 0: o no queda nada o el monitor estaba clasificando a la vez.
+        if ((await estadoGanchos()).pendientes === 0) break;
+        await new Promise((ok) => setTimeout(ok, 5000));
+      }
+    } catch (e: any) {
+      console.error('[ganchos/reclasificar]', e?.message);
+    } finally {
+      reclasificandoGanchos = false;
+    }
+  })();
 });
 
 export default router;

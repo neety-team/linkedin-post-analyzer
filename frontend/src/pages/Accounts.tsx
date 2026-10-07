@@ -13,7 +13,7 @@ import ProfileViewChart from '../components/ProfileViewChart';
 import GoogleChatModal from '../components/accounts/GoogleChatModal';
 import MediaViewer, { NO_MEDIA_TYPES } from '../components/MediaViewer';
 import MonthlyBarChart from '../components/MonthlyBarChart';
-import { HOOK_TYPE_LABELS, etiqueta } from '../utils/etiquetas';
+import { PALANCAS_GANCHO, PALANCA_LABELS, etiqueta } from '../utils/etiquetas';
 import RepliesPanel from '../components/accounts/RepliesPanel';
 import LeadMagnetPanel from '../components/accounts/LeadMagnetPanel';
 import PilarSelector, { PilaresProvider, usePilares } from '../components/accounts/PilarSelector';
@@ -21,7 +21,7 @@ import FiltroDesplegable from '../components/accounts/FiltroDesplegable';
 import LinkedInPreviewModal from '../components/accounts/LinkedInPreviewModal';
 import {
   aplicarFiltrosTop, recuentosFacetados, filtrosDesdeParams, filtrosAParams, hayFiltrosTop,
-  ORDENES_TOP, ENLACE_OPCIONES, SIN_PILAR, type FiltrosTop, type OrdenTop, type FiltroEnlace,
+  ORDENES_TOP, ENLACE_OPCIONES, SIN_PILAR, SIN_GANCHO, type FiltrosTop, type OrdenTop, type FiltroEnlace,
 } from '../utils/topPostsFiltros';
 
 interface ManagedAccount {
@@ -98,17 +98,15 @@ interface Comparison {
   avg_impressions: CompareMetric;
 }
 
-interface FormatRow {
-  content_type: string;
+// Psicologia del gancho agregada (backend: services/ganchoPsicologia.ts).
+// avg_ratio = multiplicador medio frente a la media de cada cuenta.
+interface GanchoRow {
+  gancho_palanca: string;
   count: number;
+  avg_ratio: number | null;
+  avg_impressions: number;
   avg_engagement: number;
   outliers: number;
-}
-
-interface HookRow {
-  hook_type: string;
-  count: number;
-  avg_engagement: number;
 }
 
 interface TopPost {
@@ -131,6 +129,10 @@ interface TopPost {
   premium_button_clicks?: number | null;
   link_url?: string | null;
   pillar?: string | null;
+  // Psicologia del gancho clasificada por IA (null = aun sin clasificar).
+  gancho_palanca?: string | null;
+  gancho_palanca_2?: string | null;
+  gancho_motivo?: string | null;
   impressions_count: number | null;
   engagement_score: number;
   outlier_ratio: number;
@@ -299,9 +301,9 @@ interface Analytics {
   } | null;
   periodo_previo?: { engagement: number; impressions: number } | null;
   daily: DailyRow[];
-  format_mix: FormatRow[];
   top_posts: TopPost[];
-  hook_types: HookRow[];
+  // Vacio mientras la IA clasifica los ganchos.
+  ganchos?: GanchoRow[];
   per_account: PerAccountRow[];
 }
 
@@ -317,20 +319,6 @@ const FORMAT_LABELS: Record<string, string> = {
   document: 'Solo documento',
   poll: 'Encuesta',
   article: 'Artículo',
-};
-
-const FORMAT_COLORS: Record<string, string> = {
-  text: '#e8935a',
-  text_image: '#6366f1',
-  text_carousel: '#a78bfa',
-  text_video: '#f87171',
-  text_document: '#fbbf24',
-  image: '#93c5fd',
-  carousel: '#c4b5fd',
-  video: '#fca5a5',
-  document: '#fcd34d',
-  poll: '#34d399',
-  article: '#38bdf8',
 };
 
 const CHART_TOOLTIP_STYLE = {
@@ -941,15 +929,6 @@ function AccountsInner() {
   // Show ~8 ticks on the x-axis regardless of range length.
   const xTickInterval = Math.max(0, Math.floor(dailyChartData.length / 8) - 1);
 
-  const formatChartData = useMemo(() => {
-    if (!analytics) return [];
-    return analytics.format_mix.map((f) => ({
-      ...f,
-      label: FORMAT_LABELS[f.content_type] || f.content_type,
-      color: FORMAT_COLORS[f.content_type] || '#6b7280',
-    }));
-  }, [analytics]);
-
   const outlierRate = analytics && analytics.totals.total_posts > 0
     ? Math.round((analytics.totals.total_outliers / analytics.totals.total_posts) * 100)
     : 0;
@@ -993,6 +972,24 @@ function AccountsInner() {
       valor: t, etiqueta: FORMAT_LABELS[t] || t, recuento: topRecuentos.formatos.get(t) || 0,
     }));
   }, [analytics, topRecuentos, topFiltros.formatos]);
+  // Gancho: palancas en el orden del catalogo (PALANCAS_GANCHO), solo las
+  // presentes o marcadas; claves desconocidas tal cual; "Sin clasificar" al final.
+  const opcionesGancho = useMemo(() => {
+    const presentes = new Set<string>(topFiltros.ganchos);
+    if (analytics) for (const p of analytics.top_posts) presentes.add(p.gancho_palanca || SIN_GANCHO);
+    const catalogo = Object.keys(PALANCAS_GANCHO);
+    const desconocidas = [...presentes].filter((k) => k !== SIN_GANCHO && !catalogo.includes(k)).sort();
+    const orden = [...catalogo.filter((k) => presentes.has(k)), ...desconocidas];
+    if (presentes.has(SIN_GANCHO)) orden.push(SIN_GANCHO);
+    return orden.map((k) => ({ valor: k, etiqueta: etiquetaGancho(k), recuento: topRecuentos.ganchos.get(k) || 0 }));
+  }, [analytics, topRecuentos, topFiltros.ganchos]);
+  // Clic en una barra de "Psicologia del gancho": filtra Mejores posts por esa
+  // palanca (solo esa) y baja hasta la lista.
+  const irAGancho = useCallback((clave: string | undefined) => {
+    if (!clave) return;
+    setTopFiltros({ ganchos: [clave] });
+    requestAnimationFrame(() => document.getElementById('mejores-posts')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  }, [setTopFiltros]);
   const etiquetaPilar = (slug: string) => slug === SIN_PILAR ? 'Sin pilar' : (pilarPorSlug[slug]?.label || slug);
 
   return (
@@ -1700,83 +1697,12 @@ function AccountsInner() {
             reloadSignal={refreshSignal}
           />
 
-          {/* Format mix + Best hooks share one row — both are compact
-              "what's working" breakdowns. The previous Publication
-              cadence chart was dropped: when/where posts went out is
-              already visible via the pencil markers on the Engagement
-              chart, so the bar chart was redundant. */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
-          {/* Format mix */}
-          {formatChartData.length > 0 && (
-            <div className="bg-bg-card border border-border rounded-xl p-5">
-              <div className="mb-3">
-                <h3 className="text-lg font-semibold">Reparto por formato</h3>
-                <p className="text-xs text-text-muted mt-0.5">Posts por tipo de contenido · pasa el ratón para ver las interacciones medias</p>
-              </div>
-              <ResponsiveContainer width="100%" height={Math.max(180, formatChartData.length * 48)}>
-                <BarChart data={formatChartData} layout="vertical" margin={{ top: 4, right: 48, left: 8, bottom: 4 }}>
-                  <XAxis type="number" hide />
-                  <YAxis
-                    type="category"
-                    dataKey="label"
-                    tick={{ fill: '#9ca3af', fontSize: 12 }}
-                    axisLine={{ stroke: '#2e3348' }}
-                    tickLine={false}
-                    width={80}
-                  />
-                  <Tooltip
-                    cursor={{ fill: 'rgba(232,147,90,0.05)' }}
-                    contentStyle={CHART_TOOLTIP_STYLE}
-                    formatter={(_v: any, _n: any, entry: any) => {
-                      const row = entry?.payload;
-                      return [
-                        `${row.count} posts · media ${fmtNum(row.avg_engagement)} · ${row.outliers} outliers`,
-                        row.label,
-                      ];
-                    }}
-                  />
-                  <Bar dataKey="count" radius={[0, 6, 6, 0]} label={{ position: 'right', fill: '#9ca3af', fontSize: 11 }}>
-                    {formatChartData.map((r) => (
-                      <Cell key={r.content_type} fill={r.color} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          )}
-
-          {/* Hook types */}
-          {analytics.hook_types.length > 0 && (
-            <div className="bg-bg-card border border-border rounded-xl p-5">
-              <div className="mb-3">
-                <h3 className="text-lg font-semibold">Ganchos que mejor funcionan</h3>
-                <p className="text-xs text-text-muted mt-0.5">Interacciones medias por tipo de gancho · barra más larga = mejor</p>
-              </div>
-              <ResponsiveContainer width="100%" height={Math.max(180, analytics.hook_types.length * 40)}>
-                <BarChart data={analytics.hook_types.map((h) => ({ ...h, hook_label: etiqueta(HOOK_TYPE_LABELS, h.hook_type) }))} layout="vertical" margin={{ top: 4, right: 48, left: 8, bottom: 4 }}>
-                  <XAxis type="number" hide />
-                  <YAxis
-                    type="category"
-                    dataKey="hook_label"
-                    tick={{ fill: '#9ca3af', fontSize: 12 }}
-                    axisLine={{ stroke: '#2e3348' }}
-                    tickLine={false}
-                    width={120}
-                  />
-                  <Tooltip
-                    cursor={{ fill: 'rgba(232,147,90,0.05)' }}
-                    contentStyle={CHART_TOOLTIP_STYLE}
-                    formatter={(_v: any, _n: any, entry: any) => {
-                      const row = entry?.payload;
-                      return [`media ${fmtNum(row.avg_engagement)} · ${row.count} ${row.count === 1 ? 'post' : 'posts'}`, row.hook_label];
-                    }}
-                  />
-                  <Bar dataKey="avg_engagement" fill="#e8935a" radius={[0, 6, 6, 0]} label={{ position: 'right', fill: '#9ca3af', fontSize: 11, formatter: (v: any) => fmtCompact(v) }} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          )}
-          </div>{/* /two-column grid */}
+          {/* Psicologia del gancho (Iker, 2026-10-07): sustituye a "Reparto por
+              formato" (casi siempre publicamos texto + foto, no aportaba) y a
+              "Ganchos que mejor funcionan" (hook_type viejo, 68% "Otro"). La IA
+              clasifica que le hace el gancho al lector; aqui, cuanto rinde cada
+              palanca frente a la media de su cuenta. Clic = filtra Mejores posts. */}
+          <GanchosCard ganchos={analytics.ganchos ?? []} onElegir={irAGancho} />
 
           {/* Per-account comparison */}
           {!selectedCreator || selectedCreator === 'all' ? (
@@ -1851,7 +1777,7 @@ function AccountsInner() {
 
           {/* Top posts */}
           {analytics.top_posts.length > 0 && (
-            <div className="bg-bg-card border border-border rounded-xl p-5">
+            <div id="mejores-posts" className="bg-bg-card border border-border rounded-xl p-5 scroll-mt-4">
               <div className="mb-4">
                 <h3 className="text-lg font-semibold">
                   Mejores posts
@@ -1891,6 +1817,15 @@ function AccountsInner() {
                       onChange={(v) => setTopFiltros({ formatos: v })}
                     />
                   )}
+                  {opcionesGancho.length > 0 && (
+                    <FiltroDesplegable
+                      etiqueta="Gancho"
+                      multiple
+                      opciones={opcionesGancho}
+                      seleccion={topFiltros.ganchos}
+                      onChange={(v) => setTopFiltros({ ganchos: v })}
+                    />
+                  )}
                   <FiltroDesplegable
                     etiqueta="Enlace"
                     multiple={false}
@@ -1923,6 +1858,16 @@ function AccountsInner() {
                         Formato: {FORMAT_LABELS[t] || t} ×
                       </button>
                     ))}
+                    {topFiltros.ganchos.map((g) => (
+                      <button
+                        key={`gan-${g}`}
+                        onClick={() => setTopFiltros({ ganchos: topFiltros.ganchos.filter((x) => x !== g) })}
+                        className="px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20"
+                        title="Quitar este filtro"
+                      >
+                        Gancho: {etiquetaGancho(g)} ×
+                      </button>
+                    ))}
                     {topFiltros.enlace !== 'todos' && (
                       <button
                         onClick={() => setTopFiltros({ enlace: 'todos' })}
@@ -1933,7 +1878,7 @@ function AccountsInner() {
                       </button>
                     )}
                     <button
-                      onClick={() => setTopFiltros({ pilares: [], formatos: [], enlace: 'todos' })}
+                      onClick={() => setTopFiltros({ pilares: [], formatos: [], ganchos: [], enlace: 'todos' })}
                       className="ml-1 text-text-muted hover:text-text-primary underline-offset-2 hover:underline"
                     >
                       Limpiar
@@ -2811,6 +2756,17 @@ function TopPostRow(
               <span title={post.published_at ? new Date(post.published_at).toLocaleString('es-ES') : ''}>{post.published_at ? fmtPublishedAt(post.published_at) : '—'}</span>
               <span>·</span>
               <span>{FORMAT_LABELS[post.content_type] || post.content_type}</span>
+              {post.gancho_palanca && (
+                <span
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-violet-500/10 text-violet-300 border border-violet-500/20 text-[10px] leading-none"
+                  title={post.gancho_motivo || undefined}
+                >
+                  {etiquetaGancho(post.gancho_palanca)}
+                  {post.gancho_palanca_2 && (
+                    <span className="opacity-60">· {etiquetaGancho(post.gancho_palanca_2)}</span>
+                  )}
+                </span>
+              )}
             </div>
             {/* Badges de cabecera. El del criterio por el que se esta ordenando
                 se agranda, para que el ojo pueda seguir la columna que manda el
@@ -2925,5 +2881,117 @@ export default function Accounts() {
     <PilaresProvider>
       <AccountsInner />
     </PilaresProvider>
+  );
+}
+
+// Etiqueta en español de una palanca del gancho (respaldo: la clave tal cual).
+function etiquetaGancho(clave: string): string {
+  return clave === SIN_GANCHO ? 'Sin clasificar' : etiqueta(PALANCA_LABELS, clave);
+}
+
+// Multiplicador con coma decimal: 1.8 -> "1,8×".
+function fmtX(n: number | null): string {
+  return n == null ? '—' : `${n.toFixed(1).replace('.', ',')}×`;
+}
+
+const GANCHO_POCOS_DATOS = 3;
+
+function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (clave: string) => void }) {
+  const datos = ganchos.map((g) => {
+    const pocos = g.count < GANCHO_POCOS_DATOS;
+    return {
+      ...g,
+      ratio: g.avg_ratio ?? 0,
+      label: etiquetaGancho(g.gancho_palanca),
+      pocos,
+      lado: `${fmtX(g.avg_ratio)} · ${g.count} ${g.count === 1 ? 'post' : 'posts'}${pocos ? ' (pocos datos)' : ''}`,
+    };
+  });
+  type Fila = (typeof datos)[number];
+  const TickGancho = ({ x, y, payload, index }: any) => {
+    const fila: Fila | undefined = datos[payload?.index ?? index];
+    return (
+      <text
+        x={x} y={y} dy={4} textAnchor="end" fontSize={12}
+        fill={fila?.pocos ? '#5b6175' : '#9ca3af'}
+        style={{ cursor: 'pointer' }}
+        onClick={() => fila && onElegir(fila.gancho_palanca)}
+      >
+        {payload?.value}
+      </text>
+    );
+  };
+  return (
+    <div className="bg-bg-card border border-border rounded-xl p-5">
+      <div className="mb-3">
+        <h3 className="text-lg font-semibold">Psicología del gancho</h3>
+        <p className="text-xs text-text-muted mt-0.5">
+          Qué le hace el gancho al lector y cómo rinde · multiplicador medio frente a la media de cada cuenta
+        </p>
+      </div>
+      {datos.length === 0 ? (
+        <p className="text-sm text-text-muted py-6 text-center">Clasificando los ganchos con IA… vuelve en unos minutos.</p>
+      ) : (
+        <ResponsiveContainer width="100%" height={Math.max(180, datos.length * 34 + 16)}>
+          <BarChart data={datos} layout="vertical" margin={{ top: 4, right: 170, left: 8, bottom: 4 }}>
+            <XAxis type="number" hide domain={[0, 'dataMax']} />
+            <YAxis
+              type="category"
+              dataKey="label"
+              tick={<TickGancho />}
+              axisLine={{ stroke: '#2e3348' }}
+              tickLine={false}
+              width={190}
+              interval={0}
+            />
+            <ReferenceLine x={1} stroke="#4b5268" strokeDasharray="3 3" />
+            <Tooltip
+              cursor={{ fill: 'rgba(232,147,90,0.05)' }}
+              content={({ active, payload }: any) => {
+                const fila: Fila | undefined = active ? payload?.[0]?.payload : undefined;
+                if (!fila) return null;
+                const que = PALANCAS_GANCHO[fila.gancho_palanca]?.que_hace;
+                return (
+                  <div style={{ ...CHART_TOOLTIP_STYLE, padding: '8px 10px', maxWidth: 320 }}>
+                    <div className="font-semibold mb-1">
+                      {fila.label} · {fmtX(fila.avg_ratio)}
+                      {fila.pocos && <span className="font-normal opacity-60"> (pocos datos)</span>}
+                    </div>
+                    {que && <div className="mb-1.5 opacity-80 leading-snug">{que}</div>}
+                    <div className="opacity-90">{fila.count} {fila.count === 1 ? 'post' : 'posts'} · {fila.outliers} {fila.outliers === 1 ? 'outlier' : 'outliers'}</div>
+                    <div className="opacity-90">Impresiones medias: {fmtNum(fila.avg_impressions)}</div>
+                    <div className="opacity-90">Interacciones medias: {fmtNum(fila.avg_engagement)}</div>
+                    <div className="mt-1 opacity-60">Clic para ver estos posts</div>
+                  </div>
+                );
+              }}
+            />
+            <Bar
+              dataKey="ratio"
+              radius={[0, 6, 6, 0]}
+              style={{ cursor: 'pointer' }}
+              onClick={(d: any) => onElegir(d?.payload?.gancho_palanca ?? d?.gancho_palanca)}
+              label={{
+                position: 'right', fontSize: 11,
+                content: (props: any) => {
+                  const fila: Fila | undefined = datos[props.index];
+                  if (!fila) return null;
+                  const { x, y, width, height } = props;
+                  return (
+                    <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2} dy={4} fontSize={11} fill={fila.pocos ? '#5b6175' : '#9ca3af'}>
+                      {fila.lado}
+                    </text>
+                  );
+                },
+              }}
+            >
+              {datos.map((r) => (
+                <Cell key={r.gancho_palanca} fill="#e8935a" fillOpacity={r.pocos ? 0.3 : 0.9} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      )}
+    </div>
   );
 }

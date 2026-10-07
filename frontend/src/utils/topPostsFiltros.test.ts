@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict';
 import {
   aplicarFiltrosTop, recuentosFacetados, filtrosDesdeParams, filtrosAParams, hayFiltrosTop,
-  FILTROS_TOP_DEFECTO, SIN_PILAR, type PostFiltrable, type FiltrosTop,
+  FILTROS_TOP_DEFECTO, SIN_PILAR, SIN_GANCHO, type PostFiltrable, type FiltrosTop,
 } from './topPostsFiltros';
 
 const post = (o: Partial<PostFiltrable> & { id: string }): PostFiltrable & { id: string } => ({
@@ -71,5 +71,30 @@ assert.equal(sp.toString(), 'tab=bi&top_orden=ctr&top_pilar=historia%2Cmeme&top_
 assert.deepEqual(filtrosDesdeParams(sp), f);
 assert.equal(filtrosAParams(FILTROS_TOP_DEFECTO, sp).toString(), 'tab=bi', 'volver al defecto borra las claves');
 assert.deepEqual(filtrosDesdeParams(new URLSearchParams('top_orden=loquesea&top_enlace=x')), FILTROS_TOP_DEFECTO, 'valores invalidos caen al defecto');
+
+// 8. Gancho: palanca PRINCIPAL, O dentro, Y con las demas, SIN_GANCHO = sin clasificar.
+const pg = [
+  post({ id: 'g1', pillar: 'historia', gancho_palanca: 'escena', outlier_ratio: 4 }),
+  post({ id: 'g2', pillar: 'meme', gancho_palanca: 'humor_absurdo', outlier_ratio: 6 }),
+  post({ id: 'g3', pillar: 'meme', gancho_palanca: 'escena', outlier_ratio: 2, link_url: 'https://x' }),
+  post({ id: 'g4', pillar: 'historia', gancho_palanca: null, outlier_ratio: 3 }),
+  post({ id: 'g5', pillar: 'meme', outlier_ratio: 1 }),
+];
+assert.deepEqual(ids(aplicarFiltrosTop(pg, con({ ganchos: ['escena'] }))), ['g1', 'g3']);
+assert.deepEqual(ids(aplicarFiltrosTop(pg, con({ ganchos: ['escena', 'humor_absurdo'] }))), ['g2', 'g1', 'g3']);
+assert.deepEqual(ids(aplicarFiltrosTop(pg, con({ ganchos: [SIN_GANCHO] }))), ['g4', 'g5'], 'null y ausente = sin clasificar');
+assert.deepEqual(ids(aplicarFiltrosTop(pg, con({ ganchos: ['escena'], pilares: ['meme'] }))), ['g3'], 'Y con pilar');
+assert.deepEqual(ids(aplicarFiltrosTop(pg, con({ ganchos: ['escena'], enlace: 'sin' }))), ['g1'], 'Y con enlace');
+const rg = recuentosFacetados(pg, con({ ganchos: ['escena'], pilares: ['meme'] }));
+assert.equal(rg.ganchos.get('escena'), 1, 'gancho se cuenta con pilar aplicado y sin su propio filtro');
+assert.equal(rg.ganchos.get('humor_absurdo'), 1);
+assert.equal(rg.ganchos.get(SIN_GANCHO), 1, 'g5 meme sin clasificar');
+assert.equal(rg.pilares.get('historia'), 1, 'pilar se cuenta con el gancho aplicado');
+assert.equal(recuentosFacetados(pg, FILTROS_TOP_DEFECTO).ganchos.get(SIN_GANCHO), 2);
+assert.equal(hayFiltrosTop(con({ ganchos: ['escena'] })), true);
+const fg = con({ ganchos: ['escena', SIN_GANCHO], formatos: ['text'] });
+const spg = filtrosAParams(fg, new URLSearchParams());
+assert.equal(spg.get('top_gancho'), `escena,${SIN_GANCHO}`);
+assert.deepEqual(filtrosDesdeParams(spg), fg, 'gancho: ida y vuelta por la URL');
 
 console.log('✅ topPostsFiltros.test: todo OK');

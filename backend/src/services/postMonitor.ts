@@ -1117,6 +1117,12 @@ export function startPostMonitor() {
 
   // runFollowerSync guards against overlap and only baselines once per creator;
   // later runs are cheap incremental diffs.
+  // ⛔ APAGADO POR DEFECTO DESDE EL 2026-10-07 (Iker): solo alimentaba la grafica
+  // de seguidores organicos, que se quito por duplicar la de crecimiento de
+  // seguidores. Sin grafica, el sync diario eran llamadas a Unipile para nada.
+  // Los datos ya guardados (creator_followers) se conservan; para volver a
+  // tomarlos, AUTO_SYNC_SEGUIDORES=1 en Railway. (Es lo ultimo de la funcion.)
+  if (process.env.AUTO_SYNC_SEGUIDORES !== '1') return;
   const syncSeguidores = () =>
     siTocaPorBD('pase:sync-seguidores', FOLLOWER_SYNC_INTERVAL_MS, () =>
       runFollowerSync(null).catch((e) => console.error('[followerSync] run failed:', e?.message))

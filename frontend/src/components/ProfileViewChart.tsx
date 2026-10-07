@@ -110,7 +110,11 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
   }, [creatorId, startDate, endDate, reloadSignal]);
 
   const hayTendencia = oficial.length >= MIN_DIAS_TENDENCIA;
-  const vista: Vista = vistaElegida ?? (hayTendencia ? 'tendencia' : 'diario');
+  // Se abre en DIARIO (Iker, 2026-10-07): la tendencia es la cifra de LinkedIn
+  // de 90 dias, una ventana movil que baja cuando salen los picos viejos aunque
+  // las visitas de hoy vayan bien (Iker: 2.930 -> 2.359 del 17/09 al 07/10 con
+  // picos reales de 84 y 62 en esas semanas). Sigue disponible en su boton.
+  const vista: Vista = vistaElegida ?? 'diario';
 
   const datosDiario = useMemo(
     () => (points || []).map((p) => ({ ...p, label: fmtDay(p.day) })),
@@ -139,7 +143,7 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
           <h3 className="text-lg font-semibold">Visitas al perfil</h3>
           <p className="text-xs text-text-muted mt-0.5">
             {vista === 'tendencia'
-              ? `La cifra oficial de LinkedIn de "visitas al perfil en 90 días", día a día${creatorId ? '' : '. Cuentas conectadas'}`
+              ? `La cifra oficial de LinkedIn de "visitas al perfil en 90 días", día a día${creatorId ? '' : '. Cuentas conectadas'}. Es una ventana móvil: baja cuando salen del cálculo los picos de hace 3 meses, aunque las visitas de ahora vayan bien.`
               : `Visitas nuevas estimadas por día, reconstruidas con la lista de visitantes de LinkedIn (sale un 12-24% por encima de LinkedIn y no ve las visitas privadas). Sirve para ver picos, no para sumar.`}
           </p>
         </div>

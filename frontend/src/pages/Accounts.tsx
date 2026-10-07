@@ -9,7 +9,6 @@ import {
 } from 'recharts';
 import AccountsEngagementChart from '../components/AccountsEngagementChart';
 import FollowerGrowthChart from '../components/FollowerGrowthChart';
-import OrganicFollowersChart from '../components/OrganicFollowersChart';
 import ProfileViewChart from '../components/ProfileViewChart';
 import GoogleChatModal from '../components/accounts/GoogleChatModal';
 import MediaViewer, { NO_MEDIA_TYPES } from '../components/MediaViewer';
@@ -1666,14 +1665,9 @@ function AccountsInner() {
             reloadSignal={refreshSignal}
           />
 
-          {/* Organic followers — new pure-follow vs connection per day. The
-              metric you actually care about: people who followed you for your
-              content, not because you reached out. */}
-          <OrganicFollowersChart
-            creatorId={selectedCreator === 'all' ? null : selectedCreator}
-            days={days}
-            reloadSignal={refreshSignal}
-          />
+          {/* Seguidores organicos: grafica QUITADA el 2026-10-07 (Iker). Duplicaba
+              la de crecimiento de seguidores (acumulado/diario, como LinkedIn) y
+              obligaba a un sync diario con Unipile solo para ella. */}
 
           {/* Monthly followers gained — same monthly aggregation as
               impressions; also respects the global date range now so the

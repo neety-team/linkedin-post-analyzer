@@ -36,13 +36,6 @@ export const HOOK_TYPE_LABELS: Record<string, string> = {
   other: 'Otro',
 };
 
-// Fases del sync de seguidores (backend/src/services/followerSync.ts).
-export const FOLLOWER_SYNC_PHASE_LABELS: Record<string, string> = {
-  idle: 'En espera',
-  baseline: 'Carga inicial',
-  incremental: 'Solo los nuevos',
-};
-
 // Ritmo narrativo del post (analyzeNarrativeRhythm en backend/src/services/patterns.ts).
 export const RITMO_LABELS: Record<string, string> = {
   standard: 'Estándar',

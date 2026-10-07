@@ -1047,35 +1047,68 @@ async function accountSnapshotTick(): Promise<void> {
 }
 
 // ⛔ CADA REINICIO DEL PROCESO REINICIA ESTE CALENDARIO (2026-10-07). Todo lo de
-// aqui vive en memoria: al arrancar, la primera vuelta sale al minuto y coincide
-// con backfillOutliers, accountSnapshotTick (2 min) y runFollowerSync (5 min).
-// Esa vuelta de arranque tardo mas de 15 min, la siguiente se salto por
-// `tickInFlight` y un post de Unai entro 28 min tarde en vez de 1-14. El
-// reinicio lo provocaba un push a main que solo tocaba docs/: Railway
+// aqui vive en memoria y vuelve a empezar en cada arranque (ver el desfase de
+// relojes en startPostMonitor: un post de Unai entro 28 min tarde en vez de
+// 1-14). El reinicio lo provocaba un push a main que solo tocaba docs/: Railway
 // redesplegaba con CUALQUIER push (33 el 02/10, 0 de codigo). Desde ese dia
 // `railway.json` lleva watchPatterns (backend/, frontend/ y la config de build).
+//
+// ⛔ LOS PASES PESADOS LLEVAN SU CALENDARIO EN LA BD (2026-10-07). Los pushes de
+// codigo siguen reiniciando (21 el 01/10), y cada arranque lanzaba la foto de
+// cuentas (cifras oficiales + visitas al perfil, hasta 20 paginas por cuenta) y
+// el sync de seguidores aunque se hubieran hecho media hora antes: 21 pases de
+// cada uno en vez de 4 y 1, todo contra LinkedIn. Ahora cada 30 min se mira en
+// `app_state` cuando EMPEZO el ultimo y solo se lanza si toca. Se apunta al
+// empezar, no al acabar: un pase que falla no se reintenta cada media hora.
+const COMPROBAR_PASES_MS = 30 * 60 * 1000;
+const FOLLOWER_SYNC_INTERVAL_MS = 24 * HOUR_MS;
+
+async function siTocaPorBD(clave: string, intervaloMs: number, pase: () => Promise<unknown>): Promise<void> {
+  try {
+    const { rows } = await pool.query(`SELECT value FROM app_state WHERE key = $1`, [clave]);
+    const ultimo = rows[0] ? new Date(rows[0].value).getTime() : 0;
+    if (Date.now() - ultimo < intervaloMs - DUE_TOLERANCE_MS) return;
+    await pool.query(
+      `INSERT INTO app_state (key, value, updated_at) VALUES ($1, $2, NOW())
+       ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()`,
+      [clave, new Date().toISOString()]
+    );
+  } catch (e: any) {
+    // Sin BD no se sabe si toca: mejor saltarse un pase que repetirlo.
+    console.warn(`[postMonitor] ${clave}: no se pudo leer su calendario:`, e?.message);
+    return;
+  }
+  await pase();
+}
+
 export function startPostMonitor() {
   console.log(`[postMonitor] starting — tick every ${TICK_MS / 60000} min, window ${MONITOR_WINDOW_MS / 3600000}h, phase-based cadence`);
   // One-shot heal for any posts whose outlier_ratio got zeroed by the pre-fix monitor
   setTimeout(backfillOutliers, 10 * 1000);
-  // First run after 1 minute so the server has time to settle post-deploy
-  setTimeout(tick, 60 * 1000);
-  setInterval(tick, TICK_MS);
-
-  // First account snapshot ~2 min after boot (gives the post tick room),
-  // then every 6h so iekr / unai / any other managed account get fresh
-  // follower + WVMP numbers without anyone clicking Refresh.
-  setTimeout(accountSnapshotTick, 2 * 60 * 1000);
-  setInterval(accountSnapshotTick, ACCOUNT_SNAPSHOT_INTERVAL_MS);
-
-  // Organic-follower sync: first run 5 min after boot (the baseline is the
-  // heavy one and we want the server fully settled), then daily. runFollowerSync
-  // guards against overlap and only baselines once per creator; later runs are
-  // cheap incremental diffs.
+  // First run after 1 minute so the server has time to settle post-deploy.
+  // ⛔ El intervalo arranca DESDE esa primera vuelta, no desde el boot
+  // (2026-10-07): con los dos relojes desfasados la vuelta de boot+15 llegaba
+  // a los 14 min de la anterior, por debajo de los 14,5 que pide el
+  // descubrimiento (y la curva de los posts de <1h), y se la saltaba: 29 min
+  // de hueco tras cada reinicio. El post de Unai del 07/10 entro asi a los 28.
   setTimeout(() => {
-    runFollowerSync(null).catch((e) => console.error('[followerSync] boot run failed:', e?.message));
-  }, 5 * 60 * 1000);
-  setInterval(() => {
-    runFollowerSync(null).catch((e) => console.error('[followerSync] daily run failed:', e?.message));
-  }, 24 * 60 * 60 * 1000);
+    tick();
+    setInterval(tick, TICK_MS);
+  }, 60 * 1000);
+
+  // Foto de cuentas (seguidores + WVMP + cifras oficiales) cada 6h, y sync de
+  // seguidores organicos cada 24h. La primera comprobacion sale a los 2 y 5 min
+  // del arranque, como antes, pero solo pasa si la BD dice que toca.
+  const fotoCuentas = () => siTocaPorBD('pase:foto-cuentas', ACCOUNT_SNAPSHOT_INTERVAL_MS, accountSnapshotTick);
+  setTimeout(fotoCuentas, 2 * 60 * 1000);
+  setInterval(fotoCuentas, COMPROBAR_PASES_MS);
+
+  // runFollowerSync guards against overlap and only baselines once per creator;
+  // later runs are cheap incremental diffs.
+  const syncSeguidores = () =>
+    siTocaPorBD('pase:sync-seguidores', FOLLOWER_SYNC_INTERVAL_MS, () =>
+      runFollowerSync(null).catch((e) => console.error('[followerSync] run failed:', e?.message))
+    );
+  setTimeout(syncSeguidores, 5 * 60 * 1000);
+  setInterval(syncSeguidores, COMPROBAR_PASES_MS);
 }

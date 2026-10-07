@@ -415,9 +415,16 @@ async function refrescarAnaliticaPostsViejos(): Promise<number> {
 // publica y cuando la hora dorada importa; cada hora el resto. Es el scrape
 // incremental del boton pero SIN la llamada de perfil (sinPerfil): 1 pagina
 // del feed por cuenta, ~180 llamadas al dia entre las tres.
+//
+// ⛔ APAGADO POR DEFECTO DESDE EL 2026-10-07 (Iker). Los posts nuevos los trae
+// el boton "Get new posts", que se pulsa al publicar: quien publica sabe
+// cuando, y asi no hay llamadas de mas a Unipile ni a LinkedIn. Para dejarlo
+// solo (vacaciones), AUTO_DESCUBRIR_POSTS=1 en Railway. Lo demas (curvas,
+// analitica, contadores, foto de cuentas) sigue siendo automatico.
 let ultimoDescubrimiento = 0;
 
 async function descubrirPostsNuevos(): Promise<number> {
+  if (process.env.AUTO_DESCUBRIR_POSTS !== '1') return 0;
   const hora = Number(new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Europe/Madrid', hour: '2-digit', hour12: false,
   }).format(new Date()));
@@ -883,7 +890,12 @@ async function backfillOutliers() {
 // Without this, profile-view snapshots only landed when someone manually
 // hit "Refresh" or POST /:id/scrape, which left the chart looking frozen
 // for whole days at a time.
-const ACCOUNT_SNAPSHOT_INTERVAL_MS = 6 * 60 * 60 * 1000; // 6 hours
+//
+// CADA 12H, NO 6H (Iker, 2026-10-07): la fila es UNA por cuenta y dia y cada
+// pase la sobrescribe, asi que de 4 pases al dia sobrevivia 1 y los otros 3
+// eran llamadas tiradas (visitas al perfil: hasta 20 paginas por cuenta).
+// Con 2 al dia la cifra de hoy sigue fresca y el historico es el mismo.
+const ACCOUNT_SNAPSHOT_INTERVAL_MS = 12 * 60 * 60 * 1000; // 12 hours
 let accountSnapshotInFlight = false;
 
 // FOTOS DE LAS CUENTAS MANUALES (2026-09-17). Las URLs de media.licdn.com van
@@ -891,7 +903,7 @@ let accountSnapshotInFlight = false;
 // Medido: una foto leida el 17/09 caduca el 08/10, o sea duran ~3 semanas. Las
 // de Mario y Helena dieron 403 desde el 10/09 porque las manuales no pasan por
 // captureAccountSnapshots (no tienen account_id).
-// El pase de cada 6h solo MIRA la fecha, sin llamar a nadie; se pide la foto a
+// El pase de cada 12h solo MIRA la fecha, sin llamar a nadie; se pide la foto a
 // Unipile (sesion compartida, solo la foto) cuando le quedan menos de 3 dias o
 // si la URL no trae fecha. Unas 2 llamadas por cuenta al mes.
 const FOTO_MARGEN_MS = 3 * 24 * HOUR_MS;
@@ -943,7 +955,7 @@ async function renovarFotosManuales(): Promise<void> {
 // series o sin el resumen (medido el 17/09/2026 con Asier: vacia y, un minuto
 // despues, completa). Por eso cada lectura se reintenta hasta 3 veces, y la
 // funcion se puede lanzar a mano (POST /api/accounts/linkedin-oficial/refresh)
-// para reparar sin esperar al pase de 6h.
+// para reparar sin esperar al pase de 12h.
 async function conReintentos<T>(leer: () => Promise<T | null>): Promise<T | null> {
   for (let intento = 1; intento <= 3; intento++) {
     const r = await leer().catch(() => null);
@@ -1096,7 +1108,7 @@ export function startPostMonitor() {
     setInterval(tick, TICK_MS);
   }, 60 * 1000);
 
-  // Foto de cuentas (seguidores + WVMP + cifras oficiales) cada 6h, y sync de
+  // Foto de cuentas (seguidores + WVMP + cifras oficiales) cada 12h, y sync de
   // seguidores organicos cada 24h. La primera comprobacion sale a los 2 y 5 min
   // del arranque, como antes, pero solo pasa si la BD dice que toca.
   const fotoCuentas = () => siTocaPorBD('pase:foto-cuentas', ACCOUNT_SNAPSHOT_INTERVAL_MS, accountSnapshotTick);

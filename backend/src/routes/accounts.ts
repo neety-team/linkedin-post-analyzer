@@ -85,7 +85,7 @@ function parseDateRange(req: Request): { startDate: string; endDate: string; day
 export async function scrapeCreatorPosts(
   creatorId: string,
   // sinPerfil: el monitor busca posts nuevos cada 15 min y NO necesita la foto
-  // de seguidores (ya la hace el pase de cuentas de cada 6h): se ahorra una
+  // de seguidores (ya la hace el pase de cuentas de cada 12h): se ahorra una
   // llamada a Unipile por cuenta y vuelta, y usa el linkedin_id guardado.
   opciones: { sinPerfil?: boolean } = {}
 ): Promise<{ scraped: number; snapshots_seeded: number }> {
@@ -98,7 +98,7 @@ export async function scrapeCreatorPosts(
   // skipViewers: the WVMP profile-views fetch pages LinkedIn up to 20x and
   // is the single biggest cost of a refresh (20-40s/account). The button is
   // for surfacing a new post, so we only need a fast follower snapshot here;
-  // WVMP stays owned by the 6h tick + the profile-views refresh button.
+  // WVMP stays owned by the 12h tick + the profile-views refresh button.
   let providerId: string | null = (creator as any).linkedin_id ?? null;
   if (!opciones.sinPerfil || !providerId) {
     const snapStart = Date.now();
@@ -1150,7 +1150,7 @@ router.patch('/posts/:id/impressions', async (req: Request, res: Response) => {
 // POST /api/accounts/linkedin-oficial/refresh — relee YA las cifras oficiales de
 // LinkedIn (resumen, impresiones/engagement diarios y seguidores diarios) de
 // las cuentas conectadas, con sus comprobaciones. Sirve para reparar sin
-// esperar al pase de 6h. Devuelve que se guardo y que se descarto.
+// esperar al pase de 12h. Devuelve que se guardo y que se descarto.
 router.post('/linkedin-oficial/refresh', async (_req: Request, res: Response) => {
   try {
     res.json({ ok: true, cuentas: await refrescarCifrasOficiales() });
@@ -1848,7 +1848,7 @@ router.get('/live-posts', async (req: Request, res: Response) => {
 //
 // Speed: each account does a fast follower snapshot + incremental getPosts
 // ONLY. The slow WVMP profile-views fetch (up to 20 paginated LinkedIn
-// calls = 20-40s/account) is skipped here — it's owned by the 6h tick and
+// calls = 20-40s/account) is skipped here — it's owned by the 12h tick and
 // the dedicated profile-views refresh button. Accounts are processed in
 // PARALLEL so Iker + Unai don't run back to back.
 //

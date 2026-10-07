@@ -254,7 +254,12 @@ def sustituir_region(texto: str, region: str) -> str:
     lineas = texto.split('\n')
     palabras = lineas[-1].split()
     if palabras:
-        palabras[-1] = region
+        # 2026-10-07 (La Rioja): con `--titulo "...LA INDUSTRIA [RIOJANA]"` los
+        # corchetes del acento se perdian al sustituir y la region salia en
+        # blanco, sin el naranja. Si la ultima palabra va entre corchetes, se
+        # conservan.
+        acento = palabras[-1].startswith('[') and palabras[-1].endswith(']')
+        palabras[-1] = '[%s]' % region if acento else region
         lineas[-1] = ' '.join(palabras)
     return '\n'.join(lineas)
 

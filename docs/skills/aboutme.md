@@ -146,7 +146,15 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 
 **⚠️ Y esto AFINA `post-workflow §4.4-FUENTE`, que decía que un meme de OTRO sector con dolor psicológico universal era "la excepción que da los mejores outliers".** Ya no se sale a buscar fuera: **se busca dentro de ventas y ahí se elige el que tenga el dolor más universal**. Lo de "que sea psicológico y universal" sigue mandando **como criterio de elección DENTRO de la cantera de ventas**, no como permiso para salir de ella.
 
-#### ⛔⛔⛔ CÓMO SE COMPRUEBA: **EL GANCHO DEL ORIGINAL LLEVA UNA PALABRA DE VENTAS. NI EL CUERPO NI EL HEADLINE** (Iker, 2026-08-25)
+#### 🔄 ACTUALIZADO EL 2026-10-07 (Iker): LA PALABRA DE VENTAS PUEDE ESTAR EN EL GANCHO **O** EN LA IMAGEN Y EL CUERPO DEL ORIGINAL. LO QUE NO SE NEGOCIA ES QUE **NUESTRO** GANCHO ANCLE A VENTAS
+> **Iker:** *"no me había dado cuenta de la casuística de que un gancho de una referencia no tenga vinculación a ventas, pero si todo el resto del cuerpo sí que lo tiene, esa referencia sí que es válida"*. Y lo que sigue siendo regla global: *"el gancho que nosotros vamos a subir siempre tiene que tener vinculación con ventas"*.
+> - **El caso:** el león de Dachi Beberashvili (06/10). Gancho `I love motivational speakers.` (sin palabra de ventas), pero la imagen dice `The lion in me after 10 hours of cold calling` y el cuerpo son tres negativas de llamada en frío. 53% de risa, ~305 risas, 26 reposts. Con la regla vieja se habría descartado la mejor referencia de la semana.
+> - **La comprobación nueva:** ¿hay una palabra explícita del oficio en la PRIMERA LÍNEA del original, o en el TEXTO DE LA IMAGEN, o en el CUERPO del post? Con una de las tres basta. **Si no está en ninguna, se descarta** (el botón de IA de Alex Vacca seguiría fuera: no había ventas en ningún sitio).
+> - **Lo que no se mira, igual que antes:** el headline del autor ni sus hashtags.
+> - **Y NUESTRO gancho ancla a ventas siempre** (`global §2.3`), aunque el del original no lo haga. Ahí se mejora la referencia: `Me flipan las charlas motivacionales de ventas`.
+> - Lo de abajo se conserva como historia de cómo se llegó; donde diga "solo el gancho", manda esto.
+
+#### ⛔⛔⛔ CÓMO SE COMPRUEBA: **EL GANCHO DEL ORIGINAL LLEVA UNA PALABRA DE VENTAS. NI EL CUERPO NI EL HEADLINE** (Iker, 2026-08-25) — 🔄 ampliado el 07/10, ver arriba
 
 > **Iker, y corrige lo que yo había escrito el día antes:** *"para poder saber realmente si es de ventas o no, no te tienes que fijar en el cuerpo de la publicación. Lo más importante tiene que ser que su gancho original del texto de la referencia ya esté vinculado a ventas, explícitamente con alguna palabra"*.
 

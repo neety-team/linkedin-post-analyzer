@@ -281,6 +281,10 @@ SPAM_QUEMADO = {
     'ninguna charla te dice a quien llamar': '2026-10-07 meme de Iker 07/10, sin tilde',
     'eso sí te lo damos, hasta con nombre y cargo': '2026-10-07 meme de Iker 07/10, la linea 2 del ninja',
     'eso si te lo damos, hasta con nombre y cargo': '2026-10-07 meme de Iker 07/10, sin tilde',
+    'ninguna charla te dice a quién llamar': '2026-10-07 meme de Iker 07/10 (el leon que dimite), la linea 1 del ninja',
+    'ninguna charla te dice a quien llamar': '2026-10-07 meme de Iker 07/10, sin tilde',
+    'eso sí te lo damos, hasta con nombre y cargo': '2026-10-07 meme de Iker 07/10, la linea 2 del ninja',
+    'eso si te lo damos, hasta con nombre y cargo': '2026-10-07 meme de Iker 07/10, sin tilde',
     'del vino sabe todo el mundo': '2026-10-07 La Rioja, "Las 10" de Asier, la linea 1 del ninja',
     'eso ya te lo decimos nosotros, con nombre': '2026-10-07 La Rioja, "Las 10" de Asier, la linea 2 del ninja',
     'aplaudir al comercial es fácil': '2026-10-07 historia de Unai 07/10 (la mesa redonda de Neety Forward), la linea 1 del ninja',
@@ -486,6 +490,7 @@ ARRANQUE_QUEMADO = {
         'filtran': '2026-09-16 meme de Iker 16/09 ("Filtran por quien pregunto / Filtran antes de oirme")',
         'sin': '2026-09-16 meme de Iker 16/09 ("Sin nombre no paso / no hay cita / no hay pedido")',
         'con': '2026-09-18 meme de Asier 18/09 ("Con 3 clientes a punto / Con 15 / Con 35")',
+        'otro': '2026-10-07 meme de Iker 07/10 ("Uno, que no le interesa / Otro, que le mande un correo / Otro, que le llame la semana que viene")',
         'otro': '2026-10-07 meme de Iker 07/10 ("Uno, que no le interesa / Otro, que le mande un correo / Otro, que le llame la semana que viene")',
     },
     # El pilar lead magnet tampoco tenia lista. Anotado al PUBLICAR (§0f).

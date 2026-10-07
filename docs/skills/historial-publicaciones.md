@@ -263,7 +263,17 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Quemados ✅ (07/10, al publicar)** | concepto `cuarto pequeño` · verbo `liquidan` · frase-rabia `y a otra cosa` · país `montenegro` · ninja `del vino sabe todo el mundo` / `eso ya te lo decimos nosotros, con nombre` · arranques de "Las 10" `no`, `desde`, `aqui` (lista nueva) · `menciones-usadas.json` regenerado (856 entidades de 38 peloteos) · cobertura de Asier actualizada |
 | ⏳ | publicado: hora y enlace (de la BD) · a los 3-4 días (lunes 12/10): impresiones contra sus mapas (Aragón 35.870, Extremadura 22.171) y el "Las 10" de CLM (37.779), reposts, CTR a `/solicitar-demo` contra el 0,058% de CLM (misma forma, pero con 1 línea de separación) y clics por UTM en GA4 · 🧪 **decidido el 07/10 con Iker: la posición NO se baja** (65% contra el 66% de CLM) para que la única variable de enlace que cambie frente a CLM sea la línea de separación; si se bajara a la vez, no se sabría cuál de las dos movió el CTR |
 
-## 📝 ENTREGADO · LUN 05/10 · IKER · MEME, PASA AL MIÉ 07/10 (el 06/10 no se subió nada en ninguna cuenta): EL PEOR CHISTE DEL CLIENTE o EL LEÓN DIMITE (`/solicitar-demo`)
+## ✅ PUBLICADO · MIÉ 07/10 14:55 · IKER · MEME: EL LEÓN QUE DIMITE (ref. Dachi Beberashvili, `/solicitar-demo`)
+
+| dato | |
+|---|---|
+| **Post** | [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7513582828987817984/) · publicado **14:55:42** (BD) · 1ª lectura en la BD: **170 imp** antes de los 46 min (por encima del semáforo de 100 a la hora) · texto `Me flipan las charlas motivacionales de ventas 🙃`, 449 car, UTM `meme-leon-07oct` · 1er enlace de Iker a `neety.com` · imagen v3 (texto en 2 líneas, aire 67/62 px, cara exagerada) tras 3 prompts → checks 14-17 de `images §0h-CHECKLIST` |
+| **Quemadas (07/10)** | ninja `ninguna charla te dice a quién llamar` / `eso sí te lo damos, hasta con nombre y cargo` · arranque de meme `otro` (en `validar-post.py`) |
+| ⏳ | a los 3-4 días (lunes 12/10): impresiones contra su mediana de meme desde julio (18,9k), % de risa, reposts y clics a `/solicitar-demo` por UTM en GA4 · 1er meme de animal en su cuenta |
+
+Lo de abajo es la ficha de la entrega (05-07/10), con las dos opciones que se barajaron.
+
+### 📝 ENTREGA · LUN 05/10 → MIÉ 07/10 · IKER · MEME: EL PEOR CHISTE DEL CLIENTE o EL LEÓN DIMITE
 
 | dato | |
 |---|---|

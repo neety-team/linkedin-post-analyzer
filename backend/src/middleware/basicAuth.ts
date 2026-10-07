@@ -61,7 +61,7 @@ export function basicAuthMiddleware(): RequestHandler {
 
     if (scheme !== 'Basic' || !encoded) {
       res.setHeader('WWW-Authenticate', 'Basic realm="Neety", charset="UTF-8"');
-      return res.status(401).send('Authentication required');
+      return res.status(401).send('Hace falta iniciar sesión');
     }
 
     let provided: Buffer;
@@ -69,7 +69,7 @@ export function basicAuthMiddleware(): RequestHandler {
       provided = Buffer.from(encoded, 'base64');
     } catch {
       res.setHeader('WWW-Authenticate', 'Basic realm="Neety", charset="UTF-8"');
-      return res.status(401).send('Authentication required');
+      return res.status(401).send('Hace falta iniciar sesión');
     }
 
     // timingSafeEqual requires equal-length inputs. On mismatch we run a
@@ -85,7 +85,7 @@ export function basicAuthMiddleware(): RequestHandler {
 
     if (!ok) {
       res.setHeader('WWW-Authenticate', 'Basic realm="Neety", charset="UTF-8"');
-      return res.status(401).send('Invalid credentials');
+      return res.status(401).send('Usuario o contraseña incorrectos');
     }
 
     next();

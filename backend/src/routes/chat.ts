@@ -734,19 +734,19 @@ router.post('/clear-cache', (_req: Request, res: Response) => {
   cachedContext = null;
   cachedAt = 0;
   console.log('[Chat] Analysis cache cleared');
-  res.json({ message: 'Cache cleared' });
+  res.json({ message: 'Caché vaciada' });
 });
 
 router.post('/', async (req: Request, res: Response) => {
   try {
     const { messages } = req.body;
     if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: 'messages array required' });
+      return res.status(400).json({ error: 'Falta el array messages' });
     }
 
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured. Add it to your .env file.' });
+      return res.status(500).json({ error: 'ANTHROPIC_API_KEY no está configurada. Añádela a tu fichero .env.' });
     }
 
     // Detect video intent on the latest user turn. When true, the system

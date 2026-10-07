@@ -51,11 +51,11 @@ export default function ConsistencyHeatmap({ data }: Props) {
     return '#e8935a';
   }
 
-  const dayLabels = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
+  const dayLabels = ['', 'Lun', '', 'Mié', '', 'Vie', ''];
 
   return (
     <div className="bg-bg-card rounded-xl p-6 min-w-0 overflow-hidden">
-      <h3 className="text-lg font-semibold mb-4">Posting Consistency</h3>
+      <h3 className="text-lg font-semibold mb-4">Constancia al publicar</h3>
       <div className="flex gap-1 overflow-x-auto">
         <div className="flex flex-col gap-1 mr-2 text-[10px] text-text-muted">
           {dayLabels.map((l, i) => (
@@ -76,7 +76,7 @@ export default function ConsistencyHeatmap({ data }: Props) {
         ))}
       </div>
       <div className="flex items-center gap-2 mt-3 text-[10px] text-text-muted">
-        <span>Less</span>
+        <span>Menos</span>
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
@@ -84,7 +84,7 @@ export default function ConsistencyHeatmap({ data }: Props) {
             style={{ backgroundColor: getColor(i === 0 ? 0 : (i / 3) * maxCount) }}
           />
         ))}
-        <span>More</span>
+        <span>Más</span>
       </div>
     </div>
   );

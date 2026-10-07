@@ -41,13 +41,13 @@ const CHART_H = 200;
 function fmtMonthShort(ym: string): string {
   // 'YYYY-MM' → 'May'  (month only — the year lives in the band below)
   const [y, m] = ym.split('-').map(Number);
-  return new Date(y, (m || 1) - 1, 1).toLocaleDateString('en-US', { month: 'short' });
+  return new Date(y, (m || 1) - 1, 1).toLocaleDateString('es-ES', { month: 'short' });
 }
 
 function fmtMonthFull(ym: string): string {
   // 'YYYY-MM' → 'May 2026'  (used in the tooltip for unambiguous context)
   const [y, m] = ym.split('-').map(Number);
-  return new Date(y, (m || 1) - 1, 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  return new Date(y, (m || 1) - 1, 1).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
 }
 
 function fmtNum(n: number): string {
@@ -55,7 +55,7 @@ function fmtNum(n: number): string {
   if (abs >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (abs >= 10_000) return `${Math.round(n / 1_000)}K`;
   if (abs >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
-  return n.toLocaleString();
+  return n.toLocaleString('es-ES');
 }
 
 // Big-number tooltip — same language as FollowerGrowthChart's daily
@@ -187,10 +187,10 @@ export default function MonthlyBarChart({
       </div>
 
       {loading ? (
-        <p className="text-center text-text-muted text-sm py-12">Loading…</p>
+        <p className="text-center text-text-muted text-sm py-12">Cargando…</p>
       ) : chartData.length === 0 ? (
         <p className="text-center text-text-muted text-sm py-12">
-          Not enough monthly data yet — this fills in as each month is captured.
+          Aún no hay datos mensuales suficientes. Se irá llenando a medida que se lea cada mes.
         </p>
       ) : (
         <>

@@ -18,6 +18,7 @@ export default function FilterSelect({
   value,
   onChange,
   totalLabel,
+  labels,
 }: {
   label: string;
   icon?: string;
@@ -25,6 +26,9 @@ export default function FilterSelect({
   value: string;
   onChange: (v: string) => void;
   totalLabel?: string;
+  // Etiqueta para mostrar de cada valor (p. ej. hook_type → "Ruptura de patrón").
+  // Solo cambia lo que se ve: onChange sigue devolviendo el valor original.
+  labels?: Record<string, string>;
 }) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
@@ -47,10 +51,13 @@ export default function FilterSelect({
   const filtered = useMemo(() => {
     if (!q.trim()) return options;
     const needle = q.toLowerCase();
-    return options.filter(([k]) => k.toLowerCase().includes(needle));
-  }, [options, q]);
+    return options.filter(([k]) =>
+      k.toLowerCase().includes(needle) || (labels?.[k] || '').toLowerCase().includes(needle)
+    );
+  }, [options, q, labels]);
 
   const active = !!value;
+  const show = (k: string) => labels?.[k] || k;
 
   return (
     <div className="relative" ref={ref}>
@@ -61,10 +68,10 @@ export default function FilterSelect({
             ? 'border-accent/50 bg-accent/10 text-accent'
             : 'border-border bg-bg-secondary text-text-muted hover:border-accent/30'
         }`}
-        title={active ? `${label}: ${value}` : `Filtrar por ${label.toLowerCase()}`}
+        title={active ? `${label}: ${show(value)}` : `Filtrar por ${label.toLowerCase()}`}
       >
         {icon && <span>{icon}</span>}
-        <span className="truncate">{active ? value : label}</span>
+        <span className="truncate">{active ? show(value) : label}</span>
         <span className="text-[10px] opacity-60">{active ? '✕' : '▾'}</span>
       </button>
 
@@ -94,7 +101,7 @@ export default function FilterSelect({
                   value === k ? 'text-accent' : 'text-text-secondary'
                 }`}
               >
-                <span className="truncate">{k}</span>
+                <span className="truncate">{show(k)}</span>
                 <span className="text-text-muted tabular-nums shrink-0">{count}</span>
               </button>
             ))}

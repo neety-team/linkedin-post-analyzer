@@ -99,7 +99,7 @@ function SourceBanner({ source }: { source: ParsedSource }) {
           )}
           {typeof source.outlierRatio === 'number' && (
             <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent/15 text-accent font-semibold tabular-nums">
-              {source.outlierRatio}x outlier
+              Outlier de {source.outlierRatio}x
             </span>
           )}
         </div>
@@ -126,11 +126,11 @@ function SourceBanner({ source }: { source: ParsedSource }) {
 
 const SOURCE_CONFIG: Record<string, { icon: string; label: string; color: string }> = {
   manual:      { icon: '💡', label: 'Idea',        color: 'text-accent bg-accent/10' },
-  book_quote:  { icon: '📚', label: 'Book',        color: 'text-purple-400 bg-purple-400/10' },
+  book_quote:  { icon: '📚', label: 'Libro',       color: 'text-purple-400 bg-purple-400/10' },
   demo_moment: { icon: '🎯', label: 'Demo',        color: 'text-blue-400 bg-blue-400/10' },
-  observation: { icon: '👁️', label: 'Observation', color: 'text-amber-400 bg-amber-400/10' },
-  meeting:     { icon: '🤝', label: 'Meeting',     color: 'text-green-400 bg-green-400/10' },
-  generated:   { icon: '✨', label: 'Generated',   color: 'text-fuchsia-400 bg-fuchsia-400/10' },
+  observation: { icon: '👁️', label: 'Observación', color: 'text-amber-400 bg-amber-400/10' },
+  meeting:     { icon: '🤝', label: 'Reunión',     color: 'text-green-400 bg-green-400/10' },
+  generated:   { icon: '✨', label: 'Generada',    color: 'text-fuchsia-400 bg-fuchsia-400/10' },
 };
 
 const ARCHETYPE_COLORS = [
@@ -146,7 +146,7 @@ function useVoiceCapture(onResult: (text: string) => void) {
 
   const start = () => {
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SR) { alert('Your browser does not support voice dictation. Use Chrome on mobile.'); return; }
+    if (!SR) { alert('Tu navegador no admite el dictado por voz. Usa Chrome en el móvil.'); return; }
     const rec = new SR();
     rec.continuous = true;
     rec.interimResults = false;
@@ -207,7 +207,7 @@ function PostEditor({ ideaId, initialText, onSave }: {
         onClick={handleCopy}
         className="w-full px-4 py-2 bg-bg-secondary border border-border text-text-secondary rounded-lg text-xs hover:border-accent/40 hover:text-text-primary transition-colors"
       >
-        {copied ? '✓ Copied' : 'Copy post'}
+        {copied ? '✓ Copiado' : 'Copiar post'}
       </button>
     </div>
   );
@@ -222,7 +222,7 @@ function IdeaCard({ idea, onUpdate, onDelete }: {
   const [generating, setGenerating] = useState(false);
   const [variants, setVariants] = useState<ArchetypeVariant[]>(idea.generated_variants || []);
   const [selectedVariant, setSelectedVariant] = useState<ArchetypeVariant | null>(
-    idea.generated_post ? { archetype_key: 'saved', archetype_label: 'Saved', archetype_desc: '', hook_type: '', post_structure: '', avg_ratio: 0, text: idea.generated_post } : null
+    idea.generated_post ? { archetype_key: 'saved', archetype_label: 'Guardado', archetype_desc: '', hook_type: '', post_structure: '', avg_ratio: 0, text: idea.generated_post } : null
   );
   const [genError, setGenError] = useState<string | null>(null);
   const [showVariants, setShowVariants] = useState(variants.length > 0 && !idea.generated_post);
@@ -280,7 +280,7 @@ function IdeaCard({ idea, onUpdate, onDelete }: {
           ))}
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-[10px] text-text-muted">{new Date(idea.created_at).toLocaleDateString()}</span>
+          <span className="text-[10px] text-text-muted">{new Date(idea.created_at).toLocaleDateString('es-ES')}</span>
           <button onClick={() => onDelete(idea.id)} className="text-text-muted hover:text-danger text-sm transition-colors">✕</button>
         </div>
       </div>
@@ -309,21 +309,21 @@ function IdeaCard({ idea, onUpdate, onDelete }: {
             className="flex-1 py-2 bg-accent/15 text-accent rounded-lg text-xs font-medium hover:bg-accent/25 disabled:opacity-50 transition-colors"
           >
             {generating
-              ? '✨ Generating 3 variants…'
+              ? '✨ Generando 3 variantes…'
               : hasVariants && !showVariants
-                ? '✨ View 3 variants'
+                ? '✨ Ver las 3 variantes'
                 : hasVariants
-                  ? '🔄 Regenerate (same archetypes)'
-                  : '✨ Generate 3 AI variants'}
+                  ? '🔄 Regenerar (mismos arquetipos)'
+                  : '✨ Generar 3 variantes con IA'}
           </button>
           {hasVariants && (
             <button
               onClick={() => handleGenerate(true)}
               disabled={generating}
-              title="Ask the AI to pick 3 different archetypes that fit this idea"
+              title="Pide a la IA 3 arquetipos distintos que encajen con esta idea"
               className="px-3 py-2 bg-bg-secondary border border-border text-text-secondary rounded-lg text-xs font-medium hover:border-accent/40 hover:text-accent disabled:opacity-50 transition-colors whitespace-nowrap"
             >
-              🎲 Try other archetypes
+              🎲 Probar otros arquetipos
             </button>
           )}
         </div>
@@ -348,7 +348,7 @@ function IdeaCard({ idea, onUpdate, onDelete }: {
       {/* 3 variant cards */}
       {!generating && showVariants && variants.length > 0 && (
         <div className="space-y-3 mb-4">
-          <p className="text-xs text-text-muted">Choose the archetype that fits best:</p>
+          <p className="text-xs text-text-muted">Elige el arquetipo que mejor encaje:</p>
           {variants.map((v, i) => {
             const colors = ARCHETYPE_COLORS[i % ARCHETYPE_COLORS.length];
             return (
@@ -371,7 +371,7 @@ function IdeaCard({ idea, onUpdate, onDelete }: {
                 {v.image_suggestion && (
                   <div className="mb-3 rounded-lg border border-dashed border-border bg-bg-primary/50 p-2.5">
                     <div className="text-[10px] uppercase tracking-wide text-text-muted mb-1 flex items-center gap-1">
-                      📸 Image idea <span className="normal-case tracking-normal text-text-muted/70">· not part of the post</span>
+                      📸 Idea de imagen <span className="normal-case tracking-normal text-text-muted/70">· no forma parte del post</span>
                     </div>
                     <p className="text-[11px] text-text-secondary leading-relaxed whitespace-pre-wrap">
                       {v.image_suggestion}
@@ -384,7 +384,7 @@ function IdeaCard({ idea, onUpdate, onDelete }: {
                   onClick={() => handleSelectVariant(v)}
                   className={`w-full py-2 rounded-lg text-xs font-medium transition-colors ${colors.btn}`}
                 >
-                  Choose this archetype →
+                  Elegir este arquetipo →
                 </button>
               </div>
             );
@@ -397,14 +397,14 @@ function IdeaCard({ idea, onUpdate, onDelete }: {
         <div>
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs text-text-muted">
-              Archetype: <span className="text-text-secondary font-medium">{selectedVariant.archetype_label}</span>
+              Arquetipo: <span className="text-text-secondary font-medium">{selectedVariant.archetype_label}</span>
             </span>
             {hasVariants && (
               <button
                 onClick={() => { setShowVariants(true); setSelectedVariant(null); }}
                 className="text-[11px] text-accent hover:text-accent-light transition-colors"
               >
-                ← Change variant
+                ← Cambiar de variante
               </button>
             )}
           </div>
@@ -416,7 +416,7 @@ function IdeaCard({ idea, onUpdate, onDelete }: {
           {selectedVariant.image_suggestion && (
             <div className="mt-3 rounded-lg border border-dashed border-border bg-bg-primary/50 p-3">
               <div className="text-[10px] uppercase tracking-wide text-text-muted mb-1 flex items-center gap-1">
-                📸 Image idea <span className="normal-case tracking-normal text-text-muted/70">· suggestion only — don't paste into the post</span>
+                📸 Idea de imagen <span className="normal-case tracking-normal text-text-muted/70">· solo es una sugerencia: no la pegues en el post</span>
               </div>
               <p className="text-xs text-text-secondary leading-relaxed whitespace-pre-wrap">
                 {selectedVariant.image_suggestion}
@@ -462,7 +462,7 @@ function CaptureForm({ onCreated }: { onCreated: () => void }) {
 
   return (
     <div className="bg-bg-card border border-border rounded-xl p-5 space-y-4">
-      <h2 className="text-sm font-semibold text-text-primary">Capture an idea</h2>
+      <h2 className="text-sm font-semibold text-text-primary">Apunta una idea</h2>
 
       {/* Source type */}
       <div className="flex flex-wrap gap-2">
@@ -487,10 +487,10 @@ function CaptureForm({ onCreated }: { onCreated: () => void }) {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder={
-            sourceType === 'book_quote' ? '"The book quote…" — Author Name' :
-            sourceType === 'demo_moment' ? 'The prospect said they had never seen…' :
-            sourceType === 'meeting' ? 'In the meeting with X I discovered that…' :
-            'Type your idea or press the mic to dictate…'
+            sourceType === 'book_quote' ? '"La cita del libro…" · Nombre del autor' :
+            sourceType === 'demo_moment' ? 'El cliente potencial dijo que nunca había visto…' :
+            sourceType === 'meeting' ? 'En la reunión con X descubrí que…' :
+            'Escribe tu idea o pulsa el micro para dictarla…'
           }
           className="w-full bg-bg-secondary border border-border rounded-lg px-4 py-3 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent resize-none pr-12"
           rows={4}
@@ -501,31 +501,31 @@ function CaptureForm({ onCreated }: { onCreated: () => void }) {
           className={`absolute bottom-3 right-3 w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all ${
             listening ? 'bg-danger text-white animate-pulse' : 'bg-bg-hover text-text-muted hover:text-text-primary border border-border'
           }`}
-          title={listening ? 'Stop dictation' : 'Voice dictation'}
+          title={listening ? 'Parar el dictado' : 'Dictado por voz'}
         >
           🎤
         </button>
       </div>
 
-      {listening && <p className="text-xs text-danger animate-pulse">● Listening… Speak now</p>}
+      {listening && <p className="text-xs text-danger animate-pulse">● Escuchando… Habla ahora</p>}
 
       {/* Tags */}
       <input
         type="text"
-        placeholder="Optional tags: cold email, storytelling… (comma separated)"
+        placeholder="Etiquetas opcionales: cold email, storytelling… (separadas por comas)"
         value={tags}
         onChange={(e) => setTags(e.target.value)}
         className="w-full bg-bg-secondary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent"
       />
 
       <div className="flex items-center justify-between">
-        <span className="text-xs text-text-muted">⌘+Enter to save</span>
+        <span className="text-xs text-text-muted">⌘+Enter para guardar</span>
         <button
           onClick={handleSave}
           disabled={saving || !content.trim()}
           className="px-5 py-2 bg-accent text-bg-primary rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-light transition-colors"
         >
-          {saving ? 'Saving…' : 'Save idea'}
+          {saving ? 'Guardando…' : 'Guardar idea'}
         </button>
       </div>
     </div>
@@ -554,7 +554,7 @@ export default function Ideas() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this idea?')) return;
+    if (!confirm('¿Eliminar esta idea?')) return;
     await fetch(`${BASE}/api/ideas/${id}`, { method: 'DELETE' });
     refetch();
     setLocalIdeas(null);
@@ -604,15 +604,15 @@ export default function Ideas() {
 
       {displayIdeas && displayIdeas.length > 0 && (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-text-muted text-xs">Filter:</span>
-          {[{ v: '', label: 'All' }, ...Object.entries(SOURCE_CONFIG).map(([k, c]) => ({ v: k, label: `${c.icon} ${c.label}` }))].map(({ v, label }) => (
+          <span className="text-text-muted text-xs">Filtro:</span>
+          {[{ v: '', label: 'Todas' }, ...Object.entries(SOURCE_CONFIG).map(([k, c]) => ({ v: k, label: `${c.icon} ${c.label}` }))].map(({ v, label }) => (
             <button key={v} onClick={() => setFilterSource(v)}
               className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${filterSource === v ? 'border-accent/50 bg-accent/10 text-accent' : 'border-border bg-bg-secondary text-text-muted hover:border-accent/30'}`}>
               {label}
             </button>
           ))}
           <div className="ml-2 flex gap-1.5">
-            {[{ v: '', label: 'All' }, { v: 'draft', label: 'No post' }, { v: 'ready', label: 'With post' }].map(({ v, label }) => (
+            {[{ v: '', label: 'Todas' }, { v: 'draft', label: 'Sin post' }, { v: 'ready', label: 'Con post' }].map(({ v, label }) => (
               <button key={v} onClick={() => setFilterStatus(v)}
                 className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${filterStatus === v ? 'border-accent/50 bg-accent/10 text-accent' : 'border-border bg-bg-secondary text-text-muted hover:border-accent/30'}`}>
                 {label}
@@ -637,8 +637,8 @@ export default function Ideas() {
       {!loading && displayIdeas && displayIdeas.length === 0 && (
         <div className="text-center py-16 text-text-muted">
           <p className="text-4xl mb-4">💡</p>
-          <p className="mb-1">No saved ideas yet.</p>
-          <p className="text-sm">Use the form above to capture your first one.</p>
+          <p className="mb-1">Aún no hay ideas guardadas.</p>
+          <p className="text-sm">Usa el formulario de arriba para apuntar la primera.</p>
         </div>
       )}
 
@@ -652,7 +652,7 @@ export default function Ideas() {
       )}
 
       {!loading && displayIdeas && displayIdeas.length > 0 && filtered.length === 0 && (
-        <p className="text-center text-text-muted py-8">No ideas match this filter.</p>
+        <p className="text-center text-text-muted py-8">Ninguna idea coincide con este filtro.</p>
       )}
       </>
       )}
@@ -739,7 +739,7 @@ function KanbanView({ refreshKey }: { refreshKey: string }) {
 
   const clearAll = async () => {
     const total = data ? Object.values(data.columns).reduce((s, arr) => s + arr.length, 0) : 0;
-    if (!confirm(`Borrar las ${total} idea${total === 1 ? '' : 's'} y reiniciar el deck del Swipe? No se puede deshacer.`)) return;
+    if (!confirm(`¿Eliminar ${total === 1 ? 'la idea' : `las ${total} ideas`} y reiniciar el deck del Swipe? No se puede deshacer.`)) return;
     try {
       const res = await fetch(`${BASE}/api/ideas/kanban/clear`, { method: 'DELETE' });
       const json = await res.json();
@@ -762,7 +762,7 @@ function KanbanView({ refreshKey }: { refreshKey: string }) {
           <button
             onClick={clearAll}
             className="text-xs px-2.5 py-1 rounded border border-red-400/40 text-red-400 hover:bg-red-400/10 transition-colors"
-            title="Borra todas las ideas y reinicia el deck del Swipe"
+            title="Elimina todas las ideas y reinicia el deck del Swipe"
           >
             🗑️ Vaciar todo
           </button>
@@ -857,7 +857,7 @@ function KanbanCard({
         className={`text-xs text-text-primary leading-snug whitespace-pre-wrap ${expanded ? '' : 'line-clamp-4'}`}
         onClick={(e) => { e.stopPropagation(); if (isLong) setExpanded((v) => !v); }}
         style={isLong ? { cursor: 'pointer' } : undefined}
-        title={isLong ? (expanded ? 'Click para colapsar' : 'Click para ver entero') : undefined}
+        title={isLong ? (expanded ? 'Haz clic para plegar' : 'Haz clic para verlo entero') : undefined}
       >
         {card.raw_content}
       </p>

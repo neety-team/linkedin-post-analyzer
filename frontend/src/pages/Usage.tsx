@@ -56,10 +56,10 @@ const RANGES: { label: string; days: number }[] = [
 // just fall through to title-cased default rendering until we add them
 // here — no maintenance burden if you forget.
 const FEATURE_LABELS: Record<string, string> = {
-  post_creator_chat: 'Post Creator chat',
+  post_creator_chat: 'Chat del Post Creator',
   ideas_variant_generation: 'Ideas — generación de variantes',
   ideas_archetype_selector: 'Ideas — selector de arquetipo',
-  ideas_brainstorm: 'Ideas — brainstorm',
+  ideas_brainstorm: 'Ideas — lluvia de ideas',
   ideas_outlier_classifier: 'Clasificador de outliers',
   comment_generator_9angles: 'Comentarios — 9 ángulos (Network)',
   comment_generator_supportive: 'Comentarios de apoyo (Google Chat)',
@@ -78,7 +78,7 @@ function fmtUsd(s: string | number): string {
 function fmtInt(s: string | number): string {
   const n = typeof s === 'string' ? Number(s) : s;
   if (!Number.isFinite(n)) return '0';
-  return n.toLocaleString();
+  return n.toLocaleString('es-ES');
 }
 
 function fmtTokens(s: string | number): string {
@@ -86,7 +86,7 @@ function fmtTokens(s: string | number): string {
   if (!Number.isFinite(n)) return '0';
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
-  return n.toLocaleString();
+  return n.toLocaleString('es-ES');
 }
 
 const MODEL_TINT: Record<string, string> = {
@@ -114,9 +114,9 @@ export default function Usage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-3xl font-bold mb-2">💸 Claude usage</h1>
+          <h1 className="text-3xl font-bold mb-2">💸 Consumo de Claude</h1>
           <p className="text-text-secondary">
-            Lo que está fundiendo tokens. Una fila por llamada a Claude, agregado por feature y modelo.
+            Lo que está fundiendo tokens. Una fila por llamada a Claude, agregado por función y modelo.
           </p>
         </div>
         <div className="flex items-center gap-1">
@@ -179,17 +179,17 @@ export default function Usage() {
 
           {/* Features table */}
           <div className="bg-bg-card border border-border rounded-xl p-5">
-            <h3 className="text-lg font-semibold mb-1">Gasto por feature</h3>
-            <p className="text-xs text-text-muted mb-4">Ordenado por coste descendente. % indica la cuota de cada feature sobre el total.</p>
+            <h3 className="text-lg font-semibold mb-1">Gasto por función</h3>
+            <p className="text-xs text-text-muted mb-4">Ordenado por coste descendente. % indica la cuota de cada función sobre el total.</p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead className="text-left text-[10px] uppercase tracking-wide text-text-muted border-b border-border">
                   <tr>
-                    <th className="py-2 pr-3">Feature</th>
-                    <th className="py-2 pr-3 text-right">Calls</th>
-                    <th className="py-2 pr-3 text-right">Input</th>
-                    <th className="py-2 pr-3 text-right">Output</th>
-                    <th className="py-2 pr-3 text-right">Cache hit</th>
+                    <th className="py-2 pr-3">Función</th>
+                    <th className="py-2 pr-3 text-right">Llamadas</th>
+                    <th className="py-2 pr-3 text-right">Entrada</th>
+                    <th className="py-2 pr-3 text-right">Salida</th>
+                    <th className="py-2 pr-3 text-right">Leído de caché</th>
                     <th className="py-2 pr-3 text-right">Coste</th>
                     <th className="py-2 pr-3 text-right">%</th>
                   </tr>
@@ -235,9 +235,9 @@ export default function Usage() {
                 <thead className="text-left text-[10px] uppercase tracking-wide text-text-muted border-b border-border">
                   <tr>
                     <th className="py-2 pr-3">Modelo</th>
-                    <th className="py-2 pr-3 text-right">Calls</th>
-                    <th className="py-2 pr-3 text-right">Input</th>
-                    <th className="py-2 pr-3 text-right">Output</th>
+                    <th className="py-2 pr-3 text-right">Llamadas</th>
+                    <th className="py-2 pr-3 text-right">Entrada</th>
+                    <th className="py-2 pr-3 text-right">Salida</th>
                     <th className="py-2 pr-3 text-right">Coste</th>
                   </tr>
                 </thead>

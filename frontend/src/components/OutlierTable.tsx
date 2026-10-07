@@ -42,7 +42,7 @@ function MediaViewer({ postId, contentType }: { postId: string; contentType: str
   if (state === 'loading') return <span className="text-[11px] text-text-muted animate-pulse">Cargando…</span>;
   if (state === 'error' || !media || media.items.length === 0) return (
     <div className="flex items-center gap-2">
-      <span className="text-[11px] text-text-muted">URL expirada</span>
+      <span className="text-[11px] text-text-muted">Enlace caducado</span>
       {media?.linkedin_url && (
         <a href={media.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-[11px] text-accent">ver en LinkedIn ↗</a>
       )}
@@ -59,7 +59,7 @@ function MediaViewer({ postId, contentType }: { postId: string; contentType: str
       ) : item.type === 'document' ? (
         <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs text-accent border border-border px-3 py-2 rounded-lg block w-fit">📄 Abrir documento ↗</a>
       ) : (
-        <span className="text-[11px] text-text-muted">URL expirada</span>
+        <span className="text-[11px] text-text-muted">Enlace caducado</span>
       )}
       {media.items.length > 1 && (
         <div className="flex gap-1 items-center">
@@ -152,6 +152,40 @@ const structLabels: Record<string, string> = {
   content_with_cta: 'Content+CTA', data_driven: 'Data', other: '--',
 };
 
+// Etiquetas EN ESPAÑOL solo para pintar en la tabla. `hookLabels` y
+// `structLabels` (arriba) se quedan en inglés porque viajan como TAGS de la
+// idea robada (igual que en Inspiration): cambiarlas partiría los tags ya
+// guardados en la BD.
+const hookLabelsEs: Record<string, string> = {
+  pattern_interrupt: 'Rompe patrón', belief_breaker: 'Rompe creencias',
+  curiosity_gap: 'Curiosidad', data_shock: 'Dato impacto', hot_take: 'Polémica',
+  personal_confession: 'Confesión', story_opener: 'Historia',
+  hypothetical_question: 'Hipotética', why_question: 'P. por qué',
+  how_question: 'P. cómo', direct_question: 'P. directa',
+  open_question: 'P. abierta', rhetorical_question: 'P. retórica',
+  list_promise: 'Promesa lista', prediction: 'Predicción',
+  how_to_framework: 'Cómo hacerlo', bold_claim: 'Afirmación',
+  common_mistake: 'Error común', direct_callout: 'Interpelación',
+  announcement: 'Anuncio', social_proof_opener: 'Prueba social',
+  analogy: 'Analogía', contrarian_take: 'Contracorriente', relatable_moment: 'Identificable',
+  motivational: 'Motivacional', observation: 'Observación', challenge: 'Reto',
+  other: '--',
+};
+
+const structLabelsEs: Record<string, string> = {
+  hook_list_cta: 'Gancho>Lista>CTA', hook_story_lesson_cta: 'Historia>Lección>CTA',
+  problem_agitate_solve: 'PAS', contrarian_proof_reframe: 'Contracorriente>Giro',
+  confession_insight_takeaway: 'Confesión>Aprendizaje', list_framework: 'Lista',
+  problem_solution: 'Problema>Solución', story_lesson: 'Historia>Lección',
+  before_after: 'Antes/Después', step_by_step: 'Paso a paso',
+  myth_busting: 'Mitos', question_answer: 'Pregunta>Respuesta',
+  observation_insight: 'Observación', prediction_vision: 'Predicción',
+  motivational_manifesto: 'Motivacional', authority_framework: 'Autoridad',
+  comparison: 'Comparativa', short_punchy: 'Corto',
+  long_form_essay: 'Largo', narrative_arc: 'Narrativa',
+  content_with_cta: 'Contenido+CTA', data_driven: 'Datos', other: '--',
+};
+
 interface Props {
   posts: Post[];
   title?: string;
@@ -162,17 +196,17 @@ interface Props {
 }
 
 const TYPE_CONFIG: Record<string, { icon: string; label: string; color: string; hasMedia: boolean }> = {
-  text:            { icon: '📝', label: 'Text',            color: 'text-text-muted bg-bg-hover',      hasMedia: false },
-  text_image:      { icon: '📝🖼️', label: 'Text + Photo',    color: 'text-blue-400 bg-blue-400/10',     hasMedia: true  },
-  text_carousel:   { icon: '📝📎', label: 'Text + Carousel', color: 'text-purple-400 bg-purple-400/10', hasMedia: true  },
-  text_video:      { icon: '📝🎥', label: 'Text + Video',    color: 'text-red-400 bg-red-400/10',       hasMedia: true  },
-  text_document:   { icon: '📝📄', label: 'Text + Doc',      color: 'text-amber-400 bg-amber-400/10',   hasMedia: true  },
-  image:           { icon: '🖼️', label: 'Photo only',       color: 'text-blue-300 bg-blue-300/10',     hasMedia: true  },
-  carousel:        { icon: '📎', label: 'Carousel only',    color: 'text-purple-300 bg-purple-300/10', hasMedia: true  },
-  video:           { icon: '🎥', label: 'Video only',       color: 'text-red-300 bg-red-300/10',       hasMedia: true  },
-  document:        { icon: '📄', label: 'Doc only',         color: 'text-amber-300 bg-amber-300/10',   hasMedia: true  },
-  poll:            { icon: '📊', label: 'Poll',             color: 'text-green-400 bg-green-400/10',   hasMedia: false },
-  article:         { icon: '📰', label: 'Article',          color: 'text-cyan-400 bg-cyan-400/10',     hasMedia: false },
+  text:            { icon: '📝', label: 'Texto',           color: 'text-text-muted bg-bg-hover',      hasMedia: false },
+  text_image:      { icon: '📝🖼️', label: 'Texto + foto',    color: 'text-blue-400 bg-blue-400/10',     hasMedia: true  },
+  text_carousel:   { icon: '📝📎', label: 'Texto + carrusel', color: 'text-purple-400 bg-purple-400/10', hasMedia: true  },
+  text_video:      { icon: '📝🎥', label: 'Texto + vídeo',   color: 'text-red-400 bg-red-400/10',       hasMedia: true  },
+  text_document:   { icon: '📝📄', label: 'Texto + documento',color: 'text-amber-400 bg-amber-400/10',   hasMedia: true  },
+  image:           { icon: '🖼️', label: 'Solo foto',        color: 'text-blue-300 bg-blue-300/10',     hasMedia: true  },
+  carousel:        { icon: '📎', label: 'Solo carrusel',    color: 'text-purple-300 bg-purple-300/10', hasMedia: true  },
+  video:           { icon: '🎥', label: 'Solo vídeo',       color: 'text-red-300 bg-red-300/10',       hasMedia: true  },
+  document:        { icon: '📄', label: 'Solo documento',   color: 'text-amber-300 bg-amber-300/10',   hasMedia: true  },
+  poll:            { icon: '📊', label: 'Encuesta',         color: 'text-green-400 bg-green-400/10',   hasMedia: false },
+  article:         { icon: '📰', label: 'Artículo',         color: 'text-cyan-400 bg-cyan-400/10',     hasMedia: false },
 };
 
 const PREVIEW_CHARS = 300;
@@ -190,14 +224,14 @@ function ExpandableText({ text }: { text: string }) {
           onClick={() => setExpanded(!expanded)}
           className="text-[11px] text-accent hover:text-accent-light mt-1"
         >
-          {expanded ? 'Show less ↑' : 'Show more ↓'}
+          {expanded ? 'Ver menos ↑' : 'Ver más ↓'}
         </button>
       )}
     </div>
   );
 }
 
-export default function OutlierTable({ posts, title = 'Outlier Posts', creatorName, creatorHeadline }: Props) {
+export default function OutlierTable({ posts, title = 'Posts outlier', creatorName, creatorHeadline }: Props) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [typeFilter, setTypeFilter] = useState<string>('all');
   // Track which posts have been saved as ideas in this session, plus per-row
@@ -281,15 +315,15 @@ export default function OutlierTable({ posts, title = 'Outlier Posts', creatorNa
         <h3 className="text-lg font-semibold">
           {title}
           <span className="text-text-muted text-sm font-normal ml-2">
-            ({filteredPosts.length}{typeFilter !== 'all' ? ` of ${posts.length}` : ''})
+            ({filteredPosts.length}{typeFilter !== 'all' ? ` de ${posts.length}` : ''})
           </span>
         </h3>
         {filterOptions.length > 2 && (
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-text-muted text-xs">Type:</span>
+            <span className="text-text-muted text-xs">Tipo:</span>
             {filterOptions.map((type) => {
               const cfg = type === 'all'
-                ? { icon: '', label: 'All' }
+                ? { icon: '', label: 'Todos' }
                 : TYPE_CONFIG[type] || { icon: '?', label: type };
               const count = type === 'all' ? posts.length : (typeCounts.get(type) || 0);
               return (
@@ -311,22 +345,22 @@ export default function OutlierTable({ posts, title = 'Outlier Posts', creatorNa
         )}
       </div>
       {filteredPosts.length === 0 ? (
-        <p className="text-text-muted">No posts to display.</p>
+        <p className="text-text-muted">No hay posts que mostrar.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-text-secondary text-left border-b border-border">
-                <th className="pb-3 font-medium">Date</th>
-                <th className="pb-3 font-medium">Hook</th>
-                <th className="pb-3 font-medium">Hook Type</th>
-                <th className="pb-3 font-medium">Structure</th>
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium text-right">Likes</th>
-                <th className="pb-3 font-medium text-right">Comments</th>
-                <th className="pb-3 font-medium text-right">Reposts</th>
-                <th className="pb-3 font-medium text-right">Score</th>
-                <th className="pb-3 font-medium text-right">Ratio</th>
+                <th className="pb-3 font-medium">Fecha</th>
+                <th className="pb-3 font-medium">Gancho</th>
+                <th className="pb-3 font-medium">Tipo de gancho</th>
+                <th className="pb-3 font-medium">Estructura</th>
+                <th className="pb-3 font-medium">Tipo</th>
+                <th className="pb-3 font-medium text-right">Reacciones</th>
+                <th className="pb-3 font-medium text-right">Comentarios</th>
+                <th className="pb-3 font-medium text-right">Compartidos</th>
+                <th className="pb-3 font-medium text-right">Puntuación</th>
+                <th className="pb-3 font-medium text-right">Multiplicador</th>
                 <th className="pb-3 font-medium"></th>
               </tr>
             </thead>
@@ -339,19 +373,19 @@ export default function OutlierTable({ posts, title = 'Outlier Posts', creatorNa
                     onClick={() => setExpandedId(expandedId === post.id ? null : post.id)}
                   >
                     <td className="py-3 whitespace-nowrap text-text-secondary">
-                      {post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '--'}
+                      {post.published_at ? new Date(post.published_at).toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric' }) : '--'}
                     </td>
                     <td className="py-3 max-w-[250px] truncate" title={post.hook_text || ''}>
                       {post.hook_text || '--'}
                     </td>
                     <td className="py-3 whitespace-nowrap">
                       <span className="text-xs text-text-muted bg-bg-secondary px-1.5 py-0.5 rounded">
-                        {hookLabels[post.hook_type || ''] || post.hook_type || '--'}
+                        {hookLabelsEs[post.hook_type || ''] || post.hook_type || '--'}
                       </span>
                     </td>
                     <td className="py-3 whitespace-nowrap">
                       <span className="text-xs text-text-muted bg-bg-secondary px-1.5 py-0.5 rounded">
-                        {structLabels[post.post_structure || ''] || post.post_structure || '--'}
+                        {structLabelsEs[post.post_structure || ''] || post.post_structure || '--'}
                       </span>
                     </td>
                     <td className="py-3">
@@ -365,10 +399,10 @@ export default function OutlierTable({ posts, title = 'Outlier Posts', creatorNa
                         );
                       })()}
                     </td>
-                    <td className="py-3 text-right tabular-nums">{post.likes_count.toLocaleString()}</td>
-                    <td className="py-3 text-right tabular-nums">{post.comments_count.toLocaleString()}</td>
-                    <td className="py-3 text-right tabular-nums">{post.reposts_count.toLocaleString()}</td>
-                    <td className="py-3 text-right tabular-nums font-medium text-accent">{post.engagement_score.toLocaleString()}</td>
+                    <td className="py-3 text-right tabular-nums">{post.likes_count.toLocaleString('es-ES')}</td>
+                    <td className="py-3 text-right tabular-nums">{post.comments_count.toLocaleString('es-ES')}</td>
+                    <td className="py-3 text-right tabular-nums">{post.reposts_count.toLocaleString('es-ES')}</td>
+                    <td className="py-3 text-right tabular-nums font-medium text-accent">{post.engagement_score.toLocaleString('es-ES')}</td>
                     <td className="py-3 text-right">
                       {post.outlier_ratio > 0 && ratioBadge(post.outlier_ratio)}
                     </td>
@@ -382,7 +416,7 @@ export default function OutlierTable({ posts, title = 'Outlier Posts', creatorNa
                             className="text-accent hover:text-accent-light text-xs"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            View
+                            Ver
                           </a>
                         )}
                         <button
@@ -406,10 +440,10 @@ export default function OutlierTable({ posts, title = 'Outlier Posts', creatorNa
                           }`}
                         >
                           {stolenIds.has(post.id)
-                            ? '✓ Saved'
+                            ? '✓ Guardado'
                             : stealingId === post.id
                             ? '…'
-                            : '🔥 Steal'}
+                            : '🔥 Robar'}
                         </button>
                       </div>
                     </td>
@@ -419,13 +453,13 @@ export default function OutlierTable({ posts, title = 'Outlier Posts', creatorNa
                       <td colSpan={11} className="bg-bg-secondary p-4">
                         <div className="flex gap-4 mb-3 text-xs text-text-muted">
                           {post.comment_like_ratio != null && post.comment_like_ratio > 0 && (
-                            <span>Comment/Like: {Math.round(post.comment_like_ratio * 100)}%</span>
+                            <span>Comentarios/reacciones: {Math.round(post.comment_like_ratio * 100)}%</span>
                           )}
                           {post.share_like_ratio != null && post.share_like_ratio > 0 && (
-                            <span>Share/Like: {Math.round(post.share_like_ratio * 100)}%</span>
+                            <span>Compartidos/reacciones: {Math.round(post.share_like_ratio * 100)}%</span>
                           )}
                         </div>
-                        <ExpandableText text={post.content_text || 'No content available'} />
+                        <ExpandableText text={post.content_text || 'Sin contenido'} />
                         {TYPE_CONFIG[post.content_type]?.hasMedia && (
                           <div className="mt-3">
                             <MediaViewer postId={post.id} contentType={post.content_type} />

@@ -83,13 +83,13 @@ export default function LinkedInPreviewModal({ open, onClose }: { open: boolean;
       onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
       role="dialog"
       aria-modal="true"
-      aria-label="LinkedIn Preview"
+      aria-label="Vista previa de LinkedIn"
     >
       <div className="w-full max-w-3xl my-auto rounded-2xl border border-border bg-bg-card shadow-2xl shadow-black/50 overflow-hidden">
         {/* Cabecera */}
         <div className="flex items-start justify-between gap-4 px-6 py-4 border-b border-border bg-gradient-to-r from-accent/10 to-transparent">
           <div>
-            <h2 className="text-lg font-semibold">LinkedIn Preview</h2>
+            <h2 className="text-lg font-semibold">Vista previa de LinkedIn</h2>
             <p className="text-xs text-text-muted mt-0.5">
               Pega el post y mira dónde corta LinkedIn el gancho, con el nombre y la foto de quien publica.
             </p>
@@ -140,7 +140,7 @@ export default function LinkedInPreviewModal({ open, onClose }: { open: boolean;
             <div className="flex items-center justify-between mb-1">
               <label className="text-[11px] text-text-muted font-medium">Texto del post</label>
               <div className="flex items-center gap-3 text-[10px] text-text-muted">
-                <span>{texto.length} chars</span>
+                <span>{texto.length} caracteres</span>
                 {texto && (
                   <button type="button" onClick={() => setTexto('')} className="hover:text-text-primary">✕ Limpiar</button>
                 )}
@@ -168,7 +168,7 @@ export default function LinkedInPreviewModal({ open, onClose }: { open: boolean;
             />
           ) : (
             <div className="border border-dashed border-border rounded-xl p-8 text-center text-text-muted text-xs">
-              El preview aparece aquí en cuanto pegues un texto.
+              La vista previa aparece aquí en cuanto pegues un texto.
             </div>
           )}
         </div>

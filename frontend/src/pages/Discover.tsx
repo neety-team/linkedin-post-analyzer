@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useApi, apiPost, apiDelete } from '../hooks/useApi';
+import { useApi, apiPost } from '../hooks/useApi';
 
 const BASE = import.meta.env.VITE_API_URL || '';
 
@@ -47,7 +47,7 @@ function FollowerGrowthBadge({ creator }: { creator: DiscoveredCreator }) {
   const positive = perMonth > 0;
   return (
     <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${positive ? 'bg-green-500/15 text-green-400' : 'bg-red-500/15 text-red-400'}`}>
-      {positive ? '+' : ''}{formatK(perMonth)}/mo
+      {positive ? '+' : ''}{formatK(perMonth)}/mes
     </span>
   );
 }
@@ -77,10 +77,10 @@ function CreatorCard({
       setPromoted(true);
       onPromote(creator.id);
     } catch (err: any) {
-      if (err.message?.includes('already in Dashboard')) {
+      if (err.message?.includes('ya está en el panel')) {
         setPromoted(true);
       } else {
-        setPromoteError(err.message || 'Error adding to Dashboard');
+        setPromoteError(err.message || 'Error al añadir al panel');
         setTimeout(() => setPromoteError(null), 5000);
       }
     } finally {
@@ -108,9 +108,9 @@ function CreatorCard({
     <div className="bg-bg-card border border-border rounded-xl p-5 hover:border-accent/30 transition-all group relative">
       {/* Delete */}
       <button
-        onClick={(e) => { e.stopPropagation(); if (confirm('Remove from Discovery?')) onDelete(creator.id); }}
+        onClick={(e) => { e.stopPropagation(); if (confirm('¿Quitar de Descubrir?')) onDelete(creator.id); }}
         className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 text-text-muted hover:text-danger transition-all text-sm px-1"
-        title="Remove"
+        title="Quitar"
       >
         ✕
       </button>
@@ -126,7 +126,7 @@ function CreatorCard({
         )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-semibold text-text-primary truncate">{creator.name || 'Unknown'}</span>
+            <span className="font-semibold text-text-primary truncate">{creator.name || 'Desconocido'}</span>
             <FollowerGrowthBadge creator={creator} />
           </div>
           <p className="text-text-secondary text-xs truncate">{creator.headline || '--'}</p>
@@ -148,11 +148,11 @@ function CreatorCard({
       {/* Stats grid */}
       <div className="grid grid-cols-4 gap-2 text-center mb-4">
         <div className="bg-bg-secondary rounded-lg p-2">
-          <p className="text-text-muted text-[10px]">Virality</p>
+          <p className="text-text-muted text-[10px]">Viralidad</p>
           <p className={`font-bold text-sm ${viralityColor}`}>{formatK(Math.round(creator.virality_score))}</p>
         </div>
         <div className="bg-bg-secondary rounded-lg p-2">
-          <p className="text-text-muted text-[10px]">Avg Eng.</p>
+          <p className="text-text-muted text-[10px]">Interacc. media</p>
           <p className="text-text-primary font-bold text-sm">{formatK(creator.avg_engagement)}</p>
         </div>
         <div className="bg-bg-secondary rounded-lg p-2">
@@ -160,14 +160,14 @@ function CreatorCard({
           <p className="text-accent font-bold text-sm">{creator.outlier_count}</p>
         </div>
         <div className="bg-bg-secondary rounded-lg p-2">
-          <p className="text-text-muted text-[10px]">Followers</p>
+          <p className="text-text-muted text-[10px]">Seguidores</p>
           <p className="text-text-primary font-bold text-sm">{creator.followers_count > 0 ? formatK(creator.followers_count) : '--'}</p>
         </div>
       </div>
 
       <p className="text-[10px] text-text-muted mb-3">
-        {creator.total_posts_sampled} posts sampled
-        {creator.enriched_at ? ` · ${new Date(creator.enriched_at).toLocaleDateString()}` : ''}
+        {creator.total_posts_sampled} posts analizados
+        {creator.enriched_at ? ` · ${new Date(creator.enriched_at).toLocaleDateString('es-ES')}` : ''}
       </p>
 
       {/* Actions */}
@@ -181,7 +181,7 @@ function CreatorCard({
               : 'bg-accent/15 text-accent hover:bg-accent/25 disabled:opacity-50'
           }`}
         >
-          {promoted ? '✓ In Dashboard' : promoting ? 'Adding…' : '+ Dashboard'}
+          {promoted ? '✓ En el panel' : promoting ? 'Añadiendo…' : '+ Panel'}
         </button>
         <a
           href={creator.linkedin_url}
@@ -196,7 +196,7 @@ function CreatorCard({
           onClick={handleRefresh}
           disabled={refreshing}
           className="px-3 py-1.5 rounded-lg text-xs text-text-muted border border-border hover:border-accent/30 hover:text-text-primary transition-colors disabled:opacity-50"
-          title="Refresh data"
+          title="Actualizar datos"
         >
           {refreshing ? '…' : '↻'}
         </button>
@@ -232,15 +232,15 @@ export default function Discover() {
       const result: any = await apiPost('/api/discover/search', { query: searchQuery.trim() });
       if (result.code === 'SEARCH_UNAVAILABLE') {
         setSearchUnavailable(true);
-        showStatus('Unipile search not available on your plan. Add creators by URL instead.', 'error');
+        showStatus('La búsqueda de Unipile no está disponible en tu plan. Añade los creadores por URL.', 'error');
       } else {
-        showStatus(`✓ ${result.enriched} of ${result.total} creators enriched`, 'success');
+        showStatus(`✓ ${result.enriched} de ${result.total} creadores enriquecidos`, 'success');
         refetch();
       }
     } catch (err: any) {
-      if (err.message?.includes('SEARCH_UNAVAILABLE') || err.message?.includes('not available')) {
+      if (err.message?.includes('SEARCH_UNAVAILABLE') || err.message?.includes('no está disponible')) {
         setSearchUnavailable(true);
-        showStatus('Unipile search not available. Add creators by URL instead.', 'error');
+        showStatus('La búsqueda de Unipile no está disponible. Añade los creadores por URL.', 'error');
       } else {
         showStatus(err.message, 'error');
       }
@@ -255,7 +255,7 @@ export default function Discover() {
     try {
       await apiPost('/api/discover/creators', { linkedin_url: urlInput.trim() });
       setUrlInput('');
-      showStatus('Creator added and enriched', 'success');
+      showStatus('Creador añadido y enriquecido', 'success');
       refetch();
     } catch (err: any) {
       showStatus(err.message, 'error');
@@ -274,7 +274,7 @@ export default function Discover() {
       }
       refetch();
     } catch (err: any) {
-      showStatus(err.message || 'Delete failed', 'error');
+      showStatus(err.message || 'No se pudo eliminar', 'error');
     }
   };
 
@@ -294,9 +294,9 @@ export default function Discover() {
   }, [creators, filterTag, sortBy]);
 
   const SORT_LABELS: [SortKey, string][] = [
-    ['virality_score', 'Virality'],
-    ['avg_engagement', 'Engagement'],
-    ['followers_count', 'Followers'],
+    ['virality_score', 'Viralidad'],
+    ['avg_engagement', 'Interacciones'],
+    ['followers_count', 'Seguidores'],
     ['outlier_count', 'Outliers'],
   ];
 
@@ -304,8 +304,8 @@ export default function Discover() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold mb-2">Discover</h1>
-        <p className="text-text-secondary">Find and rank LinkedIn creators by niche and virality.</p>
+        <h1 className="text-3xl font-bold mb-2">Descubrir</h1>
+        <p className="text-text-secondary">Encuentra creadores de LinkedIn y ordénalos por nicho y viralidad.</p>
       </div>
 
       {/* Search + Add URL */}
@@ -313,11 +313,11 @@ export default function Discover() {
         {/* Keyword search */}
         {!searchUnavailable && (
           <div>
-            <label className="block text-xs text-text-muted mb-1.5">Search by topic or niche</label>
+            <label className="block text-xs text-text-muted mb-1.5">Buscar por tema o nicho</label>
             <div className="flex gap-2">
               <input
                 type="text"
-                placeholder="e.g. B2B sales, growth marketing, AI startups…"
+                placeholder="p. ej. ventas B2B, growth marketing, startups de IA…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -328,7 +328,7 @@ export default function Discover() {
                 disabled={isSearching || !searchQuery.trim()}
                 className="px-5 py-2 bg-accent text-bg-primary rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-light transition-colors"
               >
-                {isSearching ? 'Searching…' : 'Search'}
+                {isSearching ? 'Buscando…' : 'Buscar'}
               </button>
             </div>
           </div>
@@ -336,11 +336,11 @@ export default function Discover() {
 
         {/* Manual URL */}
         <div>
-          <label className="block text-xs text-text-muted mb-1.5">Add by LinkedIn URL</label>
+          <label className="block text-xs text-text-muted mb-1.5">Añadir por URL de LinkedIn</label>
           <div className="flex gap-2">
             <input
               type="text"
-              placeholder="https://www.linkedin.com/in/username/"
+              placeholder="https://www.linkedin.com/in/usuario/"
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleAddUrl()}
@@ -351,7 +351,7 @@ export default function Discover() {
               disabled={isAddingUrl || !urlInput.trim()}
               className="px-5 py-2 bg-bg-secondary border border-border text-text-primary rounded-lg text-sm disabled:opacity-50 hover:border-accent/40 transition-colors"
             >
-              {isAddingUrl ? 'Adding…' : '+ Add'}
+              {isAddingUrl ? 'Añadiendo…' : '+ Añadir'}
             </button>
           </div>
         </div>
@@ -376,7 +376,7 @@ export default function Discover() {
                   !filterTag ? 'bg-accent/20 text-accent border border-accent/30' : 'bg-bg-secondary text-text-muted border border-border hover:border-accent/30'
                 }`}
               >
-                All
+                Todos
               </button>
               {allTags.map((tag) => (
                 <button
@@ -394,7 +394,7 @@ export default function Discover() {
 
           {/* Sort */}
           <div className="flex items-center gap-1.5 ml-auto">
-            <span className="text-text-muted text-xs">Sort:</span>
+            <span className="text-text-muted text-xs">Ordenar por:</span>
             {SORT_LABELS.map(([key, label]) => (
               <button
                 key={key}
@@ -436,8 +436,8 @@ export default function Discover() {
       {!loading && creators && creators.length === 0 && (
         <div className="text-center py-16 text-text-muted">
           <p className="text-4xl mb-4">🔍</p>
-          <p className="mb-2">No creators discovered yet.</p>
-          <p className="text-sm">Search by topic above or add a LinkedIn URL to get started.</p>
+          <p className="mb-2">Aún no has descubierto ningún creador.</p>
+          <p className="text-sm">Busca arriba por tema o añade una URL de LinkedIn para empezar.</p>
         </div>
       )}
 
@@ -458,7 +458,7 @@ export default function Discover() {
 
       {/* Filtered empty */}
       {!loading && creators && creators.length > 0 && filtered.length === 0 && (
-        <p className="text-center text-text-muted py-8">No creators match the selected filter.</p>
+        <p className="text-center text-text-muted py-8">Ningún creador coincide con el filtro seleccionado.</p>
       )}
     </div>
   );

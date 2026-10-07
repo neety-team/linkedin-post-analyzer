@@ -45,14 +45,30 @@ interface VistaPrevia {
 // ayuda dice DONDE se lee cada una, porque no todas estan en la misma pantalla
 // y buscarlas a ciegas es la parte lenta de esto.
 const CAMPOS: { clave: string; etiqueta: string; ayuda: string }[] = [
-  { clave: 'impressions_count', etiqueta: 'Impresiones', ayuda: 'Analiticas del post · "Impresiones"' },
+  { clave: 'impressions_count', etiqueta: 'Impresiones', ayuda: 'Analíticas del post · "Impresiones"' },
   { clave: 'profile_viewers_count', etiqueta: 'Visitas al perfil', ayuda: 'Las que vinieron de este post' },
   { clave: 'followers_gained_count', etiqueta: 'Seguidores ganados', ayuda: 'Los que llegaron por este post' },
-  { clave: 'link_clicks_count', etiqueta: 'Clics al enlace', ayuda: 'Solo si el post lleva enlace' },
-  { clave: 'premium_button_clicks', etiqueta: 'Clics al boton', ayuda: 'Boton de accion, si lo hay' },
-  { clave: 'saves_count', etiqueta: 'Guardados', ayuda: 'Vale mas que un like: cuesta mas' },
-  { clave: 'sends_count', etiqueta: 'Envios', ayuda: 'Veces que lo mandaron por privado' },
+  { clave: 'link_clicks_count', etiqueta: 'Clics en el enlace', ayuda: 'Solo si el post lleva enlace' },
+  { clave: 'premium_button_clicks', etiqueta: 'Clics en el botón', ayuda: 'Botón de acción, si lo hay' },
+  { clave: 'saves_count', etiqueta: 'Guardados', ayuda: 'Vale más que una reacción: cuesta más' },
+  { clave: 'sends_count', etiqueta: 'Envíos', ayuda: 'Veces que lo mandaron por privado' },
 ];
+
+// Etiquetas para mostrar el tipo de contenido que devuelve el backend (el valor
+// no se toca: es el dato de la BD).
+const TIPO_CONTENIDO: Record<string, string> = {
+  text: 'Texto',
+  text_image: 'Texto + foto',
+  text_carousel: 'Texto + carrusel',
+  text_video: 'Texto + vídeo',
+  text_document: 'Texto + documento',
+  image: 'Solo foto',
+  carousel: 'Solo carrusel',
+  video: 'Solo vídeo',
+  document: 'Solo documento',
+  poll: 'Encuesta',
+  article: 'Artículo',
+};
 
 interface Props {
   onClose: () => void;
@@ -143,7 +159,7 @@ export default function AddManualPostModal({
         <div className="flex items-center justify-between px-6 pt-5 pb-4">
           <h2 className="text-[15px] font-semibold text-text-primary flex items-center gap-2">
             <span>📝</span>
-            {editando ? `Metricas privadas${nombreCuenta ? ` · ${nombreCuenta}` : ''}` : 'Añadir post a mano'}
+            {editando ? `Métricas privadas${nombreCuenta ? ` · ${nombreCuenta}` : ''}` : 'Añadir post a mano'}
           </h2>
           <button
             onClick={onClose}
@@ -157,9 +173,9 @@ export default function AddManualPostModal({
         <div className="px-6 pb-5 space-y-4">
           {!editando && (
             <p className="text-xs text-text-muted leading-relaxed">
-              Para cuentas de la empresa que <span className="text-text-secondary">no estan conectadas</span> por
-              Unipile. Pega el enlace y se extrae solo todo lo publico. Las impresiones y los clics no se pueden
-              leer de un post ajeno, asi que esos los escribes tu.
+              Para cuentas de la empresa que <span className="text-text-secondary">no están conectadas</span> por
+              Unipile. Pega el enlace y se extrae solo todo lo público. Las impresiones y los clics no se pueden
+              leer de un post ajeno, así que esos los escribes tú.
             </p>
           )}
 
@@ -214,7 +230,7 @@ export default function AddManualPostModal({
                     ? vista.cuenta_existente.conectada
                       ? 'cuenta conectada'
                       : 'cuenta ya existente'
-                    : 'se creara la cuenta'}
+                    : 'se creará la cuenta'}
                 </span>
               </div>
 
@@ -234,7 +250,7 @@ export default function AddManualPostModal({
                 <span>👍 {fmt(vista.likes_count)}</span>
                 <span>💬 {fmt(vista.comments_count)}</span>
                 <span>🔁 {fmt(vista.reposts_count)}</span>
-                <span>· {vista.content_type}</span>
+                <span>· {TIPO_CONTENIDO[vista.content_type] || vista.content_type}</span>
                 {vista.published_at && (
                   <span>· {new Date(vista.published_at).toLocaleString('es-ES')}</span>
                 )}
@@ -242,8 +258,8 @@ export default function AddManualPostModal({
 
               {vista.leido_con === 'cuenta_propia' && (
                 <p className="text-[11px] text-amber-400">
-                  Ojo: este post es de una cuenta que YA esta conectada. Se añadira a su cuenta de siempre y se
-                  seguira solo, sin necesidad de escribir nada a mano.
+                  Ojo: este post es de una cuenta que YA está conectada. Se añadirá a su cuenta de siempre y se
+                  seguirá solo, sin necesidad de escribir nada a mano.
                 </p>
               )}
             </div>
@@ -251,11 +267,11 @@ export default function AddManualPostModal({
 
           {(vista || editando) && (
             <div>
-              <div className="text-xs font-medium text-text-secondary mb-1">Metricas privadas</div>
+              <div className="text-xs font-medium text-text-secondary mb-1">Métricas privadas</div>
               <p className="text-[11px] text-text-muted mb-3">
                 Todas opcionales. Deja en blanco lo que no hayas mirado: un cero significa
                 <span className="text-text-secondary"> lo he mirado y no hay</span>, y un hueco significa
-                <span className="text-text-secondary"> no lo se</span>.
+                <span className="text-text-secondary"> no lo sé</span>.
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {CAMPOS.map((c) => (
@@ -287,7 +303,7 @@ export default function AddManualPostModal({
               {editando && (
                 <p className="text-[11px] text-text-muted mt-3">
                   Cada vez que guardes se añade un punto a la curva con la hora. Si vuelves a mirar las
-                  impresiones a las 24h y a las 72h, la linea se dibuja sola.
+                  impresiones a las 24 h y a las 72 h, la línea se dibuja sola.
                 </p>
               )}
             </div>
@@ -307,7 +323,7 @@ export default function AddManualPostModal({
               disabled={guardando}
               className="px-4 py-2 rounded-lg bg-accent text-white text-xs font-medium hover:bg-accent-light transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              {guardando ? 'Guardando…' : editando ? 'Guardar metricas' : 'Guardar post'}
+              {guardando ? 'Guardando…' : editando ? 'Guardar métricas' : 'Guardar post'}
             </button>
           </div>
         )}

@@ -13,17 +13,17 @@ interface Props {
 const COLORS = ['#e8935a', '#6366f1', '#a78bfa', '#f87171', '#fbbf24', '#93c5fd', '#c4b5fd', '#fca5a5', '#fcd34d', '#34d399', '#38bdf8'];
 
 const typeLabels: Record<string, string> = {
-  text: 'Text',
-  text_image: 'Text + Photo',
-  text_carousel: 'Text + Carousel',
-  text_video: 'Text + Video',
-  text_document: 'Text + Doc',
-  image: 'Photo only',
-  carousel: 'Carousel only',
-  video: 'Video only',
-  document: 'Doc only',
-  poll: 'Poll',
-  article: 'Article',
+  text: 'Texto',
+  text_image: 'Texto + foto',
+  text_carousel: 'Texto + carrusel',
+  text_video: 'Texto + vídeo',
+  text_document: 'Texto + documento',
+  image: 'Solo foto',
+  carousel: 'Solo carrusel',
+  video: 'Solo vídeo',
+  document: 'Solo documento',
+  poll: 'Encuesta',
+  article: 'Artículo',
 };
 
 export default function ContentTypeBreakdown({ all, outliers }: Props) {
@@ -32,10 +32,10 @@ export default function ContentTypeBreakdown({ all, outliers }: Props) {
 
   return (
     <div className="bg-bg-card rounded-xl p-6 min-w-0 overflow-hidden">
-      <h3 className="text-lg font-semibold mb-4">Content Type Distribution</h3>
+      <h3 className="text-lg font-semibold mb-4">Reparto por tipo de contenido</h3>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <p className="text-text-secondary text-sm mb-2 text-center">All Posts</p>
+          <p className="text-text-secondary text-sm mb-2 text-center">Todos los posts</p>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie data={allData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value" paddingAngle={2}>
@@ -49,7 +49,7 @@ export default function ContentTypeBreakdown({ all, outliers }: Props) {
           </ResponsiveContainer>
         </div>
         <div>
-          <p className="text-text-secondary text-sm mb-2 text-center">Outliers Only</p>
+          <p className="text-text-secondary text-sm mb-2 text-center">Solo outliers</p>
           {outlierData.length > 0 ? (
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
@@ -63,7 +63,7 @@ export default function ContentTypeBreakdown({ all, outliers }: Props) {
               </PieChart>
             </ResponsiveContainer>
           ) : (
-            <div className="h-[220px] flex items-center justify-center text-text-muted text-sm">No outliers yet</div>
+            <div className="h-[220px] flex items-center justify-center text-text-muted text-sm">Aún no hay outliers</div>
           )}
         </div>
       </div>

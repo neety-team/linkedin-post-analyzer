@@ -44,7 +44,7 @@ export default function CreatorForm({ onCreated }: Props) {
         disabled={loading || !url.trim()}
         className="px-6 py-3 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
       >
-        {loading ? 'Analyzing...' : 'Analyze'}
+        {loading ? 'Analizando…' : 'Analizar'}
       </button>
     </form>
   );

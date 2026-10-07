@@ -52,10 +52,10 @@ function ReclassifyButton() {
     <button
       onClick={run}
       disabled={state === 'loading'}
-      title="Re-read raw_data from all posts and fix their type (image/video/text)"
+      title="Relee los datos en bruto de todos los posts y corrige su tipo (imagen/vídeo/texto)"
       className="px-3 py-2 bg-bg-card border border-border text-text-muted text-xs rounded-lg hover:border-accent/40 hover:text-text-secondary disabled:opacity-50 transition-colors"
     >
-      {state === 'loading' ? 'Reclassifying…' : '🔄 Fix types'}
+      {state === 'loading' ? 'Reclasificando…' : '🔄 Corregir tipos'}
     </button>
   );
 }
@@ -123,7 +123,7 @@ export default function Dashboard() {
           errors++;
         } finally {
           completed++;
-          setRefreshProgress({ current: completed, total, currentName: creator.name || 'Unknown', errors });
+          setRefreshProgress({ current: completed, total, currentName: creator.name || 'Desconocido', errors });
         }
       }
     };
@@ -144,7 +144,7 @@ export default function Dashboard() {
   const handleDelete = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    if (!confirm('Delete this creator and all their data?')) return;
+    if (!confirm('¿Eliminar este creador y todos sus datos?')) return;
     try {
       await apiDelete(`/api/creators/${id}`);
       refetch();
@@ -165,7 +165,7 @@ export default function Dashboard() {
       if (!res.ok) throw new Error(`Error ${res.status}`);
       refetch();
     } catch (err: any) {
-      alert(`Refresh failed: ${err.message}`);
+      alert(`No se pudo actualizar: ${err.message}`);
     } finally {
       setRowRefreshing(null);
     }
@@ -217,8 +217,8 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-        <p className="text-text-secondary">Add a LinkedIn creator to analyze their outlier content.</p>
+        <h1 className="text-3xl font-bold mb-2">Panel</h1>
+        <p className="text-text-secondary">Añade un creador de LinkedIn para analizar sus outliers.</p>
       </div>
 
       <CreatorForm onCreated={refetch} />
@@ -237,7 +237,7 @@ export default function Dashboard() {
       {creators && creators.length === 0 && (
         <div className="text-center py-16 text-text-muted">
           <p className="text-4xl mb-4">📊</p>
-          <p>No creators analyzed yet. Add a LinkedIn URL above to get started.</p>
+          <p>Aún no hay creadores analizados. Pega arriba una URL de LinkedIn para empezar.</p>
         </div>
       )}
 
@@ -247,20 +247,20 @@ export default function Dashboard() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
             <input
               type="text"
-              placeholder="Search by name or headline..."
+              placeholder="Buscar por nombre o titular..."
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
               className="bg-bg-secondary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent w-full sm:w-64"
             />
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-text-muted text-xs">Sort:</span>
+              <span className="text-text-muted text-xs">Ordenar por:</span>
               {([
-                ['avg_engagement', 'Engagement'],
+                ['avg_engagement', 'Interacciones'],
                 ['total_outliers', 'Outliers'],
                 ['total_posts', 'Posts'],
-                ['followers_count', 'Followers'],
-                ['name', 'Name'],
-                ['last_scraped_at', 'Last Updated'],
+                ['followers_count', 'Seguidores'],
+                ['name', 'Nombre'],
+                ['last_scraped_at', 'Última actualización'],
               ] as [SortKey, string][]).map(([key, label]) => (
                 <button
                   key={key}
@@ -284,7 +284,7 @@ export default function Dashboard() {
                 onClick={selectAll}
                 className="text-xs text-text-secondary hover:text-text-primary transition-colors"
               >
-                {selectedIds.size === creators.length ? 'Deselect all' : 'Select all'}
+                {selectedIds.size === creators.length ? 'Quitar selección' : 'Seleccionar todos'}
               </button>
               <button
                 onClick={handleBatchRefresh}
@@ -292,10 +292,10 @@ export default function Dashboard() {
                 className="px-4 py-2 bg-accent text-bg-primary rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-light transition-colors"
               >
                 {refreshing
-                  ? 'Refreshing...'
+                  ? 'Actualizando...'
                   : selectedIds.size > 0
-                    ? `Refresh ${selectedIds.size} selected`
-                    : 'Refresh All'}
+                    ? `Actualizar ${selectedIds.size} seleccionado${selectedIds.size === 1 ? '' : 's'}`
+                    : 'Actualizar todos'}
               </button>
               <ReclassifyButton />
             </div>
@@ -306,13 +306,13 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-text-secondary">
                     {refreshProgress.current < refreshProgress.total
-                      ? `Refreshing: ${refreshProgress.currentName}`
-                      : `Done! ${refreshProgress.total - refreshProgress.errors}/${refreshProgress.total} refreshed`}
+                      ? `Actualizando: ${refreshProgress.currentName}`
+                      : `¡Hecho! ${refreshProgress.total - refreshProgress.errors}/${refreshProgress.total} actualizados`}
                   </span>
                   <span className="text-xs text-text-muted">
                     {refreshProgress.current}/{refreshProgress.total}
                     {refreshProgress.errors > 0 && (
-                      <span className="text-danger ml-1">({refreshProgress.errors} errors)</span>
+                      <span className="text-danger ml-1">({refreshProgress.errors} {refreshProgress.errors === 1 ? 'error' : 'errores'})</span>
                     )}
                   </span>
                 </div>
@@ -359,7 +359,7 @@ export default function Dashboard() {
                     )}
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-text-primary group-hover:text-accent transition-colors truncate">
-                        {creator.name || 'Unknown'}
+                        {creator.name || 'Desconocido'}
                       </h3>
                       <p className="text-text-secondary text-sm truncate">{creator.headline || '--'}</p>
                       {creator.location && (
@@ -370,14 +370,14 @@ export default function Dashboard() {
                       onClick={(e) => handleRowRefresh(creator.id, e)}
                       disabled={rowRefreshing === creator.id}
                       className="flex items-center gap-1 text-[11px] text-text-muted hover:text-accent border border-border hover:border-accent/40 rounded-md px-2 py-1 transition-all disabled:opacity-60 disabled:cursor-wait whitespace-nowrap"
-                      title="Refresh this profile now"
+                      title="Actualizar este perfil ahora"
                     >
-                      {rowRefreshing === creator.id ? '↻ Refreshing…' : '↻ Refresh'}
+                      {rowRefreshing === creator.id ? '↻ Actualizando…' : '↻ Actualizar'}
                     </button>
                     <button
                       onClick={(e) => handleDelete(creator.id, e)}
                       className="opacity-0 group-hover:opacity-100 text-text-muted hover:text-danger transition-all text-sm px-2 py-1"
-                      title="Delete creator"
+                      title="Eliminar creador"
                     >
                       ✕
                     </button>
@@ -393,11 +393,11 @@ export default function Dashboard() {
                       <p className="text-accent font-bold">{creator.total_outliers}</p>
                     </div>
                     <div className="bg-bg-secondary rounded-lg p-2">
-                      <p className="text-text-muted text-[10px]">Avg Eng.</p>
-                      <p className="text-text-primary font-bold">{creator.avg_engagement.toLocaleString()}</p>
+                      <p className="text-text-muted text-[10px]">Interacc. media</p>
+                      <p className="text-text-primary font-bold">{creator.avg_engagement.toLocaleString('es-ES')}</p>
                     </div>
                     <div className="bg-bg-secondary rounded-lg p-2">
-                      <p className="text-text-muted text-[10px]">Followers</p>
+                      <p className="text-text-muted text-[10px]">Seguidores</p>
                       <p className="text-text-primary font-bold">
                         {creator.followers_count > 0 ? (creator.followers_count >= 1000 ? `${Math.round(creator.followers_count / 1000)}K` : creator.followers_count) : '--'}
                       </p>
@@ -406,7 +406,7 @@ export default function Dashboard() {
 
                   {creator.last_scraped_at && (
                     <p className="text-text-muted text-xs mt-3">
-                      Updated: {new Date(creator.last_scraped_at).toLocaleDateString()}
+                      Actualizado: {new Date(creator.last_scraped_at).toLocaleDateString('es-ES')}
                     </p>
                   )}
                 </Link>

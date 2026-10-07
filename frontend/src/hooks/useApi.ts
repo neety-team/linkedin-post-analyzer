@@ -9,7 +9,7 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   });
   const text = await res.text();
   if (!res.ok) {
-    let msg = `API error ${res.status}`;
+    let msg = `Error de la API ${res.status}`;
     try { msg = JSON.parse(text).error || msg; } catch {}
     throw new Error(msg);
   }

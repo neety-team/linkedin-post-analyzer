@@ -31,7 +31,7 @@ const PV_COLOR = '#e8935a';
 
 function fmtDay(iso: string): string {
   const d = new Date(`${iso}T00:00:00`);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
 }
 
 function fmtNum(n: number): string {
@@ -62,7 +62,7 @@ function VisitasTooltip({ active, payload, label, vista }: any) {
       <div style={{ color: PV_COLOR, fontSize: 18, fontWeight: 700 }}>
         {vista === 'tendencia' ? fmtFull(n) : `~${fmtFull(n)}`}
         <span style={{ color: '#9ca3af', fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
-          {vista === 'tendencia' ? 'profile viewers in the last 90 days (LinkedIn)' : 'estimated new viewers that day'}
+          {vista === 'tendencia' ? 'visitas al perfil en los últimos 90 días (LinkedIn)' : 'visitas nuevas estimadas ese día'}
         </span>
       </div>
     </div>
@@ -136,11 +136,11 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
     <div className="bg-bg-card border border-border rounded-xl p-5">
       <div className="flex items-start justify-between gap-4 mb-2 flex-wrap">
         <div>
-          <h3 className="text-lg font-semibold">Profile views</h3>
+          <h3 className="text-lg font-semibold">Visitas al perfil</h3>
           <p className="text-xs text-text-muted mt-0.5">
             {vista === 'tendencia'
-              ? `LinkedIn's own "profile viewers in 90 days", day by day${creatorId ? '' : ' — connected accounts'}`
-              : `Estimated new viewers per day, rebuilt from LinkedIn's viewer list (runs 12–24% above LinkedIn; misses private viewers). Use it to spot peaks, not to add up.`}
+              ? `La cifra oficial de LinkedIn de "visitas al perfil en 90 días", día a día${creatorId ? '' : '. Cuentas conectadas'}`
+              : `Visitas nuevas estimadas por día, reconstruidas con la lista de visitantes de LinkedIn (sale un 12-24% por encima de LinkedIn y no ve las visitas privadas). Sirve para ver picos, no para sumar.`}
           </p>
         </div>
         <div className="flex gap-1">
@@ -148,13 +148,13 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
             className={boton(vista === 'tendencia')}
             onClick={() => setVistaElegida('tendencia')}
             disabled={!hayTendencia}
-            title={hayTendencia ? '' : `Available once ${MIN_DIAS_TENDENCIA} days of LinkedIn figures are stored (started 17 Sep 2026)`}
+            title={hayTendencia ? '' : `Disponible cuando haya ${MIN_DIAS_TENDENCIA} días guardados de cifras de LinkedIn (se guardan desde el 17 sept 2026)`}
             style={hayTendencia ? undefined : { opacity: 0.45, cursor: 'not-allowed' }}
           >
-            Trend (LinkedIn)
+            Tendencia (LinkedIn)
           </button>
           <button className={boton(vista === 'diario')} onClick={() => setVistaElegida('diario')}>
-            Daily (estimated)
+            Diario (estimado)
           </button>
         </div>
       </div>
@@ -164,28 +164,28 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
           <span className="text-2xl font-bold text-text-primary tabular-nums">
             {oficialActual != null ? fmtFull(oficialActual) : '—'}
           </span>
-          <span className="text-sm text-text-muted">profile viewers · last 90 days (LinkedIn)</span>
+          <span className="text-sm text-text-muted">visitas al perfil · últimos 90 días (LinkedIn)</span>
         </span>
         {vista === 'tendencia' && variacionTendencia != null && (
           <span className={`text-xs font-medium ${variacionTendencia >= 0 ? 'text-green-400' : 'text-red-400'}`}>
             {variacionTendencia >= 0 ? '▲' : '▼'} {Math.abs(variacionTendencia).toLocaleString('es-ES', { maximumFractionDigits: 0 })}%
-            <span className="text-text-muted font-normal"> in this range</span>
+            <span className="text-text-muted font-normal"> en este periodo</span>
           </span>
         )}
         {vista === 'diario' && totalEstimado > 0 && (
-          <span className="text-xs text-text-muted">~{fmtFull(totalEstimado)} estimated in {days}d</span>
+          <span className="text-xs text-text-muted">~{fmtFull(totalEstimado)} estimadas en {days} d</span>
         )}
         {!hayTendencia && (
           <span className="text-[10px] text-text-muted/70">
-            Trend view unlocks after {MIN_DIAS_TENDENCIA} days of stored LinkedIn figures ({oficial.length}/{MIN_DIAS_TENDENCIA})
+            La tendencia se activa con {MIN_DIAS_TENDENCIA} días guardados de cifras de LinkedIn ({oficial.length}/{MIN_DIAS_TENDENCIA})
           </span>
         )}
       </div>
 
       {loading ? (
-        <p className="text-center text-text-muted text-sm py-12">Loading…</p>
+        <p className="text-center text-text-muted text-sm py-12">Cargando…</p>
       ) : datos.length === 0 || (vista === 'diario' && totalEstimado === 0) ? (
-        <p className="text-center text-text-muted text-sm py-12">No profile-view data in this range yet.</p>
+        <p className="text-center text-text-muted text-sm py-12">Aún no hay datos de visitas al perfil en este periodo.</p>
       ) : (
         <ResponsiveContainer width="100%" height={220}>
           <ComposedChart data={datos} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>

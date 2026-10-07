@@ -20,18 +20,18 @@ router.post('/', async (req: Request, res: Response) => {
   try {
     const { linkedin_url } = req.body;
     if (!linkedin_url) {
-      return res.status(400).json({ error: 'linkedin_url is required' });
+      return res.status(400).json({ error: 'Falta linkedin_url' });
     }
 
     const normalized = normalizeLinkedInUrl(linkedin_url);
     if (!isValidLinkedInUrl(normalized)) {
-      return res.status(400).json({ error: 'Invalid LinkedIn URL' });
+      return res.status(400).json({ error: 'La URL de LinkedIn no es válida' });
     }
 
     // Check if already exists
     const existing = await CreatorModel.findByUrl(normalized);
     if (existing) {
-      return res.status(409).json({ error: 'Creator already exists', creator: existing });
+      return res.status(409).json({ error: 'Este creador ya existe', creator: existing });
     }
 
     // Step 1: Fetch profile from Unipile to get the provider_id (internal ID)
@@ -43,12 +43,12 @@ router.post('/', async (req: Request, res: Response) => {
       console.log(`Profile resolved: name=${profileData.name}, linkedin_id=${profileData.linkedin_id}`);
     } catch (err: any) {
       console.error('Unipile profile fetch failed:', err.message);
-      return res.status(422).json({ error: `Could not fetch LinkedIn profile: ${err.message}` });
+      return res.status(422).json({ error: `No se pudo leer el perfil de LinkedIn: ${err.message}` });
     }
 
     if (!profileData.linkedin_id) {
       console.error('No provider_id found in profile response. Raw keys:', rawProfile ? Object.keys(rawProfile) : 'none');
-      return res.status(422).json({ error: 'Could not resolve LinkedIn internal ID from profile. Check Unipile account connection.' });
+      return res.status(422).json({ error: 'No se pudo sacar el ID interno de LinkedIn del perfil. Revisa la conexión de la cuenta de Unipile.' });
     }
 
     const creator = await CreatorModel.create(profileData);
@@ -103,7 +103,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
     if (rows.length === 0) {
       console.log(`[GET /:id] Not found`);
-      return res.status(404).json({ error: 'Creator not found' });
+      return res.status(404).json({ error: 'Creador no encontrado' });
     }
 
     const creator = rows[0];
@@ -190,10 +190,10 @@ router.post('/refresh-batch', async (req: Request, res: Response) => {
 router.post('/:id/refresh', async (req: Request, res: Response) => {
   try {
     const creator = await CreatorModel.findById(paramId(req));
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
 
     if (!creator.linkedin_id) {
-      return res.status(422).json({ error: 'No LinkedIn internal ID stored. Delete and re-add this creator.' });
+      return res.status(422).json({ error: 'No hay ID interno de LinkedIn guardado. Elimina este creador y vuelve a añadirlo.' });
     }
 
     // Always try to update profile data (location, timezone, followers, etc.)
@@ -217,7 +217,7 @@ router.post('/:id/refresh', async (req: Request, res: Response) => {
     }
 
     await scrapeCreatorPosts(creator.id, creator.linkedin_id);
-    res.json({ message: 'Refresh complete' });
+    res.json({ message: 'Actualización completada' });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -227,10 +227,10 @@ router.post('/:id/refresh', async (req: Request, res: Response) => {
 router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const creator = await CreatorModel.findById(paramId(req));
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
 
     await CreatorModel.delete(paramId(req));
-    res.json({ message: 'Deleted' });
+    res.json({ message: 'Eliminado' });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -254,7 +254,7 @@ router.get('/debug-post/:id', async (req: Request, res: Response) => {
             LIMIT 1`,
           [id, `%${id}%`]
         );
-    if (rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     const post = rows[0];
     const raw = post.raw_data || {};
     const rawWithText = post.content_text && !(raw.text || raw.content || raw.body)

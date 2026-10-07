@@ -48,7 +48,7 @@ router.get('/profiles', async (_req: Request, res: Response) => {
 router.put('/profiles/:name', async (req: Request, res: Response) => {
   try {
     const name = String(req.params.name || '').trim();
-    if (!name) return res.status(400).json({ error: 'Profile name is required' });
+    if (!name) return res.status(400).json({ error: 'Falta el nombre del perfil' });
     const profile = await CommenterProfileModel.upsertByName(name, req.body);
     res.json(profile);
   } catch (err: any) {
@@ -62,17 +62,17 @@ router.post('/creators', async (req: Request, res: Response) => {
   try {
     const { linkedin_url, tier } = req.body;
     if (!linkedin_url) {
-      return res.status(400).json({ error: 'linkedin_url is required' });
+      return res.status(400).json({ error: 'Falta linkedin_url' });
     }
 
     const normalized = normalizeLinkedInUrl(linkedin_url);
     if (!isValidLinkedInUrl(normalized)) {
-      return res.status(400).json({ error: 'Invalid LinkedIn URL' });
+      return res.status(400).json({ error: 'La URL de LinkedIn no es válida' });
     }
 
     const existing = await NetworkCreatorModel.findByUrl(normalized);
     if (existing) {
-      return res.status(409).json({ error: 'Creator already in your network', creator: existing });
+      return res.status(409).json({ error: 'Este creador ya está en tu red', creator: existing });
     }
 
     let profileData;
@@ -80,11 +80,11 @@ router.post('/creators', async (req: Request, res: Response) => {
       const rawProfile = await unipileService.getProfile(normalized);
       profileData = unipileService.normalizeProfile(rawProfile, normalized);
     } catch (err: any) {
-      return res.status(422).json({ error: `Could not fetch LinkedIn profile: ${err.message}` });
+      return res.status(422).json({ error: `No se pudo leer el perfil de LinkedIn: ${err.message}` });
     }
 
     if (!profileData.linkedin_id) {
-      return res.status(422).json({ error: 'Could not resolve LinkedIn internal ID' });
+      return res.status(422).json({ error: 'No se pudo sacar el ID interno de LinkedIn' });
     }
 
     const creator = await NetworkCreatorModel.create({
@@ -119,7 +119,7 @@ router.get('/creators', async (_req: Request, res: Response) => {
 router.patch('/creators/:id', async (req: Request, res: Response) => {
   try {
     const creator = await NetworkCreatorModel.findById(paramId(req));
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
 
     const updated = await NetworkCreatorModel.update(paramId(req), req.body);
     res.json(updated);
@@ -131,10 +131,10 @@ router.patch('/creators/:id', async (req: Request, res: Response) => {
 router.delete('/creators/:id', async (req: Request, res: Response) => {
   try {
     const creator = await NetworkCreatorModel.findById(paramId(req));
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
 
     await NetworkCreatorModel.delete(paramId(req));
-    res.json({ message: 'Deleted' });
+    res.json({ message: 'Eliminado' });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -146,9 +146,9 @@ router.delete('/creators/:id', async (req: Request, res: Response) => {
 router.post('/creators/:id/refresh', async (req: Request, res: Response) => {
   try {
     const creator = await NetworkCreatorModel.findById(paramId(req));
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
     if (!creator.linkedin_id) {
-      return res.status(400).json({ error: 'Creator has no LinkedIn ID resolved yet — re-add the URL or wait for the next bulk refresh.' });
+      return res.status(400).json({ error: 'Este creador aún no tiene ID de LinkedIn: vuelve a añadir la URL o espera a la próxima actualización masiva.' });
     }
     const count = await fetchNetworkCreatorPosts(creator.id, creator.linkedin_id);
     res.json({ refreshed: 1, total_new_posts: count, creator_id: creator.id, creator_name: creator.name });
@@ -274,10 +274,10 @@ router.patch('/posts/:id/status', async (req: Request, res: Response) => {
   try {
     const { status } = req.body;
     if (!['pending', 'commented', 'skipped'].includes(status)) {
-      return res.status(400).json({ error: 'status must be pending, commented, or skipped' });
+      return res.status(400).json({ error: 'status tiene que ser pending, commented o skipped' });
     }
     const post = await NetworkPostModel.updateStatus(paramId(req), status);
-    if (!post) return res.status(404).json({ error: 'Post not found' });
+    if (!post) return res.status(404).json({ error: 'Post no encontrado' });
     res.json(post);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -290,7 +290,7 @@ router.post('/posts/:id/generate-comments', async (req: Request, res: Response) 
     // voices and inline overrides were removed.
     const profile = await CommenterProfileModel.get();
     if (!profile) {
-      return res.status(400).json({ error: 'Please configure your commenter profile first' });
+      return res.status(400).json({ error: 'Primero configura tu perfil de comentarista' });
     }
     const profilePayload = {
       headline: profile.headline,
@@ -305,7 +305,7 @@ router.post('/posts/:id/generate-comments', async (req: Request, res: Response) 
     console.log('[COMMENT GEN] Step 2: Profile resolved, getting post...');
 
     const post = await NetworkPostModel.findByIdWithCreator(paramId(req));
-    if (!post) return res.status(404).json({ error: 'Post not found' });
+    if (!post) return res.status(404).json({ error: 'Post no encontrado' });
     console.log('[COMMENT GEN] Step 3: Post found, calling AI...', { postId: post.id, contentLen: post.content_text?.length });
 
     const generated = await generateComments({
@@ -342,7 +342,7 @@ router.post('/posts/:id/generate-comments', async (req: Request, res: Response) 
 router.post('/comments/:id/select', async (req: Request, res: Response) => {
   try {
     await NetworkCommentModel.markSelected(paramId(req));
-    res.json({ message: 'Selected' });
+    res.json({ message: 'Seleccionado' });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

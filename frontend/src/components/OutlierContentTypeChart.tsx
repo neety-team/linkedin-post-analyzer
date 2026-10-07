@@ -14,17 +14,17 @@ interface Props {
 }
 
 const TYPE_LABELS: Record<string, string> = {
-  text: 'Text',
-  text_image: 'Text + Photo',
-  text_carousel: 'Text + Carousel',
-  text_video: 'Text + Video',
-  text_document: 'Text + Doc',
-  image: 'Photo only',
-  carousel: 'Carousel only',
-  video: 'Video only',
-  document: 'Doc only',
-  poll: 'Poll',
-  article: 'Article',
+  text: 'Texto',
+  text_image: 'Texto + foto',
+  text_carousel: 'Texto + carrusel',
+  text_video: 'Texto + vídeo',
+  text_document: 'Texto + documento',
+  image: 'Solo foto',
+  carousel: 'Solo carrusel',
+  video: 'Solo vídeo',
+  document: 'Solo documento',
+  poll: 'Encuesta',
+  article: 'Artículo',
 };
 
 const TYPE_COLORS: Record<string, string> = {
@@ -81,13 +81,13 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
     <div className="bg-bg-card border border-border rounded-xl p-5">
       <div className="flex items-start justify-between gap-4 mb-4 flex-wrap">
         <div>
-          <h3 className="text-lg font-semibold">Outlier Visual Distribution</h3>
+          <h3 className="text-lg font-semibold">Reparto de outliers por formato</h3>
           <p className="text-xs text-text-muted mt-0.5">
-            How the {outliers.length} outliers break down by post format
+            Cómo se reparten los {outliers.length} outliers según el formato del post
           </p>
         </div>
         <div className="text-right">
-          <div className="text-[10px] uppercase tracking-wide text-text-muted">Dominant format</div>
+          <div className="text-[10px] uppercase tracking-wide text-text-muted">Formato dominante</div>
           <div className="text-sm font-semibold" style={{ color: top.color }}>
             {top.label} · {top.pct}%
           </div>
@@ -103,7 +103,7 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
             tick={{ fill: '#9ca3af', fontSize: 12 }}
             axisLine={{ stroke: '#2e3348' }}
             tickLine={false}
-            width={80}
+            width={120}
           />
           <Tooltip
             cursor={{ fill: 'rgba(232,147,90,0.05)' }}
@@ -117,7 +117,7 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
             formatter={(_v: any, _n: any, entry: any) => {
               const row = entry?.payload as Row;
               return [
-                `${row.count} posts (${row.pct}%) · avg ${row.avgRatio}x ratio`,
+                `${row.count} ${row.count === 1 ? 'post' : 'posts'} (${row.pct}%) · multiplicador medio ${row.avgRatio}x`,
                 row.label,
               ];
             }}
@@ -135,7 +135,7 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
           <div key={r.type} className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-sm" style={{ backgroundColor: r.color }} />
             <span className="text-text-secondary">{r.label}</span>
-            <span className="text-text-muted">· avg {r.avgRatio}x</span>
+            <span className="text-text-muted">· media {r.avgRatio}x</span>
           </div>
         ))}
       </div>

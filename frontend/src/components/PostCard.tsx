@@ -40,17 +40,17 @@ function ratioBadge(ratio: number) {
 }
 
 const TYPE_CONFIG: Record<string, { icon: string; label: string; color: string; hasMedia: boolean }> = {
-  text:            { icon: '📝', label: 'Text',            color: 'text-text-muted bg-bg-hover',          hasMedia: false },
-  text_image:      { icon: '📝🖼️', label: 'Text + Photo',    color: 'text-blue-400 bg-blue-400/10',          hasMedia: true  },
-  text_carousel:   { icon: '📝📎', label: 'Text + Carousel', color: 'text-purple-400 bg-purple-400/10',      hasMedia: true  },
-  text_video:      { icon: '📝🎥', label: 'Text + Video',    color: 'text-red-400 bg-red-400/10',            hasMedia: true  },
-  text_document:   { icon: '📝📄', label: 'Text + Doc',      color: 'text-amber-400 bg-amber-400/10',        hasMedia: true  },
-  image:           { icon: '🖼️', label: 'Photo only',       color: 'text-blue-300 bg-blue-300/10',          hasMedia: true  },
-  carousel:        { icon: '📎', label: 'Carousel only',    color: 'text-purple-300 bg-purple-300/10',      hasMedia: true  },
-  video:           { icon: '🎥', label: 'Video only',       color: 'text-red-300 bg-red-300/10',            hasMedia: true  },
-  document:        { icon: '📄', label: 'Doc only',         color: 'text-amber-300 bg-amber-300/10',        hasMedia: true  },
-  poll:            { icon: '📊', label: 'Poll',             color: 'text-green-400 bg-green-400/10',        hasMedia: false },
-  article:         { icon: '📰', label: 'Article',          color: 'text-cyan-400 bg-cyan-400/10',          hasMedia: false },
+  text:            { icon: '📝', label: 'Texto',           color: 'text-text-muted bg-bg-hover',          hasMedia: false },
+  text_image:      { icon: '📝🖼️', label: 'Texto + foto',    color: 'text-blue-400 bg-blue-400/10',          hasMedia: true  },
+  text_carousel:   { icon: '📝📎', label: 'Texto + carrusel', color: 'text-purple-400 bg-purple-400/10',      hasMedia: true  },
+  text_video:      { icon: '📝🎥', label: 'Texto + vídeo',   color: 'text-red-400 bg-red-400/10',            hasMedia: true  },
+  text_document:   { icon: '📝📄', label: 'Texto + documento',color: 'text-amber-400 bg-amber-400/10',        hasMedia: true  },
+  image:           { icon: '🖼️', label: 'Solo foto',        color: 'text-blue-300 bg-blue-300/10',          hasMedia: true  },
+  carousel:        { icon: '📎', label: 'Solo carrusel',    color: 'text-purple-300 bg-purple-300/10',      hasMedia: true  },
+  video:           { icon: '🎥', label: 'Solo vídeo',       color: 'text-red-300 bg-red-300/10',            hasMedia: true  },
+  document:        { icon: '📄', label: 'Solo documento',   color: 'text-amber-300 bg-amber-300/10',        hasMedia: true  },
+  poll:            { icon: '📊', label: 'Encuesta',         color: 'text-green-400 bg-green-400/10',        hasMedia: false },
+  article:         { icon: '📰', label: 'Artículo',         color: 'text-cyan-400 bg-cyan-400/10',          hasMedia: false },
 };
 
 function TypeBadge({ type }: { type: string }) {
@@ -78,7 +78,7 @@ function ExpandableText({ text }: { text: string }) {
           onClick={() => setExpanded(!expanded)}
           className="text-[11px] text-accent hover:text-accent-light mt-1"
         >
-          {expanded ? 'Show less ↑' : 'Show more ↓'}
+          {expanded ? 'Ver menos ↑' : 'Ver más ↓'}
         </button>
       )}
     </div>
@@ -103,13 +103,13 @@ export default function PostCard({ post }: Props) {
         </div>
       )}
 
-      <ExpandableText text={post.content_text || 'No content'} />
+      <ExpandableText text={post.content_text || 'Sin contenido'} />
 
       <div className="flex items-center justify-between text-xs text-text-muted">
         <div className="flex gap-3">
-          <span>{post.likes_count} likes</span>
-          <span>{post.comments_count} comments</span>
-          <span>{post.reposts_count} reposts</span>
+          <span>{post.likes_count.toLocaleString('es-ES')} reacciones</span>
+          <span>{post.comments_count.toLocaleString('es-ES')} comentarios</span>
+          <span>{post.reposts_count.toLocaleString('es-ES')} compartidos</span>
         </div>
         <div className="flex items-center gap-2">
           <TypeBadge type={post.content_type} />
@@ -124,7 +124,7 @@ export default function PostCard({ post }: Props) {
 
       <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/50">
         <span className="text-xs text-text-muted">
-          {post.published_at ? new Date(post.published_at).toLocaleDateString() : '—'}
+          {post.published_at ? new Date(post.published_at).toLocaleDateString('es-ES') : '—'}
         </span>
         {linkedinUrl && (
           <a

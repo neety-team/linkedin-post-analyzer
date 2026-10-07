@@ -45,13 +45,13 @@ interface PostTypeMeta {
 
 const POST_TYPE_META: PostTypeMeta[] = [
   { key: 'lead_magnet',   icon: '🧲', label: 'Lead magnet',     desc: '"Comenta SÍ y te lo mando"' },
-  { key: 'opinion',       icon: '🔥', label: 'Opinión / hot take', desc: 'Postura clara y polémica' },
-  { key: 'story',         icon: '📖', label: 'Personal story',   desc: 'Anécdota → lección' },
-  { key: 'listicle',      icon: '📋', label: 'Listicle',         desc: '"5 cosas que…", "3 pasos para…"' },
-  { key: 'how_to',        icon: '🛠️', label: 'How-to',           desc: 'Framework reproducible' },
-  { key: 'contrarian',    icon: '⚡', label: 'Contrarian',        desc: '"Todo el mundo dice X. Es mentira."' },
-  { key: 'data_driven',   icon: '📊', label: 'Data-driven',       desc: 'Caso o dato sorprendente' },
-  { key: 'behind_scenes', icon: '🎬', label: 'Behind-the-scenes', desc: 'Lo que no te cuentan' },
+  { key: 'opinion',       icon: '🔥', label: 'Opinión polémica', desc: 'Postura clara y polémica' },
+  { key: 'story',         icon: '📖', label: 'Historia personal', desc: 'Anécdota → lección' },
+  { key: 'listicle',      icon: '📋', label: 'Lista',            desc: '"5 cosas que…", "3 pasos para…"' },
+  { key: 'how_to',        icon: '🛠️', label: 'Guía práctica',    desc: 'Método reproducible' },
+  { key: 'contrarian',    icon: '⚡', label: 'A contracorriente', desc: '"Todo el mundo dice X. Es mentira."' },
+  { key: 'data_driven',   icon: '📊', label: 'Basado en datos',   desc: 'Caso o dato sorprendente' },
+  { key: 'behind_scenes', icon: '🎬', label: 'Entre bastidores',  desc: 'Lo que no te cuentan' },
   { key: 'question',      icon: '❓', label: 'Pregunta / debate', desc: 'Pregunta provocadora corta' },
   { key: 'news_reaction', icon: '📰', label: 'Reacción a noticia', desc: 'Reacción a evento del sector' },
 ];
@@ -59,7 +59,7 @@ const POST_TYPE_META: PostTypeMeta[] = [
 const GROUNDING_META: { key: Grounding; label: string; desc: string }[] = [
   { key: 'outliers_only', label: 'Solo validados', desc: 'Usa outliers reales como referencia' },
   { key: 'all_posts',     label: 'Todos los posts', desc: 'Inspiración más amplia' },
-  { key: 'none',          label: 'Sin contexto',    desc: 'Brainstorm libre sin tu corpus' },
+  { key: 'none',          label: 'Sin contexto',    desc: 'Lluvia de ideas libre, sin tu corpus' },
 ];
 
 const COUNT_OPTIONS = [5, 10, 20] as const;
@@ -118,7 +118,7 @@ function IdeaCard({
       {idea.suggested_hook && (
         <div className="mb-3 bg-bg-secondary border border-border rounded-lg p-2.5">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[9px] uppercase tracking-wide text-text-muted font-semibold">Hook sugerido</span>
+            <span className="text-[9px] uppercase tracking-wide text-text-muted font-semibold">Gancho sugerido</span>
             <button
               onClick={copyHook}
               className="text-[10px] text-accent hover:text-accent-light transition-colors"
@@ -204,7 +204,7 @@ export default function GenerateTab() {
 
   const handleGenerate = async () => {
     if (!topic.trim()) {
-      setError('Pon un topic primero (p.ej. "ventas B2B", "cold outreach").');
+      setError('Pon un tema primero (p. ej. "ventas B2B", "cold outreach").');
       return;
     }
     if (postType === 'news_reaction' && !newsContext.trim()) {
@@ -291,9 +291,9 @@ export default function GenerateTab() {
         <div className="bg-bg-card border border-border rounded-xl p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-xs font-semibold text-text-primary flex items-center gap-1.5">
-              <span>🔥</span> Topics calientes en tus outliers
+              <span>🔥</span> Temas calientes en tus outliers
             </p>
-            <span className="text-[10px] text-text-muted">click para usar</span>
+            <span className="text-[10px] text-text-muted">haz clic para usarlo</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {trending.map((t) => (
@@ -301,7 +301,7 @@ export default function GenerateTab() {
                 key={t.topic}
                 onClick={() => handleTrendingClick(t)}
                 className="text-[11px] px-2.5 py-1 rounded-full bg-bg-secondary border border-border text-text-secondary hover:border-fuchsia-400/50 hover:text-text-primary transition-colors"
-                title={`${t.outlier_count} outliers · ${t.avg_ratio ? t.avg_ratio.toFixed(1) + 'x avg ratio' : ''}`}
+                title={`${t.outlier_count} outliers · ${t.avg_ratio ? t.avg_ratio.toFixed(1) + 'x de multiplicador medio' : ''}`}
               >
                 {t.topic} <span className="text-text-muted">· {t.outlier_count}</span>
               </button>
@@ -312,7 +312,7 @@ export default function GenerateTab() {
 
       {trendingLoaded && trending.length === 0 && (
         <div className="bg-bg-card border border-dashed border-border rounded-xl p-3 text-[11px] text-text-muted">
-          Aún no hay topics calientes en tu corpus — clasifica outliers desde la pestaña <strong>Steal</strong> y vuelve.
+          Aún no hay temas calientes en tu corpus: clasifica outliers desde la pestaña <strong>Robar</strong> y vuelve.
         </div>
       )}
 
@@ -368,20 +368,20 @@ export default function GenerateTab() {
           />
           <p className="text-[10px] text-text-muted mt-1 leading-snug">
             Cuanto más concreto sea tu ángulo (tesis + por qué + a quién aplica), más afiladas serán las ideas.
-            Si lo dejas vacío, generaremos ideas genéricas sobre el topic.
+            Si lo dejas vacío, generaremos ideas genéricas sobre el tema.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label className="block text-[11px] text-text-muted font-medium mb-1">
-              Topic <span className="text-[10px] text-text-muted">— para filtrar outliers de referencia</span>
+              Tema <span className="text-[10px] text-text-muted">· para filtrar outliers de referencia</span>
             </label>
             <input
               type="text"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              placeholder="ventas B2B, cold outreach, hiring SDRs…"
+              placeholder="ventas B2B, cold outreach, contratar SDRs…"
               className="w-full bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-fuchsia-400/50"
             />
           </div>

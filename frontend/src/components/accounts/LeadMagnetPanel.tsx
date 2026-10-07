@@ -86,7 +86,7 @@ export default function LeadMagnetPanel({ accounts, onSelectCreator }: Props) {
           >
             <option value="" disabled>— elige una cuenta —</option>
             {accounts.map((a) => (
-              <option key={a.id} value={a.id}>{a.name || 'Unknown'}</option>
+              <option key={a.id} value={a.id}>{a.name || 'Sin nombre'}</option>
             ))}
           </select>
         </div>
@@ -136,6 +136,22 @@ export default function LeadMagnetPanel({ accounts, onSelectCreator }: Props) {
   );
 }
 
+// Etiqueta visible del formato. Solo para mostrar: `content_type` sigue siendo
+// el valor de la BD y no se toca.
+const FORMATO_LABEL: Record<string, string> = {
+  text: 'Texto',
+  text_image: 'Texto + foto',
+  text_carousel: 'Texto + carrusel',
+  text_video: 'Texto + vídeo',
+  text_document: 'Texto + documento',
+  image: 'Solo foto',
+  carousel: 'Solo carrusel',
+  video: 'Solo vídeo',
+  document: 'Solo documento',
+  poll: 'Encuesta',
+  article: 'Artículo',
+};
+
 // One tile in the post grid. No thumbnail on purpose: LinkedIn's image URLs
 // are time-signed and 403 once expired, so a 20-tile grid would fire 20
 // refresh calls and still show holes. The hook is what identifies the post
@@ -154,7 +170,7 @@ function PostTile({ post, onPick }: { post: GridPost; onPick: () => void }) {
         <span className="text-[11px] text-text-muted whitespace-nowrap">{fmtRelative(post.published_at)}</span>
         {post.content_type && (
           <span className="text-[10px] px-1.5 py-0.5 rounded bg-bg-primary border border-border text-text-muted whitespace-nowrap">
-            {post.content_type}
+            {FORMATO_LABEL[post.content_type] || post.content_type}
           </span>
         )}
       </div>

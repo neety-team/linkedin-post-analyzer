@@ -110,7 +110,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           <span className="text-[11px] text-text-muted whitespace-nowrap">{fmtRelative(post.published_at)}</span>
           {esLm && (
             <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 whitespace-nowrap">
-              Lead Magnet
+              Lead magnet
             </span>
           )}
           {/* Cada deuda con su color, y separadas. Juntarlas en un numero solo
@@ -541,7 +541,7 @@ export function ThreadCard({
           {thread.is_media_only || !thread.text.trim() ? (
             <p className="text-sm text-text-muted italic flex items-center gap-1">
               <span>🎞️</span> comentó un GIF / imagen{' '}
-              <span className="not-italic text-[10px] text-text-muted">(LinkedIn no expone el contenido)</span>
+              <span className="not-italic text-[10px] text-text-muted">(LinkedIn no muestra el contenido)</span>
             </p>
           ) : (
             <p className="text-sm text-text-primary whitespace-pre-wrap">{thread.text}</p>

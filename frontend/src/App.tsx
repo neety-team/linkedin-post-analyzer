@@ -26,21 +26,21 @@ export default function App() {
       <nav className="border-b border-border px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" className="text-xl font-bold text-accent">
-            LinkedIn Outlier Analyzer
+            Analizador de outliers de LinkedIn
           </Link>
           <div className="flex items-center gap-1 text-sm">
             {/* Analyze */}
             <div className="flex gap-1 px-2 py-1 rounded-lg bg-bg-secondary/50">
-              {navLink('/', '📊 Dashboard')}
-              {navLink('/accounts', '📈 Accounts')}
-              {navLink('/explore', '🔍 Explorer')}
+              {navLink('/', '📊 Panel')}
+              {navLink('/accounts', '📈 Cuentas')}
+              {navLink('/explore', '🔍 Explorador')}
             </div>
             <span className="text-border mx-1">|</span>
             {/* Create */}
             <div className="flex gap-1 px-2 py-1 rounded-lg bg-bg-secondary/50">
               {navLink('/swipe', '🔥 Swipe')}
               {navLink('/ideas', '💡 Ideas')}
-              {navLink('/inspiration', '✨ Inspiration')}
+              {navLink('/inspiration', '✨ Inspiración')}
             </div>
             {/* Post Creator y Network se retiraron el 2026-10-06 (Iker): los
                 posts se escriben por Claude Code y los feeds de los jefes se

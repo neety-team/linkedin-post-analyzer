@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import { FOLLOWER_SYNC_PHASE_LABELS, etiqueta } from '../utils/etiquetas';
 
 const BASE = import.meta.env.VITE_API_URL || '';
 
@@ -20,7 +21,7 @@ interface Props {
 
 function fmtDay(iso: string): string {
   const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
 }
 
 const TOOLTIP_STYLE = {
@@ -79,9 +80,9 @@ export default function OrganicFollowersChart({ creatorId, days, reloadSignal }:
       const res = await fetch(`${BASE}/api/accounts/followers/sync?${params.toString()}`, { method: 'POST' });
       const json = await res.json();
       if (json.started === false) {
-        setSyncMsg(json.reason === 'already running' ? 'Ya está sincronizando…' : `No arrancó: ${json.reason}`);
+        setSyncMsg(json.reason === 'ya está en marcha' ? 'Ya está sincronizando…' : `No arrancó: ${json.reason}`);
       } else {
-        setSyncMsg('Sincronizando en background. Vuelve en unos minutos y recarga.');
+        setSyncMsg('Sincronizando en segundo plano. Vuelve en unos minutos y recarga.');
         setTimeout(() => setReloadKey((k) => k + 1), 30000);
       }
     } catch (e: any) {
@@ -153,29 +154,29 @@ export default function OrganicFollowersChart({ creatorId, days, reloadSignal }:
           <h3 className="text-lg font-semibold">Seguidores orgánicos</h3>
           <p className="text-xs text-text-muted mt-0.5">
             Gente que te empezó a seguir por tu contenido (no porque tú la buscaras).
-            Arranca el día del primer sync; el histórico previo no se puede fechar.
+            Arranca el día de la primera sincronización; el histórico previo no se puede fechar.
           </p>
         </div>
         <div className="flex items-start gap-5">
           <div className="flex flex-col">
             <span className="text-[9px] uppercase tracking-wide text-text-muted">Orgánicos</span>
             <span className="text-sm font-semibold tabular-nums text-accent">
-              {totals.organic > 0 ? '+' : ''}{totals.organic.toLocaleString()}
+              {totals.organic > 0 ? '+' : ''}{totals.organic.toLocaleString('es-ES')}
             </span>
           </div>
           <div className="flex flex-col">
             <span className="text-[9px] uppercase tracking-wide text-text-muted">Por conexión</span>
             <span className="text-sm font-semibold tabular-nums text-text-secondary">
-              {totals.connection.toLocaleString()}
+              {totals.connection.toLocaleString('es-ES')}
             </span>
           </div>
           <button
             onClick={handleSync}
             disabled={syncing}
             className="text-xs px-2.5 py-1 rounded-md border border-accent/40 bg-accent/10 text-accent hover:bg-accent/20 disabled:opacity-50 transition-colors self-center"
-            title="Captura la lista de seguidores y la clasifica. La primera vez tarda unos minutos (baseline)."
+            title="Captura la lista de seguidores y la clasifica. La primera vez tarda unos minutos (lectura inicial)."
           >
-            {syncing ? 'Sincronizando…' : '↻ Sync seguidores'}
+            {syncing ? 'Sincronizando…' : '↻ Sincronizar seguidores'}
           </button>
         </div>
       </div>
@@ -188,16 +189,16 @@ export default function OrganicFollowersChart({ creatorId, days, reloadSignal }:
         <div className="text-[11px] text-text-muted mb-3 flex flex-wrap gap-x-4 gap-y-1">
           {status.progress.running && (
             <span className="text-accent font-medium">
-              ↻ {status.progress.phase} · {status.progress.current_creator || ''} ({status.progress.creators_done}/{status.progress.creators_total})
+              ↻ {etiqueta(FOLLOWER_SYNC_PHASE_LABELS, status.progress.phase)} · {status.progress.current_creator || ''} ({status.progress.creators_done}/{status.progress.creators_total})
             </span>
           )}
           {status.creators.map((c) => (
             <span key={c.id} className={c.baseline_done ? '' : 'text-amber-400/80'}>
               <strong className="text-text-secondary">{c.name}:</strong>{' '}
               {c.baseline_done
-                ? `${c.followers_in_db.toLocaleString()} en DB${c.new_since_baseline > 0 ? ` (${c.new_since_baseline} nuevos)` : ''}`
+                ? `${c.followers_in_db.toLocaleString('es-ES')} en la BD${c.new_since_baseline > 0 ? ` (${c.new_since_baseline} nuevos)` : ''}`
                 : c.has_account_id
-                  ? 'sin sync'
+                  ? 'sin sincronizar'
                   : 'sin unipile_account_id'}
               {c.last_synced_at && (
                 <span className="text-text-muted ml-1">
@@ -218,7 +219,7 @@ export default function OrganicFollowersChart({ creatorId, days, reloadSignal }:
         <p className="text-center text-text-muted text-sm py-12">Cargando…</p>
       ) : chartData.length === 0 ? (
         <p className="text-center text-text-muted text-sm py-12">
-          Aún no hay datos. El primer sync captura la base de seguidores; a partir
+          Aún no hay datos. La primera sincronización lee la base de seguidores; a partir
           de ahí cada día nuevo se desglosa en orgánicos vs conexión.
         </p>
       ) : (
@@ -240,7 +241,7 @@ export default function OrganicFollowersChart({ creatorId, days, reloadSignal }:
               contentStyle={TOOLTIP_STYLE}
               cursor={{ fill: '#2e334855' }}
               formatter={(v: any, name: any) => [v, name === 'organic' ? 'Orgánicos' : 'Por conexión']}
-              labelFormatter={(label: string) => label}
+              labelFormatter={(label: any) => label}
             />
             <Legend
               formatter={(value) => (value === 'organic' ? 'Orgánicos' : 'Por conexión')}

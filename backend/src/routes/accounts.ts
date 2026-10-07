@@ -238,7 +238,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
       values.push(trimmed || null);
     }
     if (sets.length === 0) {
-      return res.status(400).json({ error: 'Provide is_managed or unipile_account_id' });
+      return res.status(400).json({ error: 'Indica is_managed o unipile_account_id' });
     }
 
     values.push(req.params.id);
@@ -246,7 +246,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
       `UPDATE creators SET ${sets.join(', ')} WHERE id = $${idx} RETURNING id, is_managed, unipile_account_id`,
       values
     );
-    if (rows.length === 0) return res.status(404).json({ error: 'Creator not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Creador no encontrado' });
     res.json(rows[0]);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -640,10 +640,10 @@ router.get('/wvmp-debug-all', async (_req: Request, res: Response) => {
 router.get('/:id/wvmp-debug', async (req: Request, res: Response) => {
   try {
     const creator = await CreatorModel.findById(req.params.id as string);
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
     const accountIdOverride = (creator as any).unipile_account_id as string | null;
     if (!accountIdOverride) {
-      return res.status(400).json({ error: 'Creator has no unipile_account_id set' });
+      return res.status(400).json({ error: 'Este creador no tiene cuenta de Unipile conectada' });
     }
 
     const wvmp = await unipileService.getProfileViewers(accountIdOverride);
@@ -1042,7 +1042,7 @@ router.delete('/posts/:id/snapshots/zero-impressions', async (req: Request, res:
     );
     const firstReal = anchor[0]?.first_real;
     if (!firstReal) {
-      return res.json({ deleted: 0, reason: 'no real impressions snapshot found — nothing to clean up against' });
+      return res.json({ deleted: 0, reason: 'No hay ninguna lectura con impresiones reales: no hay nada que limpiar' });
     }
     const { rowCount } = await pool.query(
       `DELETE FROM post_snapshots
@@ -1082,7 +1082,7 @@ router.post('/posts/:id/hide', async (req: Request, res: Response) => {
       // O no existe, o ya estaba oculto. Lo segundo no es un error: el boton es
       // idempotente a proposito, para que un doble clic no reviente nada.
       const { rows } = await pool.query(`SELECT id FROM posts WHERE id = $1`, [req.params.id]);
-      if (rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+      if (rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     }
     res.json({ ok: true, hidden: true });
   } catch (err: any) {
@@ -1097,7 +1097,7 @@ router.post('/posts/:id/unhide', async (req: Request, res: Response) => {
       `UPDATE posts SET deleted_from_linkedin_at = NULL WHERE id = $1 RETURNING id`,
       [req.params.id]
     );
-    if (rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     res.json({ ok: true, hidden: false });
   } catch (err: any) {
     console.error('[accounts/posts/:id/unhide]', err);
@@ -1130,14 +1130,14 @@ router.patch('/posts/:id/impressions', async (req: Request, res: Response) => {
     const id = req.params.id as string;
     const impressions = Number(req.body?.impressions);
     if (!Number.isFinite(impressions) || impressions < 0) {
-      return res.status(400).json({ error: 'impressions must be a non-negative number' });
+      return res.status(400).json({ error: 'Las impresiones tienen que ser un número igual o mayor que 0' });
     }
     const { rows } = await pool.query(
       `UPDATE posts SET impressions_count = $1 WHERE id = $2
        RETURNING id, creator_id, impressions_count`,
       [Math.round(impressions), id]
     );
-    if (rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     const post = rows[0];
     await recalcCreatorOutliers(post.creator_id);
     res.json({ ok: true, id: post.id, impressions_count: post.impressions_count });
@@ -1222,9 +1222,9 @@ router.post('/posts/restore-counters', async (req: Request, res: Response) => {
 router.post('/:id/scrape', async (req: Request, res: Response) => {
   try {
     const creator = await CreatorModel.findById(req.params.id as string);
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
     if (!(creator as any).unipile_account_id) {
-      return res.status(400).json({ error: 'Set a Unipile account ID for this creator first' });
+      return res.status(400).json({ error: 'Primero añade a este creador el ID de su cuenta de Unipile' });
     }
     const result = await scrapeCreatorPosts(creator.id);
     res.json(result);
@@ -2051,7 +2051,7 @@ router.post('/demo-seed', async (_req: Request, res: Response) => {
       `SELECT id, name FROM creators WHERE is_managed = TRUE ORDER BY created_at LIMIT 1`
     );
     if (creatorQ.rows.length === 0) {
-      return res.status(400).json({ error: 'Need at least one managed creator first' });
+      return res.status(400).json({ error: 'Primero necesitas al menos una cuenta propia' });
     }
     const creator = creatorQ.rows[0];
 
@@ -2154,7 +2154,7 @@ router.get('/posts/:id/snapshots', async (req: Request, res: Response) => {
        WHERE p.id = $1`,
       [req.params.id]
     );
-    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     const post = postQ.rows[0];
     const esManual = !!post.creator_is_manual;
     const publicadoMs = new Date(post.published_at).getTime();
@@ -2260,7 +2260,7 @@ router.get('/posts/:postId/google-chat-preview', async (req: Request, res: Respo
       [postId]
     );
     const post = rows[0];
-    if (!post) return res.status(404).json({ error: 'Post not found' });
+    if (!post) return res.status(404).json({ error: 'Post no encontrado' });
 
     // Randomise the count between 3 and 5 so daily messages don't feel like
     // a template. Variety reduces fatigue on the receiving side without
@@ -2352,7 +2352,7 @@ router.post('/posts/:postId/send-to-google-chat', async (req: Request, res: Resp
     }
 
     if (messages.length === 0) {
-      return res.status(400).json({ error: 'message is required' });
+      return res.status(400).json({ error: 'Falta el mensaje' });
     }
     if (messages.length > 5) {
       return res.status(400).json({ error: 'no se permiten más de 5 mensajes en una tanda' });
@@ -2775,10 +2775,10 @@ router.get('/posts/:postId/comments', async (req: Request, res: Response) => {
         WHERE p.id = $1`,
       [postId]
     );
-    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     const post = postQ.rows[0];
-    if (!post.linkedin_post_id) return res.status(400).json({ error: 'Post has no LinkedIn id' });
-    if (!post.unipile_account_id) return res.status(400).json({ error: 'Creator has no Unipile account_id' });
+    if (!post.linkedin_post_id) return res.status(400).json({ error: 'Este post no tiene ID de LinkedIn' });
+    if (!post.unipile_account_id) return res.status(400).json({ error: 'Este creador no tiene cuenta de Unipile conectada' });
 
     const { threads: topLevel, rawSample } = await buildThreadsForPost(post);
 
@@ -3286,14 +3286,14 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
         WHERE p.id = $1`,
       [postId]
     );
-    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     const post = postQ.rows[0];
 
     const profile = await CommenterProfileModel.get();
     if (!profile) {
       return res
         .status(400)
-        .json({ error: 'Generic voice profile (Neety) is missing — seed it first' });
+        .json({ error: 'Falta el perfil de voz genérico (Neety): créalo primero con el seed' });
     }
 
     const reply = await generateReply({
@@ -3391,7 +3391,7 @@ router.post('/posts/:postId/comments/:commentId/reply', async (req: Request, res
     const commentId = req.params.commentId as string;
     const { text, mention } = req.body || {};
     if (!text || typeof text !== 'string' || !text.trim()) {
-      return res.status(400).json({ error: 'text required' });
+      return res.status(400).json({ error: 'Falta el texto' });
     }
 
     const postQ = await pool.query(
@@ -3401,10 +3401,10 @@ router.post('/posts/:postId/comments/:commentId/reply', async (req: Request, res
         WHERE p.id = $1`,
       [postId]
     );
-    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     const post = postQ.rows[0];
-    if (!post.linkedin_post_id) return res.status(400).json({ error: 'Post has no LinkedIn id' });
-    if (!post.unipile_account_id) return res.status(400).json({ error: 'Creator has no Unipile account_id' });
+    if (!post.linkedin_post_id) return res.status(400).json({ error: 'Este post no tiene ID de LinkedIn' });
+    if (!post.unipile_account_id) return res.status(400).json({ error: 'Este creador no tiene cuenta de Unipile conectada' });
 
     const { text: finalText, mentions } = buildMentionedReply(
       text.trim(),
@@ -3466,7 +3466,7 @@ router.post('/posts/:postId/comments/:commentId/react', async (req: Request, res
     const reactionType = String(req.body?.reaction_type || '').toLowerCase();
     if (!LINKEDIN_REACTION_TYPES.includes(reactionType as LinkedinReactionType)) {
       return res.status(400).json({
-        error: `reaction_type must be one of: ${LINKEDIN_REACTION_TYPES.join(', ')}`,
+        error: `reaction_type tiene que ser uno de estos: ${LINKEDIN_REACTION_TYPES.join(', ')}`,
       });
     }
 
@@ -3477,10 +3477,10 @@ router.post('/posts/:postId/comments/:commentId/react', async (req: Request, res
         WHERE p.id = $1`,
       [postId]
     );
-    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     const post = postQ.rows[0];
-    if (!post.linkedin_post_id) return res.status(400).json({ error: 'Post has no LinkedIn id' });
-    if (!post.unipile_account_id) return res.status(400).json({ error: 'Creator has no Unipile account_id' });
+    if (!post.linkedin_post_id) return res.status(400).json({ error: 'Este post no tiene ID de LinkedIn' });
+    if (!post.unipile_account_id) return res.status(400).json({ error: 'Este creador no tiene cuenta de Unipile conectada' });
 
     // Reacting to a COMMENT: pass the real POST id as post_id and the
     // comment id as comment_id. Previously we sent the comment id AS the
@@ -3568,7 +3568,7 @@ router.post('/posts/:postId/comments/:commentId/react', async (req: Request, res
 router.get('/lead-magnet/posts', async (req: Request, res: Response) => {
   try {
     const creatorId = (req.query.creator_id as string) || '';
-    if (!creatorId) return res.status(400).json({ error: 'creator_id required' });
+    if (!creatorId) return res.status(400).json({ error: 'Falta creator_id' });
     const limit = Math.min(Number(req.query.limit) || 20, 50);
 
     const { rows } = await pool.query(
@@ -3608,12 +3608,12 @@ router.get('/lead-magnet/posts', async (req: Request, res: Response) => {
 router.get('/lead-magnet/config', async (req: Request, res: Response) => {
   try {
     const postId = (req.query.post_id as string) || '';
-    if (!postId) return res.status(400).json({ error: 'post_id required' });
+    if (!postId) return res.status(400).json({ error: 'Falta post_id' });
     const { rows } = await pool.query(
       'SELECT lead_magnet_config FROM posts WHERE id = $1',
       [postId]
     );
-    if (rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     res.json({ config: rows[0].lead_magnet_config ?? null });
   } catch (err: any) {
     console.error('[accounts/lead-magnet/config:get]', err);
@@ -3624,7 +3624,7 @@ router.get('/lead-magnet/config', async (req: Request, res: Response) => {
 router.put('/lead-magnet/config', async (req: Request, res: Response) => {
   try {
     const { post_id, config } = req.body || {};
-    if (!post_id || !config) return res.status(400).json({ error: 'post_id and config required' });
+    if (!post_id || !config) return res.status(400).json({ error: 'Faltan post_id y config' });
     // El tipo SI se acota: es el unico campo que cambia el mensaje que sale, y un
     // valor raro aqui haria que el panel cayera al DM normal sin decir nada.
     const kind = ['dm', 'publico', 'lista'].includes(config.kind) ? config.kind : 'dm';
@@ -3638,7 +3638,7 @@ router.put('/lead-magnet/config', async (req: Request, res: Response) => {
       'UPDATE posts SET lead_magnet_config = $2 WHERE id = $1',
       [post_id, JSON.stringify(limpio)]
     );
-    if (rowCount === 0) return res.status(404).json({ error: 'Post not found' });
+    if (rowCount === 0) return res.status(404).json({ error: 'Post no encontrado' });
     res.json({ ok: true, config: limpio });
   } catch (err: any) {
     console.error('[accounts/lead-magnet/config:put]', err);
@@ -3655,7 +3655,7 @@ router.put('/lead-magnet/config', async (req: Request, res: Response) => {
 router.get('/lead-magnet/sends', async (req: Request, res: Response) => {
   try {
     const postId = (req.query.post_id as string) || '';
-    if (!postId) return res.status(400).json({ error: 'post_id required' });
+    if (!postId) return res.status(400).json({ error: 'Falta post_id' });
     const { rows } = await pool.query(
       `SELECT comment_social_id, provider_id, kind, status, text, error, verificado, created_at
          FROM lead_magnet_sends
@@ -3687,12 +3687,12 @@ router.get('/lead-magnet/sends', async (req: Request, res: Response) => {
 router.get('/lead-magnet/canal', async (req: Request, res: Response) => {
   try {
     const creatorId = (req.query.creator_id as string) || '';
-    if (!creatorId) return res.status(400).json({ error: 'creator_id required' });
+    if (!creatorId) return res.status(400).json({ error: 'Falta creator_id' });
     const { rows } = await pool.query(
       `SELECT unipile_account_id FROM creators WHERE id = $1`,
       [creatorId]
     );
-    if (rows.length === 0) return res.status(404).json({ error: 'Creator not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Creador no encontrado' });
     const accountId = rows[0].unipile_account_id;
 
     let pendientes: { provider_id: string; invitation_id: string; name: string | null }[] = [];
@@ -3736,15 +3736,15 @@ router.get('/lead-magnet/commenter', async (req: Request, res: Response) => {
     const creatorId = (req.query.creator_id as string) || '';
     const providerId = (req.query.provider_id as string) || '';
     if (!creatorId || !providerId) {
-      return res.status(400).json({ error: 'creator_id and provider_id required' });
+      return res.status(400).json({ error: 'Faltan creator_id y provider_id' });
     }
     const { rows } = await pool.query(
       `SELECT unipile_account_id FROM creators WHERE id = $1`,
       [creatorId]
     );
-    if (rows.length === 0) return res.status(404).json({ error: 'Creator not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Creador no encontrado' });
     const accountId = rows[0].unipile_account_id;
-    if (!accountId) return res.status(400).json({ error: 'Creator has no Unipile account_id' });
+    if (!accountId) return res.status(400).json({ error: 'Este creador no tiene cuenta de Unipile conectada' });
 
     try {
       const profile = await unipileService.getProfile(providerId, accountId);
@@ -3774,16 +3774,16 @@ router.post('/lead-magnet/lista', async (req: Request, res: Response) => {
     const { creator_id, sector } = req.body || {};
     const sectorClean = String(sector || '').trim();
     if (!creator_id || !sectorClean) {
-      return res.status(400).json({ error: 'creator_id and sector required' });
+      return res.status(400).json({ error: 'Faltan creator_id y sector' });
     }
 
     const { rows } = await pool.query(
       `SELECT unipile_account_id FROM creators WHERE id = $1`,
       [creator_id]
     );
-    if (rows.length === 0) return res.status(404).json({ error: 'Creator not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Creador no encontrado' });
     const accountId = rows[0].unipile_account_id;
-    if (!accountId) return res.status(400).json({ error: 'Creator has no Unipile account_id' });
+    if (!accountId) return res.status(400).json({ error: 'Este creador no tiene cuenta de Unipile conectada' });
 
     const companies = await unipileService.searchCompanies(sectorClean, {
       limit: 15,
@@ -4016,7 +4016,7 @@ router.post('/lead-magnet/send', async (req: Request, res: Response) => {
       invitation_id, followup_text, sector, provider_name,
     } = req.body || {};
     if (!post_id || !comment_id || !provider_id) {
-      return res.status(400).json({ error: 'post_id, comment_id and provider_id required' });
+      return res.status(400).json({ error: 'Faltan post_id, comment_id y provider_id' });
     }
     // ⛔ LA PUERTA CERRADA (Iker, 2026-08-17). Un cliente desactualizado —una
     // pestaña abierta desde antes del cambio— todavía manda 'invite' o 'inmail'.
@@ -4028,10 +4028,10 @@ router.post('/lead-magnet/send', async (req: Request, res: Response) => {
       });
     }
     if (kind !== 'dm') {
-      return res.status(400).json({ error: "kind must be 'dm'" });
+      return res.status(400).json({ error: "kind tiene que ser 'dm'" });
     }
     if (!text || typeof text !== 'string' || !text.trim()) {
-      return res.status(400).json({ error: 'text required' });
+      return res.status(400).json({ error: 'Falta el texto' });
     }
 
     const postQ = await pool.query(
@@ -4041,9 +4041,9 @@ router.post('/lead-magnet/send', async (req: Request, res: Response) => {
         WHERE p.id = $1`,
       [post_id]
     );
-    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     const accountId = postQ.rows[0].unipile_account_id;
-    if (!accountId) return res.status(400).json({ error: 'Creator has no Unipile account_id' });
+    if (!accountId) return res.status(400).json({ error: 'Este creador no tiene cuenta de Unipile conectada' });
 
     const body = text.trim();
 
@@ -4145,7 +4145,7 @@ router.post('/lead-magnet/ask', async (req: Request, res: Response) => {
   try {
     const { post_id, comment_id, provider_id, text, provider_name, sector, followup_text } = req.body || {};
     if (!post_id || !comment_id || !provider_id) {
-      return res.status(400).json({ error: 'post_id, comment_id and provider_id required' });
+      return res.status(400).json({ error: 'Faltan post_id, comment_id y provider_id' });
     }
     // verificado = NULL: no hay nada que comprobar en LinkedIn, porque no hemos
     // mandado nada. Ponerlo en TRUE sería el verde mentiroso del 13/08 otra vez.
@@ -4187,12 +4187,12 @@ router.post('/lead-magnet/marcar-manual', async (req: Request, res: Response) =>
   try {
     const { post_id, comment_id, provider_id, kind, text, provider_name } = req.body || {};
     if (!post_id || !comment_id || !provider_id) {
-      return res.status(400).json({ error: 'post_id, comment_id and provider_id required' });
+      return res.status(400).json({ error: 'Faltan post_id, comment_id y provider_id' });
     }
     // Solo 'dm': ya no se crean filas de invitación ni de InMail, ni mandándolas
     // ni marcándolas a mano (2026-08-17). Las viejas se siguen leyendo.
     if (kind !== 'dm') {
-      return res.status(400).json({ error: "kind must be 'dm'" });
+      return res.status(400).json({ error: "kind tiene que ser 'dm'" });
     }
     await pool.query(
       `INSERT INTO lead_magnet_sends (post_id, comment_social_id, provider_id, kind, status, text, error, verificado, provider_name)
@@ -4247,7 +4247,7 @@ router.post('/lead-magnet/marcar-manual', async (req: Request, res: Response) =>
 router.post('/lead-magnet/reverificar', async (req: Request, res: Response) => {
   try {
     const { post_id: postId, link: linkBody } = req.body || {};
-    if (!postId) return res.status(400).json({ error: 'post_id required' });
+    if (!postId) return res.status(400).json({ error: 'Falta post_id' });
 
     // El post se pide SIEMPRE, no solo cuando hay filas: el barrido de abajo
     // necesita sus comentaristas, y un post con CERO filas y DMs entregados es
@@ -4260,10 +4260,10 @@ router.post('/lead-magnet/reverificar', async (req: Request, res: Response) => {
         WHERE p.id = $1`,
       [postId]
     );
-    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     const post = postQ.rows[0];
     const accountId = post.unipile_account_id;
-    if (!accountId) return res.status(400).json({ error: 'Creator has no Unipile account_id' });
+    if (!accountId) return res.status(400).json({ error: 'Este creador no tiene cuenta de Unipile conectada' });
 
     const { rows } = await pool.query(
       `SELECT provider_id, comment_social_id, kind, text, status, verificado, created_at
@@ -4586,10 +4586,10 @@ router.get('/lead-magnet/followups', async (req: Request, res: Response) => {
 router.get('/lead-magnet/pendientes-solicitud', async (req: Request, res: Response) => {
   try {
     const creatorId = (req.query.creator_id as string) || '';
-    if (!creatorId) return res.status(400).json({ error: 'creator_id required' });
+    if (!creatorId) return res.status(400).json({ error: 'Falta creator_id' });
 
     const cQ = await pool.query(`SELECT unipile_account_id FROM creators WHERE id = $1`, [creatorId]);
-    if (cQ.rows.length === 0) return res.status(404).json({ error: 'Creator not found' });
+    if (cQ.rows.length === 0) return res.status(404).json({ error: 'Creador no encontrado' });
     const accountId = cQ.rows[0].unipile_account_id;
 
     // Los pedidos que siguen sin resolverse: sin DM detrás. El NOT EXISTS es lo
@@ -4675,12 +4675,12 @@ router.post('/lead-magnet/check-accepted', async (req: Request, res: Response) =
   try {
     const { creator_id, provider_ids } = req.body || {};
     if (!creator_id || !Array.isArray(provider_ids)) {
-      return res.status(400).json({ error: 'creator_id and provider_ids[] required' });
+      return res.status(400).json({ error: 'Faltan creator_id y provider_ids[]' });
     }
     const { rows } = await pool.query(`SELECT unipile_account_id FROM creators WHERE id = $1`, [creator_id]);
-    if (rows.length === 0) return res.status(404).json({ error: 'Creator not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Creador no encontrado' });
     const accountId = rows[0].unipile_account_id;
-    if (!accountId) return res.status(400).json({ error: 'Creator has no Unipile account_id' });
+    if (!accountId) return res.status(400).json({ error: 'Este creador no tiene cuenta de Unipile conectada' });
 
     const isFirstDegree = (profile: any): boolean => {
       const nd = profile?.network_distance ?? profile?.distance ?? profile?.network_info?.distance;

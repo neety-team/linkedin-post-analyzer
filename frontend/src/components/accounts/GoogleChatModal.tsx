@@ -127,7 +127,7 @@ export default function GoogleChatModal({
       setData(json);
       setComments(Array.isArray(json.comments) ? json.comments : []);
     } catch (e: any) {
-      setError(e.message || 'Error al cargar preview');
+      setError(e.message || 'Error al cargar la vista previa');
     }
     setLoading(false);
   };
@@ -155,7 +155,7 @@ export default function GoogleChatModal({
   const handleSend = async () => {
     if (!message) return;
     if (overLimit) {
-      setError(`El mensaje pasa ${MAX_LEN} chars. Acorta alguno manualmente.`);
+      setError(`El mensaje pasa de ${MAX_LEN} caracteres. Acorta algo a mano.`);
       return;
     }
     setSending(true);
@@ -228,7 +228,7 @@ export default function GoogleChatModal({
           <div className="px-6 pb-5 flex items-center justify-end gap-4">
             {!data.webhook_configured && (
               <p className="text-[11px] text-amber-400 mr-auto">
-                ⚠️ GOOGLE_CHAT_WEBHOOK_URL no configurado
+                ⚠️ GOOGLE_CHAT_WEBHOOK_URL no está configurado
               </p>
             )}
             {overLimit && (

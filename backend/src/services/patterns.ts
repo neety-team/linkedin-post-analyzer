@@ -42,9 +42,9 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
     const pct = Math.round((topType[1] / outliers.length) * 100);
     insights.push({
       type: 'content_type',
-      title: 'Dominant content type in outliers',
-      value: `${pct}% ${topType[0]}`,
-      detail: `${topType[1]} out of ${outliers.length} outlier posts are ${topType[0]} content.`,
+      title: 'Tipo de contenido dominante en los outliers',
+      value: `${pct}% ${formatContentType(topType[0])}`,
+      detail: `${topType[1]} de los ${outliers.length} outliers son de tipo "${formatContentType(topType[0])}".`,
     });
   }
 
@@ -53,12 +53,12 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
   const avgWordsNormal = avg(nonOutliers.map((p) => p.word_count));
   if (avgWordsNormal > 0) {
     const diff = Math.round(((avgWordsOutlier - avgWordsNormal) / avgWordsNormal) * 100);
-    const direction = diff > 0 ? 'more' : 'fewer';
+    const direction = diff > 0 ? 'más' : 'menos';
     insights.push({
       type: 'word_count',
-      title: 'Outlier length vs average',
-      value: `${Math.abs(diff)}% ${direction} words`,
-      detail: `Outliers average ${Math.round(avgWordsOutlier)} words vs ${Math.round(avgWordsNormal)} for regular posts.`,
+      title: 'Longitud de los outliers frente a la media',
+      value: `${Math.abs(diff)}% ${direction} palabras`,
+      detail: `Los outliers tienen de media ${Math.round(avgWordsOutlier)} palabras, frente a ${Math.round(avgWordsNormal)} en los posts normales.`,
     });
   }
 
@@ -86,9 +86,9 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
     const worst = hookTypeEntries[hookTypeEntries.length - 1];
     insights.push({
       type: 'hook_type',
-      title: 'Best performing hook type',
+      title: 'Tipo de gancho que mejor funciona',
       value: formatHookType(best.type),
-      detail: `"${formatHookType(best.type)}" hooks average ${best.avgRatio}x ratio (${worst.avgRatio > 0 ? Math.round(best.avgRatio / worst.avgRatio * 10) / 10 : ''}x more than "${formatHookType(worst.type)}") across ${best.count} posts.`,
+      detail: `Los ganchos "${formatHookType(best.type)}" tienen un multiplicador medio de ${best.avgRatio}x (${worst.avgRatio > 0 ? Math.round(best.avgRatio / worst.avgRatio * 10) / 10 : ''}x más que "${formatHookType(worst.type)}") en ${best.count} posts.`,
     });
   }
 
@@ -115,9 +115,9 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
     const best = structEntries[0];
     insights.push({
       type: 'post_structure',
-      title: 'Best performing structure',
+      title: 'Estructura que mejor funciona',
       value: formatStructure(best.structure),
-      detail: `"${formatStructure(best.structure)}" posts average ${best.avgRatio}x ratio (${best.count} posts).`,
+      detail: `Los posts con estructura "${formatStructure(best.structure)}" tienen un multiplicador medio de ${best.avgRatio}x (${best.count} posts).`,
     });
   }
 
@@ -131,9 +131,9 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
     if (Math.abs(diff) > 10) {
       insights.push({
         type: 'spacing',
-        title: 'Aggressive line spacing impact',
-        value: `${diff > 0 ? '+' : ''}${diff}% engagement`,
-        detail: `Posts with aggressive spacing average ${Math.round(avgSpacing)} vs ${Math.round(avgNoSpacing)} without.`,
+        title: 'Impacto del espaciado agresivo entre líneas',
+        value: `${diff > 0 ? '+' : ''}${diff}% interacciones`,
+        detail: `Los posts con espaciado agresivo tienen de media ${Math.round(avgSpacing)} interacciones, frente a ${Math.round(avgNoSpacing)} sin él.`,
       });
     }
   }
@@ -149,9 +149,9 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
     const avgLowDebate = avg(lowDebate.map((p) => p.engagement_score));
     insights.push({
       type: 'debate',
-      title: 'High-debate posts performance',
-      value: `${highDebate.length} debate-driven posts`,
-      detail: `Posts with high comment/like ratio (>10%) average ${Math.round(avgHighDebate)} eng vs ${Math.round(avgLowDebate)} for low-debate.`,
+      title: 'Rendimiento de los posts con mucho debate',
+      value: `${highDebate.length} posts de debate`,
+      detail: `Los posts con muchos comentarios por reacción (>10%) tienen de media ${Math.round(avgHighDebate)} interacciones, frente a ${Math.round(avgLowDebate)} en los de poco debate.`,
     });
   }
 
@@ -162,9 +162,9 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
     : 0;
   insights.push({
     type: 'hashtags',
-    title: 'Hashtag usage in outliers',
-    value: `${Math.round(outlierHashtagRate * 100)}% use hashtags`,
-    detail: `Outliers: ${Math.round(outlierHashtagRate * 100)}% vs Regular: ${Math.round(normalHashtagRate * 100)}%.`,
+    title: 'Uso de hashtags en los outliers',
+    value: `${Math.round(outlierHashtagRate * 100)}% usa hashtags`,
+    detail: `Outliers: ${Math.round(outlierHashtagRate * 100)}% · Posts normales: ${Math.round(normalHashtagRate * 100)}%.`,
   });
 
   // 8. CTA usage
@@ -174,13 +174,13 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
     : 0;
   insights.push({
     type: 'cta',
-    title: 'Call-to-action in outliers',
-    value: `${Math.round(outlierCTARate * 100)}% include CTA`,
-    detail: `Outliers: ${Math.round(outlierCTARate * 100)}% vs Regular: ${Math.round(normalCTARate * 100)}%.`,
+    title: 'Llamada a la acción en los outliers',
+    value: `${Math.round(outlierCTARate * 100)}% incluye CTA`,
+    detail: `Outliers: ${Math.round(outlierCTARate * 100)}% · Posts normales: ${Math.round(normalCTARate * 100)}%.`,
   });
 
   // 9. Best day of week
-  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
   const dayCounts: Record<number, number> = {};
   for (const p of outliers) {
     if (p.published_at) {
@@ -192,9 +192,9 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
   if (topDay) {
     insights.push({
       type: 'best_day',
-      title: 'Best day for outliers',
+      title: 'Mejor día para outliers',
       value: dayNames[parseInt(topDay[0])],
-      detail: `${topDay[1]} outlier posts were published on ${dayNames[parseInt(topDay[0])]}.`,
+      detail: `${topDay[1]} outliers se publicaron un ${dayNames[parseInt(topDay[0])].toLowerCase()}.`,
     });
   }
 
@@ -202,9 +202,9 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
   const outlierEmojiRate = outliers.filter((p) => p.has_emoji).length / outliers.length;
   insights.push({
     type: 'emoji',
-    title: 'Emoji usage in outliers',
-    value: `${Math.round(outlierEmojiRate * 100)}% use emojis`,
-    detail: `${Math.round(outlierEmojiRate * 100)}% of outlier posts contain emojis.`,
+    title: 'Uso de emojis en los outliers',
+    value: `${Math.round(outlierEmojiRate * 100)}% usa emojis`,
+    detail: `El ${Math.round(outlierEmojiRate * 100)}% de los outliers lleva emojis.`,
   });
 
   // 11. Top hooks
@@ -215,8 +215,8 @@ export function detectPatterns(allPosts: Post[]): PatternInsight[] {
   if (hooks.length > 0) {
     insights.push({
       type: 'hooks',
-      title: 'Top hooks from outliers',
-      value: `${hooks.length} hooks`,
+      title: 'Mejores ganchos de los outliers',
+      value: `${hooks.length} ganchos`,
       detail: hooks.join(' | '),
     });
   }
@@ -278,7 +278,7 @@ export function getCrossCreatorPatterns(allPosts: Post[], creatorTimezones: Reco
     }
     const dominantHook = Object.entries(topHookTypes).sort((a, b) => b[1] - a[1])[0];
     if (dominantHook && dominantHook[1] / topOutliers.length >= 0.3) {
-      commonTraits.push(`${Math.round(dominantHook[1] / topOutliers.length * 100)}% use "${formatHookType(dominantHook[0])}" hooks`);
+      commonTraits.push(`${Math.round(dominantHook[1] / topOutliers.length * 100)}% usa ganchos "${formatHookType(dominantHook[0])}"`);
     }
 
     // Most common structure
@@ -289,15 +289,15 @@ export function getCrossCreatorPatterns(allPosts: Post[], creatorTimezones: Reco
     }
     const dominantStruct = Object.entries(topStructures).sort((a, b) => b[1] - a[1])[0];
     if (dominantStruct && dominantStruct[1] / topOutliers.length >= 0.3) {
-      commonTraits.push(`${Math.round(dominantStruct[1] / topOutliers.length * 100)}% follow "${formatStructure(dominantStruct[0])}" structure`);
+      commonTraits.push(`${Math.round(dominantStruct[1] / topOutliers.length * 100)}% sigue la estructura "${formatStructure(dominantStruct[0])}"`);
     }
 
     // Average length
     const avgLen = avg(topOutliers.map((p) => p.word_count));
-    commonTraits.push(`Average ${Math.round(avgLen)} words`);
+    commonTraits.push(`Media de ${Math.round(avgLen)} palabras`);
 
     // Best day
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const dayNames = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
     const topDays: Record<number, number> = {};
     for (const p of topOutliers) {
       if (p.published_at) {
@@ -307,14 +307,14 @@ export function getCrossCreatorPatterns(allPosts: Post[], creatorTimezones: Reco
     }
     const bestDay = Object.entries(topDays).sort((a, b) => b[1] - a[1])[0];
     if (bestDay && bestDay[1] / topOutliers.length >= 0.25) {
-      commonTraits.push(`${Math.round(bestDay[1] / topOutliers.length * 100)}% published on ${dayNames[parseInt(bestDay[0])]}`);
+      commonTraits.push(`${Math.round(bestDay[1] / topOutliers.length * 100)}% se publicó un ${dayNames[parseInt(bestDay[0])]}`);
     }
   }
 
   // Best days and hours for outliers (cross-creator, converted to each creator's local time).
   // Uses IANA timezone (e.g. "Europe/Madrid") so DST is handled correctly — otherwise every
   // summer/spring post gets shifted an hour early.
-  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
   const dayStats: Record<number, { total: number; outliers: number; totalRatio: number }> = {};
   const hourStats: Record<number, { total: number; outliers: number; totalRatio: number }> = {};
   const weekdayToNum: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
@@ -377,7 +377,7 @@ export function getCrossCreatorPatterns(allPosts: Post[], creatorTimezones: Reco
     .filter(([, s]) => s.total >= minHourSample)
     .map(([hour, s]) => ({
       hour: parseInt(hour),
-      hour_label: `${parseInt(hour).toString().padStart(2, '0')}:00`,
+      hour_label: `${parseInt(hour)}:00`,
       total_posts: s.total,
       outliers: s.outliers,
       outlier_rate: s.total > 0 ? Math.round((s.outliers / s.total) * 100) : 0,
@@ -505,7 +505,7 @@ function analyzeTextPatterns(outliers: Post[], nonOutliers: Post[]) {
       recurring_phrases: [],
       power_words: [],
       formatting_style: null,
-      writing_analysis: 'Not enough outlier text data for analysis.',
+      writing_analysis: 'No hay suficiente texto de outliers para analizarlo.',
     };
   }
 
@@ -606,10 +606,10 @@ function analyzeTextPatterns(outliers: Post[], nonOutliers: Post[]) {
   if (topOpening.length > 0) {
     const top = topOpening[0];
     const topPct = Math.round((top[1].count / texts.length) * 100);
-    analysisLines.push(`Opening pattern: ${topPct}% of outliers open with a "${top[0]}". Examples: "${top[1].examples[0]}"`);
+    analysisLines.push(`Apertura: el ${topPct}% de los outliers abre con "${top[0]}". Ejemplo: "${top[1].examples[0]}"`);
     if (topOpening.length >= 2) {
       const second = topOpening[1];
-      analysisLines[analysisLines.length - 1] += `. Second most common: "${second[0]}" (${Math.round((second[1].count / texts.length) * 100)}%).`;
+      analysisLines[analysisLines.length - 1] += `. La segunda más común: "${second[0]}" (${Math.round((second[1].count / texts.length) * 100)}%).`;
     }
   }
 
@@ -618,38 +618,38 @@ function analyzeTextPatterns(outliers: Post[], nonOutliers: Post[]) {
   if (topClosing.length > 0) {
     const top = topClosing[0];
     const topPct = Math.round((top[1].count / texts.length) * 100);
-    analysisLines.push(`Closing pattern: ${topPct}% of outliers close with a "${top[0]}". Example: "${top[1].examples[0]}"`);
+    analysisLines.push(`Cierre: el ${topPct}% de los outliers cierra con "${top[0]}". Ejemplo: "${top[1].examples[0]}"`);
   }
 
   // Recurring phrases
   const overindexedPhrases = recurringPhrases.filter((p) => p.overindex > 1.5).slice(0, 5);
   if (overindexedPhrases.length > 0) {
-    analysisLines.push(`Key phrases that appear more in outliers: ${overindexedPhrases.map((p) => `"${p.phrase}" (${p.outlier_pct}% of outliers vs ${p.normal_pct}% normal)`).join(', ')}.`);
+    analysisLines.push(`Frases que aparecen más en los outliers: ${overindexedPhrases.map((p) => `"${p.phrase}" (${p.outlier_pct}% de los outliers frente a ${p.normal_pct}% de los normales)`).join(', ')}.`);
   }
 
   // Semantic categories
   const topCategories = semanticCategories.filter((c) => c.outlier_density > c.normal_density * 1.2).slice(0, 5);
   if (topCategories.length > 0) {
-    analysisLines.push(`Language patterns stronger in outliers: ${topCategories.map((c) => `${c.label} (${c.outlier_density}x vs ${c.normal_density}x in normal)`).join(', ')}.`);
+    analysisLines.push(`Patrones de lenguaje más fuertes en los outliers: ${topCategories.map((c) => `${c.label} (${c.outlier_density} por cada 100 palabras frente a ${c.normal_density} en los normales)`).join(', ')}.`);
   }
 
   // Writing style diff
   if (Math.abs(avgSentenceLenOutlier - avgSentenceLenNormal) > 2) {
     const shorter = avgSentenceLenOutlier < avgSentenceLenNormal;
-    analysisLines.push(`Sentence style: outliers use ${shorter ? 'shorter' : 'longer'} sentences (avg ${Math.round(avgSentenceLenOutlier)} words/sentence vs ${Math.round(avgSentenceLenNormal)} in normal posts). ${shorter ? 'Punchy, broken-up writing gets more engagement.' : 'Deeper, more developed sentences resonate.'}`);
+    analysisLines.push(`Frases: los outliers usan frases más ${shorter ? 'cortas' : 'largas'} (media de ${Math.round(avgSentenceLenOutlier)} palabras por frase frente a ${Math.round(avgSentenceLenNormal)} en los posts normales). ${shorter ? 'La escritura directa y troceada genera más interacciones.' : 'Las frases más desarrolladas conectan mejor.'}`);
   }
 
   if (avgLineBreaksOutlier > avgLineBreaksNormal * 1.3) {
-    analysisLines.push(`Formatting: outliers use ${Math.round((avgLineBreaksOutlier / Math.max(1, avgLineBreaksNormal) - 1) * 100)}% more line breaks — white space and visual rhythm matter.`);
+    analysisLines.push(`Formato: los outliers usan un ${Math.round((avgLineBreaksOutlier / Math.max(1, avgLineBreaksNormal) - 1) * 100)}% más de saltos de línea. El espacio en blanco y el ritmo visual importan.`);
   }
 
   const wordDiff = avgWordCountNormal > 0 ? Math.round(((avgWordCountOutlier - avgWordCountNormal) / avgWordCountNormal) * 100) : 0;
   if (Math.abs(wordDiff) > 15) {
-    analysisLines.push(`Post length: outliers average ${Math.round(avgWordCountOutlier)} words (${wordDiff > 0 ? `${wordDiff}% longer` : `${Math.abs(wordDiff)}% shorter`} than normal). ${wordDiff > 0 ? 'In-depth content performs best.' : 'Concise content wins.'}`);
+    analysisLines.push(`Longitud: los outliers tienen de media ${Math.round(avgWordCountOutlier)} palabras (un ${wordDiff > 0 ? `${wordDiff}% más largos` : `${Math.abs(wordDiff)}% más cortos`} que los normales). ${wordDiff > 0 ? 'El contenido en profundidad funciona mejor.' : 'Gana el contenido conciso.'}`);
   }
 
   if (Math.abs(questionRateOutlier - questionRateNormal) > 10) {
-    analysisLines.push(`Questions: ${Math.round(questionRateOutlier * 100)}% of outliers contain questions vs ${Math.round(questionRateNormal * 100)}% in normal posts — ${questionRateOutlier > questionRateNormal ? 'asking questions drives engagement.' : 'statements outperform questions.'}`);
+    analysisLines.push(`Preguntas: el ${Math.round(questionRateOutlier * 100)}% de los outliers incluye preguntas frente al ${Math.round(questionRateNormal * 100)}% de los posts normales. ${questionRateOutlier > questionRateNormal ? 'Preguntar genera interacciones.' : 'Las afirmaciones funcionan mejor que las preguntas.'}`);
   }
 
   return {
@@ -674,33 +674,33 @@ function analyzeTextPatterns(outliers: Post[], nonOutliers: Post[]) {
 
 function classifyOpeningPattern(line: string): string {
   const l = line.toLowerCase().trim();
-  if (l.endsWith('?') || l.includes('?')) return 'Question';
-  if (/^\d|^[0-9]/.test(l)) return 'Number/Stat';
-  if (/^(i |i\'m |i\'ve |i was |i had |i used |i remember|i quit|i lost|i failed|i got)/i.test(l)) return 'Personal "I" statement';
-  if (/^(you |you\'re |you\'ve |your )/i.test(l)) return 'Direct "You" address';
-  if (/^(stop |don\'t |never |no one |nobody |forget |quit |avoid )/i.test(l)) return 'Negative/Prohibition';
-  if (/^(here|here\'s|here are|these|this is how|this is why|this is what)/i.test(l)) return 'Direct reveal ("Here is...")';
-  if (/^(the |a |an )?(truth|problem|reality|secret|reason|thing|mistake|myth)/i.test(l)) return 'Truth/Revelation opener';
-  if (/^(most |everyone |nobody |people |they |99%|90%|80%)/i.test(l)) return '"Most people..." generalization';
-  if (/^(if |when |imagine |picture |what if)/i.test(l)) return 'Hypothetical/Conditional';
-  if (/^(how |why |what |where |who )/i.test(l)) return 'Question word';
-  if (/^(un |una |el |la |no |si |yo |tu |es |lo )/i.test(l)) return 'Spanish opener';
-  if (l.length < 30) return 'Short punchy statement';
-  return 'Declarative statement';
+  if (l.endsWith('?') || l.includes('?')) return 'Pregunta';
+  if (/^\d|^[0-9]/.test(l)) return 'Número / dato';
+  if (/^(i |i\'m |i\'ve |i was |i had |i used |i remember|i quit|i lost|i failed|i got)/i.test(l)) return 'Primera persona ("Yo...")';
+  if (/^(you |you\'re |you\'ve |your )/i.test(l)) return 'Le habla al lector ("Tú...")';
+  if (/^(stop |don\'t |never |no one |nobody |forget |quit |avoid )/i.test(l)) return 'Negación / prohibición';
+  if (/^(here|here\'s|here are|these|this is how|this is why|this is what)/i.test(l)) return 'Revelación directa ("Aquí tienes...")';
+  if (/^(the |a |an )?(truth|problem|reality|secret|reason|thing|mistake|myth)/i.test(l)) return 'Arranque de verdad / revelación';
+  if (/^(most |everyone |nobody |people |they |99%|90%|80%)/i.test(l)) return 'Generalización ("La mayoría...")';
+  if (/^(if |when |imagine |picture |what if)/i.test(l)) return 'Hipótesis / condicional';
+  if (/^(how |why |what |where |who )/i.test(l)) return 'Palabra interrogativa';
+  if (/^(un |una |el |la |no |si |yo |tu |es |lo )/i.test(l)) return 'Arranque en español';
+  if (l.length < 30) return 'Frase corta y directa';
+  return 'Afirmación';
 }
 
 function classifyClosingPattern(line: string): string {
   const l = line.toLowerCase().trim();
-  if (l.endsWith('?')) return 'Ends with question (CTA)';
-  if (/follow|like|comment|share|repost|save|subscribe|tag|dm/i.test(l)) return 'Explicit CTA (follow/like/share)';
-  if (/agree|disagree|thoughts|opinion|what do you/i.test(l)) return 'Opinion request';
-  if (/👇|⬇|below|comment below|drop/i.test(l)) return 'Comment CTA (👇)';
-  if (/#\w+/.test(l)) return 'Hashtag line';
-  if (/💡|🔥|🚀|✅|❤|🙏|🎯|💪|👊/i.test(l)) return 'Emoji emphasis';
-  if (/ps:|p\.s\.|ps\./i.test(l)) return 'P.S. postscript';
-  if (l.length < 25) return 'Short closing statement';
-  if (/remember|don\'t forget|lesson|takeaway|bottom line|key|moral/i.test(l)) return 'Lesson/Takeaway';
-  return 'Statement ending';
+  if (l.endsWith('?')) return 'Acaba en pregunta (CTA)';
+  if (/follow|like|comment|share|repost|save|subscribe|tag|dm/i.test(l)) return 'CTA explícito (seguir / reaccionar / compartir)';
+  if (/agree|disagree|thoughts|opinion|what do you/i.test(l)) return 'Pide opinión';
+  if (/👇|⬇|below|comment below|drop/i.test(l)) return 'CTA para comentar (👇)';
+  if (/#\w+/.test(l)) return 'Línea de hashtags';
+  if (/💡|🔥|🚀|✅|❤|🙏|🎯|💪|👊/i.test(l)) return 'Énfasis con emoji';
+  if (/ps:|p\.s\.|ps\./i.test(l)) return 'Posdata (P. D.)';
+  if (l.length < 25) return 'Cierre corto';
+  if (/remember|don\'t forget|lesson|takeaway|bottom line|key|moral/i.test(l)) return 'Lección / conclusión';
+  return 'Cierre con afirmación';
 }
 
 function extractNgrams(texts: string[]): Record<string, number> {
@@ -754,42 +754,42 @@ export function detectViralityDriver(post: {
 
   // Social currency: makes the sharer look smart/informed
   if (/framework|system|hack|secret|insider|strategy|method|playbook|guide|tutorial|step.by.step/i.test(text) && slr > 0.05) {
-    return { driver: 'social_currency', label: 'Social Currency', explanation: 'People share this to look smart or well-informed — it makes them a source of valuable knowledge' };
+    return { driver: 'social_currency', label: 'Moneda social', explanation: 'La gente lo comparte para parecer lista o bien informada: la convierte en fuente de conocimiento valioso' };
   }
 
   // Controversy: triggers debate
   if (clr > 0.12 || /unpopular|controversial|hot take|fight me|disagree|wrong|lie|myth|stop doing|overrated/i.test(text)) {
-    return { driver: 'controversy', label: 'Controversy', explanation: 'This triggers strong agree/disagree reactions — people comment to defend their position or validate their view' };
+    return { driver: 'controversy', label: 'Controversia', explanation: 'Provoca reacciones fuertes a favor o en contra: la gente comenta para defender su postura o validar su punto de vista' };
   }
 
   // Identity: people see themselves in it
   if (/^(if you|you['']re a|to every|dear |para |si eres|who else|raise your hand|that feeling when|when you)/i.test(text) ||
       /we['']ve all|todos hemos|relatable|me too|same|been there|i feel this/i.test(text)) {
-    return { driver: 'identity', label: 'Identity', explanation: 'People engage because they see themselves in this post — it validates who they are or aspire to be' };
+    return { driver: 'identity', label: 'Identidad', explanation: 'La gente interactúa porque se ve reflejada en el post: valida quién es o quién quiere ser' };
   }
 
   // Belonging: community, shared experience
   if (/community|tribe|movement|together|we |nosotros|join|support|you['']re not alone|no estás sol/i.test(text) || clr > 0.08) {
-    return { driver: 'belonging', label: 'Belonging', explanation: 'This creates a sense of shared experience or community — people engage to feel part of something bigger' };
+    return { driver: 'belonging', label: 'Pertenencia', explanation: 'Crea sensación de experiencia compartida o de comunidad: la gente interactúa para sentirse parte de algo más grande' };
   }
 
   // Utility: genuinely useful, people save/share for reference
   if (/how to|step|tip|tool|resource|template|checklist|guide|save this|bookmark|here['']?s (how|what|the)/i.test(text) && slr > 0.03) {
-    return { driver: 'utility', label: 'Utility', explanation: 'Pure practical value — people save and share this as a reference they\'ll come back to' };
+    return { driver: 'utility', label: 'Utilidad', explanation: 'Valor práctico puro: la gente lo guarda y lo comparte como referencia a la que volver' };
   }
 
   // Emotion: vulnerability, inspiration, empathy
   if (/failed|lost|quit|cried|struggled|vulnerable|honest|scared|confession|ashamed/i.test(text) || post.text_tone === 'vulnerable' || post.text_tone === 'empathy') {
-    return { driver: 'emotion', label: 'Emotion', explanation: 'Raw emotional authenticity — people engage because it makes them feel something real' };
+    return { driver: 'emotion', label: 'Emoción', explanation: 'Autenticidad emocional sin filtros: la gente interactúa porque le hace sentir algo real' };
   }
 
   // Aspiration: people share what they want to become
   if (/success|freedom|dream|transform|next level|6.figure|millonari|wealth|achieve|unlock/i.test(text) || post.text_tone === 'aspirational') {
-    return { driver: 'aspiration', label: 'Aspiration', explanation: 'People share this because it represents who they want to become — aspirational content gets broad distribution' };
+    return { driver: 'aspiration', label: 'Aspiración', explanation: 'La gente lo comparte porque representa lo que quiere llegar a ser: el contenido aspiracional se difunde mucho' };
   }
 
   // Default: social currency (most common driver on LinkedIn)
-  return { driver: 'social_currency', label: 'Social Currency', explanation: 'Shareable knowledge — people distribute this to build their own authority by association' };
+  return { driver: 'social_currency', label: 'Moneda social', explanation: 'Conocimiento para compartir: la gente lo difunde para ganar autoridad por asociación' };
 }
 
 /**
@@ -804,14 +804,14 @@ function analyzeCommentDriver(post: {
   const clr = post.comment_like_ratio || 0;
   const lastLines = text.split('\n').filter((l) => l.trim()).slice(-3).join(' ');
 
-  if (/agree|disagree|what do you think|thoughts\?|hot take|controversial|unpopular/i.test(text)) return 'debate — the post takes a stance that forces people to weigh in';
-  if (/\?$/.test(lastLines) || /what['']?s your|tell me|share your/i.test(lastLines)) return 'direct question — the CTA explicitly asks for input';
-  if (/who else|raise your hand|same|been there|relatable|tag someone/i.test(text)) return 'shared experience — people comment to say "me too" and validate their own journey';
-  if (/failed|lost|vulnerable|confession|honest|scared/i.test(text)) return 'empathy — vulnerability triggers supportive responses and personal stories in return';
-  if (/resource|tool|link|send|dm|comment .*(get|receive|access)/i.test(text)) return 'resource request — people comment to get access to something valuable';
-  if (clr > 0.15) return 'high-friction topic — this subject inherently generates strong opinions';
-  if (post.has_call_to_action) return 'explicit CTA — the post directly asks for engagement';
-  return 'organic engagement — the content naturally invites conversation';
+  if (/agree|disagree|what do you think|thoughts\?|hot take|controversial|unpopular/i.test(text)) return 'debate — el post toma una postura que obliga a posicionarse';
+  if (/\?$/.test(lastLines) || /what['']?s your|tell me|share your/i.test(lastLines)) return 'pregunta directa — el CTA pide la opinión de forma explícita';
+  if (/who else|raise your hand|same|been there|relatable|tag someone/i.test(text)) return 'experiencia compartida — la gente comenta para decir "a mí también" y validar su propio camino';
+  if (/failed|lost|vulnerable|confession|honest|scared/i.test(text)) return 'empatía — la vulnerabilidad provoca respuestas de apoyo e historias personales a cambio';
+  if (/resource|tool|link|send|dm|comment .*(get|receive|access)/i.test(text)) return 'petición de recurso — la gente comenta para conseguir algo valioso';
+  if (clr > 0.15) return 'tema que divide — el asunto genera opiniones fuertes por sí solo';
+  if (post.has_call_to_action) return 'CTA explícito — el post pide interacción directamente';
+  return 'interacción orgánica — el contenido invita a conversar de forma natural';
 }
 
 /**
@@ -835,31 +835,31 @@ function generateAbstractTemplate(post: {
   // Hook zone (first 1-3 lines)
   if (lines.length >= 1) {
     const firstLine = lines[0].trim();
-    if (/\?/.test(firstLine)) zones.push('[Hook: Question that challenges assumption]');
-    else if (/^\d/.test(firstLine)) zones.push('[Hook: Data point that shocks]');
-    else if (/^(i |yo )/i.test(firstLine)) zones.push('[Hook: Personal story entry point]');
-    else if (/^(stop|don['']t|never|no )/i.test(firstLine.toLowerCase())) zones.push('[Hook: Pattern interrupt / prohibition]');
-    else zones.push(`[Hook: ${hookLabel}]`);
+    if (/\?/.test(firstLine)) zones.push('[Gancho: pregunta que cuestiona una suposición]');
+    else if (/^\d/.test(firstLine)) zones.push('[Gancho: dato que impacta]');
+    else if (/^(i |yo )/i.test(firstLine)) zones.push('[Gancho: entrada con historia personal]');
+    else if (/^(stop|don['']t|never|no )/i.test(firstLine.toLowerCase())) zones.push('[Gancho: ruptura de patrón / prohibición]');
+    else zones.push(`[Gancho: ${hookLabel}]`);
   }
 
   // Body zone
   const bodyLines = lines.slice(1, -1);
   const listItems = bodyLines.filter((l) => /^\s*(\d+[\.\)]\s|[-•]\s|→|✅|❌|▸|🔹)/.test(l));
   if (listItems.length >= 3) {
-    zones.push(`[Body: ${listItems.length}-item list with value points]`);
+    zones.push(`[Cuerpo: lista de ${listItems.length} puntos de valor]`);
   } else if (bodyLines.length > 5 && /then|but|so |después|pero|así que/i.test(bodyLines.join(' '))) {
-    zones.push('[Body: Narrative arc with tension → resolution]');
+    zones.push('[Cuerpo: arco narrativo con tensión → resolución]');
   } else if (bodyLines.length > 3) {
-    zones.push('[Body: Supporting argument / evidence]');
+    zones.push('[Cuerpo: argumento / pruebas de apoyo]');
   }
 
   // Closing zone
   if (lines.length >= 2) {
     const last = lines[lines.length - 1].trim().toLowerCase();
-    if (/\?/.test(last)) zones.push('[Close: Open question for comments]');
-    else if (/follow|like|share|save|repost|👇|⬇/i.test(last)) zones.push('[Close: Explicit engagement CTA]');
-    else if (/lesson|takeaway|remember|key/i.test(last)) zones.push('[Close: Key takeaway / lesson]');
-    else zones.push('[Close: Final statement / punchline]');
+    if (/\?/.test(last)) zones.push('[Cierre: pregunta abierta para comentarios]');
+    else if (/follow|like|share|save|repost|👇|⬇/i.test(last)) zones.push('[Cierre: CTA explícito de interacción]');
+    else if (/lesson|takeaway|remember|key/i.test(last)) zones.push('[Cierre: conclusión / lección clave]');
+    else zones.push('[Cierre: frase final / remate]');
   }
 
   return `${hookLabel} + ${structLabel}: ${zones.join(' → ')}`;
@@ -874,46 +874,46 @@ function analyzeNarrativeMechanism(text: string): string {
 
   // Open loop: creates a question that MUST be answered
   if (/here['']?s (what|why|how)|this is what|let me explain|te explico|lo que pasó|what happened/i.test(lower) && lines.length > 5) {
-    return 'Open loop — the hook creates a question that forces the reader to keep scrolling for the answer';
+    return 'Bucle abierto — el gancho plantea una pregunta que obliga a seguir leyendo para encontrar la respuesta';
   }
 
   // Common enemy: us vs. them
   if (/they |them |those |the (people|ones|companies|gurus|experts) who|los que|la gente que|toxic|broken system|old way/i.test(lower)) {
-    return 'Common enemy — creates an "us vs. them" dynamic that builds tribal identity and comment solidarity';
+    return 'Enemigo común — crea una dinámica de "nosotros contra ellos" que construye identidad de grupo y complicidad en los comentarios';
   }
 
   // Belief break: shatters an assumption then rebuilds
   if (/myth|lie|wrong|actually|truth is|in reality|en realidad|la verdad|most people think|everyone believes/i.test(lower)) {
-    return 'Belief break — shatters a widely-held assumption, creating cognitive dissonance that demands resolution';
+    return 'Ruptura de creencia — derriba una suposición muy extendida y crea una disonancia cognitiva que pide resolverse';
   }
 
   // Contrast/comparison: before/after, old/new
   if (/before|after|old|new|used to|now i|antes|después|vs\.?|versus|instead of/i.test(lower)) {
-    return 'Contrast mechanism — juxtaposes two states (before/after, wrong/right) to make the insight feel concrete';
+    return 'Contraste — enfrenta dos estados (antes/después, mal/bien) para que la idea se sienta concreta';
   }
 
   // Vulnerability escalation: progressively deeper confession
   if (/failed|lost|quit|cried|scared|ashamed|confession|honest|vulnerable/i.test(lower) && lines.length > 4) {
-    return 'Vulnerability escalation — progressively deeper personal disclosure that builds emotional investment';
+    return 'Vulnerabilidad creciente — una confesión personal cada vez más profunda que genera implicación emocional';
   }
 
   // Authority proof: establishes credibility then delivers framework
   if (/\d+ (years|clients|companies|projects|años)|i['']ve (helped|built|coached|worked)|expert|proven/i.test(lower)) {
-    return 'Authority proof — establishes credibility first, making the subsequent advice feel trustworthy and actionable';
+    return 'Prueba de autoridad — primero se gana la credibilidad para que el consejo posterior parezca fiable y aplicable';
   }
 
   // Curiosity stacking: multiple open loops
   if (/(but (that['']s not|wait|here['']s)|and (here['']s|that['']s)|the (best|worst) part|pero (eso no|espera)|y (aquí|eso))/i.test(lower)) {
-    return 'Curiosity stacking — layers multiple open loops and mini-cliffhangers to maintain scroll momentum';
+    return 'Curiosidad encadenada — superpone varios bucles abiertos y pequeños suspenses para mantener el ritmo de lectura';
   }
 
   // Pattern/rhythm: repetitive structure for memorability
   const shortLines = lines.filter((l) => l.trim().length < 40 && l.trim().length > 5);
   if (shortLines.length / lines.length > 0.6 && lines.length > 5) {
-    return 'Rhythmic pattern — short, punchy lines create a reading cadence that\'s easy to consume and memorize';
+    return 'Patrón rítmico — las líneas cortas y directas crean una cadencia de lectura fácil de consumir y de recordar';
   }
 
-  return 'Direct value delivery — straightforward content structure that prioritizes clarity over narrative tension';
+  return 'Valor directo — una estructura sencilla que prioriza la claridad sobre la tensión narrativa';
 }
 
 /**
@@ -952,35 +952,35 @@ export function generatePostExplanation(post: {
 
   // 2. Hook tension analysis
   const hookTensionMap: Record<string, string> = {
-    pattern_interrupt: 'Identity threat — tells the reader they\'re doing something wrong, creating urgency to read more',
-    belief_breaker: 'Cognitive dissonance — contradicts a belief the reader holds, forcing them to resolve the conflict',
-    curiosity_gap: 'Information gap — creates an open loop that the brain needs to close',
-    data_shock: 'Pattern break — a surprising number violates expectations and demands explanation',
-    hot_take: 'Social risk — the author takes a public stance, triggering agree/disagree impulses',
-    personal_confession: 'Vulnerability tension — raw honesty creates empathetic investment',
-    story_opener: 'Narrative pull — temporal markers ("When I...") activate the storytelling brain',
-    hypothetical_question: 'Imagination activation — forces the reader to simulate a scenario',
-    why_question: 'Causal curiosity — "why" triggers the need to understand root causes',
-    how_question: 'Practical curiosity — promises actionable knowledge',
-    direct_question: 'Direct engagement — asks the reader personally, hard to scroll past',
-    open_question: 'Knowledge gap — broad question creates desire to know the answer',
-    rhetorical_question: 'Implied answer — the reader fills in the answer, creating buy-in',
-    list_promise: 'Value commitment — a number promises specific, bounded, scannable value',
-    prediction: 'Future anxiety — predictions create urgency about being prepared',
-    how_to_framework: 'Utility promise — signals immediately applicable knowledge',
-    bold_claim: 'Authority challenge — a strong statement demands the reader evaluate it',
-    common_mistake: 'Fear of failure — nobody wants to be making a known mistake',
-    direct_callout: 'Targeting — speaks directly to a specific audience, creating relevance',
-    announcement: 'Novelty — news creates time-sensitive relevance',
-    social_proof_opener: 'Credibility anchor — results/numbers establish authority before the content',
-    analogy: 'Reframing — connecting familiar concepts in new ways creates an "aha" moment',
-    contrarian_take: 'Status quo challenge — going against consensus triggers curiosity about the reasoning',
-    relatable_moment: 'Mirror effect — seeing yourself in content creates instant emotional connection',
-    motivational: 'Aspirational pull — activates the gap between current and desired self',
-    observation: 'Articulation effect — putting unnamed feelings into words creates powerful resonance',
-    challenge: 'Action tension — dares the reader, creating a commitment impulse',
+    pattern_interrupt: 'Amenaza a la identidad — le dice al lector que está haciendo algo mal y crea urgencia por seguir leyendo',
+    belief_breaker: 'Disonancia cognitiva — contradice una creencia del lector y le obliga a resolver el conflicto',
+    curiosity_gap: 'Hueco de información — abre un bucle que el cerebro necesita cerrar',
+    data_shock: 'Ruptura de expectativas — una cifra sorprendente rompe lo esperado y pide una explicación',
+    hot_take: 'Riesgo social — el autor se posiciona en público y despierta el impulso de estar a favor o en contra',
+    personal_confession: 'Tensión de vulnerabilidad — la honestidad sin filtros genera implicación empática',
+    story_opener: 'Tirón narrativo — los marcadores temporales ("Cuando yo...") activan la parte del cerebro que escucha historias',
+    hypothetical_question: 'Activa la imaginación — obliga al lector a imaginar un escenario',
+    why_question: 'Curiosidad por la causa — el "por qué" despierta la necesidad de entender el origen',
+    how_question: 'Curiosidad práctica — promete conocimiento aplicable',
+    direct_question: 'Interpelación directa — le pregunta al lector en persona y cuesta pasar de largo',
+    open_question: 'Hueco de conocimiento — una pregunta amplia despierta las ganas de saber la respuesta',
+    rhetorical_question: 'Respuesta implícita — el lector completa la respuesta y se implica',
+    list_promise: 'Compromiso de valor — un número promete un valor concreto, acotado y fácil de leer en diagonal',
+    prediction: 'Inquietud por el futuro — las predicciones crean urgencia por estar preparado',
+    how_to_framework: 'Promesa de utilidad — anuncia conocimiento que se aplica al momento',
+    bold_claim: 'Desafío de autoridad — una afirmación rotunda obliga al lector a juzgarla',
+    common_mistake: 'Miedo a fallar — nadie quiere estar cometiendo un error conocido',
+    direct_callout: 'Segmentación — le habla directamente a un público concreto y lo hace relevante',
+    announcement: 'Novedad — la noticia tiene relevancia inmediata',
+    social_proof_opener: 'Ancla de credibilidad — los resultados y las cifras dan autoridad antes del contenido',
+    analogy: 'Reencuadre — conectar conceptos conocidos de otra forma crea un momento "ajá"',
+    contrarian_take: 'Desafío al consenso — ir contra la opinión general despierta curiosidad por el razonamiento',
+    relatable_moment: 'Efecto espejo — verse reflejado en el contenido crea una conexión emocional inmediata',
+    motivational: 'Tirón aspiracional — activa la distancia entre quién eres y quién quieres ser',
+    observation: 'Efecto de ponerle nombre — poner palabras a algo que se sentía y nadie decía conecta con fuerza',
+    challenge: 'Tensión de acción — reta al lector y despierta el impulso de comprometerse',
   };
-  const hookTension = hookTensionMap[post.hook_type || ''] || 'Attention capture — the opening line stops the scroll through direct value or intrigue';
+  const hookTension = hookTensionMap[post.hook_type || ''] || 'Captura de atención — la primera línea frena el scroll con valor directo o intriga';
 
   // 3. Virality driver
   const viralityDriver = detectViralityDriver(post);
@@ -995,19 +995,20 @@ export function generatePostExplanation(post: {
   const summaryParts: string[] = [];
 
   // Performance context
-  if (post.outlier_ratio >= 10) summaryParts.push(`Exceptional ${post.outlier_ratio}x performance.`);
-  else if (post.outlier_ratio >= 5) summaryParts.push(`Strong viral hit at ${post.outlier_ratio}x average.`);
-  else summaryParts.push(`Solid outlier at ${post.outlier_ratio}x average.`);
+  if (post.outlier_ratio >= 10) summaryParts.push(`Rendimiento excepcional: ${post.outlier_ratio}x.`);
+  else if (post.outlier_ratio >= 5) summaryParts.push(`Éxito viral fuerte: ${post.outlier_ratio}x la media.`);
+  else summaryParts.push(`Outlier sólido: ${post.outlier_ratio}x la media.`);
 
   // Why it worked (the mechanism)
-  summaryParts.push(narrativeMechanism.split(' — ')[1] || narrativeMechanism);
+  const mecanismo = narrativeMechanism.split(' — ')[1] || narrativeMechanism;
+  summaryParts.push(`${mecanismo.charAt(0).toUpperCase()}${mecanismo.slice(1)}.`);
 
   // What drove engagement
   if ((post.comment_like_ratio || 0) > 0.12) {
-    summaryParts.push(`High debate factor (${Math.round((post.comment_like_ratio || 0) * 100)}% comment/like ratio) — ${commentDriver.split(' — ')[0]}.`);
+    summaryParts.push(`Mucho debate (${Math.round((post.comment_like_ratio || 0) * 100)}% de comentarios por reacción): ${commentDriver.split(' — ')[0]}.`);
   }
   if ((post.share_like_ratio || 0) > 0.08) {
-    summaryParts.push(`Strong share rate — driven by ${viralityDriver.label.toLowerCase()}.`);
+    summaryParts.push(`Se comparte mucho, con motor de ${viralityDriver.label.toLowerCase()}.`);
   }
 
   return {
@@ -1020,67 +1021,88 @@ export function generatePostExplanation(post: {
   };
 }
 
+// Etiquetas solo de presentacion (la clave de la BD no se toca). Son las
+// mismas que pinta el frontend: pages/Inspiration.tsx (HOOK_LABELS /
+// STRUCT_LABELS / TONE_LABELS / CONTENT_TYPE_LABELS) y, para las claves que
+// alli faltan, components/HookTypeChart.tsx y StructureChart.tsx.
 function formatHookType(type: string): string {
   const labels: Record<string, string> = {
-    pattern_interrupt: 'Pattern Interrupt',
-    belief_breaker: 'Belief Breaker',
-    curiosity_gap: 'Curiosity Gap',
-    data_shock: 'Data Shock',
-    hot_take: 'Hot Take',
-    personal_confession: 'Personal Confession',
-    story_opener: 'Story Opener',
-    hypothetical_question: 'Hypothetical Question',
-    why_question: 'Why Question',
-    how_question: 'How Question',
-    direct_question: 'Direct Question',
-    open_question: 'Open Question',
-    rhetorical_question: 'Rhetorical Question',
-    list_promise: 'List Promise',
-    prediction: 'Prediction',
-    how_to_framework: 'How-To / Framework',
-    bold_claim: 'Bold Claim',
-    common_mistake: 'Common Mistake',
-    direct_callout: 'Direct Callout',
-    announcement: 'Announcement',
-    social_proof_opener: 'Social Proof',
-    analogy: 'Analogy',
-    contrarian_take: 'Contrarian Take',
-    relatable_moment: 'Relatable Moment',
-    motivational: 'Motivational',
-    observation: 'Observation',
-    challenge: 'Challenge',
-    other: 'Other',
+    pattern_interrupt: 'Ruptura de patrón',
+    belief_breaker: 'Rompe creencias',
+    curiosity_gap: 'Hueco de curiosidad',
+    data_shock: 'Dato impactante',
+    hot_take: 'Opinión polémica',
+    personal_confession: 'Confesión personal',
+    story_opener: 'Arranque de historia',
+    hypothetical_question: 'Pregunta hipotética',
+    why_question: 'Pregunta «por qué»',
+    how_question: 'Pregunta «cómo»',
+    direct_question: 'Pregunta directa',
+    open_question: 'Pregunta abierta',
+    rhetorical_question: 'Pregunta retórica',
+    list_promise: 'Promesa de lista',
+    prediction: 'Predicción',
+    how_to_framework: 'Cómo hacerlo',
+    bold_claim: 'Afirmación rotunda',
+    common_mistake: 'Error común',
+    direct_callout: 'Interpelación directa',
+    announcement: 'Anuncio',
+    social_proof_opener: 'Prueba social',
+    analogy: 'Analogía',
+    contrarian_take: 'A contracorriente',
+    relatable_moment: 'Momento reconocible',
+    motivational: 'Motivacional',
+    observation: 'Observación',
+    challenge: 'Reto',
+    other: 'Otro',
   };
   return labels[type] || type.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function formatStructure(structure: string): string {
   const labels: Record<string, string> = {
-    hook_list_cta: 'Hook → List → CTA',
-    hook_story_lesson_cta: 'Hook → Story → Lesson → CTA',
-    problem_agitate_solve: 'Problem → Agitate → Solve',
-    contrarian_proof_reframe: 'Contrarian → Proof → Reframe',
-    confession_insight_takeaway: 'Confession → Insight → Takeaway',
-    list_framework: 'List / Framework',
-    problem_solution: 'Problem → Solution',
-    story_lesson: 'Story → Lesson',
-    before_after: 'Before / After',
-    step_by_step: 'Step-by-Step',
-    myth_busting: 'Myth Busting',
-    question_answer: 'Question → Answer',
-    observation_insight: 'Observation → Insight',
-    prediction_vision: 'Prediction / Vision',
-    motivational_manifesto: 'Motivational Manifesto',
-    authority_framework: 'Authority → Framework',
-    comparison: 'Comparison / Versus',
-    short_punchy: 'Short & Punchy',
-    long_form_essay: 'Long-form Essay',
-    narrative_arc: 'Narrative Arc',
-    content_with_cta: 'Content + CTA',
-    data_driven: 'Data-Driven',
-    other: 'Other',
+    hook_list_cta: 'Gancho → Lista → CTA',
+    hook_story_lesson_cta: 'Historia → Lección → CTA',
+    problem_agitate_solve: 'Problema → Agitación → Solución',
+    contrarian_proof_reframe: 'A contracorriente → Prueba → Reencuadre',
+    confession_insight_takeaway: 'Confesión → Revelación → Conclusión',
+    list_framework: 'Lista / método',
+    problem_solution: 'Problema → Solución',
+    story_lesson: 'Historia → Lección',
+    before_after: 'Antes / Después',
+    step_by_step: 'Paso a paso',
+    myth_busting: 'Desmontar mitos',
+    question_answer: 'Pregunta → Respuesta',
+    observation_insight: 'Observación → Aprendizaje',
+    prediction_vision: 'Predicción / Visión',
+    motivational_manifesto: 'Motivacional',
+    authority_framework: 'Autoridad → Marco',
+    comparison: 'Comparativa',
+    short_punchy: 'Corto y directo',
+    long_form_essay: 'Ensayo largo',
+    narrative_arc: 'Arco narrativo',
+    content_with_cta: 'Contenido + CTA',
+    data_driven: 'Basado en datos',
+    other: 'Otra',
   };
   return labels[structure] || structure.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function formatContentType(type: string): string {
+  const labels: Record<string, string> = {
+    text: 'Texto',
+    text_image: 'Texto + foto',
+    text_carousel: 'Texto + carrusel',
+    text_video: 'Texto + vídeo',
+    text_document: 'Texto + documento',
+    image: 'Solo foto',
+    carousel: 'Solo carrusel',
+    video: 'Solo vídeo',
+    document: 'Solo documento',
+    poll: 'Encuesta',
+    article: 'Artículo',
+  };
+  return labels[type] || type;
 }
 
 function generateToneInterpretation(
@@ -1094,29 +1116,29 @@ function generateToneInterpretation(
   // Top performing tones by outlier ratio (primary metric)
   const topByRatio = toneComparison.filter((t) => t.outlier_count >= 2).slice(0, 3);
   if (topByRatio.length > 0) {
-    const names = topByRatio.map((t) => `${formatToneLabel(t.tone)} (${t.outlier_avg_ratio}x avg ratio)`);
-    lines.push(`The tones with highest outlier ratio are: ${names.join(', ')}.`);
+    const names = topByRatio.map((t) => `${formatToneLabel(t.tone)} (multiplicador medio ${t.outlier_avg_ratio}x)`);
+    lines.push(`Los tonos con mayor multiplicador son: ${names.join(', ')}.`);
   }
 
   // Tones that are more prevalent in outliers vs normal
   const outlierSkewed = toneComparison.filter((t) => t.outlier_pct > t.normal_pct + 5 && t.outlier_count >= 2);
   if (outlierSkewed.length > 0) {
-    const skewedNames = outlierSkewed.map((t) => `${formatToneLabel(t.tone)} (${t.outlier_pct}% in outliers vs ${t.normal_pct}% in normal)`);
-    lines.push(`Tones more common in outliers: ${skewedNames.join(', ')}.`);
+    const skewedNames = outlierSkewed.map((t) => `${formatToneLabel(t.tone)} (${t.outlier_pct}% en outliers frente a ${t.normal_pct}% en normales)`);
+    lines.push(`Tonos más frecuentes en los outliers: ${skewedNames.join(', ')}.`);
   }
 
   // Tones that perform better in normal posts (surprising)
   const normalSkewed = toneComparison.filter((t) => t.normal_pct > t.outlier_pct + 5 && t.normal_count >= 2);
   if (normalSkewed.length > 0) {
     const names = normalSkewed.map((t) => formatToneLabel(t.tone));
-    lines.push(`Tones more common in regular posts: ${names.join(', ')} — these don't drive outlier performance.`);
+    lines.push(`Tonos más frecuentes en los posts normales: ${names.join(', ')}. No son los que generan outliers.`);
   }
 
   // Neutral commentary
   if (neutralOutlierPct > 50) {
-    lines.push(`${neutralOutlierPct}% of outliers have neutral tone — this means the content succeeds through value/topic rather than emotional triggers.`);
+    lines.push(`El ${neutralOutlierPct}% de los outliers tiene tono neutro: el contenido funciona por su valor o su tema, no por los detonantes emocionales.`);
   } else if (neutralOutlierPct < 30) {
-    lines.push(`Only ${neutralOutlierPct}% of outliers are neutral — emotional/psychological triggers play a strong role in viral performance.`);
+    lines.push(`Solo el ${neutralOutlierPct}% de los outliers es neutro: los detonantes emocionales y psicológicos pesan mucho en la viralidad.`);
   }
 
   // Best vs worst tone ratio
@@ -1126,13 +1148,13 @@ function generateToneInterpretation(
     if (worst && worst.outlier_avg_ratio > 0) {
       const diff = Math.round((best.outlier_avg_ratio / worst.outlier_avg_ratio) * 10) / 10;
       if (diff > 1.3) {
-        lines.push(`"${formatToneLabel(best.tone)}" posts achieve ${diff}x higher outlier ratio than "${formatToneLabel(worst.tone)}" posts.`);
+        lines.push(`Los posts de tono "${formatToneLabel(best.tone)}" consiguen un multiplicador ${diff}x mayor que los de tono "${formatToneLabel(worst.tone)}".`);
       }
     }
   }
 
   if (lines.length === 0) {
-    lines.push('Not enough data to generate meaningful tone insights. Add more creators and refresh data.');
+    lines.push('No hay datos suficientes para sacar conclusiones sobre el tono. Añade más creadores y actualiza los datos.');
   }
 
   return lines.join(' ');
@@ -1140,10 +1162,10 @@ function generateToneInterpretation(
 
 function formatToneLabel(tone: string): string {
   const labels: Record<string, string> = {
-    urgency: 'Urgency', authority: 'Authority', social_proof: 'Social Proof',
-    fomo: 'FOMO', aspirational: 'Aspirational', empathy: 'Empathy',
-    provocative: 'Provocative', educational: 'Educational', vulnerable: 'Vulnerable',
-    humorous: 'Humorous', neutral: 'Neutral',
+    urgency: 'Urgencia', authority: 'Autoridad', social_proof: 'Prueba social',
+    fomo: 'FOMO', aspirational: 'Aspiracional', empathy: 'Empatía',
+    provocative: 'Provocador', educational: 'Educativo', vulnerable: 'Vulnerable',
+    humorous: 'Humor', neutral: 'Neutro',
   };
   return labels[tone] || tone;
 }
@@ -1151,42 +1173,42 @@ function formatToneLabel(tone: string): string {
 // ---- Semantic pattern categories ----
 const SEMANTIC_CATEGORIES: { category: string; label: string; patterns: RegExp[] }[] = [
   {
-    category: 'action_verbs', label: 'Action Verbs',
+    category: 'action_verbs', label: 'Verbos de acción',
     patterns: [/\b(stop|start|build|create|launch|ship|scale|grow|transform|break|change|fix|solve|master|unlock|discover|learn|try|test|apply|implement|execute|deliver)\b/gi,
                /\b(para|empieza|construye|crea|lanza|escala|crece|transforma|rompe|cambia|arregla|resuelve|domina|desbloquea|descubre|aprende|prueba|aplica|implementa)\b/gi],
   },
   {
-    category: 'urgency_words', label: 'Urgency / Scarcity',
+    category: 'urgency_words', label: 'Urgencia / escasez',
     patterns: [/\b(now|today|immediately|asap|urgent|critical|deadline|hurry|fast|quick|before|don't wait|limited|running out|last chance|right now)\b/gi,
                /\b(ahora|hoy|inmediatamente|urgente|crítico|rápido|antes de|no esperes|limitado|última oportunidad|ya)\b/gi],
   },
   {
-    category: 'exclusivity_words', label: 'Exclusivity / Insider',
+    category: 'exclusivity_words', label: 'Exclusividad / información de dentro',
     patterns: [/\b(secret|insider|hidden|unknown|nobody tells|few people|exclusive|rare|elite|top \d+%|most people don't|what they don't|behind the scenes)\b/gi,
                /\b(secreto|oculto|desconocido|nadie te dice|pocos|exclusivo|raro|élite|la mayoría no|lo que no te)\b/gi],
   },
   {
-    category: 'contrast_words', label: 'Contrast / Tension',
+    category: 'contrast_words', label: 'Contraste / tensión',
     patterns: [/\b(but|however|instead|yet|although|while|versus|vs|unlike|opposite|not|never|wrong|right|before|after|old|new|myth|truth|reality)\b/gi,
                /\b(pero|sin embargo|en vez de|aunque|mientras|versus|opuesto|no|nunca|mal|bien|antes|después|viejo|nuevo|mito|verdad|realidad)\b/gi],
   },
   {
-    category: 'emotional_amplifiers', label: 'Emotional Amplifiers',
+    category: 'emotional_amplifiers', label: 'Amplificadores emocionales',
     patterns: [/\b(incredible|amazing|insane|mind-blowing|game-changer|life-changing|powerful|massive|brutal|shocking|devastating|terrifying|extraordinary|absurd|ridiculous)\b/gi,
                /\b(increíble|alucinante|brutal|impactante|poderoso|masivo|devastador|extraordinario|absurdo|ridículo|impresionante|bestial)\b/gi],
   },
   {
-    category: 'authority_markers', label: 'Authority / Proof',
+    category: 'authority_markers', label: 'Autoridad / prueba',
     patterns: [/\b(proven|research|study|data|evidence|science|expert|certified|\d+ years|\d+ clients|\d+ companies|results|roi|revenue)\b/gi,
                /\b(probado|investigación|estudio|datos|evidencia|ciencia|experto|certificado|\d+ años|\d+ clientes|resultados|ingresos)\b/gi],
   },
   {
-    category: 'vulnerability_markers', label: 'Vulnerability / Honesty',
+    category: 'vulnerability_markers', label: 'Vulnerabilidad / honestidad',
     patterns: [/\b(failed|lost|scared|ashamed|honest|truth is|confession|mistake|wrong|struggled|broke|cried|quit|fired|rejected|doubt|imposter)\b/gi,
                /\b(fracasé|perdí|miedo|vergüenza|honesto|la verdad|confesión|error|equivoqué|luché|arruinado|lloré|renuncié|despidieron|rechazado|duda|impostor)\b/gi],
   },
   {
-    category: 'second_person', label: 'Direct "You" Address',
+    category: 'second_person', label: 'Segunda persona ("tú")',
     patterns: [/\b(you|your|you're|you've|you'll|yourself)\b/gi,
                /\b(tú|tu|ustedes|te|ti|contigo)\b/gi],
   },
@@ -1265,7 +1287,7 @@ export function detectArchetypes(allPosts: Post[]): {
       return {
         archetype: key,
         label: archetypeName,
-        description: `When a "${formatHookType(hook)}" hook is combined with "${formatStructure(structure)}" structure and "${formatToneLabel(tone)}" tone, posts average ${avgRatio}x ratio (${avgEng.toLocaleString()} eng).`,
+        description: `Cuando un gancho "${formatHookType(hook)}" se combina con la estructura "${formatStructure(structure)}" y el tono "${formatToneLabel(tone)}", los posts tienen un multiplicador medio de ${avgRatio}x (${avgEng.toLocaleString('es-ES')} interacciones).`,
         hook_type: hook,
         structure,
         tone,

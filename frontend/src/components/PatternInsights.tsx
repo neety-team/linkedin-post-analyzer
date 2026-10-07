@@ -23,15 +23,15 @@ export default function PatternInsights({ patterns }: Props) {
   if (patterns.length === 0) {
     return (
       <div className="bg-bg-card rounded-xl p-6">
-        <h3 className="text-lg font-semibold mb-4">Pattern Insights</h3>
-        <p className="text-text-muted">Not enough data to detect patterns yet.</p>
+        <h3 className="text-lg font-semibold mb-4">Patrones detectados</h3>
+        <p className="text-text-muted">Aún no hay datos suficientes para detectar patrones.</p>
       </div>
     );
   }
 
   return (
     <div className="bg-bg-card rounded-xl p-6">
-      <h3 className="text-lg font-semibold mb-4">Pattern Insights</h3>
+      <h3 className="text-lg font-semibold mb-4">Patrones detectados</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {patterns.filter(p => p.type !== 'hooks').map((p, i) => (
           <div key={i} className="bg-bg-secondary rounded-lg p-4 border border-border">

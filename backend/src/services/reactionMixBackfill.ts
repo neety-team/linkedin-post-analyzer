@@ -65,8 +65,8 @@ function statusFromError(err: any): number {
 }
 
 export async function runReactionMixBackfill(opts: RunOpts = {}): Promise<{ started: boolean; reason?: string }> {
-  if (state.running) return { started: false, reason: 'already running' };
-  if (!SCRAPER_ACCOUNT_ID) return { started: false, reason: 'UNIPILE_SCRAPER_ACCOUNT_ID not set' };
+  if (state.running) return { started: false, reason: 'ya está en marcha' };
+  if (!SCRAPER_ACCOUNT_ID) return { started: false, reason: 'UNIPILE_SCRAPER_ACCOUNT_ID no está configurada' };
 
   const concurrency = Math.max(1, Math.min(3, opts.concurrency ?? 1));
   const pauseMs = Math.max(0, opts.pauseMs ?? 1500);
@@ -95,7 +95,7 @@ export async function runReactionMixBackfill(opts: RunOpts = {}): Promise<{ star
     params
   );
 
-  if (targets.length === 0) return { started: false, reason: 'nothing to backfill' };
+  if (targets.length === 0) return { started: false, reason: 'no hay nada que rellenar' };
 
   state.running = true;
   state.started_at = new Date().toISOString();

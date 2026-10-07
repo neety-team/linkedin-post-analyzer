@@ -170,11 +170,11 @@ function PostText({
 
   const cutLabel =
     cutReason === 'blank-line'
-      ? 'cut by blank line'
+      ? 'cortado por línea en blanco'
       : cutReason === 'lines'
-        ? 'cut by line cap'
+        ? 'cortado por tope de líneas'
         : cutReason === 'chars'
-          ? 'cut by char cap'
+          ? 'cortado por tope de caracteres'
           : '';
 
   return (
@@ -199,7 +199,7 @@ function PostText({
               onClick={() => setExpanded(true)}
               style={{ color: '#666', cursor: 'pointer', fontWeight: 600 }}
             >
-              …more
+              …más
             </span>
           </>
         )}
@@ -210,7 +210,7 @@ function PostText({
               onClick={() => setExpanded(false)}
               style={{ color: '#666', cursor: 'pointer', fontWeight: 600 }}
             >
-              see less
+              ver menos
             </span>
           </>
         )}
@@ -221,18 +221,18 @@ function PostText({
           <div>
             {truncated ? (
               <>
-                {charsUsed}/{maxChars} chars · {linesUsed}/{maxLines} lines visible · {cutLabel}
-                {' · '}{totalChars} chars / {totalLines} lines total
+                {charsUsed}/{maxChars} caracteres · {linesUsed}/{maxLines} líneas visibles · {cutLabel}
+                {' · '}{totalChars} caracteres / {totalLines} líneas en total
               </>
             ) : (
               <>
-                {totalChars}/{maxChars} chars · {totalLines}/{maxLines} lines · not truncated
+                {totalChars}/{maxChars} caracteres · {totalLines}/{maxLines} líneas · sin cortar
               </>
             )}
           </div>
           {truncated && !hookVisible && (
             <div style={{ color: '#ef4444', fontWeight: 600 }}>
-              ⚠ Hook cut short — front-load the point in the first {HOOK_CUTOFF} chars
+              ⚠ El gancho queda cortado: pon lo importante en los primeros {HOOK_CUTOFF} caracteres
             </div>
           )}
         </div>
@@ -307,7 +307,7 @@ export default function LinkedInPostPreview({
   const handleFile = useCallback((file: File) => {
     if (!file.type.startsWith('image/')) return;
     if (file.size > 5 * 1024 * 1024) {
-      alert('Image too large (max 5 MB)');
+      alert('Imagen demasiado grande (máx. 5 MB)');
       return;
     }
     const url = URL.createObjectURL(file);
@@ -325,7 +325,7 @@ export default function LinkedInPostPreview({
   const displayHeadline = authorHeadline || 'Tu titular de LinkedIn';
   const displayFollowers =
     followersCount && followersCount > 0
-      ? `${followersCount.toLocaleString()} seguidores`
+      ? `${followersCount.toLocaleString('es-ES')} seguidores`
       : '2h';
 
   return (
@@ -358,7 +358,7 @@ export default function LinkedInPostPreview({
                 transition: 'all 0.15s',
               }}
             >
-              {v === 'desktop' ? '🖥 Desktop' : '📱 Mobile'}
+              {v === 'desktop' ? '🖥 Ordenador' : '📱 Móvil'}
             </button>
           ))}
         </div>
@@ -464,7 +464,7 @@ export default function LinkedInPostPreview({
               <div style={{ fontSize: 12, color: '#666', display: 'flex', alignItems: 'center', gap: 3, marginTop: 1 }}>
                 <span>{displayFollowers}</span>
                 <span>·</span>
-                <span title="Public">
+                <span title="Público">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="#666">
                     <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm0 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 2c.28 0 .54.04.79.1C8.5 4 8.5 4.5 8.5 5c0 .83-.67 1.5-1.5 1.5A1.5 1.5 0 0 1 5.5 5c0-.28.08-.55.2-.79A5 5 0 0 1 8 3.5zm-3.5 5.5h7a.5.5 0 0 1 .5.5v.5a4 4 0 0 1-8 0V9.5a.5.5 0 0 1 .5-.5z" />
                   </svg>
@@ -494,7 +494,7 @@ export default function LinkedInPostPreview({
               <PostText text={text} view={view} hasMedia={!!imageUrl} />
             ) : (
               <span style={{ color: '#aaa', fontSize: 13, fontStyle: 'italic' }}>
-                Post content will appear here…
+                El texto del post aparecerá aquí…
               </span>
             )}
           </div>
@@ -588,7 +588,7 @@ export default function LinkedInPostPreview({
                 transition: 'all 0.15s',
               }}
             >
-              📷 Drag an image or click to add
+              📷 Arrastra una imagen o haz clic para añadirla
               <input
                 ref={fileInputRef}
                 type="file"
@@ -622,7 +622,7 @@ export default function LinkedInPostPreview({
               </span>
               <span style={{ marginLeft: 6 }}>42</span>
             </div>
-            <span>3 comments · 1 repost</span>
+            <span>3 comentarios · 1 vez compartido</span>
           </div>
 
           {/* Action bar */}
@@ -634,10 +634,10 @@ export default function LinkedInPostPreview({
             }}
           >
             {[
-              { icon: '👍', label: 'Like' },
-              { icon: '💬', label: 'Comment' },
-              { icon: '🔁', label: 'Repost' },
-              { icon: '✉️', label: 'Send' },
+              { icon: '👍', label: 'Recomendar' },
+              { icon: '💬', label: 'Comentar' },
+              { icon: '🔁', label: 'Compartir' },
+              { icon: '✉️', label: 'Enviar' },
             ].map(({ icon, label }) => (
               <button
                 key={label}
@@ -669,7 +669,7 @@ export default function LinkedInPostPreview({
       {/* Blank-line warning — in real LinkedIn the first blank line hides everything after it */}
       {text && /\n\s*\n/.test(text) && (
         <div style={{ fontSize: 10, color: '#f59e0b', textAlign: 'center' }}>
-          ⚠ Blank line detected — LinkedIn hides everything after the first blank line behind "see more"
+          ⚠ Hay una línea en blanco: LinkedIn esconde tras "…más" todo lo que va después de la primera
         </div>
       )}
     </div>

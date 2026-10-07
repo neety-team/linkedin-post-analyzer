@@ -23,14 +23,12 @@ interface Props {
   location?: string;
 }
 
-const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const dayLabelsFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const dayLabels = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+const dayLabelsFull = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
 function formatHour(h: number): string {
-  if (h === 0) return '12am';
-  if (h < 12) return `${h}am`;
-  if (h === 12) return '12pm';
-  return `${h - 12}pm`;
+  // Formato de 24 horas, como se lee en España.
+  return `${h}:00`;
 }
 
 export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, location }: Props) {
@@ -42,7 +40,6 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
 
   // Find max for color scaling
   const maxEng = Math.max(1, ...heatmap.map((s) => s.avg_engagement));
-  const maxCount = Math.max(1, ...heatmap.map((s) => s.count));
 
   // Show hours 6-23 (most relevant for LinkedIn)
   const hours = Array.from({ length: 18 }, (_, i) => i + 6);
@@ -102,7 +99,7 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
   return (
     <div className="bg-bg-card rounded-xl p-6 min-w-0 overflow-hidden">
       <div className="flex items-center gap-3 mb-1">
-        <h3 className="text-lg font-semibold">Optimal Posting Time</h3>
+        <h3 className="text-lg font-semibold">Mejor hora para publicar</h3>
         {timezoneLabel && (
           <span className="text-xs bg-accent/10 text-accent px-2 py-0.5 rounded-md font-medium">
             {timezoneLabel}
@@ -110,53 +107,53 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
         )}
       </div>
       <p className="text-text-muted text-xs mb-4">
-        Day x Hour heatmap{location ? ` (${location} local time)` : timezoneLabel && timezoneLabel !== 'UTC' ? ` (${timezoneLabel})` : ' (UTC)'}.
-        Orange = has outliers. Green = normal posts only. Brighter = higher engagement.
+        Mapa de calor por día y hora{location ? ` (hora local de ${location})` : timezoneLabel && timezoneLabel !== 'UTC' ? ` (${timezoneLabel})` : ' (UTC)'}.
+        Naranja = hay outliers. Verde = solo posts normales. Más brillante = más interacciones.
       </p>
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
         <div className="bg-bg-secondary rounded-lg p-3 text-center">
-          <p className="text-text-muted text-[10px]">Best Day (Avg Eng)</p>
+          <p className="text-text-muted text-[10px]">Mejor día (interacciones medias)</p>
           <p className="text-text-primary font-bold">
             {bestDay ? dayLabelsFull[parseInt(bestDay[0])] : '--'}
           </p>
           {bestDay && (
             <p className="text-text-muted text-[10px]">
-              {Math.round(bestDay[1].totalEng / bestDay[1].count).toLocaleString()} avg
+              {Math.round(bestDay[1].totalEng / bestDay[1].count).toLocaleString('es-ES')} de media
             </p>
           )}
         </div>
         <div className="bg-bg-secondary rounded-lg p-3 text-center">
-          <p className="text-text-muted text-[10px]">Best Hour (Avg Eng)</p>
+          <p className="text-text-muted text-[10px]">Mejor hora (interacciones medias)</p>
           <p className="text-text-primary font-bold">
             {bestHour ? formatHour(parseInt(bestHour[0])) : '--'}
           </p>
           {bestHour && (
             <p className="text-text-muted text-[10px]">
-              {Math.round(bestHour[1].totalEng / bestHour[1].count).toLocaleString()} avg
+              {Math.round(bestHour[1].totalEng / bestHour[1].count).toLocaleString('es-ES')} de media
             </p>
           )}
         </div>
         <div className="bg-bg-secondary rounded-lg p-3 text-center">
-          <p className="text-accent text-[10px]">Best Day (Outliers)</p>
+          <p className="text-accent text-[10px]">Mejor día (outliers)</p>
           <p className="text-accent font-bold">
             {bestDayOutlier ? dayLabelsFull[parseInt(bestDayOutlier[0])] : '--'}
           </p>
           {bestDayOutlier && (
             <p className="text-text-muted text-[10px]">
-              {bestDayOutlier[1].outliers} outliers
+              {bestDayOutlier[1].outliers} {bestDayOutlier[1].outliers === 1 ? 'outlier' : 'outliers'}
             </p>
           )}
         </div>
         <div className="bg-bg-secondary rounded-lg p-3 text-center">
-          <p className="text-accent text-[10px]">Best Hour (Outliers)</p>
+          <p className="text-accent text-[10px]">Mejor hora (outliers)</p>
           <p className="text-accent font-bold">
             {bestHourOutlier ? formatHour(parseInt(bestHourOutlier[0])) : '--'}
           </p>
           {bestHourOutlier && (
             <p className="text-text-muted text-[10px]">
-              {bestHourOutlier[1].outliers} outliers
+              {bestHourOutlier[1].outliers} {bestHourOutlier[1].outliers === 1 ? 'outlier' : 'outliers'}
             </p>
           )}
         </div>
@@ -194,8 +191,8 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
                       }}
                       title={
                         slot && slot.count > 0
-                          ? `${dayLabelsFull[day]} ${formatHour(hour)}: ${slot.count} posts, ${slot.avg_engagement.toLocaleString()} avg eng, ${slot.outliers} outliers`
-                          : `${dayLabelsFull[day]} ${formatHour(hour)}: no posts`
+                          ? `${dayLabelsFull[day]} ${formatHour(hour)}: ${slot.count} ${slot.count === 1 ? 'post' : 'posts'}, ${slot.avg_engagement.toLocaleString('es-ES')} interacciones de media, ${slot.outliers} ${slot.outliers === 1 ? 'outlier' : 'outliers'}`
+                          : `${dayLabelsFull[day]} ${formatHour(hour)}: sin posts`
                       }
                     />
                   );
@@ -210,30 +207,30 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
       <div className="flex items-center gap-4 mt-3 text-[10px] text-text-muted">
         <div className="flex items-center gap-1">
           <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#0f3d2e' }} />
-          <span>Normal (low)</span>
+          <span>Normal (bajo)</span>
         </div>
         <div className="flex items-center gap-1">
           <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#34d399' }} />
-          <span>Normal (high)</span>
+          <span>Normal (alto)</span>
         </div>
         <div className="flex items-center gap-1">
           <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#5a3d2a' }} />
-          <span>Has outliers (low)</span>
+          <span>Con outliers (bajo)</span>
         </div>
         <div className="flex items-center gap-1">
           <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#e8935a' }} />
-          <span>Has outliers (high)</span>
+          <span>Con outliers (alto)</span>
         </div>
         <div className="flex items-center gap-1">
           <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#1a1d27', border: '1.5px solid #67e8f9' }} />
-          <span>50%+ outlier rate</span>
+          <span>50%+ de outliers</span>
         </div>
       </div>
 
       {/* Best slots table */}
       {bestSlots.length > 0 && (
         <div className="mt-5">
-          <p className="text-text-secondary text-sm font-medium mb-2">Top 5 Time Slots (by avg engagement)</p>
+          <p className="text-text-secondary text-sm font-medium mb-2">Las 5 mejores franjas (por interacciones medias)</p>
           <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
             {bestSlots.map((s, i) => (
               <div
@@ -248,10 +245,10 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
                   {dayLabels[s.day]} {formatHour(s.hour)}
                 </p>
                 <p className="text-text-muted text-[10px]">
-                  {s.avg_engagement.toLocaleString()} avg · {s.count} posts
+                  {s.avg_engagement.toLocaleString('es-ES')} de media · {s.count} {s.count === 1 ? 'post' : 'posts'}
                 </p>
                 {s.outliers > 0 && (
-                  <p className="text-accent text-[10px] font-medium">{s.outliers} outliers</p>
+                  <p className="text-accent text-[10px] font-medium">{s.outliers} {s.outliers === 1 ? 'outlier' : 'outliers'}</p>
                 )}
               </div>
             ))}

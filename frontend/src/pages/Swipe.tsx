@@ -145,7 +145,7 @@ export default function Swipe() {
       {/* Card stack */}
       <div className="relative max-w-2xl mx-auto" style={{ minHeight: 480 }}>
         {loading && deck.length === 0 ? (
-          <p className="text-center text-text-muted py-20">Cargando deck…</p>
+          <p className="text-center text-text-muted py-20">Cargando tarjetas…</p>
         ) : !current ? (
           <div className="bg-bg-card border border-border rounded-2xl p-12 text-center">
             <p className="text-2xl mb-2">🎉</p>
@@ -246,7 +246,7 @@ function SwipeCardView({
         <div className="min-w-0">
           <p className="text-sm font-medium truncate">{card.creator_name}</p>
           <p className="text-[11px] text-text-muted truncate">
-            {fmt(card.creator_followers)} followers · {fmtDate(card.published_at)}
+            {fmt(card.creator_followers)} seguidores · {fmtDate(card.published_at)}
           </p>
         </div>
       </div>

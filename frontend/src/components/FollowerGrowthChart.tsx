@@ -23,7 +23,7 @@ type Modo = 'cumulative' | 'daily';
 
 function fmtDay(iso: string): string {
   const d = new Date(`${iso}T00:00:00`);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
 }
 
 function fmtNum(n: number): string {
@@ -62,14 +62,14 @@ function PuntoTooltip({ active, payload, modo }: any) {
       <div style={{ color: '#34d399', fontSize: 18, fontWeight: 700 }}>
         +{fmtFull(modo === 'cumulative' ? d.acumulado : d.gained)}
         <span style={{ color: '#9ca3af', fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
-          {modo === 'cumulative' ? 'new followers so far' : 'new followers that day'}
+          {modo === 'cumulative' ? 'seguidores nuevos acumulados' : 'seguidores nuevos ese día'}
         </span>
       </div>
       {modo === 'cumulative' && (
-        <div style={{ color: '#9ca3af', fontSize: 11 }}>+{fmtFull(d.gained)} that day</div>
+        <div style={{ color: '#9ca3af', fontSize: 11 }}>+{fmtFull(d.gained)} ese día</div>
       )}
       {d.followers > 0 && (
-        <div style={{ color: '#9ca3af', fontSize: 11, marginTop: 2 }}>{fmtFull(d.followers)} total followers</div>
+        <div style={{ color: '#9ca3af', fontSize: 11, marginTop: 2 }}>{fmtFull(d.followers)} seguidores en total</div>
       )}
     </div>
   );
@@ -146,16 +146,16 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
     <div className="bg-bg-card border border-border rounded-xl p-5">
       <div className="flex items-start justify-between gap-4 mb-2 flex-wrap">
         <div>
-          <h3 className="text-lg font-semibold">Follower growth</h3>
+          <h3 className="text-lg font-semibold">Crecimiento de seguidores</h3>
           <p className="text-xs text-text-muted mt-0.5">
             {creatorId
-              ? 'New followers in the range, like LinkedIn Audience analytics (this account)'
-              : 'New followers in the range, like LinkedIn Audience analytics — all managed accounts (manual accounts: from daily totals)'}
+              ? 'Seguidores nuevos en el periodo, como en las estadísticas de audiencia de LinkedIn (esta cuenta)'
+              : 'Seguidores nuevos en el periodo, como en las estadísticas de audiencia de LinkedIn. Todas las cuentas propias (las manuales, a partir de los totales diarios)'}
           </p>
         </div>
         <div className="flex gap-1">
-          <button className={boton(modo === 'cumulative')} onClick={() => setModo('cumulative')}>Cumulative</button>
-          <button className={boton(modo === 'daily')} onClick={() => setModo('daily')}>Daily</button>
+          <button className={boton(modo === 'cumulative')} onClick={() => setModo('cumulative')}>Acumulado</button>
+          <button className={boton(modo === 'daily')} onClick={() => setModo('daily')}>Diario</button>
         </div>
       </div>
 
@@ -163,26 +163,26 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
         <div className="mb-3 flex items-baseline gap-x-4 gap-y-1 flex-wrap">
           <span className="flex items-baseline gap-2">
             <span className="text-2xl font-bold text-green-400 tabular-nums">+{fmtFull(ganados)}</span>
-            <span className="text-sm text-text-muted">new followers · {days}d</span>
+            <span className="text-sm text-text-muted">seguidores nuevos · {days} d</span>
           </span>
           {variacion != null && (
             <span className={`text-xs font-medium ${variacion >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               {variacion >= 0 ? '▲' : '▼'} {Math.abs(variacion).toLocaleString('es-ES', { maximumFractionDigits: 0 })}%
-              <span className="text-text-muted font-normal"> vs. prior {days} days</span>
+              <span className="text-text-muted font-normal"> vs. los {days} días anteriores</span>
             </span>
           )}
           {totalActual > 0 && (
             <span className="text-xs text-text-muted">
-              <span className="text-text-secondary font-semibold tabular-nums">{fmtFull(totalActual)}</span> total followers
+              <span className="text-text-secondary font-semibold tabular-nums">{fmtFull(totalActual)}</span> seguidores en total
             </span>
           )}
         </div>
       )}
 
       {loading ? (
-        <p className="text-center text-text-muted text-sm py-12">Loading…</p>
+        <p className="text-center text-text-muted text-sm py-12">Cargando…</p>
       ) : chartData.length === 0 ? (
-        <p className="text-center text-text-muted text-sm py-12">No follower data in this range yet.</p>
+        <p className="text-center text-text-muted text-sm py-12">Aún no hay datos de seguidores en este periodo.</p>
       ) : (
         <ResponsiveContainer width="100%" height={240}>
           <ComposedChart data={chartData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>

@@ -41,17 +41,17 @@ export const FILTROS_TOP_DEFECTO: FiltrosTop = {
 // Engagement compuesto va al final de su grupo porque es redundante con
 // Outlier, que es lo mismo normalizado por cuenta y por tanto mas justo.
 export const ORDENES_TOP: { valor: OrdenTop; etiqueta: string; grupo: string; descripcion: string }[] = [
-  { valor: 'outlier_ratio', etiqueta: '🔥 Outlier', grupo: 'Intención', descripcion: "Sorted by outlier ratio (highest multiplier vs. each creator's baseline)" },
+  { valor: 'outlier_ratio', etiqueta: '🔥 Outlier', grupo: 'Intención', descripcion: 'Ordenado por multiplicador de outlier (el más alto frente a la media de cada creador)' },
   { valor: 'ctr', etiqueta: '🎯 CTR', grupo: 'Intención', descripcion: 'Ordenado por CTR: clics ÷ impresiones. Compara justo posts de tamaños distintos' },
   { valor: 'clicks', etiqueta: '🔗 Clics', grupo: 'Intención', descripcion: 'Ordenado por clics al enlace (solo posts que llevaban enlace)' },
-  { valor: 'saves', etiqueta: '🔖 Guardados', grupo: 'Intención', descripcion: 'Ordenado por guardados. Cuesta más que un like y nadie guarda por compromiso' },
+  { valor: 'saves', etiqueta: '🔖 Guardados', grupo: 'Intención', descripcion: 'Ordenado por guardados. Cuesta más que una reacción y nadie guarda por compromiso' },
   { valor: 'sends', etiqueta: '✈️ Envíos', grupo: 'Intención', descripcion: 'Ordenado por envíos por privado. Alguien se lo mandó a otra persona' },
-  { valor: 'impressions', etiqueta: '👁 Impresiones', grupo: 'Alcance', descripcion: 'Sorted by impressions (highest reach first)' },
-  { valor: 'comments', etiqueta: '💬 Comentarios', grupo: 'Interacción', descripcion: 'Sorted by comments' },
-  { valor: 'reposts', etiqueta: '🔁 Reposts', grupo: 'Interacción', descripcion: 'Sorted by reposts' },
-  { valor: 'likes', etiqueta: '👍 Likes', grupo: 'Interacción', descripcion: 'Sorted by likes' },
-  { valor: 'engagement', etiqueta: '⚡ Engagement', grupo: 'Interacción', descripcion: 'Sorted by engagement score' },
-  { valor: 'recent', etiqueta: '🕐 Recientes', grupo: 'Fecha', descripcion: 'Sorted by most recent' },
+  { valor: 'impressions', etiqueta: '👁 Impresiones', grupo: 'Alcance', descripcion: 'Ordenado por impresiones (primero el mayor alcance)' },
+  { valor: 'comments', etiqueta: '💬 Comentarios', grupo: 'Interacción', descripcion: 'Ordenado por comentarios' },
+  { valor: 'reposts', etiqueta: '🔁 Compartidos', grupo: 'Interacción', descripcion: 'Ordenado por veces compartido' },
+  { valor: 'likes', etiqueta: '👍 Reacciones', grupo: 'Interacción', descripcion: 'Ordenado por reacciones' },
+  { valor: 'engagement', etiqueta: '⚡ Interacciones', grupo: 'Interacción', descripcion: 'Ordenado por puntuación de interacción' },
+  { valor: 'recent', etiqueta: '🕐 Recientes', grupo: 'Fecha', descripcion: 'Ordenado por los más recientes' },
 ];
 
 const ORDENES_VALIDOS = new Set<string>(ORDENES_TOP.map((o) => o.valor));

@@ -239,8 +239,8 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
     // El numero va en la pregunta a proposito: borrar una categoria con 23 posts
     // dentro los manda a "Otro" y eso no se deshace con Ctrl+Z.
     const aviso = p.posts_count > 0
-      ? `Borrar el pilar de contenido "${p.label}". Sus ${p.posts_count} post${p.posts_count === 1 ? '' : 's'} volverán a Otro. ¿Seguro?`
-      : `¿Borrar el pilar de contenido "${p.label}"?`;
+      ? `Eliminar el pilar de contenido "${p.label}". ${p.posts_count === 1 ? 'Su post volverá' : `Sus ${p.posts_count} posts volverán`} a Otro. ¿Seguro?`
+      : `¿Eliminar el pilar de contenido "${p.label}"?`;
     if (!window.confirm(aviso)) return;
     setOcupado(true);
     setError(null);
@@ -354,9 +354,9 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
                             : 'text-text-muted hover:text-red-400 disabled:opacity-50'
                         }`}
                         title={p.builtin
-                          ? 'Los pilares de serie no se borran: el clasificador los vuelve a crear solo. Renómbralo si quieres.'
-                          : 'Borrar'}
-                        aria-label={p.builtin ? `${p.label} no se puede borrar` : `Borrar ${p.label}`}
+                          ? 'Los pilares de serie no se eliminan: el clasificador los vuelve a crear solo. Renómbralo si quieres.'
+                          : 'Eliminar'}
+                        aria-label={p.builtin ? `${p.label} no se puede eliminar` : `Eliminar ${p.label}`}
                       >
                         🗑
                       </button>

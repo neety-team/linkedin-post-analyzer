@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef } from 'react';
 import {
-  AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
+  AreaChart, Area, XAxis, YAxis, ResponsiveContainer,
 } from 'recharts';
 
 interface TimelinePoint {
@@ -48,7 +48,7 @@ function dayKey(ts: string): string {
 }
 
 function formatDayLabel(day: string): string {
-  return new Date(`${day}T00:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return new Date(`${day}T00:00:00Z`).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
 }
 
 // Fixed chart margins so the pencil strip below can align with the plot area
@@ -228,7 +228,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
   return (
     <div className="bg-bg-card rounded-xl p-6 min-w-0 overflow-hidden">
       <div className="flex items-start justify-between mb-1 flex-wrap gap-2">
-        <h3 className="text-lg font-semibold">Engagement Timeline</h3>
+        <h3 className="text-lg font-semibold">Evolución de las interacciones</h3>
         <div className="flex items-center gap-2 flex-wrap">
           {/* Range filter */}
           <div
@@ -256,7 +256,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                   transition: 'all 0.15s',
                 }}
               >
-                {r === 'all' ? 'All' : r}
+                {r === 'all' ? 'Todo' : r}
               </button>
             ))}
           </div>
@@ -299,28 +299,27 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
       </div>
       <div className="text-[11px] text-text-muted mb-3 space-y-0.5">
         <p>
-          <span className="text-text-secondary font-medium">Engagement</span>: likes + comments×2 + reposts×3.
-          For each day D, we sum the engagement of every post published in the{' '}
-          <span className="text-text-secondary font-medium">previous 7 days</span> — LinkedIn's
-          distribution window. A post from three days ago still contributes to today's value, so quiet
-          days don't collapse to zero while the creator has recent active content.
+          <span className="text-text-secondary font-medium">Interacciones</span>: reacciones + comentarios×2 + compartidos×3.
+          Para cada día D sumamos las interacciones de todos los posts publicados en los{' '}
+          <span className="text-text-secondary font-medium">7 días anteriores</span>, que es la ventana
+          de distribución de LinkedIn. Un post de hace tres días sigue sumando al valor de hoy, así que los
+          días sin publicar no caen a cero mientras el creador tenga contenido reciente activo.
         </p>
         <p className="text-text-muted/80 italic">
-          When the account is connected via Unipile we replace the rolling sum with the real daily
-          engagement measured from hourly snapshots. "Avg engagement / day" shows the true daily
-          average over the selected range — not the average of the curve, which would be inflated by
-          the rolling window.
+          Si la cuenta está conectada por Unipile, cambiamos esa suma móvil por las interacciones reales
+          de cada día, medidas con lecturas cada hora. "Interacciones medias / día" muestra la media diaria
+          real del periodo elegido, no la media de la curva, que la ventana móvil inflaría.
         </p>
       </div>
       <div className="flex items-center gap-4 mb-3 text-xs text-text-muted">
         <span>
-          <span className="text-text-secondary font-medium">{postDaysInRange}</span> day
-          {postDaysInRange === 1 ? '' : 's'} with a post in the last{' '}
-          {range === 'all' ? 'window' : range}
+          <span className="text-text-secondary font-medium">{postDaysInRange}</span>{' '}
+          {postDaysInRange === 1 ? 'día' : 'días'} con post{' '}
+          {range === 'all' ? 'en todo el periodo' : `en los últimos ${RANGE_DAYS[range]} días`}
         </span>
         <span>
-          avg engagement / day:{' '}
-          <span className="text-text-secondary font-medium">{Math.round(displayedAvg).toLocaleString()}</span>
+          interacciones medias / día:{' '}
+          <span className="text-text-secondary font-medium">{Math.round(displayedAvg).toLocaleString('es-ES')}</span>
         </span>
       </div>
       <div ref={wrapperRef} style={{ position: 'relative' }}>
@@ -370,7 +369,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
           if (!d) return null;
           const heading = d.hasPost
             ? `${d.date} · ${d.postCount} post${d.postCount > 1 ? 's' : ''}`
-            : `${d.date} · no post`;
+            : `${d.date} · sin post`;
           const preview = d.topPost?.content_text || d.topPost?.hook_text || '';
           const containerW = wrapperRef.current?.offsetWidth ?? 600;
           const tooltipW = 220;
@@ -406,9 +405,9 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
             >
               <div style={{ fontWeight: 600, marginBottom: 4 }}>{heading}</div>
               <div style={{ color: '#cbd5e1' }}>
-                Engagement:{' '}
+                Interacciones:{' '}
                 <span style={{ color: '#e8eaf0', fontWeight: 600 }}>
-                  {d.engagement_score.toLocaleString()}
+                  {d.engagement_score.toLocaleString('es-ES')}
                 </span>
               </div>
               {/* Extra context lines — always shown when applicable, between
@@ -425,14 +424,14 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                 >
                   {d.hasPost && (
                     <div>
-                      <span style={{ color: '#94a3b8' }}>Top post: </span>
+                      <span style={{ color: '#94a3b8' }}>Mejor post: </span>
                       <span
                         style={{
                           color: d.is_outlier ? '#67e8f9' : '#cbd5e1',
                           fontWeight: 600,
                         }}
                       >
-                        {d.outlier_ratio.toFixed(1)}× creator avg
+                        {d.outlier_ratio.toFixed(1)}× la media del creador
                       </span>
                       {d.is_outlier && (
                         <span
@@ -454,7 +453,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                   )}
                   {d.activePostCount > 0 && (
                     <div style={{ color: '#94a3b8', fontSize: 11, marginTop: 2 }}>
-                      {d.activePostCount} post{d.activePostCount > 1 ? 's' : ''} active in 7-day window
+                      {d.activePostCount} {d.activePostCount > 1 ? 'posts activos' : 'post activo'} en la ventana de 7 días
                     </div>
                   )}
                 </div>
@@ -489,7 +488,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                     <div
                       style={{ color: '#64748b', fontStyle: 'italic', marginBottom: 8 }}
                     >
-                      (no preview available)
+                      (sin vista previa)
                     </div>
                   )}
                   {d.topPost?.post_url && (
@@ -508,7 +507,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                         fontWeight: 600,
                       }}
                     >
-                      View on LinkedIn →
+                      Ver en LinkedIn →
                     </a>
                   )}
                 </div>
@@ -529,7 +528,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
             marginTop: 6,
             minHeight: 22,
           }}
-          aria-label="Days with publications"
+          aria-label="Días con posts publicados"
         >
           {chartData.map((d, i) => {
             if (!d.hasPost) return null;

@@ -99,7 +99,7 @@ async function enrichCreator(linkedinUrl: string, searchQuery?: string): Promise
 router.post('/search', async (req: Request, res: Response) => {
   const { query } = req.body;
   if (!query || typeof query !== 'string') {
-    return res.status(400).json({ error: 'query is required' });
+    return res.status(400).json({ error: 'Falta el texto de búsqueda' });
   }
 
   // Try Unipile search endpoint
@@ -118,7 +118,7 @@ router.post('/search', async (req: Request, res: Response) => {
       const body = await searchRes.text();
       console.warn(`[Discover] Unipile search returned ${searchRes.status}: ${body}`);
       return res.status(422).json({
-        error: 'Unipile people search is not available on your plan. Add creators by URL instead.',
+        error: 'La búsqueda de personas de Unipile no está disponible en tu plan. Añade los creadores por URL.',
         code: 'SEARCH_UNAVAILABLE',
       });
     }
@@ -138,13 +138,13 @@ router.post('/search', async (req: Request, res: Response) => {
   } catch (err: any) {
     console.error('[Discover] Search error:', err.message);
     return res.status(422).json({
-      error: 'Unipile people search is not available. Add creators by URL instead.',
+      error: 'La búsqueda de personas de Unipile no está disponible. Añade los creadores por URL.',
       code: 'SEARCH_UNAVAILABLE',
     });
   }
 
   if (searchResults.length === 0) {
-    return res.json({ message: 'No results found', enriched: 0 });
+    return res.json({ message: 'Sin resultados', enriched: 0 });
   }
 
   // Enrich each result (sequential to avoid rate limits)
@@ -161,17 +161,17 @@ router.post('/search', async (req: Request, res: Response) => {
     await new Promise((r) => setTimeout(r, 800));
   }
 
-  res.json({ message: 'Search complete', total: searchResults.length, enriched, errors: errors.slice(0, 5) });
+  res.json({ message: 'Búsqueda completada', total: searchResults.length, enriched, errors: errors.slice(0, 5) });
 });
 
 // POST /api/discover/creators — Add a single creator by URL
 router.post('/creators', async (req: Request, res: Response) => {
   const { linkedin_url } = req.body;
-  if (!linkedin_url) return res.status(400).json({ error: 'linkedin_url is required' });
+  if (!linkedin_url) return res.status(400).json({ error: 'Falta linkedin_url' });
 
   const normalized = normalizeLinkedInUrl(linkedin_url);
   if (!isValidLinkedInUrl(normalized)) {
-    return res.status(400).json({ error: 'Invalid LinkedIn URL' });
+    return res.status(400).json({ error: 'La URL de LinkedIn no es válida' });
   }
 
   try {
@@ -213,7 +213,7 @@ router.get('/tags', async (_req: Request, res: Response) => {
 router.delete('/creators/:id', async (req: Request, res: Response) => {
   try {
     await DiscoveredCreatorModel.delete(paramId(req));
-    res.json({ message: 'Deleted' });
+    res.json({ message: 'Eliminado' });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -223,7 +223,7 @@ router.delete('/creators/:id', async (req: Request, res: Response) => {
 router.post('/creators/:id/refresh', async (req: Request, res: Response) => {
   try {
     const creator = await DiscoveredCreatorModel.findById(paramId(req));
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
 
     await enrichCreator(creator.linkedin_url, creator.search_query ?? undefined);
     const updated = await DiscoveredCreatorModel.findById(paramId(req));
@@ -241,7 +241,7 @@ router.post('/creators/:id/promote', async (req: Request, res: Response) => {
     const discovered = await DiscoveredCreatorModel.findById(id);
     if (!discovered) {
       console.log(`[Promote] Not found: ${id}`);
-      return res.status(404).json({ error: 'Creator not found' });
+      return res.status(404).json({ error: 'Creador no encontrado' });
     }
     console.log(`[Promote] Found: ${discovered.name} (${discovered.linkedin_url})`);
 
@@ -249,7 +249,7 @@ router.post('/creators/:id/promote', async (req: Request, res: Response) => {
     const existing = await CreatorModel.findByUrl(discovered.linkedin_url);
     if (existing) {
       console.log(`[Promote] Already in dashboard: ${discovered.linkedin_url}`);
-      return res.status(409).json({ error: 'Creator already in Dashboard' });
+      return res.status(409).json({ error: 'Este creador ya está en el panel' });
     }
 
     // Create in main creators table
@@ -268,7 +268,7 @@ router.post('/creators/:id/promote', async (req: Request, res: Response) => {
     });
 
     console.log(`[Promote] Done: ${discovered.name}`);
-    res.status(201).json({ message: 'Added to Dashboard', linkedin_url: discovered.linkedin_url });
+    res.status(201).json({ message: 'Añadido al panel', linkedin_url: discovered.linkedin_url });
   } catch (err: any) {
     console.error(`[Promote] Error for ${id}:`, err.message, err.stack);
     res.status(500).json({ error: err.message });

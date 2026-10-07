@@ -46,7 +46,7 @@ router.patch('/:id/pillar', async (req: Request, res: Response) => {
         RETURNING id, pillar, pillar_manual`,
       [req.params.id as string, pillar]
     );
-    if (rows.length === 0) return res.status(404).json({ error: 'Post not found' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
     res.json({ ok: true, ...rows[0] });
   } catch (err: any) {
     console.error('[posts/pillar]', err);
@@ -78,7 +78,7 @@ router.post('/classify-pillars', async (req: Request, res: Response) => {
 router.get('/:id/posts', async (req: Request, res: Response) => {
   try {
     const creator = await CreatorModel.findById(paramId(req));
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
 
     const filters = {
       outliers_only: req.query.outliers_only === 'true',
@@ -105,7 +105,7 @@ router.get('/post/:id/media', async (req: Request, res: Response) => {
       [req.params.id as string]
     );
     const post = rows[0];
-    if (!post) return res.status(404).json({ error: 'Post not found' });
+    if (!post) return res.status(404).json({ error: 'Post no encontrado' });
 
     const raw = post.raw_data || {};
     const contentType: string = post.content_type || 'text';
@@ -199,14 +199,14 @@ router.post('/post/:id/refresh-media', async (req: Request, res: Response) => {
       [req.params.id as string]
     );
     const post = rows[0];
-    if (!post) return res.status(404).json({ error: 'Post not found' });
-    if (!post.linkedin_id) return res.status(400).json({ error: 'Creator has no linkedin_id' });
-    if (!post.linkedin_post_id) return res.status(400).json({ error: 'Post has no linkedin_post_id' });
+    if (!post) return res.status(404).json({ error: 'Post no encontrado' });
+    if (!post.linkedin_id) return res.status(400).json({ error: 'Este creador no tiene linkedin_id' });
+    if (!post.linkedin_post_id) return res.status(400).json({ error: 'Este post no tiene linkedin_post_id' });
 
     const accountId = post.unipile_account_id || process.env.UNIPILE_SCRAPER_ACCOUNT_ID;
     if (!accountId) {
       return res.status(400).json({
-        error: 'No Unipile account available (creator has no unipile_account_id and UNIPILE_SCRAPER_ACCOUNT_ID is not set)',
+        error: 'No hay ninguna cuenta de Unipile disponible (el creador no tiene unipile_account_id y UNIPILE_SCRAPER_ACCOUNT_ID no está configurada)',
       });
     }
 
@@ -225,7 +225,7 @@ router.post('/post/:id/refresh-media', async (req: Request, res: Response) => {
     }
     if (!fresh) {
       return res.status(404).json({
-        error: 'Post not found in Unipile (deleted or no longer accessible)',
+        error: 'Unipile no encuentra el post (está borrado o ya no se puede acceder a él)',
       });
     }
 

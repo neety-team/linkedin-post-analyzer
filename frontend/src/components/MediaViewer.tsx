@@ -105,29 +105,29 @@ export default function MediaViewer({
         onClick={load}
         className="text-[11px] text-text-muted hover:text-accent border border-border hover:border-accent/40 px-2.5 py-1 rounded-lg transition-colors"
       >
-        {icon} Show media
+        {icon} Ver multimedia
       </button>
     );
   }
 
   if (state === 'loading') {
-    return <span className="text-[11px] text-text-muted animate-pulse">Loading…</span>;
+    return <span className="text-[11px] text-text-muted animate-pulse">Cargando…</span>;
   }
 
   if (state === 'error' || !media || media.items.length === 0) {
     return (
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-[11px] text-text-muted">No saved media</span>
+        <span className="text-[11px] text-text-muted">Sin multimedia guardado</span>
         <button
           onClick={refreshFromLinkedIn}
           disabled={refreshing}
           className="text-[11px] px-2 py-0.5 rounded border border-accent/40 bg-accent/10 text-accent hover:bg-accent/20 disabled:opacity-50 transition-colors"
         >
-          {refreshing ? 'Refrescando…' : '↻ Refrescar'}
+          {refreshing ? 'Actualizando…' : '↻ Actualizar'}
         </button>
         {linkedinUrl && (
           <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-accent hover:text-accent-light">
-            view on LinkedIn ↗
+            ver en LinkedIn ↗
           </a>
         )}
         <button onClick={() => setState('idle')} className="text-[10px] text-text-muted hover:text-text-secondary ml-1">✕</button>
@@ -148,12 +148,12 @@ export default function MediaViewer({
           className="w-full max-h-72 rounded-lg object-contain bg-black"
           onError={() => setImgError((e) => ({ ...e, [active]: true }))}
         >
-          Your browser does not support video.
+          Tu navegador no puede reproducir vídeo.
         </video>
       ) : item.type === 'image' && !imgError[active] ? (
         <img
           src={item.url}
-          alt={`Media ${active + 1}`}
+          alt={`Multimedia ${active + 1}`}
           className="w-full max-h-72 rounded-lg object-contain bg-bg-primary"
           onError={() => setImgError((e) => ({ ...e, [active]: true }))}
         />
@@ -164,17 +164,17 @@ export default function MediaViewer({
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-3 py-2 bg-bg-primary rounded-lg text-xs text-accent hover:text-accent-light border border-border"
         >
-          📄 Open document ↗
+          📄 Abrir documento ↗
         </a>
       ) : (
         <div className="text-[11px] text-text-muted flex items-center gap-2 flex-wrap">
-          <span>Media URL expired.</span>
+          <span>El enlace del multimedia ha caducado.</span>
           <button
             onClick={refreshFromLinkedIn}
             disabled={refreshing}
             className="px-2 py-0.5 rounded border border-accent/40 bg-accent/10 text-accent hover:bg-accent/20 disabled:opacity-50 transition-colors"
           >
-            {refreshing ? 'Refrescando…' : '↻ Refrescar desde LinkedIn'}
+            {refreshing ? 'Actualizando…' : '↻ Actualizar desde LinkedIn'}
           </button>
           {linkedinUrl && (
             <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-light">
@@ -199,7 +199,7 @@ export default function MediaViewer({
       )}
 
       <button onClick={() => setState('idle')} className="text-[10px] text-text-muted hover:text-text-secondary">
-        Hide
+        Ocultar
       </button>
     </div>
   );

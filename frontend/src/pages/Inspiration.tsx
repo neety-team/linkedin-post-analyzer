@@ -37,17 +37,19 @@ interface OutlierPost {
 // Legacy/alias keys (CELEBRATE, SUPPORT, LOVE, INSIGHTFUL, FUNNY) kept so old
 // data or any renamed variant still renders. UNKNOWN/total/sampled filtered out.
 const REACTION_META: { key: string; emoji: string; label: string; color: string }[] = [
-  { key: 'LIKE', emoji: '👍', label: 'Like', color: '#4a90d9' },
-  { key: 'PRAISE', emoji: '👏', label: 'Celebrate', color: '#34d399' },
-  { key: 'CELEBRATE', emoji: '👏', label: 'Celebrate', color: '#34d399' },
-  { key: 'APPRECIATION', emoji: '❤️', label: 'Love', color: '#f87171' },
-  { key: 'LOVE', emoji: '❤️', label: 'Love', color: '#f87171' },
-  { key: 'EMPATHY', emoji: '🫶', label: 'Support', color: '#a78bfa' },
-  { key: 'SUPPORT', emoji: '🫶', label: 'Support', color: '#a78bfa' },
-  { key: 'INTEREST', emoji: '💡', label: 'Insightful', color: '#fbbf24' },
-  { key: 'INSIGHTFUL', emoji: '💡', label: 'Insightful', color: '#fbbf24' },
-  { key: 'ENTERTAINMENT', emoji: '😂', label: 'Funny', color: '#e8935a' },
-  { key: 'FUNNY', emoji: '😂', label: 'Funny', color: '#e8935a' },
+  { key: 'LIKE', emoji: '👍', label: 'Recomendar', color: '#4a90d9' },
+  { key: 'PRAISE', emoji: '👏', label: 'Celebrar', color: '#34d399' },
+  { key: 'CELEBRATE', emoji: '👏', label: 'Celebrar', color: '#34d399' },
+  // APPRECIATION = Apoyar (support) y EMPATHY = Me encanta (love): mismo mapa
+  // que backend/src/services/unipile.ts (LINKEDIN_REACTION_VALUE_MAP).
+  { key: 'APPRECIATION', emoji: '🫶', label: 'Apoyar', color: '#a78bfa' },
+  { key: 'SUPPORT', emoji: '🫶', label: 'Apoyar', color: '#a78bfa' },
+  { key: 'EMPATHY', emoji: '❤️', label: 'Me encanta', color: '#f87171' },
+  { key: 'LOVE', emoji: '❤️', label: 'Me encanta', color: '#f87171' },
+  { key: 'INTEREST', emoji: '💡', label: 'Interesante', color: '#fbbf24' },
+  { key: 'INSIGHTFUL', emoji: '💡', label: 'Interesante', color: '#fbbf24' },
+  { key: 'ENTERTAINMENT', emoji: '😂', label: 'Divertido', color: '#e8935a' },
+  { key: 'FUNNY', emoji: '😂', label: 'Divertido', color: '#e8935a' },
 ];
 
 // % of reactions that are "funny" (ENTERTAINMENT + FUNNY alias). The meme signal.
@@ -80,41 +82,49 @@ interface InspirationData {
 }
 
 const HOOK_LABELS: Record<string, string> = {
-  pattern_interrupt: 'Pattern Interrupt', belief_breaker: 'Belief Breaker',
-  curiosity_gap: 'Curiosity Gap', data_shock: 'Data Shock', hot_take: 'Hot Take',
-  personal_confession: 'Personal Confession', story_opener: 'Story Opener',
-  hypothetical_question: 'Hypothetical Q', why_question: 'Why Q',
-  how_question: 'How Q', direct_question: 'Direct Q',
-  bold_claim: 'Bold Claim', common_mistake: 'Common Mistake',
-  direct_callout: 'Direct Callout', list_promise: 'List Promise',
-  contrarian_take: 'Contrarian', relatable_moment: 'Relatable Moment',
-  motivational: 'Motivational', observation: 'Observation', other: 'Other',
+  pattern_interrupt: 'Ruptura de patrón', belief_breaker: 'Rompe creencias',
+  curiosity_gap: 'Hueco de curiosidad', data_shock: 'Dato impactante', hot_take: 'Opinión polémica',
+  personal_confession: 'Confesión personal', story_opener: 'Arranque de historia',
+  hypothetical_question: 'Pregunta hipotética', why_question: 'Pregunta «por qué»',
+  how_question: 'Pregunta «cómo»', direct_question: 'Pregunta directa',
+  bold_claim: 'Afirmación rotunda', common_mistake: 'Error común',
+  direct_callout: 'Interpelación directa', list_promise: 'Promesa de lista',
+  contrarian_take: 'A contracorriente', relatable_moment: 'Momento reconocible',
+  motivational: 'Motivacional', observation: 'Observación', other: 'Otro',
 };
 
 const CONTENT_TYPE_LABELS: Record<string, string> = {
-  text: 'Text',
-  text_image: 'Text + Photo',
-  text_carousel: 'Text + Carousel',
-  text_video: 'Text + Video',
-  text_document: 'Text + Doc',
-  image: 'Photo only',
-  carousel: 'Carousel only',
-  video: 'Video only',
-  document: 'Doc only',
-  poll: 'Poll',
-  article: 'Article',
+  text: 'Texto',
+  text_image: 'Texto + foto',
+  text_carousel: 'Texto + carrusel',
+  text_video: 'Texto + vídeo',
+  text_document: 'Texto + documento',
+  image: 'Solo foto',
+  carousel: 'Solo carrusel',
+  video: 'Solo vídeo',
+  document: 'Solo documento',
+  poll: 'Encuesta',
+  article: 'Artículo',
 };
 
 const STRUCT_LABELS: Record<string, string> = {
-  hook_list_cta: 'Hook → List → CTA', hook_story_lesson_cta: 'Story → Lesson → CTA',
-  problem_agitate_solve: 'Problem → Agitate → Solve',
-  contrarian_proof_reframe: 'Contrarian → Proof → Reframe',
-  confession_insight_takeaway: 'Confession → Insight → Takeaway',
-  list_framework: 'List Framework', problem_solution: 'Problem → Solution',
-  story_lesson: 'Story → Lesson', before_after: 'Before / After',
-  step_by_step: 'Step by Step', myth_busting: 'Myth Busting',
-  short_punchy: 'Short & Punchy', long_form_essay: 'Long Form Essay',
-  data_driven: 'Data Driven', other: 'Other',
+  hook_list_cta: 'Gancho → Lista → CTA', hook_story_lesson_cta: 'Historia → Lección → CTA',
+  problem_agitate_solve: 'Problema → Agitación → Solución',
+  contrarian_proof_reframe: 'A contracorriente → Prueba → Reencuadre',
+  confession_insight_takeaway: 'Confesión → Revelación → Conclusión',
+  list_framework: 'Lista / método', problem_solution: 'Problema → Solución',
+  story_lesson: 'Historia → Lección', before_after: 'Antes / Después',
+  step_by_step: 'Paso a paso', myth_busting: 'Desmontar mitos',
+  short_punchy: 'Corto y directo', long_form_essay: 'Ensayo largo',
+  data_driven: 'Basado en datos', other: 'Otra',
+};
+
+// Solo para mostrar: el valor de la BD (text_tone) no se toca.
+const TONE_LABELS: Record<string, string> = {
+  educational: 'Educativo', aspirational: 'Aspiracional', provocative: 'Provocador',
+  vulnerable: 'Vulnerable', empathy: 'Empatía', urgency: 'Urgencia',
+  authority: 'Autoridad', social_proof: 'Prueba social', fomo: 'FOMO',
+  humorous: 'Humor', neutral: 'Neutro',
 };
 
 function formatNum(n: number): string {
@@ -199,7 +209,7 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
           )}
           <div className="min-w-0">
             <p className="text-sm font-medium text-text-primary truncate">{post.creator_name}</p>
-            <p className="text-[10px] text-text-muted truncate">{formatNum(post.creator_followers)} followers</p>
+            <p className="text-[10px] text-text-muted truncate">{formatNum(post.creator_followers)} seguidores</p>
           </div>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
@@ -224,7 +234,7 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
             onClick={() => setExpanded(!expanded)}
             className="text-[11px] text-accent hover:text-accent-light mt-1"
           >
-            {expanded ? 'Show less ↑' : 'Show more ↓'}
+            {expanded ? 'Ver menos ↑' : 'Ver más ↓'}
           </button>
         )}
       </div>
@@ -244,7 +254,7 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
         </span>
         {post.text_tone && post.text_tone !== 'other' && (
           <span className="text-[10px] px-2 py-0.5 rounded-full bg-bg-secondary text-text-muted">
-            {post.text_tone}
+            {TONE_LABELS[post.text_tone] || post.text_tone}
           </span>
         )}
       </div>
@@ -264,7 +274,7 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
         )}
         {post.post_url && (
           <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-light ml-auto">
-            View on LinkedIn ↗
+            Ver en LinkedIn ↗
           </a>
         )}
       </div>
@@ -291,7 +301,7 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
             : 'bg-accent text-bg-primary hover:bg-accent-light disabled:opacity-50'
         }`}
       >
-        {stolen ? '✓ Saved to Ideas' : saving ? 'Saving…' : '🔥 Steal this post'}
+        {stolen ? '✓ Guardado en Ideas' : saving ? 'Guardando…' : '🔥 Robar este post'}
       </button>
     </div>
   );
@@ -318,7 +328,7 @@ export default function Inspiration() {
   // across the whole corpus regardless of how the AI classified the topic.
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<InspirationTab>('steal');
-  const [stolenIds, setStolenIds] = useState<Set<string>>(new Set());
+  const [, setStolenIds] = useState<Set<string>>(new Set());
   const [classifying, setClassifying] = useState(false);
   const [classifyResult, setClassifyResult] = useState<string | null>(null);
   const [reclassifyScope, setReclassifyScope] = useState<'images' | 'all'>('images');
@@ -478,8 +488,8 @@ export default function Inspiration() {
       const res = await fetch(`${BASE}/api/ideas/inspiration/classify`, { method: 'POST' });
       const data = await res.json();
       if (!res.ok) { setClassifyResult(`Error: ${data.error}`); return; }
-      let msg = `Classified ${data.classified} of ${data.total} posts`;
-      if (data.failed_batches > 0) msg += ` · ⚠️ ${data.failed_batches} batch(es) failed: ${data.errors?.[0]?.error || 'see backend logs'}`;
+      let msg = `Clasificados ${data.classified} de ${data.total} posts`;
+      if (data.failed_batches > 0) msg += ` · ⚠️ ${data.failed_batches} lote(s) fallido(s): ${data.errors?.[0]?.error || 'mira los logs del backend'}`;
       setClassifyResult(msg);
       refetch();
     } catch (e: any) {
@@ -494,7 +504,7 @@ export default function Inspiration() {
   // re-tags the whole corpus from scratch. Confirms "all" because it costs
   // an LLM call per ~30 posts.
   const handleReclassify = async () => {
-    if (reclassifyScope === 'all' && !window.confirm('This will clear ALL topics and re-classify every outlier (costs API calls). Continue?')) {
+    if (reclassifyScope === 'all' && !window.confirm('Esto borra TODOS los temas y vuelve a clasificar cada outlier (gasta llamadas a la API). ¿Continuar?')) {
       return;
     }
     setClassifying(true);
@@ -507,14 +517,14 @@ export default function Inspiration() {
         body: JSON.stringify(body),
       });
       const resetData = await resetRes.json();
-      if (!resetRes.ok) { setClassifyResult(`Reset error: ${resetData.error}`); return; }
-      setClassifyResult(`Reset ${resetData.reset} topics… classifying…`);
+      if (!resetRes.ok) { setClassifyResult(`Error al reiniciar: ${resetData.error}`); return; }
+      setClassifyResult(`${resetData.reset} temas reiniciados… clasificando…`);
 
       const res = await fetch(`${BASE}/api/ideas/inspiration/classify`, { method: 'POST' });
       const data = await res.json();
-      if (!res.ok) { setClassifyResult(`Classify error: ${data.error}`); return; }
-      let msg = `Reset ${resetData.reset} · re-classified ${data.classified} of ${data.total}`;
-      if (data.failed_batches > 0) msg += ` · ⚠️ ${data.failed_batches} batch(es) failed: ${data.errors?.[0]?.error || 'see logs'}`;
+      if (!res.ok) { setClassifyResult(`Error al clasificar: ${data.error}`); return; }
+      let msg = `${resetData.reset} reiniciados · ${data.classified} de ${data.total} reclasificados`;
+      if (data.failed_batches > 0) msg += ` · ⚠️ ${data.failed_batches} lote(s) fallido(s): ${data.errors?.[0]?.error || 'mira los logs'}`;
       setClassifyResult(msg);
       refetch();
     } catch (e: any) {
@@ -555,19 +565,19 @@ export default function Inspiration() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold mb-2">Inspiration</h1>
+        <h1 className="text-3xl font-bold mb-2">Inspiración</h1>
         <p className="text-text-secondary">
           {tab === 'steal'
-            ? 'Browse all outlier posts across your tracked creators. Steal what works — save it as an idea, then make it yours.'
-            : 'Brainstormea ideas de post a partir de un tema, tus propios outliers, temas de conversación o una noticia del sector.'}
+            ? 'Repasa todos los outliers de los creadores que sigues. Roba lo que funciona: guárdalo como idea y hazlo tuyo.'
+            : 'Genera ideas de post a partir de un tema, tus propios outliers, temas de conversación o una noticia del sector.'}
         </p>
       </div>
 
       {/* Tabs */}
       <div className="flex gap-2 border-b border-border">
         {([
-          ['steal', '🔥 Steal', 'Outliers de tus creadores'],
-          ['generate', '✨ Generate', 'Ideación con IA'],
+          ['steal', '🔥 Robar', 'Outliers de tus creadores'],
+          ['generate', '✨ Generar', 'Ideas con IA'],
         ] as const).map(([key, label, subtitle]) => (
           <button
             key={key}
@@ -611,8 +621,8 @@ export default function Inspiration() {
       {tab === 'steal' && !loading && outliers.length === 0 && !error && (
         <div className="text-center py-16 text-text-muted">
           <p className="text-4xl mb-4">🔍</p>
-          <p className="mb-1">No outlier posts found.</p>
-          <p className="text-sm">Go to Dashboard → add creators → refresh their posts.</p>
+          <p className="mb-1">No hay outliers.</p>
+          <p className="text-sm">Ve al Panel → añade creadores → actualiza sus posts.</p>
         </div>
       )}
 
@@ -635,7 +645,7 @@ export default function Inspiration() {
                 )}
                 {mixStatus && mixStatus.running && (
                   <span className="text-purple-300/80">
-                    reaction mix {mixStatus.processed}/{mixStatus.total}…
+                    mix de reacciones {mixStatus.processed}/{mixStatus.total}…
                   </span>
                 )}
               </span>
@@ -651,7 +661,7 @@ export default function Inspiration() {
                 disabled={classifying}
                 className="px-4 py-2 bg-amber-400/15 text-amber-400 rounded-lg text-xs font-medium hover:bg-amber-400/25 disabled:opacity-50 transition-colors"
               >
-                {classifying ? '🧠 Classifying…' : `🏷️ Classify ${unclassifiedCount} untagged outlier${unclassifiedCount !== 1 ? 's' : ''}`}
+                {classifying ? '🧠 Clasificando…' : `🏷️ Clasificar ${unclassifiedCount} outlier${unclassifiedCount !== 1 ? 's' : ''} sin tema`}
               </button>
             )}
 
@@ -662,15 +672,15 @@ export default function Inspiration() {
                 disabled={classifying}
                 className="bg-bg-secondary border border-border rounded-lg px-2 py-1.5 text-xs text-text-primary focus:outline-none focus:border-accent/50 disabled:opacity-50"
               >
-                <option value="images">🖼️ Image posts (meme candidates)</option>
-                <option value="all">🌍 All topics (full re-tag)</option>
+                <option value="images">🖼️ Posts con imagen (candidatos a meme)</option>
+                <option value="all">🌍 Todos los temas (reclasificar todo)</option>
               </select>
               <button
                 onClick={handleReclassify}
                 disabled={classifying}
                 className="px-3 py-1.5 bg-bg-secondary border border-border text-text-secondary rounded-lg text-xs font-medium hover:border-amber-400/40 hover:text-amber-400 disabled:opacity-50 transition-colors"
               >
-                {classifying ? '🔄 Working…' : '🔄 Reset & reclassify'}
+                {classifying ? '🔄 Trabajando…' : '🔄 Reiniciar y reclasificar'}
               </button>
             </div>
 
@@ -686,16 +696,16 @@ export default function Inspiration() {
                 onClick={handleStartMixBackfill}
                 disabled={mixStarting || mixStatus.running || mixStatus.outliers_with_mix >= mixStatus.outliers_total}
                 className="px-4 py-2 bg-purple-400/15 text-purple-300 rounded-lg text-xs font-medium hover:bg-purple-400/25 disabled:opacity-50 transition-colors"
-                title="Pide a Unipile el mix de reacciones (LIKE/FUNNY/CELEBRATE/...) de cada outlier. Background, usa la cuenta de scrapeo dedicada."
+                title="Pide a Unipile el mix de reacciones (LIKE/FUNNY/CELEBRATE/...) de cada outlier. Corre en segundo plano con la cuenta de lectura dedicada."
               >
                 {mixStatus.running
                   ? `🎭 Procesando ${mixStatus.processed}/${mixStatus.total}…`
                   : mixStatus.outliers_with_mix >= mixStatus.outliers_total
-                    ? '🎭 Reaction mix completo'
-                    : `🎭 Backfill reaction mix (${mixStatus.outliers_total - mixStatus.outliers_with_mix} pendientes)`}
+                    ? '🎭 Mix de reacciones completo'
+                    : `🎭 Completar mix de reacciones (${mixStatus.outliers_total - mixStatus.outliers_with_mix} pendientes)`}
               </button>
               <span className="text-xs text-text-muted">
-                {mixStatus.outliers_with_mix.toLocaleString()} / {mixStatus.outliers_total.toLocaleString()} outliers con mix
+                {mixStatus.outliers_with_mix.toLocaleString('es-ES')} / {mixStatus.outliers_total.toLocaleString('es-ES')} outliers con mix
                 {mixStatus.outliers_permanently_failed > 0 && (
                   <span className="text-amber-400/80"> · {mixStatus.outliers_permanently_failed} borrados de LinkedIn</span>
                 )}
@@ -706,9 +716,9 @@ export default function Inspiration() {
                     .sort((a, b) => b[1] - a[1])
                     .map(([status, count]) => {
                       const label =
-                        status === '429' ? 'rate-limit (reintentables)' :
-                        status === '404' ? 'not_found (borrados)' :
-                        status === '-1' ? 'network/other' :
+                        status === '429' ? 'límite de peticiones (reintentables)' :
+                        status === '404' ? 'no encontrados (borrados)' :
+                        status === '-1' ? 'red/otros' :
                         `HTTP ${status}`;
                       const colour =
                         status === '429' ? 'text-orange-400/80' :
@@ -753,20 +763,20 @@ export default function Inspiration() {
               )}
             </div>
 
-            <FilterSelect label="Topic" icon="📂" options={topics} value={filterTopic} onChange={setFilterTopic} totalLabel={String(outliers.length)} />
-            <FilterSelect label="Hook" options={hookTypes} value={filterHook} onChange={setFilterHook} />
-            <FilterSelect label="Structure" options={structureTypes} value={filterStructure} onChange={setFilterStructure} />
-            <FilterSelect label="Creator" options={creators} value={filterCreator} onChange={setFilterCreator} />
+            <FilterSelect label="Tema" icon="📂" options={topics} value={filterTopic} onChange={setFilterTopic} totalLabel={String(outliers.length)} />
+            <FilterSelect label="Gancho" options={hookTypes} labels={HOOK_LABELS} value={filterHook} onChange={setFilterHook} />
+            <FilterSelect label="Estructura" options={structureTypes} labels={STRUCT_LABELS} value={filterStructure} onChange={setFilterStructure} />
+            <FilterSelect label="Creador" options={creators} value={filterCreator} onChange={setFilterCreator} />
 
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               className="bg-bg-secondary border border-border rounded-lg px-2 py-1.5 text-xs text-text-primary focus:outline-none focus:border-accent/50"
             >
-              <option value="ratio">🔥 Outlier ratio</option>
-              <option value="likes">👍 Likes</option>
-              <option value="comments">💬 Comments</option>
-              <option value="recent">🕐 Recent</option>
+              <option value="ratio">🔥 Multiplicador</option>
+              <option value="likes">👍 Reacciones</option>
+              <option value="comments">💬 Comentarios</option>
+              <option value="recent">🕐 Más recientes</option>
             </select>
 
             {/* MEMES — el único control de memes. Antes había dos ("Solo memes"
@@ -780,7 +790,7 @@ export default function Inspiration() {
                   ? 'border-orange-400/60 bg-orange-400/15 text-orange-300'
                   : 'border-border bg-bg-secondary text-text-muted hover:border-orange-400/30'
               }`}
-              title="Filtra a los posts cuya audiencia reaccionó con >25% 😂, según el reaction mix real. Es la señal de meme de la audiencia, no del clasificador."
+              title="Filtra a los posts cuya audiencia reaccionó con >25% 😂, según el reaction mix real. Es la señal de meme que da la audiencia, no el clasificador."
             >
               😂 Solo memes ({memeCount})
             </button>
@@ -795,7 +805,7 @@ export default function Inspiration() {
                   ? 'border-orange-400/60 bg-orange-400/15 text-orange-300'
                   : 'border-border bg-bg-secondary text-text-muted hover:border-orange-400/30'
               }`}
-              title="Filtra a los lead magnets: posts con MÁS comentarios que reacciones (comment-gated). La gente comenta la palabra clave para pillar el recurso. Es como Martín Arosa/Guillermo/Luna Chen."
+              title="Filtra a los lead magnets: posts con MÁS comentarios que reacciones (comment-gated). La gente comenta la palabra clave para pillar el recurso. Como los de Martín Arosa, Guillermo o Luna Chen."
             >
               💬 Solo lead magnets ({leadMagnetCount})
             </button>
@@ -810,8 +820,8 @@ export default function Inspiration() {
             <p className="text-xs text-text-muted">
               {filtered.length} outlier{filtered.length !== 1 ? 's' : ''}{' '}
               {filterHook || filterStructure || filterCreator || filterTopic || filterContentType || searchQuery
-                ? `(de ${outliers.length} total${searchQuery ? ` · búsqueda: "${searchQuery}"` : ''})`
-                : 'total'}
+                ? `(de ${outliers.length} en total${searchQuery ? ` · búsqueda: "${searchQuery}"` : ''})`
+                : 'en total'}
             </p>
 
             {contentTypes.length > 1 && (
@@ -823,7 +833,7 @@ export default function Inspiration() {
                   onClick={() => setFilterContentType('')}
                   className={`text-xs px-2 py-0.5 rounded-full border transition-colors ${!filterContentType ? 'border-accent/50 bg-accent/10 text-accent' : 'border-border text-text-muted hover:border-accent/30'}`}
                 >
-                  All
+                  Todos
                 </button>
                 {contentTypes.map(([type, count]) => (
                   <button
@@ -854,7 +864,7 @@ export default function Inspiration() {
           </div>
 
           {filtered.length === 0 && (
-            <p className="text-center text-text-muted py-8">No outliers match these filters.</p>
+            <p className="text-center text-text-muted py-8">Ningún outlier coincide con estos filtros.</p>
           )}
         </>
       )}

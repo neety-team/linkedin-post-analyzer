@@ -16,7 +16,7 @@ async function fetchJson<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`);
   const text = await res.text();
   if (!res.ok) {
-    let msg = `API error ${res.status}`;
+    let msg = `Error de la API ${res.status}`;
     try { msg = JSON.parse(text).error || msg; } catch {}
     throw new Error(msg);
   }
@@ -113,14 +113,14 @@ export default function CreatorDetail() {
 
   const handleRefresh = async () => {
     setRefreshing(true);
-    setRefreshPhase('Fetching profile & posts from LinkedIn...');
+    setRefreshPhase('Leyendo de LinkedIn el perfil y los posts...');
     try {
       const res = await fetch(`${BASE}/api/creators/${id}/refresh`, { method: 'POST' });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
-        throw new Error(body.error || `Refresh failed (${res.status})`);
+        throw new Error(body.error || `No se pudo actualizar (${res.status})`);
       }
-      setRefreshPhase('Reloading analytics...');
+      setRefreshPhase('Recargando las estadísticas...');
       // Reload all data
       setLoadKey((k) => k + 1);
     } catch (err: any) {
@@ -146,7 +146,7 @@ export default function CreatorDetail() {
   if (error || !data) {
     return (
       <div className="text-center py-16">
-        <p className="text-text-muted">Creator not found.</p>
+        <p className="text-text-muted">Creador no encontrado.</p>
         {error && <p className="text-danger text-sm mt-2">{error}</p>}
       </div>
     );
@@ -167,10 +167,10 @@ export default function CreatorDetail() {
             </div>
           )}
           <div>
-            <h1 className="text-2xl font-bold">{creator.name || 'Unknown'}</h1>
+            <h1 className="text-2xl font-bold">{creator.name || 'Desconocido'}</h1>
             <p className="text-text-secondary text-sm">{creator.headline || '--'}</p>
             <p className="text-text-muted text-xs mt-1">
-              {creator.followers_count > 0 ? `${creator.followers_count.toLocaleString()} followers` : 'Followers unknown'}
+              {creator.followers_count > 0 ? `${creator.followers_count.toLocaleString('es-ES')} seguidores` : 'Seguidores desconocidos'}
               {creator.location && <span className="ml-2">· {creator.location}</span>}
               {stats.creator_utc_label && stats.creator_utc_label !== 'UTC' && <span className="ml-1 text-accent">({stats.creator_utc_label})</span>}
             </p>
@@ -181,14 +181,14 @@ export default function CreatorDetail() {
             onClick={handleExport}
             className="px-4 py-2 bg-bg-secondary border border-border rounded-lg text-sm text-text-secondary hover:text-text-primary hover:border-accent transition-colors"
           >
-            Export CSV
+            Exportar CSV
           </button>
           <button
             onClick={handleRefresh}
             disabled={refreshing}
             className="px-4 py-2 bg-bg-secondary border border-border rounded-lg text-sm text-text-secondary hover:text-text-primary hover:border-accent transition-colors disabled:opacity-50"
           >
-            {refreshing ? 'Refreshing...' : 'Refresh Data'}
+            {refreshing ? 'Actualizando...' : 'Actualizar datos'}
           </button>
         </div>
       </div>
@@ -209,14 +209,14 @@ export default function CreatorDetail() {
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
         {[
-          { label: 'Avg Engagement', value: stats.avg_engagement.toLocaleString() },
-          { label: 'Median', value: stats.median_engagement.toLocaleString() },
-          { label: 'Total Posts', value: stats.total_posts },
+          { label: 'Interacciones medias', value: stats.avg_engagement.toLocaleString('es-ES') },
+          { label: 'Mediana', value: stats.median_engagement.toLocaleString('es-ES') },
+          { label: 'Posts totales', value: stats.total_posts },
           { label: 'Outliers', value: stats.total_outliers, accent: true },
-          { label: 'Posts/Week', value: stats.posts_per_week },
-          { label: 'Outlier Rate', value: `${stats.outlier_rate}%`, accent: true },
-          { label: 'Eng. Rate', value: stats.engagement_rate > 0 ? `${stats.engagement_rate}%` : 'N/A', accent: stats.engagement_rate > 0 },
-          { label: 'Comment/Like', value: stats.avg_comment_like_ratio > 0 ? `${Math.round(stats.avg_comment_like_ratio * 100)}%` : 'N/A' },
+          { label: 'Posts/semana', value: stats.posts_per_week },
+          { label: '% de outliers', value: `${stats.outlier_rate}%`, accent: true },
+          { label: 'Tasa de interacción', value: stats.engagement_rate > 0 ? `${stats.engagement_rate}%` : 'N/D', accent: stats.engagement_rate > 0 },
+          { label: 'Comentarios/reacciones', value: stats.avg_comment_like_ratio > 0 ? `${Math.round(stats.avg_comment_like_ratio * 100)}%` : 'N/D' },
         ].map((kpi, i) => (
           <div key={i} className="bg-bg-card rounded-lg p-4 text-center">
             <p className="text-text-muted text-xs mb-1">{kpi.label}</p>
@@ -266,7 +266,7 @@ export default function CreatorDetail() {
       {outlierPosts.length > 0 && (
         <OutlierTable
           posts={outlierPosts}
-          title="Outlier Posts"
+          title="Posts outlier"
           creatorName={creator.name}
           creatorHeadline={creator.headline}
         />
@@ -276,7 +276,7 @@ export default function CreatorDetail() {
       {allPosts.length > 0 && (
         <OutlierTable
           posts={allPosts}
-          title="All Posts"
+          title="Todos los posts"
           creatorName={creator.name}
           creatorHeadline={creator.headline}
         />

@@ -15,7 +15,7 @@ const router = Router();
 router.get('/:id/stats', async (req: Request, res: Response) => {
   try {
     const creator = await CreatorModel.findById(paramId(req));
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
 
     const stats = await PostModel.getStats(paramId(req));
     const contentDist = await PostModel.getContentTypeDistribution(paramId(req));
@@ -34,7 +34,7 @@ router.get('/:id/stats', async (req: Request, res: Response) => {
 
     // Best day of week
     const allPosts = await PostModel.findByCreator(paramId(req), { limit: 10000 });
-    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const dayCounts: Record<number, { count: number; totalEngagement: number }> = {};
     for (const p of allPosts) {
       if (p.published_at) {
@@ -200,7 +200,7 @@ router.get('/:id/patterns', async (req: Request, res: Response) => {
 router.get('/compare', async (req: Request, res: Response) => {
   try {
     const ids = ((req.query.ids as string) || '').split(',').filter(Boolean);
-    if (ids.length < 2) return res.status(400).json({ error: 'Provide at least 2 creator IDs' });
+    if (ids.length < 2) return res.status(400).json({ error: 'Indica al menos 2 IDs de creador' });
 
     const results = await Promise.all(ids.map(async (id) => {
       const creator = await CreatorModel.findById(id);
@@ -296,15 +296,15 @@ router.get('/cross-creators', async (_req: Request, res: Response) => {
 router.get('/:id/export', async (req: Request, res: Response) => {
   try {
     const creator = await CreatorModel.findById(paramId(req));
-    if (!creator) return res.status(404).json({ error: 'Creator not found' });
+    if (!creator) return res.status(404).json({ error: 'Creador no encontrado' });
 
     const posts = await PostModel.findByCreator(paramId(req), { limit: 10000, sort: 'engagement_desc' });
 
     const headers = [
-      'Date', 'Hook', 'Hook Type', 'Structure', 'Content Type',
-      'Likes', 'Comments', 'Reposts', 'Engagement Score', 'Outlier Ratio',
-      'Is Outlier', 'Word Count', 'Char Count', 'Comment/Like Ratio',
-      'Share/Like Ratio', 'Has CTA', 'Has Emoji', 'Has Hashtags', 'Language', 'URL',
+      'Fecha', 'Gancho', 'Tipo de gancho', 'Estructura', 'Tipo de contenido',
+      'Reacciones', 'Comentarios', 'Compartidos', 'Puntuación de interacción', 'Multiplicador',
+      'Es outlier', 'Palabras', 'Caracteres', 'Comentarios/reacciones',
+      'Compartidos/reacciones', 'Tiene CTA', 'Tiene emoji', 'Tiene hashtags', 'Idioma', 'URL',
     ];
 
     const csvRows = [headers.join(',')];

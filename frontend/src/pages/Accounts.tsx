@@ -4,7 +4,7 @@ import { useApi, apiPatch, apiPost, apiDelete } from '../hooks/useApi';
 import AddManualPostModal from '../components/accounts/AddManualPostModal';
 import { DateRangeCalendar } from '../components/DateRangeCalendar';
 import {
-  Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Cell, ComposedChart, Area, ReferenceLine,
 } from 'recharts';
 import AccountsEngagementChart from '../components/AccountsEngagementChart';
@@ -14,6 +14,7 @@ import ProfileViewChart from '../components/ProfileViewChart';
 import GoogleChatModal from '../components/accounts/GoogleChatModal';
 import MediaViewer, { NO_MEDIA_TYPES } from '../components/MediaViewer';
 import MonthlyBarChart from '../components/MonthlyBarChart';
+import { HOOK_TYPE_LABELS, etiqueta } from '../utils/etiquetas';
 import RepliesPanel from '../components/accounts/RepliesPanel';
 import LeadMagnetPanel from '../components/accounts/LeadMagnetPanel';
 import PilarSelector, { PilaresProvider, usePilares } from '../components/accounts/PilarSelector';
@@ -186,12 +187,12 @@ interface LivePost {
 }
 
 const PHASE_META: Record<LivePost['phase'], { label: string; bg: string; text: string; window: string; cadence: string; blurb: string }> = {
-  golden:        { label: '🔥 Golden hour',   bg: 'bg-red-500/15',    text: 'text-red-400',    window: '0 – 1h',   cadence: 'every 15 min', blurb: 'Primera muestra: si engancha, LinkedIn amplía distribución. Ventana que decide si el post prende.' },
-  first_wave:    { label: '🌊 1st wave',      bg: 'bg-orange-500/15', text: 'text-orange-400', window: '1 – 6h',   cadence: 'every 30 min', blurb: 'Segunda oleada. Aquí se ve con claridad si va a ser normal, bueno o viral.' },
-  consolidation: { label: '📈 Consolidation', bg: 'bg-yellow-500/15', text: 'text-yellow-400', window: '6 – 24h',  cadence: 'every 2h',     blurb: 'Se acumula el grueso del alcance. A las 24h suele haber el 60–70% de las impresiones totales.' },
-  long_tail:     { label: '📉 Long tail',     bg: 'bg-sky-500/15',    text: 'text-sky-400',    window: '24 – 72h', cadence: 'every 6h',     blurb: 'Long tail fuerte. A 72h ya tienes el 85–90% de las impresiones finales.' },
-  tail:          { label: '🐢 Tail',          bg: 'bg-purple-500/15', text: 'text-purple-400', window: '3 – 7d',   cadence: 'every 24h',    blurb: 'Cola residual, sobre todo comentarios y algún reshare.' },
-  closed:        { label: '✅ Closed',        bg: 'bg-bg-secondary',  text: 'text-text-muted', window: '> 7d',     cadence: 'weekly',       blurb: 'Sin más puntos en la curva, pero los contadores se refrescan cada semana (públicos sin límite de edad, Premium hasta un año): un post que resurge se ve.' },
+  golden:        { label: '🔥 Hora dorada',   bg: 'bg-red-500/15',    text: 'text-red-400',    window: '0 – 1 h',   cadence: 'cada 15 min', blurb: 'Primera muestra: si engancha, LinkedIn amplía distribución. Ventana que decide si el post prende.' },
+  first_wave:    { label: '🌊 Primera oleada', bg: 'bg-orange-500/15', text: 'text-orange-400', window: '1 – 6 h',   cadence: 'cada 30 min', blurb: 'Segunda oleada. Aquí se ve con claridad si va a ser normal, bueno o viral.' },
+  consolidation: { label: '📈 Consolidación', bg: 'bg-yellow-500/15', text: 'text-yellow-400', window: '6 – 24 h',  cadence: 'cada 2 h',     blurb: 'Se acumula el grueso del alcance. A las 24h suele haber el 60–70% de las impresiones totales.' },
+  long_tail:     { label: '📉 Cola larga',     bg: 'bg-sky-500/15',    text: 'text-sky-400',    window: '24 – 72 h', cadence: 'cada 6 h',     blurb: 'Cola larga fuerte. A 72h ya tienes el 85–90% de las impresiones finales.' },
+  tail:          { label: '🐢 Cola',          bg: 'bg-purple-500/15', text: 'text-purple-400', window: '3 – 7 d',   cadence: 'cada 24 h',    blurb: 'Cola residual, sobre todo comentarios y algún compartido.' },
+  closed:        { label: '✅ Cerrado',       bg: 'bg-bg-secondary',  text: 'text-text-muted', window: '> 7 d',     cadence: 'semanal',       blurb: 'Sin más puntos en la curva, pero los contadores se refrescan cada semana (públicos sin límite de edad, Premium hasta un año): un post que resurge se ve.' },
 };
 
 const PHASE_ORDER: LivePost['phase'][] = ['golden', 'first_wave', 'consolidation', 'long_tail', 'tail', 'closed'];
@@ -201,7 +202,7 @@ const ZOOM_PRESETS: { label: string; maxMin: number | null }[] = [
   { label: '6h',  maxMin: 360 },
   { label: '24h', maxMin: 1440 },
   { label: '72h', maxMin: 4320 },
-  { label: 'All', maxMin: null },
+  { label: 'Todo', maxMin: null },
 ];
 
 interface Snapshot {
@@ -306,17 +307,17 @@ interface Analytics {
 }
 
 const FORMAT_LABELS: Record<string, string> = {
-  text: 'Text',
-  text_image: 'Text + Photo',
-  text_carousel: 'Text + Carousel',
-  text_video: 'Text + Video',
-  text_document: 'Text + Doc',
-  image: 'Photo only',
-  carousel: 'Carousel only',
-  video: 'Video only',
-  document: 'Doc only',
-  poll: 'Poll',
-  article: 'Article',
+  text: 'Texto',
+  text_image: 'Texto + foto',
+  text_carousel: 'Texto + carrusel',
+  text_video: 'Texto + vídeo',
+  text_document: 'Texto + documento',
+  image: 'Solo foto',
+  carousel: 'Solo carrusel',
+  video: 'Solo vídeo',
+  document: 'Solo documento',
+  poll: 'Encuesta',
+  article: 'Artículo',
 };
 
 const FORMAT_COLORS: Record<string, string> = {
@@ -517,7 +518,7 @@ function FranjaPremium({ post }: { post: PostPremium }) {
     );
   } else if (post.link_clicks_count == null) {
     enlace = (
-      <span className="inline-flex items-center gap-1 text-text-muted" title="El post lleva enlace, pero la analitica de LinkedIn aun no se ha leido">
+      <span className="inline-flex items-center gap-1 text-text-muted" title="El post lleva enlace, pero la analítica de LinkedIn aún no se ha leído">
         <MetricIcon d={ICON_LINK} /> —
       </span>
     );
@@ -525,14 +526,14 @@ function FranjaPremium({ post }: { post: PostPremium }) {
     enlace = (
       <span
         className="inline-flex items-center gap-1 text-text-muted"
-        title="El post lleva enlace, pero LinkedIn no lo registra en la analitica del post (no aparece su URL). Ese 0 no es que nadie pinche: LinkedIn no da el dato."
+        title="El post lleva enlace, pero LinkedIn no lo registra en la analítica del post (no aparece su URL). Ese 0 no es que nadie pinche: LinkedIn no da el dato."
       >
         <MetricIcon d={ICON_LINK} /> <span className="text-[10px]">sin datos de LinkedIn</span>
       </span>
     );
   } else {
     enlace = (
-      <span className="inline-flex items-center gap-1 font-medium text-amber-400" title={`Clics al enlace${post.link_url ? ` → ${post.link_url}` : ''}`}>
+      <span className="inline-flex items-center gap-1 font-medium text-amber-400" title={`Clics en el enlace${post.link_url ? ` → ${post.link_url}` : ''}`}>
         <MetricIcon d={ICON_LINK} /> {fmtNum(post.link_clicks_count)}
       </span>
     );
@@ -544,7 +545,7 @@ function FranjaPremium({ post }: { post: PostPremium }) {
       {post.content_type === 'text_video' && <MetricaVisto post={post} />}
       {leida ? (
         <>
-          <span className="inline-flex items-center gap-1" title="Guardados. Cuesta mas que un like y nadie guarda por compromiso.">
+          <span className="inline-flex items-center gap-1" title="Guardados. Cuesta más que una reacción y nadie guarda por compromiso.">
             <MetricIcon d={ICON_SAVE} /> {fmtNum(post.saves_count ?? 0)}
           </span>
           <span className="inline-flex items-center gap-1" title="Enviados por privado a otra persona">
@@ -552,7 +553,7 @@ function FranjaPremium({ post }: { post: PostPremium }) {
           </span>
         </>
       ) : (
-        <span className="text-[10px] text-text-muted/70" title="La analitica Premium de este post aun no se ha podido leer">
+        <span className="text-[10px] text-text-muted/70" title="La analítica Premium de este post aún no se ha podido leer">
           Premium sin leer
         </span>
       )}
@@ -564,7 +565,7 @@ function FranjaPremium({ post }: { post: PostPremium }) {
             +{fmtNum(post.followers_gained_count ?? 0)} seguidores
           </span>
           <span className="text-emerald-400" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
-            {fmtNum(post.profile_viewers_count ?? 0)} visitas perfil
+            {fmtNum(post.profile_viewers_count ?? 0)} visitas al perfil
           </span>
         </>
       )}
@@ -608,7 +609,7 @@ const ICON_EYE = 'M8 3C4.7 3 2 5.5 1 8c1 2.5 3.7 5 7 5s6-2.5 7-5c-1-2.5-3.7-5-7-
  * que esto dejaria en "José Arturo", que no es su apellido.
  */
 function nombreCuenta(n: string | null | undefined): string {
-  if (!n) return 'Unknown';
+  if (!n) return 'Sin nombre';
   return n.trim().split(/\s+/).slice(0, 2).join(' ');
 }
 
@@ -622,17 +623,7 @@ function MetricIcon({ d }: { d: string }) {
 
 function fmtDay(iso: string): string {
   const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-
-function fmtFullDay(iso: string): string {
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-}
-
-function truncate(s: string | null, n: number): string {
-  if (!s) return '—';
-  return s.length > n ? s.slice(0, n) + '…' : s;
+  return d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
 }
 
 // Inline "see more" toggle for post-row body text. Mirrors LinkedIn's
@@ -880,7 +871,7 @@ function AccountsInner() {
     const value = unipileEdits[id] ?? '';
     try {
       await apiPatch(`/api/accounts/${id}`, { unipile_account_id: value });
-      setScrapeResult((r) => ({ ...r, [id]: '✓ Saved' }));
+      setScrapeResult((r) => ({ ...r, [id]: '✓ Guardado' }));
       setTimeout(() => setScrapeResult((r) => ({ ...r, [id]: '' })), 2000);
       refetchAccounts();
     } catch (err: any) {
@@ -890,7 +881,7 @@ function AccountsInner() {
 
   const scrapeAccount = async (id: string) => {
     setScrapingId(id);
-    setScrapeResult((r) => ({ ...r, [id]: 'Scraping...' }));
+    setScrapeResult((r) => ({ ...r, [id]: 'Leyendo de LinkedIn…' }));
     try {
       const res = await apiPost<{ scraped: number; with_impressions: number }>(
         `/api/accounts/${id}/scrape`,
@@ -898,7 +889,7 @@ function AccountsInner() {
       );
       setScrapeResult((r) => ({
         ...r,
-        [id]: `✓ ${res.scraped} posts · ${res.with_impressions} with impressions`,
+        [id]: `✓ ${res.scraped} posts · ${res.with_impressions} con impresiones`,
       }));
       refetchAccounts();
     } catch (err: any) {
@@ -1010,8 +1001,8 @@ function AccountsInner() {
       {/* Header */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Accounts</h1>
-          <p className="text-text-secondary">Track the performance of the LinkedIn accounts you manage.</p>
+          <h1 className="text-3xl font-bold mb-2">Cuentas</h1>
+          <p className="text-text-secondary">Sigue el rendimiento de las cuentas de LinkedIn que gestionas.</p>
         </div>
         {/* Sin engranaje de "Manage accounts" (Iker, 2026-08-13): las cuentas son
             siempre las mismas tres, asi que no hay nada que gestionar. Lo unico que
@@ -1021,15 +1012,15 @@ function AccountsInner() {
             <button
               onClick={() => setPreviewOpen(true)}
               className="px-3 py-1.5 bg-accent/10 border border-accent/30 text-accent text-xs font-medium rounded-lg hover:bg-accent/20 transition-colors"
-              title="Pega un post y mira como lo corta LinkedIn con la foto de cada cuenta"
+              title="Pega un post y mira cómo lo corta LinkedIn con la foto de cada cuenta"
             >
-              👁 LinkedIn Preview
+              👁 Vista previa de LinkedIn
             </button>
             <button
               onClick={() => setUnipileOpen((v) => !v)}
               className="px-3 py-1.5 bg-bg-card border border-border text-text-muted text-xs rounded-lg hover:border-accent/40 hover:text-text-primary transition-colors"
             >
-              {unipileOpen ? 'Hide' : 'Unipile IDs'}
+              {unipileOpen ? 'Ocultar' : 'IDs de Unipile'}
             </button>
           </div>
         )}
@@ -1042,10 +1033,10 @@ function AccountsInner() {
           {(
             <div className="space-y-3">
               <div>
-                <h4 className="text-sm font-semibold text-text-primary">Unipile account IDs</h4>
+                <h4 className="text-sm font-semibold text-text-primary">IDs de cuenta de Unipile</h4>
                 <p className="text-xs text-text-muted">
-                  LinkedIn only returns impressions for posts fetched through the account's own Unipile session.
-                  Paste each managed account's Unipile <code className="text-accent">account_id</code> below and hit Scrape.
+                  LinkedIn solo da las impresiones de los posts que se leen con la sesión de Unipile de la propia cuenta.
+                  Pega abajo el <code className="text-accent">account_id</code> de Unipile de cada cuenta propia y pulsa Actualizar.
                 </p>
               </div>
               <div className="space-y-2">
@@ -1066,7 +1057,7 @@ function AccountsInner() {
                       <input
                         type="text"
                         value={current}
-                        placeholder="Unipile account_id"
+                        placeholder="account_id de Unipile"
                         onChange={(e) => setUnipileEdits((prev) => ({ ...prev, [a.id]: e.target.value }))}
                         className="flex-1 bg-bg-card border border-border rounded px-2 py-1 text-xs text-text-primary focus:outline-none focus:border-accent font-mono"
                       />
@@ -1075,14 +1066,14 @@ function AccountsInner() {
                         onClick={() => saveUnipileId(a.id)}
                         className="px-2 py-1 text-xs border border-border rounded text-text-secondary hover:border-accent hover:text-accent disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                       >
-                        Save
+                        Guardar
                       </button>
                       <button
                         disabled={!a.unipile_account_id || scrapingId === a.id}
                         onClick={() => scrapeAccount(a.id)}
                         className="px-2 py-1 text-xs border border-accent/30 bg-accent/10 rounded text-accent hover:bg-accent/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                       >
-                        {scrapingId === a.id ? '…' : 'Scrape'}
+                        {scrapingId === a.id ? '…' : 'Actualizar'}
                       </button>
                       {msg && <span className="text-[11px] text-text-muted whitespace-nowrap">{msg}</span>}
                     </div>
@@ -1109,8 +1100,8 @@ function AccountsInner() {
               devolver esta linea a la lista. Se dejo asi a proposito por si algun
               dia hace falta la vista de "un post a fondo". */}
           {([
-            { key: 'bi', label: 'Accounts', ayuda: '' },
-            { key: 'replies', label: 'Comments', ayuda: 'Todo lo que queda por hacer: comentarios sin responder, recursos de lead magnet sin entregar y solicitudes ya llegadas' },
+            { key: 'bi', label: 'Cuentas', ayuda: '' },
+            { key: 'replies', label: 'Comentarios', ayuda: 'Todo lo que queda por hacer: comentarios sin responder, recursos de lead magnet sin entregar y solicitudes ya llegadas' },
 
           ] as const).map((t) => (
             <button
@@ -1142,13 +1133,13 @@ function AccountsInner() {
       {hasAccounts && (
         <div className="flex items-center gap-3 flex-wrap">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-text-muted">Account:</span>
+            <span className="text-xs text-text-muted">Cuenta:</span>
             <select
               value={selectedCreator}
               onChange={(e) => setSelectedCreator(e.target.value)}
               className="bg-bg-card border border-border rounded-lg px-3 py-1.5 text-sm text-text-primary focus:outline-none focus:border-accent"
             >
-              <option value="all">All managed accounts</option>
+              <option value="all">Todas las cuentas propias</option>
               {accounts?.map((a) => (
                 <option key={a.id} value={a.id}>
                   {nombreCuenta(a.name)}{a.is_manual ? ' · manual' : ''}
@@ -1168,13 +1159,13 @@ function AccountsInner() {
                 onChange={(e) => setIncluirManuales(e.target.checked)}
                 className="accent-accent"
               />
-              <span title="Las cuentas manuales son posts que escribimos para gente cuya cuenta no esta conectada a Unipile. Apagarlo deja solo las conectadas.">
+              <span title="Las cuentas manuales son posts que escribimos para gente cuya cuenta no está conectada a Unipile. Apagarlo deja solo las conectadas.">
                 Incluir cuentas manuales
               </span>
             </label>
           )}
           <div className="flex items-center gap-1 flex-wrap">
-            <span className="text-xs text-text-muted mr-1">Range:</span>
+            <span className="text-xs text-text-muted mr-1">Rango:</span>
             {([30, 90, 180] as const).map((d) => (
               <button
                 key={d}
@@ -1191,7 +1182,7 @@ function AccountsInner() {
                     : 'bg-bg-secondary text-text-muted border border-border hover:border-accent/30'
                 }`}
               >
-                {`${d}d`}
+                {`${d} d`}
               </button>
             ))}
             {/* El calendario es NUESTRO, no el `<input type="date">`: ese panel
@@ -1227,7 +1218,7 @@ function AccountsInner() {
               >
                 📅 {datePreset === 'custom' && customStart
                   ? `${customStart}${customEnd ? ` → ${customEnd}` : ' → …'}`
-                  : 'Custom'} {showCalendar ? '▴' : '▾'}
+                  : 'Personalizado'} {showCalendar ? '▴' : '▾'}
               </button>
               {showCalendar && (
                 <DateRangeCalendar
@@ -1239,7 +1230,7 @@ function AccountsInner() {
               )}
             </div>
             {datePreset === 'custom' && customStart && (
-              <span className="text-[10px] text-text-muted ml-2">{days} day{days === 1 ? '' : 's'}</span>
+              <span className="text-[10px] text-text-muted ml-2">{days} día{days === 1 ? '' : 's'}</span>
             )}
           </div>
         </div>
@@ -1254,9 +1245,9 @@ function AccountsInner() {
       {!loadingAccounts && !hasAccounts && (
         <div className="text-center py-16 text-text-muted border border-dashed border-border rounded-xl">
           <p className="text-4xl mb-4">📈</p>
-          <p className="mb-1">No managed accounts.</p>
+          <p className="mb-1">No hay cuentas propias.</p>
           <p className="text-xs">
-            Accounts only shows the 3 founder accounts. If none appear, check <code className="text-accent">is_managed</code> on the Dashboard.
+            Cuentas solo enseña las 3 cuentas de founder. Si no sale ninguna, revisa <code className="text-accent">is_managed</code> en el Panel.
           </p>
         </div>
       )}
@@ -1290,10 +1281,10 @@ function AccountsInner() {
                     </span>
                   );
                 })()}
-                Live posts
+                Posts en directo
               </h3>
               <p className="text-xs text-text-muted">
-                Phase-based snapshots for 7 days; after that, likes, comments, reposts and impressions refresh daily until day 90 and weekly beyond (no age limit), and Premium analytics every 2 days until day 30, weekly until 90, fortnightly up to a year.
+                Lecturas por fases durante 7 días; después, reacciones, comentarios, compartidos e impresiones se actualizan a diario hasta el día 90 y cada semana a partir de ahí (sin límite de edad), y la analítica Premium cada 2 días hasta el día 30, cada semana hasta el 90 y cada quince días hasta el año.
               </p>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0 whitespace-nowrap">
@@ -1302,7 +1293,7 @@ function AccountsInner() {
                 className="text-xs text-text-muted hover:text-accent transition-colors"
                 title="Cómo LinkedIn distribuye un post en el tiempo"
               >
-                {legendOpen ? '▾' : '▸'} How phases work
+                {legendOpen ? '▾' : '▸'} Cómo funcionan las fases
               </button>
               {livePosts?.some((p) => p.content_text?.startsWith('DEMO ·')) ? (
                 <button
@@ -1316,7 +1307,7 @@ function AccountsInner() {
                   }}
                   className="text-xs text-text-muted hover:text-red-400 transition-colors"
                 >
-                  ✕ Remove demo
+                  ✕ Quitar demo
                 </button>
               ) : (
                 <button
@@ -1330,15 +1321,15 @@ function AccountsInner() {
                   }}
                   className="text-xs text-accent hover:text-accent-light transition-colors"
                 >
-                  + Load demo data
+                  + Cargar datos de demo
                 </button>
               )}
               <button
                 onClick={() => setModalManual(true)}
                 className="text-xs text-text-muted hover:text-accent transition-colors"
-                title="Pegar la URL de un post de una cuenta de la empresa que no esta conectada a Unipile"
+                title="Pegar la URL de un post de una cuenta de la empresa que no está conectada a Unipile"
               >
-                + Anadir post
+                + Añadir post
               </button>
               <button
                 onClick={async () => {
@@ -1353,7 +1344,7 @@ function AccountsInner() {
                       '/api/accounts/live-refresh',
                       body
                     );
-                    setLiveRefreshMsg(`✓ ${res.scraped} posts scraped · ${res.captured} snapshots`);
+                    setLiveRefreshMsg(`✓ ${res.scraped} posts leídos · ${res.captured} lecturas`);
                     refetchLive();
                     refetchAnalytics();
                     setRefreshSignal((s) => s + 1);
@@ -1367,14 +1358,14 @@ function AccountsInner() {
                 disabled={liveRefreshing}
                 className="text-xs text-text-muted hover:text-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 title={selectedCreator !== 'all'
-                  ? "Fetch new posts from this account (only adds posts not already in the DB)"
-                  : "Fetch new posts from every managed account (only adds posts not already in the DB)"}
+                  ? "Trae los posts nuevos de esta cuenta (solo añade los que aún no están en la base de datos)"
+                  : "Trae los posts nuevos de todas las cuentas propias (solo añade los que aún no están en la base de datos)"}
               >
                 {liveRefreshing
-                  ? '↻ Fetching…'
+                  ? '↻ Trayendo…'
                   : selectedCreator !== 'all'
-                    ? '+ Get new posts (this account)'
-                    : '+ Get new posts'}
+                    ? '+ Traer posts nuevos (esta cuenta)'
+                    : '+ Traer posts nuevos'}
               </button>
               {liveRefreshMsg && (
                 <span className="text-[11px] text-text-muted whitespace-nowrap">{liveRefreshMsg}</span>
@@ -1385,7 +1376,7 @@ function AccountsInner() {
             <div className="mb-4 p-4 rounded-lg border border-border bg-bg-primary">
               <p className="text-xs text-text-muted mb-3">
                 El algoritmo de LinkedIn distribuye por <span className="text-text-secondary font-medium">oleadas</span>, no linealmente.
-                Cada fase tiene su cadencia de captura para samplear denso al principio y tapering al final.
+                Cada fase tiene su cadencia de lectura: muy seguida al principio y cada vez más espaciada al final.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {PHASE_ORDER.map((phase) => {
@@ -1408,14 +1399,14 @@ function AccountsInner() {
             </div>
           )}
           {!livePosts ? (
-            <p className="text-xs text-text-muted py-6 text-center">Loading…</p>
+            <p className="text-xs text-text-muted py-6 text-center">Cargando…</p>
           ) : livePosts.length === 0 ? (
             <div className="text-center py-8 text-text-muted border border-dashed border-border rounded-lg">
-              <p className="text-sm mb-1">No monitored posts yet.</p>
+              <p className="text-sm mb-1">Aún no hay posts en seguimiento.</p>
               <p className="text-xs">
-                Publish a post from a managed account with its Unipile account_id set, and it'll appear here within 15 min.
+                Publica un post desde una cuenta propia que tenga puesto su account_id de Unipile y saldrá aquí en menos de 15 min.
                 {accounts?.some((a) => !a.unipile_account_id) && (
-                  <> You still have managed accounts without a Unipile ID configured — open "Unipile IDs" up top to set them.</>
+                  <> Aún tienes cuentas propias sin ID de Unipile: ábrelas en "IDs de Unipile", arriba, para ponérselo.</>
                 )}
               </p>
             </div>
@@ -1469,20 +1460,20 @@ function AccountsInner() {
           {/* KPI cards with period-over-period delta */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted">Total posts</div>
+              <div className="text-[10px] uppercase tracking-wide text-text-muted">Posts totales</div>
               <div className="flex items-baseline gap-2 mt-1">
                 <div className="text-2xl font-bold text-text-primary">{analytics.totals.total_posts}</div>
                 <Delta pct={analytics.comparison.total_posts.delta_pct} />
               </div>
-              <div className="text-[10px] text-text-muted mt-0.5">vs previous {days}d</div>
+              <div className="text-[10px] text-text-muted mt-0.5">frente a los {days} días anteriores</div>
             </div>
             <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted">Avg engagement</div>
+              <div className="text-[10px] uppercase tracking-wide text-text-muted">Interacciones medias</div>
               <div className="flex items-baseline gap-2 mt-1">
                 <div className="text-2xl font-bold text-accent">{fmtNum(analytics.totals.avg_engagement)}</div>
                 <Delta pct={analytics.comparison.avg_engagement.delta_pct} />
               </div>
-              <div className="text-[10px] text-text-muted mt-0.5">per post</div>
+              <div className="text-[10px] text-text-muted mt-0.5">por post</div>
             </div>
             <div className="bg-bg-card border border-border rounded-xl p-4">
               <div className="text-[10px] uppercase tracking-wide text-text-muted">Outliers</div>
@@ -1493,12 +1484,12 @@ function AccountsInner() {
                 </div>
                 <Delta pct={analytics.comparison.total_outliers.delta_pct} />
               </div>
-              <div className="text-[10px] text-text-muted mt-0.5">hit rate</div>
+              <div className="text-[10px] text-text-muted mt-0.5">tasa de acierto</div>
             </div>
             <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted">Best post</div>
+              <div className="text-[10px] uppercase tracking-wide text-text-muted">Mejor post</div>
               <div className="text-2xl font-bold text-text-primary mt-1">{fmtNum(analytics.totals.max_engagement)}</div>
-              <div className="text-[10px] text-text-muted mt-0.5">peak engagement</div>
+              <div className="text-[10px] text-text-muted mt-0.5">interacciones máximas</div>
             </div>
           </div>
 
@@ -1512,14 +1503,14 @@ function AccountsInner() {
             <div className="bg-bg-card border border-border rounded-xl p-4">
               <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
                 <span>👥</span>
-                <span>Followers gained</span>
+                <span>Seguidores ganados</span>
               </div>
               <div className="flex items-baseline gap-2 mt-1">
                 <div className={`text-2xl font-bold ${analytics.totals.followers_gained > 0 ? 'text-green-400' : analytics.totals.followers_gained < 0 ? 'text-red-400' : 'text-text-primary'}`}>
                   {analytics.totals.followers_gained > 0 ? '+' : ''}{fmtNum(analytics.totals.followers_gained)}
                 </div>
               </div>
-              <div className="text-[10px] text-text-muted mt-0.5">over {days}d (snapshot last − first)</div>
+              <div className="text-[10px] text-text-muted mt-0.5">en {days} días (última lectura − primera)</div>
             </div>
             {/* CIFRAS OFICIALES DE LINKEDIN (Iker, 2026-09-17). El numero grande
                 es el de la pagina de resumen de LinkedIn, el mismo que ve la
@@ -1529,7 +1520,7 @@ function AccountsInner() {
             <div className="bg-bg-card border border-border rounded-xl p-4">
               <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
                 <span>👁️‍🗨️</span>
-                <span>Profile viewers · 90d</span>
+                <span>Visitas al perfil · 90 días</span>
               </div>
               <div className="text-2xl font-bold text-text-primary mt-1 tabular-nums">
                 {analytics.linkedin_oficial ? fmtNum(analytics.linkedin_oficial.profile_viewers_90d) : '—'}
@@ -1543,7 +1534,7 @@ function AccountsInner() {
             <div className="bg-bg-card border border-border rounded-xl p-4">
               <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
                 <span>📈</span>
-                <span>Post impressions · 7d</span>
+                <span>Impresiones de posts · 7 días</span>
               </div>
               <div className="text-2xl font-bold text-text-primary mt-1 tabular-nums">
                 {analytics.linkedin_oficial ? fmtNum(analytics.linkedin_oficial.post_impressions_7d) : '—'}
@@ -1557,12 +1548,12 @@ function AccountsInner() {
             <div className="bg-bg-card border border-border rounded-xl p-4">
               <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
                 <span>📅</span>
-                <span>Posts / week</span>
+                <span>Posts / semana</span>
               </div>
               <div className="text-2xl font-bold text-text-primary mt-1 tabular-nums">
                 {analytics.totals.posts_per_week.toFixed(1)}
               </div>
-              <div className="text-[10px] text-text-muted mt-0.5">avg cadence in range</div>
+              <div className="text-[10px] text-text-muted mt-0.5">ritmo medio en el rango</div>
             </div>
           </div>
 
@@ -1572,26 +1563,26 @@ function AccountsInner() {
               <div className="bg-bg-card border border-accent/30 rounded-xl p-4">
                 <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
                   <span>👁️</span>
-                  <span>Total impressions</span>
+                  <span>Impresiones totales</span>
                 </div>
                 <div className="flex items-baseline gap-2 mt-1">
                   <div className="text-2xl font-bold text-accent">{fmtNum(analytics.totals.total_impressions)}</div>
                   <Delta pct={analytics.comparison.total_impressions.delta_pct} />
                 </div>
                 <div className="text-[10px] text-text-muted mt-0.5">
-                  across {analytics.totals.posts_with_impressions} post{analytics.totals.posts_with_impressions === 1 ? '' : 's'} with data
+                  en {analytics.totals.posts_with_impressions} post{analytics.totals.posts_with_impressions === 1 ? '' : 's'} con datos
                 </div>
               </div>
               <div className="bg-bg-card border border-accent/30 rounded-xl p-4">
                 <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
                   <span>📏</span>
-                  <span>Avg impressions</span>
+                  <span>Impresiones medias</span>
                 </div>
                 <div className="flex items-baseline gap-2 mt-1">
                   <div className="text-2xl font-bold text-accent">{fmtNum(analytics.totals.avg_impressions)}</div>
                   <Delta pct={analytics.comparison.avg_impressions.delta_pct} />
                 </div>
-                <div className="text-[10px] text-text-muted mt-0.5">per post with data</div>
+                <div className="text-[10px] text-text-muted mt-0.5">por post con datos</div>
               </div>
             </div>
           )}
@@ -1599,21 +1590,21 @@ function AccountsInner() {
           {/* Engagement totals breakdown with deltas */}
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-bg-card border border-border rounded-xl p-3">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted text-center">Likes</div>
+              <div className="text-[10px] uppercase tracking-wide text-text-muted text-center">Reacciones</div>
               <div className="flex items-baseline justify-center gap-2 mt-0.5">
                 <div className="text-lg font-semibold text-text-primary">{fmtNum(analytics.totals.total_likes)}</div>
                 <Delta pct={analytics.comparison.total_likes.delta_pct} />
               </div>
             </div>
             <div className="bg-bg-card border border-border rounded-xl p-3">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted text-center">Comments</div>
+              <div className="text-[10px] uppercase tracking-wide text-text-muted text-center">Comentarios</div>
               <div className="flex items-baseline justify-center gap-2 mt-0.5">
                 <div className="text-lg font-semibold text-text-primary">{fmtNum(analytics.totals.total_comments)}</div>
                 <Delta pct={analytics.comparison.total_comments.delta_pct} />
               </div>
             </div>
             <div className="bg-bg-card border border-border rounded-xl p-3">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted text-center">Reposts</div>
+              <div className="text-[10px] uppercase tracking-wide text-text-muted text-center">Compartidos</div>
               <div className="flex items-baseline justify-center gap-2 mt-0.5">
                 <div className="text-lg font-semibold text-text-primary">{fmtNum(analytics.totals.total_reposts)}</div>
                 <Delta pct={analytics.comparison.total_reposts.delta_pct} />
@@ -1624,13 +1615,13 @@ function AccountsInner() {
           {/* Daily engagement trend — smoothed line with publication markers */}
           <div className="bg-bg-card border border-border rounded-xl p-5">
             <div className="mb-1 flex items-start justify-between gap-3 flex-wrap">
-              <h3 className="text-lg font-semibold">Engagement over time</h3>
+              <h3 className="text-lg font-semibold">Interacciones en el tiempo</h3>
             </div>
             <p className="text-xs text-text-muted mb-3">
-              {`Impressions and engagements received in the range, like LinkedIn's Content analytics — LinkedIn's own daily figures ${selectedCreator === 'all' ? '(manual accounts: estimated by publication day) — all managed accounts' : '(this account)'}. Pencils mark the days you published.`}
+              {`Impresiones e interacciones recibidas en el rango, como en las analíticas de contenido de LinkedIn: las cifras diarias de LinkedIn ${selectedCreator === 'all' ? '(cuentas manuales: estimadas por día de publicación), todas las cuentas propias' : '(esta cuenta)'}. Los lápices marcan los días en que publicaste.`}
             </p>
             {dailyChartData.length === 0 ? (
-              <p className="text-center text-text-muted text-sm py-12">No posts in this range.</p>
+              <p className="text-center text-text-muted text-sm py-12">No hay posts en este rango.</p>
             ) : (
               <AccountsEngagementChart
                 data={dailyChartData}
@@ -1658,11 +1649,11 @@ function AccountsInner() {
             startDate={dateRange.start}
             endDate={dateRange.end}
             includeManual={incluirManuales}
-            title="Impressions per month"
+            title="Impresiones por mes"
             subtitle={selectedCreator === 'all'
-              ? 'Impressions received each month — LinkedIn daily figures for connected accounts (manual accounts: estimated) — all managed accounts'
-              : 'Impressions received each month — LinkedIn daily figures (this account)'}
-            unit="impressions"
+              ? 'Impresiones recibidas cada mes: cifras diarias de LinkedIn de las cuentas conectadas (cuentas manuales: estimadas), todas las cuentas propias'
+              : 'Impresiones recibidas cada mes: cifras diarias de LinkedIn (esta cuenta)'}
+            unit="impresiones"
             color="#e8935a"
           />
 
@@ -1694,11 +1685,11 @@ function AccountsInner() {
             startDate={dateRange.start}
             endDate={dateRange.end}
             includeManual={incluirManuales}
-            title="New followers per month"
+            title="Seguidores nuevos por mes"
             subtitle={selectedCreator === 'all'
-              ? 'New followers each month — LinkedIn daily figures for connected accounts — all managed accounts'
-              : 'New followers each month — LinkedIn daily figures (this account)'}
-            unit="followers"
+              ? 'Seguidores nuevos cada mes: cifras diarias de LinkedIn de las cuentas conectadas, todas las cuentas propias'
+              : 'Seguidores nuevos cada mes: cifras diarias de LinkedIn (esta cuenta)'}
+            unit="seguidores"
             color="#34d399"
             signed
           />
@@ -1725,8 +1716,8 @@ function AccountsInner() {
           {formatChartData.length > 0 && (
             <div className="bg-bg-card border border-border rounded-xl p-5">
               <div className="mb-3">
-                <h3 className="text-lg font-semibold">Content format mix</h3>
-                <p className="text-xs text-text-muted mt-0.5">Posts per content type · hover for avg engagement</p>
+                <h3 className="text-lg font-semibold">Reparto por formato</h3>
+                <p className="text-xs text-text-muted mt-0.5">Posts por tipo de contenido · pasa el ratón para ver las interacciones medias</p>
               </div>
               <ResponsiveContainer width="100%" height={Math.max(180, formatChartData.length * 48)}>
                 <BarChart data={formatChartData} layout="vertical" margin={{ top: 4, right: 48, left: 8, bottom: 4 }}>
@@ -1745,7 +1736,7 @@ function AccountsInner() {
                     formatter={(_v: any, _n: any, entry: any) => {
                       const row = entry?.payload;
                       return [
-                        `${row.count} posts · avg ${fmtNum(row.avg_engagement)} · ${row.outliers} outliers`,
+                        `${row.count} posts · media ${fmtNum(row.avg_engagement)} · ${row.outliers} outliers`,
                         row.label,
                       ];
                     }}
@@ -1764,15 +1755,15 @@ function AccountsInner() {
           {analytics.hook_types.length > 0 && (
             <div className="bg-bg-card border border-border rounded-xl p-5">
               <div className="mb-3">
-                <h3 className="text-lg font-semibold">Best-performing hooks</h3>
-                <p className="text-xs text-text-muted mt-0.5">Avg engagement by hook type · longer = better</p>
+                <h3 className="text-lg font-semibold">Ganchos que mejor funcionan</h3>
+                <p className="text-xs text-text-muted mt-0.5">Interacciones medias por tipo de gancho · barra más larga = mejor</p>
               </div>
               <ResponsiveContainer width="100%" height={Math.max(180, analytics.hook_types.length * 40)}>
-                <BarChart data={analytics.hook_types} layout="vertical" margin={{ top: 4, right: 48, left: 8, bottom: 4 }}>
+                <BarChart data={analytics.hook_types.map((h) => ({ ...h, hook_label: etiqueta(HOOK_TYPE_LABELS, h.hook_type) }))} layout="vertical" margin={{ top: 4, right: 48, left: 8, bottom: 4 }}>
                   <XAxis type="number" hide />
                   <YAxis
                     type="category"
-                    dataKey="hook_type"
+                    dataKey="hook_label"
                     tick={{ fill: '#9ca3af', fontSize: 12 }}
                     axisLine={{ stroke: '#2e3348' }}
                     tickLine={false}
@@ -1783,7 +1774,7 @@ function AccountsInner() {
                     contentStyle={CHART_TOOLTIP_STYLE}
                     formatter={(_v: any, _n: any, entry: any) => {
                       const row = entry?.payload;
-                      return [`avg ${fmtNum(row.avg_engagement)} · ${row.count} posts`, row.hook_type];
+                      return [`media ${fmtNum(row.avg_engagement)} · ${row.count} ${row.count === 1 ? 'post' : 'posts'}`, row.hook_label];
                     }}
                   />
                   <Bar dataKey="avg_engagement" fill="#e8935a" radius={[0, 6, 6, 0]} label={{ position: 'right', fill: '#9ca3af', fontSize: 11, formatter: (v: any) => fmtCompact(v) }} />
@@ -1798,22 +1789,22 @@ function AccountsInner() {
             analytics.per_account.length > 0 && (
               <div className="bg-bg-card border border-border rounded-xl p-5">
                 <div className="mb-4">
-                  <h3 className="text-lg font-semibold">Per-account breakdown</h3>
-                  <p className="text-xs text-text-muted">Compare accounts side by side</p>
+                  <h3 className="text-lg font-semibold">Desglose por cuenta</h3>
+                  <p className="text-xs text-text-muted">Compara las cuentas lado a lado</p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="text-left text-text-muted text-xs border-b border-border">
-                        <th className="py-2 pr-3">Account</th>
+                        <th className="py-2 pr-3">Cuenta</th>
                         <th className="py-2 px-3 text-right">Posts</th>
                         <th className="py-2 px-3 text-right">Outliers</th>
-                        <th className="py-2 px-3 text-right">Hit rate</th>
-                        <th className="py-2 px-3 text-right">Avg eng</th>
-                        <th className="py-2 px-3 text-right" title="Average engagement / creator average">Avg ×</th>
-                        <th className="py-2 px-3 text-right" title="Best single post's multiplier">Peak ×</th>
-                        <th className="py-2 px-3 text-right">Impressions</th>
-                        <th className="py-2 pl-3 text-right">Avg impressions</th>
+                        <th className="py-2 px-3 text-right">Tasa de acierto</th>
+                        <th className="py-2 px-3 text-right">Interacciones medias</th>
+                        <th className="py-2 px-3 text-right" title="Interacciones medias / media del creador">Multiplicador medio</th>
+                        <th className="py-2 px-3 text-right" title="Multiplicador del mejor post">Multiplicador máx.</th>
+                        <th className="py-2 px-3 text-right">Impresiones</th>
+                        <th className="py-2 pl-3 text-right">Impresiones medias</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1869,9 +1860,9 @@ function AccountsInner() {
             <div className="bg-bg-card border border-border rounded-xl p-5">
               <div className="mb-4">
                 <h3 className="text-lg font-semibold">
-                  Top posts
+                  Mejores posts
                   <span className="text-text-muted text-sm font-normal ml-2">
-                    ({filteredTopPosts.length}{hayFiltrosTop(topFiltros) ? ` of ${analytics.top_posts.length}` : ''})
+                    ({filteredTopPosts.length}{hayFiltrosTop(topFiltros) ? ` de ${analytics.top_posts.length}` : ''})
                   </span>
                 </h3>
                 <p className="text-xs text-text-muted">
@@ -1957,7 +1948,7 @@ function AccountsInner() {
                 )}
               </div>
               {filteredTopPosts.length === 0 ? (
-                <p className="text-text-muted text-sm">No posts match this filter.</p>
+                <p className="text-text-muted text-sm">Ningún post cumple este filtro.</p>
               ) : (
                 <div className="space-y-2">
                   {filteredTopPosts.slice(0, visibleTop).map((p) => (
@@ -1991,7 +1982,7 @@ function AccountsInner() {
       )}
 
       {loadingAnalytics && hasAccounts && (
-        <p className="text-center text-text-muted text-sm py-4">Loading analytics…</p>
+        <p className="text-center text-text-muted text-sm py-4">Cargando analíticas…</p>
       )}
 
       </>)}
@@ -2047,19 +2038,19 @@ function minutesSince(iso: string): number {
 // pintaba solo la del snapshot y un post releido ayer decia "77d ago".
 function fmtActualizacion(post: { snapshot_count: number; last_snapshot_at: string | null; readings_count: number; last_reading_at: string | null }): string {
   const ultima = post.last_reading_at || post.last_snapshot_at;
-  if (!ultima) return 'No captures yet';
-  const partes = [`Counters last updated ${fmtAge(ultima)}`];
-  if (post.last_snapshot_at) partes.push(`${post.snapshot_count} snapshots in the first 7 days (last ${fmtAge(post.last_snapshot_at)})`);
-  if (post.readings_count > 0) partes.push(`${post.readings_count} later readings (daily until day 90, weekly after)`);
+  if (!ultima) return 'Aún sin lecturas';
+  const partes = [`Contadores actualizados por última vez ${fmtAge(ultima)}`];
+  if (post.last_snapshot_at) partes.push(`${post.snapshot_count} lecturas en los primeros 7 días (la última ${fmtAge(post.last_snapshot_at)})`);
+  if (post.readings_count > 0) partes.push(`${post.readings_count} lecturas posteriores (a diario hasta el día 90, cada semana después)`);
   return partes.join(' · ');
 }
 
 function fmtAge(iso: string): string {
   const m = minutesSince(iso);
-  if (m < 60) return `${m}m ago`;
+  if (m < 60) return `hace ${m} min`;
   const h = m / 60;
-  if (h < 24) return `${h.toFixed(1)}h ago`;
-  return `${Math.round(h / 24)}d ago`;
+  if (h < 24) return `hace ${h.toFixed(1).replace('.', ',')} h`;
+  return `hace ${Math.round(h / 24)} d`;
 }
 
 // Absolute date+time for the post's PUBLICATION timestamp — the user
@@ -2159,7 +2150,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
       const reposts = s.reposts_chart !== undefined ? s.reposts_chart : s.reposts_count;
       return {
         ageMin,
-        label: ageMin < 60 ? `${ageMin}m` : `${(ageMin / 60).toFixed(1)}h`,
+        label: ageMin < 60 ? `${ageMin} min` : `${(ageMin / 60).toFixed(1).replace('.', ',')} h`,
         // Nunca `?? 0`: un snapshot sin lectura no es un post con 0 impresiones.
         // Pintarlo como 0 fue lo que obligo a arrastrar la ultima cifra manual,
         // y eso dibujaba mesetas y acantilados en las cuentas manuales.
@@ -2212,7 +2203,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
   const manualDotChip = (color: string, label: string) => (
     <span
       className="inline-flex items-center gap-1 text-[10px] text-text-muted"
-      title="Each dot is a snapshot added by hand (when the post was added or from ⋮ → Añadir métricas). Impressions are only known there; between two dots the blue line is an estimate: half linear in time, half following this post's likes."
+      title="Cada punto es una lectura añadida a mano (al dar de alta el post o desde ⋮ → Añadir métricas). Las impresiones solo se conocen ahí; entre dos puntos la línea azul es una estimación: mitad lineal en el tiempo, mitad siguiendo las reacciones de este post."
     >
       <span className="inline-block w-2.5 h-2.5 rounded-full border-2 border-white" style={{ background: color }} /> {label}
     </span>
@@ -2225,12 +2216,12 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     : 0;
 
   if (loading && !data) {
-    return <p className="text-xs text-text-muted py-6 text-center">Loading snapshots…</p>;
+    return <p className="text-xs text-text-muted py-6 text-center">Cargando lecturas…</p>;
   }
   if (!hasSnapshots) {
     return (
       <p className="text-xs text-text-muted py-6 text-center">
-        No snapshot data for this post. Only posts monitored during their first 7 days have captures.
+        No hay lecturas de este post. Solo tienen lecturas los posts seguidos durante sus primeros 7 días.
       </p>
     );
   }
@@ -2246,7 +2237,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     domain: [0, 'dataMax'] as [number, string],
     tick: { fill: '#9ca3af', fontSize: 11 },
     axisLine: { stroke: '#2e3348' },
-    tickFormatter: (v: number) => (v < 60 ? `${v}m` : `${(v / 60).toFixed(0)}h`),
+    tickFormatter: (v: number) => (v < 60 ? `${v} min` : `${(v / 60).toFixed(0)} h`),
   };
 
   const referenceLines = [
@@ -2260,18 +2251,18 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     hasTypical && hasOverlap ? (
       <span
         className="inline-flex items-center gap-1 text-[10px] text-text-muted"
-        title={`Typical ${metricLabel} for this creator's other posts at the same age (p25–p75)`}
+        title={`Rango de ${metricLabel} típicas de los otros posts de este creador a la misma edad (p25–p75)`}
       >
         <span className="inline-block w-3 h-2 rounded-sm bg-slate-500/30 border border-slate-500/50" />
-        typical {metricLabel} p25–p75
+        {metricLabel} típicas p25–p75
       </span>
     ) : hasTypical ? (
       <span
         className="inline-flex items-center gap-1 text-[10px] text-text-muted/70"
-        title={`The creator's other monitored posts only have snapshots at later ages than this post — no comparable typical ${metricLabel} value yet for this post's current age range.`}
+        title={`Los otros posts seguidos de este creador solo tienen lecturas a edades posteriores a la de este post: aún no hay ${metricLabel} típicas comparables para su edad actual.`}
       >
         <span className="inline-block w-3 h-2 rounded-sm border border-slate-500/40" />
-        typical {metricLabel} not yet available
+        aún no hay {metricLabel} típicas
       </span>
     ) : null;
 
@@ -2298,31 +2289,31 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
           );
         })}
         <span className="text-[10px] text-text-muted ml-2">
-          {snapshotsInView} of {snapshotCount} snapshot{snapshotCount === 1 ? '' : 's'}
+          {snapshotsInView} de {snapshotCount} lectura{snapshotCount === 1 ? '' : 's'}
         </span>
       </div>
 
       {snapshotsInView === 0 ? (
-        <p className="text-xs text-text-muted py-6 text-center">No snapshots in this window.</p>
+        <p className="text-xs text-text-muted py-6 text-center">No hay lecturas en esta ventana.</p>
       ) : (
         <div className="space-y-5">
           {/* Impressions: this post vs typical impressions for the creator */}
           <div>
             <div className="flex items-center justify-between mb-1.5 flex-wrap gap-2">
               <p className="text-[11px] text-text-muted">
-                <span className="text-sky-400 font-semibold">Impressions</span> · this post vs typical impressions at the same age
+                <span className="text-sky-400 font-semibold">Impresiones</span> · este post frente a las impresiones típicas a la misma edad
               </p>
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
-                  <span className="w-3 h-[2px] bg-sky-400" /> this post
+                  <span className="w-3 h-[2px] bg-sky-400" /> este post
                 </span>
-                {isManualPost && manualDotChip('#38bdf8', 'manual snapshot · line between = estimate')}
-                {typicalBandChip('impressions', hasImpOverlap)}
+                {isManualPost && manualDotChip('#38bdf8', 'lectura manual · la línea entre puntos = estimación')}
+                {typicalBandChip('impresiones', hasImpOverlap)}
               </div>
             </div>
             {!hasAnyImp ? (
               <p className="text-xs text-text-muted py-6 text-center">
-                No impressions reading yet. Add them from ⋮ → Añadir métricas; between two readings the curve is estimated.
+                Aún no hay lectura de impresiones. Añádelas desde ⋮ → Añadir métricas; entre dos lecturas la curva es estimada.
               </p>
             ) : (
             <ResponsiveContainer width="100%" height={180}>
@@ -2343,23 +2334,23 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     const p = payload[0].payload;
                     return (
                       <div style={CHART_TOOLTIP_STYLE} className="p-2">
-                        <div className="text-text-secondary text-[11px] mb-1">+{p.label} since publish</div>
-                        {p.manualSnapshot && <div className="text-text-muted text-[10px] mb-1">● manual snapshot</div>}
+                        <div className="text-text-secondary text-[11px] mb-1">+{p.label} desde la publicación</div>
+                        {p.manualSnapshot && <div className="text-text-muted text-[10px] mb-1">● lectura manual</div>}
                         {p.impressions != null && !p.impressionsEstimated && (
-                          <div className="text-sky-400 text-xs">👁️ {fmtNum(p.impressions)} impressions</div>
+                          <div className="text-sky-400 text-xs">👁️ {fmtNum(p.impressions)} impresiones</div>
                         )}
                         {p.impressions != null && p.impressionsEstimated && (
                           <>
-                            <div className="text-sky-400 text-xs">👁️ ≈ {fmtNum(p.impressions)} impressions</div>
-                            <div className="text-text-muted text-[10px]">estimate between two readings</div>
+                            <div className="text-sky-400 text-xs">👁️ ≈ {fmtNum(p.impressions)} impresiones</div>
+                            <div className="text-text-muted text-[10px]">estimación entre dos lecturas</div>
                           </>
                         )}
                         {p.impressions == null && (
-                          <div className="text-text-muted text-[11px]">👁️ no impressions reading here</div>
+                          <div className="text-text-muted text-[11px]">👁️ aquí no hay lectura de impresiones</div>
                         )}
                         {p.typicalImpRange && (
                           <div className="text-slate-400 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
-                            Typical at this age ({p.typicalImpSampleCount} post{p.typicalImpSampleCount === 1 ? '' : 's'}):<br />
+                            Típico a esta edad ({p.typicalImpSampleCount} post{p.typicalImpSampleCount === 1 ? '' : 's'}):<br />
                             👁️ {fmtNum(p.typicalImpRange[0])}–{fmtNum(p.typicalImpRange[1])}
                           </div>
                         )}
@@ -2407,14 +2398,14 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
           <div>
             <div className="flex items-center justify-between mb-1.5 flex-wrap gap-2">
               <p className="text-[11px] text-text-muted">
-                <span className="text-accent font-semibold">Engagement</span> · likes + comments×2 + reposts×3, vs typical engagement at the same age
+                <span className="text-accent font-semibold">Interacciones</span> · reacciones + comentarios×2 + compartidos×3, frente a las interacciones típicas a la misma edad
               </p>
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
-                  <span className="w-3 h-[2px] bg-accent" /> this post
+                  <span className="w-3 h-[2px] bg-accent" /> este post
                 </span>
-                {isManualPost && manualDotChip('#e8935a', 'manual snapshot')}
-                {typicalBandChip('engagement', hasEngOverlap)}
+                {isManualPost && manualDotChip('#e8935a', 'lectura manual')}
+                {typicalBandChip('interacciones', hasEngOverlap)}
               </div>
             </div>
             <ResponsiveContainer width="100%" height={180}>
@@ -2435,26 +2426,26 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     const p = payload[0].payload;
                     return (
                       <div style={CHART_TOOLTIP_STYLE} className="p-2">
-                        <div className="text-text-secondary text-[11px] mb-1">+{p.label} since publish</div>
-                        {p.manualSnapshot && <div className="text-text-muted text-[10px] mb-1">● manual snapshot</div>}
+                        <div className="text-text-secondary text-[11px] mb-1">+{p.label} desde la publicación</div>
+                        {p.manualSnapshot && <div className="text-text-muted text-[10px] mb-1">● lectura manual</div>}
                         {p.engagement == null ? (
-                          <div className="text-text-muted text-[11px]">no engagement reading here</div>
+                          <div className="text-text-muted text-[11px]">aquí no hay lectura de interacciones</div>
                         ) : (
                           <>
                             <div className="text-accent text-xs font-medium">
-                              {p.engagementEstimated ? '≈ ' : ''}{fmtNum(p.engagement)} engagement
+                              {p.engagementEstimated ? '≈ ' : ''}{fmtNum(p.engagement)} interacciones
                             </div>
                             <div className="text-text-muted text-[11px]">
-                              {p.likes} likes · {p.comments} comments · {p.reposts} reposts
+                              {p.likes} reacciones · {p.comments} comentarios · {p.reposts} compartidos
                             </div>
                             {p.engagementEstimated && (
-                              <div className="text-text-muted text-[10px]">estimate: counters weren't read at this moment</div>
+                              <div className="text-text-muted text-[10px]">estimación: los contadores no se leyeron en este momento</div>
                             )}
                           </>
                         )}
                         {p.typicalEngRange && (
                           <div className="text-slate-400 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
-                            Typical at this age ({p.typicalEngSampleCount} post{p.typicalEngSampleCount === 1 ? '' : 's'}):<br />
+                            Típico a esta edad ({p.typicalEngSampleCount} post{p.typicalEngSampleCount === 1 ? '' : 's'}):<br />
                             {fmtNum(p.typicalEngRange[0])}–{fmtNum(p.typicalEngRange[1])}
                           </div>
                         )}
@@ -2533,8 +2524,8 @@ function PostMenu({ post, onHidden, onEditMetrics }: {
 
   const ocultar = async () => {
     if (!confirm(
-      '¿Ocultar esta publicación del panel?\n\n' +
-      'Se quita de Live Posts pero NO se borra: las métricas y el histórico se conservan.\n' +
+      '¿Ocultar este post del panel?\n\n' +
+      'Se quita de Posts en directo pero NO se borra: las métricas y el histórico se conservan.\n' +
       'Úsalo cuando hayas borrado el post en LinkedIn.'
     )) return;
     setBusy(true);
@@ -2614,12 +2605,12 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
         // the snapshot so engagement keeps tracking. Showing 'imp 0' makes
         // it clear that's coming from upstream, not a refresh-button bug.
         const parts: string[] = [];
-        if (eng != null) parts.push(`${fmtNum(eng)} eng`);
-        if (imp != null) parts.push(`${fmtNum(imp)} imp`);
-        setRefreshMsg(parts.length > 0 ? `✓ ${parts.join(' · ')}` : '✓ refreshed');
+        if (eng != null) parts.push(`${fmtNum(eng)} interacciones`);
+        if (imp != null) parts.push(`${fmtNum(imp)} impresiones`);
+        setRefreshMsg(parts.length > 0 ? `✓ ${parts.join(' · ')}` : '✓ actualizado');
         onRefreshed?.();
       } else {
-        setRefreshMsg(`✗ ${r.reason || 'failed'}`);
+        setRefreshMsg(`✗ ${r.reason || 'ha fallado'}`);
       }
     } catch (err: any) {
       setRefreshMsg(`✗ ${err.message}`);
@@ -2655,18 +2646,18 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
               {post.creator_is_manual && (
                 <span
                   className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 text-[10px] font-medium"
-                  title="Cuenta no conectada a Unipile. Los contadores publicos se leen solos; las impresiones y los clics los escribes tu."
+                  title="Cuenta no conectada a Unipile. Los contadores públicos se leen solos; las impresiones y los clics los escribes tú."
                 >
                   manual
                 </span>
               )}
               <span>·</span>
-              <span title={new Date(post.published_at).toLocaleString()}>{fmtPublishedAt(post.published_at)}</span>
+              <span title={new Date(post.published_at).toLocaleString('es-ES')}>{fmtPublishedAt(post.published_at)}</span>
               <span
                 className="px-1.5 py-0.5 rounded bg-bg-secondary border border-border text-text-muted text-[10px]"
                 title={fmtActualizacion(post)}
               >
-                {post.snapshot_count} snap{post.snapshot_count === 1 ? '' : 's'}
+                {post.snapshot_count} lectura{post.snapshot_count === 1 ? '' : 's'}
                 {(post.last_reading_at || post.last_snapshot_at) && (
                   <span className="ml-1 opacity-60">· {fmtAge((post.last_reading_at || post.last_snapshot_at) as string)}</span>
                 )}
@@ -2697,7 +2688,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
                       ? 'bg-diamond/15 text-diamond ring-1 ring-diamond/40'
                       : 'bg-bg-secondary border border-border text-text-muted'
                   }`}
-                  title="Engagement relative to this creator's average"
+                  title="Interacciones frente a la media de este creador"
                 >
                   {post.outlier_ratio.toFixed(1)}x
                 </span>
@@ -2724,7 +2715,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
             <span className="inline-flex items-center gap-1" title="Comentarios">
               <MetricIcon d={ICON_COMMENT} /> {fmtNum(post.comments_count)}
             </span>
-            <span className="inline-flex items-center gap-1" title="Republicaciones">
+            <span className="inline-flex items-center gap-1" title="Compartidos">
               <MetricIcon d={ICON_REPOST} /> {fmtNum(post.reposts_count)}
             </span>
             {post.impressions_count != null && (
@@ -2740,9 +2731,9 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
               onClick={handleRefresh}
               disabled={refreshing}
               className="ml-auto text-text-muted hover:text-accent transition-colors disabled:opacity-50 disabled:cursor-wait"
-              title="Capture a fresh snapshot for this post"
+              title="Toma una lectura nueva de este post"
             >
-              {refreshing ? '↻ …' : '↻ Refresh'}
+              {refreshing ? '↻ …' : '↻ Actualizar'}
             </button>
             {refreshMsg && (
               <span className={`text-[10px] whitespace-nowrap ${refreshMsg.startsWith('✗') ? 'text-danger' : 'text-green-400'}`}>
@@ -2753,11 +2744,11 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
               onClick={() => setOpen((v) => !v)}
               className="text-accent hover:text-accent-light"
             >
-              {open ? 'Hide stats' : 'Show stats'}
+              {open ? 'Ocultar estadísticas' : 'Ver estadísticas'}
             </button>
             {post.post_url && (
               <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-light">
-                View on LinkedIn →
+                Ver en LinkedIn →
               </a>
             )}
             {onOpenChat && (
@@ -2772,12 +2763,12 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
             {onRemoveDemo && (
               <button
                 onClick={() => {
-                  if (confirm('Remove the demo post from live tracking?')) onRemoveDemo();
+                  if (confirm('¿Quitar el post de demo del seguimiento en directo?')) onRemoveDemo();
                 }}
                 className="text-red-400/70 hover:text-red-400 transition-colors"
-                title="Remove demo post"
+                title="Quitar el post de demo"
               >
-                ✕ Remove
+                ✕ Quitar
               </button>
             )}
           </div>
@@ -2823,7 +2814,7 @@ function TopPostRow(
             <div className="flex items-center gap-2 text-xs text-text-muted flex-wrap min-w-0">
               <span className="text-text-secondary font-medium">{nombreCuenta(post.creator_name)}</span>
               <span>·</span>
-              <span title={post.published_at ? new Date(post.published_at).toLocaleString() : ''}>{post.published_at ? fmtPublishedAt(post.published_at) : '—'}</span>
+              <span title={post.published_at ? new Date(post.published_at).toLocaleString('es-ES') : ''}>{post.published_at ? fmtPublishedAt(post.published_at) : '—'}</span>
               <span>·</span>
               <span>{FORMAT_LABELS[post.content_type] || post.content_type}</span>
             </div>
@@ -2867,7 +2858,7 @@ function TopPostRow(
                       ? 'px-2.5 py-1 text-sm ring-1 ring-diamond/40'
                       : 'px-2 py-0.5 text-xs'
                   }`}
-                  title="Engagement relative to this creator's average"
+                  title="Interacciones frente a la media de este creador"
                 >
                   {post.outlier_ratio.toFixed(1)}x
                 </span>
@@ -2892,7 +2883,7 @@ function TopPostRow(
             <span className="inline-flex items-center gap-1" title="Comentarios">
               <MetricIcon d={ICON_COMMENT} /> {fmtNum(post.comments_count)}
             </span>
-            <span className="inline-flex items-center gap-1" title="Republicaciones">
+            <span className="inline-flex items-center gap-1" title="Compartidos">
               <MetricIcon d={ICON_REPOST} /> {fmtNum(post.reposts_count)}
             </span>
             {post.impressions_count != null && (
@@ -2909,12 +2900,12 @@ function TopPostRow(
                   onClick={() => setOpen((v) => !v)}
                   className="text-accent hover:text-accent-light"
                 >
-                  {open ? 'Hide stats' : 'Show stats'}
+                  {open ? 'Ocultar estadísticas' : 'Ver estadísticas'}
                 </button>
               )}
               {post.post_url && (
                 <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-light">
-                  View on LinkedIn →
+                  Ver en LinkedIn →
                 </a>
               )}
               {/* Sin boton de Chat a proposito: mandar comentarios sugeridos solo

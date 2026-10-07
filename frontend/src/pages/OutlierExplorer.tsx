@@ -3,6 +3,7 @@ import { useApi } from '../hooks/useApi';
 import PostCard from '../components/PostCard';
 import { SkeletonCard } from '../components/Skeleton';
 import OutlierContentTypeChart from '../components/OutlierContentTypeChart';
+import { HOOK_TYPE_LABELS, RITMO_LABELS, etiqueta } from '../utils/etiquetas';
 
 interface PostExplanation {
   summary: string;
@@ -133,34 +134,39 @@ interface CompareData {
   hook_type_distribution: Record<string, number>;
 }
 
-const hookLabels: Record<string, string> = {
-  pattern_interrupt: 'Pattern Interrupt', belief_breaker: 'Belief Breaker',
-  curiosity_gap: 'Curiosity Gap', data_shock: 'Data Shock', hot_take: 'Hot Take',
-  personal_confession: 'Personal Confession', story_opener: 'Story Opener',
-  hypothetical_question: 'Hypothetical Q', why_question: 'Why Question',
-  how_question: 'How Question', direct_question: 'Direct Question',
-  open_question: 'Open Question', rhetorical_question: 'Rhetorical Q',
-  list_promise: 'List Promise', prediction: 'Prediction',
-  how_to_framework: 'How-To', bold_claim: 'Bold Claim',
-  common_mistake: 'Common Mistake', direct_callout: 'Direct Callout',
-  announcement: 'Announcement', social_proof_opener: 'Social Proof',
-  analogy: 'Analogy', contrarian_take: 'Contrarian', relatable_moment: 'Relatable',
-  motivational: 'Motivational', observation: 'Observation', challenge: 'Challenge',
-  other: 'Other',
+// Mismas etiquetas que HookTypeChart (mapa compartido en utils/etiquetas).
+const hookLabels = HOOK_TYPE_LABELS;
+
+// Mismas etiquetas que StructureChart.
+const structLabels: Record<string, string> = {
+  hook_list_cta: 'Gancho>Lista>CTA', hook_story_lesson_cta: 'Gancho>Historia>Lección>CTA',
+  problem_agitate_solve: 'Problema>Agitación>Solución', contrarian_proof_reframe: 'Contracorriente>Prueba>Giro',
+  confession_insight_takeaway: 'Confesión>Aprendizaje>Conclusión', list_framework: 'Lista / Marco',
+  problem_solution: 'Problema > Solución', story_lesson: 'Historia > Lección',
+  before_after: 'Antes / Después', step_by_step: 'Paso a paso',
+  myth_busting: 'Desmontar mitos', question_answer: 'Pregunta > Respuesta',
+  observation_insight: 'Observación > Aprendizaje', prediction_vision: 'Predicción / Visión',
+  motivational_manifesto: 'Motivacional', authority_framework: 'Autoridad > Marco',
+  comparison: 'Comparativa', short_punchy: 'Corto y directo',
+  long_form_essay: 'Ensayo largo', narrative_arc: 'Arco narrativo',
+  content_with_cta: 'Contenido + CTA', data_driven: 'Basado en datos', other: 'Otra',
 };
 
-const structLabels: Record<string, string> = {
-  hook_list_cta: 'Hook>List>CTA', hook_story_lesson_cta: 'Hook>Story>Lesson>CTA',
-  problem_agitate_solve: 'Problem>Agitate>Solve', contrarian_proof_reframe: 'Contrarian>Proof>Reframe',
-  confession_insight_takeaway: 'Confession>Insight>Takeaway', list_framework: 'List/Framework',
-  problem_solution: 'Problem>Solution', story_lesson: 'Story>Lesson',
-  before_after: 'Before/After', step_by_step: 'Step-by-Step',
-  myth_busting: 'Myth Busting', question_answer: 'Question>Answer',
-  observation_insight: 'Observation>Insight', prediction_vision: 'Prediction',
-  motivational_manifesto: 'Motivational', authority_framework: 'Authority>Framework',
-  comparison: 'Comparison', short_punchy: 'Short&Punchy',
-  long_form_essay: 'Long-form', narrative_arc: 'Narrative Arc',
-  content_with_cta: 'Content+CTA', data_driven: 'Data-Driven', other: 'Other',
+// Etiquetas SOLO para mostrar el content_type (el valor de la BD no se toca).
+// Mismas que ContentTypeBreakdown.
+const contentTypeLabels: Record<string, string> = {
+  all: 'Todos',
+  text: 'Texto',
+  text_image: 'Texto + foto',
+  text_carousel: 'Texto + carrusel',
+  text_video: 'Texto + vídeo',
+  text_document: 'Texto + documento',
+  image: 'Solo foto',
+  carousel: 'Solo carrusel',
+  video: 'Solo vídeo',
+  document: 'Solo documento',
+  poll: 'Encuesta',
+  article: 'Artículo',
 };
 
 const viralityDriverColors: Record<string, string> = {
@@ -169,17 +175,17 @@ const viralityDriverColors: Record<string, string> = {
 };
 
 const toneLabels: Record<string, { label: string; emoji: string; desc: string }> = {
-  urgency: { label: 'Urgency', emoji: '🔥', desc: 'Time pressure, scarcity, "act now"' },
-  authority: { label: 'Authority', emoji: '👑', desc: 'Expertise, credentials, proven results' },
-  social_proof: { label: 'Social Proof', emoji: '👥', desc: 'Others validate, trending, "everyone"' },
-  fomo: { label: 'FOMO', emoji: '😰', desc: 'Fear of missing out, competitors ahead' },
-  aspirational: { label: 'Aspirational', emoji: '🚀', desc: 'Dreams, transformation, next level' },
-  empathy: { label: 'Empathy', emoji: '🤝', desc: 'Understanding pain, "been there"' },
-  provocative: { label: 'Provocative', emoji: '💣', desc: 'Strong opinions, divisive, "wake up"' },
-  educational: { label: 'Educational', emoji: '📚', desc: 'Teaching, explaining, frameworks' },
-  vulnerable: { label: 'Vulnerable', emoji: '💔', desc: 'Failure, fear, personal weakness' },
-  humorous: { label: 'Humorous', emoji: '😂', desc: 'Jokes, irony, self-deprecation' },
-  neutral: { label: 'Neutral', emoji: '📄', desc: 'Balanced, informational' },
+  urgency: { label: 'Urgencia', emoji: '🔥', desc: 'Prisa, escasez, "hazlo ya"' },
+  authority: { label: 'Autoridad', emoji: '👑', desc: 'Experiencia, credenciales, resultados probados' },
+  social_proof: { label: 'Prueba social', emoji: '👥', desc: 'Otros lo validan, tendencia, "todo el mundo"' },
+  fomo: { label: 'FOMO', emoji: '😰', desc: 'Miedo a quedarse fuera, la competencia va por delante' },
+  aspirational: { label: 'Aspiracional', emoji: '🚀', desc: 'Sueños, transformación, subir de nivel' },
+  empathy: { label: 'Empatía', emoji: '🤝', desc: 'Entender el dolor, "yo también he pasado por ahí"' },
+  provocative: { label: 'Provocador', emoji: '💣', desc: 'Opiniones fuertes, divide, "despierta"' },
+  educational: { label: 'Educativo', emoji: '📚', desc: 'Enseñar, explicar, marcos' },
+  vulnerable: { label: 'Vulnerable', emoji: '💔', desc: 'Fracaso, miedo, debilidad personal' },
+  humorous: { label: 'Humor', emoji: '😂', desc: 'Chistes, ironía, reírse de uno mismo' },
+  neutral: { label: 'Neutro', emoji: '📄', desc: 'Equilibrado, informativo' },
 };
 
 const toneColors: Record<string, string> = {
@@ -245,16 +251,16 @@ export default function OutlierExplorer() {
     <div className="space-y-8">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Outlier Explorer</h1>
-          <p className="text-text-secondary">Top performing content across all analyzed creators.</p>
+          <h1 className="text-3xl font-bold mb-2">Explorador de outliers</h1>
+          <p className="text-text-secondary">El contenido que mejor funciona entre todos los creadores analizados.</p>
         </div>
         <button
           onClick={handleRefreshAnalysis}
           disabled={refreshing || loading}
           className="flex-shrink-0 px-4 py-2 bg-bg-card border border-border text-text-secondary text-sm rounded-lg hover:border-accent/40 hover:text-text-primary disabled:opacity-50 transition-colors mt-1"
-          title="Recalculate patterns and update AI chat context"
+          title="Recalcula los patrones y actualiza el contexto del chat de IA"
         >
-          {refreshing ? 'Updating…' : '↻ Refresh analysis'}
+          {refreshing ? 'Actualizando…' : '↻ Actualizar análisis'}
         </button>
       </div>
 
@@ -275,22 +281,22 @@ export default function OutlierExplorer() {
           {/* Global patterns summary */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="bg-bg-card rounded-lg p-4 text-center">
-              <p className="text-text-muted text-xs mb-1">Total Outliers</p>
+              <p className="text-text-muted text-xs mb-1">Outliers totales</p>
               <p className="text-2xl font-bold text-accent">{data.patterns.total_outliers}</p>
             </div>
             <div className="bg-bg-card rounded-lg p-4 text-center">
-              <p className="text-text-muted text-xs mb-1">Avg Word Count</p>
+              <p className="text-text-muted text-xs mb-1">Palabras de media</p>
               <p className="text-2xl font-bold text-text-primary">{data.patterns.avg_word_count}</p>
             </div>
             <div className="bg-bg-card rounded-lg p-4 text-center">
-              <p className="text-text-muted text-xs mb-1">CTA Usage</p>
+              <p className="text-text-muted text-xs mb-1">Uso de CTA</p>
               <p className="text-2xl font-bold text-text-primary">{data.patterns.cta_rate}%</p>
             </div>
             <div className="bg-bg-card rounded-lg p-4 text-center">
-              <p className="text-text-muted text-xs mb-1">Top Type</p>
+              <p className="text-text-muted text-xs mb-1">Tipo más frecuente</p>
               <p className="text-2xl font-bold text-text-primary">
                 {Object.entries(data.patterns.content_type_distribution)
-                  .sort((a, b) => b[1] - a[1])[0]?.[0] || '--'}
+                  .sort((a, b) => b[1] - a[1]).map(([t]) => contentTypeLabels[t] || t)[0] || '--'}
               </p>
             </div>
           </div>
@@ -298,7 +304,7 @@ export default function OutlierExplorer() {
           {/* Common traits of top outliers */}
           {data.patterns.common_traits && data.patterns.common_traits.length > 0 && (
             <div className="bg-bg-card rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-3">What Top Outliers Have in Common</h3>
+              <h3 className="text-lg font-semibold mb-3">Qué tienen en común los mejores outliers</h3>
               <div className="flex flex-wrap gap-3">
                 {data.patterns.common_traits.map((trait, i) => (
                   <span key={i} className="bg-accent/10 text-accent border border-accent/20 px-3 py-1.5 rounded-lg text-sm">
@@ -314,9 +320,9 @@ export default function OutlierExplorer() {
             <div className="bg-bg-card rounded-xl p-6 border border-accent/20">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-lg">🧠</span>
-                <h3 className="text-lg font-semibold">Text Pattern Analysis</h3>
+                <h3 className="text-lg font-semibold">Análisis de patrones del texto</h3>
               </div>
-              <p className="text-text-muted text-xs mb-5">Patterns found in the actual text of outlier posts vs normal posts.</p>
+              <p className="text-text-muted text-xs mb-5">Patrones encontrados en el texto real de los posts outlier frente a los posts normales.</p>
 
               {/* Writing analysis summary */}
               {data.patterns.text_patterns.writing_analysis && (
@@ -333,7 +339,7 @@ export default function OutlierExplorer() {
                 {/* Opening patterns */}
                 {data.patterns.text_patterns.opening_patterns.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-text-secondary mb-3">How Outliers Open</h4>
+                    <h4 className="text-sm font-semibold text-text-secondary mb-3">Cómo abren los outliers</h4>
                     <div className="space-y-2">
                       {data.patterns.text_patterns.opening_patterns.slice(0, 6).map((p) => (
                         <div key={p.pattern} className="bg-bg-secondary rounded-lg p-3">
@@ -356,7 +362,7 @@ export default function OutlierExplorer() {
                 {/* Closing patterns */}
                 {data.patterns.text_patterns.closing_patterns.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-text-secondary mb-3">How Outliers Close</h4>
+                    <h4 className="text-sm font-semibold text-text-secondary mb-3">Cómo cierran los outliers</h4>
                     <div className="space-y-2">
                       {data.patterns.text_patterns.closing_patterns.slice(0, 6).map((p) => (
                         <div key={p.pattern} className="bg-bg-secondary rounded-lg p-3">
@@ -381,7 +387,7 @@ export default function OutlierExplorer() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
                 {data.patterns.text_patterns.recurring_phrases.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-text-secondary mb-3">Recurring Phrases in Outliers</h4>
+                    <h4 className="text-sm font-semibold text-text-secondary mb-3">Frases recurrentes en los outliers</h4>
                     <div className="flex flex-wrap gap-2">
                       {data.patterns.text_patterns.recurring_phrases.map((p) => (
                         <span
@@ -392,7 +398,7 @@ export default function OutlierExplorer() {
                             color: p.overindex > 2 ? '#e8935a' : '#9ca3af',
                             backgroundColor: p.overindex > 2 ? '#e8935a15' : '#37415115',
                           }}
-                          title={`${p.outlier_pct}% of outliers vs ${p.normal_pct}% normal (${p.overindex}x overindex)`}
+                          title={`${p.outlier_pct}% de los outliers frente a ${p.normal_pct}% de los normales (${p.overindex}x más frecuente)`}
                         >
                           "{p.phrase}" ({p.count}x)
                           {p.overindex > 2 && <span className="ml-1 font-bold">{p.overindex}x</span>}
@@ -404,7 +410,7 @@ export default function OutlierExplorer() {
 
                 {data.patterns.text_patterns.semantic_categories && data.patterns.text_patterns.semantic_categories.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-text-secondary mb-3">Language Patterns: Outliers vs Normal</h4>
+                    <h4 className="text-sm font-semibold text-text-secondary mb-3">Patrones de lenguaje: outliers frente a normales</h4>
                     <div className="space-y-2">
                       {data.patterns.text_patterns.semantic_categories.map((c) => {
                         const isHigher = c.diff_pct > 0;
@@ -419,8 +425,8 @@ export default function OutlierExplorer() {
                             <div className="flex gap-2 items-center">
                               <div className="flex-1">
                                 <div className="flex gap-1 items-center text-[10px] text-text-muted">
-                                  <span className="text-accent">Outlier: {c.outlier_density}/100w</span>
-                                  <span className="text-text-muted ml-2">Normal: {c.normal_density}/100w</span>
+                                  <span className="text-accent">Outlier: {c.outlier_density}/100 palabras</span>
+                                  <span className="text-text-muted ml-2">Normal: {c.normal_density}/100 palabras</span>
                                 </div>
                               </div>
                             </div>
@@ -435,15 +441,15 @@ export default function OutlierExplorer() {
               {/* Writing style comparison */}
               {data.patterns.text_patterns.formatting_style && (
                 <div className="mt-6">
-                  <h4 className="text-sm font-semibold text-text-secondary mb-3">Writing Style: Outliers vs Normal</h4>
+                  <h4 className="text-sm font-semibold text-text-secondary mb-3">Estilo de escritura: outliers frente a normales</h4>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
                     {[
-                      { label: 'Words/post', o: data.patterns.text_patterns.formatting_style.avg_word_count.outlier, n: data.patterns.text_patterns.formatting_style.avg_word_count.normal },
-                      { label: 'Words/sentence', o: data.patterns.text_patterns.formatting_style.avg_sentence_length.outlier, n: data.patterns.text_patterns.formatting_style.avg_sentence_length.normal },
-                      { label: 'Line breaks', o: data.patterns.text_patterns.formatting_style.avg_line_breaks.outlier, n: data.patterns.text_patterns.formatting_style.avg_line_breaks.normal },
-                      { label: 'Use emojis', o: data.patterns.text_patterns.formatting_style.emoji_rate.outlier, n: data.patterns.text_patterns.formatting_style.emoji_rate.normal, suffix: '%' },
-                      { label: 'Use hashtags', o: data.patterns.text_patterns.formatting_style.hashtag_rate.outlier, n: data.patterns.text_patterns.formatting_style.hashtag_rate.normal, suffix: '%' },
-                      { label: 'Have questions', o: data.patterns.text_patterns.formatting_style.question_rate.outlier, n: data.patterns.text_patterns.formatting_style.question_rate.normal, suffix: '%' },
+                      { label: 'Palabras/post', o: data.patterns.text_patterns.formatting_style.avg_word_count.outlier, n: data.patterns.text_patterns.formatting_style.avg_word_count.normal },
+                      { label: 'Palabras/frase', o: data.patterns.text_patterns.formatting_style.avg_sentence_length.outlier, n: data.patterns.text_patterns.formatting_style.avg_sentence_length.normal },
+                      { label: 'Saltos de línea', o: data.patterns.text_patterns.formatting_style.avg_line_breaks.outlier, n: data.patterns.text_patterns.formatting_style.avg_line_breaks.normal },
+                      { label: 'Usan emojis', o: data.patterns.text_patterns.formatting_style.emoji_rate.outlier, n: data.patterns.text_patterns.formatting_style.emoji_rate.normal, suffix: '%' },
+                      { label: 'Usan hashtags', o: data.patterns.text_patterns.formatting_style.hashtag_rate.outlier, n: data.patterns.text_patterns.formatting_style.hashtag_rate.normal, suffix: '%' },
+                      { label: 'Tienen preguntas', o: data.patterns.text_patterns.formatting_style.question_rate.outlier, n: data.patterns.text_patterns.formatting_style.question_rate.normal, suffix: '%' },
                     ].map((stat) => {
                       const diff = stat.n > 0 ? ((stat.o - stat.n) / stat.n) : 0;
                       const isHigher = stat.o > stat.n;
@@ -454,7 +460,7 @@ export default function OutlierExplorer() {
                             {stat.o}{stat.suffix || ''}
                           </p>
                           <p className="text-[10px] text-text-muted">
-                            vs {stat.n}{stat.suffix || ''} normal
+                            frente a {stat.n}{stat.suffix || ''} normal
                           </p>
                           {Math.abs(diff) > 0.1 && (
                             <p className={`text-[10px] font-bold ${isHigher ? 'text-success' : 'text-danger'}`}>
@@ -474,7 +480,7 @@ export default function OutlierExplorer() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {data.patterns.hook_type_distribution && (
               <div className="bg-bg-card rounded-xl p-6">
-                <h3 className="text-sm font-semibold mb-3 text-text-secondary">Hook Types in Outliers</h3>
+                <h3 className="text-sm font-semibold mb-3 text-text-secondary">Tipos de gancho en los outliers</h3>
                 <div className="space-y-2">
                   {Object.entries(data.patterns.hook_type_distribution)
                     .sort((a, b) => b[1] - a[1])
@@ -496,7 +502,7 @@ export default function OutlierExplorer() {
             )}
             {data.patterns.structure_distribution && (
               <div className="bg-bg-card rounded-xl p-6">
-                <h3 className="text-sm font-semibold mb-3 text-text-secondary">Post Structure in Outliers</h3>
+                <h3 className="text-sm font-semibold mb-3 text-text-secondary">Estructura de los posts outlier</h3>
                 <div className="space-y-2">
                   {Object.entries(data.patterns.structure_distribution)
                     .sort((a, b) => b[1] - a[1])
@@ -521,9 +527,9 @@ export default function OutlierExplorer() {
           {/* Text Psychology / Tone Analysis — Outliers vs Normal comparison */}
           {data.patterns.tone_comparison && data.patterns.tone_comparison.length > 0 && (
             <div className="bg-bg-card rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-1">Text Psychology: Outliers vs Normal</h3>
+              <h3 className="text-lg font-semibold mb-1">Psicología del texto: outliers frente a normales</h3>
               <p className="text-text-muted text-xs mb-4">
-                Comparing psychological triggers between outlier posts and regular posts. Sorted by outlier engagement.
+                Compara los disparadores psicológicos de los posts outlier y los normales. Ordenado por interacciones de los outliers.
               </p>
 
               {/* Interpretation box */}
@@ -535,14 +541,14 @@ export default function OutlierExplorer() {
 
               {/* Neutral stat */}
               <div className="flex items-center gap-3 mb-5">
-                <span className="text-text-muted text-xs">Neutral tone in outliers:</span>
+                <span className="text-text-muted text-xs">Tono neutro en los outliers:</span>
                 <span className={`text-sm font-bold ${data.patterns.neutral_outlier_pct > 50 ? 'text-text-muted' : 'text-accent'}`}>
                   {data.patterns.neutral_outlier_pct}%
                 </span>
                 <span className="text-text-muted text-[10px]">
                   {data.patterns.neutral_outlier_pct > 50
-                    ? '(content value matters more than emotional triggers)'
-                    : '(emotional triggers drive performance)'}
+                    ? '(pesa más el valor del contenido que los disparadores emocionales)'
+                    : '(los disparadores emocionales tiran del rendimiento)'}
                 </span>
               </div>
 
@@ -560,7 +566,7 @@ export default function OutlierExplorer() {
                         <span className="font-semibold text-text-primary">{info.label}</span>
                         {diff !== 0 && (
                           <span className={`ml-auto text-[10px] font-bold ${diff > 0 ? 'text-success' : 'text-danger'}`}>
-                            {diff > 0 ? '+' : ''}{diff}pp in outliers
+                            {diff > 0 ? '+' : ''}{diff} pp en outliers
                           </span>
                         )}
                       </div>
@@ -581,7 +587,7 @@ export default function OutlierExplorer() {
 
                       {/* Engagement as secondary */}
                       <p className="text-[10px] text-text-muted mb-2">
-                        {t.outlier_avg_engagement.toLocaleString()} avg eng
+                        {t.outlier_avg_engagement.toLocaleString('es-ES')} interacciones de media
                       </p>
 
                       {/* Outlier vs Normal comparison */}
@@ -591,7 +597,7 @@ export default function OutlierExplorer() {
                           <span className="text-text-secondary">{t.outlier_count} posts ({t.outlier_pct}%)</span>
                         </div>
                         <div>
-                          <span className="text-text-muted">Normal: </span>
+                          <span className="text-text-muted">Normales: </span>
                           <span className="text-text-secondary">{t.normal_count} posts ({t.normal_pct}%)</span>
                         </div>
                       </div>
@@ -609,10 +615,10 @@ export default function OutlierExplorer() {
             <div className="bg-bg-card rounded-xl p-6 border border-accent/20">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-lg">🧬</span>
-                <h3 className="text-lg font-semibold">Viral Archetypes</h3>
+                <h3 className="text-lg font-semibold">Arquetipos virales</h3>
               </div>
               <p className="text-text-muted text-xs mb-5">
-                Cross-variable recipes: combinations of hook type + structure + tone that produce the highest engagement.
+                Recetas cruzadas: combinaciones de tipo de gancho + estructura + tono que generan más interacciones.
               </p>
               <div className="space-y-3">
                 {data.patterns.archetypes.slice(0, 10).map((a, i) => (
@@ -624,13 +630,13 @@ export default function OutlierExplorer() {
                       </div>
                       <div className="text-right">
                         <span className="text-sm font-bold text-accent">{a.avg_outlier_ratio}x</span>
-                        <span className="text-[10px] text-text-muted ml-1">avg ratio</span>
+                        <span className="text-[10px] text-text-muted ml-1">multiplicador medio</span>
                       </div>
                     </div>
                     <p className="text-xs text-text-secondary mb-2">{a.description}</p>
                     <div className="flex items-center gap-3 text-[10px] text-text-muted">
                       <span>{a.count} posts</span>
-                      <span>{a.avg_engagement.toLocaleString()} avg eng</span>
+                      <span>{a.avg_engagement.toLocaleString('es-ES')} interacciones de media</span>
                     </div>
                     {a.example_hooks.length > 0 && (
                       <div className="mt-2 space-y-1">
@@ -650,8 +656,8 @@ export default function OutlierExplorer() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Best days */}
               <div className="bg-bg-card rounded-xl p-6">
-                <h3 className="text-lg font-semibold mb-1">Best Days for Outliers</h3>
-                <p className="text-text-muted text-xs mb-4">Days with highest outlier rate across all creators (each creator's local time)</p>
+                <h3 className="text-lg font-semibold mb-1">Mejores días para outliers</h3>
+                <p className="text-text-muted text-xs mb-4">Días con más % de outliers entre todos los creadores (hora local de cada creador)</p>
                 <div className="space-y-2">
                   {data.patterns.outlier_timing.best_days.map((d) => {
                     const maxRate = Math.max(...data.patterns.outlier_timing!.best_days.map((x) => x.outlier_rate), 1);
@@ -664,7 +670,7 @@ export default function OutlierExplorer() {
                             style={{ width: `${(d.outlier_rate / maxRate) * 100}%` }}
                           />
                           <span className="absolute inset-0 flex items-center justify-center text-[10px] text-text-primary font-medium">
-                            {d.outlier_rate}% outlier rate
+                            {d.outlier_rate}% de outliers
                           </span>
                         </div>
                         <span className="text-[10px] text-text-muted w-20 text-right">
@@ -678,8 +684,8 @@ export default function OutlierExplorer() {
 
               {/* Best hours */}
               <div className="bg-bg-card rounded-xl p-6">
-                <h3 className="text-lg font-semibold mb-1">Best Hours for Outliers</h3>
-                <p className="text-text-muted text-xs mb-4">Hours with highest outlier rate (each creator's local time) — top 10</p>
+                <h3 className="text-lg font-semibold mb-1">Mejores horas para outliers</h3>
+                <p className="text-text-muted text-xs mb-4">Horas con más % de outliers (hora local de cada creador). Las 10 mejores</p>
                 <div className="space-y-2">
                   {data.patterns.outlier_timing.best_hours.slice(0, 10).map((h) => {
                     const maxRate = Math.max(...data.patterns.outlier_timing!.best_hours.slice(0, 10).map((x) => x.outlier_rate), 1);
@@ -692,7 +698,7 @@ export default function OutlierExplorer() {
                             style={{ width: `${(h.outlier_rate / maxRate) * 100}%` }}
                           />
                           <span className="absolute inset-0 flex items-center justify-center text-[10px] text-text-primary font-medium">
-                            {h.outlier_rate}% outlier rate
+                            {h.outlier_rate}% de outliers
                           </span>
                         </div>
                         <div className="text-right w-24">
@@ -712,7 +718,7 @@ export default function OutlierExplorer() {
           {/* Creator Comparison */}
           {creators && creators.length >= 2 && (
             <div className="bg-bg-card rounded-xl p-6">
-              <h3 className="text-lg font-semibold mb-3">Compare Creators</h3>
+              <h3 className="text-lg font-semibold mb-3">Comparar creadores</h3>
               <div className="flex flex-wrap gap-2 mb-4">
                 {creators.map((c) => (
                   <button
@@ -724,7 +730,7 @@ export default function OutlierExplorer() {
                         : 'bg-bg-secondary border-border text-text-secondary hover:border-accent/50'
                     }`}
                   >
-                    {c.name || 'Unknown'}
+                    {c.name || 'Desconocido'}
                   </button>
                 ))}
               </div>
@@ -733,7 +739,7 @@ export default function OutlierExplorer() {
                 disabled={selectedIds.length < 2 || comparing}
                 className="px-4 py-2 bg-accent text-bg-primary rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-light transition-colors"
               >
-                {comparing ? 'Loading...' : `Compare ${selectedIds.length} creators`}
+                {comparing ? 'Cargando...' : `Comparar ${selectedIds.length} creadores`}
               </button>
 
               {compareData && compareData.length >= 2 && (
@@ -741,7 +747,7 @@ export default function OutlierExplorer() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="text-text-secondary text-left border-b border-border">
-                        <th className="pb-3 font-medium">Metric</th>
+                        <th className="pb-3 font-medium">Métrica</th>
                         {compareData.map((c) => (
                           <th key={c.id} className="pb-3 font-medium text-center">{c.name}</th>
                         ))}
@@ -749,16 +755,16 @@ export default function OutlierExplorer() {
                     </thead>
                     <tbody>
                       {[
-                        { label: 'Followers', key: 'followers_count', fmt: (v: number) => v > 0 ? v.toLocaleString() : 'N/A' },
-                        { label: 'Total Posts', key: 'total_posts' },
+                        { label: 'Seguidores', key: 'followers_count', fmt: (v: number) => v > 0 ? v.toLocaleString('es-ES') : 'N/D' },
+                        { label: 'Posts totales', key: 'total_posts' },
                         { label: 'Outliers', key: 'total_outliers', accent: true },
-                        { label: 'Outlier Rate', key: 'outlier_rate', suffix: '%', accent: true },
-                        { label: 'Avg Engagement', key: 'avg_engagement', fmt: (v: number) => v.toLocaleString() },
-                        { label: 'Median Engagement', key: 'median_engagement', fmt: (v: number) => v.toLocaleString() },
-                        { label: 'Eng. Rate', key: 'engagement_rate', suffix: '%' },
-                        { label: 'Posts/Week', key: 'posts_per_week' },
-                        { label: 'Comment/Like', key: 'avg_comment_like_ratio', fmt: (v: number) => `${Math.round(v * 100)}%` },
-                        { label: 'Share/Like', key: 'avg_share_like_ratio', fmt: (v: number) => `${Math.round(v * 100)}%` },
+                        { label: '% de outliers', key: 'outlier_rate', suffix: '%', accent: true },
+                        { label: 'Interacciones medias', key: 'avg_engagement', fmt: (v: number) => v.toLocaleString('es-ES') },
+                        { label: 'Mediana de interacciones', key: 'median_engagement', fmt: (v: number) => v.toLocaleString('es-ES') },
+                        { label: 'Tasa de interacción', key: 'engagement_rate', suffix: '%' },
+                        { label: 'Posts/semana', key: 'posts_per_week' },
+                        { label: 'Comentarios/reacciones', key: 'avg_comment_like_ratio', fmt: (v: number) => `${Math.round(v * 100)}%` },
+                        { label: 'Compartidos/reacciones', key: 'avg_share_like_ratio', fmt: (v: number) => `${Math.round(v * 100)}%` },
                       ].map((row) => {
                         const values = compareData.map((c) => (c as any)[row.key] as number);
                         const max = Math.max(...values);
@@ -789,7 +795,7 @@ export default function OutlierExplorer() {
           {data.top_outliers.length === 0 ? (
             <div className="text-center py-16 text-text-muted">
               <p className="text-4xl mb-4">&#x1f50d;</p>
-              <p>No outliers found yet. Add some creators from the Dashboard first.</p>
+              <p>Aún no hay outliers. Añade primero algunos creadores desde el panel.</p>
             </div>
           ) : (
             <>
@@ -799,28 +805,14 @@ export default function OutlierExplorer() {
               {/* Header + filter */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <h2 className="text-xl font-bold">
-                  All Outliers
+                  Todos los outliers
                   <span className="text-text-muted text-sm font-normal ml-2">
-                    ({filteredOutliers.length}{contentTypeFilter !== 'all' ? ` of ${data.top_outliers.length}` : ''})
+                    ({filteredOutliers.length}{contentTypeFilter !== 'all' ? ` de ${data.top_outliers.length}` : ''})
                   </span>
                 </h2>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-text-muted text-xs">Filter:</span>
+                  <span className="text-text-muted text-xs">Filtro:</span>
                   {contentTypes.map((type) => {
-                    const typeLabel: Record<string, string> = {
-                      all: 'All',
-                      text: 'Text',
-                      text_image: 'Text + Photo',
-                      text_carousel: 'Text + Carousel',
-                      text_video: 'Text + Video',
-                      text_document: 'Text + Doc',
-                      image: 'Photo only',
-                      carousel: 'Carousel only',
-                      video: 'Video only',
-                      document: 'Doc only',
-                      poll: 'Poll',
-                      article: 'Article',
-                    };
                     const count = type === 'all'
                       ? data.top_outliers.length
                       : data.top_outliers.filter((p) => p.content_type === type).length;
@@ -834,7 +826,7 @@ export default function OutlierExplorer() {
                             : 'bg-bg-secondary text-text-muted border border-border hover:border-accent/30'
                         }`}
                       >
-                        {typeLabel[type] || type} ({count})
+                        {contentTypeLabels[type] || type} ({count})
                       </button>
                     );
                   })}
@@ -866,7 +858,7 @@ export default function OutlierExplorer() {
                         )}
                       </div>
                     )}
-                    <PostCard post={post} />
+                    <PostCard post={{ ...post, creator_image: post.creator_image ?? undefined }} />
                     {/* Deep analysis panel */}
                     {post.ai_explanation && (
                       <div className="bg-bg-card border-x border-b border-border rounded-b-xl -mt-3 pt-4 px-5 pb-4">
@@ -875,7 +867,7 @@ export default function OutlierExplorer() {
                           className="text-[11px] text-accent hover:text-accent-light transition-colors flex items-center gap-1 w-full"
                         >
                           <span>🧠</span>
-                          <span>{expandedPost === post.id ? 'Hide analysis' : 'Why did this work?'}</span>
+                          <span>{expandedPost === post.id ? 'Ocultar análisis' : '¿Por qué funcionó?'}</span>
                           {post.ai_explanation.virality_driver && (
                             <span
                               className="ml-auto px-1.5 py-0.5 rounded text-[9px] font-bold"
@@ -897,20 +889,20 @@ export default function OutlierExplorer() {
 
                             {/* Narrative mechanism */}
                             <div className="bg-bg-secondary rounded-lg p-3">
-                              <p className="text-[10px] text-text-muted font-semibold mb-1">Narrative Mechanism</p>
+                              <p className="text-[10px] text-text-muted font-semibold mb-1">Mecanismo narrativo</p>
                               <p className="text-xs text-text-secondary">{post.ai_explanation.narrative_mechanism}</p>
                             </div>
 
                             {/* Hook tension */}
                             <div className="bg-bg-secondary rounded-lg p-3">
-                              <p className="text-[10px] text-text-muted font-semibold mb-1">Hook Tension</p>
+                              <p className="text-[10px] text-text-muted font-semibold mb-1">Tensión del gancho</p>
                               <p className="text-xs text-text-secondary">{post.ai_explanation.hook_tension}</p>
                             </div>
 
                             {/* Virality driver */}
                             <div className="bg-bg-secondary rounded-lg p-3">
                               <p className="text-[10px] text-text-muted font-semibold mb-1">
-                                Virality Driver:
+                                Motor de viralidad:
                                 <span
                                   className="ml-1 px-1.5 py-0.5 rounded font-bold"
                                   style={{
@@ -926,38 +918,38 @@ export default function OutlierExplorer() {
 
                             {/* Comment driver */}
                             <div className="bg-bg-secondary rounded-lg p-3">
-                              <p className="text-[10px] text-text-muted font-semibold mb-1">Why People Comment</p>
+                              <p className="text-[10px] text-text-muted font-semibold mb-1">Por qué comenta la gente</p>
                               <p className="text-xs text-text-secondary">{post.ai_explanation.comment_driver}</p>
                             </div>
 
                             {/* Abstract template */}
                             <div className="bg-accent/5 border border-accent/20 rounded-lg p-3">
-                              <p className="text-[10px] text-accent font-semibold mb-1">Replicable Template</p>
+                              <p className="text-[10px] text-accent font-semibold mb-1">Plantilla replicable</p>
                               <p className="text-xs text-text-secondary font-mono">{post.ai_explanation.abstract_template}</p>
                             </div>
 
                             {/* Narrative rhythm */}
                             {post.narrative_rhythm && (
                               <div className="bg-bg-secondary rounded-lg p-3">
-                                <p className="text-[10px] text-text-muted font-semibold mb-2">Narrative Rhythm</p>
+                                <p className="text-[10px] text-text-muted font-semibold mb-2">Ritmo narrativo</p>
                                 <div className="grid grid-cols-3 gap-2 text-[10px]">
                                   <div>
-                                    <span className="text-text-muted">Hook: </span>
-                                    <span className="text-text-secondary">{post.narrative_rhythm.hook_zone.style.replace(/_/g, ' ')}</span>
+                                    <span className="text-text-muted">Gancho: </span>
+                                    <span className="text-text-secondary">{etiqueta(RITMO_LABELS, post.narrative_rhythm.hook_zone.style)}</span>
                                   </div>
                                   <div>
-                                    <span className="text-text-muted">Body: </span>
-                                    <span className="text-text-secondary">{post.narrative_rhythm.body.style.replace(/_/g, ' ')}</span>
+                                    <span className="text-text-muted">Cuerpo: </span>
+                                    <span className="text-text-secondary">{etiqueta(RITMO_LABELS, post.narrative_rhythm.body.style)}</span>
                                   </div>
                                   <div>
-                                    <span className="text-text-muted">Close: </span>
-                                    <span className="text-text-secondary">{post.narrative_rhythm.closing.style.replace(/_/g, ' ')}</span>
+                                    <span className="text-text-muted">Cierre: </span>
+                                    <span className="text-text-secondary">{etiqueta(RITMO_LABELS, post.narrative_rhythm.closing.style)}</span>
                                   </div>
                                 </div>
                                 <div className="flex gap-3 mt-2 text-[10px] text-text-muted">
-                                  <span>Scroll stops: {post.narrative_rhythm.scroll_stops}</span>
-                                  <span>Rhythm variation: {post.narrative_rhythm.sentence_rhythm.short_long_alternation}%</span>
-                                  {post.narrative_rhythm.body.mini_hooks > 0 && <span>Mini-hooks: {post.narrative_rhythm.body.mini_hooks}</span>}
+                                  <span>Frenos de scroll: {post.narrative_rhythm.scroll_stops}</span>
+                                  <span>Variación de ritmo: {post.narrative_rhythm.sentence_rhythm.short_long_alternation}%</span>
+                                  {post.narrative_rhythm.body.mini_hooks > 0 && <span>Miniganchos: {post.narrative_rhythm.body.mini_hooks}</span>}
                                 </div>
                               </div>
                             )}

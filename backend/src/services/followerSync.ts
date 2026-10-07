@@ -156,7 +156,7 @@ async function syncOneCreator(creator: { id: string; name: string; unipile_accou
 export async function runFollowerSync(
   creatorId: string | null
 ): Promise<{ started: boolean; reason?: string }> {
-  if (state.running) return { started: false, reason: 'already running' };
+  if (state.running) return { started: false, reason: 'ya está en marcha' };
 
   const { rows: creators } = creatorId
     ? await pool.query(
@@ -169,7 +169,7 @@ export async function runFollowerSync(
           WHERE is_managed = TRUE AND unipile_account_id IS NOT NULL
           ORDER BY name`
       );
-  if (creators.length === 0) return { started: false, reason: 'no managed creator with unipile_account_id' };
+  if (creators.length === 0) return { started: false, reason: 'ninguna cuenta propia tiene unipile_account_id' };
 
   state.running = true;
   state.started_at = new Date().toISOString();

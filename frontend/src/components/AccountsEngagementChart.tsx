@@ -128,7 +128,7 @@ const COLOR_ENG = '#e8935a';
 
 function fmtFullDay(iso: string): string {
   const d = new Date(iso);
-  return d.toLocaleDateString('en-US', {
+  return d.toLocaleDateString('es-ES', {
     weekday: 'short', month: 'short', day: 'numeric', year: 'numeric',
   });
 }
@@ -140,7 +140,7 @@ function PointTooltip({ active, payload, metrica, modo }: any) {
   const heading = d.posts > 0
     ? `${fmtFullDay(d.day)} · ${d.posts} post${d.posts > 1 ? 's' : ''}`
     : fmtFullDay(d.day);
-  const nombre = metrica === 'impressions' ? 'Impressions' : 'Engagements';
+  const nombre = metrica === 'impressions' ? 'Impresiones' : 'Interacciones';
   return (
     <div
       style={{
@@ -157,10 +157,10 @@ function PointTooltip({ active, payload, metrica, modo }: any) {
       <div style={{ fontWeight: 600, marginBottom: 6 }}>{heading}</div>
       <MetricRow
         swatch={metrica === 'impressions' ? COLOR_IMP : COLOR_ENG}
-        label={modo === 'cumulative' ? `${nombre} so far` : nombre}
+        label={modo === 'cumulative' ? `${nombre} acumuladas` : nombre}
         value={fmtFull(d.valor)}
         valueColor="#e8eaf0"
-        sub={modo === 'cumulative' ? `${fmtFull(d.delDia)} that day` : null}
+        sub={modo === 'cumulative' ? `${fmtFull(d.delDia)} ese día` : null}
       />
     </div>
   );
@@ -258,29 +258,29 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
         <div className="flex gap-1">
           {hasImpressions && (
             <button className={boton(metrica === 'impressions')} onClick={() => setMetrica('impressions')}>
-              Impressions
+              Impresiones
             </button>
           )}
           <button className={boton(metrica === 'engagements')} onClick={() => setMetrica('engagements')}>
-            Engagements
+            Interacciones
           </button>
         </div>
         <div className="flex gap-1">
           <button className={boton(modo === 'cumulative')} onClick={() => setModo('cumulative')}>
-            Cumulative
+            Acumulado
           </button>
           <button className={boton(modo === 'daily')} onClick={() => setModo('daily')}>
-            Daily
+            Diario
           </button>
         </div>
       </div>
       <div className="mb-3 flex items-baseline gap-2 flex-wrap">
         <span className="text-2xl font-bold text-text-primary tabular-nums">{fmtFull(total)}</span>
-        <span className="text-sm text-text-muted">{metrica === 'impressions' ? 'Impressions' : 'Engagements'}</span>
+        <span className="text-sm text-text-muted">{metrica === 'impressions' ? 'Impresiones' : 'Interacciones'}</span>
         {variacion != null && (
           <span className={`text-xs font-medium ${variacion >= 0 ? 'text-green-400' : 'text-red-400'}`}>
             {variacion >= 0 ? '▲' : '▼'} {Math.abs(variacion).toLocaleString('es-ES', { maximumFractionDigits: 0 })}%
-            <span className="text-text-muted font-normal"> vs. prior {data.length} days</span>
+            <span className="text-text-muted font-normal"> vs. los {data.length} días anteriores</span>
           </span>
         )}
       </div>
@@ -327,7 +327,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
             yAxisId="left"
             type="monotone"
             dataKey="valor"
-            name={metrica === 'impressions' ? 'Impressions' : 'Engagements'}
+            name={metrica === 'impressions' ? 'Impresiones' : 'Interacciones'}
             stroke={color}
             strokeWidth={2.5}
             dot={false}
@@ -352,7 +352,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
           marginTop: 6,
           minHeight: stripHeight,
         }}
-        aria-label="Posts published in range"
+        aria-label="Posts publicados en el periodo"
       >
         {filteredData.flatMap((d, i) => {
           if (!d.dayPosts || d.dayPosts.length === 0) return [];
@@ -431,7 +431,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
           : d.dayPosts[0] ?? null;
         const heading = hoveredPost
           ? `${fmtFullDay(d.day)} · ${firstName(hoveredPost.creatorName)}`
-          : `${fmtFullDay(d.day)} · no post`;
+          : `${fmtFullDay(d.day)} · sin post`;
         const containerW = wrapperRef.current?.offsetWidth ?? 600;
         const tooltipW = 240;
         const gap = 12;
@@ -465,14 +465,14 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
             <div style={{ fontWeight: 600, marginBottom: 6 }}>{heading}</div>
             {hoveredPost && hoveredPost.outlierRatio != null && hoveredPost.outlierRatio > 0 && (
               <div style={{ marginTop: 6, paddingTop: 6, borderTop: '1px solid #2e3348', fontSize: 12 }}>
-                <span style={{ color: '#94a3b8' }}>This post: </span>
+                <span style={{ color: '#94a3b8' }}>Este post: </span>
                 <span
                   style={{
                     color: hoveredPost.isOutlier ? OUTLIER_COLOR : '#cbd5e1',
                     fontWeight: 600,
                   }}
                 >
-                  {hoveredPost.outlierRatio.toFixed(1)}× creator avg
+                  {hoveredPost.outlierRatio.toFixed(1)}× la media del creador
                 </span>
                 {hoveredPost.isOutlier && (
                   <span
@@ -520,7 +520,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
                   </div>
                 ) : (
                   <div style={{ color: '#64748b', fontStyle: 'italic', marginBottom: 8 }}>
-                    (no preview available)
+                    (sin vista previa)
                   </div>
                 )}
                 {hoveredPost.url && (
@@ -539,7 +539,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
                       fontWeight: 600,
                     }}
                   >
-                    View on LinkedIn →
+                    Ver en LinkedIn →
                   </a>
                 )}
               </div>

@@ -30,14 +30,19 @@ function paramId(req: Request): string {
 
 // Human-readable labels for hook/structure archetypes
 const HOOK_LABELS: Record<string, string> = {
+  // Mismas etiquetas que el frontend (pages/Inspiration.tsx HOOK_LABELS; las
+  // claves que alli faltan, de components/HookTypeChart.tsx).
   pattern_interrupt: 'Ruptura de patrón', belief_breaker: 'Rompe creencias',
-  curiosity_gap: 'Intriga', data_shock: 'Dato impactante', hot_take: 'Opinión polémica',
-  personal_confession: 'Confesión personal', story_opener: 'Apertura narrativa',
-  hypothetical_question: 'Pregunta hipotética', why_question: 'Pregunta "por qué"',
-  how_question: 'Pregunta "cómo"', direct_question: 'Pregunta directa',
-  bold_claim: 'Afirmación audaz', common_mistake: 'Error frecuente',
-  direct_callout: 'Llamada directa', list_promise: 'Promesa de lista',
-  contrarian_take: 'Contrarian', relatable_moment: 'Momento relatable',
+  curiosity_gap: 'Hueco de curiosidad', data_shock: 'Dato impactante', hot_take: 'Opinión polémica',
+  personal_confession: 'Confesión personal', story_opener: 'Arranque de historia',
+  hypothetical_question: 'Pregunta hipotética', why_question: 'Pregunta «por qué»',
+  how_question: 'Pregunta «cómo»', direct_question: 'Pregunta directa',
+  open_question: 'Pregunta abierta', rhetorical_question: 'Pregunta retórica',
+  bold_claim: 'Afirmación rotunda', common_mistake: 'Error común',
+  direct_callout: 'Interpelación directa', list_promise: 'Promesa de lista',
+  prediction: 'Predicción', how_to_framework: 'Cómo hacerlo', announcement: 'Anuncio',
+  social_proof_opener: 'Prueba social', analogy: 'Analogía', challenge: 'Reto',
+  contrarian_take: 'A contracorriente', relatable_moment: 'Momento reconocible',
   motivational: 'Motivacional', observation: 'Observación', other: 'Otro',
 };
 // Prompt building blocks (BRAND_RULES, HOOK_LAW, NEETY_MECHANICS, etc.)
@@ -49,15 +54,21 @@ const HOOK_LABELS: Record<string, string> = {
 
 
 const STRUCT_LABELS: Record<string, string> = {
-  hook_list_cta: 'Hook → Lista → CTA', hook_story_lesson_cta: 'Historia → Lección → CTA',
+  // Mismas etiquetas que el frontend (pages/Inspiration.tsx STRUCT_LABELS; las
+  // claves que alli faltan, de components/StructureChart.tsx).
+  hook_list_cta: 'Gancho → Lista → CTA', hook_story_lesson_cta: 'Historia → Lección → CTA',
   problem_agitate_solve: 'Problema → Agitación → Solución',
-  contrarian_proof_reframe: 'Contrarian → Prueba → Reencuadre',
-  confession_insight_takeaway: 'Confesión → Insight → Conclusión',
-  list_framework: 'Framework en lista', problem_solution: 'Problema → Solución',
+  contrarian_proof_reframe: 'A contracorriente → Prueba → Reencuadre',
+  confession_insight_takeaway: 'Confesión → Revelación → Conclusión',
+  list_framework: 'Lista / método', problem_solution: 'Problema → Solución',
   story_lesson: 'Historia → Lección', before_after: 'Antes / Después',
-  step_by_step: 'Paso a paso', myth_busting: 'Desmontando mitos',
-  short_punchy: 'Corto e impactante', long_form_essay: 'Ensayo largo',
-  data_driven: 'Basado en datos', other: 'Otro',
+  step_by_step: 'Paso a paso', myth_busting: 'Desmontar mitos',
+  question_answer: 'Pregunta → Respuesta', observation_insight: 'Observación → Aprendizaje',
+  prediction_vision: 'Predicción / Visión', motivational_manifesto: 'Motivacional',
+  authority_framework: 'Autoridad → Marco', comparison: 'Comparativa',
+  narrative_arc: 'Arco narrativo', content_with_cta: 'Contenido + CTA',
+  short_punchy: 'Corto y directo', long_form_essay: 'Ensayo largo',
+  data_driven: 'Basado en datos', other: 'Otra',
 };
 
 interface ArchetypeRaw {
@@ -344,7 +355,7 @@ router.get('/', async (_req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
   try {
     const { raw_content, source_type, tags } = req.body;
-    if (!raw_content?.trim()) return res.status(400).json({ error: 'raw_content is required' });
+    if (!raw_content?.trim()) return res.status(400).json({ error: 'Falta raw_content' });
 
     const idea = await PostIdeaModel.create({ raw_content: raw_content.trim(), source_type, tags });
     res.status(201).json(idea);
@@ -357,7 +368,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.patch('/:id', async (req: Request, res: Response) => {
   try {
     const idea = await PostIdeaModel.update(paramId(req), req.body);
-    if (!idea) return res.status(404).json({ error: 'Idea not found' });
+    if (!idea) return res.status(404).json({ error: 'Idea no encontrada' });
     res.json(idea);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -368,7 +379,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
 router.delete('/:id', async (req: Request, res: Response) => {
   try {
     await PostIdeaModel.delete(paramId(req));
-    res.json({ message: 'Deleted' });
+    res.json({ message: 'Eliminada' });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -383,7 +394,7 @@ router.post('/:id/generate', async (req: Request, res: Response) => {
   const id = paramId(req);
   try {
     const idea = await PostIdeaModel.findById(id);
-    if (!idea) return res.status(404).json({ error: 'Idea not found' });
+    if (!idea) return res.status(404).json({ error: 'Idea no encontrada' });
 
     await PostIdeaModel.update(id, { status: 'generating' });
 
@@ -449,7 +460,7 @@ router.post('/:id/generate', async (req: Request, res: Response) => {
       return {
         archetype_key: `${arch.hook_type}__${arch.post_structure}`,
         archetype_label: `${HOOK_LABELS[arch.hook_type] || arch.hook_type}`,
-        archetype_desc: `${STRUCT_LABELS[arch.post_structure] || arch.post_structure} · ${arch.avg_ratio.toFixed(1)}x ratio en outliers`,
+        archetype_desc: `${STRUCT_LABELS[arch.post_structure] || arch.post_structure} · ${arch.avg_ratio.toFixed(1)}x de multiplicador medio en outliers`,
         hook_type: arch.hook_type,
         post_structure: arch.post_structure,
         avg_ratio: arch.avg_ratio,
@@ -462,7 +473,7 @@ router.post('/:id/generate', async (req: Request, res: Response) => {
 
     if (variants.length === 0) {
       await PostIdeaModel.update(id, { status: 'draft' });
-      return res.status(500).json({ error: 'AI returned empty responses for all variants' });
+      return res.status(500).json({ error: 'La IA ha devuelto respuestas vacías en todas las variantes' });
     }
 
     // Save variants using explicit ::jsonb cast to avoid pg serialization issues
@@ -651,7 +662,7 @@ router.post('/inspiration/classify', async (_req: Request, res: Response) => {
     `);
 
     if (unclassified.length === 0) {
-      return res.json({ classified: 0, message: 'All outliers already classified' });
+      return res.json({ classified: 0, message: 'Todos los outliers ya están clasificados' });
     }
 
     // Bulletproof UTF-16 sanitiser. The previous regex-based version had a
@@ -733,7 +744,7 @@ Return ONLY the JSON object. No markdown, no explanation.`,
 
         const rawText = response.content[0].type === 'text' ? response.content[0].text.trim() : '';
         if (!rawText) {
-          failedBatches.push({ start, size: batch.length, error: 'empty response from model' });
+          failedBatches.push({ start, size: batch.length, error: 'el modelo ha devuelto una respuesta vacía' });
           continue;
         }
 
@@ -741,7 +752,7 @@ Return ONLY the JSON object. No markdown, no explanation.`,
         const startIdx = cleaned.indexOf('{');
         const endIdx = cleaned.lastIndexOf('}');
         if (startIdx === -1 || endIdx === -1) {
-          failedBatches.push({ start, size: batch.length, error: 'no JSON object in response' });
+          failedBatches.push({ start, size: batch.length, error: 'la respuesta no trae ningún objeto JSON' });
           continue;
         }
 
@@ -750,7 +761,7 @@ Return ONLY the JSON object. No markdown, no explanation.`,
           mapping = JSON.parse(cleaned.slice(startIdx, endIdx + 1));
         } catch (parseErr: any) {
           console.error('[Classify] JSON parse error for batch starting at', start, parseErr?.message);
-          failedBatches.push({ start, size: batch.length, error: `JSON parse: ${parseErr?.message}` });
+          failedBatches.push({ start, size: batch.length, error: `Error al leer el JSON: ${parseErr?.message}` });
           continue;
         }
 
@@ -1069,10 +1080,10 @@ router.post('/inspiration/brainstorm', async (req: Request, res: Response) => {
     };
 
     if (!postType || !POST_TYPES.includes(postType as PostType)) {
-      return res.status(400).json({ error: `postType must be one of: ${POST_TYPES.join(', ')}` });
+      return res.status(400).json({ error: `postType tiene que ser uno de estos: ${POST_TYPES.join(', ')}` });
     }
     if (!topic || !topic.trim()) {
-      return res.status(400).json({ error: 'topic is required' });
+      return res.status(400).json({ error: 'Falta el tema' });
     }
     const grounded = grounding === 'all_posts' || grounding === 'none' ? grounding : 'outliers_only';
     const n = Math.max(3, Math.min(20, Number(count) || 10));
@@ -1191,7 +1202,7 @@ router.post('/swipe', async (req: Request, res: Response) => {
   try {
     const { post_id, action } = req.body || {};
     if (!post_id || !['like', 'skip'].includes(action)) {
-      return res.status(400).json({ error: 'post_id + action (like|skip) required' });
+      return res.status(400).json({ error: 'Faltan post_id y action (like|skip)' });
     }
     let ideaId: string | null = null;
     if (action === 'like') {
@@ -1203,7 +1214,7 @@ router.post('/swipe', async (req: Request, res: Response) => {
         `SELECT content_text, hook_text FROM posts WHERE id = $1`,
         [post_id]
       );
-      if (rows.length === 0) return res.status(404).json({ error: 'post not found' });
+      if (rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
       const body = String(rows[0].content_text || '').trim();
       const hook = String(rows[0].hook_text || '').trim();
       const seed = body || hook || '(post sin texto)';
@@ -1269,7 +1280,7 @@ router.patch('/:id/pipeline', async (req: Request, res: Response) => {
     const valid = ['proposed', 'in_progress', 'scheduled', 'published', 'discarded'];
     const { pipeline_status } = req.body || {};
     if (!valid.includes(pipeline_status)) {
-      return res.status(400).json({ error: `pipeline_status must be one of ${valid.join(', ')}` });
+      return res.status(400).json({ error: `pipeline_status tiene que ser uno de estos: ${valid.join(', ')}` });
     }
     const idea = await PostIdeaModel.update(req.params.id as string, { pipeline_status });
     res.json(idea);

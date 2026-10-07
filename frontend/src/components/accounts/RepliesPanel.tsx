@@ -96,7 +96,7 @@ export default function RepliesPanel({ accounts, onSelectCreator }: Props) {
             <option value="" disabled>— elige una cuenta —</option>
             <option value="all">Todas</option>
             {accounts.map((a) => (
-              <option key={a.id} value={a.id}>{a.name || 'Unknown'}</option>
+              <option key={a.id} value={a.id}>{a.name || 'Sin nombre'}</option>
             ))}
           </select>
         </div>

@@ -1,4 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { HOOK_TYPE_LABELS, etiqueta } from '../utils/etiquetas';
 
 interface HookTypeData {
   type: string;
@@ -11,36 +12,6 @@ interface Props {
   data: HookTypeData[];
 }
 
-const hookLabels: Record<string, string> = {
-  pattern_interrupt: 'Pattern Interrupt',
-  belief_breaker: 'Belief Breaker',
-  curiosity_gap: 'Curiosity Gap',
-  data_shock: 'Data Shock',
-  hot_take: 'Hot Take',
-  personal_confession: 'Confession',
-  story_opener: 'Story Opener',
-  hypothetical_question: 'Hypothetical Q',
-  why_question: 'Why Question',
-  how_question: 'How Question',
-  direct_question: 'Direct Question',
-  open_question: 'Open Question',
-  rhetorical_question: 'Rhetorical Q',
-  list_promise: 'List Promise',
-  prediction: 'Prediction',
-  how_to_framework: 'How-To',
-  bold_claim: 'Bold Claim',
-  common_mistake: 'Common Mistake',
-  direct_callout: 'Direct Callout',
-  announcement: 'Announcement',
-  social_proof_opener: 'Social Proof',
-  analogy: 'Analogy',
-  contrarian_take: 'Contrarian',
-  relatable_moment: 'Relatable',
-  motivational: 'Motivational',
-  observation: 'Observation',
-  challenge: 'Challenge',
-  other: 'Other',
-};
 
 const COLORS = ['#e8935a', '#67e8f9', '#34d399', '#a78bfa', '#f87171', '#fbbf24', '#6366f1', '#38bdf8', '#f472b6', '#fb923c', '#4ade80', '#818cf8', '#22d3ee', '#facc15', '#c084fc', '#f87171', '#94a3b8', '#2dd4bf', '#e879f9', '#4b5563'];
 
@@ -48,7 +19,7 @@ export default function HookTypeChart({ data }: Props) {
   const chartData = data
     .filter((d) => d.count >= 1)
     .map((d, i) => ({
-      name: hookLabels[d.type] || d.type,
+      name: etiqueta(HOOK_TYPE_LABELS, d.type),
       count: d.count,
       avg_ratio: d.avg_ratio,
       avg_engagement: d.avg_engagement,
@@ -57,8 +28,8 @@ export default function HookTypeChart({ data }: Props) {
 
   return (
     <div className="bg-bg-card rounded-xl p-6 min-w-0 overflow-hidden">
-      <h3 className="text-lg font-semibold mb-1">Hook Type Performance</h3>
-      <p className="text-text-muted text-xs mb-4">Average outlier ratio (Xx) by hook opening style</p>
+      <h3 className="text-lg font-semibold mb-1">Rendimiento por tipo de gancho</h3>
+      <p className="text-text-muted text-xs mb-4">Multiplicador medio de outlier (Xx) según cómo arranca el gancho</p>
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={chartData} layout="vertical" margin={{ top: 0, right: 10, bottom: 0, left: 80 }}>
           <XAxis type="number" tick={{ fill: '#9ca3af', fontSize: 11 }} tickLine={false} axisLine={{ stroke: '#2e3348' }} />
@@ -78,9 +49,9 @@ export default function HookTypeChart({ data }: Props) {
               color: '#e8eaf0',
               fontSize: '13px',
             }}
-            formatter={(value: number, name: string) => {
-              if (name === 'avg_ratio') return [`${value}x`, 'Avg Ratio'];
-              if (name === 'avg_engagement') return [value.toLocaleString(), 'Avg Engagement'];
+            formatter={(value: any, name: any) => {
+              if (name === 'avg_ratio') return [`${value}x`, 'Multiplicador medio'];
+              if (name === 'avg_engagement') return [Number(value).toLocaleString('es-ES'), 'Interacciones medias'];
               return [value, name];
             }}
           />
@@ -94,7 +65,7 @@ export default function HookTypeChart({ data }: Props) {
       <div className="flex flex-wrap gap-2 mt-2">
         {chartData.map((d) => (
           <span key={d.name} className="text-[10px] text-text-muted">
-            {d.name}: {d.count} posts ({d.avg_engagement.toLocaleString()} eng)
+            {d.name}: {d.count} {d.count === 1 ? 'post' : 'posts'} ({d.avg_engagement.toLocaleString('es-ES')} interacciones)
           </span>
         ))}
       </div>

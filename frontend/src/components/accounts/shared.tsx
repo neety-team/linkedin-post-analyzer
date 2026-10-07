@@ -108,14 +108,15 @@ export function fmtRelative(iso: string | null): string {
   if (!Number.isFinite(d)) return '';
   const diff = Date.now() - d;
   const m = Math.floor(diff / 60000);
-  if (m < 60) return `${m}m`;
+  if (m < 60) return `${m} min`;
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h`;
+  if (h < 24) return `${h} h`;
   const day = Math.floor(h / 24);
-  if (day < 30) return `${day}d`;
+  if (day < 30) return `${day} d`;
   const mo = Math.floor(day / 30);
-  if (mo < 12) return `${mo}mo`;
-  return `${Math.floor(mo / 12)}y`;
+  if (mo < 12) return `${mo} ${mo === 1 ? 'mes' : 'meses'}`;
+  const y = Math.floor(mo / 12);
+  return `${y} ${y === 1 ? 'año' : 'años'}`;
 }
 
 export function Avatar({
@@ -238,7 +239,7 @@ export function ReactionBar({
       );
       setReactedType(reactionType);
       const r = REACTIONS.find((x) => x.type === reactionType);
-      setReactMsg(`✓ ${r?.emoji} ${r?.label} enviado`);
+      setReactMsg(`✓ Reacción enviada: ${r?.emoji} ${r?.label}`);
     } catch (e: any) {
       setReactMsg(`✗ ${e.message}`);
     } finally {

@@ -1438,6 +1438,11 @@ Es `working-preferences §0c-BIS` otra vez: **una regla universal guardada dentr
 6. **Un intensificador en la línea 2** (`§2.3d-ENLACE`): cuesta 4 caracteres y es la mejora más barata del post.
 7. **⛔ Nunca pegado al bloque de menciones (Iker, 2026-10-07):** si el post lleva lista de `→`, entre la última y el bloque del enlace va al menos una línea suelta con texto. Quien salta las menciones con el ojo se salta lo que va pegado. Criterio suyo, no medido (BD: 0,12% pegado contra 0,27% separado, n=4 y 11, p=0,17). Fallo duro en `validar-post.py`. Detalle en `post-workflow §4.0d` punto 6b.
 
+**⛔⛔ 4.4b-VALOR · DÓNDE VA: SIEMPRE DESPUÉS DEL VALOR, NUNCA ANTES (Iker, 2026-10-08) — GLOBAL.** Si el post tiene un bloque de valor (una lista numerada, las preguntas, los pasos, las menciones con `→`), **el ninja va detrás del último punto**, igual que en el peloteo va detrás de las menciones. El enlace se gana dando primero lo prometido. Iker, cuando le subí el ninja de Ismael por encima de sus 4 preguntas para cumplir el carácter 650: *"siempre tiene que ser después del valor… se te ha ido la olla"*.
+- **Con lista, el 650 no manda: manda el valor.** El 650 sale de memes en prosa; donde la lista ES el contenido (mapa en el 1.400 con 0,415%), el lector la baja entera.
+- **"Adelantar" significa acercarlo al final del valor**, quitando lo que sobra entre la lista y el enlace, **nunca saltar por encima del valor**.
+- **Mecanizado** en `validar-post.py` (`Spam ninja: va DESPUES del valor`): fallo duro si el enlace cae antes del último punto `1.`/`→`, y con lista el check del 650 se da por bueno.
+
 **LO ÚNICO QUE CAMBIA POR DESTINO ES QUÉ SE DICE:**
 
 | destino | qué CUBRE la línea 2 | extras propios |

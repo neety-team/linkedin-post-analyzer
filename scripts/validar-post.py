@@ -2700,6 +2700,23 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                            else 'recursos.neety.com/agendar')
                 _pos = cuerpo.find(_dom650) if pilar in ('meme', 'historia', 'entregable') else 0
                 _pos = max(_pos, 0)
+                # ⛔ EL NINJA VA DESPUES DEL VALOR, NUNCA ANTES (Iker, 2026-10-08).
+                # Si el post tiene una lista (numerada o con flechas), el enlace va
+                # despues del ultimo punto, igual que en el peloteo va despues de
+                # las menciones. Le adelante el ninja a Ismael por encima de sus 4
+                # preguntas para cumplir el 650 y Iker: "siempre tiene que ser
+                # despues del valor". Con lista, el 650 no manda: manda el valor.
+                _pos_link = cuerpo.find(_dom650)
+                _items = [m.start() for m in re.finditer(r'(?m)^(?:\d+[.)]\s|→)', cuerpo)]
+                _ult_item = max(_items) if _items else -1
+                chk(not _items or _pos_link > _ult_item,
+                    'Spam ninja: va DESPUES del valor (la lista), nunca antes (§4.4b-VALOR)',
+                    'el enlace cae en el %d y la lista sigue hasta el %d. El ninja se gana '
+                    'despues de dar el valor, como en el peloteo tras las menciones: '
+                    'muevelo detras del ultimo punto' % (_pos_link, _ult_item)
+                    if _items and _pos_link <= _ult_item else '')
+                if _items and _pos_link > _ult_item:
+                    _pos = min(_pos, 650)
                 chk(_pos <= 650, 'Spam ninja: el enlace cae antes del caracter 650 (§4.4b)',
                     'el enlace cae en el %d. Los 2 unicos posts que lo pasaron de 650 '
                     'son los 2 peores CTR del ano (0,042%% y 0,017%%) frente al '

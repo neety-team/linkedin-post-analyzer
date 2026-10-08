@@ -1596,3 +1596,31 @@ El generador deforma a las personas en cada iteración. **En el prompt el avatar
 - Paleta nueva (`§0a-ter`): fondo claro de degradado, **título en berenjena `#431b44` sólido** (en la v1 el final del título se fundía con el degradado), **una sola palabra naranja** que cierra el concepto, botón **degradado berenjena → violeta con texto blanco** (el blanco sobre claro no parecía pulsable) y sombra suave.
 - **Tira de logos de clientes bajo el botón**: en escritorio se lee y es la única prueba social del banner; en móvil desaparece, así que nunca lleva mensaje.
 - Bricolage Grotesque Bold en el título, Switzer Semibold en el botón.
+
+## 11 · 🎟️ LA PORTADA DE WEBINAR O EVENTO ONLINE: LA MONTO YO POR SCRIPT (Iker, 2026-10-08)
+
+> **Iker:** *"siempre que te pida una portada del webinar, me la vas a crear tú con ese fondo. Y con todo lo que sabemos de composición, nuestra fuente de texto, la mascota y todo"*.
+
+**No se le pide al generador ni a Canva: se corre `scripts/montar-portada-evento.py`** y la portada sale montada en `NEETY FORWARD/`. Primer caso aprobado: `Portada Webinar.png`, del webinar del 28/10.
+
+```
+python scripts/montar-portada-evento.py --l1 "Menos buscar." --l2 "Más vender." --fecha "Miércoles 28 octubre" --hora "10:00" --info1 "Online y gratis" --info2 "30 minutos" --salida "Portada Webinar.png"
+```
+
+**Lo que el script ya fija (no se toca sin motivo):**
+- **Fondo oficial:** `NEETY FORWARD/Fondo Webinars.png`. Es el de la plantilla de Canva de Neety Forward, con la mancha oscura de arriba y la naranja de arriba a la derecha borradas, y el berenjena llevado abajo a la izquierda. Ya está desenfocado, así que la portada **no lleva postproducción** (misma excepción que Las 10 y el despiece, `§0a-penta`).
+- **Composición de la portada de septiembre:** todo alineado a la izquierda con margen de 85, y el bloque de la derecha donde iba `Plazas limitadas`.
+- **Jerarquía:** título a 165 px (baja solo si la línea no cabe, nunca a tres líneas) › fecha y hora a 84 › bloque derecho a 48.
+- **Colores:** título en naranja, la línea 1 fina y la 2 en negrita (como `Neety Forward` / `2026`); fecha, hora y bloque derecho en berenjena.
+- **Kaixito CON GAFAS** (el de abajo a la derecha de `EMAIL MARKETING/Kaixito Mascota.png`), a 400 px de ancho, abajo a la derecha y sobre mint. Las gafas dicen "esto es una clase". El isotipo nunca lo dibuja un generador (`§4.0`).
+
+**El texto: dos líneas que complementan el título del evento, sin repetirlo.** Luma enseña el título al lado de la portada, así que la portada dice lo que GANAS, con dos verbos (`Menos buscar.` / `Más vender.`). Sin escasez si no hay aforo y sin imperativos (`¡Apúntate ya!` fuera). Pasa los filtros de copy (`§0h-FILTROS`) y lo que no se promete (`global §4.4b-MUNICIÓN`).
+
+**Lo que aprendimos el 08/10 en cinco vueltas, para no repetirlo:**
+1. **Texto naranja sobre una mancha naranja desaparece** (el final de "buscar." en la v1). Antes de colocar, se mide dónde cae el núcleo de cada mancha.
+2. **Texto naranja sobre una masa casi negra se lee, pero chirría** (Iker y el segundo jefe). Detrás del título, solo mint.
+3. **Una mancha no se aclara: se borra o se cambia de color.** Aclarada se queda en un tono intermedio que no es de la paleta (*"un azul raro"*).
+4. **Una mancha del mismo color que el título le quita fuerza y le roba ancho.** Sin la naranja de arriba, el título pasó de 120 a 165 px.
+5. **Tres líneas de título se ven peor que dos** (Iker, *"más feo"*). Si no cabe, se baja la letra, no se parte.
+
+**Si algún día cambia el fondo,** el prompt de edición que funcionó a la primera, adjuntando el fondo anterior: *SOLO HAZ LO QUE TE PIDO: añade abajo a la izquierda una mancha berenjena 431b44 grande y muy desenfocada… La cuadrícula de líneas finas sigue igual… Deja todo lo demás intacto y no toques nada que no te he pedido.* Un solo cambio por edición. Iker la desenfoca (radio 8, umbral 12) y la guarda en `NEETY FORWARD/` antes de montar el texto.

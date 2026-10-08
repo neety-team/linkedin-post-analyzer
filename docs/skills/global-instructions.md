@@ -2285,6 +2285,33 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > 6. **Un ninja, un eslabón.** Hansa-Flex rechazó la demo entera con *"más de lo que podemos digerir"*. El lector de un post todavía menos: el bloque de dos vende UN paso, nunca la cadena.
 > 7. **Unidad de medida: sigue siendo tiempo perdido en su escala** (*"semanas para cinco"*, meses). La frase de demo *"esto ha tardado veinte minutos"* vale en directo, delante de sus cinco, **no en un ninja**: ahí es la promesa de velocidad de la herramienta que ya dejaron.
 
+> #### 🔀🔀 4.4b-ROTACION · EL DOLOR DEL NINJA ROTA ENTRE POSTS, Y SE MIDE (Iker, 2026-10-08) — GLOBAL, TODOS LOS PILARES
+>
+> > **Iker:** *"todo el rato veo que estamos diciendo quién decide, quién decide, quién decide. Mantener el mismo punto de dolor pero variar con sinónimos, o incluso variar con los tipos de punto de dolor, no solo con el más efectivo, para seguir haciendo A/B testing"*.
+>
+> **Medido ese día en la BD (ninjas desde el 01/09, sin contar resubidas):** desde el 23/09, **los 12 ninjas distintos de las 3 cuentas venden el MISMO dolor** (la persona de dentro, eslabón 2 de `§4.4b-CADENA`) y **7 dicen literalmente `quien decide`**. El dolor es bueno (el mejor CTR medido, `§4.4b-MUNICIÓN-PUNCH`), pero ya no se está probando nada más.
+>
+> **LAS DOS ROTACIONES, y van a la vez:**
+> 1. **La palabra rota aunque el dolor se repita.** `quien decide` → `quien firma` · `quien compra dentro` · `quien tiene la última palabra` · `nombre y cargo` · `la persona que compra ahí` (la frase de demo de `§4.4b-CADENA`). Sigue siendo un cargo con poder de decisión (director comercial, gerente, CEO), nunca un técnico.
+> 2. **El dolor rota entre posts, para el A/B.** El menú, todos ya respaldados por el informe (`§4.4b-MUNICIÓN`):
+>
+> | dolor | qué cubre la línea 2 | respaldo |
+> |---|---|---|
+> | **La persona de dentro** | el nombre de quien decide, con su contacto | 15 cuentas en el eslabón 2 · mejor CTR medido (0,701%). **Sigue siendo la prioridad** |
+> | **🆕 Acierto, no volumen** | **pocas empresas que encajan, nunca listas de miles** | Iker, 08/10, de su reunión con el segundo jefe: *"lo que más nos diferencia es que nunca damos listas a volumen, sino pocas empresas que encajan totalmente"*. Lo respaldan `el listado que acierta y te ahorra limpiarlo` (8, 7 ICP), `no pagar por buscar lo que no vale` (8 de 8 ICP) y la queja de volumen contra otras herramientas (5) |
+> | **🆕 Tú confirmas** | **nada sale sin que tu comercial lo apruebe**: empresas, persona y canal | Iker, 08/10: todo pasa por el comercial. Responde a la objeción `se detecta cuando está automatizado` (5 empresas, 4 ICP). ⚠️ **Es verdad mientras la opción de automatización no esté activa**: el día que salga, esta fila se revisa |
+> | **Buscar contra contactar** | dejar de buscar para poder contactar | 21 empresas (15 ICP), eslabón 4, donde están 16 de 22 clientes |
+>
+> **Cómo se elige:** gana el que cuelgue de la broma o el verbo del gancho de ESE post (`§4.4b-FORMA`), y si dos encajan igual, el que esa cuenta lleve más tiempo sin usar. **El de la persona sigue de prioridad** hasta que otro le gane en clics; los demás entran para medirlos, no para sustituirlo.
+>
+> **⛔ LO QUE SIGUE FUERA, sin cambios:** la señal o el momento como argumento (`§4.4b-ORDEN`, 15 empresas), descubrir un mercado (7), el automatismo como promesa y el volumen como promesa. **`No damos listas de miles` NO es prometer volumen: es el contraste contrario**, y el aviso de volumen del validador ya no salta cuando va negado.
+>
+> **⛔ Y LO QUE NO SE CUENTA EN PÚBLICO (Iker, 08/10):** el flujo por dentro (qué datos rellena la empresa, las fases de aprobación de empresas, personas y canal). Da ventaja a la competencia. En un post se dice como mucho que la herramienta **se ajusta a tu empresa** y que **tu comercial confirma**; el detalle es de la demo.
+>
+> **📏 Para que el A/B mida algo:** cada post anota en `historial-publicaciones` **qué dolor lleva su ninja**, y se comparan CTR por dolor cuando cada uno tenga al menos 3 posts. *(Lo de 3 posts es criterio mío, por coherencia con la regla de entrada de `§4.4b-MUNICIÓN`; sin medir.)*
+>
+> **Mecanizado** en `validar-post.py` (avisos, no fallos): `ENTREGA: el DOLOR del ninja rota` imprime el dolor del ninja y el de los 3 últimos de esa cuenta (lee la BD), y salta si los tres vendían lo mismo; `"quien decide" ya está muy visto` salta si el ninja lo lleva.
+
 > **🚨 UN `🔗 0` EN UN POST CON ENLACE NO SIGNIFICA "NADIE PINCHA": a veces LinkedIn no mide ese enlace (Iker, 2026-07-24).**
 > **Cómo distinguirlo:** en la página de analíticas del post, cuando LinkedIn SÍ está midiendo, junto a "Visits to links from this post" aparece **la URL de destino registrada**. Cuando no mide, no aparece **ninguna URL**, solo un 0 pelado. La herramienta guarda esa URL en `link_url`: **enlace en el cuerpo + `link_url` vacío + 0 clics = LinkedIn no lo está midiendo**, y ese 0 no es un dato de interés real.
 > **Evidencia (medida el 2026-07-24 sobre los mapas de Iker):** Navarra → `pampam.city/...` **230 clics** · Galicia → `pampam.city/...` **107** · agendar → `recursos.neety.com/agendar/` **76 / 28 / 7 / 4** · Murcia **0 sin URL registrada** · Valencia **0 sin URL registrada**.

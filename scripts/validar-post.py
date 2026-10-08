@@ -1196,6 +1196,60 @@ def eco_reciente(cuerpo, dias=14, hoy=None):
     return unicos, None
 
 
+# 🔀 ROTACION DEL DOLOR DEL NINJA (Iker, 2026-10-08, global §4.4b-ROTACION).
+# Medido ese dia en la BD: desde el evento, los 12 ninjas distintos de las 3
+# cuentas vendian el MISMO dolor (la persona de dentro) y 7 decian literalmente
+# "quien decide". El dolor no se cambia porque si: se ROTA para medir cual saca
+# mas clics, y el sinonimo rota aunque el dolor se repita. Avisos, no fallos.
+DOLORES_NINJA = [
+    ('acierto (pocas que encajan, no listas de miles)', r'encaj|miles|pocas|acierta|acertar|volumen|limpiar|sobran|no valen|que valen'),
+    ('tu confirmas (nada sale sin el comercial)', r'confirm|apruebas|validas|tu comercial|tú decides|tu decides'),
+    ('buscar contra contactar', r'buscar|buscando|contactar'),
+    ('la persona de dentro', r'decide|firma|qui[eé]n compra|nombre|cargo|a qui[eé]n|interlocutor|persona'),
+    ('evento (la sala)', r'sala|plazas|sillas|huecos|invitados'),
+]
+
+def ninja_de(texto):
+    L = [l for l in texto.split('\n')]
+    for i, l in enumerate(L):
+        if re.search(r'https?://|lnkd\.in', l) and i > 0 and 'mapa completo' not in l.lower():
+            return re.sub(r'https?://\S+', '', L[i - 1] + ' ' + l).strip()
+    return ''
+
+def dolores_de(ninja):
+    n = ninja.lower()
+    return [nom for nom, rx in DOLORES_NINJA if re.search(rx, n)]
+
+def ninjas_recientes(dias=21, hoy=None):
+    """[(cuenta, fecha, ninja)] de las 3 cuentas, sin repetir resubidas."""
+    import json, base64, urllib.request
+    u, pw = os.environ.get('APP_BASIC_USER'), os.environ.get('APP_BASIC_PASS')
+    if not (u and pw):
+        return None
+    auth = base64.b64encode(f'{u}:{pw}'.encode()).decode()
+    hoy = hoy or datetime.date.today()
+    out, vistos = [], set()
+    try:
+        for quien, cid in BD_CREADORES.items():
+            req = urllib.request.Request(f'{BD_BASE}/api/creators/{cid}/posts?limit=60',
+                                         headers={'Authorization': 'Basic ' + auth})
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                for x in json.load(resp).get('posts', []):
+                    f = (x.get('published_at') or '')[:10]
+                    try:
+                        if (hoy - datetime.date.fromisoformat(f)).days > dias:
+                            continue
+                    except ValueError:
+                        continue
+                    nj = ninja_de(x.get('content_text') or '')
+                    if nj and (quien, nj) not in vistos:
+                        vistos.add((quien, nj))
+                        out.append((quien, f, nj))
+    except Exception:
+        return None
+    return sorted(out, key=lambda r: r[1], reverse=True)
+
+
 def puerta_agendar(texto):
     # 2026-09-28 (Iker): la puerta de agendar se muda a la web nueva,
     # https://neety.com/solicitar-demo (reserva de 30 min con Iker, buscador en
@@ -2681,6 +2735,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                      'a diario. Lo que si se promete: dejar de buscar para poder contactar, '
                      'el listado que acierta, el interlocutor' % _auto.group(0)) if _auto else '')
                 _vol = re.search(PROMESA_VOLUMEN, _blo2)
+                # Negado es el ANGULO, no la promesa (Iker, 2026-10-08): "no damos listas
+                # a volumen" es el contraste que nos diferencia (§4.4b-ROTACION).
+                if _vol and re.search(r'\b(no|nunca|ni|sin)\b[^.:]{0,30}$', _blo2[:_vol.start()]):
+                    _vol = None
                 chk(not _vol, 'Spam ninja: no vende VOLUMEN, vende acierto (§4.4b-MUNICION)',
                     ('"%s". Prometer cantidad es la queja literal contra Waalaxy y Apollo en 5 '
                      'empresas ("campanas demasiado masivas, ratios muy bajos, mas de volumen"). '
@@ -4205,6 +4263,33 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(not re.search(r'comenta\s+"', cuerpo, re.I),
             'HISTORIA: sin comment-gate — no pide comentar una palabra (§4.6)',
             'pedir "comenta X" la convierte en lead magnet; la historia cierra en la lección o lleva un CTA suave')
+
+    # ---------- ROTACION DEL DOLOR DEL NINJA (global §4.4b-ROTACION) ----------
+    _nj = ninja_de(texto)
+    if _nj and not historico and pilar not in ('mapa', 'leadmagnet'):
+        _mios = dolores_de(_nj)
+        _rec = ninjas_recientes()
+        if _rec is None:
+            chk(False, 'ENTREGA: el DOLOR del ninja rota (§4.4b-ROTACION)',
+                'no pude leer la BD. Este ninja vende: %s. Compara a mano con los ultimos '
+                'ninjas de las 3 cuentas' % (', '.join(_mios) or 'sin clasificar'), aviso=True)
+        else:
+            _cta = (cuenta or '').strip().capitalize()
+            _suyos = [r for r in _rec if r[0] == _cta][:3]
+            _mismo = bool(_suyos) and bool(_mios) and all(set(dolores_de(r[2])) & set(_mios) for r in _suyos)
+            _decide = [r for r in _rec[:12] if re.search(r'qui[eé]n decide', r[2], re.I)]
+            _det = ('este ninja vende: %s. Ultimos de %s: %s' % (
+                ', '.join(_mios) or 'sin clasificar', _cta or '?',
+                ' | '.join('%s %s' % (r[1][5:], ', '.join(dolores_de(r[2])) or '?') for r in _suyos) or 'ninguno en 21 dias'))
+            chk(not _mismo, 'ENTREGA: el DOLOR del ninja rota (§4.4b-ROTACION)',
+                _det + ('. Los 3 ultimos de esta cuenta ya vendian lo mismo: prueba otro dolor del '
+                        'menu (acierto, tu confirmas, buscar contra contactar) y apuntalo en el '
+                        'historial para el A/B' if _mismo else ''), aviso=True)
+            if re.search(r'qui[eé]n decide', _nj, re.I):
+                chk(False, 'ENTREGA: "quien decide" ya esta muy visto (§4.4b-ROTACION)',
+                    '%d de los ultimos 12 ninjas de las 3 cuentas lo dicen. Mismo dolor, otra '
+                    'palabra: quien firma, quien compra dentro, quien tiene la ultima palabra, '
+                    'nombre y cargo' % len(_decide), aviso=True)
 
     # ---------- ECO: PALABRAS CON IMAGEN YA VISTAS ESTAS DOS SEMANAS ----------
     # (Iker, 2026-09-23; el porque, encima de eco_reciente). No corre con

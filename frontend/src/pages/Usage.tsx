@@ -3,6 +3,7 @@ import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
 } from 'recharts';
 import { useApi } from '../hooks/useApi';
+import { useChartColors } from '../theme';
 
 // Usage page — Claude/Anthropic spend per feature. Backed by /api/usage/summary
 // which hits the claude_usage_logs table populated by trackedCreate /
@@ -92,12 +93,13 @@ function fmtTokens(s: string | number): string {
 const MODEL_TINT: Record<string, string> = {
   'claude-opus-4-8': 'text-danger',
   'claude-opus-4-7': 'text-danger',
-  'claude-sonnet-4-6': 'text-yellow-700',
+  'claude-sonnet-4-6': 'text-yellow-700 dark:text-yellow-300',
   'claude-haiku-4-5-20251001': 'text-success',
   'claude-haiku-4-5': 'text-success',
 };
 
 export default function Usage() {
+  const cc = useChartColors();
   const [days, setDays] = useState(30);
   const { data, loading, error } = useApi<Summary>(`/api/usage/summary?days=${days}`);
 
@@ -160,18 +162,18 @@ export default function Usage() {
               <p className="text-xs text-text-muted mb-4">USD por día en la ventana seleccionada</p>
               <ResponsiveContainer width="100%" height={220}>
                 <LineChart data={dailyCost} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
-                  <XAxis dataKey="day" tick={{ fill: '#76607A', fontSize: 11 }} axisLine={{ stroke: '#E6E0E3' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={cc.grid} />
+                  <XAxis dataKey="day" tick={{ fill: cc.muted, fontSize: 11 }} axisLine={{ stroke: cc.grid }} />
                   <YAxis
-                    tick={{ fill: '#76607A', fontSize: 11 }}
-                    axisLine={{ stroke: '#E6E0E3' }}
+                    tick={{ fill: cc.muted, fontSize: 11 }}
+                    axisLine={{ stroke: cc.grid }}
                     tickFormatter={(v) => `$${v.toFixed(2)}`}
                   />
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E0E3', borderRadius: 8, color: '#431B44', fontSize: 12 }}
+                    contentStyle={{ backgroundColor: cc.tooltipBg, border: `1px solid ${cc.tooltipBorder}`, borderRadius: 8, color: cc.text, fontSize: 12 }}
                     formatter={(v: any) => [fmtUsd(Number(v)), 'coste']}
                   />
-                  <Line type="monotone" dataKey="cost" stroke="#E66A1B" strokeWidth={2} dot={{ r: 2 }} isAnimationActive={false} />
+                  <Line type="monotone" dataKey="cost" stroke={cc.engagement} strokeWidth={2} dot={{ r: 2 }} isAnimationActive={false} />
                 </LineChart>
               </ResponsiveContainer>
             </div>

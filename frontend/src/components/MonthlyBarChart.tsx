@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ReferenceLine,
 } from 'recharts';
+import { useChartColors } from '../theme';
 
 const BASE = import.meta.env.VITE_API_URL || '';
 
@@ -61,26 +62,27 @@ function fmtNum(n: number): string {
 // Big-number tooltip — same language as FollowerGrowthChart's daily
 // tooltip: a large value in the chart's own colour with a soft glow.
 function BigValueTooltip({ active, payload, color, unit, signed }: any) {
+  const cc = useChartColors();
   if (!active || !payload || !payload.length) return null;
   const n = Number(payload[0]?.value ?? 0);
   const full = payload[0]?.payload?.fullLabel ?? '';
   const colour = signed
-    ? (n > 0 ? '#1E9160' : n < 0 ? '#C73B3B' : '#76607A')
+    ? (n > 0 ? cc.success : n < 0 ? cc.danger : cc.muted)
     : color;
   return (
     <div
       style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: cc.tooltipBg,
         border: `1px solid ${colour}55`,
         borderRadius: 10,
         padding: '8px 12px',
         boxShadow: `0 0 14px ${colour}33`,
       }}
     >
-      <div style={{ color: '#76607A', fontSize: 11, marginBottom: 2 }}>{full}</div>
+      <div style={{ color: cc.muted, fontSize: 11, marginBottom: 2 }}>{full}</div>
       <div style={{ color: colour, fontSize: 18, fontWeight: 700, letterSpacing: '-0.01em' }}>
         {signed && n > 0 ? '+' : ''}{fmtNum(n)}
-        <span style={{ color: '#76607A', fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
+        <span style={{ color: cc.muted, fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
           {unit}
         </span>
       </div>
@@ -106,9 +108,12 @@ export default function MonthlyBarChart({
   title,
   subtitle,
   unit,
-  color = '#1E9160',
+  color: colorProp,
   signed = false,
 }: Props) {
+  const cc = useChartColors();
+  // Por defecto, el teal de la analítica de LinkedIn (sus gráficas de impresiones y seguidores).
+  const color = colorProp ?? cc.data;
   const [points, setPoints] = useState<Record<string, any>[] | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -196,30 +201,30 @@ export default function MonthlyBarChart({
         <>
           <ResponsiveContainer width="100%" height={CHART_H}>
             <BarChart data={chartData} margin={PLOT_MARGIN}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
+              <CartesianGrid strokeDasharray="3 3" stroke={cc.grid} />
               <XAxis
                 dataKey="label"
-                tick={{ fill: '#76607A', fontSize: 11 }}
-                axisLine={{ stroke: '#E6E0E3' }}
+                tick={{ fill: cc.muted, fontSize: 11 }}
+                axisLine={{ stroke: cc.grid }}
                 interval={0}
               />
               <YAxis
                 width={Y_AXIS_W}
-                tick={{ fill: '#76607A', fontSize: 11 }}
-                axisLine={{ stroke: '#E6E0E3' }}
+                tick={{ fill: cc.muted, fontSize: 11 }}
+                axisLine={{ stroke: cc.grid }}
                 tickFormatter={fmtNum}
                 allowDecimals={false}
               />
               <Tooltip
-                cursor={{ fill: 'rgba(67,27,68,0.05)' }}
+                cursor={{ fill: cc.cursor }}
                 content={(p: any) => (
                   <BigValueTooltip {...p} color={color} unit={unit} signed={signed} />
                 )}
               />
-              {signed && <ReferenceLine y={0} stroke="#E6E0E3" />}
+              {signed && <ReferenceLine y={0} stroke={cc.grid} />}
               <Bar dataKey="_v" radius={[3, 3, 0, 0]} isAnimationActive={false}>
                 {chartData.map((p, i) => (
-                  <Cell key={i} fill={signed && p._v < 0 ? '#C73B3B' : color} />
+                  <Cell key={i} fill={signed && p._v < 0 ? cc.danger : color} />
                 ))}
               </Bar>
             </BarChart>
@@ -251,7 +256,7 @@ export default function MonthlyBarChart({
                         top: -6,
                         height: 22,
                         width: 1,
-                        background: '#D8D0D5',
+                        background: cc.tooltipBorder,
                       }}
                     />
                   )}
@@ -262,11 +267,11 @@ export default function MonthlyBarChart({
                       width: `${widthPct}%`,
                       top: 0,
                       textAlign: 'center',
-                      borderTop: '1px solid #E6E0E3',
+                      borderTop: `1px solid ${cc.grid}`,
                       paddingTop: 4,
                     }}
                   >
-                    <span style={{ color: '#76607A', fontSize: 12, fontWeight: 600, letterSpacing: '0.02em' }}>
+                    <span style={{ color: cc.muted, fontSize: 12, fontWeight: 600, letterSpacing: '0.02em' }}>
                       {g.year}
                     </span>
                   </div>

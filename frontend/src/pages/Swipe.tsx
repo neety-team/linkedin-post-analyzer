@@ -156,7 +156,7 @@ export default function Swipe() {
             </p>
             <a
               href="/ideas"
-              className="inline-block mt-4 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent-strong"
+              className="inline-block mt-4 px-4 py-2 rounded-lg bg-accent text-on-accent text-sm font-medium hover:bg-accent-strong"
             >
               Ir al kanban de ideas →
             </a>
@@ -286,12 +286,12 @@ function SwipeCardView({
         <span>🔁 {fmt(card.reposts_count)}</span>
         {card.impressions_count != null && <span>👁 {fmt(card.impressions_count)}</span>}
         {funnyPct > 0.05 && (
-          <span className={funnyPct > 0.25 ? 'text-orange-700 font-semibold' : ''}>
+          <span className={funnyPct > 0.25 ? 'text-orange-700 dark:text-orange-300 font-semibold' : ''}>
             😂 {Math.round(funnyPct * 100)}%{funnyPct > 0.25 && ' · meme'}
           </span>
         )}
         {card.topic && (
-          <span className="text-amber-700">📂 {card.topic}</span>
+          <span className="text-amber-700 dark:text-amber-300">📂 {card.topic}</span>
         )}
         {card.post_url && (
           <a

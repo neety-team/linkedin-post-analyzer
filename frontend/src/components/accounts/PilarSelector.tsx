@@ -47,15 +47,15 @@ export interface Pilar {
  * `backend/src/routes/pillars.ts`: si se añade una alli, va tambien aqui.
  */
 const PALETA_PILAR: Record<string, string> = {
-  esmeralda: 'bg-emerald-500/15 text-emerald-700',
-  cielo: 'bg-sky-500/15 text-sky-700',
-  ambar: 'bg-amber-500/15 text-amber-700',
+  esmeralda: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300',
+  cielo: 'bg-sky-500/15 text-sky-700 dark:text-sky-300',
+  ambar: 'bg-amber-500/15 text-amber-700 dark:text-amber-300',
   naranja: 'bg-accent/15 text-accent',
-  morado: 'bg-purple-500/15 text-purple-700',
-  rosa: 'bg-pink-500/15 text-pink-700',
-  indigo: 'bg-indigo-500/15 text-indigo-700',
-  lima: 'bg-lime-500/15 text-lime-700',
-  cian: 'bg-cyan-500/15 text-cyan-700',
+  morado: 'bg-purple-500/15 text-purple-700 dark:text-purple-300',
+  rosa: 'bg-pink-500/15 text-pink-700 dark:text-pink-300',
+  indigo: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300',
+  lima: 'bg-lime-500/15 text-lime-700 dark:text-lime-300',
+  cian: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-300',
   gris: 'bg-bg-secondary border border-border text-text-muted',
 };
 const CLASE_DESCONOCIDO = PALETA_PILAR.gris;

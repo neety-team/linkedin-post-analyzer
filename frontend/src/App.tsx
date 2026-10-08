@@ -6,9 +6,11 @@ import Ideas from './pages/Ideas'
 import Swipe from './pages/Swipe'
 import Inspiration from './pages/Inspiration'
 import Accounts from './pages/Accounts'
+import { useTheme } from './theme'
 
 export default function App() {
   const location = useLocation();
+  const { theme, toggle } = useTheme();
   const navLink = (to: string, label: string) => {
     const active = location.pathname === to;
     return (
@@ -49,6 +51,24 @@ export default function App() {
               {navLink('/ideas', '💡 Ideas')}
               {navLink('/inspiration', '✨ Inspiración')}
             </div>
+            <button
+              type="button"
+              onClick={toggle}
+              title={theme === 'dark' ? 'Pasar a modo claro' : 'Pasar a modo oscuro'}
+              aria-label={theme === 'dark' ? 'Pasar a modo claro' : 'Pasar a modo oscuro'}
+              className="shrink-0 w-10 h-10 grid place-items-center rounded-full bg-bg-card border border-border shadow-sm text-text-secondary hover:text-accent hover:border-accent/40 transition-colors"
+            >
+              {theme === 'dark' ? (
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="4.2" />
+                  <path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" />
+                </svg>
+              ) : (
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" />
+                </svg>
+              )}
+            </button>
             {/* Post Creator y Network se retiraron el 2026-10-06 (Iker): los
                 posts se escriben por Claude Code y los feeds de los jefes se
                 miran en sus propios navegadores. Del creador se salvo solo el

@@ -1,3 +1,4 @@
+import { useChartColors } from '../theme';
 interface TimelinePoint {
   published_at: string;
 }
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function ConsistencyHeatmap({ data }: Props) {
+  const cc = useChartColors();
   // Build a map of date -> post count for the last 26 weeks
   const now = new Date();
   const sixMonthsAgo = new Date(now.getTime() - 182 * 24 * 60 * 60 * 1000);
@@ -44,11 +46,11 @@ export default function ConsistencyHeatmap({ data }: Props) {
   const maxCount = Math.max(1, ...Object.values(dateCounts));
 
   function getColor(count: number): string {
-    if (count === 0) return '#EAE5DF';
+    if (count === 0) return cc.emptyCell;
     const intensity = Math.min(count / maxCount, 1);
-    if (intensity < 0.33) return '#FBD3B8';
-    if (intensity < 0.66) return '#F59A5E';
-    return '#E66A1B';
+    if (intensity < 0.33) return cc.heatHot[0];
+    if (intensity < 0.66) return cc.heatHot[1];
+    return cc.heatHot[2];
   }
 
   const dayLabels = ['', 'Lun', '', 'Mié', '', 'Vie', ''];

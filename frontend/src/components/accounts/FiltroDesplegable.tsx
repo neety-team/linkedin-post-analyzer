@@ -85,7 +85,7 @@ export default function FiltroDesplegable({ etiqueta, opciones, seleccion, multi
         <span>{etiqueta}</span>
         {resumen && (
           <span className={multiple
-            ? 'min-w-[1.1rem] px-1 rounded-full bg-accent text-white text-[10px] font-semibold text-center'
+            ? 'min-w-[1.1rem] px-1 rounded-full bg-accent text-on-accent text-[10px] font-semibold text-center'
             : 'text-text-primary font-medium'}>
             {resumen}
           </span>

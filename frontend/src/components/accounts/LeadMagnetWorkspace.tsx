@@ -547,7 +547,7 @@ export default function LeadMagnetWorkspace({ post, creatorId, compacto = false 
                una, con el post ya subido y la gente comentando. Ahora también
                cubre el caso nuevo — que la detección no lo tenga claro. */
             <div className="space-y-1.5">
-              <p className="text-[11px] text-amber-700 leading-snug">
+              <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">
                 No he sabido qué recurso pide este post. Pega el enlace y el DM sale igual.
               </p>
               <input
@@ -656,7 +656,7 @@ export default function LeadMagnetWorkspace({ post, creatorId, compacto = false 
         )}
 
         {canalData?.aviso && (
-          <p className="text-[11px] text-amber-700 leading-snug pt-1">⚠️ {canalData.aviso}</p>
+          <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug pt-1">⚠️ {canalData.aviso}</p>
         )}
       </div>
 
@@ -1404,7 +1404,7 @@ function CommenterCard({
                   className={
                     reply.trim()
                       ? 'text-[10px] text-text-muted hover:text-accent transition-colors ml-auto'
-                      : 'ml-auto text-[11px] font-medium px-2.5 py-1 rounded bg-accent text-white hover:brightness-110 transition'
+                      : 'ml-auto text-[11px] font-medium px-2.5 py-1 rounded bg-accent text-on-accent hover:brightness-110 transition'
                   }
                   title={
                     reply.trim()
@@ -1461,14 +1461,14 @@ function CommenterCard({
                   <button
                     onClick={handleReply}
                     disabled={replySending || !reply.trim() || (recursoSinEntregar && !forzarRespuesta)}
-                    className="text-xs px-3 py-1.5 rounded-md bg-accent text-white hover:bg-accent-strong disabled:opacity-50 transition-colors"
+                    className="text-xs px-3 py-1.5 rounded-md bg-accent text-on-accent hover:bg-accent-strong disabled:opacity-50 transition-colors"
                   >
                     {replySending ? 'Enviando…' : 'Responder'}
                   </button>
                   {recursoSinEntregar && !forzarRespuesta && (
-                    <span className="text-[11px] text-amber-700 leading-snug">
+                    <span className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">
                       Primero mándale el recurso, abajo. Esta respuesta le dice que ya se lo has enviado.{' '}
-                      <button onClick={() => setForzarRespuesta(true)} className="underline hover:text-amber-700">
+                      <button onClick={() => setForzarRespuesta(true)} className="underline hover:text-amber-700 dark:hover:text-amber-300">
                         Responder igualmente
                       </button>
                     </span>
@@ -1550,7 +1550,7 @@ function CommenterCard({
                   tarjeta (`§4.5.-3`). Solo avisa de que aquí no hay petición. */}
               {!pidioElRecurso && (
                 <span
-                  className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 border border-amber-500/30"
+                  className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30"
                   title={cfg.keyword.trim()
                     ? `No ha escrito "${cfg.keyword.trim()}" en su comentario, así que no consta que haya pedido el recurso. Míralo antes de mandarle nada.`
                     : 'Este post no tiene palabra clave configurada, así que no hay forma de saber quién pide el recurso y quién solo comenta.'}
@@ -1592,7 +1592,7 @@ function CommenterCard({
                 <button
                   onClick={handleLista}
                   disabled={listaLoading || !sector.trim()}
-                  className="text-[11px] font-medium px-2.5 py-1.5 rounded bg-accent text-white hover:brightness-110 disabled:opacity-50 transition whitespace-nowrap"
+                  className="text-[11px] font-medium px-2.5 py-1.5 rounded bg-accent text-on-accent hover:brightness-110 disabled:opacity-50 transition whitespace-nowrap"
                   title="Busca empresas reales españolas del sector y rellena el mensaje"
                 >
                   {listaLoading ? 'Buscando…' : message.trim() ? '↻ Regenerar' : '✨ Generar lista'}
@@ -1619,7 +1619,7 @@ function CommenterCard({
                   ✓ Recurso enviado y comprobado en LinkedIn
                 </p>
               ) : (
-                <p className="text-[11px] text-amber-700 leading-snug">
+                <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">
                   ⚠️ Enviado, pero NO he podido comprobar que esté en LinkedIn
                   {msgResult.error ? ` (${msgResult.error})` : ''}. Dale a{' '}
                   <span className="font-semibold">Revisar envíos</span> arriba antes de darlo por bueno.
@@ -1645,7 +1645,7 @@ function CommenterCard({
                       msgSending || !message.trim() ||
                       (cfg.kind === 'dm' && !resolverRecurso(cfg.keyword, cfg.link, cfg.topic))
                     }
-                    className="text-xs px-3 py-1.5 rounded-md bg-accent text-white hover:bg-accent-strong disabled:opacity-50 transition-colors"
+                    className="text-xs px-3 py-1.5 rounded-md bg-accent text-on-accent hover:bg-accent-strong disabled:opacity-50 transition-colors"
                   >
                     {msgSending
                       ? 'Enviando y comprobando…'
@@ -1874,10 +1874,10 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
         A esta gente le pediste que te mandara ella la solicitud. En cuanto la manda sube aquí arriba con el recurso
         ya escrito: se le contesta a su propia solicitud, así que llega sin aceptarla y sin gastar nada.
       </p>
-      {data?.aviso && <p className="text-[11px] text-amber-700 leading-snug">⚠️ {data.aviso}</p>}
+      {data?.aviso && <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">⚠️ {data.aviso}</p>}
       {err && (
         <p className={err.startsWith('⚠️')
-          ? 'text-[11px] text-amber-700 font-medium leading-snug'
+          ? 'text-[11px] text-amber-700 dark:text-amber-300 font-medium leading-snug'
           : 'text-[11px] text-danger font-medium'}>
           {err.startsWith('⚠️') ? err : `✗ ${err}`}
         </p>
@@ -1915,7 +1915,7 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
               <button
                 onClick={() => enviar(f)}
                 disabled={sending === f.provider_id || !val.trim()}
-                className="text-xs px-3 py-1.5 rounded-md bg-accent text-white hover:bg-accent-strong disabled:opacity-50 transition-colors"
+                className="text-xs px-3 py-1.5 rounded-md bg-accent text-on-accent hover:bg-accent-strong disabled:opacity-50 transition-colors"
               >
                 {sending === f.provider_id
                   ? 'Enviando y comprobando…'
@@ -2061,7 +2061,7 @@ function Seguimientos({ post, creatorId, cfg, voice }: {
         <button
           onClick={check}
           disabled={checking}
-          className="ml-auto text-[11px] font-medium px-2.5 py-1 rounded bg-accent text-white hover:brightness-110 disabled:opacity-50 transition whitespace-nowrap"
+          className="ml-auto text-[11px] font-medium px-2.5 py-1 rounded bg-accent text-on-accent hover:brightness-110 disabled:opacity-50 transition whitespace-nowrap"
           title="Vuelve a comprobar en LinkedIn quién ya te ha aceptado (no lee su chat)"
         >
           {checking ? 'Comprobando…' : '↻ Volver a comprobar'}
@@ -2074,7 +2074,7 @@ function Seguimientos({ post, creatorId, cfg, voice }: {
           y con su propio texto, no disfrazado de error rojo. */}
       {err && (
         <p className={err.startsWith('⚠️')
-          ? 'text-[11px] text-amber-700 font-medium leading-snug'
+          ? 'text-[11px] text-amber-700 dark:text-amber-300 font-medium leading-snug'
           : 'text-[11px] text-danger font-medium'}>
           {err.startsWith('⚠️') ? err : `✗ ${err}`}
         </p>
@@ -2134,7 +2134,7 @@ function Seguimientos({ post, creatorId, cfg, voice }: {
                 <button
                   onClick={() => sendList(f)}
                   disabled={sending === f.provider_id || !val.trim()}
-                  className="text-xs px-3 py-1.5 rounded-md bg-accent text-white hover:bg-accent-strong disabled:opacity-50 transition-colors"
+                  className="text-xs px-3 py-1.5 rounded-md bg-accent text-on-accent hover:bg-accent-strong disabled:opacity-50 transition-colors"
                 >
                   {sending === f.provider_id ? 'Enviando…' : 'Enviar la lista completa por DM'}
                 </button>

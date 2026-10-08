@@ -197,16 +197,16 @@ interface Props {
 
 const TYPE_CONFIG: Record<string, { icon: string; label: string; color: string; hasMedia: boolean }> = {
   text:            { icon: '📝', label: 'Texto',           color: 'text-text-muted bg-bg-hover',      hasMedia: false },
-  text_image:      { icon: '📝🖼️', label: 'Texto + foto',    color: 'text-blue-700 bg-blue-400/10',     hasMedia: true  },
-  text_carousel:   { icon: '📝📎', label: 'Texto + carrusel', color: 'text-purple-700 bg-purple-400/10', hasMedia: true  },
+  text_image:      { icon: '📝🖼️', label: 'Texto + foto',    color: 'text-blue-700 dark:text-blue-300 bg-blue-400/10',     hasMedia: true  },
+  text_carousel:   { icon: '📝📎', label: 'Texto + carrusel', color: 'text-purple-700 dark:text-purple-300 bg-purple-400/10', hasMedia: true  },
   text_video:      { icon: '📝🎥', label: 'Texto + vídeo',   color: 'text-danger bg-danger/10',       hasMedia: true  },
-  text_document:   { icon: '📝📄', label: 'Texto + documento',color: 'text-amber-700 bg-amber-400/10',   hasMedia: true  },
-  image:           { icon: '🖼️', label: 'Solo foto',        color: 'text-blue-700 bg-blue-300/10',     hasMedia: true  },
-  carousel:        { icon: '📎', label: 'Solo carrusel',    color: 'text-purple-700 bg-purple-300/10', hasMedia: true  },
+  text_document:   { icon: '📝📄', label: 'Texto + documento',color: 'text-amber-700 dark:text-amber-300 bg-amber-400/10',   hasMedia: true  },
+  image:           { icon: '🖼️', label: 'Solo foto',        color: 'text-blue-700 dark:text-blue-300 bg-blue-300/10',     hasMedia: true  },
+  carousel:        { icon: '📎', label: 'Solo carrusel',    color: 'text-purple-700 dark:text-purple-300 bg-purple-300/10', hasMedia: true  },
   video:           { icon: '🎥', label: 'Solo vídeo',       color: 'text-danger bg-danger/10',       hasMedia: true  },
-  document:        { icon: '📄', label: 'Solo documento',   color: 'text-amber-700 bg-amber-300/10',   hasMedia: true  },
+  document:        { icon: '📄', label: 'Solo documento',   color: 'text-amber-700 dark:text-amber-300 bg-amber-300/10',   hasMedia: true  },
   poll:            { icon: '📊', label: 'Encuesta',         color: 'text-success bg-success/10',   hasMedia: false },
-  article:         { icon: '📰', label: 'Artículo',         color: 'text-cyan-700 bg-cyan-400/10',     hasMedia: false },
+  article:         { icon: '📰', label: 'Artículo',         color: 'text-cyan-700 dark:text-cyan-300 bg-cyan-400/10',     hasMedia: false },
 };
 
 const PREVIEW_CHARS = 300;

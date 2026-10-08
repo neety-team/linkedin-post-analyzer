@@ -109,7 +109,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           <span className="text-[10px] text-text-muted whitespace-nowrap">·</span>
           <span className="text-[11px] text-text-muted whitespace-nowrap">{fmtRelative(post.published_at)}</span>
           {esLm && (
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-700 border border-sky-500/30 whitespace-nowrap">
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-700 dark:text-sky-300 border border-sky-500/30 whitespace-nowrap">
               Lead magnet
             </span>
           )}
@@ -122,7 +122,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           )}
           {accionables > 0 && (
             <span
-              className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 border border-emerald-500/30 whitespace-nowrap"
+              className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 whitespace-nowrap"
               title="Puedes actuar ya: mandarles el recurso por privado, o pedirles la solicitud a los que aún no se la has pedido"
             >
               {accionables} para actuar
@@ -138,7 +138,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           )}
           {seguimientos > 0 && (
             <span
-              className="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-700 border border-purple-500/30 whitespace-nowrap"
+              className="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/30 whitespace-nowrap"
               title="Invitados con nota antes del 17/08 cuyo recurso sigue sin salir. Se mandan desde el bloque Seguimientos, dentro del post."
             >
               {seguimientos} en seguimiento
@@ -354,7 +354,7 @@ function SubReplyBox({
         <button
           onClick={enviar}
           disabled={sending || !draft.trim()}
-          className="text-[10px] px-2 py-1 rounded bg-accent text-white font-medium hover:bg-accent-strong disabled:opacity-40"
+          className="text-[10px] px-2 py-1 rounded bg-accent text-on-accent font-medium hover:bg-accent-strong disabled:opacity-40"
         >
           {sending ? 'Enviando…' : 'Enviar'}
         </button>
@@ -627,7 +627,7 @@ export function ThreadCard({
                     <button
                       onClick={handleSend}
                       disabled={sending || !draft.trim()}
-                      className="text-xs px-3 py-1.5 rounded-md bg-accent text-white hover:bg-accent-strong disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="text-xs px-3 py-1.5 rounded-md bg-accent text-on-accent hover:bg-accent-strong disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       {sending ? 'Enviando…' : 'Enviar a LinkedIn'}
                     </button>

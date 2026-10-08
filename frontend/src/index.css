@@ -6,39 +6,49 @@
 @import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap');
 
-/* Paleta (08-oct-2026). Sale de la marca (landing/app/globals.css y el admin
-   de neety.com) pero ajustada para una herramienta interna de datos: la Base
-   Cálida #f8f7ec es tan clara que las tarjetas blancas se pierden, así que el
-   fondo baja un tono (como el #f4f2ee de LinkedIn) y el naranja de texto se
-   oscurece hasta leerse sobre blanco (4,3:1; el #fe8238 puro da 2,5:1).
-   Los nombres de token son los de siempre: cambiar aquí recolorea toda la app.
+/* `dark:` = modo oscuro elegido con el toggle del header (data-theme en
+   <html>), no el del sistema operativo. */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* ── Paleta (08-oct-2026) ─────────────────────────────────────────────────
+   Sale de la web nueva (landing/app/globals.css), no de la antigua:
+   - CLARO: el fondo global de la web es el Gris Tecnológico #f5f7f9 con
+     velos de Azul bebé #a7c5f9. Aquí baja un tono (#e6ecf5) para que no
+     deslumbre en una herramienta que se mira horas, y las tarjetas no son
+     blanco puro sino el #fafcfe de la web.
+   - OSCURO: las secciones oscuras de la web (Berenjena #431b44, Ciruela
+     #2a0e2c), con texto en Base Cálida #f8f7ec y el Naranja Core puro.
+   Los nombres de token son los de siempre: cambiar aquí recolorea la app.
+   Los valores de las gráficas (recharts no lee clases) viven en theme.tsx
+   con las mismas dos variantes.
 
    Reglas de uso:
-   - success / danger son SEMÁNTICOS: bueno = verde, malo = rojo. Nunca se
-     usan como color decorativo.
-   - linkedin (#0a66c2) para lo que es de LinkedIn: impresiones, enlaces a
-     LinkedIn, reacciones, la vista previa del post.
-   - naranja es el de marca puro: logo, rellenos y series de gráficas. Para
-     texto, accent.
-   - diamond marca el outlier (💎): berenjena viva, distinto de todo lo demás.
-   - Los colores fijos de las gráficas (recharts no lee clases) están
-     mapeados a estos mismos valores en cada componente. */
+   - success / danger: verde = sube / bueno, rojo = baja / malo. Para
+     deltas, estados y avisos; las SERIES de las gráficas no van en verde.
+   - Gráficas de métricas de LinkedIn (impresiones, seguidores): el teal de
+     su panel de analítica (#1a707e, medido en las capturas de STATS).
+   - linkedin (#0a66c2): enlaces a LinkedIn y lo que es suyo (reacciones).
+   - naranja de marca para lo nuestro (interacciones, acento). Como texto
+     sobre claro va oscurecido (accent); sobre oscuro, el puro.
+   - diamond marca el outlier (💎). */
 @theme {
-  --color-bg-primary: #f1eee6; /* fondo de página y pozos (inputs) */
-  --color-bg-secondary: #f6f3ee; /* pozos DENTRO de tarjetas: inputs, cajitas de dato, barras de progreso */
-  --color-bg-card: #ffffff; /* superficie elevada: tarjetas, modales, desplegables */
-  --color-bg-hover: #f3edf0; /* hover: velo de berenjena */
+  --color-bg-primary: #e6ecf5; /* página */
+  --color-bg-secondary: #eef2f9; /* pozos dentro de tarjetas: inputs, cajitas de dato, barras */
+  --color-bg-card: #fafcfe; /* superficie elevada: tarjetas, modales, desplegables */
+  --color-bg-hover: #e9eef7;
   --color-accent: #c55a0e; /* naranja legible: texto, botones, activo */
   --color-accent-strong: #a44a08; /* hover/pulsado del acento */
+  --color-on-accent: #ffffff; /* texto sobre bg-accent */
   --color-text-primary: #431b44; /* Berenjena */
-  --color-text-secondary: #664767;
-  --color-text-muted: #76607a; /* 4,9:1 sobre el fondo */
-  --color-border: #e2dcdf;
-  --color-success: #1a7f50;
-  --color-danger: #c73b3b;
-  --color-warning: #99600a;
+  --color-text-secondary: #5f4762;
+  --color-text-muted: #6c5c72; /* 5,2:1 sobre la página */
+  --color-border: #d5dce7;
+  --color-success: #01754f; /* el verde de las flechas de LinkedIn */
+  --color-danger: #c0362c;
+  --color-warning: #94600a;
   --color-diamond: #7e3aa8;
   --color-linkedin: #0a66c2;
+  --color-data: #1a707e; /* teal de la analítica de LinkedIn */
 
   /* Marca, tal cual (landing/app/globals.css) */
   --color-naranja: #fe8238;
@@ -51,11 +61,34 @@
   --font-display: 'Bricolage Grotesque', 'Switzer', system-ui, sans-serif;
 }
 
+:root[data-theme='dark'] {
+  --color-bg-primary: #1b0d1d;
+  --color-bg-secondary: #200f22;
+  --color-bg-card: #271429;
+  --color-bg-hover: #331d36;
+  --color-accent: #fe8238; /* Naranja Core puro: 7:1 sobre el fondo */
+  --color-accent-strong: #ff9f66;
+  --color-on-accent: #2a0e2c; /* Ciruela sobre naranja, como el admin */
+  --color-text-primary: #f8f7ec; /* Base Cálida */
+  --color-text-secondary: #d3c6d3;
+  --color-text-muted: #a895a9;
+  --color-border: #3d2740;
+  --color-success: #4cc38a;
+  --color-danger: #f27b6f;
+  --color-warning: #e6b450;
+  --color-diamond: #c99bf0;
+  --color-linkedin: #71b7fb; /* el azul de enlace del modo oscuro de LinkedIn */
+  --color-data: #5bb8c4;
+}
+
 html {
   color-scheme: light;
   /* Reserva siempre el hueco de la barra de scroll: sin esto, al pasar de
      una página corta a una larga todo el layout salta 8 px a la izquierda. */
   scrollbar-gutter: stable;
+}
+html[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 body {
@@ -77,7 +110,7 @@ body {
 }
 
 ::selection {
-  background: rgb(254 130 56 / 0.25);
+  background: rgb(254 130 56 / 0.28);
 }
 
 ::-webkit-scrollbar {
@@ -88,10 +121,10 @@ body {
   background: var(--color-bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: #cfc6cb;
+  background: color-mix(in oklab, var(--color-text-muted) 45%, transparent);
   border-radius: 6px;
   border: 2px solid var(--color-bg-primary);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #b3a7ae;
+  background: color-mix(in oklab, var(--color-text-muted) 70%, transparent);
 }

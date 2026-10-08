@@ -227,12 +227,12 @@ export default function GoogleChatModal({
         {!loading && data && (
           <div className="px-6 pb-5 flex items-center justify-end gap-4">
             {!data.webhook_configured && (
-              <p className="text-[11px] text-amber-700 mr-auto">
+              <p className="text-[11px] text-amber-700 dark:text-amber-300 mr-auto">
                 ⚠️ GOOGLE_CHAT_WEBHOOK_URL no está configurado
               </p>
             )}
             {overLimit && (
-              <p className="text-[11px] text-amber-700 mr-auto">
+              <p className="text-[11px] text-amber-700 dark:text-amber-300 mr-auto">
                 {message.length} / {MAX_LEN} caracteres
               </p>
             )}
@@ -242,7 +242,7 @@ export default function GoogleChatModal({
               className={`px-5 py-2.5 rounded-xl text-xs font-medium transition-colors ${
                 sent
                   ? 'bg-success/15 text-success cursor-default'
-                  : 'bg-accent text-white hover:bg-accent-strong disabled:opacity-40 disabled:cursor-not-allowed'
+                  : 'bg-accent text-on-accent hover:bg-accent-strong disabled:opacity-40 disabled:cursor-not-allowed'
               }`}
             >
               {sent ? '✓ Enviado' : sending ? 'Enviando…' : '📤 Enviar al Chat'}

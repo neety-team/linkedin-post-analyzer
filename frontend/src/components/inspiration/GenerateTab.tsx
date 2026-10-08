@@ -133,7 +133,7 @@ function IdeaCard({
       )}
 
       <div className="flex flex-wrap gap-1.5 mb-3">
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-fuchsia-400/10 text-fuchsia-700 font-medium">
+        <span className="text-[10px] px-2 py-0.5 rounded-full bg-fuchsia-400/10 text-fuchsia-700 dark:text-fuchsia-300 font-medium">
           {meta?.icon} {meta?.label}
         </span>
         {idea.sub_angle && (
@@ -333,7 +333,7 @@ export default function GenerateTab() {
                 }`}
               >
                 <div className="text-base mb-0.5">{m.icon}</div>
-                <div className={`text-xs font-semibold leading-tight ${active ? 'text-fuchsia-700' : 'text-text-primary'}`}>
+                <div className={`text-xs font-semibold leading-tight ${active ? 'text-fuchsia-700 dark:text-fuchsia-300' : 'text-text-primary'}`}>
                   {m.label}
                 </div>
                 <div className="text-[10px] text-text-muted leading-tight mt-0.5">{m.desc}</div>
@@ -350,7 +350,7 @@ export default function GenerateTab() {
             generic. We make this the visual centerpiece (full width, accent
             border) and treat topic / audience as supporting metadata below. */}
         <div>
-          <label className="block text-xs font-semibold text-fuchsia-700 mb-1.5 flex items-center gap-1.5">
+          <label className="block text-xs font-semibold text-fuchsia-700 dark:text-fuchsia-300 mb-1.5 flex items-center gap-1.5">
             <span>💭</span> Tu mensaje / ángulo
             <span className="text-[10px] font-normal text-text-muted ml-1">— qué quieres defender o decir</span>
           </label>
@@ -425,7 +425,7 @@ export default function GenerateTab() {
                     title={g.desc}
                     className={`text-[11px] px-2.5 py-1.5 rounded-full border transition-colors ${
                       active
-                        ? 'border-fuchsia-500/60 bg-fuchsia-400/10 text-fuchsia-700'
+                        ? 'border-fuchsia-500/60 bg-fuchsia-400/10 text-fuchsia-700 dark:text-fuchsia-300'
                         : 'border-border bg-bg-secondary text-text-muted hover:border-fuchsia-500/30'
                     }`}
                   >
@@ -446,7 +446,7 @@ export default function GenerateTab() {
                     onClick={() => setCount(c)}
                     className={`text-[11px] px-3 py-1.5 rounded-full border transition-colors ${
                       active
-                        ? 'border-fuchsia-500/60 bg-fuchsia-400/10 text-fuchsia-700'
+                        ? 'border-fuchsia-500/60 bg-fuchsia-400/10 text-fuchsia-700 dark:text-fuchsia-300'
                         : 'border-border bg-bg-secondary text-text-muted hover:border-fuchsia-500/30'
                     }`}
                   >
@@ -498,14 +498,14 @@ export default function GenerateTab() {
             </p>
             <button
               onClick={handleGenerate}
-              className="text-[11px] text-fuchsia-700 hover:text-fuchsia-700 transition-colors"
+              className="text-[11px] text-fuchsia-700 dark:text-fuchsia-300 hover:text-fuchsia-700 dark:hover:text-fuchsia-300 transition-colors"
             >
               ↻ Regenerar
             </button>
           </div>
 
           {results.meta.groundingFallback && (
-            <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-2.5 text-amber-700 text-[11px]">
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-2.5 text-amber-700 dark:text-amber-300 text-[11px]">
               ⚠️ No se encontraron outliers para "{topic}" — generamos las ideas usando todos tus posts como referencia.
             </div>
           )}

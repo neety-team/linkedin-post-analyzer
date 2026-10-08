@@ -160,7 +160,7 @@ function ReactionMixBar({ mix }: { mix: Record<string, number> | null }) {
       <div className="flex items-center justify-between mb-1">
         <span className="text-[10px] text-text-muted">Reacciones ({total})</span>
         {fp > 0.05 && (
-          <span className={`text-[10px] font-semibold ${isMeme ? 'text-orange-700' : 'text-text-muted'}`}>
+          <span className={`text-[10px] font-semibold ${isMeme ? 'text-orange-700 dark:text-orange-300' : 'text-text-muted'}`}>
             😂 {Math.round(fp * 100)}%{isMeme && ' · meme'}
           </span>
         )}
@@ -242,14 +242,14 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
       {/* Tags: topic + hook type + structure */}
       <div className="flex flex-wrap gap-1.5 mb-3">
         {post.topic && (
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/15 text-amber-700 font-semibold">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/15 text-amber-700 dark:text-amber-300 font-semibold">
             📂 {post.topic}
           </span>
         )}
         <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/10 text-accent font-medium">
           {HOOK_LABELS[post.hook_type] || post.hook_type}
         </span>
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-400/10 text-purple-700 font-medium">
+        <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-400/10 text-purple-700 dark:text-purple-300 font-medium">
           {STRUCT_LABELS[post.post_structure] || post.post_structure}
         </span>
         {post.text_tone && post.text_tone !== 'other' && (
@@ -266,7 +266,7 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
         <span>🔁 {formatNum(post.reposts_count)}</span>
         {commentGatedRatio(post) > LEADMAGNET_RATIO_THRESHOLD && (
           <span
-            className="text-[10px] font-semibold text-orange-700"
+            className="text-[10px] font-semibold text-orange-700 dark:text-orange-300"
             title="Comentarios muy por encima de las reacciones: es un lead magnet (la gente comenta la palabra para pillar el recurso)"
           >
             💬 lead magnet · {commentGatedRatio(post).toFixed(1)}x
@@ -298,7 +298,7 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
         className={`w-full py-2 rounded-lg text-xs font-medium transition-colors ${
           stolen
             ? 'bg-success/15 text-success cursor-default'
-            : 'bg-accent text-white hover:bg-accent-strong disabled:opacity-50'
+            : 'bg-accent text-on-accent hover:bg-accent-strong disabled:opacity-50'
         }`}
       >
         {stolen ? '✓ Guardado en Ideas' : saving ? 'Guardando…' : '🔥 Robar este post'}
@@ -585,7 +585,7 @@ export default function Inspiration() {
             className={`px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors ${
               tab === key
                 ? key === 'generate'
-                  ? 'border-fuchsia-500 text-fuchsia-700'
+                  ? 'border-fuchsia-500 text-fuchsia-700 dark:text-fuchsia-300'
                   : 'border-accent text-accent'
                 : 'border-transparent text-text-muted hover:text-text-primary'
             }`}
@@ -641,10 +641,10 @@ export default function Inspiration() {
               <span className="flex items-center gap-2">
                 ⚙️ Mantenimiento
                 {unclassifiedCount > 0 && (
-                  <span className="text-amber-700/80">{unclassifiedCount} sin clasificar</span>
+                  <span className="text-amber-700 dark:text-amber-300/80">{unclassifiedCount} sin clasificar</span>
                 )}
                 {mixStatus && mixStatus.running && (
-                  <span className="text-purple-700/80">
+                  <span className="text-purple-700 dark:text-purple-300/80">
                     mix de reacciones {mixStatus.processed}/{mixStatus.total}…
                   </span>
                 )}
@@ -659,7 +659,7 @@ export default function Inspiration() {
               <button
                 onClick={handleClassify}
                 disabled={classifying}
-                className="px-4 py-2 bg-amber-400/15 text-amber-700 rounded-lg text-xs font-medium hover:bg-amber-400/25 disabled:opacity-50 transition-colors"
+                className="px-4 py-2 bg-amber-400/15 text-amber-700 dark:text-amber-300 rounded-lg text-xs font-medium hover:bg-amber-400/25 disabled:opacity-50 transition-colors"
               >
                 {classifying ? '🧠 Clasificando…' : `🏷️ Clasificar ${unclassifiedCount} outlier${unclassifiedCount !== 1 ? 's' : ''} sin tema`}
               </button>
@@ -678,7 +678,7 @@ export default function Inspiration() {
               <button
                 onClick={handleReclassify}
                 disabled={classifying}
-                className="px-3 py-1.5 bg-bg-secondary border border-border text-text-secondary rounded-lg text-xs font-medium hover:border-amber-500/40 hover:text-amber-700 disabled:opacity-50 transition-colors"
+                className="px-3 py-1.5 bg-bg-secondary border border-border text-text-secondary rounded-lg text-xs font-medium hover:border-amber-500/40 hover:text-amber-700 dark:hover:text-amber-300 disabled:opacity-50 transition-colors"
               >
                 {classifying ? '🔄 Trabajando…' : '🔄 Reiniciar y reclasificar'}
               </button>
@@ -695,7 +695,7 @@ export default function Inspiration() {
               <button
                 onClick={handleStartMixBackfill}
                 disabled={mixStarting || mixStatus.running || mixStatus.outliers_with_mix >= mixStatus.outliers_total}
-                className="px-4 py-2 bg-purple-400/15 text-purple-700 rounded-lg text-xs font-medium hover:bg-purple-400/25 disabled:opacity-50 transition-colors"
+                className="px-4 py-2 bg-purple-400/15 text-purple-700 dark:text-purple-300 rounded-lg text-xs font-medium hover:bg-purple-400/25 disabled:opacity-50 transition-colors"
                 title="Pide a Unipile el mix de reacciones (LIKE/FUNNY/CELEBRATE/...) de cada outlier. Corre en segundo plano con la cuenta de lectura dedicada."
               >
                 {mixStatus.running
@@ -707,7 +707,7 @@ export default function Inspiration() {
               <span className="text-xs text-text-muted">
                 {mixStatus.outliers_with_mix.toLocaleString('es-ES')} / {mixStatus.outliers_total.toLocaleString('es-ES')} outliers con mix
                 {mixStatus.outliers_permanently_failed > 0 && (
-                  <span className="text-amber-700/80"> · {mixStatus.outliers_permanently_failed} borrados de LinkedIn</span>
+                  <span className="text-amber-700 dark:text-amber-300/80"> · {mixStatus.outliers_permanently_failed} borrados de LinkedIn</span>
                 )}
               </span>
               {Object.keys(mixStatus.errors_by_status).length > 0 && (
@@ -721,8 +721,8 @@ export default function Inspiration() {
                         status === '-1' ? 'red/otros' :
                         `HTTP ${status}`;
                       const colour =
-                        status === '429' ? 'text-orange-700/80' :
-                        status === '404' ? 'text-amber-700/80' :
+                        status === '429' ? 'text-orange-700 dark:text-orange-300/80' :
+                        status === '404' ? 'text-amber-700 dark:text-amber-300/80' :
                         'text-danger/80';
                       return (
                         <span key={status} className={colour}>
@@ -787,7 +787,7 @@ export default function Inspiration() {
               onClick={() => { setOnlyMemes((v) => !v); setFilterContentType(''); }}
               className={`text-xs px-2.5 py-1.5 rounded-lg border transition-colors ${
                 onlyMemes
-                  ? 'border-orange-500/60 bg-orange-400/15 text-orange-700'
+                  ? 'border-orange-500/60 bg-orange-400/15 text-orange-700 dark:text-orange-300'
                   : 'border-border bg-bg-secondary text-text-muted hover:border-orange-500/30'
               }`}
               title="Filtra a los posts cuya audiencia reaccionó con >25% 😂, según el reaction mix real. Es la señal de meme que da la audiencia, no el clasificador."
@@ -802,7 +802,7 @@ export default function Inspiration() {
               onClick={() => { setOnlyLeadMagnets((v) => !v); setFilterContentType(''); }}
               className={`text-xs px-2.5 py-1.5 rounded-lg border transition-colors ${
                 onlyLeadMagnets
-                  ? 'border-orange-500/60 bg-orange-400/15 text-orange-700'
+                  ? 'border-orange-500/60 bg-orange-400/15 text-orange-700 dark:text-orange-300'
                   : 'border-border bg-bg-secondary text-text-muted hover:border-orange-500/30'
               }`}
               title="Filtra a los lead magnets: posts con MÁS comentarios que reacciones (comment-gated). La gente comenta la palabra clave para pillar el recurso. Como los de Martín Arosa, Guillermo o Luna Chen."

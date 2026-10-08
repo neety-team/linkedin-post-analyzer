@@ -326,7 +326,7 @@ export default function Discover() {
               <button
                 onClick={handleSearch}
                 disabled={isSearching || !searchQuery.trim()}
-                className="px-5 py-2 bg-accent text-white rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
+                className="px-5 py-2 bg-accent text-on-accent rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
               >
                 {isSearching ? 'Buscando…' : 'Buscar'}
               </button>

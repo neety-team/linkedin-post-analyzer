@@ -3,6 +3,7 @@ import { useApi, apiDelete } from '../hooks/useApi';
 import CreatorForm from '../components/CreatorForm';
 import { SkeletonCard } from '../components/Skeleton';
 import { Link } from 'react-router-dom';
+import { useChartColors } from '../theme';
 
 const BASE = import.meta.env.VITE_API_URL || '';
 
@@ -61,6 +62,7 @@ function ReclassifyButton() {
 }
 
 export default function Dashboard() {
+  const cc = useChartColors();
   const { data: creators, loading, error, refetch } = useApi<Creator[]>('/api/creators');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [refreshing, setRefreshing] = useState(false);
@@ -289,7 +291,7 @@ export default function Dashboard() {
               <button
                 onClick={handleBatchRefresh}
                 disabled={refreshing}
-                className="px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
+                className="px-4 py-2 bg-accent text-on-accent rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
               >
                 {refreshing
                   ? 'Actualizando...'
@@ -321,7 +323,7 @@ export default function Dashboard() {
                     className="h-full rounded-full transition-all duration-500 ease-out"
                     style={{
                       width: `${refreshProgress.total > 0 ? (refreshProgress.current / refreshProgress.total) * 100 : 0}%`,
-                      backgroundColor: refreshProgress.current >= refreshProgress.total ? '#1E9160' : '#E66A1B',
+                      backgroundColor: refreshProgress.current >= refreshProgress.total ? cc.success : cc.accent,
                     }}
                   />
                 </div>

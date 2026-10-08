@@ -1,3 +1,4 @@
+import { useChartColors } from '../theme';
 interface TimingSlot {
   day: number;
   hour: number;
@@ -32,6 +33,7 @@ function formatHour(h: number): string {
 }
 
 export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, location }: Props) {
+  const cc = useChartColors();
   // Build a lookup: day-hour → slot
   const lookup: Record<string, TimingSlot> = {};
   for (const s of heatmap) {
@@ -45,23 +47,23 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
   const hours = Array.from({ length: 18 }, (_, i) => i + 6);
 
   function getCellColor(slot: TimingSlot | undefined): string {
-    if (!slot || slot.count === 0) return '#EAE5DF';
+    if (!slot || slot.count === 0) return cc.emptyCell;
     const intensity = slot.avg_engagement / maxEng;
     if (slot.outlier_rate > 0) {
       // Has outliers — orange spectrum
-      if (intensity > 0.7) return '#E66A1B';
-      if (intensity > 0.4) return '#F59A5E';
-      return '#FBD3B8';
+      if (intensity > 0.7) return cc.heatHot[2];
+      if (intensity > 0.4) return cc.heatHot[1];
+      return cc.heatHot[0];
     }
     // Normal — blue/green spectrum
-    if (intensity > 0.7) return '#1E9160';
-    if (intensity > 0.4) return '#5DB88A';
-    return '#C3E6D3';
+    if (intensity > 0.7) return cc.heatData[2];
+    if (intensity > 0.4) return cc.heatData[1];
+    return cc.heatData[0];
   }
 
   function getCellBorder(slot: TimingSlot | undefined): string {
     if (!slot) return 'transparent';
-    if (slot.outlier_rate >= 50) return '#7E3AA8';
+    if (slot.outlier_rate >= 50) return cc.diamond;
     return 'transparent';
   }
 
@@ -206,23 +208,23 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
       {/* Legend */}
       <div className="flex items-center gap-4 mt-3 text-[10px] text-text-muted">
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#C3E6D3' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: cc.heatData[0] }} />
           <span>Normal (bajo)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#1E9160' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: cc.heatData[2] }} />
           <span>Normal (alto)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#FBD3B8' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: cc.heatHot[0] }} />
           <span>Con outliers (bajo)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#E66A1B' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: cc.heatHot[2] }} />
           <span>Con outliers (alto)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#EAE5DF', border: '1.5px solid #7E3AA8' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: cc.emptyCell, border: `1.5px solid ${cc.diamond}` }} />
           <span>50%+ de outliers</span>
         </div>
       </div>

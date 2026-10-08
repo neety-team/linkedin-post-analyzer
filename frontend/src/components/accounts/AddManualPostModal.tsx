@@ -194,7 +194,7 @@ export default function AddManualPostModal({
               <button
                 onClick={extraer}
                 disabled={!url.trim() || extrayendo}
-                className="px-4 py-2 rounded-lg bg-accent text-white text-xs font-medium hover:bg-accent-strong transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+                className="px-4 py-2 rounded-lg bg-accent text-on-accent text-xs font-medium hover:bg-accent-strong transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
               >
                 {extrayendo ? 'Extrayendo…' : 'Extraer'}
               </button>
@@ -257,7 +257,7 @@ export default function AddManualPostModal({
               </div>
 
               {vista.leido_con === 'cuenta_propia' && (
-                <p className="text-[11px] text-amber-700">
+                <p className="text-[11px] text-amber-700 dark:text-amber-300">
                   Ojo: este post es de una cuenta que YA está conectada. Se añadirá a su cuenta de siempre y se
                   seguirá solo, sin necesidad de escribir nada a mano.
                 </p>
@@ -321,7 +321,7 @@ export default function AddManualPostModal({
             <button
               onClick={guardar}
               disabled={guardando}
-              className="px-4 py-2 rounded-lg bg-accent text-white text-xs font-medium hover:bg-accent-strong transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="px-4 py-2 rounded-lg bg-accent text-on-accent text-xs font-medium hover:bg-accent-strong transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {guardando ? 'Guardando…' : editando ? 'Guardar métricas' : 'Guardar post'}
             </button>

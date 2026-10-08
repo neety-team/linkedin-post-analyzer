@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { useChartColors } from '../theme';
 
 interface OutlierPost {
   content_type: string;
@@ -27,20 +28,6 @@ const TYPE_LABELS: Record<string, string> = {
   article: 'Artículo',
 };
 
-const TYPE_COLORS: Record<string, string> = {
-  text: '#E66A1B',
-  text_image: '#4F52D9',
-  text_carousel: '#7C5CD6',
-  text_video: '#C73B3B',
-  text_document: '#B07510',
-  image: '#5B8FE0',
-  carousel: '#9A7FE0',
-  video: '#E07878',
-  document: '#D4A21C',
-  poll: '#1E9160',
-  article: '#0A66C2',
-};
-
 interface Row {
   type: string;
   label: string;
@@ -51,7 +38,21 @@ interface Row {
 }
 
 export default function OutlierContentTypeChart({ outliers }: Props) {
+  const cc = useChartColors();
   const rows = useMemo<Row[]>(() => {
+    const TYPE_COLORS: Record<string, string> = {
+      text: cc.hue.orange,
+      text_image: cc.hue.indigo,
+      text_carousel: cc.hue.violet,
+      text_video: cc.hue.red,
+      text_document: cc.hue.amber,
+      image: cc.hue.blue,
+      carousel: cc.hue.lavender,
+      video: cc.hue.rose,
+      document: cc.hue.gold,
+      poll: cc.hue.green,
+      article: cc.hue.sky,
+    };
     if (!outliers || outliers.length === 0) return [];
     const buckets: Record<string, { count: number; ratioSum: number }> = {};
     for (const p of outliers) {
@@ -68,10 +69,10 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
         count: b.count,
         pct: +((b.count / total) * 100).toFixed(1),
         avgRatio: b.count > 0 ? +(b.ratioSum / b.count).toFixed(1) : 0,
-        color: TYPE_COLORS[type] || '#9A8A9B',
+        color: TYPE_COLORS[type] || cc.hue.grey,
       }))
       .sort((a, b) => b.count - a.count);
-  }, [outliers]);
+  }, [outliers, cc]);
 
   if (rows.length === 0) return null;
 
@@ -100,18 +101,18 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
           <YAxis
             type="category"
             dataKey="label"
-            tick={{ fill: '#76607A', fontSize: 12 }}
-            axisLine={{ stroke: '#E6E0E3' }}
+            tick={{ fill: cc.muted, fontSize: 12 }}
+            axisLine={{ stroke: cc.grid }}
             tickLine={false}
             width={120}
           />
           <Tooltip
-            cursor={{ fill: 'rgba(230,106,27,0.07)' }}
+            cursor={{ fill: cc.accentSoft }}
             contentStyle={{
-              backgroundColor: '#FFFFFF',
-              border: '1px solid #E6E0E3',
+              backgroundColor: cc.tooltipBg,
+              border: `1px solid ${cc.tooltipBorder}`,
               borderRadius: '8px',
-              color: '#431B44',
+              color: cc.text,
               fontSize: '12px',
             }}
             formatter={(_v: any, _n: any, entry: any) => {
@@ -122,7 +123,7 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
               ];
             }}
           />
-          <Bar dataKey="count" radius={[0, 6, 6, 0]} label={{ position: 'right', fill: '#76607A', fontSize: 11, formatter: (v: any) => `${v}` }}>
+          <Bar dataKey="count" radius={[0, 6, 6, 0]} label={{ position: 'right', fill: cc.muted, fontSize: 11, formatter: (v: any) => `${v}` }}>
             {rows.map((r) => (
               <Cell key={r.type} fill={r.color} />
             ))}

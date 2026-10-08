@@ -42,7 +42,7 @@ export default function CreatorForm({ onCreated }: Props) {
       <button
         type="submit"
         disabled={loading || !url.trim()}
-        className="px-6 py-3 bg-accent hover:bg-accent-strong text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+        className="px-6 py-3 bg-accent hover:bg-accent-strong text-on-accent font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
       >
         {loading ? 'Analizando…' : 'Analizar'}
       </button>

@@ -126,17 +126,17 @@ function SourceBanner({ source }: { source: ParsedSource }) {
 
 const SOURCE_CONFIG: Record<string, { icon: string; label: string; color: string }> = {
   manual:      { icon: '💡', label: 'Idea',        color: 'text-accent bg-accent/10' },
-  book_quote:  { icon: '📚', label: 'Libro',       color: 'text-purple-700 bg-purple-400/10' },
-  demo_moment: { icon: '🎯', label: 'Demo',        color: 'text-blue-700 bg-blue-400/10' },
-  observation: { icon: '👁️', label: 'Observación', color: 'text-amber-700 bg-amber-400/10' },
+  book_quote:  { icon: '📚', label: 'Libro',       color: 'text-purple-700 dark:text-purple-300 bg-purple-400/10' },
+  demo_moment: { icon: '🎯', label: 'Demo',        color: 'text-blue-700 dark:text-blue-300 bg-blue-400/10' },
+  observation: { icon: '👁️', label: 'Observación', color: 'text-amber-700 dark:text-amber-300 bg-amber-400/10' },
   meeting:     { icon: '🤝', label: 'Reunión',     color: 'text-success bg-success/10' },
-  generated:   { icon: '✨', label: 'Generada',    color: 'text-fuchsia-700 bg-fuchsia-400/10' },
+  generated:   { icon: '✨', label: 'Generada',    color: 'text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-400/10' },
 };
 
 const ARCHETYPE_COLORS = [
-  { border: 'border-accent/30', bg: 'bg-accent/5', badge: 'bg-accent/15 text-accent', btn: 'bg-accent text-white hover:bg-accent-strong' },
-  { border: 'border-purple-500/30', bg: 'bg-purple-400/5', badge: 'bg-purple-400/15 text-purple-700', btn: 'bg-purple-500/80 text-white hover:bg-purple-500' },
-  { border: 'border-blue-500/30', bg: 'bg-blue-400/5', badge: 'bg-blue-400/15 text-blue-700', btn: 'bg-blue-500/80 text-white hover:bg-blue-500' },
+  { border: 'border-accent/30', bg: 'bg-accent/5', badge: 'bg-accent/15 text-accent', btn: 'bg-accent text-on-accent hover:bg-accent-strong' },
+  { border: 'border-purple-500/30', bg: 'bg-purple-400/5', badge: 'bg-purple-400/15 text-purple-700 dark:text-purple-300', btn: 'bg-purple-500/80 text-white hover:bg-purple-500' },
+  { border: 'border-blue-500/30', bg: 'bg-blue-400/5', badge: 'bg-blue-400/15 text-blue-700 dark:text-blue-300', btn: 'bg-blue-500/80 text-white hover:bg-blue-500' },
 ];
 
 // ─── Voice capture ────────────────────────────────────────────────────────────
@@ -523,7 +523,7 @@ function CaptureForm({ onCreated }: { onCreated: () => void }) {
         <button
           onClick={handleSave}
           disabled={saving || !content.trim()}
-          className="px-5 py-2 bg-accent text-white rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
+          className="px-5 py-2 bg-accent text-on-accent rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
         >
           {saving ? 'Guardando…' : 'Guardar idea'}
         </button>

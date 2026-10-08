@@ -1,4 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { useChartColors } from '../theme';
 
 interface TypeCount {
   content_type: string;
@@ -10,7 +11,6 @@ interface Props {
   outliers: TypeCount[];
 }
 
-const COLORS = ['#E66A1B', '#4F52D9', '#7C5CD6', '#C73B3B', '#B07510', '#5B8FE0', '#9A7FE0', '#E07878', '#D4A21C', '#1E9160', '#0A66C2'];
 
 const typeLabels: Record<string, string> = {
   text: 'Texto',
@@ -27,6 +27,8 @@ const typeLabels: Record<string, string> = {
 };
 
 export default function ContentTypeBreakdown({ all, outliers }: Props) {
+  const cc = useChartColors();
+  const COLORS = [cc.hue.orange, cc.hue.indigo, cc.hue.violet, cc.hue.red, cc.hue.amber, cc.hue.blue, cc.hue.lavender, cc.hue.rose, cc.hue.gold, cc.hue.green, cc.hue.sky];
   const allData = all.map((d) => ({ name: typeLabels[d.content_type] || d.content_type, value: parseInt(d.count, 10) }));
   const outlierData = outliers.map((d) => ({ name: typeLabels[d.content_type] || d.content_type, value: parseInt(d.count, 10) }));
 
@@ -42,9 +44,9 @@ export default function ContentTypeBreakdown({ all, outliers }: Props) {
                 {allData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
               </Pie>
               <Tooltip
-                contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E0E3', borderRadius: '8px', color: '#431B44', fontSize: '13px' }}
+                contentStyle={{ backgroundColor: cc.tooltipBg, border: `1px solid ${cc.tooltipBorder}`, borderRadius: '8px', color: cc.text, fontSize: '13px' }}
               />
-              <Legend wrapperStyle={{ fontSize: '11px', color: '#76607A' }} />
+              <Legend wrapperStyle={{ fontSize: '11px', color: cc.muted }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -57,9 +59,9 @@ export default function ContentTypeBreakdown({ all, outliers }: Props) {
                   {outlierData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E0E3', borderRadius: '8px', color: '#431B44', fontSize: '13px' }}
+                  contentStyle={{ backgroundColor: cc.tooltipBg, border: `1px solid ${cc.tooltipBorder}`, borderRadius: '8px', color: cc.text, fontSize: '13px' }}
                 />
-                <Legend wrapperStyle={{ fontSize: '11px', color: '#76607A' }} />
+                <Legend wrapperStyle={{ fontSize: '11px', color: cc.muted }} />
               </PieChart>
             </ResponsiveContainer>
           ) : (

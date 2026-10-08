@@ -132,7 +132,7 @@ export function DateRangeCalendar({ start, end, onChange, onClose }: Props) {
                 'h-8 rounded-md text-xs font-semibold transition tabular-nums',
                 isEdge
                   // El naranja del Explorer para el día elegido, no el azul de Chrome.
-                  ? 'bg-accent text-white'
+                  ? 'bg-accent text-on-accent'
                   : between
                     ? 'bg-accent/20 text-text-primary'
                     : future

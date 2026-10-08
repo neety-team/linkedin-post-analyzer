@@ -1,4 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { useChartColors } from '../theme';
 
 interface StructureData {
   structure: string;
@@ -37,9 +38,10 @@ const structureLabels: Record<string, string> = {
   other: 'Otra',
 };
 
-const COLORS = ['#1E9160', '#E66A1B', '#7E3AA8', '#7C5CD6', '#B07510', '#C73B3B', '#4F52D9', '#0A66C2', '#C2408A', '#B4531A', '#2FA866', '#6B6EE6', '#0E8FA8', '#B8930A', '#A15CD6', '#76607A', '#13998A', '#B83FC4', '#7A6B7B'];
 
 export default function StructureChart({ data }: Props) {
+  const cc = useChartColors();
+  const COLORS = [cc.hue.green, cc.hue.orange, cc.hue.plum, cc.hue.violet, cc.hue.amber, cc.hue.red, cc.hue.indigo, cc.hue.sky, cc.hue.pink, cc.hue.rust, cc.hue.lime, cc.hue.periwinkle, cc.hue.cyan, cc.hue.yellow, cc.hue.purple, cc.hue.slate, cc.hue.teal, cc.hue.magenta, cc.hue.grey];
   const chartData = data
     .filter((d) => d.count >= 1)
     .map((d, i) => ({
@@ -56,21 +58,21 @@ export default function StructureChart({ data }: Props) {
       <p className="text-text-muted text-xs mb-4">Multiplicador medio de outlier (Xx) según la estructura</p>
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={chartData} layout="vertical" margin={{ top: 0, right: 10, bottom: 0, left: 100 }}>
-          <XAxis type="number" tick={{ fill: '#76607A', fontSize: 11 }} tickLine={false} axisLine={{ stroke: '#E6E0E3' }} />
+          <XAxis type="number" tick={{ fill: cc.muted, fontSize: 11 }} tickLine={false} axisLine={{ stroke: cc.tooltipBorder }} />
           <YAxis
             type="category"
             dataKey="name"
-            tick={{ fill: '#76607A', fontSize: 11 }}
+            tick={{ fill: cc.muted, fontSize: 11 }}
             tickLine={false}
-            axisLine={{ stroke: '#E6E0E3' }}
+            axisLine={{ stroke: cc.tooltipBorder }}
             width={100}
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: '#FFFFFF',
-              border: '1px solid #E6E0E3',
+              backgroundColor: cc.tooltipBg,
+              border: `1px solid ${cc.tooltipBorder}`,
               borderRadius: '8px',
-              color: '#431B44',
+              color: cc.text,
               fontSize: '13px',
             }}
             formatter={(value: any, name: any) => {

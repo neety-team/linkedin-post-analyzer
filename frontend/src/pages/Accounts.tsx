@@ -23,6 +23,7 @@ import {
   aplicarFiltrosTop, recuentosFacetados, filtrosDesdeParams, filtrosAParams, hayFiltrosTop,
   ORDENES_TOP, ENLACE_OPCIONES, SIN_PILAR, SIN_GANCHO, type FiltrosTop, type OrdenTop, type FiltroEnlace,
 } from '../utils/topPostsFiltros';
+import { useChartColors, type ChartColors } from '../theme';
 
 interface ManagedAccount {
   id: string;
@@ -191,10 +192,10 @@ interface LivePost {
 
 const PHASE_META: Record<LivePost['phase'], { label: string; bg: string; text: string; window: string; cadence: string; blurb: string }> = {
   golden:        { label: '🔥 Hora dorada',   bg: 'bg-danger/15',    text: 'text-danger',    window: '0 – 1 h',   cadence: 'cada 15 min', blurb: 'Primera muestra: si engancha, LinkedIn amplía distribución. Ventana que decide si el post prende.' },
-  first_wave:    { label: '🌊 Primera oleada', bg: 'bg-orange-500/15', text: 'text-orange-700', window: '1 – 6 h',   cadence: 'cada 30 min', blurb: 'Segunda oleada. Aquí se ve con claridad si va a ser normal, bueno o viral.' },
-  consolidation: { label: '📈 Consolidación', bg: 'bg-yellow-500/15', text: 'text-yellow-700', window: '6 – 24 h',  cadence: 'cada 2 h',     blurb: 'Se acumula el grueso del alcance. A las 24h suele haber el 60–70% de las impresiones totales.' },
-  long_tail:     { label: '📉 Cola larga',     bg: 'bg-sky-500/15',    text: 'text-sky-700',    window: '24 – 72 h', cadence: 'cada 6 h',     blurb: 'Cola larga fuerte. A 72h ya tienes el 85–90% de las impresiones finales.' },
-  tail:          { label: '🐢 Cola',          bg: 'bg-purple-500/15', text: 'text-purple-700', window: '3 – 7 d',   cadence: 'cada 24 h',    blurb: 'Cola residual, sobre todo comentarios y algún compartido.' },
+  first_wave:    { label: '🌊 Primera oleada', bg: 'bg-orange-500/15', text: 'text-orange-700 dark:text-orange-300', window: '1 – 6 h',   cadence: 'cada 30 min', blurb: 'Segunda oleada. Aquí se ve con claridad si va a ser normal, bueno o viral.' },
+  consolidation: { label: '📈 Consolidación', bg: 'bg-yellow-500/15', text: 'text-yellow-700 dark:text-yellow-300', window: '6 – 24 h',  cadence: 'cada 2 h',     blurb: 'Se acumula el grueso del alcance. A las 24h suele haber el 60–70% de las impresiones totales.' },
+  long_tail:     { label: '📉 Cola larga',     bg: 'bg-sky-500/15',    text: 'text-sky-700 dark:text-sky-300',    window: '24 – 72 h', cadence: 'cada 6 h',     blurb: 'Cola larga fuerte. A 72h ya tienes el 85–90% de las impresiones finales.' },
+  tail:          { label: '🐢 Cola',          bg: 'bg-purple-500/15', text: 'text-purple-700 dark:text-purple-300', window: '3 – 7 d',   cadence: 'cada 24 h',    blurb: 'Cola residual, sobre todo comentarios y algún compartido.' },
   closed:        { label: '✅ Cerrado',       bg: 'bg-bg-secondary',  text: 'text-text-muted', window: '> 7 d',     cadence: 'semanal',       blurb: 'Sin más puntos en la curva, pero los contadores se refrescan cada semana (públicos sin límite de edad, Premium hasta un año): un post que resurge se ve.' },
 };
 
@@ -323,13 +324,13 @@ const FORMAT_LABELS: Record<string, string> = {
   article: 'Artículo',
 };
 
-const CHART_TOOLTIP_STYLE = {
-  backgroundColor: '#FFFFFF',
-  border: '1px solid #E6E0E3',
+const chartTooltipStyle = (cc: ChartColors) => ({
+  backgroundColor: cc.tooltipBg,
+  border: `1px solid ${cc.tooltipBorder}`,
   borderRadius: '8px',
-  color: '#431B44',
+  color: cc.text,
   fontSize: '12px',
-};
+});
 
 // Cifra ENTERA con separador de miles en punto (2.036.300). Es el formato por
 // defecto en tarjetas KPI, tabla y métricas de cada post: un número completo
@@ -480,7 +481,7 @@ function MetricaVisto({ post }: { post: PostPremium }) {
     );
   }
   const nivel = nivelVisto(pct, dur);
-  const color = nivel === 'objetivo' ? 'font-medium text-amber-700' : nivel === 'bueno' ? 'text-emerald-700' : '';
+  const color = nivel === 'objetivo' ? 'font-medium text-amber-700 dark:text-amber-300' : nivel === 'bueno' ? 'text-emerald-700 dark:text-emerald-300' : '';
   const titulo =
     `Porcentaje medio visto: de media se ven ${post.video_avg_watch_s} s de los ${Math.round(dur)} s del vídeo. ` +
     `Verde desde el 80%; ámbar desde el objetivo para su duración (${objetivoVisto(dur)}%). ` +
@@ -522,7 +523,7 @@ function FranjaPremium({ post }: { post: PostPremium }) {
     );
   } else {
     enlace = (
-      <span className="inline-flex items-center gap-1 font-medium text-amber-700" title={`Clics en el enlace${post.link_url ? ` → ${post.link_url}` : ''}`}>
+      <span className="inline-flex items-center gap-1 font-medium text-amber-700 dark:text-amber-300" title={`Clics en el enlace${post.link_url ? ` → ${post.link_url}` : ''}`}>
         <MetricIcon d={ICON_LINK} /> {fmtNum(post.link_clicks_count)}
       </span>
     );
@@ -550,10 +551,10 @@ function FranjaPremium({ post }: { post: PostPremium }) {
       {leida && (
         <>
           {sep}
-          <span className="text-emerald-700/80" title="Seguidores ganados con este post (LinkedIn Premium)">
+          <span className="text-success/90" title="Seguidores ganados con este post (LinkedIn Premium)">
             +{fmtNum(post.followers_gained_count ?? 0)} seguidores
           </span>
-          <span className="text-emerald-700" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
+          <span className="text-data" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
             {fmtNum(post.profile_viewers_count ?? 0)} visitas al perfil
           </span>
         </>
@@ -1652,7 +1653,6 @@ function AccountsInner() {
               ? 'Impresiones recibidas cada mes: cifras diarias de LinkedIn de las cuentas conectadas (cuentas manuales: estimadas), todas las cuentas propias'
               : 'Impresiones recibidas cada mes: cifras diarias de LinkedIn (esta cuenta)'}
             unit="impresiones"
-            color="#E66A1B"
           />
 
           {/* Follower growth — net new followers per day */}
@@ -1683,7 +1683,6 @@ function AccountsInner() {
               ? 'Seguidores nuevos cada mes: cifras diarias de LinkedIn de las cuentas conectadas, todas las cuentas propias'
               : 'Seguidores nuevos cada mes: cifras diarias de LinkedIn (esta cuenta)'}
             unit="seguidores"
-            color="#1E9160"
             signed
           />
 
@@ -1751,7 +1750,7 @@ function AccountsInner() {
                                     comparar todavia. */}
                                 {a.is_manual && (
                                   <span
-                                    className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 text-[10px] font-medium"
+                                    className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 text-[10px] font-medium"
                                     title="Cuenta no conectada a Unipile: sus posts se añaden a mano y las impresiones las escribe el usuario."
                                   >
                                     manual
@@ -2017,6 +2016,7 @@ function fmtPublishedAt(iso: string): string {
 // Shared snapshot chart — works for any post with captured data (live or historical).
 // Fetches `/api/accounts/posts/:id/snapshots` lazily; auto-refreshes every 2 min while live.
 function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; publishedAt: string; autoRefresh?: boolean }) {
+  const cc = useChartColors();
   const [zoomMax, setZoomMax] = useState<number | null>(null);
   const { data, loading, refetch } = useApi<SnapshotsResponse>(`/api/accounts/posts/${postId}/snapshots`);
   // Cuenta sin Unipile conectado: las impresiones solo existen donde alguien
@@ -2176,8 +2176,8 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     dataKey: 'ageMin' as const,
     type: 'number' as const,
     domain: [0, 'dataMax'] as [number, string],
-    tick: { fill: '#76607A', fontSize: 11 },
-    axisLine: { stroke: '#E6E0E3' },
+    tick: { fill: cc.muted, fontSize: 11 },
+    axisLine: { stroke: cc.grid },
     tickFormatter: (v: number) => (v < 60 ? `${v} min` : `${(v / 60).toFixed(0)} h`),
   };
 
@@ -2242,13 +2242,13 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
           <div>
             <div className="flex items-center justify-between mb-1.5 flex-wrap gap-2">
               <p className="text-[11px] text-text-muted">
-                <span className="text-linkedin font-semibold">Impresiones</span> · este post frente a las impresiones típicas a la misma edad
+                <span className="text-data font-semibold">Impresiones</span> · este post frente a las impresiones típicas a la misma edad
               </p>
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
-                  <span className="w-3 h-[2px] bg-linkedin" /> este post
+                  <span className="w-3 h-[2px] bg-data" /> este post
                 </span>
-                {isManualPost && manualDotChip('#0A66C2', 'lectura manual · la línea entre puntos = estimación')}
+                {isManualPost && manualDotChip(cc.data, 'lectura manual · la línea entre puntos = estimación')}
                 {typicalBandChip('impresiones', hasImpOverlap)}
               </div>
             </div>
@@ -2261,28 +2261,28 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
               <ComposedChart data={curveData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                 <defs>
                   <linearGradient id={`liveImp-${postId}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0A66C2" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#0A66C2" stopOpacity={0} />
+                    <stop offset="0%" stopColor={cc.data} stopOpacity={0.3} />
+                    <stop offset="100%" stopColor={cc.data} stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
+                <CartesianGrid strokeDasharray="3 3" stroke={cc.grid} />
                 <XAxis {...xAxisProps} />
-                <YAxis tick={{ fill: '#0A66C2', fontSize: 11 }} axisLine={{ stroke: '#E6E0E3' }} tickFormatter={(v) => fmtCompact(Number(v))} />
+                <YAxis tick={{ fill: cc.data, fontSize: 11 }} axisLine={{ stroke: cc.grid }} tickFormatter={(v) => fmtCompact(Number(v))} />
                 <Tooltip
-                  contentStyle={CHART_TOOLTIP_STYLE}
+                  contentStyle={chartTooltipStyle(cc)}
                   content={({ active, payload }: any) => {
                     if (!active || !payload || payload.length === 0) return null;
                     const p = payload[0].payload;
                     return (
-                      <div style={CHART_TOOLTIP_STYLE} className="p-2">
+                      <div style={chartTooltipStyle(cc)} className="p-2">
                         <div className="text-text-secondary text-[11px] mb-1">+{p.label} desde la publicación</div>
                         {p.manualSnapshot && <div className="text-text-muted text-[10px] mb-1">● lectura manual</div>}
                         {p.impressions != null && !p.impressionsEstimated && (
-                          <div className="text-linkedin text-xs">👁️ {fmtNum(p.impressions)} impresiones</div>
+                          <div className="text-data text-xs">👁️ {fmtNum(p.impressions)} impresiones</div>
                         )}
                         {p.impressions != null && p.impressionsEstimated && (
                           <>
-                            <div className="text-linkedin text-xs">👁️ ≈ {fmtNum(p.impressions)} impresiones</div>
+                            <div className="text-data text-xs">👁️ ≈ {fmtNum(p.impressions)} impresiones</div>
                             <div className="text-text-muted text-[10px]">estimación entre dos lecturas</div>
                           </>
                         )}
@@ -2290,7 +2290,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                           <div className="text-text-muted text-[11px]">👁️ aquí no hay lectura de impresiones</div>
                         )}
                         {p.typicalImpRange && (
-                          <div className="text-slate-700 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
+                          <div className="text-slate-700 dark:text-slate-300 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
                             Típico a esta edad ({p.typicalImpSampleCount} post{p.typicalImpSampleCount === 1 ? '' : 's'}):<br />
                             👁️ {fmtNum(p.typicalImpRange[0])}–{fmtNum(p.typicalImpRange[1])}
                           </div>
@@ -2303,9 +2303,9 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                   <ReferenceLine
                     key={ref.x}
                     x={ref.x}
-                    stroke="#7A6B7B"
+                    stroke={cc.refLine}
                     strokeDasharray="2 2"
-                    label={{ value: ref.label, fill: '#9A8A9B', fontSize: 10, position: 'top' }}
+                    label={{ value: ref.label, fill: cc.faint, fontSize: 10, position: 'top' }}
                   />
                 ))}
                 {hasImpOverlap && (
@@ -2313,7 +2313,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     type="monotone"
                     dataKey="typicalImpRange"
                     stroke="none"
-                    fill="#8A7A8B"
+                    fill={cc.faint}
                     fillOpacity={0.22}
                     connectNulls
                     activeDot={false}
@@ -2323,11 +2323,11 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <Area
                   type="monotone"
                   dataKey="impressions"
-                  stroke="#0A66C2"
+                  stroke={cc.data}
                   strokeWidth={2}
                   fill={`url(#liveImp-${postId})`}
                   connectNulls
-                  dot={isManualPost ? manualDot('#0A66C2', 'impressions') : false}
+                  dot={isManualPost ? manualDot(cc.data, 'impressions') : false}
                   isAnimationActive={false}
                 />
               </ComposedChart>
@@ -2345,7 +2345,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
                   <span className="w-3 h-[2px] bg-accent" /> este post
                 </span>
-                {isManualPost && manualDotChip('#E66A1B', 'lectura manual')}
+                {isManualPost && manualDotChip(cc.engagement, 'lectura manual')}
                 {typicalBandChip('interacciones', hasEngOverlap)}
               </div>
             </div>
@@ -2353,20 +2353,20 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
               <ComposedChart data={curveData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                 <defs>
                   <linearGradient id={`liveEng-${postId}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#E66A1B" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#E66A1B" stopOpacity={0} />
+                    <stop offset="0%" stopColor={cc.engagement} stopOpacity={0.3} />
+                    <stop offset="100%" stopColor={cc.engagement} stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
+                <CartesianGrid strokeDasharray="3 3" stroke={cc.grid} />
                 <XAxis {...xAxisProps} />
-                <YAxis tick={{ fill: '#E66A1B', fontSize: 11 }} axisLine={{ stroke: '#E6E0E3' }} tickFormatter={(v) => fmtCompact(Number(v))} />
+                <YAxis tick={{ fill: cc.engagement, fontSize: 11 }} axisLine={{ stroke: cc.grid }} tickFormatter={(v) => fmtCompact(Number(v))} />
                 <Tooltip
-                  contentStyle={CHART_TOOLTIP_STYLE}
+                  contentStyle={chartTooltipStyle(cc)}
                   content={({ active, payload }: any) => {
                     if (!active || !payload || payload.length === 0) return null;
                     const p = payload[0].payload;
                     return (
-                      <div style={CHART_TOOLTIP_STYLE} className="p-2">
+                      <div style={chartTooltipStyle(cc)} className="p-2">
                         <div className="text-text-secondary text-[11px] mb-1">+{p.label} desde la publicación</div>
                         {p.manualSnapshot && <div className="text-text-muted text-[10px] mb-1">● lectura manual</div>}
                         {p.engagement == null ? (
@@ -2385,7 +2385,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                           </>
                         )}
                         {p.typicalEngRange && (
-                          <div className="text-slate-700 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
+                          <div className="text-slate-700 dark:text-slate-300 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
                             Típico a esta edad ({p.typicalEngSampleCount} post{p.typicalEngSampleCount === 1 ? '' : 's'}):<br />
                             {fmtNum(p.typicalEngRange[0])}–{fmtNum(p.typicalEngRange[1])}
                           </div>
@@ -2398,9 +2398,9 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                   <ReferenceLine
                     key={ref.x}
                     x={ref.x}
-                    stroke="#7A6B7B"
+                    stroke={cc.refLine}
                     strokeDasharray="2 2"
-                    label={{ value: ref.label, fill: '#9A8A9B', fontSize: 10, position: 'top' }}
+                    label={{ value: ref.label, fill: cc.faint, fontSize: 10, position: 'top' }}
                   />
                 ))}
                 {hasEngOverlap && (
@@ -2408,7 +2408,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     type="monotone"
                     dataKey="typicalEngRange"
                     stroke="none"
-                    fill="#8A7A8B"
+                    fill={cc.faint}
                     fillOpacity={0.22}
                     connectNulls
                     activeDot={false}
@@ -2418,11 +2418,11 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <Area
                   type="monotone"
                   dataKey="engagement"
-                  stroke="#E66A1B"
+                  stroke={cc.engagement}
                   strokeWidth={2}
                   fill={`url(#liveEng-${postId})`}
                   connectNulls
-                  dot={isManualPost ? manualDot('#E66A1B', 'engagement') : false}
+                  dot={isManualPost ? manualDot(cc.engagement, 'engagement') : false}
                   isAnimationActive={false}
                 />
               </ComposedChart>
@@ -2586,7 +2586,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
                   realidad es "nadie lo ha copiado todavia". */}
               {post.creator_is_manual && (
                 <span
-                  className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 text-[10px] font-medium"
+                  className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 text-[10px] font-medium"
                   title="Cuenta no conectada a Unipile. Los contadores públicos se leen solos; las impresiones y los clics los escribes tú."
                 >
                   manual
@@ -2660,7 +2660,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
               <MetricIcon d={ICON_REPOST} /> {fmtNum(post.reposts_count)}
             </span>
             {post.impressions_count != null && (
-              <span className="inline-flex items-center gap-1 text-accent" title="Impresiones">
+              <span className="inline-flex items-center gap-1 text-data" title="Impresiones">
                 <MetricIcon d={ICON_EYE} /> {fmtNum(post.impressions_count)}
               </span>
             )}
@@ -2760,7 +2760,7 @@ function TopPostRow(
               <span>{FORMAT_LABELS[post.content_type] || post.content_type}</span>
               {post.gancho_palanca && (
                 <span
-                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-violet-500/10 text-violet-700 border border-violet-500/20 text-[10px] leading-none"
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-violet-500/10 text-violet-700 dark:text-violet-300 border border-violet-500/20 text-[10px] leading-none"
                   title={post.gancho_motivo || undefined}
                 >
                   {etiquetaGancho(post.gancho_palanca)}
@@ -2784,7 +2784,7 @@ function TopPostRow(
               <PilarSelector postId={post.id} pillar={post.pillar} />
               {ctr != null && (
                 <span
-                  className={`rounded font-semibold tabular-nums bg-amber-500/15 text-amber-700 ${
+                  className={`rounded font-semibold tabular-nums bg-amber-500/15 text-amber-700 dark:text-amber-300 ${
                     destacar === 'ctr'
                       ? 'px-2.5 py-1 text-sm ring-1 ring-amber-500/40'
                       : 'px-2 py-0.5 text-xs'
@@ -2839,7 +2839,7 @@ function TopPostRow(
               <MetricIcon d={ICON_REPOST} /> {fmtNum(post.reposts_count)}
             </span>
             {post.impressions_count != null && (
-              <span className="inline-flex items-center gap-1 text-accent/80" title="Impresiones">
+              <span className="inline-flex items-center gap-1 text-data/80" title="Impresiones">
                 <MetricIcon d={ICON_EYE} /> {fmtNum(post.impressions_count)}
               </span>
             )}
@@ -2899,6 +2899,7 @@ function fmtX(n: number | null): string {
 const GANCHO_POCOS_DATOS = 3;
 
 function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (clave: string) => void }) {
+  const cc = useChartColors();
   const datos = ganchos.map((g) => {
     const pocos = g.count < GANCHO_POCOS_DATOS;
     return {
@@ -2915,7 +2916,7 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
     return (
       <text
         x={x} y={y} dy={4} textAnchor="end" fontSize={12}
-        fill={fila?.pocos ? '#B5A9B4' : '#76607A'}
+        fill={fila?.pocos ? cc.faint : cc.muted}
         style={{ cursor: 'pointer' }}
         onClick={() => fila && onElegir(fila.gancho_palanca)}
       >
@@ -2941,20 +2942,20 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
               type="category"
               dataKey="label"
               tick={<TickGancho />}
-              axisLine={{ stroke: '#E6E0E3' }}
+              axisLine={{ stroke: cc.grid }}
               tickLine={false}
               width={190}
               interval={0}
             />
-            <ReferenceLine x={1} stroke="#C9BFC6" strokeDasharray="3 3" />
+            <ReferenceLine x={1} stroke={cc.refLine} strokeDasharray="3 3" />
             <Tooltip
-              cursor={{ fill: 'rgba(230,106,27,0.07)' }}
+              cursor={{ fill: cc.accentSoft }}
               content={({ active, payload }: any) => {
                 const fila: Fila | undefined = active ? payload?.[0]?.payload : undefined;
                 if (!fila) return null;
                 const que = PALANCAS_GANCHO[fila.gancho_palanca]?.que_hace;
                 return (
-                  <div style={{ ...CHART_TOOLTIP_STYLE, padding: '8px 10px', maxWidth: 320 }}>
+                  <div style={{ ...chartTooltipStyle(cc), padding: '8px 10px', maxWidth: 320 }}>
                     <div className="font-semibold mb-1">
                       {fila.label} · {fmtX(fila.med_ratio)} el post típico
                       {fila.pocos && <span className="font-normal opacity-60"> (pocos datos)</span>}
@@ -2981,7 +2982,7 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
                   if (!fila) return null;
                   const { x, y, width, height } = props;
                   return (
-                    <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2} dy={4} fontSize={11} fill={fila.pocos ? '#B5A9B4' : '#76607A'}>
+                    <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2} dy={4} fontSize={11} fill={fila.pocos ? cc.faint : cc.muted}>
                       {fila.lado}
                     </text>
                   );
@@ -2989,7 +2990,7 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
               }}
             >
               {datos.map((r) => (
-                <Cell key={r.gancho_palanca} fill="#E66A1B" fillOpacity={r.pocos ? 0.3 : 0.9} />
+                <Cell key={r.gancho_palanca} fill={cc.engagement} fillOpacity={r.pocos ? 0.3 : 0.9} />
               ))}
             </Bar>
           </BarChart>

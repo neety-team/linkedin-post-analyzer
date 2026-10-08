@@ -4,6 +4,7 @@ import PostCard from '../components/PostCard';
 import { SkeletonCard } from '../components/Skeleton';
 import OutlierContentTypeChart from '../components/OutlierContentTypeChart';
 import { HOOK_TYPE_LABELS, RITMO_LABELS, etiqueta } from '../utils/etiquetas';
+import { useChartColors } from '../theme';
 
 interface PostExplanation {
   summary: string;
@@ -169,11 +170,6 @@ const contentTypeLabels: Record<string, string> = {
   article: 'Artículo',
 };
 
-const viralityDriverColors: Record<string, string> = {
-  social_currency: '#B07510', controversy: '#C73B3B', identity: '#7C5CD6',
-  belonging: '#0A66C2', utility: '#1E9160', emotion: '#C2408A', aspiration: '#0E8FA8',
-};
-
 const toneLabels: Record<string, { label: string; emoji: string; desc: string }> = {
   urgency: { label: 'Urgencia', emoji: '🔥', desc: 'Prisa, escasez, "hazlo ya"' },
   authority: { label: 'Autoridad', emoji: '👑', desc: 'Experiencia, credenciales, resultados probados' },
@@ -188,16 +184,20 @@ const toneLabels: Record<string, { label: string; emoji: string; desc: string }>
   neutral: { label: 'Neutro', emoji: '📄', desc: 'Equilibrado, informativo' },
 };
 
-const toneColors: Record<string, string> = {
-  urgency: '#C73B3B', authority: '#B07510', social_proof: '#7C5CD6',
-  fomo: '#B4531A', aspirational: '#1E9160', empathy: '#0A66C2',
-  provocative: '#E66A1B', educational: '#4F52D9', vulnerable: '#C2408A',
-  humorous: '#0E8FA8', neutral: '#7A6B7B',
-};
-
 const BASE = import.meta.env.VITE_API_URL || '';
 
 export default function OutlierExplorer() {
+  const cc = useChartColors();
+  const viralityDriverColors: Record<string, string> = {
+    social_currency: cc.hue.amber, controversy: cc.hue.red, identity: cc.hue.violet,
+    belonging: cc.hue.sky, utility: cc.hue.green, emotion: cc.hue.pink, aspiration: cc.hue.cyan,
+  };
+  const toneColors: Record<string, string> = {
+    urgency: cc.hue.red, authority: cc.hue.amber, social_proof: cc.hue.violet,
+    fomo: cc.hue.rust, aspirational: cc.hue.green, empathy: cc.hue.sky,
+    provocative: cc.hue.orange, educational: cc.hue.indigo, vulnerable: cc.hue.pink,
+    humorous: cc.hue.cyan, neutral: cc.hue.grey,
+  };
   const { data, loading, error, refetch } = useApi<CrossCreatorData>('/api/analysis/cross-creators');
   const { data: creators } = useApi<Creator[]>('/api/creators');
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -394,8 +394,8 @@ export default function OutlierExplorer() {
                           key={p.phrase}
                           className="px-2.5 py-1 rounded-lg text-xs border"
                           style={{
-                            borderColor: p.overindex > 2 ? '#C55A0E' : '#D8D0D5',
-                            color: p.overindex > 2 ? '#C55A0E' : '#76607A',
+                            borderColor: p.overindex > 2 ? cc.accent : cc.tooltipBorder,
+                            color: p.overindex > 2 ? cc.accent : cc.muted,
                             backgroundColor: p.overindex > 2 ? '#e8935a15' : '#37415115',
                           }}
                           title={`${p.outlier_pct}% de los outliers frente a ${p.normal_pct}% de los normales (${p.overindex}x más frecuente)`}
@@ -556,7 +556,7 @@ export default function OutlierExplorer() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {data.patterns.tone_comparison.map((t) => {
                   const info = toneLabels[t.tone] || { label: t.tone, emoji: '', desc: '' };
-                  const color = toneColors[t.tone] || '#7A6B7B';
+                  const color = toneColors[t.tone] || cc.hue.grey;
                   const maxRatio = Math.max(...data.patterns.tone_comparison.map((x) => x.outlier_avg_ratio || 0), 1);
                   const diff = t.outlier_pct - t.normal_pct;
                   return (
@@ -737,7 +737,7 @@ export default function OutlierExplorer() {
               <button
                 onClick={handleCompare}
                 disabled={selectedIds.length < 2 || comparing}
-                className="px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
+                className="px-4 py-2 bg-accent text-on-accent rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
               >
                 {comparing ? 'Cargando...' : `Comparar ${selectedIds.length} creadores`}
               </button>
@@ -872,8 +872,8 @@ export default function OutlierExplorer() {
                             <span
                               className="ml-auto px-1.5 py-0.5 rounded text-[9px] font-bold"
                               style={{
-                                backgroundColor: (viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#7A6B7B') + '20',
-                                color: viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#7A6B7B',
+                                backgroundColor: (viralityDriverColors[post.ai_explanation.virality_driver.driver] || cc.hue.grey) + '20',
+                                color: viralityDriverColors[post.ai_explanation.virality_driver.driver] || cc.hue.grey,
                               }}
                             >
                               {post.ai_explanation.virality_driver.label}
@@ -906,8 +906,8 @@ export default function OutlierExplorer() {
                                 <span
                                   className="ml-1 px-1.5 py-0.5 rounded font-bold"
                                   style={{
-                                    backgroundColor: (viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#7A6B7B') + '20',
-                                    color: viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#7A6B7B',
+                                    backgroundColor: (viralityDriverColors[post.ai_explanation.virality_driver.driver] || cc.hue.grey) + '20',
+                                    color: viralityDriverColors[post.ai_explanation.virality_driver.driver] || cc.hue.grey,
                                   }}
                                 >
                                   {post.ai_explanation.virality_driver.label}

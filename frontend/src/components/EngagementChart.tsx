@@ -2,6 +2,7 @@ import { useState, useMemo, useRef } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, ResponsiveContainer,
 } from 'recharts';
+import { useChartColors } from '../theme';
 
 interface TimelinePoint {
   published_at: string;
@@ -76,8 +77,6 @@ function PencilIcon({ size = 14, color = '#ffffff' }: { size?: number; color?: s
   );
 }
 
-const PENCIL_BG_NORMAL = '#9A8A9B';
-const PENCIL_BG_OUTLIER = '#7E3AA8';
 
 interface HoverState {
   day: string;
@@ -86,6 +85,7 @@ interface HoverState {
 }
 
 export default function EngagementChart({ data, dailyEngagement }: Props) {
+  const cc = useChartColors();
   const [range, setRange] = useState<Range>('30d');
   const [hover, setHover] = useState<HoverState | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -234,7 +234,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
           <div
             style={{
               display: 'flex',
-              background: '#F1EEE6',
+              background: cc.well,
               borderRadius: 8,
               padding: 2,
               gap: 2,
@@ -251,8 +251,8 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                   fontWeight: 600,
                   border: 'none',
                   cursor: 'pointer',
-                  background: range === r ? '#0A66C2' : 'transparent',
-                  color: range === r ? '#fff' : '#76607A',
+                  background: range === r ? cc.accent : 'transparent',
+                  color: range === r ? cc.onAccent : cc.muted,
                   transition: 'all 0.15s',
                 }}
               >
@@ -269,7 +269,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                   width: 16,
                   height: 16,
                   borderRadius: 3,
-                  background: PENCIL_BG_NORMAL,
+                  background: cc.pencil,
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
@@ -285,7 +285,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                   width: 16,
                   height: 16,
                   borderRadius: 3,
-                  background: PENCIL_BG_OUTLIER,
+                  background: cc.diamond,
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
@@ -330,32 +330,32 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
           <AreaChart data={chartData} margin={CHART_MARGIN}>
             <defs>
               <linearGradient id="engagementFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#7E3AA8" stopOpacity={0.35} />
-                <stop offset="100%" stopColor="#7E3AA8" stopOpacity={0.02} />
+                <stop offset="0%" stopColor={cc.engagement} stopOpacity={0.35} />
+                <stop offset="100%" stopColor={cc.engagement} stopOpacity={0.02} />
               </linearGradient>
             </defs>
             <XAxis
               dataKey="day"
               tickFormatter={formatDayLabel}
-              tick={{ fill: '#76607A', fontSize: 11 }}
+              tick={{ fill: cc.muted, fontSize: 11 }}
               tickLine={false}
-              axisLine={{ stroke: '#E6E0E3' }}
+              axisLine={{ stroke: cc.grid }}
               interval="preserveStartEnd"
               minTickGap={32}
               height={X_AXIS_HEIGHT}
             />
             <YAxis
               width={Y_AXIS_WIDTH}
-              tick={{ fill: '#76607A', fontSize: 11 }}
+              tick={{ fill: cc.muted, fontSize: 11 }}
               tickLine={false}
-              axisLine={{ stroke: '#E6E0E3' }}
+              axisLine={{ stroke: cc.grid }}
             />
             {/* Tooltip component omitted — hover on pencils drives the rich
                 tooltip rendered below (outside Recharts). */}
             <Area
               type="monotone"
               dataKey="engagement_score"
-              stroke="#7E3AA8"
+              stroke={cc.engagement}
               strokeWidth={2}
               fill="url(#engagementFill)"
             />
@@ -392,21 +392,21 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                 top: Math.max(0, hover.y) - 8,
                 transform: 'translateY(-100%)',
                 width: tooltipW,
-                background: '#FFFFFF',
-                border: '1px solid #E6E0E3',
+                background: cc.tooltipBg,
+                border: `1px solid ${cc.tooltipBorder}`,
                 borderRadius: 8,
-                color: '#431B44',
+                color: cc.text,
                 fontSize: 13,
                 padding: 10,
-                boxShadow: '0 6px 20px rgba(67,27,68,0.12)',
+                boxShadow: cc.tooltipShadow,
                 zIndex: 50,
                 pointerEvents: 'auto',
               }}
             >
               <div style={{ fontWeight: 600, marginBottom: 4 }}>{heading}</div>
-              <div style={{ color: '#664767' }}>
+              <div style={{ color: cc.text2 }}>
                 Interacciones:{' '}
-                <span style={{ color: '#431B44', fontWeight: 600 }}>
+                <span style={{ color: cc.text, fontWeight: 600 }}>
                   {d.engagement_score.toLocaleString('es-ES')}
                 </span>
               </div>
@@ -417,17 +417,17 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                   style={{
                     marginTop: 6,
                     paddingTop: 6,
-                    borderTop: '1px solid #E6E0E3',
+                    borderTop: `1px solid ${cc.tooltipBorder}`,
                     fontSize: 12,
                     lineHeight: 1.45,
                   }}
                 >
                   {d.hasPost && (
                     <div>
-                      <span style={{ color: '#76607A' }}>Mejor post: </span>
+                      <span style={{ color: cc.muted }}>Mejor post: </span>
                       <span
                         style={{
-                          color: d.is_outlier ? '#7E3AA8' : '#664767',
+                          color: d.is_outlier ? cc.diamond : cc.text2,
                           fontWeight: 600,
                         }}
                       >
@@ -439,8 +439,8 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                             marginLeft: 6,
                             padding: '1px 5px',
                             borderRadius: 3,
-                            background: 'rgba(126,58,168,0.15)',
-                            color: '#7E3AA8',
+                            background: cc.diamondSoft,
+                            color: cc.diamond,
                             fontSize: 10,
                             fontWeight: 600,
                             letterSpacing: 0.3,
@@ -452,7 +452,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                     </div>
                   )}
                   {d.activePostCount > 0 && (
-                    <div style={{ color: '#76607A', fontSize: 11, marginTop: 2 }}>
+                    <div style={{ color: cc.muted, fontSize: 11, marginTop: 2 }}>
                       {d.activePostCount} {d.activePostCount > 1 ? 'posts activos' : 'post activo'} en la ventana de 7 días
                     </div>
                   )}
@@ -463,8 +463,8 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                   style={{
                     marginTop: 8,
                     padding: 8,
-                    background: '#FAF8F4',
-                    border: '1px solid #E6E0E3',
+                    background: cc.well,
+                    border: `1px solid ${cc.tooltipBorder}`,
                     borderRadius: 6,
                     fontSize: 12,
                   }}
@@ -472,7 +472,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                   {preview ? (
                     <div
                       style={{
-                        color: '#664767',
+                        color: cc.text2,
                         whiteSpace: 'pre-wrap',
                         display: '-webkit-box',
                         WebkitLineClamp: 4,
@@ -486,7 +486,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                     </div>
                   ) : (
                     <div
-                      style={{ color: '#8A7A8B', fontStyle: 'italic', marginBottom: 8 }}
+                      style={{ color: cc.faint, fontStyle: 'italic', marginBottom: 8 }}
                     >
                       (sin vista previa)
                     </div>
@@ -499,7 +499,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                       style={{
                         display: 'inline-block',
                         padding: '4px 10px',
-                        background: '#0A66C2',
+                        background: cc.linkedinSolid,
                         color: '#fff',
                         borderRadius: 4,
                         textDecoration: 'none',
@@ -561,7 +561,7 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
                   width: 18,
                   height: 18,
                   borderRadius: 4,
-                  background: isOut ? PENCIL_BG_OUTLIER : PENCIL_BG_NORMAL,
+                  background: isOut ? cc.diamond : cc.pencil,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import {
   ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
+import { useChartColors } from '../theme';
 
 /* ⭐ COMO LA GRAFICA DE LINKEDIN (Iker, 2026-09-17). Antes pintaba a la vez el
    engagement y las impresiones de los posts PUBLICADOS cada dia (sumados a 7
@@ -87,7 +88,6 @@ interface HoverState {
 // already-windowed data straight to this chart.
 
 // Same colour the Dashboard uses for outliers — keeps the whole app coherent.
-const OUTLIER_COLOR = '#7E3AA8';
 
 // The tooltip + pencil title only need the first name. Full creator
 // names ("Iker Galarza Rodríguez") visually overcrowded the small
@@ -96,8 +96,6 @@ const OUTLIER_COLOR = '#7E3AA8';
 function firstName(name: string): string {
   return (name || '').trim().split(/\s+/)[0] || name;
 }
-const PENCIL_BG_NORMAL = '#9A8A9B';
-const PENCIL_BG_OUTLIER = OUTLIER_COLOR;
 
 // Fixed margins so the pencil strip below can align 1:1 with the plot area.
 const CHART_MARGIN = { top: 10, right: 10, bottom: 8, left: 5 };
@@ -123,8 +121,6 @@ function fmtFull(n: number): string {
   return Math.round(n).toLocaleString('es-ES');
 }
 
-const COLOR_IMP = '#0A66C2';
-const COLOR_ENG = '#E66A1B';
 
 function fmtFullDay(iso: string): string {
   const d = new Date(iso);
@@ -134,6 +130,7 @@ function fmtFullDay(iso: string): string {
 }
 
 function PointTooltip({ active, payload, metrica, modo }: any) {
+  const cc = useChartColors();
   if (!active || !payload || !payload.length) return null;
   const d = payload[0]?.payload;
   if (!d) return null;
@@ -144,22 +141,22 @@ function PointTooltip({ active, payload, metrica, modo }: any) {
   return (
     <div
       style={{
-        background: '#FFFFFF',
-        border: '1px solid #D8D0D5',
+        background: cc.tooltipBg,
+        border: `1px solid ${cc.tooltipBorder}`,
         borderRadius: 8,
-        color: '#431B44',
+        color: cc.text,
         fontSize: 13,
         padding: 10,
-        boxShadow: '0 6px 20px rgba(67,27,68,0.12)',
+        boxShadow: cc.tooltipShadow,
         maxWidth: 240,
       }}
     >
       <div style={{ fontWeight: 600, marginBottom: 6 }}>{heading}</div>
       <MetricRow
-        swatch={metrica === 'impressions' ? COLOR_IMP : COLOR_ENG}
+        swatch={metrica === 'impressions' ? cc.data : cc.engagement}
         label={modo === 'cumulative' ? `${nombre} acumuladas` : nombre}
         value={fmtFull(d.valor)}
-        valueColor="#431B44"
+        valueColor={cc.text}
         sub={modo === 'cumulative' ? `${fmtFull(d.delDia)} ese día` : null}
       />
     </div>
@@ -172,15 +169,16 @@ function PointTooltip({ active, payload, metrica, modo }: any) {
 function MetricRow({
   swatch, label, value, valueColor, sub,
 }: { swatch: string; label: string; value: string; valueColor: string; sub: string | null }) {
+  const cc = useChartColors();
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
         <span style={{ width: 9, height: 2, background: swatch, display: 'inline-block', borderRadius: 1, alignSelf: 'center' }} />
-        <span style={{ color: '#664767', fontSize: 13 }}>{label}:</span>
+        <span style={{ color: cc.text2, fontSize: 13 }}>{label}:</span>
         <span style={{ color: valueColor, fontWeight: 700, fontSize: 15 }}>{value}</span>
       </div>
       {sub && (
-        <div style={{ color: '#76607A', fontSize: 11, marginLeft: 15, marginTop: 1 }}>
+        <div style={{ color: cc.muted, fontSize: 11, marginLeft: 15, marginTop: 1 }}>
           {sub}
         </div>
       )}
@@ -189,6 +187,7 @@ function MetricRow({
 }
 
 export default function AccountsEngagementChart({ data, hasImpressions, previo, xTickInterval, creatorOrder }: Props) {
+  const cc = useChartColors();
   const [hover, setHover] = useState<HoverState | null>(null);
   const [metrica, setMetrica] = useState<Metrica>(hasImpressions ? 'impressions' : 'engagements');
   const [modo, setModo] = useState<Modo>('cumulative');
@@ -217,7 +216,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
   const total = acumulado;
   const totalPrevio = previo ? (metrica === 'impressions' ? previo.impressions : previo.engagement) : 0;
   const variacion = totalPrevio > 0 ? ((total - totalPrevio) / totalPrevio) * 100 : null;
-  const color = metrica === 'impressions' ? COLOR_IMP : COLOR_ENG;
+  const color = metrica === 'impressions' ? cc.data : cc.engagement;
   const boton = (activo: boolean) =>
     `px-2.5 py-1 rounded-full border text-xs transition-colors ${
       activo ? 'border-accent text-accent bg-accent/10' : 'border-border text-text-muted hover:text-text-secondary'
@@ -296,18 +295,18 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
               <stop offset="100%" stopColor={color} stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
+          <CartesianGrid strokeDasharray="3 3" stroke={cc.grid} />
           <XAxis
             dataKey="label"
-            tick={{ fill: '#76607A', fontSize: 11 }}
-            axisLine={{ stroke: '#E6E0E3' }}
+            tick={{ fill: cc.muted, fontSize: 11 }}
+            axisLine={{ stroke: cc.grid }}
             interval={effectiveTickInterval}
           />
           <YAxis
             yAxisId="left"
             width={Y_AXIS_WIDTH}
-            tick={{ fill: '#76607A', fontSize: 11 }}
-            axisLine={{ stroke: '#E6E0E3' }}
+            tick={{ fill: cc.muted, fontSize: 11 }}
+            axisLine={{ stroke: cc.grid }}
             tickFormatter={(v) => fmtNum(Number(v))}
           />
           <Tooltip
@@ -331,7 +330,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
             stroke={color}
             strokeWidth={2.5}
             dot={false}
-            activeDot={{ r: 6, fill: color, stroke: '#FFFFFF', strokeWidth: 2 }}
+            activeDot={{ r: 6, fill: color, stroke: cc.tooltipBg, strokeWidth: 2 }}
             isAnimationActive={false}
           />
         </ComposedChart>
@@ -399,7 +398,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
                     width: 18,
                     height: 18,
                     borderRadius: 4,
-                    background: p.isOutlier ? PENCIL_BG_OUTLIER : PENCIL_BG_NORMAL,
+                    background: p.isOutlier ? cc.diamond : cc.pencil,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -447,13 +446,13 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
               top: Math.max(0, hover.y) - 8,
               transform: 'translateY(-100%)',
               width: tooltipW,
-              background: '#FFFFFF',
-              border: '1px solid #E6E0E3',
+              background: cc.tooltipBg,
+              border: `1px solid ${cc.tooltipBorder}`,
               borderRadius: 8,
-              color: '#431B44',
+              color: cc.text,
               fontSize: 13,
               padding: 10,
-              boxShadow: '0 6px 20px rgba(67,27,68,0.12)',
+              boxShadow: cc.tooltipShadow,
               zIndex: 50,
               pointerEvents: 'auto',
             }}
@@ -464,11 +463,11 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
                 surfaces that author's post and link. */}
             <div style={{ fontWeight: 600, marginBottom: 6 }}>{heading}</div>
             {hoveredPost && hoveredPost.outlierRatio != null && hoveredPost.outlierRatio > 0 && (
-              <div style={{ marginTop: 6, paddingTop: 6, borderTop: '1px solid #E6E0E3', fontSize: 12 }}>
-                <span style={{ color: '#76607A' }}>Este post: </span>
+              <div style={{ marginTop: 6, paddingTop: 6, borderTop: `1px solid ${cc.tooltipBorder}`, fontSize: 12 }}>
+                <span style={{ color: cc.muted }}>Este post: </span>
                 <span
                   style={{
-                    color: hoveredPost.isOutlier ? OUTLIER_COLOR : '#664767',
+                    color: hoveredPost.isOutlier ? cc.diamond : cc.text2,
                     fontWeight: 600,
                   }}
                 >
@@ -480,8 +479,8 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
                       marginLeft: 6,
                       padding: '1px 5px',
                       borderRadius: 3,
-                      background: 'rgba(126,58,168,0.15)',
-                      color: OUTLIER_COLOR,
+                      background: cc.diamondSoft,
+                      color: cc.diamond,
                       fontSize: 10,
                       fontWeight: 600,
                       letterSpacing: 0.3,
@@ -497,8 +496,8 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
                 style={{
                   marginTop: 8,
                   padding: 8,
-                  background: '#FAF8F4',
-                  border: '1px solid #E6E0E3',
+                  background: cc.well,
+                  border: `1px solid ${cc.tooltipBorder}`,
                   borderRadius: 6,
                   fontSize: 12,
                 }}
@@ -506,7 +505,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
                 {hoveredPost.preview ? (
                   <div
                     style={{
-                      color: '#664767',
+                      color: cc.text2,
                       whiteSpace: 'pre-wrap',
                       display: '-webkit-box',
                       WebkitLineClamp: 4,
@@ -519,7 +518,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
                     {hoveredPost.preview}
                   </div>
                 ) : (
-                  <div style={{ color: '#8A7A8B', fontStyle: 'italic', marginBottom: 8 }}>
+                  <div style={{ color: cc.faint, fontStyle: 'italic', marginBottom: 8 }}>
                     (sin vista previa)
                   </div>
                 )}
@@ -531,7 +530,7 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
                     style={{
                       display: 'inline-block',
                       padding: '4px 10px',
-                      background: '#0A66C2',
+                      background: cc.linkedinSolid,
                       color: '#fff',
                       borderRadius: 4,
                       textDecoration: 'none',

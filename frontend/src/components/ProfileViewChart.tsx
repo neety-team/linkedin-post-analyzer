@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   ResponsiveContainer, ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
 } from 'recharts';
+import { useChartColors } from '../theme';
 
 const BASE = import.meta.env.VITE_API_URL || '';
 
@@ -27,7 +28,6 @@ type Vista = 'tendencia' | 'diario';
 
 // A partir de cuantos dias guardados la tendencia oficial dice algo.
 const MIN_DIAS_TENDENCIA = 7;
-const PV_COLOR = '#E66A1B';
 
 function fmtDay(iso: string): string {
   const d = new Date(`${iso}T00:00:00`);
@@ -46,22 +46,24 @@ function fmtFull(n: number): string {
 }
 
 function VisitasTooltip({ active, payload, label, vista }: any) {
+  const cc = useChartColors();
+  const PV_COLOR = cc.linkedin; // visitas al perfil: azul LinkedIn
   if (!active || !payload || !payload.length) return null;
   const n = Number(payload[0]?.value ?? 0);
   return (
     <div
       style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: cc.tooltipBg,
         border: `1px solid ${PV_COLOR}55`,
         borderRadius: 10,
         padding: '8px 12px',
         boxShadow: `0 0 14px ${PV_COLOR}33`,
       }}
     >
-      <div style={{ color: '#76607A', fontSize: 11, marginBottom: 2 }}>{label}</div>
+      <div style={{ color: cc.muted, fontSize: 11, marginBottom: 2 }}>{label}</div>
       <div style={{ color: PV_COLOR, fontSize: 18, fontWeight: 700 }}>
         {vista === 'tendencia' ? fmtFull(n) : `~${fmtFull(n)}`}
-        <span style={{ color: '#76607A', fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
+        <span style={{ color: cc.muted, fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
           {vista === 'tendencia' ? 'visitas al perfil en los últimos 90 días (LinkedIn)' : 'visitas nuevas estimadas ese día'}
         </span>
       </div>
@@ -81,6 +83,8 @@ function VisitasTooltip({ active, payload, label, vista }: any) {
  *    arrastraria ese error y contradiria la cifra oficial.
  */
 export default function ProfileViewChart({ creatorId, startDate, endDate, days, reloadSignal }: Props) {
+  const cc = useChartColors();
+  const PV_COLOR = cc.linkedin; // visitas al perfil: azul LinkedIn
   const [points, setPoints] = useState<Point[] | null>(null);
   const [oficial, setOficial] = useState<PuntoOficial[]>([]);
   const [oficialActual, setOficialActual] = useState<number | null>(null);
@@ -193,21 +197,21 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
       ) : (
         <ResponsiveContainer width="100%" height={220}>
           <ComposedChart data={datos} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
+            <CartesianGrid strokeDasharray="3 3" stroke={cc.grid} />
             <XAxis
               dataKey="label"
-              tick={{ fill: '#76607A', fontSize: 11 }}
-              axisLine={{ stroke: '#E6E0E3' }}
+              tick={{ fill: cc.muted, fontSize: 11 }}
+              axisLine={{ stroke: cc.grid }}
               interval={xTickInterval}
             />
             <YAxis
-              tick={{ fill: '#76607A', fontSize: 11 }}
-              axisLine={{ stroke: '#E6E0E3' }}
+              tick={{ fill: cc.muted, fontSize: 11 }}
+              axisLine={{ stroke: cc.grid }}
               tickFormatter={fmtNum}
               domain={vista === 'tendencia' ? ['auto', 'auto'] : [0, 'auto']}
               allowDecimals={false}
             />
-            <Tooltip content={<VisitasTooltip vista={vista} />} cursor={{ fill: 'rgba(67,27,68,0.05)' }} />
+            <Tooltip content={<VisitasTooltip vista={vista} />} cursor={{ fill: cc.cursor }} />
             {vista === 'tendencia' ? (
               <Line
                 type="monotone"

@@ -28,6 +28,7 @@ import usageRouter from './routes/usage';
 import reactionsRouter from './routes/reactions';
 import { startPostMonitor } from './services/postMonitor';
 import { startAnuncioChat } from './services/anuncioChat';
+import { startAvisoWebinarLuma } from './services/avisoWebinarLuma';
 import { basicAuthMiddleware } from './middleware/basicAuth';
 import rastroRouter from './routes/rastro';
 import gateProxyRouter from './routes/gateProxy';
@@ -118,6 +119,9 @@ runMigrations()
     // Apagado salvo que AUTO_CHAT_ANNOUNCE=1: escribe al chat de toda la
     // empresa y eso no se enciende con un despliegue.
     startAnuncioChat();
+    // Avisa al chat de Growth & Sales de cada inscrito al webinar de Luma.
+    // Apagado salvo que exista LUMA_CHAT_WEBHOOK_URL.
+    startAvisoWebinarLuma();
     // Reprocesa el pilar del historico SOLO si han cambiado las reglas de
     // services/pillar.ts (guarda de version en app_state). No bloquea el
     // arranque y no corre a diario: el disparador es el cambio de reglas.

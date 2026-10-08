@@ -131,7 +131,7 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 |---|---|---|
 | **Unai** (1er jefe, CEO) | ventas **desde el que manda**: el jefe de ventas, el director comercial, el CEO que pide números, el forecast, la reunión de pipeline | Founder o inversión sin ventas dentro |
 | **Iker** (2º jefe, comercial) | ventas **de calle**: llamar, puerta fría, el cliente que no coge, el viaje a ver al cliente. Única cuenta que aguanta el registro bruto (`post-workflow §4.4-STOP`) | — |
-| **Asier** (3er jefe, técnico) | ventas **con lo técnico al lado**: la herramienta, el dato, el producto que el comercial vende. **Y sin pasarse de específico: manda el alcance** (`§2.4`) | Un chiste de programación puro, que ni es de ventas ni lo entiende nuestro lector |
+| **Asier** (3er jefe, técnico) | 🔄 **desde el 08/10, en MEME: ventas UNIVERSAL**, lo que vive cualquier comercial o director comercial (el pedido, el cliente, la competencia, la cuota, el ascenso), **mirado desde fuera**: Asier no vende y no se pone un rol que no tiene (`§2-ASIER-MEME`). ~~ventas con lo técnico al lado: la herramienta, el dato, el producto~~ (5 memes técnicos, mediana 718 imp) | Un chiste de programación o de herramienta que solo pilla quien sabe de software, y cualquier gancho donde él diga que vende, llama o tiene jefe de ventas |
 | **Mario** (marketing) | 🟢 **EXCEPCIÓN: marketing y contenido** | — |
 | **Helena** (customer success) | 🟢 **EXCEPCIÓN: atención al cliente y partnerships** | — |
 
@@ -191,7 +191,7 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 |---|---|---|
 | **Unai** (1er jefe, CEO) | ventas **+ dirección**: levantar dinero, fundadores, inversores, la imagen seria de la empresa y de la marca | Sobrio, cero infantil |
 | **Iker** (2º jefe, comercial) | ventas **+ el comercial de calle** | La única que aguanta el registro bruto |
-| **Asier** (3er jefe, técnico) | ventas **+ ingeniería y programación** (habla con producto, pero no es de producto; no es comercial) | Sobrio, cero infantil |
+| **Asier** (3er jefe, técnico) | ventas **+ ingeniería y programación** (habla con producto, pero no es de producto; no es comercial). ⚠️ En MEME el oficio NO decide la referencia: va ventas universal (`§2-ASIER-MEME`) | Sobrio, cero infantil |
 | **Mario** (marketing) | ventas **+ marketing y contenido** | Ya validado: su meme del 12/08 |
 | **Helena** (customer success) | ventas **+ atención al cliente y partnerships** | Ya validado: su meme del 18/08, de la cantera de Customer Success Collective |
 
@@ -245,6 +245,33 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 > ⚠️ **Nota sobre el ángulo técnico de Asier:** aunque su rol es programación, sus posts **siguen siendo sobre ventas B2B** (misma voz Neety, mismo ICP). Su perfil técnico puede aportar credibilidad cuando el post toca el "cómo está construido por dentro" un sistema de outbound, pero el hook y el cuerpo se anclan en ventas, no en ingeniería. No conviertas sus posts en contenido para AI-builders.
 
 > ⚠️ **Arranque de la cuenta de Asier:** empezó en jul 2026 sin histórico → **el outlier ratio aún NO significa nada** en su cuenta (necesita ~4-6 semanas de posts para que LinkedIn fije una baseline). Durante ese periodo, júzgalo por **consistencia y engagement absoluto**, no por el ratio (que puede salir ~1x aunque el post sea bueno). No descartes un formato en su cuenta por un ratio bajo temprano.
+
+#### 🔄🔄 2-ASIER-MEME · SUS MEMES SON DE VENTAS UNIVERSAL, NO DE LO TÉCNICO, Y EL GANCHO NUNCA LE PONE UN ROL QUE NO TIENE (Iker, 2026-10-08) — CANÓNICO, MANDA SOBRE `§2-CARRIL` EN EL MEME DE ASIER
+
+> **Iker:** *"últimamente todos sus memes son demasiado tecnológicos o no están encajando con nuestra audiencia ideal, que son viejos industriales… creo que el error con este jefe es que especificamos demasiado en los memes que la referencia sea tecnológica de ventas. Con que sea de ventas, pero que él no diga de sí mismo cosas como que él llama, porque él no es comercial"*.
+
+**Y LOS DATOS LE DAN LA RAZÓN, cruzados el 08/10 sobre sus 10 memes publicados (BD, impresiones a hoy):**
+
+| el meme de Asier era… | n | los casos | mediana |
+|---|---|---|---|
+| **de lo TÉCNICO** (la herramienta, la app, el buscador, la IA, la ficha) | 5 | 14 herramientas 420 · código de verificación 196 y 718 · historial de Google 3.751 · la IA y el puesto 766 | **718** |
+| **de ventas UNIVERSAL** (el pedido, el ascenso, el caos, lo que se paga) | 4 | el pedido que encoge por cargos 37.526 · la calvicie del ascenso 132.307 · la inversión de 4.797 € 27.962 · vender es un caos 41.293 | **~39.400** |
+
+- **55 veces más mediana**, y no hay solape: el peor universal (27.962) multiplica por 7 al mejor técnico (3.751). Quitando los dos que salieron con el JPG degradado (22/07 y 31/07, `images §0a-penta`), los técnicos quedan en 718 · 766 · 3.751: la distancia no se mueve.
+- **El cruce entre cuentas lo confirma:** el ángulo de apilar herramientas hizo **165.526 en Unai** y **420 en Asier**. La misma idea técnica que voló en otra cuenta se hunde en la suya. Y las universales viajan en las tres: la calvicie (Iker 138.828 · Asier 132.307) y el caos (Unai 134.692 · Asier 41.293).
+- **⚠️ Lo que no prueba:** que lo técnico no funcione en ninguna cuenta (el informe que resucita clientes de Unai, 193.374, es de la ficha del cliente, pero contado desde el que pide números). Prueba que **en la cuenta de Asier el lector no le compra el chiste de su oficio**. El 03/09 (la herramienta de 4.797 € que nadie usa) toca una herramienta y funcionó, porque se cuenta desde **quien paga la factura**, no desde quien la programa.
+
+**LA VOZ DEL GANCHO, y es la segunda mitad del patrón:**
+- **Sus tres mejores memes llevan el gancho en 3ª persona impersonal**: *En ventas, el pedido encoge…* · *Cada ascenso en ventas cuesta pelo* · *Vender es un caos y punto*. El cuarto (*Mi mayor inversión en ventas…*) va en 1ª, pero en un papel que SÍ es suyo: el socio que paga.
+- **Los que le pusieron un rol que no tiene fallaron:** *Mi historial de Google canta más que **mis ventas*** (3.751) · *Mi **jefe de ventas** me mandó actualizar la ficha* (lo borró él) · *Llevo 13 pestañas abiertas* buscando a quién escribir (718).
+
+**LA REGLA, y son tres cosas a la vez:**
+1. **La referencia: de ventas, del rincón que sea, y la más UNIVERSAL que haya**: la que entiende un director comercial de 55 años que vende maquinaria sin saber nada de software. El pedido que se cae, el cliente que compra a otro, la cuota, el ascenso, el forecast. **Lo técnico solo entra si el chiste se entiende sin saber de software** y, mejor, contado desde quien paga.
+2. **El gancho, nunca en 1ª persona de comercial.** Asier no vende, no llama, no prospecta, no tiene cartera ni cuota ni jefe de ventas. Tres formas que valen: **3ª persona impersonal** (*En ventas…*, *Vender es…*), **vocativo a los comerciales** (*Comerciales, ¿a cuántos…?*: deja claro que les habla desde fuera) o **1ª persona en su papel real** (el que programa para el comercial, el socio que paga).
+3. **En el cuerpo, su `yo` es el del ingeniero** (`§2-CARRIL`, 30/09): *Programo para comerciales*. El comercial y el cliente, en 3ª.
+- **⛔ Lo que NO cambia:** que la referencia sea de ventas (`§2-CARRIL`, 24/08), los vetos de abajo, `--meme-sobrio` y `--comprador-ok`. Y una referencia de llamadas sigue yendo a Iker si la gracia es que el que habla llama: aquí lo que se abre es el rincón, no el narrador.
+- **Mecanizado:** `validar-post.py --cuenta asier` **falla** si el gancho le cuelga un rol comercial en 1ª persona (`mis ventas`, `mi jefe de ventas`, `llamo`, `vendo`, `mi cuota`, `mi cartera`…) y **avisa** si lo hace una línea del cuerpo fuera de una cita. El carril que imprime el aviso de entrega ya dice "ventas universal".
+- **Primer caso: el meme del 08/10** (1up, *we've decided to buy your… competitor's product*, 61% de risa): `Comerciales, ¿a cuántos os han soltado esto? 👇`.
 
 #### ⛔⛔⛔ 2-ASIER-VETOS · LO QUE NO ENTRA NUNCA EN LA CUENTA DEL TERCER JEFE (Iker, 2026-08-26 y 2026-08-27) — CANÓNICO
 

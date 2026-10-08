@@ -1545,6 +1545,31 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'mano" paso a "me pillo con el tripode montado en el salon" — misma escena, mismo '
         'verbo, 11 caracteres menos y sin presumir', aviso=True)
 
+    # 🧑‍💻 ASIER NO VENDE (Iker, 2026-10-08, aboutme §2-ASIER-MEME y post-workflow
+    # §4.4-ROL). Es programador: no llama, no prospecta, no tiene cartera ni cuota ni
+    # jefe de ventas. Sus memes con ese rol fallaron: "Mi historial de Google canta mas
+    # que mis ventas" (3.751) y "Mi jefe de ventas me mando..." (lo borro el). Sus tres
+    # mejores van en 3a persona impersonal. Gancho: fallo duro. Cuerpo: aviso, porque
+    # una historia suya puede decir "llame a Unai" sin vender nada, y las citas
+    # (entre comillas) son la voz de otro.
+    if (cuenta or '').strip().lower() == 'asier':
+        _ROL_1P = (r'\b(vendo|vend[ií]|vendemos|llamo|llam[eé]|prospecto|prospect[eé]|'
+                   r'mis ventas|mi cuota|mi cartera|mis clientes|mi cliente|mi jefe de ventas|'
+                   r'mi director comercial|mi comisi[oó]n|mis comisiones|mi pipeline|mi forecast|'
+                   r'mis visitas|mi zona de ventas|mis pedidos)\b')
+        _rol_h = re.search(_ROL_1P, hook_txt, re.I)
+        chk(not _rol_h, 'ASIER: el gancho no le pone un rol COMERCIAL que no tiene (aboutme §2-ASIER-MEME)',
+            (f'"{_rol_h.group(0)}": Asier programa, no vende. El gancho va en 3a persona '
+             '("En ventas, el pedido encoge..."), en vocativo a los comerciales ("Comerciales, '
+             '¿a cuantos...?") o en su papel real (el que programa para el comercial, el socio '
+             'que paga)') if _rol_h else '')
+        _rol_c = [l.strip() for l in cuerpo.split('\n')[1:]
+                  if l.strip() and '"' not in l and '«' not in l and re.search(_ROL_1P, l, re.I)]
+        chk(not _rol_c, 'ASIER: el cuerpo no le cuelga un rol comercial en 1a persona (aboutme §2-ASIER-MEME)',
+            ('; '.join(_rol_c[:3]) + ' -> si es Asier hablando de si mismo, su yo es el del '
+             'ingeniero ("Programo para comerciales"); el comercial y el cliente, en 3a')
+            if _rol_c else '', aviso=True)
+
     # brand-voice §3b — LA CITA SE PUNTUA COMO LA ESCRIBIO QUIEN LA DIJO. La coma
     # del vocativo ("Hola, soy Iker") es CORRECTA en español y por eso se cuela:
     # dentro de una cita la vara no es la gramatica, es la verosimilitud. Un crio
@@ -4523,7 +4548,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     _CARRIL = {
         'unai': 'ventas DESDE EL QUE MANDA (jefe de ventas, director comercial, el CEO que pide numeros, el forecast, la reunion de pipeline). Sobrio, cero infantil',
         'iker': 'ventas DE CALLE (llamar, puerta fria, el cliente que no coge, el viaje a ver al cliente). La unica que aguanta el registro bruto',
-        'asier': 'ventas CON LO TECNICO AL LADO (la herramienta, el dato, el producto que el comercial vende), y sin pasarse de especifico: manda el alcance. NO vale un chiste de programacion puro',
+        'asier': 'ventas UNIVERSAL mirado desde fuera (el pedido, el cliente que compra a otro, la cuota, el ascenso: lo que entiende un director comercial de 55 sin saber de software). Desde el 08/10 ya NO lo tecnico: sus 5 memes tecnicos dan 718 imp de mediana y sus 4 universales ~39.400 (aboutme §2-ASIER-MEME). Y el gancho NUNCA en 1a persona de comercial: 3a impersonal, vocativo a los comerciales o su papel real (programa para ellos)',
         'mario': 'EXCEPCION: aqui la referencia SI puede ser de MARKETING Y CONTENIDO',
         'helena': 'EXCEPCION: aqui la referencia SI puede ser de ATENCION AL CLIENTE Y PARTNERSHIPS',
         'angela': 'EXCEPCION (por analogia, pendiente de OK): aqui la referencia SI puede ser de DISENO DE PRODUCTO (pantallas, experiencia de usuario)',

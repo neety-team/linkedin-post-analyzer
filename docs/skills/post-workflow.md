@@ -1113,6 +1113,8 @@ hemos gastado. Lo nuevo hay que ir a buscarlo.
 
 > ### 📉📉 4.4-PASO-0c · LA CANTERA DE PROGRAMACIÓN NO DA RISA, Y ESO CAMBIA CÓMO SE BUSCA PARA EL TERCER JEFE (medido el 2026-08-19)
 >
+> > **🔄 SUPERADA EL 2026-10-08 (Iker, con datos): el meme de Asier ya NO se busca en el carril técnico.** Sus 5 memes técnicos dan 718 de mediana y sus 4 de ventas universal ~39.400 (`aboutme §2-ASIER-MEME`). **Para Asier se busca en la misma cantera de ventas que para los demás** (1up, Mundorf, Dachi, Luke Ross, `#saleshumor`/`#salesmemes`) y se elige la referencia **más universal** que pase los filtros; lo que cambia es la voz del gancho, no la cantera. Lo de abajo queda como historia de cómo se llegó.
+>
 > **Buscando la referencia del carril de Asier** (`aboutme §2-CARRIL`: ventas + programación) se barrieron **~900 posts en 5 tandas y 4 vías** — keywords de ventas, keywords de desarrollo, feeds de fábricas de memes y capturas de tuit. **Resultado: en el carril de programación no hay una sola referencia que pase nuestro listón.**
 >
 > | referencia dev | reacciones | % de risa | risas absolutas |
@@ -1351,7 +1353,7 @@ sorprende, que es de lo que vive este pilar.
 >
 > **La lista de abajo estaba ordenada por preferencia y el punto 3 abría la puerta a memes de otro sector. Esa puerta se cierra en los tres jefes.** Iker: *"siempre las referencias tienen que ser ya las originales, aunque estén en otro idioma, siempre de ventas"*. Solo **Mario** (marketing) y **Helena** (atención al cliente) son excepción, cada uno con su mundo.
 > - **Lo que se conserva del punto 3:** que el dolor sea **psicológico y universal** sigue siendo el criterio para elegir **dentro** de la cantera de ventas, no un permiso para salir de ella.
-> - **Y el rincón de ventas lo decide la cuenta** (`aboutme §2-CARRIL`): Unai desde el que manda, Iker de calle, Asier con lo técnico al lado sin pasarse de específico.
+> - **Y el rincón de ventas lo decide la cuenta** (`aboutme §2-CARRIL`): Unai desde el que manda, Iker de calle, ~~Asier con lo técnico al lado sin pasarse de específico~~ → **🔄 Asier, desde el 08/10, ventas UNIVERSAL mirado desde fuera, y su gancho nunca en 1ª persona de comercial** (`aboutme §2-ASIER-MEME`: sus 5 memes técnicos, mediana 718 imp; sus 4 universales, ~39.400).
 > - **Se comprueba en el HEADLINE del autor**, no en si el chiste se puede llevar a ventas.
 > - **El caso que lo motiva:** el meme de la búsqueda de Google de Asier (20/08) hizo **3.010 imp · 0.32x** con una referencia que era meme pero no de ventas.
 >

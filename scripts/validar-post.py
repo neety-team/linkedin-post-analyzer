@@ -2732,6 +2732,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 # preguntas para cumplir el 650 y Iker: "siempre tiene que ser
                 # despues del valor". Con lista, el 650 no manda: manda el valor.
                 _pos_link = cuerpo.find(_dom650)
+                # 2026-10-08: el mapa no enlaza a agendar sino a su pagina (ultra ninja):
+                # sin esto el enlace salia en -1 y el check tumbaba un mapa con el enlace
+                # bien puesto detras de las menciones. Se mide el enlace que haya.
+                if _pos_link < 0:
+                    _m_link = re.search(r'https?://(?:recursos\.neety\.com|neety\.com|luma\.com|forward\.neety\.com)\S*', cuerpo)
+                    _pos_link = _m_link.start() if _m_link else -1
                 _items = [m.start() for m in re.finditer(r'(?m)^(?:\d+[.)]\s|→)', cuerpo)]
                 _ult_item = max(_items) if _items else -1
                 chk(not _items or _pos_link > _ult_item,

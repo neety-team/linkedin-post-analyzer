@@ -290,6 +290,17 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Eco declarado** | `doble` y `avión` (Asier 07/10): núcleo del dato y de la ficha de Binter Technic, se quedan |
 | ⏳ | publicado: hora y enlace (de la BD) · **quemadas al publicar**: concepto `terraza del atl`, verbo `mandan de`, frase-rabia `y a la tumbona`, país `jamaica` (Iker), arranques `desde`/`alli` · regenerar `menciones-usadas.json` · Canarias a la cobertura de Iker · a los 3-4 días: impresiones contra Álava (29.392) y CLM (39.507), y **CTR de la línea sola** contra Extremadura (bloque de 2, 0,419%) para el A/B de forma |
 
+## ✅ PUBLICADO · JUE 08/10 ~15:15 · UNAI · HISTORIA + VÍDEO: RESUMEN DE NEETY FORWARD (webinar, `luma.com/7hhyx07z`)
+
+| dato | |
+|---|---|
+| **Post** | texto de Unai pulido de formato y gancho (`feedback revisión de post ajeno`) · vídeo `NEETY FORWARD/Resumen Evento.mp4` (72 s, productora) · 1.567 car (decidido por Unai, su texto entero) · validador 68/69 (solo longitud) · hora y enlace exactos `[PENDIENTE · leer de la BD al traer posts]` |
+| **Capado y resubida** | 1ª versión con `automatizar` (gancho `…no es automatizar más`, ninja `Automatizar es escribir a miles que no van a comprar.`): sin aparecer a los 20+ min, ~20 imp, borrada. 2ª con `lanzar más mensajes`: **en relevantes a los 28 min**. Lectura en `global §9.3d` (no prueba que fuera la palabra) |
+| **Gancho** | `Defendimos ante más de 100 personas que el futuro de las ventas no es lanzar más mensajes 👇` · Unai eligió el original y pidió PLURAL (`Defendí` le sonaba egocéntrico, `brand-voice §1b`) |
+| **Ninja → webinar** | `El miércoles 28 lo contamos online y gratis.` / `Lanzar mensajes a miles que no comprarán es fácil.` / `Cuáles sí comprarían, te lo enseñamos nosotros:` · UTM `utm_source=historia-resumenforward-08oct-unai` · **dolor: ACIERTO, no volumen** (`global §4.4b-ROTACION`, primer ninja de ese dolor en la ronda del A/B) · 1er post de la casa con el enlace del webinar |
+| **Pilar** | historia · rama A (propia, en plural) · no regional · real |
+| ⏳ | a los 3-4 días: clics, CTR e **inscritos al webinar por `utm_source`** en Luma; reproducciones y % visto del vídeo (el 30/09 fue 76%); comparar con su vídeo del 30/09 (4.021 imp, 7 clics) |
+
 ## ✅ PUBLICADO · MIÉ 07/10 15:28 · ASIER · "LAS 10" DE **LA RIOJA** (1ª vez para las 3 cuentas · `/solicitar-demo`)
 
 | dato | |

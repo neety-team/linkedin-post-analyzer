@@ -2924,6 +2924,14 @@ Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran 
 | ✅ probadas el 29/09 | `móvil`, `teléfono` | libres |
 - **Mecanizado:** fallo duro en `validar-post.py` (`Sin "LinkedIn" en el texto`), fuera de las URLs y salvo `--historico`.
 
+### 🟠 9.3d · QUINTO CASO DE RETRASO (08/10, Unai): `automatizar` QUEDA EN OBSERVACIÓN, NO VETADA
+
+Historia con vídeo del resumen de Neety Forward, primer post de la casa con el enlace del webinar (`luma.com/7hhyx07z` con UTM). **1ª versión** con `automatizar` en gancho, tesis y ninja: a los 20+ min sin aparecer en relevantes, ~20 impresiones, y se borró (sin llegar al minuto 30). **2ª versión**, un solo cambio (`automatizar` → `lanzar más mensajes`): **apareció en relevantes a los 28 min.**
+- **Lo que NO prueba:** que la culpable fuera `automatizar`. La 2ª tardó lo mismo que los cuatro retrasos anteriores (15, 18, 20, 27 min), y a la 1ª no se le dieron los 30 min (`§9.0`). Cuadra igual con la cola de revisión del enlace nuevo (`§9.0b`), y con vídeo.
+- **Lo que sí sabemos de la palabra:** 19 posts nuestros la llevan sin ningún capado, dos de ellos en el gancho (2.895 y 1.144 imp).
+- **Iker cree que fue `automatizar`** (*"tiene sentido"*). Queda **en observación**: si un segundo post con ella se queda sin aparecer pasados los 30 min, entra en la lista de capadas. Mientras, **en el gancho de una historia con enlace nuevo, mejor sin ella**: el recambio no cuesta nada.
+- **Hipótesis mía, sin medir:** la psicología común de `automatizar` y `mensajes a miles` es el envío masivo, que es lo que la plataforma persigue en las herramientas de automatización.
+
 ### ⛔ 9.3c · RESUBIR EL MISMO TEXTO VARIAS VECES EN UNA HORA NO DIAGNOSTICA NADA (30/09, historia de Iker)
 
 Cuatro versiones de la misma historia en ~1 h, cada una con UNA palabra distinta en el gancho, y **ninguna salió en el feed**. A partir de la 2ª ya no se estaba probando una palabra: se estaba subiendo **el mismo texto otra vez** desde una cuenta que acababa de borrar (y en un momento con **dos casi iguales vivas a la vez**, que el buscador de LinkedIn devolvía juntas). *Hipótesis, sin medir: duplicado + enfriamiento de la cuenta.* El barrido de las palabras sospechosas (`alarma`, `software`, `estreno`, `primicia`) en posts de la última semana las encontró todas en posts que reparten.

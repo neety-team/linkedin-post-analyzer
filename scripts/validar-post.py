@@ -281,6 +281,12 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'lanzar mensajes a miles que no comprarán': '2026-10-08 historia-video de Unai 08/10 (resumen de Neety Forward, webinar), la linea 1 del ninja',
+    'lanzar mensajes a miles que no compraran': '2026-10-08 historia-video de Unai 08/10, sin tilde',
+    'cuáles sí comprarían, te lo enseñamos nosotros': '2026-10-08 historia-video de Unai 08/10, la linea 2 del ninja',
+    'cuales si comprarian, te lo enseñamos nosotros': '2026-10-08 historia-video de Unai 08/10, sin tilde',
+    'el miércoles 28 lo contamos online y gratis': '2026-10-08 historia-video de Unai 08/10, la linea de contexto del webinar',
+    'el miercoles 28 lo contamos online y gratis': '2026-10-08 historia-video de Unai 08/10, sin tilde',
     'ninguna charla te dice a quién llamar': '2026-10-07 meme de Iker 07/10 (el leon que dimite), la linea 1 del ninja',
     'ninguna charla te dice a quien llamar': '2026-10-07 meme de Iker 07/10, sin tilde',
     'eso sí te lo damos, hasta con nombre y cargo': '2026-10-07 meme de Iker 07/10, la linea 2 del ninja',

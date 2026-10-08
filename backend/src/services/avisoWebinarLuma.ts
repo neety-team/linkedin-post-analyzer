@@ -1,10 +1,11 @@
 // RECUENTO DIARIO DE INSCRITOS DEL WEBINAR AL CHAT DE GROWTH & SALES (Iker, 2026-10-08)
 //
 // QUE HACE: de lunes a viernes, a las 9:00, lee UNA vez el contador publico de Luma
-// y manda al chat una linea: "📊 Recuento webinar · N inscritos (+X) · faltan D
-// dias". Iker: "con que lo lea una vez al dia, suficiente… no vamos a tener una
-// afluencia que te cagas" (el presencial llego a ~80 en mes y medio). Fin de semana
-// no, que no se trabaja (feedback revision semana siguiente).
+// y, SOLO SI HA SUBIDO desde el ultimo recuento, manda al chat una linea:
+// "📊 Recuento webinar · N inscritos (+X) · faltan D dias". Iker: "con que lo lea una
+// vez al dia, suficiente… no vamos a tener una afluencia que te cagas" (el presencial
+// llego a ~80 en mes y medio). Un aviso por inscrito se descarto por ruido (Iker y el
+// segundo jefe, 08/10). Fin de semana no, que no se trabaja.
 //
 // POR QUE NO UN AVISO POR INSCRITO: el webhook "Guest Registered" de Luma (y su API y
 // Zapier) son solo de Luma Plus, y la cuenta es gratuita. El contador publico
@@ -70,7 +71,7 @@ export function componerRecuento(ev: Evento, previo: number | null, hoy: string)
   const cuando = n <= 0 ? 'es hoy' : n === 1 ? 'es mañana' : `faltan ${n} días`;
   // Una linea, con el molde de los avisos de la web («🧲 Nuevo lead · origen»). Sin el
   // nombre del webinar ni el enlace: el chat es interno y ya saben cual es (Iker, 08/10).
-  const subida = previo === null ? '' : ev.inscritos > previo ? ` (+${ev.inscritos - previo})` : ' · sin altas nuevas';
+  const subida = previo === null ? '' : ` (+${ev.inscritos - previo})`;
   return `📊 Recuento webinar · *${ev.inscritos} inscritos*${subida} · ${cuando}`;
 }
 
@@ -86,7 +87,10 @@ async function pase(webhook: string): Promise<void> {
   const previo = await leerEstado(CLAVE_CIFRA);
   await guardarEstado(CLAVE_DIA, ahora.fecha);
   await guardarEstado(CLAVE_CIFRA, String(ev.inscritos));
-  await sendToGoogleChat(webhook, componerRecuento(ev, previo === null ? null : Number(previo), ahora.fecha));
+  // Solo se avisa si ha subido (Iker, 08/10). El primer dia, si ya hay alguno.
+  const antes = previo === null ? 0 : Number(previo);
+  if (ev.inscritos <= antes) return;
+  await sendToGoogleChat(webhook, componerRecuento(ev, previo === null ? null : antes, ahora.fecha));
 }
 
 export function startAvisoWebinarLuma() {

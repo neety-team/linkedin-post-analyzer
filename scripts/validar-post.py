@@ -1204,7 +1204,7 @@ def eco_reciente(cuerpo, dias=14, hoy=None):
 DOLORES_NINJA = [
     # El evento va primero: es otra PUERTA (Luma), no otro dolor, y sus ninjas
     # tambien dicen "nombres" o "quien compra" (la sala de los que deciden).
-    ('evento (la sala)', r'\bsala\b|plazas|sillas|huecos|invitados|80 sitios|80 nombres|el 24 de septiembre'),
+    ('evento (la sala)', r'\bsala\b|plazas|sillas|huecos|invitados|80 sitios|80 nombres|el 24 de septiembre|mi[eé]rcoles 28|28 de octubre|online y gratis'),
     ('acierto (pocas que encajan, no listas de miles)', r'encaj|miles|pocas|acierta|acertar|volumen|limpiar|sobran|no valen|que valen'),
     ('tu confirmas (nada sale sin el comercial)', r'confirm|apruebas|validas|sin que tu comercial|t[uú] decides'),
     ('buscar contra contactar', r'buscar|buscando|contactar'),
@@ -2829,7 +2829,37 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 # exigirle la palabra "quien compra" es pedirle que mienta sobre lo que
                 # hay al otro lado del clic. Se le pide su propia promesa: sala, plazas,
                 # sitio o fecha.
-                if _es_evento:
+                # 🖥️ WEBINAR DEL 28/10 (Iker, 2026-10-08, global §4.4b-WEBINAR). Mismo
+                # dominio (Luma) y OTRO motor: es online, gratis y sin aforo, asi que no
+                # hay sala que vender ni escasez que contar. Promete lo que se ensena
+                # (encontrar las empresas, gratis con LinkedIn, los prompts) y la linea
+                # de encima dice cuando, online y gratis. Caduca el 28/10/2026.
+                _webinar = '7hhyx07z' in cuerpo
+                if _es_evento and _webinar and datetime.date.today() <= datetime.date(2026, 10, 28):
+                    _iden = True
+                    _esc = re.search(r'plazas|aforo|\bsala\b|sillas|[uú]ltim[oa]s|se acaba|quedan', _blo)
+                    chk(not _esc, 'WEBINAR: el ninja no vende escasez (§4.4b-WEBINAR)',
+                        ('"%s": el webinar es online, gratis y sin limite de plazas. La escasez '
+                         'seria falsa y ademas sube la barrera que queremos bajar. Se promete lo '
+                         'que te llevas (a quien venderle, gratis con LinkedIn, los prompts)'
+                         % _esc.group(0)) if _esc else '')
+                    _prev = ' '.join(bs[i - 1]).lower() if i > 0 else ''
+                    _f = re.search(r'\b28\b|mi[eé]rcoles', _prev)
+                    _on = re.search(r'online|en directo|desde (tu|el|la|casa)|pantalla|videollamada', _prev)
+                    _gr = re.search(r'gratis|gratuit|sin pagar|no cuesta', _prev)
+                    _falta = [n for n, v in (('la fecha (miercoles 28)', _f), ('que es online', _on),
+                                             ('que es gratis', _gr)) if not v]
+                    chk(not _falta,
+                        'WEBINAR: la linea de ENCIMA dice cuando, que es online y que es gratis (§4.4b-WEBINAR)',
+                        ('falta %s en la linea individual que va justo encima del bloque del '
+                         'enlace. El webinar es NUEVO: antes de pedir el clic se dice que el '
+                         'miercoles 28 hay una sesion online y gratis. Linea de encima: "%s"'
+                         % (' y '.join(_falta), _prev[:90])) if _falta else 'linea de contexto puesta')
+                    _web = re.search(r'webinar', _prev + ' ' + _blo)
+                    chk(not _web, 'WEBINAR: sin la palabra webinar en el ninja (§4.4b-WEBINAR, brand-voice §2.3)',
+                        'anglicismo que encoge la audiencia: "sesion online", "charla online" '
+                        'o "te lo ensenamos en directo"' if _web else '', aviso=True)
+                elif _es_evento:
                     _sala = re.search(r'sala|plaza|sitio|silla|aforo|septiembre|donostia|mesa',
                                       _blo)
                     chk(bool(_sala), 'Spam ninja de EVENTO: promete LA SALA, no la agenda (§4.4b)',

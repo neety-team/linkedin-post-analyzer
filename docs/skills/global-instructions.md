@@ -1770,6 +1770,39 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 **Mecanizado** en `validar-post.py` como aviso de entrega (`ENTREGA: la linea del enlace se lee SOLA`), que canta los sustantivos huecos que encuentre (`el nombre`, `esa parte`, `esa lista`, `ese trabajo`…) sin complemento detrás. **Va de aviso y no de fallo duro** porque saber qué sustantivo pide complemento es criterio, y una lista cerrada tumbaría ninjas buenos.
 
+#### 🖥️🖥️ 4.4b-WEBINAR · DEL 08/10 AL 28/10 EL NINJA VA AL WEBINAR, Y SU MOTOR NO ES EL DEL PRESENCIAL (Iker, 2026-10-08) — CADUCA EL 28/10
+
+> **Iker:** *"vamos a cambiar a partir de ahora el spam ninja hasta la fecha del evento… al ser online abrimos el público objetivo muchísimo más, bajamos al máximo la barrera de entrada. Ahora cualquiera puede acudir"*.
+
+**Los datos (leídos de la API de Luma el 08/10, `curl -s "https://api.lu.ma/url?url=7hhyx07z"`):** `Cómo detectar con IA los clientes que tardas meses en encontrar` · **miércoles 28 de octubre, 10:00-11:00 hora de España** (30 min más preguntas) · **online por Google Meet** · **gratis, sin aprobación y sin aforo** · `https://luma.com/7hhyx07z`. El contenido es la escalera de la descripción: gratis con LinkedIn, con Claude y poco presupuesto, con Neety.
+
+**Lo que se hereda del presencial tal cual:**
+- **La puerta: Luma en la mayoría, no en la totalidad** (`§4.4e`, 16/09). De vez en cuando un post va a `/solicitar-demo` si su dolor es palabra por palabra el de agendar.
+- **El evento viaja DENTRO de un pilar que ya es outlier**, nunca en un post que va del evento (`§4.4b-EVENTO-EXPLICITO`: 23 clics y 0 inscritos). Los que más inscritos trajeron en septiembre: meme (7), historia (5), Los 10 (4).
+- **UTM con la identidad en `utm_source`** (`§4.4b-UTM`, Luma solo lee ese): `?utm_source={pilar}-{tema}-{ddmes}-{cuenta}&utm_medium=post&utm_campaign={pilar}-{tema}-{ddmes}&utm_content={cuenta}`.
+- **Una línea de contexto ENCIMA del bloque de dos**, con su verbo rotando (`§4.4b-EVENTO-CONTEXTO`), la fecha concreta con el día de la semana (`§4.4b-EVENTO-FECHA`: `el miércoles 28`, nunca `la semana que viene`) y sin imperativos de urgencia.
+- **La línea del enlace dice quién lo hace**: `te lo enseñamos`, `nosotros` (`feedback ninja dice quién`).
+
+**Lo que CAMBIA, y es el motor:**
+| | presencial (septiembre) | webinar (octubre) |
+|---|---|---|
+| dolor | FOMO: la sala, quién está dentro, plazas | **el dolor de agendar** (a quién vender), que esta sesión SÍ resuelve |
+| promesa del ninja | la sala | **lo que te llevas**: cuáles te comprarían, gratis con LinkedIn, los prompts |
+| escasez | sí, sin cifra (`§2.3d`) | ⛔ **nunca**: no hay aforo, sería falsa y sube la barrera que queremos bajar |
+| línea de encima | 24 · Donostia · presencial | **miércoles 28 · online · gratis** |
+| la palabra del formato | evento presencial | `sesión online`, `charla online`, `en directo`; ⛔ `webinar` (anglicismo que estrecha, `brand-voice §2.3`) |
+
+- **⛔ Lo que no se promete sigue en `§4.4b-MUNICIÓN`**: ni automatismo, ni volumen, ni la señal. Que la sesión sea gratis no cambia lo que puede decir Neety.
+- **El formulario de Luma (08/10):** nombre completo y email obligatorios, empresa y cargo opcionales, sin teléfono, casilla de comunicaciones aparte, opcional y desmarcada (`Quiero lo nuevo antes que nadie, por correo.`, la misma de la web), y la política de privacidad obligatoria. **Solo los que marcan la casilla pasan al segmento de Brevo** (`feedback un clic no es consentimiento`); al resto solo le llegan los correos del propio evento.
+
+```
+✅ El miércoles 28 lo enseñamos en una sesión online y gratis.        ← línea individual
+   Una lista de 4.000 la saca cualquiera con un filtro.              ← bloque de dos, intacto
+   Cuáles te comprarían, te lo enseñamos nosotros: {link}
+```
+
+**Mecanizado** en `validar-post.py` cuando el enlace lleva `7hhyx07z`: fallo duro si la línea de encima no dice fecha, online y gratis, fallo duro si el bloque vende escasez, y aviso si sale `webinar`. Sustituye para este enlace al check de la sala del presencial. ⏳ **Caduca solo el 28/10/2026**; ese día esta sección se borra.
+
 #### 🗓️🗓️ 4.4b-EVENTO-CONTEXTO · EL NINJA DEL EVENTO LLEVA UNA LÍNEA DE CONTEXTO ENCIMA (Iker, 2026-08-27) — GLOBAL, Y CADUCA EL 24/09
 
 > **Iker, y lo sube a receta global porque lleva fallando en todos:** *"siempre que hacemos el spam de la web del evento, falta una línea antes de ese bloque de dos en el que explícitamente digamos que el día tal en Donostia vamos a hacer un evento presencial. Los bloques de spam de las otras casuísticas de otros enlaces siempre los haces bien, pero este fallas, porque es nuevo"*.

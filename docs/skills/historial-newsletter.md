@@ -1463,3 +1463,6 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
 - **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7, borrador)
 - Asier: sin estrenar
+
+### 🚫 Bajas a mano
+- **2026-10-08 · `gorka@easoventures.com`** (inscrito del evento, listas 16 y 18), a petición de Iker. Hecho con `emailBlacklisted: true` en Brevo, **sin borrar el contacto**: así no se le vuelve a escribir aunque alguien lo reimporte. No está en el CRM (la cohorte del evento vive solo en Brevo), así que no hay sync que lo devuelva.

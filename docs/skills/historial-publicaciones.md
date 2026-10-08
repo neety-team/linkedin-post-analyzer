@@ -250,6 +250,13 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 - **⏳ PENDIENTE:** diseñar `PLANTILLA MAQUINARIA.psd` (engranaje, 12 huecos transparentes, 1254×1254, misma franja y paleta que la llanta v2) y probarla con `montar-llanta.py`.
 - **⚠️ Prueba con corte:** 3 peloteos por semana es más densidad que nunca. Si la mediana de los peloteos de las 2 primeras semanas baja de 8.000 impresiones, se vuelve a 1-2 por semana (`post-workflow §8.2`).
 
+## 👥 OTRAS CUENTAS (compañeros, `working-preferences §0c-VOZ`) · ISMAEL (Sales Consultant)
+
+| fecha | estado | qué | números (BD) |
+|---|---|---|---|
+| **lun 05/10 ~13:00** | ✅ **PUBLICADO** | historia del director comercial que "se conocía a todos" · **su texto**, revisado de gancho y formato · gancho `Un director comercial me soltó una frase que no me esperaba y le contesté con una lista 😏` · ninja `Una lista de empresas no te dice quién decide dentro.` / `Eso sí te lo damos nosotros:` → `/solicitar-demo` (**1er post de la casa a la web nueva**), UTM `historia-lista-05oct` · `ismael`, enlace en el car ~803 · 1.369 car | **19.227 imp · 37 clics (0,19%) · 29 likes · 10 com · 6 reposts · 10 guardados · 14 envíos** (BD, 08/10). Cuenta nueva que no publicaba; con la capa manual de las 5 cuentas |
+| **jue 08/10** | 📝 **ENTREGADO** | "las 4 preguntas para saber si tienes un ICP o un censo" · **su texto** · formato fuera de pilar (listado de preguntas) · gancho propuesto `Cuatro preguntas separan un cliente ideal de un censo y la tercera no la escribe casi nadie 📋` · su "escríbeme, 20 minutos" pasa a ninja → `/solicitar-demo`, UTM `icp-censo-08oct` · `ismael` | ⏳ hora, enlace y números de la BD al publicarse |
+
 ## 📝 ENTREGADO · JUE 08/10 · IKER · MAPA DE **CANARIAS** (1ª vez para las 3 cuentas · enlace al blog de neety.com)
 
 | dato | |

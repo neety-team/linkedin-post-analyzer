@@ -184,9 +184,11 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 
 **Dónde aplica, y por eso es global:** cualquier pilar que mañana cambie de imagen o de soporte (un despiece de otro sector, una tarjeta de un meme, un vídeo de un mapa) arrastra la receta del pilar del que sale.
 
-## ✍️✍️ 0c-VOZ · EL BORRADOR DE UN PERFIL QUE NO ES DE LOS 3 JEFES SE PULE CON SU VOZ, NO CON LA NUESTRA (Iker, 2026-10-05) — GLOBAL
+## ✍️✍️ 0c-VOZ · PLAN OTRAS CUENTAS: EL BORRADOR DE UN COMPAÑERO SE PULE CON SU VOZ, NO CON LA NUESTRA (Iker, 2026-10-05 · ampliado 08/10) — GLOBAL
 
-**Cuándo aplica:** Iker pasa un post YA ESCRITO por alguien que no es Iker, Unai ni Asier (un empleado nuevo, un perfil que acaba de empezar) para retocarlo. Primer caso: Ismael, Sales Consultant, historia del director comercial que "se conocía a todos" (05/10). El precedente: la chica de producto reescribió varias veces el gancho que le pulimos porque *"no sonaba a ella"*.
+**A QUIÉN APLICA (Iker, 08/10):** a las cuentas de los **compañeros** que no son ni los 3 jefes ni marketing: hoy **Ismael** (Sales Consultant), **Helena** y **Angela** (Product Designer), y a cualquier trabajador que se sume. **Fuera: Iker, Unai, Asier y Mario** (marketing), que van con la receta entera. Iker: *"son compañeros de trabajo que tampoco van a querer hablar como habla un jefe públicamente en LinkedIn. Por eso me pasan un borrador"*.
+
+**Cuándo aplica:** Iker pasa un post YA ESCRITO por uno de ellos para retocarlo. Primer caso: Ismael, Sales Consultant, historia del director comercial que "se conocía a todos" (05/10). El precedente: la chica de producto reescribió varias veces el gancho que le pulimos porque *"no sonaba a ella"*.
 
 **Iker, literal:** *"que siempre intente respetar, si es un borrador que me ha pasado esa persona, su manera de escribir, sus muletillas, sus frases"*.
 
@@ -194,8 +196,16 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 - **Lo que se RESPETA aunque choque con la casa:** sus frases, sus muletillas (*"no te hago el rollo entero, que para eso ya está la web"*), los números en letra, las líneas largas, el cierre en pregunta, la longitud. Se toca solo lo que estorba la lectura (un párrafo con tres datos pasa a bloque, un golpe enterrado sale a línea suelta).
 - **Para recortar, se quita lo redundante, no lo suyo:** primero la frase que repite una idea ya dicha, luego el dato secundario. Sus giros se quedan.
 - **No se verifican sus datos ni sus menciones** (`feedback-revision-post-ajeno-solo-lo-pedido`).
-- **Validador:** `--voz-ajena` (y `--cuenta <Nombre>`). Pasa a AVISO los checks de formato de la casa y deja duros el gancho, la puntuación, la ilegalidad, el ninja y el UTM. **Falla si se usa con Iker, Unai o Asier.**
+- **Validador:** `--voz-ajena` (y `--cuenta <Nombre>`). Pasa a AVISO los checks de formato de la casa y deja duros el gancho, la puntuación, la ilegalidad, el ninja y el UTM. **Falla si se usa con Iker, Unai, Asier o Mario.**
 - **Si Iker pide además "cómo quedaría en una cuenta de los jefes"**, esa segunda versión va con la receta entera y sin `--voz-ajena`.
+- **El gancho manda.** Es lo único que se trabaja a fondo, con 3-5 alternativas y una recomendada. El cuerpo puede quedar lejos de lo que sabemos que funciona y no pasa nada: Iker, 08/10, sobre el post de Ismael del 05/10: *"no fuimos en el cuerpo totalmente fiel a lo que sabemos que funciona, pero da igual. Son excepciones"*.
+- **Lleva spam ninja** (lo pidió Iker para Ismael el 05/10), a la puerta de agendar de la web nueva con UTM y `utm_content=<nombre>`. **Si el borrador ya trae su propio CTA** ("escríbeme", "te cuento por privado"), se convierte en el ninja en vez de sumarle otro: una sola puerta (`global §4.4e-UNA`). Se dice en la entrega.
+- **Lo que se cambia SIN preguntar, aunque sea su voz, y se dice fuera del bloque:** la señal de ilegalidad, una frase que deje mal a la casa (`feedback-nunca-dejar-mal-a-la-casa`) y el detalle del proceso interno de Neety que no se cuenta en público (`project-flujo-herramienta-privado`).
+- **Viñetas `*` o `-` del borrador pasan a `→` o a números** (LinkedIn no renderiza markdown y el asterisco se ve). Si el cierre pregunta "¿cuál de las cuatro…?", van numeradas para que se pueda contestar con un número.
+- **Formato que no es un pilar nuestro** (un listado de preguntas, un consejo): se valida con el pilar más cercano y `--voz-ajena`, y se avisa de que los fallos propios de ese pilar no aplican. No se le exige la puerta de `post-workflow §4.1-GANCHO` (las 10 variantes): el cuerpo ya existe y es suyo.
+- **La foto** se le recuerda siempre: selfie con el móvil en la mano y sonrisa amplia, cuadrada, nunca una captura de datos.
+- **Se anota en `historial-publicaciones`**, sección "OTRAS CUENTAS", con el resultado de la BD (el creador de Ismael ya está en la herramienta).
+- **Precedente medido (n=1, no es doctrina):** la historia de Ismael del 05/10, en su voz, 1.369 car y el ninja en el carácter ~803, hizo **19.227 impresiones, 37 clics (0,19%), 10 comentarios, 14 envíos y 10 guardados**, en una cuenta nueva que nunca publicaba. Con la capa manual de las 5 cuentas (`§1e-PREDICCION`).
 
 ## ⭐ 0c · MIS DEDUCCIONES NO ENTRAN EN LAS RECETAS SIN QUE IKER LAS APRUEBE (Iker, 2026-07-27)
 

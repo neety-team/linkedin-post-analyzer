@@ -4638,7 +4638,7 @@ def main():
                          '(longitud, ritmo, bloques, cifras en letra, cierre en pregunta o leccion, '
                          'dos puntos) pasan a AVISO. Siguen duros el gancho, la puntuacion anti-IA '
                          '(guion largo, coma antes de "y"), la senal de ilegalidad, el spam ninja y el '
-                         'UTM. Nunca en una cuenta de Iker, Unai o Asier.')
+                         'UTM. Nunca en una cuenta de Iker, Unai, Asier o Mario.')
     ap.add_argument('--generico', action='store_true',
                     help='Lead magnet modelo GENÉRICO (Martín Arosa/Guillermo): una palabra igual para '
                          'todos + recurso genérico + landing que captura. Salta el check del 2º dato.')
@@ -4689,10 +4689,10 @@ def main():
     # nuevo manda SU forma de escribir. La chica de producto reescribio varias
     # veces el gancho que le pulimos porque "no sonaba a ella". El FORMATO de la
     # casa pasa a aviso; lo que protege el alcance, la marca o la ley sigue duro.
-    if a.voz_ajena and (a.cuenta or '').strip().lower() in ('iker', 'unai', 'asier'):
-        res.insert(0, (False, '--voz-ajena NO vale en las cuentas de los 3 jefes',
+    if a.voz_ajena and (a.cuenta or '').strip().lower() in ('iker', 'unai', 'asier', 'mario'):
+        res.insert(0, (False, '--voz-ajena NO vale en las cuentas de los 3 jefes ni en la de Mario',
                        'Es para el borrador de un perfil nuevo (Ismael, la chica de producto...). '
-                       'En Iker, Unai y Asier el formato de la casa es obligatorio.', False))
+                       'En Iker, Unai, Asier y Mario (marketing) el formato de la casa es obligatorio.', False))
     elif a.voz_ajena:
         _FORMATO = ('Al menos un bloque de DOS', 'Bloques de 2-3 en escalera',
                     'Bloques de prosa', 'Cierre punchy de UNA linea', 'Cifras en digito',

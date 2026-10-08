@@ -1258,6 +1258,45 @@ def ninjas_recientes(dias=21, hoy=None):
     return sorted(out, key=lambda r: r[1], reverse=True)
 
 
+# 🗺️ MAPA DE CAPADOS POR PSICOLOGIA (Iker, 2026-10-08, global §9.6). Cada familia
+# sale de un caso REAL nuestro; las palabras de la lista son sus VECINAS: misma
+# psicologia, sin caso propio. Las probadas ya tienen su check (LinkedIn, comenta,
+# conecta, transcribo, robar, automatizar); esto caza a las primas, que es lo que
+# yo proponia de recambio sin darme cuenta. AVISO: el corpus dice que varias
+# reparten, pero en el GANCHO y junto a un enlace nuevo no se juega.
+CAPADO_FAMILIAS = [
+    ('CEBO DE INTERACCION (caso: Comenta "X" 06-07/08, conecta conmigo 18/08)',
+     'pedir una accion a cambio de algo: la plataforma lo lee como manipular el reparto',
+     r'(etiqueta a|menciona a|comparte si|dale (a )?like|reacciona con|guarda (esto|este)|s[ií]gueme|activa la campana|'
+     r'te lo (mando|paso|env[ií]o) por (privado|dm|mensaje)|escr[ií]beme (por )?(privado|un dm)|deja (un|tu) comentario|link en (los )?comentarios)'),
+    ('NOMBRAR LA PLATAFORMA (caso: LinkedIn 29/09, "el algoritmo de LinkedIn" 27/09)',
+     'hablar del sistema que reparte: se lee como truco para el algoritmo',
+     r'(el feed\b|esta red( social)?|redes sociales|hack\w*|viraliz\w+|engagement|alcance org[aá]nico)'),
+    ('AUTOMATIZACION Y ENVIO MASIVO (caso: automatizar 08/10)',
+     'herramientas que escriben solas y en masa: lo que la plataforma persigue',
+     r'(autom[aá]tic\w*|piloto autom|\bbots?\b|en masa|masiv\w+|scrap\w*|extraer (datos|contactos|correos|emails)|invitaciones a (miles|cientos))'),
+    ('DATOS O CONVERSACIONES DE TERCEROS (caso: la transcribo 19/08)',
+     'reclamar en primera persona que tenemos datos o palabras de alguien que no nos los dio',
+     r'(\besp[ií](o|é|amos|ar|ando|aba)\b|espionaje|(saco|sacamos|consigo|conseguimos|tengo|tenemos) (su|el|sus) (email|correo|tel[eé]fono|m[oó]vil|datos)|datos personales|base de datos de personas)'),
+    ('DELITO, VIOLENCIA O SUCESO (caso: nos entraron a robar 30/09)',
+     'afirmar un delito o un acto violento, sufrido o cometido',
+     r'(fraude|ilegal\w*|\barmas\b|\bdispar(ar|o|os|amos|an|é|ó|aba)\b|pistola|bomba|amenaz\w+|polic[ií]a)'),
+    ('SORTEO O CHOLLO (lead magnets de agosto: regalo, la peor mediana medida)',
+     'la familia de la estafa: algo gratis a cambio de una accion',
+     r'(\bregal[oa]\w*|sorteo|chollo|solo hoy|premio gratis)'),
+]
+
+def riesgo_capado(texto):
+    """[(familia, porque, [lineas])] con las vecinas que aparecen, sin URLs."""
+    limpio = re.sub(r'https?://\S+', ' ', texto)
+    out = []
+    for fam, porque, rx in CAPADO_FAMILIAS:
+        lin = [l.strip()[:60] for l in limpio.split('\n') if re.search(rx, l, re.I)]
+        if lin:
+            out.append((fam, porque, lin))
+    return out
+
+
 def puerta_agendar(texto):
     # 2026-09-28 (Iker): la puerta de agendar se muda a la web nueva,
     # https://neety.com/solicitar-demo (reserva de 30 min con Iker, buscador en
@@ -1619,6 +1658,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             ('lineas: %s. El 08/10 un post con la palabra no salio en 40 min y la '
              'resubida sin ella (lanzar mas mensajes) salio a los 28. n=1: con un segundo '
              'caso pasa a fallo duro' % [l.strip()[:50] for l in _aut]) if _aut else '', aviso=True)
+        # 🗺️ global §9.6: las VECINAS de los capados, por psicologia (aviso).
+        _rc = riesgo_capado(cuerpo)
+        _rc_hook = riesgo_capado(hook_txt)
+        chk(not _rc, 'Sin palabras VECINAS de un capado, por psicologia (§9.6)',
+            ' · '.join('%s%s: %s (%s)' % ('EN EL GANCHO · ' if any(f == r[0] for r in _rc_hook) else '',
+                                         f, l, p) for f, p, l in _rc) +
+            ('' if not _rc else ' -> si la palabra no es el nucleo de la escena, se cambia por una '
+             'de otra familia. Y NUNCA se propone una vecina como recambio de una capada'),
+            aviso=True)
         # §9.3b: `algoritmo` PROBADA el 29/09 (meme de Mario, en el gancho, en
         # "Primero los mas relevantes" de otra cuenta al minuto 3). Se queda de AVISO
         # porque Mario lo pidio (29/09): "en el futuro ponme avisos de cuidado", y

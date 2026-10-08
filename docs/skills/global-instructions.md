@@ -2933,6 +2933,37 @@ Historia con vídeo del resumen de Neety Forward, primer post de la casa con el 
 - *Hipótesis mía, sin medir:* la psicología es el envío masivo automatizado, que es lo que la plataforma persigue en las herramientas de automatización. `mensajes a miles` va en la misma línea y salió, así que lo que dispara parece la palabra, no la idea.
 - **Mecanizado:** aviso en `validar-post.py` (`Sin "automatizar"`). Con un segundo caso pasa a fallo duro.
 
+### 🗺️🗺️ 9.6 · EL MAPA DE CAPADOS POR PSICOLOGÍA: CADA CASO, POR QUÉ, Y SUS VECINAS (Iker, 2026-10-08) — CANÓNICO
+
+> **Iker:** *"mejora tu validador de bloqueos analizando bien la psicología en detalle de por qué crees que en cada caso nos han bloqueado, y para nunca sugerirme palabras del estilo"*. El fallo que lo motiva: para sustituir `automatizar` propuse `mandar mensajes a miles` y `disparar`, que eran primas de la misma familia o de otra con riesgo.
+
+**La lectura de fondo es de Iker (`§9.3`):** nos capan cuando **forzamos el reparto** o cuando el texto da **indicios de riesgo para las personas**. Todo lo de abajo cuelga de esas dos ramas.
+
+| # | caso real | qué llevaba | la psicología (cómo lo lee la plataforma) | familia |
+|---|---|---|---|---|
+| 1 | lead magnets 06 y 07/08 (67 y 19 imp) | `Comenta "X"` + `Hoy regalo los 5…` | pedir una acción a cambio de algo gratis = manipular el reparto | **cebo de interacción** + **sorteo o chollo** |
+| 2 | lead magnet 18/08 | `conecta conmigo` | pedir conexión a cambio = engordar la red artificialmente | **cebo de interacción** |
+| 3 | meme 19/08 (133 imp) | `La transcribo` | reclamar en primera persona la conversación de un tercero | **datos de terceros** |
+| 4 | meme 29/09 (45 imp, y Mario 27/09: `el algoritmo de LinkedIn`) | `LinkedIn` en gancho y ninja | hablar de la plataforma que reparte = truco para el algoritmo | **nombrar la plataforma** |
+| 5 | historia 30/09 (44 imp) | `Nos entraron a robar` | afirmar un delito sufrido | **delito o suceso** |
+| 6 | historia+vídeo 08/10 (+40 min sin salir) | `automatizar` | herramientas que escriben solas y en masa, lo que la plataforma persigue | **automatización y envío masivo** |
+
+**LAS VECINAS (misma psicología, sin caso propio). No se proponen nunca como recambio:**
+- **Cebo de interacción:** etiqueta a, menciona a, comparte si, dale like, guarda esto, sígueme, te lo mando por privado, escríbeme por privado, deja tu comentario, link en comentarios.
+- **Nombrar la plataforma:** el feed, esta red, redes sociales, hackear, viralizar, engagement, alcance orgánico. ⚠️ **`el feed` y `esta red` estaban apuntados como recambios de `LinkedIn` (`brand-voice §2c`) y son de la misma familia.** El único recambio probado es `el móvil`.
+- **Automatización y envío masivo:** automático, piloto automático, bots, en masa, masivo, scrapear, extraer contactos, invitaciones a miles. *(`mensajes a miles` salió en la resubida del 08/10, así que lo que dispara parece la palabra, no la idea; aun así no se fuerza.)*
+- **Datos de terceros:** espiar, saco su email o su móvil, datos personales, base de datos de personas.
+- **Delito, violencia o suceso:** fraude, ilegal, armas, disparar, pistola, bomba, amenaza, policía. *(`disparar`: dos posts nuestros con él repartieron; es vecina por psicología, no por caso.)*
+- **Sorteo o chollo:** regalo, regalamos, sorteo, chollo, solo hoy. **Medido sobre nuestros 170 posts desde abril:** de los 7 con esta familia, los 2 que no repartieron (67 y 18 imp) son justo los dos que abren con `Hoy regalo…`. Iban con `Comenta "X"` y está confundido, pero `regalo` en primera persona deja de ser hipótesis débil. **`gratis` NO entra**: lo exige el ninja del webinar y tiene 15 posts sin capado.
+
+**CÓMO SE USA:**
+1. **Al proponer un recambio de una palabra capada, se sale de su FAMILIA**, no se busca un sinónimo dentro de ella: `automatizar` → `lanzar más mensajes` (acción neutra), no `mandar en masa`. Y el recambio tampoco puede caer en otra familia (`disparar`).
+2. **En el gancho y junto a un enlace o un formato nuevo no se juega:** ni vecinas. En el cuerpo, una como mucho y si es el núcleo de la escena (`brand-voice §2c`).
+3. **Una vecina no es un veto.** Es aviso: muchas reparten en nuestro histórico. Pasa a capada solo con un caso propio (`§9.5`: dos casos para vetar).
+4. **Un caso nuevo entra en la tabla el mismo día**, con su psicología, y sus vecinas al validador.
+
+**Mecanizado:** `riesgo_capado()` en `validar-post.py` (aviso `Sin palabras VECINAS de un capado, por psicología`), que dice la familia, el caso del que sale y si cae en el gancho. Las palabras con caso propio siguen con su check (`LinkedIn` fallo duro, `automatizar` aviso, `transcribo`, `Comenta`, `conecta`, `robar`). Probado contra los 170 posts: no salta con `disparate`, `especial`, `España` ni `el feedback`.
+
 ### ⛔ 9.3c · RESUBIR EL MISMO TEXTO VARIAS VECES EN UNA HORA NO DIAGNOSTICA NADA (30/09, historia de Iker)
 
 Cuatro versiones de la misma historia en ~1 h, cada una con UNA palabra distinta en el gancho, y **ninguna salió en el feed**. A partir de la 2ª ya no se estaba probando una palabra: se estaba subiendo **el mismo texto otra vez** desde una cuenta que acababa de borrar (y en un momento con **dos casi iguales vivas a la vez**, que el buscador de LinkedIn devolvía juntas). *Hipótesis, sin medir: duplicado + enfriamiento de la cuenta.* El barrido de las palabras sospechosas (`alarma`, `software`, `estreno`, `primicia`) en posts de la última semana las encontró todas en posts que reparten.

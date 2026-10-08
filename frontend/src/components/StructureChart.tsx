@@ -37,7 +37,7 @@ const structureLabels: Record<string, string> = {
   other: 'Otra',
 };
 
-const COLORS = ['#34d399', '#e8935a', '#67e8f9', '#a78bfa', '#fbbf24', '#f87171', '#6366f1', '#38bdf8', '#f472b6', '#fb923c', '#4ade80', '#818cf8', '#22d3ee', '#facc15', '#c084fc', '#94a3b8', '#2dd4bf', '#e879f9', '#4b5563'];
+const COLORS = ['#1E9160', '#E66A1B', '#7E3AA8', '#7C5CD6', '#B07510', '#C73B3B', '#4F52D9', '#0A66C2', '#C2408A', '#B4531A', '#2FA866', '#6B6EE6', '#0E8FA8', '#B8930A', '#A15CD6', '#76607A', '#13998A', '#B83FC4', '#7A6B7B'];
 
 export default function StructureChart({ data }: Props) {
   const chartData = data
@@ -56,21 +56,21 @@ export default function StructureChart({ data }: Props) {
       <p className="text-text-muted text-xs mb-4">Multiplicador medio de outlier (Xx) según la estructura</p>
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={chartData} layout="vertical" margin={{ top: 0, right: 10, bottom: 0, left: 100 }}>
-          <XAxis type="number" tick={{ fill: '#9ca3af', fontSize: 11 }} tickLine={false} axisLine={{ stroke: '#2e3348' }} />
+          <XAxis type="number" tick={{ fill: '#76607A', fontSize: 11 }} tickLine={false} axisLine={{ stroke: '#E6E0E3' }} />
           <YAxis
             type="category"
             dataKey="name"
-            tick={{ fill: '#9ca3af', fontSize: 11 }}
+            tick={{ fill: '#76607A', fontSize: 11 }}
             tickLine={false}
-            axisLine={{ stroke: '#2e3348' }}
+            axisLine={{ stroke: '#E6E0E3' }}
             width={100}
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: '#222639',
-              border: '1px solid #2e3348',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #E6E0E3',
               borderRadius: '8px',
-              color: '#e8eaf0',
+              color: '#431B44',
               fontSize: '13px',
             }}
             formatter={(value: any, name: any) => {

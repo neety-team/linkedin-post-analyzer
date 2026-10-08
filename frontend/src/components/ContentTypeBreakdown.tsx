@@ -10,7 +10,7 @@ interface Props {
   outliers: TypeCount[];
 }
 
-const COLORS = ['#e8935a', '#6366f1', '#a78bfa', '#f87171', '#fbbf24', '#93c5fd', '#c4b5fd', '#fca5a5', '#fcd34d', '#34d399', '#38bdf8'];
+const COLORS = ['#E66A1B', '#4F52D9', '#7C5CD6', '#C73B3B', '#B07510', '#5B8FE0', '#9A7FE0', '#E07878', '#D4A21C', '#1E9160', '#0A66C2'];
 
 const typeLabels: Record<string, string> = {
   text: 'Texto',
@@ -42,9 +42,9 @@ export default function ContentTypeBreakdown({ all, outliers }: Props) {
                 {allData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
               </Pie>
               <Tooltip
-                contentStyle={{ backgroundColor: '#222639', border: '1px solid #2e3348', borderRadius: '8px', color: '#e8eaf0', fontSize: '13px' }}
+                contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E0E3', borderRadius: '8px', color: '#431B44', fontSize: '13px' }}
               />
-              <Legend wrapperStyle={{ fontSize: '11px', color: '#9ca3af' }} />
+              <Legend wrapperStyle={{ fontSize: '11px', color: '#76607A' }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -57,9 +57,9 @@ export default function ContentTypeBreakdown({ all, outliers }: Props) {
                   {outlierData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#222639', border: '1px solid #2e3348', borderRadius: '8px', color: '#e8eaf0', fontSize: '13px' }}
+                  contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E0E3', borderRadius: '8px', color: '#431B44', fontSize: '13px' }}
                 />
-                <Legend wrapperStyle={{ fontSize: '11px', color: '#9ca3af' }} />
+                <Legend wrapperStyle={{ fontSize: '11px', color: '#76607A' }} />
               </PieChart>
             </ResponsiveContainer>
           ) : (

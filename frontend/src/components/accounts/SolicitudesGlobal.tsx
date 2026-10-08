@@ -41,7 +41,7 @@ export default function SolicitudesGlobal({ cuentas, recargaKey = 0 }: {
           {/* El aviso va FUERA del bloque: si Unipile no contesta,
               `SolicitudesPedidas` no pinta nada y el aviso se perderia con el. */}
           {c.aviso && (
-            <p className="text-[11px] text-amber-400 leading-snug">⚠️ {c.aviso}</p>
+            <p className="text-[11px] text-amber-700 leading-snug">⚠️ {c.aviso}</p>
           )}
           <SolicitudesPedidas
             creatorId={c.creator_id}

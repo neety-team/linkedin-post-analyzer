@@ -170,8 +170,8 @@ const contentTypeLabels: Record<string, string> = {
 };
 
 const viralityDriverColors: Record<string, string> = {
-  social_currency: '#fbbf24', controversy: '#f87171', identity: '#a78bfa',
-  belonging: '#38bdf8', utility: '#34d399', emotion: '#f472b6', aspiration: '#22d3ee',
+  social_currency: '#B07510', controversy: '#C73B3B', identity: '#7C5CD6',
+  belonging: '#0A66C2', utility: '#1E9160', emotion: '#C2408A', aspiration: '#0E8FA8',
 };
 
 const toneLabels: Record<string, { label: string; emoji: string; desc: string }> = {
@@ -189,10 +189,10 @@ const toneLabels: Record<string, { label: string; emoji: string; desc: string }>
 };
 
 const toneColors: Record<string, string> = {
-  urgency: '#f87171', authority: '#fbbf24', social_proof: '#a78bfa',
-  fomo: '#fb923c', aspirational: '#34d399', empathy: '#38bdf8',
-  provocative: '#e8935a', educational: '#6366f1', vulnerable: '#f472b6',
-  humorous: '#22d3ee', neutral: '#4b5563',
+  urgency: '#C73B3B', authority: '#B07510', social_proof: '#7C5CD6',
+  fomo: '#B4531A', aspirational: '#1E9160', empathy: '#0A66C2',
+  provocative: '#E66A1B', educational: '#4F52D9', vulnerable: '#C2408A',
+  humorous: '#0E8FA8', neutral: '#7A6B7B',
 };
 
 const BASE = import.meta.env.VITE_API_URL || '';
@@ -394,8 +394,8 @@ export default function OutlierExplorer() {
                           key={p.phrase}
                           className="px-2.5 py-1 rounded-lg text-xs border"
                           style={{
-                            borderColor: p.overindex > 2 ? '#e8935a' : '#374151',
-                            color: p.overindex > 2 ? '#e8935a' : '#9ca3af',
+                            borderColor: p.overindex > 2 ? '#C55A0E' : '#D8D0D5',
+                            color: p.overindex > 2 ? '#C55A0E' : '#76607A',
                             backgroundColor: p.overindex > 2 ? '#e8935a15' : '#37415115',
                           }}
                           title={`${p.outlier_pct}% de los outliers frente a ${p.normal_pct}% de los normales (${p.overindex}x más frecuente)`}
@@ -556,7 +556,7 @@ export default function OutlierExplorer() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {data.patterns.tone_comparison.map((t) => {
                   const info = toneLabels[t.tone] || { label: t.tone, emoji: '', desc: '' };
-                  const color = toneColors[t.tone] || '#4b5563';
+                  const color = toneColors[t.tone] || '#7A6B7B';
                   const maxRatio = Math.max(...data.patterns.tone_comparison.map((x) => x.outlier_avg_ratio || 0), 1);
                   const diff = t.outlier_pct - t.normal_pct;
                   return (
@@ -737,7 +737,7 @@ export default function OutlierExplorer() {
               <button
                 onClick={handleCompare}
                 disabled={selectedIds.length < 2 || comparing}
-                className="px-4 py-2 bg-accent text-bg-primary rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-light transition-colors"
+                className="px-4 py-2 bg-accent text-white rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
               >
                 {comparing ? 'Cargando...' : `Comparar ${selectedIds.length} creadores`}
               </button>
@@ -864,7 +864,7 @@ export default function OutlierExplorer() {
                       <div className="bg-bg-card border-x border-b border-border rounded-b-xl -mt-3 pt-4 px-5 pb-4">
                         <button
                           onClick={() => setExpandedPost(expandedPost === post.id ? null : post.id)}
-                          className="text-[11px] text-accent hover:text-accent-light transition-colors flex items-center gap-1 w-full"
+                          className="text-[11px] text-accent hover:text-accent-strong transition-colors flex items-center gap-1 w-full"
                         >
                           <span>🧠</span>
                           <span>{expandedPost === post.id ? 'Ocultar análisis' : '¿Por qué funcionó?'}</span>
@@ -872,8 +872,8 @@ export default function OutlierExplorer() {
                             <span
                               className="ml-auto px-1.5 py-0.5 rounded text-[9px] font-bold"
                               style={{
-                                backgroundColor: (viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#4b5563') + '20',
-                                color: viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#4b5563',
+                                backgroundColor: (viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#7A6B7B') + '20',
+                                color: viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#7A6B7B',
                               }}
                             >
                               {post.ai_explanation.virality_driver.label}
@@ -906,8 +906,8 @@ export default function OutlierExplorer() {
                                 <span
                                   className="ml-1 px-1.5 py-0.5 rounded font-bold"
                                   style={{
-                                    backgroundColor: (viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#4b5563') + '20',
-                                    color: viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#4b5563',
+                                    backgroundColor: (viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#7A6B7B') + '20',
+                                    color: viralityDriverColors[post.ai_explanation.virality_driver.driver] || '#7A6B7B',
                                   }}
                                 >
                                   {post.ai_explanation.virality_driver.label}

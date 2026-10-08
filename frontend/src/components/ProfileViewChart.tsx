@@ -27,7 +27,7 @@ type Vista = 'tendencia' | 'diario';
 
 // A partir de cuantos dias guardados la tendencia oficial dice algo.
 const MIN_DIAS_TENDENCIA = 7;
-const PV_COLOR = '#e8935a';
+const PV_COLOR = '#E66A1B';
 
 function fmtDay(iso: string): string {
   const d = new Date(`${iso}T00:00:00`);
@@ -51,17 +51,17 @@ function VisitasTooltip({ active, payload, label, vista }: any) {
   return (
     <div
       style={{
-        backgroundColor: '#222639',
+        backgroundColor: '#FFFFFF',
         border: `1px solid ${PV_COLOR}55`,
         borderRadius: 10,
         padding: '8px 12px',
         boxShadow: `0 0 14px ${PV_COLOR}33`,
       }}
     >
-      <div style={{ color: '#9ca3af', fontSize: 11, marginBottom: 2 }}>{label}</div>
+      <div style={{ color: '#76607A', fontSize: 11, marginBottom: 2 }}>{label}</div>
       <div style={{ color: PV_COLOR, fontSize: 18, fontWeight: 700 }}>
         {vista === 'tendencia' ? fmtFull(n) : `~${fmtFull(n)}`}
-        <span style={{ color: '#9ca3af', fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
+        <span style={{ color: '#76607A', fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
           {vista === 'tendencia' ? 'visitas al perfil en los últimos 90 días (LinkedIn)' : 'visitas nuevas estimadas ese día'}
         </span>
       </div>
@@ -171,7 +171,7 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
           <span className="text-sm text-text-muted">visitas al perfil · últimos 90 días (LinkedIn)</span>
         </span>
         {vista === 'tendencia' && variacionTendencia != null && (
-          <span className={`text-xs font-medium ${variacionTendencia >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <span className={`text-xs font-medium ${variacionTendencia >= 0 ? 'text-success' : 'text-danger'}`}>
             {variacionTendencia >= 0 ? '▲' : '▼'} {Math.abs(variacionTendencia).toLocaleString('es-ES', { maximumFractionDigits: 0 })}%
             <span className="text-text-muted font-normal"> en este periodo</span>
           </span>
@@ -193,21 +193,21 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
       ) : (
         <ResponsiveContainer width="100%" height={220}>
           <ComposedChart data={datos} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2e3348" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
             <XAxis
               dataKey="label"
-              tick={{ fill: '#9ca3af', fontSize: 11 }}
-              axisLine={{ stroke: '#2e3348' }}
+              tick={{ fill: '#76607A', fontSize: 11 }}
+              axisLine={{ stroke: '#E6E0E3' }}
               interval={xTickInterval}
             />
             <YAxis
-              tick={{ fill: '#9ca3af', fontSize: 11 }}
-              axisLine={{ stroke: '#2e3348' }}
+              tick={{ fill: '#76607A', fontSize: 11 }}
+              axisLine={{ stroke: '#E6E0E3' }}
               tickFormatter={fmtNum}
               domain={vista === 'tendencia' ? ['auto', 'auto'] : [0, 'auto']}
               allowDecimals={false}
             />
-            <Tooltip content={<VisitasTooltip vista={vista} />} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
+            <Tooltip content={<VisitasTooltip vista={vista} />} cursor={{ fill: 'rgba(67,27,68,0.05)' }} />
             {vista === 'tendencia' ? (
               <Line
                 type="monotone"

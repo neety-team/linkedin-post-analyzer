@@ -46,7 +46,7 @@ function FollowerGrowthBadge({ creator }: { creator: DiscoveredCreator }) {
 
   const positive = perMonth > 0;
   return (
-    <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${positive ? 'bg-green-500/15 text-green-400' : 'bg-red-500/15 text-red-400'}`}>
+    <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${positive ? 'bg-success/15 text-success' : 'bg-danger/15 text-danger'}`}>
       {positive ? '+' : ''}{formatK(perMonth)}/mes
     </span>
   );
@@ -177,7 +177,7 @@ function CreatorCard({
           disabled={promoting || promoted}
           className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
             promoted
-              ? 'bg-green-500/20 text-green-400 cursor-default'
+              ? 'bg-success/20 text-success cursor-default'
               : 'bg-accent/15 text-accent hover:bg-accent/25 disabled:opacity-50'
           }`}
         >
@@ -326,7 +326,7 @@ export default function Discover() {
               <button
                 onClick={handleSearch}
                 disabled={isSearching || !searchQuery.trim()}
-                className="px-5 py-2 bg-accent text-bg-primary rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-light transition-colors"
+                className="px-5 py-2 bg-accent text-white rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
               >
                 {isSearching ? 'Buscando…' : 'Buscar'}
               </button>
@@ -358,7 +358,7 @@ export default function Discover() {
 
         {/* Status message */}
         {statusMsg && (
-          <p className={`text-sm ${statusMsg.type === 'error' ? 'text-danger' : statusMsg.type === 'success' ? 'text-green-400' : 'text-text-secondary'}`}>
+          <p className={`text-sm ${statusMsg.type === 'error' ? 'text-danger' : statusMsg.type === 'success' ? 'text-success' : 'text-text-secondary'}`}>
             {statusMsg.text}
           </p>
         )}

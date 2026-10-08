@@ -190,11 +190,11 @@ interface LivePost {
 }
 
 const PHASE_META: Record<LivePost['phase'], { label: string; bg: string; text: string; window: string; cadence: string; blurb: string }> = {
-  golden:        { label: '🔥 Hora dorada',   bg: 'bg-red-500/15',    text: 'text-red-400',    window: '0 – 1 h',   cadence: 'cada 15 min', blurb: 'Primera muestra: si engancha, LinkedIn amplía distribución. Ventana que decide si el post prende.' },
-  first_wave:    { label: '🌊 Primera oleada', bg: 'bg-orange-500/15', text: 'text-orange-400', window: '1 – 6 h',   cadence: 'cada 30 min', blurb: 'Segunda oleada. Aquí se ve con claridad si va a ser normal, bueno o viral.' },
-  consolidation: { label: '📈 Consolidación', bg: 'bg-yellow-500/15', text: 'text-yellow-400', window: '6 – 24 h',  cadence: 'cada 2 h',     blurb: 'Se acumula el grueso del alcance. A las 24h suele haber el 60–70% de las impresiones totales.' },
-  long_tail:     { label: '📉 Cola larga',     bg: 'bg-sky-500/15',    text: 'text-sky-400',    window: '24 – 72 h', cadence: 'cada 6 h',     blurb: 'Cola larga fuerte. A 72h ya tienes el 85–90% de las impresiones finales.' },
-  tail:          { label: '🐢 Cola',          bg: 'bg-purple-500/15', text: 'text-purple-400', window: '3 – 7 d',   cadence: 'cada 24 h',    blurb: 'Cola residual, sobre todo comentarios y algún compartido.' },
+  golden:        { label: '🔥 Hora dorada',   bg: 'bg-danger/15',    text: 'text-danger',    window: '0 – 1 h',   cadence: 'cada 15 min', blurb: 'Primera muestra: si engancha, LinkedIn amplía distribución. Ventana que decide si el post prende.' },
+  first_wave:    { label: '🌊 Primera oleada', bg: 'bg-orange-500/15', text: 'text-orange-700', window: '1 – 6 h',   cadence: 'cada 30 min', blurb: 'Segunda oleada. Aquí se ve con claridad si va a ser normal, bueno o viral.' },
+  consolidation: { label: '📈 Consolidación', bg: 'bg-yellow-500/15', text: 'text-yellow-700', window: '6 – 24 h',  cadence: 'cada 2 h',     blurb: 'Se acumula el grueso del alcance. A las 24h suele haber el 60–70% de las impresiones totales.' },
+  long_tail:     { label: '📉 Cola larga',     bg: 'bg-sky-500/15',    text: 'text-sky-700',    window: '24 – 72 h', cadence: 'cada 6 h',     blurb: 'Cola larga fuerte. A 72h ya tienes el 85–90% de las impresiones finales.' },
+  tail:          { label: '🐢 Cola',          bg: 'bg-purple-500/15', text: 'text-purple-700', window: '3 – 7 d',   cadence: 'cada 24 h',    blurb: 'Cola residual, sobre todo comentarios y algún compartido.' },
   closed:        { label: '✅ Cerrado',       bg: 'bg-bg-secondary',  text: 'text-text-muted', window: '> 7 d',     cadence: 'semanal',       blurb: 'Sin más puntos en la curva, pero los contadores se refrescan cada semana (públicos sin límite de edad, Premium hasta un año): un post que resurge se ve.' },
 };
 
@@ -324,10 +324,10 @@ const FORMAT_LABELS: Record<string, string> = {
 };
 
 const CHART_TOOLTIP_STYLE = {
-  backgroundColor: '#222639',
-  border: '1px solid #2e3348',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #E6E0E3',
   borderRadius: '8px',
-  color: '#e8eaf0',
+  color: '#431B44',
   fontSize: '12px',
 };
 
@@ -480,7 +480,7 @@ function MetricaVisto({ post }: { post: PostPremium }) {
     );
   }
   const nivel = nivelVisto(pct, dur);
-  const color = nivel === 'objetivo' ? 'font-medium text-amber-400' : nivel === 'bueno' ? 'text-emerald-400' : '';
+  const color = nivel === 'objetivo' ? 'font-medium text-amber-700' : nivel === 'bueno' ? 'text-emerald-700' : '';
   const titulo =
     `Porcentaje medio visto: de media se ven ${post.video_avg_watch_s} s de los ${Math.round(dur)} s del vídeo. ` +
     `Verde desde el 80%; ámbar desde el objetivo para su duración (${objetivoVisto(dur)}%). ` +
@@ -522,7 +522,7 @@ function FranjaPremium({ post }: { post: PostPremium }) {
     );
   } else {
     enlace = (
-      <span className="inline-flex items-center gap-1 font-medium text-amber-400" title={`Clics en el enlace${post.link_url ? ` → ${post.link_url}` : ''}`}>
+      <span className="inline-flex items-center gap-1 font-medium text-amber-700" title={`Clics en el enlace${post.link_url ? ` → ${post.link_url}` : ''}`}>
         <MetricIcon d={ICON_LINK} /> {fmtNum(post.link_clicks_count)}
       </span>
     );
@@ -550,10 +550,10 @@ function FranjaPremium({ post }: { post: PostPremium }) {
       {leida && (
         <>
           {sep}
-          <span className="text-emerald-400/80" title="Seguidores ganados con este post (LinkedIn Premium)">
+          <span className="text-emerald-700/80" title="Seguidores ganados con este post (LinkedIn Premium)">
             +{fmtNum(post.followers_gained_count ?? 0)} seguidores
           </span>
-          <span className="text-emerald-400" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
+          <span className="text-emerald-700" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
             {fmtNum(post.profile_viewers_count ?? 0)} visitas al perfil
           </span>
         </>
@@ -650,7 +650,7 @@ function ExpandablePostText({ text }: { text: string | null }) {
       {needsTrunc && (
         <button
           onClick={(e) => { e.stopPropagation(); setExpanded((v) => !v); }}
-          className="text-[11px] text-accent hover:text-accent-light mt-1"
+          className="text-[11px] text-accent hover:text-accent-strong mt-1"
         >
           {expanded ? 'Ver menos ↑' : 'Ver más ↓'}
         </button>
@@ -667,7 +667,7 @@ function Delta({ pct }: { pct: number | null }) {
   }
   const up = rounded > 0;
   return (
-    <span className={`text-[10px] font-medium ${up ? 'text-green-400' : 'text-red-400'}`}>
+    <span className={`text-[10px] font-medium ${up ? 'text-success' : 'text-danger'}`}>
       {up ? '▲' : '▼'} {Math.abs(rounded)}%
     </span>
   );
@@ -1267,12 +1267,12 @@ function AccountsInner() {
                   return (
                     <span className="relative flex items-center justify-center h-3 w-3">
                       {monitoring && (
-                        <span className="absolute inline-flex h-3 w-3 rounded-full bg-red-500 opacity-60 animate-ping" />
+                        <span className="absolute inline-flex h-3 w-3 rounded-full bg-danger opacity-60 animate-ping" />
                       )}
                       <span
                         className={`relative inline-flex h-2.5 w-2.5 rounded-full ${
                           monitoring
-                            ? 'bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.9)]'
+                            ? 'bg-danger animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.9)]'
                             : 'bg-text-muted'
                         }`}
                       />
@@ -1303,7 +1303,7 @@ function AccountsInner() {
                       alert(err.message);
                     }
                   }}
-                  className="text-xs text-text-muted hover:text-red-400 transition-colors"
+                  className="text-xs text-text-muted hover:text-danger transition-colors"
                 >
                   ✕ Quitar demo
                 </button>
@@ -1317,7 +1317,7 @@ function AccountsInner() {
                       alert(err.message);
                     }
                   }}
-                  className="text-xs text-accent hover:text-accent-light transition-colors"
+                  className="text-xs text-accent hover:text-accent-strong transition-colors"
                 >
                   + Cargar datos de demo
                 </button>
@@ -1434,7 +1434,7 @@ function AccountsInner() {
               {livePosts.length > visibleLive && (
                 <button
                   onClick={() => setVisibleLive((v) => v + LIVE_PAGE)}
-                  className="w-full py-2.5 text-xs font-medium text-accent hover:text-accent-light border border-border hover:border-accent/40 rounded-lg transition-colors"
+                  className="w-full py-2.5 text-xs font-medium text-accent hover:text-accent-strong border border-border hover:border-accent/40 rounded-lg transition-colors"
                 >
                   Ver más ({livePosts.length - visibleLive} restantes) ↓
                 </button>
@@ -1504,7 +1504,7 @@ function AccountsInner() {
                 <span>Seguidores ganados</span>
               </div>
               <div className="flex items-baseline gap-2 mt-1">
-                <div className={`text-2xl font-bold ${analytics.totals.followers_gained > 0 ? 'text-green-400' : analytics.totals.followers_gained < 0 ? 'text-red-400' : 'text-text-primary'}`}>
+                <div className={`text-2xl font-bold ${analytics.totals.followers_gained > 0 ? 'text-success' : analytics.totals.followers_gained < 0 ? 'text-danger' : 'text-text-primary'}`}>
                   {analytics.totals.followers_gained > 0 ? '+' : ''}{fmtNum(analytics.totals.followers_gained)}
                 </div>
               </div>
@@ -1652,7 +1652,7 @@ function AccountsInner() {
               ? 'Impresiones recibidas cada mes: cifras diarias de LinkedIn de las cuentas conectadas (cuentas manuales: estimadas), todas las cuentas propias'
               : 'Impresiones recibidas cada mes: cifras diarias de LinkedIn (esta cuenta)'}
             unit="impresiones"
-            color="#e8935a"
+            color="#E66A1B"
           />
 
           {/* Follower growth — net new followers per day */}
@@ -1683,7 +1683,7 @@ function AccountsInner() {
               ? 'Seguidores nuevos cada mes: cifras diarias de LinkedIn de las cuentas conectadas, todas las cuentas propias'
               : 'Seguidores nuevos cada mes: cifras diarias de LinkedIn (esta cuenta)'}
             unit="seguidores"
-            color="#34d399"
+            color="#1E9160"
             signed
           />
 
@@ -1751,7 +1751,7 @@ function AccountsInner() {
                                     comparar todavia. */}
                                 {a.is_manual && (
                                   <span
-                                    className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 text-[10px] font-medium"
+                                    className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 text-[10px] font-medium"
                                     title="Cuenta no conectada a Unipile: sus posts se añaden a mano y las impresiones las escribe el usuario."
                                   >
                                     manual
@@ -1902,7 +1902,7 @@ function AccountsInner() {
                   {filteredTopPosts.length > visibleTop && (
                     <button
                       onClick={() => setVisibleTop((v) => v + TOP_PAGE)}
-                      className="w-full py-2.5 text-xs font-medium text-accent hover:text-accent-light border border-border hover:border-accent/40 rounded-lg transition-colors"
+                      className="w-full py-2.5 text-xs font-medium text-accent hover:text-accent-strong border border-border hover:border-accent/40 rounded-lg transition-colors"
                     >
                       Ver más ({filteredTopPosts.length - visibleTop} restantes) ↓
                     </button>
@@ -2176,8 +2176,8 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
     dataKey: 'ageMin' as const,
     type: 'number' as const,
     domain: [0, 'dataMax'] as [number, string],
-    tick: { fill: '#9ca3af', fontSize: 11 },
-    axisLine: { stroke: '#2e3348' },
+    tick: { fill: '#76607A', fontSize: 11 },
+    axisLine: { stroke: '#E6E0E3' },
     tickFormatter: (v: number) => (v < 60 ? `${v} min` : `${(v / 60).toFixed(0)} h`),
   };
 
@@ -2242,13 +2242,13 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
           <div>
             <div className="flex items-center justify-between mb-1.5 flex-wrap gap-2">
               <p className="text-[11px] text-text-muted">
-                <span className="text-sky-400 font-semibold">Impresiones</span> · este post frente a las impresiones típicas a la misma edad
+                <span className="text-linkedin font-semibold">Impresiones</span> · este post frente a las impresiones típicas a la misma edad
               </p>
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
-                  <span className="w-3 h-[2px] bg-sky-400" /> este post
+                  <span className="w-3 h-[2px] bg-linkedin" /> este post
                 </span>
-                {isManualPost && manualDotChip('#38bdf8', 'lectura manual · la línea entre puntos = estimación')}
+                {isManualPost && manualDotChip('#0A66C2', 'lectura manual · la línea entre puntos = estimación')}
                 {typicalBandChip('impresiones', hasImpOverlap)}
               </div>
             </div>
@@ -2261,13 +2261,13 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
               <ComposedChart data={curveData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                 <defs>
                   <linearGradient id={`liveImp-${postId}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#38bdf8" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#38bdf8" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#0A66C2" stopOpacity={0.3} />
+                    <stop offset="100%" stopColor="#0A66C2" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#2e3348" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
                 <XAxis {...xAxisProps} />
-                <YAxis tick={{ fill: '#7dd3fc', fontSize: 11 }} axisLine={{ stroke: '#2e3348' }} tickFormatter={(v) => fmtCompact(Number(v))} />
+                <YAxis tick={{ fill: '#0A66C2', fontSize: 11 }} axisLine={{ stroke: '#E6E0E3' }} tickFormatter={(v) => fmtCompact(Number(v))} />
                 <Tooltip
                   contentStyle={CHART_TOOLTIP_STYLE}
                   content={({ active, payload }: any) => {
@@ -2278,11 +2278,11 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                         <div className="text-text-secondary text-[11px] mb-1">+{p.label} desde la publicación</div>
                         {p.manualSnapshot && <div className="text-text-muted text-[10px] mb-1">● lectura manual</div>}
                         {p.impressions != null && !p.impressionsEstimated && (
-                          <div className="text-sky-400 text-xs">👁️ {fmtNum(p.impressions)} impresiones</div>
+                          <div className="text-linkedin text-xs">👁️ {fmtNum(p.impressions)} impresiones</div>
                         )}
                         {p.impressions != null && p.impressionsEstimated && (
                           <>
-                            <div className="text-sky-400 text-xs">👁️ ≈ {fmtNum(p.impressions)} impresiones</div>
+                            <div className="text-linkedin text-xs">👁️ ≈ {fmtNum(p.impressions)} impresiones</div>
                             <div className="text-text-muted text-[10px]">estimación entre dos lecturas</div>
                           </>
                         )}
@@ -2290,7 +2290,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                           <div className="text-text-muted text-[11px]">👁️ aquí no hay lectura de impresiones</div>
                         )}
                         {p.typicalImpRange && (
-                          <div className="text-slate-400 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
+                          <div className="text-slate-700 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
                             Típico a esta edad ({p.typicalImpSampleCount} post{p.typicalImpSampleCount === 1 ? '' : 's'}):<br />
                             👁️ {fmtNum(p.typicalImpRange[0])}–{fmtNum(p.typicalImpRange[1])}
                           </div>
@@ -2303,9 +2303,9 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                   <ReferenceLine
                     key={ref.x}
                     x={ref.x}
-                    stroke="#4b5563"
+                    stroke="#7A6B7B"
                     strokeDasharray="2 2"
-                    label={{ value: ref.label, fill: '#6b7280', fontSize: 10, position: 'top' }}
+                    label={{ value: ref.label, fill: '#9A8A9B', fontSize: 10, position: 'top' }}
                   />
                 ))}
                 {hasImpOverlap && (
@@ -2313,7 +2313,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     type="monotone"
                     dataKey="typicalImpRange"
                     stroke="none"
-                    fill="#64748b"
+                    fill="#8A7A8B"
                     fillOpacity={0.22}
                     connectNulls
                     activeDot={false}
@@ -2323,11 +2323,11 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <Area
                   type="monotone"
                   dataKey="impressions"
-                  stroke="#38bdf8"
+                  stroke="#0A66C2"
                   strokeWidth={2}
                   fill={`url(#liveImp-${postId})`}
                   connectNulls
-                  dot={isManualPost ? manualDot('#38bdf8', 'impressions') : false}
+                  dot={isManualPost ? manualDot('#0A66C2', 'impressions') : false}
                   isAnimationActive={false}
                 />
               </ComposedChart>
@@ -2345,7 +2345,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <span className="inline-flex items-center gap-1 text-[10px] text-text-muted">
                   <span className="w-3 h-[2px] bg-accent" /> este post
                 </span>
-                {isManualPost && manualDotChip('#e8935a', 'lectura manual')}
+                {isManualPost && manualDotChip('#E66A1B', 'lectura manual')}
                 {typicalBandChip('interacciones', hasEngOverlap)}
               </div>
             </div>
@@ -2353,13 +2353,13 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
               <ComposedChart data={curveData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                 <defs>
                   <linearGradient id={`liveEng-${postId}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#e8935a" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#e8935a" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#E66A1B" stopOpacity={0.3} />
+                    <stop offset="100%" stopColor="#E66A1B" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#2e3348" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
                 <XAxis {...xAxisProps} />
-                <YAxis tick={{ fill: '#e8935a', fontSize: 11 }} axisLine={{ stroke: '#2e3348' }} tickFormatter={(v) => fmtCompact(Number(v))} />
+                <YAxis tick={{ fill: '#E66A1B', fontSize: 11 }} axisLine={{ stroke: '#E6E0E3' }} tickFormatter={(v) => fmtCompact(Number(v))} />
                 <Tooltip
                   contentStyle={CHART_TOOLTIP_STYLE}
                   content={({ active, payload }: any) => {
@@ -2385,7 +2385,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                           </>
                         )}
                         {p.typicalEngRange && (
-                          <div className="text-slate-400 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
+                          <div className="text-slate-700 text-[11px] mt-1 pt-1 border-t border-slate-500/30">
                             Típico a esta edad ({p.typicalEngSampleCount} post{p.typicalEngSampleCount === 1 ? '' : 's'}):<br />
                             {fmtNum(p.typicalEngRange[0])}–{fmtNum(p.typicalEngRange[1])}
                           </div>
@@ -2398,9 +2398,9 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                   <ReferenceLine
                     key={ref.x}
                     x={ref.x}
-                    stroke="#4b5563"
+                    stroke="#7A6B7B"
                     strokeDasharray="2 2"
-                    label={{ value: ref.label, fill: '#6b7280', fontSize: 10, position: 'top' }}
+                    label={{ value: ref.label, fill: '#9A8A9B', fontSize: 10, position: 'top' }}
                   />
                 ))}
                 {hasEngOverlap && (
@@ -2408,7 +2408,7 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                     type="monotone"
                     dataKey="typicalEngRange"
                     stroke="none"
-                    fill="#64748b"
+                    fill="#8A7A8B"
                     fillOpacity={0.22}
                     connectNulls
                     activeDot={false}
@@ -2418,11 +2418,11 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
                 <Area
                   type="monotone"
                   dataKey="engagement"
-                  stroke="#e8935a"
+                  stroke="#E66A1B"
                   strokeWidth={2}
                   fill={`url(#liveEng-${postId})`}
                   connectNulls
-                  dot={isManualPost ? manualDot('#e8935a', 'engagement') : false}
+                  dot={isManualPost ? manualDot('#E66A1B', 'engagement') : false}
                   isAnimationActive={false}
                 />
               </ComposedChart>
@@ -2562,7 +2562,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
   };
 
   return (
-    <div className={`rounded-lg border ${post.is_live ? 'border-red-500/20 bg-red-500/5' : 'border-border bg-bg-primary'}`}>
+    <div className={`rounded-lg border ${post.is_live ? 'border-danger/20 bg-danger/5' : 'border-border bg-bg-primary'}`}>
       <div className="flex items-start gap-3 p-3">
         {post.creator_image ? (
           <img src={post.creator_image} alt="" className="w-8 h-8 rounded-full object-cover flex-shrink-0" />
@@ -2586,7 +2586,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
                   realidad es "nadie lo ha copiado todavia". */}
               {post.creator_is_manual && (
                 <span
-                  className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 text-[10px] font-medium"
+                  className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 text-[10px] font-medium"
                   title="Cuenta no conectada a Unipile. Los contadores públicos se leen solos; las impresiones y los clics los escribes tú."
                 >
                   manual
@@ -2677,25 +2677,25 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
               {refreshing ? '↻ …' : '↻ Actualizar'}
             </button>
             {refreshMsg && (
-              <span className={`text-[10px] whitespace-nowrap ${refreshMsg.startsWith('✗') ? 'text-danger' : 'text-green-400'}`}>
+              <span className={`text-[10px] whitespace-nowrap ${refreshMsg.startsWith('✗') ? 'text-danger' : 'text-success'}`}>
                 {refreshMsg}
               </span>
             )}
             <button
               onClick={() => setOpen((v) => !v)}
-              className="text-accent hover:text-accent-light"
+              className="text-accent hover:text-accent-strong"
             >
               {open ? 'Ocultar estadísticas' : 'Ver estadísticas'}
             </button>
             {post.post_url && (
-              <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-light">
+              <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="text-linkedin hover:underline">
                 Ver en LinkedIn →
               </a>
             )}
             {onOpenChat && (
               <button
                 onClick={onOpenChat}
-                className="text-accent hover:text-accent-light"
+                className="text-accent hover:text-accent-strong"
                 title="Enviar a Google Chat con comentarios sugeridos"
               >
                 🐝 Chat
@@ -2706,7 +2706,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
                 onClick={() => {
                   if (confirm('¿Quitar el post de demo del seguimiento en directo?')) onRemoveDemo();
                 }}
-                className="text-red-400/70 hover:text-red-400 transition-colors"
+                className="text-danger/70 hover:text-danger transition-colors"
                 title="Quitar el post de demo"
               >
                 ✕ Quitar
@@ -2760,7 +2760,7 @@ function TopPostRow(
               <span>{FORMAT_LABELS[post.content_type] || post.content_type}</span>
               {post.gancho_palanca && (
                 <span
-                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-violet-500/10 text-violet-300 border border-violet-500/20 text-[10px] leading-none"
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-violet-500/10 text-violet-700 border border-violet-500/20 text-[10px] leading-none"
                   title={post.gancho_motivo || undefined}
                 >
                   {etiquetaGancho(post.gancho_palanca)}
@@ -2784,9 +2784,9 @@ function TopPostRow(
               <PilarSelector postId={post.id} pillar={post.pillar} />
               {ctr != null && (
                 <span
-                  className={`rounded font-semibold tabular-nums bg-amber-500/15 text-amber-400 ${
+                  className={`rounded font-semibold tabular-nums bg-amber-500/15 text-amber-700 ${
                     destacar === 'ctr'
-                      ? 'px-2.5 py-1 text-sm ring-1 ring-amber-400/40'
+                      ? 'px-2.5 py-1 text-sm ring-1 ring-amber-500/40'
                       : 'px-2 py-0.5 text-xs'
                   }`}
                   title={
@@ -2850,13 +2850,13 @@ function TopPostRow(
               {post.published_at && (
                 <button
                   onClick={() => setOpen((v) => !v)}
-                  className="text-accent hover:text-accent-light"
+                  className="text-accent hover:text-accent-strong"
                 >
                   {open ? 'Ocultar estadísticas' : 'Ver estadísticas'}
                 </button>
               )}
               {post.post_url && (
-                <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-light">
+                <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="text-linkedin hover:underline">
                   Ver en LinkedIn →
                 </a>
               )}
@@ -2915,7 +2915,7 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
     return (
       <text
         x={x} y={y} dy={4} textAnchor="end" fontSize={12}
-        fill={fila?.pocos ? '#5b6175' : '#9ca3af'}
+        fill={fila?.pocos ? '#B5A9B4' : '#76607A'}
         style={{ cursor: 'pointer' }}
         onClick={() => fila && onElegir(fila.gancho_palanca)}
       >
@@ -2941,14 +2941,14 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
               type="category"
               dataKey="label"
               tick={<TickGancho />}
-              axisLine={{ stroke: '#2e3348' }}
+              axisLine={{ stroke: '#E6E0E3' }}
               tickLine={false}
               width={190}
               interval={0}
             />
-            <ReferenceLine x={1} stroke="#4b5268" strokeDasharray="3 3" />
+            <ReferenceLine x={1} stroke="#C9BFC6" strokeDasharray="3 3" />
             <Tooltip
-              cursor={{ fill: 'rgba(232,147,90,0.05)' }}
+              cursor={{ fill: 'rgba(230,106,27,0.07)' }}
               content={({ active, payload }: any) => {
                 const fila: Fila | undefined = active ? payload?.[0]?.payload : undefined;
                 if (!fila) return null;
@@ -2981,7 +2981,7 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
                   if (!fila) return null;
                   const { x, y, width, height } = props;
                   return (
-                    <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2} dy={4} fontSize={11} fill={fila.pocos ? '#5b6175' : '#9ca3af'}>
+                    <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2} dy={4} fontSize={11} fill={fila.pocos ? '#B5A9B4' : '#76607A'}>
                       {fila.lado}
                     </text>
                   );
@@ -2989,7 +2989,7 @@ function GanchosCard({ ganchos, onElegir }: { ganchos: GanchoRow[]; onElegir: (c
               }}
             >
               {datos.map((r) => (
-                <Cell key={r.gancho_palanca} fill="#e8935a" fillOpacity={r.pocos ? 0.3 : 0.9} />
+                <Cell key={r.gancho_palanca} fill="#E66A1B" fillOpacity={r.pocos ? 0.3 : 0.9} />
               ))}
             </Bar>
           </BarChart>

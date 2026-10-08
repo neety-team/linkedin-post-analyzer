@@ -31,7 +31,7 @@ function getLinkedInUrl(post: PostData): string | null {
 
 function ratioBadge(ratio: number) {
   if (ratio >= 10) return (
-    <span className="bg-diamond/20 text-diamond px-2 py-0.5 rounded text-xs font-bold shadow-[0_0_8px_rgba(103,232,249,0.3)]">{ratio}x</span>
+    <span className="bg-diamond/20 text-diamond px-2 py-0.5 rounded text-xs font-bold shadow-[0_0_8px_rgba(126,58,168,0.3)]">{ratio}x</span>
   );
   if (ratio >= 3) return (
     <span className="bg-accent/20 text-accent px-2 py-0.5 rounded text-xs font-bold">{ratio}x</span>
@@ -41,16 +41,16 @@ function ratioBadge(ratio: number) {
 
 const TYPE_CONFIG: Record<string, { icon: string; label: string; color: string; hasMedia: boolean }> = {
   text:            { icon: '📝', label: 'Texto',           color: 'text-text-muted bg-bg-hover',          hasMedia: false },
-  text_image:      { icon: '📝🖼️', label: 'Texto + foto',    color: 'text-blue-400 bg-blue-400/10',          hasMedia: true  },
-  text_carousel:   { icon: '📝📎', label: 'Texto + carrusel', color: 'text-purple-400 bg-purple-400/10',      hasMedia: true  },
-  text_video:      { icon: '📝🎥', label: 'Texto + vídeo',   color: 'text-red-400 bg-red-400/10',            hasMedia: true  },
-  text_document:   { icon: '📝📄', label: 'Texto + documento',color: 'text-amber-400 bg-amber-400/10',        hasMedia: true  },
-  image:           { icon: '🖼️', label: 'Solo foto',        color: 'text-blue-300 bg-blue-300/10',          hasMedia: true  },
-  carousel:        { icon: '📎', label: 'Solo carrusel',    color: 'text-purple-300 bg-purple-300/10',      hasMedia: true  },
-  video:           { icon: '🎥', label: 'Solo vídeo',       color: 'text-red-300 bg-red-300/10',            hasMedia: true  },
-  document:        { icon: '📄', label: 'Solo documento',   color: 'text-amber-300 bg-amber-300/10',        hasMedia: true  },
-  poll:            { icon: '📊', label: 'Encuesta',         color: 'text-green-400 bg-green-400/10',        hasMedia: false },
-  article:         { icon: '📰', label: 'Artículo',         color: 'text-cyan-400 bg-cyan-400/10',          hasMedia: false },
+  text_image:      { icon: '📝🖼️', label: 'Texto + foto',    color: 'text-blue-700 bg-blue-400/10',          hasMedia: true  },
+  text_carousel:   { icon: '📝📎', label: 'Texto + carrusel', color: 'text-purple-700 bg-purple-400/10',      hasMedia: true  },
+  text_video:      { icon: '📝🎥', label: 'Texto + vídeo',   color: 'text-danger bg-danger/10',            hasMedia: true  },
+  text_document:   { icon: '📝📄', label: 'Texto + documento',color: 'text-amber-700 bg-amber-400/10',        hasMedia: true  },
+  image:           { icon: '🖼️', label: 'Solo foto',        color: 'text-blue-700 bg-blue-300/10',          hasMedia: true  },
+  carousel:        { icon: '📎', label: 'Solo carrusel',    color: 'text-purple-700 bg-purple-300/10',      hasMedia: true  },
+  video:           { icon: '🎥', label: 'Solo vídeo',       color: 'text-danger bg-danger/10',            hasMedia: true  },
+  document:        { icon: '📄', label: 'Solo documento',   color: 'text-amber-700 bg-amber-300/10',        hasMedia: true  },
+  poll:            { icon: '📊', label: 'Encuesta',         color: 'text-success bg-success/10',        hasMedia: false },
+  article:         { icon: '📰', label: 'Artículo',         color: 'text-cyan-700 bg-cyan-400/10',          hasMedia: false },
 };
 
 function TypeBadge({ type }: { type: string }) {
@@ -76,7 +76,7 @@ function ExpandableText({ text }: { text: string }) {
       {needsTrunc && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className="text-[11px] text-accent hover:text-accent-light mt-1"
+          className="text-[11px] text-accent hover:text-accent-strong mt-1"
         >
           {expanded ? 'Ver menos ↑' : 'Ver más ↓'}
         </button>
@@ -131,7 +131,7 @@ export default function PostCard({ post }: Props) {
             href={linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-accent hover:text-accent-light"
+            className="text-xs text-linkedin hover:underline"
           >
             Ver en LinkedIn ↗
           </a>

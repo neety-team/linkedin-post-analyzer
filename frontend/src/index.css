@@ -1,30 +1,61 @@
 @import "tailwindcss";
 
-/* Neety brand fonts — used by the carousel generator templates so the
-   exported PDFs render in the actual brand typography, not a substitute.
-   Switzer comes from Fontshare (free, no-account CDN); Bricolage Grotesque
-   is on Google Fonts. Loaded early so html2canvas captures fully-rendered
-   glyphs (we also gate the export on document.fonts.ready). */
+/* Neety brand fonts: Switzer (texto) y Bricolage Grotesque (titulares), las
+   mismas que la web (landing/app/globals.css) y el admin. Switzer viene de
+   Fontshare (CDN sin cuenta); Bricolage, de Google Fonts. */
 @import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap');
 
+/* Paleta (08-oct-2026). Sale de la marca (landing/app/globals.css y el admin
+   de neety.com) pero ajustada para una herramienta interna de datos: la Base
+   Cálida #f8f7ec es tan clara que las tarjetas blancas se pierden, así que el
+   fondo baja un tono (como el #f4f2ee de LinkedIn) y el naranja de texto se
+   oscurece hasta leerse sobre blanco (4,3:1; el #fe8238 puro da 2,5:1).
+   Los nombres de token son los de siempre: cambiar aquí recolorea toda la app.
+
+   Reglas de uso:
+   - success / danger son SEMÁNTICOS: bueno = verde, malo = rojo. Nunca se
+     usan como color decorativo.
+   - linkedin (#0a66c2) para lo que es de LinkedIn: impresiones, enlaces a
+     LinkedIn, reacciones, la vista previa del post.
+   - naranja es el de marca puro: logo, rellenos y series de gráficas. Para
+     texto, accent.
+   - diamond marca el outlier (💎): berenjena viva, distinto de todo lo demás.
+   - Los colores fijos de las gráficas (recharts no lee clases) están
+     mapeados a estos mismos valores en cada componente. */
 @theme {
-  --color-bg-primary: #0f1117;
-  --color-bg-secondary: #1a1d27;
-  --color-bg-card: #222639;
-  --color-bg-hover: #2a2e42;
-  --color-accent: #e8935a;
-  --color-accent-light: #f0a872;
-  --color-accent-dark: #c97a45;
-  --color-text-primary: #e8eaf0;
-  --color-text-secondary: #9ca3af;
-  --color-text-muted: #6b7280;
-  --color-border: #2e3348;
-  --color-success: #34d399;
-  --color-danger: #f87171;
-  --color-diamond: #67e8f9;
-  --color-diamond-dark: #22d3ee;
-  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --color-bg-primary: #f1eee6; /* fondo de página y pozos (inputs) */
+  --color-bg-secondary: #f6f3ee; /* pozos DENTRO de tarjetas: inputs, cajitas de dato, barras de progreso */
+  --color-bg-card: #ffffff; /* superficie elevada: tarjetas, modales, desplegables */
+  --color-bg-hover: #f3edf0; /* hover: velo de berenjena */
+  --color-accent: #c55a0e; /* naranja legible: texto, botones, activo */
+  --color-accent-strong: #a44a08; /* hover/pulsado del acento */
+  --color-text-primary: #431b44; /* Berenjena */
+  --color-text-secondary: #664767;
+  --color-text-muted: #76607a; /* 4,9:1 sobre el fondo */
+  --color-border: #e2dcdf;
+  --color-success: #1a7f50;
+  --color-danger: #c73b3b;
+  --color-warning: #99600a;
+  --color-diamond: #7e3aa8;
+  --color-linkedin: #0a66c2;
+
+  /* Marca, tal cual (landing/app/globals.css) */
+  --color-naranja: #fe8238;
+  --color-plum: #431b44;
+  --color-ink: #2a0e2c;
+  --color-azul: #a7c5f9;
+  --color-cream: #f8f7ec;
+
+  --font-sans: 'Switzer', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Switzer', system-ui, sans-serif;
+}
+
+html {
+  color-scheme: light;
+  /* Reserva siempre el hueco de la barra de scroll: sin esto, al pasar de
+     una página corta a una larga todo el layout salta 8 px a la izquierda. */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -32,15 +63,35 @@ body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Titulares en Bricolage, como la web. En @layer base para que una clase
+   de Tailwind (font-mono, etc.) siga pudiendo pisarlo. */
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+::selection {
+  background: rgb(254 130 56 / 0.25);
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
+  background: #cfc6cb;
+  border-radius: 6px;
+  border: 2px solid var(--color-bg-primary);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b3a7ae;
 }

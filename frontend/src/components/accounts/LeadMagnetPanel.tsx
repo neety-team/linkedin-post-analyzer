@@ -93,7 +93,7 @@ export default function LeadMagnetPanel({ accounts, onSelectCreator }: Props) {
         {selectedPost && (
           <button
             onClick={() => setPostId(null)}
-            className="text-xs text-accent hover:text-accent-light"
+            className="text-xs text-accent hover:text-accent-strong"
           >
             ← Cambiar de post
           </button>
@@ -111,7 +111,7 @@ export default function LeadMagnetPanel({ accounts, onSelectCreator }: Props) {
       {creator && !selectedPost && (
         <div>
           {gridLoading && <p className="text-center text-text-muted text-sm py-10">Cargando posts…</p>}
-          {gridError && <p className="text-center text-red-400 text-sm py-6">{gridError}</p>}
+          {gridError && <p className="text-center text-danger text-sm py-6">{gridError}</p>}
           {!gridLoading && posts.length === 0 && (
             <p className="text-center text-text-muted text-sm py-10">Esta cuenta no tiene posts registrados.</p>
           )}

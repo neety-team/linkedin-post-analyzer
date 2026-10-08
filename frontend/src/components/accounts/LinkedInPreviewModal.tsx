@@ -79,13 +79,13 @@ export default function LinkedInPreviewModal({ open, onClose }: { open: boolean;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 backdrop-blur-sm p-4 sm:p-8"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-ink/50 backdrop-blur-sm p-4 sm:p-8"
       onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
       role="dialog"
       aria-modal="true"
       aria-label="Vista previa de LinkedIn"
     >
-      <div className="w-full max-w-3xl my-auto rounded-2xl border border-border bg-bg-card shadow-2xl shadow-black/50 overflow-hidden">
+      <div className="w-full max-w-3xl my-auto rounded-2xl border border-border bg-bg-card shadow-2xl shadow-ink/20 overflow-hidden">
         {/* Cabecera */}
         <div className="flex items-start justify-between gap-4 px-6 py-4 border-b border-border bg-gradient-to-r from-accent/10 to-transparent">
           <div>

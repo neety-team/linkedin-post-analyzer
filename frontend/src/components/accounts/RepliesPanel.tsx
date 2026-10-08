@@ -135,7 +135,7 @@ export default function RepliesPanel({ accounts, onSelectCreator }: Props) {
         </p>
       )}
       {error && (
-        <p className="text-center text-red-400 text-sm py-6">
+        <p className="text-center text-danger text-sm py-6">
           {error} <button onClick={refetch} className="underline">Reintentar</button>
         </p>
       )}
@@ -178,7 +178,7 @@ export default function RepliesPanel({ accounts, onSelectCreator }: Props) {
       {groups.length > visibleGroups && (
         <button
           onClick={() => setVisibleGroups((v) => v + GROUPS_PAGE)}
-          className="w-full py-2.5 text-xs font-medium text-accent hover:text-accent-light border border-border hover:border-accent/40 rounded-lg transition-colors"
+          className="w-full py-2.5 text-xs font-medium text-accent hover:text-accent-strong border border-border hover:border-accent/40 rounded-lg transition-colors"
         >
           Ver más posts ({groups.length - visibleGroups} restantes) ↓
         </button>

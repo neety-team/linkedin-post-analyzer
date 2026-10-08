@@ -14,7 +14,8 @@ export default function App() {
     return (
       <Link
         to={to}
-        className={`px-2 py-1 rounded-md transition-colors text-xs whitespace-nowrap ${active ? 'text-accent font-medium bg-accent/10' : 'text-text-secondary hover:text-text-primary hover:bg-bg-hover'}`}
+        aria-current={active ? 'page' : undefined}
+        className={`px-3 py-1.5 rounded-full transition-colors text-[13px] whitespace-nowrap ${active ? 'text-accent font-semibold bg-accent/10' : 'text-text-secondary hover:text-text-primary hover:bg-bg-hover'}`}
       >
         {label}
       </Link>
@@ -23,21 +24,27 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-bg-primary">
-      <nav className="border-b border-border px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link to="/" className="text-xl font-bold text-accent">
-            Analizador de outliers de LinkedIn
+      {/* Header sticky (08-oct-2026). Su contenido usa el MISMO contenedor que
+          <main> (max-w-7xl + px-6 dentro): antes el padding iba fuera y el
+          header quedaba 24 px más ancho que la página a cada lado. */}
+      <header className="sticky top-0 z-40 border-b border-border bg-bg-primary/90 backdrop-blur-md">
+        <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
+          <Link to="/" className="flex items-center gap-3 shrink-0" aria-label="Neety · Analizador de outliers">
+            <img src="/neety-logo.svg" alt="Neety" className="h-6 w-auto block" />
+            <span className="h-5 w-px bg-border" aria-hidden="true" />
+            <span className="font-display text-[17px] font-medium tracking-tight text-text-primary whitespace-nowrap">
+              Analizador de outliers
+            </span>
           </Link>
-          <div className="flex items-center gap-1 text-sm">
-            {/* Analyze */}
-            <div className="flex gap-1 px-2 py-1 rounded-lg bg-bg-secondary/50">
+          <div className="flex items-center gap-2 text-sm overflow-x-auto">
+            {/* Analizar */}
+            <div className="flex gap-0.5 p-1 rounded-full bg-bg-card border border-border shadow-sm">
               {navLink('/', '📊 Panel')}
               {navLink('/accounts', '📈 Cuentas')}
               {navLink('/explore', '🔍 Explorador')}
             </div>
-            <span className="text-border mx-1">|</span>
-            {/* Create */}
-            <div className="flex gap-1 px-2 py-1 rounded-lg bg-bg-secondary/50">
+            {/* Crear */}
+            <div className="flex gap-0.5 p-1 rounded-full bg-bg-card border border-border shadow-sm">
               {navLink('/swipe', '🔥 Swipe')}
               {navLink('/ideas', '💡 Ideas')}
               {navLink('/inspiration', '✨ Inspiración')}
@@ -50,8 +57,8 @@ export default function App() {
                 del chat es el cerebro en produccion y el perfil de comentarista
                 lo leen el generador de respuestas y el de rastro. */}
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
       <main className="max-w-7xl mx-auto px-6 py-8">
         <Routes>
           <Route path="/" element={<Dashboard />} />

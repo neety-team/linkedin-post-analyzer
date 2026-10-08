@@ -44,11 +44,11 @@ export default function ConsistencyHeatmap({ data }: Props) {
   const maxCount = Math.max(1, ...Object.values(dateCounts));
 
   function getColor(count: number): string {
-    if (count === 0) return '#1a1d27';
+    if (count === 0) return '#EAE5DF';
     const intensity = Math.min(count / maxCount, 1);
-    if (intensity < 0.33) return '#5a3d2a';
-    if (intensity < 0.66) return '#b86d3a';
-    return '#e8935a';
+    if (intensity < 0.33) return '#FBD3B8';
+    if (intensity < 0.66) return '#F59A5E';
+    return '#E66A1B';
   }
 
   const dayLabels = ['', 'Lun', '', 'Mié', '', 'Vie', ''];

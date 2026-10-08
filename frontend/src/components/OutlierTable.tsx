@@ -35,7 +35,7 @@ function MediaViewer({ postId, contentType }: { postId: string; contentType: str
   const typeIcon: Record<string, string> = { image: '🖼️', carousel: '📎', video: '🎥', document: '📄' };
 
   if (state === 'idle') return (
-    <button onClick={load} className="text-[11px] text-accent hover:text-accent-light border border-accent/30 px-2.5 py-1 rounded-lg transition-colors">
+    <button onClick={load} className="text-[11px] text-accent hover:text-accent-strong border border-accent/30 px-2.5 py-1 rounded-lg transition-colors">
       {typeIcon[contentType] || '🖼️'} Ver creatividad
     </button>
   );
@@ -44,7 +44,7 @@ function MediaViewer({ postId, contentType }: { postId: string; contentType: str
     <div className="flex items-center gap-2">
       <span className="text-[11px] text-text-muted">Enlace caducado</span>
       {media?.linkedin_url && (
-        <a href={media.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-[11px] text-accent">ver en LinkedIn ↗</a>
+        <a href={media.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-[11px] text-linkedin">ver en LinkedIn ↗</a>
       )}
     </div>
   );
@@ -103,7 +103,7 @@ function getLinkedInUrl(post: Post): string | null {
 function ratioBadge(ratio: number) {
   if (ratio >= 10) {
     return (
-      <span className="bg-diamond/20 text-diamond px-2 py-0.5 rounded text-xs font-bold shadow-[0_0_8px_rgba(103,232,249,0.3)]">
+      <span className="bg-diamond/20 text-diamond px-2 py-0.5 rounded text-xs font-bold shadow-[0_0_8px_rgba(126,58,168,0.3)]">
         {ratio}x
       </span>
     );
@@ -197,16 +197,16 @@ interface Props {
 
 const TYPE_CONFIG: Record<string, { icon: string; label: string; color: string; hasMedia: boolean }> = {
   text:            { icon: '📝', label: 'Texto',           color: 'text-text-muted bg-bg-hover',      hasMedia: false },
-  text_image:      { icon: '📝🖼️', label: 'Texto + foto',    color: 'text-blue-400 bg-blue-400/10',     hasMedia: true  },
-  text_carousel:   { icon: '📝📎', label: 'Texto + carrusel', color: 'text-purple-400 bg-purple-400/10', hasMedia: true  },
-  text_video:      { icon: '📝🎥', label: 'Texto + vídeo',   color: 'text-red-400 bg-red-400/10',       hasMedia: true  },
-  text_document:   { icon: '📝📄', label: 'Texto + documento',color: 'text-amber-400 bg-amber-400/10',   hasMedia: true  },
-  image:           { icon: '🖼️', label: 'Solo foto',        color: 'text-blue-300 bg-blue-300/10',     hasMedia: true  },
-  carousel:        { icon: '📎', label: 'Solo carrusel',    color: 'text-purple-300 bg-purple-300/10', hasMedia: true  },
-  video:           { icon: '🎥', label: 'Solo vídeo',       color: 'text-red-300 bg-red-300/10',       hasMedia: true  },
-  document:        { icon: '📄', label: 'Solo documento',   color: 'text-amber-300 bg-amber-300/10',   hasMedia: true  },
-  poll:            { icon: '📊', label: 'Encuesta',         color: 'text-green-400 bg-green-400/10',   hasMedia: false },
-  article:         { icon: '📰', label: 'Artículo',         color: 'text-cyan-400 bg-cyan-400/10',     hasMedia: false },
+  text_image:      { icon: '📝🖼️', label: 'Texto + foto',    color: 'text-blue-700 bg-blue-400/10',     hasMedia: true  },
+  text_carousel:   { icon: '📝📎', label: 'Texto + carrusel', color: 'text-purple-700 bg-purple-400/10', hasMedia: true  },
+  text_video:      { icon: '📝🎥', label: 'Texto + vídeo',   color: 'text-danger bg-danger/10',       hasMedia: true  },
+  text_document:   { icon: '📝📄', label: 'Texto + documento',color: 'text-amber-700 bg-amber-400/10',   hasMedia: true  },
+  image:           { icon: '🖼️', label: 'Solo foto',        color: 'text-blue-700 bg-blue-300/10',     hasMedia: true  },
+  carousel:        { icon: '📎', label: 'Solo carrusel',    color: 'text-purple-700 bg-purple-300/10', hasMedia: true  },
+  video:           { icon: '🎥', label: 'Solo vídeo',       color: 'text-danger bg-danger/10',       hasMedia: true  },
+  document:        { icon: '📄', label: 'Solo documento',   color: 'text-amber-700 bg-amber-300/10',   hasMedia: true  },
+  poll:            { icon: '📊', label: 'Encuesta',         color: 'text-success bg-success/10',   hasMedia: false },
+  article:         { icon: '📰', label: 'Artículo',         color: 'text-cyan-700 bg-cyan-400/10',     hasMedia: false },
 };
 
 const PREVIEW_CHARS = 300;
@@ -222,7 +222,7 @@ function ExpandableText({ text }: { text: string }) {
       {needsTrunc && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className="text-[11px] text-accent hover:text-accent-light mt-1"
+          className="text-[11px] text-accent hover:text-accent-strong mt-1"
         >
           {expanded ? 'Ver menos ↑' : 'Ver más ↓'}
         </button>
@@ -413,7 +413,7 @@ export default function OutlierTable({ posts, title = 'Posts outlier', creatorNa
                             href={getLinkedInUrl(post)!}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-accent hover:text-accent-light text-xs"
+                            className="text-accent hover:text-accent-strong text-xs"
                             onClick={(e) => e.stopPropagation()}
                           >
                             Ver
@@ -435,7 +435,7 @@ export default function OutlierTable({ posts, title = 'Posts outlier', creatorNa
                           }
                           className={`text-xs px-2 py-1 rounded border transition-colors ${
                             stolenIds.has(post.id)
-                              ? 'border-green-400/30 bg-green-400/10 text-green-400 cursor-default'
+                              ? 'border-success/30 bg-success/10 text-success cursor-default'
                               : 'border-accent/30 text-accent hover:bg-accent/10 disabled:opacity-40 disabled:cursor-not-allowed'
                           }`}
                         >

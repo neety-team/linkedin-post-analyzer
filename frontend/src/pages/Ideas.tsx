@@ -113,7 +113,7 @@ function SourceBanner({ source }: { source: ParsedSource }) {
             href={source.originalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] text-accent hover:text-accent-light inline-flex items-center gap-1 mt-1.5 underline-offset-2 hover:underline"
+            className="text-[11px] text-accent hover:text-accent-strong inline-flex items-center gap-1 mt-1.5 underline-offset-2 hover:underline"
           >
             <span aria-hidden>↗</span>
             <span>Ver post original en LinkedIn</span>
@@ -126,17 +126,17 @@ function SourceBanner({ source }: { source: ParsedSource }) {
 
 const SOURCE_CONFIG: Record<string, { icon: string; label: string; color: string }> = {
   manual:      { icon: '💡', label: 'Idea',        color: 'text-accent bg-accent/10' },
-  book_quote:  { icon: '📚', label: 'Libro',       color: 'text-purple-400 bg-purple-400/10' },
-  demo_moment: { icon: '🎯', label: 'Demo',        color: 'text-blue-400 bg-blue-400/10' },
-  observation: { icon: '👁️', label: 'Observación', color: 'text-amber-400 bg-amber-400/10' },
-  meeting:     { icon: '🤝', label: 'Reunión',     color: 'text-green-400 bg-green-400/10' },
-  generated:   { icon: '✨', label: 'Generada',    color: 'text-fuchsia-400 bg-fuchsia-400/10' },
+  book_quote:  { icon: '📚', label: 'Libro',       color: 'text-purple-700 bg-purple-400/10' },
+  demo_moment: { icon: '🎯', label: 'Demo',        color: 'text-blue-700 bg-blue-400/10' },
+  observation: { icon: '👁️', label: 'Observación', color: 'text-amber-700 bg-amber-400/10' },
+  meeting:     { icon: '🤝', label: 'Reunión',     color: 'text-success bg-success/10' },
+  generated:   { icon: '✨', label: 'Generada',    color: 'text-fuchsia-700 bg-fuchsia-400/10' },
 };
 
 const ARCHETYPE_COLORS = [
-  { border: 'border-accent/30', bg: 'bg-accent/5', badge: 'bg-accent/15 text-accent', btn: 'bg-accent text-bg-primary hover:bg-accent-light' },
-  { border: 'border-purple-400/30', bg: 'bg-purple-400/5', badge: 'bg-purple-400/15 text-purple-400', btn: 'bg-purple-500/80 text-white hover:bg-purple-500' },
-  { border: 'border-blue-400/30', bg: 'bg-blue-400/5', badge: 'bg-blue-400/15 text-blue-400', btn: 'bg-blue-500/80 text-white hover:bg-blue-500' },
+  { border: 'border-accent/30', bg: 'bg-accent/5', badge: 'bg-accent/15 text-accent', btn: 'bg-accent text-white hover:bg-accent-strong' },
+  { border: 'border-purple-500/30', bg: 'bg-purple-400/5', badge: 'bg-purple-400/15 text-purple-700', btn: 'bg-purple-500/80 text-white hover:bg-purple-500' },
+  { border: 'border-blue-500/30', bg: 'bg-blue-400/5', badge: 'bg-blue-400/15 text-blue-700', btn: 'bg-blue-500/80 text-white hover:bg-blue-500' },
 ];
 
 // ─── Voice capture ────────────────────────────────────────────────────────────
@@ -402,7 +402,7 @@ function IdeaCard({ idea, onUpdate, onDelete }: {
             {hasVariants && (
               <button
                 onClick={() => { setShowVariants(true); setSelectedVariant(null); }}
-                className="text-[11px] text-accent hover:text-accent-light transition-colors"
+                className="text-[11px] text-accent hover:text-accent-strong transition-colors"
               >
                 ← Cambiar de variante
               </button>
@@ -523,7 +523,7 @@ function CaptureForm({ onCreated }: { onCreated: () => void }) {
         <button
           onClick={handleSave}
           disabled={saving || !content.trim()}
-          className="px-5 py-2 bg-accent text-bg-primary rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-light transition-colors"
+          className="px-5 py-2 bg-accent text-white rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-accent-strong transition-colors"
         >
           {saving ? 'Guardando…' : 'Guardar idea'}
         </button>
@@ -686,11 +686,11 @@ interface KanbanResponse {
 }
 
 const COLUMN_META: { key: KanbanIdea['pipeline_status']; label: string; emoji: string; tint: string }[] = [
-  { key: 'proposed', label: 'Propuesta', emoji: '💡', tint: 'border-amber-400/30' },
-  { key: 'in_progress', label: 'En proceso', emoji: '🛠', tint: 'border-blue-400/30' },
-  { key: 'scheduled', label: 'Programado', emoji: '⏰', tint: 'border-purple-400/30' },
-  { key: 'published', label: 'Publicado', emoji: '✅', tint: 'border-green-400/30' },
-  { key: 'discarded', label: 'Descartado', emoji: '🗑️', tint: 'border-red-400/30' },
+  { key: 'proposed', label: 'Propuesta', emoji: '💡', tint: 'border-amber-500/30' },
+  { key: 'in_progress', label: 'En proceso', emoji: '🛠', tint: 'border-blue-500/30' },
+  { key: 'scheduled', label: 'Programado', emoji: '⏰', tint: 'border-purple-500/30' },
+  { key: 'published', label: 'Publicado', emoji: '✅', tint: 'border-success/30' },
+  { key: 'discarded', label: 'Descartado', emoji: '🗑️', tint: 'border-danger/30' },
 ];
 
 function KanbanView({ refreshKey }: { refreshKey: string }) {
@@ -761,7 +761,7 @@ function KanbanView({ refreshKey }: { refreshKey: string }) {
         <div className="flex justify-end">
           <button
             onClick={clearAll}
-            className="text-xs px-2.5 py-1 rounded border border-red-400/40 text-red-400 hover:bg-red-400/10 transition-colors"
+            className="text-xs px-2.5 py-1 rounded border border-danger/40 text-danger hover:bg-danger/10 transition-colors"
             title="Elimina todas las ideas y reinicia el deck del Swipe"
           >
             🗑️ Vaciar todo
@@ -842,7 +842,7 @@ function KanbanCard({
               onClick={(e) => e.stopPropagation()}
               onMouseDown={(e) => e.stopPropagation()}
               draggable={false}
-              className="text-accent hover:text-accent-light"
+              className="text-accent hover:text-accent-strong"
               title="Abrir el outlier original en LinkedIn"
             >
               ↗
@@ -864,7 +864,7 @@ function KanbanCard({
       {isLong && (
         <button
           onClick={(e) => { e.stopPropagation(); setExpanded((v) => !v); }}
-          className="text-[10px] text-accent hover:text-accent-light mt-1"
+          className="text-[10px] text-accent hover:text-accent-strong mt-1"
         >
           {expanded ? 'Ver menos ↑' : 'Ver más ↓'}
         </button>

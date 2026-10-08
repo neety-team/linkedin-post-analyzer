@@ -51,25 +51,25 @@ function PuntoTooltip({ active, payload, modo }: any) {
   return (
     <div
       style={{
-        backgroundColor: '#222639',
+        backgroundColor: '#FFFFFF',
         border: '1px solid #34d39955',
         borderRadius: 10,
         padding: '8px 12px',
         boxShadow: '0 0 14px #34d39933',
       }}
     >
-      <div style={{ color: '#9ca3af', fontSize: 11, marginBottom: 2 }}>{d.label}</div>
-      <div style={{ color: '#34d399', fontSize: 18, fontWeight: 700 }}>
+      <div style={{ color: '#76607A', fontSize: 11, marginBottom: 2 }}>{d.label}</div>
+      <div style={{ color: '#1E9160', fontSize: 18, fontWeight: 700 }}>
         +{fmtFull(modo === 'cumulative' ? d.acumulado : d.gained)}
-        <span style={{ color: '#9ca3af', fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
+        <span style={{ color: '#76607A', fontSize: 11, fontWeight: 500, marginLeft: 6 }}>
           {modo === 'cumulative' ? 'seguidores nuevos acumulados' : 'seguidores nuevos ese día'}
         </span>
       </div>
       {modo === 'cumulative' && (
-        <div style={{ color: '#9ca3af', fontSize: 11 }}>+{fmtFull(d.gained)} ese día</div>
+        <div style={{ color: '#76607A', fontSize: 11 }}>+{fmtFull(d.gained)} ese día</div>
       )}
       {d.followers > 0 && (
-        <div style={{ color: '#9ca3af', fontSize: 11, marginTop: 2 }}>{fmtFull(d.followers)} seguidores en total</div>
+        <div style={{ color: '#76607A', fontSize: 11, marginTop: 2 }}>{fmtFull(d.followers)} seguidores en total</div>
       )}
     </div>
   );
@@ -162,11 +162,11 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
       {!loading && chartData.length > 0 && (
         <div className="mb-3 flex items-baseline gap-x-4 gap-y-1 flex-wrap">
           <span className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-green-400 tabular-nums">+{fmtFull(ganados)}</span>
+            <span className="text-2xl font-bold text-success tabular-nums">+{fmtFull(ganados)}</span>
             <span className="text-sm text-text-muted">seguidores nuevos · {days} d</span>
           </span>
           {variacion != null && (
-            <span className={`text-xs font-medium ${variacion >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+            <span className={`text-xs font-medium ${variacion >= 0 ? 'text-success' : 'text-danger'}`}>
               {variacion >= 0 ? '▲' : '▼'} {Math.abs(variacion).toLocaleString('es-ES', { maximumFractionDigits: 0 })}%
               <span className="text-text-muted font-normal"> vs. los {days} días anteriores</span>
             </span>
@@ -188,32 +188,32 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
           <ComposedChart data={chartData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
             <defs>
               <linearGradient id="seguidoresFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#34d399" stopOpacity={0.3} />
-                <stop offset="100%" stopColor="#34d399" stopOpacity={0} />
+                <stop offset="0%" stopColor="#1E9160" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="#1E9160" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2e3348" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
             <XAxis
               dataKey="label"
-              tick={{ fill: '#9ca3af', fontSize: 11 }}
-              axisLine={{ stroke: '#2e3348' }}
+              tick={{ fill: '#76607A', fontSize: 11 }}
+              axisLine={{ stroke: '#E6E0E3' }}
               interval={xTickInterval}
             />
             <YAxis
-              tick={{ fill: '#9ca3af', fontSize: 11 }}
-              axisLine={{ stroke: '#2e3348' }}
+              tick={{ fill: '#76607A', fontSize: 11 }}
+              axisLine={{ stroke: '#E6E0E3' }}
               tickFormatter={fmtNum}
               allowDecimals={false}
             />
-            <Tooltip content={<PuntoTooltip modo={modo} />} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
-            <ReferenceLine y={0} stroke="#2e3348" />
+            <Tooltip content={<PuntoTooltip modo={modo} />} cursor={{ fill: 'rgba(67,27,68,0.05)' }} />
+            <ReferenceLine y={0} stroke="#E6E0E3" />
             {modo === 'cumulative' ? (
               <>
                 <Area type="monotone" dataKey="acumulado" stroke="none" fill="url(#seguidoresFill)" isAnimationActive={false} />
-                <Line type="monotone" dataKey="acumulado" stroke="#34d399" strokeWidth={2.5} dot={false} isAnimationActive={false} />
+                <Line type="monotone" dataKey="acumulado" stroke="#1E9160" strokeWidth={2.5} dot={false} isAnimationActive={false} />
               </>
             ) : (
-              <Bar dataKey="gained" fill="#34d399" radius={[2, 2, 0, 0]} isAnimationActive={false} />
+              <Bar dataKey="gained" fill="#1E9160" radius={[2, 2, 0, 0]} isAnimationActive={false} />
             )}
           </ComposedChart>
         </ResponsiveContainer>

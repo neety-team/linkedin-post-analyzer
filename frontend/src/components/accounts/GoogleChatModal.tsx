@@ -184,7 +184,7 @@ export default function GoogleChatModal({
   // mensaje desde cero, y copiar lo hace el propio navegador.
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-start justify-center overflow-y-auto py-8 px-4"
+      className="fixed inset-0 z-50 bg-ink/50 backdrop-blur-sm flex items-start justify-center overflow-y-auto py-8 px-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <div className="bg-bg-card border border-border rounded-2xl shadow-2xl w-full max-w-3xl my-auto overflow-hidden">
@@ -227,12 +227,12 @@ export default function GoogleChatModal({
         {!loading && data && (
           <div className="px-6 pb-5 flex items-center justify-end gap-4">
             {!data.webhook_configured && (
-              <p className="text-[11px] text-amber-400 mr-auto">
+              <p className="text-[11px] text-amber-700 mr-auto">
                 ⚠️ GOOGLE_CHAT_WEBHOOK_URL no está configurado
               </p>
             )}
             {overLimit && (
-              <p className="text-[11px] text-amber-400 mr-auto">
+              <p className="text-[11px] text-amber-700 mr-auto">
                 {message.length} / {MAX_LEN} caracteres
               </p>
             )}
@@ -241,8 +241,8 @@ export default function GoogleChatModal({
               disabled={!data.webhook_configured || sending || sent || !message || overLimit}
               className={`px-5 py-2.5 rounded-xl text-xs font-medium transition-colors ${
                 sent
-                  ? 'bg-green-500/15 text-green-400 cursor-default'
-                  : 'bg-accent text-bg-primary hover:bg-accent-light disabled:opacity-40 disabled:cursor-not-allowed'
+                  ? 'bg-success/15 text-success cursor-default'
+                  : 'bg-accent text-white hover:bg-accent-strong disabled:opacity-40 disabled:cursor-not-allowed'
               }`}
             >
               {sent ? '✓ Enviado' : sending ? 'Enviando…' : '📤 Enviar al Chat'}

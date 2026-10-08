@@ -126,12 +126,12 @@ export default function MediaViewer({
           {refreshing ? 'Actualizando…' : '↻ Actualizar'}
         </button>
         {linkedinUrl && (
-          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-accent hover:text-accent-light">
+          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-linkedin hover:underline">
             ver en LinkedIn ↗
           </a>
         )}
         <button onClick={() => setState('idle')} className="text-[10px] text-text-muted hover:text-text-secondary ml-1">✕</button>
-        {refreshMsg && <span className="text-[10px] text-red-400 w-full">{refreshMsg}</span>}
+        {refreshMsg && <span className="text-[10px] text-danger w-full">{refreshMsg}</span>}
       </div>
     );
   }
@@ -162,7 +162,7 @@ export default function MediaViewer({
           href={item.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-3 py-2 bg-bg-primary rounded-lg text-xs text-accent hover:text-accent-light border border-border"
+          className="flex items-center gap-2 px-3 py-2 bg-bg-primary rounded-lg text-xs text-accent hover:text-accent-strong border border-border"
         >
           📄 Abrir documento ↗
         </a>
@@ -177,11 +177,11 @@ export default function MediaViewer({
             {refreshing ? 'Actualizando…' : '↻ Actualizar desde LinkedIn'}
           </button>
           {linkedinUrl && (
-            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-light">
+            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-linkedin hover:underline">
               o ver en LinkedIn ↗
             </a>
           )}
-          {refreshMsg && <span className="text-red-400 w-full">{refreshMsg}</span>}
+          {refreshMsg && <span className="text-danger w-full">{refreshMsg}</span>}
         </div>
       )}
 

@@ -90,11 +90,11 @@ function fmtTokens(s: string | number): string {
 }
 
 const MODEL_TINT: Record<string, string> = {
-  'claude-opus-4-8': 'text-red-300',
-  'claude-opus-4-7': 'text-red-300',
-  'claude-sonnet-4-6': 'text-yellow-300',
-  'claude-haiku-4-5-20251001': 'text-green-300',
-  'claude-haiku-4-5': 'text-green-300',
+  'claude-opus-4-8': 'text-danger',
+  'claude-opus-4-7': 'text-danger',
+  'claude-sonnet-4-6': 'text-yellow-700',
+  'claude-haiku-4-5-20251001': 'text-success',
+  'claude-haiku-4-5': 'text-success',
 };
 
 export default function Usage() {
@@ -137,7 +137,7 @@ export default function Usage() {
       </div>
 
       {error && (
-        <p className="text-sm text-red-400 bg-red-400/5 border border-red-400/30 rounded-lg p-3">
+        <p className="text-sm text-danger bg-danger/5 border border-danger/30 rounded-lg p-3">
           {error}
         </p>
       )}
@@ -160,18 +160,18 @@ export default function Usage() {
               <p className="text-xs text-text-muted mb-4">USD por día en la ventana seleccionada</p>
               <ResponsiveContainer width="100%" height={220}>
                 <LineChart data={dailyCost} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#2e3348" />
-                  <XAxis dataKey="day" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={{ stroke: '#2e3348' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E6E0E3" />
+                  <XAxis dataKey="day" tick={{ fill: '#76607A', fontSize: 11 }} axisLine={{ stroke: '#E6E0E3' }} />
                   <YAxis
-                    tick={{ fill: '#9ca3af', fontSize: 11 }}
-                    axisLine={{ stroke: '#2e3348' }}
+                    tick={{ fill: '#76607A', fontSize: 11 }}
+                    axisLine={{ stroke: '#E6E0E3' }}
                     tickFormatter={(v) => `$${v.toFixed(2)}`}
                   />
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#222639', border: '1px solid #2e3348', borderRadius: 8, color: '#e8eaf0', fontSize: 12 }}
+                    contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #E6E0E3', borderRadius: 8, color: '#431B44', fontSize: 12 }}
                     formatter={(v: any) => [fmtUsd(Number(v)), 'coste']}
                   />
-                  <Line type="monotone" dataKey="cost" stroke="#e8935a" strokeWidth={2} dot={{ r: 2 }} isAnimationActive={false} />
+                  <Line type="monotone" dataKey="cost" stroke="#E66A1B" strokeWidth={2} dot={{ r: 2 }} isAnimationActive={false} />
                 </LineChart>
               </ResponsiveContainer>
             </div>

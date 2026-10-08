@@ -109,7 +109,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           <span className="text-[10px] text-text-muted whitespace-nowrap">·</span>
           <span className="text-[11px] text-text-muted whitespace-nowrap">{fmtRelative(post.published_at)}</span>
           {esLm && (
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 whitespace-nowrap">
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-700 border border-sky-500/30 whitespace-nowrap">
               Lead magnet
             </span>
           )}
@@ -122,7 +122,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           )}
           {accionables > 0 && (
             <span
-              className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 whitespace-nowrap"
+              className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 border border-emerald-500/30 whitespace-nowrap"
               title="Puedes actuar ya: mandarles el recurso por privado, o pedirles la solicitud a los que aún no se la has pedido"
             >
               {accionables} para actuar
@@ -130,7 +130,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           )}
           {fallidos > 0 && (
             <span
-              className="text-[10px] px-1.5 py-0.5 rounded bg-red-500/15 text-red-400 border border-red-500/30 whitespace-nowrap"
+              className="text-[10px] px-1.5 py-0.5 rounded bg-danger/15 text-danger border border-danger/30 whitespace-nowrap"
               title="El envío salió y NO llegó. Dentro, el filtro «Fallidos» los deja solos para reintentar."
             >
               {fallidos} fallidos
@@ -138,7 +138,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           )}
           {seguimientos > 0 && (
             <span
-              className="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30 whitespace-nowrap"
+              className="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-700 border border-purple-500/30 whitespace-nowrap"
               title="Invitados con nota antes del 17/08 cuyo recurso sigue sin salir. Se mandan desde el bloque Seguimientos, dentro del post."
             >
               {seguimientos} en seguimiento
@@ -160,7 +160,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           href={post.post_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[11px] text-accent hover:text-accent-light whitespace-nowrap flex-shrink-0 pt-0.5"
+          className="text-[11px] text-linkedin hover:underline whitespace-nowrap flex-shrink-0 pt-0.5"
         >
           Ver en LinkedIn →
         </a>
@@ -190,7 +190,7 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           {threads.length > visible && (
             <button
               onClick={() => setVisible((v) => v + PER_POST)}
-              className="w-full mt-3 py-2 text-xs font-medium text-accent hover:text-accent-light border border-border hover:border-accent/40 rounded-lg transition-colors"
+              className="w-full mt-3 py-2 text-xs font-medium text-accent hover:text-accent-strong border border-border hover:border-accent/40 rounded-lg transition-colors"
             >
               Ver más comentarios de este post ({threads.length - visible} restantes) ↓
             </button>
@@ -303,7 +303,7 @@ function SubReplyBox({
     finally { setSending(false); }
   };
 
-  if (sent) return <p className="mt-1 text-[10px] text-green-400">✓ Respondido</p>;
+  if (sent) return <p className="mt-1 text-[10px] text-success">✓ Respondido</p>;
 
   if (!abierto) {
     // ⛔ BOTÓN DE VERDAD Y EN SU PROPIA LÍNEA (Iker, 2026-08-11). Era texto gris
@@ -354,7 +354,7 @@ function SubReplyBox({
         <button
           onClick={enviar}
           disabled={sending || !draft.trim()}
-          className="text-[10px] px-2 py-1 rounded bg-accent text-bg-primary font-medium hover:bg-accent-light disabled:opacity-40"
+          className="text-[10px] px-2 py-1 rounded bg-accent text-white font-medium hover:bg-accent-strong disabled:opacity-40"
         >
           {sending ? 'Enviando…' : 'Enviar'}
         </button>
@@ -627,7 +627,7 @@ export function ThreadCard({
                     <button
                       onClick={handleSend}
                       disabled={sending || !draft.trim()}
-                      className="text-xs px-3 py-1.5 rounded-md bg-accent text-white hover:bg-accent-light disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="text-xs px-3 py-1.5 rounded-md bg-accent text-white hover:bg-accent-strong disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       {sending ? 'Enviando…' : 'Enviar a LinkedIn'}
                     </button>

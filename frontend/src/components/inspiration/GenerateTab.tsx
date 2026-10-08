@@ -105,7 +105,7 @@ function IdeaCard({
   const meta = POST_TYPE_META.find((m) => m.key === postType);
 
   return (
-    <div className={`bg-bg-card border rounded-xl p-4 transition-all ${saved ? 'border-green-400/30 opacity-70' : 'border-border hover:border-fuchsia-400/40'}`}>
+    <div className={`bg-bg-card border rounded-xl p-4 transition-all ${saved ? 'border-success/30 opacity-70' : 'border-border hover:border-fuchsia-500/40'}`}>
       <div className="flex items-start gap-2 mb-2">
         <span className="text-base leading-none mt-0.5">💡</span>
         <p className="text-sm font-semibold text-text-primary leading-snug flex-1">{idea.title}</p>
@@ -121,7 +121,7 @@ function IdeaCard({
             <span className="text-[9px] uppercase tracking-wide text-text-muted font-semibold">Gancho sugerido</span>
             <button
               onClick={copyHook}
-              className="text-[10px] text-accent hover:text-accent-light transition-colors"
+              className="text-[10px] text-accent hover:text-accent-strong transition-colors"
             >
               {hookCopied ? '✓ Copiado' : '📋 Copiar'}
             </button>
@@ -133,7 +133,7 @@ function IdeaCard({
       )}
 
       <div className="flex flex-wrap gap-1.5 mb-3">
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-fuchsia-400/10 text-fuchsia-400 font-medium">
+        <span className="text-[10px] px-2 py-0.5 rounded-full bg-fuchsia-400/10 text-fuchsia-700 font-medium">
           {meta?.icon} {meta?.label}
         </span>
         {idea.sub_angle && (
@@ -148,7 +148,7 @@ function IdeaCard({
         disabled={saving || saved}
         className={`w-full py-2 rounded-lg text-xs font-medium transition-colors ${
           saved
-            ? 'bg-green-500/15 text-green-400 cursor-default'
+            ? 'bg-success/15 text-success cursor-default'
             : 'bg-fuchsia-500/90 hover:bg-fuchsia-500 text-white disabled:opacity-50 disabled:cursor-not-allowed'
         }`}
       >
@@ -300,7 +300,7 @@ export default function GenerateTab() {
               <button
                 key={t.topic}
                 onClick={() => handleTrendingClick(t)}
-                className="text-[11px] px-2.5 py-1 rounded-full bg-bg-secondary border border-border text-text-secondary hover:border-fuchsia-400/50 hover:text-text-primary transition-colors"
+                className="text-[11px] px-2.5 py-1 rounded-full bg-bg-secondary border border-border text-text-secondary hover:border-fuchsia-500/50 hover:text-text-primary transition-colors"
                 title={`${t.outlier_count} outliers · ${t.avg_ratio ? t.avg_ratio.toFixed(1) + 'x de multiplicador medio' : ''}`}
               >
                 {t.topic} <span className="text-text-muted">· {t.outlier_count}</span>
@@ -328,12 +328,12 @@ export default function GenerateTab() {
                 onClick={() => setPostType(m.key)}
                 className={`text-left p-2.5 rounded-lg border transition-all ${
                   active
-                    ? 'border-fuchsia-400/60 bg-fuchsia-400/10'
-                    : 'border-border bg-bg-secondary hover:border-fuchsia-400/30'
+                    ? 'border-fuchsia-500/60 bg-fuchsia-400/10'
+                    : 'border-border bg-bg-secondary hover:border-fuchsia-500/30'
                 }`}
               >
                 <div className="text-base mb-0.5">{m.icon}</div>
-                <div className={`text-xs font-semibold leading-tight ${active ? 'text-fuchsia-300' : 'text-text-primary'}`}>
+                <div className={`text-xs font-semibold leading-tight ${active ? 'text-fuchsia-700' : 'text-text-primary'}`}>
                   {m.label}
                 </div>
                 <div className="text-[10px] text-text-muted leading-tight mt-0.5">{m.desc}</div>
@@ -350,7 +350,7 @@ export default function GenerateTab() {
             generic. We make this the visual centerpiece (full width, accent
             border) and treat topic / audience as supporting metadata below. */}
         <div>
-          <label className="block text-xs font-semibold text-fuchsia-300 mb-1.5 flex items-center gap-1.5">
+          <label className="block text-xs font-semibold text-fuchsia-700 mb-1.5 flex items-center gap-1.5">
             <span>💭</span> Tu mensaje / ángulo
             <span className="text-[10px] font-normal text-text-muted ml-1">— qué quieres defender o decir</span>
           </label>
@@ -364,7 +364,7 @@ export default function GenerateTab() {
               '• "Contratar SDRs sin experiencia funciona mejor que SDRs senior si tienes un buen playbook. Lo he probado 3 veces."\n' +
               '• "El error que veo en 9 de cada 10 startups B2B: invierten en marketing antes de tener product-market fit en ventas directas."'
             }
-            className="w-full bg-bg-primary border border-fuchsia-400/30 rounded-lg px-3 py-2.5 text-sm text-text-primary placeholder:text-text-muted/60 focus:outline-none focus:border-fuchsia-400/70 resize-y leading-relaxed"
+            className="w-full bg-bg-primary border border-fuchsia-500/30 rounded-lg px-3 py-2.5 text-sm text-text-primary placeholder:text-text-muted/60 focus:outline-none focus:border-fuchsia-500/70 resize-y leading-relaxed"
           />
           <p className="text-[10px] text-text-muted mt-1 leading-snug">
             Cuanto más concreto sea tu ángulo (tesis + por qué + a quién aplica), más afiladas serán las ideas.
@@ -382,7 +382,7 @@ export default function GenerateTab() {
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
               placeholder="ventas B2B, cold outreach, contratar SDRs…"
-              className="w-full bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-fuchsia-400/50"
+              className="w-full bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-fuchsia-500/50"
             />
           </div>
           <div>
@@ -392,7 +392,7 @@ export default function GenerateTab() {
               value={audience}
               onChange={(e) => setAudience(e.target.value)}
               placeholder="founders técnicos B2B, equipos de ventas industriales…"
-              className="w-full bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-fuchsia-400/50"
+              className="w-full bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-fuchsia-500/50"
             />
           </div>
         </div>
@@ -407,7 +407,7 @@ export default function GenerateTab() {
               onChange={(e) => setNewsContext(e.target.value)}
               rows={3}
               placeholder="Pega aquí el titular y un breve resumen de la noticia"
-              className="w-full bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-fuchsia-400/50 resize-y"
+              className="w-full bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-fuchsia-500/50 resize-y"
             />
           </div>
         )}
@@ -425,8 +425,8 @@ export default function GenerateTab() {
                     title={g.desc}
                     className={`text-[11px] px-2.5 py-1.5 rounded-full border transition-colors ${
                       active
-                        ? 'border-fuchsia-400/60 bg-fuchsia-400/10 text-fuchsia-300'
-                        : 'border-border bg-bg-secondary text-text-muted hover:border-fuchsia-400/30'
+                        ? 'border-fuchsia-500/60 bg-fuchsia-400/10 text-fuchsia-700'
+                        : 'border-border bg-bg-secondary text-text-muted hover:border-fuchsia-500/30'
                     }`}
                   >
                     {g.label}
@@ -446,8 +446,8 @@ export default function GenerateTab() {
                     onClick={() => setCount(c)}
                     className={`text-[11px] px-3 py-1.5 rounded-full border transition-colors ${
                       active
-                        ? 'border-fuchsia-400/60 bg-fuchsia-400/10 text-fuchsia-300'
-                        : 'border-border bg-bg-secondary text-text-muted hover:border-fuchsia-400/30'
+                        ? 'border-fuchsia-500/60 bg-fuchsia-400/10 text-fuchsia-700'
+                        : 'border-border bg-bg-secondary text-text-muted hover:border-fuchsia-500/30'
                     }`}
                   >
                     {c} ideas
@@ -461,7 +461,7 @@ export default function GenerateTab() {
         <button
           onClick={handleGenerate}
           disabled={generating || !topic.trim()}
-          className="w-full py-2.5 rounded-lg text-sm font-semibold bg-fuchsia-500 hover:bg-fuchsia-400 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="w-full py-2.5 rounded-lg text-sm font-semibold bg-fuchsia-500 hover:bg-fuchsia-600 text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           {generating ? `Generando ${count} ideas…` : `✨ Generar ${count} ideas`}
         </button>
@@ -494,18 +494,18 @@ export default function GenerateTab() {
           <div className="flex items-center justify-between">
             <p className="text-xs text-text-muted">
               <strong className="text-text-primary">{results.ideas.length} ideas generadas</strong> ·
-              guarda las que te gusten y pásalas a <a href="/ideas" className="text-accent hover:text-accent-light underline">Ideas</a> para generar variantes.
+              guarda las que te gusten y pásalas a <a href="/ideas" className="text-accent hover:text-accent-strong underline">Ideas</a> para generar variantes.
             </p>
             <button
               onClick={handleGenerate}
-              className="text-[11px] text-fuchsia-400 hover:text-fuchsia-300 transition-colors"
+              className="text-[11px] text-fuchsia-700 hover:text-fuchsia-700 transition-colors"
             >
               ↻ Regenerar
             </button>
           </div>
 
           {results.meta.groundingFallback && (
-            <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-2.5 text-amber-400 text-[11px]">
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-2.5 text-amber-700 text-[11px]">
               ⚠️ No se encontraron outliers para "{topic}" — generamos las ideas usando todos tus posts como referencia.
             </div>
           )}

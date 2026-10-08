@@ -28,17 +28,17 @@ const TYPE_LABELS: Record<string, string> = {
 };
 
 const TYPE_COLORS: Record<string, string> = {
-  text: '#e8935a',
-  text_image: '#6366f1',
-  text_carousel: '#a78bfa',
-  text_video: '#f87171',
-  text_document: '#fbbf24',
-  image: '#93c5fd',
-  carousel: '#c4b5fd',
-  video: '#fca5a5',
-  document: '#fcd34d',
-  poll: '#34d399',
-  article: '#38bdf8',
+  text: '#E66A1B',
+  text_image: '#4F52D9',
+  text_carousel: '#7C5CD6',
+  text_video: '#C73B3B',
+  text_document: '#B07510',
+  image: '#5B8FE0',
+  carousel: '#9A7FE0',
+  video: '#E07878',
+  document: '#D4A21C',
+  poll: '#1E9160',
+  article: '#0A66C2',
 };
 
 interface Row {
@@ -68,7 +68,7 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
         count: b.count,
         pct: +((b.count / total) * 100).toFixed(1),
         avgRatio: b.count > 0 ? +(b.ratioSum / b.count).toFixed(1) : 0,
-        color: TYPE_COLORS[type] || '#6b7280',
+        color: TYPE_COLORS[type] || '#9A8A9B',
       }))
       .sort((a, b) => b.count - a.count);
   }, [outliers]);
@@ -100,18 +100,18 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
           <YAxis
             type="category"
             dataKey="label"
-            tick={{ fill: '#9ca3af', fontSize: 12 }}
-            axisLine={{ stroke: '#2e3348' }}
+            tick={{ fill: '#76607A', fontSize: 12 }}
+            axisLine={{ stroke: '#E6E0E3' }}
             tickLine={false}
             width={120}
           />
           <Tooltip
-            cursor={{ fill: 'rgba(232,147,90,0.05)' }}
+            cursor={{ fill: 'rgba(230,106,27,0.07)' }}
             contentStyle={{
-              backgroundColor: '#222639',
-              border: '1px solid #2e3348',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #E6E0E3',
               borderRadius: '8px',
-              color: '#e8eaf0',
+              color: '#431B44',
               fontSize: '12px',
             }}
             formatter={(_v: any, _n: any, entry: any) => {
@@ -122,7 +122,7 @@ export default function OutlierContentTypeChart({ outliers }: Props) {
               ];
             }}
           />
-          <Bar dataKey="count" radius={[0, 6, 6, 0]} label={{ position: 'right', fill: '#9ca3af', fontSize: 11, formatter: (v: any) => `${v}` }}>
+          <Bar dataKey="count" radius={[0, 6, 6, 0]} label={{ position: 'right', fill: '#76607A', fontSize: 11, formatter: (v: any) => `${v}` }}>
             {rows.map((r) => (
               <Cell key={r.type} fill={r.color} />
             ))}

@@ -43,11 +43,11 @@ export class ErrorBoundary extends Component<
   render() {
     if (!this.state.error) return this.props.children;
     return (
-      <div className="bg-red-500/10 border border-red-500/40 rounded-xl p-4 space-y-1">
-        <p className="text-sm font-medium text-red-400">
+      <div className="bg-danger/10 border border-danger/40 rounded-xl p-4 space-y-1">
+        <p className="text-sm font-medium text-danger">
           💥 Se ha roto {this.props.donde}
         </p>
-        <p className="text-[11px] text-red-300 font-mono break-words whitespace-pre-wrap">
+        <p className="text-[11px] text-danger font-mono break-words whitespace-pre-wrap">
           {this.state.error.message || String(this.state.error)}
         </p>
         <p className="text-[11px] text-text-muted">

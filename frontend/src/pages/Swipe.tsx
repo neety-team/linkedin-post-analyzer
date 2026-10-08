@@ -134,10 +134,10 @@ export default function Swipe() {
             <span className="text-accent font-semibold tabular-nums">{remaining}</span> por revisar
           </div>
           <div className="text-text-muted">
-            <span className="text-green-400 font-semibold tabular-nums">{counts.liked}</span> guardadas
+            <span className="text-success font-semibold tabular-nums">{counts.liked}</span> guardadas
           </div>
           <div className="text-text-muted">
-            <span className="text-red-400 font-semibold tabular-nums">{counts.skipped}</span> descartadas
+            <span className="text-danger font-semibold tabular-nums">{counts.skipped}</span> descartadas
           </div>
         </div>
       </div>
@@ -156,7 +156,7 @@ export default function Swipe() {
             </p>
             <a
               href="/ideas"
-              className="inline-block mt-4 px-4 py-2 rounded-lg bg-accent text-bg-primary text-sm font-medium hover:bg-accent-light"
+              className="inline-block mt-4 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent-strong"
             >
               Ir al kanban de ideas →
             </a>
@@ -181,14 +181,14 @@ export default function Swipe() {
           <button
             onClick={() => swipe('skip')}
             disabled={acting}
-            className="w-16 h-16 rounded-full bg-red-500/10 border-2 border-red-500/40 text-red-400 text-2xl hover:bg-red-500/20 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all"
+            className="w-16 h-16 rounded-full bg-danger/10 border-2 border-danger/40 text-danger text-2xl hover:bg-danger/20 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all"
             title="Descartar (←)"
           >
             ✕
           </button>
           {lastAction && (
             <div className="text-center text-xs text-text-muted max-w-[200px]">
-              <div className={lastAction.action === 'like' ? 'text-green-400' : 'text-red-400'}>
+              <div className={lastAction.action === 'like' ? 'text-success' : 'text-danger'}>
                 {lastAction.action === 'like' ? '✓ Guardada' : '✗ Descartada'}
               </div>
               <div className="truncate mt-0.5">{lastAction.cardText}</div>
@@ -197,7 +197,7 @@ export default function Swipe() {
           <button
             onClick={() => swipe('like')}
             disabled={acting}
-            className="w-16 h-16 rounded-full bg-green-500/10 border-2 border-green-500/40 text-green-400 text-2xl hover:bg-green-500/20 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all"
+            className="w-16 h-16 rounded-full bg-success/10 border-2 border-success/40 text-success text-2xl hover:bg-success/20 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all"
             title="Guardar como idea (→ o espacio)"
           >
             ❤
@@ -263,7 +263,7 @@ function SwipeCardView({
         {expanded || !isLong ? card.content_text : card.content_text.slice(0, 400) + '…'}
       </p>
       {isLong && (
-        <button onClick={() => setExpanded((v) => !v)} className="text-[11px] text-accent mb-3 hover:text-accent-light">
+        <button onClick={() => setExpanded((v) => !v)} className="text-[11px] text-accent mb-3 hover:text-accent-strong">
           {expanded ? 'Ver menos ↑' : 'Ver más ↓'}
         </button>
       )}
@@ -286,19 +286,19 @@ function SwipeCardView({
         <span>🔁 {fmt(card.reposts_count)}</span>
         {card.impressions_count != null && <span>👁 {fmt(card.impressions_count)}</span>}
         {funnyPct > 0.05 && (
-          <span className={funnyPct > 0.25 ? 'text-orange-300 font-semibold' : ''}>
+          <span className={funnyPct > 0.25 ? 'text-orange-700 font-semibold' : ''}>
             😂 {Math.round(funnyPct * 100)}%{funnyPct > 0.25 && ' · meme'}
           </span>
         )}
         {card.topic && (
-          <span className="text-amber-400">📂 {card.topic}</span>
+          <span className="text-amber-700">📂 {card.topic}</span>
         )}
         {card.post_url && (
           <a
             href={card.post_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-auto text-accent hover:text-accent-light"
+            className="ml-auto text-accent hover:text-accent-strong"
           >
             Ver original ↗
           </a>

@@ -37,19 +37,19 @@ interface OutlierPost {
 // Legacy/alias keys (CELEBRATE, SUPPORT, LOVE, INSIGHTFUL, FUNNY) kept so old
 // data or any renamed variant still renders. UNKNOWN/total/sampled filtered out.
 const REACTION_META: { key: string; emoji: string; label: string; color: string }[] = [
-  { key: 'LIKE', emoji: '👍', label: 'Recomendar', color: '#4a90d9' },
-  { key: 'PRAISE', emoji: '👏', label: 'Celebrar', color: '#34d399' },
-  { key: 'CELEBRATE', emoji: '👏', label: 'Celebrar', color: '#34d399' },
+  { key: 'LIKE', emoji: '👍', label: 'Recomendar', color: '#378FE9' },
+  { key: 'PRAISE', emoji: '👏', label: 'Celebrar', color: '#1E9160' },
+  { key: 'CELEBRATE', emoji: '👏', label: 'Celebrar', color: '#1E9160' },
   // APPRECIATION = Apoyar (support) y EMPATHY = Me encanta (love): mismo mapa
   // que backend/src/services/unipile.ts (LINKEDIN_REACTION_VALUE_MAP).
-  { key: 'APPRECIATION', emoji: '🫶', label: 'Apoyar', color: '#a78bfa' },
-  { key: 'SUPPORT', emoji: '🫶', label: 'Apoyar', color: '#a78bfa' },
-  { key: 'EMPATHY', emoji: '❤️', label: 'Me encanta', color: '#f87171' },
-  { key: 'LOVE', emoji: '❤️', label: 'Me encanta', color: '#f87171' },
-  { key: 'INTEREST', emoji: '💡', label: 'Interesante', color: '#fbbf24' },
-  { key: 'INSIGHTFUL', emoji: '💡', label: 'Interesante', color: '#fbbf24' },
-  { key: 'ENTERTAINMENT', emoji: '😂', label: 'Divertido', color: '#e8935a' },
-  { key: 'FUNNY', emoji: '😂', label: 'Divertido', color: '#e8935a' },
+  { key: 'APPRECIATION', emoji: '🫶', label: 'Apoyar', color: '#7C5CD6' },
+  { key: 'SUPPORT', emoji: '🫶', label: 'Apoyar', color: '#7C5CD6' },
+  { key: 'EMPATHY', emoji: '❤️', label: 'Me encanta', color: '#C73B3B' },
+  { key: 'LOVE', emoji: '❤️', label: 'Me encanta', color: '#C73B3B' },
+  { key: 'INTEREST', emoji: '💡', label: 'Interesante', color: '#B07510' },
+  { key: 'INSIGHTFUL', emoji: '💡', label: 'Interesante', color: '#B07510' },
+  { key: 'ENTERTAINMENT', emoji: '😂', label: 'Divertido', color: '#E66A1B' },
+  { key: 'FUNNY', emoji: '😂', label: 'Divertido', color: '#E66A1B' },
 ];
 
 // % of reactions that are "funny" (ENTERTAINMENT + FUNNY alias). The meme signal.
@@ -160,7 +160,7 @@ function ReactionMixBar({ mix }: { mix: Record<string, number> | null }) {
       <div className="flex items-center justify-between mb-1">
         <span className="text-[10px] text-text-muted">Reacciones ({total})</span>
         {fp > 0.05 && (
-          <span className={`text-[10px] font-semibold ${isMeme ? 'text-orange-300' : 'text-text-muted'}`}>
+          <span className={`text-[10px] font-semibold ${isMeme ? 'text-orange-700' : 'text-text-muted'}`}>
             😂 {Math.round(fp * 100)}%{isMeme && ' · meme'}
           </span>
         )}
@@ -196,7 +196,7 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
   };
 
   return (
-    <div className={`bg-bg-card border rounded-xl p-5 transition-all ${stolen ? 'border-green-400/30 opacity-60' : 'border-border hover:border-accent/30'}`}>
+    <div className={`bg-bg-card border rounded-xl p-5 transition-all ${stolen ? 'border-success/30 opacity-60' : 'border-border hover:border-accent/30'}`}>
       {/* Creator + ratio header */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-center gap-2.5 min-w-0">
@@ -232,7 +232,7 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
         {needsTrunc && (
           <button
             onClick={() => setExpanded(!expanded)}
-            className="text-[11px] text-accent hover:text-accent-light mt-1"
+            className="text-[11px] text-accent hover:text-accent-strong mt-1"
           >
             {expanded ? 'Ver menos ↑' : 'Ver más ↓'}
           </button>
@@ -242,14 +242,14 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
       {/* Tags: topic + hook type + structure */}
       <div className="flex flex-wrap gap-1.5 mb-3">
         {post.topic && (
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/15 text-amber-400 font-semibold">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/15 text-amber-700 font-semibold">
             📂 {post.topic}
           </span>
         )}
         <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/10 text-accent font-medium">
           {HOOK_LABELS[post.hook_type] || post.hook_type}
         </span>
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-400/10 text-purple-400 font-medium">
+        <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-400/10 text-purple-700 font-medium">
           {STRUCT_LABELS[post.post_structure] || post.post_structure}
         </span>
         {post.text_tone && post.text_tone !== 'other' && (
@@ -266,14 +266,14 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
         <span>🔁 {formatNum(post.reposts_count)}</span>
         {commentGatedRatio(post) > LEADMAGNET_RATIO_THRESHOLD && (
           <span
-            className="text-[10px] font-semibold text-orange-300"
+            className="text-[10px] font-semibold text-orange-700"
             title="Comentarios muy por encima de las reacciones: es un lead magnet (la gente comenta la palabra para pillar el recurso)"
           >
             💬 lead magnet · {commentGatedRatio(post).toFixed(1)}x
           </span>
         )}
         {post.post_url && (
-          <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-light ml-auto">
+          <a href={post.post_url} target="_blank" rel="noopener noreferrer" className="text-linkedin hover:underline ml-auto">
             Ver en LinkedIn ↗
           </a>
         )}
@@ -297,8 +297,8 @@ function OutlierCard({ post, onSteal }: { post: OutlierPost; onSteal: (post: Out
         disabled={saving || stolen}
         className={`w-full py-2 rounded-lg text-xs font-medium transition-colors ${
           stolen
-            ? 'bg-green-500/15 text-green-400 cursor-default'
-            : 'bg-accent text-bg-primary hover:bg-accent-light disabled:opacity-50'
+            ? 'bg-success/15 text-success cursor-default'
+            : 'bg-accent text-white hover:bg-accent-strong disabled:opacity-50'
         }`}
       >
         {stolen ? '✓ Guardado en Ideas' : saving ? 'Guardando…' : '🔥 Robar este post'}
@@ -585,7 +585,7 @@ export default function Inspiration() {
             className={`px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors ${
               tab === key
                 ? key === 'generate'
-                  ? 'border-fuchsia-400 text-fuchsia-400'
+                  ? 'border-fuchsia-500 text-fuchsia-700'
                   : 'border-accent text-accent'
                 : 'border-transparent text-text-muted hover:text-text-primary'
             }`}
@@ -641,10 +641,10 @@ export default function Inspiration() {
               <span className="flex items-center gap-2">
                 ⚙️ Mantenimiento
                 {unclassifiedCount > 0 && (
-                  <span className="text-amber-400/80">{unclassifiedCount} sin clasificar</span>
+                  <span className="text-amber-700/80">{unclassifiedCount} sin clasificar</span>
                 )}
                 {mixStatus && mixStatus.running && (
-                  <span className="text-purple-300/80">
+                  <span className="text-purple-700/80">
                     mix de reacciones {mixStatus.processed}/{mixStatus.total}…
                   </span>
                 )}
@@ -659,7 +659,7 @@ export default function Inspiration() {
               <button
                 onClick={handleClassify}
                 disabled={classifying}
-                className="px-4 py-2 bg-amber-400/15 text-amber-400 rounded-lg text-xs font-medium hover:bg-amber-400/25 disabled:opacity-50 transition-colors"
+                className="px-4 py-2 bg-amber-400/15 text-amber-700 rounded-lg text-xs font-medium hover:bg-amber-400/25 disabled:opacity-50 transition-colors"
               >
                 {classifying ? '🧠 Clasificando…' : `🏷️ Clasificar ${unclassifiedCount} outlier${unclassifiedCount !== 1 ? 's' : ''} sin tema`}
               </button>
@@ -678,7 +678,7 @@ export default function Inspiration() {
               <button
                 onClick={handleReclassify}
                 disabled={classifying}
-                className="px-3 py-1.5 bg-bg-secondary border border-border text-text-secondary rounded-lg text-xs font-medium hover:border-amber-400/40 hover:text-amber-400 disabled:opacity-50 transition-colors"
+                className="px-3 py-1.5 bg-bg-secondary border border-border text-text-secondary rounded-lg text-xs font-medium hover:border-amber-500/40 hover:text-amber-700 disabled:opacity-50 transition-colors"
               >
                 {classifying ? '🔄 Trabajando…' : '🔄 Reiniciar y reclasificar'}
               </button>
@@ -695,7 +695,7 @@ export default function Inspiration() {
               <button
                 onClick={handleStartMixBackfill}
                 disabled={mixStarting || mixStatus.running || mixStatus.outliers_with_mix >= mixStatus.outliers_total}
-                className="px-4 py-2 bg-purple-400/15 text-purple-300 rounded-lg text-xs font-medium hover:bg-purple-400/25 disabled:opacity-50 transition-colors"
+                className="px-4 py-2 bg-purple-400/15 text-purple-700 rounded-lg text-xs font-medium hover:bg-purple-400/25 disabled:opacity-50 transition-colors"
                 title="Pide a Unipile el mix de reacciones (LIKE/FUNNY/CELEBRATE/...) de cada outlier. Corre en segundo plano con la cuenta de lectura dedicada."
               >
                 {mixStatus.running
@@ -707,7 +707,7 @@ export default function Inspiration() {
               <span className="text-xs text-text-muted">
                 {mixStatus.outliers_with_mix.toLocaleString('es-ES')} / {mixStatus.outliers_total.toLocaleString('es-ES')} outliers con mix
                 {mixStatus.outliers_permanently_failed > 0 && (
-                  <span className="text-amber-400/80"> · {mixStatus.outliers_permanently_failed} borrados de LinkedIn</span>
+                  <span className="text-amber-700/80"> · {mixStatus.outliers_permanently_failed} borrados de LinkedIn</span>
                 )}
               </span>
               {Object.keys(mixStatus.errors_by_status).length > 0 && (
@@ -721,9 +721,9 @@ export default function Inspiration() {
                         status === '-1' ? 'red/otros' :
                         `HTTP ${status}`;
                       const colour =
-                        status === '429' ? 'text-orange-400/80' :
-                        status === '404' ? 'text-amber-400/80' :
-                        'text-red-400/80';
+                        status === '429' ? 'text-orange-700/80' :
+                        status === '404' ? 'text-amber-700/80' :
+                        'text-danger/80';
                       return (
                         <span key={status} className={colour}>
                           {count} {label}
@@ -733,7 +733,7 @@ export default function Inspiration() {
                 </span>
               )}
               {mixStatus.last_error && (
-                <span className="text-[10px] text-red-400/70 truncate max-w-md" title={mixStatus.last_error}>
+                <span className="text-[10px] text-danger/70 truncate max-w-md" title={mixStatus.last_error}>
                   último error: {mixStatus.last_error}
                 </span>
               )}
@@ -787,8 +787,8 @@ export default function Inspiration() {
               onClick={() => { setOnlyMemes((v) => !v); setFilterContentType(''); }}
               className={`text-xs px-2.5 py-1.5 rounded-lg border transition-colors ${
                 onlyMemes
-                  ? 'border-orange-400/60 bg-orange-400/15 text-orange-300'
-                  : 'border-border bg-bg-secondary text-text-muted hover:border-orange-400/30'
+                  ? 'border-orange-500/60 bg-orange-400/15 text-orange-700'
+                  : 'border-border bg-bg-secondary text-text-muted hover:border-orange-500/30'
               }`}
               title="Filtra a los posts cuya audiencia reaccionó con >25% 😂, según el reaction mix real. Es la señal de meme que da la audiencia, no el clasificador."
             >
@@ -802,8 +802,8 @@ export default function Inspiration() {
               onClick={() => { setOnlyLeadMagnets((v) => !v); setFilterContentType(''); }}
               className={`text-xs px-2.5 py-1.5 rounded-lg border transition-colors ${
                 onlyLeadMagnets
-                  ? 'border-orange-400/60 bg-orange-400/15 text-orange-300'
-                  : 'border-border bg-bg-secondary text-text-muted hover:border-orange-400/30'
+                  ? 'border-orange-500/60 bg-orange-400/15 text-orange-700'
+                  : 'border-border bg-bg-secondary text-text-muted hover:border-orange-500/30'
               }`}
               title="Filtra a los lead magnets: posts con MÁS comentarios que reacciones (comment-gated). La gente comenta la palabra clave para pillar el recurso. Como los de Martín Arosa, Guillermo o Luna Chen."
             >

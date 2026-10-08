@@ -47,15 +47,15 @@ export interface Pilar {
  * `backend/src/routes/pillars.ts`: si se añade una alli, va tambien aqui.
  */
 const PALETA_PILAR: Record<string, string> = {
-  esmeralda: 'bg-emerald-500/15 text-emerald-400',
-  cielo: 'bg-sky-500/15 text-sky-400',
-  ambar: 'bg-amber-500/15 text-amber-400',
+  esmeralda: 'bg-emerald-500/15 text-emerald-700',
+  cielo: 'bg-sky-500/15 text-sky-700',
+  ambar: 'bg-amber-500/15 text-amber-700',
   naranja: 'bg-accent/15 text-accent',
-  morado: 'bg-purple-500/15 text-purple-400',
-  rosa: 'bg-pink-500/15 text-pink-400',
-  indigo: 'bg-indigo-500/15 text-indigo-400',
-  lima: 'bg-lime-500/15 text-lime-400',
-  cian: 'bg-cyan-500/15 text-cyan-400',
+  morado: 'bg-purple-500/15 text-purple-700',
+  rosa: 'bg-pink-500/15 text-pink-700',
+  indigo: 'bg-indigo-500/15 text-indigo-700',
+  lima: 'bg-lime-500/15 text-lime-700',
+  cian: 'bg-cyan-500/15 text-cyan-700',
   gris: 'bg-bg-secondary border border-border text-text-muted',
 };
 const CLASE_DESCONOCIDO = PALETA_PILAR.gris;
@@ -281,7 +281,7 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
             placeholder="Buscar o crear pilar de contenido…"
             className="w-full text-xs bg-bg-primary border border-border rounded px-2 py-1.5 focus:outline-none focus:border-accent"
           />
-          {error && <p className="text-[10px] text-red-400 leading-snug px-1">✗ {error}</p>}
+          {error && <p className="text-[10px] text-danger leading-snug px-1">✗ {error}</p>}
 
           <div className="max-h-64 overflow-y-auto space-y-0.5">
             {filtrados.map((p) => (
@@ -351,7 +351,7 @@ export default function PilarSelector({ postId, pillar, onChanged }: {
                         className={`text-[10px] px-1 py-1 flex-shrink-0 transition-colors ${
                           p.builtin
                             ? 'text-text-muted opacity-30 cursor-not-allowed'
-                            : 'text-text-muted hover:text-red-400 disabled:opacity-50'
+                            : 'text-text-muted hover:text-danger disabled:opacity-50'
                         }`}
                         title={p.builtin
                           ? 'Los pilares de serie no se eliminan: el clasificador los vuelve a crear solo. Renómbralo si quieres.'

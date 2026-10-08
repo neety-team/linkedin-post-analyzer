@@ -45,23 +45,23 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
   const hours = Array.from({ length: 18 }, (_, i) => i + 6);
 
   function getCellColor(slot: TimingSlot | undefined): string {
-    if (!slot || slot.count === 0) return '#1a1d27';
+    if (!slot || slot.count === 0) return '#EAE5DF';
     const intensity = slot.avg_engagement / maxEng;
     if (slot.outlier_rate > 0) {
       // Has outliers — orange spectrum
-      if (intensity > 0.7) return '#e8935a';
-      if (intensity > 0.4) return '#b86d3a';
-      return '#5a3d2a';
+      if (intensity > 0.7) return '#E66A1B';
+      if (intensity > 0.4) return '#F59A5E';
+      return '#FBD3B8';
     }
     // Normal — blue/green spectrum
-    if (intensity > 0.7) return '#34d399';
-    if (intensity > 0.4) return '#1a7a5a';
-    return '#0f3d2e';
+    if (intensity > 0.7) return '#1E9160';
+    if (intensity > 0.4) return '#5DB88A';
+    return '#C3E6D3';
   }
 
   function getCellBorder(slot: TimingSlot | undefined): string {
     if (!slot) return 'transparent';
-    if (slot.outlier_rate >= 50) return '#67e8f9';
+    if (slot.outlier_rate >= 50) return '#7E3AA8';
     return 'transparent';
   }
 
@@ -206,23 +206,23 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
       {/* Legend */}
       <div className="flex items-center gap-4 mt-3 text-[10px] text-text-muted">
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#0f3d2e' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#C3E6D3' }} />
           <span>Normal (bajo)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#34d399' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#1E9160' }} />
           <span>Normal (alto)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#5a3d2a' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#FBD3B8' }} />
           <span>Con outliers (bajo)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#e8935a' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#E66A1B' }} />
           <span>Con outliers (alto)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#1a1d27', border: '1.5px solid #67e8f9' }} />
+          <div className="w-3 h-3 rounded-[2px]" style={{ backgroundColor: '#EAE5DF', border: '1.5px solid #7E3AA8' }} />
           <span>50%+ de outliers</span>
         </div>
       </div>

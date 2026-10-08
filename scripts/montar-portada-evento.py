@@ -48,7 +48,11 @@ def main():
     ap.add_argument("--info2", default="")
     ap.add_argument("--salida", default="Portada Webinar.png")
     ap.add_argument("--fondo", default=FONDO)
+    ap.add_argument("--ancha", action="store_true",
+                    help="version 1916x1200 para la foto grande de la ficha en neety.com/eventos")
     a = ap.parse_args()
+    if a.ancha:
+        return ancha(a)
 
     im = Image.open(a.fondo).convert("RGB").resize((LADO, LADO), Image.LANCZOS)
     d = ImageDraw.Draw(im)
@@ -87,6 +91,26 @@ def main():
     salida = a.salida if os.path.isabs(a.salida) else os.path.join(CARPETA, a.salida)
     im.save(salida)  # PNG nuevo: sin metadatos del generador
     print("titulo a %d px -> %s" % (t, salida))
+
+
+def ancha(a):
+    # Foto del hero de neety.com/eventos/<slug> (la web la recorta a 1,6:1). La ficha le pone
+    # ENCIMA, en el tercio de abajo, dos chapas con la fecha y el lugar: por eso aqui no van
+    # fecha, hora ni "Online y gratis" (saldrian repetidas y tapadas) y todo vive arriba.
+    # El fondo se escala al ancho y se coge su parte de ARRIBA: las manchas de abajo a la
+    # izquierda solo asoman por la esquina, debajo de las chapas.
+    W, H, M = 1916, 1200, 130
+    im = Image.open(a.fondo).convert("RGB").resize((W, W), Image.LANCZOS).crop((0, 300, W, 300 + H))
+    d = ImageDraw.Draw(im)
+    poner(d, M, 250, a.l1, fuente(175, 300), NARANJA)
+    poner(d, M, 455, a.l2, fuente(175, 800), NARANJA)
+    k = Image.open(KAIXITO).convert("RGBA").crop(KAIXITO_GAFAS)
+    k = k.crop(k.getbbox())
+    k = k.resize((460, round(k.height * 460 / k.width)), Image.LANCZOS)
+    im.paste(k, (W - M - k.width, 275), k)
+    salida = a.salida if os.path.isabs(a.salida) else os.path.join(CARPETA, a.salida)
+    im.save(salida)
+    print("version ancha -> %s" % salida)
 
 
 if __name__ == "__main__":

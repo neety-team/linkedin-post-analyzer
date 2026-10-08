@@ -1607,6 +1607,8 @@ El generador deforma a las personas en cada iteración. **En el prompt el avatar
 python scripts/montar-portada-evento.py --l1 "Menos buscar." --l2 "Más vender." --fecha "Miércoles 28 octubre" --hora "10:00" --info1 "Online y gratis" --info2 "30 minutos" --salida "Portada Webinar.png"
 ```
 
+**Versión ancha para la ficha de neety.com/eventos:** el mismo script con `--ancha` saca `Portada Webinar ancha.png` (1916×1200). Solo lleva el título y a Kaixito arriba, sin fecha ni "Online y gratis": la ficha le pone encima, en el tercio de abajo, las chapas de fecha y lugar, que las tapaban y las repetían (08/10, primera versión).
+
 **Lo que el script ya fija (no se toca sin motivo):**
 - **Fondo oficial:** `NEETY FORWARD/Fondo Webinars.png`. Es el de la plantilla de Canva de Neety Forward, con la mancha oscura de arriba y la naranja de arriba a la derecha borradas, y el berenjena llevado abajo a la izquierda. Ya está desenfocado, así que la portada **no lleva postproducción** (misma excepción que Las 10 y el despiece, `§0a-penta`).
 - **Composición de la portada de septiembre:** todo alineado a la izquierda con margen de 85, y el bloque de la derecha donde iba `Plazas limitadas`.

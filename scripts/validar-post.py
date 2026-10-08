@@ -1263,6 +1263,12 @@ def puerta_agendar(texto):
     # el check del caracter 650 queda un pelo mas estricto, nunca mas laxo.
     texto = texto.replace('https://neety.com/solicitar-demo',
                           'https://recursos.neety.com/agendar')
+    # 2026-10-08 (Iker): el COMERCIAL de una cuenta de compañero (hoy Ismael)
+    # no manda a la web: manda a SU agenda, https://meetings.neety.com/{nombre},
+    # con el UTM de siempre. Es la misma puerta (reservar una reunion), asi que
+    # se traduce igual que /solicitar-demo (working-preferences §0c-VOZ).
+    texto = re.sub(r'https://meetings\.neety\.com/[a-z0-9-]+',
+                   'https://recursos.neety.com/agendar', texto)
     # 2026-10-08: los mapas se mudan al blog de neety.com
     # (/blog/mapa-industrial-{region}, migracion de neety-resources 1c41929).
     # Mismo truco: dentro del validador se traduce a /mapas/{region}/ para que
@@ -4693,7 +4699,14 @@ def main():
         res.insert(0, (False, '--voz-ajena NO vale en las cuentas de los 3 jefes ni en la de Mario',
                        'Es para el borrador de un perfil nuevo (Ismael, la chica de producto...). '
                        'En Iker, Unai, Asier y Mario (marketing) el formato de la casa es obligatorio.', False))
-    elif a.voz_ajena:
+    # ISMAEL ES EL COMERCIAL (Iker, 2026-10-08): su ninja va a su agenda,
+    # meetings.neety.com/ismael, nunca a la web de solicitar demo.
+    if (a.cuenta or '').strip().lower() == 'ismael' and 'neety.com' in texto:
+        _a_su_agenda = 'meetings.neety.com/ismael' in texto
+        res.insert(0, (_a_su_agenda, 'ISMAEL: el enlace va a SU agenda, https://meetings.neety.com/ismael (§0c-VOZ)',
+                       '' if _a_su_agenda else 'Es el comercial: en su cuenta el ninja manda a su agenda con el UTM '
+                       'de siempre, no a /solicitar-demo (Iker, 08/10).', False))
+    if a.voz_ajena and (a.cuenta or '').strip().lower() not in ('iker', 'unai', 'asier', 'mario'):
         _FORMATO = ('Al menos un bloque de DOS', 'Bloques de 2-3 en escalera',
                     'Bloques de prosa', 'Cierre punchy de UNA linea', 'Cifras en digito',
                     'Cifras en dígito', 'El primer bloque multiple', 'HISTORIA: <=800',

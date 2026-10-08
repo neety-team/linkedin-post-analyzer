@@ -4093,6 +4093,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # gancho sin "yo") hizo 9.739 imp, 43 clics y 18 comentarios, su mejor
         # conversacion del pilar. En contra, las historias en plural CON selfie
         # (6.554 · 6.271 · 3.628 · 2.926 · 1.321). Es prueba, no regla: se mide.
+        # Primera persona por el VERBO (falso negativo cazado el 2026-10-08 con el
+        # gancho de Unai "Defendi ante mas de 100 personas..."): la lista de arriba
+        # mira pronombres y adverbios y no ve el preterito de 1a del singular al
+        # arrancar (-e/-i con tilde). Fuera los adverbios que acaban igual.
+        if not _personal:
+            _personal = re.match(r'(?!(aqu[ií]|as[ií]|all[ií]|ah[ií]|ac[aá])\b)\w+[éí]\b', h.lower().lstrip())
         if FOTO_GRUPO and not _personal:
             _personal = re.search(r'(^|\s)(nos|nosotros|nuestr\w+)(\s|,|\.)', ' '+h.lower())
         chk(bool(_personal), 'HISTORIA: hook personal, en primera persona (§4.6)',

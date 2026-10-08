@@ -8,6 +8,8 @@
 
 ## ⚠️ SI ES LUNES Y SE HABLA DE PUBLICACIONES: PRIMERO SE ANALIZA LA SEMANA PASADA (Iker, 2026-08-10)
 
+> 🔔 **EL JUEVES 29/10 (o la primera conversación a partir de ese día), SIN QUE HAGA FALTA RECORDARLO: AVISAR A IKER DE QUITAR LA BANDA DEL WEBINAR DE NEETY.COM, Y NO QUITARLA HASTA SU OK.** La banda (`landing/components/WebinarBand.tsx`) lleva la sesión online del 28/10 bajo los 15 mapas del blog, al final de los artículos y en `/solicitar-demo`. No caduca sola, a propósito (Iker, 08/10: *"me tendrás que avisar por aquí por el chat y yo te tendré que dar el ok"*). Con su OK: `WEBINAR_ACTIVE = false`, push a `main` de `landing` y comprobar en producción que en `/solicitar-demo` ha vuelto la safety net de los recursos.
+
 > 🎯 **AUDITORÍA FIJA DE CADA LUNES, PRIMERO LA CONVERSIÓN (Iker, 2026-10-08).** Publicamos en cuentas de fundadores que venden un producto: **el alcance se mira, pero lo que decide es la conversión** (clics, CTR y demos). Va en cada revisión sin que Iker lo pida, después de las métricas básicas y de la psicología del gancho:
 > 1. **El ninja por DOLOR:** `python scripts/auditar-ninjas.py`. Saca CTR y clics por dolor dentro de cada pilar, cuántos ninjas dicen "quien decide" y el detalle. **Regla de decisión** (`global §4.4b-ROTACION`): un dolor pasa a ser el ÚNICO prioritario solo con 3 posts o más por dolor **dentro del mismo pilar** y ganando en **dos revisiones seguidas**. Mientras no, se sigue rotando (1 de cada 2 con la persona de dentro). *(El umbral es criterio mío, sin medir; Iker pidió "evidencia muy clara".)*
 > 2. **Las demos:** clics y solicitudes de `neety.com/solicitar-demo` por `utm_campaign` (GA4, pedírselo a Iker). Es la conversión final; un CTR alto sin demos no gana.

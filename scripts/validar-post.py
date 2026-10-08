@@ -68,7 +68,7 @@ SUJETO_ES_MODELO = (r'(claude\s*(opus|sonnet|haiku)?\s*\d|gpt-?\d|gemini\s*\d'
 # §4.2 Paso 1 — En el peloteo el prejuicio SIEMPRE lo dice otro: "la ven como…",
 # "nadie habla de…". Sin ese sujeto, el desprecio se lee como NUESTRO y ofende a
 # quien queriamos que comentara defendiendo lo suyo (Iker, 2026-07-30).
-SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan|l[ao] liquidan)'
+SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan|l[ao] liquidan|l[ao] mandan de)'
 # 2026-10-01, "Las 10" de Castilla-La Mancha (Iker): el prejuicio tambien lo dice
 # OTRO cuando es un GESTO de la gente en impersonal ("solo paran a por queso y
 # gasolina"): es el desprecio de la region de paso sin ponerlo en nuestra boca.
@@ -125,7 +125,11 @@ FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|pa
                # nunca un sustantivo: "queso, molinos y la gasolinera" Iker lo leyo
                # como TRES cliches, y tenia razon (el tercero tiene que ser el gesto
                # de despacharla). Por eso aqui no entran "y la gasolinera" ni "y gasolina".
-               r'|y a repostar)')
+               r'|y a repostar'
+               # 2026-10-08, mapa de Canarias (Iker): la region de vacaciones se
+               # despacha mandandola a tumbarse. Gesto (ir a la tumbona), no un
+               # tercer cliche: los dos del gancho son playa y platanos.
+               r'|y a la tumbona)')
 
 # §4.4b — FRASES DEL SPAM NINJA QUEMADAS. El dolor es SIEMPRE el mismo (dar con
 # el cliente ideal, empresa y persona), pero la FORMA rota en cada post. Iker,
@@ -1201,8 +1205,14 @@ def puerta_agendar(texto):
     # traduce la URL nueva a la vieja SOLO dentro del validador. El fichero del
     # post no se toca. Coste conocido: la URL vieja mide 3 caracteres mas, asi que
     # el check del caracter 650 queda un pelo mas estricto, nunca mas laxo.
-    return texto.replace('https://neety.com/solicitar-demo',
-                         'https://recursos.neety.com/agendar')
+    texto = texto.replace('https://neety.com/solicitar-demo',
+                          'https://recursos.neety.com/agendar')
+    # 2026-10-08: los mapas se mudan al blog de neety.com
+    # (/blog/mapa-industrial-{region}, migracion de neety-resources 1c41929).
+    # Mismo truco: dentro del validador se traduce a /mapas/{region}/ para que
+    # los checks del ultra ninja, del dominio propio y del UTM sigan valiendo.
+    return re.sub(r'https://neety\.com/blog/mapa-industrial-([a-z-]+)',
+                  r'https://recursos.neety.com/mapas/\1/', texto)
 
 
 FOTO_GRUPO = False
@@ -3455,10 +3465,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         _mapa_luma = (_dt.date.today() <= _dt.date(2026, 9, 24)
                       and re.search(r'luma\.com/ujffj66o|forward\.neety\.com', texto)
                       and 'recursos.neety.com/mapas/' not in texto)
-        chk('recursos.neety.com/mapas/' in texto or bool(_mapa_luma),
+        # 2026-10-08: los mapas se mudan al blog de neety.com
+        # (/blog/mapa-industrial-{region}); recursos.neety.com/mapas/ solo
+        # redirige los 14 que ya existian, asi que una region NUEVA va directa
+        # al blog. Se aceptan las dos para no tumbar los mapas viejos.
+        _mapa_web = ('recursos.neety.com/mapas/' in texto
+                     or 'neety.com/blog/mapa-industrial-' in texto)
+        chk(_mapa_web or bool(_mapa_luma),
             'MAPA: el CTA enlaza a /mapas/{region}/ (§4.2 Paso 5)',
             'el mapa NO enlaza a /agendar/. Va "Mapa completo aquí: '
-            'https://recursos.neety.com/mapas/{region}/", con la region en minuscula y sin '
+            'https://neety.com/blog/mapa-industrial-{region}", con la region en minuscula y sin '
             'tildes. El enlace a agendar se olia a venta; el del mapa se lee como recurso')
         chk('recursos.neety.com/agendar' not in texto,
             'MAPA: sin enlace a /agendar/ (§4.2 Paso 5)',

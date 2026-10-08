@@ -4267,8 +4267,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # los adverbios que acaban igual.
         if not _personal:
             _personal = re.match(r'(?!(aqu[ií]|as[ií]|all[ií]|ah[ií]|ac[aá])\b)(\w+[éí]|dije|hice|puse|tuve|estuve|vine|quise|supe|traje)\b', h.lower().lstrip())
-        if FOTO_GRUPO and not _personal:
-            _personal = re.search(r'(^|\s)(nos|nosotros|nuestr\w+)(\s|,|\.)', ' '+h.lower())
+        # UNAI EN PLURAL (Iker, 2026-10-08): "Defendi" en primera del singular le
+        # suena egocentrico; su gancho de evento o historia va en "Defendimos".
+        # En su cuenta la 1a del plural tambien cuenta como gancho personal.
+        if (FOTO_GRUPO or (cuenta or '').strip().lower() == 'unai') and not _personal:
+            _personal = (re.search(r'(^|\s)(nos|nosotros|nuestr\w+)(\s|,|\.)', ' '+h.lower())
+                         or re.match(r'\w+(amos|imos|emos)\b', h.lower().lstrip()))
         chk(bool(_personal), 'HISTORIA: hook personal, en primera persona (§4.6)',
             'la vara abre "I [algo que me pasó]" / "Cuando…" / "Nunca…": una escena TUYA, no un claim ni un dato')
         _ls = [l for l in cuerpo.splitlines() if l.strip()]

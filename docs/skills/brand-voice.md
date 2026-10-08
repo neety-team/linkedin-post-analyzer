@@ -81,7 +81,7 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 
 #### 🗂️ SUS POSTS DE EVENTO O HISTORIA LLEVAN GANCHOS ALTERNATIVOS (Iker, 2026-10-08)
 
-Iker le pasa a Unai (casi) siempre sus posts de evento o de historia para que los revise, y el primer gancho casi nunca le convence. **La entrega lleva el post con el gancho elegido y, debajo, 5 ganchos alternativos, todos grandiosos**, para pasárselo todo junto. Al proponerlos, decir cuáles obligan a tocar el ninja (la palabra del gancho que recoge, `global §4.4b` regla 4).
+Iker le pasa a Unai (casi) siempre sus posts de evento o de historia para que los revise, y el primer gancho casi nunca le convence. **La entrega lleva el post con el gancho elegido y, debajo, 5 ganchos alternativos, todos grandiosos**, para pasárselo todo junto. **Los ganchos van en UN SOLO bloque copiable** (el elegido primero y los 5 debajo, separados por una línea en blanco), nunca un bloque por gancho (Iker, 08/10). Al proponerlos, decir cuáles obligan a tocar el ninja (la palabra del gancho que recoge, `global §4.4b` regla 4).
 - **Solo en sus posts de EVENTO o de HISTORIA.** En un meme, un lead magnet o cualquier otro pilar suyo se entrega a la primera el mejor gancho, sin banco (Iker, 08/10).
 
 #### 🔭 LA LENTE DEL INVERSOR: LO QUE UN FONDO LEE EN LA CUENTA DE UNAI (Unai vía Iker, 2026-10-07)

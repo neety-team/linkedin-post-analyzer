@@ -1,7 +1,7 @@
 // RECUENTO DIARIO DE INSCRITOS DEL WEBINAR AL CHAT DE GROWTH & SALES (Iker, 2026-10-08)
 //
 // QUE HACE: de lunes a viernes, a las 9:00, lee UNA vez el contador publico de Luma
-// y manda al chat: "📊 Webinar: N inscritos (+X desde el ultimo recuento) · faltan D
+// y manda al chat una linea: "📊 Recuento webinar · N inscritos (+X) · faltan D
 // dias". Iker: "con que lo lea una vez al dia, suficiente… no vamos a tener una
 // afluencia que te cagas" (el presencial llego a ~80 en mes y medio). Fin de semana
 // no, que no se trabaja (feedback revision semana siguiente).
@@ -68,8 +68,10 @@ function madrid(d: Date) {
 export function componerRecuento(ev: Evento, previo: number | null, hoy: string): string {
   const n = Math.round((Date.parse(madrid(ev.empieza).fecha) - Date.parse(hoy)) / 86400000);
   const cuando = n <= 0 ? 'es hoy' : n === 1 ? 'es mañana' : `faltan ${n} días`;
-  const subida = previo === null ? '' : ev.inscritos > previo ? ` (+${ev.inscritos - previo} desde el último recuento)` : ' (sin altas nuevas)';
-  return `📊 *Webinar:* ${ev.inscritos} inscritos${subida} · ${cuando}\n${ev.nombre}\n${ev.url}`;
+  // Una linea, con el molde de los avisos de la web («🧲 Nuevo lead · origen»). Sin el
+  // nombre del webinar ni el enlace: el chat es interno y ya saben cual es (Iker, 08/10).
+  const subida = previo === null ? '' : ev.inscritos > previo ? ` (+${ev.inscritos - previo})` : ' · sin altas nuevas';
+  return `📊 Recuento webinar · *${ev.inscritos} inscritos*${subida} · ${cuando}`;
 }
 
 async function pase(webhook: string): Promise<void> {

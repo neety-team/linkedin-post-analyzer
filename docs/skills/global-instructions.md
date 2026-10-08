@@ -1806,6 +1806,8 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
    Cuáles te comprarían, te lo enseñamos nosotros: {link}
 ```
 
+**⭐ EL MAPA SE QUEDA CON EL ULTRA NINJA Y EL WEBINAR SE VENDE EN SU PÁGINA (Iker, 08/10).** El post del mapa lleva `Mapa completo aquí: {link}` a `neety.com/blog/mapa-industrial-<región>` y **no** el enlace de Luma: el ultra ninja es el que más clics ha dado al peloteo (`/mapas/` 0,27-0,42% de CTR) y el único mapa que fue directo a Luma, Álava 22/09, se quedó en 0,177%. La sesión la vende la página: **`WebinarBand`** (repo `landing`, `components/WebinarBand.tsx`) va justo debajo del mapa y sus cifras en los 15 posts-mapa, al final de los artículos del blog y en `/solicitar-demo` solo bajo el formulario y en el acuse de quien no cualifica (nunca delante del calendario). UTM `utm_source=web-<ubicación>`, clic medido como `cta_evento` en GA4, y caduca sola al acabar la sesión. Es el mismo reparto que la banda de Neety Forward en recursos (agosto-septiembre).
+
 **Mecanizado** en `validar-post.py` cuando el enlace lleva `7hhyx07z`: fallo duro si la línea de encima no dice fecha, online y gratis, fallo duro si el bloque vende escasez, y aviso si sale `webinar`. Sustituye para este enlace al check de la sala del presencial. ⏳ **Caduca solo el 28/10/2026**; ese día esta sección se borra.
 
 #### 🗓️🗓️ 4.4b-EVENTO-CONTEXTO · EL NINJA DEL EVENTO LLEVA UNA LÍNEA DE CONTEXTO ENCIMA (Iker, 2026-08-27) — GLOBAL, Y CADUCA EL 24/09

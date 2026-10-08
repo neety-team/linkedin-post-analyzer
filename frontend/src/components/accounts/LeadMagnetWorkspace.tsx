@@ -26,6 +26,7 @@ import type {
   Canal, CanalInfo, CommentsResponse, FollowupRow, GridPost, LmConfig, LmKind,
   PedidoRow, SendRecord,
 } from './lmTypes';
+import InfoHint from '../InfoHint';
 
 //
 // `compacto` = montado DENTRO de un grupo de la pestana Comments (2026-08-20). Ahi
@@ -568,22 +569,17 @@ export default function LeadMagnetWorkspace({ post, creatorId, compacto = false 
 
         {cfg.kind === 'lista' && (
           <p className="text-[11px] text-text-muted leading-snug pt-1 border-t border-border">
-            Aquí no hay nada que rellenar. El post les pide comentar{' '}
-            <span className="text-text-secondary">su sector</span>. En cada
-            comentario se lee el sector, y al darle a <span className="text-text-secondary">Generar lista</span> se
-            buscan empresas reales españolas de ese sector con su zona y su LinkedIn, y se rellena el DM. A 1er grado
-            va la lista entera; a quien no lo sea se le pide la solicitud, y la lista sale en cuanto la mande.
+            Nada que rellenar: el post pide comentar <span className="text-text-secondary">su sector</span> y{' '}
+            <span className="text-text-secondary">Generar lista</span> busca empresas reales de ese sector para el DM.
+            <InfoHint text="Empresas reales españolas del sector, con su zona y su LinkedIn. A 1er grado va la lista entera; a quien no lo sea se le pide la solicitud, y la lista sale en cuanto la mande." />
           </p>
         )}
 
         {cfg.kind === 'publico' && (
           <p className="text-[11px] text-text-muted leading-snug pt-1 border-t border-border">
-            Aquí no hay nada que rellenar. El post tiene que pedirles que{' '}
-            <span className="text-text-secondary">peguen su web</span> en el comentario. Al darle a{' '}
-            <span className="text-text-secondary">Redactar respuesta</span> en cada comentario, se lee su web de
-            verdad, se audita, se le crea su propia página y el enlace ya viene dentro del texto. El comentario
-            regala el fallo más caro citando su titular, y la página pide el correo para ver los demás. Si el
-            comentario no trae web, avisa y no genera nada.
+            Nada que rellenar: el post pide que <span className="text-text-secondary">peguen su web</span> y{' '}
+            <span className="text-text-secondary">Redactar respuesta</span> la audita y le crea su página, con el enlace ya en el texto.
+            <InfoHint text="Se lee su web de verdad. El comentario regala el fallo más caro citando su titular, y la página pide el correo para ver los demás. Si el comentario no trae web, avisa y no genera nada." />
           </p>
         )}
 
@@ -1529,9 +1525,9 @@ function CommenterCard({
                retiraron, así que lo honesto es decir por qué no hay nada que
                mandar y a dónde va a aparecer esta persona cuando dé el paso. */
             <p className="mt-3 pt-3 border-t border-border text-[11px] text-text-muted leading-snug">
-              No es contacto y no te ha mandado solicitud, así que LinkedIn no le entrega un mensaje privado. No le
-              mandamos nada: la respuesta de aquí arriba le pide la solicitud, y en cuanto la mande sale en{' '}
+              No es contacto ni te ha mandado solicitud, así que no se le manda nada: cuando la mande, sale en{' '}
               <span className="text-text-secondary font-medium">Solicitudes pedidas</span> con el recurso ya escrito.
+              <InfoHint text="LinkedIn no entrega mensajes privados a quien no es contacto. La respuesta pública de arriba ya le pide la solicitud." />
             </p>
           ) : (
           <div className="mt-3 pt-3 border-t border-border space-y-2">
@@ -1871,8 +1867,7 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
         )}
       </div>
       <p className="text-[11px] text-text-muted leading-snug">
-        A esta gente le pediste que te mandara ella la solicitud. En cuanto la manda sube aquí arriba con el recurso
-        ya escrito: se le contesta a su propia solicitud, así que llega sin aceptarla y sin gastar nada.
+        Les pediste la solicitud: en cuanto la mandan, suben aquí con el recurso escrito y se les contesta sin aceptarla ni gastar nada.
       </p>
       {data?.aviso && <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">⚠️ {data.aviso}</p>}
       {err && (

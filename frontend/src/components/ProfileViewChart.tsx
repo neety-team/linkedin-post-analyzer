@@ -3,6 +3,7 @@ import {
   ResponsiveContainer, ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
 } from 'recharts';
 import { useChartColors } from '../theme';
+import InfoHint from './InfoHint';
 
 const BASE = import.meta.env.VITE_API_URL || '';
 
@@ -147,8 +148,13 @@ export default function ProfileViewChart({ creatorId, startDate, endDate, days, 
           <h3 className="text-lg font-semibold">Visitas al perfil</h3>
           <p className="text-xs text-text-muted mt-0.5">
             {vista === 'tendencia'
-              ? `La cifra oficial de LinkedIn de "visitas al perfil en 90 días", día a día${creatorId ? '' : '. Cuentas conectadas'}. Es una ventana móvil: baja cuando salen del cálculo los picos de hace 3 meses, aunque las visitas de ahora vayan bien.`
-              : `Visitas nuevas estimadas por día, reconstruidas con la lista de visitantes de LinkedIn (sale un 12-24% por encima de LinkedIn y no ve las visitas privadas). Sirve para ver picos, no para sumar.`}
+              ? `La cifra oficial de LinkedIn de visitas al perfil en 90 días, día a día${creatorId ? '' : ' (cuentas conectadas)'}.`
+              : 'Visitas nuevas estimadas por día: sirven para ver picos, no para sumar.'}
+            <InfoHint
+              text={vista === 'tendencia'
+                ? 'Es una ventana móvil: baja cuando salen del cálculo los picos de hace 3 meses, aunque las visitas de ahora vayan bien.'
+                : 'Reconstruidas con la lista de visitantes de LinkedIn: salen un 12-24% por encima de LinkedIn y no ven las visitas privadas.'}
+            />
           </p>
         </div>
         <div className="flex gap-1">

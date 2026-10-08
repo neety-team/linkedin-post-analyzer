@@ -109,8 +109,7 @@ export default function TimingHeatmap({ heatmap, bestSlots, timezoneLabel, locat
         )}
       </div>
       <p className="text-text-muted text-xs mb-4">
-        Mapa de calor por día y hora{location ? ` (hora local de ${location})` : timezoneLabel && timezoneLabel !== 'UTC' ? ` (${timezoneLabel})` : ' (UTC)'}.
-        Naranja = hay outliers. Verde = solo posts normales. Más brillante = más interacciones.
+        Por día y hora{location ? ` (hora local de ${location})` : timezoneLabel && timezoneLabel !== 'UTC' ? ` (${timezoneLabel})` : ' (UTC)'}: naranja = hay outliers, teal = solo posts normales; cuanto más intenso, más interacciones.
       </p>
 
       {/* Summary cards */}

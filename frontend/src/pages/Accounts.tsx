@@ -24,6 +24,7 @@ import {
   ORDENES_TOP, ENLACE_OPCIONES, SIN_PILAR, SIN_GANCHO, type FiltrosTop, type OrdenTop, type FiltroEnlace,
 } from '../utils/topPostsFiltros';
 import { useChartColors, type ChartColors } from '../theme';
+import InfoHint from '../components/InfoHint';
 
 interface ManagedAccount {
   id: string;
@@ -1255,10 +1256,10 @@ function AccountsInner() {
           and captures posts published < 6h ago from managed accounts that have a unipile_account_id. */}
       {hasAccounts && (
         <div className="bg-bg-card border border-border rounded-xl p-5">
-          {/* Titulo a la izquierda y botones SIEMPRE arriba a la derecha: el
-              texto se estrecha (min-w-0) en vez de empujar los botones a otra
-              linea, que es lo que paso al alargar la descripcion (2026-09-17). */}
-          <div className="mb-4 flex items-start justify-between gap-3">
+          {/* Titulo a la izquierda y botones SIEMPRE arriba a la derecha. La
+              descripcion va DEBAJO, a todo el ancho y en una linea (08-oct-2026):
+              metida en la columna del titulo salian tres lineas estrechas. */}
+          <div className="flex items-center justify-between gap-3">
             <div className="min-w-0 flex-1">
               <h3 className="text-lg font-semibold flex items-center gap-2">
                 {(() => {
@@ -1282,9 +1283,6 @@ function AccountsInner() {
                 })()}
                 Posts en directo
               </h3>
-              <p className="text-xs text-text-muted">
-                Lecturas por fases durante 7 días; después, reacciones, comentarios, compartidos e impresiones se actualizan a diario hasta el día 90 y cada semana a partir de ahí (sin límite de edad), y la analítica Premium cada 2 días hasta el día 30, cada semana hasta el 90 y cada quince días hasta el año.
-              </p>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0 whitespace-nowrap">
               <button
@@ -1294,7 +1292,9 @@ function AccountsInner() {
               >
                 {legendOpen ? '▾' : '▸'} Cómo funcionan las fases
               </button>
-              {livePosts?.some((p) => p.content_text?.startsWith('DEMO ·')) ? (
+              {/* "Cargar datos de demo" se quito el 08-oct-2026 (no se usaba). Si
+                  quedara algun post de demo, se puede quitar. */}
+              {livePosts?.some((p) => p.content_text?.startsWith('DEMO ·')) && (
                 <button
                   onClick={async () => {
                     try {
@@ -1307,20 +1307,6 @@ function AccountsInner() {
                   className="text-xs text-text-muted hover:text-danger transition-colors"
                 >
                   ✕ Quitar demo
-                </button>
-              ) : (
-                <button
-                  onClick={async () => {
-                    try {
-                      await apiPost('/api/accounts/demo-seed', {});
-                      refetchLive();
-                    } catch (err: any) {
-                      alert(err.message);
-                    }
-                  }}
-                  className="text-xs text-accent hover:text-accent-strong transition-colors"
-                >
-                  + Cargar datos de demo
                 </button>
               )}
               <button
@@ -1371,6 +1357,9 @@ function AccountsInner() {
               )}
             </div>
           </div>
+          <p className="mt-1 mb-4 text-xs text-text-muted">
+            Los 7 primeros días se leen por fases; luego, métricas a diario hasta el día 90 y semanales después. La analítica Premium: cada 2 días hasta el 30, semanal hasta el 90 y quincenal hasta el año.
+          </p>
           {legendOpen && (
             <div className="mb-4 p-4 rounded-lg border border-border bg-bg-primary">
               <p className="text-xs text-text-muted mb-3">
@@ -1617,7 +1606,8 @@ function AccountsInner() {
               <h3 className="text-lg font-semibold">Interacciones en el tiempo</h3>
             </div>
             <p className="text-xs text-text-muted mb-3">
-              {`Impresiones e interacciones recibidas en el rango, como en las analíticas de contenido de LinkedIn: las cifras diarias de LinkedIn ${selectedCreator === 'all' ? '(cuentas manuales: estimadas por día de publicación), todas las cuentas propias' : '(esta cuenta)'}. Los lápices marcan los días en que publicaste.`}
+              Impresiones e interacciones del rango, como en la analítica de contenido de LinkedIn{selectedCreator === 'all' ? ', de todas las cuentas propias' : ''}. Los lápices marcan los días en que publicaste.
+              {selectedCreator === 'all' && <InfoHint text="Las cuentas manuales se estiman por día de publicación." />}
             </p>
             {dailyChartData.length === 0 ? (
               <p className="text-center text-text-muted text-sm py-12">No hay posts en este rango.</p>
@@ -1650,8 +1640,8 @@ function AccountsInner() {
             includeManual={incluirManuales}
             title="Impresiones por mes"
             subtitle={selectedCreator === 'all'
-              ? 'Impresiones recibidas cada mes: cifras diarias de LinkedIn de las cuentas conectadas (cuentas manuales: estimadas), todas las cuentas propias'
-              : 'Impresiones recibidas cada mes: cifras diarias de LinkedIn (esta cuenta)'}
+              ? 'Impresiones de cada mes según LinkedIn, de todas las cuentas propias (las manuales, estimadas).'
+              : 'Impresiones de cada mes según LinkedIn.'}
             unit="impresiones"
           />
 
@@ -1680,8 +1670,8 @@ function AccountsInner() {
             includeManual={incluirManuales}
             title="Seguidores nuevos por mes"
             subtitle={selectedCreator === 'all'
-              ? 'Seguidores nuevos cada mes: cifras diarias de LinkedIn de las cuentas conectadas, todas las cuentas propias'
-              : 'Seguidores nuevos cada mes: cifras diarias de LinkedIn (esta cuenta)'}
+              ? 'Seguidores nuevos de cada mes según LinkedIn, de todas las cuentas conectadas.'
+              : 'Seguidores nuevos de cada mes según LinkedIn.'}
             unit="seguidores"
             signed
           />

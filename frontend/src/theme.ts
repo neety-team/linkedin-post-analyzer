@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 
 /* Tema claro / oscuro (08-oct-2026).
  *
@@ -7,11 +7,10 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
  * recharts recibe como props (stroke, fill, tick...) y los estilos en línea:
  * esos salen de useChartColors(), que devuelve la paleta del tema activo.
  *
- * La elección se guarda en localStorage; sin elección, manda el sistema. El
+ * El proveedor vive en ThemeProvider.tsx. La elección se guarda en localStorage; sin elección, manda el sistema. El
  * script de index.html pone data-theme ANTES de pintar, para que no parpadee. */
 
 export type Theme = 'light' | 'dark';
-const STORAGE_KEY = 'neety-theme';
 
 /* Tonos categóricos (pilares, tipos de contenido, ganchos...). En claro, la
    versión que se lee sobre fondo claro; en oscuro, la viva de siempre. */
@@ -101,45 +100,19 @@ const DARK: ChartColors = {
   hue: HUES_DARK,
 };
 
-function readTheme(): Theme {
-  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-}
+export const STORAGE_KEY = 'neety-theme';
 
-interface ThemeCtx {
+export interface ThemeCtx {
   theme: Theme;
   toggle: () => void;
 }
-const Ctx = createContext<ThemeCtx>({ theme: 'light', toggle: () => {} });
-
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(readTheme);
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'dark' ? '#1b0d1d' : '#e6ecf5');
-  }, [theme]);
-
-  const toggle = useCallback(() => {
-    setTheme((t) => {
-      const next: Theme = t === 'dark' ? 'light' : 'dark';
-      try {
-        localStorage.setItem(STORAGE_KEY, next);
-      } catch {
-        /* modo privado o almacenamiento bloqueado: el tema dura la sesión */
-      }
-      return next;
-    });
-  }, []);
-
-  return <Ctx.Provider value={{ theme, toggle }}>{children}</Ctx.Provider>;
-}
+export const ThemeContext = createContext<ThemeCtx>({ theme: 'light', toggle: () => {} });
 
 export function useTheme(): ThemeCtx {
-  return useContext(Ctx);
+  return useContext(ThemeContext);
 }
 
 /** Paleta de las gráficas y estilos en línea del tema activo. */
 export function useChartColors(): ChartColors {
-  return useContext(Ctx).theme === 'dark' ? DARK : LIGHT;
+  return useContext(ThemeContext).theme === 'dark' ? DARK : LIGHT;
 }

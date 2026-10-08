@@ -19,7 +19,7 @@
    - OSCURO: las secciones oscuras de la web (Berenjena #431b44, Ciruela
      #2a0e2c), con texto en Base Cálida #f8f7ec y el Naranja Core puro.
    Los nombres de token son los de siempre: cambiar aquí recolorea la app.
-   Los valores de las gráficas (recharts no lee clases) viven en theme.tsx
+   Los valores de las gráficas (recharts no lee clases) viven en theme.ts
    con las mismas dos variantes.
 
    Reglas de uso:

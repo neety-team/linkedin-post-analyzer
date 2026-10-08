@@ -3,6 +3,7 @@ import {
   ResponsiveContainer, ComposedChart, Area, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine,
 } from 'recharts';
 import { useChartColors } from '../theme';
+import InfoHint from './InfoHint';
 
 const BASE = import.meta.env.VITE_API_URL || '';
 
@@ -152,8 +153,9 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
           <h3 className="text-lg font-semibold">Crecimiento de seguidores</h3>
           <p className="text-xs text-text-muted mt-0.5">
             {creatorId
-              ? 'Seguidores nuevos en el periodo, como en las estadísticas de audiencia de LinkedIn (esta cuenta)'
-              : 'Seguidores nuevos en el periodo, como en las estadísticas de audiencia de LinkedIn. Todas las cuentas propias (las manuales, a partir de los totales diarios)'}
+              ? 'Seguidores nuevos en el periodo, como en las estadísticas de audiencia de LinkedIn.'
+              : 'Seguidores nuevos en el periodo de todas las cuentas propias, como en las estadísticas de audiencia de LinkedIn.'}
+            {!creatorId && <InfoHint text="Las cuentas manuales se calculan a partir de sus totales diarios." />}
           </p>
         </div>
         <div className="flex gap-1">
@@ -165,7 +167,7 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
       {!loading && chartData.length > 0 && (
         <div className="mb-3 flex items-baseline gap-x-4 gap-y-1 flex-wrap">
           <span className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-success tabular-nums">+{fmtFull(ganados)}</span>
+            <span className="text-2xl font-bold text-text-primary tabular-nums">+{fmtFull(ganados)}</span>
             <span className="text-sm text-text-muted">seguidores nuevos · {days} d</span>
           </span>
           {variacion != null && (

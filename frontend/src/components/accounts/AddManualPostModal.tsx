@@ -173,9 +173,8 @@ export default function AddManualPostModal({
         <div className="px-6 pb-5 space-y-4">
           {!editando && (
             <p className="text-xs text-text-muted leading-relaxed">
-              Para cuentas de la empresa que <span className="text-text-secondary">no están conectadas</span> por
-              Unipile. Pega el enlace y se extrae solo todo lo público. Las impresiones y los clics no se pueden
-              leer de un post ajeno, así que esos los escribes tú.
+              Para cuentas de la empresa <span className="text-text-secondary">no conectadas</span> por Unipile: pega
+              el enlace y se extrae lo público. Impresiones y clics no se leen de un post ajeno: los escribes tú.
             </p>
           )}
 

@@ -3,6 +3,7 @@ import {
   AreaChart, Area, XAxis, YAxis, ResponsiveContainer,
 } from 'recharts';
 import { useChartColors } from '../theme';
+import InfoHint from './InfoHint';
 
 interface TimelinePoint {
   published_at: string;
@@ -297,20 +298,10 @@ export default function EngagementChart({ data, dailyEngagement }: Props) {
           </div>
         </div>
       </div>
-      <div className="text-[11px] text-text-muted mb-3 space-y-0.5">
-        <p>
-          <span className="text-text-secondary font-medium">Interacciones</span>: reacciones + comentarios×2 + compartidos×3.
-          Para cada día D sumamos las interacciones de todos los posts publicados en los{' '}
-          <span className="text-text-secondary font-medium">7 días anteriores</span>, que es la ventana
-          de distribución de LinkedIn. Un post de hace tres días sigue sumando al valor de hoy, así que los
-          días sin publicar no caen a cero mientras el creador tenga contenido reciente activo.
-        </p>
-        <p className="text-text-muted/80 italic">
-          Si la cuenta está conectada por Unipile, cambiamos esa suma móvil por las interacciones reales
-          de cada día, medidas con lecturas cada hora. "Interacciones medias / día" muestra la media diaria
-          real del periodo elegido, no la media de la curva, que la ventana móvil inflaría.
-        </p>
-      </div>
+      <p className="text-[11px] text-text-muted mb-3">
+        <span className="text-text-secondary font-medium">Interacciones</span> = reacciones + comentarios×2 + compartidos×3, sumando cada día los posts de los 7 días anteriores (la ventana de distribución de LinkedIn).
+        <InfoHint text={'Un post de hace tres días sigue sumando al valor de hoy, así que los días sin publicar no caen a cero mientras haya contenido reciente. Si la cuenta está conectada por Unipile, esa suma móvil se cambia por las interacciones reales de cada día (lecturas cada hora). "Interacciones medias / día" es la media diaria real del periodo, no la de la curva, que la ventana móvil inflaría.'} />
+      </p>
       <div className="flex items-center gap-4 mb-3 text-xs text-text-muted">
         <span>
           <span className="text-text-secondary font-medium">{postDaysInRange}</span>{' '}

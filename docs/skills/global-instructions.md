@@ -2924,13 +2924,14 @@ Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran 
 | ✅ probadas el 29/09 | `móvil`, `teléfono` | libres |
 - **Mecanizado:** fallo duro en `validar-post.py` (`Sin "LinkedIn" en el texto`), fuera de las URLs y salvo `--historico`.
 
-### 🟠 9.3d · QUINTO CASO DE RETRASO (08/10, Unai): `automatizar` QUEDA EN OBSERVACIÓN, NO VETADA
+### 🟠 9.3d · `automatizar` CAPÓ UN POST (08/10, Unai): CAPADO PROBABLE, n=1
 
-Historia con vídeo del resumen de Neety Forward, primer post de la casa con el enlace del webinar (`luma.com/7hhyx07z` con UTM). **1ª versión** con `automatizar` en gancho, tesis y ninja: a los 20+ min sin aparecer en relevantes, ~20 impresiones, y se borró (sin llegar al minuto 30). **2ª versión**, un solo cambio (`automatizar` → `lanzar más mensajes`): **apareció en relevantes a los 28 min.**
-- **Lo que NO prueba:** que la culpable fuera `automatizar`. La 2ª tardó lo mismo que los cuatro retrasos anteriores (15, 18, 20, 27 min), y a la 1ª no se le dieron los 30 min (`§9.0`). Cuadra igual con la cola de revisión del enlace nuevo (`§9.0b`), y con vídeo.
-- **Lo que sí sabemos de la palabra:** 19 posts nuestros la llevan sin ningún capado, dos de ellos en el gancho (2.895 y 1.144 imp).
-- **Iker cree que fue `automatizar`** (*"tiene sentido"*). Queda **en observación**: si un segundo post con ella se queda sin aparecer pasados los 30 min, entra en la lista de capadas. Mientras, **en el gancho de una historia con enlace nuevo, mejor sin ella**: el recambio no cuesta nada.
-- **Hipótesis mía, sin medir:** la psicología común de `automatizar` y `mensajes a miles` es el envío masivo, que es lo que la plataforma persigue en las herramientas de automatización.
+Historia con vídeo del resumen de Neety Forward, primer post de la casa con el enlace del webinar (`luma.com/7hhyx07z` con UTM). **1ª versión** con `automatizar` en gancho, tesis y ninja: **más de 40 minutos sin aparecer en relevantes** (~20 impresiones), borrada. **2ª versión, un solo cambio** (`automatizar` → `lanzar más mensajes`), mismo vídeo y mismo enlace: **en relevantes a los 28 min.**
+- **Es el molde de `§9.3b` (`LinkedIn`): pasó el umbral de 30 min y la resubida con UNA variable salió.** Iker: *"creo que era automatizar, tiene sentido"*. La charla del evento iba justo de no automatizar las ventas con IA.
+- **Por qué no es veto todavía (`§9.5`):** n=1, y 19 posts nuestros anteriores la llevan sin capado (dos en el gancho, 2.895 y 1.144 imp). Puede pesar el contexto: palabra + enlace nuevo + vídeo, o la vara que se mueve (`§9.2`).
+- **Hasta un segundo caso: se evita.** El recambio probado es `lanzar más mensajes`; cuesta nada y no pierde el sentido.
+- *Hipótesis mía, sin medir:* la psicología es el envío masivo automatizado, que es lo que la plataforma persigue en las herramientas de automatización. `mensajes a miles` va en la misma línea y salió, así que lo que dispara parece la palabra, no la idea.
+- **Mecanizado:** aviso en `validar-post.py` (`Sin "automatizar"`). Con un segundo caso pasa a fallo duro.
 
 ### ⛔ 9.3c · RESUBIR EL MISMO TEXTO VARIAS VECES EN UNA HORA NO DIAGNOSTICA NADA (30/09, historia de Iker)
 

@@ -1611,6 +1611,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'aqui no estan probados y pueden caer igual). El 29/09 un post con la palabra '
             'no salio nunca en el feed y la resubida sin ella salio en menos de 1 minuto'
             % [l.strip()[:50] for l in _li] if _li else '')
+        # §9.3d: `automatizar` (Unai 08/10). Con la palabra, mas de 40 min sin salir en
+        # relevantes; resubida con UN cambio (`lanzar mas mensajes`), en relevantes a los
+        # 28 min. n=1: AVISO, no fallo, hasta un segundo caso. Recambio probado: lanzar.
+        _aut = re.findall(r'[^\n]*automati[sz]\w*[^\n]*', _sin_url, re.I)
+        chk(not _aut, 'Sin "automatizar" (capado probable, §9.3d)',
+            ('lineas: %s. El 08/10 un post con la palabra no salio en 40 min y la '
+             'resubida sin ella (lanzar mas mensajes) salio a los 28. n=1: con un segundo '
+             'caso pasa a fallo duro' % [l.strip()[:50] for l in _aut]) if _aut else '', aviso=True)
         # §9.3b: `algoritmo` PROBADA el 29/09 (meme de Mario, en el gancho, en
         # "Primero los mas relevantes" de otra cuenta al minuto 3). Se queda de AVISO
         # porque Mario lo pidio (29/09): "en el futuro ponme avisos de cuidado", y

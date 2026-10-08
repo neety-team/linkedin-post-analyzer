@@ -295,7 +295,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | dato | |
 |---|---|
 | **Post** | texto de Unai pulido de formato y gancho (`feedback revisión de post ajeno`) · vídeo `NEETY FORWARD/Resumen Evento.mp4` (72 s, productora) · 1.567 car (decidido por Unai, su texto entero) · validador 68/69 (solo longitud) · hora y enlace exactos `[PENDIENTE · leer de la BD al traer posts]` |
-| **Capado y resubida** | 1ª versión con `automatizar` (gancho `…no es automatizar más`, ninja `Automatizar es escribir a miles que no van a comprar.`): sin aparecer a los 20+ min, ~20 imp, borrada. 2ª con `lanzar más mensajes`: **en relevantes a los 28 min**. Lectura en `global §9.3d` (no prueba que fuera la palabra) |
+| **Capado y resubida** | 1ª versión con `automatizar` (gancho `…no es automatizar más`, ninja `Automatizar es escribir a miles que no van a comprar.`): **más de 40 min sin aparecer en relevantes**, ~20 imp, borrada. 2ª con `lanzar más mensajes` (un solo cambio): **en relevantes a los 28 min**. Capado probable por `automatizar`, n=1 (`global §9.3d`) |
 | **Gancho** | `Defendimos ante más de 100 personas que el futuro de las ventas no es lanzar más mensajes 👇` · Unai eligió el original y pidió PLURAL (`Defendí` le sonaba egocéntrico, `brand-voice §1b`) |
 | **Ninja → webinar** | `El miércoles 28 lo contamos online y gratis.` / `Lanzar mensajes a miles que no comprarán es fácil.` / `Cuáles sí comprarían, te lo enseñamos nosotros:` · UTM `utm_source=historia-resumenforward-08oct-unai` · **dolor: ACIERTO, no volumen** (`global §4.4b-ROTACION`, primer ninja de ese dolor en la ronda del A/B) · 1er post de la casa con el enlace del webinar |
 | **Pilar** | historia · rama A (propia, en plural) · no regional · real |

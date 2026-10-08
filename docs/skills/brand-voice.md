@@ -42,7 +42,7 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 
 | ⛔ tumbados en Unai | ✅ los suyos |
 |---|---|
-| `ni de broma` · `flipa` · `de locos` · `se queda tieso` | **`jamás`** · `nunca` · `en la vida` · `lo último que me imaginaba` |
+| `ni de broma` · `flipa` · `de locos` · `se queda tieso` | **`jamás`** · `nunca` · `en la vida` (como negación absoluta de un HECHO, nunca de incredulidad propia: ver `UNAI NUNCA SE HACE DE MENOS`, 08/10) |
 
 **La frontera: el adverbio de negación absoluta funciona; la expresión coloquial hecha, no.** `jamás me imaginé` lo firma un CEO delante de un inversor; `ni de broma me imaginaba` es la misma idea contada en una barra de bar. **En Iker sí valen las de la izquierda**, que para eso es la cuenta cercana.
 - **Y no cuesta caracteres:** `jamás` son 5 y `ni de broma` 11. La versión sobria salió **más corta** que la de calle, así que aquí no hay que elegir entre tono y longitud.
@@ -67,6 +67,22 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 **Lo medido, y es poco (`working-preferences §0c`: esto es preferencia del jefe, no doctrina de datos):** su historia del 23/09 con el gancho grandioso hizo **9.928 impresiones, 43 clics y 18 comentarios** (el máximo de comentarios de sus historias), por encima de su mediana de historia desde julio (**8.917**, n=6). En contra: el del 24/09 (`Ya solo nos quedan unos minutos para que empiece el después en ventas`) hizo **1.279**, aunque salió 40 minutos antes del evento y sin enlace. n=2: se hace porque lo pide él, y se sigue midiendo.
 
 **Mecanizado:** con `--cuenta unai`, el aviso `ENTREGA: ¿el gancho PRESUME?` de `validar-post.py` ya no pide la versión humilde: pide comprobar que lo grande es verdad, sobrio y sin compararse.
+
+#### 👑 UNAI NUNCA SE HACE DE MENOS: FUERA LA INCREDULIDAD PROPIA EN SUS GANCHOS (Iker, 2026-10-08) — MANDA SOBRE LO DE ARRIBA
+
+> **Iker:** *"pensamientos así de jamás pensé, en el primer jefe nunca va a decir algo así. La última vez le propusimos un gancho así como nunca pensé que iba a presentar delante de 100 personas y ese gancho no le gusta. Ese tipo de ganchos con esa psicología no. Él nunca se va a hacer de menos"*.
+
+**Lo vetado es la PSICOLOGÍA, no la palabra:** el gancho en el que Unai se sorprende de haber llegado a algo (`jamás pensé`, `nunca pensé`, `jamás me imaginé`; y por la misma psicología, *ejemplos míos*: `quién me iba a decir`, `lo último que me esperaba`). Se coloca por debajo de lo que cuenta, y él quiere lo grande (sección de arriba).
+- **Lo que SÍ vale:** el hecho grande contado en firme. Caso: `Defendí ante más de 100 personas que el futuro de las ventas no es automatizar más 👇` (a Iker le gustó el 08/10; pendiente de Unai).
+- **`jamás` y `nunca` siguen valiendo como negación absoluta de un HECHO** (`A mí un cliente no me deja una propuesta en visto. Jamás`, 6.83x). Lo que cae es `jamás`/`nunca` + pensar o imaginar referido a sí mismo.
+- **Corrige lo de arriba y lo de otros ficheros:** la tabla del intensificador listaba `lo último que me imaginaba`, y su historia del 21/08 (`jamás me imaginé…`) sale como ejemplo en `global §2.2c`, `§2.3d` y `post-workflow §4.6`. Funcionó (6.788 imp, 0,678% CTR), pero en su cuenta manda su preferencia: ese molde ya no se le propone.
+- **Solo Unai.** En el resto de cuentas, el superlativo de incredulidad de `global §2.3d` sigue en pie.
+- **Mecanizado:** con `--cuenta unai`, `validar-post.py` falla si el gancho lleva `jamás`/`nunca` + `pensé`/`imaginé`/`me imaginé`/`creí`.
+
+#### 🗂️ SUS POSTS DE EVENTO O HISTORIA LLEVAN GANCHOS ALTERNATIVOS (Iker, 2026-10-08)
+
+Iker le pasa a Unai (casi) siempre sus posts de evento o de historia para que los revise, y el primer gancho casi nunca le convence. **La entrega lleva el post con el gancho elegido y, debajo, 5 ganchos alternativos, todos grandiosos**, para pasárselo todo junto. Al proponerlos, decir cuáles obligan a tocar el ninja (la palabra del gancho que recoge, `global §4.4b` regla 4).
+- **Solo en sus posts de EVENTO o de HISTORIA.** En un meme, un lead magnet o cualquier otro pilar suyo se entrega a la primera el mejor gancho, sin banco (Iker, 08/10).
 
 #### 🔭 LA LENTE DEL INVERSOR: LO QUE UN FONDO LEE EN LA CUENTA DE UNAI (Unai vía Iker, 2026-10-07)
 

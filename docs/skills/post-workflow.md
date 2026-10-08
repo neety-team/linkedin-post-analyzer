@@ -3153,7 +3153,7 @@ Pilar NUEVO, distinto de **autoridad** ("mira qué importante soy": premios, eve
 > | forma | el gancho | el bucle | cuándo |
 |---|---|---|---|
 > | **ESCENA** (default) | *Le pregunté a qué empresas quería vender y me plantó el portátil delante* | ¿qué pasó? | la historia se sostiene sola |
-> | **PROMESA** | *Con 13 años jamás me imaginé la forma de vender que vamos a reinventar* | ¿qué viene? | **cuando el post tiene que vender algo que aún no ha pasado** (un evento, un lanzamiento) |
+> | **PROMESA** | *Con 13 años jamás me imaginé la forma de vender que vamos a reinventar* (⛔ en Unai ya no se propone, `brand-voice §1b` 08/10) | ¿qué viene? | **cuando el post tiene que vender algo que aún no ha pasado** (un evento, un lanzamiento) |
 >
 > **Es el mismo bucle abierto de `global §2.0`, pero CARGADO EN EL FUTURO.** Y es lo que permite meter un evento dentro de una historia sin que huela a promoción, que es el problema que teníamos escrito desde el 05/08 (*un post informativo del evento no lo lee nadie*).
 >

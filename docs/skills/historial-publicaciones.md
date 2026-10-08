@@ -8,6 +8,12 @@
 
 ## ⚠️ SI ES LUNES Y SE HABLA DE PUBLICACIONES: PRIMERO SE ANALIZA LA SEMANA PASADA (Iker, 2026-08-10)
 
+> 🎯 **AUDITORÍA FIJA DE CADA LUNES, PRIMERO LA CONVERSIÓN (Iker, 2026-10-08).** Publicamos en cuentas de fundadores que venden un producto: **el alcance se mira, pero lo que decide es la conversión** (clics, CTR y demos). Va en cada revisión sin que Iker lo pida, después de las métricas básicas y de la psicología del gancho:
+> 1. **El ninja por DOLOR:** `python scripts/auditar-ninjas.py`. Saca CTR y clics por dolor dentro de cada pilar, cuántos ninjas dicen "quien decide" y el detalle. **Regla de decisión** (`global §4.4b-ROTACION`): un dolor pasa a ser el ÚNICO prioritario solo con 3 posts o más por dolor **dentro del mismo pilar** y ganando en **dos revisiones seguidas**. Mientras no, se sigue rotando (1 de cada 2 con la persona de dentro). *(El umbral es criterio mío, sin medir; Iker pidió "evidencia muy clara".)*
+> 2. **Las demos:** clics y solicitudes de `neety.com/solicitar-demo` por `utm_campaign` (GA4, pedírselo a Iker). Es la conversión final; un CTR alto sin demos no gana.
+> 3. **Dónde cae el enlace y cómo va** (carácter, % del texto, pegado o separado) contra su CTR, más los A/B abiertos de abajo.
+> 4. **Lo que se saca de ahí entra en las recetas ese mismo día** (`global §4.4b-ROTACION`) y se dice en el análisis qué dolor se prioriza esa semana.
+
 > 🔔 **PARA LA REVISIÓN DEL LUNES 12/10 (lo pide Iker el 07/10), sin que haga falta recordárselo: A/B DE LA SEPARACIÓN DEL NINJA EN "LAS 10".** Castilla-La Mancha (Iker 01/10): enlace al 66%, **pegado** a las menciones, a `/agendar/` → 0,058% (22/37.779). La Rioja (Asier 07/10): enlace al 65%, **1 línea suelta de separación**, a `/solicitar-demo`. La posición se dejó igual a propósito para que la única variable sea la separación (`post-workflow §4.0d` 6b). Se compara CTR en LinkedIn y clics por UTM en GA4 (pedírselos a Iker), sabiendo que son cuentas distintas. Si La Rioja no mejora, la separación no explica el 0,058% y se mira el destino y el formato. Y se recuerda en CADA análisis de peloteo hasta cerrarlo.
 
 > 🔔 **PARA LA REVISIÓN DEL LUNES 05/10 (lo pide Iker el 01/10), sin que haga falta recordárselo:**

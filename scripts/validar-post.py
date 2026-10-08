@@ -1202,11 +1202,13 @@ def eco_reciente(cuerpo, dias=14, hoy=None):
 # "quien decide". El dolor no se cambia porque si: se ROTA para medir cual saca
 # mas clics, y el sinonimo rota aunque el dolor se repita. Avisos, no fallos.
 DOLORES_NINJA = [
+    # El evento va primero: es otra PUERTA (Luma), no otro dolor, y sus ninjas
+    # tambien dicen "nombres" o "quien compra" (la sala de los que deciden).
+    ('evento (la sala)', r'\bsala\b|plazas|sillas|huecos|invitados|80 sitios|80 nombres|el 24 de septiembre'),
     ('acierto (pocas que encajan, no listas de miles)', r'encaj|miles|pocas|acierta|acertar|volumen|limpiar|sobran|no valen|que valen'),
-    ('tu confirmas (nada sale sin el comercial)', r'confirm|apruebas|validas|tu comercial|tú decides|tu decides'),
+    ('tu confirmas (nada sale sin el comercial)', r'confirm|apruebas|validas|sin que tu comercial|t[uú] decides'),
     ('buscar contra contactar', r'buscar|buscando|contactar'),
     ('la persona de dentro', r'decide|firma|qui[eé]n compra|nombre|cargo|a qui[eé]n|interlocutor|persona'),
-    ('evento (la sala)', r'sala|plazas|sillas|huecos|invitados'),
 ]
 
 def ninja_de(texto):

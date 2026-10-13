@@ -1634,7 +1634,7 @@ function AccountsInner() {
                   {ev.inscritos != null ? (
                     <span className="text-text-primary font-semibold tabular-nums">{fmtNum(ev.inscritos)} inscritos</span>
                   ) : (
-                    <span className="text-text-muted" title="Con la lista de invitados oculta y sin aforo, Luma no enseña el número sin iniciar sesión. Se arregla poniendo un aforo al evento.">
+                    <span className="text-text-muted" title="Luma no ha devuelto el recuento de entradas de este evento.">
                       inscritos: Luma no los enseña
                     </span>
                   )}

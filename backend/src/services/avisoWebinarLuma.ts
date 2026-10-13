@@ -28,11 +28,14 @@ const CLAVE_DIA = `luma:${SLUG}:ultimo-recuento`;
 // inscritos = null cuando Luma no lo enseña (ver contarInscritos): nunca un 0 inventado.
 export type Evento = { nombre: string; inscritos: number | null; empieza: Date; acaba: Date; url: string };
 
-// ⛔ CON LA LISTA DE INVITADOS OCULTA, guest_count SALE 0 (comprobado el 13/10 con el webinar
-// de octubre: 0 en la API con 3 inscritos de verdad, show_guest_list = false). Luma solo lo
-// enseña sin sesion si la lista es visible o si el evento tiene AFORO: entonces
-// inscritos = aforo - plazas libres (spots_remaining). Sin ninguna de las dos, no se sabe.
+// ⛔ guest_count NO SON LOS INSCRITOS: con la lista de invitados oculta sale 0 (13/10, webinar
+// de octubre: 0 con 3 inscritos de verdad). El bueno es la suma de num_tickets_registered de
+// los tipos de entrada, que Luma sirve aunque la lista este oculta (ya se uso asi para el
+// aforo del evento de septiembre). Respaldo: aforo - plazas libres. Si nada cuadra, null.
 export function contarInscritos(d: any): number | null {
+  const tipos: any[] = Array.isArray(d?.ticket_types) ? d.ticket_types : [];
+  const registrados = tipos.map((t) => t?.num_tickets_registered).filter((x) => typeof x === 'number');
+  if (registrados.length) return registrados.reduce((a, b) => a + b, 0);
   if (d?.event?.show_guest_list && typeof d.guest_count === 'number') return d.guest_count;
   const libres = d?.ticket_info?.spots_remaining;
   const aforos = [d?.event?.max_capacity, ...(d?.ticket_types ?? []).map((t: any) => t?.max_capacity)]

@@ -730,6 +730,7 @@ const PILAR_UTM_LABELS: Record<string, string> = {
   historia: 'Historia', meme: 'Meme', mapa: 'Mapa', peloteo: 'Peloteo', las10: 'Las 10',
   los10: 'Las 10', objeto: 'Objeto', despiece: 'Despiece', leadmagnet: 'Lead magnet',
   evento: 'Evento', tarjeta: 'Tarjeta', recursos: 'Recursos', 'sin-publicacion': 'Sin publicación',
+  correo: 'Newsletter', perfil: 'Botón del perfil',
 };
 const etiquetaPilarUtm = (k: string) => PILAR_UTM_LABELS[k] ?? k.charAt(0).toUpperCase() + k.slice(1);
 

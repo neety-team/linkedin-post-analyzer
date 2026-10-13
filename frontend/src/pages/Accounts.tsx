@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useApi, apiPatch, apiPost, apiDelete } from '../hooks/useApi';
+import { useApi, apiPost, apiDelete } from '../hooks/useApi';
 import AddManualPostModal from '../components/accounts/AddManualPostModal';
 import { DateRangeCalendar } from '../components/DateRangeCalendar';
 import {
@@ -745,16 +745,8 @@ function AccountsInner() {
     const end = new Date(`${dateRange.end}T00:00:00`);
     return Math.max(1, Math.round((end.getTime() - start.getTime()) / 86400000) + 1);
   }, [dateRange]);
-  // Antes esto era `managerOpen` y abria el selector de creadores. Ahora solo
-  // abre el editor de account_id de Unipile, y arranca CERRADO siempre: es la
-  // otra mitad del arreglo del panel fantasma, porque ningun estado de carga
-  // puede abrirlo por su cuenta (Iker, 2026-08-13).
-  const [unipileOpen, setUnipileOpen] = useState(false);
   // LinkedIn Preview en modal (Iker, 2026-10-06): lo unico que sobrevivio de Post Creator.
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [unipileEdits, setUnipileEdits] = useState<Record<string, string>>({});
-  const [scrapingId, setScrapingId] = useState<string | null>(null);
-  const [scrapeResult, setScrapeResult] = useState<Record<string, string>>({});
   const [legendOpen, setLegendOpen] = useState(false);
   // Cuentas manuales: por defecto suman a todo. El check las apaga cuando solo
   // se quiere mirar a las cuentas conectadas — los TOTALES no sufren al
@@ -858,37 +850,6 @@ function AccountsInner() {
   const analyticsPath = `/api/accounts/analytics?start_date=${dateRange.start}&end_date=${dateRange.end}${selectedCreator !== 'all' ? `&creator_id=${selectedCreator}` : ''}${incluirManuales ? '' : '&include_manual=false'}`;
   const { data: analytics, loading: loadingAnalytics, refetch: refetchAnalytics } = useApi<Analytics>(analyticsPath);
 
-  const saveUnipileId = async (id: string) => {
-    const value = unipileEdits[id] ?? '';
-    try {
-      await apiPatch(`/api/accounts/${id}`, { unipile_account_id: value });
-      setScrapeResult((r) => ({ ...r, [id]: '✓ Guardado' }));
-      setTimeout(() => setScrapeResult((r) => ({ ...r, [id]: '' })), 2000);
-      refetchAccounts();
-    } catch (err: any) {
-      setScrapeResult((r) => ({ ...r, [id]: `✗ ${err.message}` }));
-    }
-  };
-
-  const scrapeAccount = async (id: string) => {
-    setScrapingId(id);
-    setScrapeResult((r) => ({ ...r, [id]: 'Leyendo de LinkedIn…' }));
-    try {
-      const res = await apiPost<{ scraped: number; with_impressions: number }>(
-        `/api/accounts/${id}/scrape`,
-        {}
-      );
-      setScrapeResult((r) => ({
-        ...r,
-        [id]: `✓ ${res.scraped} posts · ${res.with_impressions} con impresiones`,
-      }));
-      refetchAccounts();
-    } catch (err: any) {
-      setScrapeResult((r) => ({ ...r, [id]: `✗ ${err.message}` }));
-    } finally {
-      setScrapingId(null);
-    }
-  };
 
   const hasAccounts = (accounts?.length || 0) > 0;
 
@@ -1005,8 +966,8 @@ function AccountsInner() {
           <p className="text-text-secondary">Sigue el rendimiento de las cuentas de LinkedIn que gestionas.</p>
         </div>
         {/* Sin engranaje de "Manage accounts" (Iker, 2026-08-13): las cuentas son
-            siempre las mismas tres, asi que no hay nada que gestionar. Lo unico que
-            queda es pegar el account_id de Unipile, que se abre a mano y NUNCA solo. */}
+            siempre las mismas tres. El editor de account_id de Unipile tambien se
+            quito (13-oct-2026); vive solo en el backend. */}
         {hasAccounts && (
           <div className="flex items-center gap-2">
             <button
@@ -1016,74 +977,14 @@ function AccountsInner() {
             >
               👁 Vista previa de LinkedIn
             </button>
-            <button
-              onClick={() => setUnipileOpen((v) => !v)}
-              className="px-3 py-1.5 bg-bg-card border border-border text-text-muted text-xs rounded-lg hover:border-accent/40 hover:text-text-primary transition-colors"
-            >
-              {unipileOpen ? 'Ocultar' : 'IDs de Unipile'}
-            </button>
           </div>
         )}
       </div>
       <LinkedInPreviewModal open={previewOpen} onClose={() => setPreviewOpen(false)} />
 
-      {/* Unipile account ID per managed account — needed to scrape impressions */}
-      {unipileOpen && hasAccounts && (
-        <div className="bg-bg-card border border-border rounded-xl p-5 space-y-3">
-          {(
-            <div className="space-y-3">
-              <div>
-                <h4 className="text-sm font-semibold text-text-primary">IDs de cuenta de Unipile</h4>
-                <p className="text-xs text-text-muted">
-                  LinkedIn solo da las impresiones de los posts que se leen con la sesión de Unipile de la propia cuenta.
-                  Pega abajo el <code className="text-accent">account_id</code> de Unipile de cada cuenta propia y pulsa Actualizar.
-                </p>
-              </div>
-              <div className="space-y-2">
-                {accounts?.map((a) => {
-                  const current = unipileEdits[a.id] ?? a.unipile_account_id ?? '';
-                  const dirty = current !== (a.unipile_account_id ?? '');
-                  const msg = scrapeResult[a.id];
-                  return (
-                    <div key={a.id} className="flex items-center gap-2 p-2 rounded-lg border border-border bg-bg-primary">
-                      {a.profile_image_url ? (
-                        <img src={a.profile_image_url} alt="" className="w-7 h-7 rounded-full object-cover flex-shrink-0" />
-                      ) : (
-                        <div className="w-7 h-7 rounded-full bg-bg-secondary flex items-center justify-center text-text-muted text-xs flex-shrink-0">
-                          {(a.name || '?')[0]}
-                        </div>
-                      )}
-                      <div className="text-sm text-text-primary w-40 truncate">{nombreCuenta(a.name)}</div>
-                      <input
-                        type="text"
-                        value={current}
-                        placeholder="account_id de Unipile"
-                        onChange={(e) => setUnipileEdits((prev) => ({ ...prev, [a.id]: e.target.value }))}
-                        className="flex-1 bg-bg-card border border-border rounded px-2 py-1 text-xs text-text-primary focus:outline-none focus:border-accent font-mono"
-                      />
-                      <button
-                        disabled={!dirty}
-                        onClick={() => saveUnipileId(a.id)}
-                        className="px-2 py-1 text-xs border border-border rounded text-text-secondary hover:border-accent hover:text-accent disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                      >
-                        Guardar
-                      </button>
-                      <button
-                        disabled={!a.unipile_account_id || scrapingId === a.id}
-                        onClick={() => scrapeAccount(a.id)}
-                        className="px-2 py-1 text-xs border border-accent/30 bg-accent/10 rounded text-accent hover:bg-accent/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                      >
-                        {scrapingId === a.id ? '…' : 'Actualizar'}
-                      </button>
-                      {msg && <span className="text-[11px] text-text-muted whitespace-nowrap">{msg}</span>}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+      {/* "IDs de Unipile" (el account_id de cada cuenta y su lectura manual) se
+          quito del frontend el 13-oct-2026: no se usaba. El backend sigue igual
+          (PATCH /api/accounts/:id y POST /api/accounts/:id/scrape). */}
 
       {/* Sub-section tabs — BI is the dashboard you've always had; Replies
           is the triage view for answering comments in your own voice; Lead
@@ -1394,7 +1295,7 @@ function AccountsInner() {
               <p className="text-xs">
                 Publica un post desde una cuenta propia que tenga puesto su account_id de Unipile y saldrá aquí en menos de 15 min.
                 {accounts?.some((a) => !a.unipile_account_id) && (
-                  <> Aún tienes cuentas propias sin ID de Unipile: ábrelas en "IDs de Unipile", arriba, para ponérselo.</>
+                  <> Aún tienes cuentas propias sin ID de Unipile: hay que ponérselo desde el backend.</>
                 )}
               </p>
             </div>

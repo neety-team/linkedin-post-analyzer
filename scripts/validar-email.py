@@ -503,6 +503,9 @@ def main():
             # correo 6 · Unai · CALENDARIO (enviado 29/09)
             'llamar en octubre es facil. lo caro es saber a quien': '2026-09-29',
             'eso lo hacemos nosotros, con quien decide dentro': '2026-09-29',
+            # correo 7 · Kaixito · MITO (enviado 06/10, apuntado el 13/10: se olvido al enviar)
+            'la lista larga te la vende cualquiera': '2026-10-06',
+            'la corta, con quien decide, nosotros': '2026-10-06',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el
@@ -525,6 +528,55 @@ def main():
             checks.append(fallo('Ninja: el enlace es la última línea del correo (§4.4b)'))
         else:
             checks.append(ok('Ninja: el enlace no es la última línea'))
+
+        # 🖥️ WEBINAR DEL 28/10 (global §4.4b-WEBINAR, Iker 2026-10-08). Estaba solo en
+        # validar-post.py y el correo 8 (13/10) fue el primero que lo enlaza: portado el
+        # mismo dia. Online, gratis y sin aforo: la linea suelta de ENCIMA del bloque dice
+        # cuando, que es online y que es gratis, el bloque no vende escasez (seria falsa
+        # y sube la barrera que queremos bajar) y "webinar" encoge la audiencia.
+        # ⏳ Caduca solo el 28/10/2026.
+        import datetime as _dt
+        if '7hhyx07z' in cuerpo and _dt.date.today() <= _dt.date(2026, 10, 28):
+            _i_n = next((i for i, b in enumerate(bloques) if 'http' in b), None)
+            _prev = bloques[_i_n - 1] if _i_n else ''
+            _prev_l = [l for l in _prev.splitlines() if l.strip()]
+            _prev_low = _prev.lower()
+            _blo = sin_url(' '.join(bl)).lower()
+            _faltan = [n for n, v in (
+                ('la fecha (miércoles 28)', re.search(r'\b28\b|mi[eé]rcoles', _prev_low)),
+                ('que es online', re.search(r'online|en directo|desde (tu|el|la|casa)|videollamada', _prev_low)),
+                ('que es gratis', re.search(r'gratis|gratuit|sin pagar|no cuesta', _prev_low)))
+                if not v]
+            if len(_prev_l) == 1 and not _faltan:
+                checks.append(ok('Webinar: línea suelta de encima con fecha, online y gratis'))
+            else:
+                checks.append(fallo(
+                    'Webinar: justo encima del bloque del enlace va UNA línea suelta que dice '
+                    'el miércoles 28, online y gratis (§4.4b-WEBINAR). '
+                    + (f'Falta {" y ".join(_faltan)}. ' if _faltan else '')
+                    + (f'Ahora el bloque de encima tiene {len(_prev_l)} líneas.' if len(_prev_l) != 1 else '')))
+            _esc = re.search(r'plazas|aforo|\bsala\b|sillas|[uú]ltim[oa]s|se acaba|quedan', _blo)
+            if _esc:
+                checks.append(fallo(f'Webinar: el ninja vende escasez ("{_esc.group(0)}"). Es online, '
+                                    f'gratis y sin límite: se promete lo que te llevas'))
+            else:
+                checks.append(ok('Webinar: el ninja no vende escasez'))
+            if re.search(r'webinar', _prev_low + ' ' + _blo):
+                checks.append(aviso('Webinar: sale la palabra "webinar" en el ninja. Mejor "sesión '
+                                    'online", "charla online" o "en directo" (brand-voice §2.3)'))
+
+        # LUMA SOLO LEE utm_source (email-marketing §1, 28/08): la identidad del correo
+        # va ahí, escrita a mano y empezando por "correo-" (22/09), para que en el panel
+        # de Luma los correos no se mezclen con los posts.
+        _luma = [u for u in links if 'luma.com' in u or 'lu.ma' in u]
+        if _luma:
+            _src = re.search(r'utm_source=([^&\s]+)', _luma[0])
+            if _src and _src.group(1).startswith('correo-'):
+                checks.append(ok(f'Enlace a Luma con la identidad en utm_source ({_src.group(1)})'))
+            else:
+                checks.append(fallo('Enlace a Luma: la identidad del correo va en utm_source y '
+                                    'empieza por "correo-" (correo-{nº}-{remitente}-{pilar}). '
+                                    'Luma no lee utm_campaign'))
 
     # --- AI-tells ---
     m = re.search(AI_TELLS, cuerpo_low)

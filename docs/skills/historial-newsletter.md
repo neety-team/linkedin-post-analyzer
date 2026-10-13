@@ -1452,17 +1452,40 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 - **Fecha de cierre de los premios: 30 de octubre**, la que da AMA en su mensaje y en su web. Las bases en PDF (subidas en julio) dicen 15/10, pero **lo que nos dice el tercero directamente es la fuente** (Iker, 05/10): no hay nada que confirmar. El correo dice `este mes`.
 - **Al enviar:** ninja a `QUEMADAS`, cuerpo literal al corpus el MISMO día, y leer el clic del enlace de AMA en `linksStats` para poder decirle a AMA cuántos de nuestra red pulsaron.
 
-## Ángulos y vehículos usados, puesto al día (2026-10-05)
+## 📝 CORREO 8 · Asier · RECETA, ninja al webinar (BORRADOR 2026-10-13, para el mié 14/10 09:05)
+
+**Texto validado 41/41** (`validar-email.py`, el único aviso es `cientos de empresas`, que va del lado del enemigo). **Sin campaña en Brevo todavía:** no hay `BREVO_API_KEY` en el entorno de esta sesión. Cuando se monte: remitente `Asier de Neety` (id 7, `hola@neety.com`), listas 15 + 4 + 17 + 18 como el 7, **sin GIF** (no es Kaixito), en BORRADOR y sin `scheduledAt` (`email-marketing §9a-BIS`).
+
+| | |
+|---|---|
+| Asunto | `en qué sector está tu próximo cliente?` (38 car, pregunta de tú a tú sin `¿`). Descartados: `has descrito medio polígono` (afirmación, y en nuestra lista las afirmaciones abren menos, n=2) y `tu próximo cliente no tiene sector` (afirmación y falsa) |
+| Preview | `Si has pensado en uno, este correo es para ti.` (la segunda mitad del asunto, `§8i`) |
+| Pilar | **RECETA (9), primera vez**, y **estreno de Asier** como remitente. ⚠️ Estrenar los dos a la vez no deja separar quién explica el resultado (se dijo el 22/09); se asume porque la receta estaba reservada para él y es el formato del webinar |
+| Molde | la pregunta del lector que el cuerpo tumba (`§8h`) + la receta a mano en 4 pasos (nivel 1 del webinar: buscar por lo que hace la empresa, no por su sector) + el extracto cortado de Isra (`§8k` punto 6): **la segunda parte va el 28** |
+| Micro-apertura | `Apunta.` (nueva, de Asier) |
+| Ninja → webinar | contexto `La segunda parte va el miércoles 28 a las 10, online y gratis.` · `Por sector te salen cientos de empresas y sirven pocas.` / `Dar con esas pocas es lo que enseñamos nosotros:` (55/48) → `luma.com/7hhyx07z?utm_source=correo-08-asier-receta&utm_medium=email&utm_campaign=correo-08-asier-receta` · dolor **acierto** (empresas que encajan, no volumen) · **enlace al 67% del cuerpo, con 5 bloques detrás** (correos 5-6 al 45-50%; el 7 al 25% no mejoró) |
+| Detrás del enlace | el coste en meses (`Por cada empresa… / sector… / mercado…`), las que no publican y se escapan, y la rebaja `Haz solo el paso 1 esta semana` |
+| PD / PPD | reenvío a quien lleve la lista · **reto con respuesta** (`contéstame con la línea que te salga. Las leo todas.`, Hugo y Víctor Garcés, `§8k`) |
+| Real / inventado | real: la sesión del 28 y su contenido (descripción de Luma), el método a mano, `meses` (informe de demos). Ilustrativo: `metal, de 50 a 200 empleados`. Nada atribuido a clientes |
+
+**Al enviar:** ninja a `QUEMADAS` de `validar-email.py` (`por sector te salen cientos de empresas`, `dar con esas pocas es lo que ensenamos`), cuerpo literal a `corpus-correos-enviados.md` el MISMO día y, a los 5-6 días, **inscritos en Luma por `utm_source=correo-08-asier-receta`** (vara: el correo 4, 1 inscrito de 45) y **respuestas al reto de la PPD** (primera vez que una postdata pide contestar desde el correo 0: 0 de 191).
+
+## Ángulos y vehículos usados, puesto al día (2026-10-13)
 - Correo 4 · Kaixito: la lista de invitados en su libro (evento).
 - Correo 5 · Iker: la objeción de la IA que escribe mensajes.
 - Correo 6 · Unai: el cierre del trimestre y la lista de enero.
-- Correo 7 · Kaixito (borrador): la lista de 2.000 empresas apuntada en su libro y tachada a mano.
+- Correo 7 · Kaixito: la lista de 2.000 empresas apuntada en su libro y tachada a mano.
+- Correo 8 · Asier (borrador): el cliente descrito por sector y tamaño ("medio polígono") y la receta a mano en 4 pasos.
 
-## Micro-aperturas usadas por remitente (2026-10-05)
+## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7, borrador)
-- Asier: sin estrenar
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7)
+- **Asier:** `Apunta.` (correo 8, borrador)
+
+### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)
+- ✅ Su ninja ya está en `QUEMADAS` (13/10, con fecha 06/10).
+- 🔴 **Su cuerpo literal NO está en `corpus-correos-enviados.md`.** Se rescata de la campaña 28 en cuanto haya `BREVO_API_KEY` en el entorno (`GET /emailCampaigns/28`).
 
 ### 🚫 Bajas a mano
 - **2026-10-08 · `gorka@easoventures.com`** (inscrito del evento, listas 16 y 18), a petición de Iker. Hecho con `emailBlacklisted: true` en Brevo, **sin borrar el contacto**: así no se le vuelve a escribir aunque alguien lo reimporte. No está en el CRM (la cohorte del evento vive solo en Brevo), así que no hay sync que lo devuelva.

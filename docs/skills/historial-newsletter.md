@@ -1454,7 +1454,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ## 📝 CORREO 8 · Asier · RECETA, ninja al webinar (BORRADOR 2026-10-13, para el mié 14/10 09:05)
 
-**Texto validado 41/41** (`validar-email.py`, el único aviso es `cientos de empresas`, que va del lado del enemigo). **Sin campaña en Brevo todavía:** no hay `BREVO_API_KEY` en el entorno de esta sesión. Cuando se monte: remitente `Asier de Neety` (id 7, `hola@neety.com`), listas 15 + 4 + 17 + 18 como el 7, **sin GIF** (no es Kaixito), en BORRADOR y sin `scheduledAt` (`email-marketing §9a-BIS`).
+**Texto validado 42/42** (`validar-email.py`, el único aviso es `cientos de empresas`, que va del lado del enemigo). **v2 tras la revisión de Iker (13/10):** la receta pasa a contarse como ORIGEN (`Antes de programar nuestro buscador, lo hacíamos así a mano.`, antes `…la hago así a mano`, que era un autogol), una línea detrás del enlace deja ver el producto (`Encontrar esas fue lo que más nos costó programar.`) y las 6 sueltas del arranque se rompen con un par y una terna (`Por lo que hace de verdad / Por el material con el que trabaja / Por el problema que tú le resuelves cada día`). Ritmo `1-2-1-1-2-1-3-1-1-1-1-3-1-1-1-2-1`. **Sin campaña en Brevo todavía:** no hay `BREVO_API_KEY` en el entorno de esta sesión. Cuando se monte: remitente `Asier de Neety` (id 7, `hola@neety.com`), listas 15 + 4 + 17 + 18 como el 7, **sin GIF** (no es Kaixito), en BORRADOR y sin `scheduledAt` (`email-marketing §9a-BIS`).
 
 | | |
 |---|---|

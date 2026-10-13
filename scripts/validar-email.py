@@ -333,6 +333,19 @@ def main():
             checks.append(aviso(f'Ritmo {"-".join(map(str,_pat_full))}: tramo en espejo 1-1-{_pat_full[_esp+2]}-1-1. '
                                 f'Se lee igual del derecho que del reves, y canta mas si el '
                                 f'bloque del medio es el del enlace. Mueve un bloque de sitio'))
+        # RACHA DE SUELTAS (Iker, 2026-10-13, correo 8): "veo un exceso de lineas
+        # individuales entre el primer bloque de dos y el bloque numerico: hay seis".
+        # La suelta domina en correo (§3), pero seis seguidas se leen como una lista
+        # plana. Se mide sobre lo que ve el lector; la lista con marcador no cuenta.
+        _racha, _max_racha = 0, 0
+        for n in _pat_full:
+            _racha = _racha + 1 if n == 1 else 0
+            _max_racha = max(_max_racha, _racha)
+        if _max_racha >= 5:
+            checks.append(aviso(f'Ritmo: {_max_racha} líneas sueltas seguidas. Mete un bloque de '
+                                f'dos o de tres en medio (Iker, 13/10: se lee plano)'))
+        else:
+            checks.append(ok(f'Ritmo: sin rachas largas de sueltas (máx {_max_racha})'))
         _su = sum(1 for n in _pat if n == 1) / len(_pat)
         if _su >= 0.55:
             checks.append(ok(f'Ritmo: la linea suelta domina ({_su:.0%})'))

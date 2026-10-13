@@ -85,6 +85,7 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 
 Iker le pasa a Unai (casi) siempre sus posts de evento o de historia para que los revise, y el primer gancho casi nunca le convence. **La entrega lleva el post con el gancho elegido y, debajo, 5 ganchos alternativos, todos grandiosos**, para pasárselo todo junto. **Los ganchos van en UN SOLO bloque copiable** (el elegido primero y los 5 debajo, separados por una línea en blanco), nunca un bloque por gancho (Iker, 08/10). Al proponerlos, decir cuáles obligan a tocar el ninja (la palabra del gancho que recoge, `global §4.4b` regla 4).
 - **Solo en sus posts de EVENTO o de HISTORIA.** En un meme, un lead magnet o cualquier otro pilar suyo se entrega a la primera el mejor gancho, sin banco (Iker, 08/10).
+- **⛔ Y SOLO SI EL EVENTO ES PRESENCIAL (Iker, 13/10).** Los posts que venden el **webinar** (o cualquier evento online) los trabaja Iker con el segundo jefe, no con Unai, así que van con un solo gancho aunque sean de su cuenta y de historia. Si algún día cambia, lo dirá Iker.
 
 #### 🔭 LA LENTE DEL INVERSOR: LO QUE UN FONDO LEE EN LA CUENTA DE UNAI (Unai vía Iker, 2026-10-07)
 

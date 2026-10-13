@@ -3093,6 +3093,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                         'que le habla al lector. En CTR empata con y sin "nosotros" (n '
                         'pequeno): manda que el lector no tenga que deducir quien ofrece'
                         % _l2n.strip(), aviso=True)
+                # LA LINEA DEL ENLACE NO VENDE EL PRODUCTO COMO EXCEL O LISTA (Iker,
+                # 2026-10-13). "Ese mismo Excel con IA te lo montamos" daba a entender
+                # que la herramienta hace Excels, y no: propone empresas y personas que
+                # el comercial aprueba. El Excel o la lista pueden ser la NORMA de la
+                # linea 1 (lo que se hace a mano); la 2 promete detectar o acertar.
+                if re.search(r'\b(excel|hojas? de c[aá]lculo|listas?|listados?)\b', _l2n, re.I) \
+                        and not re.search(r'\bno\b[^.]*\blistas?\b', _l2n, re.I):
+                    chk(False, 'ENTREGA: la linea del enlace no vende el producto como EXCEL o LISTA (global 4.4b-NO-EXCEL)',
+                        'linea: "%s". El Excel o la lista pueden ser lo que se hace a mano '
+                        '(linea 1), nunca lo que ofrecemos: la herramienta detecta y propone '
+                        'empresas y personas que tu comercial aprueba. Cambia la promesa a '
+                        'detectar, acertar o dar con quien compra' % _l2n.strip(), aviso=True)
                 # QUE EL BLOQUE NO CAIGA A TRES LINEAS EN ESCRITORIO (Mario, 2026-10-02).
                 # Medido sobre su captura de un post publicado: 75 caracteres ocupan
                 # 674 px de ~706 utiles (9 px por caracter), o sea que caben ~78.

@@ -1717,6 +1717,15 @@ En esta/eso sí [lo mismo] y [la escasez]:      <- la excepción, cosida con dem
 - *"Da con quién decide dentro"* y *"el siguiente paso de cada cuenta y por qué canal"*.
 - ⛔ **Sigue fuera del ninja:** la señal o la intención de compra como argumento (`§4.4b-ORDEN`, 15 empresas la objetan), el automatismo y el volumen. **Un ninja vende un eslabón** (`§4.4b-CADENA`): empresa con acierto **y** persona es lo que más convierte; el canal y el momento se quedan para la demo.
 
+##### ⛔⛔ 4.4b-NO-EXCEL · EL NINJA NUNCA VENDE EL PRODUCTO COMO UN EXCEL O UNA LISTA (Iker, 2026-10-13) — GLOBAL
+
+> **Iker, sobre `Ese mismo Excel con IA te lo montamos en directo:`:** *"no quiero, a nivel público, dar a entender que nuestra herramienta es una herramienta más de Excel o de listas… tiene su propia sección de aprobaciones, monitorización"*. Y la sesión del 28/10 no va de montar un Excel en directo.
+
+- **El Excel, la hoja o la lista pueden ser la NORMA de la línea 1** (lo que se hace a mano y cuesta meses): ahí es identificación pura y nos coloca enfrente. **Nunca lo que ofrecemos en la línea 2.**
+- **La línea 2 promete el verbo de la casa:** detectar, acertar, dar con quien compra (la web: *"Detecta a quién vender"*). Caso: `Un Excel de clientes a mano le come meses a cualquiera.` / `Detectarlos con IA, eso sí te lo explicamos:`.
+- **Lo que tampoco sale en público** (`project-flujo-herramienta-privado`): las fases de aprobación, la puntuación (se quitó el 13/10: ahora las propuestas llegan ordenadas de más a menos recomendada), los créditos y la bandeja de mensajes. Los mensajes y el momento cierran la venta; el post la abre, y la abre con identificación.
+- **Mecanizado** como aviso en `validar-post.py` (`la linea del enlace no vende el producto como EXCEL o LISTA`). Caza el ninja del 13/10 y deja pasar `No damos listas de miles`.
+
 
 ##### ⛔⛔ 4.4b-ANTECEDENTE · EL DEMOSTRATIVO DE LA BISAGRA NO PUEDE TENER DOS ANTECEDENTES POSIBLES (Mario, 2026-08-27)
 

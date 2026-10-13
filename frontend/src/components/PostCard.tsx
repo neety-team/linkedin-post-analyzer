@@ -107,9 +107,9 @@ export default function PostCard({ post }: Props) {
 
       <div className="flex items-center justify-between text-xs text-text-muted">
         <div className="flex gap-3">
-          <span className="text-m-reacciones">{post.likes_count.toLocaleString('es-ES')} reacciones</span>
-          <span className="text-m-comentarios">{post.comments_count.toLocaleString('es-ES')} comentarios</span>
-          <span className="text-m-compartidos">{post.reposts_count.toLocaleString('es-ES')} compartidos</span>
+          <span>{post.likes_count.toLocaleString('es-ES')} reacciones</span>
+          <span>{post.comments_count.toLocaleString('es-ES')} comentarios</span>
+          <span>{post.reposts_count.toLocaleString('es-ES')} compartidos</span>
         </div>
         <div className="flex items-center gap-2">
           <TypeBadge type={post.content_type} />

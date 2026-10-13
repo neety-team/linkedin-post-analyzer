@@ -536,10 +536,10 @@ function FranjaPremium({ post }: { post: PostPremium }) {
       {post.content_type === 'text_video' && <MetricaVisto post={post} />}
       {leida ? (
         <>
-          <span className="inline-flex items-center gap-1 text-m-guardados" title="Guardados. Cuesta más que una reacción y nadie guarda por compromiso.">
+          <span className="inline-flex items-center gap-1" title="Guardados. Cuesta más que una reacción y nadie guarda por compromiso.">
             <MetricIcon d={ICON_SAVE} /> {fmtNum(post.saves_count ?? 0)}
           </span>
-          <span className="inline-flex items-center gap-1 text-m-enviados" title="Enviados por privado a otra persona">
+          <span className="inline-flex items-center gap-1" title="Enviados por privado a otra persona">
             <MetricIcon d={ICON_SEND} /> {fmtNum(post.sends_count ?? 0)}
           </span>
         </>
@@ -2640,17 +2640,17 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
               Agrupado en tres bloques separados por un punto para que no sea una
               lista plana de siete numeros. */}
           <div className="flex items-center gap-x-3 gap-y-1 text-xs text-text-muted mt-1.5 flex-wrap">
-            <span className="inline-flex items-center gap-1 text-m-reacciones" title="Reacciones">
+            <span className="inline-flex items-center gap-1" title="Reacciones">
               <MetricIcon d={ICON_LIKE} /> {fmtNum(post.likes_count)}
             </span>
-            <span className="inline-flex items-center gap-1 text-m-comentarios" title="Comentarios">
+            <span className="inline-flex items-center gap-1" title="Comentarios">
               <MetricIcon d={ICON_COMMENT} /> {fmtNum(post.comments_count)}
             </span>
-            <span className="inline-flex items-center gap-1 text-m-compartidos" title="Compartidos">
+            <span className="inline-flex items-center gap-1" title="Compartidos">
               <MetricIcon d={ICON_REPOST} /> {fmtNum(post.reposts_count)}
             </span>
             {post.impressions_count != null && (
-              <span className="inline-flex items-center gap-1 text-m-impresiones" title="Impresiones">
+              <span className="inline-flex items-center gap-1 font-semibold text-text-primary" title="Impresiones">
                 <MetricIcon d={ICON_EYE} /> {fmtNum(post.impressions_count)}
               </span>
             )}
@@ -2819,17 +2819,17 @@ function TopPostRow(
               con ml-auto para que queden pegadas a la derecha; sueltas se metian
               en medio de los numeros en cuanto la fila hacia wrap. */}
           <div className="flex items-center gap-x-3 gap-y-1 text-xs text-text-muted mt-1.5 flex-wrap">
-            <span className="inline-flex items-center gap-1 text-m-reacciones" title="Reacciones">
+            <span className="inline-flex items-center gap-1" title="Reacciones">
               <MetricIcon d={ICON_LIKE} /> {fmtNum(post.likes_count)}
             </span>
-            <span className="inline-flex items-center gap-1 text-m-comentarios" title="Comentarios">
+            <span className="inline-flex items-center gap-1" title="Comentarios">
               <MetricIcon d={ICON_COMMENT} /> {fmtNum(post.comments_count)}
             </span>
-            <span className="inline-flex items-center gap-1 text-m-compartidos" title="Compartidos">
+            <span className="inline-flex items-center gap-1" title="Compartidos">
               <MetricIcon d={ICON_REPOST} /> {fmtNum(post.reposts_count)}
             </span>
             {post.impressions_count != null && (
-              <span className="inline-flex items-center gap-1 text-m-impresiones" title="Impresiones">
+              <span className="inline-flex items-center gap-1 font-semibold text-text-primary" title="Impresiones">
                 <MetricIcon d={ICON_EYE} /> {fmtNum(post.impressions_count)}
               </span>
             )}

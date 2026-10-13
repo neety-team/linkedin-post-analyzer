@@ -50,17 +50,11 @@
   --color-linkedin: #0a66c2;
   --color-data: #1a707e; /* teal de la analítica de LinkedIn */
 
-  /* Franja de métricas de cada post (13-oct-2026): un color por métrica, el
-     mismo en toda la herramienta, para leerla sin mirar los iconos.
-     Impresiones = el teal de su gráfica; seguidores y visitas = success
-     (lo que trae negocio). Los demás, tonos separados del rojo/verde de
-     estado y del naranja de los enlaces. */
-  --color-m-reacciones: #2563c9; /* el azul del "Recomendar" de LinkedIn */
-  --color-m-comentarios: #7a3fc4;
-  --color-m-compartidos: #b0367f;
-  --color-m-impresiones: #1a707e;
-  --color-m-guardados: #876800;
-  --color-m-enviados: #4338ca;
+  /* Franja de métricas de cada post (13-oct-2026). Gris por defecto: solo
+     se colorea lo que mira marketing. Impresiones van en negrita neutra
+     (alcance, el número de referencia), clics en ámbar (tráfico, el más
+     escaso) y seguidores y visitas en success (lo que trae negocio).
+     Reacciones, comentarios, compartidos, guardados y enviados, en gris. */
   --color-m-clics: #b45309;
 
   /* Marca, tal cual (landing/app/globals.css) */
@@ -92,12 +86,6 @@
   --color-diamond: #c99bf0;
   --color-linkedin: #71b7fb; /* el azul de enlace del modo oscuro de LinkedIn */
   --color-data: #5bb8c4;
-  --color-m-reacciones: #82b1ff;
-  --color-m-comentarios: #c29df7;
-  --color-m-compartidos: #f08ac6;
-  --color-m-impresiones: #5bb8c4;
-  --color-m-guardados: #e2bd4f;
-  --color-m-enviados: #a5a8fc;
   --color-m-clics: #f59e5b;
 }
 

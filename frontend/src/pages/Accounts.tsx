@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, createContext, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useApi, apiPost, apiDelete } from '../hooks/useApi';
 import AddManualPostModal from '../components/accounts/AddManualPostModal';
@@ -281,17 +281,28 @@ interface PerAccountRow {
 }
 
 // Conversiones fuera de LinkedIn (backend: services/conversionesWeb.ts).
-interface ResumenDemos {
+interface RecuentoDemos {
   solicitudes: number;
   cualificadas: number;
   oportunidades: number;
-  por_canal: { linkedin: number; newsletter: number; recursos: number };
 }
+interface ResumenDemos extends RecuentoDemos {
+  por_canal: { linkedin: number; newsletter: number; recursos: number };
+  por_pilar?: Record<string, RecuentoDemos>;
+}
+type DemosDePost = RecuentoDemos & { campana: string };
 interface Conversiones {
   demos:
     | { configurado: false }
     | { configurado: true; error: string }
-    | { configurado: true; current: ResumenDemos; previous: ResumenDemos };
+    | {
+        configurado: true;
+        current: ResumenDemos;
+        previous: ResumenDemos;
+        // Demos casadas con un post (clave = id del post) y las que no se pudieron casar.
+        por_post?: Record<string, DemosDePost>;
+        sin_casar?: number;
+      };
   evento: { nombre: string; inscritos: number | null; empieza: string; url: string } | null;
 }
 
@@ -517,7 +528,8 @@ function MetricaVisto({ post }: { post: PostPremium }) {
   );
 }
 
-function FranjaPremium({ post }: { post: PostPremium }) {
+function FranjaPremium({ post }: { post: PostPremium & { id?: string } }) {
+  const demos = useContext(DemosPostCtx)[post.id ?? ''];
   const leida = [post.saves_count, post.sends_count, post.profile_viewers_count, post.followers_gained_count]
     .some((v) => v != null);
   const conEnlace = mostrarClics(post) || !!post.link_url;
@@ -582,6 +594,16 @@ function FranjaPremium({ post }: { post: PostPremium }) {
             {fmtNum(post.profile_viewers_count ?? 0)} visitas al perfil
           </span>
         </>
+      )}
+      {/* Demos de la web que trajo ESTE post (utm_campaign + utm_content de la primera
+          visita), el dato de conversion mas fuerte: va el ultimo y en verde. */}
+      {demos && (
+        <span
+          className="font-semibold text-success"
+          title={`Solicitudes de demo atribuidas a este post en el periodo elegido (${demos.campana}) · ${demos.oportunidades} con reunión`}
+        >
+          🎯 {demos.solicitudes} {demos.solicitudes === 1 ? 'demo' : 'demos'}
+        </span>
       )}
     </>
   );
@@ -697,6 +719,19 @@ function Delta({ pct }: { pct: number | null }) {
     </span>
   );
 }
+
+// Demos de cada post (backend: casarConPosts en services/conversionesWeb.ts). Va por
+// contexto para que la franja de metricas las pinte igual en Posts en directo y en
+// Mejores posts sin pasar la prop por cada fila.
+const DemosPostCtx = createContext<Record<string, DemosDePost>>({});
+
+// Pilar tal y como va en el utm_campaign (lo que va antes del primer guion).
+const PILAR_UTM_LABELS: Record<string, string> = {
+  historia: 'Historia', meme: 'Meme', mapa: 'Mapa', peloteo: 'Peloteo', las10: 'Las 10',
+  los10: 'Las 10', objeto: 'Objeto', despiece: 'Despiece', leadmagnet: 'Lead magnet',
+  evento: 'Evento', tarjeta: 'Tarjeta', recursos: 'Recursos', 'sin-publicacion': 'Sin publicación',
+};
+const etiquetaPilarUtm = (k: string) => PILAR_UTM_LABELS[k] ?? k.charAt(0).toUpperCase() + k.slice(1);
 
 // Tarjeta de cifra del resumen: etiqueta, numero, variacion y una linea de pie.
 function Kpi({ etiqueta, valor, delta, pie, ayuda }: {
@@ -1011,7 +1046,10 @@ function AccountsInner() {
   }, [setTopFiltros]);
   const etiquetaPilar = (slug: string) => slug === SIN_PILAR ? 'Sin pilar' : (pilarPorSlug[slug]?.label || slug);
 
+  const demosPorPost = conversiones?.demos && 'por_post' in conversiones.demos ? conversiones.demos.por_post ?? {} : {};
+
   return (
+    <DemosPostCtx.Provider value={demosPorPost}>
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -1625,6 +1663,21 @@ function AccountsInner() {
                 ayuda="Solicitudes de demo de la web nueva que se atribuyen a Mario: LinkedIn orgánico, newsletter y recursos, con la misma regla que el admin de la web (los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. «Con reunión» = cualificada y con hora reservada."
               />
             </div>
+            {conversiones?.demos && 'current' in conversiones.demos && conversiones.demos.current.solicitudes > 0 && conversiones.demos.current.por_pilar && (() => {
+              const d = conversiones.demos;
+              const filas = Object.entries(d.current.por_pilar ?? {}).sort((x, y) => y[1].solicitudes - x[1].solicitudes);
+              return (
+                <div className="flex items-center gap-x-4 gap-y-1 flex-wrap bg-bg-card border border-border rounded-xl px-4 py-2.5 text-xs text-text-secondary">
+                  <span className="text-text-muted">🎯 Demos por pilar</span>
+                  {filas.map(([k, n]) => (
+                    <span key={k} className={k === 'sin-publicacion' ? 'text-text-muted' : ''} title={`${n.cualificadas} cualificadas · ${n.oportunidades} con reunión`}>
+                      {etiquetaPilarUtm(k)} <span className="font-semibold text-text-primary tabular-nums">{n.solicitudes}</span>
+                    </span>
+                  ))}
+                  <InfoHint text={`Pilar = lo que va antes del primer guion del utm_campaign del enlace del post. «Sin publicación» = llegaron sin utm_campaign (newsletter, recursos o un enlace sin marcar).${d.sin_casar ? ` ${d.sin_casar} no se han podido casar con un post concreto.` : ''}`} />
+                </div>
+              );
+            })()}
             {conversiones?.evento && (() => {
               const ev = conversiones.evento;
               const faltan = Math.ceil((new Date(ev.empieza).getTime() - Date.now()) / 86400000);
@@ -1882,6 +1935,7 @@ function AccountsInner() {
         />
       )}
     </div>
+    </DemosPostCtx.Provider>
   );
 }
 

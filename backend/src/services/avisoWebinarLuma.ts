@@ -25,9 +25,9 @@ const COMPROBAR_RELOJ_MS = 30 * 60 * 1000; // solo mira la hora; a Luma va una v
 const CLAVE_CIFRA = `luma:${SLUG}:inscritos`;
 const CLAVE_DIA = `luma:${SLUG}:ultimo-recuento`;
 
-type Evento = { nombre: string; inscritos: number; empieza: Date; acaba: Date; url: string };
+export type Evento = { nombre: string; inscritos: number; empieza: Date; acaba: Date; url: string };
 
-async function leerEvento(): Promise<Evento | null> {
+export async function leerEvento(): Promise<Evento | null> {
   const res = await fetch(`https://api.lu.ma/url?url=${SLUG}`);
   if (!res.ok) return null;
   const d = ((await res.json()) as any)?.data;

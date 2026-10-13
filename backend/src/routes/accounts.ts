@@ -22,6 +22,7 @@ import { generarRastro } from '../services/rastroGenerator';
 import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSync';
 import { clasificarGanchosPendientes, estadoGanchos } from '../services/ganchoPsicologia';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from '../services/premiumAnalytics';
+import { leerDemos, leerEventoWeb } from '../services/conversionesWeb';
 import {
   extraerPost,
   guardarPostManual,
@@ -1237,6 +1238,20 @@ router.post('/:id/scrape', async (req: Request, res: Response) => {
 
 // GET /api/accounts/analytics?creator_id=xxx&days=90
 // If creator_id is omitted, aggregates across all managed accounts.
+// Conversiones fuera de LinkedIn para el resumen de Cuentas (Mario, 2026-10-13): demos
+// atribuidas a Mario (web nueva) e inscritos al webinar (Luma). Aparte de /analytics
+// porque son servicios externos: si fallan, la pantalla sigue. Ver services/conversionesWeb.
+router.get('/conversiones', async (req: Request, res: Response) => {
+  try {
+    const range = parseDateRange(req);
+    const [demos, evento] = await Promise.all([leerDemos(range.startDate, range.endDate), leerEventoWeb()]);
+    res.json({ start_date: range.startDate, end_date: range.endDate, demos, evento });
+  } catch (err: any) {
+    console.error('[accounts/conversiones]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get('/analytics', async (req: Request, res: Response) => {
   try {
     const creatorId = (req.query.creator_id as string) || null;
@@ -1281,6 +1296,9 @@ router.get('/analytics', async (req: Request, res: Response) => {
       };
     };
 
+    const CLICS_MEDIDOS = `p.link_clicks_count IS NOT NULL AND NOT (p.link_clicks_count = 0 AND p.link_url IS NULL)`;
+    const ctrDe = (r: any): number | null =>
+      Number(r.ctr_impressions) > 0 ? +((Number(r.ctr_clicks) / Number(r.ctr_impressions)) * 100).toFixed(2) : null;
     const totalsSql = (dateCondition: string, baseParams: any[]) => {
       const s = scope(baseParams.length + 1);
       return {
@@ -1294,7 +1312,18 @@ router.get('/analytics', async (req: Request, res: Response) => {
           COALESCE(SUM(p.reposts_count)::int, 0) AS total_reposts,
           COALESCE(SUM(p.impressions_count), 0)::bigint AS total_impressions,
           COUNT(*) FILTER (WHERE p.impressions_count IS NOT NULL)::int AS posts_with_impressions,
-          COALESCE(ROUND(AVG(p.impressions_count) FILTER (WHERE p.impressions_count IS NOT NULL))::int, 0) AS avg_impressions
+          COALESCE(ROUND(AVG(p.impressions_count) FILTER (WHERE p.impressions_count IS NOT NULL))::int, 0) AS avg_impressions,
+          -- Conversion para el resumen (Mario, 2026-10-13). Clics: solo posts cuyo
+          -- enlace LinkedIn MIDE (un 0 sin link_url es "no lo mide", ver sinMedicion
+          -- en el frontend). El CTR se calcula SOLO sobre posts con enlace medido:
+          -- con todos los posts, los que no llevan enlace lo hundirian.
+          COALESCE(SUM(p.link_clicks_count) FILTER (WHERE ${CLICS_MEDIDOS}), 0)::int AS total_link_clicks,
+          COUNT(*) FILTER (WHERE ${CLICS_MEDIDOS})::int AS posts_with_link_clicks,
+          COALESCE(SUM(p.link_clicks_count) FILTER (WHERE ${CLICS_MEDIDOS} AND p.impressions_count > 0), 0)::int AS ctr_clicks,
+          COALESCE(SUM(p.impressions_count) FILTER (WHERE ${CLICS_MEDIDOS} AND p.impressions_count > 0), 0)::bigint AS ctr_impressions,
+          -- Visitas al perfil que salieron de los posts del rango (analitica Premium).
+          COALESCE(SUM(p.profile_viewers_count), 0)::int AS total_profile_viewers,
+          COUNT(*) FILTER (WHERE p.profile_viewers_count IS NOT NULL)::int AS posts_with_premium
          FROM posts p
          WHERE ${dateCondition} AND ${s.sql}`,
         params: [...baseParams, ...s.params],
@@ -1384,6 +1413,10 @@ router.get('/analytics', async (req: Request, res: Response) => {
       total_reposts: { current: curr.total_reposts, previous: prev.total_reposts, delta_pct: deltaPct(edadActual.total_reposts, edadPrevia.total_reposts) },
       total_impressions: { current: Number(curr.total_impressions), previous: Number(prev.total_impressions), delta_pct: deltaPct(edadActual.total_impressions, edadPrevia.total_impressions) },
       avg_impressions: { current: curr.avg_impressions, previous: prev.avg_impressions, delta_pct: deltaPct(edadActual.avg_impressions, edadPrevia.avg_impressions) },
+      // Sin flecha para clics y visitas en bruto: la analitica Premium de los
+      // posts jovenes aun esta subiendo y el periodo anterior ya maduro, asi que
+      // el mes en curso saldria siempre en rojo. El CTR es un cociente y aguanta.
+      ctr: { current: ctrDe(curr), previous: ctrDe(prev), delta_pct: deltaPct(ctrDe(curr), ctrDe(prev)) },
     });
 
     // Gap-filled daily series with 7-day rolling sum of total engagement.
@@ -1700,7 +1733,10 @@ router.get('/analytics', async (req: Request, res: Response) => {
           COALESCE(ROUND(MAX(p.outlier_ratio)::numeric, 1)::float, 0) AS max_virality,
           COALESCE(ROUND(AVG(p.outlier_ratio)::numeric, 2)::float, 0) AS avg_virality,
           COALESCE(SUM(p.impressions_count), 0)::bigint AS total_impressions,
-          COALESCE(ROUND(AVG(p.impressions_count) FILTER (WHERE p.impressions_count IS NOT NULL))::int, 0) AS avg_impressions
+          COALESCE(ROUND(AVG(p.impressions_count) FILTER (WHERE p.impressions_count IS NOT NULL))::int, 0) AS avg_impressions,
+          COALESCE(SUM(p.link_clicks_count) FILTER (WHERE ${CLICS_MEDIDOS}), 0)::int AS total_link_clicks,
+          COALESCE(SUM(p.link_clicks_count) FILTER (WHERE ${CLICS_MEDIDOS} AND p.impressions_count > 0), 0)::int AS ctr_clicks,
+          COALESCE(SUM(p.impressions_count) FILTER (WHERE ${CLICS_MEDIDOS} AND p.impressions_count > 0), 0)::bigint AS ctr_impressions
          FROM creators c
          LEFT JOIN posts p ON p.creator_id = c.id
            AND p.published_at >= $1 AND p.published_at <= $2
@@ -1708,12 +1744,25 @@ router.get('/analytics', async (req: Request, res: Response) => {
            -- Los ocultos fuera, como en el resto de la pantalla (antes la tabla
            -- sumaba 30 posts con el KPI en 26).
            AND p.deleted_from_linkedin_at IS NULL
-         WHERE c.is_managed = TRUE${filtroManual}
+         -- SOLO cuentas conectadas, siempre (Mario, 2026-10-13): la tabla compara
+         -- iguales en tiempo real. Una manual no tiene Premium, sus impresiones se
+         -- escriben a mano y con pocos posts su multiplicador no dice nada. Las
+         -- manuales siguen en Posts en directo y en los totales (segun el check).
+         WHERE c.is_managed = TRUE AND c.is_manual IS NOT TRUE
          GROUP BY c.id
          ORDER BY avg_engagement DESC`,
         [currentStartIso, currentEndIso]
       );
-      perAccount = perAccountQ.rows;
+      // Seguidores ganados por cuenta: la misma serie diaria que la grafica
+      // (como LinkedIn), no la suma de "seguidores desde este post".
+      perAccount = await Promise.all(
+        perAccountQ.rows.map(async (a: any) => ({
+          ...a,
+          ctr: ctrDe(a),
+          followers_gained: (await serieSeguidores(a.id, false, range.startDate, range.endDate))
+            .reduce((acc, d) => acc + d.gained, 0),
+        }))
+      );
     }
 
     // Cifras OFICIALES de LinkedIn (ultima lectura de cada cuenta del ambito).

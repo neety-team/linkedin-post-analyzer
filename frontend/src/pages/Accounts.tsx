@@ -98,6 +98,7 @@ interface Comparison {
   total_reposts: CompareMetric;
   total_impressions: CompareMetric;
   avg_impressions: CompareMetric;
+  ctr?: CompareMetric;
 }
 
 // Psicologia del gancho agregada (backend: services/ganchoPsicologia.ts).
@@ -274,6 +275,24 @@ interface PerAccountRow {
   avg_virality: number;
   total_impressions: number;
   avg_impressions: number;
+  total_link_clicks: number;
+  ctr: number | null;
+  followers_gained: number;
+}
+
+// Conversiones fuera de LinkedIn (backend: services/conversionesWeb.ts).
+interface ResumenDemos {
+  solicitudes: number;
+  cualificadas: number;
+  oportunidades: number;
+  por_canal: { linkedin: number; newsletter: number; recursos: number };
+}
+interface Conversiones {
+  demos:
+    | { configurado: false }
+    | { configurado: true; error: string }
+    | { configurado: true; current: ResumenDemos; previous: ResumenDemos };
+  evento: { nombre: string; inscritos: number; empieza: string; url: string } | null;
 }
 
 interface Analytics {
@@ -293,6 +312,10 @@ interface Analytics {
     followers_gained: number;
     profile_views_gained: number;
     posts_per_week: number;
+    total_link_clicks: number;
+    posts_with_link_clicks: number;
+    total_profile_viewers: number;
+    posts_with_premium: number;
   };
   comparison: Comparison;
   // Cifras oficiales de la pagina de resumen de LinkedIn (ultima lectura de
@@ -675,6 +698,33 @@ function Delta({ pct }: { pct: number | null }) {
   );
 }
 
+// Tarjeta de cifra del resumen: etiqueta, numero, variacion y una linea de pie.
+function Kpi({ etiqueta, valor, delta, pie, ayuda }: {
+  etiqueta: string;
+  valor: React.ReactNode;
+  delta?: number | null;
+  pie?: React.ReactNode;
+  ayuda?: string;
+}) {
+  return (
+    <div className="bg-bg-card border border-border rounded-xl p-4 min-w-0">
+      <div className="text-[10px] uppercase tracking-wide text-text-muted">
+        {etiqueta}
+        {ayuda && <InfoHint text={ayuda} />}
+      </div>
+      <div className="flex items-baseline gap-2 mt-1">
+        <div className="text-2xl font-bold text-text-primary tabular-nums">{valor}</div>
+        <Delta pct={delta ?? null} />
+      </div>
+      {pie && <div className="text-[10px] text-text-muted mt-0.5 leading-snug">{pie}</div>}
+    </div>
+  );
+}
+
+function deltaDe(curr: number, prev: number): number | null {
+  return prev ? ((curr - prev) / prev) * 100 : null;
+}
+
 // Format a Date as YYYY-MM-DD using LOCAL time (not UTC), so a user
 // picking "today" in the date input doesn't end up sending yesterday.
 function toIsoDay(d: Date): string {
@@ -849,6 +899,10 @@ function AccountsInner() {
 
   const analyticsPath = `/api/accounts/analytics?start_date=${dateRange.start}&end_date=${dateRange.end}${selectedCreator !== 'all' ? `&creator_id=${selectedCreator}` : ''}${incluirManuales ? '' : '&include_manual=false'}`;
   const { data: analytics, loading: loadingAnalytics, refetch: refetchAnalytics } = useApi<Analytics>(analyticsPath);
+  // Demos de la web y webinar: aparte, porque son servicios externos y no deben frenar el resto.
+  const { data: conversiones, loading: loadingConversiones } = useApi<Conversiones>(
+    `/api/accounts/conversiones?start_date=${dateRange.start}&end_date=${dateRange.end}`
+  );
 
 
   const hasAccounts = (accounts?.length || 0) > 0;
@@ -977,6 +1031,13 @@ function AccountsInner() {
             >
               👁 Vista previa de LinkedIn
             </button>
+            {/* El resumen va abajo (se mira cada dos semanas, en la reunion); esto baja a el. */}
+            <a
+              href="#resumen"
+              className="px-3 py-1.5 bg-bg-card border border-border text-text-secondary text-xs font-medium rounded-lg hover:border-accent/40 hover:text-text-primary transition-colors"
+            >
+              📊 Resumen del periodo ↓
+            </a>
           </div>
         )}
       </div>
@@ -1346,327 +1407,6 @@ function AccountsInner() {
       {/* Analytics */}
       {hasAccounts && analytics && (
         <>
-          {/* KPI cards with period-over-period delta */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted">Posts totales</div>
-              <div className="flex items-baseline gap-2 mt-1">
-                <div className="text-2xl font-bold text-text-primary">{analytics.totals.total_posts}</div>
-                <Delta pct={analytics.comparison.total_posts.delta_pct} />
-              </div>
-              <div className="text-[10px] text-text-muted mt-0.5">frente a los {days} días anteriores</div>
-            </div>
-            <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted">Interacciones medias</div>
-              <div className="flex items-baseline gap-2 mt-1">
-                <div className="text-2xl font-bold text-accent">{fmtNum(analytics.totals.avg_engagement)}</div>
-                <Delta pct={analytics.comparison.avg_engagement.delta_pct} />
-              </div>
-              <div className="text-[10px] text-text-muted mt-0.5">por post</div>
-            </div>
-            <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted">Outliers</div>
-              <div className="flex items-baseline gap-2 mt-1">
-                <div className="text-2xl font-bold text-diamond">
-                  {analytics.totals.total_outliers}
-                  <span className="text-sm text-text-muted ml-1 font-normal">({outlierRate}%)</span>
-                </div>
-                <Delta pct={analytics.comparison.total_outliers.delta_pct} />
-              </div>
-              <div className="text-[10px] text-text-muted mt-0.5">tasa de acierto</div>
-            </div>
-            <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted">Mejor post</div>
-              <div className="text-2xl font-bold text-text-primary mt-1">{fmtNum(analytics.totals.max_engagement)}</div>
-              <div className="text-[10px] text-text-muted mt-0.5">interacciones máximas</div>
-            </div>
-          </div>
-
-          {/* Account-level deltas — followers + profile views over the same
-              window. Both come from the daily snapshot tables (last - first).
-              Profile views show as '—' when there's no Premium-backed data
-              flowing in. Posts/week is a cadence sanity check — paired with
-              the engagement KPIs above so you can tell whether you're
-              under-posting or over-posting for the engagement you're getting. */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
-                <span>👥</span>
-                <span>Seguidores ganados</span>
-              </div>
-              <div className="flex items-baseline gap-2 mt-1">
-                <div className={`text-2xl font-bold ${analytics.totals.followers_gained > 0 ? 'text-success' : analytics.totals.followers_gained < 0 ? 'text-danger' : 'text-text-primary'}`}>
-                  {analytics.totals.followers_gained > 0 ? '+' : ''}{fmtNum(analytics.totals.followers_gained)}
-                </div>
-              </div>
-              <div className="text-[10px] text-text-muted mt-0.5">en {days} días (última lectura − primera)</div>
-            </div>
-            {/* CIFRAS OFICIALES DE LINKEDIN (Iker, 2026-09-17). El numero grande
-                es el de la pagina de resumen de LinkedIn, el mismo que ve la
-                persona. Van en ventana FIJA (90 dias / 7 dias), no en el rango
-                elegido: LinkedIn no da otro. La reconstruccion desde la lista de
-                visitantes se quedaba entre un 12% y un 24% por encima. */}
-            <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
-                <span>👁️‍🗨️</span>
-                <span>Visitas al perfil · 90 días</span>
-              </div>
-              <div className="text-2xl font-bold text-text-primary mt-1 tabular-nums">
-                {analytics.linkedin_oficial ? fmtNum(analytics.linkedin_oficial.profile_viewers_90d) : '—'}
-              </div>
-              <div className="text-[10px] text-text-muted mt-0.5">
-                {analytics.linkedin_oficial
-                  ? `dato de LinkedIn · leído ${fmtAge(analytics.linkedin_oficial.captured_at)}`
-                  : 'aún sin lectura de LinkedIn'}
-              </div>
-            </div>
-            <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
-                <span>📈</span>
-                <span>Impresiones de posts · 7 días</span>
-              </div>
-              <div className="text-2xl font-bold text-text-primary mt-1 tabular-nums">
-                {analytics.linkedin_oficial ? fmtNum(analytics.linkedin_oficial.post_impressions_7d) : '—'}
-              </div>
-              <div className="text-[10px] text-text-muted mt-0.5">
-                {analytics.linkedin_oficial
-                  ? `dato de LinkedIn · leído ${fmtAge(analytics.linkedin_oficial.captured_at)}`
-                  : 'aún sin lectura de LinkedIn'}
-              </div>
-            </div>
-            <div className="bg-bg-card border border-border rounded-xl p-4">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
-                <span>📅</span>
-                <span>Posts / semana</span>
-              </div>
-              <div className="text-2xl font-bold text-text-primary mt-1 tabular-nums">
-                {analytics.totals.posts_per_week.toFixed(1)}
-              </div>
-              <div className="text-[10px] text-text-muted mt-0.5">ritmo medio en el rango</div>
-            </div>
-          </div>
-
-          {/* Impressions — only shown when we have any, since LinkedIn only reports it on the authenticated account's own posts */}
-          {analytics.totals.total_impressions > 0 && (
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-bg-card border border-accent/30 rounded-xl p-4">
-                <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
-                  <span>👁️</span>
-                  <span>Impresiones totales</span>
-                </div>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <div className="text-2xl font-bold text-accent">{fmtNum(analytics.totals.total_impressions)}</div>
-                  <Delta pct={analytics.comparison.total_impressions.delta_pct} />
-                </div>
-                <div className="text-[10px] text-text-muted mt-0.5">
-                  en {analytics.totals.posts_with_impressions} post{analytics.totals.posts_with_impressions === 1 ? '' : 's'} con datos
-                </div>
-              </div>
-              <div className="bg-bg-card border border-accent/30 rounded-xl p-4">
-                <div className="text-[10px] uppercase tracking-wide text-text-muted flex items-center gap-1.5">
-                  <span>📏</span>
-                  <span>Impresiones medias</span>
-                </div>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <div className="text-2xl font-bold text-accent">{fmtNum(analytics.totals.avg_impressions)}</div>
-                  <Delta pct={analytics.comparison.avg_impressions.delta_pct} />
-                </div>
-                <div className="text-[10px] text-text-muted mt-0.5">por post con datos</div>
-              </div>
-            </div>
-          )}
-
-          {/* Engagement totals breakdown with deltas */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="bg-bg-card border border-border rounded-xl p-3">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted text-center">Reacciones</div>
-              <div className="flex items-baseline justify-center gap-2 mt-0.5">
-                <div className="text-lg font-semibold text-text-primary">{fmtNum(analytics.totals.total_likes)}</div>
-                <Delta pct={analytics.comparison.total_likes.delta_pct} />
-              </div>
-            </div>
-            <div className="bg-bg-card border border-border rounded-xl p-3">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted text-center">Comentarios</div>
-              <div className="flex items-baseline justify-center gap-2 mt-0.5">
-                <div className="text-lg font-semibold text-text-primary">{fmtNum(analytics.totals.total_comments)}</div>
-                <Delta pct={analytics.comparison.total_comments.delta_pct} />
-              </div>
-            </div>
-            <div className="bg-bg-card border border-border rounded-xl p-3">
-              <div className="text-[10px] uppercase tracking-wide text-text-muted text-center">Compartidos</div>
-              <div className="flex items-baseline justify-center gap-2 mt-0.5">
-                <div className="text-lg font-semibold text-text-primary">{fmtNum(analytics.totals.total_reposts)}</div>
-                <Delta pct={analytics.comparison.total_reposts.delta_pct} />
-              </div>
-            </div>
-          </div>
-
-          {/* Daily engagement trend — smoothed line with publication markers */}
-          <div className="bg-bg-card border border-border rounded-xl p-5">
-            <div className="mb-1 flex items-start justify-between gap-3 flex-wrap">
-              <h3 className="text-lg font-semibold">Interacciones en el tiempo</h3>
-            </div>
-            <p className="text-xs text-text-muted mb-3">
-              Impresiones e interacciones del rango, como en la analítica de contenido de LinkedIn{selectedCreator === 'all' ? ', de todas las cuentas propias' : ''}. Los lápices marcan los días en que publicaste.
-              {selectedCreator === 'all' && <InfoHint text="Las cuentas manuales se estiman por día de publicación." />}
-            </p>
-            {dailyChartData.length === 0 ? (
-              <p className="text-center text-text-muted text-sm py-12">No hay posts en este rango.</p>
-            ) : (
-              <AccountsEngagementChart
-                data={dailyChartData}
-                hasImpressions={analytics.totals.total_impressions > 0}
-                previo={analytics.periodo_previo ?? null}
-                xTickInterval={xTickInterval}
-                creatorOrder={(accounts || [])
-                  .slice()
-                  .sort((a, b) => (a.created_at || '').localeCompare(b.created_at || ''))
-                  .map((a) => a.id)}
-              />
-            )}
-          </div>
-
-          {/* Monthly impressions — sits right after the engagement curve
-              since both are "reach" views. Lifetime impressions of posts
-              published that month; only managed accounts' own posts
-              report impressions, which is exactly this scope. Respects
-              the global date range — shows only the months that overlap
-              with the selected window. */}
-          <MonthlyBarChart
-            endpoint="/api/accounts/impressions-monthly"
-            valueKey="impressions"
-            creatorId={selectedCreator === 'all' ? null : selectedCreator}
-            startDate={dateRange.start}
-            endDate={dateRange.end}
-            includeManual={incluirManuales}
-            title="Impresiones por mes"
-            subtitle={selectedCreator === 'all'
-              ? 'Impresiones de cada mes según LinkedIn, de todas las cuentas propias (las manuales, estimadas).'
-              : 'Impresiones de cada mes según LinkedIn.'}
-            unit="impresiones"
-          />
-
-          {/* Follower growth — net new followers per day */}
-          <FollowerGrowthChart
-            creatorId={selectedCreator === 'all' ? null : selectedCreator}
-            startDate={dateRange.start}
-            endDate={dateRange.end}
-            includeManual={incluirManuales}
-            reloadSignal={refreshSignal}
-          />
-
-          {/* Seguidores organicos: grafica QUITADA el 2026-10-07 (Iker). Duplicaba
-              la de crecimiento de seguidores (acumulado/diario, como LinkedIn) y
-              obligaba a un sync diario con Unipile solo para ella. */}
-
-          {/* Monthly followers gained — same monthly aggregation as
-              impressions; also respects the global date range now so the
-              whole section stays in sync with the chosen window. */}
-          <MonthlyBarChart
-            endpoint="/api/accounts/follower-monthly"
-            valueKey="gained"
-            creatorId={selectedCreator === 'all' ? null : selectedCreator}
-            startDate={dateRange.start}
-            endDate={dateRange.end}
-            includeManual={incluirManuales}
-            title="Seguidores nuevos por mes"
-            subtitle={selectedCreator === 'all'
-              ? 'Seguidores nuevos de cada mes según LinkedIn, de todas las cuentas conectadas.'
-              : 'Seguidores nuevos de cada mes según LinkedIn.'}
-            unit="seguidores"
-            signed
-          />
-
-          {/* Profile views — same daily-snapshot pattern, sourced from
-              LinkedIn's WVMP feed via Unipile. Surfaces 24h / 7d / range
-              deltas so the user sees how visits trend, not just the
-              absolute. Requires Premium / Sales Nav to return real data. */}
-          <ProfileViewChart
-            creatorId={selectedCreator === 'all' ? null : selectedCreator}
-            startDate={dateRange.start}
-            endDate={dateRange.end}
-            days={days}
-            reloadSignal={refreshSignal}
-          />
-
-          {/* Psicologia del gancho (Iker, 2026-10-07): sustituye a "Reparto por
-              formato" (casi siempre publicamos texto + foto, no aportaba) y a
-              "Ganchos que mejor funcionan" (hook_type viejo, 68% "Otro"). La IA
-              clasifica que le hace el gancho al lector; aqui, cuanto rinde cada
-              palanca frente a la media de su cuenta. Clic = filtra Mejores posts. */}
-          <GanchosCard ganchos={analytics.ganchos ?? []} onElegir={irAGancho} />
-
-          {/* Per-account comparison */}
-          {!selectedCreator || selectedCreator === 'all' ? (
-            analytics.per_account.length > 0 && (
-              <div className="bg-bg-card border border-border rounded-xl p-5">
-                <div className="mb-4">
-                  <h3 className="text-lg font-semibold">Desglose por cuenta</h3>
-                  <p className="text-xs text-text-muted">Compara las cuentas lado a lado</p>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="text-left text-text-muted text-xs border-b border-border">
-                        <th className="py-2 pr-3">Cuenta</th>
-                        <th className="py-2 px-3 text-right">Posts</th>
-                        <th className="py-2 px-3 text-right">Outliers</th>
-                        <th className="py-2 px-3 text-right">Tasa de acierto</th>
-                        <th className="py-2 px-3 text-right">Interacciones medias</th>
-                        <th className="py-2 px-3 text-right" title="Interacciones medias / media del creador">Multiplicador medio</th>
-                        <th className="py-2 px-3 text-right" title="Multiplicador del mejor post">Multiplicador máx.</th>
-                        <th className="py-2 px-3 text-right">Impresiones</th>
-                        <th className="py-2 pl-3 text-right">Impresiones medias</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {analytics.per_account.map((a) => {
-                        const rate = a.posts > 0 ? Math.round((a.outliers / a.posts) * 100) : 0;
-                        return (
-                          <tr key={a.id} className="border-b border-border/50 hover:bg-bg-hover transition-colors">
-                            <td className="py-2 pr-3">
-                              <div className="flex items-center gap-2">
-                                {a.profile_image_url ? (
-                                  <img src={a.profile_image_url} alt="" className="w-7 h-7 rounded-full object-cover" />
-                                ) : (
-                                  <div className="w-7 h-7 rounded-full bg-bg-primary flex items-center justify-center text-text-muted text-xs">
-                                    {(a.name || '?')[0]}
-                                  </div>
-                                )}
-                                <span className="text-text-primary">{nombreCuenta(a.name)}</span>
-                                {/* Sin esto, una fila de 1 post y 8 likes se lee
-                                    igual que la de un jefe con 40 posts, y el
-                                    avg_virality de 1.00x parece un mal dato en
-                                    vez de lo que es: no hay base con la que
-                                    comparar todavia. */}
-                                {a.is_manual && (
-                                  <span
-                                    className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 text-[10px] font-medium"
-                                    title="Cuenta no conectada a Unipile: sus posts se añaden a mano y las impresiones las escribe el usuario."
-                                  >
-                                    manual
-                                  </span>
-                                )}
-                              </div>
-                            </td>
-                            <td className="py-2 px-3 text-right text-text-primary">{a.posts}</td>
-                            <td className="py-2 px-3 text-right text-diamond">{a.outliers}</td>
-                            <td className="py-2 px-3 text-right text-text-secondary">{rate}%</td>
-                            <td className="py-2 px-3 text-right text-accent font-semibold">{fmtNum(a.avg_engagement)}</td>
-                            <td className="py-2 px-3 text-right text-text-secondary">{a.avg_virality ? `${a.avg_virality.toFixed(2)}x` : '—'}</td>
-                            <td className="py-2 px-3 text-right text-diamond font-medium">{a.max_virality ? `${a.max_virality.toFixed(1)}x` : '—'}</td>
-                            <td className="py-2 px-3 text-right text-text-secondary">{a.total_impressions ? fmtNum(Number(a.total_impressions)) : '—'}</td>
-                            <td className="py-2 pl-3 text-right text-text-secondary">{a.avg_impressions ? fmtNum(a.avg_impressions) : '—'}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )
-          ) : null}
-
           {/* Top posts */}
           {analytics.top_posts.length > 0 && (
             <div id="mejores-posts" className="bg-bg-card border border-border rounded-xl p-5 scroll-mt-4">
@@ -1809,6 +1549,286 @@ function AccountsInner() {
               )}
             </div>
           )}
+          {/* Psicologia del gancho (Iker, 2026-10-07): sustituye a "Reparto por
+              formato" (casi siempre publicamos texto + foto, no aportaba) y a
+              "Ganchos que mejor funcionan" (hook_type viejo, 68% "Otro"). La IA
+              clasifica que le hace el gancho al lector; aqui, cuanto rinde cada
+              palanca frente a la media de su cuenta. Clic = filtra Mejores posts. */}
+          <GanchosCard ganchos={analytics.ganchos ?? []} onElegir={irAGancho} />
+
+          {/* ⭐ RESUMEN DEL PERIODO (Mario, 2026-10-13). Va DEBAJO de Posts en directo,
+              Mejores posts y Psicologia del gancho: eso se mira a diario o al preparar
+              contenido; esto, en la reunion de cada dos semanas (el enlace "Resumen del
+              periodo" de la cabecera baja aqui). Primera fila = lo que se apunta en la
+              reunion (publicaciones, impresiones, visitas, seguidores, clics y demos);
+              segunda, el contenido. Se quitaron la fila de reacciones/comentarios/
+              compartidos (nadie la miraba) y "Mejor post" (un numero sin su post).
+              Las cifras oficiales de LinkedIn (90 d / 7 d) pasan al pie de su tarjeta. */}
+          <section id="resumen" className="scroll-mt-24 space-y-3 pt-2">
+            <div>
+              <h2 className="text-xl font-semibold">Resumen del periodo</h2>
+              <p className="text-xs text-text-muted">
+                {days} días, frente a los {days} anteriores{selectedCreator === 'all' ? '' : ' · solo esta cuenta (las demos son de todas)'}.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+              <Kpi
+                etiqueta="Publicaciones"
+                valor={fmtNum(analytics.totals.total_posts)}
+                delta={analytics.comparison.total_posts.delta_pct}
+                pie={`${analytics.totals.posts_per_week.toFixed(1)} por semana`}
+              />
+              <Kpi
+                etiqueta="Impresiones"
+                valor={fmtNum(analytics.totals.total_impressions)}
+                delta={analytics.comparison.total_impressions.delta_pct}
+                pie={analytics.linkedin_oficial
+                  ? `LinkedIn, últimos 7 días: ${fmtNum(analytics.linkedin_oficial.post_impressions_7d)}`
+                  : `en ${analytics.totals.posts_with_impressions} posts con datos`}
+                ayuda="Impresiones de los posts publicados en el periodo. La variación compara a igual edad (lo que llevaba cada post a los 7 días), para que el mes en curso no salga siempre en rojo."
+              />
+              <Kpi
+                etiqueta="Visitas al perfil"
+                valor={analytics.totals.posts_with_premium > 0 ? fmtNum(analytics.totals.total_profile_viewers) : '—'}
+                pie={analytics.linkedin_oficial
+                  ? `desde los posts · LinkedIn 90 días: ${fmtNum(analytics.linkedin_oficial.profile_viewers_90d)}`
+                  : 'desde los posts (Premium)'}
+                ayuda="Visitas al perfil que salieron de los posts del periodo (analítica Premium de cada post). La de 90 días es la cifra total de LinkedIn, venga de donde venga."
+              />
+              <Kpi
+                etiqueta="Seguidores"
+                valor={`${analytics.totals.followers_gained > 0 ? '+' : ''}${fmtNum(analytics.totals.followers_gained)}`}
+                pie="nuevos en el periodo"
+              />
+              <Kpi
+                etiqueta="Clics en enlaces"
+                valor={analytics.totals.posts_with_link_clicks > 0 ? fmtNum(analytics.totals.total_link_clicks) : '—'}
+                pie={analytics.comparison.ctr?.current != null ? (
+                  <span className="inline-flex items-center gap-1.5">
+                    CTR {analytics.comparison.ctr.current.toLocaleString('es-ES', { maximumFractionDigits: 2 })}%
+                    <Delta pct={analytics.comparison.ctr.delta_pct} />
+                  </span>
+                ) : 'sin posts con enlace medido'}
+                ayuda="Clics en el enlace de los posts que lo llevan y que LinkedIn mide. El CTR se calcula solo sobre esos posts: con todos, los que no llevan enlace lo hundirían. Sin variación en los clics: la analítica de los posts jóvenes aún está subiendo."
+              />
+              <Kpi
+                etiqueta="Demos atribuidas"
+                valor={loadingConversiones && !conversiones ? '…'
+                  : conversiones?.demos && 'current' in conversiones.demos ? fmtNum(conversiones.demos.current.solicitudes) : '—'}
+                delta={conversiones?.demos && 'current' in conversiones.demos
+                  ? deltaDe(conversiones.demos.current.solicitudes, conversiones.demos.previous.solicitudes)
+                  : null}
+                pie={!conversiones ? null
+                  : !conversiones.demos.configurado ? 'falta conectar la web'
+                  : 'error' in conversiones.demos ? `no se pudo leer: ${conversiones.demos.error}`
+                  : `${conversiones.demos.current.oportunidades} con reunión · LinkedIn ${conversiones.demos.current.por_canal.linkedin} · Newsletter ${conversiones.demos.current.por_canal.newsletter} · Recursos ${conversiones.demos.current.por_canal.recursos}`}
+                ayuda="Solicitudes de demo de la web nueva que se atribuyen a Mario: LinkedIn orgánico, newsletter y recursos, con la misma regla que el admin de la web (los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. «Con reunión» = cualificada y con hora reservada."
+              />
+            </div>
+            {conversiones?.evento && (() => {
+              const ev = conversiones.evento;
+              const faltan = Math.ceil((new Date(ev.empieza).getTime() - Date.now()) / 86400000);
+              return (
+                <div className="flex items-center gap-x-3 gap-y-1 flex-wrap bg-bg-card border border-border rounded-xl px-4 py-2.5 text-xs text-text-secondary">
+                  <span>📅 Webinar <span className="text-text-primary font-medium">{ev.nombre}</span></span>
+                  <span className="text-text-primary font-semibold tabular-nums">{fmtNum(ev.inscritos)} inscritos</span>
+                  {faltan > 0 && <span className="text-text-muted">faltan {faltan} {faltan === 1 ? 'día' : 'días'}</span>}
+                  <InfoHint text="Total del evento según Luma: la cuenta gratuita no dice de dónde viene cada inscrito, así que no se atribuye." />
+                  <a href={ev.url} target="_blank" rel="noopener noreferrer" className="ml-auto text-accent hover:text-accent-strong">Ver en Luma →</a>
+                </div>
+              );
+            })()}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <Kpi
+                etiqueta="Interacciones medias por post"
+                valor={fmtNum(analytics.totals.avg_engagement)}
+                delta={analytics.comparison.avg_engagement.delta_pct}
+                pie="reacciones + comentarios×2 + compartidos×3"
+              />
+              <Kpi
+                etiqueta="Impresiones medias por post"
+                valor={analytics.totals.posts_with_impressions > 0 ? fmtNum(analytics.totals.avg_impressions) : '—'}
+                delta={analytics.comparison.avg_impressions.delta_pct}
+                pie="por post con datos"
+              />
+              <Kpi
+                etiqueta="Outliers"
+                valor={<>{analytics.totals.total_outliers}<span className="text-sm text-text-muted ml-1 font-normal">({outlierRate}%)</span></>}
+                delta={analytics.comparison.total_outliers.delta_pct}
+                pie="tasa de acierto"
+              />
+            </div>
+          </section>
+
+          {/* Per-account comparison */}
+          {!selectedCreator || selectedCreator === 'all' ? (
+            analytics.per_account.length > 0 && (
+              <div className="bg-bg-card border border-border rounded-xl p-5">
+                <div className="mb-4">
+                  <h3 className="text-lg font-semibold">Desglose por cuenta</h3>
+                  <p className="text-xs text-text-muted">
+                    Solo las cuentas conectadas: las manuales no tienen analítica Premium y no se comparan igual.
+                  </p>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="text-left text-text-muted text-xs border-b border-border">
+                        {/* Conversion primero (Mario, 2026-10-13): impresiones, clics,
+                            CTR y seguidores; despues el contenido. Fuera el
+                            "Multiplicador medio": es la media de cada cuenta frente a
+                            su propia media, ronda siempre 1x y no compara nada. */}
+                        <th className="py-2 pr-3">Cuenta</th>
+                        <th className="py-2 px-3 text-right">Posts</th>
+                        <th className="py-2 px-3 text-right">Impresiones</th>
+                        <th className="py-2 px-3 text-right">Impresiones medias</th>
+                        <th className="py-2 px-3 text-right" title="Clics en enlaces que LinkedIn mide">Clics</th>
+                        <th className="py-2 px-3 text-right" title="Clics / impresiones, solo de los posts con enlace medido">CTR</th>
+                        <th className="py-2 px-3 text-right">Seguidores</th>
+                        <th className="py-2 px-3 text-right">Interacciones medias</th>
+                        <th className="py-2 px-3 text-right">Outliers</th>
+                        <th className="py-2 pl-3 text-right" title="Multiplicador del mejor post">Multiplicador máx.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {analytics.per_account.map((a) => {
+                        const rate = a.posts > 0 ? Math.round((a.outliers / a.posts) * 100) : 0;
+                        return (
+                          <tr key={a.id} className="border-b border-border/50 hover:bg-bg-hover transition-colors">
+                            <td className="py-2 pr-3">
+                              <div className="flex items-center gap-2">
+                                {a.profile_image_url ? (
+                                  <img src={a.profile_image_url} alt="" className="w-7 h-7 rounded-full object-cover" />
+                                ) : (
+                                  <div className="w-7 h-7 rounded-full bg-bg-primary flex items-center justify-center text-text-muted text-xs">
+                                    {(a.name || '?')[0]}
+                                  </div>
+                                )}
+                                <span className="text-text-primary">{nombreCuenta(a.name)}</span>
+                                {/* Sin esto, una fila de 1 post y 8 likes se lee
+                                    igual que la de un jefe con 40 posts, y el
+                                    avg_virality de 1.00x parece un mal dato en
+                                    vez de lo que es: no hay base con la que
+                                    comparar todavia. */}
+                                {a.is_manual && (
+                                  <span
+                                    className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 text-[10px] font-medium"
+                                    title="Cuenta no conectada a Unipile: sus posts se añaden a mano y las impresiones las escribe el usuario."
+                                  >
+                                    manual
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+                            <td className="py-2 px-3 text-right text-text-primary tabular-nums">{a.posts}</td>
+                            <td className="py-2 px-3 text-right font-medium text-data tabular-nums">{a.total_impressions ? fmtNum(Number(a.total_impressions)) : '—'}</td>
+                            <td className="py-2 px-3 text-right text-text-secondary tabular-nums">{a.avg_impressions ? fmtNum(a.avg_impressions) : '—'}</td>
+                            <td className="py-2 px-3 text-right font-medium text-m-clics tabular-nums">{a.total_link_clicks ? fmtNum(a.total_link_clicks) : '—'}</td>
+                            <td className="py-2 px-3 text-right text-text-secondary tabular-nums">{a.ctr != null ? `${a.ctr.toLocaleString('es-ES', { maximumFractionDigits: 2 })}%` : '—'}</td>
+                            <td className="py-2 px-3 text-right font-medium text-success tabular-nums">{a.followers_gained > 0 ? '+' : ''}{fmtNum(a.followers_gained)}</td>
+                            <td className="py-2 px-3 text-right text-text-secondary tabular-nums">{fmtNum(a.avg_engagement)}</td>
+                            <td className="py-2 px-3 text-right text-text-secondary tabular-nums">
+                              {a.outliers}<span className="text-text-muted text-xs ml-1">({rate}%)</span>
+                            </td>
+                            <td className="py-2 pl-3 text-right text-diamond font-medium tabular-nums">{a.max_virality ? `${a.max_virality.toFixed(1)}x` : '—'}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )
+          ) : null}
+
+          {/* Daily engagement trend — smoothed line with publication markers */}
+          <div className="bg-bg-card border border-border rounded-xl p-5">
+            <div className="mb-1 flex items-start justify-between gap-3 flex-wrap">
+              <h3 className="text-lg font-semibold">Interacciones en el tiempo</h3>
+            </div>
+            <p className="text-xs text-text-muted mb-3">
+              Impresiones e interacciones del rango, como en la analítica de contenido de LinkedIn{selectedCreator === 'all' ? ', de todas las cuentas propias' : ''}. Los lápices marcan los días en que publicaste.
+              {selectedCreator === 'all' && <InfoHint text="Las cuentas manuales se estiman por día de publicación." />}
+            </p>
+            {dailyChartData.length === 0 ? (
+              <p className="text-center text-text-muted text-sm py-12">No hay posts en este rango.</p>
+            ) : (
+              <AccountsEngagementChart
+                data={dailyChartData}
+                hasImpressions={analytics.totals.total_impressions > 0}
+                previo={analytics.periodo_previo ?? null}
+                xTickInterval={xTickInterval}
+                creatorOrder={(accounts || [])
+                  .slice()
+                  .sort((a, b) => (a.created_at || '').localeCompare(b.created_at || ''))
+                  .map((a) => a.id)}
+              />
+            )}
+          </div>
+
+          {/* Monthly impressions — sits right after the engagement curve
+              since both are "reach" views. Lifetime impressions of posts
+              published that month; only managed accounts' own posts
+              report impressions, which is exactly this scope. Respects
+              the global date range — shows only the months that overlap
+              with the selected window. */}
+          <MonthlyBarChart
+            endpoint="/api/accounts/impressions-monthly"
+            valueKey="impressions"
+            creatorId={selectedCreator === 'all' ? null : selectedCreator}
+            startDate={dateRange.start}
+            endDate={dateRange.end}
+            includeManual={incluirManuales}
+            title="Impresiones por mes"
+            subtitle={selectedCreator === 'all'
+              ? 'Impresiones de cada mes según LinkedIn, de todas las cuentas propias (las manuales, estimadas).'
+              : 'Impresiones de cada mes según LinkedIn.'}
+            unit="impresiones"
+          />
+
+          {/* Follower growth — net new followers per day */}
+          <FollowerGrowthChart
+            creatorId={selectedCreator === 'all' ? null : selectedCreator}
+            startDate={dateRange.start}
+            endDate={dateRange.end}
+            includeManual={incluirManuales}
+            reloadSignal={refreshSignal}
+          />
+
+          {/* Seguidores organicos: grafica QUITADA el 2026-10-07 (Iker). Duplicaba
+              la de crecimiento de seguidores (acumulado/diario, como LinkedIn) y
+              obligaba a un sync diario con Unipile solo para ella. */}
+
+          {/* Monthly followers gained — same monthly aggregation as
+              impressions; also respects the global date range now so the
+              whole section stays in sync with the chosen window. */}
+          <MonthlyBarChart
+            endpoint="/api/accounts/follower-monthly"
+            valueKey="gained"
+            creatorId={selectedCreator === 'all' ? null : selectedCreator}
+            startDate={dateRange.start}
+            endDate={dateRange.end}
+            includeManual={incluirManuales}
+            title="Seguidores nuevos por mes"
+            subtitle={selectedCreator === 'all'
+              ? 'Seguidores nuevos de cada mes según LinkedIn, de todas las cuentas conectadas.'
+              : 'Seguidores nuevos de cada mes según LinkedIn.'}
+            unit="seguidores"
+            signed
+          />
+
+          {/* Profile views — same daily-snapshot pattern, sourced from
+              LinkedIn's WVMP feed via Unipile. Surfaces 24h / 7d / range
+              deltas so the user sees how visits trend, not just the
+              absolute. Requires Premium / Sales Nav to return real data. */}
+          <ProfileViewChart
+            creatorId={selectedCreator === 'all' ? null : selectedCreator}
+            startDate={dateRange.start}
+            endDate={dateRange.end}
+            days={days}
+            reloadSignal={refreshSignal}
+          />
+
         </>
       )}
 

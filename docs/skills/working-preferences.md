@@ -12,6 +12,7 @@
 - **Qué va dentro, en este orden:** bullets de **qué he hecho/decidido** + bullets de **PENDIENTES** (qué falta y qué necesito de él). Un bullet = una cosa, una línea.
 - **Cuanta más información tenga la respuesta, más obligatorio es esto.** En respuestas largas, además: menos parrafazos arriba (bloques cortos, listas), que el resumen no sea el único sitio legible.
 - **Lo demás va arriba y más corto.** El resumen no es la excusa para escribir 30 líneas antes.
+- **⛔ Cada PENDIENTE se entiende sin leer lo de arriba (Mario, 2026-10-13).** Le cerré una revisión de la herramienta con *"dime qué hago: el embudo de arriba, el desglose…"* y me lo devolvió: *"¿qué coño es el embudo de arriba?"*. Una etiqueta que inventé yo en el cuerpo no es un pendiente. Cada bullet es **una decisión concreta, con el qué y el dónde en palabras suyas**, y si es una pregunta, con las opciones y mi recomendación. Mal: `el embudo de arriba`. Bien: `Cuentas, tarjetas de arriba: ¿pongo en la primera fila Impresiones → Clics y CTR → Visitas → Seguidores y quito las de reacciones/comentarios/compartidos y "Mejor post"? Yo sí.` Aplica a todo lo de LinkedIn y marketing (posts, newsletter, web, la herramienta).
 
 ## 1 · Formato de entrega
 

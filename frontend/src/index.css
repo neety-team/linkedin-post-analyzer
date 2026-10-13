@@ -51,9 +51,10 @@
   --color-data: #1a707e; /* teal de la analítica de LinkedIn */
 
   /* Franja de métricas de cada post (13-oct-2026). Gris por defecto: solo
-     se colorea lo que mira marketing. Impresiones van en negrita neutra
-     (alcance, el número de referencia), clics en ámbar (tráfico, el más
-     escaso) y seguidores y visitas en success (lo que trae negocio).
+     se colorea lo que mira marketing, con el mismo peso (font-medium):
+     impresiones en el teal de su gráfica (alcance), clics en ámbar
+     (tráfico) y seguidores y visitas en success (negocio). Nada en
+     negrita sobre el texto claro: en oscuro deslumbraba (13-oct).
      Reacciones, comentarios, compartidos, guardados y enviados, en gris. */
   --color-m-clics: #b45309;
 

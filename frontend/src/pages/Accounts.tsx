@@ -552,10 +552,10 @@ function FranjaPremium({ post }: { post: PostPremium }) {
       {leida && (
         <>
           {sep}
-          <span className="text-success" title="Seguidores ganados con este post (LinkedIn Premium)">
+          <span className="font-medium text-success" title="Seguidores ganados con este post (LinkedIn Premium)">
             +{fmtNum(post.followers_gained_count ?? 0)} seguidores
           </span>
-          <span className="text-success" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
+          <span className="font-medium text-success" title="Visitas a tu PERFIL que salieron de este post (LinkedIn Premium)">
             {fmtNum(post.profile_viewers_count ?? 0)} visitas al perfil
           </span>
         </>
@@ -2650,7 +2650,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
               <MetricIcon d={ICON_REPOST} /> {fmtNum(post.reposts_count)}
             </span>
             {post.impressions_count != null && (
-              <span className="inline-flex items-center gap-1 font-semibold text-text-primary" title="Impresiones">
+              <span className="inline-flex items-center gap-1 font-medium text-data" title="Impresiones">
                 <MetricIcon d={ICON_EYE} /> {fmtNum(post.impressions_count)}
               </span>
             )}
@@ -2829,7 +2829,7 @@ function TopPostRow(
               <MetricIcon d={ICON_REPOST} /> {fmtNum(post.reposts_count)}
             </span>
             {post.impressions_count != null && (
-              <span className="inline-flex items-center gap-1 font-semibold text-text-primary" title="Impresiones">
+              <span className="inline-flex items-center gap-1 font-medium text-data" title="Impresiones">
                 <MetricIcon d={ICON_EYE} /> {fmtNum(post.impressions_count)}
               </span>
             )}

@@ -259,6 +259,25 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **lun 05/10 ~13:00** | ✅ **PUBLICADO** | historia del director comercial que "se conocía a todos" · **su texto**, revisado de gancho y formato · gancho `Un director comercial me soltó una frase que no me esperaba y le contesté con una lista 😏` · ninja `Una lista de empresas no te dice quién decide dentro.` / `Eso sí te lo damos nosotros:` → `/solicitar-demo` (**1er post de la casa a la web nueva**), UTM `historia-lista-05oct` · `ismael`, enlace en el car ~803 · 1.369 car | **19.227 imp · 37 clics (0,19%) · 29 likes · 10 com · 6 reposts · 10 guardados · 14 envíos** (BD, 08/10). Cuenta nueva que no publicaba; con la capa manual de las 5 cuentas · **≥2 reuniones de discovery** generadas (lo cuenta Iker, 08/10) |
 | **jue 08/10** | 📝 **ENTREGADO** | "las 4 preguntas para saber si tienes un ICP o un censo" · **su texto** · formato fuera de pilar (listado de preguntas) · gancho propuesto `Cuatro preguntas separan un cliente ideal de un censo y la tercera no la escribe casi nadie 📋` · su "escríbeme, 20 minutos" pasa a ninja → **su agenda `https://meetings.neety.com/ismael`** (Iker, 08/10: es el comercial) con UTM `icp-censo-08oct` · `ismael` (la agenda carga el GTM de neety.com desde el 08/10): se mide en GA4 por campaña y con el evento `reunion_reservada` · ninja **después de las 4 preguntas** (tras `…un comercial filtrándola a mano.`; yo lo había subido por encima del valor y Iker lo corrigió, `global §4.4b-VALOR`): `Un censo no te dice a quién llamar dentro.` / `Ese nombre sí te lo ponemos nosotros:` | ⏳ hora, enlace y números de la BD al publicarse |
 
+## 📝 ENTREGADO · MAR 13/10 · UNAI · HISTORIA: EL EXCEL ANTES QUE LAS MÁQUINAS (webinar, `luma.com/7hhyx07z`)
+
+| dato | |
+|---|---|
+| **Estado** | entregado el 13/10 ~11:15 para publicar HOY · validador **68/68** (`--pilar historia --cuenta unai`) · ~745 car con la URL a 25 · enlace antes del 650 · sin vídeo (foto corporativa) |
+| **Por qué Unai, historia y webinar (análisis cruzado 22/09-12/10, BD)** | los posts que inscriben son de Unai: 11 de 19 inscritos de posts en septiembre y **2 de los 3 primeros del webinar** (historia + vídeo del 08/10, 2.473 imp → **0,81 por 1.000**, mejor que el 0,51 del "Los 10" de Gipuzkoa). Sus historias testigo sin evento en el gancho son su renta fija: 26/08 16.425 imp · 78 clics · 5 inscritos; 02/10 36.135 · 91 clics. Las dos de evento-resumen (07/10 4.125 · 8 clics; 08/10 2.473, vídeo con 22% de retención) bajan: hoy se vuelve al molde testigo, sin evento arriba y sin vídeo. Iker: meme 1.515 y mapa de Canarias 2.078 (07-08/10). Asier: "Las 10" de La Rioja 30.586 imp pero 0,078% de CTR |
+| **Pilar** | historia · **rama B** (testigo: el protagonista es un director comercial sin nombre; Unai estaba delante) · **no regional** · escena INVENTADA sobre dolor real |
+| **Dolor** | buscar contra contactar en su unidad, **meses** (21 empresas, eslabón 4) + "no sale en ningún filtro" (la descripción de Luma: buscar por lo que hace una empresa y no por su sector). Rota: los 3 anteriores de Unai eran persona, persona y acierto |
+| **Gancho** | `Fui a ver una fábrica y el director comercial me sacó su Excel antes que una sola máquina 😅` · sin `Nunca` a propósito (Unai lo llevó el 02/10 y el 07/10) · 5 alternativas entregadas en un bloque |
+| **Ninja → webinar** | contexto `El miércoles 28 damos una charla online y gratis.` · `Un Excel de clientes a mano le come meses a cualquiera.` / `Ese mismo Excel con IA te lo montamos en directo:` (55/50) · UTM `utm_source=historia-excel-13oct-unai` · verbo nuevo `montamos` (los anteriores: contamos, enseñamos) |
+| **Pago y cierre** | `Sin ese Excel ninguna máquina salía por la puerta.` · `La fábrica hace las prensas, la lista trae los pedidos.` |
+| **Real / inventado** | real: el dolor (meses buscando, informe de demos; "no sale en ningún filtro") y la sesión del 28. Inventado y declarado: la fábrica, las prensas, el Excel, las 43 empresas, la cita |
+| **Foto** | `HISTORIA/UNAI/unai puesto polo cuadrada.jpg` (corporativa; su historia anterior fue la mesa redonda del 07/10, así que no repite) · alternativa `unai escenario forward cuadrada.jpg` |
+| ⏳ | hora y enlace de la BD al publicar · quemadas al confirmar: ninja `un excel de clientes a mano` / `ese mismo excel con ia`, contexto `damos una charla online y gratis`, arranques de historia `tenia`, `miro` · a los 3-4 días: inscritos por `utm_source` en Luma (vara: 0,81 por 1.000 del 08/10) y clics |
+
+## 📊 08/10 UNAI (historia + vídeo) · PRIMEROS INSCRITOS DEL WEBINAR (Iker, 13/10)
+
+3 inscritos hasta el viernes 09/10: **2 por `historia-resumenforward-08oct-unai`** (uno con casilla de correo y otro sin ella) y **1 por `neety-eventos`** (botón de neety.com/eventos). En la BD el post sale sin `link_url` y 0 clics: **medición perdida de LinkedIn, no cero** (`feedback clics LinkedIn`). Vídeo: 991 reproducciones, 16 s de media sobre 72 (22%).
+
 ## 📝 ENTREGADO · JUE 08/10 · ASIER · MEME: EL SABLE DE DOBLE HOJA ("hemos decidido comprar el producto de tu… competencia", 1er ninja al webinar)
 
 | dato | |

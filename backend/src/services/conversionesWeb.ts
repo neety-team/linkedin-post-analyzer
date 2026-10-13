@@ -35,7 +35,8 @@ export type Demos =
 
 export interface EventoWeb {
   nombre: string;
-  inscritos: number;
+  /** null = Luma no lo enseña (lista oculta y sin aforo). */
+  inscritos: number | null;
   empieza: string;
   url: string;
 }

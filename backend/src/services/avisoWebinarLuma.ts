@@ -25,17 +25,32 @@ const COMPROBAR_RELOJ_MS = 30 * 60 * 1000; // solo mira la hora; a Luma va una v
 const CLAVE_CIFRA = `luma:${SLUG}:inscritos`;
 const CLAVE_DIA = `luma:${SLUG}:ultimo-recuento`;
 
-export type Evento = { nombre: string; inscritos: number; empieza: Date; acaba: Date; url: string };
+// inscritos = null cuando Luma no lo enseña (ver contarInscritos): nunca un 0 inventado.
+export type Evento = { nombre: string; inscritos: number | null; empieza: Date; acaba: Date; url: string };
+
+// ⛔ CON LA LISTA DE INVITADOS OCULTA, guest_count SALE 0 (comprobado el 13/10 con el webinar
+// de octubre: 0 en la API con 3 inscritos de verdad, show_guest_list = false). Luma solo lo
+// enseña sin sesion si la lista es visible o si el evento tiene AFORO: entonces
+// inscritos = aforo - plazas libres (spots_remaining). Sin ninguna de las dos, no se sabe.
+export function contarInscritos(d: any): number | null {
+  if (d?.event?.show_guest_list && typeof d.guest_count === 'number') return d.guest_count;
+  const libres = d?.ticket_info?.spots_remaining;
+  const aforos = [d?.event?.max_capacity, ...(d?.ticket_types ?? []).map((t: any) => t?.max_capacity)]
+    .filter((x: any) => typeof x === 'number' && x > 0);
+  if (typeof libres === 'number' && aforos.length) return Math.max(0, Math.max(...aforos) - libres);
+  if (typeof d?.guest_count === 'number' && d.guest_count > 0) return d.guest_count;
+  return null;
+}
 
 export async function leerEvento(): Promise<Evento | null> {
   const res = await fetch(`https://api.lu.ma/url?url=${SLUG}`);
   if (!res.ok) return null;
   const d = ((await res.json()) as any)?.data;
   // Sin el campo no es un cero: un servicio externo puede devolver vacio a ratos.
-  if (!d?.event || typeof d.guest_count !== 'number') return null;
+  if (!d?.event) return null;
   return {
     nombre: d.event.name,
-    inscritos: d.guest_count,
+    inscritos: contarInscritos(d),
     empieza: new Date(d.event.start_at),
     acaba: new Date(d.event.end_at),
     url: `https://luma.com/${SLUG}`,
@@ -66,7 +81,7 @@ function madrid(d: Date) {
   return { fecha: `${p.year}-${p.month}-${p.day}`, hora: `${p.hour}:${p.minute}`, dia };
 }
 
-export function componerRecuento(ev: Evento, previo: number | null, hoy: string): string {
+export function componerRecuento(ev: Evento & { inscritos: number }, previo: number | null, hoy: string): string {
   const n = Math.round((Date.parse(madrid(ev.empieza).fecha) - Date.parse(hoy)) / 86400000);
   const cuando = n <= 0 ? 'es hoy' : n === 1 ? 'es mañana' : `faltan ${n} días`;
   // Una linea, con el molde de los avisos de la web («🧲 Nuevo lead · origen»). Sin el
@@ -83,14 +98,19 @@ async function pase(webhook: string): Promise<void> {
   const ev = await leerEvento();
   if (!ev) return console.warn('[avisoWebinarLuma] Luma no devolvio el contador; se reintenta en 30 min');
   if (ahora.fecha > madrid(ev.empieza).fecha) return;
+  // Sin cifra no se avisa ni se apunta el dia: se reintenta en el siguiente pase.
+  if (ev.inscritos === null) {
+    return console.warn('[avisoWebinarLuma] Luma no enseña los inscritos (lista oculta y sin aforo)');
+  }
+  const inscritos = ev.inscritos;
 
   const previo = await leerEstado(CLAVE_CIFRA);
   await guardarEstado(CLAVE_DIA, ahora.fecha);
-  await guardarEstado(CLAVE_CIFRA, String(ev.inscritos));
+  await guardarEstado(CLAVE_CIFRA, String(inscritos));
   // Solo se avisa si ha subido (Iker, 08/10). El primer dia, si ya hay alguno.
   const antes = previo === null ? 0 : Number(previo);
-  if (ev.inscritos <= antes) return;
-  await sendToGoogleChat(webhook, componerRecuento(ev, previo === null ? null : antes, ahora.fecha));
+  if (inscritos <= antes) return;
+  await sendToGoogleChat(webhook, componerRecuento({ ...ev, inscritos }, previo === null ? null : antes, ahora.fecha));
 }
 
 export function startAvisoWebinarLuma() {

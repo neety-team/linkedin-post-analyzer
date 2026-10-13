@@ -292,7 +292,7 @@ interface Conversiones {
     | { configurado: false }
     | { configurado: true; error: string }
     | { configurado: true; current: ResumenDemos; previous: ResumenDemos };
-  evento: { nombre: string; inscritos: number; empieza: string; url: string } | null;
+  evento: { nombre: string; inscritos: number | null; empieza: string; url: string } | null;
 }
 
 interface Analytics {
@@ -1631,7 +1631,13 @@ function AccountsInner() {
               return (
                 <div className="flex items-center gap-x-3 gap-y-1 flex-wrap bg-bg-card border border-border rounded-xl px-4 py-2.5 text-xs text-text-secondary">
                   <span>📅 Webinar <span className="text-text-primary font-medium">{ev.nombre}</span></span>
-                  <span className="text-text-primary font-semibold tabular-nums">{fmtNum(ev.inscritos)} inscritos</span>
+                  {ev.inscritos != null ? (
+                    <span className="text-text-primary font-semibold tabular-nums">{fmtNum(ev.inscritos)} inscritos</span>
+                  ) : (
+                    <span className="text-text-muted" title="Con la lista de invitados oculta y sin aforo, Luma no enseña el número sin iniciar sesión. Se arregla poniendo un aforo al evento.">
+                      inscritos: Luma no los enseña
+                    </span>
+                  )}
                   {faltan > 0 && <span className="text-text-muted">faltan {faltan} {faltan === 1 ? 'día' : 'días'}</span>}
                   <InfoHint text="Total del evento según Luma: la cuenta gratuita no dice de dónde viene cada inscrito, así que no se atribuye." />
                   <a href={ev.url} target="_blank" rel="noopener noreferrer" className="ml-auto text-accent hover:text-accent-strong">Ver en Luma →</a>

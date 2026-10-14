@@ -903,7 +903,15 @@ No se dispara lo mismo a toda la base. Mínimo separar por: **origen** (lead mag
 
 - **Correo de referencia, hoy:** el **5** (Iker, objeción, 140 palabras, asunto pregunta, enlace hacia el 45-50%, sin GIF), el de más clics de lead (5-7 de 111). Cuando otro le gane en clics limpios, pasa a ser él la referencia.
 - **En la entrega va una línea:** `Variable en prueba: X (todo lo demás como el correo N)`. Y en `historial-newsletter`, en la ficha de cada correo.
-- **⚠️ La tensión con la rotación de remitentes (`§1`), que hay que decidir:** si el remitente rota en cada correo, siempre cambian dos cosas (remitente y lo que se pruebe). Las salidas son fijar un remitente mientras se prueban otras cosas, o hacer del remitente la variable de algunos correos. **Pendiente de decisión de Mario** (le propuse fijar a Kaixito, que abre más en la lista comparable y lleva 0 bajas, hasta el webinar del 28/10).
+- **✅ REMITENTE FIJO: KAIXITO (Mario, 2026-10-14). Se acaba la rotación de `§1`.** Motivos:
+  - **En correo, rotar no suma lectores.** En LinkedIn cada cuenta llega a su propia red; aquí la lista es la misma y solo cambia la firma.
+  - **En el corpus, 12 de 13 newsletters las firma siempre la misma persona** y ninguna rota.
+  - **Y rotar en cada correo choca con la regla de una sola variable.**
+  - **⚠️ Se eligió a Kaixito por originalidad, no porque abra más.** El "abre más" (46,7% contra 35,6 y 31,1) comparaba asuntos en pregunta contra afirmaciones, así que medía el asunto. Con el asunto igualado (correos 5-7, los tres en pregunta, lista de ~110): **Iker 63,8% · Kaixito 61,7% · Unai 56,8%**, sin ventaja. En clics, Kaixito 2 en 24 h contra 5-7 de los founders. Y **no lleva 0 bajas: el correo 7 tuvo 2.**
+  - Lo que sí tiene Kaixito: **nadie más lo hace** (ni mascota ni GIF en el corpus) y le quedan dos GIF sin estrenar, **alegría** y **aburrimiento**.
+  - Su límite sigue en pie (`§1`): **no cierra demos, deriva** (*"eso te lo enseña Iker"*).
+  - **El primer correo con él es la prueba limpia de remitente:** igual que el correo 5 en todo (pregunta de tú a tú, ~140 palabras, enlace hacia el 45-50%) y cambiando solo quién firma.
+  - **Los founders vuelven** si un correo necesita su autoridad (un cierre a demo fuerte), y entonces esa es su variable.
 - **El A/B nativo de Brevo (dos asuntos al 50%) todavía no compensa, y no por falta de ganas:** con 108 destinatarios son 54 por brazo, y la diferencia más pequeña que se distingue en aperturas ronda los **27 puntos**. Con 200 por brazo baja a ~14 y con 500 a ~9 *(cálculo mío, aproximación normal con un 50% de apertura, no medido)*. **Se activa cuando la lista pase de ~400.** Mientras tanto, la prueba es de un correo al siguiente, con una sola variable.
 - **Y el segmento ya está bien hecho para cuando toque:** cada contacto lleva en el CRM de dónde vino (`lead_origin`, `how_found`, recurso) y solo entra quien marcó la casilla. Eso permite, con volumen, probar el remitente por origen (quien llegó por LinkedIn de Unai, ¿abre más si le escribe Unai?).
 
@@ -2506,6 +2514,8 @@ Hay **dos** y hay que repartirlos, o salen duplicados:
 **Medido el 14/10:** el último contacto que entró a la lista 15 fue el **22/09**. En la D1 hay **5 consentimientos de neety.com (06/10-13/10) que no están en Brevo**. Se leen con `npx wrangler d1 execute landing --remote` desde el repo `landing` (la sesión tiene acceso a Cloudflare).
 
 ~~**Mientras no se arregle la tubería,** antes de cada envío se cruzan los `consent_comms = 1` de la D1 con Brevo y los que falten se suben a mano.~~ Ya no hace falta (arreglado el 14/10, abajo). Antes de un envío basta con comprobar que el último alta de la lista 15 es reciente.
+
+**⭐ MANDA LA DECISIÓN MÁS RECIENTE DE LA PERSONA (Mario, 2026-10-14, CRM 4c9d7ed).** Una casilla marcada DESPUÉS de una baja la deja sin efecto: el CRM borra la baja, la desbloquea en Brevo y sube a la persona. ⛔ **Salvo una queja de spam**, que nunca vuelve sola: una segunda queja es lo que más pesa para que un proveedor cierre la cuenta. Caso: Jonathan, bloqueado en agosto, volvió a marcar la casilla el 13/10 y entró el 14/10 a las 12:19. Una baja posterior a la casilla sigue mandando. **Brevo sigue siendo la fuente de verdad de las bajas** (allí se registra quien pulsa "darse de baja"); lo que manda sobre una baja es una casilla nueva, nunca un dato viejo del CRM.
 
 **✅ RESUELTO Y EN PRODUCCIÓN EL 14/10 a las 11:32** (web `landing` a53d938 en `main`, CRM `saldu` fd56817 en `master`). Comprobado en producción: a las 11:33, al arrancar el CRM, entraron solos en la lista 15 los 4 consentimientos atascados (42 → 46). El quinto **no entra, y es correcto**: estaba bloqueado desde agosto (`Desktop/BREVO-CONTACTOS-BORRADOS/bloqueados-no-volver-a-escribir.txt`), así que la baja manda aunque volviera a marcar la casilla. El aviso al momento de la web está probado en las pruebas y desplegado (el endpoint responde 401 sin clave); falta verlo con la primera casilla real.
 

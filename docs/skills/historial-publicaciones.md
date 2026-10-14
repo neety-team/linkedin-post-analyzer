@@ -281,7 +281,9 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 
 3 inscritos hasta el viernes 09/10: **2 por `historia-resumenforward-08oct-unai`** (uno con casilla de correo y otro sin ella) y **1 por `neety-eventos`** (botón de neety.com/eventos). En la BD el post sale sin `link_url` y 0 clics: **medición perdida de LinkedIn, no cero** (`feedback clics LinkedIn`). Vídeo: 991 reproducciones, 16 s de media sobre 72 (22%).
 
-## 📝 ENTREGADO · JUE 08/10 · ASIER · MEME: EL SABLE DE DOBLE HOJA ("hemos decidido comprar el producto de tu… competencia", 1er ninja al webinar)
+## 📝 RE-ENTREGADO · MIÉ 14/10 (entregado el 08/10, nunca se subió) · ASIER · MEME: EL SABLE DE DOBLE HOJA ("hemos decidido comprar el producto de tu… competencia", ninja al webinar, TIPO 1)
+
+> **🔄 14/10, rehecho para publicar hoy:** referencia revisada contra `post-workflow §4.4-SUJETO` (el chiste va de una persona, el cliente que se va con la competencia: pasa) y viva por API (437 reac, 61% de risa). **Texto validado 62/62, 450 car:** `Un año de visitas.` / `Un año de presupuestos.` (fuera `meses`, que lleva la historia de Unai de hoy) · `Se pierde mucho antes.` · `Cuando otro supo a qué puerta llamar.` · contexto `El miércoles 28 lo vemos en una sesión online y gratis.` (`lo contamos online y gratis` lo usó Unai el 08/10; `charla` lo lleva Unai hoy) · **ninja TIPO 1** (`global §4.4b-TIPOS`): `Cualquier comercial elige al cliente por su sector.` / `Por lo que hace cada cliente sí, te lo mostramos:` · UTM `utm_source=meme-competencia-14oct-asier&utm_campaign=meme-competencia-14oct&utm_content=asier`. **Por qué tipo 1 y no 2:** los 3 últimos ninjas de Asier eran tipo 2 y en 21 días las 3 cuentas llevan tipo 2=12, tipo 1=2; Unai va hoy al 4 y el 3 no lo cumple el webinar. El ninja del 08/10 (`A los que sí te comprarían, te los enseñamos:`) se tiró por eco con el de Unai del 08/10 (`Cuáles sí comprarían, te lo enseñamos nosotros`). La tabla de abajo es la entrega del 08/10.
 
 | dato | |
 |---|---|

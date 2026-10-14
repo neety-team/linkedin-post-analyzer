@@ -1158,7 +1158,7 @@ sorprende, que es de lo que vive este pilar.
 ### 4.4 · Runbook MEME (REMIX de una referencia) — receta definitiva
 
 > **⭐ EL FLUJO EN 5 PASOS (la intuición, antes de los detalles). Costó 8 iteraciones sacarlo el 2026-07-23; que no vuelva a costar:**
-> 1. **REFERENCIA = meme de VERDAD.** Riesgo de risa 25-56% (`GET /posts/{id}/reactions`, `ENTERTAINMENT`), ≥100 likes, **con TEXTO dentro de la imagen** (`§4.4-TEXTO`, 01/10: una foto de una persona sin texto no es referencia) y **de ventas**: **prioridad, el gancho del original lleva palabra del oficio**; excepción (07/10) solo si el chiste de la imagen es de ventas **y** todo el cuerpo o su gran mayoría también, nunca por una palabra suelta (`aboutme §2-CARRIL`). NUESTRO gancho ancla a ventas siempre (`§4.4-FUENTE-VENTAS`). ~~Viral aunque NO sea de ventas~~: retirado el 24/08, ya no se sale de la cantera de ventas. Mira la imagen antes de elegir.
+> 1. **REFERENCIA = meme de VERDAD.** Riesgo de risa 25-56% (`GET /posts/{id}/reactions`, `ENTERTAINMENT`), ≥100 likes, **con TEXTO dentro de la imagen** (`§4.4-TEXTO`, 01/10: una foto de una persona sin texto no es referencia) y **de ventas**: **prioridad, el gancho del original lleva palabra del oficio**; ⏸️ la excepción del 07/10 (chiste de la imagen y cuerpo de ventas con gancho sin la palabra) **queda en suspenso desde el 14/10** (`§4.4-SUJETO`). **Y el chiste va de una PERSONA de ventas, nunca de una herramienta** (`§4.4-SUJETO`: ~37.500 contra ~3.000 de mediana). NUESTRO gancho ancla a ventas siempre (`§4.4-FUENTE-VENTAS`). ~~Viral aunque NO sea de ventas~~: retirado el 24/08, ya no se sale de la cantera de ventas. Mira la imagen antes de elegir.
 > 2. **CALCA LA ESENCIA ENTERA**, no media: la mecánica del gancho, la estructura del cuerpo (flechas, numerada, dos cajas…), la longitud, la mecánica de la imagen **y el TIEMPO VERBAL** (si promete en futuro, tú en futuro). Fidelidad > "corto y punchy".
 > 3. **ADÁPTALO A VENTAS** en el texto y en la imagen (`§2.3`), sin destripar el chiste que remata la foto.
 > 4. **MEJÓRALO** (el paso que más olvido): verbo con techo (`§2.9`), **sin repetir verbo**, formato más limpio. Igualar el original es el SUELO; superarlo es la meta.
@@ -1351,6 +1351,22 @@ sorprende, que es de lo que vive este pilar.
 >
 > **El contraejemplo es el del tatuaje:** ya estaba adaptado a ventas ✅ y era psicológico ✅, **pero en español** ❌. Resultado: nos pillaron la copia en menos de una hora, Félix bloqueó a Unai, y **la polémica nos dio alcance**. Iker, y esto es lo importante: ***"tampoco me conviene que se nos haga viral por polémica de copia"***. **El alcance por polémica de copia no es una estrategia, es una factura aplazada.**
 >
+> ### 🧑‍💼🧑‍💼 4.4-SUJETO · EL CHISTE VA DE UNA PERSONA DE VENTAS, NUNCA DE UNA HERRAMIENTA (auditoría del 14/10, pedida por Iker) — CANÓNICO
+>
+> **Iker, 14/10:** *"últimamente he notado una bajada en el rendimiento de los memes… a lo mejor pecamos de demasiado meme técnico que no tienen gracia"*. Los 3 últimos memes publicados se quedaron en 5.249 (Iker 29/09, el móvil), 952 (Asier 02/10, la IA y el puesto) y 1.565 (Iker 07/10, el león de las charlas motivacionales); el 01/10 de Unai se borró.
+>
+> **Medido sobre los 30 memes de las 3 cuentas desde julio (BD, 14/10):**
+>
+> | el chiste va de… | casos | mediana |
+> |---|---|---|
+> | **una herramienta, una app, una pantalla o la IA** | 14 herramientas 420 · traductor del parte 1.974 · código de verificación 196 y 718 · historial de Google 3.753 · la ficha 7.749 · el móvil 5.249 · la IA y el puesto 952 | **~3.000** |
+> | **la vida del comercial, del cliente o del jefe** | la vida del comercial 101.017 · el informe que resucita clientes 193.382 · el pedido que encoge 37.526 · la propuesta en visto 93.901 · vender es un caos 134.728 y 41.351 · el ascenso 132.309 y 226.374 · la llamada 79 en recepción 45.517 · el mejor correo comercial 37.565 | **~37.500** |
+>
+> - **Las dos excepciones que funcionaron confirman la regla:** la herramienta de 4.797 € (27.967) se cuenta desde **quien paga la factura**, y *"la IA le quitó el equipo comercial"* (Unai, 23.170) va de **lo que le pasa al comercial**, no de la IA. El sujeto sigue siendo una persona.
+> - **LA REGLA:** antes de elegir la referencia, *¿de quién es el chiste?* Si es de una persona de ventas en una situación que todos han vivido (el ascenso, el cliente que se va con otro, la recepción que filtra, el pedido que se cae), sirve. Si es de una herramienta, una app o la IA y solo lo pilla quien sabe de software, otra referencia. Vale en las 3 cuentas (en Asier ya lo decía `aboutme §2-ASIER-MEME`).
+> - **⏸️ LA EXCEPCIÓN DEL 07/10 (gancho original sin palabra de ventas) QUEDA EN SUSPENSO.** Su único caso, el león de Dachi, hizo 1.565 impresiones; Iker sospecha de ella el 14/10. n=1 y mezclado (primer meme de animal en su cuenta, publicado a las 14:55), así que no prueba nada, pero hasta que Iker la reabra **solo vale la vía normal: la primera línea del original lleva palabra de ventas** (`aboutme §2-CARRIL`).
+> - **Mecanizado** como aviso en `validar-post.py --pilar meme` (`¿el chiste va de una HERRAMIENTA…?`), que salta si el gancho nombra IA, app, herramienta, Google, LinkedIn, móvil, CRM, ficha, código, Excel, pantalla y similares.
+
 > ### ⛔⛔ 4.4-FUENTE-VENTAS · YA NO ES UNA PREFERENCIA: LA REFERENCIA ES **SIEMPRE** DE VENTAS (Iker, 2026-08-24)
 >
 > **La lista de abajo estaba ordenada por preferencia y el punto 3 abría la puerta a memes de otro sector. Esa puerta se cierra en los tres jefes.** Iker: *"siempre las referencias tienen que ser ya las originales, aunque estén en otro idioma, siempre de ventas"*. Solo **Mario** (marketing) y **Helena** (atención al cliente) son excepción, cada uno con su mundo.

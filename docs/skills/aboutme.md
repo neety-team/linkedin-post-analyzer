@@ -146,6 +146,8 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 
 **⚠️ Y esto AFINA `post-workflow §4.4-FUENTE`, que decía que un meme de OTRO sector con dolor psicológico universal era "la excepción que da los mejores outliers".** Ya no se sale a buscar fuera: **se busca dentro de ventas y ahí se elige el que tenga el dolor más universal**. Lo de "que sea psicológico y universal" sigue mandando **como criterio de elección DENTRO de la cantera de ventas**, no como permiso para salir de ella.
 
+> ⏸️ **EN SUSPENSO DESDE EL 14/10:** la excepción de abajo (gancho original sin palabra de ventas) tuvo un único caso, el león de Dachi, y se quedó en 1.565 impresiones. Hasta que Iker la reabra, solo vale la primera línea del original con palabra de ventas. Y el chiste va de una persona de ventas, nunca de una herramienta (`post-workflow §4.4-SUJETO`).
+
 #### 🔄 ACTUALIZADO EL 2026-10-07 (Iker): LA PALABRA DE VENTAS PUEDE ESTAR EN EL GANCHO **O** EN LA IMAGEN Y EL CUERPO DEL ORIGINAL. LO QUE NO SE NEGOCIA ES QUE **NUESTRO** GANCHO ANCLE A VENTAS
 > **Iker:** *"no me había dado cuenta de la casuística de que un gancho de una referencia no tenga vinculación a ventas, pero si todo el resto del cuerpo sí que lo tiene, esa referencia sí que es válida"*. Y lo que sigue siendo regla global: *"el gancho que nosotros vamos a subir siempre tiene que tener vinculación con ventas"*.
 > - **El caso:** el león de Dachi Beberashvili (06/10). Gancho `I love motivational speakers.` (sin palabra de ventas), pero la imagen dice `The lion in me after 10 hours of cold calling` y el cuerpo son tres negativas de llamada en frío. 53% de risa, ~305 risas, 26 reposts. Con la regla vieja se habría descartado la mejor referencia de la semana.

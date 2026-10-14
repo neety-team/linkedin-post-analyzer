@@ -4573,6 +4573,27 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 'bold statement). Va en medio, despues de que el chiste haya aterrizado.')
 
     if pilar == 'meme':
+        # 🧑‍💼 EL SUJETO DEL CHISTE ES UNA PERSONA DE VENTAS, NO UNA HERRAMIENTA
+        # (Iker, 2026-10-14, post-workflow §4.4-SUJETO). Medido ese dia sobre los
+        # 30 memes de las 3 cuentas desde julio: los que van de una herramienta,
+        # una app, una pantalla o la IA (14 herramientas, traductor del parte,
+        # codigo de verificacion x2, historial de Google, la ficha, el movil, la
+        # IA y el puesto) tienen mediana ~3.000 impresiones; los que van de la vida
+        # del comercial, del cliente o del jefe (ascenso, caos, propuesta en visto,
+        # llamada 79, correo comercial, el pedido que encoge) ~37.500. Excepciones
+        # que funcionaron: contadas desde quien PAGA (4.797 EUR, 27.967) o desde
+        # la vida del comercial (la IA y el equipo, 23.170). Aviso, no fallo.
+        _tec = re.findall(r'\b(ia|inteligencia artificial|chatgpt|claude|agente|app|aplicaci[oó]n|'
+                          r'herramientas?|software|google|linkedin|m[oó]vil|crm|ficha|c[oó]digo|excel|'
+                          r'ordenador|pantalla|algoritmo|traductor|diccionario)\b', hook_txt, re.I)
+        if _tec:
+            chk(False, 'ENTREGA: ¿el chiste va de una HERRAMIENTA y no de una persona de ventas? (§4.4-SUJETO)',
+                'el gancho nombra: %s. Memes nuestros de herramienta, app, pantalla o IA: '
+                'mediana ~3.000 impresiones; de la vida del comercial, del cliente o del jefe: '
+                '~37.500 (30 memes desde julio). Solo pasa si se cuenta desde quien paga la '
+                'factura o desde lo que le pasa al comercial; si el chiste solo lo pilla quien '
+                'sabe de software, otra referencia' % ', '.join(sorted(set(w.lower() for w in _tec))),
+                aviso=True)
         # ⛔ LA LONGITUD DEL ORIGINAL NO SE CALCA (Iker, 2026-08-13). "Me da igual
         # como sea la referencia a nivel de longitud: aunque sea larguisima, el
         # cuerpo lo quiero corto." Sustituye al "longitud: la del original" de

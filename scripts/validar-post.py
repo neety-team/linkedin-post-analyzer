@@ -2436,7 +2436,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'tranquilo); el TEXTO de una franja se dicta como "una frase en cada linea, las dos al '
             'mismo tamano, y si no caben, mas pequenas" y "ninguna frase lleva punto final" si el '
             'original no lo lleva; y NUNCA se le da al generador una salida alternativa ("si no cabe, '
-            'partela"): la coge. En una EDICION, un solo tipo de cambio y sin plan B · '
+            'partela"): la coge. En una EDICION, TODOS los cambios en UN solo prompt sencillo, nunca dos prompts separados (Iker 14/10), y sin plan B · '
             '3c) SI HAY VARIOS PERSONAJES: plano SIN contorno (la silueta pura solo para una figura '
             'de adorno), y cada uno descrito por separado con edad, pelo y ropa distintos; el '
             'generador repite la misma cara y el mismo pijama. Prueba de la MINIATURA a 360 px: un '

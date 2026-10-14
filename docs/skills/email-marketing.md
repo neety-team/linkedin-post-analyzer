@@ -2481,6 +2481,12 @@ Hay **dos** y hay que repartirlos, o salen duplicados:
 
 **Mientras no se arregle la tubería,** antes de cada envío se cruzan los `consent_comms = 1` de la D1 con Brevo y los que falten se suben a mano, de uno en uno.
 
+**🔧 El arreglo (14/10, dos ramas pendientes de fusionar, primero la de la web):**
+- **Web nueva** (`landing`, rama `claude/crm-leads-sync`): `GET /api/crm/leads` con el secreto de la atribución, y aviso al CRM al momento cuando alguien marca o desmarca la casilla o se borra un lead en el admin.
+- **CRM** (`saldu`, rama `claude/leads-web-nueva`): lee los leads de neety.com (el Postgres de recursos queda de respaldo) y sube a Brevo en la misma vuelta. **Brevo manda en las bajas:** antes de subir a alguien nuevo se le pregunta a Brevo y, si está bloqueado, se apunta la baja en el CRM. Repaso diario de bloqueados de la cuenta.
+- **El circuito queda:** formulario de neety.com → D1 → aviso al CRM (al momento) y lectura horaria → audiencia `📥 Recursos · Todos` → lista 15 de Brevo. De vuelta: el webhook de Brevo (bajas, rebotes, spam) más el repaso diario → `mkt_unsubscribes` del CRM → nunca se vuelve a subir.
+- Probado: web 120/120 y CRM 630/630. **Falta la prueba en producción tras fusionar:** ver que los 5 entran en la lista 15.
+
 ### 📬 DE DÓNDE ENTRAN LOS SUSCRIPTORES DESDE EL 2026-08-18: LA LANDING DE CORREO
 **Hasta ahora la lista se alimentaba de la base del CRM y de los gates de recursos. Desde el 18/08 hay una puerta propia: `recursos.neety.com/newsletter/` (alias `/correo/`), que es un formulario y nada más.**
 - **Le llega tráfico desde el SEGUNDO spam ninja de los posts** (`global §4.4e`): el bloque de correo que va en historia, despiece, insight, evento y meme corto. No va en mapa, ni en "Los 10", ni en el post del lead magnet.

@@ -499,6 +499,7 @@ que para testar remitente no vale ese mecanismo, hace falta montarlo a mano:
    dominio ya caliente y verificado, un A/B no necesita ir en tandas.
 
 **Preview text: SIEMPRE manual, nunca el automático.** Completa el asunto o estira el gap; no lo repitas. Es la segunda línea del "hook" del inbox.
+- **📱 Y en el móvil se ve antes de abrir (Mario, 14/10, correo 8 en Gmail del móvil):** la notificación enseña **remitente + asunto + preheader**, los tres, y nada más. Con el asunto y el preheader como dos mitades de una frase, la notificación ya se lee como un mensaje de WhatsApp. Es otra razón para no dejar nunca el preheader automático: en el móvil sería la primera línea del cuerpo y se comería el gancho.
 
 **Taxonomía de asuntos del corpus (353 clasificados, % aprox.) — rota entre tipos, no te cases con uno:**
 

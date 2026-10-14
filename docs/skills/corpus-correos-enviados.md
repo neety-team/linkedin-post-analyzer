@@ -457,6 +457,70 @@ PPD. Si en tu empresa alguien está preparando ya la lista de octubre, reenvías
 
 ---
 
+## Kaixito 07 · el mito de la lista larga (pilar MITO, el primero del pilar · puerta `/solicitar-demo` + colaboración AMA)
+
+**Enviado:** 2026-10-06 09:07 · campaña Brevo 28 · listas 15 + 4 + 17 + 18 (107)
+**Remitente:** `Kaixito de Neety` (`hola@neety.com`) · firma `Kaixito, la mascota de Neety` · GIF `enfado`
+**`utm_campaign` escrito a mano:** `correo-07-kaixito-mito` · AMA: `utm_source=newsletter-neety&utm_medium=correo&utm_campaign=correo-07`
+
+> ⚠️ **Rescatado de la API el 2026-10-14 (con el conector de Brevo), 8 días después de salir.** Leído ese día: 107 entregados, 66 aperturas únicas, 2 bajas (lista 18). Los clics limpios, en `historial-newsletter` (07/10: 2 personas en nuestro enlace).
+
+### El asunto y el preheader
+
+```
+cuántas empresas tiene tu lista?
+```
+```
+No me lo digas, que me enfado.
+```
+
+### El cuerpo, literal
+
+```
+Hoy vengo enfadado.
+
+Da igual cuántas tenga tu lista.
+Lo primero que apunté en mi libro fue una mentira.
+
+Que cuantas más empresas tenga una lista, más clientes salen.
+
+Me lo creí tanto que apunté 2.000 empresas.
+
+De esas 2.000, me podían comprar 40.
+
+La lista larga te la vende cualquiera.
+La corta, con quien decide, nosotros: neety.com/solicitar-demo
+
+Las otras 1.960 había que tacharlas.
+
+Una a una.
+Mirando webs.
+Meses con empresas que nunca me iban a comprar.
+
+Una lista larga no es una mina, es una MUDANZA.
+
+[GIF: Kaixito enfadado con su libro]
+
+Lo de tachar fue antes de llegar a Neety.
+Aquí empezamos directamente por las 40.
+
+Y un recado que apunto con letra grande.
+
+La Asociación de Marketing de Euskadi abre sus premios.
+Una de sus categorías es la de estrategia de ventas.
+Las candidaturas son gratis y cierran este mes: asociacionmarketing.com
+
+Si ganas, te apunto en mi libro.
+
+Kaixito, la mascota de Neety
+
+PD. Si conoces a un equipo que se lo merece, reenvíaselo.
+
+PPD. Si tu lista pasa de 2.000, no me lo cuentes. Me vuelvo a enfadar.
+```
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

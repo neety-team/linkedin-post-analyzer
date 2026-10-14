@@ -1454,7 +1454,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ## 📝 CORREO 8 · Asier · RECETA, ninja al webinar (BORRADOR 2026-10-13, para el mié 14/10 09:05)
 
-**Texto validado 42/42** (`validar-email.py`, el único aviso es `cientos de empresas`, que va del lado del enemigo). **v2 tras la revisión de Iker (13/10):** la receta pasa a contarse como ORIGEN (`Antes de programar nuestro buscador, lo hacíamos así a mano.`, antes `…la hago así a mano`, que era un autogol), una línea detrás del enlace deja ver el producto (`Encontrar esas fue lo que más nos costó programar.`) y las 6 sueltas del arranque se rompen con un par y una terna (`Por lo que hace de verdad / Por el material con el que trabaja / Por el problema que tú le resuelves cada día`). Ritmo `1-2-1-1-2-1-3-1-1-1-1-3-1-1-1-2-1`. **Sin campaña en Brevo todavía:** no hay `BREVO_API_KEY` en el entorno de esta sesión. Cuando se monte: remitente `Asier de Neety` (id 7, `hola@neety.com`), listas 15 + 4 + 17 + 18 como el 7, **sin GIF** (no es Kaixito), en BORRADOR y sin `scheduledAt` (`email-marketing §9a-BIS`).
+**Texto validado 42/42** (`validar-email.py`, el único aviso es `cientos de empresas`, que va del lado del enemigo). **v2 tras la revisión de Iker (13/10):** la receta pasa a contarse como ORIGEN (`Antes de programar nuestro buscador, lo hacíamos así a mano.`, antes `…la hago así a mano`, que era un autogol), una línea detrás del enlace deja ver el producto (`Encontrar esas fue lo que más nos costó programar.`) y las 6 sueltas del arranque se rompen con un par y una terna (`Por lo que hace de verdad / Por el material con el que trabaja / Por el problema que tú le resuelves cada día`). Ritmo `1-2-1-1-2-1-3-1-1-1-1-3-1-1-1-2-1`. **✅ Campaña Brevo 29 en BORRADOR (14/10, 09:53), creada con el conector de Brevo** porque `BREVO_API_KEY` no llegaba a la sesión (el entorno local de la app estaba cifrado e ilegible, ver abajo). Releída de la API: `draft`, sin `scheduledAt`, remitente `Asier de Neety` (id 7), preheader, pie de la casa, `href` con su UTM intacto, listas 15 + 4 + 17 + 18 → **104 destinatarios**. Sin GIF. ⚠️ El conector no manda el correo de prueba de una campaña ni corre `auditar-campanas-brevo.py` (necesita la clave): el test sale del panel, a `mario@neety.com`.
 
 | | |
 |---|---|
@@ -1485,7 +1485,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)
 - ✅ Su ninja ya está en `QUEMADAS` (13/10, con fecha 06/10).
-- 🔴 **Su cuerpo literal NO está en `corpus-correos-enviados.md`.** Se rescata de la campaña 28 en cuanto haya `BREVO_API_KEY` en el entorno (`GET /emailCampaigns/28`).
+- ✅ **Cuerpo literal rescatado y guardado en `corpus-correos-enviados.md` el 14/10** (con el conector de Brevo).
 
 ### 🚫 Bajas a mano
 - **2026-10-08 · `gorka@easoventures.com`** (inscrito del evento, listas 16 y 18), a petición de Iker. Hecho con `emailBlacklisted: true` en Brevo, **sin borrar el contacto**: así no se le vuelve a escribir aunque alguien lo reimporte. No está en el CRM (la cohorte del evento vive solo en Brevo), así que no hay sync que lo devuelva.

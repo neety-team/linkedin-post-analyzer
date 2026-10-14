@@ -1896,8 +1896,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     _pares = []
     for _m in re.finditer(r'(?<![\d.,])(\d{1,2})(?![\d.,])', _cuerpo_sin_lista):
         _n = int(_m.group(1))
-        _cola = _cuerpo_sin_lista[_m.end():_m.end() + 2]
-        if re.match(r'\s*[€%]|\s*[MkKh]\b', _cola):
+        # cola de 4 y sin \b: con 2 caracteres, "3 horas" o "a las 7 hacia"
+        # se leian como la unidad "h" y la cifra se saltaba (14/10)
+        _cola = _cuerpo_sin_lista[_m.end():_m.end() + 4]
+        if re.match(r'\s*[€%]|\s*[MkKh](?![a-záéíóúñ])', _cola):
             continue
         if _n % 2 == 0 and _n != 0:
             _ctx = _cuerpo_sin_lista[max(0, _m.start() - 22):_m.end() + 10].replace('\n', ' ')
@@ -1907,6 +1909,34 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
          '(el 14/08: "a las 8" pasó a "a las 9", porque a las 7 o a las 5 no se lo cree '
          'nadie). Si es un dato VERIFICADO, se queda como esta y este aviso se ignora: '
          'un dato no se retoca para que quede impar') if _pares else '', aviso=True)
+
+    # CIFRAS ELEGIDAS VARIADAS (§2.5b-VARIAR, Iker 2026-10-14). La historia de los
+    # kilometros llevaba "37 llamadas", "a las 7", "a 3 horas" y "3 cafes": todas
+    # impares y aun asi "parece un poco falso". Impar no es repetir el mismo 3:
+    # se rota entre 1, 3, 5 y 7 (y sus decenas), y el 9 le gusta menos.
+    # Aviso y no fallo: un dato verificado puede repetir cifra y se queda.
+    _cifras = []
+    for _m in re.finditer(r'(?<![\d.,])(\d{1,2})(?![\d.,])', _cuerpo_sin_lista):
+        # cola de 4 y sin \b: con 2 caracteres, "3 horas" o "a las 7 hacia"
+        # se leian como la unidad "h" y la cifra se saltaba (14/10)
+        _cola = _cuerpo_sin_lista[_m.end():_m.end() + 4]
+        if re.match(r'\s*[€%]|\s*[MkKh](?![a-záéíóúñ])', _cola):
+            continue
+        _cifras.append(_m.group(1))
+    from collections import Counter as _Counter
+    _ult = _Counter(c[-1] for c in _cifras if int(c) % 2 == 1)
+    _rep = [d for d, k in _ult.items() if k >= 2]
+    _nueves = [c for c in _cifras if c[-1] == '9']
+    _msg = []
+    if _rep:
+        _msg.append('se repite la terminacion ' + ', '.join(_rep) + ' en ' +
+                    ', '.join(c for c in _cifras if c[-1] in _rep))
+    if _nueves:
+        _msg.append('lleva un 9 (' + ', '.join(_nueves) + '): a Iker le gusta menos')
+    chk(not _msg, 'Cifras ELEGIDAS variadas, no siempre el mismo impar (§2.5b-VARIAR)',
+        ('; '.join(_msg) + ' → rota entre 1, 3, 5 y 7 (y 15, 25…). Tres treses seguidos '
+         'parecen inventados aunque sean impares. Si alguna es un dato VERIFICADO, se queda') if _msg else '',
+        aviso=True)
 
     # bloques de prosa: ≤3 líneas, y línea individual detrás (§3.2)
     largos = [i for i, b in enumerate(bs) if not es_lista(b) and len(b) >= 4]

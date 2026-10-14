@@ -272,7 +272,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Dolor y tipo** | **tipo 2** (sabe la empresa, no quién manda dentro; eslabón 2, 15 cuentas; citas de Ecenarro y Gaitek). Elegido porque el webinar cumple 1, 2 y 4 y hoy Asier va al 1 y Unai al 4. ⚠️ Es el 3er tipo 2 seguido en Iker: declarado. Palabra nueva `quién manda` (no `quién decide`) |
 | **Gancho** | `Nunca hice tantos kilómetros para venderle a quien no podía comprarme ni un boli 😅` (82) · molde `Nunca` + `tanto` + objeto (el récord de Unai del 02/10) · pago `No podía comprarme ni un boli, mandaba otro.` |
 | **Ninja → webinar** | contexto `El miércoles 28 hacemos directo online y gratis.` · `Kilómetros los hace cualquiera, saber quién manda no.` / `Eso sí te lo enseñamos, paso a paso:` · UTM `utm_source=historia-kilometros-14oct-iker` |
-| **Real / inventado** | real: el dolor (informe de demos) y la sesión del 28. Inventado y declarado: el primer curro, las 37 llamadas, el polígono, el ingeniero, los cafés, el boli y la cita |
+| **Real / inventado** | real: el dolor (informe de demos) y la sesión del 28. Inventado y declarado: el primer curro, las 15 llamadas, el polígono, el ingeniero, el café, el boli y la cita (cifras rotadas el 14/10: 37 llamadas y 3 cafés pasaban a 15 y un café, `global §2.5b-VARIAR`) |
 | ⏳ | publicado: hora y enlace (de la BD) · **quemadas al publicar**: ninja `kilometros los hace cualquiera` / `eso si te lo ensenamos, paso a paso`, contexto `hacemos directo online y gratis`, arranque de historia `se` · a los 3-4 días: inscritos por `utm_source` en Luma (vara 0,81 por 1.000 de Unai 08/10) y clics |
 
 ## ✅ PUBLICADO · MIÉ 14/10 · UNAI · HISTORIA: EL EXCEL ANTES QUE LAS MÁQUINAS (webinar, `luma.com/7hhyx07z`)

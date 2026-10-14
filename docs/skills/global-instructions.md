@@ -1088,6 +1088,13 @@ Corre estas puertas EN ORDEN:
 ❌ 2026-07-21: primer borrador con "las 50 empresas". Par, y encima 50 listas por sector con Unipile no salen en un dia.
 ✅ Corregido a **25**: impar, creible, y producible sin que Unipile se atragante.
 
+#### ⛔⛔ 2.5b-VARIAR · IMPAR NO ES REPETIR EL MISMO IMPAR (Iker, 2026-10-14) — GLOBAL
+> **Iker, sobre la historia de los kilómetros:** *"37 llamadas, 3 horas, 3 cafés, parece un poco falso… prioriza otros números, el 1, el 5, el 3, el 7. El 9 me gusta menos"*.
+- Las cifras que ELEGIMOS en un mismo post van impares **y distintas entre sí**: se rota entre 1, 3, 5 y 7 (y sus decenas, 15, 25, 37…), sin repetir terminación. Tres treses seguidos se leen como inventados aunque cada uno sea impar.
+- **El 9, solo si no hay otro que encaje** (preferencia de Iker, sin medir).
+- Quedó `15 llamadas` · `a las 7` · `a 3 horas` · `un café` (el `un` es artículo, no cifra).
+- Los datos verificados no se tocan. **Mecanizado** como aviso en `validar-post.py` (`Cifras ELEGIDAS variadas`).
+
 #### ⛔⛔ 2.5b-SUSTANTIVO · LA CIFRA NUNCA VA SOLA: SIEMPRE CON LO QUE CUENTA (Mario, 2026-08-26)
 
 > **Iker, sobre la 2ª línea del ninja del 26/08:** *"me gusta mucho porque es corta, pero aun así: `el 24 de septiembre juntamos 80 en Donostia`… ¿80 qué? ¿80 personas, 80 números? Hay que ser explícito también"*.

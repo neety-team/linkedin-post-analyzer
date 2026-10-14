@@ -353,6 +353,8 @@ interface Analytics {
   top_posts: TopPost[];
   // Vacio mientras la IA clasifica los ganchos.
   ganchos?: GanchoRow[];
+  // Quien lee cada pilar (demografia de LinkedIn). pillar = null es el total.
+  audiencia_pilares?: { pillar: string | null; posts: number; decisores_pct: number | null; alcance_medio: number | null; en_red_pct: number | null }[];
   per_account: PerAccountRow[];
 }
 
@@ -1738,6 +1740,65 @@ function AccountsInner() {
                 pie="tasa de acierto"
               />
             </div>
+            {(() => {
+              // QUIEN LEE CADA PILAR (Mario, 2026-10-14): % de decisores ponderado por
+              // alcance. Para saber que tipo de post llega a quien compra.
+              const filas = (analytics.audiencia_pilares ?? []).filter((f) => f.pillar && f.posts > 0);
+              const total = (analytics.audiencia_pilares ?? []).find((f) => f.pillar === null);
+              if (!filas.length) return null;
+              const max = Math.max(...filas.map((f) => f.decisores_pct ?? 0), 1);
+              return (
+                <div className="bg-bg-card border border-border rounded-xl p-4">
+                  <div className="mb-3">
+                    <h3 className="text-base font-semibold">👔 Quién lee cada pilar</h3>
+                    <p className="text-xs text-text-muted">
+                      De quienes vieron los posts del periodo, cuántos deciden la compra (director, VP, C-level, socio o propietario).
+                      <InfoHint text="Demografía de la analítica Premium de LinkedIn de cada post. La media de cada pilar pesa por personas alcanzadas: un post que llegó a 25.000 cuenta más que uno de 1.000. Solo entran los posts que ya tienen la demografía leída." />
+                    </p>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="text-left text-text-muted text-xs border-b border-border">
+                          <th className="py-2 pr-3">Pilar</th>
+                          <th className="py-2 px-3 text-right">Posts</th>
+                          <th className="py-2 px-3 w-[40%]">Decisores</th>
+                          <th className="py-2 px-3 text-right">Alcance medio</th>
+                          <th className="py-2 pl-3 text-right">De tu red</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filas.map((f) => (
+                          <tr key={f.pillar} className="border-b border-border/50">
+                            <td className="py-2 pr-3 text-text-primary">{pilarPorSlug[f.pillar as string]?.label ?? f.pillar}</td>
+                            <td className="py-2 px-3 text-right tabular-nums text-text-secondary">{f.posts}</td>
+                            <td className="py-2 px-3">
+                              <div className="flex items-center gap-2">
+                                <div className="h-2 flex-1 rounded-full bg-bg-secondary overflow-hidden">
+                                  <div className="h-full rounded-full bg-data" style={{ width: `${((f.decisores_pct ?? 0) / max) * 100}%` }} />
+                                </div>
+                                <span className="w-10 text-right tabular-nums font-medium text-text-primary">{f.decisores_pct ?? '—'}%</span>
+                              </div>
+                            </td>
+                            <td className="py-2 px-3 text-right tabular-nums text-text-secondary">{f.alcance_medio != null ? fmtNum(f.alcance_medio) : '—'}</td>
+                            <td className="py-2 pl-3 text-right tabular-nums text-text-secondary">{f.en_red_pct != null ? `${f.en_red_pct}%` : '—'}</td>
+                          </tr>
+                        ))}
+                        {total && (
+                          <tr className="text-text-muted">
+                            <td className="pt-2 pr-3">Todos</td>
+                            <td className="pt-2 px-3 text-right tabular-nums">{total.posts}</td>
+                            <td className="pt-2 px-3 text-right tabular-nums">{total.decisores_pct ?? '—'}%</td>
+                            <td className="pt-2 px-3 text-right tabular-nums">{total.alcance_medio != null ? fmtNum(total.alcance_medio) : '—'}</td>
+                            <td className="pt-2 pl-3 text-right tabular-nums">{total.en_red_pct != null ? `${total.en_red_pct}%` : '—'}</td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              );
+            })()}
           </section>
 
           {/* Per-account comparison */}

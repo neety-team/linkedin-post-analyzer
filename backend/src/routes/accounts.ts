@@ -1650,6 +1650,35 @@ router.get('/analytics', async (req: Request, res: Response) => {
       [currentStartIso, currentEndIso, ...ganchoScope.params]
     );
 
+    // QUIEN LLEGA A CADA PILAR (Mario, 2026-10-14). Con la demografia de LinkedIn de
+    // cada post (services/audienciaPost.ts): % de decisores (director, VP, C-level,
+    // socio, propietario) medio por pilar, PONDERADO por personas alcanzadas (un post
+    // de 25.000 pesa mas que uno de 1.000), alcance medio y % de la propia red. Para
+    // saber que tipo de post llega a quien compra, no solo a cuanta gente.
+    const audienciaScope = scope(3);
+    const audienciaQ = await pool.query(
+      `WITH a AS (
+         SELECT COALESCE(p.pillar, 'otro') AS pillar,
+                COALESCE(p.members_reached, 1) AS peso,
+                p.members_reached, p.in_network_pct,
+                (SELECT COALESCE(SUM((e->>'pct')::numeric), 0)
+                   FROM jsonb_array_elements(p.audiencia->'nivel') e
+                  WHERE e->>'label' IN ('Director', 'VP', 'CXO', 'Partner', 'Owner')) AS dec
+           FROM posts p
+          WHERE p.published_at >= $1 AND p.published_at <= $2 AND ${audienciaScope.sql}
+            AND p.audiencia IS NOT NULL AND jsonb_typeof(p.audiencia->'nivel') = 'array'
+       )
+       SELECT pillar,
+              COUNT(*)::int AS posts,
+              ROUND(SUM(dec * peso) / NULLIF(SUM(peso), 0))::int AS decisores_pct,
+              ROUND(AVG(members_reached))::int AS alcance_medio,
+              ROUND(AVG(in_network_pct))::int AS en_red_pct
+         FROM a
+        GROUP BY ROLLUP (pillar)
+        ORDER BY (pillar IS NULL), decisores_pct DESC NULLS LAST`,
+      [currentStartIso, currentEndIso, ...audienciaScope.params]
+    );
+
     // Account-level deltas across the same date range. We track followers
     // and profile views as daily snapshots in dedicated tables — for the
     // KPI cards we just want last - first per creator, summed when scope
@@ -1805,6 +1834,8 @@ router.get('/analytics', async (req: Request, res: Response) => {
       top_posts: topPostsQ.rows,
       hook_types: hookQ.rows,
       ganchos: ganchosQ.rows,
+      // Fila con pillar = null: el total de todos los pilares.
+      audiencia_pilares: audienciaQ.rows,
       per_account: perAccount,
     });
   } catch (err: any) {

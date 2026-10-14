@@ -383,6 +383,7 @@ porque la cuenta volvió a dar `402`.
 
 **LO QUE SÍ ES SEGURO Y BASTA PARA PROTEGERSE:**
 1. **Al arreglar un campo por `PUT`, se reenvía en la MISMA llamada** todo lo que no quieras perder.
+   - **⛔ Y el remitente va con `id` Y `name` (14/10, correo 8):** un `PUT` con `sender: {"id": 7}` dejó el nombre VACÍO con un `204`; en la bandeja habría salido solo `hola@neety.com`. El auditor lo caza desde ese día.
 2. **Y después se COMPRUEBA releyendo la campaña.** Un `204` no prueba que el resto siga en pie.
 3. **⚙️ Se corre el auditor antes de dar por buena cualquier campaña:**
    ```
@@ -2469,6 +2470,16 @@ Hay **dos** y hay que repartirlos, o salen duplicados:
   - ⚠️ **Pero la API SIEMPRE devuelve UTC**, tenga la cuenta la zona que tenga. Un envío para las 09:01 de Madrid aparece como `scheduled_for: 07:01`. **Eso es correcto, no es un fallo**: son el mismo instante. Al verificar por API hay que restar las 2 horas (1 en invierno) antes de dar nada por roto.
 - **Banner "Sent by MailerLite":** se quita en Configuración de la cuenta → *MailerLite branding*. Incluido desde el plan Comfort.
 - **Los correos de PRUEBA no generan enlaces de baja ni de preferencias reales**: no se pueden pulsar. Es lo único del checklist que solo se verifica enviando de verdad.
+
+### 🔴🔴 DESDE LA WEB NUEVA, LOS CONSENTIMIENTOS NO LLEGAN A BREVO (detectado el 2026-10-14)
+
+**La tubería que funcionaba:** formulario de `recursos.neety.com` → Postgres de recursos (`leads.consent_comms`) → el CRM lo lee cada hora (`sales-crm-Neety/src/resources_leads.js`) → audiencia `📥 Recursos · Todos` → lista 15 de Brevo.
+
+**Lo que cambió:** desde la web nueva, todos los formularios de neety.com (`/solicitar-demo`, `/contacto`, `/newsletter`, las fichas de `/academia`) guardan el consentimiento en **la D1 `landing` de neety.com** (`leads.consent_comms = 1`, `origin = 'neety'`), y **el CRM no la lee**. La sincronización solo va de recursos a neety.com (`neety-resources/src/lib/sync-landing.js`), nunca al revés, y el 13/10 se retiraron las APIs públicas de recursos (410).
+
+**Medido el 14/10:** el último contacto que entró a la lista 15 fue el **22/09**. En la D1 hay **5 consentimientos de neety.com (06/10-13/10) que no están en Brevo**. Se leen con `npx wrangler d1 execute landing --remote` desde el repo `landing` (la sesión tiene acceso a Cloudflare).
+
+**Mientras no se arregle la tubería,** antes de cada envío se cruzan los `consent_comms = 1` de la D1 con Brevo y los que falten se suben a mano, de uno en uno.
 
 ### 📬 DE DÓNDE ENTRAN LOS SUSCRIPTORES DESDE EL 2026-08-18: LA LANDING DE CORREO
 **Hasta ahora la lista se alimentaba de la base del CRM y de los gates de recursos. Desde el 18/08 hay una puerta propia: `recursos.neety.com/newsletter/` (alias `/correo/`), que es un formulario y nada más.**

@@ -91,7 +91,11 @@ def revisar(c):
             )
 
     remitente = (c.get("sender") or {}).get("name") or ""
-    if remitente.startswith("[DEFAULT"):
+    if not remitente.strip():
+        # 14/10, correo 8: un PUT con `sender: {"id": 7}` sin `name` dejo el nombre
+        # VACIO y Brevo respondio 204. En la bandeja saldria solo `hola@neety.com`.
+        fallos.append("el REMITENTE no tiene nombre (al hacer PUT, manda sender con id Y name)")
+    elif remitente.startswith("[DEFAULT"):
         fallos.append("el REMITENTE se ha reseteado al generico")
     elif len(remitente) > 20:
         # Medido en Gmail el 27/08: `Iker Galarza de Neety` (21) sale cortado.

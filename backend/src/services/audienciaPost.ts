@@ -86,17 +86,31 @@ export function parsearAudiencia(d: string): Audiencia {
   const inNet = d.match(/"children":\["In-network[^"]*"\][\s\S]{0,1500}?"children":\["(\d{1,3})%"\]/)?.[1];
   const inNetworkPct = inNet != null ? Number(inNet) : null;
 
-  // Trozos RSC "<id>:<json>" y el indice -> trozo de las listas.
+  // Trozos RSC "<id>:<json>": las listas suelen ir aparte y se citan como "$Lx".
   const trozos = new Map<string, string>();
   for (const m of d.matchAll(/^([0-9a-f]+):(.*)$/gm)) trozos.set(m[1], m[2]);
-  const indice = new Map<number, string>();
-  const reIdx =
-    /"intValue":(\d+)\}[^{}]{0,40}\}\}\}\}?\}?,"isReactive":true\},"whenTrue":\{"actions":\[\{"\$type":"proto\.sdui\.actions\.core\.ReplaceComponent","value":\{"componentKey":"CreatorAnalyticsModuleKey_SPA_TOP_DEMOGRAPHICSpercentageComparisonModuleComponentRef","content":\{"\$case":"newComponent","newComponent":"\$L([0-9a-f]+)"/g;
-  for (const m of d.matchAll(reIdx)) indice.set(Number(m[1]), m[2]);
+
+  // Las seis listas son las seis primeras veces que se SUSTITUYE el componente de
+  // porcentajes, en el orden de su indice (1..6). Cada una llega de una de dos formas
+  // (14/10): como referencia a un trozo ("$Lx") o metida ahi mismo (lo que va hasta la
+  // siguiente vez que aparece el componente). Con la primera forma sola se perdia la
+  // lista de cargos en 18 de 45 posts, y con ella la demografia entera.
+  const K = 'CreatorAnalyticsModuleKey_SPA_TOP_DEMOGRAPHICSpercentageComparisonModuleComponentRef';
+  const reSust = new RegExp(`"componentKey":"${K}","content":\\{"\\$case":"newComponent","newComponent":(?:"\\$L([0-9a-f]+)"|\\[)`, 'g');
+  const sust = [...d.matchAll(reSust)].slice(0, 6);
+  const listas = sust.map((m) => {
+    if (m[1]) return filas(trozos.get(m[1]) ?? '');
+    const desde = (m.index ?? 0) + m[0].length;
+    const hasta = d.indexOf(`"${K}"`, desde);
+    // Metida ahi, sus filas citan otros trozos ("$L46" = la etiqueta, "$L47" = el %):
+    // se sustituyen antes de leer (dos pasadas, por si un trozo cita a otro).
+    let seg = d.slice(desde, hasta > 0 ? hasta : desde + 20000);
+    for (let i = 0; i < 2; i++) seg = seg.replace(/"\$L([0-9a-f]+)"/g, (todo, id) => trozos.get(id) ?? todo);
+    return filas(seg);
+  });
 
   let demografia: Demografia | null = null;
-  if (indice.size >= 6) {
-    const listas = [1, 2, 3, 4, 5, 6].map((i) => filas(trozos.get(indice.get(i) ?? '') ?? ''));
+  if (listas.length === 6) {
     const dem = Object.fromEntries(ORDEN.map((k, i) => [k, listas[i]])) as unknown as Demografia;
     // El nivel completo: todas las filas del payload cuya etiqueta es un nivel.
     const nivelCompleto = filas(d).filter((f) => NIVELES.includes(f.label));

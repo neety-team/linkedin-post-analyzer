@@ -912,6 +912,10 @@ No se dispara lo mismo a toda la base. Mínimo separar por: **origen** (lead mag
   - Su límite sigue en pie (`§1`): **no cierra demos, deriva** (*"eso te lo enseña Iker"*).
   - **El primer correo con él es la prueba limpia de remitente:** igual que el correo 5 en todo (pregunta de tú a tú, ~140 palabras, enlace hacia el 45-50%) y cambiando solo quién firma.
   - **Los founders vuelven** si un correo necesita su autoridad (un cierre a demo fuerte), y entonces esa es su variable.
+  - **Desde la semana del 19/10, siempre Kaixito salvo que se diga lo contrario** (Mario): por ejemplo, si el primer jefe pide firmar él uno con su nombre.
+- **⛔ Y NINGÚN TIPO DE ASUNTO SE CONVIERTE EN REGLA CON 2 O 3 CASOS (Mario, 14/10).** Que dos o tres asuntos de FOMO o de pregunta hayan abierto bien no significa que a partir de ahora vayan todos así. Se siguen probando tipos de asunto, uno por correo y con lo demás fijo, hasta tener volumen para el A/B de Brevo. **Se podría activar ya, pero con 54 por grupo el resultado no sería fiable.**
+- **Un correo no se compara antes de los 5-6 días** (`historial-newsletter`, 22/09). Una lectura a la hora del envío solo sirve para comprobar que salió.
+- **Y por encima de todo, nuestro dato.** El corpus de newsletters y la psicología dan ideas para probar; lo que decide son nuestras aperturas, clics, inscritos y respuestas.
 - **El A/B nativo de Brevo (dos asuntos al 50%) todavía no compensa, y no por falta de ganas:** con 108 destinatarios son 54 por brazo, y la diferencia más pequeña que se distingue en aperturas ronda los **27 puntos**. Con 200 por brazo baja a ~14 y con 500 a ~9 *(cálculo mío, aproximación normal con un 50% de apertura, no medido)*. **Se activa cuando la lista pase de ~400.** Mientras tanto, la prueba es de un correo al siguiente, con una sola variable.
 - **Y el segmento ya está bien hecho para cuando toque:** cada contacto lleva en el CRM de dónde vino (`lead_origin`, `how_found`, recurso) y solo entra quien marcó la casilla. Eso permite, con volumen, probar el remitente por origen (quien llegó por LinkedIn de Unai, ¿abre más si le escribe Unai?).
 

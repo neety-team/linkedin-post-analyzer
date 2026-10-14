@@ -76,7 +76,7 @@ def main():
             'fecha': f, 'cuenta': p['_cuenta'], 'pilar': p.get('pillar') or '?',
             'dolor': dol[0] if dol else 'sin clasificar', 'clics': clics, 'imp': imp,
             'ctr': 100.0 * clics / imp, 'decide': bool(re.search(r'qui[eé]n decide', nj, re.I)),
-            'ninja': nj,
+            'ninja': nj, 'tipos': [t[:6] for t in vp.tipos_de(nj)] or ['?'],
         })
 
     if not filas:
@@ -99,6 +99,16 @@ def main():
     for dol, rs in sorted(dg.items(), key=lambda kv: -statistics.median(x['ctr'] for x in kv[1])):
         print(f'   {dol:<48} n={len(rs):<2} CTR mediano={statistics.median(x["ctr"] for x in rs):.3f}%')
 
+    print('\n2b) POR TIPO DE CLIENTE (global §4.4b-TIPOS; un ninja puede tocar dos tipos y cuenta en los dos)')
+    tg = {}
+    for r in filas:
+        for t in r['tipos']:
+            tg.setdefault((r['pilar'], t), []).append(r)
+    for (pil, t), rs in sorted(tg.items()):
+        print(f'   {pil:<14} {t:<7} n={len(rs):<2} clics={sum(x["clics"] for x in rs):<4} '
+              f'CTR mediano={statistics.median(x["ctr"] for x in rs):.3f}%' + ('   (n<3: no decide nada)' if len(rs) < 3 else ''))
+    print('   ⚠️ Con enlace a Luma el CTR no basta: se mira inscritos por 1.000 impresiones con el CSV de Luma (post-workflow §4.4-CONVERSION-EVENTO)')
+
     rec = sorted(filas, key=lambda r: r['fecha'], reverse=True)[:12]
     print(f'\n3) VARIEDAD: de los ultimos {len(rec)} ninjas, {sum(r["decide"] for r in rec)} dicen "quien decide" '
           f'y el dolor mas repetido es "{max(set(r["dolor"] for r in rec), key=[r["dolor"] for r in rec].count)}"')
@@ -106,7 +116,7 @@ def main():
     print('\n4) DETALLE (mas reciente arriba)')
     for r in sorted(filas, key=lambda r: r['fecha'], reverse=True):
         print(f'   {r["fecha"]} {r["cuenta"]:<5} {r["pilar"]:<12} {r["ctr"]:.3f}% ({r["clics"]}/{r["imp"]}) '
-              f'[{r["dolor"].split(" (")[0]}] {r["ninja"][:90]}')
+              f'[{r["dolor"].split(" (")[0]} · {"+".join(r["tipos"])}] {r["ninja"][:80]}')
     print('\nRegla de decision (global §4.4b-ROTACION): un dolor pasa a ser el UNICO prioritario solo con '
           '>=3 posts por dolor DENTRO del mismo pilar y ganando en dos revisiones seguidas.')
 

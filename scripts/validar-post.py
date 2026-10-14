@@ -1217,6 +1217,26 @@ DOLORES_NINJA = [
     ('la persona de dentro', r'decide|firma|qui[eé]n compra|nombre|cargo|a qui[eé]n|interlocutor|persona'),
 ]
 
+# 🧩 LOS 4 TIPOS DE CLIENTE (global §4.4b-CADENA y §4.4b-TIPOS, Iker 2026-10-14).
+# El ninja habla a UN eslabon roto y rota entre los 4 para que el A/B diga cual
+# convierte mas. Tamano y cierre del informe "Donde le duele a cada cliente":
+# 1 = 9 cuentas / 11 %, 2 = 15 / 20 %, 3 = 21 / 10 %, 4 = 26 / 62 % (16 de 22 clientes).
+TIPOS_CLIENTE = [
+    ('tipo 1 · no sabe a que empresas vender',
+     r'encaj|acierta|acertar|sector|filtro|cu[aá]les|por lo que hace|empresas? que|miles|listas? de'),
+    ('tipo 2 · sabe cuales, no a quien dentro',
+     r'decide|firma|manda|[uú]ltima palabra|qui[eé]n compra|nombre|cargo|interlocutor|persona|de dentro'),
+    ('tipo 3 · sabe a quien, no cuando',
+     r'cu[aá]ndo|a tiempo|tarde|antes que (otro|nadie)|el momento'),
+    ('tipo 4 · nada montado, se le van los meses buscando',
+     r'buscar|buscando|contactar|meses|semanas|calle|tiempo|vender m[aá]s'),
+]
+
+def tipos_de(ninja):
+    n = ninja.lower()
+    return [nom for nom, rx in TIPOS_CLIENTE if re.search(rx, n)]
+
+
 def ninja_de(texto):
     L = [l for l in texto.split('\n')]
     for i, l in enumerate(L):
@@ -4453,6 +4473,23 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 _det + ('. Los 3 ultimos de esta cuenta ya vendian lo mismo: prueba otro dolor del '
                         'menu (acierto, tu confirmas, buscar contra contactar) y apuntalo en el '
                         'historial para el A/B' if _mismo else ''), aviso=True)
+            # A QUE TIPO DE CLIENTE LE HABLA (global §4.4b-TIPOS, 14/10): se imprime
+            # siempre, con los de los ultimos ninjas de la cuenta y el tipo que menos
+            # se ha probado en las 3 cuentas estas 3 semanas.
+            _tmio = tipos_de(_nj)
+            _cuenta_t = {}
+            for _x in _rec:
+                for t in tipos_de(_x[2]):
+                    _cuenta_t[t] = _cuenta_t.get(t, 0) + 1
+            _menos = min((nom for nom, _ in TIPOS_CLIENTE), key=lambda t: _cuenta_t.get(t, 0))
+            chk(False, 'ENTREGA: a que TIPO de cliente le habla el ninja (§4.4b-TIPOS)',
+                'este: %s. Ultimos de %s: %s. En las 3 cuentas (21 dias): %s. El menos '
+                'probado: %s. Rota entre los 4 y apuntalo en el historial; con el webinar, '
+                'solo los tipos que la pagina de Luma cumple' % (
+                    ', '.join(t[:6] for t in _tmio) or 'ninguno claro', _cta or '?',
+                    ' | '.join('%s %s' % (_x[1][5:], ', '.join(t[:6] for t in tipos_de(_x[2])) or '?') for _x in _suyos) or 'ninguno',
+                    ', '.join('%s=%d' % (nom[:6], _cuenta_t.get(nom, 0)) for nom, _ in TIPOS_CLIENTE),
+                    _menos[:6]), aviso=True)
             if re.search(r'qui[eé]n decide', _nj, re.I):
                 chk(False, 'ENTREGA: "quien decide" ya esta muy visto (§4.4b-ROTACION)',
                     '%d de los ultimos 12 ninjas de las 3 cuentas lo dicen. Mismo dolor, otra '

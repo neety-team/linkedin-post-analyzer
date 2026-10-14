@@ -2335,6 +2335,21 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > 6. **Un ninja, un eslabón.** Hansa-Flex rechazó la demo entera con *"más de lo que podemos digerir"*. El lector de un post todavía menos: el bloque de dos vende UN paso, nunca la cadena.
 > 7. **Unidad de medida: sigue siendo tiempo perdido en su escala** (*"semanas para cinco"*, meses). La frase de demo *"esto ha tardado veinte minutos"* vale en directo, delante de sus cinco, **no en un ninja**: ahí es la promesa de velocidad de la herramienta que ya dejaron.
 
+> #### 🧩🧩 4.4b-TIPOS · CADA NINJA LE HABLA A UNO DE LOS 4 TIPOS DE CLIENTE, ROTAN Y SE MIDEN (Iker, 2026-10-14) — GLOBAL, TODOS LOS PILARES
+>
+> **Iker:** *"que los spam ninjas ataquen a los cuatro tipos, priorizando el que vayas viendo poco a poco y autoaprendiendo en base a datos qué es el que más convierte"*. Los tipos son los eslabones de `§4.4b-CADENA`: **1** no sabe a qué empresas vender (9 cuentas, cierra 11%) · **2** sabe cuáles pero no a quién dentro (15, 20%) · **3** sabe a quién pero no cuándo (21, 10%) · **4** no tiene nada montado, se le van los meses buscando (26, 62%, 16 de los 22 clientes).
+>
+> **Dónde estábamos (auditoría del 14/10, 55 ninjas medidos desde julio):** en las 3 cuentas, los ninjas de las últimas 3 semanas hablaban al tipo 2 doce veces, al tipo 1 dos, y al 3 y al 4 una vez cada uno. El primer ninja limpio al tipo 4 con el enlace del webinar es la historia de Unai del 14/10 (`Un Excel así le cuesta meses de calle a cualquiera.` / `Buscar menos y vender más, eso sí te lo explicamos:`). El tipo 4 ya había salido antes, pero siempre mezclado con el 2 (`Saber quién firma lleva meses`).
+>
+> **LAS REGLAS:**
+> 1. **Un ninja, un tipo** (`§4.4b-CADENA` punto 6). Se elige el que cuelga de la escena o del gancho de ESE post y, si dos encajan igual, **el menos probado** en las 3 cuentas. Lo dice el validador en cada entrega.
+> 2. **El tipo tiene que poder cumplirlo el destino** (`§4.4b-PROMESA`). **Con el webinar (hasta el 28/10)**, la página de Luma cumple el **tipo 1** (encontrar empresas por lo que hacen y no por su sector, con LinkedIn gratis y con Claude) y el **tipo 4** (que el equipo dedique el tiempo a contactar, no a buscar). El **tipo 2** solo si la sesión enseña a dar con la persona de dentro (hoy la descripción no lo dice: preguntar a Iker). El **tipo 3** no lo cumple la sesión, y además la señal es la objeción nº1 del informe (`§4.4b-ORDEN`). Con `/solicitar-demo` valen los cuatro, el 3 dicho como pérdida (`llegar tarde`), nunca como `señal`.
+> 3. **El tipo 2 no se aparca: cambia la palabra.** `quién decide` está muy visto (7 de 12): `quién manda dentro`, `quién firma`, `quién tiene la última palabra`.
+> 4. **Se aprende con datos nuestros y sale solo en la revisión de los lunes:** `python scripts/auditar-ninjas.py` agrupa ya por tipo dentro de cada pilar (bloque 2b). Para `/solicitar-demo` cuentan clics, CTR y demos por UTM. **Para el webinar cuentan los inscritos por cada 1.000 impresiones**, con el CSV de Luma de cada lunes (`post-workflow §4.4-CONVERSION-EVENTO`). Un tipo pasa a ser el prioritario con 3 posts o más dentro del mismo pilar y ganando en dos revisiones seguidas (la regla de `§4.4b-ROTACION`); mientras no, se rota.
+> 5. **Cada ficha del historial apunta el tipo de su ninja**, igual que el dolor.
+>
+> **⚠️ Lo que no hace el script:** clasifica por palabras (`buscar` / `meses` es 4, `decide` / `firma` es 2, `cuándo` / `tarde` es 3, `sector` / `encaja` / `cuáles` es 1), así que un ninja puede caer en dos tipos o en ninguno. El tipo de cada post se confirma a mano al apuntarlo en el historial.
+
 > #### 🔀🔀 4.4b-ROTACION · EL DOLOR DEL NINJA ROTA ENTRE POSTS, Y SE MIDE (Iker, 2026-10-08) — GLOBAL, TODOS LOS PILARES
 >
 > > **Iker:** *"todo el rato veo que estamos diciendo quién decide, quién decide, quién decide. Mantener el mismo punto de dolor pero variar con sinónimos, o incluso variar con los tipos de punto de dolor, no solo con el más efectivo, para seguir haciendo A/B testing"*.

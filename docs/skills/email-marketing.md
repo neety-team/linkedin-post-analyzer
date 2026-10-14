@@ -2479,9 +2479,11 @@ Hay **dos** y hay que repartirlos, o salen duplicados:
 
 **Medido el 14/10:** el último contacto que entró a la lista 15 fue el **22/09**. En la D1 hay **5 consentimientos de neety.com (06/10-13/10) que no están en Brevo**. Se leen con `npx wrangler d1 execute landing --remote` desde el repo `landing` (la sesión tiene acceso a Cloudflare).
 
-**Mientras no se arregle la tubería,** antes de cada envío se cruzan los `consent_comms = 1` de la D1 con Brevo y los que falten se suben a mano, de uno en uno.
+~~**Mientras no se arregle la tubería,** antes de cada envío se cruzan los `consent_comms = 1` de la D1 con Brevo y los que falten se suben a mano.~~ Ya no hace falta (arreglado el 14/10, abajo). Antes de un envío basta con comprobar que el último alta de la lista 15 es reciente.
 
-**🔧 El arreglo (14/10, dos ramas pendientes de fusionar, primero la de la web):**
+**✅ RESUELTO Y EN PRODUCCIÓN EL 14/10 a las 11:32** (web `landing` a53d938 en `main`, CRM `saldu` fd56817 en `master`). Comprobado en producción: a las 11:33, al arrancar el CRM, entraron solos en la lista 15 los 4 consentimientos atascados (42 → 46). El quinto **no entra, y es correcto**: estaba bloqueado desde agosto (`Desktop/BREVO-CONTACTOS-BORRADOS/bloqueados-no-volver-a-escribir.txt`), así que la baja manda aunque volviera a marcar la casilla. El aviso al momento de la web está probado en las pruebas y desplegado (el endpoint responde 401 sin clave); falta verlo con la primera casilla real.
+
+**🔧 El arreglo (14/10):**
 - **Web nueva** (`landing`, rama `claude/crm-leads-sync`): `GET /api/crm/leads` con el secreto de la atribución, y aviso al CRM al momento cuando alguien marca o desmarca la casilla o se borra un lead en el admin.
 - **CRM** (`saldu`, rama `claude/leads-web-nueva`): lee los leads de neety.com (el Postgres de recursos queda de respaldo) y sube a Brevo en la misma vuelta. **Brevo manda en las bajas:** antes de subir a alguien nuevo se le pregunta a Brevo y, si está bloqueado, se apunta la baja en el CRM. Repaso diario de bloqueados de la cuenta.
 - **El circuito queda:** formulario de neety.com → D1 → aviso al CRM (al momento) y lectura horaria → audiencia `📥 Recursos · Todos` → lista 15 de Brevo. De vuelta: el webhook de Brevo (bajas, rebotes, spam) más el repaso diario → `mkt_unsubscribes` del CRM → nunca se vuelve a subir.

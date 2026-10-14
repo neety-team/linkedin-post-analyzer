@@ -281,6 +281,12 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'un excel así le cuesta meses de calle': '2026-10-14 historia de Unai 14/10 (el Excel antes que las maquinas, webinar, tipo 4), la linea 1 del ninja',
+    'un excel asi le cuesta meses de calle': '2026-10-14 historia de Unai 14/10, sin tilde',
+    'buscar menos y vender más, eso sí te lo explicamos': '2026-10-14 historia de Unai 14/10, la linea 2 del ninja',
+    'buscar menos y vender mas, eso si te lo explicamos': '2026-10-14 historia de Unai 14/10, sin tilde',
+    'el miércoles 28 damos una charla online y gratis': '2026-10-14 historia de Unai 14/10, la linea de contexto del webinar',
+    'el miercoles 28 damos una charla online y gratis': '2026-10-14 historia de Unai 14/10, sin tilde',
     'lanzar mensajes a miles que no comprarán': '2026-10-08 historia-video de Unai 08/10 (resumen de Neety Forward, webinar), la linea 1 del ninja',
     'lanzar mensajes a miles que no compraran': '2026-10-08 historia-video de Unai 08/10, sin tilde',
     'cuáles sí comprarían, te lo enseñamos nosotros': '2026-10-08 historia-video de Unai 08/10, la linea 2 del ninja',
@@ -466,6 +472,8 @@ ARRANQUE_QUEMADO = {
         'volvi': '2026-09-15 historia de Iker 15/09 ("Volvi al coche / Volvi a la lista / Volvi a mirarla")',
         'el': '2026-09-23 historia de Iker 23/09 ("El otro no lo leyo / El otro entro / El otro comio")',
         'gente': '2026-10-02 historia de Mario 02/10 ("Gente que condujo / Gente de traje / Gente que vino")',
+        'tenia': '2026-10-14 historia de Unai 14/10 ("Tenia 43 empresas / Tenia al lado")',
+        'miro': '2026-10-14 historia de Unai 14/10 ("Miro sus webs / Miro que piezas / Miro en cada feria")',
     },
     'mapa': {
         'ni': '2026-09-22 mapa de Álava, Iker ("Ni la llena Celedón / Ni la llenan los blusas")',

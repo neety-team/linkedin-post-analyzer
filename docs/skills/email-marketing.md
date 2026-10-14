@@ -884,6 +884,29 @@ No se dispara lo mismo a toda la base. Mínimo separar por: **origen** (lead mag
 
 ---
 
+## ⛔⛔ 5-UNA-VARIABLE · CADA CORREO PRUEBA UNA SOLA COSA (Mario, 2026-10-14) — CANÓNICO
+
+> **Mario, tras el correo 8:** *"que cada vez que hagamos un correo siempre incluyamos solo un A/B testing… si cambiamos cuatro elementos, puede incluso ser un desastre"*. El correo 8 cambió a la vez el remitente (estreno de Asier), el pilar (estreno de receta), la longitud (240 palabras contra 116-158) y el destino (el webinar). Salga como salga, no sabremos por qué.
+
+**La regla:** cada correo copia las variables de FORMA del correo de referencia y cambia **una sola**, que se declara antes de escribirlo. El contenido (la historia, el tema) cambia siempre: eso no es la variable.
+
+| variable de forma | qué se mira |
+|---|---|
+| remitente | Iker · Unai · Asier · Kaixito |
+| pilar | historia · objeción · calendario · mito · receta · dolor · cicatriz · anzuelos |
+| longitud | palabras del cuerpo |
+| posición del enlace | % del cuerpo donde cae el bloque |
+| tipo de asunto | pregunta de tú a tú contra afirmación |
+| GIF | con o sin |
+| la PPD | reenvío, remate o pregunta que pide contestar |
+| la hora | 09:05 o la del día |
+
+- **Correo de referencia, hoy:** el **5** (Iker, objeción, 140 palabras, asunto pregunta, enlace hacia el 45-50%, sin GIF), el de más clics de lead (5-7 de 111). Cuando otro le gane en clics limpios, pasa a ser él la referencia.
+- **En la entrega va una línea:** `Variable en prueba: X (todo lo demás como el correo N)`. Y en `historial-newsletter`, en la ficha de cada correo.
+- **⚠️ La tensión con la rotación de remitentes (`§1`), que hay que decidir:** si el remitente rota en cada correo, siempre cambian dos cosas (remitente y lo que se pruebe). Las salidas son fijar un remitente mientras se prueban otras cosas, o hacer del remitente la variable de algunos correos. **Pendiente de decisión de Mario** (le propuse fijar a Kaixito, que abre más en la lista comparable y lleva 0 bajas, hasta el webinar del 28/10).
+- **El A/B nativo de Brevo (dos asuntos al 50%) todavía no compensa, y no por falta de ganas:** con 108 destinatarios son 54 por brazo, y la diferencia más pequeña que se distingue en aperturas ronda los **27 puntos**. Con 200 por brazo baja a ~14 y con 500 a ~9 *(cálculo mío, aproximación normal con un 50% de apertura, no medido)*. **Se activa cuando la lista pase de ~400.** Mientras tanto, la prueba es de un correo al siguiente, con una sola variable.
+- **Y el segmento ya está bien hecho para cuando toque:** cada contacto lleva en el CRM de dónde vino (`lead_origin`, `how_found`, recurso) y solo entra quien marcó la casilla. Eso permite, con volumen, probar el remitente por origen (quien llegó por LinkedIn de Unai, ¿abre más si le escribe Unai?).
+
 ## 6 · Sistema de trabajo (el método Carmen/Runner Pro, adaptado)
 
 Carmen lleva la newsletter de Runner Pro (B2C) entera desde Claude Code con un playbook .md y tandas programadas. Su sistema, adaptado a Neety:
@@ -2407,6 +2430,8 @@ Igual que en LinkedIn se avisa de adjuntar la imagen o de pasarle las tipografí
 
 ```
 🔴 ANTES DE ENVIAR A NADIE:
+0. Una sola variable en prueba, declarada (§5-UNA-VARIABLE).
+   Y `python scripts/salud-suscriptores.py` en verde: si no, faltan suscriptores.
 1. Prueba a `testers` (mínimo 4, y que NO sean los 4 el mismo cliente de correo).
 2. RESPONDER a esa prueba y comprobar que la respuesta llega al buzón que se lee.
 3. Abrirlo en MÓVIL y en modo OSCURO.
@@ -2487,7 +2512,7 @@ Hay **dos** y hay que repartirlos, o salen duplicados:
 **🔧 El arreglo (14/10):**
 - **Web nueva** (`landing`, rama `claude/crm-leads-sync`): `GET /api/crm/leads` con el secreto de la atribución, y aviso al CRM al momento cuando alguien marca o desmarca la casilla o se borra un lead en el admin.
 - **CRM** (`saldu`, rama `claude/leads-web-nueva`): lee los leads de neety.com (el Postgres de recursos queda de respaldo) y sube a Brevo en la misma vuelta. **Brevo manda en las bajas:** antes de subir a alguien nuevo se le pregunta a Brevo y, si está bloqueado, se apunta la baja en el CRM. Repaso diario de bloqueados de la cuenta.
-- **El circuito queda:** formulario de neety.com → D1 → aviso al CRM (al momento) y lectura horaria → audiencia `📥 Recursos · Todos` → lista 15 de Brevo. De vuelta: el webhook de Brevo (bajas, rebotes, spam) más el repaso diario → `mkt_unsubscribes` del CRM → nunca se vuelve a subir.
+- **El circuito queda:** formulario de neety.com → D1 → aviso al CRM (al momento) y lectura cada 6 h (Mario, 14/10: cada hora era gastar llamadas para uno o dos altas al día) → audiencia `📥 Recursos · Todos` → lista 15 de Brevo. De vuelta: el webhook de Brevo (bajas, rebotes, spam) más el repaso diario → `mkt_unsubscribes` del CRM → nunca se vuelve a subir.
 - Probado: web 120/120 y CRM 630/630. **Falta la prueba en producción tras fusionar:** ver que los 5 entran en la lista 15.
 
 ### 📬 DE DÓNDE ENTRAN LOS SUSCRIPTORES DESDE EL 2026-08-18: LA LANDING DE CORREO

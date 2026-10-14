@@ -2059,6 +2059,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'nunca es una persona ni un equipo, es la falta de informacion, la herramienta o el '
         'proceso. Y si se puede, que la frase incluya al que publica' % _rep.group(0)
         if _rep else '', aviso=True)
+    # "ESE" DESPECTIVO PARA UNA PERSONA (Iker, 2026-10-14). En la historia de los
+    # kilometros la cita decia "¿Mi jefe? Ese no recibe a comerciales": llamar
+    # "ese" al que decide suena a desprecio, y el que decide es quien nos compra.
+    # Quedo "Él no recibe…". Aviso: "ese cliente", "esa parte" son legitimos.
+    _ese = re.search(r'(?:^|[?¿.!"\s])((?:Ese|Esa|Esos|Esas)\s+(?:no|nunca|ni|siempre|solo|ya)\b)',
+                     cuerpo)
+    chk(not _ese, 'Sin "ese" despectivo para una persona (brand-voice, no criticamos)',
+        '"%s": "ese" a secas para referirse a alguien, sobre todo al que decide o compra, '
+        'suena a desprecio. Usa "él"/"ella" o su cargo' % _ese.group(1) if _ese else '',
+        aviso=True)
     m = re.search(NEGRITA_UNICODE, cuerpo)
     chk(not m, 'Sin negrita Unicode tipo 𝗟𝗮𝘀 𝟭𝟬 (§6)',
         'el check de markdown no la caza: es otro bloque Unicode' if m else '')

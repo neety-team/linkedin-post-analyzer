@@ -266,7 +266,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 
 | dato | |
 |---|---|
-| **Estado** | entregado el 14/10 para publicar HOY por la tarde · validador **67/67** (`--pilar historia --cuenta iker`) · 741 car con la URL a 25 · enlace en el ~649 (validador) · foto `HISTORIA/IKER/iker pasarela maletas cuadrada.jpg` (la anterior fue `cena1 cuadrada`, de grupo) |
+| **Estado** | entregado el 14/10 para publicar HOY por la tarde · validador **67/67** (`--pilar historia --cuenta iker`) · 741 car con la URL a 25 · enlace en el ~649 (validador) · foto **`HISTORIA/IKER/iker perfil.jpg`** (sin salir desde el 18/08; Iker tumbó la pasarela por usada el 23/09, `post-workflow §4.6-FOTO` afinado el 14/10) · cita cambiada a `¿Mi jefe? Él no recibe a comerciales.` (el `Ese` sonaba despectivo con el que decide) |
 | **Por qué historia (decidido con Iker)** | Unai subió historia hoy y Asier meme. Iker venía de mapa (Canarias 08/10): peloteo descartado por Iker (dos seguidos) y lead magnet no lleva enlace, así que no puede inscribir a nadie al webinar (y sus 4 últimos se quedaron en 18-3.900 imp). **Se rompe a propósito la exclusividad de categoría del día** (dos historias: Unai e Iker), con su OK previo |
 | **Pilar** | historia · **rama A** (propia, 1ª singular) · no regional · escena INVENTADA sobre dolor real · vehículo nuevo en su cuenta: **el viaje a ver al cliente** (sus 3 anteriores: el cliente del no, el coche, la casa rural) |
 | **Dolor y tipo** | **tipo 2** (sabe la empresa, no quién manda dentro; eslabón 2, 15 cuentas; citas de Ecenarro y Gaitek). Elegido porque el webinar cumple 1, 2 y 4 y hoy Asier va al 1 y Unai al 4. ⚠️ Es el 3er tipo 2 seguido en Iker: declarado. Palabra nueva `quién manda` (no `quién decide`) |

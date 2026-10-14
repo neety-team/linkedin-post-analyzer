@@ -790,6 +790,8 @@ que la frase **incluya al que publica**, así no señala a nadie:
 ✅ Ninguno traía nombre ni cargo. / Y sin eso, cualquiera llama a ciegas.
 ```
 
+**⛔ Y EL DEMOSTRATIVO TAMBIÉN DESPRECIA (Iker, 2026-10-14).** En la historia de Iker la cita decía `"¿Mi jefe? Ese no recibe a comerciales."`. Nadie insulta a nadie, pero **llamar `ese` a una persona suena despectivo**, y el que no recibe es justo el cargo que nos compra. Quedó `"¿Mi jefe? Él no recibe a comerciales."`. La gracia de la escena es que el majo no podía comprar, no que el jefe sea antipático. Vale también dentro de una cita: la verosimilitud de `§3b` no justifica dejar mal al que decide. Aviso en `validar-post.py` (`Sin "ese" despectivo`).
+
 **El test, antes de entregar:** *¿hay alguien —dentro o fuera— que pueda leer esta
 frase y sentirse señalado?* Si la respuesta no es un no rotundo, se reescribe contra
 el proceso.

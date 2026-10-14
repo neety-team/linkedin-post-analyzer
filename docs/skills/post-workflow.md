@@ -1665,8 +1665,8 @@ sorprende, que es de lo que vive este pilar.
 
 Mira la foto **sola**, tapando el texto del post, y escribe en literal:
 1. **¿Cuántos paneles / filas / columnas tiene?** → el remix lleva **EXACTAMENTE los mismos**. No es orientativo.
-2. **¿Qué hay en cada panel y quién es?** (mismo par repetido, escalera de personas, antes/después…)
-3. **¿La imagen lleva texto? ¿De quién y qué dice?** ¿Es diálogo, son etiquetas, es un titular?
+2. **¿Qué hay en cada panel y quién es?** (mismo par repetido, escalera de personas, antes/después…) **Y qué POSE tiene en cada uno (manos, brazos, cabeza, mirada): lo que cambia de un panel a otro es parte del chiste** (el sable del 14/10: arriba dos manos, abajo una y el otro brazo atrás).
+3. **¿La imagen lleva texto? ¿De quién y qué dice?** ¿Es diálogo, son etiquetas, es un titular? **Y se apunta POR PANEL Y POR POSICIÓN**, no como una frase seguida: si un sitio repite texto entre paneles, el remix lo repite idéntico y el giro va entero en su sitio (`images §0b-TEXTO-REF-REVELACION`, el sable del 14/10).
 4. **¿Qué NO lleva la imagen?** ← el más importante. Aquí es donde se cuela lo que solo estaba en el post.
 5. **⭐ ¿DE QUIÉN es la identidad que sale dentro de la imagen?** ← pregunta nueva, ver el bloque de abajo.
 6. **📱 ¿Es una captura o un collage de una APP** (TikTok, X, correo, chat)? Entonces se calca su interfaz (botones, avatar, subtítulo), el número de líneas y el tamaño de cada texto, aunque la persona se redibuje (`images §0a-sexta-TIKTOK`, 02/10).

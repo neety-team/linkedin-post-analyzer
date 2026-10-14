@@ -19,6 +19,9 @@ import re
 import statistics
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 AQUI = os.path.dirname(os.path.abspath(__file__))
 _spec = importlib.util.spec_from_file_location('vp', os.path.join(AQUI, 'validar-post.py'))
 vp = importlib.util.module_from_spec(_spec)

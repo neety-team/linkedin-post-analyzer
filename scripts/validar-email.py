@@ -519,6 +519,9 @@ def main():
             # correo 7 · Kaixito · MITO (enviado 06/10, apuntado el 13/10: se olvido al enviar)
             'la lista larga te la vende cualquiera': '2026-10-06',
             'la corta, con quien decide, nosotros': '2026-10-06',
+            # correo 8 · Asier · RECETA (enviado 14/10 11:49)
+            'por sector te salen cientos de empresas': '2026-10-14',
+            'dar con esas pocas es lo que ensenamos': '2026-10-14',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el

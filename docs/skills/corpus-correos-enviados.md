@@ -521,6 +521,77 @@ PPD. Si tu lista pasa de 2.000, no me lo cuentes. Me vuelvo a enfadar.
 
 ---
 
+## Asier 08 · la receta del sector (pilar RECETA, el primero del pilar y el estreno de Asier · puerta webinar `luma.com/7hhyx07z`)
+
+**Enviado:** 2026-10-14 11:49 (fuera de las 09:05: semana de puente y ordenador roto, decisión de Mario) · campaña Brevo 29 · listas 15 + 4 + 17 + 18 · **108 enviados, 107 entregados**
+**Remitente:** `Asier de Neety` (`hola@neety.com`) · firma `Asier Olaizola, cofundador de Neety` · sin GIF
+**UTM escrito a mano:** `utm_source=correo-08-asier-receta` (Luma solo lee `utm_source`)
+
+### El asunto y el preheader
+
+```
+en qué sector está tu próximo cliente?
+```
+```
+Si has pensado en uno, este correo es para ti.
+```
+
+### El cuerpo, literal
+
+```
+Apunta.
+
+Hoy no toca historia, toca receta.
+Una que funciona a mano y no cuesta un euro.
+
+Pregúntale a un director comercial por su próximo cliente.
+
+Te dirá metal, de 50 a 200 empleados.
+
+Eso, metido en un filtro, es medio polígono.
+Ninguna empresa te compra por su sector.
+
+Te compra por otra cosa.
+
+Por lo que hace de verdad.
+Por el material con el que trabaja.
+Por el problema que tú le resuelves cada día.
+
+Antes de programar nuestro buscador, lo hacíamos así a mano.
+
+1. Escribe en una línea qué hace tu mejor cliente.
+2. Saca 3 palabras que solo usaría alguien de su oficio.
+3. Búscalas en LinkedIn, también en la pestaña Publicaciones.
+4. Abre cada empresa y apunta la frase que prueba que lo hace.
+5. La que no tenga esa frase, fuera.
+
+La segunda parte va el miércoles 28 a las 10, online y gratis.
+
+Por sector te salen cientos de empresas y sirven pocas.
+Dar con esas pocas es lo que enseñamos nosotros: luma.com/7hhyx07z
+
+La receta funciona, eso sí, a otro ritmo.
+
+Por cada empresa, unos minutos.
+Por cada sector nuevo, unas semanas.
+Por cada mercado que abres, unos meses.
+
+Encontrar las que no publican nada fue lo que más nos costó programar.
+
+Haz solo el paso 1 esta semana, con tu mejor cliente.
+
+Tu próximo cliente tiene un sector, claro.
+Solo que no lo vas a encontrar ahí.
+
+Asier Olaizola, cofundador de Neety
+
+PD. Si la lista de clientes la lleva otra persona en tu empresa, reenvíale esto.
+
+PPD. Si haces el paso 1, contéstame con la línea que te salga. Las leo todas.
+```
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

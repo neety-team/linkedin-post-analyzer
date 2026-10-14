@@ -1679,6 +1679,40 @@ router.get('/analytics', async (req: Request, res: Response) => {
       [currentStartIso, currentEndIso, ...audienciaScope.params]
     );
 
+    // QUIEN NOS LEE EN EL PERIODO (Mario, 2026-10-14): la demografia de todos los posts
+    // juntos, no la de cada uno ("por cada post concreto no nos da mucha info"). Cada
+    // etiqueta = media de su % en los posts, PONDERADA por personas alcanzadas. LinkedIn
+    // solo da el top de cada lista por post, asi que una etiqueta que no sale en un post
+    // cuenta como 0 en ese post: los % son de minimos, sirven para ordenar.
+    const resumenAudScope = scope(3);
+    const resumenAudQ = await pool.query(
+      `WITH p AS (
+         SELECT p.audiencia, COALESCE(p.members_reached, 1)::numeric AS peso, p.members_reached
+           FROM posts p
+          WHERE p.published_at >= $1 AND p.published_at <= $2 AND ${resumenAudScope.sql}
+            AND p.audiencia IS NOT NULL AND jsonb_typeof(p.audiencia) = 'object'
+       ),
+       tot AS (SELECT SUM(peso) AS t FROM p),
+       filas AS (
+         SELECT k.key AS campo, e->>'label' AS label, (e->>'pct')::numeric * p.peso AS v
+           FROM p, jsonb_each(p.audiencia) k, jsonb_array_elements(k.value) e
+          WHERE jsonb_typeof(k.value) = 'array'
+       )
+       SELECT campo, label, ROUND(SUM(v) / NULLIF((SELECT t FROM tot), 0), 1)::float AS pct
+         FROM filas GROUP BY campo, label`,
+      [currentStartIso, currentEndIso, ...resumenAudScope.params]
+    );
+    const resumenAudTotQ = await pool.query(
+      `SELECT COUNT(*)::int AS posts, COALESCE(SUM(p.members_reached), 0)::bigint AS alcance
+         FROM posts p
+        WHERE p.published_at >= $1 AND p.published_at <= $2 AND ${resumenAudScope.sql}
+          AND p.audiencia IS NOT NULL`,
+      [currentStartIso, currentEndIso, ...resumenAudScope.params]
+    );
+    const audienciaResumen: Record<string, { label: string; pct: number }[]> = {};
+    for (const r of resumenAudQ.rows) (audienciaResumen[r.campo] ??= []).push({ label: r.label, pct: r.pct });
+    for (const k of Object.keys(audienciaResumen)) audienciaResumen[k] = audienciaResumen[k].sort((a, b) => b.pct - a.pct).slice(0, 6);
+
     // Account-level deltas across the same date range. We track followers
     // and profile views as daily snapshots in dedicated tables — for the
     // KPI cards we just want last - first per creator, summed when scope
@@ -1836,6 +1870,11 @@ router.get('/analytics', async (req: Request, res: Response) => {
       ganchos: ganchosQ.rows,
       // Fila con pillar = null: el total de todos los pilares.
       audiencia_pilares: audienciaQ.rows,
+      audiencia_resumen: {
+        posts: resumenAudTotQ.rows[0]?.posts ?? 0,
+        alcance: Number(resumenAudTotQ.rows[0]?.alcance ?? 0),
+        demografia: audienciaResumen,
+      },
       per_account: perAccount,
     });
   } catch (err: any) {

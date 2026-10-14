@@ -25,7 +25,7 @@ import {
 } from '../utils/topPostsFiltros';
 import { useChartColors, type ChartColors } from '../theme';
 import InfoHint from '../components/InfoHint';
-import AudienciaPost from '../components/accounts/AudienciaPost';
+import AudienciaResumen from '../components/accounts/AudienciaResumen';
 import { pctDecisores, type Demografia } from '../utils/audiencia';
 
 interface ManagedAccount {
@@ -355,6 +355,8 @@ interface Analytics {
   ganchos?: GanchoRow[];
   // Quien lee cada pilar (demografia de LinkedIn). pillar = null es el total.
   audiencia_pilares?: { pillar: string | null; posts: number; decisores_pct: number | null; alcance_medio: number | null; en_red_pct: number | null }[];
+  // Quien nos lee: la demografia de todos los posts del periodo juntos.
+  audiencia_resumen?: { posts: number; alcance: number; demografia: Partial<Demografia> };
   per_account: PerAccountRow[];
 }
 
@@ -1740,6 +1742,14 @@ function AccountsInner() {
                 pie="tasa de acierto"
               />
             </div>
+            {analytics.audiencia_resumen && (
+              <AudienciaResumen
+                posts={analytics.audiencia_resumen.posts}
+                alcance={analytics.audiencia_resumen.alcance}
+                demografia={analytics.audiencia_resumen.demografia}
+                decisores={(analytics.audiencia_pilares ?? []).find((f) => f.pillar === null)?.decisores_pct ?? null}
+              />
+            )}
             {(() => {
               // QUIEN LEE CADA PILAR (Mario, 2026-10-14): % de decisores ponderado por
               // alcance. Para saber que tipo de post llega a quien compra.
@@ -2770,7 +2780,6 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
       </div>
       {open && (
         <div className="px-3 pb-3">
-          <AudienciaPost post={post} />
           <SnapshotCurve postId={post.id} publishedAt={post.published_at} autoRefresh={post.is_live} />
         </div>
       )}
@@ -2923,7 +2932,6 @@ function TopPostRow(
       </div>
       {open && post.published_at && (
         <div className="px-3 pb-3">
-          <AudienciaPost post={post} />
           <SnapshotCurve postId={post.id} publishedAt={post.published_at} />
         </div>
       )}

@@ -1153,6 +1153,14 @@ const migration = `
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS gancho_version INTEGER;
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS gancho_intentado_at TIMESTAMPTZ;
   CREATE INDEX IF NOT EXISTS idx_posts_gancho_palanca ON posts (gancho_palanca) WHERE gancho_palanca IS NOT NULL;
+
+  -- QUIEN VE CADA POST (Mario, 2026-10-14; services/audienciaPost.ts). Personas
+  -- alcanzadas, % dentro de la red y la demografia de la analitica Premium
+  -- (cargo, zona, nivel, empresa, sector, tamaño: top de cada una con su %).
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS members_reached INTEGER;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS in_network_pct SMALLINT;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS audiencia JSONB;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS audiencia_at TIMESTAMPTZ;
 `;
 
 /**

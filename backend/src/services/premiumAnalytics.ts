@@ -29,6 +29,7 @@
  */
 
 import { aSegundos, fetchVideoDuration } from './videoMetrics';
+import { fetchAudiencia, saveAudiencia } from './audienciaPost';
 
 const BASE = () => process.env.UNIPILE_BASE_URL || 'https://api18.unipile.com:14891';
 const KEY = () => process.env.UNIPILE_API_KEY || '';
@@ -220,6 +221,18 @@ export async function savePremiumAnalytics(
       avgVisto,
     ]
   );
+
+  // Quien lo ve (Mario, 2026-10-14): alcance y demografia llegan en una segunda
+  // peticion de LinkedIn (services/audienciaPost.ts). Va con la misma cadencia que
+  // esta analitica y aparte: si falla, lo de arriba ya esta guardado.
+  if (ctx) {
+    try {
+      const aud = await fetchAudiencia(ctx.linkedinPostId, ctx.accountId);
+      if (aud) await saveAudiencia(pool, postId, aud);
+    } catch (e: any) {
+      console.warn(`[premiumAnalytics] audiencia de ${postId}:`, e?.message);
+    }
+  }
 
   // Duracion del video: una sola vez por post (no cambia nunca). Solo si la
   // pagina trajo el bloque de video. Va aparte: si falla, lo de arriba ya esta.

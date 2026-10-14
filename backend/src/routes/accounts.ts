@@ -23,6 +23,7 @@ import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSy
 import { clasificarGanchosPendientes, estadoGanchos } from '../services/ganchoPsicologia';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from '../services/premiumAnalytics';
 import { leerDemos, leerEventoWeb } from '../services/conversionesWeb';
+import { fetchAudiencia, saveAudiencia } from '../services/audienciaPost';
 import {
   extraerPost,
   guardarPostManual,
@@ -1597,6 +1598,7 @@ router.get('/analytics', async (req: Request, res: Response) => {
         p.likes_count, p.comments_count, p.reposts_count, p.impressions_count,
         p.profile_viewers_count, p.followers_gained_count,
               p.saves_count, p.sends_count, p.link_clicks_count, p.premium_button_clicks, p.link_url, p.pillar,
+              p.members_reached, p.in_network_pct, p.audiencia,
               p.video_views, p.video_watch_time_s, p.video_avg_watch_s, p.video_duration_s,
         p.engagement_score, p.outlier_ratio, p.is_outlier,
         p.post_url, p.hook_text, p.gancho_palanca, p.gancho_palanca_2, p.gancho_motivo,
@@ -1880,6 +1882,7 @@ router.get('/live-posts', async (req: Request, res: Response) => {
          p.likes_count, p.comments_count, p.reposts_count, p.impressions_count,
          p.profile_viewers_count, p.followers_gained_count,
               p.saves_count, p.sends_count, p.link_clicks_count, p.premium_button_clicks, p.link_url, p.pillar,
+              p.members_reached, p.in_network_pct, p.audiencia,
               p.video_views, p.video_watch_time_s, p.video_avg_watch_s, p.video_duration_s,
          p.engagement_score, p.outlier_ratio, p.is_outlier, p.post_url,
          c.id AS creator_id, c.name AS creator_name, c.profile_image_url AS creator_image,
@@ -2221,6 +2224,7 @@ router.get('/posts/:id/snapshots', async (req: Request, res: Response) => {
               p.likes_count, p.comments_count, p.reposts_count, p.impressions_count,
               p.profile_viewers_count, p.followers_gained_count,
               p.saves_count, p.sends_count, p.link_clicks_count, p.premium_button_clicks, p.link_url, p.pillar,
+              p.members_reached, p.in_network_pct, p.audiencia,
               p.video_views, p.video_watch_time_s, p.video_avg_watch_s, p.video_duration_s, p.content_type,
               p.post_url, c.name AS creator_name, c.profile_image_url AS creator_image,
               c.is_manual AS creator_is_manual
@@ -4940,6 +4944,73 @@ router.post('/backfill-premium-analytics', async (req: Request, res: Response) =
     res.json({ procesados: resultados.length, restantes: quedan[0].n, resultados });
   } catch (err: any) {
     console.error('[backfill-premium-analytics]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// QUIEN VE CADA POST (Mario, 2026-10-14, services/audienciaPost.ts).
+// POST /api/accounts/audiencia/backfill?dias=60 — rellena ya la audiencia de los posts
+// propios de los ultimos N dias que aun no la tienen (luego se refresca sola con la
+// analitica Premium). En segundo plano, de uno en uno y con pausa: es una peticion a
+// LinkedIn por post. GET /api/accounts/audiencia/estado — cuantos la tienen.
+let rellenandoAudiencia = false;
+const estadoAudiencia = async (dias: number) =>
+  (
+    await pool.query(
+      `SELECT COUNT(*)::int AS total,
+              COUNT(*) FILTER (WHERE p.audiencia IS NOT NULL)::int AS con_demografia,
+              COUNT(*) FILTER (WHERE p.members_reached IS NOT NULL)::int AS con_alcance
+         FROM posts p JOIN creators c ON c.id = p.creator_id
+        WHERE c.is_managed = TRUE AND c.unipile_account_id IS NOT NULL
+          AND p.linkedin_post_id IS NOT NULL AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
+          AND p.deleted_from_linkedin_at IS NULL
+          AND p.published_at >= NOW() - ($1 || ' days')::interval`,
+      [String(dias)]
+    )
+  ).rows[0];
+router.get('/audiencia/estado', async (req: Request, res: Response) => {
+  try {
+    const dias = Math.min(Math.max(Number(req.query.dias) || 60, 1), 365);
+    res.json({ dias, en_marcha: rellenandoAudiencia, ...(await estadoAudiencia(dias)) });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+router.post('/audiencia/backfill', async (req: Request, res: Response) => {
+  if (rellenandoAudiencia) return res.json({ started: false, reason: 'ya está en marcha' });
+  const dias = Math.min(Math.max(Number(req.query.dias) || 60, 1), 365);
+  try {
+    const { rows } = await pool.query(
+      `SELECT p.id, p.linkedin_post_id, c.unipile_account_id
+         FROM posts p JOIN creators c ON c.id = p.creator_id
+        WHERE c.is_managed = TRUE AND c.unipile_account_id IS NOT NULL
+          AND p.linkedin_post_id IS NOT NULL AND p.linkedin_post_id <> 'DEMO_LIVE_POST'
+          AND p.deleted_from_linkedin_at IS NULL
+          AND p.published_at >= NOW() - ($1 || ' days')::interval
+          AND p.audiencia IS NULL
+        ORDER BY p.published_at DESC`,
+      [String(dias)]
+    );
+    rellenandoAudiencia = true;
+    res.json({ started: true, pendientes: rows.length, dias });
+    void (async () => {
+      let ok = 0;
+      try {
+        for (const r of rows) {
+          const a = await fetchAudiencia(String(r.linkedin_post_id), r.unipile_account_id);
+          if (a) {
+            await saveAudiencia(pool, r.id, a);
+            ok++;
+          }
+          await new Promise((fin) => setTimeout(fin, 2500));
+        }
+      } finally {
+        rellenandoAudiencia = false;
+        console.log(`[audiencia/backfill] ${ok}/${rows.length} posts con audiencia`);
+      }
+    })();
+  } catch (err: any) {
+    rellenandoAudiencia = false;
     res.status(500).json({ error: err.message });
   }
 });

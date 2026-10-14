@@ -25,6 +25,8 @@ import {
 } from '../utils/topPostsFiltros';
 import { useChartColors, type ChartColors } from '../theme';
 import InfoHint from '../components/InfoHint';
+import AudienciaPost from '../components/accounts/AudienciaPost';
+import { pctDecisores, type Demografia } from '../utils/audiencia';
 
 interface ManagedAccount {
   id: string;
@@ -134,6 +136,9 @@ interface TopPost {
   premium_button_clicks?: number | null;
   link_url?: string | null;
   pillar?: string | null;
+  members_reached?: number | null;
+  in_network_pct?: number | null;
+  audiencia?: Demografia | null;
   // Psicologia del gancho clasificada por IA (null = aun sin clasificar).
   gancho_palanca?: string | null;
   gancho_palanca_2?: string | null;
@@ -169,6 +174,9 @@ interface LivePost {
   premium_button_clicks?: number | null;
   link_url?: string | null;
   pillar?: string | null;
+  members_reached?: number | null;
+  in_network_pct?: number | null;
+  audiencia?: Demografia | null;
   impressions_count: number | null;
   engagement_score: number;
   outlier_ratio: number | null;
@@ -239,6 +247,9 @@ interface Snapshot {
   premium_button_clicks?: number | null;
   link_url?: string | null;
   pillar?: string | null;
+  members_reached?: number | null;
+  in_network_pct?: number | null;
+  audiencia?: Demografia | null;
 }
 
 interface TypicalBucket {
@@ -481,6 +492,7 @@ type PostPremium = {
   followers_gained_count?: number | null;
   link_clicks_count?: number | null;
   link_url?: string | null;
+  audiencia?: Demografia | null;
 };
 
 /* PORCENTAJE MEDIO VISTO (Iker, 2026-10-01). Como en YouTube Shorts: el
@@ -594,6 +606,14 @@ function FranjaPremium({ post }: { post: PostPremium & { id?: string } }) {
             {fmtNum(post.profile_viewers_count ?? 0)} visitas al perfil
           </span>
         </>
+      )}
+      {pctDecisores(post.audiencia) != null && (
+        <span
+          className="text-text-secondary"
+          title="De quienes vieron el post, % con nivel de decisión (director, VP, C-level, socio o propietario). Analítica Premium de LinkedIn; el detalle, en Ver estadísticas."
+        >
+          👔 {pctDecisores(post.audiencia)}% decisores
+        </span>
       )}
       {/* Demos de la web que trajo ESTE post (utm_campaign + utm_content de la primera
           visita), el dato de conversion mas fuerte: va el ultimo y en verde. */}
@@ -2689,6 +2709,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
       </div>
       {open && (
         <div className="px-3 pb-3">
+          <AudienciaPost post={post} />
           <SnapshotCurve postId={post.id} publishedAt={post.published_at} autoRefresh={post.is_live} />
         </div>
       )}
@@ -2841,6 +2862,7 @@ function TopPostRow(
       </div>
       {open && post.published_at && (
         <div className="px-3 pb-3">
+          <AudienciaPost post={post} />
           <SnapshotCurve postId={post.id} publishedAt={post.published_at} />
         </div>
       )}

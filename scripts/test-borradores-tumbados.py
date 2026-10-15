@@ -81,7 +81,7 @@ CASOS = [
      'Sin anglicismos'),
     ('Le preguntamos a quien vende IA si los comerciales tienen los días contados 👀\n\n' + CUERPO,
      '15/10, Unai: "siendo nosotros una herramienta de ventas, puede ser peligroso que lo preguntemos nosotros"',
-     'UNAI: sin plantear que la IA sustituye'),
+     'sin plantear que la IA sustituye'),
 ]
 
 # Tarjeta de Asier del 15/10, primera version: dio 42/42 juzgando al cliente que paga poco.
@@ -125,6 +125,14 @@ CASOS += [
      'sin cliches del gancho anterior de esa region', FLAGS_LAS10, None),
     (LAS10_ARAGON_V1, '15/10: Uruguay ya lo uso Iker en Murcia (23/07)',
      'el pais no lo ha usado NUNCA esta cuenta', FLAGS_LAS10, None),
+]
+CASOS += [
+    (TARJETA_ASIER.replace('Al cliente que regatea cada euro casi nunca se le elige.\nSe le acepta porque llegó primero.',
+                           'La venta con más descuento casi nunca se busca.\nSe acepta porque fue la primera en llegar.'),
+     '15/10: "¿desde cuando hacemos ganchos con dos lineas y sin salto de linea entre ellos?"',
+     'GANCHO de UNA linea', FLAGS_TARJETA,
+     CARD_ASIER.replace('cuanto menos paga un cliente, más problemas da', 'cuanto más descuento das, más problemas trae la venta')
+               .replace('El cliente barato sale caro.', 'La venta barata sale cara.')),
 ]
 
 def main() -> int:

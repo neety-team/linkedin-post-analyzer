@@ -38,9 +38,9 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 
 | ✅ GLOBAL (imagen de marca, las tres cuentas) | 🎚️ POR CUENTA (tono, se queda donde está) |
 |---|---|
-| No juzgar al que compra, ni cargo ni cliente (`§NO CRITICAMOS` 5) · ni prepotencia sobre él · la prospección nunca como masiva · nada de política (`§NO CRITICAMOS` 6) · no dejar mal a la casa · no criticar a nadie con nombre, región ni colectivo · ningún zasca en respuestas (`§7.1g`) | Unai: gancho grandioso, nunca se hace de menos, plural en historia, intensificador formal, foto corporativa · Asier: no vende (su `yo` es el ingeniero), fútbol y mujer en clave romántica fuera · memes controversiales: solo Iker · Iker: registro bruto y absurdo |
+| No juzgar al que compra, ni cargo ni cliente (`§NO CRITICAMOS` 5) · no plantear que la IA sustituye al comercial (abajo) · ni prepotencia sobre él · la prospección nunca como masiva · nada de política (`§NO CRITICAMOS` 6) · no dejar mal a la casa · no criticar a nadie con nombre, región ni colectivo · ningún zasca en respuestas (`§7.1g`) | Unai: gancho grandioso, nunca se hace de menos, plural en historia, intensificador formal, foto corporativa · Asier: no vende (su `yo` es el ingeniero), fútbol y mujer en clave romántica fuera · memes controversiales: solo Iker · Iker: registro bruto y absurdo |
 
-- **Pendiente de Iker (no se ha movido):** `UNAI NO PLANTEA QUE LA IA SUSTITUYE AL COMERCIAL` (15/10). Su motivo es de marca (*"siendo nosotros una herramienta de ventas… es como que lo vemos así"*), y eso vale igual para los tres fundadores, pero Iker lo dejó escrito como **solo Unai** ese mismo día. Hasta que diga otra cosa, se queda en Unai.
+- **🔄 Movido a global el mismo 15/10 (Iker):** `NADIE PLANTEA QUE LA IA SUSTITUYE AL COMERCIAL` (sección de abajo). *"Él no quiere que públicamente compartamos esa visión, así que es común de la marca"*.
 - **Lo que esto NO es:** una excusa para lijar el tono. Las reglas globales cierran **a quién** se le apunta (al que compra, a la casa, a una región), no **cómo de fuerte** se dice.
 
 | Cuenta | Rol | Registro |
@@ -94,16 +94,18 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 - **Solo Unai.** En el resto de cuentas, el superlativo de incredulidad de `global §2.3d` sigue en pie.
 - **Mecanizado:** con `--cuenta unai`, `validar-post.py` falla si el gancho lleva `jamás`/`nunca` + `pensé`/`imaginé`/`me imaginé`/`creí`.
 
-#### 🤖 UNAI NO PLANTEA QUE LA IA SUSTITUYE AL COMERCIAL, NI COMO PREGUNTA (Unai vía Iker, 2026-10-15)
+#### 🤖 NINGUNA CUENTA PLANTEA QUE LA IA SUSTITUYE AL COMERCIAL, NI COMO PREGUNTA (Unai vía Iker, 2026-10-15) — 🔄 GLOBAL DESDE EL MISMO DÍA
+
+> **🔄 Iker, 15/10, horas después:** *"él no quiere que públicamente pensemos o compartamos esa visión, así que es común de la marca"*. Nació en Unai y **pasa a las tres cuentas y a cualquier perfil de la casa**. Lo que había escrito como "solo Unai" abajo queda corregido por esto. ⚠️ **Lo que cuesta, dicho:** cierra un molde que funcionó en Iker (`El humo de "la IA va a reemplazar a los comerciales"…`, 26/05, 49.824) y en Unai (`Medio LinkedIn jura que la IA le quitó el equipo comercial`, 23.174). La tensión se sigue pudiendo usar sin nombrar la amenaza (`lo que sí vale`, abajo).
 
 > **Unai, eligiendo gancho para la entrevista de Telmo:** *"siendo nosotros una herramienta de ventas, puede ser peligroso que lo preguntemos nosotros, porque si no es como que sí que lo vemos así como visión"*. Tumbó `Le preguntamos a quien vende IA si los comerciales tienen los días contados` y eligió `La pregunta que más incomoda a un comercial se la hicimos a quien vende IA`.
 
-- **Lo vetado es poner la amenaza sobre la mesa desde su cuenta**, aunque sea en pregunta y aunque el post la desmienta: `días contados`, `sustituir`, `reemplazar`, `jubilar`, `quitar el puesto`, `cuánto le queda al comercial`. En la cuenta del CEO de una herramienta de ventas, el lector lo lee como nuestra visión. Es la lente del inversor de arriba.
+- **Lo vetado es poner la amenaza sobre la mesa desde nuestras cuentas**, aunque sea en pregunta y aunque el post la desmienta: `días contados`, `sustituir`, `reemplazar`, `jubilar`, `quitar el puesto`, `cuánto le queda al comercial`. En la cuenta del CEO de una herramienta de ventas, el lector lo lee como nuestra visión. Es la lente del inversor de arriba.
 - **El veto es a la amenaza sobre el COMERCIAL, no a la expresión.** `Lo que tiene los días contados es el filtro` cerró el cuerpo que el jefe aceptó ese mismo día: dice lo contrario de su miedo (el comercial se queda, lo que muere es la cosa) y es justo lo que sustituimos nosotros. Vale cuando el sujeto es una cosa (filtro, Excel, lista, ficha) y la línea no nombra al comercial.
 - **Lo que sí vale:** la misma tensión, pero sin nombrar la amenaza. La pregunta queda implícita (`la pregunta que más incomoda`) y en el cuerpo va la pregunta neutra (`cómo ve al comercial en 5 años, con la IA dentro`).
-- **Lo que dice el dato, para no perderlo:** la creencia universal dicha por otro rinde en esta cuenta (`Medio LinkedIn jura que la IA le quitó el equipo comercial`, meme, 23.174). Iker cree que el gancho tumbado era mejor. **Manda el jefe**: es preferencia suya, no doctrina, y solo en Unai.
-- **Al dar su banco de ganchos:** la creencia que más convierte va primero, pero si es de esta familia, para Unai se formula sin la amenaza desde el primer borrador.
-- **Mecanizado:** fallo duro en `validar-post.py --cuenta unai` (`UNAI: sin plantear que la IA sustituye al comercial`), en todo el texto.
+- **Lo que dice el dato, para no perderlo:** la creencia universal dicha por otro rinde en esta cuenta (`Medio LinkedIn jura que la IA le quitó el equipo comercial`, meme, 23.174). Iker creía que el gancho tumbado era mejor. **Manda la marca**: no es doctrina de datos, es una decisión de posicionamiento (`aboutme §1`: *no reemplaza a tu equipo comercial*).
+- **Al dar su banco de ganchos:** la creencia que más convierte va primero, pero si es de esta familia, se formula sin la amenaza desde el primer borrador, en cualquier cuenta.
+- **Mecanizado:** fallo duro en `validar-post.py` en todas las cuentas y pilares, tarjeta incluida (`MARCA: sin plantear que la IA sustituye al comercial`), en todo el texto. `sustituir`, `reemplazar` y `jubilar` solo cuentan si la línea nombra a una persona o su puesto: así no salta con el verbo del prejuicio del mapa (`La tienen jubilada en un museo minero`) ni con `las he sustituido por herramientas`.
 
 #### 🗂️ SUS POSTS DE EVENTO O HISTORIA LLEVAN GANCHOS ALTERNATIVOS (Iker, 2026-10-08)
 

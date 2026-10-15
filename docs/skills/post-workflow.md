@@ -3421,6 +3421,8 @@ Texto `#0F1419`, sans, **cuerpo grande**. Grant va de 0,91 a 1,00 de ratio; noso
 
 **150-400 caracteres.** La tarjeta **ES el gancho**, así que el texto **arranca ya en cuerpo**: no repite la frase de la tarjeta ni explica la imagen (`global §2.0c`).
 
+**⛔ PERO LA PRIMERA LÍNEA DEL TEXTO ES UN GANCHO DE LA CASA: UNA LÍNEA Y UN BLANCO (Iker, 2026-10-15).** Entregué la tarjeta de Asier abriendo con dos frases en dos líneas pegadas. Iker: *"¿desde cuándo hacemos ganchos con dos líneas y sin salto de línea entre ellos? Nuestros ganchos son una línea"*. El feed enseña esa línea antes que la imagen, así que lleva las reglas de `global §2.1`: **una sola línea, ancla de ventas, bucle abierto que paga el cierre, y un blanco detrás**. No repite la tarjeta (`§2.0c-VISUAL`): abre otro bucle. Caso: `La venta con más descuento casi nunca se busca.` La tarjeta de Iker del 17/09 ya abría así. **Sin emoji en este pilar** (0 de 14 en Grant, y la del 17/09 iba sin él), aunque en el resto de pilares el gancho casi siempre lo lleve. Fallo duro en `validar-post.py` (`TARJETA: el texto abre con un GANCHO de UNA linea`).
+
 **Que el texto entre no es opinión, está medido** en las cuentas de referencia:
 
 | chars | Alex Hormozi | Leila Hormozi |

@@ -943,6 +943,8 @@ def validar_tarjeta(texto, card=None, cuenta=None, historico=False, publica_mana
     Decidido gate a gate, por escrito, como manda el procedimiento:
       · hook (formato, verbo, ancla, nº de frases, densidad de cifras) → NO.
         El gancho esta en la imagen; el validador solo ve el texto de LinkedIn.
+        🔄 15/10: MENOS la forma. La primera linea del texto es la que ve el feed y
+        va como gancho de UNA linea con un blanco detras (check abajo).
       · ritmo §3.2 (bloque de dos, escalera, espejo, alternancia)      → NO.
         Con 400 caracteres no cabe. Mismo motivo por el que el meme queda
         fuera (`global §3.2`): la forma la decide el formato, no nuestro ritmo.
@@ -987,6 +989,22 @@ def validar_tarjeta(texto, card=None, cuenta=None, historico=False, publica_mana
     chk(150 <= n <= 400, 'TARJETA: el texto de LinkedIn cae entre 150 y 400 caracteres (§4.6-PASO-3)',
         f'{n} caracteres con el enlace acortado. Medido en Hormozi: 1-150 da 0,95x-1,06x y '
         f'151-400 da 0,91x-1,11x; a partir de 900 se hunde a 0,71x')
+
+    # ⛔ EL TEXTO TAMBIEN ABRE CON UN GANCHO DE UNA LINEA (Iker, 2026-10-15). El docstring
+    # decia "hook → NO" porque el gancho vive en la imagen, y entregue un texto que abria con
+    # dos frases en dos lineas sin blanco entre ellas. Iker: "¿desde cuando hacemos ganchos
+    # con dos lineas y sin salto de linea entre ellos? Nuestros ganchos son una linea". El
+    # feed enseña la primera linea del texto antes que la tarjeta: es el gancho de la casa
+    # (global §2.1), una sola linea y luego un blanco. La tarjeta de Iker del 17/09 ya abria
+    # asi ("El precio casi nunca es lo que tumba una venta.").
+    _bs_t = bloques(texto)
+    _g = _bs_t[0] if _bs_t else []
+    chk(len(_g) == 1 and len(_g[0]) <= 110,
+        'TARJETA: el texto abre con un GANCHO de UNA linea y luego un blanco (global §2.1)',
+        ('el primer bloque tiene %d lineas: %s. Una sola linea (zona de outliers <=110), '
+         'y el cuerpo despues del blanco' % (len(_g), ' / '.join(_g)[:120])) if len(_g) != 1 else
+        ('%d caracteres: la zona de nuestros ganchos ganadores llega a 110 (§2.10)' % len(_g[0])
+         if len(_g[0]) > 110 else ''))
 
     ms = re.findall(r'#\w+', texto)
     chk(not ms, 'TARJETA: cero hashtags (§4.6-PASO-3)', f'{len(ms)}: {ms[:3]}' if ms else
@@ -2301,23 +2319,30 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # peligroso que lo preguntemos nosotros, porque es como que si lo vemos asi'. Tumbo
     # 'Le preguntamos a quien vende IA si los comerciales tienen los dias contados' y
     # eligio 'La pregunta que mas incomoda a un comercial se la hicimos a quien vende IA'.
-    # Preferencia del jefe, no dato: en Iker y Asier no se aplica.
     # El veto es a la amenaza SOBRE EL COMERCIAL, no a la expresion: 'Lo que tiene los dias
     # contados es el filtro' cierra el post que el jefe acepto (15/10) y dice lo contrario
     # de su miedo. Por eso va por linea, y la linea cuyo sujeto es una cosa (filtro, Excel,
     # lista, ficha) y no nombra al comercial queda fuera.
-    if (cuenta or '').strip().lower() == 'unai':
+    # 🔄 15/10 (Iker): "él no quiere que publicamente compartamos esa vision, asi que es
+    # comun de la marca". Pasa de Unai a TODAS las cuentas: es la vision de la casa.
+    if True:
         _sust = None
         for _l in cuerpo.splitlines():
             _m = re.search(r'd[ií]as contados|sustitu\w*|reemplaz\w*|jubil\w*|quit\w* (el|su) puesto'
                            r'|sin (trabajo|puesto)|acab\w* con (el|los) comercial\w*|cu[aá]nto le queda al comercial',
                            _l, re.I)
+            # Al hacerse global (15/10) saltaba en 'La tienen jubilada en un museo minero' (verbo
+            # del prejuicio del mapa) y en 'las he sustituido por herramientas': sustituir,
+            # reemplazar y jubilar solo cuentan si la linea nombra a una PERSONA o su puesto.
+            if _m and re.match(r'(sustitu|reemplaz|jubil)', _m.group(0), re.I) and not re.search(
+                    r'comercial|vendedor|equipo|personas|puesto|\bte\s+(reemplaz|sustitu|jubil)', _l, re.I):
+                continue
             if _m and not (re.search(r'\b(filtros?|excel|listas?|fichas?|bases? de datos)\b', _l, re.I)
                            and not re.search(r'comercial|vendedor|\bles?\b|\blos ve\b', _l, re.I)):
                 _sust = _m
                 break
-        chk(not _sust, 'UNAI: sin plantear que la IA sustituye al comercial, ni como pregunta (Unai 15/10)',
-            f'"{_sust.group(0)}": aunque sea en pregunta, en la cuenta del CEO de una herramienta de ventas '
+        chk(not _sust, 'MARCA: sin plantear que la IA sustituye al comercial, ni como pregunta (Unai 15/10, global)',
+            f'"{_sust.group(0)}": aunque sea en pregunta, en la cuenta de un fundador de una herramienta de ventas '
             f'se lee como nuestra vision. Se plantea la pregunta sin la amenaza ("la pregunta que mas '
             f'incomoda", "como ve al comercial en 5 anos")' if _sust else '')
 
@@ -5161,6 +5186,15 @@ def main():
                r'|\bclientes?\s+(m[aá]s\s+)?barat[oa]s?\b')
     _juzga = [l.strip() for l in (texto + '\n' + (card or '')).splitlines()
               if re.search(_COMPRA, l, re.I) and re.search(_JUICIO, l, re.I)]
+    # La tarjeta va por validar_tarjeta() y no pasa por el veto global de la IA que sustituye
+    # al comercial (validar()). Se repite aqui para ese pilar, sobre texto y tarjeta.
+    if a.pilar == 'tarjeta':
+        _ia = [l.strip() for l in (texto + '\n' + (card or '')).splitlines()
+               if re.search(r'd[ií]as contados|quit\w* (el|su) puesto|cu[aá]nto le queda al comercial', l, re.I)
+               or (re.search(r'sustitu\w*|reemplaz\w*|jubil\w*', l, re.I)
+                   and re.search(r'comercial|vendedor|equipo|personas|puesto', l, re.I))]
+        res.insert(0, (not _ia, 'MARCA: sin plantear que la IA sustituye al comercial (brand-voice §1b, global 15/10)',
+                       ('"%s": aunque se desmienta, se lee como nuestra vision' % _ia[0][:80]) if _ia else '', False))
     res.insert(0, (not _juzga, 'Sin juicio negativo sobre el que COMPRA, en cualquier pilar y cuenta (brand-voice canonico 5)',
                    ('"%s": cuenta lo que HACE (no coge, compra a otro, pide descuento), sin colgarle el '
                     'adjetivo. La culpa va a la situacion, la prisa o el proceso: "cuanto menos paga un '

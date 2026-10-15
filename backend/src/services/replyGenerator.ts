@@ -865,6 +865,26 @@ export function letrasAlAzar(): number {
   return 1;
 }
 
+/**
+ * DOS Y TRES VOCALES EN LA MISMA TANDA (Iker, 15/10). Recorre los comentarios
+ * que llevan palabra alargada y les deja una y dos vocales de mas alternando,
+ * empezando al azar. Hace falta en codigo: con la palabra ya sorteada a 2 o 3,
+ * el modelo la reescribia con tres ("Justooo", "Tal cuaaal", "Geniaaal").
+ */
+export function alternarVocales(comentarios: string[], empiezaConUna = Math.random() < 0.5): string[] {
+  let x = 0;
+  return comentarios.map((c) => {
+    if (contarEstiradas(c) === 0) return c;
+    const letras = (x++ % 2 === 0) === empiezaConUna ? 1 : 2;
+    let hecho = false;
+    return c.replace(/\p{L}+/gu, (w: string) => {
+      if (hecho || !esEstirada(w)) return w;
+      hecho = true;
+      return alargarPalabra(desestirarTodo(w), letras);
+    });
+  });
+}
+
 /** "claro" -> "clarooo", "bien" -> "bieeen", "gracias" -> "graciaas", "tal cual" -> "tal cuaal". */
 export function alargarPalabra(w: string, letras = 2): string {
   if (/\s/.test(w)) {
@@ -904,13 +924,14 @@ export function tieneReaccion(texto: string): boolean {
 // "clarooo" salia una de cada pocas.
 // ⛔ Sin "vale" ni "cierto" desde el 2026-10-15 (captura del Chat de Iker):
 // "nadie empezaría con vale" y "No ciertooo" suena a español de America. Y
-// "bueno" suelto pasa a "muy bueno", que es como lo dice el (ej. de Iker).
-export const ALARGADAS_SUELTAS = ['Clarooo', 'Siii', 'Muy buenooo', 'Bieeen', 'Totaaal', 'Brutaaal', 'Exactooo', 'Juuusto', 'Geniaaal', 'Perfectooo', 'Tal cuaal'];
+// "bueno" suelto tampoco: abre como "pues bueno". "Muy buenoo" lo puede escribir
+// el modelo, pero no se fuerza: anteponerlo partia la frase ("Muuy lo del audio").
+export const ALARGADAS_SUELTAS = ['Clarooo', 'Siii', 'Bieeen', 'Totaaal', 'Brutaaal', 'Exactooo', 'Juuusto', 'Geniaaal', 'Perfectooo', 'Tal cuaal'];
 
 // Las bases que sortea la respuesta publica (Iker, 2026-09-18). Sin "no" (abrir
 // con una negacion alargada se lee como que le llevas la contraria) ni "eso"
 // (en la primera frase suele ser pronombre).
-export const PALABRAS_ALARGAR = ['claro', 'si', 'muy bueno', 'bien', 'genial', 'total', 'justo', 'exacto', 'perfecto', 'brutal', 'tal cual'];
+export const PALABRAS_ALARGAR = ['claro', 'si', 'bien', 'genial', 'total', 'justo', 'exacto', 'perfecto', 'brutal', 'tal cual'];
 
 // Las ultimas palabras alargadas de cada post, para que en la misma tanda no
 // salga "clarooo" tres veces. Mismo patron que APERTURAS_POR_POST.

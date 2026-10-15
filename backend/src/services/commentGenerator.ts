@@ -26,6 +26,7 @@ import {
   pulirTrasAlargada,
   alargarPalabra,
   letrasAlAzar,
+  alternarVocales,
 } from './replyGenerator';
 import {
   esPostDeEvento,
@@ -565,7 +566,7 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
   const asignacion = angulos
     .map(
       (a, i) =>
-        `${i + 1}. ANGULO: ${a}. ARRANQUE OBLIGATORIO: empieza por ${arranques[i]}. ${
+        `${i + 1}. ANGULO: ${a}. ARRANQUE: empieza por ${arranques[i]}, y si asi no sale una frase natural, reordenala sin perder la gramatica. ${
           conEstirar.has(i)
             ? `LLEVA ESTA palabra alargada, tal cual y SOLO esta: "${palabraDe.get(i)!.toLowerCase()}", ${['como PRIMERA palabra del comentario, seguida de coma', 'dentro de la PRIMERA frase, en sus tres primeras palabras y justo antes de una coma'][Math.floor(Math.random() * 2)]} (Iker, 2026-09-18: nunca entre dos comas en mitad del texto ni en la segunda frase). Tiene que sonar a alguien que asiente, no a una palabra metida con calzador.`
             : 'SIN palabras alargadas.'
@@ -866,19 +867,8 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // primera prueba con la palabra ya sorteada a 2 o 3, el modelo la reescribio
   // con tres en las tres tandas ("Justooo", "Tal cuaaal", "Geniaaal"). Lo que no
   // se comprueba no se cumple: aqui se alternan, empezando al azar.
-  const conVocales = conAlargada.map((r, k) => (contarEstiradas(r) > 0 ? k : -1)).filter((k) => k >= 0);
-  const empiezaConUna = Math.random() < 0.5;
-  const letrasDe = new Map(conVocales.map((k, x) => [k, (x % 2 === 0) === empiezaConUna ? 1 : 2]));
-  const revocalizar = (t: string, letras: number) => {
-    let hecho = false;
-    return t.replace(/\p{L}+/gu, (w: string) => {
-      if (hecho || !esEstirada(w)) return w;
-      hecho = true;
-      return alargarPalabra(desestirarTodo(w), letras);
-    });
-  };
-  return conAlargada.map((r0, i) => {
-    const r = letrasDe.has(i) ? revocalizar(r0, letrasDe.get(i)!) : r0;
+  const alternadas = alternarVocales(conAlargada);
+  return alternadas.map((r, i) => {
     // Al final, ni coma ni mayuscula detras de la alargada (Iker, 01/10).
     const cerrado = caberEnLinea(pulirTrasAlargada(pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i])), safePostContent, [input.creatorName]));
     return conEmoji.has(i) ? ponerEmojiAlFinal(cerrado, emojiDe.get(i)) : cerrado;

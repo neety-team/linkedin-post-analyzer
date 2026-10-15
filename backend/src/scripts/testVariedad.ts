@@ -52,7 +52,7 @@ import {
   ponerAlargadaLibre,
   nombraLaCasa,
 } from '../services/variedadComentarios';
-import { alargarPalabra, esEstirada, letrasAlAzar } from '../services/replyGenerator';
+import { alargarPalabra, esEstirada, letrasAlAzar, alternarVocales } from '../services/replyGenerator';
 import { classifyPillar } from '../services/pillar';
 
 // Textos reales de Unai (15/10 y 14/10), recortados a lo que decide el pilar.
@@ -400,6 +400,9 @@ for (let k = 0; k < 40; k++) {
   if (!esEstirada(w)) { ok(false, `"bien" con una vocal de mas no se reconoce (${w})`); break; }
 }
 ok(new Set(Array.from({ length: 60 }, () => alargarPalabra('bueno', letrasAlAzar()))).size === 2, 'salen buenoo y buenooo');
+const alt = alternarVocales(['Justooo lo del jefe', 'Sin alargada aqui', 'Geniaaal lo del audio', 'Siii el filtro'], true);
+ok(alt[0].startsWith('Justoo ') && alt[2].startsWith('Geniaaal ') && alt[3].startsWith('Sii '), 'alterna una y dos vocales de mas', alt.join(' | '));
+ok(alt[1] === 'Sin alargada aqui', 'la que no lleva alargada no se toca');
 ok(classifyPillar({ content_text: TELMO }) === 'historia_evento', 'la entrevista de Telmo es historia/evento');
 ok(classifyPillar({ content_text: EXCEL }) === 'historia', 'la historia del Excel con el ninja a Luma sigue siendo historia');
 

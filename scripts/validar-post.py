@@ -130,7 +130,11 @@ FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|pa
                # 2026-10-08, mapa de Canarias (Iker): la region de vacaciones se
                # despacha mandandola a tumbarse. Gesto (ir a la tumbona), no un
                # tercer cliche: los dos del gancho son playa y platanos.
-               r'|y a la tumbona)')
+               r'|y a la tumbona'
+               # 2026-10-16, mapa de la Comunidad Valenciana (Unai): el porche que
+               # tienen cerrado hasta junio se despacha mandandolo a dormir. Gesto
+               # (irse a la siesta), no un tercer cliche: los dos son naranjas y horchata.
+               r'|y a la siesta)')
 
 # §4.4b — FRASES DEL SPAM NINJA QUEMADAS. El dolor es SIEMPRE el mismo (dar con
 # el cliente ideal, empresa y persona), pero la FORMA rota en cada post. Iker,

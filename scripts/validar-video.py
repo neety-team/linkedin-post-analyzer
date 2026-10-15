@@ -72,25 +72,37 @@ def palabras(s):
 
 
 def main():
+    # La consola de Windows (cp1252) peta al imprimir flechas y emojis si la salida va
+    # por una tuberia; mismo arreglo que auditar-ninjas.py.
+    for _f in (sys.stdout, sys.stderr):
+        if hasattr(_f, 'reconfigure'):
+            _f.reconfigure(encoding='utf-8', errors='replace')
     ap = argparse.ArgumentParser()
     ap.add_argument('voz')
     ap.add_argument('--caption')
     ap.add_argument('--cuenta')
-    ap.add_argument('--pilar-video', default='manana', choices=['manana', 'otro'])
+    ap.add_argument('--pilar-video', default='manana', choices=['manana', 'otro', 'entrevista'])
+    # 2026-10-15: video de ENTREVISTA ya montado por la productora (Telmo, Neety Forward). La
+    # "voz" es la de un tercero y no se reescribe (brand-voice §3b: la cita se deja como la
+    # dijo), asi que las reglas de redaccion de la voz en off pasan a AVISO, la duracion se
+    # mide en segundos reales del corte y el caption se valida con SU pilar, no como meme.
+    ap.add_argument('--segundos', type=float, help='duracion real del corte (modo entrevista)')
+    ap.add_argument('--caption-pilar', default='meme', help='pilar con el que se valida el caption')
     ap.add_argument('--publica-manana', action='store_true')
     ap.add_argument('--carpeta', help='carpeta con los clips grabados')
     ap.add_argument('--planos', help='mapa de planos: cada clip usado o DESCARTADO con su motivo')
     a = ap.parse_args()
 
     voz = io.open(a.voz, encoding='utf-8').read().strip()
+    ent = a.pilar_video == 'entrevista'
     fr = frases(voz)
     n = len(palabras(voz))
 
     chk(not re.search(r'[—–]', voz), 'Voz: sin guion largo (brand-voice §3)')
     m = re.findall(r',\s+[ye]\s', voz)
-    chk(not m, 'Voz: sin coma antes de "y" (brand-voice §3)', f'{len(m)} encontradas' if m else '')
+    chk(not m, 'Voz: sin coma antes de "y" (brand-voice §3)', f'{len(m)} encontradas' if m else '', aviso=ent)
     dp = re.search(r':\s*\S', re.sub(r'\d:\d', '', voz))
-    chk(not dp, 'Voz: sin dos puntos en medio de una frase (brand-voice §3)')
+    chk(not dp, 'Voz: sin dos puntos en medio de una frase (brand-voice §3)', aviso=ent)
     m = re.findall(vp.NUMERO_EN_LETRA, voz, re.I)
     chk(not m, 'Voz: cifras en digito, los subtitulos son la voz (global §3.6)', f'{m[:3]}' if m else '')
 
@@ -98,18 +110,26 @@ def main():
     # guay". Referencias: la rampa 15,8 s con 66% de retencion; Jenny, TikTok 10-20 s.
     # Ritmo MEDIDO en el primer video (30/09, Premiere de Iker): la voz de IA de los
     # trailers dijo 36 palabras en 11,9 s = 3,0 palabras/s, pausas incluidas.
-    chk(n <= 70, 'Voz: 23 s como mucho (<=70 palabras a 3,0/s, medido)', f'{n} palabras, ~{round(n / 3.0)} s')
-    chk(n <= 62, 'Voz: en torno a 21 s, el objetivo de Iker (<=62 palabras)', f'{n} palabras, ~{round(n / 3.0)} s', aviso=True)
-    chk(n >= 35, 'Voz: dura 12 s o mas (>=35 palabras)', f'{n} palabras', aviso=True)
+    if ent:
+        # La entrevista del 08/10 (72 s) retuvo un 22%; el primer video (22 s), un 76%.
+        chk(a.segundos is not None, 'Entrevista: se pasa --segundos con la duracion real del corte')
+        if a.segundos is not None:
+            chk(a.segundos <= 35, 'Entrevista: el corte dura 35 s o menos (72 s retuvo un 22%, 22 s un 76%)',
+                f'{a.segundos:.1f} s')
+            chk(a.segundos <= 23, 'Entrevista: en torno a 21 s, el objetivo de Iker', f'{a.segundos:.1f} s', aviso=True)
+    else:
+        chk(n <= 70, 'Voz: 23 s como mucho (<=70 palabras a 3,0/s, medido)', f'{n} palabras, ~{round(n / 3.0)} s')
+        chk(n <= 62, 'Voz: en torno a 21 s, el objetivo de Iker (<=62 palabras)', f'{n} palabras, ~{round(n / 3.0)} s', aviso=True)
+        chk(n >= 35, 'Voz: dura 12 s o mas (>=35 palabras)', f'{n} palabras', aviso=True)
 
     cortas = [f for f in fr if len(palabras(f)) <= 4]
     pct = round(100 * len(cortas) / len(fr)) if fr else 0
     chk(pct <= 40, 'Voz: NARRACION, no telegrama (<=40% de frases de 4 palabras o menos, video §6.5b)',
-        f'{pct}% cortas: {cortas[:4]}')
+        f'{pct}% cortas: {cortas[:4]}', aviso=ent)
 
     gancho = fr[0] if fr else ''
     ng = len(palabras(gancho))
-    chk(6 <= ng <= 10, 'Gancho (1a frase): 6-10 palabras (video §6.3)', f'{ng}: "{gancho}"')
+    chk(6 <= ng <= 10, 'Gancho (1a frase): 6-10 palabras (video §6.3)', f'{ng}: "{gancho}"', aviso=ent)
     if a.pilar_video == 'manana':
         chk(gancho.lower().startswith('una mañana'), 'Gancho: empieza por "Una mañana", con articulo (video §6.3)')
 
@@ -118,7 +138,7 @@ def main():
     m = re.search(vp.PROMESA_VOLUMEN, voz, re.I)
     chk(not m, 'Voz: no vende VOLUMEN (global §4.4b-MUNICION)', f'"{m.group(0)}"' if m else '', aviso=True)
     m = re.search(ANGLICISMOS, voz, re.I)
-    chk(not m, 'Voz: sin anglicismos con traduccion llana (brand-voice §2b)', f'"{m.group(0)}"' if m else '')
+    chk(not m, 'Voz: sin anglicismos con traduccion llana (brand-voice §2b)', f'"{m.group(0)}"' if m else '', aviso=ent)
     m = re.search(vp.AI_TELLS, voz, re.I)
     chk(not m, 'Voz: sin AI-tells (brand-voice §3)', f'"{m.group(0)}"' if m else '')
     if (a.cuenta or '').lower() == 'unai':
@@ -163,8 +183,9 @@ def main():
         cap = io.open(a.caption, encoding='utf-8').read()
         m = re.search(MANDA_AL_FINAL, cap, re.I)
         chk(not m, 'Caption: no manda al final del video (video §6.5, retencion)', f'"{m.group(0)}"' if m else '')
-        cmd = [sys.executable, os.path.join(AQUI, 'validar-post.py'), a.caption, '--pilar', 'meme',
-               '--referencia-fuera', '--meme-sobrio']
+        cmd = [sys.executable, os.path.join(AQUI, 'validar-post.py'), a.caption, '--pilar', a.caption_pilar]
+        if a.caption_pilar == 'meme':
+            cmd += ['--referencia-fuera', '--meme-sobrio']
         if a.cuenta:
             cmd += ['--cuenta', a.cuenta]
         if a.publica_manana:

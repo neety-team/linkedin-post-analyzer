@@ -381,6 +381,16 @@ LinkedIn da tres métricas de vídeo (reproducciones, tiempo total y tiempo medi
 - **Primer vídeo:** 17 s de media sobre 22,27 s = **76%**, sin color. Iker lo ve altísimo para ser el primero, y en un LinkedIn donde el vídeo reparte poco.
 - Diseño y plan: `docs/superpowers/specs/2026-10-01-porcentaje-medio-visto-design.md`.
 
+### 6.5h · VÍDEO DE ENTREVISTA YA MONTADO POR LA PRODUCTORA (Telmo, Neety Forward, 15/10)
+
+Cuando el vídeo llega editado por el filmmaker y la voz es la de **un tercero entrevistado**, no hay voz en off que escribir ni clips que mapear. Lo que cambia de la entrega de `§6.5d`:
+- **Caption:** igual que siempre, con las reglas de post de texto y su pilar (aquí historia, rama B: el protagonista es el entrevistado y el jefe es testigo).
+- **"3 propuestas de voz" pasan a ser 3 propuestas de MONTAJE** del mismo material, con los segundos exactos de cada tramo sacados de la transcripción con marcas de palabra (faster-whisper, `word_timestamps=True`). La frase del entrevistado **no se reescribe** (`brand-voice §3b`): se elige qué tramos quedan y en qué orden.
+- **La duración manda:** la entrevista del 08/10 (72 s) retuvo un 22%; el primer vídeo (22 s), un 76%. El corte va a ~21 s y nunca pasa de 35.
+- **Se abre en frío con la mejor frase del entrevistado**, no con la presentación del entrevistador (el gancho de Rodri es una micro-confesión, `Si soy sincero…`), y se corta seco tras el remate (Jenny).
+- **Sin música ni mapa de planos:** los pone la productora.
+- **Validador:** `validar-video.py <transcripcion-del-corte.txt> --caption <caption.txt> --cuenta X --pilar-video entrevista --segundos <duración> --caption-pilar <pilar>`. En este modo las reglas de redacción de la voz son aviso y la duración se mide en segundos reales.
+
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.

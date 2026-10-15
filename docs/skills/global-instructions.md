@@ -2884,7 +2884,25 @@ Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran 
 
 - **Solo cuenta "Primero los más relevantes".** En "Reciente" sale hasta un post capado.
 - **Este diagnóstico va POR DELANTE del de impresiones**, porque no hay que esperar a que se acumulen. El semáforo de impresiones y la banda del Explorer se quedan como confirmación, no como primer paso.
-- ⚠️ **Y matiza el aviso viejo de "no leas el semáforo a los 7 minutos"** (`post-workflow §4.5.0-CAPADO-RAPIDO`): eso vale para las IMPRESIONES, que a los 7 minutos no dicen nada. **El FEED sí dice, y dice enseguida.**
+- ⚠️ **Y matiza el aviso viejo de "no leas el semáforo a los 7 minutos"** (`post-workflow §4.5.0-CAPADO-RAPIDO`): eso vale para las IMPRESIONES, que a los 7 minutos no dicen nada. **El FEED sí dice, y dice enseguida.** **Salvo con VÍDEO (`§9.1b`).**
+
+### 🎬 9.1b · CON VÍDEO, LA REVISIÓN DURA 30-45 MINUTOS Y NO ES UN CAPADO (Iker, 2026-10-15)
+
+**La línea base del "minuto uno" es de los posts de texto e imagen. Un post con vídeo pasa una revisión mucho más larga, LinkedIn no avisa, y mientras dura se ve EXACTAMENTE igual que un capado:** no sale en relevantes y las impresiones se quedan en ~20.
+
+| caso | qué pasó |
+|---|---|
+| historia + vídeo, Unai **08/10** | 1ª versión: +40 min sin salir (~20 imp), borrada. 2ª versión: **en relevantes a los 28 min** |
+| historia + vídeo (entrevista de Telmo), Unai **15/10** | 19 imp a los 16 min, sin salir. **A los ~30 min sale en relevantes** desde otra cuenta, pasa de 30 a 52 imp en 2 minutos y entran 2 likes de cuentas ajenas. **No estaba capado: estaba en revisión.** Iker esperó y menos mal: yo le había preparado la resubida para no esperar |
+
+**LA REGLA:**
+- **Con vídeo, no se diagnostica capado ni se resube antes de los 45 minutos.** Entre 0 y 45, ~20 impresiones sin salir en relevantes es lo normal.
+- **La señal de que ha salido de revisión, por orden:** aparece en "Primero los más relevantes" desde otra cuenta → saltan las impresiones (30 → 52 en 2 min el 15/10) → likes de gente que no es nuestra.
+- **Se resube solo si a los 45-60 minutos sigue sin salir**, y con un solo cambio en el texto, como siempre (`§9.3b`).
+- **Resubir un vídeo antes de tiempo sale caro:** la resubida vuelve a pasar la misma revisión (el 08/10 tardó 28 min), así que se pierde lo esperado y se vuelve a empezar.
+- **Lo que deja probado el 15/10:** `IA` (en el gancho y dos veces en el cuerpo), con el enlace del webinar y vídeo, **NO capa**. Sale de toda sospecha a 15/10/2026 (caduca como todo, `§9.2`).
+- **Y lo que pone en duda:** el capado de `automatizar` del 08/10 (`§9.3d`) se apoyaba en "+40 min sin salir", que con vídeo puede ser solo la revisión.
+- **Mecanizado:** `validar-video.py` lo imprime al final de cada entrega de vídeo, para tenerlo delante al publicar.
 
 ### 9.2 · ⛔ EL CORPUS CADUCA: un post de hace meses NO prueba que una palabra pase el filtro HOY
 
@@ -2965,6 +2983,7 @@ Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran 
 
 Historia con vídeo del resumen de Neety Forward, primer post de la casa con el enlace del webinar (`luma.com/7hhyx07z` con UTM). **1ª versión** con `automatizar` en gancho, tesis y ninja: **más de 40 minutos sin aparecer en relevantes** (~20 impresiones), borrada. **2ª versión, un solo cambio** (`automatizar` → `lanzar más mensajes`), mismo vídeo y mismo enlace: **en relevantes a los 28 min.**
 - **Es el molde de `§9.3b` (`LinkedIn`): pasó el umbral de 30 min y la resubida con UNA variable salió.** Iker: *"creo que era automatizar, tiene sentido"*. La charla del evento iba justo de no automatizar las ventas con IA.
+- **🟠 EN DUDA DESDE EL 15/10 (`§9.1b`):** con vídeo, la revisión dura 30-45 minutos y se ve igual que un capado. La 1ª versión se borró a los 40 minutos y la resubida también tardó 28, así que puede que `automatizar` no capara y fuera solo la revisión. Se sigue evitando porque no cuesta nada, pero **un segundo caso solo cuenta si es un post sin vídeo, o con vídeo y más de 60 minutos sin salir.**
 - **Por qué no es veto todavía (`§9.5`):** n=1, y 19 posts nuestros anteriores la llevan sin capado (dos en el gancho, 2.895 y 1.144 imp). Puede pesar el contexto: palabra + enlace nuevo + vídeo, o la vara que se mueve (`§9.2`).
 - **Hasta un segundo caso: se evita.** El recambio probado es `lanzar más mensajes`; cuesta nada y no pierde el sentido.
 - *Hipótesis mía, sin medir:* la psicología es el envío masivo automatizado, que es lo que la plataforma persigue en las herramientas de automatización. `mensajes a miles` va en la misma línea y salió, así que lo que dispara parece la palabra, no la idea.

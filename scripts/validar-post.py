@@ -281,6 +281,12 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'un filtro no le dice al comercial quién firma dentro': '2026-10-15 historia-video de Unai 15/10 (entrevista de Telmo, webinar, tipo 2), la linea 1 del ninja',
+    'un filtro no le dice al comercial quien firma dentro': '2026-10-15 historia-video de Unai 15/10, sin tilde',
+    'ese nombre de dentro sí te lo enseñamos': '2026-10-15 historia-video de Unai 15/10, la linea 2 del ninja',
+    'ese nombre de dentro si te lo ensenamos': '2026-10-15 historia-video de Unai 15/10, sin tilde',
+    'el miércoles 28 damos una sesión gratis por videollamada': '2026-10-15 historia-video de Unai 15/10, la linea de contexto del webinar',
+    'el miercoles 28 damos una sesion gratis por videollamada': '2026-10-15 historia-video de Unai 15/10, sin tilde',
     'un excel así le cuesta meses de calle': '2026-10-14 historia de Unai 14/10 (el Excel antes que las maquinas, webinar, tipo 4), la linea 1 del ninja',
     'un excel asi le cuesta meses de calle': '2026-10-14 historia de Unai 14/10, sin tilde',
     'buscar menos y vender más, eso sí te lo explicamos': '2026-10-14 historia de Unai 14/10, la linea 2 del ninja',
@@ -474,6 +480,7 @@ ARRANQUE_QUEMADO = {
         'gente': '2026-10-02 historia de Mario 02/10 ("Gente que condujo / Gente de traje / Gente que vino")',
         'tenia': '2026-10-14 historia de Unai 14/10 ("Tenia 43 empresas / Tenia al lado")',
         'miro': '2026-10-14 historia de Unai 14/10 ("Miro sus webs / Miro que piezas / Miro en cada feria")',
+        'queria': '2026-10-15 historia-video de Unai 15/10 ("No queria mas filtros / Queria descartar")',
     },
     'mapa': {
         'ni': '2026-09-22 mapa de Álava, Iker ("Ni la llena Celedón / Ni la llenan los blusas")',

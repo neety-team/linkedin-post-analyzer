@@ -2305,6 +2305,8 @@ Y se cruza `date` + `comment_counter` + presencia de la palabra sospechosa en `t
 
 #### 🚦🚦 4.5.0-CAPADO-RAPIDO · CÓMO SABER EN 45 MINUTOS SI NOS HAN CAPADO (Iker, 2026-08-18)
 
+> **🎬 CON VÍDEO, NADA DE ESTO VALE ANTES DE LOS 45 MINUTOS (Iker, 2026-10-15, `global §9.1b`).** LinkedIn revisa el vídeo durante 30-45 minutos sin avisar, y en ese rato el post se ve como un capado: ~20 impresiones y no sale en relevantes. El 15/10 salió a los ~30 minutos y empezó a repartir. Ni banda, ni pendiente, ni resubida antes de los 45.
+
 **El problema real, y es de decisión, no de análisis:** un post se sube a las 12, se tarda horas en despegar, y si te enteras tarde de que está capado ya has perdido la mejor franja del día. Iker, con el post recién subido: *"¿cómo puedo darme cuenta rápido de si estamos bloqueados o no?"*.
 
 **🔴 LO PRIMERO, PORQUE ES LA LECTURA QUE FALLA: QUE SALGA EN "RECIENTE" NO DESCARTA EL CAPADO.** LinkedIn tiene dos feeds y no dicen lo mismo. **Reciente** es cronológico de a quién sigues y apenas pasa por el algoritmo, así que un post capado **también** sale ahí. **Principal** es el que decide el reparto. Mirar Reciente y respirar tranquilo es exactamente el error que hay que evitar. Y en Principal hay que mirar **a los 30-45 minutos**, no a los 3: a los 3 minutos casi nada ha entrado todavía.

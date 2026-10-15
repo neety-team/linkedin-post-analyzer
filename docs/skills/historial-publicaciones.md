@@ -276,6 +276,20 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Real / inventado** | real: el dolor (informe de demos) y la sesión del 28. Inventado y declarado: el primer curro, las 15 llamadas, el polígono, el ingeniero, el café, el boli y la cita (cifras rotadas el 14/10: 37 llamadas y 3 cafés pasaban a 15 y un café, `global §2.5b-VARIAR`) |
 | ⏳ | publicado: hora y enlace (de la BD) · **quemadas al publicar**: ninja `kilometros los hace cualquiera` / `eso si te lo ensenamos, paso a paso`, contexto `hacemos directo online y gratis`, arranque de historia `se` · a los 3-4 días: inscritos por `utm_source` en Luma (vara 0,81 por 1.000 de Unai 08/10) y clics |
 
+## ✅ PUBLICADO · JUE 15/10 ~12:40 · UNAI · HISTORIA/EVENTO + VÍDEO: LA ENTREVISTA DE TELMO EN NEETY FORWARD (webinar, `luma.com/7hhyx07z`)
+
+| dato | |
+|---|---|
+| **Estado** | publicado el 15/10 hacia las 12:40 (hora de Madrid, reconstruida: llevaba 16 min a las 12:55) · `ENTREGABLE: SÍ · mecánico 73/73 · criterio 5/5` (`--pilar historia --cuenta unai --historia-evento`) · **900 car** con la URL a 25, la 1ª historia/evento con el tope nuevo · enlace al **~78%** |
+| **Vídeo** | la entrevista horizontal del filmmaker a Telmo (1:32), **subida tal cual** (`video §6.5h`). Pregunta José Tomás (Neety); contesta Telmo |
+| **Pilar** | historia/evento · **rama B** (el protagonista es Telmo, un tercero real; habla en el vídeo) · real de principio a fin, de la transcripción |
+| **Gancho** | `La pregunta que más incomoda a un comercial se la hicimos a quien vende IA 👀` · el **3º del banco**, elegido por Unai. Tumbó el 1º (`…si los comerciales tienen los días contados`): *"siendo nosotros una herramienta que automatiza ventas, puede ser peligroso que lo preguntemos nosotros"* (`brand-voice §1b`) |
+| **Menciones** | `@José Tomás López Cifuentes💥` (nuestro compañero, el que pregunta) en mitad del cuerpo · `@Telmo E.` y `@Multiverse Computing` en el desvelamiento, con `el evento Neety Forward` |
+| **Ninja → webinar (TIPO 2)** | contexto `El miércoles 28 damos una sesión gratis por videollamada.` · `Un filtro no le dice al comercial quién firma dentro.` / `Ese nombre de dentro sí te lo enseñamos:` · va después de la respuesta de Telmo · UTM `utm_source=historia-entrevista-15oct-unai` |
+| **Pago y cierre** | `Lo ve más en la calle que en la oficina.` · `Con un audio al salir de cada visita, no con fichas.` · cierre `Lo que tiene los días contados es el filtro.` (el veto de Unai es a la amenaza sobre el comercial, no a la expresión) |
+| **🎬 Revisión de LinkedIn** | 19 imp a los 16 min y sin salir en relevantes. **A los ~30 min sale en relevantes**, pasa de 30 a 52 imp en 2 minutos y entran 2 likes de cuentas ajenas. **No era capado: era la revisión del vídeo** (`global §9.1b`). Queda probado que `IA` no capa (gancho + 2 en el cuerpo). La resubida sin IA (`-v2`) no se usó |
+| ⏳ | enlace, hora exacta y números: de la BD cuando pulses "Traer posts nuevos" · ✅ quemadas metidas el 15/10 en `validar-post.py` (las 2 líneas del ninja, el contexto del webinar y el arranque `queria`) · a los 3-4 días: inscritos por `utm_source` en Luma (vara: 0,81 por 1.000 del 08/10) y clics |
+
 ## ✅ PUBLICADO · MIÉ 14/10 · UNAI · HISTORIA: EL EXCEL ANTES QUE LAS MÁQUINAS (webinar, `luma.com/7hhyx07z`)
 
 | dato | |

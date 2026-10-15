@@ -210,6 +210,10 @@ def main():
         for l in salida_caption.split('\n'):
             if 'FALLA' in l:
                 print('  [caption] ' + l.strip())
+    # Con video la revision de LinkedIn dura 30-45 min y se ve igual que un capado
+    # (08/10 y 15/10, global §9.1b): sin esto, el reflejo es borrar y resubir antes de tiempo.
+    print('\n  AL PUBLICAR: con video, LinkedIn lo revisa 30-45 min sin avisar y se ve igual que un capado')
+    print('  (~20 imp, no sale en relevantes). No se resube antes de los 45 min (global §9.1b).')
     print('\n  LO QUE EL SCRIPT NO VE, Y SE CONTESTA POR ESCRITO EN LA ENTREGA:')
     if ent:
         # Video hecho por la productora: se sube tal cual (video §6.5h). Solo se escribe el post.

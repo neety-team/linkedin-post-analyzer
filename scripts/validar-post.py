@@ -1355,6 +1355,7 @@ def puerta_agendar(texto):
 
 
 FOTO_GRUPO = False
+HISTORIA_EVENTO = False
 
 
 PUERTA_VIEJA = False
@@ -2203,6 +2204,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'workflow': 'el proceso / la rutina', 'engagement': 'la respuesta',
         'insight': 'el hallazgo', 'insights': 'los hallazgos',
         'pitch': 'el discurso', 'closing': 'el cierre',
+        # Iker, 15/10: 'software' llevaba muchas publicaciones colandose y nuestro
+        # lector es mayor. Lo nuestro funciona en el navegador: ni 'programa' ni
+        # 'pagina web' son verdad, 'herramienta' si. Y 'online' tiene recambio llano.
+        'software': 'la herramienta', 'online': 'por videollamada / en directo / a distancia',
     }
     # Se mira el texto SIN las URLs: la cola de UTM lleva `utm_medium=post`
     # (4.4b-UTM) y `post` es ahora anglicismo, asi que el check se disparaba
@@ -4331,11 +4336,20 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # tumbaba historias bien escritas: un borrador de 729 car de TEXTO salia como
         # 861 y fallaba. Se normaliza cada URL a 25 caracteres antes de contar.
         _n_hist = len(re.sub(r'https?://\S+', 'x' * 25, cuerpo))
-        chk(_n_hist <= 800, 'HISTORIA: <=800 caracteres (§4.6-SERIE)',
-            f'{_n_hist} car. La unica historia que paso de 800 hundio los clics a la mitad '
-            f'(19 contra 32-46 de las cinco que estan entre 694 y 762). El rango de trabajo '
-            f'del pilar es 700-780' if _n_hist > 800 else '')
-        if _n_hist <= 800:
+        # 🔄 HISTORIA/EVENTO (Iker, 15/10): cuando al final hay que desvelar quien lo
+        # conto y el evento ademas del ninja, ese tramo se come sitio a la historia, asi
+        # que el tope sube a 900 con --historia-evento. Decision suya, sin medir: el
+        # 07/10 de Unai (887 car, evento) saco 8 clics; se mide al publicar.
+        _tope_h = 900 if HISTORIA_EVENTO else 800
+        if HISTORIA_EVENTO:
+            chk(_n_hist <= _tope_h, 'HISTORIA/EVENTO: <=900 caracteres (Iker, 15/10)',
+                f'{_n_hist} car' if _n_hist > _tope_h else f'{_n_hist} car')
+        else:
+          chk(_n_hist <= 800, 'HISTORIA: <=800 caracteres (§4.6-SERIE)',
+              f'{_n_hist} car. La unica historia que paso de 800 hundio los clics a la mitad '
+              f'(19 contra 32-46 de las cinco que estan entre 694 y 762). El rango de trabajo '
+              f'del pilar es 700-780' if _n_hist > 800 else '')
+        if _n_hist <= 800 and not HISTORIA_EVENTO:
             chk(700 <= _n_hist <= 780, 'HISTORIA: dentro del rango medido 700-780 car (§4.6-SERIE)',
                 f'{_n_hist} car, fuera del rango donde estan las 5 que convierten (694-762). '
                 f'No es fallo, pero mira si sobra cuerpo o falta escena' if not (700 <= _n_hist <= 780) else '',
@@ -4916,6 +4930,10 @@ def main():
                     help='HISTORIA con FOTO DE GRUPO del equipo (Iker, 2026-09-30): acepta el '
                          'gancho en 1a PLURAL (nos, nuestro) como personal. Prueba con n=1 (Unai '
                          '23/09), no regla: se anota el resultado en historial-publicaciones.')
+    ap.add_argument('--historia-evento', action='store_true', dest='historia_evento',
+                    help='HISTORIA/EVENTO (Iker, 2026-10-15): historia que al final desvela quien lo '
+                         'conto y el evento, ademas del ninja. El tope de longitud sube de 800 a 900 '
+                         'para que la historia tenga sitio. Sin medir: se anota el resultado.')
     ap.add_argument('--voz-ajena', action='store_true', dest='voz_ajena',
                     help='BORRADOR DE UN PERFIL QUE NO ES DE LOS 3 JEFES (Iker, 2026-10-05): un '
                          'empleado nuevo pasa SU texto para pulirlo. Se respeta su forma de escribir, '
@@ -4930,6 +4948,8 @@ def main():
     a = ap.parse_args()
     global FOTO_GRUPO
     FOTO_GRUPO = a.foto_grupo
+    global HISTORIA_EVENTO
+    HISTORIA_EVENTO = a.historia_evento
     texto = io.open(a.fichero, encoding='utf-8').read()
     card = io.open(a.tarjeta, encoding='utf-8').read() if a.tarjeta else None
     res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico, a.publica_manana)

@@ -88,6 +88,7 @@ def main():
     # pilar, no como meme.
     ap.add_argument('--segundos', type=float, help='duracion real del corte (modo entrevista)')
     ap.add_argument('--caption-pilar', default='meme', help='pilar con el que se valida el caption')
+    ap.add_argument('--historia-evento', action='store_true', help='se pasa tal cual a validar-post.py')
     ap.add_argument('--publica-manana', action='store_true')
     ap.add_argument('--carpeta', help='carpeta con los clips grabados')
     ap.add_argument('--planos', help='mapa de planos: cada clip usado o DESCARTADO con su motivo')
@@ -189,6 +190,8 @@ def main():
             cmd += ['--referencia-fuera', '--meme-sobrio']
         if a.cuenta:
             cmd += ['--cuenta', a.cuenta]
+        if a.historia_evento:
+            cmd += ['--historia-evento']
         if a.publica_manana:
             cmd += ['--publica-manana']
         salida_caption = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8').stdout or ''

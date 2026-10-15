@@ -1812,13 +1812,13 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 | promesa del ninja | la sala | **lo que te llevas**: cuáles te comprarían, gratis con LinkedIn, los prompts |
 | escasez | sí, sin cifra (`§2.3d`) | ⛔ **nunca**: no hay aforo, sería falsa y sube la barrera que queremos bajar |
 | línea de encima | 24 · Donostia · presencial | **miércoles 28 · online · gratis** |
-| la palabra del formato | evento presencial | `sesión online`, `charla online`, `en directo`; ⛔ `webinar` (anglicismo que estrecha, `brand-voice §2.3`) |
+| la palabra del formato | evento presencial | `sesión por videollamada`, `en directo`; ⛔ `webinar` y, desde el 15/10, ⛔ `online` (anglicismos, `brand-voice §2b`) |
 
 - **⛔ Lo que no se promete sigue en `§4.4b-MUNICIÓN`**: ni automatismo, ni volumen, ni la señal. Que la sesión sea gratis no cambia lo que puede decir Neety.
 - **El formulario de Luma (08/10):** nombre completo y email obligatorios, empresa y cargo opcionales, sin teléfono, casilla de comunicaciones aparte, opcional y desmarcada (`Quiero lo nuevo antes que nadie, por correo.`, la misma de la web), y la política de privacidad obligatoria. **Solo los que marcan la casilla pasan al segmento de Brevo** (`feedback un clic no es consentimiento`); al resto solo le llegan los correos del propio evento.
 
 ```
-✅ El miércoles 28 lo enseñamos en una sesión online y gratis.        ← línea individual
+✅ El miércoles 28 abrimos una sesión gratis por videollamada.     ← línea individual
    Una lista de 4.000 la saca cualquiera con un filtro.              ← bloque de dos, intacto
    Cuáles te comprarían, te lo enseñamos nosotros: {link}
 ```

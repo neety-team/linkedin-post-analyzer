@@ -551,6 +551,17 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 
 **⚠️ Y el detector es conservador a propósito:** el castellano tiene dobles vocales legítimas (`lee`, `cree`, `desee`, `coordinar`) y en los textos se cuelan palabras inglesas (`Neety`, `feedback`, `Google`). Solo cuenta como alargada una racha de 3 letras, una doble a/i/u/o **al final**, una doble a/i/u en medio o una `ss` final. Probado contra todas esas: no toca ninguna.
 
+#### ⛔⛔ 7.1j · ESPAÑOL DE ESPAÑA, SIN PARODIA Y CON LOS NOMBRES ENTEROS (Iker, 2026-10-15) — respuestas Y Google Chat
+
+> Captura del Chat (entrevista de Telmo): *"Valeee Multiverse Computing en el Forward fue de los momentos del año"*, *"No ciertooo olvidaba el detalle del audio"*, *"Telmo escribiéndole a su jefe en directo fue el mejor momento de la sesión"*. Iker: *"respuestas un poco infantiles o incluso hablando en español latino… como sacadas de una parodia… que sea un apoyo más natural, más cercano, más humilde"*.
+
+- **Español de España.** Nada de `no cierto`, `olvidaba` (aquí: `no me acordaba`), `ahorita`, `platicar`, `celular`, `ustedes`, `qué lindo`. **Nadie abre con `vale`**, ni alargado.
+- **Vocales: unas con dos de más y otras con una** (`buenooo` / `buenoo`), alternadas en la misma tanda. Se alargan palabras de reacción (`brutaal`, `geniaaal`, `muy buenoo`), nunca `vale` ni `cierto`.
+- **Ni infantil ni de parodia:** frases completas y bien construidas, sin superlativos de broma (`momentos del año`, `el mejor momento`, `épico`, `leyenda`). Nadie narra el evento como si hubiera estado.
+- **Los nombres, enteros:** `Neety Forward`, nunca `el Forward`.
+- **Historia/evento se comenta como historia:** cada uno a un detalle de lo que cuenta, y como mucho uno nombra el evento.
+- **Mecanizado:** `abreConVale`, `latinismo`, `eventoRecortado`, `exageraDeBroma` y `alternarVocales` en `variedadComentarios.ts` / `replyGenerator.ts`, con prueba en `testVariedad.ts` (bloque 25).
+
 #### ⛔⛔ 7.1i · CADA RESPUESTA, UNA IDEA DISTINTA. Y CUÁNDO ES EL EVENTO (Iker, 2026-10-01) — vale para respuestas Y Google Chat
 
 > *"Cuando respondo a comentarios de publicaciones de peloteo siempre me generas comentarios que hablan de lo mismo, siempre del silencio, antes de que nadie los pusiese en el mapa… necesito conceptos más originales. Genérame siempre comentarios de apoyo, pero diferentes."* Del Google Chat: *"muy formales, que no son naturales… 'Qué post más necesario' es horrible, demasiado corto, no aporta absolutamente nada"*. Del vídeo del evento: *"no desear suerte en el futuro… es un evento en pasado"*.

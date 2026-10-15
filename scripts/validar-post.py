@@ -2883,11 +2883,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                     if _items and _pos_link <= _ult_item else '')
                 if _items and _pos_link > _ult_item:
                     _pos = min(_pos, 650)
+                # HISTORIA/EVENTO (Iker, 15/10): el ninja va DESPUES de pagar la historia, como
+                # en las 5 historias con mejor CTR (enlace entre el 83% y el 92% del texto, con
+                # solo el remate detras). Con el tope a 900 eso cae pasado el 650, que sale de
+                # dos MEMES en prosa. Ahi el 650 pasa a aviso y manda el 'despues del valor'.
                 chk(_pos <= 650, 'Spam ninja: el enlace cae antes del caracter 650 (§4.4b)',
                     'el enlace cae en el %d. Los 2 unicos posts que lo pasaron de 650 '
                     'son los 2 peores CTR del ano (0,042%% y 0,017%%) frente al '
                     '0,050-0,151%% de los que lo ponen antes del 511' % _pos
-                    if _pos > 650 else '')
+                    if _pos > 650 else '', aviso=(HISTORIA_EVENTO and pilar == 'historia'))
                 # 2) EL ENLACE VA EN LA SEGUNDA LINEA Y ESA LINEA ES CORTA. El
                 #    bloque de dos (dolor / promesa corta + enlace) da 0,415% en el
                 #    mapa de Asier del 14/07. Fusionarlo todo en UNA linea larga da

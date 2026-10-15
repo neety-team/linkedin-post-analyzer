@@ -4431,7 +4431,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # En su cuenta la 1a del plural tambien cuenta como gancho personal.
         if (FOTO_GRUPO or (cuenta or '').strip().lower() == 'unai') and not _personal:
             _personal = (re.search(r'(^|\s)(nos|nosotros|nuestr\w+)(\s|,|\.)', ' '+h.lower())
-                         or re.match(r'\w+(amos|imos|emos)\b', h.lower().lstrip()))
+                         # 15/10: el verbo en 1a del plural tambien vale si no abre el gancho
+                         # ('Le preguntamos a quien vende IA...'): antes solo se miraba al arrancar.
+                         or re.search(r'(^|\s)\w{2,}(amos|imos|emos)\b', h.lower()))
         chk(bool(_personal), 'HISTORIA: hook personal, en primera persona (§4.6)',
             'la vara abre "I [algo que me pasó]" / "Cuando…" / "Nunca…": una escena TUYA, no un claim ni un dato')
         _ls = [l for l in cuerpo.splitlines() if l.strip()]

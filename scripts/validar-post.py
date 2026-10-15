@@ -84,6 +84,7 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
+    'mandan de': '2026-10-08 Canarias, mapa de Iker',
     'liquidan': '2026-10-07 La Rioja, "Las 10" de Asier',
     'ventilan': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'dejan atrás': '2026-09-29 Extremadura, mapa de Asier',
@@ -413,7 +414,7 @@ PAIS_QUEMADO = {
     'honduras': '2026-07-07 Álava (Unai)',
     'paraguay': '2026-08-04 Castilla y León (Iker)',
     'montenegro': '2026-10-07 La Rioja, "Las 10" de Asier; antes Navarra, despiece de Asier 07/08',
-    'jamaica': '2026-09-01 Cantabria, mapa de Asier',
+    'jamaica': '2026-10-08 Canarias, mapa de Iker; antes Cantabria, mapa de Asier 01/09',
     'noruega': '2026-09-16 Bizkaia, despiece de Asier',
 }
 
@@ -532,6 +533,7 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'terraza del atl': '2026-10-08 Canarias, mapa de Iker',
     'cuarto peque': '2026-10-07 La Rioja, "Las 10" de Asier',
     'descansillo': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'despensa del oeste': '2026-09-29 Extremadura, mapa de Asier',
@@ -556,6 +558,7 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'y a la tumbona': '2026-10-08 Canarias, mapa de Iker',
     'y a repostar': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'y a portugal': '2026-09-29 Extremadura, mapa de Asier',
     'y hasta ah': '2026-09-22 Álava, mapa de Iker',
@@ -571,6 +574,47 @@ FRASE_RABIA_USADA = {
     'a la autov': '2026-09-01 Cantabria, mapa de Asier',
     'y a casa': '2026-09-16 Bizkaia, despiece de Asier',
 }
+
+# ⛔⛔ REPETIR REGION NO ES REPETIR GANCHO (Iker, 2026-10-15). Para "Las 10" de Aragon
+# de Iker volvi a poner "el Pilar, el cierzo" y Uruguay: el gancho de Asier de Aragon
+# (14/07) ya llevaba "jota, Pilar" con el cierzo en el concepto, y Uruguay lo habia usado
+# Iker en Murcia. La regla vieja decia "los cliches de la region no se queman nunca" y por
+# ese hueco el mismo lector veia el mismo gancho con otra ropa. Iker: "no me importa
+# repetir la region, hacer double down es otra estrategia muy inteligente... pero que tenga
+# cabeza". Ahora: al REPETIR region, el GANCHO no puede llevar ningun cliche que ya saliera
+# en el gancho de un peloteo anterior de esa region (cualquier cuenta), y el PAIS no se
+# repite nunca en la misma cuenta. Las dos ceden con --double-down (decision DECLARADA en
+# la entrega, nunca por defecto). El CUERPO si puede repetir cliches (son de la region).
+# Al publicar un peloteo, se anaden aqui los cliches de su gancho (y el del concepto).
+CLICHE_GANCHO_REGION = {
+    'aragon': {'pilar': '2026-07-14 Asier', 'cierzo': '2026-07-14 Asier', 'jota': '2026-07-14 Asier',
+               'ternasco': '2026-07-14 Asier', 'secarral': '2026-07-14 Asier'},
+    'navarra': {'toro': '2026-06-30 Iker', 'txistorra': '2026-06-30 Iker', 'esparrago': '2026-08-07 Asier'},
+    'galicia': {'pulpo': '2026-06-16 Iker', 'camino': '2026-06-16 Iker'},
+    'valencia': {'playa': '2026-06-02 Iker', 'paella': '2026-06-02 Iker'},
+    'murcia': {'sol': '2026-07-23 Iker', 'tomate': '2026-07-23 Iker', 'desierto': '2026-07-23 Iker'},
+    'castilla y leon': {'trigo': '2026-08-04 Iker', 'castillo': '2026-08-04 Iker'},
+    'asturias': {'sidra': '2026-07-31 Unai', 'fabada': '2026-07-31 Unai'},
+    'cataluna': {'pan con tomate': '2026-07-17 Unai', 'playa': '2026-07-17 Unai'},
+    'alava': {'pintxo': '2026-07-07 Unai', 'vino': '2026-09-22 Iker', 'baloncesto': '2026-09-22 Iker'},
+    'bizkaia': {'bacalao': '2026-09-16 Asier', 'paraguas': '2026-09-16 Asier',
+                'guggenheim': '2026-07-30 Iker', 'chuleton': '2026-07-30 Iker'},
+    'cantabria': {'sobao': '2026-09-01 Asier', 'anchoa': '2026-09-01 Asier'},
+    'extremadura': {'jamon': '2026-09-29 Asier', 'ciguena': '2026-09-29 Asier'},
+    'castilla-la mancha': {'queso': '2026-10-01 Iker', 'molino': '2026-10-01 Iker'},
+    'la rioja': {'vino': '2026-10-07 Asier', 'pimiento': '2026-10-07 Asier'},
+    'canarias': {'playa': '2026-10-08 Iker', 'platano': '2026-10-08 Iker'},
+}
+# Como se reconoce la region en el CUERPO (el gancho la calla a proposito).
+REGION_EN_TEXTO = {
+    'aragon': r'arag[oó]n', 'navarra': r'navarra', 'galicia': r'galicia',
+    'valencia': r'comunidad valenciana|valencia', 'murcia': r'murcia',
+    'castilla y leon': r'castilla y le[oó]n', 'asturias': r'asturias', 'cataluna': r'catalu[nñ]a',
+    'alava': r'[aá]lava', 'bizkaia': r'bizkaia|vizcaya', 'cantabria': r'cantabria',
+    'extremadura': r'extremadura', 'castilla-la mancha': r'castilla-la mancha',
+    'la rioja': r'la rioja', 'canarias': r'canarias',
+}
+DOUBLE_DOWN = False
 
 # §4.5.0a — MOLDE B del lead magnet: Claude (o yo) + VERBO PUNCHY + resultado.
 # Sacado de los cinco lead magnets NUESTROS con mas comentarios, no de memoria.
@@ -3766,6 +3810,30 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(not _rabia, 'GANCHO: la frase-rabia no está usada (§4.2 Paso 1)',
             ' · '.join(f'"{f}" fue {FRASE_RABIA_USADA[f]}' for f in _rabia) +
             '. El beat se mantiene siempre, las palabras cambian siempre')
+        # ⛔⛔ Iker, 2026-10-15: al repetir region, el gancho no recicla cliches del gancho
+        # anterior de esa region, y el pais no se repite nunca en la misma cuenta.
+        import unicodedata as _ud
+        def _sin_tilde(s):
+            return ''.join(c for c in _ud.normalize('NFKD', s.lower()) if not _ud.combining(c))
+        _hook_n = _sin_tilde(hook_txt)
+        _regiones = [r for r, pat in REGION_EN_TEXTO.items() if re.search(pat, texto, re.I)]
+        _recicla = [] if historico else sorted(
+            '"%s" (%s, %s)' % (w, r, v) for r in _regiones for w, v in CLICHE_GANCHO_REGION.get(r, {}).items()
+            if re.search(r'\b' + re.escape(w) + r'(s|es)?\b', _hook_n))
+        chk(not _recicla or DOUBLE_DOWN,
+            'GANCHO: al repetir region, sin cliches del gancho anterior de esa region (Iker 15/10)',
+            ('ya salieron en el gancho de un peloteo anterior de esta region: ' + ' · '.join(_recicla) +
+             '. Busca los 2 mas universales que NO se hayan usado arriba. Si repetir es la apuesta '
+             '(double down), pasa --double-down y DECLARALO en la entrega') if _recicla else
+            ('region(es) en el texto: %s' % ', '.join(_regiones) if _regiones else ''))
+        _pais_cuenta = [] if (historico or not cuenta) else sorted(
+            p for p in PAIS_QUEMADO if p in _hook_n and cuenta.lower() in cuentas_de(PAIS_QUEMADO[p]))
+        chk(not _pais_cuenta or DOUBLE_DOWN,
+            'GANCHO: el pais no lo ha usado NUNCA esta cuenta (Iker 15/10)',
+            (' · '.join('"%s" fue %s' % (p, PAIS_QUEMADO[p]) for p in _pais_cuenta) +
+             '. La ventana de 42 dias vale para concepto, verbo y frase-rabia; el pais es lo que se '
+             'comparte y el seguidor de esta cuenta lo recuerda. Otro con >=15% de margen, o '
+             '--double-down declarado') if _pais_cuenta else '')
         _quemados = [] if historico else sorted(v for v in VERBO_PREJUICIO_QUEMADO
                            if re.search(r'\b' + v + r'\b', texto, re.I) and quemada(v, VERBO_PREJUICIO_QUEMADO[v], VENTANA_IDENTIDAD_DIAS, cuenta))
         chk(not _quemados,
@@ -5005,6 +5073,10 @@ def main():
                          'mencionadas con su foto, una llamada de una directora de marketing y el '
                          '"Los 10" de Gipuzkoa borrado. Solo se pasa si IKER, en el chat de ESE '
                          'post, ha levantado la prohibicion por escrito. Nunca por deduccion.')
+    ap.add_argument('--double-down', action='store_true', dest='double_down',
+                    help='PELOTEO que repite A PROPOSITO cliches del gancho anterior de la region o un '
+                         'pais ya usado por la cuenta (Iker, 2026-10-15: "double down es otra estrategia '
+                         'muy inteligente, pero que tenga cabeza"). Solo si la entrega lo declara.')
     ap.add_argument('--foto-grupo', action='store_true', dest='foto_grupo',
                     help='HISTORIA con FOTO DE GRUPO del equipo (Iker, 2026-09-30): acepta el '
                          'gancho en 1a PLURAL (nos, nuestro) como personal. Prueba con n=1 (Unai '
@@ -5032,6 +5104,8 @@ def main():
     FOTO_GRUPO = a.foto_grupo
     global HISTORIA_EVENTO
     HISTORIA_EVENTO = a.historia_evento
+    global DOUBLE_DOWN
+    DOUBLE_DOWN = a.double_down
     texto = io.open(a.fichero, encoding='utf-8').read()
     card = io.open(a.tarjeta, encoding='utf-8').read() if a.tarjeta else None
     res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico, a.publica_manana)

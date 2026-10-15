@@ -115,6 +115,18 @@ CASOS += [
 ]
 
 
+# "Las 10" de Aragon de Iker del 15/10, primera version: 84/84 en verde con el gancho
+# reciclado del mapa de Asier (14/07: "jota, Pilar" y el cierzo) y Uruguay, que Iker ya
+# habia usado en Murcia. Iker: "habra cosas mas conocidas de Aragon que el Pilar y el cierzo".
+LAS10_ARAGON_V1 = 'A la sala de calderas del Pirineo la despachan con el Pilar, el cierzo y puerta. Y exporta más que Uruguay entero 👇\n\nPero sin esa sala no sale agua caliente en toda la casa.\n\nArriba solo se oye el viento.\nAbajo no se apaga nada en todo el año.\n\nY para quien se atreva a bajar, 3 números:\n\n1. 1,4 millones de personas venden fuera 15.615 millones de euros al año (Cámara de Comercio de Zaragoza e INE)\n2. Sri Lanka, con 16 veces más gente, se queda en 12.041 millones (Aduanas de Sri Lanka)\n3. Y 1.773 empresas firman casi el 97% de todo lo que sale fuera (Cámara de Comercio de Zaragoza)\n\nCon 16 veces menos gente que Sri Lanka, le vende al mundo un 30% más.\n\nEstas son 10 de las que tienen la caldera encendida y quién las lleva:\n\n→ @Saica Group - @Enrique de Yraolagoitia · 3.962 M€ en ventas\n→ @Grupo Lacasa - @Fernando Bellido · roza los 300 M€ de facturación\n→ @Mr. Brownie - @Jacqueline Páez Pérez · Premio Exportación Pyme de Aragón, en casi 90 países\n→ @KEPAR ELECTRONICA - @Sergio Andrés Aguilar · 18.000 balizas V16 al día\n→ @Libelium - @Alicia Asín Pérez · 11,8 M€, el mejor año de su historia\n\n→ @Certest Biotec, S.L. - @Nelson Fernandes · alianza con Almirall para nuevas terapias de ARNm\n→ @MAGAPOR - @Montse de Lorenzo Palomar · 24 M€ y ventas en más de 60 países\n→ @SCATI: Video Management Systems - @Miguel Ángel Gimeno Martín · Premio de Marketing Internacional de Aragón\n→ @Arvensis Agro - Fertilizantes ecológicos y nutrición vegetal - @Esteban Santirso · Premio a la Trayectoria Internacional de Aragón\n→ @Bodega ENATE - @Christian González Toledo DipWSET · Mejor Tinto Seco del Berliner Wein Trophy\n\nY a ninguna le llegaron los clientes por casualidad.\n\nEl miércoles 28 lo repasamos en directo y gratis.\n\nBuscar clientes de puerta en puerta no baja de meses.\nCómo ahorrarte esos meses, lo ves con nosotros: https://luma.com/7hhyx07z?utm_source=las10-aragon-15oct-iker&utm_medium=post&utm_campaign=las10-aragon-15oct&utm_content=iker\n\nY es fácil que ya tengas algo suyo en casa.\n\nEl brownie del café, desde Alfamén.\nLos Lacasitos de los críos, desde Utebo.\nLa baliza V16 de tu guantera, desde Zaragoza.\n\nY el tinto del sábado puede venir de Salas Bajas, en pleno Somontano.\n\nNo pagan las nóminas los cabezudos ni el cachirulo.\nNi el melocotón de Calanda.\n\nLas paga gente que arrancó con 3 personas en un local de 100 metros.\n\nY hoy saca una baliza cada 4 segundos.\n\nLas migas se cenan con uva.\nEn Fuendetodos nació Goya, que no es poco.\nY por el Tubo se tapea de pie y en Monegros hay desierto.\n\nLa sala de calderas del Pirineo es Aragón.\n\nDe Jaca a Alfamén, sin bajar la potencia ni en agosto.\n\nA la sala de calderas no baja nadie. Y es la única que no se apaga nunca.\n'
+FLAGS_LAS10 = ['--pilar', 'las10', '--cuenta', 'iker']
+CASOS += [
+    (LAS10_ARAGON_V1, '15/10: cliches del gancho de Asier de Aragon repetidos al repetir region',
+     'sin cliches del gancho anterior de esa region', FLAGS_LAS10, None),
+    (LAS10_ARAGON_V1, '15/10: Uruguay ya lo uso Iker en Murcia (23/07)',
+     'el pais no lo ha usado NUNCA esta cuenta', FLAGS_LAS10, None),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

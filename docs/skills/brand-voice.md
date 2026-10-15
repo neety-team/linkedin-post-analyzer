@@ -30,6 +30,19 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 
 **La escala, de más sobrio a menos:  UNAI  >  ASIER  >  IKER.**
 
+#### 🧭 QUÉ VA POR CUENTA Y QUÉ ES DE TODAS (auditoría del 2026-10-15, la pidió Iker)
+
+> **Iker:** *"todo lo que sean cosas que puedan afectarnos a la imagen de la marca tienen que convertirse en recetas globales y no de ese jefe… que esto no haga que el lenguaje sea una mierda: el segundo jefe sigue teniendo esa libertad"*.
+
+**La pregunta que decide dónde se escribe una corrección de un jefe:** *¿esto protege la IMAGEN DE LA MARCA, o es cómo SUENA esa persona?* Si es imagen, va a global aunque lo haya dicho un solo jefe sobre un solo post. Si es voz, se queda en su cuenta.
+
+| ✅ GLOBAL (imagen de marca, las tres cuentas) | 🎚️ POR CUENTA (tono, se queda donde está) |
+|---|---|
+| No juzgar al que compra, ni cargo ni cliente (`§NO CRITICAMOS` 5) · ni prepotencia sobre él · la prospección nunca como masiva · nada de política (`§NO CRITICAMOS` 6) · no dejar mal a la casa · no criticar a nadie con nombre, región ni colectivo · ningún zasca en respuestas (`§7.1g`) | Unai: gancho grandioso, nunca se hace de menos, plural en historia, intensificador formal, foto corporativa · Asier: no vende (su `yo` es el ingeniero), fútbol y mujer en clave romántica fuera · memes controversiales: solo Iker · Iker: registro bruto y absurdo |
+
+- **Pendiente de Iker (no se ha movido):** `UNAI NO PLANTEA QUE LA IA SUSTITUYE AL COMERCIAL` (15/10). Su motivo es de marca (*"siendo nosotros una herramienta de ventas… es como que lo vemos así"*), y eso vale igual para los tres fundadores, pero Iker lo dejó escrito como **solo Unai** ese mismo día. Hasta que diga otra cosa, se queda en Unai.
+- **Lo que esto NO es:** una excusa para lijar el tono. Las reglas globales cierran **a quién** se le apunta (al que compra, a la casa, a una región), no **cómo de fuerte** se dice.
+
 | Cuenta | Rol | Registro |
 |---|---|---|
 | **Unai** | **FUNDADOR y CEO.** Firma la casa | **El más sobrio.** Tiene que sonar como el director industrial de ~50 años que nos lee, y que le vea como un IGUAL. Afirma, no exclama. Cero hype, cero jerga de creador, cero caricatura, **nada infantil** |
@@ -117,7 +130,7 @@ Iker le pasa a Unai (casi) siempre sus posts de evento o de historia para que lo
 - **Es una lente de desempate, no un filtro nuevo.** El gancho sigue con toda su mecánica y sigue siendo grandioso (sección de arriba); los memes siguen con `--meme-sobrio`. Nada de convertir su cuenta en posts de "liderazgo" acartonados ni en hablar de rondas.
 - **El desempate:** entre dos ganchos o dos cuerpos igual de fuertes, gana el que deja **rastro de criterio** (una opinión o una observación del mercado) sobre el que solo hace gracia.
 - **La prueba de 5 segundos:** un inversor que no conoce a Unai lee SOLO este post. Si piensa *"sabe de lo que habla y trata bien a sus clientes"*, vale. Si piensa *"se ríe de sus clientes"* o *"este manda spam"*, se cambia la frase que lo provoca, no el post entero.
-- **Solo Unai.** Iker y Asier no cambian por esto. Y es preferencia del jefe, no doctrina de datos (`working-preferences §0c`): n=0 medido.
+- **Solo Unai** el desempate por "rastro de criterio" y la prueba de 5 segundos con el inversor. **🔄 Pero dos filas de la tabla ya no son solo suyas (Iker, 15/10):** hablar del cliente y del que compra con respeto, y no presentar la prospección como masiva, son imagen de marca y pasan a las tres cuentas (`§NO CRITICAMOS` 5). Y es preferencia del jefe, no doctrina de datos (`working-preferences §0c`): n=0 medido.
 
 **Mecanizado:** con `--cuenta unai`, `validar-post.py` saca el aviso `ENTREGA: lente del inversor (brand-voice §1b)` con la prueba de 5 segundos. Es aviso: no suspende.
 
@@ -782,6 +795,31 @@ imagen ni en nada nos autocritiquemos ni critiquemos otras regiones"*.
 | **2. A empresas, marcas, herramientas o personas por su nombre** | ya estaba escrito arriba: cualquier mención a otro producto o empresa es neutra o positiva |
 | **3. A otras regiones o ciudades españolas** | ya estaba en `post-workflow §4.2`: buscamos hermandad entre regiones, no dividir |
 | **4. A un colectivo profesional** | “los de compras”, “los SDR”, “los de marketing” como bloque al que se ridículiza |
+| **5. Al que COMPRA** (Iker, 2026-10-15) | ⭐ **LO NUEVO, y vale en las tres cuentas, en todos los pilares y en los correos.** Ni al cargo con poder de decisión (CEO, director general, gerente, fundador, director comercial, de exportación, de desarrollo de negocio, de marketing) ni al **cliente como figura** (`el cliente que regatea`, `el cliente barato`, `cuanto menos paga, más problemas da`). Detalle abajo |
+
+#### ⛔⛔ 5 · AL QUE COMPRA NO SE LE JUZGA, EN NINGUNA CUENTA (Iker, 2026-10-15) — GLOBAL
+
+> **Iker:** *"el hecho de no criticar a la gente con poder de decisión que nos puede acabar comprando… eso creo que te lo expliqué sobre todo para el primer jefe, pero tiene que estar aplicado para todo"*.
+
+**Por qué se rompió, y es la causa raíz:** la regla existía, pero **en dos cajones con candado**: el meme (`post-workflow §4.4-COMPRADOR`, `--comprador-ok`) y la lente del inversor, **solo en Unai** (`§1b`, *"del cliente y del que compra se habla con respeto"*). La tarjeta de Asier del 15/10 no era ni meme ni Unai, así que dio 42/42 con `cuanto menos paga un cliente, más problemas da` en la imagen y `Al cliente que regatea cada euro… se le acepta` en el texto. Es `working-preferences §0c-BIS` otra vez: **una regla de imagen de marca escrita en un pilar o en una cuenta se rompe en todos los demás.**
+
+**La frontera es la de siempre en el meme, ahora para todo: COMPLICIDAD sí, JUICIO no.**
+
+| ✅ complicidad: se cuenta lo que HACE o lo que le pasa | ⛔ juicio: se le cuelga lo que ES |
+|---|---|
+| no coge el teléfono, compra a otro, pide descuento, tarda en contestar | `regatea cada euro`, `tacaño`, `pesado`, `el cliente barato` |
+| la presión que tiene, la cifra que le piden arriba, lo que sueña | `no se entera`, `no sabe lo que compra`, `se escaquea`, `vago` |
+| `el cliente eligió al competidor más barato` (lo barato es el otro) | `cuanto menos paga un cliente, más problemas da` |
+
+- **La culpa, cuando haga falta un culpable, va a la SITUACIÓN, la PRISA o el PROCESO**, igual que en `§NO CRITICAMOS` con los compañeros. Caso del 15/10: `cuanto menos paga un cliente, más problemas da` → **`cuanto más descuento das, más problemas trae la venta`**. Se queda `problemas` (`global §2.2b-NEGATIVO`), se queda la esencia de Hormozi y nadie que compra sale señalado.
+- **Tampoco la prepotencia SOBRE él** (era de Helena, `§EXCEPCIÓN 4`, y es de todos): `sabemos de tu negocio más que tú`, `lo vemos venir antes que nadie`.
+- **Y la prospección nunca se cuenta como masiva** (era de la lente del inversor de Unai): el mismo mensaje a veinte, plantilla, volumen. En el ninja ya lo vetaba `global §4.4b-MUNICIÓN`; ahora también en el cuerpo.
+- **⚠️ ESTO NO TOCA EL TONO.** Iker sigue siendo la cuenta del registro bruto y lo absurdo, y las tres siguen naturales y punchy. **Lo único que se cierra es que el chiste o la frase vayan contra quien firma la compra.** Contra la situación, la cuota, la prisa, el filtro o el Excel se puede apretar igual que antes.
+- **Mecanizado** en `validar-post.py` (fallo duro en todos los pilares, texto y tarjeta: `Sin juicio negativo sobre el que COMPRA`; medido el 15/10 contra los 314 posts publicados de las tres cuentas: 0 falsos positivos) y en `validar-email.py`. Como un léxico no ve la imagen ni el juicio sin palabra clave, es también la **6ª pregunta de `--criterio`** (`comprador`). El borrador tumbado va en `scripts/test-borradores-tumbados.py`.
+
+#### ⛔⛔ 6 · POLÍTICA, NUNCA, EN NINGUNA CUENTA (auditoría del 2026-10-15)
+
+Estaba solo en los vetos de Asier (`aboutme §2-ASIER-VETOS`) y en la lista de controversia de los memes de Unai y Asier. **Es imagen de marca, no gusto de un jefe:** una empresa B2B no gana nada tomando partido y pierde a la mitad de los que la leen. Vale para Iker también: su libertad es la del registro bruto y lo absurdo, no la de meterse en política. *(Subido a global en la auditoría que pidió Iker el 15/10; si quiere dejarlo solo en Asier, se revierte aquí.)*
 
 **Lo que SÍ vale, y es justo el motor de medio catálogo:**
 - **La comparación del peloteo** (*"exporta más que Bolivia entera"*). Comparar no es

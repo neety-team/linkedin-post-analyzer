@@ -284,7 +284,7 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 | ⛔ veto | por qué |
 |---|---|
 | **Fútbol, en cualquier forma** | Iker, 26/08: el meme del Mundial de los calvos *"al ser de fútbol a él no le hubiese gustado"*. Se subió en otra cuenta por eso |
-| **Política** | — |
+| **Política** | 🔄 desde el 15/10 es veto de las tres cuentas (`brand-voice §NO CRITICAMOS` 6): es imagen de marca |
 | **Cualquier cosa malinterpretable** | *"cosas peligrosas que puedan malinterpretarse en humor. Intentar no facilitar el malinterpretamiento, porque al final la gente lo hará igual"* |
 | **⭐ Hablar de una mujer en clave romántica, o que se pueda leer que tiene pareja** | 🔴 **El caso, y es el más caro: Asier BORRÓ una publicación suya porque la frase `soñé con ella` se leyó como que hablaba de una mujer.** No hizo falta que nadie se quejara: la borró él |
 

@@ -175,6 +175,8 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 | Ritmo de bloques | Solo en el validador, y a medias | Prohibía el `1-2-1-2` y le colé un `1-3-1-2-1-3-1-2` |
 | **Variedad del ARRANQUE de los bloques** | `post-workflow §4.2`, `§4.3` y `§4.5`, **tres veces y las tres en un runbook** | Escrita desde el **28/07** y aun así entregué `La web / La centralita / La persona` el 25/08, una semana después del `La eché…` de la historia del 18/08. **Al escribir una historia no aplicaba ninguna de las tres.** A `global §2.0b-ARRANQUE` |
 
+**⛔ Y LA MISMA PREGUNTA VALE PARA LAS CUENTAS, NO SOLO PARA LOS PILARES (Iker, 2026-10-15).** Una corrección que un jefe hace sobre SU post puede ser de su voz o de la imagen de la marca. *"Si te estoy dando feedback de lo que me dice el primer jefe y no lo aplicas cuando redactas publicaciones de otro, hay un problema de base"*. El caso: no juzgar al que compra vivía en la lente del inversor de Unai y en el meme, y la tarjeta de Asier lo rompió con 42/42. **El test: ¿esto protege la imagen de la marca o es cómo suena esa persona?** Imagen → global. Voz → su cuenta. La tabla de qué es cada cosa está en `brand-voice §1b` (`QUÉ VA POR CUENTA Y QUÉ ES DE TODAS`).
+
 **Y si es global, se dice en la entrega.** Una línea: *"esto lo he metido en `global` porque afecta a todos los pilares"*. Así Iker puede corregir la decisión antes de que envejezca dentro del sitio equivocado.
 
 ## 🔴🔴 0c-TER · UN FORMATO NUEVO QUE COMPARTE MOTOR CON UNO VALIDADO HEREDA SU RECETA ENTERA (Iker, 2026-10-01) — GLOBAL

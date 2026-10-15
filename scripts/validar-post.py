@@ -1363,6 +1363,10 @@ CRITERIO = [
     ('verdad', '¿Todo lo afirmado sale de la fuente (video, BD, cliente, informe), sin cuando, cifra ni frase puesta por nosotros? (CLAUDE.md, post-workflow §4.6)'),
     ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje? (global §2.0c)'),
     ('ninja', 'Tapa el post: ¿la linea 1 dice que falta, la 2 lo cubre, y el destino cumple la promesa? ¿Va despues del valor? (global §4.4b)'),
+    # Iker, 15/10: la tarjeta de Asier juzgaba al cliente que paga poco y nadie lo vio,
+    # porque la regla solo existia en el meme y en Unai. El lexico de main() caza lo
+    # explicito; esto obliga a mirar lo que no tiene palabra clave (y la imagen).
+    ('comprador', '¿Alguna linea, del texto, de la tarjeta o de la imagen, JUZGA al que compra (cargo con poder de decision o el cliente como figura) en vez de contar lo que hace? ¿Algo deja decir "en Neety se rien de sus clientes"? (brand-voice canonico 5)'),
 ]
 HISTORIA_EVENTO = False
 
@@ -5061,6 +5065,26 @@ def main():
                        'se escaquea o no sabe (burla). Repasa tambien placas, tazas, rotulos y el peldaño de '
                        'arriba de una evolucion por cargos. Vale en las TRES cuentas, Iker incluido. '
                        'Si pasa, --comprador-ok.', False))
+    # ⛔ NI EL TEXTO NI LA TARJETA JUZGAN AL QUE COMPRA, EN NINGUN PILAR (Iker, 2026-10-15).
+    # La regla vivia solo en el meme (--comprador-ok) y en la lente del inversor de Unai,
+    # asi que la tarjeta de Asier del 15/10 dio 42/42 con "cuanto menos paga un cliente,
+    # mas problemas da" y "Al cliente que regatea cada euro... se le acepta". Iker: "no
+    # criticar a la gente con poder de decision que nos puede acabar comprando tiene que
+    # estar en los tres jefes". Se caza el JUICIO pegado al que compra (cliente, director,
+    # gerente, CEO...), no la situacion: "eligio al competidor mas barato" pasa. Medido el
+    # 15/10 contra los 314 posts publicados de las 3 cuentas: 0 falsos positivos.
+    _COMPRA = r'\b(clientes?|compradore?s?|director(es)?|directoras?|gerentes?|ceos?|fundador\w*|due[ñn]o\w*)\b'
+    _JUICIO = (r'\b(regate\w+|taca[ñn]\w+|pesad[oa]s?|ratas?|problem[aá]tic\w+|t[oó]xic\w+|escaque\w+|vag[oa]s?|'
+               r'no se entera\w*|no tiene ni idea|no sabe lo que \w+)\b'
+               r'|\b(da|dan|causa|causan|trae|traen)\s+(m[aá]s\s+)?problemas\b|\bproblemas\s+(da|dan|causa|causan)\b'
+               r'|\bclientes?\s+(m[aá]s\s+)?barat[oa]s?\b')
+    _juzga = [l.strip() for l in (texto + '\n' + (card or '')).splitlines()
+              if re.search(_COMPRA, l, re.I) and re.search(_JUICIO, l, re.I)]
+    res.insert(0, (not _juzga, 'Sin juicio negativo sobre el que COMPRA, en cualquier pilar y cuenta (brand-voice canonico 5)',
+                   ('"%s": cuenta lo que HACE (no coge, compra a otro, pide descuento), sin colgarle el '
+                    'adjetivo. La culpa va a la situacion, la prisa o el proceso: "cuanto menos paga un '
+                    'cliente, mas problemas da" quedo en "cuanto mas descuento das, mas problemas trae la venta"'
+                    % _juzga[0][:80]) if _juzga else '', False))
     # VOZ AJENA (Iker, 2026-10-05, borrador de Ismael): en el texto de un perfil
     # nuevo manda SU forma de escribir. La chica de producto reescribio varias
     # veces el gancho que le pulimos porque "no sonaba a ella". El FORMATO de la

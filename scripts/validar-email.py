@@ -617,6 +617,21 @@ def main():
     else:
         checks.append(ok('Sin promesa de automatismo ("lo hace por ti"…)'))
 
+    # --- juicio al que compra (Iker, 2026-10-15, brand-voice canónico 5) ---
+    # Mismo léxico que validar-post.py: el juicio pegado al que compra (cliente,
+    # director, gerente, CEO...), no la situación. El correo lo firma un jefe igual.
+    _compra = r'\b(clientes?|compradore?s?|director(es)?|directoras?|gerentes?|ceos?|fundador\w*|due[ñn]o\w*)\b'
+    _juicio = (r'\b(regate\w+|taca[ñn]\w+|pesad[oa]s?|ratas?|problem[aá]tic\w+|t[oó]xic\w+|escaque\w+|vag[oa]s?|'
+               r'no se entera\w*|no tiene ni idea|no sabe lo que \w+)\b'
+               r'|\b(da|dan|causa|causan|trae|traen)\s+(m[aá]s\s+)?problemas\b|\bproblemas\s+(da|dan|causa|causan)\b'
+               r'|\bclientes?\s+(m[aá]s\s+)?barat[oa]s?\b')
+    _juzga = [l.strip() for l in cuerpo.splitlines() if re.search(_compra, l, re.I) and re.search(_juicio, l, re.I)]
+    if _juzga:
+        checks.append(fallo(f'Juzga al que COMPRA: "{_juzga[0][:80]}" — cuenta lo que hace, sin '
+                            f'el adjetivo; la culpa a la situación o al proceso (brand-voice canónico 5)'))
+    else:
+        checks.append(ok('Sin juicio negativo sobre el que compra'))
+
     m = re.search(PROMESA_VOLUMEN, cuerpo_low)
     if m:
         checks.append(aviso(f'Suena a VOLUMEN: "{m.group(0)}" — es la queja contra Waalaxy y '

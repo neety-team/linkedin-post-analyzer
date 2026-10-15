@@ -84,16 +84,57 @@ CASOS = [
      'UNAI: sin plantear que la IA sustituye'),
 ]
 
+# Tarjeta de Asier del 15/10, primera version: dio 42/42 juzgando al cliente que paga poco.
+# Iker: "no criticar a la gente con poder de decision que nos puede acabar comprando tiene
+# que estar en los tres jefes". Cada caso lleva sus flags y el texto de DENTRO de la tarjeta.
+TARJETA_ASIER = """Al cliente que regatea cada euro casi nunca se le elige.
+Se le acepta porque llegó primero.
+
+Y con la cuota encima nadie espera al que paga bien.
+
+El miércoles 28 a las 10 hacemos una sesión gratis por videollamada.
+
+Dar con el cliente que paga lleva meses a cualquiera.
+Esos meses sí te enseñamos a recortarlos: https://luma.com/7hhyx07z?utm_source=tarjeta-cliente-15oct-asier&utm_medium=post&utm_campaign=tarjeta-cliente-15oct&utm_content=asier
+
+El descuento de hoy suele ser la prisa de hace un mes."""
+CARD_ASIER = """Querido comercial novato: cuanto menos paga un cliente, más problemas da.
+
+Elige a quién le vendes antes de que el descuento lo elija por ti.
+
+El cliente barato sale caro."""
+FLAGS_TARJETA = ['--pilar', 'tarjeta', '--cuenta', 'asier']
+CASOS += [
+    (TARJETA_ASIER,
+     '15/10: el texto juzga al cliente que regatea, y en la cuenta de un fundador se lee como burla al que compra',
+     'Sin juicio negativo sobre el que COMPRA', FLAGS_TARJETA, None),
+    (TARJETA_ASIER.replace('Al cliente que regatea cada euro casi nunca se le elige.\nSe le acepta porque llegó primero.',
+                           'La venta con más descuento casi nunca se busca.\nSe acepta porque fue la primera en llegar.'),
+     '15/10: la TARJETA dice "cuanto menos paga un cliente, mas problemas da" aunque el texto ya este limpio',
+     'Sin juicio negativo sobre el que COMPRA', FLAGS_TARJETA, CARD_ASIER),
+]
+
 
 def main() -> int:
     agujeros = 0
-    for texto, motivo, debe in CASOS:
+    for caso in CASOS:
+        texto, motivo, debe = caso[:3]
+        flags = caso[3] if len(caso) > 3 else FLAGS
+        card = caso[4] if len(caso) > 4 else None
         with tempfile.NamedTemporaryFile('w', suffix='.txt', delete=False, encoding='utf-8') as f:
             f.write(texto)
             ruta = f.name
-        out = subprocess.run([sys.executable, os.path.join(AQUI, 'validar-post.py'), ruta] + FLAGS,
+        extra = []
+        if card:
+            with tempfile.NamedTemporaryFile('w', suffix='.txt', delete=False, encoding='utf-8') as f:
+                f.write(card)
+                ruta_card = f.name
+            extra = ['--tarjeta', ruta_card]
+        out = subprocess.run([sys.executable, os.path.join(AQUI, 'validar-post.py'), ruta] + flags + extra,
                              capture_output=True, text=True, encoding='utf-8').stdout or ''
         os.unlink(ruta)
+        if card:
+            os.unlink(ruta_card)
         cazado = any(l.startswith('  FALLA') and debe.lower() in l.lower() for l in out.splitlines())
         print(('OK      ' if cazado else 'AGUJERO ') + texto.split('\n')[0][:70])
         if not cazado:

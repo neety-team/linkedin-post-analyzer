@@ -141,6 +141,46 @@ CASOS += [
                .replace('El cliente barato sale caro.', 'La venta barata sale cara.')),
 ]
 
+# Historia/evento de Asier del 16/10 (ponente en el evento Neety Forward). Iker tumbo dos
+# ganchos el 15/10: "nunca habia vendido nada" es mentira (llevan 3-4 anos con la empresa)
+# y Asier, como Unai, no se hace de menos en publico ("nunca habia rezado", "nunca habia
+# pensado"). brand-voice §1b, ASIER TAMBIEN VA GRANDIOSO.
+CUERPO_ASIER = """La primera vez fue con algo que llevaba meses construyendo.
+
+Y me llevé la lección de cualquier comercial.
+
+No me costó explicar lo que hace.
+Me costó saber quién de los que escuchaban podía comprarlo.
+
+Lo que enseñé hace eso por el comercial.
+
+Pocas empresas, de la que más encaja a la que menos.
+Cada una con su porqué y con quien decide dentro.
+Ninguna entra sin que el comercial la apruebe.
+
+Lo que descarta, la herramienta lo aprende.
+
+Lo primero que enseñé fue esa herramienta nueva, @Neety.
+
+La presenté con @Angela Brook Uria en el evento Neety Forward.
+
+El miércoles 28 lo desgranamos gratis y por videollamada.
+
+Buscando a mano no hay comercial con tiempo de vender.
+Ese tiempo sí te decimos cómo recuperarlo: https://luma.com/7hhyx07z?utm_source=historia-ponente-16oct-asier&utm_medium=post&utm_campaign=historia-ponente-16oct&utm_content=asier
+
+Programar es más fácil que saber a quién vendérselo."""
+FLAGS_ASIER = ['--pilar', 'historia', '--cuenta', 'asier', '--historia-evento']
+CASOS += [
+    ('Llevo años programando para comerciales y nunca había vendido nada yo 😅\n\n' + CUERPO_ASIER,
+     '15/10: "¿como vamos a decir que nunca han vendido nada?" Lleva 3-4 anos de socio',
+     'no se dice que nunca ha vendido', FLAGS_ASIER),
+    ('Nunca había rezado tanto para que saliera bien una demo de ventas 🙏\n\n' + CUERPO_ASIER,
+     '15/10: "siendo jefes, publicamente no quieren dar a entender cosas como nunca habia rezado"',
+     'el gancho no se hace de menos', FLAGS_ASIER),
+]
+
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

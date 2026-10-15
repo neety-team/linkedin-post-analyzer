@@ -1673,22 +1673,29 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # humilde". En su cuenta el aviso NO pide la version humilde (eso le jugaba a
     # la contra): pide que lo grande sea VERDAD, sobrio y sin compararse
     # (brand-voice §1b, UNAI QUIERE EL GANCHO GRANDIOSO).
-    if (cuenta or '').strip().lower() == 'unai':
-        chk(False, 'ENTREGA: el gancho de UNAI va A LO GRANDE (brand-voice §1b)',
+    # 🔄 ASIER TAMBIEN (Iker, 2026-10-15): "el tono del tercer jefe tiene que parecerse
+    # bastante al del primero... siendo jefes, publicamente no quieren dar a entender
+    # cosas como nunca habia pensado, nunca habia rezado". Grandioso, sin humildad y sin
+    # prepotencia, en Unai y en Asier. La lente del inversor sigue siendo solo de Unai.
+    _cta_grande = (cuenta or '').strip().lower()
+    if _cta_grande in ('unai', 'asier'):
+        chk(False, f'ENTREGA: el gancho de {_cta_grande.upper()} va A LO GRANDE (brand-voice §1b)',
             'En Unai NO se busca la version humilde: se busca la version GRANDE de la misma '
             'escena verdadera ("La nueva forma de vender que presentamos no cupo en una sala"). '
             'Comprueba tres cosas: (1) el hecho es CIERTO, nada de "la mayor" ni cifras '
             'infladas; (2) la VOZ sin jerga de creador (de locos, flipa), sin ULTIMA HORA y sin '
             'revolucionar/transformar; romper/reventar SI valen sobre un objeto concreto (la '
             'sala), "no cupo" se le queda formal (30/09); (3) no se compara con '
-            'nadie (mejor que nadie, los demas). Solo en Unai: el resto de cuentas sigue con '
-            'la version humilde de global §2.0c-PRESUMIR', aviso=True)
+            'nadie (mejor que nadie, los demas). Solo en Unai y Asier (15/10): el resto de '
+            'cuentas sigue con la version humilde de global §2.0c-PRESUMIR', aviso=True)
         # 👑 UNAI NUNCA SE HACE DE MENOS (Iker, 2026-10-08): "jamas pense" no lo va a
         # decir nunca, y el "nunca pense que iba a presentar delante de 100 personas"
         # no le gusto. Cae jamas/nunca + pensar/imaginar/creer referido a si mismo;
         # el jamas de un HECHO ("no me deja una propuesta en visto. Jamas") sigue.
-        _incredulo = re.search(r'\b(jam[aá]s|nunca)\s+(me\s+)?(pens[eé]|imagin[eé]|cre[ií]|hubiera|habr[ií]a)\b', hook_txt, re.I)
-        chk(not _incredulo, 'UNAI: el gancho no se hace de menos, sin "jamas pense" (brand-voice §1b)',
+        # Ampliado el 15/10 con Asier: "nunca habia rezado tanto", "nunca habia pensado".
+        _incredulo = (re.search(r'\b(jam[aá]s|nunca)\s+(me\s+)?(hab[ií]a\s+|hubiera\s+|habr[ií]a\s+)?(pens|imagin|cre[ií]|rez|so[ñn]|esper)\w*', hook_txt, re.I)
+                      or re.search(r'\b(jam[aá]s|nunca)\s+(me\s+)?(hubiera|habr[ií]a)\b', hook_txt, re.I))
+        chk(not _incredulo, f'{_cta_grande.upper()}: el gancho no se hace de menos, sin "jamas pense" ni "nunca habia rezado" (brand-voice §1b)',
             (f'"{_incredulo.group(0)}": es la psicologia de sorprenderse de haber llegado, y a Unai '
              'no le gusta. Cuenta el hecho grande en firme ("Defendi ante mas de 100 personas que...")')
             if _incredulo else '')
@@ -1696,7 +1703,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # tambien inversores, que miran como habla de sus clientes, como cuenta un
         # error y si usa LinkedIn para mandar el mismo mensaje a veinte. Desempate,
         # no filtro: es aviso y no suspende.
-        chk(False, 'ENTREGA: lente del inversor (brand-voice §1b)',
+        if _cta_grande == 'unai':
+          chk(False, 'ENTREGA: lente del inversor (brand-voice §1b)',
             'Prueba de 5 segundos: un inversor que no conoce a Unai lee SOLO este post. '
             'Si piensa "sabe de lo que habla y trata bien a sus clientes", vale. Si piensa '
             '"se rie de sus clientes" o "este manda spam" (prospeccion masiva, de plantilla, '
@@ -1713,6 +1721,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'universal. Caso real (21/08): "me pillo con la placa de 100.000 seguidores en la '
         'mano" paso a "me pillo con el tripode montado en el salon" — misma escena, mismo '
         'verbo, 11 caracteres menos y sin presumir', aviso=True)
+
+    # ⛔ "NO VENDE" NO ES "NUNCA HA VENDIDO" (Iker, 2026-10-15): "llevan con la empresa
+    # tres o cuatro anos, ¿como vamos a decir que nunca han vendido nada?". Asier no es
+    # comercial, pero decir que no ha vendido nunca es mentira y le hace de menos.
+    if (cuenta or '').strip().lower() == 'asier':
+        _nunca_vendio = re.search(r'\b(nunca|jam[aá]s)\s+(he|hab[ií]a|habr[eé]|he\s+llegado\s+a)?\s*vend\w*', texto, re.I)
+        chk(not _nunca_vendio, 'ASIER: no se dice que nunca ha vendido (aboutme §2-ASIER)',
+            (f'"{_nunca_vendio.group(0)}": es socio de una empresa que vende desde hace anos. '
+             'Que no sea comercial no significa que no haya vendido nunca') if _nunca_vendio else '')
 
     # 🧑‍💻 ASIER NO VENDE (Iker, 2026-10-08, aboutme §2-ASIER-MEME y post-workflow
     # §4.4-ROL). Es programador: no llama, no prospecta, no tiene cartera ni cuota ni
@@ -4607,11 +4624,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # UNAI EN PLURAL (Iker, 2026-10-08): "Defendi" en primera del singular le
         # suena egocentrico; su gancho de evento o historia va en "Defendimos".
         # En su cuenta la 1a del plural tambien cuenta como gancho personal.
-        if (FOTO_GRUPO or (cuenta or '').strip().lower() == 'unai') and not _personal:
+        # Y ASIER (Iker, 2026-10-15): su tono va como el de Unai, grandioso y con el
+        # merito de la casa cuando es compartido (brand-voice §1b, ASIER TAMBIEN VA
+        # GRANDIOSO). En el no es obligatorio el plural, pero tampoco cuenta como fallo.
+        if (FOTO_GRUPO or (cuenta or '').strip().lower() in ('unai', 'asier')) and not _personal:
             _personal = (re.search(r'(^|\s)(nos|nosotros|nuestr\w+)(\s|,|\.)', ' '+h.lower())
                          # 15/10: el verbo en 1a del plural tambien vale si no abre el gancho
                          # ('Le preguntamos a quien vende IA...'): antes solo se miraba al arrancar.
-                         or re.search(r'(^|\s)\w{2,}(amos|imos|emos)\b', h.lower()))
+                         # Y los cortos ("hemos", "dimos"), que el {2,} dejaba fuera (15/10, Asier).
+                         or re.search(r'(^|\s)(hemos|dimos|\w{2,}(amos|imos|emos))\b', h.lower()))
         chk(bool(_personal), 'HISTORIA: hook personal, en primera persona (§4.6)',
             'la vara abre "I [algo que me pasó]" / "Cuando…" / "Nunca…": una escena TUYA, no un claim ni un dato')
         _ls = [l for l in cuerpo.splitlines() if l.strip()]

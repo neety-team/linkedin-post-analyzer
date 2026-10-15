@@ -1355,6 +1355,15 @@ def puerta_agendar(texto):
 
 
 FOTO_GRUPO = False
+# Las 5 preguntas de criterio que mas han fallado con el marcador en verde (15/10). Cada
+# una apunta a su regla. Se contestan por escrito en --criterio; ver el final de main().
+CRITERIO = [
+    ('bucle', 'Tapa todo menos el gancho (y la imagen o el video): ¿que pregunta deja abierta y en que linea del ultimo tercio se contesta? (global §2.0 y §2.0-PAGO)'),
+    ('explicito', '¿Que daria por sabido alguien que no nos conoce? Cada nombre propio nuestro con su categoria, cada cifra con su sustantivo (global §2.5b-EXPLICITO)'),
+    ('verdad', '¿Todo lo afirmado sale de la fuente (video, BD, cliente, informe), sin cuando, cifra ni frase puesta por nosotros? (CLAUDE.md, post-workflow §4.6)'),
+    ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje? (global §2.0c)'),
+    ('ninja', 'Tapa el post: ¿la linea 1 dice que falta, la 2 lo cubre, y el destino cumple la promesa? ¿Va despues del valor? (global §4.4b)'),
+]
 HISTORIA_EVENTO = False
 
 
@@ -1464,6 +1473,19 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # ⛔ 2.0-PAGO (Iker, 2026-09-30): el bucle que abre el gancho se CIERRA,
     # explicito, en el ultimo tercio (como el reveal de region del peloteo).
     # Es criterio: el script solo obliga a mirarlo.
+    # ⛔ EL GANCHO NO CUENTA LA RESPUESTA (global §2.0, mecanizado el 15/10). La regla del
+    # bucle abierto vivia solo como el aviso fijo de abajo, que sale siempre y no mira el
+    # texto, asi que el 15/10 dio 69/69 a 'Vende IA y nos confeso QUE le pidio a su jefe
+    # licencias de otra empresa'. La parte medible: verbo de decir + 'que' + contenido
+    # cuenta lo que se dijo; el mismo verbo + 'lo que / que / como / donde / si' deja la
+    # pregunta abierta. Probado: caza los 3 ganchos tumbados ese dia y no casa con ninguno
+    # de nuestros 314 ganchos publicados.
+    _revela = re.search(r'\b(confes[oó]|confesaron|cont[oó]|contaron|dijo|dijeron|solt[oó]|soltaron'
+                        r'|explic[oó]|reconoci[oó]|admiti[oó]|revel[oó]|asegur[oó]|descubr[ií]\w*|jur[oó])\s+que\b',
+                        hook_txt, re.I)
+    chk(not _revela, 'Bucle abierto: el gancho no CUENTA la respuesta (global §2.0)',
+        f'"{_revela.group(0)}…" cuenta lo que se dijo y ya no queda nada por lo que pulsar. '
+        f'Deja la pregunta: "nos confeso LO QUE…", "QUE le pidio…", "COMO busca…"' if _revela else '')
     chk(False, 'ENTREGA: el cuerpo PAGA el bucle del gancho (§2.0-PAGO)',
         'gancho: "%s". Senala la linea del ultimo tercio que dice con todas las letras '
         'a que se referia (que era, donde, por que importaba), repitiendo la PALABRA del gancho '
@@ -4951,6 +4973,9 @@ def main():
                     help='HISTORIA con FOTO DE GRUPO del equipo (Iker, 2026-09-30): acepta el '
                          'gancho en 1a PLURAL (nos, nuestro) como personal. Prueba con n=1 (Unai '
                          '23/09), no regla: se anota el resultado en historial-publicaciones.')
+    ap.add_argument('--criterio', help='fichero con las respuestas escritas al CRITERIO que el script no '
+                    'puede medir (una linea por clave: "bucle: …"). Sin el, la entrega sale NO ENTREGABLE '
+                    'aunque el marcador mecanico este en verde (Iker, 15/10)')
     ap.add_argument('--historia-evento', action='store_true', dest='historia_evento',
                     help='HISTORIA/EVENTO (Iker, 2026-10-15): historia que al final desvela quien lo '
                          'conto y el evento, ademas del ninja. El tope de longitud sube de 800 a 900 '
@@ -5052,6 +5077,31 @@ def main():
     if avisos:
         print("  Los avisos no bloquean, pero míralos: son cosas que han funcionado")
         print("  alguna vez y aun así están fuera de donde vive lo que gana.\n")
+    # ⛔ EL CRITERIO SE CONTESTA POR ESCRITO, O NO HAY ENTREGA (Iker, 15/10). Causa raiz del
+    # dia: las reglas que el script no puede medir vivian como ~50 avisos FIJOS que salen
+    # siempre, no miran el texto y no cuentan en el marcador. El marcador salia verde (69/69)
+    # con ganchos que contaban el pago, nombres propios sin su categoria y el evento en la
+    # ultima linea. Ahora las 5 preguntas que mas han fallado exigen una respuesta escrita
+    # (--criterio) y el veredicto final las cuenta. El marcador N/N no cambia de formato:
+    # validar-video.py y los tests lo leen.
+    if not a.historico:
+        _resp = {}
+        if a.criterio and os.path.exists(a.criterio):
+            for _l in io.open(a.criterio, encoding='utf-8').read().splitlines():
+                if ':' in _l:
+                    _k, _v = _l.split(':', 1)
+                    _resp[_k.strip().lower()] = _v.strip()
+        _falta = [k for k, _q in CRITERIO if len(_resp.get(k, '')) < 15]
+        print('  CRITERIO (lo que el script no ve; se contesta en --criterio, una linea por clave):')
+        for k, q in CRITERIO:
+            print(f"  {'✅' if k not in _falta else '⛔'} {k}: {q}")
+            if k not in _falta:
+                print(f"        └─ {_resp[k][:160]}")
+        _ent = ok == len(duras) and not _falta
+        print(f"\n  ENTREGABLE: {'SÍ' if _ent else 'NO'} · mecánico {ok}/{len(duras)} · "
+              f"criterio {len(CRITERIO) - len(_falta)}/{len(CRITERIO)} contestado\n")
+        if ok == len(duras) and _falta:
+            sys.exit(3)
     sys.exit(0 if ok == len(duras) else 1)
 
 if __name__ == '__main__':

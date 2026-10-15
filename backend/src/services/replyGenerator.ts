@@ -724,7 +724,19 @@ const REACCION = new Set([
   'claro', 'si', 'bueno', 'buena', 'no', 'bien', 'total', 'genial', 'justo', 'eso',
   'gracias', 'exacto', 'muy', 'buenisimo', 'buenisima', 'cual', 'super', 'top',
   'nada', 'ya', 'venga', 'guay', 'perfecto', 'brutal', 'tremendo', 'enorme', 'toma', 'hombre',
+  // Los verbos punchy (Iker, 2026-10-15): "Claro me flipaa" queda mejor que
+  // "Clarooo me flipa". Tienen su propio sitio, ver `sitioAlargable`.
+  'flipa', 'flipo', 'flipas', 'flipante', 'mola', 'molo', 'encanta', 'clava', 'clavas', 'renta',
 ]);
+
+// ⛔⛔ EL VERBO PUNCHY TAMBIEN SE ALARGA, Y EN SU SITIO (Iker, 2026-10-15, captura
+// del Chat: "Clarooo me flipa cómo lo cuenta"): *"aquí hubiese quedado mucho
+// mejor decir claro, con solo una o, y a flipa ponerle dos vocales o tres... el
+// verbo así punchy es el que también se le puede alargar"*. Su sitio no es el
+// de las palabras de reaccion: va detras de una muletilla, una reaccion o un
+// pronombre ("claro me flipaa", "me molaa", "pues me encantaa") y sin pausa.
+export const VERBOS_PUNCHY = new Set(['flipa', 'flipo', 'flipas', 'flipante', 'mola', 'molo', 'encanta', 'clava', 'clavas', 'renta']);
+const CLITICOS = new Set(['me', 'te', 'nos', 'os', 'le', 'les', 'lo', 'la', 'que', 'como', 'esto', 'eso']);
 
 // ⛔ LOS DOS SITIOS DE LA ALARGADA (Iker, 2026-09-18). "No tiene sentido que
 // me pongas una frase, buenooo, y luego otra frase. Suena fatal". Solo vale:
@@ -741,6 +753,9 @@ export function sitioAlargable(texto: string, off: number, palabra: string): boo
   const antes = texto.slice(0, off);
   if (/[.!?…]/.test(antes)) return false;
   const previas = (antes.match(/\p{L}+/gu) || []).map(llanoLetra);
+  if (VERBOS_PUNCHY.has(llanoLetra(desestirar(palabra)))) {
+    return previas.length <= 3 && previas.every((w) => MULETILLAS.has(w) || REACCION.has(desestirar(w)) || CLITICOS.has(w));
+  }
   if (previas.length > 2) return false;
   if (previas.some((w) => !MULETILLAS.has(w))) return false;
   const despues = texto.slice(off + palabra.length);
@@ -860,6 +875,25 @@ export function estirarUna(texto: string, letras = 2): string {
  * mejor"*. Si con una sola la palabra no se reconoce como alargada ("bieen",
  * la doble e tambien es de "creen"), se usan dos.
  */
+/**
+ * Si la frase abre con una alargada ("Clarooo me flipa cómo...") y lleva un verbo
+ * punchy en su sitio, la alargada se muda al verbo con las mismas vocales de
+ * mas: "Claro me flipaaa cómo...". Ver VERBOS_PUNCHY.
+ */
+export function moverAlVerbo(c: string): string {
+  const palabras = [...c.matchAll(/\p{L}+/gu)];
+  const estirada = palabras.find((m) => esEstirada(m[0]));
+  if (!estirada || VERBOS_PUNCHY.has(llanoLetra(desestirar(estirada[0])))) return c;
+  const sinEstirar = c.slice(0, estirada.index) + desestirar(estirada[0]) + c.slice((estirada.index ?? 0) + estirada[0].length);
+  const verbo = [...sinEstirar.matchAll(/\p{L}+/gu)].find(
+    (m) => VERBOS_PUNCHY.has(llanoLetra(m[0])) && sitioAlargable(sinEstirar, m.index ?? 0, m[0])
+  );
+  if (!verbo) return c;
+  const extra = Math.min(2, Math.max(1, estirada[0].length - desestirar(estirada[0]).length));
+  const i = verbo.index ?? 0;
+  return sinEstirar.slice(0, i) + alargarPalabra(verbo[0], extra) + sinEstirar.slice(i + verbo[0].length);
+}
+
 export function letrasAlAzar(): number {
   if (Math.random() < 0.5) return 2;
   return 1;

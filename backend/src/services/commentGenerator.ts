@@ -27,6 +27,7 @@ import {
   alargarPalabra,
   letrasAlAzar,
   alternarVocales,
+  moverAlVerbo,
 } from './replyGenerator';
 import {
   esPostDeEvento,
@@ -498,7 +499,7 @@ LENGTH: entre 40 y 80 caracteres (tope duro ${LARGO_MAX_CHAT}), en UNA sola line
 ★ ⛔ HABLAS, NO REDACTAS (Iker, 2026-10-01): "sigo viendo respuestas muy formales, que no son naturales". Comentarios REALES pegados de aqui: "Crecer en exportaciones a ese ritmo demuestra que el músculo industrial...", "hay ecosistemas muy sólidos fuera del radar", "habla de especialización, continuidad...". Eso es un informe, no alguien comentando desde el movil. PROHIBIDO: "demuestra que", "pone de manifiesto", "cabe destacar", "ecosistema", "tejido industrial/comercial/productivo", "músculo industrial", "motor económico", "fuera del radar", "lejos de los focos", "poner en valor", "capacidad exportadora", "visibilidad", "a nivel de", "en definitiva", "asimismo". Se dice como se habla: "qué pasada", "no tenía ni idea", "me flipa", "menudo dato", "lo de X me ha matado", "jaja" si el angulo es de humor.
 ★ EL CIERRE DE CADA UNO TE LLEGA ASIGNADO: exclamacion, puntos suspensivos o punto. Iker: "nunca veo respuestas con exclamación al final, estaría guay". Respetalo, y escribe la frase para que ese cierre le pegue.
 
-★ SOUND HUMAN, NOT POLISHED (Iker, 2026-09-16). Los que los pegan son gente joven y cercana. La ASIGNACION te dice que comentarios llevan UNA palabra alargada: esos llevan EXACTAMENTE UNA, y los demas NINGUNA. La palabra alargada es una palabra corta de reaccion con la VOCAL FINAL estirada, y su sitio en la frase lo dice la ASIGNACION y cambia cada vez: "clarooo", "siii", "muy buenoo", "nooo", "bieeen", "totaal", "geniaaal", "brutaal". Unas con DOS vocales de mas y otras con UNA ("buenooo" y "buenoo" valen las dos), nunca siempre la misma. ⛔ Nunca "vale" ni "cierto" alargados. Nunca un sustantivo en mitad de la frase y NUNCA dos palabras alargadas en el mismo comentario.
+★ SOUND HUMAN, NOT POLISHED (Iker, 2026-09-16). Los que los pegan son gente joven y cercana. La ASIGNACION te dice que comentarios llevan UNA palabra alargada: esos llevan EXACTAMENTE UNA, y los demas NINGUNA. La palabra alargada es una palabra corta de reaccion con la VOCAL FINAL estirada, y su sitio en la frase lo dice la ASIGNACION y cambia cada vez: "clarooo", "siii", "muy buenoo", "nooo", "bieeen", "totaal", "geniaaal", "brutaal". Unas con DOS vocales de mas y otras con UNA ("buenooo" y "buenoo" valen las dos), nunca siempre la misma. ⛔ Nunca "vale" ni "cierto" alargados. ★ Y SI LA FRASE LLEVA UN VERBO PUNCHY (flipa, mola, encanta, clava), LA ALARGADA VA EN EL VERBO: "Claro me flipaa cómo lo cuenta", nunca "Clarooo me flipa cómo lo cuenta" (Iker, 15/10). Nunca un sustantivo en mitad de la frase y NUNCA dos palabras alargadas en el mismo comentario.
 
 ACCENTS WHEN STRETCHING A VOWEL: if the word you stretch carries a written accent, DROP the accent and write every repeated vowel plain. Write "buenisiiimo", never "buenííísimo"; "graciaas", never "gráciaas". An accent in the middle of a stretched run looks like a typo, not like someone typing with enthusiasm.
 
@@ -867,7 +868,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
   // primera prueba con la palabra ya sorteada a 2 o 3, el modelo la reescribio
   // con tres en las tres tandas ("Justooo", "Tal cuaaal", "Geniaaal"). Lo que no
   // se comprueba no se cumple: aqui se alternan, empezando al azar.
-  const alternadas = alternarVocales(conAlargada);
+  const alternadas = alternarVocales(conAlargada.map(moverAlVerbo));
   return alternadas.map((r, i) => {
     // Al final, ni coma ni mayuscula detras de la alargada (Iker, 01/10).
     const cerrado = caberEnLinea(pulirTrasAlargada(pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i])), safePostContent, [input.creatorName]));

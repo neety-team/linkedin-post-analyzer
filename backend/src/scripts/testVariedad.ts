@@ -52,7 +52,8 @@ import {
   ponerAlargadaLibre,
   nombraLaCasa,
 } from '../services/variedadComentarios';
-import { alargarPalabra, esEstirada, letrasAlAzar, alternarVocales } from '../services/replyGenerator';
+import { alargarPalabra, esEstirada, letrasAlAzar, alternarVocales, moverAlVerbo, limitarEstiradas } from '../services/replyGenerator';
+import { componerCabecera, limpiarContexto, palabraDelPilar } from '../services/cabeceraChat';
 import { classifyPillar } from '../services/pillar';
 
 // Textos reales de Unai (15/10 y 14/10), recortados a lo que decide el pilar.
@@ -403,6 +404,20 @@ ok(new Set(Array.from({ length: 60 }, () => alargarPalabra('bueno', letrasAlAzar
 const alt = alternarVocales(['Justooo lo del jefe', 'Sin alargada aqui', 'Geniaaal lo del audio', 'Siii el filtro'], true);
 ok(alt[0].startsWith('Justoo ') && alt[2].startsWith('Geniaaal ') && alt[3].startsWith('Sii '), 'alterna una y dos vocales de mas', alt.join(' | '));
 ok(alt[1] === 'Sin alargada aqui', 'la que no lleva alargada no se toca');
+ok(moverAlVerbo('Clarooo me flipa cómo lo cuenta sin levantar la voz') === 'Claro me flipaaa cómo lo cuenta sin levantar la voz', 'la alargada se muda al verbo', moverAlVerbo('Clarooo me flipa cómo lo cuenta sin levantar la voz'));
+ok(moverAlVerbo('Clarooo, el audio lo cambia todo') === 'Clarooo, el audio lo cambia todo', 'sin verbo punchy se queda donde estaba');
+ok(limitarEstiradas('Claro me flipaa cómo lo cuenta') === 'Claro me flipaa cómo lo cuenta', 'el limpiado respeta el verbo alargado');
+ok(limitarEstiradas('El audio al salir de la visita me flipaa') === 'El audio al salir de la visita me flipa', 'pero no al final de la frase');
+
+console.log('\n26 · cabecera del Chat: PILAR + contexto + de NOMBRE (15/10)');
+ok(componerCabecera('HISTORIA', 'KILOMETROS BOLI', 'IKER', { cual: 0, letras: 2 }) === '🐝 HISTORIAAA KILOMETROS BOLI de IKER:', 'pilar delante y nombre al final', componerCabecera('HISTORIA', 'KILOMETROS BOLI', 'IKER', { cual: 0, letras: 2 }));
+ok(componerCabecera('MEME', 'COMPETENCIA', 'ASIER', { cual: 0.99, letras: 1 }) === '🐝 MEME COMPETENCIAA de ASIER:', 'a veces se alarga el contexto, con una de mas');
+ok(componerCabecera('LAS 10', 'LA RIOJA', 'ASIER', { cual: 0, letras: 1 }) === '🐝 LAS 10 LA RIOJAA de ASIER:', 'nunca LAAS', componerCabecera('LAS 10', 'LA RIOJA', 'ASIER', { cual: 0, letras: 1 }));
+ok(!/nuevo/i.test(componerCabecera('HISTORIA', '', 'UNAI')), 'sin Nuevo');
+ok(limpiarContexto('Nueva: "Kilómetros boli" de Iker', 'IKER', 'HISTORIA') === 'KILÓMETROS BOLI', 'limpia lo que devuelve el modelo', limpiarContexto('Nueva: "Kilómetros boli" de Iker', 'IKER', 'HISTORIA'));
+ok(limpiarContexto('cliente ideal vs sector', 'ISMAEL', '') === 'CLIENTE IDEAL vs SECTOR', 'el vs en minuscula');
+ok(limpiarContexto('La Rioja', 'ASIER', 'LAS 10') === 'LA RIOJA', 'la region conserva su articulo');
+ok(palabraDelPilar('historia_evento', 'text_video') === 'VIDEO' && palabraDelPilar('historia_evento', 'image') === 'HISTORIA', 'video manda; historia/evento se anuncia como historia');
 ok(classifyPillar({ content_text: TELMO }) === 'historia_evento', 'la entrevista de Telmo es historia/evento');
 ok(classifyPillar({ content_text: EXCEL }) === 'historia', 'la historia del Excel con el ninja a Luma sigue siendo historia');
 

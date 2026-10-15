@@ -14,6 +14,8 @@ interface PreviewData {
   // Flat array of supportive comments (always 5). No voice selection — these
   // are neutral network-support comments, not anyone's personal voice.
   comments: string[];
+  /** Primera linea ya compuesta por el backend (15/10). */
+  cabecera?: string | null;
   webhook_configured: boolean;
 }
 
@@ -64,7 +66,10 @@ const CABECERAS: Record<string, string[]> = {
   otro: ['Nuevo POST de {N}', 'Nuevo POOOST de {N}', 'POST nuevo de {N}', '{N} tiene POST nuevo', 'Nuevo POST {N}'],
 };
 
-function buildHeader(creatorName: string | null, url: string | null, pillar: string | null): string {
+function buildHeader(creatorName: string | null, url: string | null, pillar: string | null, cabecera?: string | null): string {
+  // Desde el 15/10 la escribe el backend: PILAR + contexto del post + "de NOMBRE",
+  // como Iker la retocaba a mano. Lo de abajo queda solo de reserva.
+  if (cabecera) return `${cabecera}\n${url || '(sin URL)'}`;
   // Solo el nombre de pila, para que las tres cuentas se lean igual
   // (IKER / UNAI / ASIER), nunca nombre y apellido.
   const first = ((creatorName || '').trim().split(/\s+/)[0] || 'ACCOUNT').toUpperCase();
@@ -146,7 +151,7 @@ export default function GoogleChatModal({
   const computedMessage = useMemo(() => {
     if (!data) return '';
     return buildMessage(
-      buildHeader(data.post.creator_name, data.post.url, data.post.pillar),
+      buildHeader(data.post.creator_name, data.post.url, data.post.pillar, data.cabecera),
       comments,
       pick(RECORDATORIOS)
     );

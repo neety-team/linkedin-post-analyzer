@@ -22,6 +22,7 @@
 import pool from '../db';
 import { sendToGoogleChat } from './googleChat';
 import { generateSupportiveComments } from './commentGenerator';
+import { cabeceraChat } from './cabeceraChat';
 // OJO: `scrapeCreatorPosts` vive en routes/accounts y ESE modulo importa de
 // aqui (`anunciarPostsDeHoy` para el endpoint manual). Un import estatico
 // cerraria un ciclo y en CommonJS el que se cargue segundo se veria al otro a
@@ -81,11 +82,13 @@ export function componerMensaje(input: {
   url: string | null;
   pillar: string | null;
   comments: string[];
+  /** La linea de `cabeceraChat` (15/10). Sin ella, la frase sorteada de siempre. */
+  cabecera?: string | null;
 }): string {
   // Solo el nombre de pila, para que las tres cuentas se lean igual.
   const first = ((input.creatorName || '').trim().split(/\s+/)[0] || 'ACCOUNT').toUpperCase();
   const frase = pick(CABECERAS[input.pillar || 'otro'] || CABECERAS.otro);
-  const header = `🐝 ${frase.replace('{N}', first)}:\n${input.url || '(sin URL)'}`;
+  const header = `${input.cabecera || `🐝 ${frase.replace('{N}', first)}:`}\n${input.url || '(sin URL)'}`;
   const recordatorio = pick(RECORDATORIOS);
   const cleaned = input.comments.map((c) => c.trim()).filter(Boolean);
   if (cleaned.length === 0) return [header, '', recordatorio].join('\n');
@@ -145,7 +148,7 @@ export async function anunciarPostsDeHoy(): Promise<ResultadoAnuncio> {
   // porque estaba capado, anunciarlo al equipo entero manda a doce personas a
   // un enlace muerto.
   const { rows: pendientes } = await pool.query(
-    `SELECT p.id, p.post_url, p.content_text, p.pillar, p.published_at,
+    `SELECT p.id, p.post_url, p.content_text, p.pillar, p.published_at, p.content_type,
             c.name AS creator_name, c.headline AS creator_headline
        FROM posts p
        JOIN creators c ON c.id = p.creator_id
@@ -184,11 +187,18 @@ export async function anunciarPostsDeHoy(): Promise<ResultadoAnuncio> {
         console.error(`[anuncioChat] comentarios de apoyo fallaron para ${post.id}:`, e?.message);
       }
 
+      const cabecera = await cabeceraChat({
+        pillar: post.pillar,
+        contentType: post.content_type,
+        contentText: post.content_text,
+        creatorName: post.creator_name,
+      });
       const mensaje = componerMensaje({
         creatorName: post.creator_name,
         url: post.post_url,
         pillar: post.pillar,
         comments,
+        cabecera,
       });
 
       await sendToGoogleChat(webhook, mensaje);

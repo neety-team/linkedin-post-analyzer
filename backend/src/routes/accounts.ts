@@ -9,6 +9,7 @@ import { maybeTick, capturePostSnapshot, refrescarCifrasOficiales } from '../ser
 import { anunciarPostsDeHoy, componerMensaje } from '../services/anuncioChat';
 import { buscarMensajeEnviado, veredictoDeBusqueda } from '../services/verificarEnvio';
 import { generateComments, generateSupportiveComments } from '../services/commentGenerator';
+import { cabeceraChat } from '../services/cabeceraChat';
 import { CommenterProfileModel } from '../models/commenterProfile';
 import { sendToGoogleChat } from '../services/googleChat';
 import { captureAccountSnapshots } from '../services/accountSnapshots';
@@ -2056,8 +2057,11 @@ router.post('/anuncio-chat/run', async (req: Request, res: Response) => {
               5
             );
           } catch { /* mismo comportamiento que el job: se manda sin ellos */ }
+          const cabecera = await cabeceraChat({
+            pillar: p.pillar, contentType: p.content_type, contentText: p.content_text, creatorName: p.creator_name,
+          });
           return componerMensaje({
-            creatorName: p.creator_name, url: p.post_url, pillar: p.pillar, comments,
+            creatorName: p.creator_name, url: p.post_url, pillar: p.pillar, comments, cabecera,
           });
         })),
       });
@@ -2400,7 +2404,7 @@ router.get('/posts/:postId/google-chat-preview', async (req: Request, res: Respo
     const postId = req.params.postId;
 
     const { rows } = await pool.query(
-      `SELECT p.id, p.content_text, p.post_url, p.hook_text, p.pillar, p.published_at,
+      `SELECT p.id, p.content_text, p.post_url, p.hook_text, p.pillar, p.published_at, p.content_type,
               c.name AS creator_name, c.headline AS creator_headline
        FROM posts p
        JOIN creators c ON c.id = p.creator_id
@@ -2418,6 +2422,14 @@ router.get('/posts/:postId/google-chat-preview', async (req: Request, res: Respo
     // sobra para 5 comentarios y sortear solo dejaba a compañeros sin línea que
     // pegar. La variedad la da el propio texto, no la cantidad.
     const targetCount = 5;
+    // La cabecera (PILAR + contexto + "de NOMBRE", 15/10) en paralelo: es otra
+    // llamada corta y no depende de los comentarios.
+    const cabeceraP = cabeceraChat({
+      pillar: post.pillar,
+      contentType: post.content_type,
+      contentText: post.content_text,
+      creatorName: post.creator_name,
+    });
     const rawComments = await generateSupportiveComments(
       {
         postContent: post.content_text || '',
@@ -2468,6 +2480,7 @@ router.get('/posts/:postId/google-chat-preview', async (req: Request, res: Respo
         pillar: post.pillar || null,
       },
       comments,
+      cabecera: await cabeceraP,
       webhook_configured: !!process.env.GOOGLE_CHAT_WEBHOOK_URL,
     });
   } catch (err: any) {

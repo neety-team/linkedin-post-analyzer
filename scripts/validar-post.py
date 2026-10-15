@@ -2241,6 +2241,21 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not _ang, 'Sin anglicismos que tengan traduccion llana (brand-voice §2b)',
         ' · '.join(f'"{w}" → {ANGLICISMOS[w]}' for w in _ang) if _ang else '')
 
+    # ⛔ UNAI NO PONE SOBRE LA MESA QUE LA IA SUSTITUYE AL COMERCIAL, NI COMO PREGUNTA
+    # (Unai via Iker, 15/10): 'siendo nosotros una herramienta de ventas, puede ser
+    # peligroso que lo preguntemos nosotros, porque es como que si lo vemos asi'. Tumbo
+    # 'Le preguntamos a quien vende IA si los comerciales tienen los dias contados' y
+    # eligio 'La pregunta que mas incomoda a un comercial se la hicimos a quien vende IA'.
+    # Preferencia del jefe, no dato: en Iker y Asier no se aplica.
+    if (cuenta or '').strip().lower() == 'unai':
+        _sust = re.search(r'd[ií]as contados|sustitu\w*|reemplaz\w*|jubil\w*|quit\w* (el|su) puesto'
+                          r'|sin (trabajo|puesto)|acab\w* con (el|los) comercial\w*|cu[aá]nto le queda al comercial',
+                          cuerpo, re.I)
+        chk(not _sust, 'UNAI: sin plantear que la IA sustituye al comercial, ni como pregunta (Unai 15/10)',
+            f'"{_sust.group(0)}": aunque sea en pregunta, en la cuenta del CEO de una herramienta de ventas '
+            f'se lee como nuestra vision. Se plantea la pregunta sin la amenaza ("la pregunta que mas '
+            f'incomoda", "como ve al comercial en 5 anos")' if _sust else '')
+
     # ⛔ NUESTROS NOMBRES PROPIOS VAN CON SU CATEGORIA (global §2.5b-EXPLICITO, 30/09;
     # reincidido el 15/10 con 'nos lo conto en Neety Forward'). Quien ve el post no tiene
     # por que saber que es un evento: no somos famosos y le llega a gente nueva.

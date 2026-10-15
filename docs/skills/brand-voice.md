@@ -81,6 +81,16 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 - **Solo Unai.** En el resto de cuentas, el superlativo de incredulidad de `global §2.3d` sigue en pie.
 - **Mecanizado:** con `--cuenta unai`, `validar-post.py` falla si el gancho lleva `jamás`/`nunca` + `pensé`/`imaginé`/`me imaginé`/`creí`.
 
+#### 🤖 UNAI NO PLANTEA QUE LA IA SUSTITUYE AL COMERCIAL, NI COMO PREGUNTA (Unai vía Iker, 2026-10-15)
+
+> **Unai, eligiendo gancho para la entrevista de Telmo:** *"siendo nosotros una herramienta de ventas, puede ser peligroso que lo preguntemos nosotros, porque si no es como que sí que lo vemos así como visión"*. Tumbó `Le preguntamos a quien vende IA si los comerciales tienen los días contados` y eligió `La pregunta que más incomoda a un comercial se la hicimos a quien vende IA`.
+
+- **Lo vetado es poner la amenaza sobre la mesa desde su cuenta**, aunque sea en pregunta y aunque el post la desmienta: `días contados`, `sustituir`, `reemplazar`, `jubilar`, `quitar el puesto`, `cuánto le queda al comercial`. En la cuenta del CEO de una herramienta de ventas, el lector lo lee como nuestra visión. Es la lente del inversor de arriba.
+- **Lo que sí vale:** la misma tensión, pero sin nombrar la amenaza. La pregunta queda implícita (`la pregunta que más incomoda`) y en el cuerpo va la pregunta neutra (`cómo ve al comercial en 5 años, con la IA dentro`).
+- **Lo que dice el dato, para no perderlo:** la creencia universal dicha por otro rinde en esta cuenta (`Medio LinkedIn jura que la IA le quitó el equipo comercial`, meme, 23.174). Iker cree que el gancho tumbado era mejor. **Manda el jefe**: es preferencia suya, no doctrina, y solo en Unai.
+- **Al dar su banco de ganchos:** la creencia que más convierte va primero, pero si es de esta familia, para Unai se formula sin la amenaza desde el primer borrador.
+- **Mecanizado:** fallo duro en `validar-post.py --cuenta unai` (`UNAI: sin plantear que la IA sustituye al comercial`), en todo el texto.
+
 #### 🗂️ SUS POSTS DE EVENTO O HISTORIA LLEVAN GANCHOS ALTERNATIVOS (Iker, 2026-10-08)
 
 Iker le pasa a Unai (casi) siempre sus posts de evento o de historia para que los revise, y el primer gancho casi nunca le convence. **La entrega lleva el post con el gancho elegido y, debajo, 5 ganchos alternativos, todos grandiosos**, para pasárselo todo junto. **Los ganchos van en UN SOLO bloque copiable** (el elegido primero y los 5 debajo, separados por una línea en blanco), nunca un bloque por gancho (Iker, 08/10). Al proponerlos, decir cuáles obligan a tocar el ninja (la palabra del gancho que recoge, `global §4.4b` regla 4).

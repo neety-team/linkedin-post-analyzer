@@ -79,6 +79,9 @@ CASOS = [
      + CUERPO.replace('por videollamada', 'online'),
      '15/10: "online, yo quiero evitar siempre esos anglicismos"',
      'Sin anglicismos'),
+    ('Le preguntamos a quien vende IA si los comerciales tienen los días contados 👀\n\n' + CUERPO,
+     '15/10, Unai: "siendo nosotros una herramienta de ventas, puede ser peligroso que lo preguntemos nosotros"',
+     'UNAI: sin plantear que la IA sustituye'),
 ]
 
 

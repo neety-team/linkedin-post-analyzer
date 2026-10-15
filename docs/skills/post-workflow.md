@@ -3018,6 +3018,13 @@ Acceso libre.
 >
 > **Por qué funciona, que es lo que Iker confirmó con el post del 13/08:** el lector no se identifica porque la escena haya pasado, se identifica porque **el dolor es suyo**. Lo que hace viajar a una historia es la condición 2 de `§4.6-OBJETIVO` (identificación masiva), y esa se cumple con el dolor, no con la veracidad de la anécdota. El 13/08 la escena la redactó Claude a partir del **dolor nº1 del informe de 50 demos** (buscar a mano se come el tiempo de contactar) → 5.023 impresiones y el mejor CTR de la casa.
 >
+> **⛔⛔ HISTORIA/EVENTO: EL GANCHO NO DELATA EL EVENTO, SE VENDE COMO UNA ESCENA DE VENTAS (Iker, 2026-10-15).** *"Son publicaciones de historia barra evento. La base es el evento, que eso es lo que nos perjudica, pero se vende siempre como una historia en la que el máximo de gente se pueda sentir identificada, atacando los puntos de dolor de nuestros clientes o cosas que pasan en el día a día en ventas"*. Y sobre el banco que le di: *"si dices nuestra mesa redonda, nuestro evento o nuestro ponente, ya la estamos fastidiando"*.
+> - **En el gancho, nada que diga que el evento es nuestro:** ni `evento`, ni `mesa redonda`, ni `ponente`, ni `presentamos`, ni `aplausos` (que además suena prepotente), ni la marca. El molde es el del 07/10 de Unai: `Nunca había visto defender así al comercial delante de una sala llena`. Lo último que esperas al leerlo es que hable de nuestro evento.
+> - **Grandioso sin prepotente:** lo grande va en el hecho (una empresa que vive de la IA quiere lo nuestro) y se descubre en el pago (`Esa otra empresa éramos nosotros.`), nunca en el gancho.
+> - **Tampoco en la línea 2:** `Se sentó en nuestra mesa…` delataba el evento al 10% del texto.
+> - **`Nunca` no se repite en la cuenta de Unai** mientras siga reciente (02/10 y 07/10): ya canta.
+> - **Mecanizado:** fallo duro en `validar-post.py --pilar historia` (`HISTORIA: el gancho no delata el EVENTO ni la marca`). Caza el gancho de los aplausos y deja pasar el del 07/10.
+>
 > **⛔ EN UNA HISTORIA REAL CON PERSONA NOMBRADA NO SE INVENTA NI EL CUÁNDO (Iker, 2026-10-15).** La licencia de `§4.6-INVENTAR` es para escenas sin nombre. Si el protagonista es real y va mencionado, el gancho solo dice lo que dijo él: le puse a Telmo `ese mismo día le escribió a su jefe` porque en la entrevista dijo *"le he escrito"*, y eso no fecha nada (era ponente desde semanas antes). El intensificador de tiempo (`ese mismo día`, `a los cinco minutos`) solo entra si la fuente lo dice; si no, el punch se busca en otro sitio (`Más que los aplausos…`).
 >
 > **Y esto es lo que abarata el pilar:** sin verificación de empresas, sin CSV, sin menciones que cruzar. **Por eso puede ser semanal en agosto** y el peloteo no.

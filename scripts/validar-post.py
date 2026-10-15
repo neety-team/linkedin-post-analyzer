@@ -4359,6 +4359,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 f'Pegado al gancho se lee como anuncio antes de que la escena enganche: se mueve al '
                 f'pago, detras del ninja' if _pos_marca < 0.60 else
                 f'primera vez en el {round(100 * _pos_marca)}% del texto')
+        # ⛔ EL GANCHO DE UNA HISTORIA NO DELATA EL EVENTO (Iker, 2026-10-15). Una historia de
+        # evento se vende como una escena de ventas en la que se reconozca cualquiera; el
+        # evento se descubre en el pago. El 15/10 le di a Unai seis ganchos con 'nuestra mesa
+        # redonda', 'un ponente' y 'los aplausos': se leen como anuncio desde la primera linea.
+        # El molde bueno es el del 07/10 ('Nunca habia visto defender asi al comercial delante
+        # de una sala llena'): nada en el gancho dice que el evento es nuestro.
+        _m_ev_h = re.search(r'\b(neety|evento|forward|mesa redonda|ponentes?|aplaus\w*|presentamos'
+                            r'|nuestra (?:charla|conferencia|jornada))\b', hook_txt, re.I)
+        chk(not _m_ev_h, 'HISTORIA: el gancho no delata el EVENTO ni la marca (Iker, 15/10)',
+            f'"{_m_ev_h.group(0)}" en el gancho. Se cuenta la escena de ventas y el evento se '
+            f'desvela en el pago (global §2.0-PAGO), como el 07/10 de Unai' if _m_ev_h else '')
         # EL VERBO PUNCHY VA AL FINAL DEL GANCHO, CON UN OBJETO (§4.6-SERIE punto 6,
         # patron cruzado de las 3 cuentas, 2026-10-02). Es criterio: aviso que
         # imprime la segunda mitad del gancho para MIRARLA.

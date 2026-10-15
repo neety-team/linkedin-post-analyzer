@@ -2219,6 +2219,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not _ang, 'Sin anglicismos que tengan traduccion llana (brand-voice §2b)',
         ' · '.join(f'"{w}" → {ANGLICISMOS[w]}' for w in _ang) if _ang else '')
 
+    # ⛔ NUESTROS NOMBRES PROPIOS VAN CON SU CATEGORIA (global §2.5b-EXPLICITO, 30/09;
+    # reincidido el 15/10 con 'nos lo conto en Neety Forward'). Quien ve el post no tiene
+    # por que saber que es un evento: no somos famosos y le llega a gente nueva.
+    _sin_urls_nf = re.sub(r'https?://\S+', ' ', cuerpo)
+    _nf_mal = [l.strip() for l in _sin_urls_nf.splitlines()
+               if re.search(r'neety\s+forward', l, re.I) and not re.search(r'\bevento\b', l, re.I)]
+    chk(not _nf_mal, 'Neety Forward va con su categoria: el evento (global §2.5b-EXPLICITO)',
+        f'"{_nf_mal[0][:70]}": escribe "el evento Neety Forward" o "Neety Forward, nuestro evento"' if _nf_mal else '')
+
     # ⛔ MARCAS TEMPORALES (Iker, 2026-08-06). El original de Daniel Disney lleva
     # una lista Monday…Friday, me quedé con ese ritmo de semana y escribí "y aun
     # no es ni jueves" en un post que se publico un JUEVES. Lo pillo Iker al

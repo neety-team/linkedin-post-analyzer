@@ -1107,7 +1107,7 @@ Corre estas puertas EN ORDEN:
 
 ##### ⛔⛔ 2.5b-EXPLÍCITO · Y NO ES SOLO LA CIFRA: ES CUALQUIER PALABRA QUE QUITA UNA DUDA (Iker, 2026-08-27)
 
-> **Caso del 30/09 (Iker: *"siempre sueles fallar en lo de ser explícito"*):** en la historia de la alarma escribí `en Neety Forward` dando por hecho que se sabe qué es. Un nombre propio nuestro va con su categoría pegada: `el evento Neety Forward`, `@Neety, nuestro software`. Lo mismo que `anuncio` en el gancho: la palabra que dice qué es la cosa se escribe.
+> **Caso del 30/09 (Iker: *"siempre sueles fallar en lo de ser explícito"*):** en la historia de la alarma escribí `en Neety Forward` dando por hecho que se sabe qué es. Un nombre propio nuestro va con su categoría pegada: `el evento Neety Forward`, `@Neety, nuestro software`. **🔁 Reincidido el 15/10** (`nos lo contó en Neety Forward` a secas, en la entrevista de Telmo): **mecanizado** como fallo duro en `validar-post.py` (`Neety Forward va con su categoria`). Y `software` ya no: `@Neety, nuestra herramienta` (`brand-voice §2b`). Lo mismo que `anuncio` en el gancho: la palabra que dice qué es la cosa se escribe.
 
 > **Iker:** *"falta explícitamente tal cual poner que vamos a hacer un evento, y encima presencial. Elena pone que el 1 de abril van a hacer una sesión live. Hay que ser más explícito, y últimamente te está costando, y no hay que dejar la duda ni confusiones, porque nuestro público es mayor y se pueden confundir"*.
 

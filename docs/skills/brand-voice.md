@@ -809,7 +809,7 @@ imagen ni en nada nos autocritiquemos ni critiquemos otras regiones"*.
 | **1. A nosotros mismos** | ⭐ **LO NUEVO.** Ni al equipo, ni a otra cuenta, ni a un compañero, ni siquiera sin nombrarlo. Un *"los llamaron 5 días tarde"* es un reproche a ventas aunque no diga a quién |
 | **2. A empresas, marcas, herramientas o personas por su nombre** | ya estaba escrito arriba: cualquier mención a otro producto o empresa es neutra o positiva |
 | **3. A otras regiones o ciudades españolas** | ya estaba en `post-workflow §4.2`: buscamos hermandad entre regiones, no dividir |
-| **4. A un colectivo profesional** | “los de compras”, “los SDR”, “los de marketing” como bloque al que se ridículiza |
+| **4. A un colectivo profesional** | “los de compras”, “los SDR”, “los de marketing” como bloque al que se ridículiza. **🔄 Y tampoco con una ETIQUETA que lo rebaje (Iker, 15/10):** `Querido comercial novato:` *"se percibe como crítica total al novato"*; quedó `Querido comercial:`. `novato` y `pringado` son fallo duro en `validar-post.py` (0 de 314 posts publicados los llevaban) |
 | **5. Al que COMPRA** (Iker, 2026-10-15) | ⭐ **LO NUEVO, y vale en las tres cuentas, en todos los pilares y en los correos.** Ni al cargo con poder de decisión (CEO, director general, gerente, fundador, director comercial, de exportación, de desarrollo de negocio, de marketing) ni al **cliente como figura** (`el cliente que regatea`, `el cliente barato`, `cuanto menos paga, más problemas da`). Detalle abajo |
 
 #### ⛔⛔ 5 · AL QUE COMPRA NO SE LE JUZGA, EN NINGUNA CUENTA (Iker, 2026-10-15) — GLOBAL

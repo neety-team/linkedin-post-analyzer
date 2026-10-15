@@ -5186,6 +5186,16 @@ def main():
                r'|\bclientes?\s+(m[aá]s\s+)?barat[oa]s?\b')
     _juzga = [l.strip() for l in (texto + '\n' + (card or '')).splitlines()
               if re.search(_COMPRA, l, re.I) and re.search(_JUICIO, l, re.I)]
+    # ⛔ NI UNA ETIQUETA QUE REBAJE AL COMERCIAL (Iker, 2026-10-15). La tarjeta de Asier
+    # abria con "Querido comercial novato:" para calcar el "Dear younger me" de Hormozi sin
+    # ponerle a Asier un rol de vendedor. Iker: "lo veo muy peligroso porque se percibe como
+    # critica total al novato". Es el colectivo del lector (brand-voice canonico 4). Medido
+    # el 15/10: 0 de los 314 posts publicados de las 3 cuentas llevan "novato".
+    _etq = [l.strip() for l in (texto + '\n' + (card or '')).splitlines()
+            if re.search(r'\bnovat[oa]s?\b|\bpringad[oa]s?\b|\bnovatill\w*', l, re.I)]
+    res.insert(0, (not _etq, 'Sin etiqueta que rebaje al comercial: novato, pringado (brand-voice canonico 4)',
+                   ('"%s": se lee como critica al que empieza, que tambien nos lee. Al comercial se le '
+                    'habla sin etiqueta ("Querido comercial:")' % _etq[0][:80]) if _etq else '', False))
     # La tarjeta va por validar_tarjeta() y no pasa por el veto global de la IA que sustituye
     # al comercial (validar()). Se repite aqui para ese pilar, sobre texto y tarjeta.
     if a.pilar == 'tarjeta':

@@ -133,6 +133,12 @@ CASOS += [
      'GANCHO de UNA linea', FLAGS_TARJETA,
      CARD_ASIER.replace('cuanto menos paga un cliente, más problemas da', 'cuanto más descuento das, más problemas trae la venta')
                .replace('El cliente barato sale caro.', 'La venta barata sale cara.')),
+    ('La venta con más descuento casi nunca se busca.\n\n' + TARJETA_ASIER.split('\n\n', 1)[1].replace(
+        'Dar con el cliente que paga lleva meses a cualquiera.', 'Dar con quien compra sin descuento lleva meses.'),
+     '15/10: "Querido comercial novato" se percibe como critica total al novato',
+     'Sin etiqueta que rebaje al comercial', FLAGS_TARJETA,
+     CARD_ASIER.replace('cuanto menos paga un cliente, más problemas da', 'cuanto más descuento das, más problemas trae la venta')
+               .replace('El cliente barato sale caro.', 'La venta barata sale cara.')),
 ]
 
 def main() -> int:

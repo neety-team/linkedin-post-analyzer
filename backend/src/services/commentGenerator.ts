@@ -523,6 +523,7 @@ Y NO ES SOLO LA LISTA, ES LA FORMA: abrir con un sustantivo abstracto y un verbo
 
 ★ ⛔⛔ ESPAÑOL DE ESPAÑA, DE ALGUIEN DE AQUI (Iker, 2026-10-15). Salieron "No ciertooo olvidaba el detalle del audio" y "Valeee Multiverse Computing en el Forward...". Iker: "hablando en español latino. Tienes que hablar en español de España". PROHIBIDO: "no cierto", "olvidaba" (aqui se dice "no me acordaba"), "ahorita", "chévere", "platicar", "celular", "computadora", "ustedes", "qué padre", "qué lindo", "nomás". Y NADIE ABRE CON "VALE": "nadie empezaría con vale, suena raro".
 ★ ⛔⛔ NI INFANTIL NI DE PARODIA: APOYO NATURAL, CERCANO Y HUMILDE (Iker, 2026-10-15): "respuestas un poco ridículas, como sacadas de una broma o de una parodia". Frases que una persona normal pegaria con su nombre: completas, con su verbo y bien construidas ("Telmo la acreditación colgada y encima con filtros buscaba clientes" no se entiende). Sin superlativos de broma: nada de "de los momentos del año", "el mejor momento", "épico", "leyenda", "me muero".
+★ ⛔ LA GRAMATICA MANDA SOBRE EL ARRANQUE (15/10: salio "Audio al salir de cada visita me ha pasado algo parecido y cambia todo!", que no se entiende). Si empezar por el arranque asignado no da una frase bien construida, se reordena hasta que suene a como lo diria alguien en voz alta.
 ★ ⛔ LOS NOMBRES SE ESCRIBEN ENTEROS. El evento se llama "Neety Forward" y asi se escribe, NUNCA "el Forward". Igual las personas y las empresas: como salen en el post.
 
 Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n} strings. No markdown fences, no explanation.`;
@@ -860,7 +861,24 @@ Return JSON only: { "comments": ["...", "..."] }`;
     if (k < 0) break;
     conAlargada[k] = j >= 0 ? estirarUna(conAlargada[k], letrasAlAzar()) : forzarEstirada(conAlargada[k], letrasAlAzar(), [...palabraDe.values()][0]);
   }
-  return conAlargada.map((r, i) => {
+  // DOS Y TRES VOCALES EN LA MISMA TANDA, DECIDIDO EN CODIGO (Iker, 15/10: "no
+  // metas siempre tres vocales, a veces mete dos... quiero variedad"). En la
+  // primera prueba con la palabra ya sorteada a 2 o 3, el modelo la reescribio
+  // con tres en las tres tandas ("Justooo", "Tal cuaaal", "Geniaaal"). Lo que no
+  // se comprueba no se cumple: aqui se alternan, empezando al azar.
+  const conVocales = conAlargada.map((r, k) => (contarEstiradas(r) > 0 ? k : -1)).filter((k) => k >= 0);
+  const empiezaConUna = Math.random() < 0.5;
+  const letrasDe = new Map(conVocales.map((k, x) => [k, (x % 2 === 0) === empiezaConUna ? 1 : 2]));
+  const revocalizar = (t: string, letras: number) => {
+    let hecho = false;
+    return t.replace(/\p{L}+/gu, (w: string) => {
+      if (hecho || !esEstirada(w)) return w;
+      hecho = true;
+      return alargarPalabra(desestirarTodo(w), letras);
+    });
+  };
+  return conAlargada.map((r0, i) => {
+    const r = letrasDe.has(i) ? revocalizar(r0, letrasDe.get(i)!) : r0;
     // Al final, ni coma ni mayuscula detras de la alargada (Iker, 01/10).
     const cerrado = caberEnLinea(pulirTrasAlargada(pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i])), safePostContent, [input.creatorName]));
     return conEmoji.has(i) ? ponerEmojiAlFinal(cerrado, emojiDe.get(i)) : cerrado;

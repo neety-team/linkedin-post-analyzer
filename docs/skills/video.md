@@ -383,13 +383,14 @@ LinkedIn da tres métricas de vídeo (reproducciones, tiempo total y tiempo medi
 
 ### 6.5h · VÍDEO DE ENTREVISTA YA MONTADO POR LA PRODUCTORA (Telmo, Neety Forward, 15/10)
 
-Cuando el vídeo llega editado por el filmmaker y la voz es la de **un tercero entrevistado**, no hay voz en off que escribir ni clips que mapear. Lo que cambia de la entrega de `§6.5d`:
-- **Caption:** igual que siempre, con las reglas de post de texto y su pilar (aquí historia, rama B: el protagonista es el entrevistado y el jefe es testigo).
-- **"3 propuestas de voz" pasan a ser 3 propuestas de MONTAJE** del mismo material, con los segundos exactos de cada tramo sacados de la transcripción con marcas de palabra (faster-whisper, `word_timestamps=True`). La frase del entrevistado **no se reescribe** (`brand-voice §3b`): se elige qué tramos quedan y en qué orden.
-- **La duración manda:** la entrevista del 08/10 (72 s) retuvo un 22%; el primer vídeo (22 s), un 76%. El corte va a ~21 s y nunca pasa de 35.
-- **Se abre en frío con la mejor frase del entrevistado**, no con la presentación del entrevistador (el gancho de Rodri es una micro-confesión, `Si soy sincero…`), y se corta seco tras el remate (Jenny).
-- **Sin música ni mapa de planos:** los pone la productora.
-- **Validador:** `validar-video.py <transcripcion-del-corte.txt> --caption <caption.txt> --cuenta X --pilar-video entrevista --segundos <duración> --caption-pilar <pilar>`. En este modo las reglas de redacción de la voz son aviso y la duración se mide en segundos reales.
+> **⛔ Iker, 15/10:** *"el jefe quiere subir ese vídeo tal cual… lo ha grabado y editado el filmmaker… los apuntes los aplicamos en el caso de que tengamos que hacer un vídeo de cero. En este caso el vídeo ya está hecho"*. El primer intento de este caso le propuso 3 recortes del vídeo: estaba mal.
+
+**Cuando el vídeo llega HECHO (filmmaker, productora), se sube TAL CUAL, con su duración, y no se toca.** Nada de esta skill que sirva para MONTAR (`§4` playbook, `§6.3`-`§6.5g`, Rodri, Jenny, música, mapa de planos, voz en off, 3 propuestas de voz) aplica. Lo único que se entrega es el **post de texto**:
+- **El caption, con las reglas de post de texto y su pilar** (aquí historia rama B: el protagonista es el entrevistado y el jefe es testigo), y si el post es de **evento presencial en la cuenta de Unai, con su banco de 5 ganchos** (`brand-voice §1b`).
+- **El cuerpo COMPLEMENTA lo que se oye en el vídeo, no lo repite** (`§6.5c` y `global §2.0c`): lo que el entrevistado ya cuenta lo paga el vídeo; el texto pone el porqué y la mirada del jefe, y cierra el bucle del gancho en el último tercio.
+- **Transcribir sí, siempre** (faster-whisper en local), para saber qué dice el vídeo y no repetirlo, y para identificar a quien sale y mencionarle.
+- **El riesgo se avisa con el dato, pero no se propone recortar:** la entrevista del 08/10 (72 s) retuvo un 22%.
+- **Validador:** `validar-video.py <transcripcion.txt> --caption <caption.txt> --cuenta X --pilar-video entrevista --segundos <duración> --caption-pilar <pilar>`. En este modo la voz y la duración solo dan aviso: lo que cuenta es el caption.
 
 ### 6.6 · Pendiente
 Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.

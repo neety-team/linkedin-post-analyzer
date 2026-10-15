@@ -82,10 +82,10 @@ def main():
     ap.add_argument('--caption')
     ap.add_argument('--cuenta')
     ap.add_argument('--pilar-video', default='manana', choices=['manana', 'otro', 'entrevista'])
-    # 2026-10-15: video de ENTREVISTA ya montado por la productora (Telmo, Neety Forward). La
-    # "voz" es la de un tercero y no se reescribe (brand-voice §3b: la cita se deja como la
-    # dijo), asi que las reglas de redaccion de la voz en off pasan a AVISO, la duracion se
-    # mide en segundos reales del corte y el caption se valida con SU pilar, no como meme.
+    # 2026-10-15: video de ENTREVISTA ya montado por la productora (Telmo, Neety Forward), que
+    # se sube TAL CUAL (video §6.5h). La "voz" es la de un tercero y no se reescribe, asi que
+    # las reglas de la voz en off y la duracion pasan a AVISO y el caption se valida con SU
+    # pilar, no como meme.
     ap.add_argument('--segundos', type=float, help='duracion real del corte (modo entrevista)')
     ap.add_argument('--caption-pilar', default='meme', help='pilar con el que se valida el caption')
     ap.add_argument('--publica-manana', action='store_true')
@@ -104,7 +104,7 @@ def main():
     dp = re.search(r':\s*\S', re.sub(r'\d:\d', '', voz))
     chk(not dp, 'Voz: sin dos puntos en medio de una frase (brand-voice §3)', aviso=ent)
     m = re.findall(vp.NUMERO_EN_LETRA, voz, re.I)
-    chk(not m, 'Voz: cifras en digito, los subtitulos son la voz (global §3.6)', f'{m[:3]}' if m else '')
+    chk(not m, 'Voz: cifras en digito, los subtitulos son la voz (global §3.6)', f'{m[:3]}' if m else '', aviso=ent)
 
     # 2026-09-30 (Iker): "quiero un video de maximo 20, si dura unos 21 segundos estaria
     # guay". Referencias: la rampa 15,8 s con 66% de retencion; Jenny, TikTok 10-20 s.
@@ -114,9 +114,10 @@ def main():
         # La entrevista del 08/10 (72 s) retuvo un 22%; el primer video (22 s), un 76%.
         chk(a.segundos is not None, 'Entrevista: se pasa --segundos con la duracion real del corte')
         if a.segundos is not None:
-            chk(a.segundos <= 35, 'Entrevista: el corte dura 35 s o menos (72 s retuvo un 22%, 22 s un 76%)',
-                f'{a.segundos:.1f} s')
-            chk(a.segundos <= 23, 'Entrevista: en torno a 21 s, el objetivo de Iker', f'{a.segundos:.1f} s', aviso=True)
+            # Iker, 15/10: un video hecho por la productora se sube TAL CUAL. La duracion solo
+            # se avisa con el dato de retencion; nunca se propone recortarlo.
+            chk(a.segundos <= 35, 'Entrevista: duracion (se sube tal cual; 72 s retuvo un 22%, 22 s un 76%)',
+                f'{a.segundos:.1f} s', aviso=True)
     else:
         chk(n <= 70, 'Voz: 23 s como mucho (<=70 palabras a 3,0/s, medido)', f'{n} palabras, ~{round(n / 3.0)} s')
         chk(n <= 62, 'Voz: en torno a 21 s, el objetivo de Iker (<=62 palabras)', f'{n} palabras, ~{round(n / 3.0)} s', aviso=True)
@@ -207,6 +208,15 @@ def main():
             if 'FALLA' in l:
                 print('  [caption] ' + l.strip())
     print('\n  LO QUE EL SCRIPT NO VE, Y SE CONTESTA POR ESCRITO EN LA ENTREGA:')
+    if ent:
+        # Video hecho por la productora: se sube tal cual (video §6.5h). Solo se escribe el post.
+        print('   1. El video se sube TAL CUAL: nada de recortes, montajes ni propuestas de voz (video §6.5h).')
+        print('   2. El caption COMPLEMENTA lo que se oye en el video, no lo repite (video §6.5c, global §2.0c).')
+        print('   3. Quien sale en el video, identificado y mencionado con su nombre exacto (CLAUDE.md, menciones).')
+        print('   4. Si es evento presencial en la cuenta de Unai: gancho elegido + 5 alternativas (brand-voice §1b).')
+        ok_duros = sum(1 for r in duros if r[0])
+        print(f'\n  {ok_duros}/{len(duros)} checks · {len(res) - len(duros)} aviso(s)')
+        sys.exit(0 if ok_duros == len(duros) else 1)
     print('   1. Chequeo de 9 puntos del gancho (video §6.3-CHECK): bucle, autogol, segunda lectura, ancla,')
     print('      punch, rodable, verdad, registro, longitud.')
     print('   2. La voz COMPLEMENTA el plano, no lo describe (video §6.5c): frase por frase, ¿dice algo que')

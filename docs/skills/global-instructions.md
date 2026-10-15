@@ -1727,6 +1727,14 @@ En esta/eso sí [lo mismo] y [la escasez]:      <- la excepción, cosida con dem
 - *"Detecta a quién vender, cuándo hacerlo y qué acción tomar"* (Detecta · Prioriza · Actúa).
 - *"El software que detecta las empresas que encajan de verdad con lo que vendes"*, *"segmentas con tu criterio técnico"* y *"Neety puntúa la confianza en cada empresa"*.
 - *"Da con quién decide dentro"* y *"el siguiente paso de cada cuenta y por qué canal"*.
+- **🆕 Lo que hace la herramienta HOY, contado por Iker el 15/10 (para cuerpos y historias que hablen del producto; el ninja sigue vendiendo un eslabón):**
+  - **Pocas empresas, ordenadas:** no hay listas masivas. Llegan **ordenadas de la que más encaja a la que menos**, de poco en poco para no agobiar (sin tope, sin puntuación numérica desde el 13/10).
+  - **Personas dentro, ordenadas** de más poder de decisión o más probabilidad de contestar a menos; las que no encajan ni se enseñan.
+  - **El comercial aprueba o descarta cada empresa y cada persona,** y la herramienta aprende de eso. **Hoy nada pasa sin el comercial**: no acepta una empresa que él no quiera. Es EL diferencial y nunca se escribe nada que lo contradiga.
+  - **Propone canal y momento** (LinkedIn sobre todo, también correo o llamada) y en **Mensajes** guarda el historial de cada conversación en un solo sitio. Un partner contó que los posts dejan claro que encontramos empresas y clientes, pero no sabía que existe esa parte: hueco a contar. ⛔ Se cuenta como "todo en un sitio", **nunca como envío automático** (`§4.4b-MUNICIÓN`, objeción medida).
+  - **No mira solo LinkedIn:** cruza lo que hay de cada empresa en internet (su web, noticias). En el post: `su web, sus noticias`; ⛔ nunca `scraping` (anglicismo y familia de riesgo de `brand-voice §2c-DATOS`).
+  - **Funciones en desarrollo** (por ejemplo, sectores y empresas con varias plantas): **no se nombran**, para que no las copien. Como mucho, "seguimos mejorándola para que el comercial deje de perder horas buscando".
+  - Lemas en uso: **`Menos buscar. Más vender.`** (portada del webinar) y **Detecta · Prioriza · Actúa** (web). Herramienta, no `software` si se puede evitar (anglicismo de uso, Iker 15/10).
 - ⛔ **Sigue fuera del ninja:** la señal o la intención de compra como argumento (`§4.4b-ORDEN`, 15 empresas la objetan), el automatismo y el volumen. **Un ninja vende un eslabón** (`§4.4b-CADENA`): empresa con acierto **y** persona es lo que más convierte; el canal y el momento se quedan para la demo.
 
 ##### ⛔⛔ 4.4b-NO-EXCEL · EL NINJA NUNCA VENDE EL PRODUCTO COMO UN EXCEL O UNA LISTA (Iker, 2026-10-13) — GLOBAL

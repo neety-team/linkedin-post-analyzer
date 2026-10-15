@@ -4462,6 +4462,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(bool(_ls) and len(_ls[-1]) <= 78,
             'HISTORIA: cierra con una LECCIÓN corta y punchy (§4.6)',
             (f'la última línea {len(_ls[-1])} car' if _ls else 'sin cuerpo') + ' — la moraleja es corta ("Moments do", "El método sirve para cualquiera")')
+        # ⛔ LA ULTIMA LINEA NUNCA ES EL DESVELAMIENTO (Iker, 15/10): 'el final de la
+        # publicacion es como el final de un video: una moraleja o algo punchy'. El evento
+        # y la marca se desvelan en el ultimo tercio, pero ANTES del cierre, no en el.
+        _ult = _ls[-1] if _ls else ''
+        _m_ult = re.search(r'\b(neety|evento|forward)\b|@', _ult, re.I)
+        chk(not _m_ult, 'HISTORIA: la ultima linea es la moraleja, no el desvelamiento (Iker, 15/10)',
+            f'"{_ult[:70]}": el evento, la marca o la mencion van antes; el post cierra con '
+            f'una leccion o un golpe' if _m_ult else '')
         # §4.6 punto 1c — el clasificador (backend/src/services/pillar.ts) separa
         # historia de meme contando PRETERITOS: hacen falta 4. La del 13/08 tenia
         # exactamente 4 y con 3 habria caido en 'meme'. Y esto choca de frente con

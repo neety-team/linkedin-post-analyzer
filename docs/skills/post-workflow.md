@@ -3036,6 +3036,8 @@ Acceso libre.
 >
 > **📏 HISTORIA/EVENTO: HASTA 900 CARACTERES (Iker, 2026-10-15).** Cuando al final hay que desvelar quién lo contó y el evento, además del ninja, ese tramo le come sitio a la historia y se queda coja. El tope sube de 800 a 900 con `validar-post.py --historia-evento`, y **el sitio que se gana es para la historia del gancho y el dolor, nunca para más evento**. Decisión de Iker, sin medir: en contra está el 07/10 de Unai (887 car, evento en el gancho, 8 clics). Se mide al publicar.
 >
+> **⛔ LA ÚLTIMA LÍNEA ES LA MORALEJA, NUNCA EL DESVELAMIENTO (Iker, 2026-10-15).** *"El final de la publicación es como el final de un vídeo: te tiene que dar una moraleja o algo punchy"*. En historia/evento el nombre del evento, la marca y la mención van en el último tercio, pero ANTES del cierre. Caso: `Nos lo contó en Neety Forward…` como última línea pasó a `Lo que tiene los días contados es el filtro.` (recoge el golpe del gancho). Fallo duro en `validar-post.py --pilar historia`.
+>
 > **⛔ EN UNA HISTORIA REAL CON PERSONA NOMBRADA NO SE INVENTA NI EL CUÁNDO (Iker, 2026-10-15).** La licencia de `§4.6-INVENTAR` es para escenas sin nombre. Si el protagonista es real y va mencionado, el gancho solo dice lo que dijo él: le puse a Telmo `ese mismo día le escribió a su jefe` porque en la entrevista dijo *"le he escrito"*, y eso no fecha nada (era ponente desde semanas antes). El intensificador de tiempo (`ese mismo día`, `a los cinco minutos`) solo entra si la fuente lo dice; si no, el punch se busca en otro sitio (`Más que los aplausos…`).
 >
 > **Y esto es lo que abarata el pilar:** sin verificación de empresas, sin CSV, sin menciones que cruzar. **Por eso puede ser semanal en agosto** y el peloteo no.

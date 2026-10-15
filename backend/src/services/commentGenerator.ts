@@ -24,6 +24,8 @@ import {
   esEstirada,
   desestirarTodo,
   pulirTrasAlargada,
+  alargarPalabra,
+  letrasAlAzar,
 } from './replyGenerator';
 import {
   esPostDeEvento,
@@ -54,6 +56,10 @@ import {
   LARGO_MAX_CHAT,
   huecosAlargada,
   nombraLaCasa,
+  abreConVale,
+  latinismo,
+  eventoRecortado,
+  exageraDeBroma,
 } from './variedadComentarios';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
@@ -491,7 +497,7 @@ LENGTH: entre 40 y 80 caracteres (tope duro ${LARGO_MAX_CHAT}), en UNA sola line
 ★ ⛔ HABLAS, NO REDACTAS (Iker, 2026-10-01): "sigo viendo respuestas muy formales, que no son naturales". Comentarios REALES pegados de aqui: "Crecer en exportaciones a ese ritmo demuestra que el músculo industrial...", "hay ecosistemas muy sólidos fuera del radar", "habla de especialización, continuidad...". Eso es un informe, no alguien comentando desde el movil. PROHIBIDO: "demuestra que", "pone de manifiesto", "cabe destacar", "ecosistema", "tejido industrial/comercial/productivo", "músculo industrial", "motor económico", "fuera del radar", "lejos de los focos", "poner en valor", "capacidad exportadora", "visibilidad", "a nivel de", "en definitiva", "asimismo". Se dice como se habla: "qué pasada", "no tenía ni idea", "me flipa", "menudo dato", "lo de X me ha matado", "jaja" si el angulo es de humor.
 ★ EL CIERRE DE CADA UNO TE LLEGA ASIGNADO: exclamacion, puntos suspensivos o punto. Iker: "nunca veo respuestas con exclamación al final, estaría guay". Respetalo, y escribe la frase para que ese cierre le pegue.
 
-★ SOUND HUMAN, NOT POLISHED (Iker, 2026-09-16). Los que los pegan son gente joven y cercana. La ASIGNACION te dice que comentarios llevan UNA palabra alargada: esos llevan EXACTAMENTE UNA, y los demas NINGUNA. La palabra alargada es una palabra corta de reaccion con la VOCAL FINAL estirada, y su sitio en la frase lo dice la ASIGNACION y cambia cada vez: "clarooo", "siii", "buenoo", "nooo", "bieeen", "totaaal", "geniaaal". Nunca un sustantivo en mitad de la frase y NUNCA dos palabras alargadas en el mismo comentario.
+★ SOUND HUMAN, NOT POLISHED (Iker, 2026-09-16). Los que los pegan son gente joven y cercana. La ASIGNACION te dice que comentarios llevan UNA palabra alargada: esos llevan EXACTAMENTE UNA, y los demas NINGUNA. La palabra alargada es una palabra corta de reaccion con la VOCAL FINAL estirada, y su sitio en la frase lo dice la ASIGNACION y cambia cada vez: "clarooo", "siii", "muy buenoo", "nooo", "bieeen", "totaal", "geniaaal", "brutaal". Unas con DOS vocales de mas y otras con UNA ("buenooo" y "buenoo" valen las dos), nunca siempre la misma. ⛔ Nunca "vale" ni "cierto" alargados. Nunca un sustantivo en mitad de la frase y NUNCA dos palabras alargadas en el mismo comentario.
 
 ACCENTS WHEN STRETCHING A VOWEL: if the word you stretch carries a written accent, DROP the accent and write every repeated vowel plain. Write "buenisiiimo", never "buenííísimo"; "graciaas", never "gráciaas". An accent in the middle of a stretched run looks like a typo, not like someone typing with enthusiasm.
 
@@ -514,6 +520,10 @@ Never repeat the same angle, and do not let two comments latch onto the same wor
 ★ ⛔ NINGUNO PUEDE ABRIR CON UNA ABSTRACCION. Es la tabla de delatores de IA de la casa (brand-voice §3), la misma que el validador de posts tumba desde hace meses y que aqui no miraba nadie. PROHIBIDO empezar un comentario con: "lo más importante", "lo más curioso", "lo más crucial", "lo más clave", "lo fundamental", "lo esencial", "lo cierto es que", "la clave está en", "la clave es", "el secreto es", "la verdad es que", "la realidad es que", "al final del día", "lo que nadie dice", "lo que nadie sabe", "lo interesante es que", "exactamente", "efectivamente".
 Y NO ES SOLO LA LISTA, ES LA FORMA: abrir con un sustantivo abstracto y un verbo copulativo ("La eficiencia comercial no está en...", "El contacto directo es solo un dato", "La diferencia entre X e Y...") se lee igual de robotico aunque la palabra no este en la lista. MEDIDO en los comentarios que de verdad publicamos: 15 de 19 abrian asi. Se abre por lo CONCRETO: un verbo, una persona, un objeto, o una palabra literal del post.
 ⛔ Y NINGUNO DE LOS ${n} PUEDE EMPEZAR CON LAS MISMAS DOS PALABRAS QUE OTRO. Los publican personas distintas en el mismo hilo: dos aperturas iguales delatan la coordinacion entera.
+
+★ ⛔⛔ ESPAÑOL DE ESPAÑA, DE ALGUIEN DE AQUI (Iker, 2026-10-15). Salieron "No ciertooo olvidaba el detalle del audio" y "Valeee Multiverse Computing en el Forward...". Iker: "hablando en español latino. Tienes que hablar en español de España". PROHIBIDO: "no cierto", "olvidaba" (aqui se dice "no me acordaba"), "ahorita", "chévere", "platicar", "celular", "computadora", "ustedes", "qué padre", "qué lindo", "nomás". Y NADIE ABRE CON "VALE": "nadie empezaría con vale, suena raro".
+★ ⛔⛔ NI INFANTIL NI DE PARODIA: APOYO NATURAL, CERCANO Y HUMILDE (Iker, 2026-10-15): "respuestas un poco ridículas, como sacadas de una broma o de una parodia". Frases que una persona normal pegaria con su nombre: completas, con su verbo y bien construidas ("Telmo la acreditación colgada y encima con filtros buscaba clientes" no se entiende). Sin superlativos de broma: nada de "de los momentos del año", "el mejor momento", "épico", "leyenda", "me muero".
+★ ⛔ LOS NOMBRES SE ESCRIBEN ENTEROS. El evento se llama "Neety Forward" y asi se escribe, NUNCA "el Forward". Igual las personas y las empresas: como salen en el post.
 
 Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n} strings. No markdown fences, no explanation.`;
 
@@ -543,8 +553,10 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
     const palabraDe = new Map<number, string>();
     for (const i of plan.conAlargada) {
       let p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
-      while ([...palabraDe.values()].includes(p)) p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
-      palabraDe.set(i, p);
+      const usadasYa = () => [...palabraDe.values()].map((v) => desestirarTodo(v).toLowerCase());
+      while (usadasYa().includes(desestirarTodo(p).toLowerCase())) p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
+      // 2 o 3 vocales al azar (Iker, 15/10): el banco viene con 3 y salian siempre iguales.
+      palabraDe.set(i, alargarPalabra(desestirarTodo(p), letrasAlAzar()));
     }
     return { plan, conEmoji: plan.conEmoji, conEstirar: plan.conAlargada, emojiDe, palabraDe };
   };
@@ -574,6 +586,8 @@ ${asignacion}
 ⛔ Si el angulo pide algo que este post no trae, usa OTRO detalle concreto del post, nunca su idea central.
 ${peloteo ? `
 ★ ESTE POST ES UN PELOTEO REGIONAL, y su tesis YA LA DICE EL POST: que a esa region no la ve nadie, que trabaja en silencio, que pasa desapercibida, que no sale en titulares ni folletos, que se ve desde la autovia o la ventanilla, que esta fuera del radar o lejos de los focos. COMO MUCHO UNO de los ${n} puede rozar esa idea. Los demas van a lo concreto de su angulo: una empresa de la lista, un producto de casa con su pueblo, una costumbre, la gente, el dato.
+` : ''}${input.pillar === 'historia_evento' ? `
+★ ESTE POST ES UNA HISTORIA CUYA ESCENA ES NUESTRO EVENTO (pilar historia/evento, Iker 2026-10-15). Se comenta como una HISTORIA: cada uno reacciona a un detalle de lo que cuenta (una frase, una persona, lo que hizo o dijo), no al evento. COMO MUCHO UNO de los ${n} nombra el evento, y entero ("Neety Forward"), con orgullo humilde. ⛔ Nadie narra el evento como si lo hubiera vivido ("fue el mejor momento de la sesión", "en directo", "lo vivimos") ni le pone notas: no consta quién fue, y suena falso.
 ` : ''}${fase ? `
 ★ ESTE POST ES DE NUESTRO EVENTO (Iker, 2026-09-24). Los ${n} comentarios van del evento. ${textoFase(fase)} Un comentario que solo reflexiona sobre la idea del post y no nombra ni el evento, ni el orgullo, ni las ganas NO VALE. Los pegan compañeros de la misma empresa: nunca "vuestro", "habéis", "contáis" ni "el equipo"; el evento en primera persona del plural o hablandole a la persona.
 ` : ''}
@@ -665,6 +679,11 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (registroFormal(c) ? `suena a informe ("${registroFormal(c)}"): dilo como se habla` : null) ||
           (inglesColado(c, safePostContent) ? `se cuela una palabra en ingles ("${inglesColado(c, safePostContent)}")` : null) ||
           (nombraLaCasa(c) ? 'nombra a Neety, y quien lo pega trabaja alli: nunca se nombra la casa' : null) ||
+          (abreConVale(c) ? 'abre con "vale", y nadie abre asi un comentario' : null) ||
+          (latinismo(c) ? `suena a español de America ("${latinismo(c)}"): en español de España` : null) ||
+          (eventoRecortado(c) ? 'recorta el nombre del evento: se escribe entero, "Neety Forward"' : null) ||
+          (exageraDeBroma(c) ? `exagera como en una parodia ("${exageraDeBroma(c)}"): apoyo natural y humilde` : null) ||
+          (input.pillar === 'historia_evento' && afirmaQueEstuvo(c) ? `narra el evento como si hubiera estado ("${afirmaQueEstuvo(c)}")` : null) ||
           (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
           (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null) ||
           (eventoInventado(c) ? 'se inventa lo que se hace en el evento o sus condiciones: del evento solo se dice lo que pone el post' : null) ||
@@ -822,10 +841,10 @@ Return JSON only: { "comments": ["...", "..."] }`;
     // Las vocales solo donde tocan: si el modelo alarga una que no, se quita,
     // para que nunca queden dos seguidas (Iker, 01/10).
     if (!conEstirar.has(i)) return desestirarTodo(r);
-    const suave = estirarUna(r, 2);
+    const suave = estirarUna(r, letrasAlAzar());
     if (contarEstiradas(suave) > 0) return suave;
     if (!anteponible(r)) return r;
-    const forzada = conservarMayuscula(forzarEstirada(r, 2, palabraLibre(i)), r, safePostContent);
+    const forzada = conservarMayuscula(forzarEstirada(r, letrasAlAzar(), palabraLibre(i)), r, safePostContent);
     const b = baseAlargada(forzada);
     if (b) usadas.add(b);
     return forzada;
@@ -839,7 +858,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
     const j = huecos.find((k) => contarEstiradas(estirarUna(conAlargada[k], 2)) > 0) ?? -1;
     const k = j >= 0 ? j : huecos.find((k2) => anteponible(conAlargada[k2])) ?? -1;
     if (k < 0) break;
-    conAlargada[k] = j >= 0 ? estirarUna(conAlargada[k], 2) : forzarEstirada(conAlargada[k], 2, [...palabraDe.values()][0]);
+    conAlargada[k] = j >= 0 ? estirarUna(conAlargada[k], letrasAlAzar()) : forzarEstirada(conAlargada[k], letrasAlAzar(), [...palabraDe.values()][0]);
   }
   return conAlargada.map((r, i) => {
     // Al final, ni coma ni mayuscula detras de la alargada (Iker, 01/10).

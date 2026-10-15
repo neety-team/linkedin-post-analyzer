@@ -49,6 +49,9 @@ const CABECERAS: Record<string, string[]> = {
   peloteo_los10: ['Nuevo TOP 10 de {N}', 'Nuevas 10 de {N}', 'LAS 10 de {N}, recién salidas', '{N} tiene TOP 10 nuevo'],
   lead_magnet: ['Nuevo LEAD MAGNET de {N}', 'Nuevo LEAD MAGNEEET de {N}', 'LEAD MAGNET nuevo de {N}', '{N} tiene LEAD MAGNET nuevo'],
   historia: ['Nueva HISTORIA de {N}', 'Nueva HISTORIAAA de {N}', 'HISTORIA nueva de {N}', '{N} tiene HISTORIA nueva'],
+  // Pilar propio desde el 2026-10-15. Para el equipo sigue siendo una historia:
+  // "EVENTO" en la cabecera suena a anuncio y es justo lo que el post esconde.
+  historia_evento: ['Nueva HISTORIA de {N}', 'Nueva HISTORIAA de {N}', 'HISTORIA nueva de {N}', '{N} tiene HISTORIA nueva'],
   // Estos dos faltaban (Iker, 2026-08-11), asi que un DESPIECE y un EVENTO se
   // anunciaban en el chat como "Nuevo POST", que es justo lo que este aviso
   // existe para evitar: el equipo sabe por el titular si le toca comentar,

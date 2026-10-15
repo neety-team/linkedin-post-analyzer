@@ -254,16 +254,16 @@ ok(limitarEstiradas('uff siii, que el evento') === 'uff siii, que el evento', 'd
 ok(estirarUna('la lista encoge, y queda muy bien, claro') === 'la lista encoge, y queda muy bien, claro', 'no alarga una de reaccion lejos del arranque');
 ok(estirarUna('pues claro, la lista encoge') === 'pues clarooo, la lista encoge', 'alarga la de antes de la primera coma');
 {
-  const r = forzarEstirada('la lista encoge, bien dicho', 2, 'vale', false);
-  ok(r === 'valeee, la lista encoge, bien dicho', 'si no hay sitio, abre con la sorteada ya alargada', r);
+  const r = forzarEstirada('la lista encoge, bien dicho', 2, 'claro', false);
+  ok(r === 'clarooo, la lista encoge, bien dicho', 'si no hay sitio, abre con la sorteada ya alargada', r);
   ok(forzarEstirada('la lista encoge', 2, 'tal cual', false) === 'tal cuaaal, la lista encoge', 'alarga "tal cual" en la ultima', forzarEstirada('la lista encoge', 2, 'tal cual', false));
 }
 {
   const r = forzarEstirada('ese es el tema claro y el precio es la excusa', 2, 'claro', false);
   ok(!/^claro/.test(r) && contarEstiradas(r) === 1, 'si la frase ya dice la palabra, abre con otra', r);
-  ok(forzarEstirada('la lista encoge', 2, 'vale', true) === 'pues valeee, la lista encoge', 'a veces detras de un pues', forzarEstirada('la lista encoge', 2, 'vale', true));
+  ok(forzarEstirada('la lista encoge', 2, 'claro', true) === 'pues clarooo, la lista encoge', 'a veces detras de un pues', forzarEstirada('la lista encoge', 2, 'claro', true));
   ok(/^Pues /.test(forzarEstirada('La lista encoge', 2, 'Clarooo', true)), 'en Google Chat, con mayuscula');
-  ok(limitarEstiradas(forzarEstirada('la lista encoge', 2, 'vale', true)) === 'pues valeee, la lista encoge', 'y el limpiado la respeta');
+  ok(limitarEstiradas(forzarEstirada('la lista encoge', 2, 'claro', true)) === 'pues clarooo, la lista encoge', 'y el limpiado la respeta');
 }
 {
   let mal = 0;
@@ -356,7 +356,7 @@ ok(problemaDeEstilo('Gran post', 'Luis Gómez pues siii, a veces es el precio y 
 }
 ok(forzarEstirada('claro y lo peor es que la excusa tapa el problema', 2, 'tal cual', false) === 'tal cuaaal, lo peor es que la excusa tapa el problema', 'sustituye el "claro y" del arranque', forzarEstirada('claro y lo peor es que la excusa tapa el problema', 2, 'tal cual', false));
 ok(forzarEstirada('justo y mientras no lo resuelves, insistes', 2, 'total', false) === 'totaaal, mientras no lo resuelves, insistes', 'sustituye el "justo y" del arranque', forzarEstirada('justo y mientras no lo resuelves, insistes', 2, 'total', false));
-ok(forzarEstirada('si lo piensas, la lista encoge', 2, 'vale', false) === 'valeee, si lo piensas, la lista encoge', 'el "si" condicional no se quita');
+ok(forzarEstirada('si lo piensas, la lista encoge', 2, 'claro', false) === 'clarooo, si lo piensas, la lista encoge', 'el "si" condicional no se quita');
 ok(forzarEstirada('totalmente, la lista encoge', 2, 'claro', false) === 'clarooo, la lista encoge', 'la alargada sustituye al "totalmente" del arranque', forzarEstirada('totalmente, la lista encoge', 2, 'claro', false));
 {
   const { prompt } = buildPrompt(base as any, 'cercano');

@@ -34,6 +34,10 @@ import {
   angulosApoyo,
   arranquesApoyo,
   esPostDeEvento,
+  abreConVale,
+  latinismo,
+  eventoRecortado,
+  exageraDeBroma,
   normalizarFase,
   detalleRepetidoEnTanda,
   nombreRepetido,
@@ -48,6 +52,36 @@ import {
   ponerAlargadaLibre,
   nombraLaCasa,
 } from '../services/variedadComentarios';
+import { alargarPalabra, esEstirada, letrasAlAzar } from '../services/replyGenerator';
+import { classifyPillar } from '../services/pillar';
+
+// Textos reales de Unai (15/10 y 14/10), recortados a lo que decide el pilar.
+const TELMO = `La pregunta que más incomoda a un comercial se la hicimos a quien vende IA 👀
+
+Contestó con la acreditación colgada.
+
+Su empresa vive de la IA.
+Y aun así buscaba clientes con filtros.
+
+Nuestro compañero le preguntó cómo ve al comercial en 5 años.
+
+El miércoles 28 damos una sesión gratis por videollamada.
+Ese nombre de dentro sí te lo enseñamos: https://luma.com/7hhyx07z
+
+Es Telmo de Multiverse Computing y nos lo contó en el evento Neety Forward.
+
+Y le escribió a su jefe para probarnos.`;
+const EXCEL = `Fui a ver una fábrica y el director comercial me sacó su Excel antes que una sola máquina 😅
+
+Tenía 43 empresas apuntadas a mano.
+Miró sus webs una a una.
+Me contó que le llevó meses.
+Me enseñó cada pieza.
+
+El miércoles 28 damos una charla online y gratis.
+Buscar menos y vender más, eso sí te lo explicamos: https://luma.com/7hhyx07z
+
+Sin ese Excel ninguna máquina salía por la puerta.`;
 import { caberEnLinea } from '../services/commentGenerator';
 import { buildPrompt, pulirTrasAlargada, ponerEmojiAlFinal } from '../services/replyGenerator';
 
@@ -349,6 +383,25 @@ ok(LARGO_MAX_CHAT <= 90, `tope del Chat en ${LARGO_MAX_CHAT}`);
 
 console.log('\n24 · el arranque "Yo..." fuera (ronda 3: "Yo me alegra", "Yo la próxima lo volvemos")');
 ok(arranquesApoyo('meme').every((a) => !/\(Yo,/.test(a)), 'sin "Yo" como arranque');
+
+console.log('\n25 · captura del Chat del 15/10 (entrevista de Telmo)');
+ok(abreConVale('Valeee Multiverse Computing en el Forward fue de los momentos del año.'), 'abre con vale');
+ok(!abreConVale('Muy buenoo lo del audio al salir de cada visita.'), 'muy bueno no es vale');
+ok(latinismo('No ciertooo olvidaba el detalle del audio que contó Telmo') !== null, 'no cierto / olvidaba');
+ok(latinismo('No me acordaba del detalle del audio que contó Telmo') === null, 'no me acordaba vale');
+ok(eventoRecortado('Multiverse Computing en el Forward'), 'el Forward recorta el evento');
+ok(!eventoRecortado('Lo de Telmo en Neety Forward me encantó'), 'Neety Forward entero vale');
+ok(exageraDeBroma('Telmo escribiéndole a su jefe en directo fue el mejor momento de la sesión.') !== null, 'el mejor momento');
+ok(exageraDeBroma('Fue de los momentos del año') !== null, 'momentos del año');
+ok(!esPostDeEvento('historia', 'Historia con ninja: El 24 montamos un evento presencial https://luma.com/x'), 'una historia con ninja al evento no es modo evento');
+ok(!esPostDeEvento('historia_evento', 'nos lo contó en el evento Neety Forward'), 'historia/evento tiene su propio modo');
+for (let k = 0; k < 40; k++) {
+  const w = alargarPalabra('bien', 1);
+  if (!esEstirada(w)) { ok(false, `"bien" con una vocal de mas no se reconoce (${w})`); break; }
+}
+ok(new Set(Array.from({ length: 60 }, () => alargarPalabra('bueno', letrasAlAzar()))).size === 2, 'salen buenoo y buenooo');
+ok(classifyPillar({ content_text: TELMO }) === 'historia_evento', 'la entrevista de Telmo es historia/evento');
+ok(classifyPillar({ content_text: EXCEL }) === 'historia', 'la historia del Excel con el ninja a Luma sigue siendo historia');
 
 console.log(fallos === 0 ? '\n✅ variedad y formato en orden' : `\n❌ ${fallos} fallo(s)`);
 process.exit(fallos === 0 ? 0 : 1);

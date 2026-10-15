@@ -721,8 +721,8 @@ export function contarEstiradas(texto: string): number {
 // un verbo en mitad de la frase, y eso no suena a alguien tecleando con ganas,
 // suena a errata. Lo que no esta aqui vuelve a su forma normal.
 const REACCION = new Set([
-  'claro', 'si', 'bueno', 'buena', 'no', 'bien', 'vale', 'total', 'genial', 'justo', 'eso',
-  'gracias', 'exacto', 'cierto', 'muy', 'buenisimo', 'buenisima', 'cual', 'super', 'top',
+  'claro', 'si', 'bueno', 'buena', 'no', 'bien', 'total', 'genial', 'justo', 'eso',
+  'gracias', 'exacto', 'muy', 'buenisimo', 'buenisima', 'cual', 'super', 'top',
   'nada', 'ya', 'venga', 'guay', 'perfecto', 'brutal', 'tremendo', 'enorme', 'toma', 'hombre',
 ]);
 
@@ -854,6 +854,17 @@ export function estirarUna(texto: string, letras = 2): string {
   return texto.replace(/\p{L}+/gu, (w: string, off: number) => (off === donde ? alargarPalabra(w, letras) : w));
 }
 
+/**
+ * Cuantas vocales de mas: 1 o 2 al azar ("buenoo" / "buenooo"). Iker, 15/10:
+ * *"no metas siempre tres vocales, a veces mete dos, que también queda incluso
+ * mejor"*. Si con una sola la palabra no se reconoce como alargada ("bieen",
+ * la doble e tambien es de "creen"), se usan dos.
+ */
+export function letrasAlAzar(): number {
+  if (Math.random() < 0.5) return 2;
+  return 1;
+}
+
 /** "claro" -> "clarooo", "bien" -> "bieeen", "gracias" -> "graciaas", "tal cual" -> "tal cuaal". */
 export function alargarPalabra(w: string, letras = 2): string {
   if (/\s/.test(w)) {
@@ -867,7 +878,10 @@ export function alargarPalabra(w: string, letras = 2): string {
   // Se estira la ULTIMA VOCAL, no la ultima letra: "bien" -> "bieeen",
   // "muy" -> "muuuy", "claro" -> "clarooo", como los ejemplos de Iker.
   const m = plano.match(/^(.*)([aeiou])([^aeiou]*)$/i);
-  return m ? m[1] + m[2] + m[2].repeat(letras) + m[3] : w;
+  const r = m ? m[1] + m[2] + m[2].repeat(letras) + m[3] : w;
+  // Con una sola de mas, "bieen" no se reconoce como alargada (la doble e es
+  // tambien la de "creen") y el resto del pipeline la trataria como normal.
+  return letras === 1 && m && !esEstirada(r) ? alargarPalabra(w, 2) : r;
 }
 
 // ⛔ COMA ANTES DE "Y" (Iker, 2026-09-16): "Sirimiri, y mientras tanto…" suena a
@@ -888,12 +902,15 @@ export function tieneReaccion(texto: string): boolean {
 // Las que le gustan a Iker (2026-09-16), ya alargadas, para cuando toca alargar
 // y la frase no trae ninguna palabra de reaccion. Mas banco el 18/09: con cinco,
 // "clarooo" salia una de cada pocas.
-export const ALARGADAS_SUELTAS = ['Clarooo', 'Siii', 'Buenooo', 'Bieeen', 'Totaaal', 'Valeee', 'Exactooo', 'Juuusto', 'Geniaaal', 'Ciertooo', 'Perfectooo', 'Tal cuaal'];
+// ⛔ Sin "vale" ni "cierto" desde el 2026-10-15 (captura del Chat de Iker):
+// "nadie empezaría con vale" y "No ciertooo" suena a español de America. Y
+// "bueno" suelto pasa a "muy bueno", que es como lo dice el (ej. de Iker).
+export const ALARGADAS_SUELTAS = ['Clarooo', 'Siii', 'Muy buenooo', 'Bieeen', 'Totaaal', 'Brutaaal', 'Exactooo', 'Juuusto', 'Geniaaal', 'Perfectooo', 'Tal cuaal'];
 
 // Las bases que sortea la respuesta publica (Iker, 2026-09-18). Sin "no" (abrir
 // con una negacion alargada se lee como que le llevas la contraria) ni "eso"
 // (en la primera frase suele ser pronombre).
-export const PALABRAS_ALARGAR = ['claro', 'si', 'bueno', 'bien', 'vale', 'genial', 'total', 'justo', 'exacto', 'cierto', 'perfecto', 'brutal', 'tal cual'];
+export const PALABRAS_ALARGAR = ['claro', 'si', 'muy bueno', 'bien', 'genial', 'total', 'justo', 'exacto', 'perfecto', 'brutal', 'tal cual'];
 
 // Las ultimas palabras alargadas de cada post, para que en la misma tanda no
 // salga "clarooo" tres veces. Mismo patron que APERTURAS_POR_POST.

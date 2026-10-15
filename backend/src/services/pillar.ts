@@ -60,7 +60,7 @@
  * etiquetas viejas — que es exactamente lo que paso el 13/08 con la historia
  * de Iker: el fix llego 9 minutos despues de publicar y nadie reproceso.
  */
-export const PILLAR_RULES_VERSION = '2026-08-13.preteritos-historia';
+export const PILLAR_RULES_VERSION = '2026-10-15.historia-evento';
 
 export type Pillar =
   | 'peloteo_mapa'
@@ -69,6 +69,7 @@ export type Pillar =
   | 'lead_magnet'
   | 'meme'
   | 'historia'
+  | 'historia_evento'
   | 'evento'
   | 'otro';
 
@@ -340,6 +341,18 @@ function pideConectar(texto: string): boolean {
  * ninja (`global §4.4b`) y en el resto el enlace es siempre recursos.neety.com.
  * Por eso se comprueba ANTES que el peloteo, que si no gana el bloque de fichas.
  */
+/**
+ * La ESCENA es nuestro evento, no solo el ninja (Iker, 2026-10-15). Es lo que
+ * separa 'historia_evento' de 'historia': las historias de septiembre llevan
+ * "El 24 montamos un evento presencial en Donostia" como contexto del ninja y
+ * son historias puras, asi que `evento` a secas no vale. Lo que si delata la
+ * escena: el nombre del evento, "nuestro evento", el photocall o la
+ * acreditacion colgada.
+ */
+export function hablaDeNuestroEvento(texto: string): boolean {
+  return /neety forward|forward\.neety\.com|nuestro evento|photocall|acreditaci[oó]n/i.test(texto);
+}
+
 function esEvento(texto: string): boolean {
   return /\b(luma\.com|lu\.ma)\b/i.test(texto);
 }
@@ -447,7 +460,15 @@ export function classifyPillar(post: PillarInput): Pillar {
   // El despiece va PRIMERO porque sus fichas tambien cuentan como mencion.
   // 0. EVENTO, antes que nada: su bloque de colaboradores es indistinguible del
   // de un peloteo, asi que si se comprueba despues siempre pierde.
-  if (esEvento(t)) return 'evento';
+  //
+  // ⛔ DESDE EL 15/10 EL ENLACE DE LUMA YA NO BASTA (Iker): el ninja de cada
+  // historia lleva al webinar por Luma, y todas salian 'evento'. Ahora:
+  //   narra + la escena es nuestro evento → historia_evento
+  //   no narra + Luma                     → evento (el anuncio)
+  //   narra + Luma solo en el ninja       → sigue bajando y acaba en historia
+  const narra = pareceHistoria(t);
+  if (narra && hablaDeNuestroEvento(t)) return 'historia_evento';
+  if (esEvento(t) && !narra) return 'evento';
 
   const piezas = contarPiezas(t);
   if (piezas >= 6) return 'peloteo_objeto';

@@ -1010,6 +1010,16 @@ const migration = `
     ('otro',           'Otro',                      'gris',      'Sin pilar claro. Ante la duda se deja en "otro" en vez de inventar etiqueta', TRUE, 999)
   ON CONFLICT (slug) DO NOTHING;
 
+  -- HISTORIA/EVENTO (Iker, 2026-10-15): la historia cuya ESCENA es nuestro
+  -- evento (la entrevista del photocall, la sala llena, la casa rural de antes
+  -- del estreno). Es el intermedio peligroso: el lector nota que se promociona
+  -- algo y le interesa menos, asi que mezclarla con 'historia' ensucia la vara
+  -- del pilar que mejor funciona. Una historia que solo lleva el ninja al evento
+  -- sigue siendo 'historia'. Builtin: el clasificador la emite por nombre.
+  INSERT INTO pillars (slug, label, color, ayuda, builtin, sort_order) VALUES
+    ('historia_evento', 'Historia/Evento', 'indigo', 'Historia cuya escena es nuestro evento (no basta con que el ninja lleve al evento)', TRUE, 75)
+  ON CONFLICT (slug) DO UPDATE SET builtin = TRUE;
+
   -- v36: la config del lead magnet, a la base (Iker, 2026-08-20).
   --
   -- Vivia en localStorage con clave por post. Con la pestana Lead Magnet

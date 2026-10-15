@@ -294,6 +294,13 @@ export function registroFormal(c: string): string | null {
 
 export function esPostDeEvento(pillar: string | null | undefined, texto: string): boolean {
   if (pillar === 'evento') return true;
+  // ⛔ UNA HISTORIA NO SE COMENTA COMO UN ANUNCIO (Iker, 2026-10-15). Las
+  // historias llevan el ninja al evento (Luma, "montamos un evento presencial")
+  // y por el texto caian en modo evento: los cinco comentarios forzados a hablar
+  // del evento, y de ahi "fue de los momentos del año" o "fue el mejor momento de
+  // la sesion", que suenan falsos. Si el pilar ya esta puesto, manda el pilar;
+  // la historia/evento tiene su propio modo en el generador.
+  if (pillar && pillar !== 'otro') return false;
   const t = llano(texto);
   return /\bneety forward\b|forward\.neety\.com|\b(luma\.com|lu\.ma)\b|\bevento\b/.test(t);
 }
@@ -321,6 +328,42 @@ export function quitarFraseFutura(c: string): string {
 // Afirmar que estuvo. Vale si el post cuenta que fuimos todos (`juntos`); si no
 // consta, lo pega gente que puede no haber ido (regla del 27/08).
 const ESTUVO = /(lo pasamos|nos lo pasamos|estuvimos|nos vimos|nos reimos|disfrutamos|lo vivimos|alli estuve|estuve alli|estaba alli|corrimos|nos toco)/;
+// ⛔⛔ CAPTURA DEL CHAT DE IKER, 2026-10-15 (entrevista de Telmo). Cinco que no se
+// pegaban: "Valeee Multiverse Computing en el Forward fue de los momentos del
+// año", "No ciertooo olvidaba el detalle del audio...", "Telmo escribiéndole a
+// su jefe en directo fue el mejor momento de la sesión". Iker: *"infantiles o
+// incluso hablando en español latino. Tienes que hablar en español de España"*,
+// *"nadie empezaría con vale"*, *"no recortes nunca nombres de evento"* y
+// *"como sacadas de una parodia... que sea un apoyo más natural, más cercano,
+// más humilde"*. Cuatro detectores, uno por fallo.
+
+/** Nadie abre un comentario con "vale" (ni "pues vale", ni alargado). */
+export function abreConVale(c: string): boolean {
+  return /^(pues\s+)?va+le+\b/.test(llano(c).trim());
+}
+
+// Giros de español de America que se colaban. El de Iker: "no cierto" y
+// "olvidaba" (en España: "no me acordaba").
+const LATINO = /(\bno ciert\w*|\bolvidaba\b|\bahorita\b|\bchevere\b|\bplatic\w+|\bcelular\b|\bcomputadora\b|\bustedes\b|\bque padre\b|\bbacan\b|\bque lindo\b|\blindo\b|\bnomas\b|\bpapas fritas\b|\bjalar\b|\bchamba\b|\bre (bueno|bien|lindo)\b|\bdale que\b)/;
+export function latinismo(c: string): string | null {
+  const m = llano(c).match(LATINO);
+  return m ? m[0] : null;
+}
+
+/** El evento se nombra ENTERO: "Neety Forward", nunca "el Forward". */
+export function eventoRecortado(c: string): boolean {
+  const t = llano(c);
+  return /\bforward\b/.test(t.replace(/neety forward/g, ''));
+}
+
+// Lo que suena a parodia: el superlativo de broma y el "fue el mejor momento"
+// de quien narra un evento como si lo hubiera vivido.
+const EXAGERA = /(momentos? del ano|el mejor momento|(mejor|gran) momento de la (sesion|jornada|manana|tarde|charla)|de la historia\b|\bepic[oa]s?\b|\bleyenda\b|\bme muero\b)/;
+export function exageraDeBroma(c: string): string | null {
+  const m = llano(c).match(EXAGERA);
+  return m ? m[0] : null;
+}
+
 export function afirmaQueEstuvo(c: string): string | null {
   const m = llano(c).match(ESTUVO);
   return m ? m[0] : null;

@@ -105,7 +105,9 @@ const MESES: Record<string, number> = {
 };
 // Pilar del UTM -> slug de `posts.pillar` del analizador.
 const PILAR_UTM: Record<string, string[]> = {
-  historia: ['historia'],
+  // historia/evento se etiqueta `historia-…` en la UTM (15/10): sin esto, sus
+  // demos se quedaban sin casar.
+  historia: ['historia', 'historia_evento'],
   meme: ['meme'],
   mapa: ['peloteo_mapa'],
   peloteo: ['peloteo_mapa', 'peloteo_los10', 'peloteo_objeto'],

@@ -49,7 +49,8 @@ const ALARGABLE = /^[A-ZÁÉÍÓÚÜÑ]{3,}$/;
 // Las de relleno no se alargan nunca: "LAAS 10" o "DEEL" no lo escribe nadie.
 const CORTAS = new Set(['LAS', 'LOS', 'DEL', 'UNA', 'UNO', 'CON', 'POR', 'PARA', 'QUE']);
 function alargarMayus(w: string, letras: number): string {
-  const plano = w.normalize('NFD').replace(/[̀-ͯ]/g, '');
+  // Solo se quita la tilde de las VOCALES: con NFD a secas "AÑOS" salia "ANOOS".
+  const plano = w.replace(/[ÁÉÍÓÚ]/g, (v) => ({ Á: 'A', É: 'E', Í: 'I', Ó: 'O', Ú: 'U' } as Record<string, string>)[v]);
   const m = plano.match(/^(.*?)([AEIOU])(S?)$/);
   return m ? m[1] + m[2] + m[2].repeat(letras) + m[3] : w;
 }

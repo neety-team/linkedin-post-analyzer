@@ -414,6 +414,7 @@ ok(componerCabecera('HISTORIA', 'KILOMETROS BOLI', 'IKER', { cual: 0, letras: 2 
 ok(componerCabecera('MEME', 'COMPETENCIA', 'ASIER', { cual: 0.99, letras: 1 }) === '🐝 MEME COMPETENCIAA de ASIER:', 'a veces se alarga el contexto, con una de mas');
 ok(componerCabecera('LAS 10', 'LA RIOJA', 'ASIER', { cual: 0, letras: 1 }) === '🐝 LAS 10 LA RIOJAA de ASIER:', 'nunca LAAS', componerCabecera('LAS 10', 'LA RIOJA', 'ASIER', { cual: 0, letras: 1 }));
 ok(!/nuevo/i.test(componerCabecera('HISTORIA', '', 'UNAI')), 'sin Nuevo');
+ok(componerCabecera('VIDEO', 'COMERCIAL 5 AÑOS', 'UNAI', { cual: 0.99, letras: 1 }) === '🐝 VIDEO COMERCIAL 5 AÑOOS de UNAI:', 'la Ñ no se pierde', componerCabecera('VIDEO', 'COMERCIAL 5 AÑOS', 'UNAI', { cual: 0.99, letras: 1 }));
 ok(limpiarContexto('Nueva: "Kilómetros boli" de Iker', 'IKER', 'HISTORIA') === 'KILÓMETROS BOLI', 'limpia lo que devuelve el modelo', limpiarContexto('Nueva: "Kilómetros boli" de Iker', 'IKER', 'HISTORIA'));
 ok(limpiarContexto('cliente ideal vs sector', 'ISMAEL', '') === 'CLIENTE IDEAL vs SECTOR', 'el vs en minuscula');
 ok(limpiarContexto('La Rioja', 'ASIER', 'LAS 10') === 'LA RIOJA', 'la region conserva su articulo');

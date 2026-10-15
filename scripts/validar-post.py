@@ -2247,10 +2247,20 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # 'Le preguntamos a quien vende IA si los comerciales tienen los dias contados' y
     # eligio 'La pregunta que mas incomoda a un comercial se la hicimos a quien vende IA'.
     # Preferencia del jefe, no dato: en Iker y Asier no se aplica.
+    # El veto es a la amenaza SOBRE EL COMERCIAL, no a la expresion: 'Lo que tiene los dias
+    # contados es el filtro' cierra el post que el jefe acepto (15/10) y dice lo contrario
+    # de su miedo. Por eso va por linea, y la linea cuyo sujeto es una cosa (filtro, Excel,
+    # lista, ficha) y no nombra al comercial queda fuera.
     if (cuenta or '').strip().lower() == 'unai':
-        _sust = re.search(r'd[ií]as contados|sustitu\w*|reemplaz\w*|jubil\w*|quit\w* (el|su) puesto'
-                          r'|sin (trabajo|puesto)|acab\w* con (el|los) comercial\w*|cu[aá]nto le queda al comercial',
-                          cuerpo, re.I)
+        _sust = None
+        for _l in cuerpo.splitlines():
+            _m = re.search(r'd[ií]as contados|sustitu\w*|reemplaz\w*|jubil\w*|quit\w* (el|su) puesto'
+                           r'|sin (trabajo|puesto)|acab\w* con (el|los) comercial\w*|cu[aá]nto le queda al comercial',
+                           _l, re.I)
+            if _m and not (re.search(r'\b(filtros?|excel|listas?|fichas?|bases? de datos)\b', _l, re.I)
+                           and not re.search(r'comercial|vendedor|\bles?\b|\blos ve\b', _l, re.I)):
+                _sust = _m
+                break
         chk(not _sust, 'UNAI: sin plantear que la IA sustituye al comercial, ni como pregunta (Unai 15/10)',
             f'"{_sust.group(0)}": aunque sea en pregunta, en la cuenta del CEO de una herramienta de ventas '
             f'se lee como nuestra vision. Se plantea la pregunta sin la amenaza ("la pregunta que mas '

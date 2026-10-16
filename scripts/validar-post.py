@@ -5380,6 +5380,23 @@ def main():
         res.insert(0, (_a_su_agenda, 'ISMAEL: el enlace va a SU agenda, https://meetings.neety.com/ismael (§0c-VOZ)',
                        '' if _a_su_agenda else 'Es el comercial: en su cuenta el ninja manda a su agenda, no a '
                        '/solicitar-demo (Iker, 08/10). Limpio mientras la agenda no tenga analitica; con ella, UTM.', False))
+    # LA PALABRA DEL OFICIO NO SE CAMBIA POR UNA PUNCHY (Iker, 2026-10-16). En el
+    # borrador de Ismael del 08/10 cambie "sector" por "censo" para que pegara mas,
+    # y no lo entendio nadie: en ventas se llama sector. El punch va al verbo o al
+    # intensificador, nunca a la palabra con la que el lector nombra su trabajo.
+    # Aviso de entrega: el script no ve el borrador original, asi que imprime las
+    # palabras del oficio del gancho para comprobar que siguen siendo LAS SUYAS.
+    if a.voz_ajena:
+        _gancho = texto.strip().split('\n\n')[0]
+        _OFICIO = (r'\b(sector|sectores|se[ñn]al(es)?|ICP|cliente ideal|lead|leads|decisor(es)?|prospect\w*|'
+                   r'pipeline|cartera|embudo|oportunidad(es)?|cuenta(s)? objetivo|director comercial|'
+                   r'puerta fr[ií]a|llamada en fr[ií]o|oferta|presupuesto|licitaci[oó]n|feria)\b')
+        _of = sorted({m.group(0).lower() for m in re.finditer(_OFICIO, _gancho, re.I)})
+        res.append((False, 'ENTREGA VOZ AJENA: la palabra del OFICIO sigue siendo la suya (working-preferences §0c-VOZ)',
+                    ('en el gancho: %s. ' % ', '.join(_of) if _of else 'el gancho no lleva jerga del oficio reconocible. ') +
+                    'Compara con su borrador: si una palabra del oficio (sector, señal, ICP, lead, decisor...) '
+                    'paso a otra mas punchy, se devuelve la suya. El punch va al verbo o al intensificador. '
+                    'Caso: "sector" -> "censo" (08/10) y no lo entendio nadie', True))
     if a.voz_ajena and (a.cuenta or '').strip().lower() not in ('iker', 'unai', 'asier', 'mario'):
         _FORMATO = ('Al menos un bloque de DOS', 'Bloques de 2-3 en escalera',
                     'Bloques de prosa', 'Cierre punchy de UNA linea', 'Cifras en digito',

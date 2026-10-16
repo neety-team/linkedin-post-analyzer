@@ -3339,6 +3339,41 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                         '(linea 1), nunca lo que ofrecemos: la herramienta detecta y propone '
                         'empresas y personas que tu comercial aprueba. Cambia la promesa a '
                         'detectar, acertar o dar con quien compra' % _l2n.strip(), aviso=True)
+                # INFORME DE CLIENTES DEL 15/10 (global 4.4b-MUNICION-1510, Iker 16/10).
+                # Tres objeciones que han crecido de golpe y caben en una regex:
+                #  - descubrir empresas o un mercado que no conoces: 17 empresas, 16 ICP
+                #    ("me los conozco todos de memoria"). La que mas crece del informe.
+                #  - "eso me lo hace ChatGPT": 17 empresas, 13 ICP. "Con IA" en la promesa
+                #    nos mete en la caja que ya tienen gratis (y n=0 en clics, 13/10).
+                #  - marcas de competidor y creditos: publicidad comparativa y precio,
+                #    que no salen en publico.
+                # Avisos: la linea 1 SI puede usar la norma ("los que ya conoces te los
+                # da cualquier chat"), por eso lo de descubrir y la IA mira solo la 2.
+                _desc = re.search(r'\bdescubr\w*|\b(empresas?|clientes?|mercados?)\s+(nuev[oa]s?|que\s+(a[uú]n\s+)?no\s+conoc\w*)'
+                                  r'|\b(las|los)\s+que\s+(a[uú]n\s+)?no\s+conoc\w*', _l2n, re.I)
+                if _desc:
+                    chk(False, 'ENTREGA: la linea del enlace no promete DESCUBRIR empresas nuevas (global 4.4b-MUNICION-1510)',
+                        'linea: "%s" ("%s"). 17 empresas (16 ICP) objetan justo eso: en su nicho '
+                        'ya se conocen a todos. Lo que les falta es la persona de dentro (16, 15 '
+                        'ICP): promete eso. Excepcion: post de exportacion o pais nuevo'
+                        % (_l2n.strip(), _desc.group(0)), aviso=True)
+                _ia2 = re.search(r'\b(con\s+ia|la\s+ia|una\s+ia|inteligencia\s+artificial|chat\s?gpt|copilot'
+                                 r'|claude|gemini|agentes?)\b', _l2n, re.I)
+                if _ia2:
+                    chk(False, 'ENTREGA: la linea del enlace no promete IA (global 4.4b-MUNICION-1510)',
+                        'linea: "%s" ("%s"). 17 empresas (13 ICP) creen que un chat de IA les hace '
+                        'lo mismo gratis, y 13 dicen que lo automatico se nota. La linea 2 promete '
+                        'lo que el chat no da: la persona de dentro, las que encajan de verdad'
+                        % (_l2n.strip(), _ia2.group(0)), aviso=True)
+                _marca = re.search(r'\b(chat\s?gpt|copilot|gemini|kompass|informa|alimarket|sales\s+navigator'
+                                   r'|apollo|waalaxy|cr[eé]ditos?|suscripci[oó]n|tarifas?)\b',
+                                   re.sub(r'https?://\S+', '', ' '.join(b)), re.I)
+                if _marca:
+                    chk(False, 'ENTREGA: el ninja no nombra competidores ni creditos (global 4.4b-MUNICION-1510)',
+                        '"%s". Una marca en el bloque es publicidad comparativa dentro de LinkedIn '
+                        '(4.4b-LICENCIA), y creditos o tarifas son nuestro precio, que no sale en '
+                        'publico. Se dice como ellos: un chat, una base de datos, la licencia'
+                        % _marca.group(0), aviso=True)
                 # QUE EL BLOQUE NO CAIGA A TRES LINEAS EN ESCRITORIO (Mario, 2026-10-02).
                 # Medido sobre su captura de un post publicado: 75 caracteres ocupan
                 # 674 px de ~706 utiles (9 px por caracter), o sea que caben ~78.

@@ -440,6 +440,31 @@ def main():
             checks.append(ok('Ninja: las dos líneas ≤55 sin la URL ('
                              + ' / '.join(str(len(sin_url(l))) for l in bl) + ' car)'))
 
+        # INFORME DE CLIENTES DEL 15/10 (global 4.4b-MUNICION-1510, Iker 16/10), los
+        # mismos tres avisos que validar-post.py: descubrir empresas nuevas (17
+        # empresas lo objetan), "con IA" en la promesa (17 creen que un chat les hace
+        # lo mismo) y marcas de competidor o creditos en el bloque.
+        if bl:
+            _l2 = sin_url(bl[-1])
+            _desc = re.search(r'\bdescubr\w*|\b(empresas?|clientes?|mercados?)\s+(nuev[oa]s?|que\s+(a[uú]n\s+)?no\s+conoc\w*)'
+                              r'|\b(las|los)\s+que\s+(a[uú]n\s+)?no\s+conoc\w*', _l2, re.I)
+            if _desc:
+                checks.append(aviso(f'Ninja: la línea del enlace promete DESCUBRIR ("{_desc.group(0)}"). '
+                                    f'17 empresas (16 ICP) ya conocen su nicho; lo que les falta es la '
+                                    f'persona de dentro (global §4.4b-MUNICIÓN-1510)'))
+            _ia2 = re.search(r'\b(con\s+ia|la\s+ia|una\s+ia|inteligencia\s+artificial|chat\s?gpt|copilot'
+                             r'|claude|gemini|agentes?)\b', _l2, re.I)
+            if _ia2:
+                checks.append(aviso(f'Ninja: la línea del enlace promete IA ("{_ia2.group(0)}"). 17 empresas '
+                                    f'creen que un chat les hace lo mismo gratis: promete lo que el chat '
+                                    f'no da (global §4.4b-MUNICIÓN-1510)'))
+            _marca = re.search(r'\b(chat\s?gpt|copilot|gemini|kompass|informa|alimarket|sales\s+navigator'
+                               r'|apollo|waalaxy|cr[eé]ditos?|suscripci[oó]n|tarifas?)\b',
+                               sin_url(' '.join(bl)), re.I)
+            if _marca:
+                checks.append(aviso(f'Ninja: nombra "{_marca.group(0)}". Ni competidores ni nuestro precio en '
+                                    f'el bloque: un chat, una base de datos, la licencia (global §4.4b-MUNICIÓN-1510)'))
+
         if len(bl) == 2:
             arriba, abajo = len(sin_url(bl[0])), len(sin_url(bl[1]))
             if abajo <= arriba:

@@ -1828,6 +1828,11 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 | la palabra del formato | evento presencial | `sesión por videollamada`, `en directo`; ⛔ `webinar` y, desde el 15/10, ⛔ `online` (anglicismos, `brand-voice §2b`) |
 
 - **⛔ Lo que no se promete sigue en `§4.4b-MUNICIÓN`**: ni automatismo, ni volumen, ni la señal. Que la sesión sea gratis no cambia lo que puede decir Neety.
+- **🆕 Lo que el informe del 15/10 dice de la SESIÓN (Iker, 16/10; para quien la prepare, no para el ninja):**
+  - **El nivel 2 (con Claude) choca con la objeción nº1 de competencia: 17 empresas (13 ICP) creen que un chat de IA les hace lo mismo.** La sesión puede ganarla en directo enseñando dónde se queda corto, con lo que ellos mismos cuentan: *"esos son los que ya conocemos"* (Riza), tener que volver a filtrar porque mete puertas de garaje (Biele), *"se puede equivocar"* (IONOS) y un contacto genérico en vez de la persona (Salto). Así el nivel 3 llega como respuesta y no como anuncio.
+  - **Un ejemplo de nicho pequeño**: el que ya conoce a todas sus empresas (17 empresas) y no sabe a quién llamar dentro (16). Es el puente del nivel 1 al 3.
+  - **Hablarle al equipo de uno o de cinco comerciales** (*"yo soy el único comercial"*, Bianditz; *"no llegamos"*, Lointek), no a un departamento de 50.
+  - **Método, no olfato** (7 de 7 ICP): es la promesa que la sesión cumple entera, y la que mejor encaja en el ninja de tipo 4 hacia Luma.
 - **El formulario de Luma (08/10):** nombre completo y email obligatorios, empresa y cargo opcionales, sin teléfono, casilla de comunicaciones aparte, opcional y desmarcada (`Quiero lo nuevo antes que nadie, por correo.`, la misma de la web), y la política de privacidad obligatoria. **Solo los que marcan la casilla pasan al segmento de Brevo** (`feedback un clic no es consentimiento`); al resto solo le llegan los correos del propio evento.
 
 ```
@@ -2164,6 +2169,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > ### 🥇 4.4b-FUENTES · QUIÉN MANDA CUANDO DOS DOCUMENTOS NUESTROS SE CONTRADICEN (Iker, 2026-07-29)
 > **Jerarquía, y no es negociable:**
 > 1. **EL INFORME DE DEMOS manda sobre todo lo demás.** Desde el **2026-08-24** son **258 citas literales de 63 empresas en 87 reuniones** (1 jul - 20 ago), y el 64% de las citas viene de una cuenta que encaja con el ICP. Es el único documento que dice **por qué nos llamaron de verdad**. **La versión de 167 citas queda retirada: el informe nuevo la contiene entera**, así que no se citan las dos (`aboutme §1b`).
+   - 🔄 **Desde el 2026-10-16 manda el del 15/10: 792 citas, 131 empresas, 201 reuniones (1 jul - 14 oct).** Tamaños vigentes en `§4.4b-MUNICIÓN-1510`.
 >    - ⚠️ **Y esto no es "el documento nuevo" del que habla el párrafo de abajo.** El de abajo se refiere a un deck, una charla o un one-pager **nuestros**, que se contrastan contra el informe. Aquí lo que ha crecido es **el propio informe**, y un informe más grande no se contrasta: **sustituye**.
 > 2. **El PDF de propuesta de valor y la charla BIND van por debajo.** Son lo que **creemos nosotros** que nos diferencia. Valen como material y como argumentario de demo, pero **no deciden el gancho ni el spam ninja**.
 >
@@ -2193,11 +2199,59 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > - **Betsaide: llegar directamente al decisor**, sin pasar por la investigación manual. Encaja exacto con el eje de identificación.
 > - **⚠️ En los apuntes pone "Caso Beside" y está MAL ESCRITO.** El nombre real, verificado en LinkedIn el 2026-07-29, es **BETSAIDE SAL**. Nunca escribas "Beside" en un post: es un cliente real y equivocarle el nombre es peor que no nombrarlo.
 
-> ### 💣💣 4.4b-MUNICIÓN · QUÉ PUEDE DECIR EL NINJA Y QUÉ NO, CON EL TAMAÑO DE CADA COSA (informe del **2026-09-14**, 359 citas / 77 empresas / 117 reuniones)
+> ### 💣💣 4.4b-MUNICIÓN · QUÉ PUEDE DECIR EL NINJA Y QUÉ NO, CON EL TAMAÑO DE CADA COSA (informe del **2026-09-14**, 359 citas / 77 empresas / 117 reuniones · 🔄 **actualizado con el del 15/10 en `§4.4b-MUNICIÓN-1510`, justo debajo, que manda**)
 >
 > **Por qué esta sección existe:** `§4.4b` ya decía cómo se ESCRIBE el ninja (dos líneas, ≤55, la palabra del gancho) y `§4.4b-ORDEN` decía cuál es el EJE (la identificación). Lo que faltaba era el **inventario**: con qué palabras se dice ese eje y cuáles nos meten en la caja del competidor. Todo lo de aquí sale del informe de demos, **ninguna frase es una deducción mía** (`working-preferences §0c`).
 >
 > **⛔ LA REGLA DE ENTRADA: una frase solo entra en el ninja si el informe la respalda con 3 empresas o más.** Un tema con 1 o 2 empresas es hipótesis: vale para probar un post y anotarlo, no para convertirse en el molde de la semana. Es la misma vara con la que el informe llama "patrón" a un tema.
+>
+> #### 🔄🔄 4.4b-MUNICIÓN-1510 · EL INFORME DEL 15/10 MANDA SOBRE LAS DOS TABLAS DE ABAJO (Iker, 2026-10-16)
+>
+> **Fuente:** `Documentos/Mario/LINKEDIN GROWTH/FEEDBACK CLIENTES 16 OCT.html` · **792 citas, 131 empresas, 201 reuniones, 1 jul - 14 oct**, 72 temas ya son patrón y 77 de cada 100 citas vienen de una cuenta que encaja con el ICP. Es el mismo informe con un mes más, así que **sustituye** al del 14/09 (`§4.4b-FUENTES`). Las tablas de abajo se quedan como historia de cómo creció cada dolor; **los tamaños que se citan son estos**. "ICP" = encaje A, B o C, como lo cuenta el informe.
+>
+> **✅ LO QUE SÍ PUEDE PROMETER, con el tamaño nuevo:**
+>
+> | qué se promete | tipo (`§4.4b-TIPOS`) | 15/10 | 14/09 | con qué palabras suyas |
+> |---|---|---|---|---|
+> | **Dejar de buscar para poder contactar** | 4 | **37** (23 ICP) | 21 (15) | *"pico y pala, buscando uno a uno, mandando invitaciones por LinkedIn"* (Isoltex) · *"no es que no seamos capaces de generar leads de calidad, es que invertimos mucho tiempo"* (Erreka, directora comercial de Medical) · *"ese primer contacto… no llegamos"* (Lointek). Sigue siendo el nº1 del informe entero |
+> | ⭐ **La persona de dentro, no la empresa** | 2 | **16** (15 ICP) | 2 (2) | **De anécdota a patrón en un mes.** *"sabemos quién es Exxon, pero nos falta el jefe de compras y el jefe de ingeniería"* (Lointek) · *"localizar empresas y tal, tampoco es tan complicado"* (Aranco, director general) · *"la empresa… quizás la IA tradicional ya nos lo da, lo importante es conseguir los contactos"* (Erlo Group) |
+> | **El listado que acierta** | 1 o 2 | **16** (14 ICP) | 8 (7) | *"los datos que nos da, no nos engañas, se cuadra bastante"* (Lointek) · *"el cribado es más exacto"*, frente a lo que dan ICEX o SPRI (Dynamobel) |
+> | **Lo que ya haces, hecho entero y en un solo sitio** | 4 | **10** (7 ICP) | 4 (3) | La cara nueva es la de **no saltar de hoja en hoja**: *"que no tengas que abrir 5 hojas y que te lo haga todo en la misma herramienta"* (Erreka Medical) · *"es justo lo que nosotros hacemos en varias partes"* (IONOS) |
+> | 🆕 **El método, no el olfato de cada comercial** | 4 | **7** (7 de 7 ICP) | — | *"el acercamiento que tenemos a clientes es mucho de olfato… y para mí eso es muy peligroso"* (Novargi) · *"Más que una cuestión de tiempo es una cuestión de eficacia. Que no lo hacemos porque no sabemos hacerlo"* (Riza). Es el tipo 4 dicho como **proceso** y no como tiempo. **La sesión del 28/10 lo cumple entero**: enseña un método |
+> | 🆕 **Por lo que hace cada empresa, no por su sector** | 1 | **3** (1 ICP) | — | *"no había visto un filtro así"* (Khumbu) · *"puedes escribir tú a mano prácticamente lo que sea"* (IONOS). Respalda la frase del 13/10 (`§4.4b-NO-EXCEL`), pero con un solo ICP: se usa, no se presenta como lo que dice el mercado |
+> | ~~No pagar por buscar lo que no vale~~ | — | ⛔ **retirado** | 8 (8) | El informe nuevo lo mete dentro de *"el consumo de créditos inquieta"* (14, 13 ICP). **Es miedo a gastar NUESTROS créditos, o sea, una objeción a nuestro precio**, y los créditos no salen en público (`§4.4b-NO-EXCEL`). En un ninja hace pensar en lo que cobramos |
+>
+> **🆕 Patrones nuevos para la LÍNEA 1 (la norma), no para la promesa:**
+> - **El frío no contesta** (10 empresas, 9 ICP): *"les mandas un contacto por LinkedIn, ni te responden, pasan de ti"* (Bianditz, director general). Buena norma que el lector confirma. ⛔ La línea 2 no puede prometer el mensaje (automatismo) ni el motivo para escribir (señal). Lo que sí cubre: llegar a quien decide con el porqué de su empresa (`aboutme §1b`, la prueba). Hay 2 empresas que dicen que un primer mensaje con datos de su empresa les abrió la puerta (Biele, Azolgas): hipótesis.
+> - **El cargo rota** (en 5 citas del tipo 2): *"hay una rotación bestial"* (Biele) · *"lleva seis meses en el rol y dentro de nada se vuelve a cambiar"* (Vivebiotech) · *"esa persona ya no está en la empresa desde hace cinco años"* (Lointek). Norma para el tipo 2: `el que firmaba el año pasado ya no está`. ⛔ La línea 2 no promete datos "siempre actualizados": 7 empresas, las 7 del ICP, dudan justo de eso.
+>
+> **⛔ LO QUE NO SE DICE, con el tamaño nuevo:**
+>
+> | lo que no se dice | 15/10 | 14/09 | qué cambia |
+> |---|---|---|---|
+> | **La señal y llegar antes** | **19** (15 ICP) | 15 (11) | Sigue siendo la objeción nº1. Ahora con **7 citas de "vas tarde"** (Fegemu dos veces, GHI, Barberán, Egoin, Biele, Airlan): lo que se publica llega cuando el proyecto ya está dado. Lo que piden son **proyectos** (6 empresas, las 6 del ICP), y eso no lo tenemos |
+> | ⭐ **Descubrir un mercado o empresas que no conoces** | **17** (16 ICP) | 7 (6) | **La que más crece de todo el informe.** *"vamos a buscar instaladores en Guipúzcoa, me los conozco todos de memoria"* (Erreka, director comercial de exportación) · *"nuestros clientes son una veintena"* (BST Rods) · *"menos de un 5% se me puede escapar"* (Azolgas). **Y la respuesta a esta objeción es el tipo 2**: Lointek, Azolgas, Biele, Fegemu y Bianditz conocen sus empresas y les falta la persona. Excepción, la de siempre: exportación o país nuevo. Las que se les escapan (*"siempre se escapan"*, Erreka) van en el cuerpo, nunca en la promesa. **Aviso nuevo en `validar-post.py`** |
+> | **Que lo escribe la IA o va solo** | **13** (8 ICP) | 5 (4) | Casi el triple. *"en el momento en el que le dedicas tiempo a mandar un email que parezca más personalizado, al final vemos conversión"* (Erreka) · *"no podemos poner un sistema automatizado que hable en nombre del cliente"* (The Marketing Hub). **La fila `Tú confirmas` de `§4.4b-ROTACION` pasa de 5 a 13 empresas de respaldo** |
+> | 🆕 **"Eso me lo hace ChatGPT"** | **17** (13 ICP) | 1-2 | **El competidor nº1 del informe, y en `§4.4b-CADENA` punto 5 era hipótesis.** *"meta yo ahora en Copilot… instaladores de puertas automáticas de Suiza… ¿Qué diferencia tiene esto?"* (Erreka) · *"eso ya lo tengo ahora mismo gratuito"* (Hansa-Flex). ⛔ `con IA` en la línea 2 nos mete en la caja que el lector ya tiene gratis (`§4.4b-NO-EXCEL`, ahora con 17 empresas detrás). ⛔ Ni `mejor que ChatGPT` ni la marca. ✅ **Lo que ellos mismos dicen que el chat no les da**, y es la norma de la línea 1: *"esos son los que ya conocemos"* (Riza) · *"muchas veces… se puede equivocar"* (IONOS) · *"otra cosa es que vuestro contacto sea mucho más fiable"* (Salto). **Aviso nuevo en `validar-post.py`** |
+> | 🆕 **"Eso ya lo tengo en una base de datos"** | **13** (13 de 13 ICP) | — | Kompass, Informa, Alimarket: *"esto ya lo podía hacer yo, entrar en Informa, empezar a descargarme listados y luego ir yo al LinkedIn Premium"* (Dotest). ⛔ Sin marcas. ✅ Norma de línea 1: la base de datos te da la empresa y un contacto genérico (*"te ponen un contacto, incluso es un genérico"*, Salto) → la línea 2 da la persona. La definición por negación de `§4.4b-ORDEN` (`no es otra base de datos`) ya tiene 13 ICP detrás |
+> | **Datos de terceros** | **10** (6 ICP) | 5 (3) | *"¿Dónde ha sacado mi teléfono?"* (Mottum) · *"¿Que no consultáis la lista Robinson?"* (The Marketing Hub). Confirma `su contacto`, nunca `su móvil` ni `su teléfono` (`brand-voice §2c-DATOS`) |
+> | **Volumen** | 10 (1 ICP) | 5 (1) | Igual: veto por la caja de Waalaxy y Apollo, con respaldo ICP flojo |
+> | 🆕 **Créditos, precio, pago anual** | 14 (13) y 14 (10) | — | Objeciones a nuestro modelo. Nunca en público, **ni siquiera para desactivarlas** |
+>
+> **LO QUE CAMBIA PARA EL NINJA, en orden de peso:**
+> 1. **El tipo 2 ya no se sostiene solo en nuestro CTR: es patrón con 15 ICP y además responde a la objeción que más crece** (17, "ya los conozco a todos"). Sigue de prioridad en `§4.4b-ROTACION`, y la palabra sigue rotando. Palabras suyas nuevas: `el jefe de compras`, `la persona adecuada`, `quien compra dentro`. ⚠️ Siguen vivas dos citas en contra (Composites Martiartu y Azolgas: *"no me suele costar identificar las personas en LinkedIn"*): no se escribe como si le pasara a todo el mundo.
+> 2. **El tipo 4 tiene 37 empresas y una segunda cara**, el olfato frente al método (7 de 7 ICP). Para la sesión del 28/10 es la promesa que mejor se cumple.
+> 3. **Prometer empresas NUEVAS es ya el segundo veto más grande.** Y en un nicho, *"Esa empresa ya la conocéis. Esta es la persona que compra ahí"* (`§4.4b-CADENA`) se convierte en el bloque de dos por defecto.
+> 4. **`IA` en la línea 2 cuenta ahora con 17 empresas en contra**, además del n=0 en clics del 13/10.
+> 5. **Las citas son material interno.** Salen de reuniones privadas: en un post o un correo, la escena se cuenta sin el nombre de la empresa ni de la persona y nunca palabra por palabra si se puede reconocer. Un cliente con nombre solo sale si ha dado permiso (`project-personas-clientes`).
+>
+> **🧠 PARA LOS TEMAS, NO SOLO PARA EL NINJA** (escenas que el informe repite y aún no hemos contado; cada una es hipótesis hasta que un post la pruebe):
+> - **El comercial que lo hace todo solo:** *"yo soy el único comercial dentro de la empresa"* (Bianditz) · *"a nivel de prospección de reuniones, de cierres y todo, lo estoy realizando yo sola"* (Free Farma) · *"no tenemos 50 comerciales que vayan a exprimirla"* (Eremu). Encaja con historia y con meme.
+> - **"Me los conozco todos de memoria" y aun así no sé a quién llamar dentro:** el tipo 2 contado como escena.
+> - **La herramienta que dura 15 días:** *"están los primeros 15 días muy loquito y después no los utilizas"* (Bianditz, sobre los CRM). Objeción de 12 empresas (sin alguien que la use a diario, se abandona). Meme de oficina, sin juzgar a nadie.
+> - **El correo de `estimado chomín`** (Biele): los mensajes automáticos que reciben a diario. Meme, y refuerza `Tú confirmas`.
+> - **"No es el momento"** (13 empresas, las 13 del ICP: fábricas a tope, el CRM primero, una reestructuración). No es tema de post, pero sí el trabajo de la newsletter (`email-marketing §5-NINJA`).
+> - ⛔ **Fuera, aunque se repitan:** el tamaño por planta (5 ICP) y las empresas con varias plantas son funciones en desarrollo (`§4.4b-NO-EXCEL`, no se nombran); el CRM dentro (30) y las listas propias (14) son producto, no contenido.
 >
 > #### ✅ LO QUE EL NINJA SÍ PUEDE PROMETER (ordenado por cuántas empresas lo piden)
 >
@@ -2361,6 +2415,8 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > **Dónde estábamos (auditoría del 14/10, 55 ninjas medidos desde julio):** en las 3 cuentas, los ninjas de las últimas 3 semanas hablaban al tipo 2 doce veces, al tipo 1 dos, y al 3 y al 4 una vez cada uno. El primer ninja limpio al tipo 4 con el enlace del webinar es la historia de Unai del 14/10 (`Un Excel así le cuesta meses de calle a cualquiera.` / `Buscar menos y vender más, eso sí te lo explicamos:`). El tipo 4 ya había salido antes, pero siempre mezclado con el 2 (`Saber quién firma lleva meses`).
 >
+> **🔄 Con el informe del 15/10 (`§4.4b-MUNICIÓN-1510`):** el tipo 4 lo dicen **37 empresas** (23 ICP) y el tipo 2 **16** (15 ICP, eran 2). El 2 deja de apoyarse solo en nuestro CTR y es además la respuesta a la objeción que más crece (*"ya los conozco a todos"*, 17). El 1 se queda para exportación o país nuevo, y el 3 sigue sin poder prometerse (19 empresas objetan la señal).
+>
 > **LAS REGLAS:**
 > 1. **Un ninja, un tipo** (`§4.4b-CADENA` punto 6). Se elige el que cuelga de la escena o del gancho de ESE post y, si dos encajan igual, **el menos probado** en las 3 cuentas. Lo dice el validador en cada entrega.
 > 2. **El tipo tiene que poder cumplirlo el destino** (`§4.4b-PROMESA`). **Con el webinar (hasta el 28/10)**, la página de Luma cumple el **tipo 1** (encontrar empresas por lo que hacen y no por su sector, con LinkedIn gratis y con Claude) y el **tipo 4** (que el equipo dedique el tiempo a contactar, no a buscar). ✅ **Y el tipo 2 también** (Iker, 14/10): el tercer nivel de la sesión enseña la herramienta, que propone primero las empresas que encajan y después la persona de dentro a quien contactar. El **tipo 3** no lo cumple la sesión, y además la señal es la objeción nº1 del informe (`§4.4b-ORDEN`). Con `/solicitar-demo` valen los cuatro, el 3 dicho como pérdida (`llegar tarde`), nunca como `señal`.
@@ -2382,9 +2438,9 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > | dolor | qué cubre la línea 2 | respaldo |
 > |---|---|---|
-> | **La persona de dentro** | el nombre de quien decide, con su contacto | 15 cuentas en el eslabón 2 · mejor CTR medido (0,701%). **Sigue siendo la prioridad** |
+> | **La persona de dentro** | el nombre de quien decide, con su contacto | 15 cuentas en el eslabón 2 · mejor CTR medido (0,701%) · 🔄 **16 empresas, 15 ICP, en el informe del 15/10**. **Sigue siendo la prioridad** |
 > | **🆕 Acierto, no volumen** | **pocas empresas que encajan, nunca listas de miles** | Iker, 08/10, de su reunión con el segundo jefe: *"lo que más nos diferencia es que nunca damos listas a volumen, sino pocas empresas que encajan totalmente"*. Lo respaldan `el listado que acierta y te ahorra limpiarlo` (8, 7 ICP), `no pagar por buscar lo que no vale` (8 de 8 ICP) y la queja de volumen contra otras herramientas (5) |
-> | **🆕 Tú confirmas** | **nada sale sin que tu comercial lo apruebe**: empresas, persona y canal | Iker, 08/10: todo pasa por el comercial. Responde a la objeción `se detecta cuando está automatizado` (5 empresas, 4 ICP). ⚠️ **Es verdad mientras la opción de automatización no esté activa**: el día que salga, esta fila se revisa |
+> | **🆕 Tú confirmas** | **nada sale sin que tu comercial lo apruebe**: empresas, persona y canal | Iker, 08/10: todo pasa por el comercial. Responde a la objeción `se detecta cuando está automatizado` (5 empresas, 4 ICP · 🔄 **13 empresas, 8 ICP, el 15/10**). ⚠️ **Es verdad mientras la opción de automatización no esté activa**: el día que salga, esta fila se revisa |
 > | **Buscar contra contactar** | dejar de buscar para poder contactar | 21 empresas (15 ICP), eslabón 4, donde están 16 de 22 clientes |
 >
 > **Cómo se elige:** gana el que cuelgue de la broma o el verbo del gancho de ESE post (`§4.4b-FORMA`), y si dos encajan igual, el que esa cuenta lleve más tiempo sin usar. **El de la persona sigue de prioridad** hasta que otro le gane en clics; los demás entran para medirlos, no para sustituirlo.

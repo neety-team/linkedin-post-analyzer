@@ -753,7 +753,7 @@ const DemosPostCtx = createContext<Record<string, DemosDePost>>({});
 const PILAR_UTM_LABELS: Record<string, string> = {
   historia: 'Historia', meme: 'Meme', mapa: 'Mapa', peloteo: 'Peloteo', las10: 'Las 10',
   los10: 'Las 10', objeto: 'Objeto', despiece: 'Despiece', leadmagnet: 'Lead magnet',
-  evento: 'Evento', tarjeta: 'Tarjeta', recursos: 'Recursos', 'sin-publicacion': 'Sin publicación',
+  evento: 'Evento', tarjeta: 'Tarjeta', recursos: 'Recursos', 'sin-publicacion': 'Sin post concreto',
   correo: 'Newsletter', perfil: 'Botón del perfil',
 };
 const etiquetaPilarUtm = (k: string) => PILAR_UTM_LABELS[k] ?? k.charAt(0).toUpperCase() + k.slice(1);
@@ -768,9 +768,9 @@ function Kpi({ etiqueta, valor, delta, pie, ayuda }: {
 }) {
   return (
     <div className="bg-bg-card border border-border rounded-xl p-4 min-w-0">
-      <div className="text-[10px] uppercase tracking-wide text-text-muted">
+      <div className="flex items-center text-[10px] uppercase tracking-wide text-text-muted">
         {etiqueta}
-        {ayuda && <InfoHint text={ayuda} />}
+        {ayuda && <InfoHint text={ayuda} className="mt-0" />}
       </div>
       <div className="flex items-baseline gap-2 mt-1">
         <div className="text-2xl font-bold text-text-primary tabular-nums">{valor}</div>
@@ -1684,8 +1684,22 @@ function AccountsInner() {
                 pie={!conversiones ? null
                   : !conversiones.demos.configurado ? 'falta conectar la web'
                   : 'error' in conversiones.demos ? `no se pudo leer: ${conversiones.demos.error}`
-                  : `${conversiones.demos.current.oportunidades} con reunión · LinkedIn ${conversiones.demos.current.por_canal.linkedin} · Newsletter ${conversiones.demos.current.por_canal.newsletter} · Recursos ${conversiones.demos.current.por_canal.recursos}`}
-                ayuda="Solicitudes de demo de la web nueva que se atribuyen a Mario: LinkedIn orgánico, newsletter y recursos, con la misma regla que el admin de la web (los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. «Con reunión» = cualificada y con hora reservada."
+                  : (() => {
+                      const c = conversiones.demos.current;
+                      return (
+                        <>
+                          <span className="block">
+                            <span className="text-text-secondary font-semibold tabular-nums">{c.cualificadas}</span> cualificadas
+                            {' · '}<span className="text-text-secondary font-semibold tabular-nums">{c.oportunidades}</span> con reunión
+                          </span>
+                          <span className="block">
+                            {([['LinkedIn', c.por_canal.linkedin], ['Newsletter', c.por_canal.newsletter], ['Recursos', c.por_canal.recursos]] as const)
+                              .filter(([, n]) => n > 0).map(([k, n]) => `${k} ${n}`).join(' · ')}
+                          </span>
+                        </>
+                      );
+                    })()}
+                ayuda="Solicitudes de demo de la web nueva que se atribuyen a Mario: en «¿Cómo nos conociste?» marcaron LinkedIn, Correo de Neety o Recursos, o el enlace que pincharon lo demuestra (misma regla que el admin de la web; los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. Embudo: solicitudes → cualificadas (las que encajan; el resto, descartadas) → con reunión (cualificadas que además reservaron hora). Los canales a 0 no se enseñan."
               />
             </div>
             {conversiones?.demos && 'current' in conversiones.demos && conversiones.demos.current.solicitudes > 0 && conversiones.demos.current.por_pilar && (() => {
@@ -1693,13 +1707,15 @@ function AccountsInner() {
               const filas = Object.entries(d.current.por_pilar ?? {}).sort((x, y) => y[1].solicitudes - x[1].solicitudes);
               return (
                 <div className="flex items-center gap-x-4 gap-y-1 flex-wrap bg-bg-card border border-border rounded-xl px-4 py-2.5 text-xs text-text-secondary">
-                  <span className="text-text-muted">🎯 Demos por pilar</span>
+                  <span className="inline-flex items-center text-text-muted">
+                    🎯 Demos por pilar
+                    <InfoHint className="mt-0" text={`Pilar = lo que va antes del primer guion del utm_campaign del enlace del post. «Sin post concreto» = también son de Mario (en «¿Cómo nos conociste?» marcaron LinkedIn, Correo o Recursos), pero llegaron a la web sin el enlace de una publicación: escribiendo neety.com, desde Google o desde la web antigua. Cuentan; lo que no se sabe es de qué post vienen.${d.sin_casar ? ` ${d.sin_casar} no se han podido casar con un post concreto.` : ''}`} />
+                  </span>
                   {filas.map(([k, n]) => (
                     <span key={k} className={k === 'sin-publicacion' ? 'text-text-muted' : ''} title={`${n.cualificadas} cualificadas · ${n.oportunidades} con reunión`}>
                       {etiquetaPilarUtm(k)} <span className="font-semibold text-text-primary tabular-nums">{n.solicitudes}</span>
                     </span>
                   ))}
-                  <InfoHint text={`Pilar = lo que va antes del primer guion del utm_campaign del enlace del post. «Sin publicación» = llegaron sin utm_campaign (newsletter, recursos o un enlace sin marcar).${d.sin_casar ? ` ${d.sin_casar} no se han podido casar con un post concreto.` : ''}`} />
                 </div>
               );
             })()}
@@ -1710,14 +1726,16 @@ function AccountsInner() {
                 <div className="flex items-center gap-x-3 gap-y-1 flex-wrap bg-bg-card border border-border rounded-xl px-4 py-2.5 text-xs text-text-secondary">
                   <span>📅 Webinar <span className="text-text-primary font-medium">{ev.nombre}</span></span>
                   {ev.inscritos != null ? (
-                    <span className="text-text-primary font-semibold tabular-nums">{fmtNum(ev.inscritos)} inscritos</span>
+                    <span className="inline-flex items-center text-text-primary font-semibold tabular-nums">
+                      {fmtNum(ev.inscritos)} inscritos
+                      <InfoHint className="mt-0" text="Total del evento según Luma: la cuenta gratuita no dice de dónde viene cada inscrito, así que no se atribuye." />
+                    </span>
                   ) : (
                     <span className="text-text-muted" title="Luma no ha devuelto el recuento de entradas de este evento.">
                       inscritos: Luma no los enseña
                     </span>
                   )}
                   {faltan > 0 && <span className="text-text-muted">faltan {faltan} {faltan === 1 ? 'día' : 'días'}</span>}
-                  <InfoHint text="Total del evento según Luma: la cuenta gratuita no dice de dónde viene cada inscrito, así que no se atribuye." />
                   <a href={ev.url} target="_blank" rel="noopener noreferrer" className="ml-auto text-accent hover:text-accent-strong">Ver en Luma →</a>
                 </div>
               );

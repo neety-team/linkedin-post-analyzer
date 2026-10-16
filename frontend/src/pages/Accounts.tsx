@@ -624,9 +624,9 @@ function FranjaPremium({ post }: { post: PostPremium & { id?: string } }) {
       {demos && (
         <span
           className="font-semibold text-success"
-          title={`Solicitudes de demo atribuidas a este post en el periodo elegido (${demos.campana}) · ${demos.oportunidades} con reunión`}
+          title={`Oportunidades atribuidas a este post en el periodo elegido (${demos.campana}) · ${demos.oportunidades} aprobadas · ${demos.solicitudes - demos.cualificadas} descartadas`}
         >
-          🎯 {demos.solicitudes} {demos.solicitudes === 1 ? 'demo' : 'demos'}
+          🎯 {demos.solicitudes} {demos.solicitudes === 1 ? 'oportunidad' : 'oportunidades'}
         </span>
       )}
     </>
@@ -1623,7 +1623,7 @@ function AccountsInner() {
               Mejores posts y Psicologia del gancho: eso se mira a diario o al preparar
               contenido; esto, en la reunion de cada dos semanas (el enlace "Resumen del
               periodo" de la cabecera baja aqui). Primera fila = lo que se apunta en la
-              reunion (publicaciones, impresiones, visitas, seguidores, clics y demos);
+              reunion (publicaciones, impresiones, visitas, seguidores, clics y oportunidades);
               segunda, el contenido. Se quitaron la fila de reacciones/comentarios/
               compartidos (nadie la miraba) y "Mejor post" (un numero sin su post).
               Las cifras oficiales de LinkedIn (90 d / 7 d) pasan al pie de su tarjeta. */}
@@ -1631,7 +1631,7 @@ function AccountsInner() {
             <div>
               <h2 className="text-xl font-semibold">Resumen del periodo</h2>
               <p className="text-xs text-text-muted">
-                {days} días, frente a los {days} anteriores{selectedCreator === 'all' ? '' : ' · solo esta cuenta (las demos son de todas)'}.
+                {days} días, frente a los {days} anteriores{selectedCreator === 'all' ? '' : ' · solo esta cuenta (las oportunidades son de todas)'}.
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
@@ -1675,7 +1675,7 @@ function AccountsInner() {
                 ayuda="Clics en el enlace de los posts que lo llevan y que LinkedIn mide. El CTR se calcula solo sobre esos posts: con todos, los que no llevan enlace lo hundirían. Sin variación en los clics: la analítica de los posts jóvenes aún está subiendo."
               />
               <Kpi
-                etiqueta="Demos atribuidas"
+                etiqueta="Oportunidades"
                 valor={loadingConversiones && !conversiones ? '…'
                   : conversiones?.demos && 'current' in conversiones.demos ? fmtNum(conversiones.demos.current.solicitudes) : '—'}
                 delta={conversiones?.demos && 'current' in conversiones.demos
@@ -1689,17 +1689,18 @@ function AccountsInner() {
                       return (
                         <>
                           <span className="block">
-                            <span className="text-text-secondary font-semibold tabular-nums">{c.cualificadas}</span> cualificadas
-                            {' · '}<span className="text-text-secondary font-semibold tabular-nums">{c.oportunidades}</span> con reunión
+                            <span className="text-text-secondary font-semibold tabular-nums">{c.oportunidades}</span> aprobadas
+                            {' · '}<span className="text-text-secondary font-semibold tabular-nums">{c.solicitudes - c.cualificadas}</span> descartadas
                           </span>
-                          <span className="block">
-                            {([['LinkedIn', c.por_canal.linkedin], ['Newsletter', c.por_canal.newsletter], ['Recursos', c.por_canal.recursos]] as const)
-                              .filter(([, n]) => n > 0).map(([k, n]) => `${k} ${n}`).join(' · ')}
-                          </span>
+                          {c.cualificadas > c.oportunidades && (
+                            <span className="block">
+                              <span className="text-text-secondary font-semibold tabular-nums">{c.cualificadas - c.oportunidades}</span> sin elegir hora
+                            </span>
+                          )}
                         </>
                       );
                     })()}
-                ayuda="Solicitudes de demo de la web nueva que se atribuyen a Mario: en «¿Cómo nos conociste?» marcaron LinkedIn, Correo de Neety o Recursos, o el enlace que pincharon lo demuestra (misma regla que el admin de la web; los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. Embudo: solicitudes → cualificadas (las que encajan; el resto, descartadas) → con reunión (cualificadas que además reservaron hora). Los canales a 0 no se enseñan."
+                ayuda={`Oportunidades (solicitudes de reunión de la web nueva; la demo es la fase 2) que se atribuyen a Mario: en «¿Cómo nos conociste?» marcaron LinkedIn, Correo de Neety o Recursos, o el enlace que pincharon lo demuestra (misma regla que el admin de la web; los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. Aprobadas = encajaban y eligieron hora (la «Nueva oportunidad cualificada» del chat). Descartadas = no encajaban. Sin elegir hora = encajaban pero nunca reservaron, así que no llegaron al chat como aprobadas.${conversiones?.demos && 'current' in conversiones.demos ? ` Por canal: LinkedIn ${conversiones.demos.current.por_canal.linkedin} · Newsletter ${conversiones.demos.current.por_canal.newsletter} · Recursos ${conversiones.demos.current.por_canal.recursos}.` : ''}`}
               />
             </div>
             {conversiones?.demos && 'current' in conversiones.demos && conversiones.demos.current.solicitudes > 0 && conversiones.demos.current.por_pilar && (() => {
@@ -1708,11 +1709,11 @@ function AccountsInner() {
               return (
                 <div className="flex items-center gap-x-4 gap-y-1 flex-wrap bg-bg-card border border-border rounded-xl px-4 py-2.5 text-xs text-text-secondary">
                   <span className="inline-flex items-center text-text-muted">
-                    🎯 Demos por pilar
+                    🎯 Oportunidades por pilar
                     <InfoHint className="mt-0" text={`Pilar = lo que va antes del primer guion del utm_campaign del enlace del post. «Sin post concreto» = también son de Mario (en «¿Cómo nos conociste?» marcaron LinkedIn, Correo o Recursos), pero llegaron a la web sin el enlace de una publicación: escribiendo neety.com, desde Google o desde la web antigua. Cuentan; lo que no se sabe es de qué post vienen.${d.sin_casar ? ` ${d.sin_casar} no se han podido casar con un post concreto.` : ''}`} />
                   </span>
                   {filas.map(([k, n]) => (
-                    <span key={k} className={k === 'sin-publicacion' ? 'text-text-muted' : ''} title={`${n.cualificadas} cualificadas · ${n.oportunidades} con reunión`}>
+                    <span key={k} className={k === 'sin-publicacion' ? 'text-text-muted' : ''} title={`${n.oportunidades} aprobadas · ${n.solicitudes - n.cualificadas} descartadas${n.cualificadas > n.oportunidades ? ` · ${n.cualificadas - n.oportunidades} sin elegir hora` : ''}`}>
                       {etiquetaPilarUtm(k)} <span className="font-semibold text-text-primary tabular-nums">{n.solicitudes}</span>
                     </span>
                   ))}

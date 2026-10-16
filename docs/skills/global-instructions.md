@@ -854,6 +854,20 @@ Cuando tengas 2+ frases que sean estructura paralela, enumeración, dato+consecu
   - **⛔ TODAS las líneas del bloque comparten arranque, sin excepción (Iker, 2026-07-22).** El fallo típico: un bloque de 3 de "negación-negación-AFIRMACIÓN" donde las dos primeras van con "No…" y la tercera con "Lo…" — la tercera rompe la anáfora. **No se arregla forzando la tercera a "No"** (perderías la afirmación): se **parte** en un **bloque de 2** (las dos negaciones, anáfora "No lo… / No lo…") **+ una línea suelta** con la afirmación, separada por blanco. Caso real (Murcia): *"No lo riega el turismo. / No lo cargan las terrazas." → [blanco] → "Lo cargan naves que encienden la luz a las 6."* De paso ese corte te REGALA un bloque de 2, que suele faltar.
 - **COLOCACIÓN: un bloque de 2 PRONTO, no al final (Iker, 2026-07-24).** Tras el gancho cae una línea individual (nunca un bloque pegado al gancho), pero **justo después ya tiene que haber un bloque de 2** — no arranques con 5-6 líneas sueltas seguidas antes del primer bloque, se lee monótono. El ritmo `individual → bloque` empieza arriba, no en la mitad del post.
 
+#### ⛔⛔ 3.2-RACHA · LA SUELTA DOMINA, PERO NUNCA MÁS DE 4 SEGUIDAS (Iker, 2026-10-16) — GLOBAL
+
+> **Iker, sobre la historia/evento de Asier del 16/10:** *"me preocupa que un punto tan básico de formateado, de hacer ritmos que no sean predecibles, hayas fallado… tiene que haber más líneas individuales, luego por frecuencia bloques de dos y luego bloques de tres… que no vuelva a ocurrir"*.
+
+**El fallo:** entregué `1-1-2-1-3-1-1-1-1-1-1-2-1`, con **6 sueltas seguidas** detrás del bloque de 3 y un 77% de sueltas, y el validador lo dio en verde. **La causa estaba en el propio validador, y yo la seguí sin mirar el resultado:** la regla tenía suelo (`la suelta domina, +55%`) y ningún techo, y el check de ciclo me decía literalmente *"rómpelo metiendo líneas sueltas seguidas"*. Cada vez que salía un ciclo, partía un bloque en sueltas y el verde volvía. Optimicé el check en vez de leer el ritmo, que es justo lo que `§8` avisa que no se haga.
+
+**Lo medido (16/10, 23 historias e historias/evento de las 3 cuentas desde julio, +500 imp):** ninguna pasa de **4 sueltas seguidas** tras el gancho. Con racha de 2-3 están las mejores (mediana 10.409 y 8.654 en historia, 9.328 en historia/evento); las 3 con racha de 4 son de las peores (4.511, y 2.568 de mediana en historia/evento). En meme hay 2 con racha de 5, porque calcan su referencia.
+
+**LA REGLA:**
+- **Orden de frecuencia: sueltas > bloques de 2 > bloques de 3** (Iker). Las sueltas siguen siendo la mayoría; lo que no puede pasar es que se apilen.
+- **Como mucho 4 sueltas seguidas detrás del gancho, y mejor 2-3.** Si sobran, se juntan dos del mismo tema en un bloque de 2.
+- **Un ciclo se rompe moviendo un bloque o pasando un 2 a un 3, nunca apilando sueltas.**
+- **Mecanizado** en `validar-post.py`: fallo duro con más de 4 seguidas en historia (aviso en el resto de pilares), aviso con 4 en historia, aviso si hay más bloques de 3 que de 2, y la pista del check de ciclo corregida. La versión de las 6 sueltas está en `scripts/test-borradores-tumbados.py`.
+
 #### ⛔ 3.2-ESPEJO · UN TRAMO SIMÉTRICO ES TAN PREDECIBLE COMO UN CICLO (Iker, 2026-08-19)
 
 **El caso:** el meme del 20/08 tenía ritmo `1-1-2-1-1-2-1-3-1-2-1-1` y pasaba todos los checks de ciclo. Iker lo devolvió igual: *"después del primer bloque es un ritmo de dos líneas individuales, luego el bloque de dos y luego otra vez dos líneas individuales. Eso es predecible"*.

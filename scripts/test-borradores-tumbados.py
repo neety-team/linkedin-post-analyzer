@@ -178,6 +178,39 @@ CASOS += [
     ('Nunca había rezado tanto para que saliera bien una demo de ventas 🙏\n\n' + CUERPO_ASIER,
      '15/10: "siendo jefes, publicamente no quieren dar a entender cosas como nunca habia rezado"',
      'el gancho no se hace de menos', FLAGS_ASIER),
+    # 16/10: la v1 aprobada salio en verde con 6 sueltas seguidas (77% de sueltas) porque
+    # el check de ciclo empujaba a "meter lineas sueltas seguidas" y no habia techo.
+    ("""Nunca vi a un comercial vender más por tener más empresas 👇
+
+Lo comprobé en años programando para los que venden.
+
+Les sobran nombres.
+Les falta saber por cuál empezar.
+
+Por eso la herramienta nueva la programé al revés.
+
+Pocas empresas, de la que más encaja a la que menos.
+Cada una con su porqué y con quien decide dentro.
+Ninguna entra sin que el comercial la apruebe.
+
+Lo que descarta, la herramienta lo aprende.
+
+El comercial decide siempre y nosotros le quitamos el trabajo de buscar.
+
+Vender más nunca dependió de tener más empresas.
+
+Esa herramienta nueva es @Neety.
+
+La presenté con @Angela Brook Uria en el evento Neety Forward.
+
+El miércoles 28 lo desgranamos gratis y por videollamada.
+
+La empresa ya la conoces, la persona que compra ahí no.
+Esa persona sí te decimos cómo dar con ella: https://luma.com/7hhyx07z?utm_source=historia-ponente-16oct-asier&utm_medium=post&utm_campaign=historia-ponente-16oct&utm_content=asier
+
+Un comercial con menos empresas llama mejor.""",
+     '16/10: "me sorprende que hayas fallado en eso… demasiadas lineas individuales"',
+     'como mucho 4 sueltas seguidas', FLAGS_ASIER),
 ]
 
 

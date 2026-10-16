@@ -2540,11 +2540,49 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                       for i in range(len(_pat) - 7))
         chk(not (_ciclo2 or _ciclo4), 'RITMO: sin patron que se repita (§3.2)',
             f'ritmo {_ritmo} — se repite un ciclo de {"dos" if _ciclo2 else "cuatro"} bloques. '
-            'El lector lo coge y deja de leer. Rompelo metiendo lineas sueltas seguidas')
+            'El lector lo coge y deja de leer. Rompelo MOVIENDO un bloque o pasando un bloque de 2 '
+            'a uno de 3, no apilando sueltas: mas de 3 sueltas seguidas tambien es un ritmo '
+            'predecible (Iker, 16/10, check de abajo)')
         _sueltas = sum(1 for n in _pat if n == 1) / len(_pat)
         chk(_sueltas >= 0.55, 'RITMO: la linea suelta domina, +55% de los bloques (§3.2)',
             f'ritmo {_ritmo} — solo {_sueltas:.0%} son lineas sueltas. La suelta es la base y '
             'los bloques son la variedad, no al reves')
+
+        # ⛔ RACHA DE SUELTAS (Iker, 2026-10-16). "Que la suelta domine" tenia suelo
+        # (+55%) y NO tenia techo, y la pista del check de ciclo decia literalmente
+        # "rompelo metiendo lineas sueltas seguidas". Siguiendola, la historia/evento
+        # de Asier del 16/10 salio con 6 sueltas seguidas (1-1-2-1-3-1-1-1-1-1-1-2-1,
+        # 77%) y en verde. Iker: "un punto tan basico de formateado, de hacer ritmos
+        # que no sean predecibles… que no vuelva a ocurrir". MEDIDO el 16/10 en los
+        # 23 posts de historia e historia/evento desde julio (+500 imp): ninguno pasa
+        # de 4 sueltas seguidas tras el gancho; con 2-3 estan los mejores (mediana
+        # 10.409 y 8.654 en historia, 9.328 en historia/evento) y los 3 con racha 4
+        # son de los peores (4.511, y 2.568 de mediana en historia/evento). En meme
+        # hay 2 con racha 5 (calcan su referencia), asi que fuera de historia es aviso.
+        _racha = _r = 0
+        for _n in _pat[1:]:
+            _r = _r + 1 if _n == 1 else 0
+            _racha = max(_racha, _r)
+        if pilar == 'historia':
+            chk(_racha <= 4, 'RITMO: como mucho 4 sueltas seguidas tras el gancho (§3.2)',
+                f'ritmo {_ritmo} — {_racha} lineas sueltas seguidas. En historia ningun post nuestro '
+                'pasa de 4 y con 2-3 estan los mejores. Junta dos sueltas del mismo tema en un '
+                'bloque de 2' if _racha > 4 else f'racha maxima {_racha}')
+            chk(_racha <= 3, 'RITMO: en historia, mejor 2-3 sueltas seguidas que 4 (§3.2)',
+                f'ritmo {_ritmo} — racha de {_racha}: las 3 historias con racha 4 son de las peores '
+                '(mediana 4.511 en historia y 2.568 en historia/evento)' if _racha > 3 else '',
+                aviso=True)
+        else:
+            chk(_racha <= 4, 'RITMO: como mucho 4 sueltas seguidas tras el gancho (§3.2)',
+                f'ritmo {_ritmo} — {_racha} lineas sueltas seguidas: se lee como una lista de frases. '
+                'Junta dos del mismo tema en un bloque de 2' if _racha > 4 else '', aviso=True)
+        # Y LA FRECUENCIA VA POR ESTE ORDEN (Iker, 2026-10-16): "mas lineas individuales,
+        # luego por frecuencia bloques de dos y luego bloques de tres". Regla suya, sin medir.
+        _n2 = sum(1 for n in _pat if n == 2)
+        _n3 = sum(1 for n in _pat if n >= 3)
+        chk(_n2 >= _n3, 'RITMO: mas bloques de 2 que de 3 (§3.2)',
+            f'ritmo {_ritmo} — {_n2} bloque(s) de 2 y {_n3} de 3. El orden de frecuencia es '
+            'sueltas, luego doses, luego treses' if _n2 < _n3 else '', aviso=True)
 
         # §2.0b — EL ARRANQUE DE LA ANAFORA TAMBIEN ROTA, Y NO SOLO EN PELOTEO
         # (Iker, 2026-08-25). La ley de variedad no lo listaba y por eso se colo

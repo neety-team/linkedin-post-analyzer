@@ -4,6 +4,16 @@
 > (`email-marketing §6`) antes de escribir nada, y se ACTUALIZA y commitea al aprobar cada tanda.
 > Si falta un dato, PREGUNTA. No lo adivines.
 
+> 🧪🧪 **REGISTRO DE A/B ABIERTOS DE LA NEWSLETTER · PASO 0 DE CADA REVISIÓN DEL LUNES (Iker, 2026-10-16).** La regla es la misma que en `historial-publicaciones.md`: se recorre fila por fila antes de planificar ningún correo, sin saltarse ninguna ("sin dato nuevo" también se dice). Lo que se cierra va a `email-marketing` ese mismo día y sale de aquí, y lo que se abre entra el día del envío. Recordatorio de `email-marketing §5-UNA-VARIABLE`: si un correo cambia varias cosas a la vez, lo que da es una dirección, no una prueba.
+>
+> | A/B | brazo A | brazo B | detalle | estado al 16/10 |
+> |---|---|---|---|---|
+> | **Posición del ninja en el cuerpo** | ~45-50% (correos 5 y 6) | ~25% (correo 7) | sección del correo 7, más abajo | A 24 h no sube (2 de 107 contra 4 de 111), con remitente, pilar y web cambiando a la vez. **Falta repetirlo cambiando solo la posición** |
+> | **Longitud** | 116-158 palabras | 240 (correo 8) | sección del correo 8 | Se mira el lunes 19/10 (memoria `project-revision-correo8`) |
+> | **Reto en la PPD** | PPD sin pedir respuesta | PPD que pide contestar (correo 8) | sección del correo 8 | Respuestas en hola@ el lunes 19/10 |
+> | **Remitente** | Iker | Kaixito (correo 2) | `## 🧪 Correo 2`, más abajo | Leer allí el resultado y decidir si se cierra |
+> | **Tipo de cliente del ninja** | — | — | `global §4.4b-TIPOS`, igual que en los posts | Cada correo apunta en su sección a qué tipo le habla (desde el 16/10, con los tamaños de `§4.4b-MUNICIÓN-1510`) |
+
 ## 🟢 ESTADO: PRIMER ENVÍO DESDE BREVO (2026-08-20)
 
 **Kaixito 01 reescrito y enviado.** Fin de la parada de nueve días desde la cancelación de MailerLite.

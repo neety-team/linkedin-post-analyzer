@@ -2876,6 +2876,13 @@ Acceso libre.
 
 #### ⭐⭐ 4.6 · Runbook HISTORIA PERSONAL / ANÉCDOTA (Iker, 2026-07-24)
 
+> ### 🗣️🗣️ 4.6-FEEDBACK · EL DOLOR DE LA HISTORIA SE SACA DEL INFORME DE CLIENTES, Y CADA INFORME NUEVO SE PIDE (Iker, 2026-10-16)
+> **Iker:** *"yo creo que las que más nos convierten son las que hacemos a partir del feedback de los clientes… ha sido muy buena idea que te alimente con este feedback nuevo"*.
+> - **Antes de elegir la escena, se abre el informe vigente** (`global §4.4b-MUNICIÓN-1510`, que apunta al HTML) y se elige un dolor que sea patrón, es decir, que lo digan 3 empresas o más. La escena cuenta ese dolor con las palabras del cliente, sin nombre de empresa ni de persona (las citas salen de reuniones privadas).
+> - **Escenas que el informe del 15/10 ya da hechas:** el comercial que lo lleva todo solo, el que se conoce a todas las empresas de su nicho y no sabe a quién llamar dentro, y el que recibe a diario mensajes automáticos que ignora.
+> - **Lo que hay detrás, dicho con su tamaño:** la historia de mejor CTR de septiembre (Unai 11/09, 0,701%) se escribió sobre un dolor del informe, el de la persona de dentro. Que las historias basadas en el informe conviertan más que las demás es **la impresión de Iker, sin medir**. Para poder medirlo, cada ficha de historia apunta de qué tema del informe sale su escena, o "ninguno".
+> - **Si el informe tiene más de un mes, se le pide a Iker el nuevo** antes de planificar historias. El del 15/10 cambió el dolor prioritario en un solo mes.
+
 > ### 📬 4.6-CORREO · ESTE PILAR LLEVA UNA SOLA PUERTA, Y ES `AGENDAR` (Iker, 2026-08-24)
 > **🔴 AQUÍ PONÍA LO CONTRARIO Y ERA EL PEOR SITIO POSIBLE PARA LA SEGUNDA PUERTA.** Del 18/08 al 24/08 este runbook decía que la historia llevaba los dos bloques y que era *"el canario"*. Iker lo cierra: **una puerta por post, y en historia es la de `agendar`.** Razonamiento entero y el criterio por pilar, en `global §4.4e-PUERTA`.
 >
@@ -3766,14 +3773,7 @@ El sistema no termina al entregar el post. Para que mejore con el tiempo:
 
 **⛔ Y EL ERROR QUE HAY QUE EVITAR ES EL DE SIEMPRE: confundir la variable con el PILAR** (`global §4.4b`). Antes de comparar dos condiciones, comprueba que las dos tienen el mismo reparto de pilares detrás.
 
-**A/B ABIERTOS AHORA MISMO** (estado vivo, el detalle en `historial-publicaciones`):
-| prueba | brazo A | brazo B | estado |
-|---|---|---|---|
-| **Foto de la historia** | selfie individual | foto de grupo | A: 4 posts · B: 1 (Asier 25/08, 9.187 imp y subiendo). **Falta repetir B en la misma cuenta** |
-| **Registro de la foto** | oficina | casa, informal | 21/08 Unai en oficina (5.651 imp · 43 clics) contra 26/08 Unai en casa. **Mismo pilar y misma cuenta: es el A/B más limpio que tenemos**, aunque el resto del post cambie |
-| **Rama del pilar** | historia propia | historia de otro | A: 4 · B: 1 (26/08) |
-| **Variante regional** | sin región | con región | A: 4 · B: 1 (26/08), **confundida con la rama** |
-| **Posición del enlace en peloteo** | abajo (88-96% del texto) | a media cola (<80%) | A: 20 posts · B: Cantabria 01/09 (60%) y Bizkaia 16/09 (74%), **los dos de Asier**. Detalle en `§4.0d` punto 6 |
+**A/B ABIERTOS AHORA MISMO:** 🔄 **desde el 16/10 la lista viva está en `historial-publicaciones.md`, en el REGISTRO DE A/B ABIERTOS que va al principio (y la de correos, en `historial-newsletter.md`).** Es el paso 0 de cada revisión del lunes (Iker: *"que nunca se nos olvide"*). Aquí había una tabla que llevaba desde principios de septiembre sin tocarse, y por eso se olvidaban: no se copia otra vez aquí.
 
 ---
 

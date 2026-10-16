@@ -8,6 +8,24 @@
 
 ## ⚠️ SI ES LUNES Y SE HABLA DE PUBLICACIONES: PRIMERO SE ANALIZA LA SEMANA PASADA (Iker, 2026-08-10)
 
+> 🧪🧪 **REGISTRO DE A/B ABIERTOS · ES EL PASO 0 DE CADA REVISIÓN DEL LUNES, ANTES QUE LAS MÉTRICAS (Iker, 2026-10-16).** Iker: *"que nunca se nos olvide, cuando hagamos los aprendizajes los lunes, revisar los A/B testing, porque si no, estamos cagándola, parece que a propósito"*. **La causa por la que se olvidaban:** cada A/B vivía en un sitio distinto (avisos sueltos de este fichero, `post-workflow §9b`, `§4.0d`, `§4.6-AB-METRICAS`, la memoria), y la tabla de `§9b` llevaba desde principios de septiembre sin tocarse. **Desde hoy hay UNA tabla, esta.** El detalle sigue en su sitio, pero la lista de lo que está abierto vive aquí.
+> - **Cada lunes, fila por fila:** cuántos posts nuevos tiene cada brazo, si ya se puede cerrar (vara de `post-workflow §9b`: 3-4 por brazo, misma cuenta y mismo pilar) y qué falta. **Ninguna fila se salta**: si no hay dato nuevo, se dice "sin dato nuevo" en una línea.
+> - **Al cerrar uno:** el resultado se escribe en su receta ese mismo día y la fila sale de aquí.
+> - **Al abrir uno:** la fila entra aquí el día que se publica el primer brazo, con la etiqueta puesta en la ficha (`§9b` condición 3).
+> - **Un día de EXPLOTAR no es un brazo limpio.** Si se elige el brazo que se cree ganador para maximizar algo (como el 16/10), se apunta y se lee aparte.
+>
+> | A/B | brazo A | brazo B | dónde está el detalle | estado al 16/10 |
+> |---|---|---|---|---|
+> | **Tipo de cliente del ninja** | tipo 2 (la persona de dentro) | tipos 4 / 1 (y el 3 dicho como pérdida) | `global §4.4b-TIPOS` y `§4.4b-ROTACION` · `python scripts/auditar-ninjas.py` (bloque 2b) | Para `/solicitar-demo` cuentan CTR y demos, y para el webinar los inscritos por cada 1.000 impresiones. ⚠️ **16/10, día de explotar:** Iker (Las 10) y Asier (historia) van con el tipo 2 para sacar el máximo de inscritos antes del fin de semana. Son datos del tipo 2, pero no hay brazo contrario el mismo día. **El tipo 2 tiene a favor el informe de clientes (16 empresas, `§4.4b-MUNICIÓN-1510`), pero el informe dice qué dolor existe, no cuál hace pinchar**: el A/B sigue |
+> | **Forma del enlace en peloteo** | línea sola | bloque de 2 | aviso de abajo (29/09) · `post-workflow §4.0d` punto 6 | Bloque de 2: Extremadura, Cantabria, Álava (no limpio) y C. Valenciana de Unai el 16/10. Línea sola: Canarias de Iker el 08/10. Hay que pedir los clics por UTM de GA4 |
+> | **Separación del ninja en "Las 10"** | pegado a las menciones | 1 línea suelta | aviso del lunes 12/10, más abajo | CLM 0,058% contra La Rioja. Sin cerrar en este fichero |
+> | **Foto de la historia** | selfie individual | foto de grupo | `post-workflow §9b` · aviso del lunes 05/10 punto 3 | Sin cerrar en este fichero |
+> | **Barra de métricas en la tarjeta** | recortada | simulada | `post-workflow §4.6-AB-METRICAS` | Abierto desde el 23/09 |
+> | **Director comercial en la historia** | lo lleva en el gancho o la escena | no lo lleva | memoria `project-revision-lunes-19oct` | Se mide el lunes 19/10, dentro de cada cuenta |
+> | **Persona o sala en el ninja de un evento** | nombra a la persona | vende la sala o la sesión | `post-workflow §4.4-CONVERSION-EVENTO` (hipótesis) | Sin ninja limpio de cada tipo en la misma cuenta |
+>
+> **Y los correos tienen su propia tabla al principio de `historial-newsletter.md`, que se revisa en la misma sesión.**
+
 > 🔔 **EL JUEVES 29/10 (o la primera conversación a partir de ese día), SIN QUE HAGA FALTA RECORDARLO: AVISAR A IKER DE QUITAR LA BANDA DEL WEBINAR DE NEETY.COM, Y NO QUITARLA HASTA SU OK.** La banda (`landing/components/WebinarBand.tsx`) lleva la sesión online del 28/10 bajo los 15 mapas del blog, al final de los artículos y en `/solicitar-demo`. No caduca sola, a propósito (Iker, 08/10: *"me tendrás que avisar por aquí por el chat y yo te tendré que dar el ok"*). Con su OK: `WEBINAR_ACTIVE = false`, push a `main` de `landing` y comprobar en producción que en `/solicitar-demo` ha vuelto la safety net de los recursos.
 
 > ✈️ **PENDIENTE PRIORITARIO PARA LA SEMANA DEL 19/10 (Iker, 15/10): POST DE UNAI DEL VIAJE A SAN FRANCISCO, el primero de la semana (mar 20/10 si llega el contexto).** Lo pide Unai: historia/evento avisando de que los 3 jefes van a San Francisco y de que, si alguien de allí quiere hablar de GTM industrial (emprendedores ambiciosos o inversores), les escriba. Falta contexto: fechas del viaje, qué se puede contar y a qué enlace va. Se pregunta antes de escribirlo. Mientras estén fuera, hay que decidir quién lleva la capa manual (responder en la primera hora): en septiembre, sin ella, la mediana cayó a 1.364 impresiones contra 20.260.

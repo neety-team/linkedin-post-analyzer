@@ -1929,6 +1929,27 @@ CLAUDE (nombrado en el gancho)  +  un RESULTADO DE VENTAS  +  una variante de PR
 - **Un tema copiado de fuera solo vale si su pico tiene menos de una semana** (n=1 nuestro + la serie de Martín Arosa: hipótesis).
 - **El listón de un lead magnet "que ha pillado": 30+ comentaristas nuevos de fuera**, como el 12/08.
 
+#### 📉📉 4.5.0-MERCADO · NO ES QUE HAYAMOS PERDIDO LA TECLA: EL GÉNERO ENTERO SE ESTÁ SATURANDO (pedido por Iker el 2026-10-16)
+
+**Medido en la BD** (posts de la competencia con la huella de lead magnet de `outliers §3.9b`: comentarios ≥ likes y ≥40 comentarios):
+
+| | feb 2026 | sep 2026 |
+|---|---|---|
+| **español** · posts al mes | 21 | **43** (la oferta se duplica) |
+| español · % que son outlier | 52% | **28%** |
+| español · ratio mediano | 3,13 | **1,44** |
+| **inglés** · % que son outlier | 29,5% | **11,5%** (agosto: 6,4%) |
+| likes medios por post (los dos idiomas) | ~200 | **~95** |
+
+**La lectura:** el doble de gente haciendo `comenta X y te lo mando`, y cada uno rinde la mitad. Es la misma curva que la nuestra (6,7 → 1,9 comentarios con palabra por 1.000 impresiones, `§4.5.0-CRUCE`) y empieza en el mismo sitio, junio. **El lector ha aprendido el truco y ya no le sorprende.** A eso se suman las restricciones que nos hemos puesto con razón y que la competencia no tiene: la palabra va dentro de la imagen (`§4.5.0-CTA-IMAGEN`, más fricción), no prometemos automatismo, volumen ni la señal (`global §4.4b-MUNICIÓN`, justo lo que vende el género), el tema "Claude + sistema" es de otros (17 creadores en 30 días, `§4.5.0-COMPETENCIA`) y repetir tema en la misma cuenta hunde siempre.
+
+**Lo que SIGUE funcionando fuera (desde agosto), y es por donde se vuelve:**
+1. **Lo personalizado, no el PDF.** Patrick Trümpi 17,0x y 1.305 comentarios: *"si lideras un equipo de más de 5 comerciales, te monto el playbook"*. Es el mismo hueso que nuestro mejor lead magnet de siempre, `desmonto perfiles` (8,5x): trabajo hecho para el que comenta. (Recordatorio: estos tipos NO se autogeneran, `feedback_lead_magnet_no_autogenerar`.)
+2. **La lista de a quién dirigirse en un nicho concreto.** Ignacio P. (fundraising): `I compiled 150 family office decision makers…` 3.900 comentarios, y cinco versiones por región entre 2.200 y 3.900. **Y se quema al repetir:** las tres siguientes, 638, 576 y 352. Nuestra prueba más parecida, `La lista definitiva de 15 empresas activas a las que vender` (Unai, 22/07), tuvo **el mejor alcance de un lead magnet desde mayo (10.900)** pero 36 comentarios. **⛔ Adaptado a nosotros: pocas empresas, cada una con su porqué, nunca volumen** (`project_flujo_herramienta_privado`), **y sin nombres de personas** (`brand-voice §2c-DATOS`).
+3. **La prueba con cifras propias en el gancho** (Aaron Reeves, `March: $34,000 from LinkedIn DMs / April… / May…`, 10,1x y 1.259 comentarios). Nosotros solo tenemos una cifra-resultado verificable (Arania, hasta el 45%): no da para serie.
+
+**Propuesta (decide Iker):** menos lead magnets y mejor elegidos. El próximo, personalizado o de lista corta región + sector, en Unai (`§4.5.0-CRUCE` punto 2), con el gate en `recursos.neety.com` como siempre.
+
 #### 🔎🔎 4.5.0-COMPETENCIA · PASO 0 OBLIGATORIO: LA INVESTIGACIÓN DE REFERENTES, ANTES DE ELEGIR TEMA (Mario, 2026-08-26)
 
 > **Iker, y es una regla de casa:** *"cada vez que yo te pida una publicación del pilar lead magnet, sea para el jefe que sea, me hagas una investigación primero de nuestros principales competidores, qué patrones hay entre las temáticas entre cuentas de ventas"*.
@@ -3310,6 +3331,8 @@ La regla que más se falla, de su §1: **ni todo ni nada.** Regalar todo en el g
 
 ### 4.6 · Runbook TARJETA (imagen sola) — EN PRUEBA, fuera de rotación (Iker, 2026-08-20)
 
+> **🩻 16/10: 2 de 3 publicadas, las dos por debajo de 0,6x de la mediana. Diagnóstico y propuesta de cerrar la prueba en `§4.6-DIAGNOSTICO`; la idea de identidad que sí resonaba pasa a `§4.8` (OFICIO).**
+>
 > **Estado: PRUEBA, no pilar.** 3 tarjetas en 3 semanas, una cuenta distinta cada vez, **fuera del cuadro latino de §8.2**. Se decide con datos al terminar. Entra solo si tú lo pides (§8.4).
 >
 > **Arranca en la cuenta de IKER** (Iker, 2026-08-20): *"se empezará en la cuenta del segundo jefe, que es donde tenemos más libertad"*. Mismo criterio que el meme controversial, que va a Iker y nunca a Unai: **lo que todavía se está probando no va a la cuenta del CEO.** Las otras dos tarjetas van a Asier y a Unai, en ese orden.
@@ -3495,6 +3518,84 @@ La tarjeta simula X, así que la cabecera son **dos líneas**: nombre exacto con
 - La foto de perfil se baja de Unipile (`profile_picture_url_large`, 800x800), no del banco de fotos: es la del perfil de LinkedIn, la que reconoce quien la ve.
 - **📁 Todo el material de este pilar va a `C:\Users\LENOVO\Documents\Mario\LINKEDIN GROWTH\TARJETAS\` (Iker, 2026-09-17)**, nunca al Escritorio. La imagen final se nombra **por la tarjeta, no por la fecha**: `tarjeta <idea en dos o tres palabras>.png` (la primera es `tarjeta traeme problemas.png`). Ahí viven también los avatares ya bajados (`avatar iker perfil.jpg`), que se reutilizan, y las referencias (`referencia <autor> <idea>.jpg`).
 - **El aviso `⚠️ AVISO, MARIO:` va debajo del prompt**, porque el desenfoque se aplica al paso 3, antes de hacer el hueco.
+
+#### 🩻🩻 4.6-DIAGNOSTICO · POR QUÉ HAN FALLADO LAS DOS TARJETAS (pedido por Iker el 2026-10-16)
+
+| tarjeta | impresiones | vs mediana de la cuenta | reposts | envíos | guardados |
+|---|---|---|---|---|---|
+| Iker 17/09 · `El precio casi nunca es lo que tumba una venta` | 3.631 | **0,56x** | 4 | 9 | 3 |
+| Asier 15/10 · `La venta con más descuento casi nunca se busca` (con barra de métricas) | 560 a las ~20 h | **~0,2x** | 3 | 9 | 3 |
+
+**Lo que dicen los datos, de más a menos peso:**
+1. **El formato funciona con autoridad prestada, y nosotros no la tenemos.** Ya estaba escrito en `§4.6-RIESGO` punto 2 y lo pasamos por alto: Grant (5,6M) y Hormozi (1M) suben con él; **todas** las cuentas de menos de ~150k de la BD lo bajan. Una frase de Adam Grant se repostea por QUIÉN la dice. La misma frase de una cuenta de 5.000-10.000 seguidores es una opinión más.
+2. **Las dos tarjetas son un CONSEJO en imperativo** (`Elige a quién le vendes…`, `Haz que tu equipo te cuente…`). Es un sermón desde una cuenta pequeña: en los outliers cross-creator el lenguaje de autoridad baja un 25% y el "tú" directo un 7% (`outliers §3.7`). Y la palanca es `rompe_creencia` (`No es X, es Y`), **la peor que tenemos en meme (0,29×)**, contra `absoluto_discutible` (4,33×).
+3. **No tiene ninguno de nuestros tres motores** (`outliers §3.10`): ni la risa del meme (780 impresiones por reacción), ni los reposts de quien sale mencionado en el peloteo, ni el conteo de comentarios del lead magnet. Y el formato encima QUITA comentarios (`§4.6-RIESGO` punto 1). Sin motor, el umbral de 1.000 impresiones a las 3 horas es inalcanzable.
+4. **La mitad del texto era el anuncio del evento/webinar** (2 de 4 bloques en las dos). No queda nada en el cuerpo con lo que interactuar.
+5. **La de Iker regañaba al director comercial** (la cita del jefe): hoy está prohibido (`CLAUDE.md`, al que compra no se le juzga, 15/10).
+6. **La de Asier salió hacia las 15:19** (franja 14-16, mediana 0,42 en `outliers §3.16`) y la barra decía `4.817` likes en una cuenta de 4.600 seguidores. Lo de la barra es hipótesis (n=1): la incoherencia se ve.
+
+**Lo único bueno, y es una pista:** las dos sacaron **9 envíos por privado** (9,3 por 1.000 impresiones de mediana, la más alta de todos los pilares). Unos pocos la mandaron a alguien. **⚠️ Con denominadores tan pequeños esa tasa se infla sola** (lo ven el equipo y los más fieles), así que no salva el formato: dice que la IDEA resonaba y el FORMATO no la llevó.
+
+**La intuición de Iker, confirmada:** el meme y la tarjeta parecen primos (una captura con texto), pero el meme pide reírse y la tarjeta pide estar de acuerdo. LinkedIn premia la reacción de risa (`outliers §3.10`), y para estar de acuerdo con alguien primero tiene que importarte quién es.
+
+**Veredicto (propuesta, decide Iker): se cierra la prueba con 2 de 3.** Las dos muy por debajo de la mediana y un diagnóstico que no depende de la ejecución. La tercera (Unai) no se hace. La IDEA de identidad que sí resonaba pasa al pilar de `§4.8`, con otro motor.
+
+### 4.8 · Runbook OFICIO (la defensa del comercial) — PROPUESTA EN PRUEBA, fuera de rotación (investigación del 2026-10-16)
+
+> **Estado: PROPUESTA de Mario/Claude, pendiente del OK de Iker.** Sale de la investigación que pidió Iker el 16/10: *"un pilar nuevo que ataque una psicología que ahora no estamos atacando… que cuando la gente lo vea se sienta súper identificado y lo comparta"*, validado en cuentas de ventas en inglés. **Igual que la tarjeta: 3 pruebas, empezando por la cuenta de IKER.**
+
+#### 4.8.0 · La evidencia (patrones cruzados, no un post suelto)
+
+**Qué es:** un post que DEFIENDE el oficio de vender. El sujeto es el comercial como ROL (no una tarea, no una persona concreta, no la empresa), y lo dignifica contra un tópico: *es el trabajo más incomprendido de la empresa*, *no es un puesto de entrada*, *vender es durísimo y no se ve*.
+
+| fuente | muestra | outliers (≥3x) | ratio mediano | reposts/likes |
+|---|---|---|---|---|
+| BD · 39 cuentas de ventas en inglés · base | 13.141 posts | **5,1%** | 0,64 | 0,008 |
+| BD · núcleo del patrón | 22 posts · 5 autores | **31,8%** | **2,18** | **0,061** (7,6x) |
+| BD · patrón ampliado | 81 posts · 17 autores | **14,8%** | 1,18 | 0,030 (3,8x) |
+| Unipile · búsqueda del último mes (~1.100 posts, autores que NO tenemos en la BD) | 24 posts del patrón | **16,7%** pasa de 150 reacciones | | resto: 4,6% |
+
+**Las referencias** (ratio contra la media de su autor):
+- **37,5x** · Hassan Elahi · `The SDR role isn't entry-level anymore.` (ya estaba en `outliers §3.10` como *"el eje emocional de Los 10"*)
+- **23,6x** · Josh Braun · `Here's why top reps leave.` ⛔ **culpa a la dirección: el villano NO se copia** (es nuestro ICP)
+- **12,7x** · Chris Ritson · `SDR is the most misunderstood job. It's not: [7 tópicos]. It's much more than that.` · **227 reposts** con 1.676 likes
+- **11,3x** · Stuart Taylor · `Sales is bloody hard. If you're struggling, give yourself a break.` · y **9,0x** `Sales is the hardest job in any company.`
+- **10,9x** · Josh Braun · `Selling is not that serious.`
+- Último mes, por Unipile: Jake Weber 2.023 reacciones (`Companies posting new sales roles these days are funny…`, mismo villano prohibido), Gregg Salkovitch 1.513, Shawn Rajput (`Salespeople are the easiest people to complain about until the revenue stops`).
+
+**Por qué es repetible (y su techo):** Chris Ritson ha publicado el MISMO post unas 15 veces en 16 meses. El primero hizo 12,7x; las repeticiones bajan a un **suelo de ~1,5-3x, casi nunca por debajo de 1**. Es la firma de un pilar, no de un viral suelto. **⚠️ Y la variante que habla de una TAREA (`The hardest part of outbound?`) hace 0,3-0,9x:** lo que se comparte es la identidad, no el trabajo.
+
+**Por qué encaja con nosotros (deducciones con dato, `working-preferences §0c`):**
+1. **Nuestro propio dato apunta igual:** el post con más envíos por cada 1.000 impresiones de toda la casa es `Defendimos ante más de 100 personas que el futuro de las ventas no es…` (Unai, 08/10, 4,09), y `Nunca había visto defender así al comercial…` (Unai, 07/10) está en el top 10. Ojo: los dos con alcance bajo (denominador pequeño, como la tarjeta).
+2. **Es el motor emocional de "Los 10"** (dignificar al que hace el trabajo, 4,8x en País Vasco) **sin la cara de nadie de otra empresa**, que es lo que lo tumbó (`CLAUDE.md`).
+3. **Su motor es el REPOST, el mismo que el del mapa** (nuestro pilar más fiable), pero sin depender de menciones ni de regiones que se acaban. En inglés reposta 4-8x más que la media. La gente lo comparte porque dice de ella lo que no sabía decir (`outliers §5.2`: vindicación y articular lo que el lector no sabía decir).
+4. **Es la visión de la marca:** el comercial no se sustituye (`CLAUDE.md`). Ningún otro pilar la dice en positivo.
+5. **En español no lo hace nadie de nuestra BD:** se leerá como original.
+
+**⚠️ Lo que NO está validado y no se vende como tal:** la nostalgia (`mi primer trabajo`, `cuando empecé en ventas`, `remember when`) no pasa de la base en LinkedIn ventas (123 posts, 5,7% de outliers contra 5,1%). Lo de la nostalgia compartida de TikTok aquí no aparece en los datos. Tampoco *"todo equipo tiene uno"* (n=3) ni el diálogo de llamada en frío (6,3%, la base).
+
+#### 4.8-REGLAS · Lo que se hereda y lo que lo mataría
+
+- **⛔ EL VILLANO ES EL TÓPICO O LA SITUACIÓN, NUNCA EL JEFE NI EL CLIENTE.** Dos de las cinco referencias (Josh Braun 23,6x, Jake Weber) culpan a la empresa o a la dirección: **es exactamente nuestro comprador** (`CLAUDE.md`, al que compra no se le juzga). Se roba la defensa, no el culpable.
+- **⛔ El sujeto es el ROL, no la tarea** (ver arriba: la tarea hace 0,3-0,9x).
+- **⛔ Sin consejo en imperativo al lector** (es lo que mató la tarjeta). La única segunda persona permitida es la de empatía (`si este mes no sale, no eres tú`), que es la de Stuart Taylor.
+- **⛔ Ninguna cuenta plantea que la IA sustituye al comercial** (`CLAUDE.md`), ni siquiera para negarlo: la defensa se hace sin mencionar la IA en el gancho.
+- **La palanca del gancho es `absoluto_discutible` sobre el rol** (`Vender es el trabajo más incomprendido de una empresa.`): la mejor que tenemos en meme (4,33×), y obliga a compararlo con lo suyo.
+- **Esqueleto (Ritson 12,7x, el que más reposteó):** gancho absoluto → `No es: …` (los tópicos de fuera, en lista) → `Es: …` (lo que no se ve) → aforismo de cierre que es lo que se repostea. Variante Stuart (empatía): gancho → por qué es duro (lista de lo invisible) → `date un respiro`.
+- **Se juzga por REPOSTS y envíos**, como el mapa (`outliers §4.0b`), nunca por comentarios.
+
+#### 4.8-CAPTURA · 🔴 SI PEGA, ¿CAPTURA? (aviso obligatorio, `feedback_avisar_lead_magnet_sin_captura`)
+
+**Por sí solo, NO.** Su motor es el repost, no el comentario, así que no puede ser comment-gated. La captura va por el spam ninja, y ahí hay dos opciones:
+1. **Validada:** la puerta del webinar mientras exista (se mide en inscritos por 1.000 impresiones, `§4.4-CONVERSION-EVENTO`).
+2. **Hipótesis a probar (no hay dato):** un recurso con gate de correo en `recursos.neety.com` atado al mismo "lo que no se ve" del post. El dolor nº1 del informe de clientes es que buscar a quién vender se come el tiempo de vender (`global §4.4b-MUNICIÓN-1510`): *"cuánto tiempo pierde tu equipo buscando a quién llamar"*, con el resultado por correo. Si se aprueba, pasa por `lead-magnet-web.md` (prompt al programador).
+
+**Validación:** mientras sea prueba no tiene `--pilar` propio en `validar-post.py`; se valida con `--pilar historia` para las reglas de forma y el criterio se contesta por escrito igual. **Si sale de prueba**, se enseña a `services/pillar.ts`, se crea la categoría en la herramienta y se mecanizan las reglas de arriba (villano jefe/cliente como fallo duro).
+
+#### 4.8-TEST · Dos pruebas baratas de meme que salieron de la misma investigación (no son pilar)
+
+- **Parodia del anuncio de LinkedIn** (`Me complace anunciar que he prospectado una hora entera sin llorar`): Lauren Vilips 28,3x, Alex Murphy 7,5x, Chris Walker 4,4x. **3 de 3 outliers, 3 autores, n diminuto.** Solo texto. Es humor, así que entra como variante del meme.
+- **El comercial en temporada / disfraz de Halloween** (`¿Aún sin disfraz? Un comercial en el cuarto trimestre: pipeline embrujado…`): Jan Benedikt Mundorf, **4 outliers de 4** (Halloween 6,3x, Q2 5,5x, Navidad 2,8x). Un solo autor. **Cae justo en la ventana de Halloween** (`project_calendario_tendencias`).
 ---
 
 ## 5 · Dónde el círculo SE PARA y te devuelve (gates humanos — aquí mandan las skills)

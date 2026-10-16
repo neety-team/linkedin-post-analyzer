@@ -422,7 +422,9 @@ function contarPreteritos(texto: string): number {
 function pareceHistoria(texto: string): boolean {
   const primeras = texto.split('\n').slice(0, 3).join(' ').toLowerCase();
   const abrePersonal =
-    /(^|\s)(mi |mis |me |nunca (me|habia)|cuando (yo|tenia|empece)|hace \w+ (años|meses|semanas)|la primera vez|acab[eé]|empec[eé]|recuerdo)/.test(
+    // "nunca he/hemos" (16/10): en español de España la experiencia hasta hoy va en
+    // preterito perfecto ("Nunca he visto…"), y el gancho tambien abre escena propia.
+    /(^|\s)(mi |mis |me |nunca (me|habia|he|hemos)|cuando (yo|tenia|empece)|hace \w+ (años|meses|semanas)|la primera vez|acab[eé]|empec[eé]|recuerdo)/.test(
       primeras
     ) ||
     // Un preterito en el arranque tambien abre escena: "Le pregunté…", "Salí…",

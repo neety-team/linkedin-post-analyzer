@@ -426,6 +426,29 @@ que cumple lo mismo, es 16 caracteres más corto y **además es lo que diría un
 
 **Y el test se hace en alto, de verdad, no leyendo por encima.** Si al decirla tropiezas o te suena a traducción, está mal aunque el validador dé 50/50. **El script mide la forma; el oído es lo único que mide el idioma.**
 
+### 🇪🇸🇪🇸 3d · TIEMPOS VERBALES DE ESPAÑA: CADA TIEMPO HACE SU TRABAJO (Iker, 2026-10-16) — GLOBAL
+
+> **Iker, sobre la historia de Asier del 16/10:** *"¿por qué pones nunca vi, lo comprobé, y luego les sobran, les falta? … creo que suena mejor lo he comprobado los años que llevo programando… a veces suena como muy prosa o muy poesía… y a lo mejor ahí caemos en la trampa del robótico. Pero sin caer en lo contrario, el lenguaje de chaval adolescente: un intermedio, que suene bien"*.
+
+**LO MEDIDO (16/10), y lo primero que dice es que el tiempo verbal del gancho no decide solo:**
+
+| | presente | indefinido (`vi`, `comprobé`) | perfecto (`he visto`) |
+|---|---|---|---|
+| nuestras 3 cuentas desde abril (mediana de imp) | 7.311 (n=107) | 8.619 (n=40) | 4.433 (n=15, casi todos lead magnet) |
+| historia | 6.073 (n=4) | **8.560 (n=16)** | n=0 |
+| outliers en español de la competencia (mediana del ratio) | 11,77x (n=81) | 11,95x (n=32) | 8,55x (n=10, casi todo noticias) |
+
+**Lo que sí sale de ahí:** las historias que mejor van usan el indefinido **para una escena concreta y cerrada** (`me la soltó la madre de un amigo`, `la cerré saltándome medio barrio`, `Nunca vi sonar tanto el teléfono` = aquel taxi). Lo que no está medido (n=0) es el perfecto en el gancho de una historia: **no se elige el tiempo por rendimiento, se elige por lo que cuenta la frase**, y así suena a español de España.
+
+**LA REGLA:**
+- **Escena concreta, ya terminada** (una reunión, aquel día, el evento) → **indefinido**: `me plantó el portátil`, `la presenté en el evento Neety Forward`.
+- **Experiencia que llega hasta hoy** (años, toda la vida, `nunca` sin escena) → **pretérito perfecto o `llevar` + gerundio**: `nunca he visto`, `lo he comprobado`, `llevo años programando`. En España el indefinido aquí suena a traducción: `Lo comprobé en años programando` (Asier, 16/10) es el caso.
+- **Lo que vale siempre** (cómo funciona la venta, qué hace la herramienta) → **presente**: `les sobran nombres`, `ninguna entra sin que el comercial la apruebe`.
+- **Mezclar tiempos es correcto** cuando cada uno hace su trabajo (ya estaba en `global §2.9b`). Lo que delata es usar uno en el sitio de otro.
+- **Y nada de frases sin verbo en cadena**: una elipsis suelta da ritmo; tres seguidas (`Pocas empresas, de la que… / Cada una con su porqué…`) suenan a poema. El registro es el de un director comercial hablando bien: **ni robot ni chaval** (`§3`, guardarraíl).
+- **⚠️ Y el clasificador:** una historia necesita 4 indefinidos o la herramienta la cuenta como meme (`post-workflow §4.6` 1c). Los hechos concretos de la historia (lo que se presentó, quién diseñó qué) van en indefinido, que además es lo correcto; la experiencia no se fuerza a indefinido para llegar a 4. Desde el 16/10 `pillar.ts` también acepta `nunca he` como arranque personal.
+- **Mecanizado** como aviso en `validar-post.py` (`ESPAÑOL DE ESPAÑA: la experiencia hasta hoy va en "he visto"`): salta con un indefinido junto a `años` y con un gancho `Nunca vi…`, y pregunta si hay escena.
+
 ### ⛔⛔ 3c-CALCO · UN REMIX DEL INGLÉS NO PUEDE SONAR A TRADUCCIÓN (Iker, 2026-09-16) — GLOBAL
 
 > **Iker, sobre la primera tarjeta:** *"no me suena bien el español… no sé si hemos escogido la mejor referencia o es que el español está mal redactado y suena raro al haberlo traducido casi tal cual del inglés"*.

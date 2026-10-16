@@ -1752,6 +1752,22 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'mano" paso a "me pillo con el tripode montado en el salon" — misma escena, mismo '
         'verbo, 11 caracteres menos y sin presumir', aviso=True)
 
+    # 🇪🇸 TIEMPOS VERBALES DE ESPAÑA (Iker, 2026-10-16, brand-voice §3d). La experiencia
+    # que llega hasta hoy va en preterito PERFECTO ("lo he comprobado", "nunca he visto",
+    # "llevo años programando"); el indefinido ("comprobe", "vi") es para una escena
+    # concreta y cerrada. "Lo comprobe en años programando" y "Nunca vi a un comercial
+    # vender mas…" (una experiencia de toda la vida, sin escena) suenan a traduccion y
+    # Iker lo relaciona con que nos lean "roboticos". Aviso: el script no sabe si hay escena.
+    _L = 'a-záéíóúñü'
+    _ind_años = re.search(rf'(?<![{_L}])[{_L}]{{2,}}(?:é|ó)(?![{_L}])[^.\n]*\b(en|durante|estos|todos estos|los) años\b', texto, re.I)
+    _nunca_ind = re.match(r'\s*(nunca|jam[aá]s)\s+(le\s+|la\s+|lo\s+|me\s+|te\s+)?(vi|o[ií]|tuve|hice|pens[eé]|dije)\b', hook_txt, re.I)
+    chk(not (_ind_años or _nunca_ind), 'ESPAÑOL DE ESPAÑA: la experiencia hasta hoy va en "he visto", no en "vi" (brand-voice §3d)',
+        ((f'"{_ind_años.group(0)[:60]}": con "años" la experiencia llega hasta hoy, y en España va en '
+          '"lo he comprobado" o "llevo años…". ' if _ind_años else '') +
+         (f'"{_nunca_ind.group(0).strip()}": ¿es UNA escena concreta (el taxi, aquella feria)? Entonces vale. '
+          'Si es una experiencia de toda la vida, "Nunca he visto…"' if _nunca_ind else ''))
+        if (_ind_años or _nunca_ind) else '', aviso=True)
+
     # ⛔ "NO VENDE" NO ES "NUNCA HA VENDIDO" (Iker, 2026-10-15): "llevan con la empresa
     # tres o cuatro anos, ¿como vamos a decir que nunca han vendido nada?". Asier no es
     # comercial, pero decir que no ha vendido nunca es mentira y le hace de menos.

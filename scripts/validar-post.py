@@ -1752,6 +1752,13 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'mano" paso a "me pillo con el tripode montado en el salon" — misma escena, mismo '
         'verbo, 11 caracteres menos y sin presumir', aviso=True)
 
+    # ⛔ NEETY ES MASCULINO (Iker, 2026-10-16): "creo que lo dicen en masculino, es el
+    # nuevo Neety, ya que hablamos de software". Se me colo "La nueva @Neety la presente".
+    _neety_fem = re.search(r'\b(la|una|esta|esa|nuestra|su)\s+(nueva\s+|primera\s+)?@?neety\b(?!\s+forward)', texto, re.I)
+    chk(not _neety_fem, 'NEETY va en masculino: el nuevo Neety (aboutme §1)',
+        f'"{_neety_fem.group(0)}": Neety es el producto, en masculino ("el nuevo @Neety lo presenté")'
+        if _neety_fem else '')
+
     # 🇪🇸 TIEMPOS VERBALES DE ESPAÑA (Iker, 2026-10-16, brand-voice §3d). La experiencia
     # que llega hasta hoy va en preterito PERFECTO ("lo he comprobado", "nunca he visto",
     # "llevo años programando"); el indefinido ("comprobe", "vi") es para una escena

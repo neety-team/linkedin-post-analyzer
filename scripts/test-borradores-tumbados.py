@@ -211,6 +211,10 @@ Esa persona sí te decimos cómo dar con ella: https://luma.com/7hhyx07z?utm_sou
 Un comercial con menos empresas llama mejor.""",
      '16/10: "me sorprende que hayas fallado en eso… demasiadas lineas individuales"',
      'como mucho 4 sueltas seguidas', FLAGS_ASIER),
+    ('Nunca he visto a un comercial vender más por tener más empresas 👇\n\n' + CUERPO_ASIER.replace(
+        'La presenté con @Angela Brook Uria', 'La nueva @Neety la presenté con @Angela Brook Uria'),
+     '16/10: "creo que lo dicen en masculino, es el nuevo Neety"',
+     'NEETY va en masculino', FLAGS_ASIER),
 ]
 
 

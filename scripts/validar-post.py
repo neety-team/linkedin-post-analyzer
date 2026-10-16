@@ -618,6 +618,32 @@ REGION_EN_TEXTO = {
     'extremadura': r'extremadura', 'castilla-la mancha': r'castilla-la mancha',
     'la rioja': r'la rioja', 'canarias': r'canarias',
 }
+# ⛔⛔ EL GANCHO NO NOMBRA NINGUN SITIO NI GENTILICIO DE LA REGION (Iker, 2026-10-16). Al
+# cambiar los cliches de Aragon meti "jamon de Teruel": Teruel es una provincia y destapa
+# la region antes del reveal, que es todo el bucle abierto del peloteo. El check de
+# "Los 10" solo miraba el nombre de la region, no sus provincias, ciudades ni el gentilicio
+# coloquial (maño, baturro). Los cliches INSINUAN (el Pilar, la txistorra); un topónimo NOMBRA.
+# Raices sin tilde; se comparan como inicio de palabra.
+REGION_TOPONIMOS = {
+    'aragon': ['arag', 'zaragoz', 'huesca', 'oscense', 'teruel', 'turolense', 'jaca', 'calatayud',
+               'monzon', 'barbastro', 'alcaniz', 'mano', 'manos', 'mana', 'manas', 'baturr'],
+    'navarra': ['navarr', 'pamplon', 'iruna', 'tudela', 'estella'],
+    'galicia': ['galic', 'galleg', 'coruna', 'vigo', 'lugo', 'ourense', 'pontevedr', 'compostela'],
+    'valencia': ['valenci', 'alicant', 'castellon', 'elche'],
+    'murcia': ['murcia', 'cartagen', 'lorca'],
+    'castilla y leon': ['leon', 'leones', 'burgos', 'valladolid', 'salamanc', 'segovi', 'avila',
+                        'soria', 'palencia', 'zamora'],
+    'asturias': ['asturi', 'astur', 'oviedo', 'gijon', 'aviles'],
+    'cataluna': ['catalu', 'catalan', 'barcelon', 'girona', 'lleida', 'tarragon'],
+    'alava': ['alava', 'alaves', 'araba', 'vitoria', 'gasteiz'],
+    'bizkaia': ['bizkai', 'vizcai', 'bilbao', 'bilbain', 'getxo', 'barakaldo'],
+    'cantabria': ['cantabr', 'santander', 'torrelavega'],
+    'extremadura': ['extremen', 'badajoz', 'caceres', 'merida'],
+    'castilla-la mancha': ['mancheg', 'la mancha', 'toledo', 'cuenca', 'albacete', 'ciudad real',
+                           'guadalajara'],
+    'la rioja': ['rioja', 'logrono', 'haro'],
+    'canarias': ['canari', 'tenerife', 'lanzarote', 'fuerteventura'],
+}
 DOUBLE_DOWN = False
 
 # §4.5.0a — MOLDE B del lead magnet: Claude (o yo) + VERBO PUNCHY + resultado.
@@ -3907,6 +3933,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
              '. Busca los 2 mas universales que NO se hayan usado arriba. Si repetir es la apuesta '
              '(double down), pasa --double-down y DECLARALO en la entrega') if _recicla else
             ('region(es) en el texto: %s' % ', '.join(_regiones) if _regiones else ''))
+        _topo = [] if historico else sorted({
+            raiz for r in _regiones for raiz in REGION_TOPONIMOS.get(r, [])
+            if re.search(r'\b' + re.escape(raiz) + (r'\b' if raiz in ('mano', 'manos', 'mana', 'manas', 'haro', 'leon', 'soria', 'lugo', 'vigo', 'jaca', 'astur') else ''), _hook_n)})
+        chk(not _topo,
+            'GANCHO: sin topónimos ni gentilicios de la region, que destapan el reveal (Iker 16/10)',
+            ('el gancho nombra "%s", que es de la region que se revela abajo. Los cliches '
+             'insinuan, un sitio la nombra y se acaba el bucle abierto (global §2.0). Cambia el '
+             'cliche por una cosa, nunca un lugar ni un gentilicio' % '", "'.join(_topo)) if _topo else '')
         _pais_cuenta = [] if (historico or not cuenta) else sorted(
             p for p in PAIS_QUEMADO if p in _hook_n and cuenta.lower() in cuentas_de(PAIS_QUEMADO[p]))
         chk(not _pais_cuenta or DOUBLE_DOWN,

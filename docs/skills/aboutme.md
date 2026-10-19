@@ -285,6 +285,12 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 - **Mecanizado:** `validar-post.py --cuenta asier` **falla** si el gancho le cuelga un rol comercial en 1ª persona (`mis ventas`, `mi jefe de ventas`, `llamo`, `vendo`, `mi cuota`, `mi cartera`…) y **avisa** si lo hace una línea del cuerpo fuera de una cita. El carril que imprime el aviso de entrega ya dice "ventas universal".
 - **Primer caso: el meme del 08/10** (1up, *we've decided to buy your… competitor's product*, 61% de risa): `Comerciales, ¿a cuántos os han soltado esto? 👇`.
 
+**🔄 19/10: YA NO ES SOLO EL MEME, ES TODA SU CUENTA (Iker lo veía venir; medido ese día).** Todo lo que no es peloteo de Asier desde el 15/07, partido por el GANCHO:
+- **Gancho técnico** (IA, Claude, código, programar, filtro, herramienta): **n=9, mediana 1.063 impresiones, máximo 6.827** (el filtro del 01/10). Ahí están los tres lead magnets de Claude (1.063-1.308), la historia del código y la carpeta de cartón (1.470) y la IA y el puesto (1.014).
+- **Gancho sin nada técnico: n=11, mediana 3.774 y máximo 132.325.** Sus cuatro posts de más de 20.000 están aquí.
+- **Y el correo 8, firmado por él, técnico y de 240 palabras, fue el peor de la newsletter** (1 clic limpio, 0 inscritos).
+- **La regla, en historia, lead magnet y correo igual que en el meme:** el gancho de Asier habla de ventas universal, no de su oficio. Su `yo` de ingeniero puede aparecer en el cuerpo (*Programo para comerciales*), nunca como tema del post. Lo que no se ha probado es un lead magnet de Asier sin Claude en el gancho.
+
 #### ⛔⛔⛔ 2-ASIER-VETOS · LO QUE NO ENTRA NUNCA EN LA CUENTA DEL TERCER JEFE (Iker, 2026-08-26 y 2026-08-27) — CANÓNICO
 
 **No son preferencias, son vetos, y ya nos ha costado un post borrado por él mismo.**

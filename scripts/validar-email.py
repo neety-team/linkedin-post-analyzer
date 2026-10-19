@@ -738,11 +738,23 @@ def main():
     else:
         checks.append(fallo('Sin PD (email-marketing §4b: en emails importantes, siempre)'))
 
-    # PPD: RunnerPro lleva Pd + Pd2 en 11 de 11 (§8g) y §5-HISTORIA reparte el trabajo
-    # entre las dos (PD = referidos, PPD = remate de la historia). Aviso, no fallo.
+    # PPD: RunnerPro lleva Pd + Pd2 en 11 de 11 (§8g). Desde el 19/10 una sola PD
+    # graciosa también vale (Iker), así que es aviso, no fallo.
     if tiene_pd and not re.search(r'^\s*(ppd|p\.?d\.?\s?2|pd2)', cuerpo_low, re.M):
-        checks.append(aviso('Solo una PD. RunnerPro lleva Pd + Pd2 en 11 de 11 (§8g) y §5-HISTORIA '
-                            'las reparte: PD = pedir el reenvío, PPD = remate de la historia'))
+        checks.append(aviso('Solo una PD. Vale si es graciosa (Iker, 19/10); el corpus lleva dos en 11 de 11 (§8g)'))
+
+    # --- Las postdatas no piden NADA (Iker, 19/10/2026) ---
+    # "en los postdatas nunca pondría preguntas o CTAs que confundan… el spam ninja ya
+    # es el único CTA". Medido: 0 respuestas a las postdatas en toda la serie (correo 0:
+    # 0 de 191; correo 8, el del reto, tampoco). La PD va de broma (el libro de Kaixito).
+    _pd_lineas = re.findall(r'^\s*(?:ppd|p\.?\s?p?\.?\s?d\.?\s?2?)[:. ].*$', cuerpo_low, re.M)
+    _pide = re.compile(r'\?|\b(respond\w*|contest\w*|escr[ií]b\w*|cu[eé]nta\w*|dime|d[ií]game|reenv[ií]\w*|comp[aá]rt\w*|apunta\w*|reserv\w*|pincha\w*|haz clic)\b')
+    _malas = [l.strip()[:60] for l in _pd_lineas if _pide.search(l)]
+    if _malas:
+        checks.append(fallo('Postdata que pregunta o pide algo: ' + ' | '.join(_malas) +
+                            ' (Iker 19/10: el único CTA es el enlace; la PD va de broma)'))
+    elif _pd_lineas:
+        checks.append(ok('Postdatas sin preguntas ni peticiones'))
 
     # --- preview: sin techo medido, aviso a partir de 100 chars ---
     if preview and len(preview) > 100:

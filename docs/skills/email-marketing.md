@@ -854,6 +854,19 @@ El corpus español entero abre con una orden de 1-3 palabras, con punto y línea
 **El cierre de una historia por correo es un spam ninja normal: bloque de DOS líneas pegadas, la primera colgando del ASUNTO. Receta entera en `§5-NINJA`.**
 - ⚠️ **30 minutos, nunca 20.** El correo 0 prometía 20 y la página pide 30 (`corpus-correos-enviados`). Si no cabe en las dos líneas, **no se mete a la fuerza**: la página ya lo dice.
 
+#### ⛔⛔ DESDE EL 19/10, LAS POSTDATAS NO PIDEN NADA: VAN DE BROMA (Iker) — MANDA SOBRE LO DE ABAJO
+> **Iker:** *"en los postdatas nunca pondría preguntas o CTAs que confundan… el spam ninja ya es el único CTA que debería haber, y que toda la atención se centre ahí. Los postdatas deberían tener cosas graciosas"*.
+
+**El dato:** en toda la serie **nunca ha contestado nadie a una postdata**. El correo 0 lo pedía (0 de 191), y el correo 8, que lanzaba un reto, tampoco sacó nada. Lo de pedir el reenvío (la PD de referidos de abajo) tampoco tiene ningún resultado medido.
+- **Ni preguntas, ni "contesta", ni "reenvíaselo", ni un segundo enlace.** El único CTA del correo es el enlace del ninja, igual que en los posts.
+- **La PD es una broma**, mejor de Kaixito y de su mundo (el libro, sus gafas, que es un búho que vende). El caso que le gustó a Iker fue una PD que bromeaba con el libro de la mascota.
+- **Una sola PD graciosa vale.** Dos, si las dos hacen gracia. La regla de "PD + PPD" de abajo queda como forma posible, no obligatoria.
+- **Mecanizado:** `validar-email.py` falla si una postdata pregunta o pide algo (`?`, contestar, escribir, contar, reenviar, compartir, reservar, pinchar).
+
+#### 🦉 DESDE EL 19/10, LOS CORREOS SALEN SOLO CON KAIXITO (Iker) — de momento
+Por tres razones: (1) **así los A/B son limpios**, porque el remitente deja de ser una variable más (el correo 8 cambió cuatro cosas a la vez y no se pudo leer nada); (2) **la mascota es un diferencial** que ninguna marca de ventas tiene y permite un tono más divertido; y (3) **las newsletters del corpus salen con un solo remitente**. Los datos acompañan: el correo 7 (Kaixito) es el de más clics limpios de la serie (8) y el 8 (Asier, receta técnica de 240 palabras) el de menos (1). Los founders vuelven solo si Iker lo decide.
+- **Y nada técnico ni largo:** la receta técnica del correo 8 fue el peor correo. Lo mismo sale en los posts de Asier (`aboutme §2-ASIER-MEME`, bloque del 19/10).
+
 #### ⭐ LA PD Y LA PPD SE REPARTEN EL TRABAJO, y ninguna de las dos vende
 Es la forma medida de RunnerPro y de Timepack (`§4b`, `§8d`), y resuelve el conflicto con la regla del UNO: **el único CTA es el enlace**, así que las postdatas no pueden pedir otra cosa.
 - **PD = motor de referidos.** Pedir el reenvío al director comercial o al equipo. En B2B un reenvío interno es multithreading gratis.

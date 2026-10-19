@@ -1486,7 +1486,9 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Al enviar:** ninja a `QUEMADAS` de `validar-email.py` (`por sector te salen cientos de empresas`, `dar con esas pocas es lo que ensenamos`), cuerpo literal a `corpus-correos-enviados.md` el MISMO día y, a los 5-6 días, **inscritos en Luma por `utm_source=correo-08-asier-receta`** (vara: el correo 4, 1 inscrito de 45) y **respuestas al reto de la PPD** (primera vez que una postdata pide contestar desde el correo 0: 0 de 191).
 
-## 📝 CORREO 9 · Kaixito · DOLOR, ninja al webinar (BORRADOR 2026-10-19, para el mar 20/10 09:05)
+## ✅ CORREO 9 · Kaixito · DOLOR, ninja al webinar (PROGRAMADO mar 20/10 09:05)
+
+**Test revisado por Iker en Gmail el 19/10 a las ~15:40** (remitente, preheader una vez, GIF animado, enlace a Luma con su UTM, pie en español una vez) **y programado a las 15:43**: `queued`, `scheduledAt 2026-10-20T09:05+02:00`, releído de la API con pie, preheader, remitente, GIF, `href` y destinatarios (15 + 4 + 16, excluida la 19) intactos; auditor en verde. ⚠️ **Mañana se comprueba que salió** (en Brevo el programado sale solo y no avisa).
 
 **Texto validado 46/46** (`validar-email.py`, con el check nuevo de longitud). **OK de Iker al texto a la primera (19/10).** **✅ Campaña Brevo 30 en BORRADOR** (19/10), releída de la API: `draft`, sin `scheduledAt`, remitente `Kaixito de Neety` (id 3), preheader, pie de la casa copiado de la 29, un solo `href` con su UTM, GIF `aburrimiento`, auditor en verde. **Correo de prueba enviado a `mario@neety.com`** (`204`). Se programa solo cuando Iker revise el test (`email-marketing §9a-BIS`).
 

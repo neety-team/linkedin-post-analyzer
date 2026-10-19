@@ -9,7 +9,7 @@
 > | A/B | brazo A | brazo B | detalle | estado al 16/10 |
 > |---|---|---|---|---|
 > | **Posición del ninja en el cuerpo** | ~45-50% (correos 5 y 6) | ~25% (correo 7) | sección del correo 7, más abajo | A 24 h no sube (2 de 107 contra 4 de 111), con remitente, pilar y web cambiando a la vez. **Falta repetirlo cambiando solo la posición** |
-> | **Longitud** | 116-158 palabras | 240 (correo 8) | sección del correo 8 | **19/10:** el correo 8 abrió igual que los demás (67 de 108, 62%) y sacó **1 clic limpio** (más 1 de Mario) y **0 inscritos al webinar** en el CSV de Luma (ningún `correo-08`). Es el peor de la serie en clics (el 7 sacó 8, el 6 sacó 6). Cambiaban a la vez el remitente (Asier, su estreno), el pilar (receta), la longitud y el destino (webinar): **dirección, no prueba**. Dirección: volver a 116-158 palabras en el siguiente |
+> | **Longitud** | 116-158 palabras | 240 (correo 8) | sección del correo 8 | **19/10:** el correo 8 abrió igual que los demás (67 de 108, 62%) y sacó **1 clic limpio** (más 1 de Mario) y **0 inscritos al webinar** en el CSV de Luma (ningún `correo-08`). Es el peor de la serie en clics (el 7 sacó 8, el 6 sacó 6). Cambiaban a la vez el remitente (Asier, su estreno), el pilar (receta), la longitud y el destino (webinar): **dirección, no prueba**. Dirección: volver a 116-158 palabras en el siguiente. **19/10: mecanizado en `validar-email.py`** (fallo por encima de 180, aviso de 159 a 180) y el correo 9 sale con 116 |
 > | ~~**Reto en la PPD**~~ | PPD sin pedir respuesta | PPD que pide contestar (correo 8) | sección del correo 8 | **CERRADO EL 19/10:** Iker confirma que nunca ha llegado una respuesta a una postdata en toda la serie. Desde hoy las postdatas no piden nada y van de broma (`email-marketing §5`, bloque del 19/10, con fallo en `validar-email.py`). La fila se borra en la próxima revisión |
 > | **Remitente** | Iker | Kaixito (correo 2) | `## 🧪 Correo 2`, más abajo | Leer allí el resultado y decidir si se cierra |
 > | **Tipo de cliente del ninja** | — | — | `global §4.4b-TIPOS`, igual que en los posts | Cada correo apunta en su sección a qué tipo le habla (desde el 16/10, con los tamaños de `§4.4b-MUNICIÓN-1510`) |
@@ -1482,17 +1482,41 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Al enviar:** ninja a `QUEMADAS` de `validar-email.py` (`por sector te salen cientos de empresas`, `dar con esas pocas es lo que ensenamos`), cuerpo literal a `corpus-correos-enviados.md` el MISMO día y, a los 5-6 días, **inscritos en Luma por `utm_source=correo-08-asier-receta`** (vara: el correo 4, 1 inscrito de 45) y **respuestas al reto de la PPD** (primera vez que una postdata pide contestar desde el correo 0: 0 de 191).
 
+## 📝 CORREO 9 · Kaixito · DOLOR, ninja al webinar (BORRADOR 2026-10-19, para el mar 20/10 09:05)
+
+**Texto validado 46/46** (`validar-email.py`, con el check nuevo de longitud). **Sin campaña en Brevo todavía**: se crea en borrador cuando Iker dé el OK al texto, nunca programada (`email-marketing §9a-BIS`).
+
+| | |
+|---|---|
+| Asunto | `a ti también te entra sueño?` (28 car, pregunta de tú a tú sin `¿`) |
+| Preview | `Yo anoche me quedé frito encima del libro.` (la segunda mitad del asunto, `§8i`) |
+| Pilar | **DOLOR (1), primera vez**: el sueño de buscar empresa a empresa |
+| Palanca emocional | **complicidad + torpeza propia** (la mascota se duerme y cae mejor). Nueva en Kaixito, que ya gastó culpa (0), FOMO (4) y enfado (7) (`email-marketing §8l`). Sin FOMO de evento: el webinar no tiene aforo |
+| GIF | **`aburrimiento`, estreno** (responde 200, 340.664 bytes, comprobado el 19/10). Queda `alegría` sin estrenar |
+| Micro-apertura | `Confesión de mascota.` (nueva) |
+| Ninja → webinar | contexto `El miércoles 28 a las 10 hay sesión gratis por videollamada.` · `Mirar las webs de una en una le da sueño a cualquiera.` / `Buscar menos y llamar más, eso lo enseñan mis jefes:` (54/52) → `luma.com/7hhyx07z?utm_source=correo-09-kaixito-dolor&utm_medium=email&utm_campaign=correo-09-kaixito-dolor` |
+| Tipo de cliente del ninja | **4** (se le van los meses buscando; buscar contra contactar). El correo 8 fue al 1 |
+| Longitud | **116 palabras** sin firma ni PD (correo 8: 240) |
+| Posición | el bloque del enlace empieza hacia el 50% del cuerpo y la URL cae al 64% (sin contar el GIF); detrás, 4 bloques |
+| PD | una sola, de broma, del libro (`§5`, 19/10): la marca de la página 112 en la cara |
+| Real / inventado | real: sesión del miércoles 28 a las 10:00 por Google Meet, gratis (API de Luma, 19/10), y Kaixito con gafas en la portada (`WEBINARS/Portada Webinar.png`). Inventado: la escena de la mascota (empresa 37, página 112) |
+
+**Variable en prueba:** el destino Luma con el molde corto de Kaixito (mascota, GIF, ~120 palabras, pregunta de tú a tú, un solo enlace). Se compara con el correo 8 (mismo destino, 240 palabras, Asier, 0 inscritos) y con el correo 4 (Kaixito al evento presencial, 1 inscrito de 45). ⚠️ Cambian a la vez el pilar y la palanca, así que es **dirección, no prueba** (`§5-UNA-VARIABLE`).
+
+**Al enviar:** ninja a `QUEMADAS` de `validar-email.py` (`mirar las webs de una en una le da sueno`, `buscar menos y llamar mas, eso lo ensenan`), cuerpo literal a `corpus-correos-enviados.md` el MISMO día, y en la revisión del lunes 26/10: **inscritos en Luma con `utm_source=correo-09-kaixito-dolor`** y clics limpios con `metricas-brevo.py --quien`.
+
 ## Ángulos y vehículos usados, puesto al día (2026-10-13)
 - Correo 4 · Kaixito: la lista de invitados en su libro (evento).
 - Correo 5 · Iker: la objeción de la IA que escribe mensajes.
 - Correo 6 · Unai: el cierre del trimestre y la lista de enero.
 - Correo 7 · Kaixito: la lista de 2.000 empresas apuntada en su libro y tachada a mano.
-- Correo 8 · Asier (borrador): el cliente descrito por sector y tamaño ("medio polígono") y la receta a mano en 4 pasos.
+- Correo 8 · Asier: el cliente descrito por sector y tamaño ("medio polígono") y la receta a mano en 5 pasos.
+- Correo 9 · Kaixito (borrador 19/10): la mascota dormida encima del libro en la empresa 37, mirando webs.
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9, borrador)
 - **Asier:** `Apunta.` (correo 8, borrador)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)

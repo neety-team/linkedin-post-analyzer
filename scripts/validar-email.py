@@ -760,6 +760,25 @@ def main():
     if preview and len(preview) > 100:
         checks.append(aviso(f'Preview de {len(preview)} chars; en móvil se corta mucho antes'))
 
+    # --- LONGITUD DEL CUERPO (Iker, 19/10/2026: "no cometas el error de la semana pasada") ---
+    # El correo 8 (240 palabras) fue el peor de la serie: 1 clic limpio y 0 inscritos,
+    # contra 116-158 de los correos 0-7 (el 7 sacó 8 clics). Se cuenta el cuerpo SIN la
+    # firma, las postdatas, las URL ni el marcador del GIF, que es lo que se lee de corrido.
+    _hasta_pd = re.split(r'^\s*(?:pd|ppd|p\.\s?d\.)[:. ]', cuerpo, maxsplit=1, flags=re.M | re.I)[0]
+    _lin = [l for l in _hasta_pd.splitlines() if l.strip()]
+    if _lin and rem_base and rem_base in _lin[-1].lower():
+        _lin = _lin[:-1]                                   # fuera la firma
+    _texto = re.sub(r'https?://\S+', '', re.sub(r'\[GIF[^\]]*\]', '', '\n'.join(_lin)))
+    _pal = len(re.findall(r'\w+', _texto))
+    if _pal > 180:
+        checks.append(fallo(f'Cuerpo de {_pal} palabras: el correo 8 (240) fue el peor de la serie. '
+                            f'Diana 116-158, la de los correos 0-7 (historial-newsletter, A/B de longitud)'))
+    elif _pal > 158:
+        checks.append(aviso(f'Cuerpo de {_pal} palabras: por encima de 116-158, la banda de los correos '
+                            f'que mejor han ido. Saca lo informativo, no lo punchy'))
+    else:
+        checks.append(ok(f'Cuerpo de {_pal} palabras (diana 116-158, sin firma ni PD)'))
+
     # --- firma humana (ventana de 10 líneas: P.S.+P.P.S.+baja pueden empujarla) ---
     ultimas = '\n'.join(cuerpo_lineas[-10:]).lower()
     if rem_base and rem_base in ultimas:

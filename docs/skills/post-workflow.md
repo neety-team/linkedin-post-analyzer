@@ -993,6 +993,29 @@ post                                  imp      clics  inscritos  por 1.000 imp
 
 **🔎 CRUCE DE LOS NINJAS QUE INSCRIBIERON (13/10, pedido por Iker), y lo que dice es que el dolor NO separa:** los que trajeron inscritos nombran a la persona (`el nombre de dentro` 5 · `a esos los encuentras de uno en uno` 4 · `la sala de los que deciden` 1 · `la mesa de los que compran` 1), a la agenda (`Ningún ascenso en ventas llena la agenda` 7) o a la herramienta (`Ninguna inversión en herramientas` 1); los que trajeron 0 nombran exactamente lo mismo (`El que firma tu pedido no aparece en cualquier sala` · `Una pieza no te sienta en la sala del que la compra` · `Un taco de 400 empresas` · `Una carpeta de cartón`). **Lo que sí separa es la CUENTA y el ALCANCE:** 11 de los 19 son de Unai y 7 de un meme de 226.000 impresiones. Y del webinar solo hay un dato: `Lanzar mensajes a miles que no comprarán es fácil.` / `Cuáles sí comprarían, te lo enseñamos nosotros:` (acierto contra volumen, Unai 08/10) → 2 inscritos con 2.473 impresiones. **Consecuencia:** para vender un evento, el ninja se elige por el tipo de cliente al que le habla (`global §4.4b-CADENA`) y por la promesa que cumple la página del evento, no por el CTR de un dolor.
 
+**🖥️ WEBINAR DEL 28/10, CSV DE LUMA DEL LUNES 19/10 a las 10:15 (por fin con todas las fuentes; impresiones de la BD ese mismo día).** 45 aprobados = 44 personas (Koldo Olabarri se inscribió con dos correos). **Por canal: 22 por DM (50%), 18 por post (41%), 3 por la web, 1 por neety.com/eventos y 2 sin UTM.** Por post:
+
+```
+post                                      imp      inscritos  por 1.000
+14/10 Asier meme (el sable)               3.774       3          0,79
+08/10 Unai historia+vídeo (resumen)       2.836       2          0,71
+14/10 Unai historia (el Excel)            9.952       7          0,70
+14/10 Iker historia (los kilómetros)      5.434       3          0,55
+15/10 Unai historia/evento (Telmo)        3.056       1          0,33
+16/10 Iker "Las 10" de Aragón (Luma)     29.647       2          0,07
+16/10 Unai MAPA C. Valenciana (blog)    165.246       0          0  (179 clics al blog: la banda no inscribió a nadie con UTM)
+15/10 Asier tarjeta                         666       0          0
+16/10 Asier historia/evento (ponente)     1.045       0          0
+```
+
+1. **⭐ EL DM ES EL CANAL QUE MÁS INSCRIBE, Y CON MEJOR CARGO.** La mitad de los inscritos llegan por los mensajes privados desde las cuentas de los 3 jefes (Unai 11, Iker 7, Asier 4). Entre ellos hay 4 directores comerciales, 2 gerentes, una directora de negocio, un fundador y un director de exportación; por post llegan muchos más gmail sin empresa. **El post calienta y el DM convierte**: en un evento con fecha, el DM no se sustituye con más posts.
+2. **La historia (sin evento en el gancho) es el post que más inscribe por impresión: 0,55-0,79 por 1.000 en las tres cuentas.** La historia/evento se queda en 0,33 y 0 (n=2). **Lo que Iker ya decía: en cuanto se nota que vendes un evento, no interesa.**
+3. **El peloteo da alcance, no inscritos.** "Las 10" con Luma directo: 0,07. El mapa que lleva al blog con la banda: 165.246 impresiones y 179 clics, y ni un solo inscrito con UTM desde la banda (n=1, pendiente de mirar en GA4 si llegó a pulsarse). **Para un evento, el peloteo es el post de marca de la semana, no el de conversión.**
+4. **La tarjeta: 0 de 2.** Sale de la rotación (ver `§4.6`).
+5. **El meme solo inscribe si engancha:** el sable de Asier sacó 0,79 con 3.774 impresiones, el mejor de la tabla, contra el 0,03 de los memes de septiembre. Con n=1 no se le puede atribuir al pilar; va de dirección.
+
+**🎟️ NEETY FORWARD (presencial, 24/09), CSV COMPLETO DE LUMA, LEÍDO EL 19/10.** 108 filas: 83 aprobados, 21 rechazados y 4 invitados. **El 69% de los aprobados (57) no traen UTM**: casi toda la home de neety.com, que no la llevaba (§ de arriba, 22/09). **No hay asistencia medida**: nadie hizo check-in en Luma, así que solo se sabe quién se inscribió, no quién fue. Lo que cambia frente a la tabla de arriba: **la historia de víspera de Unai (`historia-equipo-23sep-unai`, 10.729 impresiones) generó 10 solicitudes, la que más (3 aprobadas y 7 rechazadas por aforo): 0,93 por 1.000.** El meme de Iker del 01/09 suma 7 (5 y 2), Euskadi 26/08 5, el "Los 10" de Gipuzkoa 4 y Álava 3. **El post de víspera con el gancho de la cuenta que más inscribe es el que más mueve, y rinde aún más con fecha encima.** Por eso, en un webinar, el último post de Unai va la víspera.
+
 **🧪 HIPÓTESIS EN PRUEBA, no regla:** *el ninja que nombra a la PERSONA convierte más que el que vende "la sala"* (a favor: `Una reunión la pide cualquiera, el nombre de dentro no.` 26/08, 5 inscritos). **En contra:** `El que firma tu pedido no aparece en cualquier sala.` (Iker 15/09) nombra a la persona y sacó 0 con 15 clics, y el ninja del "Los 10" también vendía la sala (`una sala de solo 80 sitios`). Casi todos los ninjas del evento mezclan las dos cosas. **Hace falta un ninja limpio de cada tipo, en la misma cuenta, antes de tocar el molde de `global §4.4b`.**
 
 ### ⛔⛔ 4.4-PASO-0 · ANTES DE ELABORAR NADA: ¿YA LA HEMOS USADO? (Iker, 2026-08-11)
@@ -3330,6 +3353,8 @@ La regla que más se falla, de su §1: **ni todo ni nada.** Regalar todo en el g
 ---
 
 ### 4.6 · Runbook TARJETA (imagen sola) — EN PRUEBA, fuera de rotación (Iker, 2026-08-20)
+
+> ⛔ **19/10, CERRADA LA PRUEBA: LA TARJETA SALE DE LA PLANIFICACIÓN.** Dos intentos y los dos flojos: Iker 17/09 (3.637 impresiones y 4 clics) y Asier 15/10 (666 impresiones, 4 clics, 0 inscritos al webinar), esta vez con la barra de métricas simulada que se suponía que era lo que hacía viral el original. Iker: *"no me la quiero jugar, quiero ir sobre seguro"*. Solo vuelve si Iker la pide.
 
 > **🩻 16/10: 2 de 3 publicadas, las dos por debajo de 0,6x de la mediana. Diagnóstico y propuesta de cerrar la prueba en `§4.6-DIAGNOSTICO`; la idea de identidad que sí resonaba pasa a `§4.8` (OFICIO).**
 >

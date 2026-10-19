@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { logUsage } from './claudeUsage';
+import { sanearUnicode } from './textoSeguro';
 
 // Single shared client + a thin wrapper that logs every messages.create
 // to claude_usage_logs. Every Claude call in the app should go through
@@ -21,7 +22,8 @@ export async function trackedCreate(
   feature: string,
   params: Anthropic.MessageCreateParamsNonStreaming
 ): Promise<Anthropic.Message> {
-  const response = await client.messages.create(params);
+  // Sin medio emoji en el body: Anthropic lo tumba con 400 (textoSeguro.ts).
+  const response = await client.messages.create(sanearUnicode(params));
   const usage: any = (response as any).usage || {};
   await logUsage({
     feature,
@@ -44,7 +46,7 @@ export function trackedStream(
   feature: string,
   params: Anthropic.MessageStreamParams
 ) {
-  const stream = client.messages.stream(params);
+  const stream = client.messages.stream(sanearUnicode(params));
   stream
     .finalMessage()
     .then((msg) => {

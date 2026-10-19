@@ -1,4 +1,5 @@
 import { trackedCreate } from './claudeClient';
+import { cortar } from './textoSeguro';
 import { stripLoneSurrogates } from '../utils/sanitizeText';
 import {
   type FaseEvento,
@@ -512,7 +513,7 @@ ${sinAsentir
   const previas = (input.respuestasPrevias || []).filter((t) => t && t.trim()).slice(-8);
   const previasBloque = previas.length
     ? `═══ LO QUE YA HAS CONTESTADO EN ESTE POST (RULE 3h) ═══
-${previas.map((t) => `· ${t.trim().slice(0, 240)}`).join('\n')}
+${previas.map((t) => `· ${cortar(t.trim(), 240)}`).join('\n')}
 ⛔ No repitas la idea de NINGUNA de estas, ni su dato, ni su empresa, ni su imagen. Si tu respuesta se puede leer como otra version de una de ellas, busca otra cosa: lo que trae SU comentario.
 
 `
@@ -615,7 +616,7 @@ ${input.imageSummary}
   const hilo = (input.hilo || []).filter((m) => m.texto && m.texto.trim()).slice(-4);
   const hiloBloque = hilo.length
     ? `═══ EL HILO HASTA AHORA (contexto, de viejo a nuevo; tu respuesta va al comentario de abajo) ═══
-${hilo.map((m) => `${m.autor || '(alguien)'}: "${m.texto.trim().slice(0, 300)}"`).join('\n')}
+${hilo.map((m) => `${m.autor || '(alguien)'}: "${cortar(m.texto.trim(), 300)}"`).join('\n')}
 
 `
     : '';

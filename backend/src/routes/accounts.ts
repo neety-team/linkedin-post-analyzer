@@ -17,6 +17,7 @@ import { extractViewerTimestamps } from '../utils/wvmp';
 import { generateReply, respuestaDeApoyo, diagnosticoUltimaRespuesta } from '../services/replyGenerator';
 import { recordarRespuestasPublicadas } from '../services/variedadComentarios';
 import { getMemeImageSummary } from '../services/postImageText';
+import { cortar } from '../services/textoSeguro';
 import { curvaPost, curvaTipica } from '../services/curvaImpresiones';
 import { roastProfile } from '../services/roaster';
 import { generarRastro } from '../services/rastroGenerator';
@@ -3468,7 +3469,7 @@ router.post('/posts/:postId/comments/:commentId/generate', async (req: Request, 
         ? hilo
             .filter((m: any) => m && typeof m.texto === 'string')
             .slice(-6)
-            .map((m: any) => ({ autor: m.autor ? String(m.autor) : null, texto: String(m.texto).slice(0, 500) }))
+            .map((m: any) => ({ autor: m.autor ? String(m.autor) : null, texto: cortar(String(m.texto), 500) }))
         : [],
       // Para que dos respuestas del MISMO post no abran igual. El generador
       // guarda en memoria las ultimas aperturas por post y se las prohibe a la

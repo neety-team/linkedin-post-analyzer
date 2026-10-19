@@ -1494,6 +1494,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Preview | `Yo anoche me quedé frito encima del libro.` (la segunda mitad del asunto, `§8i`) |
 | Pilar | **DOLOR (1), primera vez**: el sueño de buscar empresa a empresa |
 | Palanca emocional | **complicidad + torpeza propia** (la mascota se duerme y cae mejor). Nueva en Kaixito, que ya gastó culpa (0), FOMO (4) y enfado (7) (`email-marketing §8l`). Sin FOMO de evento: el webinar no tiene aforo |
+| Destinatarios | listas **15 + 4 + 16** (la 17 y la 18 ya no existen desde el 19/10; la 16 `Neety Forward 2026` tiene 81 contactos, 71 activos). Se cuentan en Brevo al crear la campaña |
 | GIF | **`aburrimiento`, estreno** (responde 200, 340.664 bytes, comprobado el 19/10). Queda `alegría` sin estrenar |
 | Micro-apertura | `Confesión de mascota.` (nueva) |
 | Ninja → webinar | contexto `El miércoles 28 a las 10 hay sesión gratis por videollamada.` · `Mirar las webs de una en una le da sueño a cualquiera.` / `Buscar menos y llamar más, eso lo enseñan mis jefes:` (54/52) → `luma.com/7hhyx07z?utm_source=correo-09-kaixito-dolor&utm_medium=email&utm_campaign=correo-09-kaixito-dolor` |

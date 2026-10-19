@@ -1488,7 +1488,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ## 📝 CORREO 9 · Kaixito · DOLOR, ninja al webinar (BORRADOR 2026-10-19, para el mar 20/10 09:05)
 
-**Texto validado 46/46** (`validar-email.py`, con el check nuevo de longitud). **Sin campaña en Brevo todavía**: se crea en borrador cuando Iker dé el OK al texto, nunca programada (`email-marketing §9a-BIS`).
+**Texto validado 46/46** (`validar-email.py`, con el check nuevo de longitud). **OK de Iker al texto a la primera (19/10).** **✅ Campaña Brevo 30 en BORRADOR** (19/10), releída de la API: `draft`, sin `scheduledAt`, remitente `Kaixito de Neety` (id 3), preheader, pie de la casa copiado de la 29, un solo `href` con su UTM, GIF `aburrimiento`, auditor en verde. **Correo de prueba enviado a `mario@neety.com`** (`204`). Se programa solo cuando Iker revise el test (`email-marketing §9a-BIS`).
 
 | | |
 |---|---|
@@ -1496,7 +1496,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Preview | `Yo anoche me quedé frito encima del libro.` (la segunda mitad del asunto, `§8i`) |
 | Pilar | **DOLOR (1), primera vez**: el sueño de buscar empresa a empresa |
 | Palanca emocional | **complicidad + torpeza propia** (la mascota se duerme y cae mejor). Nueva en Kaixito, que ya gastó culpa (0), FOMO (4) y enfado (7) (`email-marketing §8l`). Sin FOMO de evento: el webinar no tiene aforo |
-| Destinatarios | listas **15 + 4 + 16** (la 17 y la 18 ya no existen desde el 19/10; la 16 `Neety Forward 2026` tiene 81 contactos, 71 activos). Se cuentan en Brevo al crear la campaña |
+| Destinatarios | listas **15 + 4 + 16 + 19** (`Recursos · Todos` 45 · `Testers` 5 · `Neety Forward 2026` 71 activos · `Webinar 1` 6, que dio permiso de newsletter). **126 únicos activos** contados contacto a contacto el 19/10 (13 bloqueados fuera, 1 repetido), **121 de fuera** de Neety. ⚠️ Los 6 de `Webinar 1` ya están inscritos: para ellos el correo hace de recordatorio, y el texto no afirma que no lo estén (`§7b`) |
 | GIF | **`aburrimiento`, estreno** (responde 200, 340.664 bytes, comprobado el 19/10). Queda `alegría` sin estrenar |
 | Micro-apertura | `Confesión de mascota.` (nueva) |
 | Ninja → webinar | contexto `El miércoles 28 a las 10 hay sesión gratis por videollamada.` · `Mirar las webs de una en una le da sueño a cualquiera.` / `Buscar menos y llamar más, eso lo enseñan mis jefes:` (54/52) → `luma.com/7hhyx07z?utm_source=correo-09-kaixito-dolor&utm_medium=email&utm_campaign=correo-09-kaixito-dolor` |

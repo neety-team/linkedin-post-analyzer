@@ -4785,6 +4785,31 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(not _m_ult, 'HISTORIA: la ultima linea es la moraleja, no el desvelamiento (Iker, 15/10)',
             f'"{_ult[:70]}": el evento, la marca o la mencion van antes; el post cierra con '
             f'una leccion o un golpe' if _m_ult else '')
+        # 🧵 HILO CONDUCTOR (Iker, 19/10, post-workflow §4.6-HILO): la escena y la venta
+        # cuentan la MISMA idea de principio a fin. Si el cuerpo no toca ventas hasta el
+        # ninja, el dolor del cliente queda pegado con celo al final (avispas v1: solo
+        # 'cena' cosia el gancho con el ninja). Aviso: es criterio y un lexico no lo cierra.
+        _iurl = next((i for i, l in enumerate(_ls) if 'http' in l), None)
+        if _iurl is not None and _iurl >= 2:
+            _venta = re.compile(r'\b(vend\w*|venta\w*|comercial\w*|cliente\w*|empresas?|'
+                                r'llamad\w*|llamar|lista\w*|pedido\w*|comprador\w*|compra\w*)\b', re.I)
+            # el cuerpo de verdad: sin gancho, sin la linea de contexto ni el bloque del ninja
+            _medio = _ls[1:max(_iurl - 2, 1)]
+            _puente = [l for l in _medio if _venta.search(l)]
+            _st = lambda s: ''.join(dict(zip('áéíóúñ', 'aeioun')).get(c, c) for c in s.lower())
+            _hilo = [w[:5] for w in re.findall(r'[a-záéíóúñ]{5,}', _st(_ls[0]))
+                     if w not in ('ningun', 'ninguna', 'tanto', 'cuando', 'porque', 'nunca')]
+            _cierre_ok = any(h in _st(_ls[-1]) for h in _hilo) or bool(_venta.search(_ls[-1]))
+            chk(bool(_puente) and _cierre_ok,
+                'ENTREGA: HISTORIA con HILO CONDUCTOR, la venta no vive solo en el ninja (§4.6-HILO)',
+                ('puente en el cuerpo: "' + _puente[0][:60] + '"' if _puente else
+                 '⛔ ninguna linea del cuerpo toca ventas antes del ninja: el dolor del cliente '
+                 'entra de golpe al final') + ' · ' +
+                ('el cierre recoge el hilo' if _cierre_ok else
+                 '⛔ el cierre no recoge ni la palabra del gancho ni la venta') +
+                '. La palabra-hilo del gancho tiene que pasar por la escena, el puente, el ninja y '
+                'el cierre (30/09: la alarma que avisa de que alguien entra, no de quien)',
+                aviso=True)
         # §4.6 punto 1c — el clasificador (backend/src/services/pillar.ts) separa
         # historia de meme contando PRETERITOS: hacen falta 4. La del 13/08 tenia
         # exactamente 4 y con 3 habria caido en 'meme'. Y esto choca de frente con

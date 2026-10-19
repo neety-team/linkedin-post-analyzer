@@ -14,6 +14,8 @@
 > | **Remitente** | Iker | Kaixito (correo 2) | `## 🧪 Correo 2`, más abajo | Leer allí el resultado y decidir si se cierra |
 > | **Tipo de cliente del ninja** | — | — | `global §4.4b-TIPOS`, igual que en los posts | Cada correo apunta en su sección a qué tipo le habla (desde el 16/10, con los tamaños de `§4.4b-MUNICIÓN-1510`) |
 
+> 🗂️ **19/10 · LA COHORTE DEL PRESENCIAL ES UNA SOLA LISTA: `Neety Forward 2026` (id 16).** Por petición de Iker: (1) se metieron los **9 aprobados que se inscribieron el 23 y el 24/09**, después de la carga del 22/09 (con la casilla de "objetivos comerciales" aceptada; ninguno existía en Brevo ni estaba bloqueado); (2) la lista 16 se renombró (antes `📅 Inscritos · NEETY FORWARD 2026`); y (3) **se borraron las listas de tanda 17 y 18**, que estaban enteras dentro de la 16 (comprobado antes de borrar). Borrar una lista no toca los contactos ni sus bajas: **siguen los mismos 10 bloqueados**, y la lista queda con **81 contactos, 71 activos**. Las estadísticas por campaña no se pierden. **Desde hoy, los correos van a las listas 15 + 4 + 16**, no a 15 + 4 + 17 + 18.
+
 ## 🟢 ESTADO: PRIMER ENVÍO DESDE BREVO (2026-08-20)
 
 **Kaixito 01 reescrito y enviado.** Fin de la parada de nueve días desde la cancelación de MailerLite.

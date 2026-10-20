@@ -3127,6 +3127,24 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                     if _items and _pos_link <= _ult_item else '')
                 if _items and _pos_link > _ult_item:
                     _pos = min(_pos, 650)
+                # 🪜 TRANSICION AL NINJA (Iker, 20/10, global §4.4b-TRANSICION): el bloque suele
+                # estar bien; lo que falla es el SALTO desde las lineas de antes. Se imprimen las
+                # 3 ultimas del cuerpo para leerlas en alto con el ninja debajo. Aviso: el oido
+                # decide si hay escalon, un lexico no.
+                if _pos_link > 0 and pilar not in ('mapa', 'los10'):
+                    _antes = [l.strip() for l in cuerpo[:_pos_link].splitlines() if l.strip()]
+                    _antes = _antes[:-1]   # la ultima es la propia linea del enlace, cortada
+                    _l1 = _antes[-1] if _antes else ''
+                    _prev = _antes[:-1]
+                    if _prev and re.search(r'\b(miercoles|miércoles|lunes|martes|jueves|viernes)\b', _prev[-1], re.I):
+                        _prev = _prev[:-1]   # la linea de contexto del evento no cuenta como cuerpo
+                    chk(False, 'ENTREGA: la TRANSICION al ninja es gradual, sin salto (global §4.4b-TRANSICION)',
+                        'lee en alto estas lineas y despues el ninja: ' +
+                        ' / '.join('"%s"' % x[:55] for x in _prev[-3:]) + ' → "' + _l1[:55] + '". '
+                        'Escalera de 4 peldaños: la escena siembra la palabra del ninja, una bisagra '
+                        'la saca de la escena, un giro la lleva a ventas y una linea nombra el dolor '
+                        'del cliente. Si el dolor aparece por primera vez en el ninja, hay salto',
+                        aviso=True)
                 # HISTORIA/EVENTO (Iker, 15/10): el ninja va DESPUES de pagar la historia, como
                 # en las 5 historias con mejor CTR (enlace entre el 83% y el 92% del texto, con
                 # solo el remate detras). Con el tope a 900 eso cae pasado el 650, que sale de

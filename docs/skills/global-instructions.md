@@ -1914,6 +1914,21 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 **Mecanizado** en `validar-post.py` como **fallo duro** (`EVENTO: la linea de ENCIMA dice que hay evento, cuando y donde`), que mira el bloque inmediatamente anterior al del enlace y canta cuál de las tres piezas falta. **Probado contra el borrador que lo incumplía: lo caza.**
 
+#### 🪜🪜 4.4b-TRANSICION · EL CUERPO LLEGA AL NINJA POR UNA ESCALERA, NO DE UN SALTO (Iker, 2026-10-20) — GLOBAL, TODO POST CON ENLACE
+> **Iker, sobre la historia de las avispas:** *"el bloque en sí me gusta… lo que me falla a veces es la transición, el salto de las líneas del cuerpo que van justo antes del bloque de spam ninja… el texto entre el gancho y el spam ninja tiene que, de manera progresiva, de manera suave, seguir el mismo hilo conductor de lo que vamos a vender… fluido, natural, coherente, sin perder la gracia"*. Es lo mismo que Unai le tumbó a su agradecimiento el mismo día (`brand-voice §1b`, `SUS AGRADECIMIENTOS`: *"se leía como dos mensajes unidos"*).
+
+**El fallo que describe, y no es del bloque:** el ninja ya sigue la broma del gancho y el dolor del cliente (`§4.4b-FORMA`). Lo que se rompe es el tramo de antes: el cuerpo cuenta solo la escena y el dolor de ventas aparece por primera vez dentro del ninja. Avispas v1: `Media cena se nos fue en espantarlas.` → `Buscar empresas a mano se come meses, no una cena.`, dos mensajes pegados por la palabra `cena`.
+
+**LA ESCALERA, cuatro peldaños entre la escena y el ninja (vale para historia, meme, tarjeta, lead magnet con enlace y cualquier pilar nuevo; el mapa y "Las 10" llegan por las menciones):**
+1. **La escena SIEMBRA la palabra del ninja** sin decir que es de ventas. Avispas: `Alguno salió corriendo.` · `Una se coló en casa.` La gracia se conserva: el lector aún no sabe que eso va a ser la metáfora.
+2. **Una BISAGRA saca esa palabra de la escena** y la deja sola, todavía en el mundo de la historia: `Corrimos más por las que se colaron.`
+3. **Un GIRO, en una línea y en primera persona, la lleva a ventas:** `Con las listas de empresas me pasa igual.` Aquí está la sorpresa, y llega con la palabra ya preparada.
+4. **El DOLOR del informe de clientes, dicho con esa misma palabra:** `Se cuela de todo y acabas llamando a quien no encaja.` Detrás, la línea de contexto (si es un evento) recoge el tema con un pronombre (`El miércoles 28 lo vemos…`) y el ninja nombra la carencia y la cubre.
+- **El test, en alto:** lee las tres líneas de antes del ninja y el ninja seguidos. Si la primera vez que sale el problema del cliente es dentro del ninja, hay salto. Si alguna línea suena a otro post pegado, hay salto.
+- **Lo que NO se hace para suavizar:** explicar la metáfora (`Esto es como…` dos veces), meter el dolor en la línea 2 (mata el bucle y la gracia) ni alargar el post: la escalera cabe en 3-4 líneas cortas y la vara de longitud del pilar no cambia.
+- **Sin medir:** que la transición gradual convierta más es criterio de Iker. Primer caso, la historia de las avispas (Iker, 20/10).
+- **Mecanizado** como aviso de entrega en `validar-post.py` (todos los pilares menos mapa y "Las 10"): imprime las tres líneas de antes del ninja y la línea 1 para leerlas juntas. En historia lo complementa el aviso `HILO CONDUCTOR` (`post-workflow §4.6-HILO`).
+
 #### ⛔⛔ 4.4b-FORMA · DOS LÍNEAS PEGADAS Y SIGUIENDO LA BROMA DEL GANCHO. SIEMPRE, EN TODOS LOS PILARES (Iker, 2026-08-12)
 
 **La forma del ninja no es de un pilar. Es global**, y se rompió en dos pilares distintos la misma semana. Iker: *"si el gancho de ayer era de los calvos, deberíamos seguir la broma de eso en el spam ninja"*.

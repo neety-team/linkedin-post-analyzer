@@ -722,7 +722,7 @@ No son las señales. No es el momento. **Es la identificación.** Los clientes i
 
 > **Iker, viendo el correo 2 con el enlace en una línea suelta:** *"has puesto el enlace en una línea individual separada, entonces yo creo que en cuanto lo vea una persona que lo reciba detectará que le estamos intentando vender algo, entonces no lo pulsará, generará rechazo y fricción. Es mejor que copies e inyectes en tu receta el bloque de dos de las publicaciones. Solo que en este caso de correos la primera línea del bloque, en vez de seguir la broma del gancho de la publicación, aquí seguirá la broma o el verbo punchy del ASUNTO del correo, que es el equivalente"*.
 
-**🔴 EL FALLO QUE LO MOTIVA ES MÍO Y ES DE LIBRO:** subí el enlace desde la PPD hasta el cuerpo (bien) y lo dejé **en una línea suelta con un blanco encima**, que es exactamente lo que `global §4.4b-FORMA` lleva desde el 12/08 marcando como ❌ MAL. **La forma del ninja no es de un pilar ni de un canal: es global.** La tenía leída y la rompí al cambiar de canal.
+**🔴 EL FALLO QUE LO MOTIVA ES MÍO Y ES DE LIBRO:** subí el enlace desde la PPD hasta el cuerpo (bien) y lo dejé **en una línea suelta con un blanco encima**, que es exactamente lo que `global §4.4b-FORMA` lleva desde el 12/08 marcando como ❌ MAL. **La forma del ninja no es de un pilar ni de un canal: es global.** La tenía leída y la rompí al cambiar de canal. **Y la transición también es global** (`global §4.4b-TRANSICION`, 20/10): el párrafo de antes del bloque ya nombra el dolor con la palabra que recoge el enlace, para que el bloque no llegue como otro correo pegado.
 
 #### La forma, calcada de `global §4.4b-FORMA` sin tocar una coma
 ```

@@ -549,7 +549,15 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
   // 🏡 Historia que vivio el equipo entero (Mario, 20/10): los que comentan estaban.
   const equipo = !fase && esHistoriaDeEquipo(input.pillar, safePostContent);
   const angulos = reparte(fase ? angulosEvento(fase) : equipo ? angulosHistoriaEquipo() : angulosApoyo(input.pillar), n);
-  const arranques = reparte(arranquesApoyo(input.pillar), n);
+  // En historia de equipo, "un adverbio de frecuencia" y "una negacion" forzados delante
+  // dieron frases sin sentido ("Pues bieeen casi siempre pero lo del baño…", prueba del 20/10):
+  // ahi se arranca por algo concreto de la escena o por una reaccion.
+  const arranques = reparte(
+    equipo
+      ? arranquesApoyo(input.pillar).filter((a) => !/^una negacion|^un adverbio de frecuencia|^el sujeto concreto/.test(a))
+      : arranquesApoyo(input.pillar),
+    n
+  );
   // EMOJI, VOCALES Y CIERRE, DECIDIDOS EN CODIGO (`planTanda`, Iker 2026-10-01):
   // dos o tres con emoji y nunca dos seguidos, dos o tres con vocales, y
   // siempre alguno acabado en exclamacion. Detalle y por que en el plan.

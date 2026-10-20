@@ -318,11 +318,13 @@ export function esHistoriaDeEquipo(pillar: string | null | undefined, texto: str
 
 const ANGULOS_HISTORIA_EQUIPO = [
   'recuerda en PASADO y en primera persona del plural un detalle LITERAL del post (un objeto, un sitio, lo que paso), con cariño y sin añadir nada que el post no cuente',
-  'agradece que lo haya contado, hablandole a el de tu y SIN su nombre, con un detalle concreto del post',
-  'la comparacion con ventas que hace el post, dicha con tus palabras como algo que se aprende, nunca como un problema que tengas tu hoy',
+  // ⛔ 20/10 (Mario): fuera "la comparacion con ventas" y "lo bien hilada que esta": comentar
+  // como el post engancha la anecdota con ventas DESVELA la estrategia al que lee.
+  'reacciona a un momento concreto de la escena como quien lo vivio (lo del baño, la que se colo, el que salio corriendo), como se diria por WhatsApp',
+  'todavia no te crees que pasara, con humor (un "jajaja" vale)',
+  'una frase hecha de las que se sueltan por WhatsApp sobre la anecdota (historias para no dormir, de traca, para enmarcar)',
   'ganas de repetir el viaje o la escapada, en primera persona del plural',
-  'humor calido con un detalle del post, riendote CON el equipo y nunca de nadie',
-  'lo bien que lo ha contado el autor o lo bien hilada que esta la historia, con un detalle concreto',
+  'que buen recuerdo o que noche aquella, con un detalle de la escena',
 ];
 
 export function angulosHistoriaEquipo(): string[] {
@@ -416,9 +418,19 @@ export function eventoRecortado(c: string): boolean {
 
 // Lo que suena a parodia: el superlativo de broma y el "fue el mejor momento"
 // de quien narra un evento como si lo hubiera vivido.
-// 20/10 (captura de Mario, historia de las avispas): "me ha dejado sin palabras",
-// "Menudo detalle lo de..." y "surrealista" se leian como vacile o como parodia.
-const EXAGERA = /(momentos? del ano|el mejor momento|(mejor|gran) momento de la (sesion|jornada|manana|tarde|charla)|de la historia\b|\bepic[oa]s?\b|\bleyenda\b|\bme muero\b|sin palabras|\bsurrealista|\balucina|\bme ha matado|\bmenudo detalle|\bflipando\b|\bme parto\b|\bme meo\b)/;
+// 20/10 (captura de Mario, historia de las avispas): "me ha dejado sin palabras" y
+// "Menudo detalle lo de..." se leian como vacile o como parodia. ⚠️ "surrealista" NO:
+// Mario la propone el mismo dia para la escena ("lo de las avispas en el baño fue
+// surrealista"); lo que chirriaba era aplicarla a como estaba escrito el post.
+const EXAGERA = /(momentos? del ano|el mejor momento|(mejor|gran) momento de la (sesion|jornada|manana|tarde|charla)|de la historia\b|\bepic[oa]s?\b|\bleyenda\b|\bme muero\b|sin palabras|\bme ha matado|\bmenudo detalle|\bflipando\b|\bme meo\b)/;
+
+// ⛔ DESVELA LA ESTRATEGIA (Mario, 20/10): "hilar las avispas con las listas" le cuenta
+// al que lee como esta montado el post. Un compañero comenta la historia, no la tecnica.
+const ESTRATEGIA = /(\bhil(a|ar|ado|ada|ando)\b|\bcompar(a|ar|acion|ativa)\b|\banalogia|\bmetafora|lleva(rlo)? a (las )?ventas|con (las )?ventas\b.{0,20}\b(conect|un|enlaz)|\bconect(a|ar|ado) .{0,25}(ventas|listas)|la forma de (contarlo|llevarlo)|el gancho|spam ninja)/;
+export function desvelaLaEstrategia(c: string): string | null {
+  const m = llano(c).match(ESTRATEGIA);
+  return m ? m[0] : null;
+}
 export function exageraDeBroma(c: string): string | null {
   const m = llano(c).match(EXAGERA);
   return m ? m[0] : null;

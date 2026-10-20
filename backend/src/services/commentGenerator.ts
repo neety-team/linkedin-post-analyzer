@@ -68,6 +68,7 @@ import {
   confiesaElDolor,
   alargadaTrasNo,
   concordanciaRota,
+  desvelaLaEstrategia,
 } from './variedadComentarios';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
@@ -502,7 +503,7 @@ LENGTH: entre 40 y 80 caracteres (tope duro ${LARGO_MAX_CHAT}), en UNA sola line
 - No markdown of any kind. No bold, no bullets, no numbered lists.
 - Do not open with an emoji. EMOJIS: los lleva SOLO el comentario al que la ASIGNACION se lo pide, UNO y al final. Los demas, sin ninguno.
 
-★ ⛔ HABLAS, NO REDACTAS (Iker, 2026-10-01): "sigo viendo respuestas muy formales, que no son naturales". Comentarios REALES pegados de aqui: "Crecer en exportaciones a ese ritmo demuestra que el músculo industrial...", "hay ecosistemas muy sólidos fuera del radar", "habla de especialización, continuidad...". Eso es un informe, no alguien comentando desde el movil. PROHIBIDO: "demuestra que", "pone de manifiesto", "cabe destacar", "ecosistema", "tejido industrial/comercial/productivo", "músculo industrial", "motor económico", "fuera del radar", "lejos de los focos", "poner en valor", "capacidad exportadora", "visibilidad", "a nivel de", "en definitiva", "asimismo". Se dice como se habla, como un adulto que trabaja en ventas y pone su nombre: "qué bien contado", "me quedo con lo de...", "muy buena la comparación con...", "no lo había visto así", "qué buen recuerdo lo de...". (20/10: "me ha matado", "me ha dejado sin palabras", "menudo detalle" y "surrealista" salian como vacile, y Mario: "parecemos tontos".)
+★ ⛔ HABLAS, NO REDACTAS (Iker, 2026-10-01): "sigo viendo respuestas muy formales, que no son naturales". Comentarios REALES pegados de aqui: "Crecer en exportaciones a ese ritmo demuestra que el músculo industrial...", "hay ecosistemas muy sólidos fuera del radar", "habla de especialización, continuidad...". Eso es un informe, no alguien comentando desde el movil. PROHIBIDO: "demuestra que", "pone de manifiesto", "cabe destacar", "ecosistema", "tejido industrial/comercial/productivo", "músculo industrial", "motor económico", "fuera del radar", "lejos de los focos", "poner en valor", "capacidad exportadora", "visibilidad", "a nivel de", "en definitiva", "asimismo". Se dice como se escribe por WhatsApp a un compañero, en español de España y con frases enteras: "lo de X fue surrealista", "aún no me lo creo jajaja", "me quedo con lo de...", "no lo había visto así", "qué buen recuerdo lo de...". Nunca se comenta COMO esta escrito el post (la comparacion, la metafora, como lo hila): desvela la estrategia. (20/10: "me ha matado", "me ha dejado sin palabras", "menudo detalle" y "surrealista" salian como vacile, y Mario: "parecemos tontos".)
 ★ ⛔⛔ APOYO DE ADULTO, NI SARCASMO NI VACILE (Mario, 2026-10-20): "suenan muy infantiles o muy sarcásticos, como que le están vacilando… tienen que ser de apoyo, formales pero no tanto, con lo de las vocales". La alargada y el emoji dan la cercania; la frase en si es de alguien serio que apoya. Ni sorpresa exagerada, ni ironia, ni nada que se pueda leer como que te ries del autor o de lo que cuenta. Nunca una alargada detras de "no" ("No clarooo" suena a burla). Y la gramatica, perfecta: concordancia incluida ("lo de LAS avispas", nunca "la avispas").
 ★ ⛔⛔ QUIEN COMENTA TRABAJA EN LA CASA, Y LA CASA VENDE LA SOLUCION (20/10): ninguno confiesa como propio el problema de ventas que cuenta el post ("A mí me ha pasado llamar a quien no tocaba una vez a la semana", "lo aplico ya a las listas"). Leido desde fuera, es que en la empresa que vende el remedio les pasa a diario. Se comenta la historia y la comparacion; el dolor es del sector, nunca tuyo de hoy.
 ★ EL CIERRE DE CADA UNO TE LLEGA ASIGNADO: exclamacion, puntos suspensivos o punto. Iker: "nunca veo respuestas con exclamación al final, estaría guay". Respetalo, y escribe la frase para que ese cierre le pegue.
@@ -586,7 +587,9 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
   const asignacion = angulos
     .map(
       (a, i) =>
-        `${i + 1}. ANGULO: ${a}. ARRANQUE: empieza por ${arranques[i]}, y si asi no sale una frase natural, reordenala sin perder la gramatica. ${
+        // Historia de equipo (Mario, 20/10): el arranque forzado era lo que hacia las frases
+        // raras. Ahi se escribe como sale por WhatsApp.
+        `${i + 1}. ANGULO: ${a}. ${equipo ? 'ARRANQUE: el que te salga natural, como por WhatsApp.' : `ARRANQUE: empieza por ${arranques[i]}, y si asi no sale una frase natural, reordenala sin perder la gramatica.`} ${
           conEstirar.has(i)
             ? `LLEVA ESTA palabra alargada, tal cual y SOLO esta: "${palabraDe.get(i)!.toLowerCase()}", ${['como PRIMERA palabra del comentario, seguida de coma', 'dentro de la PRIMERA frase, en sus tres primeras palabras y justo antes de una coma'][Math.floor(Math.random() * 2)]} (Iker, 2026-09-18: nunca entre dos comas en mitad del texto ni en la segunda frase). Tiene que sonar a alguien que asiente, no a una palabra metida con calzador.`
             : 'SIN palabras alargadas.'
@@ -611,7 +614,7 @@ ${peloteo ? `
 ` : ''}${input.pillar === 'historia_evento' && !equipo ? `
 ★ ESTE POST ES UNA HISTORIA CUYA ESCENA ES NUESTRO EVENTO (pilar historia/evento, Iker 2026-10-15). Se comenta como una HISTORIA: cada uno reacciona a un detalle de lo que cuenta (una frase, una persona, lo que hizo o dijo), no al evento. COMO MUCHO UNO de los ${n} nombra el evento, y entero ("Neety Forward"), con orgullo humilde. ⛔ Nadie narra el evento como si lo hubiera vivido ("fue el mejor momento de la sesión", "en directo", "lo vivimos") ni le pone notas: no consta quién fue, y suena falso.
 ` : ''}${equipo ? `
-★ ESTA HISTORIA LA VIVIO EL EQUIPO ENTERO Y LOS QUE COMENTAN ESTABAN AHI (Mario, 2026-10-20). Todos saben de que va: nada de reaccionar como quien se entera ("me ha dejado sin palabras", "no me lo esperaba", "surrealista"). Se comenta con la complicidad de quien lo vivio: en PASADO y en primera persona del plural para la escena ("qué noche aquella", "todavía me acuerdo de lo del baño"), sin añadir ningun detalle que el post no cuente. Esto manda sobre "NEVER OUT YOURSELVES" solo para la escena compartida: el "nosotros" vale para lo que vivisteis, nunca para hablar en nombre de la empresa ni de lo que vende.
+★ ESTA HISTORIA LA VIVIO EL EQUIPO ENTERO Y LOS QUE COMENTAN ESTABAN AHI (Mario, 2026-10-20). Todos saben de que va: nada de reaccionar como quien se entera ("me ha dejado sin palabras", "no me lo esperaba"). Se comenta LA ESCENA, como se le escribiria a un compañero por WhatsApp, con la complicidad de quien lo vivio y sin añadir ningun detalle que el post no cuente. ASI SUENAN (los propone Mario, 20/10): "Lo de las avispas en el baño fue surrealista", "Historias para no dormir", "Aún no me puedo creer que nos pasase eso jajaja", "Lo de esa noche fue brutal". Frases enteras, fluidas, de España, ni prosa ni telegrama. ⛔ NADIE comenta COMO esta escrito el post (que "hila" la anecdota con ventas, la comparacion, la metafora, el gancho): eso le desvela al que lee la estrategia. Ni una palabra de ventas, listas o clientes: se comenta lo que paso. Esto manda sobre "NEVER OUT YOURSELVES" solo para la escena compartida: el "nosotros" vale para lo que vivisteis, nunca para hablar en nombre de la empresa ni de lo que vende.
 ` : ''}${fase ? `
 ★ ESTE POST ES DE NUESTRO EVENTO (Iker, 2026-09-24). Los ${n} comentarios van del evento. ${textoFase(fase)} Un comentario que solo reflexiona sobre la idea del post y no nombra ni el evento, ni el orgullo, ni las ganas NO VALE. Los pegan compañeros de la misma empresa: nunca "vuestro", "habéis", "contáis" ni "el equipo"; el evento en primera persona del plural o hablandole a la persona.
 ` : ''}
@@ -707,6 +710,7 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (latinismo(c) ? `suena a español de America ("${latinismo(c)}"): en español de España` : null) ||
           (eventoRecortado(c) ? 'recorta el nombre del evento: se escribe entero, "Neety Forward"' : null) ||
           (exageraDeBroma(c) ? `exagera como en una parodia ("${exageraDeBroma(c)}"): apoyo natural y humilde` : null) ||
+          (desvelaLaEstrategia(c) ? `comenta como esta montado el post ("${desvelaLaEstrategia(c)}") y eso desvela la estrategia: comenta lo que cuenta, no como lo cuenta` : null) ||
           (confiesaElDolor(c) ? `confiesa como suyo el problema que vende la casa ("${confiesaElDolor(c)}"): comenta la historia, el dolor es del sector` : null) ||
           (alargadaTrasNo(c) ? `"${alargadaTrasNo(c)}" suena a burla: nunca una alargada detras de "no"` : null) ||
           (concordanciaRota(c) ? `concordancia rota ("${concordanciaRota(c)}")` : null) ||

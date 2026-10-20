@@ -4777,7 +4777,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(not (h.startswith('🚨') or h.startswith('⚰')),
             'HISTORIA: el hook NO abre con alarma 🚨/⚰️ (§4.6)',
             'eso es lead magnet; una historia abre con una ESCENA personal, no gritando')
-        _personal = re.search(r'(^|\s)(yo|mi|mis|me|nunca|cuando|hace \w+|aquel\w*|la primera vez|acab[eé]|sub[ií]|di mi|ten[ií]a|hab[ií]a|recuerdo|empec[eé]|\bi\b|\bmy\b)(\s|,|\.)', ' '+h.lower())
+        # "he visto", "he conocido": la experiencia hasta hoy en 1a persona (brand-voice §3d,
+        # 16/10) es personal igual que "nunca he visto". Faltaba y tumbaba el gancho de Asier (20/10).
+        _personal = re.search(r'(^|\s)(yo|mi|mis|me|nunca|cuando|hace \w+|aquel\w*|la primera vez|acab[eé]|sub[ií]|di mi|ten[ií]a|hab[ií]a|recuerdo|empec[eé]|he \w+(?:ado|ido|to|cho|sto)|\bi\b|\bmy\b)(\s|,|\.)', ' '+h.lower())
         # 🧪 FOTO DE GRUPO (Iker, 2026-09-30): si la foto es del equipo entero, el
         # gancho puede ir en 1a PLURAL para que texto e imagen hablen con la misma
         # voz. Precedente, n=1: la historia de Unai del 23/09 (foto de los 11,
@@ -5388,10 +5390,12 @@ def main():
                     'no "hace crecer el territorio" sino lo que arregla (Inbertsio Foroa: acercar el capital a '
                     'los proyectos que lo necesitan), y llega por un PUENTE que sale de la escena, nunca pegado '
                     'detras de un enlace (brand-voice §1b, Unai 20/10)', True))
-    elif (a.cuenta or '').lower() == 'unai' and a.pilar == 'historia' and _gracias and _url:
-        res.append((False, '¿es un AGRADECIMIENTO? En Unai va sin ninja (20/10)',
+    elif (a.cuenta or '').lower() in ('unai', 'asier') and a.pilar == 'historia' and _gracias and _url:
+        # Iker, 20/10: tambien Asier (mesa del Gipuzkoa AI Hackathon). En Iker NO: su
+        # prioridad es que la visibilidad se convierta en algo, y ahi va el enlace.
+        res.append((False, '¿es un AGRADECIMIENTO? En Unai y Asier va sin ninja (20/10)',
                     'el post da las gracias a alguien mencionado y lleva enlace. Si el objetivo es pelotear a '
-                    'quien organizo algo, Unai lo quiere sin enlace: pasa --agradecimiento (brand-voice §1b)', True))
+                    'quien organizo algo (un evento que no es nuestro), va sin enlace: pasa --agradecimiento (brand-voice §1b)', True))
     if a.pilar == 'meme' and not (a.ref_con_texto or a.historico):
         res.insert(0, (False, 'MEME: la IMAGEN de la referencia lleva TEXTO dentro (§4.4-TEXTO)',
                        'Tapa el post y mira la foto de la referencia: ¿hay palabras escritas DENTRO '

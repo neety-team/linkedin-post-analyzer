@@ -1592,7 +1592,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(False, 'ENTREGA: el cuerpo PAGA el bucle del gancho (§2.0-PAGO)',
         'gancho: "%s". Senala la linea del ultimo tercio que dice con todas las letras '
         'a que se referia (que era, donde, por que importaba), repitiendo la PALABRA del gancho '
-        'como el "Si, hablo de X" del peloteo. Si el lector acaba sin '
+        'como el "Si, hablo de X" del peloteo, o DESINFLANDOLA a proposito si el gancho exagera un '
+        'hecho real ("invadio" -> "nos visitaron", global §2.0-PAGO). Si el lector acaba sin '
         'saberlo, falta el pago' % hook_txt[:90], aviso=True)
     # brand-voice §2c familia 3 (DELITO): en el GANCHO cero familias de riesgo.
     # Caso 30/09 (historia de Iker): "Nos entraron a robar..." + 10 etiquetas en

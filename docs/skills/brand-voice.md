@@ -815,6 +815,12 @@ Para comentar en posts ajenos (feature Network), la herramienta genera 9 ángulo
 4. **Gramática perfecta:** `la avispas` era una concordancia rota (`concordanciaRota`).
 
 Los cuatro son motivo de reintento, con su razón dentro, igual que el resto de fallos de la tanda.
+
+**🔄 Afinado el mismo 20/10 (Mario, tras tres pruebas):**
+5. **Nunca se comenta CÓMO está escrito el post** (`hilar las avispas con las listas`, la comparación, la metáfora, el gancho): le desvela al que lee la estrategia. Se comenta lo que pasó (`desvelaLaEstrategia`).
+6. **El autor no se nombra ni se habla de él en tercera persona** debajo de su propio post (`Iker lo…`, `nadie hila como Iker`); solo en un evento vale desearle suerte por su nombre (`autorPorSuNombre`).
+7. **Tono de WhatsApp a un compañero**, con los ejemplos de Mario: `Lo de las avispas en el baño fue surrealista` · `Historias para no dormir` · `Aún no me puedo creer que nos pasase eso jajaja`. `surrealista` vale para la escena; lo que chirriaba era aplicarlo al post. En historia de equipo no se fuerza el arranque.
+- **Prueba en producción tras el arreglo:** `Lo de esa noche fue de traca, la verdad 👏` · `Qué noche aquella, con las avispas asaltando la mesa...` · `Claroo hay que repetir la escapada más pronto que tarde 🤝`.
 Los que genera el botón **Enviar a Google Chat** de Accounts, para que los compañeros los peguen en nuestro propio post. Llevaban meses sin tocarse y salían superficiales, **y encima se saltaban nuestras propias reglas**: el lote del 29/07 llevaba un **guion largo**, que `§3` prohíbe. Ahora el prompt (`backend/src/services/commentGenerator.ts`, `generateSupportiveComments`) lleva:
 
 - **SIEMPRE 5, fijo.** Antes se sorteaba entre 3 y 5 para que el mensaje diario no repitiera forma. El equipo ha crecido, así que sortear solo dejaba compañeros sin línea que pegar. **La variedad la da el texto, no la cantidad.**

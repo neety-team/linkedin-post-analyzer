@@ -442,6 +442,9 @@ que cumple lo mismo, es 16 caracteres más corto y **además es lo que diría un
 
 **Y el test se hace en alto, de verdad, no leyendo por encima.** Si al decirla tropiezas o te suena a traducción, está mal aunque el validador dé 50/50. **El script mide la forma; el oído es lo único que mide el idioma.**
 
+### 🔤 3c-ARTÍCULO · EL OBJETO QUE EL LECTOR NO CONOCE VA CON "UN", Y SI "UN" LÍA EL SUJETO, SE PONE LA PREPOSICIÓN (Iker preguntó, 2026-10-20; criterio de idioma, no de datos)
+Iker dudaba entre `lo que nos invadió la barbacoa` y `lo que nos invadió una barbacoa`. **Ninguna de las dos:** `la barbacoa` da por hecho que el lector sabe de qué barbacoa hablamos, y en el gancho no lo sabe nadie; `una barbacoa` deja leer que la barbacoa es la que invade (sujeto ambiguo). Quedó **`lo que nos invadió en una barbacoa`**: el indefinido presenta el sitio y la preposición deja claro que es dónde pasó, no quién lo hizo. **El test:** léelo en alto como si no supieras nada de la historia; si dudas de quién hace qué o de qué cosa te hablan, falta un `un` o una preposición.
+
 ### 🇪🇸🇪🇸 3d · TIEMPOS VERBALES DE ESPAÑA: CADA TIEMPO HACE SU TRABAJO (Iker, 2026-10-16) — GLOBAL
 
 > **Iker, sobre la historia de Asier del 16/10:** *"¿por qué pones nunca vi, lo comprobé, y luego les sobran, les falta? … creo que suena mejor lo he comprobado los años que llevo programando… a veces suena como muy prosa o muy poesía… y a lo mejor ahí caemos en la trampa del robótico. Pero sin caer en lo contrario, el lenguaje de chaval adolescente: un intermedio, que suene bien"*.

@@ -513,6 +513,7 @@ ACCENTS WHEN STRETCHING A VOWEL: if the word you stretch carries a written accen
 
 ⛔ NO VES LA IMAGEN DEL POST y casi todos llevan una. Solo tienes el texto, asi que NO afirmes nada sobre lo que el post ensena ni sobre lo que NO ensena: nada de "la foto", "la imagen", "el dibujo", "la captura". Comenta solo lo que esta ESCRITO.
 
+★ ⛔ EL AUTOR NO SE NOMBRA NI SE HABLA DE EL EN TERCERA PERSONA (Mario, 2026-10-20): "Iker lo no sé qué", "nadie hila esto como Iker" debajo de su propio post suena a que hablas de el a sus espaldas. Se comenta la historia, o se le habla de tu y sin su nombre ("gracias por contarlo"). Solo en un post de evento vale desearle suerte por su nombre.
 NO HOLLOW OPENERS: never "Great post!", "Love this", "Totalmente de acuerdo", "Qué bueno", "Muy buen punto", "Gran post", "Me encanta", "Brutal", "Buena reflexión", "Buen apunte", "Muy cierto", "Qué razón", "Totalmente", "Qué post más necesario".
 ⛔ Y OJO CON EL ELOGIO DISFRAZADO DE APERTURA: "Buena reflexión." seguido de la frase de verdad es exactamente el mismo peloteo hueco, solo que con punto en medio. Si la primera frase se puede borrar entera sin perder nada, es relleno. Reference something SPECIFIC from the post (a number, a phrase, a claim) so it's clear you actually read it.
 
@@ -709,6 +710,10 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (confiesaElDolor(c) ? `confiesa como suyo el problema que vende la casa ("${confiesaElDolor(c)}"): comenta la historia, el dolor es del sector` : null) ||
           (alargadaTrasNo(c) ? `"${alargadaTrasNo(c)}" suena a burla: nunca una alargada detras de "no"` : null) ||
           (concordanciaRota(c) ? `concordancia rota ("${concordanciaRota(c)}")` : null) ||
+          // 20/10 (Mario): "Iker lo no sé qué", "nadie hila… como Iker": hablar del autor en
+          // tercera persona y con su nombre, debajo de su propio post, suena raro. Fuera de un
+          // evento (donde "Mucha suerte hoy Unai" si se quiere), el nombre del autor no sale.
+          (!fase && autorPorSuNombre(c, input.creatorName) ? `nombra al autor ("${autorPorSuNombre(c, input.creatorName)}") y habla de el en tercera persona: se comenta la historia o se le habla de tu, sin su nombre` : null) ||
           (equipo && sorpresaDeQuienEstuvo(c) ? `reacciona como si se enterara ahora ("${sorpresaDeQuienEstuvo(c)}") y estuvo ahi: complicidad de quien lo vivio` : null) ||
           (input.pillar === 'historia_evento' && !equipo && afirmaQueEstuvo(c) ? `narra el evento como si hubiera estado ("${afirmaQueEstuvo(c)}")` : null) ||
           (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
@@ -898,4 +903,12 @@ Return JSON only: { "comments": ["...", "..."] }`;
     const cerrado = caberEnLinea(pulirTrasAlargada(pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i])), safePostContent, [input.creatorName]));
     return conEmoji.has(i) ? ponerEmojiAlFinal(cerrado, emojiDe.get(i)) : cerrado;
   });
+}
+
+/** El nombre de pila del autor dentro de un comentario de apoyo a su propio post (Mario, 20/10). */
+export function autorPorSuNombre(c: string, autor: string | null | undefined): string | null {
+  const pila = (autor || '').trim().split(/\s+/)[0];
+  if (!pila || pila.length < 3) return null;
+  const llanoS = (t: string) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return new RegExp(`\b${llanoS(pila)}\b`).test(llanoS(c)) ? pila : null;
 }

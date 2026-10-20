@@ -318,7 +318,7 @@ export function esHistoriaDeEquipo(pillar: string | null | undefined, texto: str
 
 const ANGULOS_HISTORIA_EQUIPO = [
   'recuerda en PASADO y en primera persona del plural un detalle LITERAL del post (un objeto, un sitio, lo que paso), con cariño y sin añadir nada que el post no cuente',
-  'agradece al autor, por su nombre de pila, que lo haya contado, con un detalle concreto del post',
+  'agradece que lo haya contado, hablandole a el de tu y SIN su nombre, con un detalle concreto del post',
   'la comparacion con ventas que hace el post, dicha con tus palabras como algo que se aprende, nunca como un problema que tengas tu hoy',
   'ganas de repetir el viaje o la escapada, en primera persona del plural',
   'humor calido con un detalle del post, riendote CON el equipo y nunca de nadie',

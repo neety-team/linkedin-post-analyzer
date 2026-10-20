@@ -34,9 +34,9 @@
 > | | Unai | Iker | Asier |
 > |---|---|---|---|
 > | **Mar 20** | Evento: agradecimiento del Gipuzkoako Inbertsio Foroa | Historia → webinar | **Historia/evento: mesa del Gipuzkoa AI Hackathon** → webinar (la pide Asier HOY; cambio del 20/10) |
-> | **Mié 21** | Historia → webinar | Meme → webinar | — |
-> | **Jue 22** | Historia/evento: San Francisco (el café) | — | **Meme sobrio → webinar** (el de 1up `closed/lost`, movido del martes; el miércoles chocaría con el meme de Iker) |
-> | **Vie 23** | — | Historia/evento: ponente en Neety Forward → webinar | "Las 10" (Navarra) → webinar |
+> | **Mié 21** | Historia: el cliente de Vitoria → webinar | **Historia/evento: ponente en Neety Forward** → webinar (adelantado del viernes, 20/10) | **Meme: el cliente que nunca se da por perdido** → webinar (vuelve al miércoles, 20/10) |
+> | **Jue 22** | Historia/evento: San Francisco (**colaborativo** con Iker y Asier) | — (le sale el colaborativo) | — (le sale el colaborativo) |
+> | **Vie 23** | — | Meme → webinar (en su cuenta caben ya los ganchos contrarian, 20/10) | "Las 10" de Navarra → webinar |
 >
 > Peloteo del viernes: el 5º en 21 días (solo aviso). "Las 10" y no mapa, porque el mapa al blog no inscribió a nadie. Región: Navarra, libre para Asier. Gipuzkoa queda descartada: es la del "Los 10" que se borró tras la llamada del 16/09.
 

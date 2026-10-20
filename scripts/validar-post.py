@@ -5293,6 +5293,12 @@ def main():
                     help='HISTORIA/EVENTO (Iker, 2026-10-15): historia que al final desvela quien lo '
                          'conto y el evento, ademas del ninja. El tope de longitud sube de 800 a 900 '
                          'para que la historia tenga sitio. Sin medir: se anota el resultado.')
+    ap.add_argument('--agradecimiento', action='store_true', dest='agradecimiento',
+                    help='AGRADECIMIENTO DE UNAI (Unai e Iker, 2026-10-20): historia/evento cuyo objetivo es '
+                         'pelotear a quien organizo algo. Va SIN spam ninja: los mencionados verian que '
+                         'les usamos de escaparate. Falla si el post lleva enlace y pide los dos criterios '
+                         'del agradecimiento (problema concreto que resuelve el organizador y puente que '
+                         'sale de la escena). brand-voice §1b.')
     ap.add_argument('--voz-ajena', action='store_true', dest='voz_ajena',
                     help='BORRADOR DE UN PERFIL QUE NO ES DE LOS 3 JEFES (Iker, 2026-10-05): un '
                          'empleado nuevo pasa SU texto para pulirlo. Se respeta su forma de escribir, '
@@ -5332,6 +5338,24 @@ def main():
     # texto dentro de la imagen. El script no ve la imagen, asi que se declara con
     # --ref-con-texto, igual que --meme-sobrio: es la pregunta que tiene que saltar
     # SIEMPRE al elegir referencia. --historico lo deja pasar (posts ya publicados).
+    # AGRADECIMIENTO DE UNAI (Unai e Iker, 2026-10-20). El primer jefe tumbo el ninja al
+    # webinar en su post del Gipuzkoako Inbertsio Foroa: "los que hemos mencionado van a ver
+    # que les estamos peloteando". Un agradecimiento suyo es peloteo puro y no lleva enlace.
+    # Iker lo considera un error de conversion y se acata; se mide al publicar.
+    _url = re.search(r'https?://|luma\.com|neety\.com|lnkd\.in', texto)
+    _gracias = re.search(r'\bgracias\b[^\n]{0,80}@', texto, re.I)
+    if a.agradecimiento:
+        res.append((not _url, 'AGRADECIMIENTO: sin spam ninja ni enlace (Unai, 20/10, brand-voice §1b)',
+                    'quita el bloque del enlace: en un agradecimiento de Unai el objetivo es pelotear a los '
+                    'mencionados, y un enlace comercial les convierte en escaparate' if _url else '', False))
+        res.append((False, 'ENTREGA: el agradecimiento nombra el PROBLEMA CONCRETO que resuelve el organizador',
+                    'no "hace crecer el territorio" sino lo que arregla (Inbertsio Foroa: acercar el capital a '
+                    'los proyectos que lo necesitan), y llega por un PUENTE que sale de la escena, nunca pegado '
+                    'detras de un enlace (brand-voice §1b, Unai 20/10)', True))
+    elif (a.cuenta or '').lower() == 'unai' and a.pilar == 'historia' and _gracias and _url:
+        res.append((False, '¿es un AGRADECIMIENTO? En Unai va sin ninja (20/10)',
+                    'el post da las gracias a alguien mencionado y lleva enlace. Si el objetivo es pelotear a '
+                    'quien organizo algo, Unai lo quiere sin enlace: pasa --agradecimiento (brand-voice §1b)', True))
     if a.pilar == 'meme' and not (a.ref_con_texto or a.historico):
         res.insert(0, (False, 'MEME: la IMAGEN de la referencia lleva TEXTO dentro (§4.4-TEXTO)',
                        'Tapa el post y mira la foto de la referencia: ¿hay palabras escritas DENTRO '

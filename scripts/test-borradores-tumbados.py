@@ -226,6 +226,44 @@ CASOS += [
      'sin topónimos ni gentilicios de la region', FLAGS_LAS10, None),
 ]
 
+
+# AGRADECIMIENTO DE UNAI (20/10). Unai tumbo el ninja al webinar en su post del Gipuzkoako
+# Inbertsio Foroa: los mencionados verian que les usamos de escaparate. Con --agradecimiento,
+# cualquier enlace es fallo duro.
+INBERTSIO_CON_NINJA = """Pocas veces hemos visto a un director comercial esperar tanto para enseñar su mejor máquina 👇
+
+Pasó 7 meses buscando a quién enseñársela.
+
+Por las tardes hacía la lista a mano.
+Por las mañanas llamaba a centralitas.
+
+Hasta que le sentaron con 3 fábricas interesadas.
+
+Una pidió precio.
+Otra pidió una visita.
+La tercera firmó en 15 días.
+
+El miércoles 28 abrimos sesión gratis por videollamada.
+
+Enseñar la máquina es fácil, buscar a quién no.
+Esa búsqueda sí te ayudamos a acortarla: https://luma.com/7hhyx07z?utm_source=historia-inbertsio-20oct-unai&utm_medium=post&utm_campaign=historia-inbertsio-20oct&utm_content=unai
+
+Con la inversión pasa igual.
+
+Por eso pesa tanto el Gipuzkoako Inbertsio Foroa, el foro de inversión de aquí.
+
+Une capital y proyectos.
+Lleva inversión a nuestras empresas.
+Y hace crecer el territorio con impacto directo.
+
+Gracias a @ADEGI - Asociación de Empresas de Gipuzkoa y a @GEROA PENTSIOAK EPSV DE EMPLEO PREFERENTE por organizarlo.
+
+Ni una máquina ni un proyecto se venden solos."""
+CASOS += [
+    (INBERTSIO_CON_NINJA, '20/10: un agradecimiento de Unai va sin spam ninja (brand-voice §1b)',
+     'AGRADECIMIENTO: sin spam ninja', FLAGS + ['--agradecimiento']),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

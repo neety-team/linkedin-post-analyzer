@@ -1741,6 +1741,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'el mismo mensaje a muchos), se cambia LA FRASE que lo provoca, no el post. '
             'Entre dos versiones igual de fuertes, gana la que deja rastro de criterio '
             '(una opinion o un matiz del mercado). No quita punch: el gancho sigue grande', aviso=True)
+        # 🗂️ BANCO DE 5 GANCHOS (Iker, 2026-10-08 en Unai; 2026-10-20 tambien en Asier):
+        # en HISTORIA/EVENTO de los dos jefes sobrios va el gancho elegido y debajo 5
+        # alternativos de la MISMA creencia, en un solo bloque. En historia normal, no.
+        if HISTORIA_EVENTO:
+          chk(False, f'ENTREGA: HISTORIA/EVENTO de {_cta_grande.upper()} lleva BANCO DE 5 GANCHOS (brand-voice §1b)',
+            'El elegido primero y 5 alternativos debajo, en UN solo bloque copiable separados por '
+            'una linea en blanco. Los 5 grandiosos, la MISMA creencia que paga el cuerpo con 5 '
+            'entradas distintas (la pregunta, quien lo dice, la incomodidad, el plazo, el objeto), '
+            'ninguno delata el evento, y cada uno validado con el cuerpo entero. Di cuales obligan '
+            'a tocar el ninja (la palabra del gancho que recoge)', aviso=True)
     else:
         chk(False, 'ENTREGA: ¿el gancho PRESUME? (brand-voice §1)',
         'Si la primera linea lleva un logro tuyo, una cifra tuya buena o un premio, el '

@@ -3160,11 +3160,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 # en las 5 historias con mejor CTR (enlace entre el 83% y el 92% del texto, con
                 # solo el remate detras). Con el tope a 900 eso cae pasado el 650, que sale de
                 # dos MEMES en prosa. Ahi el 650 pasa a aviso y manda el 'despues del valor'.
-                chk(_pos <= 650, 'Spam ninja: el enlace cae antes del caracter 650 (§4.4b)',
+                # 🎚️ BANDA, NO GUILLOTINA (Mario, 20/10): el 650 es una vara ESTADISTICA (dos
+                # memes), no fisica. Le cambie 'algunos salio corriendo' por 'uno' para ganar
+                # 3 caracteres y la frase pasaba a sonar a indirecta. Hasta +50 (una oracion
+                # corta) es aviso; pasado el 700 vuelve a ser fallo (global §4.4b-CLICS).
+                chk(_pos <= 700, 'Spam ninja: el enlace cae antes del caracter 650 (§4.4b)',
                     'el enlace cae en el %d. Los 2 unicos posts que lo pasaron de 650 '
                     'son los 2 peores CTR del ano (0,042%% y 0,017%%) frente al '
                     '0,050-0,151%% de los que lo ponen antes del 511' % _pos
-                    if _pos > 650 else '', aviso=(HISTORIA_EVENTO and pilar == 'historia'))
+                    if _pos > 700 else ('margen: %d caracteres pasado el 650, aviso y no fallo '
+                                        '(la narracion manda sobre unas letras)' % (_pos - 650)
+                                        if _pos > 650 else ''),
+                    aviso=(HISTORIA_EVENTO and pilar == 'historia') or 650 < _pos <= 700)
                 # 2) EL ENLACE VA EN LA SEGUNDA LINEA Y ESA LINEA ES CORTA. El
                 #    bloque de dos (dolor / promesa corta + enlace) da 0,415% en el
                 #    mapa de Asier del 14/07. Fusionarlo todo en UNA linea larga da

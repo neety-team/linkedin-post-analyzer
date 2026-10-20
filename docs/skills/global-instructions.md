@@ -1395,6 +1395,11 @@ intuición de Iker de que "este mes el mapa ha convertido poco" es correcta.
 
 #### 1. DÓNDE cae el enlace — en prosa, antes del carácter 650
 
+> **🎚️ BANDA, NO GUILLOTINA (Mario, 2026-10-20) — y vale para TODOS los topes que salen de una estadística.** Para meter el enlace en el 649 cambié `alguno salió corriendo` por `uno salió corriendo`, y `uno` sonaba a que señalábamos a alguien: *"por pasarnos 5 caracteres tampoco me importa… otra cosa es que me añadieses una oración, dos, cincuenta más… piensa con cabeza: una, dos o tres letritas no influyen tanto si el cambio perjudica la narración"*.
+> - **Dos clases de tope, y no se tratan igual.** Los **físicos** (el corte del "ver más" en el gancho, los 55 de cada línea del ninja porque se parte en el móvil, el 80 de línea) son duros: un carácter de más rompe algo que se ve. Los **estadísticos** (este 650, salido de dos memes; los 700-780 de la historia) son una **banda**: dicen dónde rinden mejor nuestros posts, no qué pasa con tres letras más.
+> - **La regla:** si para cumplir un tope estadístico hay que estropear una frase (una palabra peor, un matiz que se pierde, algo que se lee como indirecta), **gana la frase** mientras el exceso sea de unos pocos caracteres. Si son una o varias oraciones de más, entonces sí se recorta, y por lo informativo (`feedback la tijera no toca lo punchy`).
+> - **Mecanizado:** `validar-post.py` da el enlace por bueno hasta el 650, avisa entre el 651 y el 700 (una oración corta) y solo falla pasado el 700.
+
 De los 6 memes con dato, los 4 que ponen el enlace **antes del 511** dan
 0,050-0,151%. Los 2 que lo pasan de **650** dan 0,042% y 0,017%. Son exactamente
 los dos cuerpos más largos.

@@ -208,7 +208,8 @@ export function quitarExactamente(t: string): string {
 // INGLES COLADO (ronda 3 del 01/10: "mientras others cocinaban"). Palabras
 // funcionales inglesas que en castellano no existen; si estan en el post (una
 // marca, "Tomato Paste and Tomato Powder"), no cuentan.
-const INGLES = /\b(others|the|and|with|while|which|really|very|people|because|about|their|they|anyway|actually)\b/;
+// 20/10: "Corrimos más que en cualquier sprint de ventas" (anglicismo con traduccion llana, brand-voice §2b).
+const INGLES = /\b(others|the|and|with|while|which|really|very|people|because|about|their|they|anyway|actually|sprint|pipeline|funnel|forecast|insight|pitch|closing|engagement)\b/;
 export function inglesColado(c: string, fuentes = ''): string | null {
   const m = llano(c).match(INGLES);
   if (!m) return null;

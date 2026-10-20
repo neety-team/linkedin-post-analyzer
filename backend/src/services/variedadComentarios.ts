@@ -305,6 +305,63 @@ export function esPostDeEvento(pillar: string | null | undefined, texto: string)
   return /\bneety forward\b|forward\.neety\.com|\b(luma\.com|lu\.ma)\b|\bevento\b/.test(t);
 }
 
+// 🏡 HISTORIA DE EQUIPO (Mario, 2026-10-20): la historia cuenta algo que vivio
+// el equipo entero (la casa rural, las avispas). Los que pegan los comentarios
+// ESTABAN AHI y todos lo saben: si reaccionan como desconocidos que se enteran
+// ("me ha dejado sin palabras"), suena a vacile. Se comenta con la complicidad
+// de quien lo vivio, en pasado y en primera del plural.
+export function esHistoriaDeEquipo(pillar: string | null | undefined, texto: string): boolean {
+  if (pillar !== 'historia' && pillar !== 'historia_evento') return false;
+  return /\b(todo el equipo|el equipo entero|el equipo al completo|nos fuimos todos|todos juntos|los \d+ (llevabamos|estabamos|fuimos))\b/.test(llano(texto));
+}
+
+const ANGULOS_HISTORIA_EQUIPO = [
+  'recuerda en PASADO y en primera persona del plural un detalle LITERAL del post (un objeto, un sitio, lo que paso), con cariño y sin añadir nada que el post no cuente',
+  'agradece al autor, por su nombre de pila, que lo haya contado, con un detalle concreto del post',
+  'la comparacion con ventas que hace el post, dicha con tus palabras como algo que se aprende, nunca como un problema que tengas tu hoy',
+  'ganas de repetir el viaje o la escapada, en primera persona del plural',
+  'humor calido con un detalle del post, riendote CON el equipo y nunca de nadie',
+  'lo bien que lo ha contado el autor o lo bien hilada que esta la historia, con un detalle concreto',
+];
+
+export function angulosHistoriaEquipo(): string[] {
+  return ANGULOS_HISTORIA_EQUIPO;
+}
+
+// Quien estuvo no se sorprende de lo que vivio.
+const SORPRESA = /(sin palabras|no me lo esperaba|no (tenia|sabia) (ni idea|nada)|me acabo de enterar|me entero ahora|no sabia que|que fuerte|increible lo de)/;
+export function sorpresaDeQuienEstuvo(c: string): string | null {
+  const m = llano(c).match(SORPRESA);
+  return m ? m[0] : null;
+}
+
+// ⛔ QUIEN COMENTA TRABAJA EN LA CASA (20/10): no confiesa como suyo el problema
+// que vende la herramienta ("A mi me ha pasado llamar a quien no tocaba", "lo
+// aplico ya a las listas"). Es la autocritica implicita de brand-voice.
+const CONFIESA = /(\b(a mi|yo)\b.{0,25}\bme (ha )?(pas(a|o|ado|aba)|toc(a|o|aba))|\bme (ha )?pas(a|ado|aba) (mucho|igual|lo mismo|siempre|cada)|\b(me )?lo aplico\b|\blo voy a aplicar\b|\buna vez a la semana\b)/;
+const DOLOR = /(llam|list|empres|client|vend|venta|prospec|encaj|tocaba|correr|meses)/;
+export function confiesaElDolor(c: string): string | null {
+  const l = llano(c);
+  const m = l.match(CONFIESA);
+  return m && DOLOR.test(l) ? m[0] : null;
+}
+
+// "No clarooo" (20/10): una alargada detras de "no" se lee como burla.
+export function alargadaTrasNo(c: string): string | null {
+  const m = llano(c).match(/(^|[\s,¡])no\s+([a-z]*?([aeiou])\3{1,}[a-z]*)/);
+  return m ? `no ${m[2]}` : null;
+}
+
+// "Lo de la avispas" (20/10): articulo en singular delante de un plural.
+const NO_PLURALES = new Set(['mas', 'demas', 'gas', 'caos', 'cosmos', 'dos', 'tos', 'dios', 'crisis', 'tesis', 'atlas', 'virus', 'campus', 'bonus', 'paraguas', 'cumpleanos', 'lunes', 'martes', 'jueves', 'viernes', 'miercoles']);
+export function concordanciaRota(c: string): string | null {
+  const l = llano(c);
+  for (const m of l.matchAll(/\b(la|una|esa|esta|el|un|ese|este) ([a-z]+(as|os))\b/g)) {
+    if (!NO_PLURALES.has(m[2])) return m[0];
+  }
+  return null;
+}
+
 export function esPeloteo(pillar: string | null | undefined): boolean {
   return !!pillar && pillar.startsWith('peloteo_');
 }
@@ -358,7 +415,9 @@ export function eventoRecortado(c: string): boolean {
 
 // Lo que suena a parodia: el superlativo de broma y el "fue el mejor momento"
 // de quien narra un evento como si lo hubiera vivido.
-const EXAGERA = /(momentos? del ano|el mejor momento|(mejor|gran) momento de la (sesion|jornada|manana|tarde|charla)|de la historia\b|\bepic[oa]s?\b|\bleyenda\b|\bme muero\b)/;
+// 20/10 (captura de Mario, historia de las avispas): "me ha dejado sin palabras",
+// "Menudo detalle lo de..." y "surrealista" se leian como vacile o como parodia.
+const EXAGERA = /(momentos? del ano|el mejor momento|(mejor|gran) momento de la (sesion|jornada|manana|tarde|charla)|de la historia\b|\bepic[oa]s?\b|\bleyenda\b|\bme muero\b|sin palabras|\bsurrealista|\balucina|\bme ha matado|\bmenudo detalle|\bflipando\b|\bme parto\b|\bme meo\b)/;
 export function exageraDeBroma(c: string): string | null {
   const m = llano(c).match(EXAGERA);
   return m ? m[0] : null;
@@ -554,7 +613,10 @@ const ARRANQUES = [
   'el sujeto concreto de la escena del post (el comercial, el cliente, la lista)',
   // Sin "Yo" (ronda 3 del 01/10): forzado delante, rompia la frase ("Yo me
   // alegra", "Yo la próxima lo volvemos a hacer").
-  'una experiencia propia en primera persona (A mi, En mi caso, Me pasa que), con la frase bien construida',
+  // ⛔ 20/10: era 'una experiencia propia (A mi, Me pasa que)' y salio "A mi me ha pasado
+  // llamar a quien no tocaba una vez a la semana": quien lo pega trabaja en la casa que
+  // vende la solucion, y confesar el problema como suyo nos deja mal (confiesaElDolor).
+  'una reaccion en primera persona a algo que cuenta el post (Me quedo con, Me ha gustado, Me ha hecho gracia), con la frase bien construida y sin contar que a ti te pasa lo mismo',
   // Nunca Neety: en la historia de Asier del 01/10 salio tres veces "Neety me
   // ha pasado..." / "Buenooo Neety lo de...", porque el post la nombra.
   'un nombre propio del post (una empresa, un pueblo, un producto), nunca Neety',
@@ -808,6 +870,7 @@ MÁRCALO si:
 NO lo marques si:
 - es una opinión, una reacción, una broma o un deseo;
 - recoge o reformula lo que ya dice el post;
+- recuerda en primera persona del plural algo que el POST cuenta que vivió el equipo ("qué noche aquella", "todavía me acuerdo de lo del baño"), sin añadir detalles nuevos;
 - es una costumbre cotidiana e incomprobable de quien comenta ("el pimentón de mis lentejas", "lo tengo pendiente", "me ha pasado algo parecido", "lo tengo en la cocina").
 
 Responde SOLO con JSON: {"inventados": [{"n": <número del comentario>, "que": "<lo inventado, 8 palabras como mucho>"}]} (lista vacía si no hay ninguno)`,

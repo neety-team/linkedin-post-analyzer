@@ -62,6 +62,12 @@ import {
   latinismo,
   eventoRecortado,
   exageraDeBroma,
+  esHistoriaDeEquipo,
+  angulosHistoriaEquipo,
+  sorpresaDeQuienEstuvo,
+  confiesaElDolor,
+  alargadaTrasNo,
+  concordanciaRota,
 } from './variedadComentarios';
 
 // ⛔⛔ LA APERTURA ES EL SITIO DONDE ESTO SE DELATA (Iker, 2026-09-15)
@@ -496,7 +502,9 @@ LENGTH: entre 40 y 80 caracteres (tope duro ${LARGO_MAX_CHAT}), en UNA sola line
 - No markdown of any kind. No bold, no bullets, no numbered lists.
 - Do not open with an emoji. EMOJIS: los lleva SOLO el comentario al que la ASIGNACION se lo pide, UNO y al final. Los demas, sin ninguno.
 
-★ ⛔ HABLAS, NO REDACTAS (Iker, 2026-10-01): "sigo viendo respuestas muy formales, que no son naturales". Comentarios REALES pegados de aqui: "Crecer en exportaciones a ese ritmo demuestra que el músculo industrial...", "hay ecosistemas muy sólidos fuera del radar", "habla de especialización, continuidad...". Eso es un informe, no alguien comentando desde el movil. PROHIBIDO: "demuestra que", "pone de manifiesto", "cabe destacar", "ecosistema", "tejido industrial/comercial/productivo", "músculo industrial", "motor económico", "fuera del radar", "lejos de los focos", "poner en valor", "capacidad exportadora", "visibilidad", "a nivel de", "en definitiva", "asimismo". Se dice como se habla: "qué pasada", "no tenía ni idea", "me flipa", "menudo dato", "lo de X me ha matado", "jaja" si el angulo es de humor.
+★ ⛔ HABLAS, NO REDACTAS (Iker, 2026-10-01): "sigo viendo respuestas muy formales, que no son naturales". Comentarios REALES pegados de aqui: "Crecer en exportaciones a ese ritmo demuestra que el músculo industrial...", "hay ecosistemas muy sólidos fuera del radar", "habla de especialización, continuidad...". Eso es un informe, no alguien comentando desde el movil. PROHIBIDO: "demuestra que", "pone de manifiesto", "cabe destacar", "ecosistema", "tejido industrial/comercial/productivo", "músculo industrial", "motor económico", "fuera del radar", "lejos de los focos", "poner en valor", "capacidad exportadora", "visibilidad", "a nivel de", "en definitiva", "asimismo". Se dice como se habla, como un adulto que trabaja en ventas y pone su nombre: "qué bien contado", "me quedo con lo de...", "muy buena la comparación con...", "no lo había visto así", "qué buen recuerdo lo de...". (20/10: "me ha matado", "me ha dejado sin palabras", "menudo detalle" y "surrealista" salian como vacile, y Mario: "parecemos tontos".)
+★ ⛔⛔ APOYO DE ADULTO, NI SARCASMO NI VACILE (Mario, 2026-10-20): "suenan muy infantiles o muy sarcásticos, como que le están vacilando… tienen que ser de apoyo, formales pero no tanto, con lo de las vocales". La alargada y el emoji dan la cercania; la frase en si es de alguien serio que apoya. Ni sorpresa exagerada, ni ironia, ni nada que se pueda leer como que te ries del autor o de lo que cuenta. Nunca una alargada detras de "no" ("No clarooo" suena a burla). Y la gramatica, perfecta: concordancia incluida ("lo de LAS avispas", nunca "la avispas").
+★ ⛔⛔ QUIEN COMENTA TRABAJA EN LA CASA, Y LA CASA VENDE LA SOLUCION (20/10): ninguno confiesa como propio el problema de ventas que cuenta el post ("A mí me ha pasado llamar a quien no tocaba una vez a la semana", "lo aplico ya a las listas"). Leido desde fuera, es que en la empresa que vende el remedio les pasa a diario. Se comenta la historia y la comparacion; el dolor es del sector, nunca tuyo de hoy.
 ★ EL CIERRE DE CADA UNO TE LLEGA ASIGNADO: exclamacion, puntos suspensivos o punto. Iker: "nunca veo respuestas con exclamación al final, estaría guay". Respetalo, y escribe la frase para que ese cierre le pegue.
 
 ★ SOUND HUMAN, NOT POLISHED (Iker, 2026-09-16). Los que los pegan son gente joven y cercana. La ASIGNACION te dice que comentarios llevan UNA palabra alargada: esos llevan EXACTAMENTE UNA, y los demas NINGUNA. La palabra alargada es una palabra corta de reaccion con la VOCAL FINAL estirada, y su sitio en la frase lo dice la ASIGNACION y cambia cada vez: "clarooo", "siii", "muy buenoo", "nooo", "bieeen", "totaal", "geniaaal", "brutaal". Unas con DOS vocales de mas y otras con UNA ("buenooo" y "buenoo" valen las dos), nunca siempre la misma. ⛔ Nunca "vale" ni "cierto" alargados. ★ Y SI LA FRASE LLEVA UN VERBO PUNCHY (flipa, mola, encanta, clava), LA ALARGADA VA EN EL VERBO: "Claro me flipaa cómo lo cuenta", nunca "Clarooo me flipa cómo lo cuenta" (Iker, 15/10). Nunca un sustantivo en mitad de la frase y NUNCA dos palabras alargadas en el mismo comentario.
@@ -538,7 +546,9 @@ Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n}
     ? await analizarEvento({ postId: input.postId, texto: safePostContent, publicadoEl: input.publishedAt })
     : null;
   const peloteo = esPeloteo(input.pillar);
-  const angulos = reparte(fase ? angulosEvento(fase) : angulosApoyo(input.pillar), n);
+  // 🏡 Historia que vivio el equipo entero (Mario, 20/10): los que comentan estaban.
+  const equipo = !fase && esHistoriaDeEquipo(input.pillar, safePostContent);
+  const angulos = reparte(fase ? angulosEvento(fase) : equipo ? angulosHistoriaEquipo() : angulosApoyo(input.pillar), n);
   const arranques = reparte(arranquesApoyo(input.pillar), n);
   // EMOJI, VOCALES Y CIERRE, DECIDIDOS EN CODIGO (`planTanda`, Iker 2026-10-01):
   // dos o tres con emoji y nunca dos seguidos, dos o tres con vocales, y
@@ -589,8 +599,10 @@ ${asignacion}
 ⛔ Si el angulo pide algo que este post no trae, usa OTRO detalle concreto del post, nunca su idea central.
 ${peloteo ? `
 ★ ESTE POST ES UN PELOTEO REGIONAL, y su tesis YA LA DICE EL POST: que a esa region no la ve nadie, que trabaja en silencio, que pasa desapercibida, que no sale en titulares ni folletos, que se ve desde la autovia o la ventanilla, que esta fuera del radar o lejos de los focos. COMO MUCHO UNO de los ${n} puede rozar esa idea. Los demas van a lo concreto de su angulo: una empresa de la lista, un producto de casa con su pueblo, una costumbre, la gente, el dato.
-` : ''}${input.pillar === 'historia_evento' ? `
+` : ''}${input.pillar === 'historia_evento' && !equipo ? `
 ★ ESTE POST ES UNA HISTORIA CUYA ESCENA ES NUESTRO EVENTO (pilar historia/evento, Iker 2026-10-15). Se comenta como una HISTORIA: cada uno reacciona a un detalle de lo que cuenta (una frase, una persona, lo que hizo o dijo), no al evento. COMO MUCHO UNO de los ${n} nombra el evento, y entero ("Neety Forward"), con orgullo humilde. ⛔ Nadie narra el evento como si lo hubiera vivido ("fue el mejor momento de la sesión", "en directo", "lo vivimos") ni le pone notas: no consta quién fue, y suena falso.
+` : ''}${equipo ? `
+★ ESTA HISTORIA LA VIVIO EL EQUIPO ENTERO Y LOS QUE COMENTAN ESTABAN AHI (Mario, 2026-10-20). Todos saben de que va: nada de reaccionar como quien se entera ("me ha dejado sin palabras", "no me lo esperaba", "surrealista"). Se comenta con la complicidad de quien lo vivio: en PASADO y en primera persona del plural para la escena ("qué noche aquella", "todavía me acuerdo de lo del baño"), sin añadir ningun detalle que el post no cuente. Esto manda sobre "NEVER OUT YOURSELVES" solo para la escena compartida: el "nosotros" vale para lo que vivisteis, nunca para hablar en nombre de la empresa ni de lo que vende.
 ` : ''}${fase ? `
 ★ ESTE POST ES DE NUESTRO EVENTO (Iker, 2026-09-24). Los ${n} comentarios van del evento. ${textoFase(fase)} Un comentario que solo reflexiona sobre la idea del post y no nombra ni el evento, ni el orgullo, ni las ganas NO VALE. Los pegan compañeros de la misma empresa: nunca "vuestro", "habéis", "contáis" ni "el equipo"; el evento en primera persona del plural o hablandole a la persona.
 ` : ''}
@@ -686,7 +698,11 @@ Return JSON only: { "comments": ["...", "..."] }`;
           (latinismo(c) ? `suena a español de America ("${latinismo(c)}"): en español de España` : null) ||
           (eventoRecortado(c) ? 'recorta el nombre del evento: se escribe entero, "Neety Forward"' : null) ||
           (exageraDeBroma(c) ? `exagera como en una parodia ("${exageraDeBroma(c)}"): apoyo natural y humilde` : null) ||
-          (input.pillar === 'historia_evento' && afirmaQueEstuvo(c) ? `narra el evento como si hubiera estado ("${afirmaQueEstuvo(c)}")` : null) ||
+          (confiesaElDolor(c) ? `confiesa como suyo el problema que vende la casa ("${confiesaElDolor(c)}"): comenta la historia, el dolor es del sector` : null) ||
+          (alargadaTrasNo(c) ? `"${alargadaTrasNo(c)}" suena a burla: nunca una alargada detras de "no"` : null) ||
+          (concordanciaRota(c) ? `concordancia rota ("${concordanciaRota(c)}")` : null) ||
+          (equipo && sorpresaDeQuienEstuvo(c) ? `reacciona como si se enterara ahora ("${sorpresaDeQuienEstuvo(c)}") y estuvo ahi: complicidad de quien lo vivio` : null) ||
+          (input.pillar === 'historia_evento' && !equipo && afirmaQueEstuvo(c) ? `narra el evento como si hubiera estado ("${afirmaQueEstuvo(c)}")` : null) ||
           (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
           (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null) ||
           (eventoInventado(c) ? 'se inventa lo que se hace en el evento o sus condiciones: del evento solo se dice lo que pone el post' : null) ||

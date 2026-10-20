@@ -2422,10 +2422,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                            and not re.search(r'comercial|vendedor|\bles?\b|\blos ve\b', _l, re.I)):
                 _sust = _m
                 break
-        chk(not _sust, 'MARCA: sin plantear que la IA sustituye al comercial, ni como pregunta (Unai 15/10, global)',
-            f'"{_sust.group(0)}": aunque sea en pregunta, en la cuenta de un fundador de una herramienta de ventas '
-            f'se lee como nuestra vision. Se plantea la pregunta sin la amenaza ("la pregunta que mas '
-            f'incomoda", "como ve al comercial en 5 anos")' if _sust else '')
+        # 🔄 20/10 (Iker, tras hablarlo con el segundo jefe): "la marca somos todos" y en SU
+        # cuenta quiere ganchos de opinion y contrarian que abran debate, como antes. En Iker
+        # pasa a AVISO: vale como creencia ajena que el post desmiente; nunca como nuestra
+        # vision. Unai y Asier siguen con el fallo duro.
+        _es_iker = (cuenta or '').strip().lower() == 'iker'
+        chk(not _sust, 'MARCA: sin plantear que la IA sustituye al comercial, ni como pregunta (Unai 15/10; en Iker, aviso desde el 20/10)',
+            (f'"{_sust.group(0)}": en Iker vale como creencia ajena que el post desmiente (contrarian, '
+             f'abre debate); nunca como nuestra vision ni como amenaza al que nos compra' if _es_iker else
+             f'"{_sust.group(0)}": aunque sea en pregunta, en la cuenta de un fundador de una herramienta de ventas '
+             f'se lee como nuestra vision. Se plantea la pregunta sin la amenaza ("la pregunta que mas '
+             f'incomoda", "como ve al comercial en 5 anos")') if _sust else '', aviso=_es_iker)
 
     # ⛔ NUESTROS NOMBRES PROPIOS VAN CON SU CATEGORIA (global §2.5b-EXPLICITO, 30/09;
     # reincidido el 15/10 con 'nos lo conto en Neety Forward'). Quien ve el post no tiene
@@ -5447,8 +5454,9 @@ def main():
                if re.search(r'd[ií]as contados|quit\w* (el|su) puesto|cu[aá]nto le queda al comercial', l, re.I)
                or (re.search(r'sustitu\w*|reemplaz\w*|jubil\w*', l, re.I)
                    and re.search(r'comercial|vendedor|equipo|personas|puesto', l, re.I))]
-        res.insert(0, (not _ia, 'MARCA: sin plantear que la IA sustituye al comercial (brand-voice §1b, global 15/10)',
-                       ('"%s": aunque se desmienta, se lee como nuestra vision' % _ia[0][:80]) if _ia else '', False))
+        _ia_iker = (a.cuenta or '').strip().lower() == 'iker'
+        res.insert(0, (not _ia, 'MARCA: sin plantear que la IA sustituye al comercial (brand-voice §1b; en Iker, aviso desde el 20/10)',
+                       ('"%s": aunque se desmienta, se lee como nuestra vision' % _ia[0][:80]) if _ia else '', _ia_iker))
     res.insert(0, (not _juzga, 'Sin juicio negativo sobre el que COMPRA, en cualquier pilar y cuenta (brand-voice canonico 5)',
                    ('"%s": cuenta lo que HACE (no coge, compra a otro, pide descuento), sin colgarle el '
                     'adjetivo. La culpa va a la situacion, la prisa o el proceso: "cuanto menos paga un '

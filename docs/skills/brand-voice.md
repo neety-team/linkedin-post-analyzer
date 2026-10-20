@@ -804,6 +804,17 @@ Para comentar en posts ajenos (feature Network), la herramienta genera 9 ángulo
 - **Variante de apoyo** (cuando el contrarian no encaja: buenas noticias, eventos, hitos): ≤180 caracteres, 2 líneas, cálido y específico, sin peloteo hueco. Son colegas apoyándose; nada arriesgado que dañe su imagen.
 
 ### 7.2b · Los 5 comentarios de apoyo de Google Chat (Iker, 2026-07-29)
+
+#### ⛔⛔ 7.2b-ADULTO · APOYO DE ADULTO, Y SI LA HISTORIA LA VIVIÓ EL EQUIPO, COMPLICIDAD DE QUIEN ESTUVO (Mario, 2026-10-20)
+> **Captura del Chat, historia de las avispas de Iker:** `Menudo detalle lo de mirar antes de correr, lo aplico ya a las listas 😄` · `Lo de la avispas asiáticas en el baño me ha dejado sin palabras 🔥` · `No clarooo contarlo con la barbacoa…` · `A mí me ha pasado llamar a quien no tocaba una vez a la semana al menos 👌`. Mario: *"suenan muy infantiles o muy sarcásticos, como que le están vacilando… parecemos tontos… todos formamos parte de esta publicación"*.
+
+**Cuatro fallos, cuatro arreglos en `commentGenerator.ts` / `variedadComentarios.ts`:**
+1. **Historia del equipo entero → los que comentan estaban ahí.** Si el post cuenta algo que vivió todo el equipo (`todo el equipo`, `los 11…`), nadie reacciona como quien se entera: complicidad en pasado y en plural (`qué noche aquella`, `todavía me acuerdo de lo del baño`), sin añadir nada que el post no cuente. Ángulos propios (`angulosHistoriaEquipo`) y fallo si sale sorpresa (`sorpresaDeQuienEstuvo`).
+2. **Ni vacile ni parodia:** `sin palabras`, `menudo detalle`, `surrealista`, `me ha matado`, `alucinante` entran en `exageraDeBroma`. La cercanía la ponen la alargada y el emoji; la frase es de un adulto que apoya. Y nunca una alargada detrás de `no` (`No clarooo` se lee como burla, `alargadaTrasNo`).
+3. **Quien comenta trabaja en la casa, y la casa vende la solución:** nadie confiesa como suyo el problema del post (`A mí me ha pasado llamar a quien no tocaba`, `lo aplico ya a las listas`). Es la autocrítica implícita del canónico de arriba (`confiesaElDolor`). El arranque "una experiencia propia" del banco se cambia por "una reacción a algo del post".
+4. **Gramática perfecta:** `la avispas` era una concordancia rota (`concordanciaRota`).
+
+Los cuatro son motivo de reintento, con su razón dentro, igual que el resto de fallos de la tanda.
 Los que genera el botón **Enviar a Google Chat** de Accounts, para que los compañeros los peguen en nuestro propio post. Llevaban meses sin tocarse y salían superficiales, **y encima se saltaban nuestras propias reglas**: el lote del 29/07 llevaba un **guion largo**, que `§3` prohíbe. Ahora el prompt (`backend/src/services/commentGenerator.ts`, `generateSupportiveComments`) lleva:
 
 - **SIEMPRE 5, fijo.** Antes se sorteaba entre 3 y 5 para que el mensaje diario no repitiera forma. El equipo ha crecido, así que sortear solo dejaba compañeros sin línea que pegar. **La variedad la da el texto, no la cantidad.**

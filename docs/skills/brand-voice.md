@@ -442,6 +442,16 @@ que cumple lo mismo, es 16 caracteres más corto y **además es lo que diría un
 
 **Y el test se hace en alto, de verdad, no leyendo por encima.** Si al decirla tropiezas o te suena a traducción, está mal aunque el validador dé 50/50. **El script mide la forma; el oído es lo único que mide el idioma.**
 
+### 🗣️ 3e · SONAR A PERSONA: VERBO EN VEZ DE SUSTANTIVO, EL PRONOMBRE DE COMPLICIDAD Y LA COLETILLA DE BAR (Iker, 2026-10-20) — GLOBAL
+> **Iker, puliendo las avispas:** *"nos dijeron que aún siguen sonando robóticas nuestras publicaciones… `si te suena` me encanta, `se cuela` también, es muy natural… `antes de una ducha` no sé"*. Lo de "robóticas" es una opinión de fuera, sin medir; lo de abajo es criterio de idioma que comparto, no un dato.
+
+Los tres arreglos que más naturalidad dan por carácter, sacados de ese post:
+1. **El hecho en VERBO, no en sustantivo.** `antes de una ducha` es de acta; `justo cuando alguien iba a ducharse` es de persona. Igual: `tras la recogida` → `al recoger`, `en la llegada` → `al llegar`.
+2. **El pronombre de complicidad** (dativo ético), que el castellano hablado mete y la redacción quita: `una se coló` → `una se nos coló` · `se cuela de todo` → `se te cuela de todo`. Un pronombre, 3 caracteres.
+3. **La coletilla de bar, una por post**, que habla directamente al que lee sin pedirle nada: `si te suena`, `ya te digo`, `no te creas`, `para que te hagas una idea`. Más de una ya es tic.
+- **Y el intensificador sale de lo que de verdad pasó, no del diccionario de power words:** `asaltaron la mesa` (las avispas iban "como locas", palabra de Iker) sí; `brutal`, `increíble` o `épico` pegados a una escena tranquila, no (`§2.9-TECHOS`).
+- **El coste:** cada uno suma caracteres y la historia tiene el enlace topado en 650 (`post-workflow §4.6-SERIE`). Se paga quitando lo informativo, nunca lo punchy (`feedback la tijera no toca lo punchy`). En las avispas se fue `Al recoger,` y se quedó `se nos coló`.
+
 ### 🔤 3c-ARTÍCULO · EL OBJETO QUE EL LECTOR NO CONOCE VA CON "UN", Y SI "UN" LÍA EL SUJETO, SE PONE LA PREPOSICIÓN (Iker preguntó, 2026-10-20; criterio de idioma, no de datos)
 Iker dudaba entre `lo que nos invadió la barbacoa` y `lo que nos invadió una barbacoa`. **Ninguna de las dos:** `la barbacoa` da por hecho que el lector sabe de qué barbacoa hablamos, y en el gancho no lo sabe nadie; `una barbacoa` deja leer que la barbacoa es la que invade (sujeto ambiguo). Quedó **`lo que nos invadió en una barbacoa`**: el indefinido presenta el sitio y la preposición deja claro que es dónde pasó, no quién lo hizo. **El test:** léelo en alto como si no supieras nada de la historia; si dudas de quién hace qué o de qué cosa te hablan, falta un `un` o una preposición.
 

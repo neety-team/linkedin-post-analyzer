@@ -311,7 +311,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 
 | dato | |
 |---|---|
-| **Estado** | **v2 del 21/10, se publica HOY** · `ENTREGABLE: SÍ · mecánico 77/77 · criterio 6/6` (`--pilar historia --cuenta unai --criterio`) · rango 700-780 · enlace antes del 650 · un solo gancho (post del webinar) |
+| **Estado** | ✅ **APROBADO por Mario el 21/10 (la historia es la que contó Iker), se publica HOY** · v2 · `ENTREGABLE: SÍ · mecánico 77/77 · criterio 6/6` (`--pilar historia --cuenta unai --criterio`) · rango 700-780 · enlace antes del 650 · un solo gancho (post del webinar) |
 | **v1 → v2 (Mario, 21/10)** | la v1 (`Lo que a un equipo comercial le costaba una semana entera se lo hemos dejado en una llamada`) era una promesa sobre nosotros, no un ángulo de debate. Mario: la viralidad del 02/10 vino de los comentarios y del ángulo; abrir la veda del debate en las tres cuentas. Regla en `post-workflow §4.6-SERIE` 13 y orden de datos por cuenta en `global §0-DATOS` |
 | **Pilar** | historia · **rama B** (testigo de segunda mano: lo vivió Iker; `Nunca habíamos conocido` en plural de la casa) · no regional · **material REAL** del banco de Iker (19/10, punto 2) |
 | **Gancho** | `Nunca habíamos conocido a un jefe comercial que dedicara 3 personas a buscar a quién vender 😅` (93) · molde del 02/10: rol que el lector conoce + práctica discutible + `Nunca` · ⚠️ ayer Unai abrió con `Pocas veces hemos visto a un director comercial…` (absoluto parecido, declarado) · palanca buscada: absoluto_discutible |

@@ -2362,7 +2362,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # Desde 2026-07-23 el mapa enlaza a recursos.neety.com/mapas/{region} (la web
     # embebe el mapa completo, el jefe ya pago PamPam) en vez de a /agendar/:
     # ambos son recursos.neety.com, asi que este check los acepta igual.
-    _urls = re.findall(r'https?://\S+|\b[\w.-]+\.(?:com|es|city|io)\S*', cuerpo)
+    # 2026-10-21 — una MENCION con punto dentro (`@Red.es`) no es un enlace: el
+    # `(?<!@)` la deja fuera. Tumbaba el post de San Francisco de Unai por mencionar
+    # a la entidad que organiza el programa con su nombre exacto de LinkedIn.
+    _urls = re.findall(r'https?://\S+|(?<!@)\b[\w.-]+\.(?:com|es|city|io)\S*', cuerpo)
     _fuera = [u for u in _urls if 'recursos.neety.com' not in u and 'linkedin.com' not in u]
     # ⭐ EL EVENTO ENLAZA DIRECTO A LUMA Y NO SE AVISA DE NADA (Iker, 2026-08-05).
     # Propuse montar recursos.neety.com/evento para que el clic fuera nuestro, y
@@ -4868,7 +4871,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                          # 15/10: el verbo en 1a del plural tambien vale si no abre el gancho
                          # ('Le preguntamos a quien vende IA...'): antes solo se miraba al arrancar.
                          # Y los cortos ("hemos", "dimos"), que el {2,} dejaba fuera (15/10, Asier).
-                         or re.search(r'(^|\s)(hemos|dimos|\w{2,}(amos|imos|emos))\b', h.lower()))
+                         # 21/10: y "vamos"/"somos", que el {2,} tambien dejaba fuera
+                         # ('Vamos a cruzar medio mundo…', San Francisco de Unai).
+                         or re.search(r'(^|\s)(hemos|dimos|vamos|somos|\w{2,}(amos|imos|emos))\b', h.lower()))
         chk(bool(_personal), 'HISTORIA: hook personal, en primera persona (§4.6)',
             'la vara abre "I [algo que me pasó]" / "Cuando…" / "Nunca…": una escena TUYA, no un claim ni un dato')
         _ls = [l for l in cuerpo.splitlines() if l.strip()]

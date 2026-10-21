@@ -9,6 +9,7 @@
 ## 🔍 0-DATOS · ANTES DE ESCRIBIR NADA, PREGUNTA A NUESTRA PROPIA BASE DE DATOS (Iker, 2026-08-05)
 
 **EL ORDEN DE CONSULTA, y es este y no otro:**
+0. **🔄 (Mario, 2026-10-21) Y DENTRO DE NUESTROS DATOS, PRIMERO LA CUENTA QUE VA A PUBLICAR:** el pilar en ESA cuenta → el mismo pilar cruzado en todas nuestras cuentas → el mismo pilar en cuentas de ventas de fuera. Ejemplo: historia de Unai = sus historias primero, luego las historias de las 3 cuentas (y Mario, Ismael…), luego historias de ventas de la competencia. Se hace antes de escribir el gancho, no para justificarlo después.
 1. **NUESTROS datos.** `GET /api/creators/{id}/posts` filtrando por el pilar que toca. ¿Este patrón ya nos ha funcionado a NOSOTROS? ¿Cuántas veces? ¿Con qué números?
 2. **Los outliers de la competencia.** `/api/analysis/cross-creators` y los feeds en vivo por Unipile.
 3. **La receta escrita.** Que es un resumen de lo anterior y puede estar desactualizada.

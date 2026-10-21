@@ -35,9 +35,11 @@
 > | | Unai | Iker | Asier |
 > |---|---|---|---|
 > | **Mar 20** | Evento: agradecimiento del Gipuzkoako Inbertsio Foroa | Historia → webinar | **Historia/evento: mesa del Gipuzkoa AI Hackathon** → webinar (la pide Asier HOY; cambio del 20/10) |
-> | **Mié 21** | Historia: el cliente de Vitoria → webinar | **Historia/evento: ponente en Neety Forward** → webinar (adelantado del viernes, 20/10) | **Meme: el cliente que nunca se da por perdido** → webinar (vuelve al miércoles, 20/10) |
+> | **Mié 21** | Historia: el cliente de Vitoria → webinar | **Meme: "tu informe de ventas resucita clientes muertos"** (repetición del de Unai del 15/07, 193.382) → webinar (cambio del 21/10) | — (su meme de Black Panther queda en reserva) |
 > | **Jue 22** | Historia/evento: San Francisco (**colaborativo** con Iker y Asier) | — (le sale el colaborativo) | — (le sale el colaborativo) |
-> | **Vie 23** | — | Meme → webinar (en su cuenta caben ya los ganchos contrarian, 20/10) | "Las 10" de Navarra → webinar |
+> | **Vie 23** | — | Historia/evento: ponente en Neety Forward → webinar (vuelve al viernes, 21/10) | "Las 10" de Navarra → webinar |
+>
+> **Extra fuera del cuadro, mié 21:** meme de Mario (chat POST MARIO 21 OCT MEME), el último del día.
 >
 > Peloteo del viernes: el 5º en 21 días (solo aviso). "Las 10" y no mapa, porque el mapa al blog no inscribió a nadie. Región: Navarra, libre para Asier. Gipuzkoa queda descartada: es la del "Los 10" que se borró tras la llamada del 16/09.
 

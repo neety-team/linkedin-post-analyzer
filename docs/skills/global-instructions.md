@@ -2289,7 +2289,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > 2. **El tipo 4 tiene 37 empresas y una segunda cara**, el olfato frente al método (7 de 7 ICP). Para la sesión del 28/10 es la promesa que mejor se cumple.
 > 3. **Prometer empresas NUEVAS es ya el segundo veto más grande.** Y en un nicho, *"Esa empresa ya la conocéis. Esta es la persona que compra ahí"* (`§4.4b-CADENA`) se convierte en el bloque de dos por defecto.
 > 4. **`IA` en la línea 2 cuenta ahora con 17 empresas en contra**, además del n=0 en clics del 13/10.
-> 5. **Las citas son material interno.** Salen de reuniones privadas: en un post o un correo, la escena se cuenta sin el nombre de la empresa ni de la persona y nunca palabra por palabra si se puede reconocer. Un cliente con nombre solo sale si ha dado permiso (`project-personas-clientes`).
+> 5. **Las citas son material interno.** Salen de reuniones privadas: en un post o un correo, la escena se cuenta sin el nombre de la empresa ni de la persona. 🔄 **Afinado por Iker el 21/10: la cita SÍ va palabra por palabra** (queda más real), lo que nunca va es quién la dijo ni el detalle que la delata (`post-workflow §4.6-CITA`). Un cliente con nombre solo sale si ha dado permiso (`project-personas-clientes`).
 >
 > **🧠 PARA LOS TEMAS, NO SOLO PARA EL NINJA** (escenas que el informe repite y aún no hemos contado; cada una es hipótesis hasta que un post la pruebe):
 > - **El comercial que lo hace todo solo:** *"yo soy el único comercial dentro de la empresa"* (Bianditz) · *"a nivel de prospección de reuniones, de cierres y todo, lo estoy realizando yo sola"* (Free Farma) · *"no tenemos 50 comerciales que vayan a exprimirla"* (Eremu). Encaja con historia y con meme.

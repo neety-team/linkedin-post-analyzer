@@ -286,6 +286,19 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Iker 21/10, meme del perro (repeticion de "Tu informe de ventas resucita clientes muertos" de Unai), leido de la BD.
+    '«decisor identificado» lo pone cualquier informe': '2026-10-21 meme de Iker 21/10 (el informe que resucita clientes, webinar, tipo 2), la linea 1 del ninja',
+    'decisor identificado» lo pone cualquier informe': '2026-10-21 meme de Iker 21/10, sin las comillas de apertura',
+    'quién firma de verdad, eso sí te lo contamos': '2026-10-21 meme de Iker 21/10, la linea 2 del ninja',
+    'quien firma de verdad, eso si te lo contamos': '2026-10-21 meme de Iker 21/10, sin tilde',
+    'el miércoles 28, evento gratuito por internet': '2026-10-21 meme de Iker 21/10, la linea de contexto del webinar',
+    'el miercoles 28, evento gratuito por internet': '2026-10-21 meme de Iker 21/10, sin tilde',
+    # Iker 20/10, historia de las avispas, leido de la BD el 21/10 (no se habia anotado al publicar).
+    'correr tras lo que se cuela en la lista se come meses': '2026-10-20 historia de Iker 20/10 (las avispas, webinar, tipo 1), la linea 1 del ninja',
+    'quién merece estar en esa lista, te lo enseñamos': '2026-10-20 historia de Iker 20/10, la linea 2 del ninja',
+    'quien merece estar en esa lista, te lo ensenamos': '2026-10-20 historia de Iker 20/10, sin tilde',
+    'el miércoles 28 lo arreglamos en directo, gratis': '2026-10-20 historia de Iker 20/10, la linea de contexto del webinar',
+    'el miercoles 28 lo arreglamos en directo, gratis': '2026-10-20 historia de Iker 20/10, sin tilde',
     'buscar a mano no le ahorra la semana a nadie': '2026-10-21 historia de Unai 21/10 (el jefe comercial que dedicaba 3 personas a buscar, webinar, tipo 4), la linea 1 del ninja',
     'esa semana sí te ayudamos a recuperarla': '2026-10-21 historia de Unai 21/10, la linea 2 del ninja',
     'esa semana si te ayudamos a recuperarla': '2026-10-21 historia de Unai 21/10, sin tilde',

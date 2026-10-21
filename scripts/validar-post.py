@@ -2022,6 +2022,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         f'"{_ult[:60]}" → una afirmacion corta que remate' if _ult.endswith('?') else '')
     chk(not _dp_medio, 'Sin dos puntos en medio de una frase (brand-voice §3)',
         f'{_dp_medio[:2]} → "es", un punto o una coma' if _dp_medio else '')
+    # 2026-10-21 (Iker): "si pongo un emoji, nunca pongo punto delante". El emoji
+    # cierra la frase y hace de punto: `Cierre previsto este trimestre 🚀`, nunca
+    # `trimestre. 🚀`. Se mira cualquier signo de cierre (. , ; :) justo antes de un
+    # emoji, sin contar los puntos suspensivos ni lo que va dentro de una URL.
+    _sin_url = re.sub(r'https?://\S+', '', texto)
+    _punto_emoji = [l.strip()[:60] for l in _sin_url.split('\n')
+                    if re.search(r'(?<!\.)[.,;:]\s*' + RE_EMOJI_TARJETA.pattern, l)]
+    chk(not _punto_emoji, 'Sin punto delante de un emoji: el emoji cierra la frase (brand-voice §3)',
+        f'{_punto_emoji[:2]} → quita el punto: "...trimestre 🚀"' if _punto_emoji else '')
     # 2026-08-20 — FAMILIA 7: DECIR EN PRIMERA PERSONA QUE HEMOS TRANSCRITO O
     # GRABADO UNA CONVERSACION. El meme del 19/08 se capó a 133 imp y el MISMO post
     # con las 3 conjugaciones de `transcribir` cambiadas por `apuntar` salió a la

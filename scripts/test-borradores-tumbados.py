@@ -264,6 +264,33 @@ CASOS += [
      'AGRADECIMIENTO: sin spam ninja', FLAGS + ['--agradecimiento']),
 ]
 
+# Meme de Iker del 21/10 (repeticion del perro de Unai), version tumbada: un punto delante
+# de cada emoji del cuerpo. Iker: "si pongo un emoji, nunca pongo punto delante".
+MEME_IKER_PUNTO_EMOJI = """Tu informe de ventas resucita hasta a los clientes muertos ✨
+
+3 correos y ni una respuesta. 📩
+
+El informe:
+"Cuenta en maduración, interés latente."
+
+Pero oye…
+
+Cierre previsto este trimestre. 🚀
+Con fecha y todo.
+A lápiz.
+
+El miércoles 28, evento gratuito y en directo por internet.
+
+«Decisor identificado» lo pone cualquier informe.
+Quién firma de verdad, eso sí te lo contamos: https://luma.com/7hhyx07z?utm_source=meme-informe-21oct-iker&utm_medium=post&utm_campaign=meme-informe-21oct&utm_content=iker
+
+Un cliente muerto no resucita. Se redacta."""
+CASOS += [
+    (MEME_IKER_PUNTO_EMOJI, '21/10: "si pongo un emoji, nunca pongo punto delante"',
+     'Sin punto delante de un emoji', ['--pilar', 'meme', '--cuenta', 'iker', '--comprador-ok',
+                                      '--ref-con-texto', '--referencia-fuera', '--double-down']),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

@@ -2556,6 +2556,26 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # "prefiero empezar con bloques de dos y no con uno de tres". El de tres es
     # el mas pesado que tenemos; si es el primero que aparece, el post arranca
     # cuesta arriba.
+    # ⛔ CADA LINEA DE UN BLOQUE DE 2 O DE 3 ES UNA ORACION CERRADA (Iker, 2026-10-21).
+    # "Nosotros nunca dividimos una oracion en 3 lineas como bloque de 3. Cada linea
+    # de un bloque de 3 tiene que cerrarse". El caso: la cita de un cliente partida
+    # en tres lineas para hacer el bloque de tres de la historia de Asier del 22/10.
+    # Se caza la oracion partida: una linea que acaba en coma o punto y coma, o una
+    # linea seguida de otra que arranca en minuscula (la misma frase sigue debajo).
+    _partidas = []
+    for _b in _bs[1:]:
+        if es_lista(_b) or not (2 <= len(_b) <= 3):
+            continue
+        for _i, _l in enumerate(_b):
+            _s = _l.strip()
+            if 'http' in _s:
+                continue
+            _sig = _b[_i + 1].strip() if _i + 1 < len(_b) else ''
+            if _s.endswith((',', ';')) or (_sig[:1].islower() and 'http' not in _sig):
+                _partidas.append(_s[:60])
+    chk(not _partidas, 'Cada linea de un bloque de 2 o 3 es una oracion cerrada (§3.2)',
+        'oracion partida en varias lineas del bloque: %s. Una cita larga va en UNA linea suelta, '
+        'nunca troceada para hacer bloque (Iker, 21/10)' % ' | '.join(_partidas) if _partidas else '')
     _multi = [len(b) for b in _bs if not es_lista(b) and len(b) > 1]
     if _multi:
         chk(_multi[0] == 2, 'El primer bloque multiple es de DOS, no de TRES (§3.2)',

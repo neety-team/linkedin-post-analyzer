@@ -2263,6 +2263,19 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'nunca es una persona ni un equipo, es la falta de informacion, la herramienta o el '
         'proceso. Y si se puede, que la frase incluya al que publica' % _rep.group(0)
         if _rep else '', aviso=True)
+    # LA CASA NO CONFIESA QUE SE LLEVA MAL (Mario, 2026-10-21). En su meme de ventas
+    # y marketing puse "Amigos no somos, pero las reuniones no las devuelven" y lo
+    # tumbo: "publicamente decir amigos no somos me juega la contra". La referencia
+    # solo lo pregunta y en el cuerpo dice lo contrario (que trabajan juntos). Dicho
+    # en nosotros, el lector lee que en Neety los equipos no se hablan. Fallo duro:
+    # la pregunta del gancho y "nunca se hacen amigos" con likes (una practica) pasan.
+    _malcasa = re.search(r'\b(no somos amigos|amigos no somos|no nos llevamos(?: nada)? bien|'
+                         r'nos llevamos (?:fatal|mal)|no nos hablamos|no nos entendemos|'
+                         r'no nos soportamos|somos enemigos)\b', cuerpo, re.I)
+    chk(not _malcasa, 'Sin confesar que en casa nos llevamos mal (brand-voice, no criticamos 1)',
+        '"%s": en nosotros se lee como que en Neety los equipos no se hablan. La tension '
+        'se pregunta (gancho) o se le cuelga a la situacion; en el cuerpo, lo que hacemos '
+        'juntos' % _malcasa.group(0) if _malcasa else '')
     # "ESE" DESPECTIVO PARA UNA PERSONA (Iker, 2026-10-14). En la historia de los
     # kilometros la cita decia "¿Mi jefe? Ese no recibe a comerciales": llamar
     # "ese" al que decide suena a desprecio, y el que decide es quien nos compra.

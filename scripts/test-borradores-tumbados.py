@@ -291,6 +291,14 @@ CASOS += [
                                       '--ref-con-texto', '--referencia-fuera', '--double-down']),
 ]
 
+# Meme de Mario del 21/10, v4: "Amigos no somos" en nosotros (Mario: "me juega la contra").
+MEME_MARIO_AMIGOS = 'Ventas y marketing, ¿amigos o enemigos íntimos? 😅\n\nEl meme dice una cosa. ¿Y la realidad?\n\nDesde marketing escribimos para que nos escriban.\nDesde ventas se quedan con cada reunión que les llega.\n\nAmigos no somos, pero las reuniones no las devuelven.\n\nUn like lo da cualquiera.\nUn seguidor lo suma cualquiera.\nUn cliente que encaja cuesta meses encontrarlo.\n\nCómo encontrarlo lo vemos en un evento por internet el miércoles 28, sin pagar.\n\nCon likes, ventas y marketing nunca se hacen amigos.\nCon clientes que encajan sí, te señalamos cuáles: https://luma.com/7hhyx07z?utm_source=meme-amigos-21oct-mario&utm_medium=post&utm_campaign=meme-amigos-21oct&utm_content=mario\n\nUn abrazo a ventas, a quien acudo cada vez que necesito algo 😂'
+CASOS += [
+    (MEME_MARIO_AMIGOS, '21/10: "publicamente decir amigos no somos me juega la contra"',
+     'Sin confesar que en casa nos llevamos mal', ['--pilar', 'meme', '--cuenta', 'mario', '--sin-menciones',
+                                                  '--referencia-fuera', '--ref-con-texto', '--comprador-ok']),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

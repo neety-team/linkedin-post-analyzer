@@ -3322,16 +3322,26 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                          % _esc.group(0)) if _esc else '')
                     _prev = ' '.join(bs[i - 1]).lower() if i > 0 else ''
                     _f = re.search(r'\b28\b|mi[eé]rcoles', _prev)
-                    _on = re.search(r'online|en directo|desde (tu|el|la|casa)|pantalla|videollamada', _prev)
+                    _on = re.search(r'online|en directo|por internet|desde (tu|el|la|casa)|pantalla|videollamada', _prev)
                     _gr = re.search(r'gratis|gratuit|sin pagar|no cuesta', _prev)
+                    # 🎟️ QUE ES UN EVENTO, CON SU PALABRA (Mario, 2026-10-21): "decir una
+                    # videollamada se ve como mas pobre que decir un evento"; los ninjas del
+                    # presencial decian "evento presencial" y los del webinar ("sesion",
+                    # "charla", "directo") no dejaban claro que es. Webinar = evento por
+                    # internet; la palabra "webinar" sigue fuera (no la conoce todo el mundo).
+                    _ev = re.search(r'(?<![a-záéíóú])(evento|seminario|conferencia)', _prev)
                     _falta = [n for n, v in (('la fecha (miercoles 28)', _f), ('que es online', _on),
-                                             ('que es gratis', _gr)) if not v]
+                                             ('que es gratis', _gr), ('que es un EVENTO, dicho con la palabra', _ev)) if not v]
                     chk(not _falta,
                         'WEBINAR: la linea de ENCIMA dice cuando, que es online y que es gratis (§4.4b-WEBINAR)',
                         ('falta %s en la linea individual que va justo encima del bloque del '
                          'enlace. El webinar es NUEVO: antes de pedir el clic se dice que el '
                          'miercoles 28 hay una sesion online y gratis. Linea de encima: "%s"'
                          % (' y '.join(_falta), _prev[:90])) if _falta else 'linea de contexto puesta')
+                    chk(not re.search(r'videollamada', _prev),
+                        'WEBINAR: la linea de encima no lo vende como "videollamada" (Mario, 21/10)',
+                        'se lee mas pobre que un evento: "evento en directo por internet"' if re.search(r'videollamada', _prev) else '',
+                        aviso=True)
                     _web = re.search(r'webinar', _prev + ' ' + _blo)
                     chk(not _web, 'WEBINAR: sin la palabra webinar en el ninja (§4.4b-WEBINAR, brand-voice §2.3)',
                         'anglicismo que encoge la audiencia: "sesion online", "charla online" '

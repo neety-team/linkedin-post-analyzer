@@ -1460,7 +1460,7 @@ CRITERIO = [
     ('bucle', 'Tapa todo menos el gancho (y la imagen o el video): ¿que pregunta deja abierta y en que linea del ultimo tercio se contesta? (global §2.0 y §2.0-PAGO)'),
     ('explicito', '¿Que daria por sabido alguien que no nos conoce? Cada nombre propio nuestro con su categoria, cada cifra con su sustantivo (global §2.5b-EXPLICITO)'),
     ('verdad', '¿Todo lo afirmado sale de la fuente (video, BD, cliente, informe), sin cuando, cifra ni frase puesta por nosotros? (CLAUDE.md, post-workflow §4.6)'),
-    ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje? (global §2.0c)'),
+    ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje? ¿Y la foto NO huele a evento ni a venta (escenario, ponente, photocall, acreditaciones, carpeta del evento) y se le ve la CARA al que publica? (global §2.0c, post-workflow §4.6-FOTO-VENTA)'),
     ('ninja', 'Tapa el post: ¿la linea 1 dice que falta, la 2 lo cubre, y el destino cumple la promesa? ¿Va despues del valor? (global §4.4b)'),
     # Iker, 15/10: la tarjeta de Asier juzgaba al cliente que paga poco y nadie lo vio,
     # porque la regla solo existia en el meme y en Unai. El lexico de main() caza lo

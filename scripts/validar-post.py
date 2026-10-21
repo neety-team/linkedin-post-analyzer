@@ -286,6 +286,11 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    'buscar a mano no le ahorra la semana a nadie': '2026-10-21 historia de Unai 21/10 (el jefe comercial que dedicaba 3 personas a buscar, webinar, tipo 4), la linea 1 del ninja',
+    'esa semana sí te ayudamos a recuperarla': '2026-10-21 historia de Unai 21/10, la linea 2 del ninja',
+    'esa semana si te ayudamos a recuperarla': '2026-10-21 historia de Unai 21/10, sin tilde',
+    'de esto va el evento del miércoles 28': '2026-10-21 historia de Unai 21/10, la linea de contexto del webinar (1a con la palabra evento)',
+    'de esto va el evento del miercoles 28': '2026-10-21 historia de Unai 21/10, sin tilde',
     'un filtro no le dice al comercial quién firma dentro': '2026-10-15 historia-video de Unai 15/10 (entrevista de Telmo, webinar, tipo 2), la linea 1 del ninja',
     'un filtro no le dice al comercial quien firma dentro': '2026-10-15 historia-video de Unai 15/10, sin tilde',
     'ese nombre de dentro sí te lo enseñamos': '2026-10-15 historia-video de Unai 15/10, la linea 2 del ninja',

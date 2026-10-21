@@ -3354,7 +3354,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                          % (' y '.join(_falta), _prev[:90])) if _falta else 'linea de contexto puesta')
                     chk(not re.search(r'videollamada', _prev),
                         'WEBINAR: la linea de encima no lo vende como "videollamada" (Mario, 21/10)',
-                        'se lee mas pobre que un evento: "evento en directo por internet"' if re.search(r'videollamada', _prev) else '',
+                        'se lee mas pobre que un evento: "evento gratuito por internet" (Iker 21/10: "en directo por internet" suena raro)' if re.search(r'videollamada', _prev) else '',
                         aviso=True)
                     _web = re.search(r'webinar', _prev + ' ' + _blo)
                     chk(not _web, 'WEBINAR: sin la palabra webinar en el ninja (§4.4b-WEBINAR, brand-voice §2.3)',

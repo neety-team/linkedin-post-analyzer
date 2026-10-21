@@ -2663,6 +2663,25 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # 10.409 y 8.654 en historia, 9.328 en historia/evento) y los 3 con racha 4
         # son de los peores (4.511, y 2.568 de mediana en historia/evento). En meme
         # hay 2 con racha 5 (calcan su referencia), asi que fuera de historia es aviso.
+        # ⛔ RITMO VISUAL (Iker, 2026-10-21). El patron cuenta las lineas que YO escribo;
+        # el lector ve las que PINTA LinkedIn (~78 caracteres por linea en escritorio,
+        # medido por Mario el 02/10). Una cita de 185 caracteres "suelta" se ve como un
+        # bloque de tres, y en la historia de Asier del 22/10 quedo pegada a un bloque
+        # de dos y a uno de tres: "tiene muy pocas lineas individuales… te estas
+        # confundiendo con lo de las lineas". Cada bloque se mide en lineas pintadas
+        # (la URL cuenta 25, como la acorta LinkedIn) y dos bloques visuales de 2+ no
+        # pueden ir seguidos. Sin el gancho, que tiene su propia medida.
+        _vis = [sum(-(-len(re.sub(r'https?://\S+', 'x' * 25, _l.strip())) // 78) or 1 for _l in _b)
+                for _b in _bls_r[1:]]
+        _pegados = [i for i in range(len(_vis) - 1) if _vis[i] > 1 and _vis[i + 1] > 1]
+        chk(not _pegados, 'RITMO VISUAL: una linea larga se ve como bloque, y nunca pegada a otro (§3.2)',
+            ('como lo pinta LinkedIn: %s. Una linea de mas de ~80 caracteres ocupa varias en '
+             'pantalla y se lee como un bloque; entre bloque y bloque tiene que verse una linea '
+             'suelta. Acorta la linea larga o separala (Iker, 21/10)' % '-'.join(map(str, _vis)))
+            if _pegados else '', aviso=(pilar != 'historia'))
+        # Duro solo en historia, donde lo pidio Iker y donde el cuerpo es prosa pura. En el
+        # resto es aviso: tres ganadores viejos (la caja de herramientas, "Los 10" del Pais
+        # Vasco y "comiendose noes") llevan lineas largas pegadas a bloques (test-validador).
         _racha = _r = 0
         for _n in _pat[1:]:
             _r = _r + 1 if _n == 1 else 0

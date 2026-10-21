@@ -295,6 +295,9 @@ CASOS += [
 # Historia de Asier del 22/10, v5: la cita del cliente partida en tres lineas para hacer el bloque de tres.
 HISTORIA_ASIER_CITA_PARTIDA = 'Le pregunté a un comercial que nunca falla a quién llamaba primero y se tocó la nariz 😏\n\nSu jefe me lo presentó para programar lo que hace.\n\nLleva 25 años eligiendo así.\nY ni una vez ha apuntado por qué.\n\nEl jefe me lo soltó bajito al despedirnos.\n\n"El acercamiento que tenemos a clientes es mucho de olfato,\nbasado en la persona que tenemos en cada uno de los sitios\ny para mí eso es muy peligroso."\n\nEsa nariz se va con él el día que cambie de empresa.\n\nMuchos equipos que conozco eligen a quién llamar a olfato.\n\nEl miércoles 28 te contamos otra forma en un evento gratis por internet.\n\nUna nariz como esa ni se hereda ni se programa.\nA elegir empresas sin ella sí te enseñamos: https://luma.com/7hhyx07z?utm_source=historia-olfato-22oct-asier&utm_medium=post&utm_campaign=historia-olfato-22oct&utm_content=asier\n\nLa mejor nariz de la empresa también se va de vacaciones.'
 
+# Historia de Asier del 22/10, v6: la cita entera (185 car) en una linea 'suelta' que LinkedIn pinta como bloque de 3.
+HISTORIA_ASIER_CITA_LARGA = 'Le pregunté a un comercial que nunca falla a quién llamaba primero y se tocó la nariz 😏\n\nSu jefe me lo presentó para programar lo que hace.\n\nLleva 25 años eligiendo así.\nY acierta más que nadie en la empresa.\n\n"El acercamiento que tenemos a clientes es mucho de olfato, basado en la persona que tenemos en cada uno de los sitios y para mí eso es muy peligroso", me soltó el jefe al despedirnos.\n\nNada de eso está apuntado.\nEn muchos equipos que conozco pasa igual.\nY si el que elige se va, la nariz se va con él.\n\nEl miércoles 28 te contamos otra forma en un evento gratis por internet.\n\nUna nariz como esa ni se hereda ni se programa.\nA elegir empresas sin ella sí te enseñamos: https://luma.com/7hhyx07z?utm_source=historia-olfato-22oct-asier&utm_medium=post&utm_campaign=historia-olfato-22oct&utm_content=asier\n\nLa mejor nariz de la empresa también se va de vacaciones.'
+
 MEME_MARIO_AMIGOS = 'Ventas y marketing, ¿amigos o enemigos íntimos? 😅\n\nEl meme dice una cosa. ¿Y la realidad?\n\nDesde marketing escribimos para que nos escriban.\nDesde ventas se quedan con cada reunión que les llega.\n\nAmigos no somos, pero las reuniones no las devuelven.\n\nUn like lo da cualquiera.\nUn seguidor lo suma cualquiera.\nUn cliente que encaja cuesta meses encontrarlo.\n\nCómo encontrarlo lo vemos en un evento por internet el miércoles 28, sin pagar.\n\nCon likes, ventas y marketing nunca se hacen amigos.\nCon clientes que encajan sí, te señalamos cuáles: https://luma.com/7hhyx07z?utm_source=meme-amigos-21oct-mario&utm_medium=post&utm_campaign=meme-amigos-21oct&utm_content=mario\n\nUn abrazo a ventas, a quien acudo cada vez que necesito algo 😂'
 CASOS += [
     (MEME_MARIO_AMIGOS, '21/10: "publicamente decir amigos no somos me juega la contra"',
@@ -302,6 +305,8 @@ CASOS += [
                                                   '--referencia-fuera', '--ref-con-texto', '--comprador-ok']),
     (HISTORIA_ASIER_CITA_PARTIDA, '21/10: "nosotros nunca dividimos una oracion en 3 lineas como bloque de 3"',
      'oracion cerrada', ['--pilar', 'historia', '--cuenta', 'asier', '--publica-manana']),
+    (HISTORIA_ASIER_CITA_LARGA, '21/10: "en la preview se me divide… es como si fuese un bloque, tiene muy pocas lineas individuales"',
+     'RITMO VISUAL', ['--pilar', 'historia', '--cuenta', 'asier', '--publica-manana']),
 ]
 
 def main() -> int:

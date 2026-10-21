@@ -2819,7 +2819,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'y su metrica (risas absolutas, reposts, encaje de carril); en los pilares sin '
         'referencia, por que ESTA region, sector o angulo; (2) que me llevo intacto y en '
         'que lo he mejorado, las dos cosas juntas; (3) que esta VALIDADO en datos de que '
-        'reparte, con el numero medido, y pegada al final la razon para que NO funcione, '
+        'reparte, con el numero medido, LA METRICA QUE VA A DISPARAR LAS IMPRESIONES (el '
+        'motor de su pilar: historia = comentarios de debate + likes, meme = risa, peloteo '
+        '= guardados y envios, lead magnet = comentarios u hoy guardados; outliers-database '
+        '4.0b-MOTOR) con la vara del OUTLIER propio del pilar, y pegada al final la razon para que NO funcione, '
         'que no ocupa bullet propio. Cada bullet lleva su cifra dentro: uno sin cifra es '
         'una opinion (working-preferences §1e-PREDICCION)', aviso=True)
 

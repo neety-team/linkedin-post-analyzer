@@ -512,6 +512,8 @@ Esto es la vista que pidió el 2026-07-22, tras rechazar dos intentos: uno "supe
 1. **Por qué ESA referencia** y no otra, **con las descartadas dentro del mismo bullet**: qué la separa, con su métrica (risas absolutas, reposts, encaje de carril).
 2. **Qué me llevo intacto y en qué lo he mejorado**, las dos cosas en el mismo bullet.
 3. **Qué está VALIDADO en datos** de que reparte —las reglas que cumple con su número medido, no las que cumple "porque lo dice la receta"— **y, pegada al final, la razón para que NO funcione.**
+   - **⛔ Y SIEMPRE LA MÉTRICA QUE VA A DISPARAR LAS IMPRESIONES (Mario, 2026-10-21):** el motor de su pilar (`outliers-database §4.0b-MOTOR`: historia = comentarios de debate + likes · meme = risa · peloteo = guardados y envíos · lead magnet = comentarios, y hoy guardados), con qué pieza del post se provoca y la vara del outlier de ese pilar en esa cuenta (p. ej. *"apunta a comentarios: 23 hizo el 02/10, la mediana del pilar es 10"*).
+   - **Y la referencia de la predicción es el OUTLIER propio del pilar** (`global §0-DATOS`): primero el de esa cuenta, luego el de las otras cuentas, luego los de ventas de fuera.
 
 **⚠️ La razón en contra NO ocupa bullet propio: va rematando el tercero.** La sección se llama predicción, no argumentario: una que solo diga cosas buenas no sirve para detectar que me he equivocado, que es justo para lo que la pidió. Pero tampoco se lleva un bullet de los tres.
 

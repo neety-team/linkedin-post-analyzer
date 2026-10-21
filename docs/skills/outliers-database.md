@@ -350,6 +350,22 @@ Es el paso que más se falla y el que convierte el robo en algo original. Robar 
 
 > **Lo más accionable:** en las DOS cuentas con histórico, **`curiosity_gap` es el hook con mejor ratio** (Iker 2.27x, Unai 3.15x) — por encima de bold_claim. Y las estructuras `content_with_cta` y `contrarian_proof_reframe` rinden alto en ambas. El martes por la mañana (9:00-11:00) es el pico claro.
 
+### 🎯🎯 4.0b-MOTOR · QUÉ MÉTRICA DISPARA LAS IMPRESIONES EN CADA PILAR, MEDIDA EN NUESTROS OUTLIERS (Mario, 2026-10-21) — MANDA SOBRE LA TABLA DE 4.0b
+> **Mario:** *"nos falta por afinar cada pilar qué provoca exactamente, por lo que luego tiene un impacto en las impresiones"*. Y el método: *"nuestra estrategia está basada en outliers… ahora tenemos nuestros propios outliers y los priorizamos"*. **Se mide comparando el OUTLIER de cada pilar contra la mediana de ese pilar**, no la media de todos: los posts normales tienen casi siempre el mismo suelo de interacción (el nuestro, la capa manual), y lo que enseña es en qué métrica se sale el outlier.
+>
+> **BD, 21/10, 3 cuentas desde el 01/07, posts de +500 impresiones. `xN` = el post contra la mediana de su pilar:**
+>
+> | pilar (n) | el outlier | impresiones | la métrica que se sale | la que NO se mueve | MOTOR |
+> |---|---|---|---|---|---|
+> | **historia** (16) | Unai 02/10, `Nunca vi sonar tanto el teléfono…` | x4,8 | **comentarios x2,3** (23 contra 10; el resto de historias, x1,0) · likes x2,0 | guardados x1,2 · envíos x1,1 · reposts x1,2 | **COMENTARIOS de debate** (de fuera del equipo: 8, 3 rebatiendo) **+ likes de identificación** |
+> | **meme** (25) | Iker 01/09 · Unai 15/07 · Unai 06/08 | x9,8 · x8,3 · x5,8 | **likes x9,6 · x4,4 · x18,7** (la risa: 34% `ENTERTAINMENT`, `§3.10`) · guardados x5,4 · x4,0 · x8,6 | — | **REACCIÓN DE RISA** |
+> | **peloteo** (21) | Unai 16/10 C. Valenciana · Unai 07/07 Álava | x9,7 · x2,4 | **guardados x5,3 · x3,2 · envíos x3,6 · x3,2** (por encima de los likes, x3,2 · x2,7) | reposts x1,2 · x1,7 | **GUARDADOS y ENVÍOS** (me lo guardo / se lo mando a alguien de mi región) |
+> | **lead magnet** (12) | Iker 22/07 la lista · 24/07 · 28/07 | x4,3 · x2,1 · x1,6 | **guardados x2,4 · x2,4 · x3,2** | comentarios x1,3 · x1,8 · x1,2 | **COMENTARIOS cuando el CTA funcionaba** (632 · 483 en mayo); desde que `Comenta "X"` dejó de funcionar (05/08), los que se salen lo hacen por **GUARDADOS** |
+>
+> - **Cómo se usa:** al escribir un post se decide QUÉ métrica de su pilar se va a provocar y con qué pieza (en historia, la práctica discutible del gancho y una línea que deje sitio a las dos posturas; en peloteo, la lista que dan ganas de guardar y la región que se manda a alguien; en meme, que el chiste haga reír al que paga). Y va en la predicción de viralidad (`working-preferences §1e-PREDICCION`).
+> - **⚠️ Lo que no dice:** es correlación sobre pocos outliers (en historia, n=1). Las métricas también son consecuencia del alcance. Lo que sí es limpio es lo que NO sube en el outlier: en historia, guardados y envíos no se mueven, así que no son su motor.
+> - **Se rehace en cada revisión del lunes** con los outliers nuevos de cada pilar.
+
 ### 4.0b · La FIRMA DE ENGAGEMENT de cada pilar (BD en vivo, 2026-07-14 — los 23 outliers)
 > Hallazgo nuevo al revisar los 23 outliers uno a uno. **Cada pilar gana en una métrica distinta.** Sirve para dos cosas: saber si un post está funcionando en las primeras horas, y no juzgar un pilar con la métrica de otro.
 

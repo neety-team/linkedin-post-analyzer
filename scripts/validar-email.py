@@ -17,7 +17,9 @@ Formato esperado del fichero:
     (cuerpo)
 
 Uso:
-    python scripts/validar-email.py <fichero.txt>
+    python scripts/validar-email.py <fichero.txt> [--antes <version anterior.txt>]
+    (--antes: retoque pedido sobre una version ya validada; sale ❌ si abre un fallo o un aviso
+    que la anterior no tenia, working-preferences §1d-BIS)
 
 Salida: tabla de checks + "N/M". Exit 1 si hay violaciones.
 """
@@ -785,6 +787,24 @@ def main():
         checks.append(ok('Firma con el nombre del remitente'))
     else:
         checks.append(fallo('No se ve la firma humana con el nombre del remitente al final'))
+
+    # ⛔ RETOQUE (Iker, 2026-10-22, working-preferences §1d-BIS): el retoque se queda y lo
+    # que rompa se arregla; si no hay forma, el retoque se rechaza. Se compara con la version
+    # anterior por el texto de cada aviso/fallo sin cifras (las cifras cambian al retocar).
+    if '--antes' in sys.argv:
+        _ant = sys.argv[sys.argv.index('--antes') + 1]
+        import subprocess
+        _o = subprocess.run([sys.executable, os.path.abspath(__file__), _ant], capture_output=True,
+                            text=True, encoding='utf-8', errors='replace').stdout or ''
+        _norm = lambda m: re.sub(r'\d+([.,]\d+)?', '#', m).strip()
+        _antes = {_norm(l[1:]) for l in _o.splitlines() if l[:1] in ('❌', '⚠')}
+        _nuevos = [m for s, m in checks if s in ('❌', '⚠️') and _norm(m) not in _antes]
+        if _nuevos:
+            checks.insert(0, fallo('RETOQUE: abre lo que la version anterior no tenia: ' +
+                                   ' | '.join(x[:80] for x in _nuevos) +
+                                   '. Se queda el retoque y se arregla esto; si no hay forma, el retoque se rechaza'))
+        else:
+            checks.insert(0, ok('RETOQUE: no abre fallos ni avisos nuevos contra la version anterior'))
 
     # --- salida ---
     fallos = sum(1 for s, _ in checks if s == '❌')

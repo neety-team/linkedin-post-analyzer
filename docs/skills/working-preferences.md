@@ -266,8 +266,10 @@ Cada vez que Iker corrija algo del gancho o del cuerpo, la primera pregunta es *
 
 **⛔ CUANDO IKER PIDE UN RETOQUE, EL RETOQUE SE QUEDA Y LO QUE ROMPA SE ARREGLA ANTES DE CONTESTAR (Iker, 2026-10-22).** *"Si un retoque que está hecho para mejorar incumple algo de tu validador, tienes que ver la manera de incluir igualmente el retoque y aún así corregir lo que se ha incumplido… no me vuelvas a hablar hasta que corrijas"*. El caso: en la historia de Asier del 22/10 cambié la línea del enlace para "exprimir el CTR", perdí la unión con la línea 1, el validador lo avisó y yo lo descarté y lo presenté como mejora.
 - **Se valida con `--antes <version anterior>`**: sale FALLA si el retoque abre cualquier fallo o aviso que la versión anterior no tenía.
-- **No se elige entre el retoque y la regla:** se busca la forma que tenga las dos cosas. Solo si es imposible se dice, con las dos opciones delante.
+- **No se elige entre el retoque y la regla:** se busca la forma que tenga las dos cosas.
+- **⛔ Y si no hay ninguna forma, el retoque se RECHAZA (Iker, 22/10):** *"el validador va por delante de todo, y el validador está todo en función a nuestros datos"*. Se dice qué check lo tumba y el dato o la regla que hay detrás. Si Iker quiere probarlo igualmente, va como A/B declarado (`post-workflow §9b`), nunca colado como mejora.
 - **No se contesta hasta que esté limpio**, y nunca se vende como mejora algo que el validador marca.
+- **Vale para todo lo que se valida:** posts de cualquier pilar (`validar-post.py --antes`) y correos (`validar-email.py <fichero> --antes <anterior>`).
 
 **Y si la version que tengo no es la mejor que puedo dar, NO se entrega.** Iterar cuesta minutos; que Iker corrija una entrega mala cuesta su tiempo, que es lo caro.
 

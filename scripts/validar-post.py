@@ -700,6 +700,10 @@ DOUBLE_DOWN = False
 # solo en Unai, y ventas baja al CUERPO, como en Mario y Helena. No es el default: §2.3
 # sigue mandando, y cada uso se declara en la entrega y se mide en el historial.
 ANCLA_DIRECCION = False
+# EVENTO AJENO (Mario, 2026-10-22, San Francisco de Unai): anuncio de un programa o evento
+# que NO es nuestro y no tiene inscripcion (Desafia San Francisco). No lleva Luma ni ninja de
+# agendar; si hay puerta, va sin enlace (el cafe). Solo con --pilar evento --evento-ajeno.
+EVENTO_AJENO = False
 DIRECCION_ANCLA = (r'\b(inversi[oó]n\w*|invers\w+|inversor\w*|validar|valid\w+|mercados?'
                    r'|startups?|fundador\w*|capital|rondas?|emprend\w+)\b')
 
@@ -3026,7 +3030,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # manda hacer §4.6-SERIE. Mismo patron que el bug del 2026-08-12 documentado
     # aqui abajo: un bloque que se saca del `if` y se deja atras una variable suya.
     _es_evento = ('luma.com' in cuerpo or 'forward.neety.com' in cuerpo)
-    if pilar in ('mapa', 'los10', 'meme', 'evento'):
+    if pilar in ('mapa', 'los10', 'meme', 'evento') and not (pilar == 'evento' and EVENTO_AJENO):
         chk(tiene_link, 'Spam ninja presente (§4.4b)', 'falta el link de agendar' if not tiene_link else '')
         # ⛔ 2026-08-06, Iker: este check decia "falta el link de agendar" pero se
         # conformaba con CUALQUIER url de recursos.neety.com, asi que me colo un
@@ -4305,7 +4309,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'visto bueno. Una mencion en un post de evento les asocia al acto, y eso '
             'no es informacion publica como en un mapa. El 05/08 hubo que borrar un '
             'post ya publicado por saltarse esto', aviso=True)
-        chk('luma.com/ujffj66o' in texto or 'forward.neety.com' in texto,
+        chk(EVENTO_AJENO or 'luma.com/ujffj66o' in texto or 'forward.neety.com' in texto,
             'EVENTO: lleva el enlace de inscripción (§4.4b)',
             'falta https://luma.com/ujffj66o, o https://forward.neety.com/ que redirige '
             'a ese mismo evento conservando la query. Un post de evento sin el enlace '
@@ -5537,6 +5541,10 @@ def main():
                     help='EXCEPCION, solo cuenta de UNAI (Mario, 2026-10-22): el gancho ancla a '
                          'inversion o validacion de mercado (su segundo carril) en vez de a ventas, '
                          'y ventas baja al cuerpo. Solo si la entrega lo declara.')
+    ap.add_argument('--evento-ajeno', action='store_true', dest='evento_ajeno',
+                    help='Con --pilar evento: anuncio de un programa o evento que NO es nuestro y no '
+                         'tiene inscripcion (Desafia San Francisco, 22/10). No exige Luma ni spam ninja. '
+                         'Solo si la entrega lo declara.')
     ap.add_argument('--foto-grupo', action='store_true', dest='foto_grupo',
                     help='HISTORIA con FOTO DE GRUPO del equipo (Iker, 2026-09-30): acepta el '
                          'gancho en 1a PLURAL (nos, nuestro) como personal. Prueba con n=1 (Unai '
@@ -5578,6 +5586,8 @@ def main():
     DOUBLE_DOWN = a.double_down
     global ANCLA_DIRECCION
     ANCLA_DIRECCION = a.ancla_direccion
+    global EVENTO_AJENO
+    EVENTO_AJENO = a.evento_ajeno
     texto = io.open(a.fichero, encoding='utf-8').read()
     card = io.open(a.tarjeta, encoding='utf-8').read() if a.tarjeta else None
     res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico, a.publica_manana)

@@ -95,6 +95,16 @@ Aplica al **MAPA y a "LOS 10" por igual**. Una región se puede repetir. **Una e
 | **Imagen** | PamPam (la captura la hace Iker) | orla de LOGOS (**la monta el script**) | llanta (**la monta el script**) |
 | **Todo lo demás** | ⬇️ tronco común | ⬇️ tronco común | ⬇️ tronco común |
 
+**0 · 🧵 EL NINJA DEL PELOTEO RECOGE LA METÁFORA DEL GANCHO (Iker, 22/10) — sobre todo cuando el enlace va directo a una sesión o a una demo y no al mapa.** El enlace al mapa se pincha solo porque la gente quiere ver el mapa; el enlace a Luma o a la demo hay que ganárselo. Mismo principio que el hilo conductor de la historia (memoria feedback_historia_hilo_conductor). Datos de `auditar-ninjas.py`, CTR del enlace:
+- **Recoge la METÁFORA del gancho:** Álava (Iker 22/09, "la nevera del norte" → `Saber quién llena la nevera no te presenta a nadie.`), **0,166%** directo a Luma y 3 inscritos.
+- **Recoge un CLICHÉ de la lista:** La Rioja (`Del vino sabe todo el mundo…`) 0,076% y Castilla-La Mancha (`Al repostar no se ve…`) 0,050%, los dos a la demo.
+- **No recoge nada:** Aragón (Iker 16/10, "la sala de calderas del Pirineo" → `La puerta de cada empresa…`), **0,034%** directo a Luma.
+Con n=1-2 por grupo es una dirección, no una regla medida. Lo que se pide:
+1. La metáfora del gancho (la nevera, el porche, la sala de calderas) vuelve en la línea 1 del ninja.
+2. Antes del ninja va una línea puente que une el orgullo de la región con el dolor del lector, dentro de la misma imagen: las empresas que encajan con lo que vende el lector no salen en ningún mapa ni filtro.
+3. El cierre, si puede, vuelve a la metáfora.
+Se dice en la entrega a qué parte del gancho recoge el ninja. **Se medirá con el mapa de Bizkaia de Iker del 22/10**, el primero escrito así.
+
 **1 · LA VENTANA ANTES QUE LA REGIÓN.** Se cuentan los peloteos de las 3 cuentas en los 21 días previos: mediana **39.310** con 0-3, **16.726** con 4-5 y **2.360** con 6-7 (22 peloteos, medido el 2026-09-15). Con 4 o más se avisa; con 6 o más se mueve el post. Detalle en `§4.7` Paso 0.
 
 **2 · EL GANCHO LO ENTIENDE CUALQUIERA** (Iker, 2026-09-16). Concepto, clichés y sitio, en palabras que conoce toda España. **Lo de allí baja al cuerpo.** El caso: `el garaje de la ría` → `el garaje del norte`. Iker: *"el concepto de garaje me encanta… pero el de la ría no creo que lo entienda cualquier persona"*. Mecanizado como fallo duro en los tres pilares (`GANCHO: sin vocabulario ni grafia LOCAL`). **⛔ Y NINGÚN SITIO NI GENTILICIO DE LA REGIÓN (Iker, 2026-10-16).** Al cambiar los clichés de Aragón metí `jamón de Teruel`, y Teruel es una provincia: *"ya sabemos que es Aragón… cuidadísimo, que casi me la lías"*. Los clichés INSINÚAN (el Pilar, la txistorra); un topónimo o un gentilicio (`Teruel`, `Bilbao`, `maño`, `baturro`) NOMBRA la región y mata el bucle abierto antes del reveal. El cliché del gancho es siempre una COSA (comida, fiesta, objeto), nunca un lugar. Fallo duro en `validar-post.py` (`GANCHO: sin topónimos ni gentilicios de la region`, lista `REGION_TOPONIMOS`). ⚠️ No es un veto a la grafía `tx`: `txistorra` va en el gancho de Navarra (79.224) y se entiende en toda España. La primera versión del check lo tumbaba.

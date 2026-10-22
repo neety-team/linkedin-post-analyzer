@@ -1654,7 +1654,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'el gancho va en NOSOTROS y lleva "%s": ¿se puede leer que el dolor es nuestro? Caso 22/10: '
         '"Vamos a cruzar medio mundo a ver si alli tambien se vende a pico y pala" se leyo como que '
         'vendemos a pico y pala. El que sufre el dolor se nombra y es otro: "a ver si los comerciales '
-        'de alli buscan clientes a pico y pala"' % (_pega.group(0) if _pega else ''),
+        'de alli buscan clientes a pico y pala"' % _pega.group(0) if (_nos_hook and _pega) else '',
         aviso=True)
     # brand-voice §2c familia 3 (DELITO): en el GANCHO cero familias de riesgo.
     # Caso 30/09 (historia de Iker): "Nos entraron a robar..." + 10 etiquetas en

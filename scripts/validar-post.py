@@ -694,6 +694,14 @@ REGION_TOPONIMOS = {
     'canarias': ['canari', 'tenerife', 'lanzarote', 'fuerteventura'],
 }
 DOUBLE_DOWN = False
+# EXCEPCION DECLARADA (Mario, 2026-10-22, San Francisco de Unai): en la cuenta de UNAI el
+# gancho puede anclar a su SEGUNDO carril (direccion: inversion, validar un mercado,
+# fundadores, startups; aboutme 2-CARRIL) en vez de a ventas. Solo con --ancla-direccion,
+# solo en Unai, y ventas baja al CUERPO, como en Mario y Helena. No es el default: §2.3
+# sigue mandando, y cada uso se declara en la entrega y se mide en el historial.
+ANCLA_DIRECCION = False
+DIRECCION_ANCLA = (r'\b(inversi[oó]n\w*|invers\w+|inversor\w*|validar|valid\w+|mercados?'
+                   r'|startups?|fundador\w*|capital|rondas?|emprend\w+)\b')
 
 # §4.5.0a — MOLDE B del lead magnet: Claude (o yo) + VERBO PUNCHY + resultado.
 # Sacado de los cinco lead magnets NUESTROS con mas comentarios, no de memoria.
@@ -2031,6 +2039,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 '(cliente, cuenta, soporte, seguimiento) y la vinculacion con ventas baja al CUERPO'
                 if not _cs else f'ancla de su oficio: "{_cs.group(0)}" - y la vinculacion con VENTAS '
                 f'tiene que estar en el CUERPO (aboutme 2)')
+    elif ANCLA_DIRECCION:
+        _es_unai = (cuenta or '').strip().lower() == 'unai'
+        _dr = re.search(DIRECCION_ANCLA, hook_txt, re.I)
+        chk(_es_unai and bool(_dr), 'Hook anclado a DIRECCION (excepcion declarada, solo Unai, aboutme 2-CARRIL)',
+            ('--ancla-direccion solo vale en la cuenta de Unai' if not _es_unai else
+             'el gancho no lleva nada de inversion, validar un mercado, fundadores ni startups')
+            if not (_es_unai and _dr) else f'ancla de direccion: "{_dr.group(0)}". EXCEPCION: se '
+            f'declara en la entrega y la vinculacion con VENTAS va en el CUERPO (§2.3 sigue siendo el default)')
+        _vt = re.search(ANCLA_VENTAS, cuerpo, re.I)
+        chk(bool(_vt), 'El CUERPO lleva la vinculacion con VENTAS (excepcion de direccion, §2.3)',
+            f'ancla de ventas en el cuerpo: "{_vt.group(0)}"' if _vt else
+            'el gancho va de inversion o validacion, asi que el cuerpo tiene que atarlo a vender')
     elif not generico:
         chk(bool(fuerte or ambigua), 'Hook anclado a VENTAS (§2.3)', detalle)
     m = re.search(VERBO_FLOJO, hook_txt, re.I)
@@ -5500,6 +5520,10 @@ def main():
                     help='PELOTEO que repite A PROPOSITO cliches del gancho anterior de la region o un '
                          'pais ya usado por la cuenta (Iker, 2026-10-15: "double down es otra estrategia '
                          'muy inteligente, pero que tenga cabeza"). Solo si la entrega lo declara.')
+    ap.add_argument('--ancla-direccion', action='store_true', dest='ancla_direccion',
+                    help='EXCEPCION, solo cuenta de UNAI (Mario, 2026-10-22): el gancho ancla a '
+                         'inversion o validacion de mercado (su segundo carril) en vez de a ventas, '
+                         'y ventas baja al cuerpo. Solo si la entrega lo declara.')
     ap.add_argument('--foto-grupo', action='store_true', dest='foto_grupo',
                     help='HISTORIA con FOTO DE GRUPO del equipo (Iker, 2026-09-30): acepta el '
                          'gancho en 1a PLURAL (nos, nuestro) como personal. Prueba con n=1 (Unai '
@@ -5539,6 +5563,8 @@ def main():
     HISTORIA_EVENTO = a.historia_evento
     global DOUBLE_DOWN
     DOUBLE_DOWN = a.double_down
+    global ANCLA_DIRECCION
+    ANCLA_DIRECCION = a.ancla_direccion
     texto = io.open(a.fichero, encoding='utf-8').read()
     card = io.open(a.tarjeta, encoding='utf-8').read() if a.tarjeta else None
     res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico, a.publica_manana)

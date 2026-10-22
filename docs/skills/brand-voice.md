@@ -143,6 +143,13 @@ Iker le pasa a Unai (casi) siempre sus posts de evento o de historia para que lo
 - **Lo que NO se hereda de su texto, porque fue una excepción de formato:** las líneas largas, el ritmo de sueltas en fila, el `No se trata solo de… Se trata de…` (`§3`, tabla de AI-tells), los dos puntos en medio de la frase y `Neety` sin arroba. En el siguiente agradecimiento, todo eso vuelve a la receta.
 - **Mecanizado:** `validar-post.py --agradecimiento` falla si el post lleva enlace y pide los dos criterios (problema concreto y puente desde la escena). Sin el flag, si un post de Unai da las gracias a alguien mencionado y lleva enlace, salta un aviso. El borrador con ninja está en `scripts/test-borradores-tumbados.py`.
 
+#### 🧭 EXCEPCIÓN DECLARADA: EL GANCHO DE UNAI PUEDE ANCLAR A DIRECCIÓN (Mario, 2026-10-22)
+
+> En el post de San Francisco (viaje con el Programa Desafía, objetivo: autoridad y red de contactos) el gancho ancla a **inversión o validación de un mercado** en vez de a ventas: `Nos vamos a San Francisco a presentar una startup vasca ante sus inversores ✈️`. Es el segundo carril de su cuenta (`aboutme §2-CARRIL`: dirección, inversores, fundadores).
+- **Es una excepción, no el default.** `global §2.3` sigue mandando: sin ventas en el gancho, la plataforma no tiene claro nuestro público objetivo. Solo para posts de Unai cuyo objetivo es la autoridad de la casa ante inversores o el ecosistema.
+- **Ventas baja al cuerpo**, como en Mario y Helena: el cuerpo lleva la escena de ventas (la cita del cliente) y la línea de criterio del mercado.
+- **Se declara** en la entrega y se valida con `validar-post.py --ancla-direccion` (solo acepta `--cuenta unai`; exige ancla de dirección en el gancho y de ventas en el cuerpo). Al publicar, la ficha del historial lo marca para comparar su alcance con las historias/evento de Unai ancladas a ventas.
+
 #### 🔭 LA LENTE DEL INVERSOR: LO QUE UN FONDO LEE EN LA CUENTA DE UNAI (Unai vía Iker, 2026-10-07)
 
 > **De dónde sale:** Unai le pasó a Iker, como indirecta, un post de **Orfeo Balboa** (Investment Manager en First Drop VC; su fondo es de sostenibilidad, pero conoce a los inversores españoles). La tesis: en preseed el inversor lee **durante meses** cómo piensa el founder antes de ver su deck, y los que mejor salen son los que dejan **"rastros de criterio"**. Unai es el CEO y su carril incluye inversores (`§2`), así que su cuenta la leen también ellos. Iker: *"no quiero que te pases de estricto ni que los ganchos pierdan el punch; que sirva para saber qué tipo de lenguaje usar"*.

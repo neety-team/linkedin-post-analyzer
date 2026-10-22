@@ -264,6 +264,8 @@ Cada vez que Iker corrija algo del gancho o del cuerpo, la primera pregunta es *
 4. **Si algo queda flojo, se reescribe y se vuelve al 2.**
 5. **Solo entonces se entrega.** Iker no es el que encuentra los fallos de primera version: para eso estan el validador y el pase de criterio.
 
+**⛔ Y UN RETOQUE SOBRE UN POST YA VALIDADO NO PUEDE ABRIR UN AVISO NUEVO (Iker, 2026-10-22).** Para "exprimir el CTR" de la historia de Asier cambié la línea 2 del ninja y perdí la bisagra con la línea 1 (`global §4.4b-MOLDE` punto 3); el validador lo avisó, lo descarté y lo vendí como mejora. Iker: *"no puede ser que cuando yo te pida cambios… me propongas cosas peores"*. **Antes de proponer un retoque, se comparan los avisos del validador de la versión aprobada y de la nueva: si sale uno nuevo, se arregla o el retoque no va.** Y "validado en datos" solo se dice de lo que está medido: si lo medido es el principio y no la frase, se dice así. Si lo que se quiere es probar algo, se declara como A/B, no como mejora.
+
 **Y si la version que tengo no es la mejor que puedo dar, NO se entrega.** Iterar cuesta minutos; que Iker corrija una entrega mala cuesta su tiempo, que es lo caro.
 
 ## ⛔⛔ 1g · DEBAJO DE CADA PROMPT, QUÉ HAY QUE ADJUNTAR (Iker, 2026-08-11) — GLOBAL

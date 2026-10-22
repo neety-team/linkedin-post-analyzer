@@ -37,7 +37,7 @@
 > | **Mar 20** | Evento: agradecimiento del Gipuzkoako Inbertsio Foroa | Historia → webinar | **Historia/evento: mesa del Gipuzkoa AI Hackathon** → webinar (la pide Asier HOY; cambio del 20/10) |
 > | **Mié 21** | Historia: el cliente de Vitoria → webinar | **Meme: "tu informe de ventas resucita clientes muertos"** (repetición del de Unai del 15/07, 193.382) → webinar (cambio del 21/10) | — (su meme de Black Panther queda en reserva) |
 > | **Jue 22** | Historia/evento: San Francisco (**colaborativo** con Iker y Asier; foto sf2, que NO es de San Francisco) | **Mapa "de adición" de Bizkaia** → webinar directo (22/10: segunda prueba de las 40 empresas) | Historia: el olfato del mejor comercial (cita real de un cliente) → webinar |
-> | **Vie 23** | — | Historia/evento: ponente en Neety Forward → webinar (vuelve al viernes, 21/10) | "Las 10" de Navarra → webinar |
+> | **Vie 23** | — | **Lead magnet: prueba del RECURSO MÍNIMO** (una palabra y un prompt; cambio del 22/10, sustituye al post de ponente, que se cae) | "Las 10" de Navarra → webinar |
 >
 > **Extra fuera del cuadro, mié 21:** meme de Mario (chat POST MARIO 21 OCT MEME), el último del día.
 >

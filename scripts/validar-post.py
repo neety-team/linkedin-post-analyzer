@@ -84,6 +84,7 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
+    'tienen cerrad': '2026-10-16 Comunidad Valenciana, mapa de Unai',
     'mandan de': '2026-10-08 Canarias, mapa de Iker',
     'liquidan': '2026-10-07 La Rioja, "Las 10" de Asier',
     'ventilan': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
@@ -92,7 +93,7 @@ VERBO_PREJUICIO_QUEMADO = {
     'tienen calada': '2026-09-22 Álava, mapa de Iker',
     # Cada valor empieza por la fecha de la ULTIMA publicacion que lo uso y
     # caduca a los VENTANA_IDENTIDAD_DIAS (global 2.0b-VENTANA, Iker 2026-09-16).
-    'despachan': '2026-07-23 Murcia (Iker)',
+    'despachan': '2026-10-16 Aragón, "Las 10" de Iker; antes Murcia (Iker 23/07)',
     'fichada': '2026-07-31 Asturias (Unai)',
     'fichado': '2026-07-30 Euskadi (Iker)',
     'jubilada': '2026-07-31 Asturias (Unai)',
@@ -422,6 +423,8 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
+    'costa rica': '2026-10-16 Comunidad Valenciana, mapa de Unai',
+    'sri lanka': '2026-10-16 Aragón, "Las 10" de Iker',
     'kenia': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker; antes Aragón (Asier 14/07)',
     'moldavia': '2026-09-29 Extremadura, mapa de Asier',
     'islandia': '2026-09-22 Álava, mapa de Iker',
@@ -555,6 +558,8 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'porche del medit': '2026-10-16 Comunidad Valenciana, mapa de Unai',
+    'sala de calderas': '2026-10-16 Aragón, "Las 10" de Iker',
     'terraza del atl': '2026-10-08 Canarias, mapa de Iker',
     'cuarto peque': '2026-10-07 La Rioja, "Las 10" de Asier',
     'descansillo': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
@@ -580,6 +585,8 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'y a la siesta': '2026-10-16 Comunidad Valenciana, mapa de Unai',
+    'y puerta': '2026-10-16 Aragón, "Las 10" de Iker',
     'y a la tumbona': '2026-10-08 Canarias, mapa de Iker',
     'y a repostar': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'y a portugal': '2026-09-29 Extremadura, mapa de Asier',
@@ -610,17 +617,20 @@ FRASE_RABIA_USADA = {
 # Al publicar un peloteo, se anaden aqui los cliches de su gancho (y el del concepto).
 CLICHE_GANCHO_REGION = {
     'aragon': {'pilar': '2026-07-14 Asier', 'cierzo': '2026-07-14 Asier', 'jota': '2026-07-14 Asier',
-               'ternasco': '2026-07-14 Asier', 'secarral': '2026-07-14 Asier'},
+               'ternasco': '2026-07-14 Asier', 'secarral': '2026-07-14 Asier',
+               'cachirulo': '2026-10-16 Iker', 'esqui': '2026-10-16 Iker'},
     'navarra': {'toro': '2026-06-30 Iker', 'txistorra': '2026-06-30 Iker', 'esparrago': '2026-08-07 Asier'},
     'galicia': {'pulpo': '2026-06-16 Iker', 'camino': '2026-06-16 Iker'},
-    'valencia': {'playa': '2026-06-02 Iker', 'paella': '2026-06-02 Iker'},
+    'valencia': {'playa': '2026-06-02 Iker', 'paella': '2026-06-02 Iker',
+                 'naranja': '2026-10-16 Unai', 'horchata': '2026-10-16 Unai'},
     'murcia': {'sol': '2026-07-23 Iker', 'tomate': '2026-07-23 Iker', 'desierto': '2026-07-23 Iker'},
     'castilla y leon': {'trigo': '2026-08-04 Iker', 'castillo': '2026-08-04 Iker'},
     'asturias': {'sidra': '2026-07-31 Unai', 'fabada': '2026-07-31 Unai'},
     'cataluna': {'pan con tomate': '2026-07-17 Unai', 'playa': '2026-07-17 Unai'},
     'alava': {'pintxo': '2026-07-07 Unai', 'vino': '2026-09-22 Iker', 'baloncesto': '2026-09-22 Iker'},
     'bizkaia': {'bacalao': '2026-09-16 Asier', 'paraguas': '2026-09-16 Asier',
-                'guggenheim': '2026-07-30 Iker', 'chuleton': '2026-07-30 Iker'},
+                'guggenheim': '2026-07-30 Iker', 'chuleton': '2026-07-30 Iker',
+                'lluvia': '2026-06-09 Unai', 'pintxo': '2026-06-09 Unai'},
     'cantabria': {'sobao': '2026-09-01 Asier', 'anchoa': '2026-09-01 Asier'},
     'extremadura': {'jamon': '2026-09-29 Asier', 'ciguena': '2026-09-29 Asier'},
     'castilla-la mancha': {'queso': '2026-10-01 Iker', 'molino': '2026-10-01 Iker'},
@@ -4226,6 +4236,13 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         _mapa_luma = (_dt.date.today() <= _dt.date(2026, 9, 24)
                       and re.search(r'luma\.com/ujffj66o|forward\.neety\.com', texto)
                       and 'recursos.neety.com/mapas/' not in texto)
+        # 2026-10-19 (global §4.4b-WEBINAR, Iker): mientras viva el webinar del 28/10,
+        # el mapa lleva el evento en el texto y el enlace de Luma EN LUGAR del blog.
+        # El de la C. Valenciana de Unai (16/10) fue al blog: 165.246 impresiones y
+        # ni un inscrito. La regla se escribio en la receta y no aqui, asi que el
+        # check tumbaba justo lo que la receta manda. Caduca el 28/10.
+        _mapa_luma = _mapa_luma or (_dt.date.today() <= _dt.date(2026, 10, 28)
+                                    and 'luma.com/7hhyx07z' in texto)
         # 2026-10-08: los mapas se mudan al blog de neety.com
         # (/blog/mapa-industrial-{region}); recursos.neety.com/mapas/ solo
         # redirige los 14 que ya existian, asi que una region NUEVA va directa

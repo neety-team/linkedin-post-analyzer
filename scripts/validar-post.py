@@ -1646,6 +1646,19 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not _revela, 'Bucle abierto: el gancho no CUENTA la respuesta (global §2.0)',
         f'"{_revela.group(0)}…" cuenta lo que se dijo y ya no queda nada por lo que pulsar. '
         f'Deja la pregunta: "nos confeso LO QUE…", "QUE le pidio…", "COMO busca…"' if _revela else '')
+    # 2026-10-22 (Mario, San Francisco de Unai): "Nos vamos a San Francisco a presentar una
+    # startup vasca ante sus inversores" paso el check de arriba y no deja NADA abierto: dice
+    # adonde, que y ante quien. Si el gancho no lleva ningun hueco (algo, lo que, como, por
+    # que, a ver si, nunca, tanto…), lo mas probable es que este cerrado. Aviso: un gancho
+    # puede abrir el bucle con una metafora sin ninguna de estas palabras.
+    _hueco = re.search(r'\b(algo|lo que|lo [uú]nico|una cosa|qu[eé]|c[oó]mo|por qu[eé]|qui[eé]n\w*|cu[aá]l\w*'
+                       r'|si|nunca|jam[aá]s|tanto|tant[oa]s|nadie|ning[uú]n\w*|ni|menos)\b', hook_txt.lower())
+    chk(bool(_hueco), 'GANCHO: deja un HUECO, algo que no dice (global §2.0)',
+        'no encuentro nada que el gancho se calle (algo, lo que, como, por que, a ver si, nunca…). '
+        'Caso 22/10: "Nos vamos a San Francisco a presentar una startup vasca ante sus inversores" '
+        'dice adonde, que y ante quien, y no deja motivo para pulsar "ver mas". Salida: callarse UNA '
+        'pieza ("a contarles a sus inversores lo que no se ve desde alli") y pagarla en el ultimo tercio'
+        if not _hueco else '', aviso=True)
     chk(False, 'ENTREGA: el cuerpo PAGA el bucle del gancho (§2.0-PAGO)',
         'gancho: "%s". Senala la linea del ultimo tercio que dice con todas las letras '
         'a que se referia (que era, donde, por que importaba), repitiendo la PALABRA del gancho '

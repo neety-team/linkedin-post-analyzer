@@ -1014,6 +1014,26 @@ post                                      imp      inscritos  por 1.000
 4. **La tarjeta: 0 de 2.** Sale de la rotación (ver `§4.6`).
 5. **El meme solo inscribe si engancha:** el sable de Asier sacó 0,79 con 3.774 impresiones, el mejor de la tabla, contra el 0,03 de los memes de septiembre. Con n=1 no se le puede atribuir al pilar; va de dirección.
 
+**🖥️ WEBINAR, CSV DEL 22/10 a las 09:44: 97 aprobados (96 personas).** **DM 61 (63%)** (Iker 25, Unai 19, Asier 14 y 3 sin jefe), **posts 28 (29%)**, web 3, correo 1 (el 9, de Kaixito, a una de las 9 que se metieron en la lista de Neety Forward el 19/10) y 4 sin UTM. **Iker: de cada 100 DM personalizados se apuntan unos 6.** El DM no es masivo de plantilla: el segundo jefe le dice a cada empresa lo que le ha visto que le falta.
+
+```
+post                                     imp     inscritos  por 1.000
+21/10 Unai historia (cliente de Vitoria)  3.356      4        1,19   ← real: lo que contó un cliente
+08/10 Unai historia+vídeo (resumen)       2.836      3        1,06
+14/10 Unai historia (el Excel)           10.089      8        0,79
+14/10 Asier meme (el sable)               3.994      3        0,75
+14/10 Iker historia (los kilómetros)      6.347      4        0,63
+15/10 Unai historia/evento (Telmo)        3.540      1        0,28
+16/10 Iker "Las 10" Aragón (Luma)        52.368      4        0,08   ← pocos por impresión, pero 4 en total
+20/10 Iker historia (las avispas)         2.098      0        0      ← anécdota divertida inventada
+16/10 Unai MAPA C. Valenciana (blog)    214.219      0        0
+eventos del 20/10 (Inbertsio, hackathon), tarjeta, meme de Iker del 21/10: 0
+```
+
+1. **⭐ La historia que más inscribe es la de un caso REAL de un cliente** (Vitoria, 1,19 por 1.000: lo que antes hacían 3 personas en una semana). La anécdota divertida e inventada (las avispas) sacó 0, aunque tuviera el enlace al mismo dolor. **El feedback real gana a la escena inventada** para convertir: primero el caso o la cita real del informe (memoria feedback_citas_literales_informe), y la escena inventada solo si no hay caso real.
+2. **El peloteo con Luma directo inscribe poco por impresión pero suma en total** (4, como la mejor historia de Iker) y además da la marca. El mapa al blog, 0: con evento abierto, siempre Luma directo.
+3. **El DM manda (63%).** En una campaña de evento con fecha, el post calienta y el DM cierra. **Los posts no sustituyen al DM**: el plan de un evento empieza por la campaña de DM.
+
 **🎟️ NEETY FORWARD (presencial, 24/09), CSV COMPLETO DE LUMA, LEÍDO EL 19/10.** 108 filas: 83 aprobados, 21 rechazados y 4 invitados. **El 69% de los aprobados (57) no traen UTM**: casi toda la home de neety.com, que no la llevaba (§ de arriba, 22/09). **No hay asistencia medida**: nadie hizo check-in en Luma, así que solo se sabe quién se inscribió, no quién fue. Lo que cambia frente a la tabla de arriba: **la historia de víspera de Unai (`historia-equipo-23sep-unai`, 10.729 impresiones) generó 10 solicitudes, la que más (3 aprobadas y 7 rechazadas por aforo): 0,93 por 1.000.** El meme de Iker del 01/09 suma 7 (5 y 2), Euskadi 26/08 5, el "Los 10" de Gipuzkoa 4 y Álava 3. **El post de víspera con el gancho de la cuenta que más inscribe es el que más mueve, y rinde aún más con fecha encima.** Por eso, en un webinar, el último post de Unai va la víspera.
 
 **🧪 HIPÓTESIS EN PRUEBA, no regla:** *el ninja que nombra a la PERSONA convierte más que el que vende "la sala"* (a favor: `Una reunión la pide cualquiera, el nombre de dentro no.` 26/08, 5 inscritos). **En contra:** `El que firma tu pedido no aparece en cualquier sala.` (Iker 15/09) nombra a la persona y sacó 0 con 15 clics, y el ninja del "Los 10" también vendía la sala (`una sala de solo 80 sitios`). Casi todos los ninjas del evento mezclan las dos cosas. **Hace falta un ninja limpio de cada tipo, en la misma cuenta, antes de tocar el molde de `global §4.4b`.**

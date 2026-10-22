@@ -84,6 +84,8 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
+    'dan por oxidado': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
+    'dan por oxidada': '2026-10-22 Bizkaia, mapa de Iker (de adición), en femenino',
     'tienen cerrad': '2026-10-16 Comunidad Valenciana, mapa de Unai',
     'mandan de': '2026-10-08 Canarias, mapa de Iker',
     'liquidan': '2026-10-07 La Rioja, "Las 10" de Asier',
@@ -287,6 +289,15 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Iker 22/10, mapa de Bizkaia de adición, leido del texto publicado (Unipile, 13:51).
+    'rebuscar en el desván a oscuras lo hace cualquiera': '2026-10-22 mapa de Iker 22/10 (Bizkaia, webinar, tipo 1), la linea 1 del ninja (recoge la metafora del gancho)',
+    'rebuscar en el desvan a oscuras lo hace cualquiera': '2026-10-22 mapa de Iker 22/10, sin tilde',
+    'encontrar ahí a tus clientes sí te lo enseñamos': '2026-10-22 mapa de Iker 22/10, la linea 2 del ninja',
+    'encontrar ahi a tus clientes si te lo ensenamos': '2026-10-22 mapa de Iker 22/10, sin tilde',
+    'el miércoles 28 vemos cómo dar con ellas': '2026-10-22 mapa de Iker 22/10, la linea de contexto del webinar',
+    'el miercoles 28 vemos como dar con ellas': '2026-10-22 mapa de Iker 22/10, sin tilde',
+    'las que encajan con lo que vendes no salen en ningún mapa': '2026-10-22 mapa de Iker 22/10, la linea puente',
+    'las que encajan con lo que vendes no salen en ningun mapa': '2026-10-22 mapa de Iker 22/10, la linea puente, sin tilde',
     # Iker 21/10, meme del perro (repeticion de "Tu informe de ventas resucita clientes muertos" de Unai), leido de la BD.
     '«decisor identificado» lo pone cualquier informe': '2026-10-21 meme de Iker 21/10 (el informe que resucita clientes, webinar, tipo 2), la linea 1 del ninja',
     'decisor identificado» lo pone cualquier informe': '2026-10-21 meme de Iker 21/10, sin las comillas de apertura',
@@ -423,6 +434,7 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
+    'bosnia': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'costa rica': '2026-10-16 Comunidad Valenciana, mapa de Unai',
     'sri lanka': '2026-10-16 Aragón, "Las 10" de Iker',
     'kenia': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker; antes Aragón (Asier 14/07)',
@@ -512,8 +524,13 @@ ARRANQUE_QUEMADO = {
         'ni': '2026-09-22 mapa de Álava, Iker ("Ni la llena Celedón / Ni la llenan los blusas")',
         'aqui': '2026-09-22 mapa de Álava, Iker ("Aquí la sal / Aquí se discute / Aquí se sube")',
         'por': '2026-09-22 mapa de Álava, Iker ("Por fuera / Por dentro")',
-        'no': '2026-09-29 mapa de Extremadura, Asier ("No la sostiene la torta del Casar / el teatro romano / los cerezos del Jerte"); antes Navarra, Iker 30/06',
+        'no': '2026-10-22 mapa de Bizkaia, Iker ("No lo paga el Guggenheim / el poteo del viernes"); antes C. Valenciana, Unai 16/10 y Extremadura, Asier 29/09',
         'se': '2026-09-29 mapa de Extremadura, Asier ("Se almuerzan migas / Se va andando a Guadalupe")',
+        # Leidos del texto publicado (22/10): Canarias de Iker 08/10, C. Valenciana de Unai 16/10 y Bizkaia de Iker 22/10.
+        'de': '2026-10-22 mapa de Bizkaia, Iker ("De Derio sale la báscula / De Leioa / De Zamudio"); antes C. Valenciana, Unai 16/10',
+        'donde': '2026-10-22 mapa de Bizkaia, Iker ("Donde San Mamés / Donde el Euskadi Eguna / Donde un pedido"); antes C. Valenciana, Unai 16/10',
+        'desde': '2026-10-08 mapa de Canarias, Iker',
+        'alli': '2026-10-08 mapa de Canarias, Iker',
     },
     # Estos dos salen de nuestro propio runbook (post-workflow 4.3), no de haber
     # releido el post: si algun dia se comprueban, se anota aqui.
@@ -558,6 +575,8 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'desván del cant': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
+    'desvan del cant': '2026-10-22 Bizkaia, mapa de Iker, sin tilde',
     'porche del medit': '2026-10-16 Comunidad Valenciana, mapa de Unai',
     'sala de calderas': '2026-10-16 Aragón, "Las 10" de Iker',
     'terraza del atl': '2026-10-08 Canarias, mapa de Iker',
@@ -585,6 +604,7 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'y se acab': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'y a la siesta': '2026-10-16 Comunidad Valenciana, mapa de Unai',
     'y puerta': '2026-10-16 Aragón, "Las 10" de Iker',
     'y a la tumbona': '2026-10-08 Canarias, mapa de Iker',
@@ -630,7 +650,8 @@ CLICHE_GANCHO_REGION = {
     'alava': {'pintxo': '2026-07-07 Unai', 'vino': '2026-09-22 Iker', 'baloncesto': '2026-09-22 Iker'},
     'bizkaia': {'bacalao': '2026-09-16 Asier', 'paraguas': '2026-09-16 Asier',
                 'guggenheim': '2026-07-30 Iker', 'chuleton': '2026-07-30 Iker',
-                'lluvia': '2026-06-09 Unai', 'pintxo': '2026-06-09 Unai'},
+                'lluvia': '2026-06-09 Unai', 'pintxo': '2026-06-09 Unai',
+                'boina': '2026-10-22 Iker', 'chacoli': '2026-10-22 Iker'},
     'cantabria': {'sobao': '2026-09-01 Asier', 'anchoa': '2026-09-01 Asier'},
     'extremadura': {'jamon': '2026-09-29 Asier', 'ciguena': '2026-09-29 Asier'},
     'castilla-la mancha': {'queso': '2026-10-01 Iker', 'molino': '2026-10-01 Iker'},
@@ -3189,7 +3210,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 # Y el par que lo demuestra sin ruido, dos memes casi iguales en alcance:
                 # 29/07 con bloque de dos, 93.744 imp y 142 clics; 06/08 con linea
                 # suelta, 95.913 imp y 4 clics. Treinta y cinco veces menos.
-                _mapa = pilar == 'mapa'
+                # 🧵 22/10 (Iker): el mapa solo se libra del molde del ninja con el ULTRA
+                # NINJA ("Mapa completo aqui:" a la pagina del mapa), que se pincha porque la
+                # gente quiere ver el mapa. Con el enlace a Luma o a la demo hay que ganarse el
+                # clic como en cualquier pilar: dos lineas, la palabra o la METAFORA del gancho
+                # dentro y transicion desde las menciones. Por esta exencion se colo el ninja de
+                # Aragon (16/10, 0,034%) que no recogia nada de "la sala de calderas", contra el
+                # de Alava (22/09, 0,166%) que recogia "la nevera" (post-workflow §4.0d punto 0).
+                # En los mapas viejos de la BD el enlace ya es lnkd.in: siguen exentos.
+                _mapa = pilar == 'mapa' and (
+                    re.search(r'mapa completo', texto, re.I)
+                    or not re.search(r'luma\.com|solicitar-demo|/agendar', texto))
                 chk(_mapa or len(b) == 2,
                     'Spam ninja: DOS lineas pegadas, dolor arriba y enlace abajo (§4.4b)',
                     '%d lineas en el bloque del enlace. Con una sola el enlace llega sin '
@@ -3258,7 +3289,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 # estar bien; lo que falla es el SALTO desde las lineas de antes. Se imprimen las
                 # 3 ultimas del cuerpo para leerlas en alto con el ninja debajo. Aviso: el oido
                 # decide si hay escalon, un lexico no.
-                if _pos_link > 0 and pilar not in ('mapa', 'los10'):
+                # 22/10: el peloteo con enlace a Luma o a la demo tambien necesita su puente
+                # (las menciones -> el dolor del lector -> el ninja); solo el ultra ninja al mapa no.
+                if _pos_link > 0 and not _mapa:
                     _antes = [l.strip() for l in cuerpo[:_pos_link].splitlines() if l.strip()]
                     _antes = _antes[:-1]   # la ultima es la propia linea del enlace, cortada
                     _l1 = _antes[-1] if _antes else ''

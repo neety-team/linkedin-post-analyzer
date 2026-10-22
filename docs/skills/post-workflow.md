@@ -103,7 +103,7 @@ Con n=1-2 por grupo es una dirección, no una regla medida. Lo que se pide:
 1. La metáfora del gancho (la nevera, el porche, la sala de calderas) vuelve en la línea 1 del ninja.
 2. Antes del ninja va una línea puente que une el orgullo de la región con el dolor del lector, dentro de la misma imagen: las empresas que encajan con lo que vende el lector no salen en ningún mapa ni filtro.
 3. El cierre, si puede, vuelve a la metáfora.
-Se dice en la entrega a qué parte del gancho recoge el ninja. **Se medirá con el mapa de Bizkaia de Iker del 22/10**, el primero escrito así.
+Se dice en la entrega a qué parte del gancho recoge el ninja. **Se medirá con el mapa de Bizkaia de Iker del 22/10**, el primero escrito así. **Mecanizado el 22/10:** el validador ya no exime al mapa del molde del ninja (`REPITE una palabra del gancho`, dos líneas y transición) salvo con el ultra ninja al mapa; y la regla es GLOBAL, de todos los pilares (`global §4.4b`, bloque del 22/10).
 
 **1 · LA VENTANA ANTES QUE LA REGIÓN.** Se cuentan los peloteos de las 3 cuentas en los 21 días previos: mediana **39.310** con 0-3, **16.726** con 4-5 y **2.360** con 6-7 (22 peloteos, medido el 2026-09-15). Con 4 o más se avisa; con 6 o más se mueve el post. Detalle en `§4.7` Paso 0.
 

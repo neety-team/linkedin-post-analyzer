@@ -1644,6 +1644,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'como el "Si, hablo de X" del peloteo, o DESINFLANDOLA a proposito si el gancho exagera un '
         'hecho real ("invadio" -> "nos visitaron", global §2.0-PAGO). Si el lector acaba sin '
         'saberlo, falta el pago' % hook_txt[:90], aviso=True)
+    # global §4.4b-AUTOGOL, el gancho (Iker, 2026-10-22): "Vamos a cruzar medio mundo a
+    # ver si alli tambien se vende a pico y pala" se leyo como que NOSOTROS vendemos a
+    # pico y pala. Gancho en 1a del plural + un impersonal de venta o un "tambien" pega el
+    # dolor a la casa aunque no lo diga. Aviso: a quien se pega es criterio.
+    _nos_hook = re.search(r'(^|\s)(nos|nosotros|vamos|somos|\w{2,}amos)\b', hook_txt.lower())
+    _pega = re.search(r'\btambi[eé]n\b|\bse (vende\w*|busca\w*|prospecta\w*|llama\w*|cierra\w*)\b', hook_txt.lower())
+    chk(not (_nos_hook and _pega), 'GANCHO: el dolor no se nos pega (global §4.4b-AUTOGOL)',
+        'el gancho va en NOSOTROS y lleva "%s": ¿se puede leer que el dolor es nuestro? Caso 22/10: '
+        '"Vamos a cruzar medio mundo a ver si alli tambien se vende a pico y pala" se leyo como que '
+        'vendemos a pico y pala. El que sufre el dolor se nombra y es otro: "a ver si los comerciales '
+        'de alli buscan clientes a pico y pala"' % (_pega.group(0) if _pega else ''),
+        aviso=True)
     # brand-voice §2c familia 3 (DELITO): en el GANCHO cero familias de riesgo.
     # Caso 30/09 (historia de Iker): "Nos entraron a robar..." + 10 etiquetas en
     # la foto -> 44 imp a los 30 min, nunca en el feed. NO esta probado que fuera

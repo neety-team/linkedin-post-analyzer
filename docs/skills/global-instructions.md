@@ -2715,6 +2715,8 @@ Te marcamos quién va a comprar y cuándo, y tu comercial entra solo ahí: [link
 
 **⚠️ Aplica a las 5 cuentas, pero es peor en Mario y Helena**, porque hablan del trabajo de dentro y ahí una carencia se lee como confesión de la empresa, no como escena.
 
+**⛔ Y EN EL GANCHO, EL DOLOR LLEVA UN SUJETO DE FUERA (Iker, 2026-10-22) — GLOBAL.** El gancho de San Francisco de Unai era `Vamos a cruzar medio mundo a ver si allí también se vende a pico y pala ⛏️`. No dice en ningún sitio que nosotros vendamos así, y aun así Iker lo leyó a la primera como que **nosotros vendemos a pico y pala**: el `vamos` nos pone de sujeto, el `se vende` impersonal se nos pega y el `también` nos mete en el grupo de los que lo hacen. Es este mismo autogol, pero sin una sola palabra en primera persona sobre el dolor. **La regla:** si el gancho va en `nosotros` y lleva la metáfora del dolor, el que la sufre se nombra y es otro (`los comerciales de allí`, `un comercial`, `el director comercial`), nunca un impersonal (`se vende`, `se busca`) ni un `también` que nos incluya. Quedó `Nos vamos a San Francisco a ver si los comerciales de allí buscan clientes a pico y pala ⛏️`: misma metáfora, mismo concepto, y la pala es de ellos. **Aviso** en `validar-post.py` (`GANCHO: el dolor no se nos pega`), porque saber a quién se pega es criterio.
+
 #### 🤥🤥 4.4b-PROMESA · EL NINJA NO PUEDE PROMETER LO QUE EL DESTINO NO DA (Mario, 2026-08-21) — GLOBAL
 
 > **Mario:** *"nuestra newsletter de ventas no va a ser sobre contar salseos o noticias polémicas como esta, sino que ataca el punto de dolor de la gente que quiere encontrar clientes y no los encuentra"*.

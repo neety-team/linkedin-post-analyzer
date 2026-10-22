@@ -1847,6 +1847,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             ('; '.join(_rol_c[:3]) + ' -> si es Asier hablando de si mismo, su yo es el del '
              'ingeniero ("Programo para comerciales"); el comercial y el cliente, en 3a')
             if _rol_c else '', aviso=True)
+        # 🔄 22/10 (Iker pidio confirmarlo con datos): tampoco el CUERPO habla de programar.
+        # BD, posts sin peloteo desde el 15/07: historias de las 3 cuentas con programar/codigo
+        # en el cuerpo, mediana 3.715 imp y 6 clics (n=10), sin ello 6.639 y 20 (n=19); en
+        # Asier 1.196 contra 2.591. Confundido con gancho, evento y fecha: aviso, no fallo.
+        _ing = re.findall(r'\b(program\w*|c[oó]digo|repositorio|arquitectura|funcionalidad\w*|software)\b',
+                          re.sub(r'https?://\S+', '', '\n'.join(cuerpo.split('\n')[1:])), re.I)
+        chk(not _ing, 'ASIER: el cuerpo no habla de programar ni de codigo (aboutme §2-ASIER-MEME, 22/10)',
+            ('lleva: %s. Las historias con ese vocabulario en el cuerpo hacen la mitad de impresiones '
+             'y un tercio de clics; su papel se cuenta sin el oficio (visita, socio, estar delante)'
+             % ', '.join(sorted(set(w.lower() for w in _ing)))) if _ing else '', aviso=True)
 
     # brand-voice §3b — LA CITA SE PUNTUA COMO LA ESCRIBIO QUIEN LA DIJO. La coma
     # del vocativo ("Hola, soy Iker") es CORRECTA en español y por eso se cuela:

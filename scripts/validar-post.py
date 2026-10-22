@@ -5459,6 +5459,10 @@ def main():
                     help='HISTORIA con FOTO DE GRUPO del equipo (Iker, 2026-09-30): acepta el '
                          'gancho en 1a PLURAL (nos, nuestro) como personal. Prueba con n=1 (Unai '
                          '23/09), no regla: se anota el resultado en historial-publicaciones.')
+    ap.add_argument('--antes', help='RETOQUE (Iker, 2026-10-22): fichero con la version ANTERIOR, la que ya '
+                    'pasaba. Si el retoque abre un FALLO o un AVISO que la anterior no tenia, sale FALLA: '
+                    'se busca la forma de quedarse con el retoque y arreglar lo que rompe, y no se entrega '
+                    'hasta que vuelva a estar limpio.')
     ap.add_argument('--criterio', help='fichero con las respuestas escritas al CRITERIO que el script no '
                     'puede medir (una linea por clave: "bucle: …"). Sin el, la entrega sale NO ENTREGABLE '
                     'aunque el marcador mecanico este en verde (Iker, 15/10)')
@@ -5635,6 +5639,22 @@ def main():
     # Los avisos se imprimen pero NO cuentan: son sospechas, no infracciones.
     # Mezclarlos vaciaría de significado el marcador, y el marcador es lo único
     # que se pega en la entrega.
+    # ⛔ UN RETOQUE NO ABRE NADA NUEVO (Iker, 2026-10-22). En la historia de Asier del 22/10,
+    # para "exprimir el CTR" cambie la linea del enlace y perdi la bisagra con la linea 1; el
+    # validador lo aviso, lo descarte y lo vendi como mejora. Iker: "si un retoque que esta
+    # hecho para mejorar incumple algo de tu validador, tienes que ver la manera de incluir
+    # igualmente el retoque y aun asi corregir lo que se ha incumplido". Con --antes se valida
+    # tambien la version anterior con los mismos flags y se compara: cualquier check que
+    # estaba bien (duro o aviso) y ahora no, es un fallo duro del retoque.
+    if a.antes and os.path.exists(a.antes):
+        _prev = validar(io.open(a.antes, encoding='utf-8').read(), a.pilar, a.cuenta, a.generico,
+                        a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo,
+                        a.historico, a.publica_manana)
+        _malos_antes = {x[1] for x in _prev if not x[0]}
+        _nuevos = [x[1] for x in res if not x[0] and x[1] not in _malos_antes]
+        res.insert(0, (not _nuevos, 'RETOQUE: no abre fallos ni avisos que la version anterior no tenia (working-preferences §1d-BIS)',
+                       ('el retoque rompe: %s. Quedate con el retoque y arregla esto antes de entregar'
+                        % ' | '.join(_nuevos)) if _nuevos else 'limpio contra la version anterior', False))
     duras = [x for x in res if not x[3]]
     ok = sum(1 for x in duras if x[0])
     print(f"\n  VALIDADOR — pilar={a.pilar}" + (f" cuenta={a.cuenta}" if a.cuenta else "") + "\n")

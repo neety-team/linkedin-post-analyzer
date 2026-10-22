@@ -227,6 +227,23 @@ const CATALOGO: RecursoDef[] = [
       'suena a desesperado', 'pongo el orden',
     ],
   },
+  {
+    // CLIENTES GEMELOS (Iker, 2026-10-23). Recurso NUEVO y el primero que vive en la
+    // Academia de neety.com y no en recursos.neety.com: la prueba del recurso minimo
+    // (una palabra explicada y UN solo encargo para Claude). La palabra va DENTRO de la
+    // imagen del post (`GEMELOS`), asi que al post lo reconocen las PISTAS.
+    //
+    // Comprobadas contra el texto real del post (casan las cinco) y contra las pistas de
+    // los otros recursos: ninguna casa. Ojo al falso amigo de /sistema/: su pista es
+    // "encargos a claude" y nuestro post dice "un solo encargo", que no la contiene.
+    link: 'https://neety.com/academia/clientes-gemelos',
+    topic: 'cómo pedirle a Claude los gemelos de tu mejor cliente',
+    claves: ['gemelos', 'gemelo'],
+    pistas: [
+      'filtro por sector', 'gemelos de mi mejor cliente', 'clientes gemelos',
+      'un solo encargo', 'mismas empresas de siempre',
+    ],
+  },
 ];
 
 const RECURSOS: Record<string, Recurso> = Object.fromEntries(

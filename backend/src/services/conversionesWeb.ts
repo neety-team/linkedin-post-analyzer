@@ -9,15 +9,13 @@
 //    recursos; nunca los mensajes privados de los comerciales). Solo recuentos.
 //    Sin el token, `configurado: false` y la tarjeta lo dice: nunca un 0 inventado.
 //
-// 2. INSCRITOS AL WEBINAR, del contador publico de Luma (el mismo que lee el aviso
-//    diario al chat, avisoWebinarLuma). Luma gratis no dice de donde viene cada
-//    inscrito, asi que es el TOTAL del evento, no atribuido. Solo mientras el evento
-//    no haya pasado.
+// 2. LEADS DE LA WEB (23-oct): los que nos dan permiso para escribirles, con su origen y la
+//    huella del correo. Los inscritos a eventos y el cruce de leads con la casilla de Luma
+//    viven en conversionesEventos.ts.
 //
 // Las dos fuentes son externas: van aparte de /analytics, con cache corta, y un fallo
 // devuelve el motivo en vez de tumbar la pantalla.
 import pool from '../db';
-import { leerEvento, SLUG } from './avisoWebinarLuma';
 
 const LANDING_URL = () => (process.env.LANDING_URL || 'https://neety.com').replace(/\/$/, '');
 const TOKEN = () => process.env.LANDING_ANALYZER_TOKEN || '';
@@ -37,6 +35,8 @@ export interface ResumenDemos extends Recuento {
   por_campana?: Record<string, Recuento>;
   /** clave `${utm_campaign}|${utm_content}`: lo que permite casar cada demo con su post. */
   por_publicacion?: Record<string, Recuento>;
+  /** Arbol de origen unificado (web, 23-oct): canal → total y detalle. */
+  origenes?: Arbol;
 }
 
 /** Demos que se casan con un post concreto (clave = id del post). */
@@ -45,115 +45,6 @@ export type Demos =
   | { configurado: false }
   | { configurado: true; error: string }
   | { configurado: true; current: ResumenDemos; previous: ResumenDemos; por_post: DemosPorPost; sin_casar: number };
-
-export interface EventoWeb {
-  nombre: string;
-  /** null = Luma no lo enseña (lista oculta y sin aforo). */
-  inscritos: number | null;
-  empieza: string;
-  url: string;
-  /** Del ultimo CSV de Luma subido (null si no hay ninguno). */
-  desglose: DesgloseInscritos | null;
-}
-
-// ── ORIGEN DE CADA INSCRITO (23-oct-2026) ─────────────────────────────────────
-// Mismo criterio que oportunidades y leads (web: worker/agendar/api/analyzer.js,
-// origenOf): post (con su pilar), dm, newsletter, boton del perfil, web, otros y sin
-// UTM. En Luma la identidad del post va en utm_source (global-instructions, "Luma no
-// lee utm_campaign"): {pilar}-{tema}-{ddmes}-{cuenta}; los DMs, dm-{campaña}-{cuenta}.
-export const ORIGENES_INSCRITO = ['post', 'dm', 'newsletter', 'perfil', 'web', 'otros', 'sin_utm'] as const;
-export type OrigenInscrito = (typeof ORIGENES_INSCRITO)[number];
-const CUENTAS = ['iker', 'unai', 'asier', 'mario'];
-export function origenInscrito(utmSource: string | null, utmMedium: string | null, utmCampaign: string | null = null): { origen: OrigenInscrito; pilar: string | null; cuenta: string | null } {
-  const src = String(utmSource || '').toLowerCase().trim();
-  const med = String(utmMedium || '').toLowerCase().trim();
-  // Algunos enlaces de DM solo llevan la campaña (dm-webinar28oct) y el source vacío.
-  const camp = String(utmCampaign || '').toLowerCase().trim();
-  const partes = src.split('-').filter(Boolean);
-  const cuenta = [...partes].reverse().find((x) => CUENTAS.includes(x)) ?? null;
-  if (!src && !med && !camp) return { origen: 'sin_utm', pilar: null, cuenta: null };
-  if (src.startsWith('dm-') || med === 'dm' || camp.startsWith('dm-')) return { origen: 'dm', pilar: null, cuenta };
-  if (src.startsWith('correo-') || med === 'email' || /^(brevo|newsletter|correo)$/.test(src)) return { origen: 'newsletter', pilar: null, cuenta: null };
-  if (src.startsWith('perfil') || med === 'boton-perfil') return { origen: 'perfil', pilar: null, cuenta };
-  if (/^(web|neety|recursos)(-|$)/.test(src)) return { origen: 'web', pilar: null, cuenta: null };
-  if (parsearCampana(src.replace(new RegExp(`-(${CUENTAS.join('|')})(-.*)?$`), ''), '2100-12-31') || med === 'post') {
-    return { origen: 'post', pilar: partes[0] || null, cuenta };
-  }
-  return { origen: 'otros', pilar: null, cuenta };
-}
-
-export interface DesgloseInscritos {
-  csv_at: string;
-  /** Inscritos del CSV con approval_status = approved (los rechazados no cuentan). */
-  total: number;
-  acepta_correo: number;
-  por_origen: Record<OrigenInscrito, number>;
-  post_por_pilar: Record<string, number>;
-  dm_por_cuenta: Record<string, number>;
-}
-
-async function leerDesglose(evento: string): Promise<DesgloseInscritos | null> {
-  const { rows } = await pool.query(
-    `SELECT utm_source, utm_medium, utm_campaign, acepta_correo, subido_at FROM luma_inscritos
-      WHERE evento = $1 AND COALESCE(estado, 'approved') = 'approved'`,
-    [evento]
-  );
-  if (!rows.length) return null;
-  const d: DesgloseInscritos = {
-    csv_at: new Date(Math.max(...rows.map((r) => new Date(r.subido_at).getTime()))).toISOString(),
-    total: rows.length,
-    acepta_correo: rows.filter((r) => r.acepta_correo).length,
-    por_origen: Object.fromEntries(ORIGENES_INSCRITO.map((k) => [k, 0])) as Record<OrigenInscrito, number>,
-    post_por_pilar: {},
-    dm_por_cuenta: {},
-  };
-  for (const r of rows) {
-    const o = origenInscrito(r.utm_source, r.utm_medium, r.utm_campaign);
-    d.por_origen[o.origen]++;
-    if (o.origen === 'post' && o.pilar) d.post_por_pilar[o.pilar] = (d.post_por_pilar[o.pilar] || 0) + 1;
-    if (o.origen === 'dm') {
-      const c = o.cuenta || 'sin-cuenta';
-      d.dm_por_cuenta[c] = (d.dm_por_cuenta[c] || 0) + 1;
-    }
-  }
-  return d;
-}
-
-/** Guarda las filas de un CSV de Luma del webinar actual (reemplaza las anteriores). */
-export async function guardarInscritosLuma(filas: any[]): Promise<{ evento: string; guardados: number }> {
-  const limpias = filas
-    .map((f) => ({
-      guest_id: String(f?.guest_id || '').trim().slice(0, 80),
-      inscrito_at: f?.created_at && !Number.isNaN(Date.parse(f.created_at)) ? new Date(f.created_at).toISOString() : null,
-      utm_source: String(f?.utm_source || '').trim().slice(0, 160) || null,
-      utm_medium: String(f?.utm_medium || '').trim().slice(0, 80) || null,
-      utm_campaign: String(f?.utm_campaign || '').trim().slice(0, 160) || null,
-      estado: String(f?.approval_status || '').trim().slice(0, 30) || null,
-      acepta_correo: typeof f?.acepta_correo === 'boolean' ? f.acepta_correo : null,
-    }))
-    .filter((f) => f.guest_id);
-  if (!limpias.length) throw new Error('El CSV no trae ninguna fila con guest_id: ¿es el export de invitados de Luma?');
-  const client = await pool.connect();
-  try {
-    await client.query('BEGIN');
-    await client.query(`DELETE FROM luma_inscritos WHERE evento = $1`, [SLUG]);
-    for (const f of limpias) {
-      await client.query(
-        `INSERT INTO luma_inscritos (evento, guest_id, inscrito_at, utm_source, utm_medium, utm_campaign, estado, acepta_correo)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (evento, guest_id) DO NOTHING`,
-        [SLUG, f.guest_id, f.inscrito_at, f.utm_source, f.utm_medium, f.utm_campaign, f.estado, f.acepta_correo]
-      );
-    }
-    await client.query('COMMIT');
-  } catch (err) {
-    await client.query('ROLLBACK').catch(() => {});
-    throw err;
-  } finally {
-    client.release();
-  }
-  cache.delete('evento');
-  return { evento: SLUG, guardados: limpias.length };
-}
 
 const cache = new Map<string, { t: number; v: unknown }>();
 async function conCache<T>(clave: string, fn: () => Promise<T>): Promise<T> {
@@ -184,20 +75,22 @@ export async function leerDemos(desde: string, hasta: string): Promise<Demos> {
 }
 
 // LEADS DE LA WEB (23-oct-2026): GET {LANDING_URL}/api/analyzer/leads, mismo secreto.
-// Correos distintos del periodo, cuantos aceptan correos y de donde vienen.
-export interface ResumenLeads {
+// Lead = persona nueva con la casilla de correos. `consentidos` trae solo la huella del correo
+// (SHA-256) para cruzarla con la casilla de Luma (conversionesEventos.ts).
+export type Arbol = Record<string, { total: number; detalle: Record<string, number> }>;
+export interface ResumenLeadsWeb {
   leads: number;
-  con_correo: number;
-  por_origen: Record<string, number>;
-  por_pilar: Record<string, number>;
+  sin_permiso: number;
+  origenes: Arbol;
   por_recurso: Record<string, number>;
+  consentidos: { h: string; canal: string; detalle: string | null }[];
 }
-export type Leads =
+export type LeadsWeb =
   | { configurado: false }
   | { configurado: true; error: string }
-  | { configurado: true; current: ResumenLeads; previous: ResumenLeads };
+  | { configurado: true; current: ResumenLeadsWeb; previous: ResumenLeadsWeb };
 
-export async function leerLeads(desde: string, hasta: string): Promise<Leads> {
+export async function leerLeads(desde: string, hasta: string): Promise<LeadsWeb> {
   if (!TOKEN()) return { configurado: false };
   return conCache(`leads:${desde}:${hasta}`, async () => {
     try {
@@ -211,19 +104,6 @@ export async function leerLeads(desde: string, hasta: string): Promise<Leads> {
       return { configurado: true as const, current: d.current, previous: d.previous };
     } catch (err: any) {
       return { configurado: true as const, error: err?.name === 'TimeoutError' ? 'la web no contesta' : String(err?.message || err) };
-    }
-  });
-}
-
-export async function leerEventoWeb(): Promise<EventoWeb | null> {
-  return conCache('evento', async () => {
-    try {
-      const ev = await leerEvento();
-      if (!ev || ev.acaba.getTime() < Date.now()) return null;
-      const desglose = await leerDesglose(SLUG).catch(() => null);
-      return { nombre: ev.nombre, inscritos: ev.inscritos, empieza: ev.empieza.toISOString(), url: ev.url, desglose };
-    } catch {
-      return null;
     }
   });
 }

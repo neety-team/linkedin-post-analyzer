@@ -307,6 +307,8 @@ interface RecuentoDemos {
 interface ResumenDemos extends RecuentoDemos {
   por_canal: { linkedin: number; newsletter: number; recursos: number };
   por_pilar?: Record<string, RecuentoDemos>;
+  // Arbol de origen unificado de la web (23-oct-2026).
+  origenes?: Arbol;
 }
 type DemosDePost = RecuentoDemos & { campana: string };
 interface Conversiones {
@@ -321,28 +323,25 @@ interface Conversiones {
         por_post?: Record<string, DemosDePost>;
         sin_casar?: number;
       };
-  evento: {
-    nombre: string; inscritos: number | null; empieza: string; url: string;
-    // Del ultimo CSV de Luma subido desde la franja (23-oct-2026).
-    desglose: {
-      csv_at: string; total: number; acepta_correo: number;
-      por_origen: Record<string, number>;
-      post_por_pilar: Record<string, number>;
-      dm_por_cuenta: Record<string, number>;
-    } | null;
-  } | null;
-  // Leads de la web (23-oct-2026): correos distintos, cuántos aceptan correos y de dónde.
-  leads?:
-    | { configurado: false }
-    | { configurado: true; error: string }
-    | { configurado: true; current: ResumenLeadsWeb; previous: ResumenLeadsWeb };
+  // Eventos de Luma con fecha o inscripciones en el periodo (23-oct-2026).
+  eventos?: EventoResumen[];
+  // Leads = casilla de la web + casilla de los eventos, sin repetir a nadie (23-oct-2026).
+  leads?: {
+    configurado: true;
+    current: LeadsResumen;
+    previous: LeadsResumen;
+    error_web: string | null;
+  };
 }
-interface ResumenLeadsWeb {
-  leads: number;
-  con_correo: number;
-  por_origen: Record<string, number>;
-  por_pilar: Record<string, number>;
-  por_recurso: Record<string, number>;
+// Arbol de origen unificado (web: origenUnificado; Luma: origenInscrito): canal → total y detalle.
+type Arbol = Record<string, { total: number; detalle: Record<string, number> }>;
+interface LeadsResumen {
+  total: number; web: number; eventos: number; sin_permiso: number;
+  origenes: Arbol; por_recurso: Record<string, number>; csv_at: string | null;
+}
+interface EventoResumen {
+  slug: string; nombre: string; empieza: string; url: string; inscritos_luma: number | null;
+  csv: null | { csv_at: string; inscritos: number; asistentes: number | null; origenes: Arbol };
 }
 
 interface Analytics {
@@ -786,37 +785,56 @@ const PILAR_UTM_LABELS: Record<string, string> = {
 };
 const etiquetaPilarUtm = (k: string) => PILAR_UTM_LABELS[k] ?? k.charAt(0).toUpperCase() + k.slice(1);
 
-// Franja de una conversion por ORIGEN (23-oct-2026): total y, en el mismo orden en las
-// tres (oportunidades, leads, inscritos), los grupos con su cifra; los posts y los DMs
-// llevan su desglose entre parentesis. Un grupo a 0 no se pinta.
-const ORIGEN_LABEL: Record<string, string> = {
-  post: 'Posts', dm: 'DMs', newsletter: 'Newsletter', perfil: 'Botón del perfil', web: 'Web',
-  buscadores: 'Google / buscadores', otros: 'Otros', sin_rastro: 'Sin enlace rastreado',
+// Franja de una conversion por ORIGEN (23-oct-2026): total y el arbol de origen unificado,
+// siempre en el mismo orden en las tres (oportunidades, leads, inscritos) y en el admin de la web.
+// El detalle va entre parentesis: pilares, botón del perfil y «sin post concreto» en LinkedIn;
+// el jefe en los DMs. Un canal a 0 no se pinta.
+const ORDEN_CANALES = ['linkedin', 'dm', 'newsletter', 'eventos', 'web', 'google', 'otros', 'sin_rastro'];
+const CANAL_LABEL: Record<string, string> = {
+  linkedin: 'LinkedIn', dm: 'DMs', newsletter: 'Newsletter', eventos: 'Eventos', web: 'Web',
+  google: 'Google', otros: 'Otros', sin_rastro: 'Sin rastro',
 };
-function FranjaOrigen({ icono, titulo, total, extra, delta, ayuda, grupos, sinCaja }: {
-  icono: string; titulo: string; total: number; extra?: string; delta?: number | null; ayuda?: string; sinCaja?: boolean;
-  grupos: { clave: string; n: number; etiqueta?: string; detalle?: [string, number][]; detalleCrudo?: boolean }[];
+function etiquetaDetalle(canal: string, k: string): string {
+  if (k === 'sin-post') return 'sin post concreto';
+  if (k === 'perfil') return 'Botón del perfil';
+  if (k === 'sin-cuenta') return 'sin jefe';
+  if (k === 'recursos') return 'recursos';
+  if (canal === 'dm') return nombreCuenta(k.charAt(0).toUpperCase() + k.slice(1));
+  if (canal === 'linkedin') return etiquetaPilarUtm(k);
+  return k;
+}
+const fmtFechaCorta = (iso: string, conHora = true) =>
+  new Date(iso).toLocaleString('es-ES', conHora
+    ? { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }
+    : { day: 'numeric', month: 'short' });
+function FranjaOrigen({ icono, titulo, total, extra, ayuda, arbol, sinCaja }: {
+  icono: string; titulo: string; total: number; extra?: string; ayuda?: string; sinCaja?: boolean; arbol: Arbol;
 }) {
+  const canales = [...ORDEN_CANALES, ...Object.keys(arbol).filter((k) => !ORDEN_CANALES.includes(k))]
+    .filter((k) => arbol[k]?.total > 0);
   return (
     <div className={`flex items-center gap-x-4 gap-y-1 flex-wrap text-xs text-text-secondary ${sinCaja ? '' : 'bg-bg-card border border-border rounded-xl px-4 py-2.5'}`}>
       <span className="inline-flex items-center gap-1.5 text-text-muted">
         {icono} {titulo}
         <span className="font-semibold text-text-primary tabular-nums">{fmtNum(total)}</span>
-        {delta != null && <Delta pct={delta} />}
         {extra && <span>· {extra}</span>}
         {ayuda && <InfoHint className="mt-0" text={ayuda} />}
       </span>
-      {grupos.filter((g) => g.n > 0).map((g) => (
-        <span key={g.clave} className={g.clave === 'sin_rastro' || g.clave === 'otros' ? 'text-text-muted' : ''}>
-          {g.etiqueta ?? ORIGEN_LABEL[g.clave] ?? g.clave}{' '}
-          <span className="font-semibold text-text-primary tabular-nums">{fmtNum(g.n)}</span>
-          {g.detalle && g.detalle.length > 0 && (
-            <span className="text-text-muted">
-              {' ('}{g.detalle.map(([k, n]) => `${g.detalleCrudo ? k : etiquetaPilarUtm(k)} ${fmtNum(n)}`).join(' · ')}{')'}
-            </span>
-          )}
-        </span>
-      ))}
+      {canales.map((k) => {
+        const g = arbol[k];
+        const det = Object.entries(g.detalle)
+          .sort((a, b) => (a[0].startsWith('sin-') ? 1 : 0) - (b[0].startsWith('sin-') ? 1 : 0) || b[1] - a[1]);
+        return (
+          <span key={k} className={k === 'sin_rastro' || k === 'otros' ? 'text-text-muted' : ''}>
+            {CANAL_LABEL[k] ?? k} <span className="font-semibold text-text-primary tabular-nums">{fmtNum(g.total)}</span>
+            {det.length > 0 && (
+              <span className="text-text-muted">
+                {' ('}{det.map(([d, n]) => `${etiquetaDetalle(k, d)} ${fmtNum(n)}`).join(' · ')}{')'}
+              </span>
+            )}
+          </span>
+        );
+      })}
     </div>
   );
 }
@@ -856,10 +874,23 @@ function SubirCsvLuma({ onSubido }: { onSubido: () => void }) {
       const need = ['guest_id', 'utm_source'].filter((n) => col(n) < 0);
       if (need.length) throw new Error(`no es el CSV de invitados de Luma (falta ${need.join(', ')})`);
       const v = (f: string[], n: string) => (col(n) >= 0 ? f[col(n)] ?? '' : '');
-      const filas = datos.map((f) => ({
-        guest_id: v(f, 'guest_id'), created_at: v(f, 'created_at'), approval_status: v(f, 'approval_status'),
-        utm_source: v(f, 'utm_source'), utm_medium: v(f, 'utm_medium'), utm_campaign: v(f, 'utm_campaign'),
-        acepta_correo: iCorreo >= 0 ? /^s[ií]$/i.test((f[iCorreo] || '').trim()) : undefined,
+      // Huella (SHA-256 del correo en minúsculas) SOLO de quien marcó la casilla: es lo que
+      // hace falta para no contar dos veces a quien también se dio de alta en la web. El
+      // correo no sale del navegador.
+      const huella = async (email: string) => {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(email.trim().toLowerCase()));
+        return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+      };
+      const filas = await Promise.all(datos.map(async (f) => {
+        const acepta = iCorreo >= 0 ? /^s[ií]$/i.test((f[iCorreo] || '').trim()) : undefined;
+        const unido = v(f, 'has_joined_event').trim().toLowerCase();
+        return {
+          guest_id: v(f, 'guest_id'), created_at: v(f, 'created_at'), approval_status: v(f, 'approval_status'),
+          utm_source: v(f, 'utm_source'), utm_medium: v(f, 'utm_medium'), utm_campaign: v(f, 'utm_campaign'),
+          acepta_correo: acepta,
+          asistio: unido === 'yes' ? true : unido === 'no' ? false : undefined,
+          h: acepta && v(f, 'email') ? await huella(v(f, 'email')) : undefined,
+        };
       }));
       const r = await apiPost<{ guardados: number }>('/api/accounts/webinar-csv', { filas });
       setMsg(`✓ ${r.guardados} inscritos`);
@@ -1778,7 +1809,11 @@ function AccountsInner() {
                 {days} días, frente a los {days} anteriores{selectedCreator === 'all' ? '' : esColab ? ' · solo posts colaborativos (las oportunidades son de todas)' : ' · solo esta cuenta (las oportunidades son de todas)'}.
               </p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
+            {/* DOS FILAS DE 4 (23-oct-2026, Iker; diseño 2026-10-23-resumen-conversiones): arriba
+                el ALCANCE, abajo la CONVERSIÓN. Son los números que se apuntan en la reunión de
+                cada dos semanas. Una tarjeta por evento solo si hubo uno en el periodo. */}
+            <p className="text-[10px] uppercase tracking-wide text-text-muted">Alcance</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <Kpi
                 etiqueta="Publicaciones"
                 valor={fmtNum(analytics.totals.total_posts)}
@@ -1807,6 +1842,9 @@ function AccountsInner() {
                 valor={esColab ? '—' : `${analytics.totals.followers_gained > 0 ? '+' : ''}${fmtNum(analytics.totals.followers_gained)}`}
                 pie={esColab ? 'de cuenta, no de un post' : 'nuevos en el periodo'}
               />
+            </div>
+            <p className="text-[10px] uppercase tracking-wide text-text-muted pt-1">Conversión</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <Kpi
                 etiqueta="Clics en enlaces"
                 valor={analytics.totals.posts_with_link_clicks > 0 ? fmtNum(analytics.totals.total_link_clicks) : '—'}
@@ -1840,108 +1878,91 @@ function AccountsInner() {
                         </span>
                       );
                     })()}
-                ayuda={`Oportunidades (solicitudes de reunión de la web nueva; la demo es la fase 2) que se atribuyen a Mario: en «¿Cómo nos conociste?» marcaron LinkedIn, Correo de Neety o Recursos, o el enlace que pincharon lo demuestra (misma regla que el admin de la web; los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. Cualificadas = encajaban y eligieron hora (la «Nueva oportunidad cualificada» del chat). Descartadas = no encajaban. Quien encajaba pero no eligió hora no cuenta: sin hora no hay reunión (sigue en el admin de la web para recuperarla).${conversiones?.demos && 'current' in conversiones.demos ? ` Por canal: LinkedIn ${conversiones.demos.current.por_canal.linkedin} · Newsletter ${conversiones.demos.current.por_canal.newsletter} · Recursos ${conversiones.demos.current.por_canal.recursos}.` : ''}`}
+                ayuda="Oportunidades (solicitudes de reunión de la web nueva; la demo es la fase 2) que se atribuyen a Mario: en «¿Cómo nos conociste?» marcaron LinkedIn, Correo de Neety o Recursos, o el enlace que pincharon lo demuestra (misma regla que el admin de la web; los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. Cualificadas = encajaban y eligieron hora (la «Nueva oportunidad cualificada» del chat). Descartadas = no encajaban. Quien encajaba pero no eligió hora no cuenta: sin hora no hay reunión (sigue en el admin de la web para recuperarla)."
               />
+              <Kpi
+                etiqueta="Leads"
+                valor={loadingConversiones && !conversiones ? '…'
+                  : !conversiones?.leads ? '—'
+                  : conversiones.leads.error_web ? '—'
+                  : fmtNum(conversiones.leads.current.total)}
+                delta={conversiones?.leads && !conversiones.leads.error_web
+                  ? deltaDe(conversiones.leads.current.total, conversiones.leads.previous.total)
+                  : null}
+                pie={!conversiones?.leads ? null
+                  : conversiones.leads.error_web ? `web sin leer: ${conversiones.leads.error_web}`
+                  : `${fmtNum(conversiones.leads.current.web)} de la web · ${fmtNum(conversiones.leads.current.eventos)} de eventos`}
+                ayuda={`Personas nuevas que nos dan permiso para escribirles (entran en la newsletter): la casilla de cualquier formulario de la web o la de un evento de Luma. Sin casilla no es lead${conversiones?.leads && !conversiones.leads.error_web && conversiones.leads.current.sin_permiso ? ` (en el periodo, ${conversiones.leads.current.sin_permiso} dejaron el correo en la web sin marcarla)` : ''}. Quien está en las dos fuentes cuenta una vez. La parte de eventos sale del último CSV de Luma subido${conversiones?.leads?.current.csv_at ? ` (${fmtFechaCorta(conversiones.leads.current.csv_at)})` : ''}.`}
+              />
+              {(conversiones?.eventos ?? []).map((ev) => {
+                const faltan = Math.ceil((new Date(ev.empieza).getTime() - Date.now()) / 86400000);
+                const pasado = faltan <= 0;
+                return (
+                  <Kpi
+                    key={ev.slug}
+                    etiqueta={`Inscritos · evento del ${fmtFechaCorta(ev.empieza, false)}`}
+                    valor={fmtNum((pasado ? ev.csv?.inscritos : ev.inscritos_luma) ?? ev.csv?.inscritos ?? ev.inscritos_luma ?? 0)}
+                    pie={pasado
+                      ? (ev.csv?.asistentes != null ? `${fmtNum(ev.csv.asistentes)} asistieron` : 'falta subir el CSV de después para ver quién asistió')
+                      : `faltan ${faltan} ${faltan === 1 ? 'día' : 'días'}${ev.csv ? ` · ${fmtNum(ev.csv.inscritos)} en el CSV del ${fmtFechaCorta(ev.csv.csv_at)}` : ''}`}
+                    ayuda={`${ev.nombre}. Antes del evento, el total en vivo de Luma; después, los aprobados del último CSV subido y, si ese CSV es de después del evento, los que entraron de verdad.`}
+                  />
+                );
+              })}
             </div>
-            {/* CONVERSIONES POR ORIGEN (23-oct-2026, Iker). Tres franjas con el MISMO
-                criterio de origen (posts con su pilar, DMs, newsletter, botón del perfil,
-                buscadores, sin enlace rastreado) para poder compararlas: oportunidades,
-                leads de la web e inscritos al webinar. Antes la de oportunidades se
-                llamaba «por pilar» y mezclaba pilares con la newsletter y el perfil. */}
-            {conversiones?.demos && 'current' in conversiones.demos && conversiones.demos.current.solicitudes > 0 && conversiones.demos.current.por_pilar && (() => {
-              const d = conversiones.demos;
-              const porPilar = d.current.por_pilar ?? {};
-              const pilares: [string, number][] = [];
-              const otros: Record<string, number> = {};
-              for (const [k, n] of Object.entries(porPilar)) {
-                if (k === 'correo') otros.newsletter = (otros.newsletter || 0) + n.solicitudes;
-                else if (k === 'perfil') otros.perfil = (otros.perfil || 0) + n.solicitudes;
-                else if (k === 'sin-publicacion') otros.sin_rastro = (otros.sin_rastro || 0) + n.solicitudes;
-                else pilares.push([k, n.solicitudes]);
-              }
-              return (
-                <FranjaOrigen
-                  icono="🎯"
-                  titulo="Oportunidades"
-                  total={d.current.solicitudes}
-                  ayuda={`De dónde vienen las oportunidades del periodo (cualificadas + descartadas). Posts = llegaron con el enlace de una publicación; se desglosa por pilar. «Sin enlace de un post» = en «¿Cómo nos conociste?» marcaron LinkedIn, Correo o Recursos, pero entraron escribiendo neety.com, desde Google o desde la web antigua: cuentan, lo que no se sabe es de qué post vienen.${d.sin_casar ? ` ${d.sin_casar} no se han podido casar con un post concreto.` : ''}`}
-                  grupos={[
-                    { clave: 'post', n: pilares.reduce((a, [, n]) => a + n, 0), detalle: pilares },
-                    { clave: 'newsletter', n: otros.newsletter || 0 },
-                    { clave: 'perfil', n: otros.perfil || 0 },
-                    { clave: 'sin_rastro', n: otros.sin_rastro || 0, etiqueta: 'Sin enlace de un post' },
-                  ]}
-                />
-              );
-            })()}
-            {conversiones?.leads && 'current' in conversiones.leads && (() => {
-              const l = conversiones.leads.current;
-              const o = l.por_origen;
-              return (
-                <FranjaOrigen
-                  icono="🧲"
-                  titulo="Leads"
-                  total={l.leads}
-                  extra={`${fmtNum(l.con_correo)} aceptan correos`}
-                  delta={deltaDe(l.leads, conversiones.leads.previous.leads)}
-                  ayuda={`Correos que nos dejaron en la web en el periodo (gate de un recurso, contacto o newsletter), sin el equipo; dos recursos de la misma persona = 1 lead. «Aceptan correos» = marcaron la casilla: entran en la newsletter. No incluye la casilla de correos del webinar (va en su franja). Por recurso: ${Object.entries(l.por_recurso).map(([k, n]) => `${k} ${n}`).join(' · ') || '—'}.`}
-                  grupos={[
-                    { clave: 'post', n: o.post || 0, detalle: Object.entries(l.por_pilar).sort((a, b) => b[1] - a[1]) },
-                    { clave: 'dm', n: o.dm || 0 },
-                    { clave: 'newsletter', n: o.newsletter || 0 },
-                    { clave: 'perfil', n: o.perfil || 0 },
-                    { clave: 'buscadores', n: o.buscadores || 0 },
-                    { clave: 'otros', n: o.otros || 0 },
-                    { clave: 'sin_rastro', n: o.sin_rastro || 0 },
-                  ]}
-                />
-              );
-            })()}
-            {conversiones?.evento && (() => {
-              const ev = conversiones.evento;
+            {/* CONVERSIONES POR ORIGEN (23-oct-2026, Iker). El MISMO árbol en las tres y en el
+                desplegable «Origen» del admin de la web: LinkedIn (pilares · botón del perfil ·
+                sin post concreto), DMs, newsletter, eventos, web, Google, otros, sin rastro. Sin
+                enlace de un post, manda lo que dijeron en «¿Cómo nos conociste?». */}
+            {conversiones?.demos && 'current' in conversiones.demos && conversiones.demos.current.solicitudes > 0 && conversiones.demos.current.origenes && (
+              <FranjaOrigen
+                icono="🎯"
+                titulo="Oportunidades"
+                total={conversiones.demos.current.solicitudes}
+                arbol={conversiones.demos.current.origenes}
+                ayuda={`De dónde vienen las oportunidades del periodo (cualificadas + descartadas). LinkedIn incluye a quien llegó con el enlace de un post (por pilar), por el botón del perfil o, sin enlace de un post, marcó LinkedIn en «¿Cómo nos conociste?» (sin post concreto: entraron escribiendo neety.com, por Google o por la web antigua).${conversiones.demos.sin_casar ? ` ${conversiones.demos.sin_casar} no se han podido casar con un post concreto.` : ''}`}
+              />
+            )}
+            {conversiones?.leads && !conversiones.leads.error_web && conversiones.leads.current.total > 0 && (
+              <FranjaOrigen
+                icono="🧲"
+                titulo="Leads"
+                total={conversiones.leads.current.total}
+                arbol={conversiones.leads.current.origenes}
+                ayuda={`De dónde viene cada lead: el enlace por el que llegó a la web o, si se apuntó a un evento, «Eventos». Quien está en la web y en un evento cuenta en la web. Por recurso (altas con casilla): ${Object.entries(conversiones.leads.current.por_recurso).map(([k, n]) => `${k} ${n}`).join(' · ') || '—'}.`}
+              />
+            )}
+            {(conversiones?.eventos ?? []).map((ev) => {
               const faltan = Math.ceil((new Date(ev.empieza).getTime() - Date.now()) / 86400000);
               return (
-                <div className="flex items-center gap-x-3 gap-y-1 flex-wrap bg-bg-card border border-border rounded-xl px-4 py-2.5 text-xs text-text-secondary">
-                  <span>📅 Webinar <span className="text-text-primary font-medium">{ev.nombre}</span></span>
-                  {ev.inscritos != null ? (
-                    <span className="inline-flex items-center text-text-primary font-semibold tabular-nums">
-                      {fmtNum(ev.inscritos)} inscritos
-                      <InfoHint className="mt-0" text="Total del evento según Luma ahora mismo. De dónde viene cada uno sale del último CSV de invitados que se haya subido (abajo): Luma gratis no lo da por API." />
-                    </span>
-                  ) : (
-                    <span className="text-text-muted" title="Luma no ha devuelto el recuento de entradas de este evento.">
-                      inscritos: Luma no los enseña
-                    </span>
+                <div key={ev.slug} className="flex items-center gap-x-3 gap-y-1 flex-wrap bg-bg-card border border-border rounded-xl px-4 py-2.5 text-xs text-text-secondary">
+                  <span>📅 <span className="text-text-primary font-medium">{ev.nombre}</span></span>
+                  {ev.inscritos_luma != null && faltan > 0 && (
+                    <span className="text-text-primary font-semibold tabular-nums">{fmtNum(ev.inscritos_luma)} inscritos en Luma</span>
                   )}
                   {faltan > 0 && <span className="text-text-muted">faltan {faltan} {faltan === 1 ? 'día' : 'días'}</span>}
                   <span className="ml-auto inline-flex items-center gap-3">
                     <SubirCsvLuma onSubido={refetchConversiones} />
                     <a href={ev.url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-strong">Ver en Luma →</a>
                   </span>
-                  {ev.desglose && (
-                    <div className="basis-full border-t border-border pt-2 mt-1">
+                  <div className="basis-full border-t border-border pt-2 mt-1">
+                    {ev.csv ? (
                       <FranjaOrigen
                         sinCaja
                         icono="👥"
-                        titulo="De dónde vienen"
-                        total={ev.desglose.total}
-                        extra={`${fmtNum(ev.desglose.acepta_correo)} aceptan correos · CSV del ${new Date(ev.desglose.csv_at).toLocaleString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`}
-                        ayuda="Del último CSV de invitados de Luma subido (solo los aprobados), por el utm_source de su enlace: {pilar}-{tema}-{fecha}-{cuenta} en los posts y dm-… en los mensajes privados. El total puede ir por detrás del de Luma: es el de la hora del CSV."
-                        grupos={[
-                          { clave: 'post', n: ev.desglose.por_origen.post || 0, detalle: Object.entries(ev.desglose.post_por_pilar).sort((a, b) => b[1] - a[1]) },
-                          { clave: 'dm', n: ev.desglose.por_origen.dm || 0, detalle: Object.entries(ev.desglose.dm_por_cuenta).sort((a, b) => b[1] - a[1]).map(([k, n]) => [k === 'sin-cuenta' ? 'sin jefe' : nombreCuenta(k.charAt(0).toUpperCase() + k.slice(1)), n] as [string, number]), detalleCrudo: true },
-                          { clave: 'newsletter', n: ev.desglose.por_origen.newsletter || 0 },
-                          { clave: 'perfil', n: ev.desglose.por_origen.perfil || 0 },
-                          { clave: 'web', n: ev.desglose.por_origen.web || 0 },
-                          { clave: 'otros', n: ev.desglose.por_origen.otros || 0 },
-                          { clave: 'sin_rastro', n: ev.desglose.por_origen.sin_utm || 0, etiqueta: 'Sin UTM' },
-                        ]}
+                        titulo="Inscritos por origen"
+                        total={ev.csv.inscritos}
+                        extra={`CSV del ${fmtFechaCorta(ev.csv.csv_at)}${ev.csv.asistentes != null ? ` · ${fmtNum(ev.csv.asistentes)} asistieron` : ''}`}
+                        arbol={ev.csv.origenes}
+                        ayuda="Aprobados del último CSV de invitados de Luma subido, por el utm_source de su enlace: {pilar}-{tema}-{fecha}-{cuenta} en los posts y dm-… en los mensajes privados. Puede ir por detrás del total en vivo de Luma: es el de la hora del CSV."
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <span className="text-text-muted">Sube el CSV de invitados de Luma para ver de dónde viene cada inscrito.</span>
+                    )}
+                  </div>
                 </div>
               );
-            })()}
+            })}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <Kpi
                 etiqueta="Interacciones medias por post"

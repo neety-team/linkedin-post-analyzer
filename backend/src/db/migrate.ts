@@ -1204,6 +1204,20 @@ const migration = `
     subido_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (evento, guest_id)
   );
+  -- Leads cruzados y asistentes (23-oct, diseño 2026-10-23-resumen-conversiones): la HUELLA
+  -- (SHA-256) del correo de quien marco la casilla, nunca el correo, y si entro al evento.
+  ALTER TABLE luma_inscritos ADD COLUMN IF NOT EXISTS email_hash TEXT;
+  ALTER TABLE luma_inscritos ADD COLUMN IF NOT EXISTS asistio BOOLEAN;
+  -- Cada evento leido de Luma, para que su tarjeta siga en el resumen despues de la fecha.
+  CREATE TABLE IF NOT EXISTS luma_eventos (
+    slug TEXT PRIMARY KEY,
+    nombre TEXT NOT NULL,
+    empieza TIMESTAMPTZ NOT NULL,
+    acaba TIMESTAMPTZ,
+    url TEXT,
+    inscritos_luma INTEGER,
+    actualizado_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  );
 `;
 
 /**

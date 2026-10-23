@@ -24,7 +24,8 @@ import { generarRastro } from '../services/rastroGenerator';
 import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSync';
 import { clasificarGanchosPendientes, estadoGanchos } from '../services/ganchoPsicologia';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from '../services/premiumAnalytics';
-import { leerDemos, leerEventoWeb, leerLeads, guardarInscritosLuma } from '../services/conversionesWeb';
+import { leerDemos, leerLeads } from '../services/conversionesWeb';
+import { leerEventos, leerLeadsCombinados, guardarInscritosLuma } from '../services/conversionesEventos';
 import { fetchAudiencia, saveAudiencia } from '../services/audienciaPost';
 import {
   extraerPost,
@@ -1342,10 +1343,15 @@ router.put('/posts/:id/coautores', async (req: Request, res: Response) => {
 router.get('/conversiones', async (req: Request, res: Response) => {
   try {
     const range = parseDateRange(req);
-    const [demos, evento, leads] = await Promise.all([
-      leerDemos(range.startDate, range.endDate), leerEventoWeb(), leerLeads(range.startDate, range.endDate),
+    // Oportunidades (web), eventos de Luma del rango y leads = casilla de la web + casilla de
+    // los eventos, sin repetir a nadie (diseño 2026-10-23-resumen-conversiones).
+    const [demos, eventos, leadsWeb] = await Promise.all([
+      leerDemos(range.startDate, range.endDate),
+      leerEventos(range.startDate, range.endDate).catch((e) => { console.error('[conversiones] eventos', e?.message); return []; }),
+      leerLeads(range.startDate, range.endDate),
     ]);
-    res.json({ start_date: range.startDate, end_date: range.endDate, demos, evento, leads });
+    const leads = await leerLeadsCombinados(range.startDate, range.endDate, leadsWeb);
+    res.json({ start_date: range.startDate, end_date: range.endDate, demos, eventos, leads });
   } catch (err: any) {
     console.error('[accounts/conversiones]', err);
     res.status(500).json({ error: err.message });
@@ -1353,8 +1359,9 @@ router.get('/conversiones', async (req: Request, res: Response) => {
 });
 
 // POST /api/accounts/webinar-csv  { filas: [{guest_id, created_at, utm_source, utm_medium,
-// approval_status, acepta_correo}] } — el CSV de invitados de Luma del webinar en curso, ya
-// leido en el navegador: solo viajan esos campos, nunca nombres ni correos (23-oct-2026).
+// approval_status, acepta_correo, asistio, h}] } — el CSV de invitados de Luma del evento en curso,
+// ya leido en el navegador: solo viajan esos campos y la huella del correo de quien marco la
+// casilla, nunca nombres ni correos (23-oct-2026).
 router.post('/webinar-csv', async (req: Request, res: Response) => {
   try {
     const filas = Array.isArray(req.body?.filas) ? req.body.filas : [];

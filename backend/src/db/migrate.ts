@@ -1187,6 +1187,23 @@ const migration = `
     PRIMARY KEY (post_id, creator_id)
   );
   CREATE INDEX IF NOT EXISTS idx_post_coautores_creator ON post_coautores (creator_id);
+
+  -- INSCRITOS DE LUMA POR ORIGEN (Iker, 2026-10-23). Luma gratis no da la fuente de
+  -- cada inscrito por API, pero su CSV si (utm_source). Se sube desde la franja del
+  -- webinar en Cuentas y se guarda SOLO lo que hace falta para contar: ni nombre ni
+  -- correo. Cada subida reemplaza las filas de ese evento.
+  CREATE TABLE IF NOT EXISTS luma_inscritos (
+    evento TEXT NOT NULL,
+    guest_id TEXT NOT NULL,
+    inscrito_at TIMESTAMPTZ,
+    utm_source TEXT,
+    utm_medium TEXT,
+    utm_campaign TEXT,
+    estado TEXT,
+    acepta_correo BOOLEAN,
+    subido_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (evento, guest_id)
+  );
 `;
 
 /**

@@ -24,7 +24,7 @@ import { generarRastro } from '../services/rastroGenerator';
 import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSync';
 import { clasificarGanchosPendientes, estadoGanchos } from '../services/ganchoPsicologia';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from '../services/premiumAnalytics';
-import { leerDemos, leerEventoWeb } from '../services/conversionesWeb';
+import { leerDemos, leerEventoWeb, leerLeads, guardarInscritosLuma } from '../services/conversionesWeb';
 import { fetchAudiencia, saveAudiencia } from '../services/audienciaPost';
 import {
   extraerPost,
@@ -1342,11 +1342,26 @@ router.put('/posts/:id/coautores', async (req: Request, res: Response) => {
 router.get('/conversiones', async (req: Request, res: Response) => {
   try {
     const range = parseDateRange(req);
-    const [demos, evento] = await Promise.all([leerDemos(range.startDate, range.endDate), leerEventoWeb()]);
-    res.json({ start_date: range.startDate, end_date: range.endDate, demos, evento });
+    const [demos, evento, leads] = await Promise.all([
+      leerDemos(range.startDate, range.endDate), leerEventoWeb(), leerLeads(range.startDate, range.endDate),
+    ]);
+    res.json({ start_date: range.startDate, end_date: range.endDate, demos, evento, leads });
   } catch (err: any) {
     console.error('[accounts/conversiones]', err);
     res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/accounts/webinar-csv  { filas: [{guest_id, created_at, utm_source, utm_medium,
+// approval_status, acepta_correo}] } — el CSV de invitados de Luma del webinar en curso, ya
+// leido en el navegador: solo viajan esos campos, nunca nombres ni correos (23-oct-2026).
+router.post('/webinar-csv', async (req: Request, res: Response) => {
+  try {
+    const filas = Array.isArray(req.body?.filas) ? req.body.filas : [];
+    if (filas.length > 20000) return res.status(400).json({ error: 'Demasiadas filas' });
+    res.json(await guardarInscritosLuma(filas));
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
   }
 });
 

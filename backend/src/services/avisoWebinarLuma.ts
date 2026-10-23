@@ -19,7 +19,7 @@
 import pool from '../db';
 import { sendToGoogleChat } from './googleChat';
 
-const SLUG = process.env.LUMA_WEBINAR_SLUG || '7hhyx07z';
+export const SLUG = process.env.LUMA_WEBINAR_SLUG || '7hhyx07z';
 const HORA = '09:00';
 const COMPROBAR_RELOJ_MS = 30 * 60 * 1000; // solo mira la hora; a Luma va una vez al dia
 const CLAVE_CIFRA = `luma:${SLUG}:inscritos`;

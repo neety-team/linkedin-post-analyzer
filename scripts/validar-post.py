@@ -705,7 +705,8 @@ ANCLA_DIRECCION = False
 # agendar; si hay puerta, va sin enlace (el cafe). Solo con --pilar evento --evento-ajeno.
 EVENTO_AJENO = False
 DIRECCION_ANCLA = (r'\b(inversi[oó]n\w*|invers\w+|inversor\w*|validar|valid\w+|mercados?'
-                   r'|startups?|fundador\w*|capital|rondas?|emprend\w+)\b')
+                   r'|startups?|fundador\w*|capital|rondas?|emprend\w+|fondos?|venture|ecosistema'
+                   r'|instituci\w+)\b')
 
 # §4.5.0a — MOLDE B del lead magnet: Claude (o yo) + VERBO PUNCHY + resultado.
 # Sacado de los cinco lead magnets NUESTROS con mas comentarios, no de memoria.

@@ -319,6 +319,32 @@ CASOS += [
      'REPITE una palabra del gancho', ['--pilar', 'mapa', '--cuenta', 'iker']),
 ]
 
+# Iker, 23/10: el primer post del pilar NOTICIA salio con regalo y "¿Lo quieres?" ("una cosa
+# era el lead magnet y otra noticia"). La noticia no regala nada (post-workflow §4.9).
+NOTICIA_CON_REGALO = """🚨 ÚLTIMA HORA: la IA de tu cliente va a desmontar tus promesas. Claude te deja jugar al revés 👇
+
+Según la consultora Forrester, 2 de cada 3 proveedores perderán ventas así.
+
+Yo lo leo al revés.
+Mi encargo para Claude hace 5 cosas.
+
+1. Lee la web de tus 3 mejores clientes
+2. Saca lo que comparten por lo que hacen
+3. Busca 5 empresas que hacen lo mismo por cada cliente
+4. A cada una le pone la frase de su web que lo prueba
+5. Te las ordena de la que más se parece a la que menos
+
+Eso es jugar al revés.
+
+Lo estoy compartiendo gratis.
+
+¿Lo quieres?
+"""
+CASOS += [
+    (NOTICIA_CON_REGALO, '23/10: una noticia con regalo es un lead magnet, no el pilar noticia',
+     'NOTICIA: sin regalo', ['--pilar', 'noticia', '--cuenta', 'iker']),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

@@ -3739,6 +3739,46 @@ El playbook dice "output = acción ejecutada o HTML estudio". Para posts **no**:
 
 ## 8 · EL WORKFLOW REAL: planificador semanal de las 3 cuentas
 
+### 4.9 · Runbook NOTICIA (lo que ha pasado esta semana en ventas, SIN regalo) — EN PRUEBA, fuera de rotación (Iker, 2026-10-23)
+
+> **Iker:** *"una cosa era el post que vamos a hacer de lead magnet y otra noticia… definir un nuevo tipo de pilar llamado noticia, en la que contemos alguna noticia, alguna tendencia ahora mismo de ventas, algo de lo que se esté hablando, y ya está"*. Y sobre su hipótesis (debate, compartidos o guardados): *"tus datos de otras cuentas tienen que ir por encima de mi hipótesis"*.
+
+**⛔ EL FALLO QUE LO FUNDA, y es mío:** el primer post del pilar (23/10) salió como **noticia + gate** (Forrester + el encargo de GEMELOS con `¿Lo quieres?`). Eso es un **lead magnet con gancho de noticia**, que ya existía (`§4.5.0`), y además quemaba el mismo recurso que el lead magnet de ese día. **La noticia NO regala nada.** Si lleva recurso, va por `§4.5` y `--pilar leadmagnet`. Mecanizado: `validar-post.py --pilar noticia` falla si el post ofrece un recurso (`¿Lo quieres?`, `comenta`). El borrador está en `scripts/test-borradores-tumbados.py`.
+
+#### 4.9.1 · LO QUE DICEN LOS DATOS (medido el 23/10 sobre la BD entera: 53.887 posts de 164 creadores, sin las 3 cuentas propias)
+
+**Cómo se mide:** un post es noticia si su gancho (las 3 primeras líneas) dice que algo acaba de pasar (`BREAKING`, `ÚLTIMA HORA`, `acaba de`, `just launched/announced`, `informe`, `según`, consultoras…), sin noticias personales (`PERSONAL NEWS`, rondas propias, fichajes) y sin regalo (gate o comentarios ≥ 0,8 × likes). **Se compara cada creador CONTRA SÍ MISMO** (su noticia frente a su resto sin regalo), porque los agregados mezclan cuentas de 4.000 y de 1.600.000 seguidores. El clasificador es por palabras y tiene ruido, y lo dominan Guillermo Flor y Rubén Domínguez Ibar (177 noticias cada uno), así que **cada creador cuenta un voto**.
+
+| | n | lo que sale |
+|---|---|---|
+| **Noticia sin regalo frente al resto del mismo creador** | 46 creadores con 5+ noticias | **mediana 1,23x su base, mejor en 31 de 46**. Últimos 120 días: 1,38x. No es un pilar de outlier extremo: es un **suelo alto** |
+| Con marca de reciente (`BREAKING`, `🚨`, `acaba de`) | 945 posts | **1,6x su base, 41% pasa de 2x** |
+| Sin marca de reciente | 253 | 1,07x, 22% pasa de 2x |
+| Estudio o informe **sin protagonista** (McKinsey, Gartner, encuestas) | 75 | **~1,0x, 17% pasa de 2x**: el subtipo que menos levanta |
+
+**🧠 QUÉ MÉTRICA DISPARA (la pregunta de Iker): TODAS A LA VEZ, NINGUNA EN ESPECIAL.** En las noticias con marca de reciente, contra el resto del mismo creador (24 creadores): **likes 1,3x · comentarios 1,54x · reposts 1,38x**. La proporción casi no se mueve: comentarios por like +0,016 y reposts por like +0,003. **La noticia no saca más debate ni más compartidos POR LECTOR: trae MÁS LECTORES**, y cada uno reacciona como siempre. El motor es el **alcance por novedad** (*"esto acaba de pasar y no lo sabes"*). Lo que más sube son los comentarios (1,54x), así que el debate que intuía Iker ayuda, pero no es la palanca principal. **Guardados: no hay dato de la competencia** (solo de nuestras cuentas); queda como hipótesis a medir en los nuestros.
+
+**🧠 QUÉ PSICOLOGÍA GANA, por lo que multiplica sobre la base del creador:**
+1. **Alguien conocido y poderoso HACIENDO o DICIENDO algo** (Elon Musk, Trump, Bezos, Jensen Huang): Guillermo Flor 74x, 39x, 31x, 25x. Moneda social y autoridad prestada: se reacciona para estar en la conversación del día.
+2. **Algo que acaba de pasarle a una HERRAMIENTA que el lector usa**: Apollo en Claude (Zack Deris, 21,8x), el agente de ventas de Instantly (Josh Whitfield, 10,5x), el enriquecimiento de Pipedrive (David Chevalier, 5,5x), Shopify dejando comprar a agentes (Guillermo Flor, 9,2x). Es *lo que le pasa a mi trabajo*, la misma regla que el `ÚLTIMA HORA` del lead magnet (`§4.5.0`: el sujeto es el trabajo del lector, no el modelo).
+3. **Un choque de economía o comercio**: *"China acaba de lanzar una ruta marítima que omite el Canal de Suez"* (Kike Sanchis, en español, 50x). Mediana por creador del subtipo **3,0x**, con solo 7 creadores de 2 o más casos. Para nuestro ICP exportador es el más prometedor y el más cerca de la política, que está vetada: se cuenta por lo que le pasa al que vende fuera, nunca por quién tiene razón.
+4. **El estudio sin protagonista** (la cifra de una consultora) es el que menos levanta. Si la noticia es un estudio, el gancho la convierte en **algo que le pasa a alguien**: el comprador, el comercial, la herramienta.
+
+**NUESTRO HISTÓRICO, poco y en el mismo sentido:** noticias sin regalo de Iker: `🚨 ÚLTIMA HORA: Claude Opus 4.7 acaba de romper las ventas B2B` (17/04, 7.327 imp, 12 guardados), `Tu mejor comercial acaba de ser bloqueado por un bot de 5€/mes` (20/04, 2.900), `🚨 URGENTE: El nuevo Claude acaba de tachar…` (29/05, 1.622). **Con el modelo de sujeto se hunden** (`§4.5.0`, 0,22-0,70x).
+
+#### 4.9.2 · LA RECETA (en prueba hasta tener 3 publicados y medidos)
+
+1. **Ventana: 72 horas como mucho**, y se publica el día que se escribe (`global §2.1b`: la tendencia sube hoy o no sube).
+2. **Verificación como cualquier cifra:** fuente original abierta, frase literal en la entrega interna, fecha comprobada. En el cuerpo, el **nombre** de la fuente con su categoría (`la consultora Forrester`), **nunca el año** (`global §3.5b`). Una predicción va en futuro (`prevé`, `va a`), nunca como hecho.
+3. **Elegir la noticia por su protagonista**, en este orden: persona conocida haciendo algo → herramienta que el lector usa → choque de comercio o economía que toca al que exporta → estudio (solo si se le pone protagonista). Si esa semana solo hay estudios sin protagonista, **se dice al planificar y se cambia de pilar**.
+4. **El gancho:** marca de reciente (`🚨 ÚLTIMA HORA`, `acaba de`, `esta semana`: 1,6x frente a 1,07x), ancla de ventas, ≤1 cifra, bucle abierto. **El ángulo de la esquina** (lo que nadie dice de la noticia) va en el gancho o en el pago. En Iker vale el contrarian y la creencia ajena desmentida (`brand-voice §1b`); en Unai y Asier la de que la IA sustituye al comercial sigue vetada.
+5. **El cuerpo:** qué ha pasado (con la fuente), qué significa para el que vende, y nuestro ángulo pagado en el último tercio con la palabra del gancho (`global §2.0-PAGO`). No se resume la noticia: se le da la vuelta.
+6. **Conversión:** sin regalo. **Spam ninja como en cualquier pilar** (`global §4.4b`), hoy al evento del 28/10 (`§4.4b-WEBINAR`), recogiendo la palabra del gancho y antes del carácter 650.
+7. **Validar:** `python scripts/validar-post.py <fichero> --pilar noticia --cuenta X --criterio <fichero>`. Corre como historia (ritmo, ninja, enlace antes del 650) sin los checks de escena personal, y añade los de este pilar.
+8. **Medir:** al publicar, anotar en `historial-publicaciones.md` el subtipo (persona, herramienta, comercio, estudio), impresiones a las 3 h y a las 24 h, comentarios, reposts y **guardados**. Con 3 posts se decide si entra en rotación.
+
+**Lo que NO es este pilar:** un lead magnet con gancho de noticia (`§4.5.0`), un resumen de noticias, ni una noticia de Neety (eso es historia/evento).
+
 ### ⭐ LA VENTANA DE PUBLICACIÓN (CORREGIDO 2026-07-20, la 1ª versión estaba MAL)
 
 **⚠️ AVISO SOBRE LA VERSIÓN ANTERIOR.** Aquí ponía *"los 10 posts que han pasado de 6x están todos entre las 10:00 y las 13:00"* y *"después de las 13:00 nada ha pasado de 3.57x"*. **Las dos frases eran FALSAS.** Salieron de un análisis cuyo filtro de pilares **no reconocía los memes**, así que tiraba a la basura justo los posts de más alcance. Corregido sobre los **90 posts desde abril de 2026**, sin filtrar por pilar.

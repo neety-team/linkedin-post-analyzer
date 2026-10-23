@@ -1555,6 +1555,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     LAS10 = pilar == 'las10'
     if LAS10:
         pilar = 'los10'
+    # NOTICIA (Iker, 2026-10-23, en prueba, post-workflow §4.9): una noticia de esta
+    # semana contada con nuestro angulo, SIN regalo. Corre como historia (enlace antes
+    # del 650, ninja, ritmo) y se apagan los checks de escena personal de §4.6.
+    NOTICIA = pilar == 'noticia'
+    if NOTICIA:
+        pilar = 'historia'
     bs = bloques(texto)
     hook = bs[0] if bs else []
     hook_txt = ' '.join(hook)
@@ -4880,7 +4886,21 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                     'La palabra del CTA reconecta con el hook (§4.5 Paso 5)',
                     f'"{m2.group(1)}" no aparece en el hook' if _raiz not in normalizar_entidad(hook_txt) else '')
 
-    if pilar == 'historia':
+    if NOTICIA:
+        # Medido el 23/10 sobre 53.887 posts de 164 creadores (post-workflow §4.9): la
+        # noticia SIN regalo sube 1,23x sobre la base de su creador; con regalo es un
+        # lead magnet y va por su receta.
+        chk(not re.search(r'¿\s*l[oa]s?\s+quieres\s*\?|\bcomenta\b', texto, re.I),
+            'NOTICIA: sin regalo ni gate, eso es un lead magnet (§4.9)',
+            'el post ofrece un recurso: o se quita el regalo o va por --pilar leadmagnet')
+        chk(bool(re.search(r'🚨|[uú]ltima hora|acaba(n)? de|esta semana|ayer|hoy', hook_txt, re.I)),
+            'NOTICIA: el gancho dice que ACABA de pasar (§4.9)',
+            'las noticias con marca de reciente suben 1,6x su base; sin ella, 1,07x', aviso=True)
+        chk(False, 'ENTREGA: ¿hay PROTAGONISTA y la fuente va nombrada en el cuerpo? (§4.9)',
+            'lo que mas multiplica es alguien o algo conocido HACIENDO algo (una persona de poder, '
+            'una herramienta que el lector usa); un estudio sin protagonista se queda en ~1x. '
+            'La fuente, con su nombre y sin año (global §3.5b)', aviso=True)
+    if pilar == 'historia' and not NOTICIA:
         # Pilar HISTORIA PERSONAL / ANÉCDOTA (§4.6). Vara: Josh Braun (39x, 29x),
         # Daniel Disney (16 outliers). NO es autoridad ("mira qué importante soy"):
         # es una anécdota REAL en primera persona, frases cortas, mucho aire, y
@@ -5462,7 +5482,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('fichero')
     ap.add_argument('--pilar', required=True,
-                    choices=['mapa', 'los10', 'las10', 'objeto', 'meme', 'leadmagnet', 'historia', 'entregable', 'evento', 'tarjeta'])
+                    choices=['mapa', 'los10', 'las10', 'objeto', 'meme', 'leadmagnet', 'historia', 'noticia', 'entregable', 'evento', 'tarjeta'])
     ap.add_argument('--cuenta', default=None)
     ap.add_argument('--tarjeta', default=None, dest='tarjeta',
                     help='Fichero con el texto que va DENTRO de la tarjeta (pilar tarjeta). '

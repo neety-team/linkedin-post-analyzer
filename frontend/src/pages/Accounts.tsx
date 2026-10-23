@@ -974,13 +974,13 @@ function presetRange(days: number): { start: string; end: string } {
 
 function AccountsInner() {
   const [selectedCreator, setSelectedCreator] = useState<string>('all');
-  // Date range model: preset = one of [30, 90, 180] OR 'custom' (free
+  // Date range model: preset = one of [14, 30, 90, 180] (14 d = la revisión de cada dos semanas, 23-oct) OR 'custom' (free
   // start/end selection). We compute startDate + endDate from the
   // active mode and propagate those everywhere — endpoints accept
   // start_date + end_date. `days` is derived for any chart prop that
   // still wants a single number (e.g. ProfileViewChart's "vs last Nd"
   // delta label).
-  const [datePreset, setDatePreset] = useState<30 | 90 | 180 | 'custom'>(30);
+  const [datePreset, setDatePreset] = useState<14 | 30 | 90 | 180 | 'custom'>(30);
   // El calendario solo se despliega al pulsar Custom. Antes salían dos campos
   // de fecha en cuanto se elegía Custom, y ocupaban media barra de filtros.
   const [showCalendar, setShowCalendar] = useState(false);
@@ -992,7 +992,7 @@ function AccountsInner() {
   const [customEnd, setCustomEnd] = useState<string>('');
   // El preset que habia antes de abrir Custom. Mientras no se pincha ningun
   // dia, los datos siguen siendo los de ese preset, en vez de quedarse vacios.
-  const [prevPreset, setPrevPreset] = useState<30 | 90 | 180>(30);
+  const [prevPreset, setPrevPreset] = useState<14 | 30 | 90 | 180>(30);
 
   const dateRange = useMemo(() => {
     if (datePreset === 'custom') {
@@ -1384,7 +1384,7 @@ function AccountsInner() {
           )}
           <div className="flex items-center gap-1 flex-wrap">
             <span className="text-xs text-text-muted mr-1">Rango:</span>
-            {([30, 90, 180] as const).map((d) => (
+            {([14, 30, 90, 180] as const).map((d) => (
               <button
                 key={d}
                 onClick={() => {

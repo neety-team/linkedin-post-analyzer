@@ -343,7 +343,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 
 | dato | |
 |---|---|
-| **Estado** | ✅ publicado · validado por Unai · `ENTREGABLE: SÍ · mecánico 56/56 · criterio 6/6` (`--pilar evento --cuenta unai --ancla-direccion --evento-ajeno`) · ⭐ **PRIMER POST COLABORATIVO** (sale en los perfiles de Unai, Iker y Asier): **se mide UNA sola vez**, en la cuenta de Unai, aunque la BD lo traiga repetido |
+| **Estado** | ✅ publicado · validado por Unai · `ENTREGABLE: SÍ · mecánico 56/56 · criterio 6/6` (`--pilar evento --cuenta unai --ancla-direccion --evento-ajeno`) · ⭐ **PRIMER POST COLABORATIVO** (sale en los perfiles de Unai, Iker y Asier): **se mide UNA sola vez**, en la cuenta de Unai · ✅ marcado en el analizador el 23/10 (coautores Iker y Asier; filtro Cuenta → Colaborativos → «Unai + Iker + Asier»). En los feeds de Iker y Asier entra como repost y no se duplica |
 | **Cómo se llegó** | historia con hilo (`pico y pala`, cita literal de Isoltex del informe del 15/10) → Unai pide San Francisco en el gancho y anclarlo a su público de ecosistema → anuncio simple con los datos del PDF de contexto. Regla en `brand-voice §1b` (segundo carril de Unai: ecosistema), `global §4.4b-AUTOGOL` (el dolor del gancho no se nos pega) y `global §2.0` (gancho cerrado aunque pase el validador) |
 | **Pilar** | evento ajeno (anuncio de un programa que no es nuestro) · **carril de ECOSISTEMA de Unai, primer post declarado** · no regional · sin historia |
 | **Gancho** | `Nos vamos 2 semanas a San Francisco entre inversores, fondos y fundadores ✈️` · elegido por Unai entre 8 · ancla de dirección (inversores, fondos, fundadores), sin ventas · bucle pequeño: el porqué (`No vamos por nuestra cuenta.` → la selección de ICEX y Red.es) |

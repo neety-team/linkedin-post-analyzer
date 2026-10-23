@@ -1044,6 +1044,25 @@ eventos del 20/10 (Inbertsio, hackathon), tarjeta, meme de Iker del 21/10: 0
 2. **El peloteo con Luma directo inscribe poco por impresión pero suma en total** (4, como la mejor historia de Iker) y además da la marca. El mapa al blog, 0: con evento abierto, siempre Luma directo.
 3. **El DM manda (63%).** En una campaña de evento con fecha, el post calienta y el DM cierra. **Los posts no sustituyen al DM**: el plan de un evento empieza por la campaña de DM.
 
+**🖥️ WEBINAR, CSV DEL 23/10 a las 10:15: 123 filas.** DM 69 (Iker 26, Unai 25, Asier 15 y 3 sin jefe), posts 43, web 3, correo 1 y 7 sin UTM. **Primera vez que un post supera a todos: el meme de MARIO del 21/10 (`meme-amigos-21oct-mario`), 10 inscritos.**
+
+```
+post                                     imp     clics  inscritos  por 1.000  clic→inscrito
+21/10 Mario meme (ventas y marketing)    30.762    28      10        0,33        36%
+14/10 Unai historia (el Excel)           10.107    25       8        0,79        32%
+21/10 Unai historia (cliente de Vitoria)  4.899    13       5        1,02        38%
+14/10 Asier meme (el sable)               4.009     9       3        0,75        33%
+22/10 Asier historia (el olfato)          2.548     6       2        0,78        33%
+14/10 Iker historia (los kilómetros)      6.439    15       4        0,62        27%
+22/10 Iker mapa Bizkaia (Luma)            5.372    14       3        0,56        21%
+16/10 Iker "Las 10" Aragón (Luma)        53.934    18       4        0,07        22%
+21/10 Iker meme (el informe)              1.919     4       0        0            0
+```
+
+1. **⭐ El paso de clic a inscrito es casi el mismo en todos (21-38%).** El meme de Mario no convierte mejor el clic: inscribe más porque llega a más gente y saca más clics. **Lo que separa un post que inscribe de uno que no es el ALCANCE con el ninja dentro, no el pilar.** Por 1.000 impresiones, el caso real de cliente sigue ganando (1,02); en total, gana el que viaja.
+2. **⭐ El meme no está muerto: lo que falla es el meme de las cuentas de los jefes.** El mismo pilar, en la cuenta de Mario y con referencia validada, hace 30.762 impresiones mientras ningún meme de los jefes pasa de 5.400 desde el 29/09. La explicación con dato está en `§4.4-MEME-MARIO` (debajo del runbook del meme).
+3. **🌎 Despegó en Latinoamérica y tarde.** 9 de los 10 se inscribieron el 22/10 entre las 17:48 y las 23:14 (hora de España, mañana en México), con dominios `.mx` y una SA de CV. Mario: más de 24 horas flojo (1.000 y pico), 3.000 a las 18:00 del día 2 y 30.000 después; el 99% de fuera de su red. **Un post no se da por muerto a las 24 horas si tiene guardados y envíos.** ⚠️ El webinar es a las 10:00 de España, las 3:00 de México: a esos inscritos se les ofrece la grabación, y no cuentan como público objetivo hasta saber si les vendemos (pregunta abierta a Iker).
+
 **🎟️ NEETY FORWARD (presencial, 24/09), CSV COMPLETO DE LUMA, LEÍDO EL 19/10.** 108 filas: 83 aprobados, 21 rechazados y 4 invitados. **El 69% de los aprobados (57) no traen UTM**: casi toda la home de neety.com, que no la llevaba (§ de arriba, 22/09). **No hay asistencia medida**: nadie hizo check-in en Luma, así que solo se sabe quién se inscribió, no quién fue. Lo que cambia frente a la tabla de arriba: **la historia de víspera de Unai (`historia-equipo-23sep-unai`, 10.729 impresiones) generó 10 solicitudes, la que más (3 aprobadas y 7 rechazadas por aforo): 0,93 por 1.000.** El meme de Iker del 01/09 suma 7 (5 y 2), Euskadi 26/08 5, el "Los 10" de Gipuzkoa 4 y Álava 3. **El post de víspera con el gancho de la cuenta que más inscribe es el que más mueve, y rinde aún más con fecha encima.** Por eso, en un webinar, el último post de Unai va la víspera.
 
 **🧪 HIPÓTESIS EN PRUEBA, no regla:** *el ninja que nombra a la PERSONA convierte más que el que vende "la sala"* (a favor: `Una reunión la pide cualquiera, el nombre de dentro no.` 26/08, 5 inscritos). **En contra:** `El que firma tu pedido no aparece en cualquier sala.` (Iker 15/09) nombra a la persona y sacó 0 con 15 clics, y el ninja del "Los 10" también vendía la sala (`una sala de solo 80 sitios`). Casi todos los ninjas del evento mezclan las dos cosas. **Hace falta un ninja limpio de cada tipo, en la misma cuenta, antes de tocar el molde de `global §4.4b`.**
@@ -1220,6 +1239,16 @@ sorprende, que es de lo que vive este pilar.
 > Los pasos 2-4 son la cadena que se me escapa: calco medio, olvido el tiempo verbal, o no mejoro el punch. Léelos SIEMPRE.
 >
 > **⭐ EN EL MEME, UNA BROMA YA VALIDADA DENTRO DE VENTAS BATE AL REMIX DE OTRO SECTOR (Iker, 2026-07-29).** La norma general es robar outliers de otro sector y traerlos al nuestro, porque el ángulo llega fresco. **En el meme es al revés:** si existe una broma universal que YA ha funcionado dentro de ventas, tiene más garantía, porque **el sector ya te la ha comprado** y no hay que traducir el dolor. Caso: el email del tatuaje de Félix Fernández (59% de risas, 3,38x) es dolor puro de ventas, y el remix salió redondo sin forzar la adaptación.
+>
+> ### 🎭 4.4-MEME-MARIO · POR QUÉ EL MEME DE MARIO VIAJÓ Y LOS DE LOS JEFES NO (23/10, n=1, HIPÓTESIS PARA EL LUNES 26/10)
+> **El dato:** el meme de Mario del 21/10 (Glinda y Elphaba de *Wicked* redibujadas en flat, `Ventas y marketing, ¿amigos o enemigos íntimos? 😅`, referencia ya viral hace un mes) hizo **30.762 impresiones, 19 reposts, 14 envíos, 10 guardados, 28 clics y 10 inscritos al webinar**, el post que más ha inscrito de toda la campaña. Desde el 29/09, ningún meme de los jefes pasa de 5.400 (`historial` 📉). **Las cuentas no están capadas:** en las mismas semanas el mapa de Unai hizo 215.569, el "Las 10" de Iker 53.934 y el de Asier 34.932. Lo que falla es el meme en esas cuentas, no la cuenta.
+> **Las diferencias de psicología, por orden de peso (deducción, no medida):**
+> 1. **Dos tribus en un chiste.** Ventas contra marketing: cada lado se reconoce y se lo manda al del otro departamento. Es un objeto SOCIAL, y por eso hubo **19 reposts** (el máximo de un meme de la casa desde los 62 del caos de Unai en agosto) y pocos comentarios: no plantea nada que responder, se reenvía. Los memes recientes de los jefes son de una persona sola (`yo y el móvil`, `tu informe`, `las charlas`) y no hay a quién mandárselos.
+> 2. **Una referencia que reconoce cualquiera, no solo un comercial.** *Wicked* se entiende sin saber de ventas, y eso deja a LinkedIn probar el post con otro público (marketing, mujeres, Latinoamérica; el 99% de fuera de la red de Mario). El chiste de oficio industrial solo lo pilla quien vende, y ese público reacciona poco.
+> 3. **Referencia validada y copiada con nuestra imagen** (flat con los colores de los personajes, `images.md`). Confirma `§4.4` paso 1: el calco de lo que ya funcionó, mejorado.
+> 4. **Tardó en arrancar.** Más de 24 horas flojo y luego despegó: un meme no se da por muerto el día 1 si tiene envíos y guardados.
+> **Lo que NO lo explica:** la burrada. El de Mario era suave. Las restricciones de los jefes (`PASO 0`, Unai sin meme polémico, Asier sin gancho técnico) estrechan el abanico de chistes, pero el que viajó era igual de sobrio. El problema es de tema (de uno solo y de dentro) más que de tono.
+> **La prueba que propongo para los jefes (decide Iker el lunes):** el chiste de DOS TRIBUS de la fábrica, que es la versión industrial del de Mario: **comercial contra producción, contra el técnico o contra el de cobros**, con referencia validada y personaje reconocible. ⛔ Nunca la tribu del que compra (`CLAUDE.md`: gerente, dirección comercial) y ⛔ nunca confesar que en Neety nos llevamos mal (`brand-voice §1b`, Mario 21/10). Encaja en Asier (es ingeniero: el comercial contra el ingeniero no es un gancho técnico, es una relación).
 >
 > **⭐ PASO 0 — ELIGE LA CUENTA QUE AGUANTA EL MEME, NO REBAJES EL MEME PARA LA CUENTA (Iker, 2026-07-27).** El nivel de burrada del original es parte del motor: si lo suavizas para que encaje en una cuenta sobria, te quedas con el tema y sin el chiste.
 > - **Iker (2º jefe) = memes BRUTOS o informales.** Le da igual el registro mientras el post viaje.

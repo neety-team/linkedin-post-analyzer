@@ -624,7 +624,7 @@ function FranjaPremium({ post }: { post: PostPremium & { id?: string } }) {
       {demos && (
         <span
           className="font-semibold text-success"
-          title={`Oportunidades atribuidas a este post en el periodo elegido (${demos.campana}) · ${demos.oportunidades} aprobadas · ${demos.solicitudes - demos.cualificadas} descartadas`}
+          title={`Oportunidades atribuidas a este post en el periodo elegido (${demos.campana}) · ${demos.oportunidades} cualificadas · ${demos.solicitudes - demos.cualificadas} descartadas`}
         >
           🎯 {demos.solicitudes} {demos.solicitudes === 1 ? 'oportunidad' : 'oportunidades'}
         </span>
@@ -1685,22 +1685,18 @@ function AccountsInner() {
                   : !conversiones.demos.configurado ? 'falta conectar la web'
                   : 'error' in conversiones.demos ? `no se pudo leer: ${conversiones.demos.error}`
                   : (() => {
+                      // Cualificadas = encajaban y eligieron hora; las que no eligieron hora no
+                      // son oportunidad y la web ya no las cuenta (23-oct, Iker). «Cualificadas»
+                      // y no «aprobadas»: es como lo dice ventas.
                       const c = conversiones.demos.current;
                       return (
-                        <>
-                          <span className="block">
-                            <span className="text-text-secondary font-semibold tabular-nums">{c.oportunidades}</span> aprobadas
-                            {' · '}<span className="text-text-secondary font-semibold tabular-nums">{c.solicitudes - c.cualificadas}</span> descartadas
-                          </span>
-                          {c.cualificadas > c.oportunidades && (
-                            <span className="block">
-                              <span className="text-text-secondary font-semibold tabular-nums">{c.cualificadas - c.oportunidades}</span> sin elegir hora
-                            </span>
-                          )}
-                        </>
+                        <span className="block">
+                          <span className="text-text-secondary font-semibold tabular-nums">{c.oportunidades}</span> cualificadas
+                          {' · '}<span className="text-text-secondary font-semibold tabular-nums">{c.solicitudes - c.cualificadas}</span> descartadas
+                        </span>
                       );
                     })()}
-                ayuda={`Oportunidades (solicitudes de reunión de la web nueva; la demo es la fase 2) que se atribuyen a Mario: en «¿Cómo nos conociste?» marcaron LinkedIn, Correo de Neety o Recursos, o el enlace que pincharon lo demuestra (misma regla que el admin de la web; los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. Aprobadas = encajaban y eligieron hora (la «Nueva oportunidad cualificada» del chat). Descartadas = no encajaban. Sin elegir hora = encajaban pero nunca reservaron, así que no llegaron al chat como aprobadas.${conversiones?.demos && 'current' in conversiones.demos ? ` Por canal: LinkedIn ${conversiones.demos.current.por_canal.linkedin} · Newsletter ${conversiones.demos.current.por_canal.newsletter} · Recursos ${conversiones.demos.current.por_canal.recursos}.` : ''}`}
+                ayuda={`Oportunidades (solicitudes de reunión de la web nueva; la demo es la fase 2) que se atribuyen a Mario: en «¿Cómo nos conociste?» marcaron LinkedIn, Correo de Neety o Recursos, o el enlace que pincharon lo demuestra (misma regla que el admin de la web; los mensajes privados de los comerciales no cuentan). Sin las pruebas del equipo. Cualificadas = encajaban y eligieron hora (la «Nueva oportunidad cualificada» del chat). Descartadas = no encajaban. Quien encajaba pero no eligió hora no cuenta: sin hora no hay reunión (sigue en el admin de la web para recuperarla).${conversiones?.demos && 'current' in conversiones.demos ? ` Por canal: LinkedIn ${conversiones.demos.current.por_canal.linkedin} · Newsletter ${conversiones.demos.current.por_canal.newsletter} · Recursos ${conversiones.demos.current.por_canal.recursos}.` : ''}`}
               />
             </div>
             {conversiones?.demos && 'current' in conversiones.demos && conversiones.demos.current.solicitudes > 0 && conversiones.demos.current.por_pilar && (() => {
@@ -1713,7 +1709,7 @@ function AccountsInner() {
                     <InfoHint className="mt-0" text={`Pilar = lo que va antes del primer guion del utm_campaign del enlace del post. «Sin post concreto» = también son de Mario (en «¿Cómo nos conociste?» marcaron LinkedIn, Correo o Recursos), pero llegaron a la web sin el enlace de una publicación: escribiendo neety.com, desde Google o desde la web antigua. Cuentan; lo que no se sabe es de qué post vienen.${d.sin_casar ? ` ${d.sin_casar} no se han podido casar con un post concreto.` : ''}`} />
                   </span>
                   {filas.map(([k, n]) => (
-                    <span key={k} className={k === 'sin-publicacion' ? 'text-text-muted' : ''} title={`${n.oportunidades} aprobadas · ${n.solicitudes - n.cualificadas} descartadas${n.cualificadas > n.oportunidades ? ` · ${n.cualificadas - n.oportunidades} sin elegir hora` : ''}`}>
+                    <span key={k} className={k === 'sin-publicacion' ? 'text-text-muted' : ''} title={`${n.oportunidades} cualificadas · ${n.solicitudes - n.cualificadas} descartadas`}>
                       {etiquetaPilarUtm(k)} <span className="font-semibold text-text-primary tabular-nums">{n.solicitudes}</span>
                     </span>
                   ))}

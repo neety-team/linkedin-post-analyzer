@@ -277,6 +277,38 @@ router.get('/debug-post/:id', async (req: Request, res: Response) => {
   }
 });
 
+// GET /api/creators/debug-feed/:id?dias=7 — SOLO LECTURA (2026-10-23): lo que Unipile
+// devuelve AHORA del feed de una cuenta propia, sin guardar nada. Sirve para saber si un
+// post colaborativo (LinkedIn, desde el 20/10) aparece tambien en el feed de los
+// coautores y con que autor: el upsert por linkedin_post_id lo pisaria.
+router.get('/debug-feed/:id', async (req: Request, res: Response) => {
+  try {
+    const { rows } = await pool.query(
+      `SELECT id, name, linkedin_id, unipile_account_id FROM creators WHERE id = $1`,
+      [paramId(req)]
+    );
+    const c = rows[0];
+    if (!c?.linkedin_id || !c?.unipile_account_id) return res.status(404).json({ error: 'Cuenta sin linkedin_id o sin cuenta de Unipile' });
+    const dias = Math.min(Math.max(Number(req.query.dias) || 7, 1), 60);
+    const raws = await unipileService.getPosts(c.linkedin_id, new Date(Date.now() - dias * 86400000), c.unipile_account_id);
+    res.json({
+      cuenta: c.name,
+      posts: raws.map((r: any) => ({
+        social_id: r.social_id || r.id,
+        parsed_datetime: r.parsed_datetime,
+        author: r.author?.name ?? null,
+        author_id: r.author?.id ?? null,
+        is_repost: !!r.is_repost,
+        reposted_by: r.reposted_by?.name ?? null,
+        keys: Object.keys(r),
+        texto: String(r.text || '').slice(0, 60),
+      })),
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // POST /api/creators/reclassify — scan raw_data of text_only posts and fix content_type
 router.post('/reclassify', async (_req: Request, res: Response) => {
   try {

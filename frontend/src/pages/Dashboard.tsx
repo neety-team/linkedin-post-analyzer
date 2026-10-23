@@ -24,43 +24,6 @@ interface Creator {
 
 type SortKey = 'name' | 'total_posts' | 'total_outliers' | 'avg_engagement' | 'followers_count' | 'last_scraped_at';
 
-function ReclassifyButton() {
-  const [state, setState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
-  const [result, setResult] = useState<{ total: number; updated: number } | null>(null);
-
-  const run = async () => {
-    setState('loading');
-    try {
-      const res = await fetch(`${BASE}/api/creators/reclassify`, { method: 'POST' });
-      const data = await res.json();
-      setResult(data);
-      setState('done');
-      setTimeout(() => setState('idle'), 6000);
-    } catch {
-      setState('error');
-      setTimeout(() => setState('idle'), 4000);
-    }
-  };
-
-  if (state === 'done' && result) return (
-    <span className="text-xs text-success">✓ {result.updated} posts reclasificados de {result.total}</span>
-  );
-  if (state === 'error') return (
-    <span className="text-xs text-danger">Error al reclasificar</span>
-  );
-
-  return (
-    <button
-      onClick={run}
-      disabled={state === 'loading'}
-      title="Relee los datos en bruto de todos los posts y corrige su tipo (imagen/vídeo/texto)"
-      className="px-3 py-2 bg-bg-card border border-border text-text-muted text-xs rounded-lg hover:border-accent/40 hover:text-text-secondary disabled:opacity-50 transition-colors"
-    >
-      {state === 'loading' ? 'Reclasificando…' : '🔄 Corregir tipos'}
-    </button>
-  );
-}
-
 export default function Dashboard() {
   const cc = useChartColors();
   const { data: creators, loading, error, refetch } = useApi<Creator[]>('/api/creators');
@@ -299,7 +262,6 @@ export default function Dashboard() {
                     ? `Actualizar ${selectedIds.size} seleccionado${selectedIds.size === 1 ? '' : 's'}`
                     : 'Actualizar todos'}
               </button>
-              <ReclassifyButton />
             </div>
 
             {/* Progress bar */}

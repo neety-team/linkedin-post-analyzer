@@ -331,7 +331,6 @@ export default function Inspiration() {
   const [, setStolenIds] = useState<Set<string>>(new Set());
   const [classifying, setClassifying] = useState(false);
   const [classifyResult, setClassifyResult] = useState<string | null>(null);
-  const [reclassifyScope, setReclassifyScope] = useState<'images' | 'all'>('images');
   // Panel de mantenimiento: clasificador y backfill del reaction mix. Cerrado
   // por defecto porque son operaciones de administración, no de uso diario.
   const [showMaint, setShowMaint] = useState(false);
@@ -499,41 +498,6 @@ export default function Inspiration() {
     }
   };
 
-  // Reset + re-classify in one go. Image scope only touches text_image/image
-  // posts (the meme candidates); "all" nukes every classified topic and
-  // re-tags the whole corpus from scratch. Confirms "all" because it costs
-  // an LLM call per ~30 posts.
-  const handleReclassify = async () => {
-    if (reclassifyScope === 'all' && !window.confirm('Esto borra TODOS los temas y vuelve a clasificar cada outlier (gasta llamadas a la API). ¿Continuar?')) {
-      return;
-    }
-    setClassifying(true);
-    setClassifyResult(null);
-    try {
-      const body = reclassifyScope === 'images' ? { content_types: ['text_image', 'image'] } : {};
-      const resetRes = await fetch(`${BASE}/api/ideas/inspiration/reset-topics`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      const resetData = await resetRes.json();
-      if (!resetRes.ok) { setClassifyResult(`Error al reiniciar: ${resetData.error}`); return; }
-      setClassifyResult(`${resetData.reset} temas reiniciados… clasificando…`);
-
-      const res = await fetch(`${BASE}/api/ideas/inspiration/classify`, { method: 'POST' });
-      const data = await res.json();
-      if (!res.ok) { setClassifyResult(`Error al clasificar: ${data.error}`); return; }
-      let msg = `${resetData.reset} reiniciados · ${data.classified} de ${data.total} reclasificados`;
-      if (data.failed_batches > 0) msg += ` · ⚠️ ${data.failed_batches} lote(s) fallido(s): ${data.errors?.[0]?.error || 'mira los logs'}`;
-      setClassifyResult(msg);
-      refetch();
-    } catch (e: any) {
-      setClassifyResult(`Error: ${e.message}`);
-    } finally {
-      setClassifying(false);
-    }
-  };
-
   const handleSteal = async (post: OutlierPost) => {
     const hookLabel = HOOK_LABELS[post.hook_type] || post.hook_type;
     const structLabel = STRUCT_LABELS[post.post_structure] || post.post_structure;
@@ -664,25 +628,6 @@ export default function Inspiration() {
                 {classifying ? '🧠 Clasificando…' : `🏷️ Clasificar ${unclassifiedCount} outlier${unclassifiedCount !== 1 ? 's' : ''} sin tema`}
               </button>
             )}
-
-            <div className="flex items-center gap-1.5">
-              <select
-                value={reclassifyScope}
-                onChange={(e) => setReclassifyScope(e.target.value as 'images' | 'all')}
-                disabled={classifying}
-                className="bg-bg-secondary border border-border rounded-lg px-2 py-1.5 text-xs text-text-primary focus:outline-none focus:border-accent/50 disabled:opacity-50"
-              >
-                <option value="images">🖼️ Posts con imagen (candidatos a meme)</option>
-                <option value="all">🌍 Todos los temas (reclasificar todo)</option>
-              </select>
-              <button
-                onClick={handleReclassify}
-                disabled={classifying}
-                className="px-3 py-1.5 bg-bg-secondary border border-border text-text-secondary rounded-lg text-xs font-medium hover:border-amber-500/40 hover:text-amber-700 dark:hover:text-amber-300 disabled:opacity-50 transition-colors"
-              >
-                {classifying ? '🔄 Trabajando…' : '🔄 Reiniciar y reclasificar'}
-              </button>
-            </div>
 
             {classifyResult && <span className="text-xs text-text-muted">{classifyResult}</span>}
           </div>

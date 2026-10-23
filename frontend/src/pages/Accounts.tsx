@@ -367,6 +367,14 @@ interface Analytics {
     posts_with_premium: number;
   };
   comparison: Comparison;
+  // Comparaciones exactas contra el periodo anterior de igual duración (2026-10-23).
+  comparacion_exacta?: {
+    impresiones: { current: number; previous: number; delta_pct: number | null } | null;
+    seguidores: { current: number; previous: number; delta_pct: number | null } | null;
+    visitas: { current: number; previous: number; delta_pct: number | null };
+    tasa_outliers: { current: number | null; previous: number | null; delta_pct: number | null };
+    media_a_7_dias: { avg_engagement: number | null; avg_impressions: number | null };
+  };
   // Cifras oficiales de la pagina de resumen de LinkedIn (ultima lectura de
   // cada cuenta conectada del ambito, sumadas). null si aun no hay lectura.
   linkedin_oficial?: {
@@ -910,10 +918,15 @@ function SubirCsvLuma({ onSubido }: { onSubido: () => void }) {
 }
 
 // Tarjeta de cifra del resumen: etiqueta, numero, variacion y una linea de pie.
-function Kpi({ etiqueta, valor, delta, pie, ayuda }: {
+// El % va SIEMPRE junto al número y compara con el periodo anterior de la misma duración
+// (2026-10-23, Iker). `deltaDe` dice de qué es el % cuando no es del propio número (CTR,
+// tasa); `sinComparar`, por qué no hay % (nunca un 0 inventado).
+function Kpi({ etiqueta, valor, delta, deltaDe: deQue, sinComparar, pie, ayuda }: {
   etiqueta: string;
   valor: React.ReactNode;
   delta?: number | null;
+  deltaDe?: string;
+  sinComparar?: string;
   pie?: React.ReactNode;
   ayuda?: string;
 }) {
@@ -925,7 +938,14 @@ function Kpi({ etiqueta, valor, delta, pie, ayuda }: {
       </div>
       <div className="flex items-baseline gap-2 mt-1">
         <div className="text-2xl font-bold text-text-primary tabular-nums">{valor}</div>
-        <Delta pct={delta ?? null} />
+        {delta != null && isFinite(delta) ? (
+          <span className="inline-flex items-baseline gap-1">
+            <Delta pct={delta} />
+            {deQue && <span className="text-[10px] text-text-muted">{deQue}</span>}
+          </span>
+        ) : sinComparar ? (
+          <span className="text-[10px] text-text-muted">{sinComparar}</span>
+        ) : null}
       </div>
       {pie && <div className="text-[10px] text-text-muted mt-0.5 leading-snug">{pie}</div>}
     </div>
@@ -1822,25 +1842,27 @@ function AccountsInner() {
               />
               <Kpi
                 etiqueta="Impresiones"
-                valor={fmtNum(analytics.totals.total_impressions)}
-                delta={analytics.comparison.total_impressions.delta_pct}
-                pie={analytics.linkedin_oficial
-                  ? `LinkedIn, últimos 7 días: ${fmtNum(analytics.linkedin_oficial.post_impressions_7d)}`
-                  : `en ${analytics.totals.posts_with_impressions} posts con datos`}
-                ayuda="Impresiones de los posts publicados en el periodo. La variación compara a igual edad (lo que llevaba cada post a los 7 días), para que el mes en curso no salga siempre en rojo."
+                valor={fmtNum(analytics.comparacion_exacta?.impresiones?.current ?? analytics.totals.total_impressions)}
+                delta={analytics.comparacion_exacta?.impresiones?.delta_pct ?? null}
+                sinComparar={analytics.comparacion_exacta?.impresiones ? 'sin datos del periodo anterior' : 'no se puede partir por post'}
+                pie={`de los posts publicados en el periodo: ${fmtNum(analytics.totals.total_impressions)}`}
+                ayuda="Impresiones que recibieron las cuentas en el periodo según la analítica oficial de LinkedIn (la misma serie que la gráfica; las cuentas manuales, por fecha de publicación), comparadas con las del periodo anterior de la misma duración. Abajo, lo que llevan los posts publicados en el periodo."
               />
               <Kpi
                 etiqueta="Visitas al perfil"
-                valor={analytics.totals.posts_with_premium > 0 ? fmtNum(analytics.totals.total_profile_viewers) : '—'}
-                pie={analytics.linkedin_oficial
-                  ? `desde los posts · LinkedIn 90 días: ${fmtNum(analytics.linkedin_oficial.profile_viewers_90d)}`
-                  : 'desde los posts (Premium)'}
-                ayuda="Visitas al perfil que salieron de los posts del periodo (analítica Premium de cada post). La de 90 días es la cifra total de LinkedIn, venga de donde venga."
+                valor={esColab ? (analytics.totals.posts_with_premium > 0 ? fmtNum(analytics.totals.total_profile_viewers) : '—') : fmtNum(analytics.comparacion_exacta?.visitas.current ?? analytics.totals.profile_views_gained)}
+                delta={esColab ? null : analytics.comparacion_exacta?.visitas.delta_pct ?? null}
+                sinComparar={esColab ? 'no se puede partir por post' : 'sin datos del periodo anterior'}
+                pie={`desde los posts: ${analytics.totals.posts_with_premium > 0 ? fmtNum(analytics.totals.total_profile_viewers) : '—'}${analytics.linkedin_oficial ? ` · LinkedIn 90 días: ${fmtNum(analytics.linkedin_oficial.profile_viewers_90d)}` : ''}`}
+                ayuda="Visitas al perfil del periodo según «Quién ha visto tu perfil» de LinkedIn (se guarda desde mayo de 2026), comparadas con el periodo anterior de la misma duración; si ese periodo cae antes de tener datos, no hay %. Abajo, las que salieron de los posts del periodo (analítica Premium de cada post) y la cifra oficial de 90 días."
               />
               <Kpi
                 etiqueta="Seguidores"
                 valor={esColab ? '—' : `${analytics.totals.followers_gained > 0 ? '+' : ''}${fmtNum(analytics.totals.followers_gained)}`}
-                pie={esColab ? 'de cuenta, no de un post' : 'nuevos en el periodo'}
+                delta={esColab ? null : analytics.comparacion_exacta?.seguidores?.delta_pct ?? null}
+                sinComparar={esColab ? 'no se puede partir por post' : 'sin datos del periodo anterior'}
+                pie={esColab ? 'de cuenta, no de un post' : `nuevos en el periodo${analytics.comparacion_exacta?.seguidores ? ` · antes: +${fmtNum(analytics.comparacion_exacta.seguidores.previous)}` : ''}`}
+                ayuda="Seguidores nuevos del periodo según LinkedIn (la misma serie que la gráfica de seguidores), comparados con los del periodo anterior de la misma duración." 
               />
             </div>
             <p className="text-[10px] uppercase tracking-wide text-text-muted pt-1">Conversión</p>
@@ -1848,13 +1870,13 @@ function AccountsInner() {
               <Kpi
                 etiqueta="Clics en enlaces"
                 valor={analytics.totals.posts_with_link_clicks > 0 ? fmtNum(analytics.totals.total_link_clicks) : '—'}
-                pie={analytics.comparison.ctr?.current != null ? (
-                  <span className="inline-flex items-center gap-1.5">
-                    CTR {analytics.comparison.ctr.current.toLocaleString('es-ES', { maximumFractionDigits: 2 })}%
-                    <Delta pct={analytics.comparison.ctr.delta_pct} />
-                  </span>
-                ) : 'sin posts con enlace medido'}
-                ayuda="Clics en el enlace de los posts que lo llevan y que LinkedIn mide. El CTR se calcula solo sobre esos posts: con todos, los que no llevan enlace lo hundirían. Sin variación en los clics: la analítica de los posts jóvenes aún está subiendo."
+                delta={analytics.comparison.ctr?.delta_pct ?? null}
+                deltaDe="CTR"
+                sinComparar="sin CTR del periodo anterior"
+                pie={analytics.comparison.ctr?.current != null
+                  ? `CTR ${analytics.comparison.ctr.current.toLocaleString('es-ES', { maximumFractionDigits: 2 })}%${analytics.comparison.ctr.previous != null ? ` · antes ${analytics.comparison.ctr.previous.toLocaleString('es-ES', { maximumFractionDigits: 2 })}%` : ''}`
+                  : 'sin posts con enlace medido'}
+                ayuda="Clics en el enlace de los posts que lo llevan y que LinkedIn mide. El % es el del CTR (clics / impresiones de esos posts) frente al periodo anterior de la misma duración: los clics en bruto no se pueden comparar con justicia porque LinkedIn no los guarda por edad del post y los del periodo anterior ya han tenido más tiempo."
               />
               <Kpi
                 etiqueta="Oportunidades"
@@ -1902,6 +1924,7 @@ function AccountsInner() {
                     key={ev.slug}
                     etiqueta={`Inscritos · evento del ${fmtFechaCorta(ev.empieza, false)}`}
                     valor={fmtNum((pasado ? ev.csv?.inscritos : ev.inscritos_luma) ?? ev.csv?.inscritos ?? ev.inscritos_luma ?? 0)}
+                    sinComparar="sin evento anterior"
                     pie={pasado
                       ? (ev.csv?.asistentes != null ? `${fmtNum(ev.csv.asistentes)} asistieron` : 'falta subir el CSV de después para ver quién asistió')
                       : `faltan ${faltan} ${faltan === 1 ? 'día' : 'días'}${ev.csv ? ` · ${fmtNum(ev.csv.inscritos)} en el CSV del ${fmtFechaCorta(ev.csv.csv_at)}` : ''}`}
@@ -1964,23 +1987,32 @@ function AccountsInner() {
               );
             })}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* Medias A LOS 7 DÍAS de cada post (2026-10-23): el número y su % sobre la misma
+                  base, para comparar posts a la misma edad. Los de menos de 7 días aún no entran. */}
               <Kpi
                 etiqueta="Interacciones medias por post"
-                valor={fmtNum(analytics.totals.avg_engagement)}
+                valor={analytics.comparacion_exacta?.media_a_7_dias.avg_engagement != null ? fmtNum(Math.round(analytics.comparacion_exacta.media_a_7_dias.avg_engagement)) : '—'}
                 delta={analytics.comparison.avg_engagement.delta_pct}
-                pie="reacciones + comentarios×2 + compartidos×3"
+                sinComparar="sin posts de 7 días en el periodo anterior"
+                pie={`a los 7 días de cada post · de por vida: ${fmtNum(analytics.totals.avg_engagement)}`}
+                ayuda="Media de interacciones (reacciones + comentarios×2 + compartidos×3) que tenía cada post a los 7 días de publicarse, de los posts del periodo que ya los han cumplido, frente a la del periodo anterior de la misma duración. Así se comparan posts a la misma edad."
               />
               <Kpi
                 etiqueta="Impresiones medias por post"
-                valor={analytics.totals.posts_with_impressions > 0 ? fmtNum(analytics.totals.avg_impressions) : '—'}
+                valor={analytics.comparacion_exacta?.media_a_7_dias.avg_impressions != null ? fmtNum(Math.round(analytics.comparacion_exacta.media_a_7_dias.avg_impressions)) : '—'}
                 delta={analytics.comparison.avg_impressions.delta_pct}
-                pie="por post con datos"
+                sinComparar="sin posts de 7 días en el periodo anterior"
+                pie={`a los 7 días de cada post · de por vida: ${analytics.totals.posts_with_impressions > 0 ? fmtNum(analytics.totals.avg_impressions) : '—'}`}
+                ayuda="Media de impresiones que tenía cada post a los 7 días de publicarse, de los posts del periodo que ya los han cumplido, frente a la del periodo anterior de la misma duración."
               />
               <Kpi
                 etiqueta="Outliers"
                 valor={<>{analytics.totals.total_outliers}<span className="text-sm text-text-muted ml-1 font-normal">({outlierRate}%)</span></>}
-                delta={analytics.comparison.total_outliers.delta_pct}
+                delta={analytics.comparacion_exacta?.tasa_outliers.delta_pct ?? null}
+                deltaDe="tasa"
+                sinComparar="sin posts de 7 días en el periodo anterior"
                 pie="tasa de acierto"
+                ayuda="Posts del periodo que son outlier de su cuenta. El % compara la TASA de acierto entre los posts que ya cumplieron 7 días (uno de horas aún no ha tenido tiempo de serlo) con la del periodo anterior de la misma duración."
               />
             </div>
             {analytics.audiencia_resumen && (

@@ -1889,13 +1889,78 @@ router.get('/analytics', async (req: Request, res: Response) => {
     todayUtc.setUTCHours(0, 0, 0, 0);
     const startUtc = new Date(`${range.startDate}T00:00:00.000Z`);
     const endUtc = new Date(`${range.endDate}T00:00:00.000Z`);
-    const buckLookback = Math.max(1, Math.round((todayUtc.getTime() - startUtc.getTime()) / 86400000) + 1);
+    // Mira tambien el periodo ANTERIOR, para su comparacion (2026-10-23).
+    const buckLookback = Math.max(1, Math.round((todayUtc.getTime() - prevStartDay.getTime()) / 86400000) + 1);
     const dailyBuckets = await buildDailyViewerBuckets(creatorId, buckLookback);
     let profileViewsGained = 0;
+    let profileViewsPrev = 0;
+    let primerDiaVisitas: number | null = null;
     for (const [key, v] of dailyBuckets.entries()) {
       const d = new Date(`${key}T00:00:00.000Z`).getTime();
       if (d >= startUtc.getTime() && d <= endUtc.getTime()) profileViewsGained += v;
+      if (d >= prevStartDay.getTime() && d < startUtc.getTime()) profileViewsPrev += v;
+      if (v > 0 && (primerDiaVisitas === null || d < primerDiaVisitas)) primerDiaVisitas = d;
     }
+
+    // ⭐ COMPARACIONES EXACTAS (Iker, 2026-10-23: «que el porcentaje no sea inventado» y
+    // «si filtro 2 semanas, contra las 2 semanas anteriores»). Cada numero de arriba y su %
+    // miden LO MISMO, en el rango elegido y en el anterior de igual duracion:
+    //  - Impresiones: la serie OFICIAL diaria de LinkedIn (creator_daily_impressions), las
+    //    recibidas en cada periodo; las cuentas manuales, por fecha de publicacion, como en
+    //    la grafica. Antes el % era una estimacion (media a 7 dias x posts) que daba
+    //    bandazos: el 23/10 paso de -28% a +30% en unas horas porque el «Las 10» de Aragon
+    //    del 16/10 (53.934) cumplio los 7 dias y entro en la media.
+    //  - Visitas al perfil: «quien ha visto tu perfil» (WVMP) por dia, guardado desde mayo.
+    //  - Seguidores: la misma serie que la grafica.
+    // Si el periodo anterior cae antes de que haya datos, no hay % (null): nunca un 0.
+    const prevStartDate = prevStartDay.toISOString().slice(0, 10);
+    const prevEndDay = new Date(startUtc.getTime() - 86400000).toISOString().slice(0, 10);
+    const visitasCompletas = primerDiaVisitas !== null && primerDiaVisitas <= prevStartDay.getTime();
+    const ambitoConectadas = creatorId
+      ? `c.id = $3 AND c.unipile_account_id IS NOT NULL AND c.is_manual IS NOT TRUE`
+      : `c.is_managed = TRUE AND c.unipile_account_id IS NOT NULL AND c.is_manual IS NOT TRUE`;
+    const ambitoManuales = creatorId
+      ? `c.id = $3 AND c.is_manual = TRUE`
+      : incluirManual ? `c.is_managed = TRUE AND c.is_manual = TRUE` : 'FALSE';
+    const impresionesDe = async (desde: string, hasta: string) => {
+      const ps: any[] = [desde, hasta];
+      if (creatorId) ps.push(creatorId);
+      const r = (await pool.query(
+        `SELECT
+           (SELECT COALESCE(SUM(d.impressions), 0) FROM creator_daily_impressions d JOIN creators c ON c.id = d.creator_id
+             WHERE ${ambitoConectadas} AND d.day BETWEEN $1::date AND $2::date)::bigint AS oficiales,
+           (SELECT COUNT(DISTINCT (d.creator_id, d.day)) FROM creator_daily_impressions d JOIN creators c ON c.id = d.creator_id
+             WHERE ${ambitoConectadas} AND d.day BETWEEN $1::date AND $2::date)::int AS dias_con_dato,
+           (SELECT COUNT(*) FROM creators c WHERE ${ambitoConectadas})::int AS cuentas,
+           (SELECT COALESCE(SUM(p.impressions_count), 0) FROM posts p JOIN creators c ON c.id = p.creator_id
+             WHERE ${ambitoManuales} AND p.deleted_from_linkedin_at IS NULL
+               AND (p.published_at AT TIME ZONE 'Europe/Madrid')::date BETWEEN $1::date AND $2::date)::bigint AS manuales`,
+        ps
+      )).rows[0];
+      const dias = Math.round((Date.parse(hasta) - Date.parse(desde)) / 86400000) + 1;
+      return {
+        total: Number(r.oficiales) + Number(r.manuales),
+        // Completo = hay lectura de cada cuenta conectada en (casi) todos los dias.
+        completo: r.cuentas === 0 || r.dias_con_dato >= Math.floor(r.cuentas * dias * 0.95),
+      };
+    };
+    const impActual = colab ? null : await impresionesDe(range.startDate, range.endDate);
+    const impPrevia = colab ? null : await impresionesDe(prevStartDate, prevEndDay);
+    const followersPrev = colab ? null
+      : (await serieSeguidores(creatorId, incluirManual, prevStartDate, prevEndDay)).reduce((acc, d) => acc + d.gained, 0);
+    // Outliers: la TASA entre los posts que ya cumplieron 7 dias (un post de horas aun no
+    // ha tenido tiempo de serlo), en los dos periodos.
+    const maduros = async (cond: string, ps: any[]) => {
+      const sc = scope(ps.length + 1);
+      const r = (await pool.query(
+        `SELECT COUNT(*)::int AS n, COUNT(*) FILTER (WHERE p.is_outlier)::int AS o
+           FROM posts p WHERE ${cond} AND p.published_at <= NOW() - INTERVAL '7 days' AND ${sc.sql}`,
+        [...ps, ...sc.params]
+      )).rows[0];
+      return r.n > 0 ? (r.o / r.n) * 100 : null;
+    };
+    const tasaOutliersActual = await maduros('p.published_at >= $1 AND p.published_at <= $2', [currentStartIso, currentEndIso]);
+    const tasaOutliersPrevia = await maduros('p.published_at >= $1 AND p.published_at < $2', [previousStartIso, currentStartIso]);
 
     // Posts/week cadence — always actionable. Uses the same scope filter.
     // `days` is a sanitised integer from the route handler so it's safe to
@@ -1975,6 +2040,18 @@ router.get('/analytics', async (req: Request, res: Response) => {
           AND ($1::uuid IS NULL OR c.id = $1::uuid)`,
       [creatorId]
     );
+    // Comparaciones exactas (ver «COMPARACIONES EXACTAS» mas arriba).
+    const comparacionExacta = {
+      impresiones: impActual && impPrevia
+        ? { current: impActual.total, previous: impPrevia.total, delta_pct: impPrevia.completo && impActual.completo ? deltaPct(impActual.total, impPrevia.total) : null }
+        : null,
+      seguidores: followersPrev == null ? null
+        : { current: followersGained, previous: followersPrev, delta_pct: deltaPct(followersGained, followersPrev) },
+      visitas: { current: profileViewsGained, previous: profileViewsPrev, delta_pct: visitasCompletas ? deltaPct(profileViewsGained, profileViewsPrev) : null },
+      tasa_outliers: { current: tasaOutliersActual, previous: tasaOutliersPrevia, delta_pct: deltaPct(tasaOutliersActual, tasaOutliersPrevia) },
+      // Medias a los 7 dias de cada post: el numero y su % sobre la misma base.
+      media_a_7_dias: { avg_engagement: edadActual.avg_engagement, avg_impressions: edadActual.avg_impressions },
+    };
     const linkedinOficial = oficialQ.rows[0]?.cuentas > 0 ? oficialQ.rows[0] : null;
 
     res.json({
@@ -1992,6 +2069,7 @@ router.get('/analytics', async (req: Request, res: Response) => {
         posts_per_week: +postsPerWeek.toFixed(1),
       },
       comparison: buildComparison(totalsQ.rows[0], prevTotalsQ.rows[0]),
+      comparacion_exacta: comparacionExacta,
       daily: dailyQ.rows,
       format_mix: formatQ.rows,
       top_posts: topPostsQ.rows,

@@ -1239,6 +1239,101 @@ router.post('/:id/scrape', async (req: Request, res: Response) => {
   }
 });
 
+// ── POSTS COLABORATIVOS (Iker, 2026-10-23) ──────────────────────────────────
+// El desplegable "Cuenta" manda en creator_id, ademas de un id de cuenta:
+//   colab:all                          todos los colaborativos
+//   colab:<principal>:<coautor>,<...>  una combinacion EXACTA: quien publico y
+//                                      con quien (coautores ordenados)
+// Asi cada combinacion se compara consigo misma: "Unai + Iker + Asier" no se
+// mezcla con "Unai + Iker", ni con la misma terna publicada desde Iker (sale a
+// otra audiencia de origen). El post se cuenta UNA vez, en su autor principal.
+type Colab = { todos: true } | { principal: string; coautores: string[] };
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+export function parseColab(raw: unknown): Colab | null {
+  const v = typeof raw === 'string' ? raw.trim() : '';
+  if (!v.startsWith('colab:')) return null;
+  if (v === 'colab:all') return { todos: true };
+  const [, principal, lista = ''] = v.split(':');
+  const coautores = lista.split(',').filter(Boolean).sort();
+  if (!UUID_RE.test(principal || '') || !coautores.length || !coautores.every((c) => UUID_RE.test(c))) return null;
+  return { principal, coautores };
+}
+// Condicion SQL sobre el alias `p` de posts. nextIdx = siguiente $n libre.
+export function colabSql(colab: Colab, nextIdx: number): { sql: string; params: any[] } {
+  if ('todos' in colab) return { sql: `EXISTS (SELECT 1 FROM post_coautores pc WHERE pc.post_id = p.id)`, params: [] };
+  return {
+    sql: `p.creator_id = $${nextIdx} AND (SELECT array_agg(pc.creator_id::text ORDER BY pc.creator_id::text)
+            FROM post_coautores pc WHERE pc.post_id = p.id) = $${nextIdx + 1}::text[]`,
+    params: [colab.principal, colab.coautores],
+  };
+}
+// Coautores de cada post, para pintarlos junto al autor: [{id, name, image}].
+const COAUTORES_JSON = `COALESCE((
+  SELECT json_agg(json_build_object('id', cc.id, 'name', cc.name, 'image', cc.profile_image_url) ORDER BY cc.name)
+    FROM post_coautores pc JOIN creators cc ON cc.id = pc.creator_id
+   WHERE pc.post_id = p.id), '[]'::json)`;
+
+// GET /api/accounts/colaborativos — las combinaciones que existen, para el desplegable.
+router.get('/colaborativos', async (_req: Request, res: Response) => {
+  try {
+    const { rows } = await pool.query(
+      `SELECT p.creator_id AS principal, c.name AS principal_name,
+              array_agg(pc.creator_id::text ORDER BY pc.creator_id::text) AS coautores,
+              array_agg(cc.name ORDER BY pc.creator_id::text) AS coautores_names
+         FROM posts p
+         JOIN creators c ON c.id = p.creator_id
+         JOIN post_coautores pc ON pc.post_id = p.id
+         JOIN creators cc ON cc.id = pc.creator_id
+        WHERE p.deleted_from_linkedin_at IS NULL
+        GROUP BY p.id, p.creator_id, c.name`
+    );
+    const combos = new Map<string, { value: string; principal: string; nombres: string[]; posts: number }>();
+    for (const r of rows) {
+      const value = `colab:${r.principal}:${(r.coautores as string[]).join(',')}`;
+      const prev = combos.get(value);
+      if (prev) prev.posts++;
+      else combos.set(value, { value, principal: r.principal, nombres: [r.principal_name, ...(r.coautores_names as string[])], posts: 1 });
+    }
+    res.json({ total: rows.length, combinaciones: [...combos.values()].sort((a, b) => b.posts - a.posts) });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PUT /api/accounts/posts/:id/coautores  { creator_ids: [...] } — marca (o, vacio, desmarca)
+// los coautores. Solo cuentas propias, y nunca el autor principal. Recalcula la base
+// de outliers del autor: un colaborativo no entra en ella.
+router.put('/posts/:id/coautores', async (req: Request, res: Response) => {
+  const client = await pool.connect();
+  try {
+    const ids: string[] = Array.isArray(req.body?.creator_ids) ? req.body.creator_ids.map(String) : [];
+    if (!ids.every((x) => UUID_RE.test(x))) return res.status(400).json({ error: 'creator_ids no válidos' });
+    const { rows: postRows } = await client.query(`SELECT id, creator_id FROM posts WHERE id = $1`, [req.params.id]);
+    const post = postRows[0];
+    if (!post) return res.status(404).json({ error: 'Post no encontrado' });
+    const unicos = [...new Set(ids)].filter((x) => x !== post.creator_id);
+    if (unicos.length) {
+      const { rows } = await client.query(
+        `SELECT COUNT(*)::int AS n FROM creators WHERE id = ANY($1::uuid[]) AND is_managed = TRUE`, [unicos]
+      );
+      if (rows[0].n !== unicos.length) return res.status(400).json({ error: 'Solo se pueden marcar cuentas propias' });
+    }
+    await client.query('BEGIN');
+    await client.query(`DELETE FROM post_coautores WHERE post_id = $1`, [post.id]);
+    for (const c of unicos) {
+      await client.query(`INSERT INTO post_coautores (post_id, creator_id) VALUES ($1, $2)`, [post.id, c]);
+    }
+    await client.query('COMMIT');
+    await recalcCreatorOutliers(post.creator_id).catch((e) => console.error('[coautores] recalc', e?.message));
+    res.json({ ok: true, coautores: unicos });
+  } catch (err: any) {
+    await client.query('ROLLBACK').catch(() => {});
+    res.status(500).json({ error: err.message });
+  } finally {
+    client.release();
+  }
+});
+
 // GET /api/accounts/analytics?creator_id=xxx&days=90
 // If creator_id is omitted, aggregates across all managed accounts.
 // Conversiones fuera de LinkedIn para el resumen de Cuentas (Mario, 2026-10-13): demos
@@ -1257,7 +1352,11 @@ router.get('/conversiones', async (req: Request, res: Response) => {
 
 router.get('/analytics', async (req: Request, res: Response) => {
   try {
-    const creatorId = (req.query.creator_id as string) || null;
+    // Colaborativos: lo que va por POST se filtra por la combinacion; lo que es de
+    // la CUENTA (seguidores, serie oficial diaria, tabla por cuenta) no aplica y
+    // la pantalla lo esconde (`colaborativo: true` en la respuesta).
+    const colab = parseColab(req.query.creator_id);
+    const creatorId = colab ? null : ((req.query.creator_id as string) || null);
     const range = parseDateRange(req);
     const days = range.days;
 
@@ -1293,6 +1392,10 @@ router.get('/analytics', async (req: Request, res: Response) => {
       // oculta (el Los 10 de Unai del 15/09) sigue contando entero.
       const demoFilter = `p.linkedin_post_id <> 'DEMO_LIVE_POST' AND p.deleted_from_linkedin_at IS NULL`;
       if (creatorId) return { sql: `p.creator_id = $${nextIdx} AND ${demoFilter}`, params: [creatorId] };
+      if (colab) {
+        const c = colabSql(colab, nextIdx);
+        return { sql: `${c.sql} AND ${demoFilter}`, params: c.params };
+      }
       return {
         sql: `p.creator_id IN (SELECT id FROM creators WHERE is_managed = TRUE${filtroManual}) AND ${demoFilter}`,
         params: [],
@@ -1604,7 +1707,8 @@ router.get('/analytics', async (req: Request, res: Response) => {
               p.video_views, p.video_watch_time_s, p.video_avg_watch_s, p.video_duration_s,
         p.engagement_score, p.outlier_ratio, p.is_outlier,
         p.post_url, p.hook_text, p.gancho_palanca, p.gancho_palanca_2, p.gancho_motivo,
-        c.name AS creator_name, c.profile_image_url AS creator_image
+        c.name AS creator_name, c.profile_image_url AS creator_image,
+        ${COAUTORES_JSON} AS coautores
        FROM posts p
        JOIN creators c ON c.id = p.creator_id
        WHERE p.published_at >= $1 AND p.published_at <= $2 AND ${topScope.sql}
@@ -1790,7 +1894,7 @@ router.get('/analytics', async (req: Request, res: Response) => {
 
     // Per-account breakdown (only when aggregating across all managed)
     let perAccount: any[] = [];
-    if (!creatorId) {
+    if (!creatorId && !colab) {
       const perAccountQ = await pool.query(
         `SELECT
           c.id, c.name, c.profile_image_url, c.is_manual,
@@ -1856,7 +1960,8 @@ router.get('/analytics', async (req: Request, res: Response) => {
       start_date: range.startDate,
       end_date: range.endDate,
       creator_id: creatorId,
-      linkedin_oficial: linkedinOficial,
+      colaborativo: !!colab,
+      linkedin_oficial: colab ? null : linkedinOficial,
       periodo_previo: periodoPrevio,
       totals: {
         ...totalsQ.rows[0],
@@ -1907,7 +2012,12 @@ router.get('/live-posts', async (req: Request, res: Response) => {
     const incluirManual = req.query.include_manual !== 'false';
     const params: any[] = [];
     let creatorFilter = '';
-    if (creatorId) {
+    const colab = parseColab(creatorId);
+    if (colab) {
+      const c = colabSql(colab, params.length + 1);
+      params.push(...c.params);
+      creatorFilter = `AND ${c.sql}`;
+    } else if (creatorId) {
       params.push(creatorId);
       creatorFilter = `AND c.id = $${params.length}`;
     }
@@ -1959,6 +2069,7 @@ router.get('/live-posts', async (req: Request, res: Response) => {
          p.engagement_score, p.outlier_ratio, p.is_outlier, p.post_url,
          c.id AS creator_id, c.name AS creator_name, c.profile_image_url AS creator_image,
          c.is_manual AS creator_is_manual,
+         ${COAUTORES_JSON} AS coautores,
          p.snapshot_count,
          p.last_snapshot_at,
          p.readings_count,

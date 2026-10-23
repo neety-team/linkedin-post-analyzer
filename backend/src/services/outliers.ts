@@ -166,6 +166,10 @@ export async function recalcCreatorOutliers(creatorId: string): Promise<void> {
             -- Los ocultos no cuentan en la media (Iker, 2026-09-17): un post
             -- capado con 12 impresiones inflaba el multiplicador del resto.
             AND deleted_from_linkedin_at IS NULL
+            -- Los COLABORATIVOS tampoco (2026-10-23): llegan a la red de varios
+            -- autores y subirian la base de los posts en solitario. Su propio
+            -- multiplicador si se calcula, contra esta base.
+            AND NOT EXISTS (SELECT 1 FROM post_coautores pc WHERE pc.post_id = posts.id)
        )
        UPDATE posts p SET
          outlier_ratio = GREATEST(

@@ -1171,6 +1171,22 @@ const migration = `
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS in_network_pct SMALLINT;
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS audiencia JSONB;
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS audiencia_at TIMESTAMPTZ;
+
+  -- POSTS COLABORATIVOS (Iker, 2026-10-23). LinkedIn habilito el 20/10 los posts
+  -- con varios autores. El post es UNO y vive en la cuenta que lo publico
+  -- (posts.creator_id, el autor principal): sus metricas son las del post entero,
+  -- asi que nunca se suma a los coautores. Aqui solo van los COAUTORES.
+  -- Se marca a mano (menu ⋮ del post): ni Unipile (ni el post, ni el feed: alli el
+  -- coautor sale como un repost cualquiera) ni la pagina publica de LinkedIn dicen
+  -- quien es coautor, y adivinarlo por los reposts mezclaria colaborativos con
+  -- reposts normales (medido el 23/10 con el de San Francisco).
+  CREATE TABLE IF NOT EXISTS post_coautores (
+    post_id UUID NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
+    creator_id UUID NOT NULL REFERENCES creators(id) ON DELETE CASCADE,
+    marcado_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (post_id, creator_id)
+  );
+  CREATE INDEX IF NOT EXISTS idx_post_coautores_creator ON post_coautores (creator_id);
 `;
 
 /**

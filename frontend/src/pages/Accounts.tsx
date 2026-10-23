@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useCallback, createContext, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useApi, apiPost, apiDelete } from '../hooks/useApi';
+import { useApi, apiPost, apiPut, apiDelete } from '../hooks/useApi';
 import AddManualPostModal from '../components/accounts/AddManualPostModal';
 import { DateRangeCalendar } from '../components/DateRangeCalendar';
 import {
@@ -116,6 +116,11 @@ interface GanchoRow {
   outliers: number;
 }
 
+// Coautores de un post colaborativo (2026-10-23): las OTRAS cuentas propias que
+// firman el post. El autor principal es creator_* (quien lo publico).
+interface Coautor { id: string; name: string | null; image: string | null }
+interface Combinacion { value: string; principal: string; nombres: string[]; posts: number }
+
 interface TopPost {
   id: string;
   content_text: string | null;
@@ -151,6 +156,7 @@ interface TopPost {
   hook_text: string | null;
   creator_name: string | null;
   creator_image: string | null;
+  coautores?: Coautor[];
 }
 
 interface LivePost {
@@ -185,6 +191,7 @@ interface LivePost {
   creator_id: string;
   creator_name: string | null;
   creator_image: string | null;
+  coautores?: Coautor[];
   snapshot_count: number;
   last_snapshot_at: string | null;
   // Lecturas del pase de contadores de posts de mas de 7 dias (diario hasta
@@ -917,6 +924,14 @@ function AccountsInner() {
   // ninguna" con esta bandera, nunca con la longitud del array.
   const { data: accounts, loading: loadingAccounts, refetch: refetchAccounts } =
     useApi<ManagedAccount[]>('/api/accounts');
+  // Posts colaborativos (2026-10-23): el desplegable de Cuenta tambien filtra por
+  // «todos los colaborativos» o por una combinacion exacta (quien publico + con
+  // quien). Lo que es de una CUENTA (seguidores, visitas al perfil, series
+  // oficiales de LinkedIn) no aplica a un colaborativo y se esconde.
+  const { data: colaborativos, refetch: refetchColaborativos } =
+    useApi<{ total: number; combinaciones: Combinacion[] }>('/api/accounts/colaborativos');
+  const esColab = selectedCreator.startsWith('colab:');
+  const cuentaId = selectedCreator === 'all' || esColab ? null : selectedCreator;
 
   // CUENTAS QUE PUEDEN ACTUAR, no solo aparecer (Iker, 2026-08-19).
   //
@@ -1170,6 +1185,20 @@ function AccountsInner() {
                   {nombreCuenta(a.name)}{a.is_manual ? ' · manual' : ''}
                 </option>
               ))}
+              {/* Una opcion por combinacion EXACTA (quien publico primero):
+                  «Unai + Iker + Asier» no se mezcla con «Unai + Iker» ni con la
+                  misma terna publicada desde otra cuenta. Asi las comparaciones
+                  son de igual a igual. Sale en cuanto se marca el primero. */}
+              {!!colaborativos?.total && (
+                <optgroup label="Colaborativos">
+                  <option value="colab:all">Todos los colaborativos ({colaborativos.total})</option>
+                  {colaborativos.combinaciones.map((c) => (
+                    <option key={c.value} value={c.value}>
+                      {c.nombres.map((n) => nombreCuenta(n)).join(' + ')} ({c.posts})
+                    </option>
+                  ))}
+                </optgroup>
+              )}
             </select>
           </div>
           {/* El selector SIGUE listando las cuentas manuales aunque el check
@@ -1349,7 +1378,7 @@ function AccountsInner() {
                     // When the page-level selector is on a specific creator,
                     // scope the bulk refresh to that one. 'all' falls back to
                     // refreshing every managed account.
-                    const body = selectedCreator !== 'all' ? { creator_id: selectedCreator } : {};
+                    const body = cuentaId ? { creator_id: cuentaId } : {};
                     const res = await apiPost<{ captured: number; candidates: number; scraped: number; accounts: number }>(
                       '/api/accounts/live-refresh',
                       body
@@ -1367,13 +1396,13 @@ function AccountsInner() {
                 }}
                 disabled={liveRefreshing}
                 className="text-xs text-text-muted hover:text-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                title={selectedCreator !== 'all'
+                title={cuentaId
                   ? "Trae los posts nuevos de esta cuenta (solo añade los que aún no están en la base de datos)"
                   : "Trae los posts nuevos de todas las cuentas propias (solo añade los que aún no están en la base de datos)"}
               >
                 {liveRefreshing
                   ? '↻ Trayendo…'
-                  : selectedCreator !== 'all'
+                  : cuentaId
                     ? '+ Traer posts nuevos (esta cuenta)'
                     : '+ Traer posts nuevos'}
               </button>
@@ -1429,6 +1458,8 @@ function AccountsInner() {
                 <LivePostRow
                   key={p.id}
                   post={p}
+                  cuentas={(accounts || []).filter((a) => !a.is_manual)}
+                  onCoautores={() => { refetchLive(); refetchAnalytics(); refetchColaborativos(); }}
                   onOpenChat={() => setChatPostId(p.id)}
                   onRefreshed={refetchLive}
                   onEditMetrics={() => setEditarMetricas(p)}
@@ -1631,7 +1662,7 @@ function AccountsInner() {
             <div>
               <h2 className="text-xl font-semibold">Resumen del periodo</h2>
               <p className="text-xs text-text-muted">
-                {days} días, frente a los {days} anteriores{selectedCreator === 'all' ? '' : ' · solo esta cuenta (las oportunidades son de todas)'}.
+                {days} días, frente a los {days} anteriores{selectedCreator === 'all' ? '' : esColab ? ' · solo posts colaborativos (las oportunidades son de todas)' : ' · solo esta cuenta (las oportunidades son de todas)'}.
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
@@ -1660,8 +1691,8 @@ function AccountsInner() {
               />
               <Kpi
                 etiqueta="Seguidores"
-                valor={`${analytics.totals.followers_gained > 0 ? '+' : ''}${fmtNum(analytics.totals.followers_gained)}`}
-                pie="nuevos en el periodo"
+                valor={esColab ? '—' : `${analytics.totals.followers_gained > 0 ? '+' : ''}${fmtNum(analytics.totals.followers_gained)}`}
+                pie={esColab ? 'de cuenta, no de un post' : 'nuevos en el periodo'}
               />
               <Kpi
                 etiqueta="Clics en enlaces"
@@ -1907,6 +1938,15 @@ function AccountsInner() {
             )
           ) : null}
 
+          {/* Con un colaborativo elegido, todo lo que sigue es de CUENTA (serie
+              oficial diaria, impresiones y seguidores por mes, visitas al
+              perfil): no se puede partir por post y se esconde. */}
+          {esColab ? (
+            <p className="text-xs text-text-muted bg-bg-card border border-border rounded-xl px-4 py-3">
+              👥 Colaborativos: las cifras de arriba son las de esos posts, cada uno contado una vez en la cuenta que lo publicó.
+              Las gráficas de cuenta (impresiones diarias y por mes, seguidores, visitas al perfil) no se pueden partir por post y no se enseñan aquí.
+            </p>
+          ) : (<>
           {/* Daily engagement trend — smoothed line with publication markers */}
           <div className="bg-bg-card border border-border rounded-xl p-5">
             <div className="mb-1 flex items-start justify-between gap-3 flex-wrap">
@@ -1994,6 +2034,7 @@ function AccountsInner() {
             days={days}
             reloadSignal={refreshSignal}
           />
+          </>)}
 
         </>
       )}
@@ -2512,6 +2553,30 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
   );
 }
 
+// Coautores junto al autor principal (2026-10-23): «+2» y sus fotos pequeñas,
+// con los nombres al pasar el raton. Deja claro que el post es colaborativo sin
+// quitarle el sitio al autor que lo publico (de quien son las metricas).
+function Coautores({ lista }: { lista?: Coautor[] }) {
+  if (!lista?.length) return null;
+  const nombres = lista.map((c) => nombreCuenta(c.name)).join(' y ');
+  return (
+    <span
+      className="inline-flex items-center gap-1 text-text-secondary"
+      title={`Post colaborativo: lo firma también ${nombres}. Las métricas son las del post y cuentan una vez, en la cuenta que lo publicó.`}
+    >
+      <span className="text-text-muted">+{lista.length}</span>
+      <span className="inline-flex -space-x-1.5">
+        {lista.map((c) => c.image ? (
+          <img key={c.id} src={c.image} alt="" className="w-4 h-4 rounded-full object-cover ring-1 ring-bg-card" />
+        ) : (
+          <span key={c.id} className="w-4 h-4 rounded-full bg-bg-secondary ring-1 ring-bg-card text-[8px] flex items-center justify-center">{(c.name || '?')[0]}</span>
+        ))}
+      </span>
+      <span>{nombres}</span>
+    </span>
+  );
+}
+
 // Menu de tres puntos de cada post de Live Posts (Iker, 2026-08-07).
 //
 // Nace de un caso repetido: Iker borra un post en LinkedIn —el del evento sin el
@@ -2526,11 +2591,31 @@ function SnapshotCurve({ postId, publishedAt, autoRefresh }: { postId: string; p
 // "Añadir métricas" vive AQUI DENTRO desde el 20/08 (Iker). Estaba suelto en la
 // cabecera, en gris y sin borde, asi que parecia una etiqueta y no un boton: se
 // podia pulsar y nadie lo pulsaba. Un menu es el sitio de las acciones raras.
-function PostMenu({ post, onHidden, onEditMetrics }: {
+function PostMenu({ post, onHidden, onEditMetrics, cuentas, onCoautores }: {
   post: LivePost; onHidden?: () => void; onEditMetrics?: () => void;
+  cuentas?: ManagedAccount[]; onCoautores?: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
+  // Posts colaborativos (2026-10-23): se marcan a mano porque ni Unipile ni
+  // LinkedIn dicen quien es coautor (en el feed del coautor sale como un repost
+  // cualquiera). El autor principal es quien lo publico y no se puede marcar.
+  const [eligiendo, setEligiendo] = useState(false);
+  const [marcados, setMarcados] = useState<string[]>((post.coautores || []).map((c) => c.id));
+  const otras = (cuentas || []).filter((a) => a.id !== post.creator_id);
+  const guardarCoautores = async () => {
+    setBusy(true);
+    try {
+      await apiPut(`/api/accounts/posts/${post.id}/coautores`, { creator_ids: marcados });
+      setEligiendo(false);
+      setOpen(false);
+      onCoautores?.();
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setBusy(false);
+    }
+  };
 
   // Cerrar al hacer clic fuera: sin esto el menu se queda abierto al pinchar en
   // otra tarjeta y acabas con varios abiertos a la vez.
@@ -2584,6 +2669,40 @@ function PostMenu({ post, onHidden, onEditMetrics }: {
               </span>
             </button>
           )}
+          {otras.length > 0 && onCoautores && (
+            eligiendo ? (
+              <div className="px-3 py-2 border-b border-border">
+                <p className="text-xs text-text-secondary mb-1.5">¿Quién más firma el post?</p>
+                {otras.map((a) => (
+                  <label key={a.id} className="flex items-center gap-2 text-xs text-text-secondary py-0.5 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      className="accent-accent"
+                      checked={marcados.includes(a.id)}
+                      onChange={(e) => setMarcados((m) => e.target.checked ? [...m, a.id] : m.filter((x) => x !== a.id))}
+                    />
+                    {nombreCuenta(a.name)}
+                  </label>
+                ))}
+                <div className="flex gap-2 mt-2">
+                  <button onClick={guardarCoautores} disabled={busy} className="text-xs text-accent hover:underline disabled:opacity-50">
+                    {busy ? 'Guardando…' : 'Guardar'}
+                  </button>
+                  <button onClick={() => setEligiendo(false)} className="text-xs text-text-muted hover:underline">Cancelar</button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => setEligiendo(true)}
+                className="w-full text-left px-3 py-2 text-xs text-text-secondary hover:bg-bg-secondary"
+              >
+                {post.coautores?.length ? 'Cambiar coautores' : 'Marcar como colaborativo'}
+                <span className="block text-[10px] text-text-muted mt-0.5 whitespace-nowrap">
+                  Post con varios autores de LinkedIn.
+                </span>
+              </button>
+            )
+          )}
           <button
             onClick={ocultar}
             disabled={busy}
@@ -2603,7 +2722,7 @@ function PostMenu({ post, onHidden, onEditMetrics }: {
   );
 }
 
-function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetrics }: { post: LivePost; onRemoveDemo?: () => void; onOpenChat?: () => void; onRefreshed?: () => void; onEditMetrics?: () => void }) {
+function LivePostRow({ post, cuentas, onCoautores, onRemoveDemo, onOpenChat, onRefreshed, onEditMetrics }: { post: LivePost; cuentas?: ManagedAccount[]; onCoautores?: () => void; onRemoveDemo?: () => void; onOpenChat?: () => void; onRefreshed?: () => void; onEditMetrics?: () => void }) {
   const [open, setOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [refreshMsg, setRefreshMsg] = useState<string | null>(null);
@@ -2658,6 +2777,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
           <div className="flex items-start justify-between gap-2 mb-1">
             <div className="flex items-center gap-2 text-xs text-text-muted flex-wrap min-w-0">
               <span className="text-text-secondary font-medium">{nombreCuenta(post.creator_name)}</span>
+              <Coautores lista={post.coautores} />
               {/* Cuenta no conectada a Unipile: lo publico se extrajo de la URL
                   y lo privado lo escribe el usuario. El badge existe para que
                   nadie lea un 0 de impresiones como "no funciono" cuando en
@@ -2686,7 +2806,7 @@ function LivePostRow({ post, onRemoveDemo, onOpenChat, onRefreshed, onEditMetric
               {/* "metricas" ya no vive aqui: era texto gris sin borde entre dos
                   chapas, asi que se leia como una etiqueta y no como algo que se
                   pulsa (Iker, 2026-08-20). Ahora es la primera opcion del menu. */}
-              <PostMenu post={post} onHidden={onRefreshed} onEditMetrics={onEditMetrics} />
+              <PostMenu post={post} onHidden={onRefreshed} onEditMetrics={onEditMetrics} cuentas={cuentas} onCoautores={onCoautores} />
               <PilarSelector postId={post.id} pillar={post.pillar} />
               {/* CTR a la izquierda del multiplicador (Iker, 2026-07-29): el ojo
                   lee de izquierda a derecha y lo ultimo que ve es lo que se le
@@ -2832,6 +2952,7 @@ function TopPostRow(
           <div className="flex items-start justify-between gap-2 mb-1">
             <div className="flex items-center gap-2 text-xs text-text-muted flex-wrap min-w-0">
               <span className="text-text-secondary font-medium">{nombreCuenta(post.creator_name)}</span>
+              <Coautores lista={post.coautores} />
               <span>·</span>
               <span title={post.published_at ? new Date(post.published_at).toLocaleString('es-ES') : ''}>{post.published_at ? fmtPublishedAt(post.published_at) : '—'}</span>
               <span>·</span>

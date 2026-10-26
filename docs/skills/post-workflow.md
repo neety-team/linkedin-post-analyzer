@@ -4032,6 +4032,21 @@ Durante esas dos semanas **no va a estar la capa manual que hace funcionar el si
 
 Vídeo, evento y formatos nuevos quedan **fuera de la rotación por defecto**; entran solo si tú lo pides (8.4).
 
+### 8.1b · 🎯 CADA POST LLEVA SU OBJETIVO EN LA TABLA, Y LO DECIDE EL DESTINO DEL ENLACE (Iker, 2026-10-26)
+
+> *"me falta que en cada una me digas el objetivo"*. Iker lo apunta en su calendario de Notion: cada hueco de la tabla del plan lleva pilar, día, hora **y objetivo**. Y **mínimo 9 posts por semana: 3 por cuenta** (más si se puede).
+
+| a dónde lleva el post | objetivo (uno solo) | cómo se mide |
+|---|---|---|
+| un evento con inscripción (Luma: webinar o presencial) | **Leads** | inscritos y, de ellos, los que marcan la casilla de correo (eso es el lead); asistentes después |
+| el gate de un lead magnet o un recurso | **Leads** | correos que dejan en el gate con la casilla |
+| `/solicitar-demo` (la página de reuniones) | **Oportunidades** (reuniones; nunca "demos") | solicitudes, aprobadas y descartadas, en el analizador |
+| sin enlace: historia/evento, hito, agradecimiento | **Autoridad** | no se mide en conversión; impresiones, comentarios de fuera y demografía como señal |
+
+- **El objetivo lo pone el destino, no el pilar.** Un meme con ninja a `/solicitar-demo` es de **Oportunidades**, no de alcance; el alcance es el medio, nunca el objetivo de un post. Lo que pasa es que el meme convierte poco (`§4.4-CONVERSION`), así que se planifica sabiendo que su aporte a ese objetivo es pequeño.
+- **Un inscrito no es un lead por sí solo:** lead es quien da permiso para escribirle (la casilla). Del webinar del 28/10, 28 de 134 la marcaron.
+- **Destino por defecto según el momento:** con un evento abierto, los ninjas van a Luma (Leads); sin evento abierto, a `/solicitar-demo` (Oportunidades), salvo el lead magnet (su gate) y los posts sin enlace.
+
 ### 8.2 · La regla de intercalado (exclusividad por día = cuadro latino 3×3)
 Cada día de publicación, las 3 cuentas cubren las **3 categorías DISTINTAS** (nunca dos cuentas la misma categoría el mismo día), y a lo largo de la semana **cada cuenta pasa por las 3**. Ejemplo de reparto:
 

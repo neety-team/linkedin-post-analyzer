@@ -62,7 +62,7 @@
 >
 > | | Unai | Iker | Asier |
 > |---|---|---|---|
-> | **Mar 27** (víspera) | Historia: caso o cita real de cliente → webinar | Opinión contrarian que abre debate → webinar | Historia: cita real del informe → webinar |
+> | **Mar 27** (víspera) | **9:30** · Historia: el precio de abrir un país nuevo (caso real) → webinar | **10:30** · **PELOTEO con Luma directo e hilo conductor** → webinar (cambio del 26/10: Iker no quiere 3 historias el mismo día; su historia de la IA pasa al vie 30) | **10:00** · Historia: «nos falta el jefe de compras» (cita real) → webinar |
 > | **Mié 28** (directo 10:00) | Historia/evento: mesa redonda de **DBA Conecta** (Deusto Business Alumni, "La IA y su impacto en las profesiones"; guion en `LINKEDIN GROWTH/DBA Conecta Mesa Redonda Esta Semana.pdf`) → demo · **faltan fecha, foto y qué dijo** | — | — |
 > | **Jue 29** | — | **Lead magnet: clientes GEMELOS** (movido del 23/10; post y recurso listos) | **"Las 10" de Navarra** → demo (movido del 23/10; sustituye al mapa "de adición", que en Bizkaia se quedó en 5.372) |
 > | **Vie 30** | San Francisco 2, la víspera (ver ángulos abajo) **o nada** | Meme de Halloween **solo si el lunes se rescata el meme** (prueba de "dos tribus", `post-workflow §4.4-MEME-MARIO`); si no, historia → demo | — |
@@ -78,7 +78,7 @@
 > - **Bloqueos en la cuenta de Unai:** mientras dure el viaje, su cuenta es de San Francisco (carril de ecosistema). Iker y Asier siguen con ventas para no perder su público.
 > - **Medición del colaborativo del 23/10 (Iker):** es una anomalía hasta dentro de los viajes (no todos los días se va uno a San Francisco). Lo que lo separa de los posts de evento que no llamaron la atención: **selfie natural de los tres sonriendo, sin escenario y sin vender nada**, y el efecto "cumpleaños" (felicitan quienes nunca comentan, una compañera y al menos una persona de fuera en la primera media hora). Se juzga a los 3-4 días por los comentarios de fuera y la demografía, no por el impulso de la primera hora, que lo damos nosotros.
 >
-> El martes 27 son tres historias a propósito (víspera: manda la conversión), cada una con una forma distinta; se escriben en el chat POSTS 27 OCT VISPERA UNAI IKER ASIER. **Lun 26 o mar 27: última tanda de DM a contactos nuevos** (63% de los inscritos).
+> ⛔ **26/10, Iker: tres historias el mismo día NO, ni en la víspera** («dos te las paso, tres me parece exagerado»). El martes van dos historias (Unai y Asier) y un peloteo (Iker); el FOMO de tiempo («últimas horas para apuntarte») en los tres ninjas. Antes ponía: tres historias a propósito; se escriben en el chat POSTS 27 OCT VISPERA UNAI IKER ASIER. **Lun 26 o mar 27: última tanda de DM a contactos nuevos** (63% de los inscritos).
 
 > 📊 **REVISIÓN DEL LUNES 26/10 (semana del 19 al 23/10), hecha desde el chat de planificación.** Detalle en las recetas: `post-workflow §4.6-HITO` (San Francisco y el pilar historia/evento), `§4.4-CONVERSION-EVENTO` (bloque del 26/10), `§4.4-MEME-MARIO` (bloque del 26/10) y `brand-voice §1b` (carril de ecosistema).
 > - **Paso 0:** BD refrescada desde el vie 23 · A/B repasados fila por fila (arriba) · salud de suscriptores **6/6** (49 con casilla en la lista 15, último alta el 25/10) · auditoría de ninjas sin cambio de prioridad (todo n<3 por pilar y dolor).

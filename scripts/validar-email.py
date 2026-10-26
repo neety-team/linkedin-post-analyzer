@@ -590,8 +590,12 @@ def main():
             _blo = sin_url(' '.join(bl)).lower()
             _faltan = [n for n, v in (
                 ('la fecha (miércoles 28)', re.search(r'\b28\b|mi[eé]rcoles', _prev_low)),
-                ('que es online', re.search(r'online|en directo|desde (tu|el|la|casa)|videollamada', _prev_low)),
-                ('que es gratis', re.search(r'gratis|gratuit|sin pagar|no cuesta', _prev_low)))
+                ('que es online', re.search(r'online|en directo|por internet|desde (tu|el|la|casa)|pantalla|videollamada', _prev_low)),
+                ('que es gratis', re.search(r'gratis|gratuit|sin pagar|no cuesta', _prev_low)),
+                # 21/10 (Mario, afinado por Iker): la linea dice que es un EVENTO, con esa
+                # palabra, y "por internet" vale de online. Portado de validar-post.py el 26/10
+                # (correo 10): el de correo seguia sin aceptar "por internet".
+                ('la palabra evento', re.search(r'(?<![a-záéíóú])(evento|seminario|conferencia)', _prev_low)))
                 if not v]
             if len(_prev_l) == 1 and not _faltan:
                 checks.append(ok('Webinar: línea suelta de encima con fecha, online y gratis'))
@@ -607,6 +611,9 @@ def main():
                                     f'gratis y sin límite: se promete lo que te llevas'))
             else:
                 checks.append(ok('Webinar: el ninja no vende escasez'))
+            if re.search(r'videollamada', _prev_low):
+                checks.append(aviso('Webinar: la línea de encima lo vende como "videollamada", que se lee '
+                                    'más pobre que un evento: "evento gratuito por internet" (Mario, 21/10)'))
             if re.search(r'webinar', _prev_low + ' ' + _blo):
                 checks.append(aviso('Webinar: sale la palabra "webinar" en el ninja. Mejor "sesión '
                                     'online", "charla online" o "en directo" (brand-voice §2.3)'))
@@ -800,7 +807,11 @@ def main():
         _o = subprocess.run([sys.executable, os.path.abspath(__file__), _ant], capture_output=True,
                             text=True, encoding='utf-8', errors='replace').stdout or ''
         _norm = lambda m: re.sub(r'\d+([.,]\d+)?', '#', m).strip()
-        _antes = {_norm(l[1:]) for l in _o.splitlines() if l[:1] in ('❌', '⚠')}
+        # El simbolo se quita hasta el primer espacio: "⚠️" son DOS caracteres (U+26A0 +
+        # U+FE0F) y con l[1:] el selector de variante se quedaba pegado al texto, asi que
+        # cualquier aviso de la version anterior salia como nuevo (26/10, correo 10).
+        _antes = {_norm(l.split(' ', 1)[1]) for l in _o.splitlines()
+                  if l[:1] in ('❌', '⚠') and ' ' in l}
         _nuevos = [m for s, m in checks if s in ('❌', '⚠️') and _norm(m) not in _antes]
         if _nuevos:
             checks.insert(0, fallo('RETOQUE: abre lo que la version anterior no tenia: ' +

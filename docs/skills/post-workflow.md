@@ -1063,6 +1063,31 @@ post                                     imp     clics  inscritos  por 1.000  cl
 2. **⭐ El meme no está muerto: lo que falla es el meme de las cuentas de los jefes.** El mismo pilar, en la cuenta de Mario y con referencia validada, hace 30.762 impresiones mientras ningún meme de los jefes pasa de 5.400 desde el 29/09. La explicación con dato está en `§4.4-MEME-MARIO` (debajo del runbook del meme).
 3. **🌎 Despegó en Latinoamérica y tarde.** 9 de los 10 se inscribieron el 22/10 entre las 17:48 y las 23:14 (hora de España, mañana en México), con dominios `.mx` y una SA de CV. Mario: más de 24 horas flojo (1.000 y pico), 3.000 a las 18:00 del día 2 y 30.000 después; el 99% de fuera de su red. **Un post no se da por muerto a las 24 horas si tiene guardados y envíos.** ⚠️ El webinar es a las 10:00 de España, las 3:00 de México: a esos inscritos se les ofrece la grabación, y no cuentan como público objetivo hasta saber si les vendemos (pregunta abierta a Iker).
 
+**🖥️ WEBINAR, CSV DEL LUNES 26/10 (134 filas, 131 aprobados, 28 con la casilla; impresiones y clics de la BD el 26/10).** **DM 70 (53%)** (Iker 26 + 3 de `bloque`, Unai 23 + 3 de `bloque`, Asier 15), **posts 49 (37%)**, web 3, correo 1 y 8 sin UTM. El fin de semana entraron 8: 6 de posts (Bizkaia +3, Vitoria +2, el olfato +1), 4 DM de `bloque` y 1 sin UTM; los DM normales, ni uno (la tanda se paró).
+
+```
+post                                     imp     clics  inscritos  por 1.000  clic→inscrito
+21/10 Unai  historia (cliente de Vitoria)  7.330    19       7        0,95        37%   ← caso real de cliente
+22/10 Asier historia (el olfato)           3.411     9       3        0,88        33%   ← cita real del informe
+14/10 Unai  historia (el Excel)           10.132    25       8        0,79        32%
+14/10 Asier meme (el sable)                4.046     9       3        0,74        33%
+14/10 Iker  historia (los kilómetros)      6.766    15       4        0,59        27%
+22/10 Iker  mapa Bizkaia, adición (Luma)  12.177    20       6        0,49        30%   ← el peloteo que más inscribe
+21/10 Mario meme (ventas y marketing)     30.762*   28      10        0,33        36%   * impresiones del 23/10: su cuenta es manual
+15/10 Unai  historia/evento (Telmo)        3.866     6       1        0,26        17%
+16/10 Iker  "Las 10" Aragón (Luma)        55.418    19       4        0,07        21%
+20/10 Iker  historia (las avispas)         2.444     6       0        0            0
+21/10 Iker  meme (el informe, repetición)  2.139     4       0        0            0
+16/10 Asier historia/evento (ponente)      1.266     3       0        0            0
+```
+
+1. **✅ Se confirma, con un matiz: de clic a inscrito convierten parecido (27-37%) todos los posts que pasan de 9 clics (n=7, más Aragón al 21%).** El matiz, que tumba la mitad de "solo separa el alcance": **los posts de 6 clics o menos convierten también peor el clic, 1 de 23 (4%)** (Telmo, las avispas, el meme de Iker, el ponente, la tarjeta). Con un 30% se esperaban ~7: no es azar. **El post que no inscribe falla dos veces: trae pocos clics, y los que trae son de curiosidad.** Lo comparten: anécdota inventada y divertida, meme de una persona sola, o el evento a la vista.
+2. **⭐ El material real gana por segunda semana y en dos cuentas.** El caso real de un cliente (Unai, Vitoria) y la cita real del informe con escena inventada (Asier, el olfato) son los dos mejores por 1.000. La anécdota divertida e inventada (Iker, las avispas) se queda en 0 con 6 clics. La regla del 23/10 (primero el caso o la cita real) pasa de una cuenta a dos.
+3. **La tasa por 1.000 se mantiene mientras el post crece.** Bizkaia 0,56 → 0,49 (5.372 → 12.177 impresiones), Vitoria 1,02 → 0,95, el olfato 0,78 → 0,88. **Los inscritos llegan en proporción a las impresiones, también días después:** la conversión es una propiedad del post y el alcance la multiplica.
+4. **⭐ El mapa de adición de Bizkaia es el peloteo que más inscribe por impresión (0,49, contra 0,07 de Aragón y ~0,10 de Álava), y el primero con el hilo conductor escrito a propósito** (`§4.0d` punto 0; el ninja recoge la metáfora del desván). n=1: no se sabe si es el hilo, la adición o la región, pero el peloteo con Luma ya no es "poco por impresión" por definición. Sus inscritos además vienen con dominio de empresa (7 de 10 en peloteo, contra 14 de 26 en historias).
+5. **El meme de Mario trae alcance pero ICP a medias.** De sus 10: 4 de marketing, 2 de mando comercial (CEO y gerente comercial de Medex), al menos 2 de México (`.mx`) y 5 con gmail o hotmail. Llenan la sala, pero la mitad no es el comprador. Detalle en `§4.4-MEME-MARIO`.
+6. **DM de `bloque`:** 6 inscritos en su primera tanda (Iker 3, Unai 3). Con la tanda normal parada, es lo único de DM que se ha movido desde el viernes.
+
 **🎟️ NEETY FORWARD (presencial, 24/09), CSV COMPLETO DE LUMA, LEÍDO EL 19/10.** 108 filas: 83 aprobados, 21 rechazados y 4 invitados. **El 69% de los aprobados (57) no traen UTM**: casi toda la home de neety.com, que no la llevaba (§ de arriba, 22/09). **No hay asistencia medida**: nadie hizo check-in en Luma, así que solo se sabe quién se inscribió, no quién fue. Lo que cambia frente a la tabla de arriba: **la historia de víspera de Unai (`historia-equipo-23sep-unai`, 10.729 impresiones) generó 10 solicitudes, la que más (3 aprobadas y 7 rechazadas por aforo): 0,93 por 1.000.** El meme de Iker del 01/09 suma 7 (5 y 2), Euskadi 26/08 5, el "Los 10" de Gipuzkoa 4 y Álava 3. **El post de víspera con el gancho de la cuenta que más inscribe es el que más mueve, y rinde aún más con fecha encima.** Por eso, en un webinar, el último post de Unai va la víspera.
 
 **🧪 HIPÓTESIS EN PRUEBA, no regla:** *el ninja que nombra a la PERSONA convierte más que el que vende "la sala"* (a favor: `Una reunión la pide cualquiera, el nombre de dentro no.` 26/08, 5 inscritos). **En contra:** `El que firma tu pedido no aparece en cualquier sala.` (Iker 15/09) nombra a la persona y sacó 0 con 15 clics, y el ninja del "Los 10" también vendía la sala (`una sala de solo 80 sitios`). Casi todos los ninjas del evento mezclan las dos cosas. **Hace falta un ninja limpio de cada tipo, en la misma cuenta, antes de tocar el molde de `global §4.4b`.**
@@ -1249,6 +1274,11 @@ sorprende, que es de lo que vive este pilar.
 > 4. **Tardó en arrancar.** Más de 24 horas flojo y luego despegó: un meme no se da por muerto el día 1 si tiene envíos y guardados.
 > **Lo que NO lo explica:** la burrada. El de Mario era suave. Las restricciones de los jefes (`PASO 0`, Unai sin meme polémico, Asier sin gancho técnico) estrechan el abanico de chistes, pero el que viajó era igual de sobrio. El problema es de tema (de uno solo y de dentro) más que de tono.
 > **La prueba que propongo para los jefes (decide Iker el lunes):** el chiste de DOS TRIBUS de la fábrica, que es la versión industrial del de Mario: **comercial contra producción, contra el técnico o contra el de cobros**, con referencia validada y personaje reconocible. ⛔ Nunca la tribu del que compra (`CLAUDE.md`: gerente, dirección comercial) y ⛔ nunca confesar que en Neety nos llevamos mal (`brand-voice §1b`, Mario 21/10). Encaja en Asier (es ingeniero: el comercial contra el ingeniero no es un gancho técnico, es una relación).
+> **🔄 26/10, REVISIÓN DEL LUNES (CSV de Luma y BD de hoy):**
+> - **La repetición del informe que resucita clientes (Iker, 21/10) hizo 2.139 impresiones: el 1,1% del original de Unai (193.410).** Pasaba las tres condiciones de `§4.4-REPETIR` y se le predijeron 20.000-60.000; las repeticiones de antes daban el 22-64%. **Es la prueba más limpia de que no falla la referencia:** el mismo chiste que voló en julio no sale hoy de la cuenta de un jefe. Memes de los jefes desde el 29/09: 5.427 · 107 · 1.075 · 1.916 · 4.046 · 2.139.
+> - **El de Mario sigue siendo el único que viaja, y su público confirma la hipótesis 2:** de sus 10 inscritos, 4 son de marketing, al menos 2 de México y 5 con correo personal; 2 tienen mando comercial. **Viaja porque lo entiende cualquiera, y por eso trae a cualquiera.** Para la cuenta de un jefe, el meme de dos tribus tiene que ser de la FÁBRICA (comercial contra producción o contra el técnico), no ventas contra marketing, o traerá el público de Mario.
+> - **Mi recomendación para decidir hoy: UNA prueba, en Iker, el viernes 30 (el hueco del meme de Halloween), y que sea de dos tribus de la fábrica con referencia validada.** La nostalgia que pide el recuerdo propio (el outlier de Carlos Espacios del 22/10: 154 reacciones y 114 comentarios en 4 h, cada uno contando su escritorio) va como segunda prueba, no a la vez, para leer una sola variable. Si la de dos tribus no pasa de 5.400, el meme sale de las cuentas de los jefes hasta después del viaje y se queda en la de Mario. Mientras, el meme no se planifica por defecto.
+> - **Para el webinar el meme de los jefes no cuenta:** desde el 29/09 ha inscrito 3 (el sable de Asier). No se programa un meme para llenar la sesión del 28.
 >
 > **⭐ PASO 0 — ELIGE LA CUENTA QUE AGUANTA EL MEME, NO REBAJES EL MEME PARA LA CUENTA (Iker, 2026-07-27).** El nivel de burrada del original es parte del motor: si lo suavizas para que encaje en una cuenta sobria, te quedas con el tema y sin el chiste.
 > - **Iker (2º jefe) = memes BRUTOS o informales.** Le da igual el registro mientras el post viaje.
@@ -3167,6 +3197,41 @@ Acceso libre.
 > **🏷️ HISTORIA/EVENTO ES UN PILAR PROPIO EN LA HERRAMIENTA (Iker, 2026-10-15): `historia_evento`.** Es la historia cuya ESCENA es nuestro evento (la entrevista del photocall, la sala llena, la casa rural de antes del estreno). Una historia que solo lleva el ninja al evento sigue siendo `historia`. Iker: *"si siempre lo categorizo como historia, nos va a manchar un poco los datos… ese intermedio tan peligroso que no sería justo dejarlo como solo pilar de historia"*. El clasificador la emite sola cuando el texto narra y nombra la escena (`Neety Forward`, `nuestro evento`, photocall, acreditación); el enlace de Luma ya no basta para llamar `evento` a una historia. Recategorizadas a mano el 15/10: Unai 21/08 (los 13 años), 23/09 (el antes y después), 30/09 (la mañana a contrarreloj, antes `evento`), 07/10, 08/10 y 15/10 · Iker 30/09 (las 3 subidas de la casa rural). **Al comparar historias, se comparan sin las de evento.** En la UTM sigue siendo `historia-…`.
 
 > **🤝 HISTORIA/EVENTO DE AGRADECIMIENTO EN UNAI (20/10): sin spam ninja, peloteo puro, y el reconocimiento nombra el problema concreto que resuelve el organizador.** Solo en su cuenta; detalle y lo que no se hereda de su texto en `brand-voice §1b` (`SUS AGRADECIMIENTOS`). Se valida con `--agradecimiento`.
+
+> ### 🎂🎂 4.6-HITO · EN HISTORIA/EVENTO VIAJA LA FOTO DE PERSONAS Y LO QUE NOS PASÓ, NO EL EVENTO QUE VENDEMOS (revisión del lunes 26/10, pedido por Iker)
+> **El caso:** el colaborativo de San Francisco (Unai con Iker y Asier, 23/10) hizo **15.235 impresiones, 174 likes y 11 comentarios de fuera**, su mejor post de ecosistema de siempre. Iker ya apuntó lo que lo separaba: selfie natural de los tres sonriendo, sin escenario y sin vender nada. **Cruzado con los 13 historia/evento de las tres cuentas (BD, 26/10), la diferencia no es de un post: parte el pilar en dos.**
+>
+> ```
+> foto de PERSONAS, sin escenario              imp     likes   foto de ESCENARIO / SALA / VÍDEO DEL EVENTO     imp
+> 23/10 Unai  San Francisco (selfie de 3)    15.235    174     07/10 Unai  mesa redonda (los 5 en la mesa)   4.438
+> 30/09 Iker  el robo (la cena de los 11)    12.758     47     30/09 Unai  la mañana (vídeo)                 4.488
+> 23/09 Unai  la víspera (el equipo)         10.921     95     15/10 Unai  Telmo (vídeo de la entrevista)    3.866
+> 21/08 Unai  con 13 años (foto de niño)      7.927     48     08/10 Unai  resumen (vídeo)                   3.145
+>                                                              20/10 Unai  Inbertsio (sala con roll-up)      2.150
+>                                                              24/09 Unai  las sillas (sala vacía)           1.555
+>                                                              20/10 Asier hackathon (el panel)              1.352
+>                                                              16/10 Asier ponente (escenario)               1.266
+> mediana                                    11.840            mediana                                      2.648
+> ```
+> n=4 contra n=8 (más el cartel de ponentes de Unai del 18/09, 1.868, que es `evento`). **Ninguno de escenario pasa de 4.500 y ninguno de personas baja de 7.900.** Es `§4.6-FOTO-VENTA` (21/10) confirmado con todo el pilar, no con un caso.
+>
+> **Lo que NO lo explica, medido:**
+> - **No gustó más a quien lo vio.** San Francisco sacó 11,4 likes por 1.000 impresiones; los hitos de ecosistema de Unai de antes, más (Venture on the Road 23,8 · Scale Up School 28,4 · la ronda 17,4), y el vídeo del resumen 18,8. **Lo que cambia es cuánta gente lo ve**, no cuánto reacciona cada uno: LinkedIn lo siguió repartiendo (10.003 miembros alcanzados, fuera de Donostia: Madrid 20%, Barcelona 10%).
+> - **El colaborativo no se puede separar.** Es el único post de los tres a la vez (sale en las tres redes) y es también el de la mejor foto y el del hito. Con n=1 no se sabe cuánto pone el formato. ⚠️ **El cortometraje del 03/11 es colaborativo pero es un vídeo de lanzamiento, que es el lado de la derecha de la tabla:** no se le predice San Francisco por ser colaborativo.
+>
+> **La psicología, deducida (no medida), por orden de peso:**
+> 1. **Se felicita a personas, no a una marca.** La foto de tres caras sonriendo pide el gesto que se le hace a un amigo; un escenario o una sala piden el que se le hace a una empresa (mirar y pasar). Los 11 comentarios de fuera son todos felicitaciones (`Zorionak`, `éxito`, `cracks`, `buen viaje`): **es el efecto cumpleaños, y el cumpleaños es de alguien.**
+> 2. **Es algo que NOS PASÓ, no algo que vendemos.** Una selección, un percance (el robo), la víspera de nervios, la foto de niño. En los de la derecha, el evento es nuestro y se nota que lo promocionamos (`§4.6`, 15/10: "en cuanto se nota que vendes un evento, no interesa"), o somos uno más de la sala (Inbertsio, hackathon).
+> 3. **Lo dice un tercero, y la voz se baja.** `Nos eligieron ICEX y Red.es` pone la grandeza en el hecho y en quien elige; `No vamos por nuestra cuenta.` la baja. Es `grandioso sin prepotente` (`§4.6`, 15/10) llevado a un anuncio.
+> 4. **Felicitar sale gratis y no pide postura.** No hay enlace, ni evento propio, ni pregunta: comentar es seguro y queda bien. Por eso trae comentarios de quien nunca comenta (ADEGI, una inversora, un investigador de Stanford) **pero no abre debate** (no hay nada que discutir).
+>
+> **Predicciones del pilar, desde hoy (sustituyen a la vara de "posts de evento de Unai 2.836-4.356"):**
+> - **Foto de personas sin escenario + algo que nos pasó:** 7.000-15.000 impresiones y 50-180 likes. Con hito validado por un tercero (selección, premio, ronda) en la cuenta de Unai: 10.000-15.000 y 10+ comentarios de fuera.
+> - **Foto de escenario, sala, mesa, roll-up o vídeo grabado en el evento:** 1.200-4.500 impresiones, **la escriba quien la escriba**. Si el jefe la pide así, se hace y se avisa con este número.
+> - **Conversión: casi cero, en las dos columnas.** Con enlace al webinar, 0,26 (Telmo) y 0 (ponente); San Francisco no llevaba enlace y su conversión fue el botón del perfil (32 clics). **Historia/evento es un post de autoridad y de red, no de inscritos ni de demos:** no se le pone el ninja para cubrir un número.
+> - **Público:** el de hito de Unai llega al ecosistema, no al ICP (fundadores y CEOs 15%, sector IT y consultoría 36%, cargos de ventas 1%, industria 0%: récords de las tres cuentas). Si el objetivo es vender, este formato no lo cumple aunque vuele.
+>
+> **Cómo se aplica al escribir uno:** (1) la foto sale de la carpeta HISTORIA o del móvil del jefe, con caras y sin escenario aunque el post sea de un evento; si solo hay fotos de escenario, se avisa del techo de 4.500 antes del borrador; (2) el gancho cuenta lo que nos pasó, no lo que organizamos; (3) si hay un tercero que nos elige o nos premia, va en el cuerpo y la voz se baja justo después; (4) sin enlace si es de ecosistema; (5) se mide a los 3 días por comentarios de fuera y demografía (`comentarios-de-fuera.py --post`), nunca por la primera hora, que la damos nosotros.
 
 > **📏 HISTORIA/EVENTO: HASTA 900 CARACTERES (Iker, 2026-10-15).** Cuando al final hay que desvelar quién lo contó y el evento, además del ninja, ese tramo le come sitio a la historia y se queda coja. El tope sube de 800 a 900 con `validar-post.py --historia-evento`, y **el sitio que se gana es para la historia del gancho y el dolor, nunca para más evento**. Decisión de Iker, sin medir: en contra está el 07/10 de Unai (887 car, evento en el gancho, 8 clics). Se mide al publicar.
 >

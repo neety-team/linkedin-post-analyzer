@@ -1090,7 +1090,7 @@ post                                     imp     clics  inscritos  por 1.000  cl
 
 **🎯 QUÉ CONVERSIÓN MUEVE CADA PATRÓN (26/10, Iker: el análisis va post a post y luego cruzado, y todo hacia la conversión).** La ficha de cada post de la semana está en el historial (bloque 📋 del 26/10). Hay cuatro conversiones y no las mueve el mismo patrón:
 
-| patrón | inscritos | leads (casilla) | demos y oportunidades | otra cosa que mueve |
+| patrón | inscritos | leads (casilla) | oportunidades (reuniones) | otra cosa que mueve |
 |---|---|---|---|---|
 | **Material real** (caso de cliente o cita del informe) contra anécdota inventada | **sí, el que más por impresión:** 0,95 y 0,88 contra 0 | 3 y 1 | ninguna atribuida | **la calidad del inscrito:** los de Vitoria, 4 de 7 con mando (CEO, export manager, fundador) |
 | **Alcance con el ninja dentro** (≥9 clics) | sí, en proporción: 21-37% de los clics | sí, en proporción | ninguna atribuida | — |
@@ -1101,7 +1101,7 @@ post                                     imp     clics  inscritos  por 1.000  cl
 | **DM** (no es un post) | 70 de 131 (53%) | **pocos: 7 de 70** | — | el que se inscribe por DM viene a la sesión, no a la lista de correo |
 
 - **La casilla la marca más quien llega de un post** (historias 9 de 26, meme de Mario 6 de 10) **que quien llega por DM** (7 de 70). Para hacer lista de correo, el post rinde más que el DM; para llenar la sesión, al revés.
-- **⚠️ Demos y oportunidades: esta semana el analizador no atribuye ninguna a un post** (1 solicitud sin post, 0 cualificadas, 0 oportunidades). Con un webinar abierto, todos los posts empujan a Luma y no a `/solicitar-demo`, así que es lo esperable. **Desde el 28/10 el ninja vuelve a demo y esta columna es la que decide.** Las que salgan de un DM o de un comentario se le preguntan a Iker en cada revisión.
+- **⚠️ Oportunidades (reuniones): esta semana el analizador no atribuye ninguna a un post** (se llaman oportunidades o reuniones, nunca "demos": la demo es la segunda reunión, Iker 16/10 y 26/10) (1 solicitud sin post, 0 cualificadas, 0 oportunidades). Con un webinar abierto, todos los posts empujan a Luma y no a `/solicitar-demo`, así que es lo esperable. **Desde el 28/10 el ninja vuelve a demo y esta columna es la que decide.** Las que salgan de un DM o de un comentario se le preguntan a Iker en cada revisión.
 
 **🎟️ NEETY FORWARD (presencial, 24/09), CSV COMPLETO DE LUMA, LEÍDO EL 19/10.** 108 filas: 83 aprobados, 21 rechazados y 4 invitados. **El 69% de los aprobados (57) no traen UTM**: casi toda la home de neety.com, que no la llevaba (§ de arriba, 22/09). **No hay asistencia medida**: nadie hizo check-in en Luma, así que solo se sabe quién se inscribió, no quién fue. Lo que cambia frente a la tabla de arriba: **la historia de víspera de Unai (`historia-equipo-23sep-unai`, 10.729 impresiones) generó 10 solicitudes, la que más (3 aprobadas y 7 rechazadas por aforo): 0,93 por 1.000.** El meme de Iker del 01/09 suma 7 (5 y 2), Euskadi 26/08 5, el "Los 10" de Gipuzkoa 4 y Álava 3. **El post de víspera con el gancho de la cuenta que más inscribe es el que más mueve, y rinde aún más con fecha encima.** Por eso, en un webinar, el último post de Unai va la víspera.
 

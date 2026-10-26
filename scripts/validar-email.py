@@ -610,7 +610,7 @@ def main():
             # en esa linea (antes solo se miraba el bloque). El correo no sabe cuando se
             # envia, asi que aqui la fecha va como aviso.
             _FOMO_T = (r'quedan?\s+(?:solo\s+|muy\s+)?(?:pocas\s+|unas\s+)?horas|[uú]ltimas\s+horas'
-                       r'|[uú]ltimo\s+d[ií]a|queda\s+hoy|menos\s+de\s+24\s+horas')
+                       r'|[uú]ltimo\s+d[ií]a|queda\s+hoy|menos\s+de\s+24\s+horas|ni\s+un\s+d[ií]a|menos\s+de\s+un\s+d[ií]a')
             _esc = (re.search(r'plazas|aforo|\bsala\b|sillas|[uú]ltim[oa]s|se acaba|quedan', _blo)
                     or re.search(r'plazas|aforo|sillas|entradas|asientos', _prev_low))
             _fomo = re.search(_FOMO_T, _prev_low)

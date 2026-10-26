@@ -3565,7 +3565,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                     _FOMO_T = (r'quedan?\s+(?:solo\s+|muy\s+)?(?:pocas\s+|unas\s+)?horas|[uú]ltimas\s+horas'
                                r'|[uú]ltimo\s+d[ií]a|queda\s+hoy|menos\s+de\s+24\s+horas'
                                # 26/10: "hoy aun llegas" (Asier) es FOMO de tiempo y no lo veia
-                               r'|hoy\s+a[uú]n|a[uú]n\s+(?:llegas|est[aá]s)\s+a\s+tiempo')
+                               r'|hoy\s+a[uú]n|a[uú]n\s+(?:llegas|est[aá]s)\s+a\s+tiempo'
+                               # 26/10: "no queda ni un dia" (Iker, peloteo de Galicia)
+                               r'|ni\s+un\s+d[ií]a|menos\s+de\s+un\s+d[ií]a')
                     _esc = (re.search(r'plazas|aforo|\bsala\b|sillas|[uú]ltim[oa]s|se acaba|quedan', _blo)
                             or re.search(r'plazas|aforo|sillas|entradas|asientos', _prev))
                     _esc_t = _esc and re.search(_FOMO_T, _blo)

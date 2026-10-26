@@ -10,9 +10,16 @@
 > |---|---|---|---|---|
 > | **Posición del ninja en el cuerpo** | ~45-50% (correos 5 y 6) | ~25% (correo 7) | sección del correo 7, más abajo | A 24 h no sube (2 de 107 contra 4 de 111), con remitente, pilar y web cambiando a la vez. **Falta repetirlo cambiando solo la posición** |
 > | **Longitud** | 116-158 palabras | 240 (correo 8) | sección del correo 8 | **19/10:** el correo 8 abrió igual que los demás (67 de 108, 62%) y sacó **1 clic limpio** (más 1 de Mario) y **0 inscritos al webinar** en el CSV de Luma (ningún `correo-08`). Es el peor de la serie en clics (el 7 sacó 8, el 6 sacó 6). Cambiaban a la vez el remitente (Asier, su estreno), el pilar (receta), la longitud y el destino (webinar): **dirección, no prueba**. Dirección: volver a 116-158 palabras en el siguiente. **19/10: mecanizado en `validar-email.py`** (fallo por encima de 180, aviso de 159 a 180) y el correo 9 sale con 116 |
-> | ~~**Reto en la PPD**~~ | PPD sin pedir respuesta | PPD que pide contestar (correo 8) | sección del correo 8 | **CERRADO EL 19/10:** Iker confirma que nunca ha llegado una respuesta a una postdata en toda la serie. Desde hoy las postdatas no piden nada y van de broma (`email-marketing §5`, bloque del 19/10, con fallo en `validar-email.py`). La fila se borra en la próxima revisión |
 > | **Remitente** | Iker | Kaixito (correo 2) | `## 🧪 Correo 2`, más abajo | Leer allí el resultado y decidir si se cierra |
 > | **Tipo de cliente del ninja** | — | — | `global §4.4b-TIPOS`, igual que en los posts | Cada correo apunta en su sección a qué tipo le habla (desde el 16/10, con los tamaños de `§4.4b-MUNICIÓN-1510`) |
+
+> **🔄 Repaso fila por fila del lunes 26/10 (correo 9):**
+> - **Posición del ninja:** sin dato nuevo de una sola variable (el 9 lo lleva al 50-64%, como los correos 5 y 6).
+> - **Longitud:** segundo dato a favor del corto. El 9 (116 palabras) sacó 4 clics y 1 inscrito; el 8 (240), 1 clic y 0 inscritos. Remitente y pilar también cambian: **dirección**, ahora con n=2.
+> - **Remitente:** Kaixito abrió 55,5%, por debajo de Asier (63,0%) en la misma lista. Ya no es "el que más abre"; sigue siendo el que más clics saca hacia una fecha (correos 4 y 9). Sin cerrar.
+> - **Tipo de cliente del ninja:** el 9 fue al tipo 4 (se le van los meses buscando): 4 clics y 1 inscrito, contra el tipo 1 del 8 (1 clic y 0). n=1 por brazo.
+> - **Fila del reto en la PPD: borrada hoy** (cerrada el 19/10).
+> - 🆕 **Abierta hoy, sin brazo todavía: recordar a la lista 16 por qué le llega el correo.** Brazo A: sin la línea (correos 6 y 9: 5 de 6 bajas de la cohorte). Brazo B: con una línea que lo diga. Se mide en bajas de la lista 16 por entregado. Detalle en la sección del correo 9 y en `email-marketing §8m`.
 
 > 🗂️ **19/10 · LA COHORTE DEL PRESENCIAL ES UNA SOLA LISTA: `Neety Forward 2026` (id 16).** Por petición de Iker: (1) se metieron los **9 aprobados que se inscribieron el 23 y el 24/09**, después de la carga del 22/09 (con la casilla de "objetivos comerciales" aceptada; ninguno existía en Brevo ni estaba bloqueado); (2) la lista 16 se renombró (antes `📅 Inscritos · NEETY FORWARD 2026`); y (3) **se borraron las listas de tanda 17 y 18**, que estaban enteras dentro de la 16 (comprobado antes de borrar). Borrar una lista no toca los contactos ni sus bajas: **siguen los mismos 10 bloqueados**, y la lista queda con **81 contactos, 71 activos**. Las estadísticas por campaña no se pierden. **Desde hoy, los correos van a las listas 15 + 4 + 16**, no a 15 + 4 + 17 + 18.
 > 🔗 **Y desde el 19/10 el CRM guarda las dos cohortes (`saldu`, botón 📅 Inscritos de Luma):** `Neety Forward 2026` (enganchada a la lista 16, permiso por los términos del evento, solo aprobados, y se respeta a quien ya estaba en la lista) y `Webinar 1` (lista nueva, permiso por la casilla). Las bajas van en los dos sentidos: Brevo → CRM por webhook y por la blocklist, y CRM → Brevo por `propagarBajasPendientes`. **Brevo manda.** El espejo pasa cada día solo.
@@ -1510,7 +1517,42 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Variable en prueba:** el destino Luma con el molde corto de Kaixito (mascota, GIF, ~120 palabras, pregunta de tú a tú, un solo enlace). Se compara con el correo 8 (mismo destino, 240 palabras, Asier, 0 inscritos) y con el correo 4 (Kaixito al evento presencial, 1 inscrito de 45). ⚠️ Cambian a la vez el pilar y la palanca, así que es **dirección, no prueba** (`§5-UNA-VARIABLE`).
 
-**Al enviar:** ninja a `QUEMADAS` de `validar-email.py` (`mirar las webs de una en una le da sueno`, `buscar menos y llamar mas, eso lo ensenan`), cuerpo literal a `corpus-correos-enviados.md` el MISMO día, y en la revisión del lunes 26/10: **inscritos en Luma con `utm_source=correo-09-kaixito-dolor`** y clics limpios con `metricas-brevo.py --quien`.
+**Al enviar:** ninja a `QUEMADAS` de `validar-email.py` (`mirar las webs de una en una le da sueno`, `buscar menos y llamar mas, eso lo ensenan`), cuerpo literal a `corpus-correos-enviados.md` el MISMO día, y en la revisión del lunes 26/10: **inscritos en Luma con `utm_source=correo-09-kaixito-dolor`** y clics limpios con `metricas-brevo.py --quien`. ⚠️ **No se hizo al enviar: las dos cosas se hicieron el 26/10** (cuerpo leído de la API de Brevo y quemadas con fecha 20/10).
+
+### 📈 RESULTADO DEL CORREO 9 (leído el lunes 26/10 con `metricas-brevo.py --quien --listas 15,4,16` y el CSV de Luma del 26/10)
+
+| | correo 9 |
+|---|---|
+| Enviado | mar 20/10 09:06 · listas 15 + 4 + 16, excluida la 19 |
+| Enviados / entregados | 120 / 119 |
+| Aperturas únicas | 66 · 55,5% (la más baja de los últimos 4: el 6 sacó 57,7, el 7 61,7 y el 8 63,0) |
+| **Clics de lead al enlace** | **4 personas (3,4%)**, todas de la **lista 16** (cohorte de Neety Forward). Dos a los 60-90 s del envío (`bicgipuzkoa.eus` 09:07:12 y `blug.es` 09:07:36): pueden ser escáner. Las otras dos, a las 11:26 y las 12:48 |
+| **Inscritos al webinar** | **1** (`utm_source=correo-09-kaixito-dolor`): partner business manager de IONOS Cloud, de la lista 16, una de las 9 que entraron el 19/10. No es nuestro comprador. **Lead:** marcó la casilla, pero ya estaba en la lista |
+| **Bajas** | 🔴 **3 (2,5%)**, las tres de la **lista 16**: `parke.eus` (había pulsado el correo 5), un gmail y `pannafiglio.com` |
+| Oportunidades o reuniones | **0** (el analizador no da ninguna atribuida al correo; tampoco a los posts) |
+
+**El correo solo:**
+- **Asunto** (`a ti también te entra sueño?`, 28 car): pregunta de tú a tú, y la regla se cumple. Abrió algo menos que los tres anteriores (55,5% contra 57,7-63,0); no hay variable que lo explique, porque la lista cambió (entra la 16 con sus 9 nuevas y sale la 19).
+- **Cuerpo** (116 palabras): la escena de la mascota se lee en 10 segundos y el dolor (`Lo que da sueño no es vender. Es BUSCAR.`) está al 35%. El ninja va al 50-64% y recoge el sueño. **Es el molde corto que pedía la fila de longitud, y sacó 4 clics contra 1 del correo 8 (240 palabras).**
+- **PD:** de broma, sin pedir nada (la regla del 19/10). No hay forma de medirla.
+- **CTA:** un solo enlace, a Luma. **4 clics y 1 inscrito: de clic a inscrito, 25%**, el mismo rango que los posts (21-37%).
+- **A quién fue:** de los 134 contactos de las listas 15, 4 y 16, **ya estaban inscritos 5** (2 por DM, 1 por una historia, 1 por la web y este). **Toda la actividad del correo (clics, inscrito y bajas) vino de la lista 16; las listas 15 + 4 (~49 personas) dieron 0 clics y 0 bajas.**
+
+**Cruzado con la serie (n pequeño: dirección, no prueba):**
+
+| correo | remitente | destino | palabras | entregados | aperturas | clics de lead | inscritos / reuniones | bajas |
+|---|---|---|---|---|---|---|---|---|
+| 4 | Kaixito | Neety Forward | 116-158 (banda de los correos 0-7) | 45 | 46,7% | 3 | 1 inscrito | 0 |
+| 6 | Unai | `/agendar/` | 116-158 | 111 | 57,7% | 5 | 0 reuniones | 3 (2 de la cohorte) |
+| 7 | Kaixito | `/solicitar-demo` + AMA | 116-158 | 107 | 61,7% | 2 | 0 reuniones | 2 |
+| 8 | Asier | webinar | 240 | 108 | 63,0% | 1 | 0 inscritos | 1 |
+| **9** | **Kaixito** | **webinar** | **116** | **119** | **55,5%** | **4** | **1 inscrito** | **3 (las 3 de la cohorte)** |
+
+1. **¿Es baja la conversión? Por correo, sí: 1 inscrito de 119 (0,8%). Por exposición, no:** son 8,4 inscritos por cada 1.000 entregados, contra 0,95 por cada 1.000 impresiones del mejor post. **Lo que limita es el tamaño y la composición de la lista**, no el correo: de 134 contactos ya estaban inscritos 5, y los ~49 de la newsletter de verdad (listas 15 + 4) no pulsaron nada.
+2. **La cohorte de Neety Forward (lista 16) es a la vez la única que pulsa y la única que se va.** Tercera vez (correo 6: 2 de 3 bajas; correo 9: 3 de 3 bajas y 4 de 4 clics). No pidieron una newsletter: aceptaron los términos de un evento. **Hipótesis para el próximo correo a la 16 (robada de WaLead, `email-marketing §8m`): una línea que le recuerde por qué le llega** («Te escribo porque viniste o te apuntaste a Neety Forward»).
+3. **Corto contra largo, segundo dato a favor del corto:** el 9 (116 palabras) sacó 4 clics y 1 inscrito; el 8 (240), 1 clic y 0 inscritos. Cambian también el remitente y el pilar: sigue siendo **dirección**, ahora con dos correos.
+4. **Kaixito ya no es el que más abre.** Desde que la lista es de ~110, Asier (63,0%) e Iker abren igual o más. Lo que sí mantiene es que su molde corto es el que más clics saca hacia una fecha (correos 4 y 9).
+5. **Oportunidades y reuniones: 0 desde el correo 0** (1 reunión el 07/08 en MailerLite). La newsletter ha traído 2 inscritos a eventos y ninguna reunión. Pendiente de Iker: si alguna reunión salió de alguien de la lista y no se atribuyó.
 
 ## Ángulos y vehículos usados, puesto al día (2026-10-13)
 - Correo 4 · Kaixito: la lista de invitados en su libro (evento).
@@ -1518,13 +1560,13 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 - Correo 6 · Unai: el cierre del trimestre y la lista de enero.
 - Correo 7 · Kaixito: la lista de 2.000 empresas apuntada en su libro y tachada a mano.
 - Correo 8 · Asier: el cliente descrito por sector y tamaño ("medio polígono") y la receta a mano en 5 pasos.
-- Correo 9 · Kaixito (borrador 19/10): la mascota dormida encima del libro en la empresa 37, mirando webs.
+- Correo 9 · Kaixito (enviado 20/10): la mascota dormida encima del libro en la empresa 37, mirando webs.
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9, borrador)
-- **Asier:** `Apunta.` (correo 8, borrador)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9)
+- **Asier:** `Apunta.` (correo 8)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)
 - ✅ Su ninja ya está en `QUEMADAS` (13/10, con fecha 06/10).

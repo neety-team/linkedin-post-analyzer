@@ -549,6 +549,9 @@ def main():
             # correo 8 · Asier · RECETA (enviado 14/10 11:49)
             'por sector te salen cientos de empresas': '2026-10-14',
             'dar con esas pocas es lo que ensenamos': '2026-10-14',
+            # correo 9 · Kaixito · DOLOR (enviado 20/10 09:06; metido tarde, el 26/10)
+            'mirar las webs de una en una le da sueno': '2026-10-20',
+            'buscar menos y llamar mas, eso lo ensenan': '2026-10-20',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el

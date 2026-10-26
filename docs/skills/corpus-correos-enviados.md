@@ -592,6 +592,59 @@ PPD. Si haces el paso 1, contéstame con la línea que te salga. Las leo todas.
 
 ---
 
+## Kaixito 09 · la mascota dormida encima del libro (pilar DOLOR, el primero del pilar · puerta webinar `luma.com/7hhyx07z`)
+
+**Enviado:** 2026-10-20 09:06 · campaña Brevo 30 · listas 15 + 4 + 16, excluida la 19 (`Webinar 1`) · **120 enviados, 119 entregados** · ⚠️ guardado tarde, el 26/10, leído de la API de Brevo (`htmlContent`): el 20/10 no se hizo
+**Remitente:** `Kaixito de Neety` (`hola@neety.com`) · firma `Kaixito, la mascota de Neety` · GIF `aburrimiento` (estreno), entre el arranque y `Lo que da sueño no es vender.`
+**UTM escrito a mano:** `utm_source=correo-09-kaixito-dolor`
+
+### El asunto y el preheader
+
+```
+a ti también te entra sueño?
+```
+```
+Yo anoche me quedé frito encima del libro.
+```
+
+### El cuerpo, literal
+
+```
+Confesión de mascota.
+
+Anoche iba por la empresa 37.
+Su web, su LinkedIn, otra web.
+A ver qué hacen y quién manda dentro.
+
+Me quedé frito a mitad de una frase.
+
+[GIF aburrimiento]
+
+Lo que da sueño no es vender.
+
+Es BUSCAR.
+
+El miércoles 28 a las 10 hay sesión gratis por videollamada.
+
+Mirar las webs de una en una le da sueño a cualquiera.
+Buscar menos y llamar más, eso lo enseñan mis jefes: luma.com/7hhyx07z
+
+Me desperté con la página 112 pegada a la cara.
+
+Y sin un solo nombre al que llamar.
+Ni uno, después de toda la tarde.
+
+Yo salgo en la portada de la sesión, con mis gafas.
+
+Así que el 28 pienso llegar despierto.
+
+Kaixito, la mascota de Neety
+
+PD. La marca de la página 112 sigue en mi cara. Dicen que me da un aire interesante.
+```
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

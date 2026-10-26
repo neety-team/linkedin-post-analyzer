@@ -2468,6 +2468,42 @@ ZIP `newslettershasta19oct.zip`, 27 ficheros. **Fuera del conteo (6):** SINGULAR
 #### 📥 Intake (Mario)
 Lavender: sexta semana llegando la de Illinois. **RunnerPro y EDEM: primera semana sin nada.** lemlist, Tendios y Hoppy Copy: sin nada esta semana.
 
+### 8m · ⭐ DÉCIMA VENTANA — 21 newsletters, 8 remitentes, 7 días (19-26 oct 2026, analizado el 2026-10-26)
+
+ZIP `newslettershasta26oct.zip`, 30 ficheros, descomprimido en una carpeta nueva y leído como datos. **Fuera del conteo (9):** SINGULARU (6, contraste), Lavender (2, **séptima semana llegando la mala**) y 1 aviso de notas de Substack. **Dentro (21):** **Isra Bravo (7)**, **Hugo López (6)**, Juan Domínguez (3), Lara Acosta / The B2B Creator (1), Sonia Ferrent (1), Cosas de Freelance (1), BOGA/EDEM (1, vuelve) y **🆕 WaLead (1, competencia directa: es su número 1)**. **🔴 RunnerPro: segunda semana sin nada**; lemlist, Tendios y Hoppy Copy, tampoco. **Mario comprueba la suscripción de RunnerPro** (lo dejamos dicho el 19/10).
+
+**Por qué esta ventana pesa más que ninguna:** **Hugo vende una CLASE EN DIRECTO Y GRATIS** (miércoles 4 de noviembre, 19:00), **nuestro formato exacto**, y en esta ventana está su secuencia entera de calentamiento, del primer correo a la invitación. Isra cierra su evento mensual con un correo por día. Y un competidor de prospección B2B en español arranca newsletter.
+
+#### ⏰ Horas y asunto (Date pasado a hora española; ⚠️ **desde el domingo 25/10 es +01:00**, ya no +02:00)
+- **Isra 15:29 hora española, 7 de 7**, también después del cambio de hora (su envío sigue la hora local, no la UTC). **Hugo, en modo clase, por la mañana** (09:13 el 22/10, 09:36 la invitación del 26/10); en modo mentoría iba de 10:07 a 19:35 · Juan 16:01-16:02 · WaLead 09:00 del martes · Sonia 08:01 · Cosas de Freelance 08:02. Nada cambia en nuestras 09:05, **pero ahora son 09:05 +01:00** (`§9c`).
+- **Asuntos:** Isra sigue entre 9 y 31 caracteres (`No es No.`, `NO existe`). **Hugo alarga en la cuenta atrás, 54-84 caracteres, con corchete o paréntesis** (`[Invitación] Solo para media buyers y agencias (y una lección…)`): es el único que pasa de nuestro techo de 62, como en `§8l`. La regla de ≤40 no se toca.
+
+#### 🎓 CÓMO SE CALIENTA UNA CLASE GRATIS EN DIRECTO (Hugo, 4 correos en 5 días), lo que nos sirve para el próximo webinar
+1. **⭐⭐ Día 1, el autodiagnóstico por niveles** (`Del 1 al 5, ¿dónde está tu negocio hoy?`): cinco momentos, cada uno con una escena que se reconoce (*"te vas de vacaciones con el portátil en la maleta"*), y luego el giro: en los cinco frena lo mismo, tres cosas. **El lector se coloca solo antes de que le vendan nada.** Versión Neety: cinco momentos del comercial industrial (busca él a mano, tiene una lista que no se acaba, tiene equipo y no sabe a quién llamar…), sin afirmar en cuál está el lector (`§7b`).
+2. **⭐⭐ Día 2, la pregunta que decide el temario** (`Pregunta rápida…`): tres dolores numerados más *"Es otra cosa"*, y la promesa *"según lo que me respondas, la clase va a poner más foco"*. **El lector co-diseña la clase, y eso ya es inscribirse a medias.** Cuenta tres conversaciones de un evento: los tres decían que necesitaban más clientes y *"Ninguno de los tres necesitaba más clientes."* ⚠️ **Él lo pide por respuesta, y a nosotros responder nos da cero** (correos 0 y 8, `§5` del 19/10): si se hace, **en versión de un clic** (tres enlaces, `§8i` punto 1).
+3. **Día 3, el teaser con el número y sin el contenido:** *"Son 3 palancas"* · *"Mañana te cuento cuáles son"*. Nombra cuántas son y para el correo antes de decirlas.
+4. **⭐⭐ Día 4, la invitación: fecha y hora en la 2ª línea y el enlace en el 3er párrafo**, antes de contar por qué la hace. **Y la promesa es lo que harás AL DÍA SIGUIENTE**, no el temario: *"que cuando cierres el Zoom sepas qué palanca vas a tocar"*. La PD es un caso real con nombre de pila y su frase entre comillas (Sonia: *"ahora sí que tengo un negocio"*). **Para nosotros:** el correo que vende el webinar promete lo que el comercial hará el jueves por la mañana (a quién llamar primero), y la fecha y el enlace van arriba.
+5. **Lo que NO se copia de la secuencia:** el aforo de 500 (nuestro webinar no tiene, `global §4.4b-WEBINAR`), los 3 enlaces por correo y la palabra para que Gmail no lo mande a Promociones (*"Respóndeme… MELÓN"*, *"arrástralo a la pestaña Principal"*): nuestras aperturas (55-63%) no tienen ese problema.
+
+#### 🗓️ EL CIERRE DE UN EVENTO CON UN CASO POR CORREO (Isra, 6 correos)
+6. **⭐⭐ Cada correo, UN caso real de un asociado y una contradicción universal:** el producto que encanta y no se vende, la audiencia que confía y no compra (*"Atención no significa clientes."*), 20.000 € en cursos para recuperar 4.000, el negocio con millones de clientes que no saben que lo quieren. Siempre con la pregunta de cierre *"¿Te está pasando a ti?"*. **Es la mitad de `§8l` punto 3 con la otra mitad puesta: la contradicción.** Versión Neety: *una lista de 2.000 empresas y ni un nombre al que llamar*, *el comercial que nunca falla y no sabe explicar por qué* (sin cliente con nombre, `§7`).
+7. **⭐⭐ La víspera, la lista de lo que se verá, escrita como las preguntas del lector** (`MAÑANA evento. Altas dentro.`): nueve guiones que empiezan por *"Qué hacer cuando…"*, *"Cómo…"*, *"Por qué…"*. **Es el temario sin parecer un temario.** Para el correo de la víspera de un webinar: 3 preguntas (impares, `global §2.5b`) que el comercial se hace y que la sesión contesta.
+8. **⭐ La PD que quita el miedo a no poder ir:** *"Si no puedes asistir no pasa nada, queda subido en tu zona privada."* Para nosotros vale **solo si la sesión se graba y se manda** (duda abierta con Iker, `historial-publicaciones`: los inscritos de México no pueden a las 3:00).
+9. **⛔ Lo de Isra que no se copia, otra vez:** el precio que sube (`Pd2`, ×6), los tacos y el registro sexual, las erratas (`arriva`, `absurso`, `parasiempre`) y el *"no me seas socialista"* (opinión política: nunca en la casa).
+
+#### 🆕 WALEAD, COMPETENCIA DIRECTA (`[GTM#1] HubSpot ha comprado una herramienta para cerrarla`, 20/10)
+10. **Lo que venden:** **señales** («toda señal tiene tres partes»: qué vigilas, de dónde sale y cada cuánto, qué haces cuando salta) y que montarlas es barato (*"2,40 € al mes"*). Su frase: *"Las herramientas te dan hecha la segunda parte."* **Para nosotros es el contraste, no el molde:** nuestros clientes compran la identificación, no la señal (`aboutme`, memoria del diferenciador), y el ninja nunca promete la señal (`CLAUDE.md`). No se entra en su guerra.
+11. **⭐ Lo que sí se roba, el formato:** una caja arriba con **«¿Por qué te llega este email?»** y los tres motivos (usas la herramienta, viniste a un evento o webinar, te apuntaste a la lista); **«Para hacer esta semana»** con 3 pasos; **«La pregunta»** de un lector con su respuesta; **«La noticia»** con *"Qué significa para ti"*. ⭐ **La caja de «por qué te llega» es la respuesta a nuestro problema de bajas:** las bajas de los correos 6 y 9 son de la cohorte de Neety Forward (5 de 6), que no pidió una newsletter. **Desde hoy, el correo que vaya a la lista 16 lleva una línea que recuerda el motivo** (A/B abierto en `historial-newsletter`).
+
+#### ⭐ LO DEMÁS QUE MERECE ROBARSE
+12. **⭐ El reencuadre en mayúsculas como título de sección (Juan):** *"NO TE FALTA INFORMACIÓN, TE FALTA CLARIDAD"*. Y *"No siempre necesitas más disciplina. A veces necesitas un sistema que no dependa de ella."* Versión Neety, sin prometer automatismo (`§7`): *no te faltan empresas, te falta saber cuáles*.
+13. **⭐ La IA como ingrediente mágico (EDEM, `IA para todo.`):** un diálogo que se repite (*"¿Cómo mejoramos las ventas? — Con IA."*) hasta el absurdo, y el giro: lo que no funcionaba *"era lo que esperábamos de ella"*. **Es la complicidad con el escéptico que pide nuestro comprador industrial**, sin juzgarle (`CLAUDE.md`). Vale para un MITO de correo o un post de Iker.
+14. **El caso de una línea con su embudo en números (Cosas de Freelance):** *"mandó 50 paquetes… Seis fueron a posibles clientes… Tres acabaron contratándola."* Tres cifras en una frase y se entiende el método entero. Solo con cifras nuestras y verificadas.
+15. **La maldición del conocimiento (Juan):** borraba preguntas por creerlas obvias y *"el problema es mi percepción"*. Escribe *"para el Juan de hace 3-4 años"*. **Para nosotros:** el comercial que nunca ha usado una herramienta de búsqueda es el lector; lo básico no sobra.
+
+#### 📥 Intake (Mario)
+Lavender: séptima semana llegando la de Illinois. **RunnerPro: segunda semana sin nada (comprobar la suscripción).** EDEM vuelve. **WaLead: nueva, se queda en el corpus como competencia** (cada 15 días).
+
 ## 9 · Entrega y validación (cada email, sin excepción)
 
 ### 🤝 5-COLABORACION · CUANDO EL CORREO DIFUNDE ALGO DE UN TERCERO (2026-10-05, correo 7)
@@ -2579,7 +2615,7 @@ Hay **dos** y hay que repartirlos, o salen duplicados:
 
 ### Ajustes que se olvidan y muerden
 - **Idioma: por CAMPAÑA, no por cuenta.** No se hereda de una campaña a otra ni de la cuenta. Controla el pie legal y la página de baja.
-- **Zona horaria: ✅ `Europe/Madrid (+02:00)`, verificado en el panel el 2026-08-11.** Se programa en hora española directamente, sin ajustar nada.
+- **Zona horaria: ✅ `Europe/Madrid (+02:00)`, verificado en el panel el 2026-08-11.** Se programa en hora española directamente, sin ajustar nada. ⚠️ **26/10: desde el domingo 25/10 España está en +01:00 (CET).** Si se programa por API con la hora escrita a mano, va `09:05+01:00`; el `+02:00` de los correos 6-9 mandaría el correo a las 08:05. Vuelve a `+02:00` el último domingo de marzo.
   - ⚠️ **Pero la API SIEMPRE devuelve UTC**, tenga la cuenta la zona que tenga. Un envío para las 09:01 de Madrid aparece como `scheduled_for: 07:01`. **Eso es correcto, no es un fallo**: son el mismo instante. Al verificar por API hay que restar las 2 horas (1 en invierno) antes de dar nada por roto.
 - **Banner "Sent by MailerLite":** se quita en Configuración de la cuenta → *MailerLite branding*. Incluido desde el plan Comfort.
 - **Los correos de PRUEBA no generan enlaces de baja ni de preferencias reales**: no se pueden pulsar. Es lo único del checklist que solo se verifica enviando de verdad.

@@ -5028,7 +5028,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # arrancar (-e/-i con tilde, y los irregulares: dije, hice, puse...). Fuera
         # los adverbios que acaban igual.
         if not _personal:
-            _personal = re.match(r'(?!(aqu[ií]|as[ií]|all[ií]|ah[ií]|ac[aá])\b)(\w+[éí]|dije|hice|puse|tuve|estuve|vine|quise|supe|traje)\b', h.lower().lstrip())
+            # 26/10: con pronombre delante ("Le pedí…", "Les dije…") tambien abre en 1a persona;
+            # es el molde del 13/08 ("Le pregunté a qué empresas…") y antes solo pasaba si
+            # el gancho llevaba un "me" mas adelante.
+            _personal = re.match(r'(?:(?:le|les|lo|la|los|las|se|te|nos)\s+)?(?!(aqu[ií]|as[ií]|all[ií]|ah[ií]|ac[aá])\b)(\w+[éí]|dije|hice|puse|tuve|estuve|vine|quise|supe|traje)\b', h.lower().lstrip())
         # UNAI EN PLURAL (Iker, 2026-10-08): "Defendi" en primera del singular le
         # suena egocentrico; su gancho de evento o historia va en "Defendimos".
         # En su cuenta la 1a del plural tambien cuenta como gancho personal.

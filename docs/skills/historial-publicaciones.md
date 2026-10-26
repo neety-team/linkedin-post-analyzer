@@ -62,10 +62,10 @@
 >
 > | | Unai | Iker | Asier |
 > |---|---|---|---|
-> | **Mar 27** (víspera) | **9:30** · Historia: el precio de abrir un país nuevo (caso real) → webinar | **10:30** · **PELOTEO con Luma directo e hilo conductor** → webinar (cambio del 26/10: Iker no quiere 3 historias el mismo día; su historia de la IA pasa al vie 30) | **10:00** · Historia: «nos falta el jefe de compras» (cita real) → webinar |
+> | **Mar 27** (víspera) | **9:30** · Historia: el precio de abrir un país nuevo (caso real) → webinar | **10:30** · **"Las 10" de Galicia** (Luma directo, hilo conductor `lavadero`; repite región de su mapa de junio, gancho y país nuevos: Costa Rica) → webinar (cambio del 26/10: Iker no quiere 3 historias el mismo día) | **10:00** · Historia: «nos falta el jefe de compras» (cita real) → webinar |
 > | **Mié 28** (directo 10:00) | Historia/evento: mesa redonda de **DBA Conecta** (Deusto Business Alumni, "La IA y su impacto en las profesiones"; guion en `LINKEDIN GROWTH/DBA Conecta Mesa Redonda Esta Semana.pdf`) → demo · **faltan fecha, foto y qué dijo** | — | — |
 > | **Jue 29** | — | **Lead magnet: clientes GEMELOS** (movido del 23/10; post y recurso listos) | **"Las 10" de Navarra** → demo (movido del 23/10; sustituye al mapa "de adición", que en Bizkaia se quedó en 5.372) |
-> | **Vie 30** | San Francisco 2, la víspera (ver ángulos abajo) **o nada** | Meme de Halloween **solo si el lunes se rescata el meme** (prueba de "dos tribus", `post-workflow §4.4-MEME-MARIO`); si no, historia → demo | — |
+> | **Vie 30** | San Francisco 2, la víspera (ver ángulos abajo) **o nada** | Meme de "dos tribus" de la fábrica **si Iker lo aprueba** (`post-workflow §4.4-MEME-MARIO`); si no, **la historia de la IA** (cita de bigD, ya validada el 26/10) → reuniones | — |
 > | **Mar 03/11** | 🎬 **COLABORATIVO, cortometraje "reveal" del lanzamiento** (`NEETY FORWARD/Cortometraje Reveal Neety Lanzamiento.mp4`), en las tres cuentas, "desde San Francisco" (fecha fijada por los jefes) | ← mismo post | ← mismo post |
 > | **Jue 05/11** | — | Historia → demo (escrita y programada antes del viaje) | Vídeo: `Neety_entrevista_02.mp4` → demo (falta ver quién sale; programado antes del viaje) |
 > | **Vie 06/11** | Visita a HappyRobot (ese día) | — | — |

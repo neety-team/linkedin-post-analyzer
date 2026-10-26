@@ -645,6 +645,60 @@ PD. La marca de la página 112 sigue en mi cara. Dicen que me da un aire interes
 
 ---
 
+## Kaixito 10 · el guion cotilleado (pilar ANZUELOS, el primero del pilar · víspera del webinar `luma.com/7hhyx07z`)
+
+**Programado:** mar 2026-10-27 09:05 (+01:00) · campaña Brevo 31 · listas 15 + 4 + 16, excluida la 19 (`Webinar 1`) · **117 destinatarios activos** contados el 26/10 (112 de fuera de Neety)
+**Remitente:** `Kaixito de Neety` (`hola@neety.com`) · firma `Kaixito, la mascota de Neety` · GIF `curiosidad`, entre el arranque y `Y yo soy una mascota muy cotilla.`
+**UTM escrito a mano:** `utm_source=correo-10-kaixito-anzuelos`
+**Prueba revisada en Gmail** y OK de Iker al texto el 26/10 (*"me parece brutal"*). La v1 (una chuleta con `Martes.` y `el miércoles 28`) se tumbó por plana y por la fecha: ver `email-marketing §8l`.
+
+### El asunto y el preheader
+
+```
+no se lo digas a mis jefes, vale?
+```
+```
+He cotilleado su guion de mañana.
+```
+
+### El cuerpo, literal
+
+```
+Shhh.
+
+Mis jefes se han dejado una cosa en la mesa.
+El guion de mañana, abierto por la primera página.
+
+[GIF: Kaixito con las gafas, leyendo a escondidas]
+
+Y yo soy una mascota muy cotilla.
+
+Van a contestar estas 3 preguntas.
+
+→ Qué hacer si tu cliente no sale en ningún filtro.
+→ Por qué el chat de IA te da las 5 empresas de siempre.
+→ Cómo pasar la semana llamando y no buscando.
+
+Se contestan mañana miércoles a las 10, en un evento gratuito por internet.
+
+Cotillear empresa por empresa a mano te lleva meses.
+Saber cuáles te compran, te lo enseñan mis jefes: luma.com/7hhyx07z
+
+Al final hay turno de preguntas, por si la tuya no está.
+
+Yo dejo el guion donde estaba.
+Tú haz como que no has visto nada.
+Y en la sesión, pon tu mejor cara de sorpresa.
+
+Kaixito, la mascota de Neety
+
+PD. Si me pillan, diré que fue el libro. Que se abre solo.
+```
+
+> **Real / inventado:** reales, las 3 preguntas (los 3 niveles de la descripción de Luma), el turno de preguntas (30 min + preguntas) y la sesión del miércoles 28 a las 10:00. Inventado, la escena del guion en la mesa.
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

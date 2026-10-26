@@ -19,7 +19,7 @@
 > - **Remitente:** Kaixito abrió 55,5%, por debajo de Asier (63,0%) en la misma lista. Ya no es "el que más abre"; sigue siendo el que más clics saca hacia una fecha (correos 4 y 9). Sin cerrar.
 > - **Tipo de cliente del ninja:** el 9 fue al tipo 4 (se le van los meses buscando): 4 clics y 1 inscrito, contra el tipo 1 del 8 (1 clic y 0). n=1 por brazo.
 > - **Fila del reto en la PPD: borrada hoy** (cerrada el 19/10).
-> - 🆕 **Abierta hoy, sin brazo todavía: recordar a la lista 16 por qué le llega el correo.** Brazo A: sin la línea (correos 6 y 9: 5 de 6 bajas de la cohorte). Brazo B: con una línea que lo diga. Se mide en bajas de la lista 16 por entregado. Detalle en la sección del correo 9 y en `email-marketing §8m`.
+> - 🆕 **Abierta hoy, sin brazo todavía: recordar a la lista 16 por qué le llega el correo.** Brazo A: sin la línea (correos 6 y 9: 5 de 6 bajas de la cohorte). Brazo B: con una línea que lo diga. Se mide en bajas de la lista 16 por entregado. Detalle en la sección del correo 9 y en `email-marketing §8m`. **26/10: el correo 10 NO es brazo** (prueba el pilar, ver su sección); va en el siguiente correo a la 16.
 
 > 🗂️ **19/10 · LA COHORTE DEL PRESENCIAL ES UNA SOLA LISTA: `Neety Forward 2026` (id 16).** Por petición de Iker: (1) se metieron los **9 aprobados que se inscribieron el 23 y el 24/09**, después de la carga del 22/09 (con la casilla de "objetivos comerciales" aceptada; ninguno existía en Brevo ni estaba bloqueado); (2) la lista 16 se renombró (antes `📅 Inscritos · NEETY FORWARD 2026`); y (3) **se borraron las listas de tanda 17 y 18**, que estaban enteras dentro de la 16 (comprobado antes de borrar). Borrar una lista no toca los contactos ni sus bajas: **siguen los mismos 10 bloqueados**, y la lista queda con **81 contactos, 71 activos**. Las estadísticas por campaña no se pierden. **Desde hoy, los correos van a las listas 15 + 4 + 16**, no a 15 + 4 + 17 + 18.
 > 🔗 **Y desde el 19/10 el CRM guarda las dos cohortes (`saldu`, botón 📅 Inscritos de Luma):** `Neety Forward 2026` (enganchada a la lista 16, permiso por los términos del evento, solo aprobados, y se respeta a quien ya estaba en la lista) y `Webinar 1` (lista nueva, permiso por la casilla). Las bajas van en los dos sentidos: Brevo → CRM por webhook y por la blocklist, y CRM → Brevo por `propagarBajasPendientes`. **Brevo manda.** El espejo pasa cada día solo.
@@ -1554,6 +1554,32 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 4. **Kaixito ya no es el que más abre.** Desde que la lista es de ~110, Asier (63,0%) e Iker abren igual o más. Lo que sí mantiene es que su molde corto es el que más clics saca hacia una fecha (correos 4 y 9).
 5. **Oportunidades y reuniones: 0 desde el correo 0** (1 reunión el 07/08 en MailerLite). La newsletter ha traído 2 inscritos a eventos y ninguna reunión. Pendiente de Iker: si alguna reunión salió de alguien de la lista y no se atribuyó.
 
+## ✅ CORREO 10 · Kaixito · ANZUELOS, víspera del webinar (PROGRAMADO mar 27/10 09:05 +01:00)
+
+**OK de Iker al texto y prueba revisada en Gmail (26/10)**, programado a las 18:05: `queued`, `scheduledAt 2026-10-27T09:05+01:00` (horario de invierno), releído de la API con remitente con nombre, preheader, pie, GIF, `href` y destinatarios intactos; auditor en verde. ⚠️ **Mañana se comprueba que salió.** **Campaña Brevo 31.** Texto literal en `corpus-correos-enviados.md`.
+
+| | |
+|---|---|
+| Asunto | `no se lo digas a mis jefes, vale?` (33 car, pregunta de tú a tú sin `¿`) |
+| Preview | `He cotilleado su guion de mañana.` |
+| Pilar | **ANZUELOS (8), primera vez**: la víspera como lista de lo que se verá, escrita como las preguntas del lector (Isra, `email-marketing §8m` punto 7) |
+| Palanca | **travesura y secreto compartido** (nueva): Kaixito cotillea el guion de sus jefes. Regla nueva en `email-marketing §8l` (Kaixito cuelga de una trastada, del asunto a la PD) |
+| GIF | `curiosidad` (200, 378.015 bytes, comprobado el 26/10) |
+| Micro-apertura | `Shhh.` (nueva). La v1 llevaba `Martes.`, tumbada por Iker por floja |
+| Ninja → webinar | contexto `Se contestan mañana miércoles a las 10, en un evento gratuito por internet.` · `Cotillear empresa por empresa a mano te lleva meses.` / `Saber cuáles te compran, te lo enseñan mis jefes:` (52/49) · tipo **4**, como el 9 |
+| Longitud y posición | 131 palabras · el bloque empieza al 60% y la URL cae al 75% (correo 9: 50% y 64%) |
+| PD | una, de broma, del libro |
+| Destinatarios | listas **15 + 4 + 16, excluida la 19** → **117 activos únicos** (68 de la 16, 44 de la 15 con 1 compartido, 5 testers; 112 de fuera). Los 6 de la 19 no estaban en esas listas. **Los inscritos no reciben recordatorio nuestro** (decisión de Claude, Iker dejó elegir): Luma ya les manda el de 24 h y el de 1 h, y sus clics inflarían la medición |
+| Validador | **46/46** (aviso aceptado: una sola PD) |
+
+**Variable en prueba:** el pilar ANZUELOS. Todo lo demás como el correo 9 (Kaixito, molde corto, asunto en pregunta, GIF, un enlace a Luma, tipo 4, PD de broma, 09:05). No se pudo evitar que cambie la palanca, la posición (+10 puntos, misma banda) y que sea la víspera. **Se mide** en inscritos por cada 1.000 entregados en el CSV de Luma (`utm_source=correo-10-kaixito-anzuelos`) contra los **8,4 del correo 9**, con los clics limpios (`metricas-brevo.py --quien --listas 15,4,16`) y las bajas de la lista 16. **Revisión: lunes 02/11.**
+
+**Por qué NO lleva el A/B de «por qué te llega» (abierto hoy):** (1) ya prueba el pilar, y la regla es una variable por correo; (2) la línea solo es verdad para la lista 16, así que habría que partir el envío por listas, y eso no se compara; (3) partiendo la 16 salen ~34 por brazo con 0-3 bajas por correo, que no distingue nada; (4) es el tercer correo del webinar en 13 días para la 16, y la cadencia ya sube las bajas sola. Va en el siguiente correo a la 16, como su única variable de forma.
+
+🔴 **Riesgo avisado:** la lista 16 se dio 3 de baja en el correo 9; aquí se esperan 2-4.
+
+**Hecho al programar:** ninja a `QUEMADAS` de `validar-email.py` con fecha 27/10, cuerpo al corpus, regla de la trastada a `email-marketing §8l`. `validar-email.py` acepta además «por internet» y pide «evento» en la línea del webinar (regla del 21/10, portada hoy), y `--antes` ya no da por nuevo cualquier aviso.
+
 ## Ángulos y vehículos usados, puesto al día (2026-10-13)
 - Correo 4 · Kaixito: la lista de invitados en su libro (evento).
 - Correo 5 · Iker: la objeción de la IA que escribe mensajes.
@@ -1561,11 +1587,12 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 - Correo 7 · Kaixito: la lista de 2.000 empresas apuntada en su libro y tachada a mano.
 - Correo 8 · Asier: el cliente descrito por sector y tamaño ("medio polígono") y la receta a mano en 5 pasos.
 - Correo 9 · Kaixito (enviado 20/10): la mascota dormida encima del libro en la empresa 37, mirando webs.
+- Correo 10 · Kaixito (programado 27/10): cotillea el guion de sus jefes la víspera del webinar.
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10)
 - **Asier:** `Apunta.` (correo 8)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)

@@ -552,6 +552,9 @@ def main():
             # correo 9 · Kaixito · DOLOR (enviado 20/10 09:06; metido tarde, el 26/10)
             'mirar las webs de una en una le da sueno': '2026-10-20',
             'buscar menos y llamar mas, eso lo ensenan': '2026-10-20',
+            # correo 10 · Kaixito · ANZUELOS (programado mar 27/10 09:05)
+            'cotillear empresa por empresa a mano': '2026-10-27',
+            'saber cuales te compran, te lo ensenan': '2026-10-27',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el

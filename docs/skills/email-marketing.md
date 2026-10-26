@@ -693,7 +693,7 @@ En los emails importantes, SIEMPRE (Timepack lo lleva en el 86% de los correos, 
 | 9 | **RECETA** | el método entero a mano; se vende aplicarlo a su caso |
 ⚠️ **Los cinco son n=0 y NO entran en el reparto de arriba hasta que se prueben.** El orden recomendado y el porqué de no lanzarlos a la vez, en `§8g`.
 
-**📍 Estado a 2026-10-13:** estrenados HISTORIA (2, 3) · BASTIDORES/novedades (4) · OBJECIÓN (5) · CALENDARIO (6) · MITO (7, Kaixito, 06/10). **RECETA en borrador** (correo 8, estreno de Asier, para el 14/10, ninja al webinar). 🔄 **19/10: DOLOR se estrena en el correo 9** (Kaixito, el sueño de buscar empresa a empresa, ninja al webinar). Sin estrenar: CICATRIZ y ANZUELOS (los anzuelos, mejor como cierre de campaña: el correo de la víspera del webinar, `§8k`). Lo que dicen los 7 correos cruzados (clics por pilar, asunto pregunta contra afirmación, Kaixito contra founders, las bajas de la cohorte del evento) está en `historial-newsletter`, 05/10.
+**📍 Estado a 2026-10-13:** estrenados HISTORIA (2, 3) · BASTIDORES/novedades (4) · OBJECIÓN (5) · CALENDARIO (6) · MITO (7, Kaixito, 06/10). **RECETA en borrador** (correo 8, estreno de Asier, para el 14/10, ninja al webinar). 🔄 **19/10: DOLOR se estrena en el correo 9** (Kaixito, el sueño de buscar empresa a empresa, ninja al webinar). Sin estrenar: CICATRIZ. 🔄 **26/10: ANZUELOS se estrena en el correo 10** (Kaixito, víspera del webinar: las 3 preguntas que contesta la sesión, como el guion que cotillea la mascota). Lo que dicen los 7 correos cruzados (clics por pilar, asunto pregunta contra afirmación, Kaixito contra founders, las bajas de la cohorte del evento) está en `historial-newsletter`, 05/10.
 
 **⭐ LA PROMESA CENTRAL, Y ES UNA SOLA (confirmada por Mario con feedback de clientes, 2026-08-10):**
 > **Encontrar las empresas que de verdad te pueden comprar, y la persona exacta con la que hablar dentro.**
@@ -2453,6 +2453,17 @@ ZIP `newslettershasta19oct.zip`, 27 ficheros. **Fuera del conteo (6):** SINGULAR
 | 4 | `te guardo la silla o no?` | FOMO: perderse la sala |
 | 7 | `cuántas empresas tiene tu lista?` + `No me lo digas, que me enfado.` | enfado de broma: romper una creencia |
 | **9** | `a ti también te entra sueño?` + `Yo anoche me quedé frito encima del libro.` | **complicidad y torpeza propia** (la mascota falla y cae mejor, `§8i` punto 12) sobre el dolor de buscar |
+| **10** | `no se lo digas a mis jefes, vale?` + `He cotilleado su guion de mañana.` | **travesura y secreto compartido**: cotillea el guion que sus jefes se dejaron en la mesa (víspera del webinar). GIF curiosidad |
+
+#### ⭐⭐ KAIXITO CUELGA DE UNA TRASTADA SUYA, DEL ASUNTO A LA PD (Iker, 2026-10-26, correo 10)
+> **Iker, sobre la v1:** *"me falta un poco de chispa, un poco de gracia… con esta mascota tenemos un tono… gracioso, travieso, pícaro"*. **Sobre la final:** *"me parece brutal… súper divertido, súper chulo. Sin jugarnos a la contra"*.
+
+- **La v1 informaba:** una chuleta de 3 preguntas con Kaixito de narrador, abierta con `Martes.` y un guiño al correo anterior. Pasaba el validador (46/46) y era plana.
+- **La final ACTÚA:** Kaixito cotillea el guion de sus jefes y todas las piezas cuelgan de esa trastada. El asunto pide guardar el secreto, la apertura es `Shhh.`, las 3 preguntas son "lo que pone el guion", el cuerpo siembra `Y yo soy una mascota muy cotilla.` y el ninja lo gira contra el dolor (`Cotillear empresa por empresa a mano te lleva meses.`). Cierra con `Tú haz como que no has visto nada.` y la PD echa la culpa al libro. **El contenido no cambió** (las 3 preguntas reales de la sesión): cambió que la mascota hace algo.
+- **La regla:** antes de escribir un correo de Kaixito se decide su trastada (cotillear, esconderse, liarla, colarse) y se pasa por todas las piezas. Una trastada por correo, inocente, con el lector de cómplice. Nunca a costa del que compra, ni con datos o conversaciones de terceros (lo que cotillea es de casa).
+- *Lectura mía, sin medir:* lo que la hace funcionar es que el lector participa en un secreto (complicidad), no que la mascota cuente un chiste. Se mide en el correo 10.
+- **La micro-apertura no se elige por el corpus si no dice nada:** `Martes.` venía del `Domingo.` de RunnerPro, que funciona porque su domingo es siempre el mismo pilar. Aquí el día no decía nada (Iker: *"me parece un poco flojo"*). Ninguna de nuestras aperturas está medida.
+- **Y la fecha va en relativo coherente con el envío:** en la víspera `mañana miércoles`, nunca `el miércoles 28` si la PD dice `mañana` (Iker, mismo día).
 
 - **⛔ La misma palanca no vuelve en los 3 correos siguientes de Kaixito**, igual que el ángulo y la frase del ninja (`global §2.0b-VENTANA`). Y el **FOMO de evento** (perdérselo, quedarse fuera, `sin ti`) ya salió dos veces (correos 3 y 4): **para el webinar no se usa**, porque además no hay aforo.
 - **El GIF va con la palanca:** culpa → estresado · FOMO → curiosidad · enfado → enfado · torpeza/complicidad → **aburrimiento** (estreno). **Queda alegría sin estrenar**: es la de las buenas noticias (un caso, una novedad de producto, el correo de después del webinar).

@@ -2551,7 +2551,9 @@ Hay correos en los que, además del nuestro, toca dar visibilidad a algo de otra
     - **⚠️ Y el ciclo es AVISO y no fallo duro por un dato nuestro:** el **correo 3**, publicado y aprobado, lleva `1-2-1-3-1-2-1-2-1`. Tumbarlo sería silenciar a un ganador, que es justo lo que `global §3.2` dice que no se hace. **Probado rompiendo el dato**: la versión vieja del correo 4 cae con "falta un bloque de TRES".
 - **Pase de criterio en silencio** (lo que el script no ve): ¿el asunto abre un gap real o describe? ¿la primera línea recompensa? ¿una sola idea? ¿el remitente encaja con el tema? ¿el caso es real? ¿el ángulo no está quemado de emails anteriores (mirar `historial-newsletter.md`)?
 
-### ⛔⛔ 9a-BIS · TODA CAMPAÑA NACE EN BORRADOR. NUNCA PROGRAMADA, NI AUNQUE LO PIDA (Iker, 2026-08-27) — CANÓNICO
+### ⛔⛔ 9a-BIS · TODA CAMPAÑA NACE EN BORRADOR Y CON LA PRUEBA ENVIADA; SE PROGRAMA SOLO DESPUÉS DE QUE IKER LA REVISE (Iker, 2026-08-27 · aclarado el 26/10) — CANÓNICO
+
+> **🔄 Aclaración de Iker (26/10):** *"los correos primero siempre se dejan en borrador y se me envía la prueba. Y cuando yo reviso que está todo ok, claro que tú sí que lo programas. La regla dice que de primeras nunca se deja programado."* El "nunca, ni aunque lo pida" es **de primeras**: una vez que Iker ha revisado la prueba y da el OK, programarlo es lo que toca. El título anterior ("nunca programada, ni aunque lo pida") llevó a frenar un envío ya revisado el 26/10.
 
 > **Iker, literal, tras descubrir el bug del preheader duplicado (`§3b`) mandándose su propio test:** *"a partir de ahora nunca me dejes de primeras las cosas en programado, siempre me las tienes que dejar en borrador hasta que yo no valide con un correo de test que me envío a mí mismo... nunca lo puedes programar, aunque yo te lo diga. O sea, siempre me tienes que frenar, a menos que ya haya revisado."*
 

@@ -2239,6 +2239,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         _cola = _cuerpo_sin_lista[_m.end():_m.end() + 4]
         if re.match(r'\s*[€%]|\s*[MkKh](?![a-záéíóúñ])', _cola):
             continue
+        # 26/10 (Asier): el dia de una FECHA es un dato, no una cifra elegida. "miercoles 28 lo
+        # vemos" saltaba y "miercoles 28." no (la puntuacion detras lo libraba por casualidad).
+        _antes = _cuerpo_sin_lista[max(0, _m.start() - 12):_m.start()]
+        if (re.search(r'(lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo|\bel|\bdel)\s+$', _antes, re.I)
+                and re.match(r'(?!\s*(?:empresas|personas|clientes|comerciales|a[nñ]os|meses|d[ií]as))', _cola)) \
+                or re.match(r'\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)',
+                            _cuerpo_sin_lista[_m.end():_m.end() + 14], re.I):
+            continue
         if _n % 2 == 0 and _n != 0:
             _ctx = _cuerpo_sin_lista[max(0, _m.start() - 22):_m.end() + 10].replace('\n', ' ')
             _pares.append(f'"{_n}" en «…{_ctx.strip()}…»')
@@ -3555,7 +3563,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                     # Antes, "quedan 20 plazas" en la linea de encima pasaba en verde: el
                     # check de escasez solo miraba el bloque de dos.
                     _FOMO_T = (r'quedan?\s+(?:solo\s+|muy\s+)?(?:pocas\s+|unas\s+)?horas|[uú]ltimas\s+horas'
-                               r'|[uú]ltimo\s+d[ií]a|queda\s+hoy|menos\s+de\s+24\s+horas')
+                               r'|[uú]ltimo\s+d[ií]a|queda\s+hoy|menos\s+de\s+24\s+horas'
+                               # 26/10: "hoy aun llegas" (Asier) es FOMO de tiempo y no lo veia
+                               r'|hoy\s+a[uú]n|a[uú]n\s+(?:llegas|est[aá]s)\s+a\s+tiempo')
                     _esc = (re.search(r'plazas|aforo|\bsala\b|sillas|[uú]ltim[oa]s|se acaba|quedan', _blo)
                             or re.search(r'plazas|aforo|sillas|entradas|asientos', _prev))
                     _esc_t = _esc and re.search(_FOMO_T, _blo)

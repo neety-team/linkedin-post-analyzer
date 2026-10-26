@@ -5765,8 +5765,15 @@ def main():
         _prev = validar(io.open(a.antes, encoding='utf-8').read(), a.pilar, a.cuenta, a.generico,
                         a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo,
                         a.historico, a.publica_manana)
-        _malos_antes = {x[1] for x in _prev if not x[0]}
-        _nuevos = [x[1] for x in res if not x[0] and x[1] not in _malos_antes]
+        # _prev sale de validar() a pelo: no lleva el prefijo 'VOZ AJENA · ' ni los checks que
+        # main() añade despues (el de la palabra del OFICIO). Sin normalizar, con --voz-ajena
+        # esos avisos salian SIEMPRE como nuevos aunque la version anterior ya los tuviera
+        # (26/10, historia de Ismael). Solo se comparan los checks que existen en las dos.
+        _norm = lambda n: n.replace('VOZ AJENA · ', '')
+        _todos_antes = {_norm(x[1]) for x in _prev}
+        _malos_antes = {_norm(x[1]) for x in _prev if not x[0]}
+        _nuevos = [x[1] for x in res if not x[0] and _norm(x[1]) in _todos_antes
+                   and _norm(x[1]) not in _malos_antes]
         res.insert(0, (not _nuevos, 'RETOQUE: no abre fallos ni avisos que la version anterior no tenia (working-preferences §1d-BIS)',
                        ('el retoque rompe: %s. Quedate con el retoque y arregla esto antes de entregar'
                         % ' | '.join(_nuevos)) if _nuevos else 'limpio contra la version anterior', False))

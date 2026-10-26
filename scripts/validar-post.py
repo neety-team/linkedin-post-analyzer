@@ -3546,13 +3546,36 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 _webinar = '7hhyx07z' in cuerpo
                 if _es_evento and _webinar and datetime.date.today() <= datetime.date(2026, 10, 28):
                     _iden = True
-                    _esc = re.search(r'plazas|aforo|\bsala\b|sillas|[uú]ltim[oa]s|se acaba|quedan', _blo)
+                    _prev = ' '.join(bs[i - 1]).lower() if i > 0 else ''
+                    # ⏳ FOMO DE TIEMPO (Iker, 2026-10-26). La escasez de PLAZAS sigue
+                    # prohibida (no hay aforo), pero el plazo es real: la vispera es el
+                    # ultimo dia para apuntarse. Va en la linea de ENCIMA, al lado de la
+                    # fecha absoluta, y solo si el post sale la vispera o el mismo dia: es
+                    # una marca relativa y escrita antes seria falsa (§4.4b-EVENTO-FECHA).
+                    # Antes, "quedan 20 plazas" en la linea de encima pasaba en verde: el
+                    # check de escasez solo miraba el bloque de dos.
+                    _FOMO_T = (r'quedan?\s+(?:solo\s+|muy\s+)?(?:pocas\s+|unas\s+)?horas|[uú]ltimas\s+horas'
+                               r'|[uú]ltimo\s+d[ií]a|queda\s+hoy|menos\s+de\s+24\s+horas')
+                    _esc = (re.search(r'plazas|aforo|\bsala\b|sillas|[uú]ltim[oa]s|se acaba|quedan', _blo)
+                            or re.search(r'plazas|aforo|sillas|entradas|asientos', _prev))
+                    _esc_t = _esc and re.search(_FOMO_T, _blo)
                     chk(not _esc, 'WEBINAR: el ninja no vende escasez (§4.4b-WEBINAR)',
+                        ('"%s": el plazo es real, pero va en la linea de ENCIMA y solo la vispera '
+                         '("Quedan pocas horas para el evento gratis por internet del miercoles 28."); '
+                         'el bloque de dos promete lo que te llevas' % _esc.group(0)) if _esc_t else
                         ('"%s": el webinar es online, gratis y sin limite de plazas. La escasez '
                          'seria falsa y ademas sube la barrera que queremos bajar. Se promete lo '
                          'que te llevas (a quien venderle, gratis con LinkedIn, los prompts)'
                          % _esc.group(0)) if _esc else '')
-                    _prev = ' '.join(bs[i - 1]).lower() if i > 0 else ''
+                    _fomo = re.search(_FOMO_T, _prev)
+                    if _fomo:
+                        _pub = datetime.date.today() + datetime.timedelta(days=1 if publica_manana else 0)
+                        _ok_t = datetime.date(2026, 10, 27) <= _pub <= datetime.date(2026, 10, 28)
+                        chk(_ok_t, 'WEBINAR: el FOMO de TIEMPO solo la vispera o el mismo dia (§4.4b-WEBINAR, Iker 26/10)',
+                            ('"%s" sale el %s y el evento es el miercoles 28 a las 10: antes de la vispera '
+                             'es falso. Hasta entonces, la fecha sola ("el miercoles 28")'
+                             % (_fomo.group(0), _pub.strftime('%d/%m'))) if not _ok_t else
+                            '"%s" con la fecha absoluta al lado' % _fomo.group(0))
                     _f = re.search(r'\b28\b|mi[eé]rcoles', _prev)
                     _on = re.search(r'online|en directo|por internet|desde (tu|el|la|casa)|pantalla|videollamada', _prev)
                     _gr = re.search(r'gratis|gratuit|sin pagar|no cuesta', _prev)

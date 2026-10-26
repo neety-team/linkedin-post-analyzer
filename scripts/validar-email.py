@@ -605,8 +605,22 @@ def main():
                     'el miércoles 28, online y gratis (§4.4b-WEBINAR). '
                     + (f'Falta {" y ".join(_faltan)}. ' if _faltan else '')
                     + (f'Ahora el bloque de encima tiene {len(_prev_l)} líneas.' if len(_prev_l) != 1 else '')))
-            _esc = re.search(r'plazas|aforo|\bsala\b|sillas|[uú]ltim[oa]s|se acaba|quedan', _blo)
-            if _esc:
+            # ⏳ FOMO DE TIEMPO (Iker, 26/10, portado de validar-post.py): el plazo es real
+            # la vispera y va en la linea de encima; las plazas siguen prohibidas, tambien
+            # en esa linea (antes solo se miraba el bloque). El correo no sabe cuando se
+            # envia, asi que aqui la fecha va como aviso.
+            _FOMO_T = (r'quedan?\s+(?:solo\s+|muy\s+)?(?:pocas\s+|unas\s+)?horas|[uú]ltimas\s+horas'
+                       r'|[uú]ltimo\s+d[ií]a|queda\s+hoy|menos\s+de\s+24\s+horas')
+            _esc = (re.search(r'plazas|aforo|\bsala\b|sillas|[uú]ltim[oa]s|se acaba|quedan', _blo)
+                    or re.search(r'plazas|aforo|sillas|entradas|asientos', _prev_low))
+            _fomo = re.search(_FOMO_T, _prev_low)
+            if _fomo:
+                checks.append(aviso(f'Webinar: FOMO de tiempo ("{_fomo.group(0)}"). Solo vale si el correo '
+                                    f'sale la víspera (27/10) o el mismo día antes de las 10; antes es falso'))
+            if _esc and re.search(_FOMO_T, _blo):
+                checks.append(fallo(f'Webinar: el plazo ("{_esc.group(0)}") va en la línea de ENCIMA y solo la '
+                                    f'víspera; el bloque de dos promete lo que te llevas'))
+            elif _esc:
                 checks.append(fallo(f'Webinar: el ninja vende escasez ("{_esc.group(0)}"). Es online, '
                                     f'gratis y sin límite: se promete lo que te llevas'))
             else:

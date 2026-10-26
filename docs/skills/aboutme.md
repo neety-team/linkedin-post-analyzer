@@ -131,6 +131,8 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 
 **La regla: las cinco cuentas anclan a VENTAS, siempre y sin excepción. Lo que cambia es el SEGUNDO carril, que es el oficio de esa persona, y es de donde sale la REFERENCIA del meme.**
 
+> **🔄 26/10 (Iker): Unai sale del paraguas de ventas.** En su cuenta lo principal es la **autoridad ante el ecosistema** (inversores, fondos, fundadores, instituciones) y el gancho ya no está OBLIGADO a anclar a ventas, sobre todo en los posts de evento (un gancho de ventas sigue valiendo): ancla a lo que pide el post, variando la palabra y sin ser obvio (`brand-voice §1b`, carril de Unai). Ventas sigue valiendo en su cuenta cuando el post es para convertir. **Iker y Asier siguen bajo ventas**: Iker quiere conversión y autoridad en ventas en general; Asier, igual que Iker, con el gancho de ventas general y lo técnico solo en el cuerpo (su gancho técnico: mediana 1.063, n=9, contra 3.774 sin él, n=11; `§2-ASIER-MEME`).
+
 ### ⛔⛔⛔ LA REFERENCIA ES SIEMPRE DE VENTAS EN LOS TRES JEFES. EL CARRIL SOLO DECIDE **QUÉ RINCÓN** DE LAS VENTAS (Iker, 2026-08-24) — CANÓNICO, MANDA SOBRE TODO LO DE ABAJO
 
 > **Iker, literal:** *"solo tienes que coger referencias de marketing en el caso de que trabajemos con el perfil de Mario, que es una excepción. Al igual que solo tienes que coger referencias de atención al cliente o customer support si trabajamos con Helena. Si no, siempre las referencias tienen que ser ya las originales, aunque estén en otro idioma, siempre de ventas"*.
@@ -245,7 +247,7 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 - Rol: **CEO** de Neety.
 - LinkedIn: **https://www.linkedin.com/in/unai-arambarri-yeregui/**
 - Headline: *Founder & CEO @ Neety | El próximo motor de ventas B2B no se contrata, se despliega | Software de IA autónoma para prospección en empresas industriales y de servicios B2B*
-- Publica sobre ventas B2B igual que los demás.
+- ~~Publica sobre ventas B2B igual que los demás.~~ **Desde el 26/10: autoridad ante el ecosistema** (inversores, fondos, fundadores, instituciones) como objetivo principal, y ventas cuando el post es para convertir (`brand-voice §1b`).
 - Outliers propios validados (**BD en vivo, 2026-07-14**): wojak "caja de herramientas engorda" **16.56x · 165.5K** (el mejor post del histórico) · "vibe prospecting" **9.85x · 632 com.** (el mejor lead magnet de las 3 cuentas) · mapa "país inventado" (polémica) **7.87x** · llaves a Claude 4.52x. (Antes ponía 7.1x el país inventado: era 7.87x. "49€ vs Claude 3.92x" no aparece en la BD como outlier — reverificar antes de citarlo.)
 
 ### 👤 Asier Olaizola — Cofundador (parte de programación / técnica)

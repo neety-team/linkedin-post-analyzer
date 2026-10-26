@@ -492,6 +492,8 @@ Iker: *"un gancho que no se pueda representar visualmente una creadora de vídeo
 **Mecanizado** como aviso de entrega en `validar-post.py` (`AVISO ENTREGA: el test de la creadora de videos`), que además canta la familia de palabras de doble lectura si alguna aparece en el gancho.
 
 ### 2.3 · Ancla de sector en la primera línea
+> **🔄 Excepción de cuenta desde el 26/10 (Iker): Unai.** Su gancho ancla a ventas o al ecosistema (inversores, fondos, fundadores, instituciones), sobre todo en los posts de evento y según el objetivo del post (ventas sigue valiendo, solo deja de ser obligatorio), y con la misma variedad que pide esta sección (`brand-voice §1b`). Iker y Asier siguen con el ancla de ventas.
+
 Nuestro sector es **ventas B2B** (la IA es una herramienta que usamos, NO nuestra categoría). El hook debe leerse inequívocamente sobre VENDER. Ancla con la familia entera de señales de venta, **variando** (no reflex-type "ventas" cada vez):
 - El **verbo** conjugado: vender / vendes / vendiendo / "cuando vendes…".
 - El lado **dinero/resultado**: cerrar clientes, cerrar un deal, facturar, cuota, comisión.

@@ -706,7 +706,7 @@ ANCLA_DIRECCION = False
 EVENTO_AJENO = False
 DIRECCION_ANCLA = (r'\b(inversi[oó]n\w*|invers\w+|inversor\w*|validar|valid\w+|mercados?'
                    r'|startups?|fundador\w*|capital|rondas?|emprend\w+|fondos?|venture|ecosistema'
-                   r'|instituci\w+)\b')
+                   r'|instituci\w+|empresari\w+|directiv\w+|CEOs?|aceleradoras?|cohorte)\b')
 
 # §4.5.0a — MOLDE B del lead magnet: Claude (o yo) + VERBO PUNCHY + resultado.
 # Sacado de los cinco lead magnets NUESTROS con mas comentarios, no de memoria.
@@ -2063,6 +2063,27 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 '(cliente, cuenta, soporte, seguimiento) y la vinculacion con ventas baja al CUERPO'
                 if not _cs else f'ancla de su oficio: "{_cs.group(0)}" - y la vinculacion con VENTAS '
                 f'tiene que estar en el CUERPO (aboutme 2)')
+    elif ((cuenta or '').strip().lower() == 'unai' and not generico
+          and (pilar in ('evento', 'historia') or ANCLA_DIRECCION)):
+        # 2026-10-26 (Iker): deja de ser excepcion declarada. En la cuenta de Unai, sobre
+        # todo en los posts de EVENTO (y la historia/evento, que se valida como historia), el
+        # gancho ancla a ventas O al ecosistema, sin flag. No es "nunca ventas": un gancho
+        # de ventas sigue siendo valido; solo deja de ser obligatorio. En el resto de pilares
+        # de Unai el ecosistema sigue pidiendo --ancla-direccion. Si va de ecosistema, el
+        # cuerpo sin ventas es solo aviso. La variedad del ancla es criterio (brand-voice §1b).
+        _dr = re.search(DIRECCION_ANCLA, hook_txt, re.I)
+        _ventas = bool(fuerte or ambigua)
+        chk(_ventas or bool(_dr), 'Hook anclado a VENTAS o al ECOSISTEMA (cuenta Unai, brand-voice §1b, 26/10)',
+            detalle if _ventas else (f'ancla de ecosistema: "{_dr.group(0)}". Varia la palabra del '
+            f'ancla y no la repitas en dos ganchos seguidos de Unai' if _dr else
+            'ni ventas ni ecosistema (inversores, fondos, fundadores, startups, emprender, ronda, '
+            'instituciones...) en el gancho: lo podria subir cualquier cuenta'))
+        if _dr and not _ventas:
+            _vt = re.search(ANCLA_VENTAS, cuerpo, re.I)
+            chk(bool(_vt), 'Gancho de ecosistema: el cuerpo ata con ventas? (Unai, opcional desde 26/10)',
+                f'ancla de ventas en el cuerpo: "{_vt.group(0)}"' if _vt else
+                'el post no menciona vender en ningun sitio. Vale si el objetivo es la autoridad; '
+                'si el post tiene que convertir, va por el carril de ventas', aviso=True)
     elif ANCLA_DIRECCION:
         _es_unai = (cuenta or '').strip().lower() == 'unai'
         _dr = re.search(DIRECCION_ANCLA, hook_txt, re.I)
@@ -2084,6 +2105,22 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not m, 'Hook sin jerga que estrecha alcance (§2.3)', f'"{m.group(0)}" fuera del hook' if m else '')
     m = re.search(r'[—–]', cuerpo)
     chk(not m, 'Sin guion largo (brand-voice §3)', 'delator de IA nº1' if m else '')
+    # 2026-10-26 (Iker) — UNA ORACION POR LINEA EN EL CUERPO, tambien con --voz-ajena.
+    # En la historia de Ismael le junte dos oraciones en una linea para "recuperar su
+    # tono": "yo solo pongo siempre una frase por linea… no puede haber un punto entre 2
+    # oraciones en la misma. Por eso siempre hacemos bloques de una linea, de 2, de 3".
+    # El gancho queda fuera (global §2.10 permite dos oraciones en la linea 1) y el cierre
+    # tambien (§2.10, el cierre punchy). Medido el 26/10 en los 84 posts propios desde
+    # agosto: fuera de listas y siglas, las dos oraciones en una linea son parejas de
+    # contraste de meme o de cierre ("No se pierde el trato. Se pierde el nombre."), asi
+    # que es fallo duro en historia, donde corrigio Iker, y aviso en el resto.
+    _lc = [l.strip() for l in cuerpo.split('\n') if l.strip()][:-1]
+    _dos = [l for l in _lc if 'http' not in l and 'lnkd.in' not in l
+            and re.search(r'[a-záéíóúñü0-9)%"»”][.!?…]["»”]?\s+[¿¡"«“A-ZÁÉÍÓÚÑ]',
+                          re.sub(r'^(\d+[.)]|→|✅|-)\s*', '', l))]
+    chk(not _dos, 'UNA oracion por linea en el cuerpo: dos van en dos lineas, en bloque (Iker, 26/10)',
+        'parte en lineas (y en bloque de 2 o 3 si van juntas): ' + ' | '.join('"%s"' % x[:60] for x in _dos[:3])
+        if _dos else '', aviso=(pilar != 'historia'))
     # 2026-09-23 (Iker) — NINGUNA LINEA DE TEXTO TERMINA EN DOS PUNTOS. "Mañana lo
     # contamos en una sala:" delante de una lista; Iker: "no me gusta nada, creo que
     # nunca lo hemos hecho, pon punto final". Los unicos ':' de final que quedan son

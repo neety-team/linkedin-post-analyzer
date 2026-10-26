@@ -33,6 +33,7 @@ Neety construye **sistemas de outbound operativo con IA** para **empresas indust
 - Segmento fuerte y recurrente: **exportadores industriales** (los outliers de mapas regionales lo prueban), pero **NO exclusivo**: servicios B2B, SaaS, consultoras, clientes B2B de agencias también encajan.
 - Persona concreta a la que se le escribe el hook: **director comercial de 45-60 años** que vende (p. ej. maquinaria industrial en Gipuzkoa), lleva vendiendo desde antes de que existiera Salesforce, **no** es early-adopter de IA, **no** lee Hacker News y **no** conoce jerga de LLMs.
 - Error a evitar: forzar cada post a un marco industrial. Si la idea es SaaS / servicios, inclínate hacia ahí.
+- **🌎 Mercado: cualquier país (Iker, 2026-10-26).** La herramienta se usa desde el navegador, no se instala nada, así que se puede vender en Latinoamérica o en cualquier sitio, y el objetivo a futuro es ser internacionales. **Un inscrito o un lead de fuera de España es público válido, no ruido** (el meme de Mario del 21/10 inscribió a varios de México). El post sigue en español y con la persona de arriba; lo que cambia es que no se descarta a nadie por el país. Ojo con las horas: un evento a las 10:00 de España cae a las 3:00 en México, y a esos inscritos les toca la grabación.
 
 ---
 

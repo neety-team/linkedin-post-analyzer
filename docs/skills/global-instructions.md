@@ -575,6 +575,34 @@ Demasiado nicho para el hook (mándalo al CUERPO): "pipeline", "outbound", "cade
 **⭐ EL TEST DEL ANCLA (correr en TODO post, no solo en remixes): "¿esto solo puede publicarlo una cuenta de VENTAS?"**
 Lee el post e imagina que lo sube una consultora, una agencia o una constructora. **Si cuela, está mal.** El peor error posible es que tu publicación la pudiera subir cualquier cuenta: entonces es un post huérfano y el algoritmo no sabe a quién dárselo. **El algoritmo ES la audiencia, no es suerte** — contenido de ventas, audiencia de ventas. El post tiene que leerse como algo que SOLO es posible en una cuenta de ventas, y eso se consigue con el vocabulario del oficio (vender, cerrar, cliente, comercial, venta, precio, cuota, facturar, exportar), no solo con un tema traducible. Caso real en `outliers-database §3.9c` Paso 7.
 
+#### 🧭 2.3-PERSPECTIVAS · EL ANCLA DE VENTAS SE QUEDA; LO QUE ROTA ES LA PERSPECTIVA (2026-10-27) — TODOS LOS PILARES
+
+**Por qué el ancla se queda (revisado el 27/10 con datos).** Ganchos sin peloteo de las tres cuentas desde el 01/05: con ancla de ventas, mediana de **4.218** impresiones (n=124); sin ella, **4.459** (n=20, casi todos de mayo y la mayoría hablan de ventas con otras palabras). **El ancla no recorta el alcance.** Los tres mayores éxitos la llevan (193.410, 180.344, 165.526) y los apuntes de los expertos de `LINKEDIN GROWTH` dicen lo mismo: nicho antes que viralidad, y las dos primeras líneas deciden a quién se le enseña el post. El hito sin ancla (San Francisco, 17.371) es carril de ecosistema de Unai, sin enlace, y no se repite en un post que tiene que convertir. **Iker y Asier siguen con ancla de ventas en el gancho; Unai, la excepción de ecosistema de arriba.**
+
+**El fallo era otro: anclábamos siempre desde el mismo sitio.** En octubre, 12 ganchos anclaban por el que vende y 16 por `ventas` dicho tal cual; **el cliente salió 1 vez (y era una repetición), la acción del día 1 y el marcador 0.** Las perspectivas, ganchos sin peloteo desde el 01/05 (`python scripts/auditar-anclas.py`, BD del 27/10; las familias se solapan y en las pequeñas mandan los memes):
+
+| perspectiva | ejemplo | n | impresiones (mediana) | clics por 1.000 |
+|---|---|---|---|---|
+| **la acción del día** (llamar, reunión, visita, feria, propuesta) | `Llamada 79 y en recepción…` | 15 | **9.411** | **3,05** |
+| **el que vende** (comercial, director comercial) | `Nunca le vi pedir una reunión al mejor comercial…` | 31 | 6.869 | 2,34 |
+| **el cliente** (cliente, cartera) | `Tu informe de ventas resucita clientes muertos` | 14 | 5.151 | 1,68 |
+| **vender / ventas** dicho tal cual | `Me flipan las charlas motivacionales de ventas` | 78 | 3.824 | 2,80 |
+| **el marcador** (pedido, factura, cuota, comisión) | `En ventas, el pedido encoge…` | 5 | 37.532 | 2,26 |
+| **exportar / mercado / país** | `…donde mejor se vende del mundo` | 2 | 48.862 | — |
+| **el que compra** (el que firma, decide) | `…destapa al que firma la compra` | 6 | 983 | — (los 6, lead magnets de Claude: no juzga la perspectiva) |
+| **el precio** (descuento, negociar) | `La venta con más descuento…` | 2 | 2.204 | 3,17 |
+| **la empresa que vende** (fabricante, fábrica) | `Fui a ver una fábrica…` | 2 | 6.328 | 2,47 |
+| **la competencia** (el cliente que compró a otro) | — | **0** | sin probar | — |
+
+**En peloteo la perspectiva que manda es EXPORTAR:** con `exporta` en el gancho, mediana de **30.701** (n=26); sin ella, **7.789** (n=9). El caso: el mapa que cambió `exporta` por `una de las mayores fábricas de Europa` hizo 5.964 (0,56x). **`fábrica` sola no ancla a ventas**: es una palabra ambigua (arriba) y necesita en el mismo gancho algo que solo exista porque hay una venta (`exporta`, `clientes`, `pedido`).
+
+**La regla, en cualquier pilar:**
+1. **Antes de escribir el gancho**, `python scripts/auditar-anclas.py --cuenta X` saca las perspectivas de los últimos ganchos de esa cuenta. **Si las 2 últimas anclaron desde la misma perspectiva, el siguiente prueba otra que encaje con el post.** La palabra de ventas sigue siendo obligatoria; lo que cambia es desde dónde se mira.
+2. **Primero las que rinden y llevamos semanas sin usar:** la acción del día, el marcador, el cliente y, en peloteo, exportar. `ventas` dicho tal cual es la más usada y la más floja en impresiones: no se prohíbe, pero no es la primera opción.
+3. **Las que no se han probado se prueban de una en una** y se declaran: la competencia (el cliente que compró a otro), el precio, la empresa que vende (`fabricante`, primer caso el 27/10 en Asier) y la recomendación (el cliente que te recomienda).
+4. **Se mide por el objetivo del post, no solo por el alcance** (`post-workflow §8.1b`): inscritos o altas por 1.000 en Leads, clics a `/solicitar-demo` y reuniones en Oportunidades. **Alcance sin conversión no gana.** Va como fila del registro de A/B del historial y se repasa cada lunes con el script.
+5. **Mecanizado:** `validar-post.py` imprime en la entrega la perspectiva del gancho (`scripts/anclas_ventas.py`, la misma lista que usa el script).
+
 ### 🔥🔥 2.3d · EL INTENSIFICADOR: CADA PILAR TIENE SU "Y POCO MÁS" (Iker, 2026-08-21) — UNIVERSAL
 
 > **Mario:** *"para enfatizar, como hacemos en los ganchos de los peloteos de mapa regional, añadimos una cosa que da más rabia, diciendo cosas como y poco más. El objetivo de esta publicación es disparar ese bucle abierto y la emoción de la curiosidad al máximo"*. Y el recordatorio de por qué importa: **`§1` obliga a llevar UNO de los tres pilares al extremo, y ese extremo se dispara EN EL GANCHO**, no en el cuerpo. Un gancho tibio no lo arregla un cuerpo bueno.

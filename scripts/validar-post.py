@@ -2109,6 +2109,24 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'el gancho va de inversion o validacion, asi que el cuerpo tiene que atarlo a vender')
     elif not generico:
         chk(bool(fuerte or ambigua), 'Hook anclado a VENTAS (§2.3)', detalle)
+    # 2026-10-27 (global §2.3-PERSPECTIVAS): el ancla de ventas se queda, lo que rota es
+    # la PERSPECTIVA. En octubre casi todos los ganchos anclaban por el que vende o por
+    # "ventas" dicho tal cual, y el cliente, la accion del dia y el marcador, que rinden
+    # igual o mejor, llevaban semanas sin salir. Aviso de entrega, no fallo.
+    if not generico:
+        try:
+            from anclas_ventas import perspectivas as _persp, etiqueta as _etq
+            _ps = _persp(hook_txt)
+        except ImportError:
+            _ps = None
+        if _ps is not None:
+            chk(False, 'ENTREGA: la PERSPECTIVA del ancla de ventas rota (§2.3-PERSPECTIVAS)',
+                ('este gancho ancla por: ' + ' + '.join(_etq(k) for k in _ps) if _ps else
+                 'no reconozco ninguna perspectiva de ventas en el gancho') +
+                '. Antes de darlo por bueno: python scripts/auditar-anclas.py --cuenta X. Si las 2 '
+                'ultimas de esta cuenta anclaron igual, prueba otra que encaje (cliente, la accion del '
+                'dia, el marcador, exportar, la competencia) y declara en la entrega a que fila del A/B '
+                'de perspectivas suma', aviso=True)
     m = re.search(VERBO_FLOJO, hook_txt, re.I)
     chk(not m, 'Hook sin verbo flojo (§2.9)',
         f'verbo flojo: "{m.group(0)}" → sube un peldaño (criticar→desmontar)' if m else '')

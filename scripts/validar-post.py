@@ -1611,6 +1611,16 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(len(hook_txt) <= 110, 'Hook en la zona de los outliers, ≤110 (§2.10)',
         f'{len(hook_txt)} car. Los ganadores viven en 75-93; el mas largo que ha '
         f'funcionado tiene 115' if len(hook_txt) > 110 else '', aviso=True)
+    # 2026-10-27: corto y bueno gana a largo y bueno. El tope de 110 dejaba pasar
+    # en silencio un gancho de 1 oracion de 97 caracteres, 22 por encima de la
+    # mediana de los ganadores. Aviso a la mediana + 15 (90 con 1 oracion, 108 con
+    # 2), y como es aviso, con --antes un retoque que alarga el gancho lo tumba.
+    _tope_h = 90 if len(_orac) <= 1 else 108
+    chk(len(hook_txt) <= _tope_h, 'Hook cerca de la mediana de los ganadores (§2.10)',
+        f'{len(hook_txt)} car con {len(_orac)} oracion(es); la mediana de los ganadores es '
+        f'{75 if len(_orac) <= 1 else 93}. Corto y bueno gana a largo y bueno: tacha hasta '
+        f'{_tope_h} o menos sin perder la palabra con fuerza' if len(hook_txt) > _tope_h else '',
+        aviso=True)
 
     # §2.2c — A IGUALDAD DE SENTIDO, GANA EL GANCHO MAS CORTO (Iker, 2026-08-17).
     # "Siempre en la vida es mejor corto y bueno que largo y bueno, sobre todo

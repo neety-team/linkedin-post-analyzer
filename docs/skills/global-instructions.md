@@ -597,11 +597,12 @@ Lee el post e imagina que lo sube una consultora, una agencia o una constructora
 **En peloteo la perspectiva que manda es EXPORTAR:** con `exporta` en el gancho, mediana de **30.701** (n=26); sin ella, **7.789** (n=9). El caso: el mapa que cambió `exporta` por `una de las mayores fábricas de Europa` hizo 5.964 (0,56x). **`fábrica` sola no ancla a ventas**: es una palabra ambigua (arriba) y necesita en el mismo gancho algo que solo exista porque hay una venta (`exporta`, `clientes`, `pedido`).
 
 **La regla, en cualquier pilar:**
-1. **Antes de escribir el gancho**, `python scripts/auditar-anclas.py --cuenta X` saca las perspectivas de los últimos ganchos de esa cuenta. **Si las 2 últimas anclaron desde la misma perspectiva, el siguiente prueba otra que encaje con el post.** La palabra de ventas sigue siendo obligatoria; lo que cambia es desde dónde se mira.
+1. **Igual que la foto: el post nuevo no repite la perspectiva del post ANTERIOR de esa cuenta**, sea del pilar que sea. Tiene que aportar al menos una perspectiva que el anterior no tenía (compartir una y sumar otra vale). Antes de escribir el gancho, `python scripts/auditar-anclas.py --cuenta X` saca las de los últimos ganchos. **Excepción: en peloteo, exportar es el ancla fija del pilar y no cuenta como repetición.** La palabra de ventas sigue siendo obligatoria; lo que cambia es desde dónde se mira.
 2. **Primero las que rinden y llevamos semanas sin usar:** la acción del día, el marcador, el cliente y, en peloteo, exportar. `ventas` dicho tal cual es la más usada y la más floja en impresiones: no se prohíbe, pero no es la primera opción.
 3. **Las que no se han probado se prueban de una en una** y se declaran: la competencia (el cliente que compró a otro), el precio, la empresa que vende (`fabricante`, primer caso el 27/10 en Asier) y la recomendación (el cliente que te recomienda).
 4. **Se mide por el objetivo del post, no solo por el alcance** (`post-workflow §8.1b`): inscritos o altas por 1.000 en Leads, clics a `/solicitar-demo` y reuniones en Oportunidades. **Alcance sin conversión no gana.** Va como fila del registro de A/B del historial y se repasa cada lunes con el script.
-5. **Mecanizado:** `validar-post.py` imprime en la entrega la perspectiva del gancho (`scripts/anclas_ventas.py`, la misma lista que usa el script).
+5. **Mecanizado:** `validar-post.py` imprime en la entrega la perspectiva del gancho (`scripts/anclas_ventas.py`, la misma lista que usa el script) y **falla si no aporta ninguna perspectiva nueva respecto al último gancho de esa cuenta en la BD** (si no puede leer la BD, avisa). Con `--historico` no se mira.
+6. **Un A/B se lee con 3-4 posts por brazo, misma cuenta y mismo pilar** (`post-workflow §9b`). Cada post suma un dato; la hora, la foto y el día van siempre distintos y se apuntan en la ficha para descontarlos al leer.
 
 ### 🔥🔥 2.3d · EL INTENSIFICADOR: CADA PILAR TIENE SU "Y POCO MÁS" (Iker, 2026-08-21) — UNIVERSAL
 

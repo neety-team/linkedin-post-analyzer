@@ -1417,6 +1417,29 @@ def dolores_de(ninja):
     n = ninja.lower()
     return [nom for nom, rx in DOLORES_NINJA if re.search(rx, n)]
 
+def ganchos_recientes(cuenta, n=3):
+    """[(fecha, pilar, gancho)] de los ultimos posts de esa cuenta, del mas nuevo al mas viejo."""
+    import json, base64, urllib.request
+    cid = BD_CREADORES.get((cuenta or '').strip().capitalize())
+    u, pw = os.environ.get('APP_BASIC_USER'), os.environ.get('APP_BASIC_PASS')
+    if not (cid and u and pw):
+        return None
+    auth = base64.b64encode(f'{u}:{pw}'.encode()).decode()
+    try:
+        req = urllib.request.Request(f'{BD_BASE}/api/creators/{cid}/posts?limit=20',
+                                     headers={'Authorization': 'Basic ' + auth})
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            posts = json.load(resp).get('posts', [])
+    except Exception:
+        return None
+    out, vistos = [], set()
+    for x in sorted(posts, key=lambda x: x.get('published_at') or '', reverse=True):
+        g = (x.get('hook_text') or (x.get('content_text') or '').split('\n')[0] or '').strip()
+        if g and g.lower() not in vistos:
+            vistos.add(g.lower())
+            out.append(((x.get('published_at') or '')[:10], x.get('pillar') or '', g))
+    return out[:n]
+
 def ninjas_recientes(dias=21, hoy=None):
     """[(cuenta, fecha, ninja)] de las 3 cuentas, sin repetir resubidas."""
     import json, base64, urllib.request
@@ -2123,10 +2146,35 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             chk(False, 'ENTREGA: la PERSPECTIVA del ancla de ventas rota (§2.3-PERSPECTIVAS)',
                 ('este gancho ancla por: ' + ' + '.join(_etq(k) for k in _ps) if _ps else
                  'no reconozco ninguna perspectiva de ventas en el gancho') +
-                '. Antes de darlo por bueno: python scripts/auditar-anclas.py --cuenta X. Si las 2 '
-                'ultimas de esta cuenta anclaron igual, prueba otra que encaje (cliente, la accion del '
-                'dia, el marcador, exportar, la competencia) y declara en la entrega a que fila del A/B '
-                'de perspectivas suma', aviso=True)
+                '. Declara en la entrega a que fila del A/B de perspectivas suma '
+                '(python scripts/auditar-anclas.py --cuenta X)', aviso=True)
+            # Como la foto: el post nuevo no repite la perspectiva del ANTERIOR de esa
+            # cuenta, sea del pilar que sea. Falla solo si no aporta ninguna perspectiva
+            # nueva; compartir una y sumar otra vale. En peloteo, exportar es el ancla
+            # fija del pilar (30.701 contra 7.789) y no cuenta como repeticion.
+            _cta_p = (cuenta or '').strip().lower()
+            if _ps and not historico and _cta_p in ('iker', 'unai', 'asier'):
+                _rec_g = ganchos_recientes(_cta_p)
+                _peloteo = pilar in ('mapa', 'las10', 'objeto')
+                if _rec_g is None:
+                    chk(False, 'Perspectiva del ancla distinta de la del post anterior de esta cuenta (§2.3-PERSPECTIVAS)',
+                        'no pude leer la BD: compara a mano con el ultimo gancho de la cuenta '
+                        '(python scripts/auditar-anclas.py --cuenta %s --ultimos 1)' % _cta_p, aviso=True)
+                else:
+                    _ant = next((r for r in _rec_g if r[2].strip().lower() != hook_txt.strip().lower()), None)
+                    if _ant:
+                        _quita = {'exportar'} if _peloteo else set()
+                        _nuevo = set(_ps) - _quita
+                        _viejo = set(_persp(_ant[2])) - _quita
+                        _repite = bool(_nuevo) and _nuevo <= _viejo
+                        chk(not _repite, 'Perspectiva del ancla distinta de la del post anterior de esta cuenta (§2.3-PERSPECTIVAS)',
+                            ('el anterior (%s, %s: "%s") ya anclaba por %s y este no aporta ninguna nueva. '
+                             'Igual que la foto, la perspectiva no se repite en dos posts seguidos de la '
+                             'cuenta: prueba otra que encaje con el post (cliente, la accion del dia, el '
+                             'marcador, exportar, la competencia)' % (_ant[0], _ant[1], _ant[2][:60],
+                             ' + '.join(_etq(k) for k in sorted(_viejo)))) if _repite else
+                            'anterior (%s): %s · este suma: %s' % (_ant[0], ', '.join(sorted(_viejo)) or '-',
+                                                                  ', '.join(sorted(_nuevo - _viejo)) or '-'))
     m = re.search(VERBO_FLOJO, hook_txt, re.I)
     chk(not m, 'Hook sin verbo flojo (§2.9)',
         f'verbo flojo: "{m.group(0)}" → sube un peldaño (criticar→desmontar)' if m else '')

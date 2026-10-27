@@ -5040,6 +5040,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # de una sala llena'): nada en el gancho dice que el evento es nuestro.
         _m_ev_h = re.search(r'\b(neety|evento|forward|mesa redonda|ponentes?|aplaus\w*|presentamos'
                             r'|nuestra (?:charla|conferencia|jornada))\b', hook_txt, re.I)
+        # 27/10 (DBA Conecta de Unai): en historia/evento tambien delata un evento AJENO
+        # dicho a pelo ('Moderamos una charla sobre…' pasaba en verde). Solo con --historia-evento:
+        # en una historia normal 'una charla con un cliente' es una escena, no un evento.
+        if not _m_ev_h and HISTORIA_EVENTO:
+            _m_ev_h = re.search(r'\b(charlas?|conferencias?|jornadas?|moder[oóaé]\w*|panel)\b',
+                                hook_txt, re.I)
         chk(not _m_ev_h, 'HISTORIA: el gancho no delata el EVENTO ni la marca (Iker, 15/10)',
             f'"{_m_ev_h.group(0)}" en el gancho. Se cuenta la escena de ventas y el evento se '
             f'desvela en el pago (global §2.0-PAGO), como el 07/10 de Unai' if _m_ev_h else '')
@@ -5725,6 +5731,18 @@ def main():
         res.append((False, '¿es un AGRADECIMIENTO? En Unai y Asier va sin ninja (20/10)',
                     'el post da las gracias a alguien mencionado y lleva enlace. Si el objetivo es pelotear a '
                     'quien organizo algo (un evento que no es nuestro), va sin enlace: pasa --agradecimiento (brand-voice §1b)', True))
+    # HISTORIA/EVENTO: QUIEN COMPARTIO LA ESCENA SE MENCIONA, SIN FILTRO DE CARGO
+    # (2026-10-27). La mesa de DBA Conecta de Unai salio sin mencionar a los tres ponentes
+    # porque no pasaban el filtro de cargo de menciones.py, y casi sin contar de que iba la
+    # charla. Estuvieron con el jefe en persona. El filtro de cargo es del peloteo (gente que no nos conoce); aqui no aplica.
+    if a.historia_evento:
+        _arrobas = len(re.findall(r'@\w', texto))
+        res.append((False, 'ENTREGA: HISTORIA/EVENTO menciona a QUIEN COMPARTIO LA ESCENA y cuenta DE QUE IBA',
+                    '%d mencion(es). Ponentes, moderador y organizador van con @ y nombre exacto de Unipile '
+                    'AUNQUE no pasen el filtro de cargo ni el de actividad: ese filtro es del peloteo, donde '
+                    'no nos conoce nadie; estos estuvieron con el jefe en persona. Y el cuerpo cuenta el TEMA '
+                    'de la charla con lo verificado (post del organizador), no solo el agradecimiento '
+                    '(post-workflow §4.6-ESCENA-COMPARTIDA, 27/10)' % _arrobas, True))
     if a.pilar == 'meme' and not (a.ref_con_texto or a.historico):
         res.insert(0, (False, 'MEME: la IMAGEN de la referencia lleva TEXTO dentro (§4.4-TEXTO)',
                        'Tapa el post y mira la foto de la referencia: ¿hay palabras escritas DENTRO '

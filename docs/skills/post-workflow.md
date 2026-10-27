@@ -3248,7 +3248,17 @@ Acceso libre.
 > - **Conversión: casi cero, en las dos columnas.** Con enlace al webinar, 0,26 (Telmo) y 0 (ponente); San Francisco no llevaba enlace y su conversión fue el botón del perfil (32 clics). **Historia/evento es un post de autoridad y de red, no de inscritos ni de demos:** no se le pone el ninja para cubrir un número.
 > - **Público:** el de hito de Unai llega al ecosistema, no al ICP (fundadores y CEOs 15%, sector IT y consultoría 36%, cargos de ventas 1%, industria 0%: récords de las tres cuentas). Si el objetivo es vender, este formato no lo cumple aunque vuele.
 >
+> **🌍 Y LO PRIMERO ES CLASIFICARLO: ¿HITO O PARTICIPACIÓN? (2026-10-27).** Irse a otro país, a un sitio que todo el mundo conoce, llega a mucha más gente que un evento local. El **hito** (nos eligen, nos vamos fuera, un sitio que todo el mundo conoce) puede llevar el sitio en el gancho porque da autoridad. La **participación** (una charla o un foro local) no: el evento en el gancho cierra el bucle y se lee como "otra charla", así que el gancho lleva la creencia del tema y el alcance se exprime con el contenido de la charla, las menciones de quien estuvo (`§4.6-ESCENA-COMPARTIDA`) y la foto de personas. La previsión de la participación (1.100-2.400) se dice antes del borrador.
+>
 > **Cómo se aplica al escribir uno:** (1) la foto sale de la carpeta HISTORIA o del móvil del jefe, con caras y sin escenario aunque el post sea de un evento; si solo hay fotos de escenario, se avisa del techo de 4.500 antes del borrador; (2) el gancho cuenta lo que nos pasó, no lo que organizamos; (3) si hay un tercero que nos elige o nos premia, va en el cuerpo y la voz se baja justo después; (4) sin enlace si es de ecosistema; (5) se mide a los 3 días por comentarios de fuera y demografía (`comentarios-de-fuera.py --post`), nunca por la primera hora, que la damos nosotros.
+
+> ### 🤝🤝 4.6-ESCENA-COMPARTIDA · EN HISTORIA/EVENTO SE MENCIONA A QUIEN ESTUVO CON EL JEFE Y SE CUENTA DE QUÉ IBA (2026-10-27) — CANÓNICO DEL PILAR
+> **El fallo, y es mío:** la mesa de DBA Conecta de Unai (22/10, él moderaba) salió en la primera entrega **sin mencionar a los tres ponentes**, porque ninguno pasaba el filtro de cargo de `menciones.py` (CDO, HR Business Partner y una sin actividad), y **casi sin contar de qué iba la charla**, solo el agradecimiento. Estuvieron con el jefe en persona: lo raro es no mencionarlos. Y este pilar se separó de historia justo porque tiene excepciones.
+> - **El filtro de cargo y actividad es del PELOTEO** (y de cualquier mención a gente que no nos conoce): ahí la mención es la primera impresión de una empresa ajena, así que va a quien decide. **No se aplica a quien compartió la escena con el jefe**: ponentes, moderador, organizador, compañeros de mesa. Se les menciona siempre, con @ y nombre exacto de Unipile, porque le conocen y lo raro sería dejarlos fuera.
+> - **Antes de aplicar un filtro, la pregunta es para qué existe.** Si el motivo de la regla no está en este post, la regla no manda aquí. Se dice en la entrega en una línea, no se pregunta.
+> - **El post cuenta el TEMA del evento, no solo da las gracias.** Lo verificado (post del organizador, lo que pase el jefe) va en el cuerpo: de qué se habló y qué salió. Un agradecimiento sin contenido no aporta nada al que lee. Si solo hay un guion de preguntas, las preguntas pueden ir como pregunta al lector (abren debate), sin poner respuestas en boca de nadie.
+> - **Ojo con el límite de menciones:** con 6 o más el clasificador lo lee como peloteo (`§4.6b`). Si no caben personas y empresas, van las personas con @ y sus empresas en texto.
+> - **Mecanizado** como aviso de entrega en `validar-post.py --historia-evento`.
 
 > **📏 HISTORIA/EVENTO: HASTA 900 CARACTERES (Iker, 2026-10-15).** Cuando al final hay que desvelar quién lo contó y el evento, además del ninja, ese tramo le come sitio a la historia y se queda coja. El tope sube de 800 a 900 con `validar-post.py --historia-evento`, y **el sitio que se gana es para la historia del gancho y el dolor, nunca para más evento**. Decisión de Iker, sin medir: en contra está el 07/10 de Unai (887 car, evento en el gancho, 8 clics). Se mide al publicar.
 >
@@ -4035,6 +4045,8 @@ Vídeo, evento y formatos nuevos quedan **fuera de la rotación por defecto**; e
 ### 8.1b · 🎯 CADA POST LLEVA SU OBJETIVO EN LA TABLA, Y LO DECIDE EL DESTINO DEL ENLACE (Iker, 2026-10-26)
 
 > *"me falta que en cada una me digas el objetivo"*. Iker lo apunta en su calendario de Notion: cada hueco de la tabla del plan lleva pilar, día, hora **y objetivo**. Y **mínimo 9 posts por semana: 3 por cuenta** (más si se puede).
+
+**Y en todos, el máximo alcance (2026-10-27).** El objetivo decide la puerta y el ninja; no rebaja la ambición de llegar. Sea cual sea el pilar o el objetivo, cada post se escribe para llegar a cuanta más gente mejor, también los de Autoridad, que además no se pueden medir.
 
 | a dónde lleva el post | objetivo (uno solo) | cómo se mide |
 |---|---|---|

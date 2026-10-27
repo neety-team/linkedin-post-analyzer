@@ -64,6 +64,9 @@ CASOS = [
     ('Más que los aplausos, nos quedamos con lo que un ponente de ventas le escribió a su jefe 👀\n\n' + CUERPO,
      '15/10: "si dices nuestra mesa redonda, nuestro evento o nuestro ponente, ya la estamos fastidiando"',
      'el gancho no delata el EVENTO'),
+    ('Moderamos una charla sobre la IA y las profesiones y lo que más vamos a valorar los directivos no es técnico 💡\n\n' + CUERPO,
+     '27/10 (DBA Conecta): nombrar la charla en el gancho cierra el bucle y la delata como evento',
+     'el gancho no delata el EVENTO'),
     ('Le preguntamos a quien vende IA si los comerciales tienen los días contados 👀\n\n'
      + CUERPO.replace('Es @Telmo E. de @Multiverse Computing y nos lo contó en el evento Neety Forward.',
                       'Es @Telmo E. de @Multiverse Computing y nos lo contó en Neety Forward.'),

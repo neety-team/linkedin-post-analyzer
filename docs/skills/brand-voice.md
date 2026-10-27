@@ -169,7 +169,7 @@ Unai revisó el post de la mesa que moderó y quitó dos líneas. Lo que se apre
 - **Ninguna línea de contenido puede leerse como que habla de sí mismo.** `Hacer buenas preguntas` justo después de `moderé` se leía como un elogio a su papel de moderador, o quedaba ambiguo (¿preguntas a la IA?). Antes de entregar, cada competencia, virtud o conclusión que salga en el cuerpo se lee junto al papel de Unai en esa escena: si puede parecer que se la pone él, se cambia o se quita.
 - **Nada de refranes de ventas pegados para atar el post a vender.** `No cierra el que más habla, cierra el que mejor pregunta` le sonó raro en un post de ecosistema. Si ventas no sale de forma natural de lo que pasó, el cuerpo va sin ventas: el aviso del validador (`el cuerpo ata con ventas?`) es opcional y no se fuerza.
 - **Lo que sí se quedó:** el gancho de creencia en plural (`Lo que más vamos a valorar los directivos con la IA no es técnico`), la escena contada con lo comprobado, la pregunta del júnior al lector, las menciones a quien estuvo y una moraleja universal.
-- El gancho que elija entre los 6 propuestos se anota aquí cuando lo diga.
+- **Aprobado a la segunda revisión** con el gancho propuesto en primer lugar y estos dos cambios. Si elige otro del banco al publicar, se anota aquí.
 
 #### 🔭 LA LENTE DEL INVERSOR: LO QUE UN FONDO LEE EN LA CUENTA DE UNAI (Unai vía Iker, 2026-10-07)
 

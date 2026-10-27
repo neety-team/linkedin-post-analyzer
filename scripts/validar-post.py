@@ -2083,7 +2083,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             chk(bool(_vt), 'Gancho de ecosistema: el cuerpo ata con ventas? (Unai, opcional desde 26/10)',
                 f'ancla de ventas en el cuerpo: "{_vt.group(0)}"' if _vt else
                 'el post no menciona vender en ningun sitio. Vale si el objetivo es la autoridad; '
-                'si el post tiene que convertir, va por el carril de ventas', aviso=True)
+                'si el post tiene que convertir, va por el carril de ventas. Y no se fuerza un refran de ventas '
+                'para atarlo: si no sale natural, va sin ventas (brand-voice §1b, 27/10)', aviso=True)
     elif ANCLA_DIRECCION:
         _es_unai = (cuenta or '').strip().lower() == 'unai'
         _dr = re.search(DIRECCION_ANCLA, hook_txt, re.I)

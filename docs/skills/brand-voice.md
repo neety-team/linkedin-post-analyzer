@@ -162,6 +162,15 @@ Iker le pasa a Unai (casi) siempre sus posts de evento o de historia para que lo
 - **Lo que no cambia:** el gancho sigue necesitando un hueco (`global §2.0`); en este carril suele ser el porqué (quién nos lleva, qué haremos), y se paga con el hito (`No vamos por nuestra cuenta.` → `Nos eligieron @ICEX y @Red.es…`). Y ventas puede ir en el cuerpo en una línea (`la nuestra va a hablar de vender a la industria`).
 - ~~*Propuesta mía:* que este carril no pase de 1 de cada 4 posts de Unai~~ (superada el 26/10: el ecosistema es lo principal de su cuenta). **Lo que sí sigue:** se mide aparte (impresiones, comentarios de fuera y la demografía de quién lo ve: `Venture Capital`, seniority), para que no se mezcle con la serie de ventas al leer su cuenta.
 
+#### 🎙️ SUS POSTS DE PARTICIPACIÓN (MODERA, PONE O ASISTE): NADA QUE SE LEA COMO AUTOELOGIO NI REFRANES DE VENTAS METIDOS A LA FUERZA (revisión de Unai, 2026-10-27, mesa de DBA Conecta)
+
+Unai revisó el post de la mesa que moderó y quitó dos líneas. Lo que se aprende de ahí, y vale para cualquier post suyo que cuente un evento en el que estuvo:
+- **El gancho, sin ventas.** Lo confirmó él mismo antes de ver el borrador: en sus posts de evento el gancho va al tema o al ecosistema, no a vender (la regla del 26/10 de arriba, ya validada por él).
+- **Ninguna línea de contenido puede leerse como que habla de sí mismo.** `Hacer buenas preguntas` justo después de `moderé` se leía como un elogio a su papel de moderador, o quedaba ambiguo (¿preguntas a la IA?). Antes de entregar, cada competencia, virtud o conclusión que salga en el cuerpo se lee junto al papel de Unai en esa escena: si puede parecer que se la pone él, se cambia o se quita.
+- **Nada de refranes de ventas pegados para atar el post a vender.** `No cierra el que más habla, cierra el que mejor pregunta` le sonó raro en un post de ecosistema. Si ventas no sale de forma natural de lo que pasó, el cuerpo va sin ventas: el aviso del validador (`el cuerpo ata con ventas?`) es opcional y no se fuerza.
+- **Lo que sí se quedó:** el gancho de creencia en plural (`Lo que más vamos a valorar los directivos con la IA no es técnico`), la escena contada con lo comprobado, la pregunta del júnior al lector, las menciones a quien estuvo y una moraleja universal.
+- El gancho que elija entre los 6 propuestos se anota aquí cuando lo diga.
+
 #### 🔭 LA LENTE DEL INVERSOR: LO QUE UN FONDO LEE EN LA CUENTA DE UNAI (Unai vía Iker, 2026-10-07)
 
 > **De dónde sale:** Unai le pasó a Iker, como indirecta, un post de **Orfeo Balboa** (Investment Manager en First Drop VC; su fondo es de sostenibilidad, pero conoce a los inversores españoles). La tesis: en preseed el inversor lee **durante meses** cómo piensa el founder antes de ver su deck, y los que mejor salen son los que dejan **"rastros de criterio"**. Unai es el CEO y su carril incluye inversores (`§2`), así que su cuenta la leen también ellos. Iker: *"no quiero que te pases de estricto ni que los ganchos pierdan el punch; que sirva para saber qué tipo de lenguaje usar"*.

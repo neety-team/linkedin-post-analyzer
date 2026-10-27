@@ -3589,6 +3589,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                              % (_fomo.group(0), _pub.strftime('%d/%m'))) if not _ok_t else
                             '"%s" con la fecha absoluta al lado' % _fomo.group(0))
                     _f = re.search(r'\b28\b|mi[eé]rcoles', _prev)
+                    # 27/10: la VISPERA, "mañana" es la fecha y suena mas natural que el dia
+                    # con su numero al lado de un plazo en horas. Solo si el post sale el 27.
+                    _pub_f = datetime.date.today() + datetime.timedelta(days=1 if publica_manana else 0)
+                    if not _f and _pub_f == datetime.date(2026, 10, 27):
+                        _f = re.search(r'ma[ñn]ana', _prev)
                     _on = re.search(r'online|en directo|por internet|desde (tu|el|la|casa)|pantalla|videollamada', _prev)
                     _gr = re.search(r'gratis|gratuit|sin pagar|no cuesta', _prev)
                     # 🎟️ QUE ES UN EVENTO, CON SU PALABRA (Mario, 2026-10-21): "decir una
@@ -4293,6 +4298,19 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             ' · '.join(f'"{p}" fue {PAIS_QUEMADO[p]}' for p in _pais) +
             '. La comparacion es lo que se comparte, asi que repetir pais se nota mas '
             'que ninguna otra cosa. Busca otro con >=15% de margen y fuente oficial')
+        # 27/10: el pais de OTRA cuenta pasaba en silencio pasados 7 dias, y Costa Rica
+        # iba a repetirse a los 11 dias del mapa viral de otra cuenta. El que sigue a las
+        # tres cuentas lo nota igual: aviso si otra cuenta lo uso en los ultimos 21 dias.
+        def _dias_de(v):
+            m_ = re.match(r'(\d{4})-(\d{2})-(\d{2})', v)
+            return (datetime.date.today() - datetime.date(*map(int, m_.groups()))).days if m_ else None
+        _pais_otra = [] if historico else sorted(
+            p for p in PAIS_QUEMADO if p in hook_txt.lower() and p not in _pais
+            and _dias_de(PAIS_QUEMADO[p]) is not None and _dias_de(PAIS_QUEMADO[p]) <= 21)
+        chk(not _pais_otra, 'GANCHO: el país no lo usó otra cuenta en los últimos 21 días',
+            ' · '.join(f'"{p}" fue {PAIS_QUEMADO[p]}' for p in _pais_otra) +
+            '. Quien sigue a las tres cuentas lo ve repetido: busca otro' if _pais_otra else '',
+            aviso=True)
         _conc = [] if historico else sorted(c for c in CONCEPTO_QUEMADO if c in hook_txt.lower() and quemada(c, CONCEPTO_QUEMADO[c], VENTANA_IDENTIDAD_DIAS, cuenta))
         chk(not _conc, 'GANCHO: el concepto no está usado (§4.2 Paso 1)',
             ' · '.join(f'"{c}" fue {CONCEPTO_QUEMADO[c]}' for c in _conc) +

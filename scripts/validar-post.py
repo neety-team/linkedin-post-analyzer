@@ -88,7 +88,7 @@ VERBO_PREJUICIO_QUEMADO = {
     'dan por oxidada': '2026-10-22 Bizkaia, mapa de Iker (de adición), en femenino',
     'tienen cerrad': '2026-10-16 Comunidad Valenciana, mapa de Unai',
     'mandan de': '2026-10-08 Canarias, mapa de Iker',
-    'liquidan': '2026-10-07 La Rioja, "Las 10" de Asier',
+    'liquidan': '2026-10-27 Galicia, "Las 10" de Iker; antes La Rioja, "Las 10" de Asier 07/10',
     'ventilan': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
     'dejan atrás': '2026-09-29 Extremadura, mapa de Asier',
     'dejan atras': '2026-09-29 Extremadura, mapa de Asier',
@@ -120,6 +120,7 @@ FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|pa
                # (§2.0b). Se añaden aquí el día que se estrenan, o el check pide
                # la frase-rabia y a la vez tumba la única forma que queda libre.
                r'|y a casa|y nada m[aá]s|y a la autov[ií]a|y se acab|y de ah[ií] no pasa'
+               r'|y a secarse'
                # 2026-09-28, mapa de Extremadura (Asier): el gesto de despacharla
                # es seguir viaje hacia el pais de al lado, que es el prejuicio real
                # de la region (tierra de paso camino de Lisboa).
@@ -289,6 +290,20 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Asier 27/10, historia del fabricante que se sabe sus clientes de memoria, leido del texto publicado (BD, 13:54).
+    'un buen comercial se sabe sus clientes de memoria': '2026-10-27 historia de Asier 27/10 (webinar, tipo 2), la linea 1 del ninja (recoge el gancho)',
+    'a quién llegar en esos clientes, te lo enseñamos': '2026-10-27 historia de Asier 27/10, la linea 2 del ninja',
+    'a quien llegar en esos clientes, te lo ensenamos': '2026-10-27 historia de Asier 27/10, sin tilde',
+    'lo vemos en un evento desde casa, no cuesta nada y hoy aún llegas': '2026-10-27 historia de Asier 27/10, la linea del plazo (vispera)',
+    'lo vemos en un evento desde casa, no cuesta nada y hoy aun llegas': '2026-10-27 historia de Asier 27/10, sin tilde',
+    # Iker 27/10, "Las 10" de Galicia, leido del texto publicado (BD, 12:07).
+    'frotar a mano en el lavadero lo hace cualquiera': '2026-10-27 "Las 10" de Iker 27/10 (Galicia, webinar), la linea 1 del ninja (recoge la metafora del gancho)',
+    'quién te compraría, eso sí te lo enseñamos': '2026-10-27 "Las 10" de Iker 27/10 (Galicia, webinar), la linea 2 del ninja',
+    'quien te compraria, eso si te lo ensenamos': '2026-10-27 "Las 10" de Iker 27/10 (Galicia, webinar), la linea 2 del ninja, sin tilde',
+    'solo quedan unas horas para el evento de mañana': '2026-10-27 "Las 10" de Iker 27/10 (Galicia, webinar), la linea de contexto del webinar',
+    'solo quedan unas horas para el evento de manana': '2026-10-27 "Las 10" de Iker 27/10 (Galicia, webinar), la linea de contexto, sin tilde',
+    'las que necesitan lo que tú vendes no salen en ninguna lista': '2026-10-27 "Las 10" de Iker 27/10 (Galicia, webinar), la linea puente',
+    'las que necesitan lo que tu vendes no salen en ninguna lista': '2026-10-27 "Las 10" de Iker 27/10 (Galicia, webinar), la linea puente, sin tilde',
     # Iker 22/10, mapa de Bizkaia de adición, leido del texto publicado (Unipile, 13:51).
     'rebuscar en el desván a oscuras lo hace cualquiera': '2026-10-22 mapa de Iker 22/10 (Bizkaia, webinar, tipo 1), la linea 1 del ninja (recoge la metafora del gancho)',
     'rebuscar en el desvan a oscuras lo hace cualquiera': '2026-10-22 mapa de Iker 22/10, sin tilde',
@@ -434,6 +449,7 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
+    'guatemala': '2026-10-27 Galicia, "Las 10" de Iker',
     'bosnia': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'costa rica': '2026-10-16 Comunidad Valenciana, mapa de Unai',
     'sri lanka': '2026-10-16 Aragón, "Las 10" de Iker',
@@ -490,7 +506,7 @@ ARRANQUE_QUEMADO = {
     },
     # Verificados leyendo el texto publicado.
     'historia': {
-        'la': '2026-08-18 historia de Iker 18/08 ("La eche donde el coche...")',
+        'la': '2026-10-27 historia de Asier 27/10 ("La fabrica / La empresa / La persona que compra dentro"); antes Iker 18/08',
         'ni': '2026-08-13 historia de Iker 13/08 ("Ni una pregunta por el precio")',
         # Publicados y leidos, no deducidos (§0f: la lista se toca al PUBLICAR).
         'nadie': '2026-08-21 historia de Unai 21/08 ("Nadie las abria / Nadie me las pedia")',
@@ -576,6 +592,7 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'lavadero del fin': '2026-10-27 Galicia, "Las 10" de Iker',
     'desván del cant': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'desvan del cant': '2026-10-22 Bizkaia, mapa de Iker, sin tilde',
     'porche del medit': '2026-10-16 Comunidad Valenciana, mapa de Unai',
@@ -605,6 +622,7 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'y a secarse': '2026-10-27 Galicia, "Las 10" de Iker',
     'y se acab': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'y a la siesta': '2026-10-16 Comunidad Valenciana, mapa de Unai',
     'y puerta': '2026-10-16 Aragón, "Las 10" de Iker',
@@ -641,7 +659,8 @@ CLICHE_GANCHO_REGION = {
                'ternasco': '2026-07-14 Asier', 'secarral': '2026-07-14 Asier',
                'cachirulo': '2026-10-16 Iker', 'esqui': '2026-10-16 Iker'},
     'navarra': {'toro': '2026-06-30 Iker', 'txistorra': '2026-06-30 Iker', 'esparrago': '2026-08-07 Asier'},
-    'galicia': {'pulpo': '2026-06-16 Iker', 'camino': '2026-06-16 Iker'},
+    'galicia': {'pulpo': '2026-06-16 Iker', 'camino': '2026-06-16 Iker',
+                'marisco': '2026-10-27 Iker', 'gaita': '2026-10-27 Iker'},
     'valencia': {'playa': '2026-06-02 Iker', 'paella': '2026-06-02 Iker',
                  'naranja': '2026-10-16 Unai', 'horchata': '2026-10-16 Unai'},
     'murcia': {'sol': '2026-07-23 Iker', 'tomate': '2026-07-23 Iker', 'desierto': '2026-07-23 Iker'},

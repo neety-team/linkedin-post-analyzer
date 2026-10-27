@@ -1554,6 +1554,12 @@ def puerta_agendar(texto):
     # (/blog/mapa-industrial-{region}, migracion de neety-resources 1c41929).
     # Mismo truco: dentro del validador se traduce a /mapas/{region}/ para que
     # los checks del ultra ninja, del dominio propio y del UTM sigan valiendo.
+    # 2026-10-27: el GATE de un recurso de la Academia vive en la web nueva
+    # (neety.com/academia/{slug}) y puede ser la puerta de cualquier pilar
+    # (post-workflow §8.1b). Es dominio propio: se traduce igual, para que el
+    # check de "enlace fuera" no lo tumbe y los del UTM lo sigan mirando.
+    texto = texto.replace('https://neety.com/academia/',
+                          'https://recursos.neety.com/academia/')
     return re.sub(r'https://neety\.com/blog/mapa-industrial-([a-z-]+)',
                   r'https://recursos.neety.com/mapas/\1/', texto)
 

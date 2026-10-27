@@ -13,26 +13,39 @@ import unipile_client as uni
 HOY = datetime.date.today()
 
 # --- Poder de decision. Score 0 = NO SE MENCIONA. ---
+# 🔧 2026-10-27: la lista se ajusta a la de CLAUDE.md (CEO / director general / gerente /
+# fundador, director comercial / de exportacion / de desarrollo de negocio, director de
+# marketing; y el director industrial o de planta de post-workflow §4.2 Paso 4). En un
+# "Las 10" se colaron un KAM, un "Gerente de cuentas" y un "Purchase/Sales Manager":
+# "gerente" puntuaba como gerente general aunque fuera de cuentas o de proyectos, los
+# "manager" de ventas o exportacion valian como directores y "director" a secas daba
+# puntos a cualquier director de area (finanzas, riesgos, juridico).
+_GERENTE = (r'gerente(?!\s+(?:de|del)\s+(?:cuenta|proyecto|producto|produc|cliente|zona|[aá]rea|'
+            r'oficina|tienda|granja|gesti|operacion|planta|recursos|rr|compras|ventas|servicio|calidad))')
 RANK = [
  (10, r'\b(ceo|director general|directora general|dtor\.? general|managing director|general manager|'
-      r'gerente|consejer[oa] delegad|director ejecutivo|presidente|president\b|'
+      + _GERENTE + r'|consejer[oa] delegad|director ejecutivo|presidente|president\b|'
       r'fundador|founder|co-?founder|propietari|owner|socio director|socia directora|dueñ)'),
- (9,  r'\b(director comercial|directora comercial|sales director|director de ventas|head of sales|'
-      r'sales manager|chief commercial|cco\b|director de exportaci|export manager|export director|'
-      r'export area manager|director internacional|international.{0,12}director|'
-      r'business development|desarrollo de negocio|kam\b|key account)'),
- (8,  r'\b(director de marketing|directora de marketing|marketing director|marketing manager|cmo\b|'
-      r'brand manager|director de comunicaci)'),
+ (9,  r'\b(director comercial|directora comercial|sales director|director de ventas|directora de ventas|'
+      r'head of sales|chief commercial|cco\b|director[a]? de exportaci|export director|'
+      r'director internacional|international.{0,12}director|business development director|'
+      r'director[a]? de desarrollo de negocio)'),
+ (8,  r'\b(director de marketing|directora de marketing|marketing director|head of marketing|cmo\b)'),
  (6,  r'\b(director industrial|director de operaciones|director de planta|plant manager|'
       r'director de f[aá]brica|operations director|coo\b|director t[eé]cnico comercial)'),
- (7,  r'\b(director|directora)\b'),
+ # "Director" a secas solo si no dice de que area (p. ej. "Director en Empresa"):
+ (7,  r'\b(director|directora)\b(?=\s*(?:en\b|at\b|@|\||·|,|$))'),
 ]
 # Cargos que NO se mencionan aunque esten activos.
 VETO = re.compile(r'\b(becari|intern\b|student|estudiante|t[eé]cnico|operari|administrativ|auxiliar|'
                   r'mantenimiento|sistemas|inform[aá]tic|\bit\b|rrhh|rr\.? ?hh\b|recursos humanos|human resources|'
                   r'calidad|quality|prevenci|riesgos laborales|almac[eé]n|log[ií]stic|compras|'
                   r'purchasing|procurement|contab|fiscal|nóminas|analista|analyst|becaria|'
-                  r'soporte|support|profesor|docente|consultor de|community manager)'
+                  r'soporte|support|profesor|docente|consultor de|community manager|'
+                  # 2026-10-27: compras en ingles, finanzas, juridico, riesgos, auditoria,
+                  # tesoreria, cumplimiento y consejeros no ejecutivos tampoco venden ni deciden la compra
+                  r'purchas|financ|cfo\b|jur[ií]dic|legal\b|riesgos|auditor|tesorer|cumplimiento|'
+                  r'compliance|non[ -]?executive|no ejecutiv|independiente)'
                   r'|(?<![a-z])qa\b', re.I)
 
 def score(h):

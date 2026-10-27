@@ -3033,6 +3033,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'pulsable NO son alternativas, el markdown hace las dos cosas a la vez '
             '(working-preferences §1d-ter y §1d-QUATER)', aviso=True)
 
+    # working-preferences §1e-AB (2026-10-27): cada entrega propone un A/B, de una sola
+    # variable y con la metrica del OBJETIVO del post (inscritos o leads, oportunidades,
+    # autoridad). Si ya hay uno abierto que este post alimenta, se dice a que brazo suma.
+    chk(False, 'ENTREGA: propone un A/B alineado con el OBJETIVO del post',
+        'una sola variable, el brazo al que va este post, la metrica del objetivo (leads: inscritos '
+        'o altas por 1.000; oportunidades: reuniones y CTR a /solicitar-demo; autoridad: guardados, '
+        'envios, seguidores y visitas al perfil) y con que post se compara (misma cuenta y pilar). '
+        'Si alimenta uno abierto, a que brazo suma. La fila entra en el registro de A/B del '
+        'historial el dia que se publica', aviso=True)
     # working-preferences §1e-PREDICCION (Iker, 2026-08-25, global el mismo dia).
     # La ultima seccion de TODA entrega, en TODOS los pilares. Existe para que
     # Iker audite el CRITERIO sin releerse la entrega: "con tu decision sabre si
@@ -4315,6 +4324,29 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(not _conc, 'GANCHO: el concepto no está usado (§4.2 Paso 1)',
             ' · '.join(f'"{c}" fue {CONCEPTO_QUEMADO[c]}' for c in _conc) +
             '. El concepto se inventa nuevo por region, derivado de su GEOGRAFIA')
+        # 27/10: el concepto entero era nuevo ("lavadero del Atlantico") pero el ACCIDENTE
+        # geografico ya lo habia usado esa cuenta dos veces (Galicia 16/06, Canarias 08/10).
+        # Se compara la palabra que va detras de "del / de la" con la de los conceptos de esa
+        # cuenta de los ultimos 90 dias. Aviso: el lector no lo castiga, pero suena a plantilla.
+        import unicodedata as _ud2
+        def _st(s):
+            return ''.join(c for c in _ud2.normalize('NFKD', s.lower()) if not _ud2.combining(c))
+        _acc = re.search(r'\b(?:del|de la|de los|de las)\s+([a-záéíóúñ]{4,})', hook_txt.lower())
+        _acc_rep = []
+        if _acc and cuenta and not historico:
+            _w = _st(_acc.group(1))
+            for _c, _v in CONCEPTO_QUEMADO.items():
+                _m_c = re.search(r'\b(?:del|de la|de los|de las)\s+([a-záéíóúñ]+)', _c)
+                _d = re.match(r'(\d{4})-(\d{2})-(\d{2})', _v)
+                if not (_m_c and _d) or cuenta.lower() not in cuentas_de(_v):
+                    continue
+                _dias = (datetime.date.today() - datetime.date(*map(int, _d.groups()))).days
+                if _dias <= 90 and _w.startswith(_st(_m_c.group(1))) and _c.split(' ')[0] not in hook_txt.lower():
+                    _acc_rep.append('"%s" (%s)' % (_c, _v))
+        chk(not _acc_rep, 'GANCHO: el accidente geográfico del concepto no se repite en la cuenta (90 días)',
+            ('"%s" ya iba en: %s. Cambia la segunda mitad del concepto (otro rasgo de la geografia), '
+             'no solo el sitio de la casa' % (_acc.group(1), ' · '.join(_acc_rep))) if _acc_rep else '',
+            aviso=True)
         _rabia = [] if historico else sorted(f for f in FRASE_RABIA_USADA if f in hook_txt.lower() and quemada(f, FRASE_RABIA_USADA[f], VENTANA_IDENTIDAD_DIAS, cuenta))
         chk(not _rabia, 'GANCHO: la frase-rabia no está usada (§4.2 Paso 1)',
             ' · '.join(f'"{f}" fue {FRASE_RABIA_USADA[f]}' for f in _rabia) +

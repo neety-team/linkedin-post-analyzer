@@ -530,6 +530,17 @@ Esto es la vista que pidió el 2026-07-22, tras rechazar dos intentos: uno "supe
 - **Es un caso de libro de `§0c-BIS`:** una regla de ENTREGA no vive en el runbook de un pilar. Por eso está aquí y no en `post-workflow §4.4`.
 - **⛔ LA RAZÓN EN CONTRA NUNCA ES SOLO "CUENTA PEQUEÑA" (Iker, 2026-10-05, historia de Ismael).** Le predije que iría mal por ser un perfil nuevo, con pocos contactos y sin publicar nunca, y me faltaba la mitad del sistema: **la capa manual de interacción** (`post-workflow §8.0-SEPTIEMBRE`). Iker entra en CADA post, sea de la cuenta que sea, con las 5 que lleva (la suya, la de Mario y las de los 3 jefes) y durante varios minutos por cuenta comenta, comparte, da like, guarda, envía por privado y pulsa la foto, las menciones y los enlaces. Es el "enjambre" interno: además del empujón, da imagen pública de equipo que va a una. **La predicción de cualquier cuenta cuenta con esa capa**, y si un post sale sin ella se dice, como en las vacaciones. *(Deducción mía, sin medir: en una cuenta que parte de casi cero, 5 interacciones largas en la primera hora pesan más en proporción que en la de un jefe. Hipótesis, no dato: se mira cuando el post de Ismael tenga números.)*
 
+## 🧪🧪 1e-AB · TODA ENTREGA PROPONE UN A/B, ALINEADO CON EL OBJETIVO DEL POST (2026-10-27) — GLOBAL
+
+**Cada publicación que se entrega trae una propuesta de A/B, sin que haga falta pedirla.** No se aprende con lo que ya está decidido: cada post es una ocasión de medir una cosa, y si no se propone, se pierde.
+
+- **El objetivo del A/B es el del post** (memoria `feedback_objetivo_por_post`): **leads** (Luma o un gate) se mide en inscritos o altas por cada 1.000 impresiones; **oportunidades** (`/solicitar-demo`), en reuniones y CTR; **autoridad** (sin enlace), en guardados, envíos, seguidores nuevos y visitas al perfil. Un A/B que mide otra cosa que el objetivo del post no sirve para decidir nada.
+- **Una sola variable**, y dicha: qué cambia, en qué brazo va este post y con qué post se compara (misma cuenta y mismo pilar, `post-workflow §9b`).
+- **Si este post alimenta un A/B ya abierto, se dice a qué brazo suma** en vez de abrir otro. Si no hay ninguno que encaje, se propone uno nuevo.
+- **Las ideas grandes que no caben hoy** (una plantilla nueva, un formato que cuesta más) se apuntan igual en el registro como pendientes, para no perderlas.
+- **Va en la entrega, antes de la predicción**, en una sección corta (`🧪 A/B`), y la fila entra en el registro único del historial (`historial-publicaciones.md`, arriba) el día que se publica.
+- **Mecanizado** como aviso de entrega en `validar-post.py` (`ENTREGA: propone un A/B alineado con el OBJETIVO del post`).
+
 ## 2 · Valida de forma proactiva (no esperes a que pregunte)
 
 - Antes de entregar cualquier borrador, corre en silencio el **pase de validación** contra toda la stack de reglas (`global-instructions`, `brand-voice`, mecánicas, RECENT_DIAGNOSIS, datos de la cuenta).

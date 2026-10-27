@@ -5363,6 +5363,24 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'HISTORIA: sin comment-gate — no pide comentar una palabra (§4.6)',
             'pedir "comenta X" la convierte en lead magnet; la historia cierra en la lección o lleva un CTA suave')
 
+        # 2026-10-27 (post-workflow §4.6 1b-TER, global §2.5b-EXPLICITO, el limite): una
+        # cita real de un cliente no cuenta que sale de una demo o una reunion de venta.
+        # No le aporta nada al lector y se lee como que publicamos lo que nos dicen en
+        # privado. Caso: "Se lo oyo mi socio en una demo" (Asier, 27/10).
+        _txt_sin_url = re.sub(r'https?://\S+', ' ', texto)
+        _demo = re.search(r'\bdemos?\b', _txt_sin_url, re.I)
+        chk(not _demo, 'HISTORIA: no cuenta que la frase sale de una demo (§4.6 1b-TER)',
+            '"%s": no le aporta nada al lector y nos expone (se lee como que contamos lo que nos '
+            'dicen en una reunion de venta). Situa con QUIEN, no con donde: "Mi socio le pregunto..."'
+            % _demo.group(0) if _demo else '')
+        _con_cita = re.search(r'["“«][^"”»\n]{8,}["”»]', _txt_sin_url)
+        _reu = re.search(r'\b(en|de|durante) (una|la) (reuni[oó]n|llamada|videollamada|visita comercial)\b',
+                         _txt_sin_url, re.I)
+        chk(not (_con_cita and _reu), 'HISTORIA: una cita real no dice que sale de una reunion de venta (§4.6 1b-TER)',
+            '"%s" junto a una cita: si la frase es de un cliente o de una empresa que nos valoraba, '
+            'el sitio sobra y nos expone. Si la escena es inventada y no hay cita real, ignora el aviso'
+            % _reu.group(0) if (_con_cita and _reu) else '', aviso=True)
+
     # ---------- ROTACION DEL DOLOR DEL NINJA (global §4.4b-ROTACION) ----------
     _nj = ninja_de(texto)
     if _nj and not historico and pilar not in ('mapa', 'leadmagnet'):

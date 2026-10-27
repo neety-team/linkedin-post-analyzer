@@ -498,6 +498,7 @@ ARRANQUE_QUEMADO = {
         'hoy': '2026-08-21 historia de Unai 21/08 ("Hoy no toco el codigo / Hoy levanto dinero")',
         'aquel': '2026-08-25 historia de Asier 25/08 ("Aquel numero era de la casa entera")',
         'me': '2026-08-25 historia de Asier 25/08 ("Me pregunto quien era yo / de que conocia")',
+        'a': '2026-10-27 historia/evento de Unai ("A Nora... / A Asier... / Y a Mayi...", el agradecimiento a los ponentes)',
         'sabe': '2026-08-25 historia de Asier 25/08 ("Sabe el nombre / Sabe el numero / Sabe todo")',
         # Leidos del texto PUBLICADO de la ventana 01-11/09 (BD en vivo,
         # 2026-09-15). Llevaban desde el 27/08 sin anotarse, y por eso el

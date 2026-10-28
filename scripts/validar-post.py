@@ -1155,9 +1155,11 @@ def validar_tarjeta(texto, card=None, cuenta=None, historico=False, publica_mana
             return 'correo'
         if 'luma.com' in u or 'forward.neety.com' in u:
             return 'evento'
+        if 'neety.com/academia/' in u:
+            return 'gate'
         return None
     puertas = {p for p in (_puerta(u) for u in re.findall(r'https?://\S+', texto)) if p}
-    chk(len(puertas) == 1, 'TARJETA: lleva UNA puerta, agendar, correo o evento (§4.6-PASO-3, §4.4e-UNA)',
+    chk(len(puertas) == 1, 'TARJETA: lleva UNA puerta, agendar, correo, evento o gate (§4.6-PASO-3, §4.4e-UNA)',
         ('ninguna: el spam ninja es obligatorio en este pilar' if not puertas else
          'lleva ' + ' + '.join(sorted(puertas)) + ': un post, una puerta') if len(puertas) != 1
         else 'puerta: ' + next(iter(puertas)))
@@ -3257,8 +3259,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # motivo.
         # (definido arriba, fuera del gate por pilar — ver el aviso del 2026-08-27)
         if pilar in ('los10', 'meme') and tiene_link:
-            _dest_ok = ('recursos.neety.com/agendar' in cuerpo) or _es_evento
-            chk(_dest_ok, 'El spam ninja apunta a /agendar/, no a un lead magnet (§4.4b)',
+            # 28/10 (auditoria): desde el 27/10 el gate de un recurso (neety.com/academia/,
+            # que puerta_agendar traduce a recursos.neety.com/academia/) puede ser la puerta de
+            # cualquier pilar (post-workflow §8.1b), y el correo vale si el tema no toca vender
+            # (global §4.4e-PUERTA). Este check solo aceptaba agendar y tumbaba los dos.
+            _dest_ok = (any(d in cuerpo for d in ('recursos.neety.com/agendar', 'recursos.neety.com/academia/',
+                                                  'recursos.neety.com/correo', 'recursos.neety.com/newsletter'))
+                        or _es_evento)
+            chk(_dest_ok, 'El spam ninja apunta a una puerta nuestra: reuniones, gate de un recurso o correo (§4.4b, post-workflow §8.1b)',
                 'hay enlace pero no es el de agendar. Prioridad 1 = agendar (demo y venta), '
                 'prioridad 2 = lead magnet (correo). Solo el mapa enlaza a otro sitio, y '
                 'porque su pagina ya lleva el CTA a agendar dentro' if not _dest_ok else '')
@@ -6132,6 +6140,25 @@ def main():
                     _k, _v = _l.split(':', 1)
                     _resp[_k.strip().lower()] = _v.strip()
         _crit = [(k, q) for k, q in CRITERIO if k not in CRITERIO_PILAR or a.pilar in CRITERIO_PILAR[k]]
+        # 28/10: el gancho de una historia crecio de 52 caracteres de mediana (junio) a 80
+        # (octubre) y en historia los de 70 o menos rinden casi el doble (0,97 contra 0,55 de
+        # outlier_ratio, auditar-derivas.py). El aviso de la mediana + 15 lo dejaba pasar en
+        # silencio. Por encima del tope del pilar, el gancho se acorta o se justifica por
+        # escrito. El peloteo se libra: sus ganchos largos son estructura y vuelan.
+        _gancho = texto.strip().split('\n\n')[0].strip()
+        _topes = {'historia': 70}
+        _tope_g = _topes.get(a.pilar, 75)
+        if a.pilar not in ('mapa', 'las10', 'los10', 'objeto') and len(_gancho) > _tope_g:
+            _crit.append(('largo', f'El gancho mide {len(_gancho)} caracteres y el tope del pilar es {_tope_g} '
+                                   '(en historia los de 70 o menos rinden casi el doble). Acortalo o justifica por '
+                                   'que cada palabra que sobra es imprescindible (global §2.2c)'))
+        # 28/10: un retoque (--antes) es una correccion de alguien, y una correccion es un
+        # aprendizaje. Se escribio en la receta solo cuando el jefe lo pidio. Ahora cada retoque
+        # pregunta donde ha quedado escrito lo aprendido, antes de entregar.
+        if a.antes:
+            _crit.append(('aprendizaje', 'Este retoque corrige algo: ¿que regla sale de el y donde ha quedado escrita '
+                                         '(receta + su dueño: check, clave de criterio o cobertura-reglas.txt)? '
+                                         'Si no es regla, por que (gusto puntual, dato del post) (working-preferences §1d-BIS)'))
         CRITERIO[:] = _crit
         _falta = [k for k, _q in CRITERIO if len(_resp.get(k, '')) < 15]
         # La escalera del gancho no vale como frase suelta: tres peldaños o no esta hecha.

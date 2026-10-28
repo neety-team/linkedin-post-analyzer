@@ -1,14 +1,14 @@
 # Cobertura de las reglas duras de las recetas (⛔, CANÓNICO, GLOBAL) que no se ven desde el validador por su id.
 # Formato: archivo | inicio del título | dueño. Dueño: "check: <trozo del nombre del check>", "criterio: <clave de --criterio>",
-# "fuera: <por qué no es del texto del post>" o "pendiente: <qué falta>". Lo comprueba scripts/test-cobertura-reglas.py.
+# "fuera: <por qué no es del texto del post>" o "pendiente(AAAA-MM-DD): <qué falta>". Un pendiente caduca a los 14 días: o tiene dueño, o la regla se borra de la receta. Lo comprueba scripts/test-cobertura-reglas.py.
 global-instructions | 2.0c-VISUAL LO QUE DICE LA FOTO NO ES SOLO SU TE | criterio: imagen
 global-instructions | 2.0c-CONTRADICE LA TERCERA FORMA DE ROMPER LA FO | criterio: imagen
 global-instructions | 2.1b LA TENDENCIA ES UN MOTOR Y LO ESTAMOS DESAP | fuera: elegir el tema de la semana (planificación), no el texto
-global-instructions | 2.1b-DONDE UNA TENDENCIA DE NICHO GENERACIONAL V | pendiente: tendencia generacional en el gancho; sin léxico cerrado, criterio sin pregunta
+global-instructions | 2.1b-DONDE UNA TENDENCIA DE NICHO GENERACIONAL V | pendiente(2026-10-28): tendencia generacional en el gancho; sin léxico cerrado, criterio sin pregunta
 global-instructions | 2.3-CRM LA TRADUCCION LLANA DE CRM ES LA FICHA D | check: Hook sin jerga que estrecha alcance
 global-instructions | 2.3-CRM-BIS LA TRADUCCION LLANA LA DECIDE LO QUE | check: Hook sin jerga que estrecha alcance
 global-instructions | 2.2b-NEGATIVO SI EL ORIGINAL DICE PROBLEMAS NOSO | criterio: remix
-global-instructions | 2.3d-FUTURO EN UN GANCHO DE PROMESA EL INTENSIFI | pendiente: gancho de promesa con el intensificador en futuro; mecanizable solo en parte
+global-instructions | 2.3d-FUTURO EN UN GANCHO DE PROMESA EL INTENSIFI | pendiente(2026-10-28): gancho de promesa con el intensificador en futuro; mecanizable solo en parte
 global-instructions | 2.9-REVOLUCIONAR EL VERBO QUE PARECE DE DIRECTIV | check: revolucionar
 global-instructions | 2.9-ABSTRACTO ROMPER Y REVENTAR PIDEN UN OBJETO  | check: revolucionar
 global-instructions | 2.9-TECHOS LA ESCALERA TIENE DOS TECHOS NO UNO E | check: Sin slang teen
@@ -25,15 +25,15 @@ global-instructions | 9 CAPADO Y MODERACION CANONICO Y GLOBAL Mario 20 | fuera: 
 global-instructions | 9.2 EL CORPUS CADUCA un post de hace meses NO pr | fuera: moderación al publicar
 global-instructions | 9.3c RESUBIR EL MISMO TEXTO VARIAS VECES EN UNA  | fuera: moderación al publicar
 brand-voice | EL INTENSIFICADOR DE UNAI ES EL ADVERBIO FORMAL  | check: UNAI: intensificador formal
-brand-voice | 3c EL CASTELLANO HABLADO MANDA SOBRE LA ESCALERA | pendiente: castellano hablado frente a la escalera y la anáfora; criterio de idioma sin pregunta
-brand-voice | 3e SONAR A PERSONA VERBO EN VEZ DE SUSTANTIVO EL | pendiente: sonar a persona (verbo en vez de sustantivo, coletilla); criterio de idioma sin pregunta
+brand-voice | 3c EL CASTELLANO HABLADO MANDA SOBRE LA ESCALERA | pendiente(2026-10-28): castellano hablado frente a la escalera y la anáfora; criterio de idioma sin pregunta
+brand-voice | 3e SONAR A PERSONA VERBO EN VEZ DE SUSTANTIVO EL | pendiente(2026-10-28): sonar a persona (verbo en vez de sustantivo, coletilla); criterio de idioma sin pregunta
 brand-voice | 7.1g NUNCA SE VACILA NI SE TOMA POR TONTO A NADI | fuera: respuestas a comentarios, que no tienen validador
 brand-voice | 7.1i CADA RESPUESTA UNA IDEA DISTINTA. Y CUANDO  | fuera: respuestas a comentarios, que no tienen validador
 brand-voice | 7.1c EL QUE NO ENTIENDE EL POST NO NOS ESTA ATAC | fuera: respuestas a comentarios, que no tienen validador
 brand-voice | 7.1b LA APERTURA NO SE ELIGE SE SORTEA. Y NUNCA  | fuera: respuestas a comentarios, que no tienen validador
 brand-voice | CANONICO NO CRITICAMOS A NADIE Y A NOSOTROS TAMP | criterio: comprador
 brand-voice | 5b Y TAMPOCO SE HABLA EN NOMBRE DE OTRO COLECTIV | criterio: comprador
-brand-voice | CANONICO LA PERSONA YO NOSOTROS TU Iker 2026-08- | pendiente: la persona del gancho (yo > nosotros > tú) solo se mira en historia
+brand-voice | CANONICO LA PERSONA YO NOSOTROS TU Iker 2026-08- | pendiente(2026-10-28): la persona del gancho (yo > nosotros > tú) solo se mira en historia
 brand-voice | EXCEPCION 4 EN MARIO Y HELENA EL CUERPO VA EN NO | check: Hook anclado a MARKETING
 post-workflow | 4.1-GANCHO SI EL PILAR NO ESTA DEFINIDO PRIMERO  | fuera: proceso (primero el gancho si el pilar no está definido)
 post-workflow | 4.3-VETO LOS 10 NO SE ESCRIBE NO SE PROPONE Y NO | check: los10

@@ -20,6 +20,7 @@ Falla si hay una regla dura sin dueño (una regla nueva escrita sin decir quien 
 el registro apunta a un check o una clave que no existen. Los "pendiente" no fallan: se
 imprimen, para que la lista se vea y baje.
 """
+import datetime as dt
 import io
 import os
 import re
@@ -74,6 +75,16 @@ def main():
             usadas.add(reg)
             tipo, _, que = registro[reg].partition(':')
             que = que.strip()
+            # 28/10: "todo lo que esta en las recetas se tiene en cuenta; si no, se borra". Un
+            # pendiente lleva fecha y caduca a los 14 dias: o tiene dueño o sale de la receta.
+            _fecha = re.match(r'pendiente\((\d{4}-\d{2}-\d{2})\)', tipo)
+            if tipo.startswith('pendiente'):
+                if not _fecha:
+                    fallos.append(f'{f}:{i + 1} pendiente sin fecha: pendiente(AAAA-MM-DD)')
+                elif (dt.date.today() - dt.date.fromisoformat(_fecha.group(1))).days > 14:
+                    fallos.append(f'{f}:{i + 1} pendiente CADUCADO (desde {_fecha.group(1)}): '
+                                  f'dale dueño o borra la regla de la receta · {que}')
+                tipo = 'pendiente'
             if tipo == 'check' and ascii_(que).lower() not in val_n:
                 fallos.append(f'{f}:{i + 1} el check "{que}" no existe en validar-post.py')
             elif tipo == 'criterio' and que not in claves_criterio:

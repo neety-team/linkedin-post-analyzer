@@ -8,6 +8,14 @@
 
 ## ⚠️ SI ES LUNES Y SE HABLA DE PUBLICACIONES: PRIMERO SE ANALIZA LA SEMANA PASADA (Iker, 2026-08-10)
 
+> 🛡️🛡️ **PASO -1 · REVISIÓN DE SEGURIDAD DEL SISTEMA, ANTES QUE LOS A/B Y LAS MÉTRICAS (desde el 2026-10-28).** `python scripts/revision-seguridad.py`, y su resumen se pega al principio de la revisión. Junta en una pasada lo que el 28/10 se vio que nadie revisaba con calendario:
+> 1. **El validador sigue sano:** ningún post ganador falla, todo lo tumbado sigue cayendo, toda regla dura de las recetas tiene dueño y ningún pendiente pasa de 14 días (o tiene dueño o la regla se borra de la receta).
+> 2. **Derivas** (`scripts/auditar-derivas.py`): lo que funcionaba según la BD y estamos dejando de hacer, y lo que no funciona y hacemos más. Así se vio el 28/10 que los ganchos de historia habían pasado de 52 a 80 caracteres de mediana en cuatro meses.
+> 3. **Reglas nuevas de la semana sin dato ni etiqueta** (se arreglan ese día: su dato o su etiqueta, o se borran) y **decisiones sin medir** (llevan su A/B o su fecha de medida en la ficha).
+> 4. **Los ganchos publicados en la semana:** la escalera de cada uno (`global §2.9-ESCALERA`) y los que pasan del tope de su pilar (`global §2.2c`).
+> 5. **El primer lunes de cada mes**, además, las dos auditorías de las recetas (dónde vive cada regla y contradicciones o caducadas), con los encargos de `scripts/auditoria-recetas-encargos.md`. Lo que salga se aplica ese día.
+> - **Lo que se escribe en una receta se cumple; si no se puede cumplir, se borra.** Nada se queda escrito sin quien lo compruebe (`global §8-DUEÑO`).
+
 > 🧪🧪 **REGISTRO DE A/B ABIERTOS · ES EL PASO 0 DE CADA REVISIÓN DEL LUNES, ANTES QUE LAS MÉTRICAS (Iker, 2026-10-16).** Iker: *"que nunca se nos olvide, cuando hagamos los aprendizajes los lunes, revisar los A/B testing, porque si no, estamos cagándola, parece que a propósito"*. **La causa por la que se olvidaban:** cada A/B vivía en un sitio distinto (avisos sueltos de este fichero, `post-workflow §9b`, `§4.0d`, `§4.6-AB-METRICAS`, la memoria), y la tabla de `§9b` llevaba desde principios de septiembre sin tocarse. **Desde hoy hay UNA tabla, esta.** El detalle sigue en su sitio, pero la lista de lo que está abierto vive aquí.
 > - **Cada lunes, fila por fila:** cuántos posts nuevos tiene cada brazo, si ya se puede cerrar (vara de `post-workflow §9b`: 3-4 por brazo, misma cuenta y mismo pilar) y qué falta. **Ninguna fila se salta**: si no hay dato nuevo, se dice "sin dato nuevo" en una línea.
 > - **Al cerrar uno:** el resultado se escribe en su receta ese mismo día y la fila sale de aquí.

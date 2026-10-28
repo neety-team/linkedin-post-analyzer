@@ -381,6 +381,8 @@ Un hook que viaja hace TRES cosas a la vez. Si la idea cruda no puede con las tr
 
 ### ✂️ 2.2c · A IGUALDAD DE SENTIDO, GANA SIEMPRE EL GANCHO MÁS CORTO (universal — Iker, 2026-08-17)
 
+> **📏 28/10 · TOPE POR PILAR, Y PASARLO SE JUSTIFICA POR ESCRITO.** Los ganchos de historia crecieron mes a mes (mediana de 52 caracteres en junio, 65 en agosto, 71 en septiembre y 80 en octubre) y en historia los de 70 o menos rinden casi el doble (0,97 contra 0,55 de outlier_ratio, n=9 y 15, `scripts/auditar-derivas.py`). El validador avisaba a partir de 90 y el aviso del tachón salía siempre, así que nadie lo leía. **Topes:** historia 70, el resto de pilares 75 (la mediana de los ganadores); el peloteo se libra, porque sus ganchos largos son estructura y vuelan. Por encima, `validar-post.py` pide la clave `largo` en `--criterio`: se acorta o se escribe por qué cada palabra de más es imprescindible.
+
 **La regla, y es de las que no admiten matiz:** si el gancho puede decir **exactamente lo mismo** con menos palabras, la versión corta es la buena. Siempre. Iker: *"siempre en la vida es mejor corto y bueno que largo y bueno, sobre todo alargarlo no aporta nada extra y es repetir información o redundante"*.
 
 **Lo que hay que entender, porque es lo que lo hace operativo:** alargar un gancho **nunca** añade fuerza. Lo que añade es o **redundancia** (una palabra que ya se deduce de otra) o **información que le tocaba al cuerpo**. Las dos gastan atención en el único sitio donde no sobra ni un carácter, que es antes del corte del "ver más" (`§2.0`).

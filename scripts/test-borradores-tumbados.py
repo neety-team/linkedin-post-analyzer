@@ -360,6 +360,35 @@ CASOS += [
      'no vende escasez', ['--pilar', 'historia', '--cuenta', 'iker', '--publica-manana']),
 ]
 
+# 28/10: el ninja al gate de un recurso daba por sabido QUE directo (global §4.4b-CONTEXTO).
+HISTORIA_IKER_GATE_28OCT = """Medio mundo da por jubilado al comercial con la IA y mis clientes piden lo contrario 🤔
+
+Casi ninguno me pidió una IA que vendiera por él.
+
+Me pidieron quitarse la búsqueda de encima.
+Uno me explicó que ese tiempo lo quería para contactar.
+
+"Es donde realmente se generan las oportunidades…"
+
+Una IA buscando empresas me ahorra semanas.
+Un correo que se escribe solo se nota a la legua.
+Una llamada sin comercial detrás no la coge nadie.
+
+La búsqueda a mano es lo único que yo ya aparqué.
+
+Quien se perdió el directo aún puede aparcarla, primero gratis y luego con IA.
+
+Buscar empresas a mano te jubila antes que ninguna IA.
+Descárgate la presentación del directo de esta mañana: https://neety.com/academia/webinar-clientes-ia?utm_source=linkedin&utm_medium=post&utm_campaign=historia-gate-webinar-28oct&utm_content=iker
+
+La IA que necesita un comercial es la que le deja llamar.
+"""
+CASOS += [
+    (HISTORIA_IKER_GATE_28OCT,
+     '28/10: "quien se perdio el directo" no dice a alguien de fuera de que directo se habla',
+     'el CONTEXTO del destino', ['--pilar', 'historia', '--cuenta', 'iker']),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

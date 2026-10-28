@@ -3518,6 +3518,33 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                         'la saca de la escena, un giro la lleva a ventas y una linea nombra el dolor '
                         'del cliente. Si el dolor aparece por primera vez en el ninja, hay salto',
                         aviso=True)
+                    # 🧭 CONTEXTO DEL DESTINO (28/10, global §4.4b-CONTEXTO): en TODOS los
+                    # pilares y destinos, las lineas de antes del ninja dicen adonde se manda
+                    # al lector como si nos leyera por primera vez. El fallo que lo abrio:
+                    # "Quien se perdio el directo..." da por sabido QUE directo. Se caza la
+                    # referencia con articulo definido a un evento o recurso (el directo, la
+                    # charla, la sesion...) sin ninguna marca de contexto (cuando, formato o que
+                    # es) en esas lineas ni en el propio bloque.
+                    _zona = ' '.join(_prev[-3:] + [_l1, cuerpo[_pos_link - 120:_pos_link]]).lower()
+                    _ref = re.search(r'\b(el|del|al|ese|aquel) (directo|webinar|evento|encuentro)\b|'
+                                     r'\b(la|esa|aquella) (charla|sesi[oó]n|presentaci[oó]n|gu[ií]a|plantilla)\b', _zona)
+                    # El contexto cuenta solo si va ENCIMA del bloque (el bloque no se
+                    # explica a si mismo) y dice QUE ES, no solo cuando: 'del directo de
+                    # esta manana' en la linea del enlace no le dice a nadie que directo.
+                    _encima = ' '.join(_prev[-5:]).lower()
+                    _ctx = re.search(r'\b(dimos|damos|hacemos|hicimos|montamos|organizamos|grabamos|'
+                                     r'una (charla|sesi[oó]n|presentaci[oó]n|gu[ií]a|plantilla)|'
+                                     r'un (evento|directo|webinar|encuentro))\b', _encima)
+                    chk(not (_ref and not _ctx),
+                        'Spam ninja: el CONTEXTO del destino se entiende sin conocernos (global §4.4b-CONTEXTO)',
+                        ('"%s" da por sabido de que se habla. Antes del bloque, una linea que diga '
+                         'que es, cuando o como fue y que le resuelve al lector: "De eso dimos hoy '
+                         'una charla por videollamada."' % _ref.group(0)) if (_ref and not _ctx) else '')
+                    chk(False, 'ENTREGA: el contexto antes del ninja, para quien nos lee por PRIMERA vez (global §4.4b-CONTEXTO)',
+                        'lee las lineas de antes del bloque como alguien que no nos conoce: ¿sabe que es '
+                        'lo que hay detras del enlace, de donde sale, que le resuelve y por que ahora? '
+                        'Si falta una, se añade aunque el post pase unos caracteres de su rango: el '
+                        'contexto manda sobre la longitud (un poco, no una pagina)', aviso=True)
                 # HISTORIA/EVENTO (Iker, 15/10): el ninja va DESPUES de pagar la historia, como
                 # en las 5 historias con mejor CTR (enlace entre el 83% y el 92% del texto, con
                 # solo el remate detras). Con el tope a 900 eso cae pasado el 650, que sale de
@@ -5152,9 +5179,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # conto y el evento ademas del ninja, ese tramo se come sitio a la historia, asi
         # que el tope sube a 900 con --historia-evento. Decision suya, sin medir: el
         # 07/10 de Unai (887 car, evento) saco 8 clics; se mide al publicar.
-        _tope_h = 900 if HISTORIA_EVENTO else 800
-        if HISTORIA_EVENTO:
-            chk(_n_hist <= _tope_h, 'HISTORIA/EVENTO: <=900 caracteres (Iker, 15/10)',
+        # 🔄 GATE DE UN RECURSO (28/10): el ninja que lleva a un recurso pide una o
+        # dos lineas de contexto encima (que es, de donde sale, por que le sirve al
+        # que no nos conoce), y ese contexto manda sobre la longitud. Mismo tope que
+        # historia/evento. Sin medir: se compara al publicar con las de 700-780.
+        _gate_rec = bool(re.search(r'neety\.com/academia/', texto))
+        _tope_h = 900 if (HISTORIA_EVENTO or _gate_rec) else 800
+        if HISTORIA_EVENTO or _gate_rec:
+            chk(_n_hist <= _tope_h, 'HISTORIA/EVENTO o con GATE de un recurso: <=900 caracteres (15/10 y 28/10)',
                 f'{_n_hist} car' if _n_hist > _tope_h else f'{_n_hist} car')
         else:
           chk(_n_hist <= 800, 'HISTORIA: <=800 caracteres (§4.6-SERIE)',

@@ -1572,7 +1572,9 @@ CRITERIO = [
     ('explicito', '¿Que daria por sabido alguien que no nos conoce? Cada nombre propio nuestro con su categoria, cada cifra con su sustantivo (global §2.5b-EXPLICITO)'),
     ('verdad', '¿Todo lo afirmado sale de la fuente (video, BD, cliente, informe), sin cuando, cifra ni frase puesta por nosotros? (CLAUDE.md, post-workflow §4.6)'),
     ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje? ¿Y la foto NO huele a evento ni a venta (escenario, ponente, photocall, acreditaciones, carpeta del evento) y se le ve la CARA al que publica? (global §2.0c, post-workflow §4.6-FOTO-VENTA)'),
-    ('ninja', 'Tapa el post: ¿la linea 1 dice que falta, la 2 lo cubre, y el destino cumple la promesa? ¿Va despues del valor? (global §4.4b)'),
+    # 28/10: la linea de contexto decia "Iba de dar con las empresas que te comprarian", el
+    # tema del evento y no su valor, y la pregunta no lo miraba. Ahora lo pide por escrito.
+    ('ninja', 'Tapa el post: ¿la linea 1 dice que falta, la 2 lo cubre, y el destino cumple la promesa? ¿Va despues del valor? Y si lleva contexto encima: ¿nombra el dolor CONCRETO que resuelve (tiempo buscando, acertar con la empresa, la persona de dentro) y no el tema? (global §4.4b, §4.4b-CONTEXTO)'),
     # Iker, 15/10: la tarjeta de Asier juzgaba al cliente que paga poco y nadie lo vio,
     # porque la regla solo existia en el meme y en Unai. El lexico de main() caza lo
     # explicito; esto obliga a mirar lo que no tiene palabra clave (y la imagen).

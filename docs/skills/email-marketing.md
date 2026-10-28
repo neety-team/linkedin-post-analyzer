@@ -616,6 +616,13 @@ que para testar remitente no vale ese mecanismo, hace falta montarlo a mano:
 - **Kaixito:** CTA de relación ("respóndeme y me lo cuentas") o ninguno.
 - Un solo CTA por email. Varía el copy entre emails (`working-preferences §4`: nunca dos seguidos con el mismo cierre).
 
+### 4a · 🎯 A DÓNDE LLEVA EL ENLACE DEL CORREO: LO DECIDE EL MOMENTO, IGUAL QUE EN LOS POSTS (2026-10-28)
+Mismo mapa que `post-workflow §8.1b`, porque el objetivo de conversión cambia por temporadas y los correos y los posts lo siguen a la vez:
+- **Evento con inscripción abierto** → su Luma (Leads). Así fue en septiembre con el presencial y en octubre con el webinar.
+- **Recurso recién nacido de un evento** (la presentación del webinar, `neety.com/academia/webinar-clientes-ia`) → su gate, mientras dure el «te lo perdiste» (Leads). La grabación solo se promete cuando esté subida.
+- **Sin evento ni recurso nuevo** → `/solicitar-demo` (Oportunidades), el destino por defecto.
+- **⚠️ Lo que cambia en correo:** la lista ya tiene permiso. Un gate no le suma un lead nuevo, le sirve contenido. Por eso el correo que manda al gate del recurso se mide en clics y descargas, no en leads, y no se manda a los que ya lo rellenaron. Esos están en su audiencia `📥 Recursos · …` del CRM, que se usa como exclusión.
+
 ### 4b · La PD
 
 > **⛔ EN ESPAÑOL SE ESCRIBE "PD", NUNCA "P.S." (medido el 2026-08-06).** Sobre el corpus español entero (Timepack + Hugo López + Sales Hackers + newsletters): **453 "PD" y 141 "PPD" contra CERO "P.S."**. El "P.S." es un anglicismo y delata traducción. Cuando hay dos postdatas, la segunda es **PPD**. Está en el validador.

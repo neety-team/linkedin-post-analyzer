@@ -1,0 +1,66 @@
+# Cobertura de las reglas duras de las recetas (⛔, CANÓNICO, GLOBAL) que no se ven desde el validador por su id.
+# Formato: archivo | inicio del título | dueño. Dueño: "check: <trozo del nombre del check>", "criterio: <clave de --criterio>",
+# "fuera: <por qué no es del texto del post>" o "pendiente: <qué falta>". Lo comprueba scripts/test-cobertura-reglas.py.
+global-instructions | 2.0c-VISUAL LO QUE DICE LA FOTO NO ES SOLO SU TE | criterio: imagen
+global-instructions | 2.0c-CONTRADICE LA TERCERA FORMA DE ROMPER LA FO | criterio: imagen
+global-instructions | 2.1b LA TENDENCIA ES UN MOTOR Y LO ESTAMOS DESAP | fuera: elegir el tema de la semana (planificación), no el texto
+global-instructions | 2.1b-DONDE UNA TENDENCIA DE NICHO GENERACIONAL V | pendiente: tendencia generacional en el gancho; sin léxico cerrado, criterio sin pregunta
+global-instructions | 2.3-CRM LA TRADUCCION LLANA DE CRM ES LA FICHA D | check: Hook sin jerga que estrecha alcance
+global-instructions | 2.3-CRM-BIS LA TRADUCCION LLANA LA DECIDE LO QUE | check: Hook sin jerga que estrecha alcance
+global-instructions | 2.2b-NEGATIVO SI EL ORIGINAL DICE PROBLEMAS NOSO | criterio: remix
+global-instructions | 2.3d-FUTURO EN UN GANCHO DE PROMESA EL INTENSIFI | pendiente: gancho de promesa con el intensificador en futuro; mecanizable solo en parte
+global-instructions | 2.9-REVOLUCIONAR EL VERBO QUE PARECE DE DIRECTIV | check: revolucionar
+global-instructions | 2.9-ABSTRACTO ROMPER Y REVENTAR PIDEN UN OBJETO  | check: revolucionar
+global-instructions | 2.9-TECHOS LA ESCALERA TIENE DOS TECHOS NO UNO E | check: Sin slang teen
+global-instructions | SE RECHAZA Y POR QUE | fuera: tabla de propuestas del corpus que se rechazaron, no es una regla de texto
+global-instructions | 4.4b SPAM NINJA el BLOQUE DE DOS vaya el enlace  | check: Spam ninja
+global-instructions | LA EXCEPCION DE LUMA SOLO LEE utmsource comproba | check: En LUMA la identidad va en utm_source
+global-instructions | 4.4b-POSIBLE LA NORMA DE LA LINEA 1 ES LO QUE FA | criterio: ninja
+global-instructions | 4.4b-FORMA DOS LINEAS PEGADAS Y SIGUIENDO LA BRO | check: Spam ninja: LAS DOS lineas cortas
+global-instructions | POR ESO EL ANGULO NO ES EL PRECIO. ES QUE LA LIC | criterio: ninja
+global-instructions | DONDE VA Y DONDE NO decidido con los datos de ca | fuera: segundo bloque de correo, retirado (4.4e-UNA)
+global-instructions | 4.4e-PUERTA UNA PUERTA POR POST Y LA ELIGE EL DO | criterio: ninja
+global-instructions | LA POSICION NUNCA PEGADOS Y NUNCA AL FINAL | check: Spam ninja NO es la
+global-instructions | 9 CAPADO Y MODERACION CANONICO Y GLOBAL Mario 20 | fuera: moderación al publicar (tiempos y borrado); el léxico de riesgo lo cubre brand-voice §2c
+global-instructions | 9.2 EL CORPUS CADUCA un post de hace meses NO pr | fuera: moderación al publicar
+global-instructions | 9.3c RESUBIR EL MISMO TEXTO VARIAS VECES EN UNA  | fuera: moderación al publicar
+brand-voice | EL INTENSIFICADOR DE UNAI ES EL ADVERBIO FORMAL  | check: UNAI: intensificador formal
+brand-voice | 3c EL CASTELLANO HABLADO MANDA SOBRE LA ESCALERA | pendiente: castellano hablado frente a la escalera y la anáfora; criterio de idioma sin pregunta
+brand-voice | 3e SONAR A PERSONA VERBO EN VEZ DE SUSTANTIVO EL | pendiente: sonar a persona (verbo en vez de sustantivo, coletilla); criterio de idioma sin pregunta
+brand-voice | 7.1g NUNCA SE VACILA NI SE TOMA POR TONTO A NADI | fuera: respuestas a comentarios, que no tienen validador
+brand-voice | 7.1i CADA RESPUESTA UNA IDEA DISTINTA. Y CUANDO  | fuera: respuestas a comentarios, que no tienen validador
+brand-voice | 7.1c EL QUE NO ENTIENDE EL POST NO NOS ESTA ATAC | fuera: respuestas a comentarios, que no tienen validador
+brand-voice | 7.1b LA APERTURA NO SE ELIGE SE SORTEA. Y NUNCA  | fuera: respuestas a comentarios, que no tienen validador
+brand-voice | CANONICO NO CRITICAMOS A NADIE Y A NOSOTROS TAMP | criterio: comprador
+brand-voice | 5b Y TAMPOCO SE HABLA EN NOMBRE DE OTRO COLECTIV | criterio: comprador
+brand-voice | CANONICO LA PERSONA YO NOSOTROS TU Iker 2026-08- | pendiente: la persona del gancho (yo > nosotros > tú) solo se mira en historia
+brand-voice | EXCEPCION 4 EN MARIO Y HELENA EL CUERPO VA EN NO | check: Hook anclado a MARKETING
+post-workflow | 4.1-GANCHO SI EL PILAR NO ESTA DEFINIDO PRIMERO  | fuera: proceso (primero el gancho si el pilar no está definido)
+post-workflow | 4.3-VETO LOS 10 NO SE ESCRIBE NO SE PROPONE Y NO | check: los10
+post-workflow | 6b-quinquies NUNCA SE PIDE OTRA FOTO NI UN ENCUA | fuera: fotos de las menciones
+post-workflow | 4.4-PASO-1 PRIMERO LA IDEA DESPUES EL FORMATO Ik | criterio: remix
+post-workflow | 4.4-PASO-0 ANTES DE ELABORAR NADA YA LA HEMOS US | criterio: remix
+post-workflow | 4.4-PASO-0-REFRESH LA PRIMERA PUBLICACION DE CAD | fuera: proceso (refrescar el corpus cada lunes)
+post-workflow | 4.4-PASO-0b LAS REFERENCIAS SE BUSCAN EN LINKEDI | fuera: proceso (buscar referencias)
+post-workflow | 4.4-ESENCIA-MITAD CUANDO EL TEXTO Y LA IMAGEN DE | criterio: remix
+post-workflow | 4.4-FUENTE-VENTAS YA NO ES UNA PREFERENCIA LA RE | criterio: remix
+post-workflow | 4.4-PASO-1-LITERAL LA TRADUCCION SE ESCRIBE Y SE | criterio: remix
+post-workflow | 4.4-PASO-1-VERBO EL VERBO DEL ORIGINAL ES EL SUE | criterio: punch
+post-workflow | 4.5.-3 POR DONDE SE ENTREGA EL RECURSO YA NO AGR | fuera: entrega del recurso del lead magnet
+post-workflow | 4.5.-1-BIS LA IMAGEN ENSENA EL RECURSO PERO NUNC | fuera: imagen del lead magnet
+post-workflow | 4 EL ESPACIADO SE MIDE ENTRE NOSOTROS NO CONTRA  | fuera: planificación (espaciado entre cuentas)
+post-workflow | 4.5.0-RESUBIDA UNA RESUBIDA NO ES UN LEAD MAGNET | criterio: motor
+post-workflow | 4.5.0-AVANCE LA LISTA DEL LEAD MAGNET ES UN AVAN | criterio: motor
+post-workflow | LO QUE SI ES PROPIO DEL DESPIECE EL PAIS DE LA C | criterio: motor
+post-workflow | 4.6-RIESGO LOS DOS AVISOS QUE VAN ANTES DEL BORR | fuera: avisos de riesgo de la entrega de la tarjeta
+post-workflow | EL ESPACIADO SE MIDE CONTRA LA BD NO CONTRA EL P | fuera: planificación (espaciado contra la BD)
+working-preferences | 1c-BIS UN ENTREGABLE QUE AUN NO SE HA EJECUTADO  | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 0g NADA SE ESTIMA. LO QUE SE PUEDE MEDIR SE MIDE | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 1b TODO PROMPT PARA UN EJECUTOR VA EN UN SOLO BL | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 0c-TER UN FORMATO NUEVO QUE COMPARTE MOTOR CON U | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 1g DEBAJO DE CADA PROMPT QUE HAY QUE ADJUNTAR Ik | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 1h-DIA EL DIA NO SE PREGUNTA SE PUBLICA HOY Iker | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 1h ANTES DE QUE SUBA NADA PREGUNTARLE LA HORA Ik | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 1f LO QUE SE COPIA NO SE PARTE A MANO Iker 2026- | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 1e-REF LA REFERENCIA DE LA COMPARATIVA COMPARTE  | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 1e-COPIA EL MECANISMO SE ROBA LAS PALABRAS NO Ik | fuera: forma de entregar o de trabajar, no el texto del post

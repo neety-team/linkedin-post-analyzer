@@ -1583,7 +1583,19 @@ CRITERIO = [
     # y con la escalera entera: el neutro, el elegido y el que se pasa (criticar -> desmontar
     # -> despellejar). Vale tambien para un borrador heredado: heredar no exime.
     ('punch', '¿Que palabra del gancho para el scroll? Escribe la escalera con su objeto: el neutro -> el elegido -> el que se pasa (criticar -> desmontar -> despellejar). Si no la encuentras, no la hay (global §2.9-ESCALERA)'),
+    # 28/10, auditoria del validador: global §8 tenia una lista "lo que el script NO puede ver,
+    # esto lo miras tu" y solo 5 de sus puntos se habian pasado a preguntas escritas el 15/10.
+    # Lo que no se pregunta por escrito no se mira: se pasan los que quedaban, cada uno solo en
+    # los pilares donde aplica (CRITERIO_PILAR, abajo).
+    ('ancla', 'Leelo como si lo subiera una consultora, una agencia o una constructora: ¿cuela? Di que palabra del oficio lo hace solo nuestro (ventas; en Unai vale ecosistema) (global §2.3 y §8)'),
+    ('motor', '¿Cual es el MOTOR y en que se sostiene? Meme: el motor A/B y su referencia validada; mapa o "Las 10": el dato o cliche verificado; lead magnet: el mecanismo (live, urgencia); tarjeta: el original (global §8, post-workflow §4)'),
+    ('remix', '¿Que HUESO del original se roba y la mecanica del gancho es la misma, en una frase? ¿La referencia es de ventas, no la hemos usado ya y la traduccion literal esta escrita? (outliers §3.9c, post-workflow §4.4-PASO-0, -PASO-1-LITERAL, -FUENTE-VENTAS)'),
 ]
+# Que pilar contesta que clave. Las que no estan aqui las contestan todos.
+CRITERIO_PILAR = {
+    'motor': {'meme', 'mapa', 'las10', 'los10', 'objeto', 'leadmagnet', 'tarjeta'},
+    'remix': {'meme', 'tarjeta'},
+}
 HISTORIA_EVENTO = False
 
 
@@ -1741,6 +1753,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'como el "Si, hablo de X" del peloteo, o DESINFLANDOLA a proposito si el gancho exagera un '
         'hecho real ("invadio" -> "nos visitaron", global §2.0-PAGO). Si el lector acaba sin '
         'saberlo, falta el pago' % hook_txt[:90], aviso=True)
+    # brand-voice §3 y global §2.9-TECHOS: el slang teen esta vetado por escrito desde agosto
+    # y ningun check lo miraba (auditoria del 28/10). Lector de 45-60.
+    _teen = re.search(r'\b(random|cringe|pov|modo bestia)\b', cuerpo.lower())
+    chk(not _teen, 'Sin slang teen: random, cringe, POV, modo bestia (brand-voice §3, global §2.9-TECHOS)',
+        f'"{_teen.group(0)}": nuestro lector tiene 45-60 y lo aleja' if _teen else '')
+    # brand-voice §1b: en Unai el intensificador es el adverbio formal (jamas, nunca), nunca
+    # la expresion de calle. Escrito el 21/08 y sin check hasta la auditoria del 28/10.
+    if (cuenta or '').strip().lower() == 'unai':
+        _calle = re.search(r'\b(ni de broma|flipa\w*|de locos|se queda tieso)\b', cuerpo.lower())
+        chk(not _calle, 'UNAI: intensificador formal, nunca de calle (brand-voice §1b)',
+            f'"{_calle.group(0)}": en Unai, jamas / nunca / en la vida' if _calle else '')
     # global §4.4b-AUTOGOL, el gancho (Iker, 2026-10-22): "Vamos a cruzar medio mundo a
     # ver si alli tambien se vende a pico y pala" se leyo como que NOSOTROS vendemos a
     # pico y pala. Gancho en 1a del plural + un impersonal de venta o un "tambien" pega el
@@ -6106,6 +6129,8 @@ def main():
                 if ':' in _l:
                     _k, _v = _l.split(':', 1)
                     _resp[_k.strip().lower()] = _v.strip()
+        _crit = [(k, q) for k, q in CRITERIO if k not in CRITERIO_PILAR or a.pilar in CRITERIO_PILAR[k]]
+        CRITERIO[:] = _crit
         _falta = [k for k, _q in CRITERIO if len(_resp.get(k, '')) < 15]
         # La escalera del gancho no vale como frase suelta: tres peldaños o no esta hecha.
         if 'punch' not in _falta and len(re.findall(r'→|->', _resp.get('punch', ''))) < 2:

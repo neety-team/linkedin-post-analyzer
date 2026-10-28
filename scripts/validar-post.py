@@ -1577,6 +1577,12 @@ CRITERIO = [
     # porque la regla solo existia en el meme y en Unai. El lexico de main() caza lo
     # explicito; esto obliga a mirar lo que no tiene palabra clave (y la imagen).
     ('comprador', '¿Alguna linea, del texto, de la tarjeta o de la imagen, JUZGA al que compra (cargo con poder de decision o el cliente como figura) en vez de contar lo que hace? ¿Algo deja decir "en Neety se rien de sus clientes"? (brand-voice canonico 5)'),
+    # 28/10: una historia paso 10 validaciones en verde con "nos puso precio", sin una sola
+    # palabra que parase el scroll. El script solo veta verbos flojos (VERBO_FLOJO) y no puede
+    # exigir uno punchy sin fabricar muletillas (global §2.9), asi que se contesta por escrito
+    # y con la escalera entera: el neutro, el elegido y el que se pasa (criticar -> desmontar
+    # -> despellejar). Vale tambien para un borrador heredado: heredar no exime.
+    ('punch', '¿Que palabra del gancho para el scroll? Escribe la escalera con su objeto: el neutro -> el elegido -> el que se pasa (criticar -> desmontar -> despellejar). Si no la encuentras, no la hay (global §2.9-ESCALERA)'),
 ]
 HISTORIA_EVENTO = False
 
@@ -6101,6 +6107,9 @@ def main():
                     _k, _v = _l.split(':', 1)
                     _resp[_k.strip().lower()] = _v.strip()
         _falta = [k for k, _q in CRITERIO if len(_resp.get(k, '')) < 15]
+        # La escalera del gancho no vale como frase suelta: tres peldaños o no esta hecha.
+        if 'punch' not in _falta and len(re.findall(r'→|->', _resp.get('punch', ''))) < 2:
+            _falta.append('punch')
         print('  CRITERIO (lo que el script no ve; se contesta en --criterio, una linea por clave):')
         for k, q in CRITERIO:
             print(f"  {'✅' if k not in _falta else '⛔'} {k}: {q}")

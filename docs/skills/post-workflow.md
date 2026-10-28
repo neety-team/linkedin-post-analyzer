@@ -2097,6 +2097,33 @@ CLAUDE (nombrado en el gancho)  +  un RESULTADO DE VENTAS  +  una variante de PR
 2. **La lista de a quién dirigirse en un nicho concreto.** Ignacio P. (fundraising): `I compiled 150 family office decision makers…` 3.900 comentarios, y cinco versiones por región entre 2.200 y 3.900. **Y se quema al repetir:** las tres siguientes, 638, 576 y 352. Nuestra prueba más parecida, `La lista definitiva de 15 empresas activas a las que vender` (Unai, 22/07), tuvo **el mejor alcance de un lead magnet desde mayo (10.900)** pero 36 comentarios. **⛔ Adaptado a nosotros: pocas empresas, cada una con su porqué, nunca volumen** (`project_flujo_herramienta_privado`), **y sin nombres de personas** (`brand-voice §2c-DATOS`).
 3. **La prueba con cifras propias en el gancho** (Aaron Reeves, `March: $34,000 from LinkedIn DMs / April… / May…`, 10,1x y 1.259 comentarios). Nosotros solo tenemos una cifra-resultado verificable (Arania, hasta el 45%): no da para serie.
 
+#### 👀👀 4.5.0-UNA-PAGINA · EL REFERENTE QUE NO SE SATURA: UNA GUÍA, MUCHAS PUERTAS (observado el 2026-10-28, sin probar en nuestras cuentas)
+
+**Miren Agirregomezkorta Iza** (formadora de IA, 49.286 seguidores) publica el MISMO recurso, su guía de Claude con gate de correo en Kit (newsletter y venta de curso), con una imagen y un gancho distintos cada uno a tres días. Unipile, 28/10:
+
+| fecha | imagen | comentarios | likes | gancho |
+|---|---|---|---|---|
+| 05/10 | JPG 1:1 | 2.330 | 582 | `He creado la guía completa para usar Claude en 2026.` |
+| 13/10 | JPG 1:1 | **8.377** | 1.630 | `La mayoría de la gente usa Claude como Google.` |
+| 20/10 | JPG 4:5 | 3.183 | 591 | `He creado una guía completa de Claude con 13 funcionalidades.` |
+| 22/10 | JPG 480x699 | **5.688** | 2.056 | `He creado la guía completa de Claude: de 0 a 100.` |
+| 23/10 | GIF 4:5, 61 fotogramas | 2.212 | 1.664 | `Casi nadie conoce los comandos secretos de Claude.` |
+| 26/10 | JPG 2:3 | 2.747 | 1.867 | `El 90 % de la gente usa Claude solo como un chatbot.` |
+| 27/10 | GIF 4:5, 78 fotogramas | 3.639 | 1.717 | `42 páginas para usar Claude al 100 %.` |
+| 28/10 | GIF 4:5, 43 fotogramas, 2,9 s | 3.042 (7 h) | 1.608 | `La mayoría de los profesionales no tienen ni idea de cómo crear agentes de IA en Claude.` |
+
+Lo que se mide, sin interpretar:
+- **Lo que no lleva la guía, en la misma cuenta y el mismo mes, saca de 1 a 45 comentarios.** El tamaño de la cuenta no lo explica; el recurso sí.
+- **El GIF no gana a la foto fija dentro de su serie** (GIF 2.212 · 3.042 · 3.639; fijas 2.330 · 2.747 · 3.183 · 5.688 · 8.377). n=8, y el mejor es un cuadrado fijo.
+- **Ningún gancho lleva 🚨 ni ÚLTIMA HORA.** Dos familias: `la mayoría / el 90 % de la gente usa Claude como X` y `he creado la guía completa`.
+- **El texto no pide comentar**: termina en `Acceso gratuito 👇` y la palabra (`CLAUDE`) va en un botón naranja dentro de la imagen. Es nuestro `§4.5.0-CTA-CERO` + `§4.5.0-CTA-IMAGEN`.
+- **La imagen ya regala**: es una infografía de todas las funciones (`Todo lo que puede hacer Claude, en una página`), legible entera, con `guárdala para después` dentro. Lo que se gatea es el cómo (42 páginas), no el índice. Compatible con `§4.5.-1-BIS`: lo desenfocado es la pieza que hace valioso el recurso; un índice no lo es.
+- **Muestra de 100 comentarios del 28/10:** el 100% lleva `claude`, el 97% es solo la palabra, 0 respuestas de la autora en público. Por el titular, 24 de dirección o gerencia, 13 de ventas y 19 de industria, ingeniería u operaciones: el tema general atrae también a nuestro comprador.
+- **Cita al referente al final** (`Infografía inspirada en un post de Martín Arosa`), como nuestro crédito del meme.
+- **En el feed (captura del 28/10 desde otra cuenta) la 4:5 se ve entera, sin recorte.** No contradice la tabla de `images §0b-FEED` (lo que recorta es la vertical más alargada que 4:5), pero sí la regla 1:1: publicar en 4:5 es una prueba declarada. ⚠️ Hipótesis para nosotros, n=0.
+
+**Lo que puede explicar que ella no se sature y nosotros sí (hipótesis):** el recurso es el aprendizaje de la herramienta, con demanda general y creciente, y la puerta cambia cada vez (imagen nueva, que es valor por sí misma). Nuestras reutilizaciones cambiaban poco la imagen y el recurso era un truco de ventas estrecho. El remix que encaja con `§3.9c` paso 7 es `Claude, desde la silla del comercial`: el aprendizaje de la herramienta anclado a tareas de venta.
+
 **Propuesta (decide Iker):** menos lead magnets y mejor elegidos. El próximo, personalizado o de lista corta región + sector, en Unai (`§4.5.0-CRUCE` punto 2), con el gate en `recursos.neety.com` como siempre.
 
 #### 🔎🔎 4.5.0-COMPETENCIA · PASO 0 OBLIGATORIO: LA INVESTIGACIÓN DE REFERENTES, ANTES DE ELEGIR TEMA (Mario, 2026-08-26)

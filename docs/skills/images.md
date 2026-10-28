@@ -417,6 +417,8 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 > - **La horizontal no pierde informacion, pierde PANTALLA.** Y la pantalla es el activo: la imagen la ve el 100% del que scrollea. Comprobado en el feed de Mario comparando nuestra historia cuadrada del 11/09 contra dos posts horizontales de otras cuentas: la cuadrada ocupa mas del doble.
 > - **⭐ PASA IGUAL CON VIDEO HORIZONTAL** (`video.md`): un video 16:9 se comprime en el feed exactamente como una foto 16:9. El formato de la pieza no depende de si es foto o video, depende del feed.
 >
+> - **🆕 4:5 (1080x1350), observado el 28/10/2026, sin probar en nuestras cuentas:** un lead magnet ajeno en 480x600 se vio ENTERO en el feed de otra cuenta, sin recorte y más alto que un cuadrado (`post-workflow §4.5.0-UNA-PAGINA`). Lo que recorta es la vertical MÁS alargada que 4:5 (el 2:3 del perro). Hasta probarlo, la regla de abajo sigue en 1:1; publicar en 4:5 es una prueba declarada.
+>
 > ### ⚠️ Y LA TRAMPA QUE ME COMI: EL PERFIL NO ES EL FEED
 > **En la vista de PERFIL, LinkedIn mete barras negras alrededor de la imagen — tambien a las cuadradas.** En el FEED no aparece ninguna. Mismo post, dos renderizados distintos.
 > **Una foto NUNCA se juzga desde el perfil del que publica.** Se mira en el feed, desde otra cuenta. Si solo tienes la vista de perfil, no tienes el dato: dilo y no concluyas.

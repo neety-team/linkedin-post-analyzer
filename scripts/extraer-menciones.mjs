@@ -69,7 +69,10 @@ function entidadesDeLinea(l) {
       x.length < 45 &&
       x.split(/\s+/).length <= 6 &&
       !/[€$%]/.test(x) &&
-      !/^\d/.test(x) &&
+      // 2026-10-28: solo una cifra SUELTA ("3 meses…"). `^\d` a secas tiraba las
+      // empresas que empiezan por cifra (3PBIOVIAN, del mapa de Navarra del 30/06)
+      // y el cruce de repetidas no las veia.
+      !/^\d+([.,]\d+)?(\s|$)/.test(x) &&
       !/\d{3,}/.test(x)
     );
 }

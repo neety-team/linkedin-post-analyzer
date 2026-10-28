@@ -68,7 +68,7 @@ SUJETO_ES_MODELO = (r'(claude\s*(opus|sonnet|haiku)?\s*\d|gpt-?\d|gemini\s*\d'
 # §4.2 Paso 1 — En el peloteo el prejuicio SIEMPRE lo dice otro: "la ven como…",
 # "nadie habla de…". Sin ese sujeto, el desprecio se lee como NUESTRO y ofende a
 # quien queriamos que comentara defendiendo lo suyo (Iker, 2026-07-30).
-SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan|l[ao] liquidan|l[ao] mandan de)'
+SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan|l[ao] liquidan|l[ao] mandan de|l[ao] despiden)'
 # 2026-10-01, "Las 10" de Castilla-La Mancha (Iker): el prejuicio tambien lo dice
 # OTRO cuando es un GESTO de la gente en impersonal ("solo paran a por queso y
 # gasolina"): es el desprecio de la region de paso sin ponerlo en nuestra boca.
@@ -138,7 +138,11 @@ FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|pa
                # 2026-10-16, mapa de la Comunidad Valenciana (Unai): el porche que
                # tienen cerrado hasta junio se despacha mandandolo a dormir. Gesto
                # (irse a la siesta), no un tercer cliche: los dos son naranjas y horchata.
-               r'|y a la siesta)')
+               r'|y a la siesta'
+               # 2026-10-28, mapa de Navarra (Asier): la region de una semana de fiesta
+               # se despacha saliendo corriendo. Gesto (irse a la carrera, que ademas
+               # guiña al encierro), no un tercer cliche: los dos son San Fermin y pacharan.
+               r'|y a correr)')
 
 # §4.4b — FRASES DEL SPAM NINJA QUEMADAS. El dolor es SIEMPRE el mismo (dar con
 # el cliente ideal, empresa y persona), pero la FORMA rota en cada post. Iker,
@@ -4641,7 +4645,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # al blog. Se aceptan las dos para no tumbar los mapas viejos.
         _mapa_web = ('recursos.neety.com/mapas/' in texto
                      or 'neety.com/blog/mapa-industrial-' in texto)
-        chk(_mapa_web or bool(_mapa_luma),
+        # 2026-10-28 (post-workflow §8.1b): el gate de un recurso de la Academia puede ser
+        # la puerta de cualquier pilar, peloteo incluido. Ya se habia abierto para meme y
+        # "Las 10"; el mapa seguia exigiendo el blog y tumbaba el primer mapa al gate.
+        _mapa_gate = 'neety.com/academia/' in texto
+        chk(_mapa_web or bool(_mapa_luma) or _mapa_gate,
             'MAPA: el CTA enlaza a /mapas/{region}/ (§4.2 Paso 5)',
             'el mapa NO enlaza a /agendar/. Va "Mapa completo aquí: '
             'https://neety.com/blog/mapa-industrial-{region}", con la region en minuscula y sin '

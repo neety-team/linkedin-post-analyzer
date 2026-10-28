@@ -1592,7 +1592,9 @@ CRITERIO = [
     # Lo que no se pregunta por escrito no se mira: se pasan los que quedaban, cada uno solo en
     # los pilares donde aplica (CRITERIO_PILAR, abajo).
     ('ancla', 'Leelo como si lo subiera una consultora, una agencia o una constructora: ¿cuela? Di que palabra del oficio lo hace solo nuestro (ventas; en Unai vale ecosistema) (global §2.3 y §8)'),
-    ('motor', '¿Cual es el MOTOR y en que se sostiene? Meme: el motor A/B y su referencia validada; mapa o "Las 10": el dato o cliche verificado; lead magnet: el mecanismo (live, urgencia); tarjeta: el original (global §8, post-workflow §4)'),
+    # 28/10: una referencia de meme puede pasar todos los filtros y no parecerse a nada de lo que
+    # nos funciono (el globo de Yoda, 5.447). Se pregunta tambien a que meme NUESTRO se parece.
+    ('motor', '¿Cual es el MOTOR y en que se sostiene? Meme: el motor A/B, su referencia validada y a que meme NUESTRO se parece por formato y psicologia (grafica o evolucion con rotulos, relacion entre roles, captura) y no a los flojos (una persona sola, plantilla infantil) (post-workflow §4.4-PUBLICO); mapa o "Las 10": el dato o cliche verificado; lead magnet: el mecanismo (live, urgencia); tarjeta: el original (global §8, post-workflow §4)'),
     ('remix', '¿Que HUESO del original se roba y la mecanica del gancho es la misma, en una frase? ¿La referencia es de ventas, no la hemos usado ya y la traduccion literal esta escrita? (outliers §3.9c, post-workflow §4.4-PASO-0, -PASO-1-LITERAL, -FUENTE-VENTAS)'),
 ]
 # Que pilar contesta que clave. Las que no estan aqui las contestan todos.

@@ -761,6 +761,9 @@ def main():
             # correo 10 · Kaixito · ANZUELOS (programado mar 27/10 09:05)
             'cotillear empresa por empresa a mano': '2026-10-27',
             'saber cuales te compran, te lo ensenan': '2026-10-27',
+            # correo 11 · Kaixito · GRABACION (programado vie 30/10 09:05)
+            'se escapan menos si sabes cuales buscar': '2026-10-30',
+            'de eso va la grabacion entera': '2026-10-30',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el

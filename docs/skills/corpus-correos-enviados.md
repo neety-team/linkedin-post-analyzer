@@ -699,6 +699,66 @@ PD. Si me pillan, diré que fue el libro. Que se abre solo.
 
 ---
 
+## Kaixito 11 · la grabación por la puerta de atrás (el primer correo que manda a contenido · grabación del webinar en Loom)
+
+**Programado:** vie 2026-10-30 09:05 (+01:00) · campaña Brevo 33 · listas 15 + 4 + 16 + 19, sin exclusión · **198 destinatarios activos** contados el 29/10
+**Remitente:** `Kaixito de Neety` (`hola@neety.com`) · firma `Kaixito, la mascota de Neety` · GIF `alegría` (estreno), entre la grabación y la exclusividad
+**UTM escrito a mano:** `utm_campaign=correo-11-kaixito-grabacion` (destino Loom, que no es nuestra web)
+
+### El asunto y el preheader
+
+```
+se te escapó el webinar? no pasa nada
+```
+```
+Te lo paso por la puerta de atrás.
+```
+
+### El cuerpo, literal
+
+```
+Respira.
+
+Mis jefes grabaron el webinar del miércoles.
+Son 51 minutos, de principio a fin.
+
+[GIF alegría]
+
+En la web, para verlo, hay que dejar tus datos.
+
+Tú ya te apuntaste un día a algo nuestro.
+
+Así que a ti te lo paso directo, sin formularios.
+
+Dentro van los 3 niveles de la sesión.
+
+→ Buscar gratis por lo que hace una empresa.
+→ Qué pedirle a Claude para dar con empresas que no conoces.
+→ Y cómo lo hacemos nosotros con Neety.
+
+Un webinar que se escapa se recupera con un clic.
+Basta con darle al play.
+Un cliente que se escapa no vuelve tan fácil.
+
+Y se te van mientras buscas empresas a mano.
+
+Se escapan menos si sabes cuáles buscar.
+De eso va la grabación entera: loom.com/share/8bf01bd444fa4ca1b906429fc591632c
+
+Al final está el turno de preguntas.
+
+Si ya estuviste, te sirve para repasar con calma.
+Si no, la puedes ver a ratos, entre llamada y llamada.
+
+Kaixito, la mascota de Neety
+
+PD. Yo ya me la he visto 3 veces. En la tercera hasta tomé apuntes en mi libro, página 113. La 112 sigue siendo la de la siesta.
+```
+
+> **Real / inventado:** reales, la grabación de 51 minutos, los 3 niveles de la sesión, el turno de preguntas y el formulario de la web. Inventado, que Kaixito la ha visto 3 veces y sus apuntes.
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

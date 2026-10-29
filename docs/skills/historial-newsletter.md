@@ -1580,9 +1580,11 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Hecho al programar:** ninja a `QUEMADAS` de `validar-email.py` con fecha 27/10, cuerpo al corpus, regla de la trastada a `email-marketing §8l`. `validar-email.py` acepta además «por internet» y pide «evento» en la línea del webinar (regla del 21/10, portada hoy), y `--antes` ya no da por nuevo cualquier aviso.
 
-## 📝 CORREO 11 · Kaixito · la GRABACIÓN del webinar (BORRADOR 2026-10-29, para el vie 30/10 09:05 +01:00)
+## ✅ CORREO 11 · Kaixito · la GRABACIÓN del webinar (PROGRAMADO vie 30/10 09:05 +01:00)
 
-**Campaña Brevo 33 en BORRADOR**, releída de la API: `draft`, sin `scheduledAt`, remitente `Kaixito de Neety` (id 3), preheader, pie de la casa, un solo `href` con su UTM, GIF `alegría` (estreno; 200, 346.643 bytes, comprobado el 29/10). Auditor en verde para la 33. **Prueba enviada a `mario@neety.com`** (`204`). Se programa cuando se revise la prueba (`email-marketing §9a-BIS`). `salud-suscriptores.py` 5/5.
+**Prueba final revisada y OK al correo el 29/10; programado ese día**: `queued`, `scheduledAt 2026-10-30T09:05+01:00`, releído de la API con remitente con nombre, preheader, pie, GIF, `href` y destinatarios intactos; auditor en verde. ⚠️ **Mañana se comprueba que salió.** Al programar: ninja a `QUEMADAS` con fecha 30/10 y cuerpo literal al corpus. **Revisión:** clic limpio contra el 4,3% de los correos 5-7 y bajas de la lista 16 por entregado.
+
+**Campaña Brevo 33** (antes en borrador), releída de la API: `draft`, sin `scheduledAt`, remitente `Kaixito de Neety` (id 3), preheader, pie de la casa, un solo `href` con su UTM, GIF `alegría` (estreno; 200, 346.643 bytes, comprobado el 29/10). Auditor en verde para la 33. **Prueba enviada a `mario@neety.com`** (`204`). Se programa cuando se revise la prueba (`email-marketing §9a-BIS`). `salud-suscriptores.py` 5/5.
 
 | | |
 |---|---|
@@ -1631,12 +1633,13 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 - Correo 7 · Kaixito: la lista de 2.000 empresas apuntada en su libro y tachada a mano.
 - Correo 8 · Asier: el cliente descrito por sector y tamaño ("medio polígono") y la receta a mano en 5 pasos.
 - Correo 9 · Kaixito (enviado 20/10): la mascota dormida encima del libro en la empresa 37, mirando webs.
-- Correo 10 · Kaixito (programado 27/10): cotillea el guion de sus jefes la víspera del webinar.
+- Correo 10 · Kaixito (enviado 27/10): cotillea el guion de sus jefes la víspera del webinar.
+- Correo 11 · Kaixito (programado 30/10): la grabación por la puerta de atrás; la palabra hilo es «escapar», del asunto al enlace.
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11)
 - **Asier:** `Apunta.` (correo 8)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)

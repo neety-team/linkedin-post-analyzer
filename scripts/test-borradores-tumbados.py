@@ -354,11 +354,15 @@ CASOS += [
 # El caso "FOMO antes de la vispera" se quito el 27/10: depende de la fecha del dia y desde la
 # vispera ya no puede fallar. El de las plazas no depende de la fecha y se queda.
 HISTORIA_IKER_FOMO_27OCT = 'Medio mundo da por jubilado al comercial con la IA y en mis reuniones piden justo lo contrario 🤔\n\nCasi ninguno me pidió una IA que vendiera por él.\n\nMe pidieron quitarse la búsqueda de encima.\nUno me explicó que ese tiempo lo quería para contactar.\n\n"…es donde realmente se generan las oportunidades."\n\nUn correo escrito solo se nota a la legua.\nUna IA buscando empresas me ahorra semanas.\nUna llamada sin comercial detrás no la coge nadie.\n\nLa búsqueda a mano es lo único que yo ya aparqué.\n\nQuedan pocas horas para el evento gratis por internet del miércoles 28.\n\nBuscar a mano jubila antes al comercial que la IA.\nEsa búsqueda sí te enseñamos a quitártela: https://luma.com/7hhyx07z?utm_source=historia-ia-27oct-iker&utm_medium=post&utm_campaign=historia-ia-27oct&utm_content=iker\n\nLa IA que necesita un comercial es la que le deja llamar.\n'
-CASOS += [
-    (HISTORIA_IKER_FOMO_27OCT.replace('Quedan pocas horas para el evento', 'Quedan 20 plazas para el evento'),
-     '26/10: escasez de plazas en la linea de encima de un evento sin aforo',
-     'no vende escasez', ['--pilar', 'historia', '--cuenta', 'iker', '--publica-manana']),
-]
+# El check de escasez del webinar caduca con su seccion el 28/10 (global §4.4b-WEBINAR):
+# a partir del 29/10 este caso ya no tiene regla viva que lo tumbe.
+import datetime
+if datetime.date.today() <= datetime.date(2026, 10, 28):
+    CASOS += [
+        (HISTORIA_IKER_FOMO_27OCT.replace('Quedan pocas horas para el evento', 'Quedan 20 plazas para el evento'),
+         '26/10: escasez de plazas en la linea de encima de un evento sin aforo',
+         'no vende escasez', ['--pilar', 'historia', '--cuenta', 'iker', '--publica-manana']),
+    ]
 
 # 28/10: el ninja al gate de un recurso daba por sabido QUE directo (global §4.4b-CONTEXTO).
 HISTORIA_IKER_GATE_28OCT = """Medio mundo da por jubilado al comercial con la IA y mis clientes piden lo contrario 🤔

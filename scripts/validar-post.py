@@ -84,6 +84,7 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
+    'despiden': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'dan por oxidado': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'dan por oxidada': '2026-10-22 Bizkaia, mapa de Iker (de adición), en femenino',
     'tienen cerrad': '2026-10-16 Comunidad Valenciana, mapa de Unai',
@@ -294,6 +295,16 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Asier 29/10, mapa de Navarra de adicion, leido del texto publicado (BD, 12:05).
+    'desde la valla del corral no ves quién te compraría': '2026-10-29 mapa de Asier 29/10 (Navarra, gate del webinar, tipo 1), la linea 1 del ninja (recoge la metafora del gancho)',
+    'desde la valla del corral no ves quien te compraria': '2026-10-29 mapa de Asier 29/10, sin tilde',
+    'eso sí te lo enseñamos en vídeo y en diapositivas': '2026-10-29 mapa de Asier 29/10, la linea 2 del ninja',
+    'eso si te lo ensenamos en video y en diapositivas': '2026-10-29 mapa de Asier 29/10, sin tilde',
+    'las que te comprarían a ti siguen dentro, sin cartel': '2026-10-29 mapa de Asier 29/10, la linea puente',
+    'las que te comprarian a ti siguen dentro, sin cartel': '2026-10-29 mapa de Asier 29/10, la linea puente, sin tilde',
+    'cómo dejar de buscar a ciegas, elegir bien las empresas y llegar a quien firma': '2026-10-29 mapa de Asier 29/10, la linea de valor del contexto',
+    'como dejar de buscar a ciegas, elegir bien las empresas y llegar a quien firma': '2026-10-29 mapa de Asier 29/10, sin tilde',
+    'si te lo perdiste, ya lo tienes entero y sin pagar': '2026-10-29 mapa de Asier 29/10, la linea del por que ahora',
     # Asier 27/10, historia del fabricante que se sabe sus clientes de memoria, leido del texto publicado (BD, 13:54).
     'un buen comercial se sabe sus clientes de memoria': '2026-10-27 historia de Asier 27/10 (webinar, tipo 2), la linea 1 del ninja (recoge el gancho)',
     'a quién llegar en esos clientes, te lo enseñamos': '2026-10-27 historia de Asier 27/10, la linea 2 del ninja',
@@ -453,6 +464,7 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
+    'cuba': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'guatemala': '2026-10-27 Galicia, "Las 10" de Iker',
     'bosnia': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'costa rica': '2026-10-16 Comunidad Valenciana, mapa de Unai',
@@ -542,6 +554,7 @@ ARRANQUE_QUEMADO = {
         'queria': '2026-10-15 historia-video de Unai 15/10 ("No queria mas filtros / Queria descartar")',
     },
     'mapa': {
+        'ese': '2026-10-29 mapa de Navarra, Asier ("Ese corral no vive del chupinazo / de la cuajada")',
         'ni': '2026-09-22 mapa de Álava, Iker ("Ni la llena Celedón / Ni la llenan los blusas")',
         'aqui': '2026-09-22 mapa de Álava, Iker ("Aquí la sal / Aquí se discute / Aquí se sube")',
         'por': '2026-09-22 mapa de Álava, Iker ("Por fuera / Por dentro")',
@@ -596,6 +609,7 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'corral de la': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'lavadero del fin': '2026-10-27 Galicia, "Las 10" de Iker',
     'desván del cant': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'desvan del cant': '2026-10-22 Bizkaia, mapa de Iker, sin tilde',
@@ -626,6 +640,7 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'y a correr': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'y a secarse': '2026-10-27 Galicia, "Las 10" de Iker',
     'y se acab': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'y a la siesta': '2026-10-16 Comunidad Valenciana, mapa de Unai',
@@ -662,7 +677,8 @@ CLICHE_GANCHO_REGION = {
     'aragon': {'pilar': '2026-07-14 Asier', 'cierzo': '2026-07-14 Asier', 'jota': '2026-07-14 Asier',
                'ternasco': '2026-07-14 Asier', 'secarral': '2026-07-14 Asier',
                'cachirulo': '2026-10-16 Iker', 'esqui': '2026-10-16 Iker'},
-    'navarra': {'toro': '2026-06-30 Iker', 'txistorra': '2026-06-30 Iker', 'esparrago': '2026-08-07 Asier'},
+    'navarra': {'toro': '2026-06-30 Iker', 'txistorra': '2026-06-30 Iker', 'esparrago': '2026-08-07 Asier',
+                'san fermin': '2026-10-29 Asier', 'pacharan': '2026-10-29 Asier'},
     'galicia': {'pulpo': '2026-06-16 Iker', 'camino': '2026-06-16 Iker',
                 'marisco': '2026-10-27 Iker', 'gaita': '2026-10-27 Iker'},
     'valencia': {'playa': '2026-06-02 Iker', 'paella': '2026-06-02 Iker',
@@ -3478,7 +3494,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 # En los mapas viejos de la BD el enlace ya es lnkd.in: siguen exentos.
                 _mapa = pilar == 'mapa' and (
                     re.search(r'mapa completo', texto, re.I)
-                    or not re.search(r'luma\.com|solicitar-demo|/agendar', texto))
+                    # 29/10: el gate de un recurso (neety.com/academia/, que puerta_agendar traduce
+                    # a recursos.neety.com/academia/) tambien hay que ganarselo; sin esto el mapa de
+                    # Navarra al gate salia exento del molde, la transicion y el contexto.
+                    or not re.search(r'luma\.com|solicitar-demo|/agendar|/academia/', texto))
                 chk(_mapa or len(b) == 2,
                     'Spam ninja: DOS lineas pegadas, dolor arriba y enlace abajo (§4.4b)',
                     '%d lineas en el bloque del enlace. Con una sola el enlace llega sin '
@@ -3585,6 +3604,23 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                         ('"%s" da por sabido de que se habla. Antes del bloque, una linea que diga '
                          'que es, cuando o como fue y que le resuelve al lector: "De eso dimos hoy '
                          'una charla por videollamada."' % _ref.group(0)) if (_ref and not _ctx) else '')
+                    # ⏳ PASADO SIN AMBIGUEDAD (29/10, global §4.4b-CONTEXTO): con una fecha de
+                    # evento delante, "el miercoles 28 organizamos" se lee igual en presente que
+                    # en pasado, y un evento que ya paso parece anunciarse. Los -amos/-imos
+                    # regulares son iguales en los dos tiempos; los preteritos irregulares no.
+                    _solo_pasado = {'hicimos', 'dimos', 'tuvimos', 'vimos', 'fuimos', 'estuvimos', 'pudimos',
+                                    'quisimos', 'vinimos', 'dijimos', 'trajimos', 'supimos', 'pusimos'}
+                    _fecha_ev = re.search(r'\b(lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo) \d{1,2}\b'
+                                          r'|\b\d{1,2} de (enero|febrero|marzo|abril|mayo|junio|julio|agosto|'
+                                          r'septiembre|octubre|noviembre|diciembre)\b', _encima)
+                    _ambiguo = sorted({w for w in re.findall(r'\b\w+(?:amos|imos)\b', _encima)
+                                       if w not in _solo_pasado})
+                    chk(not (_fecha_ev and _ambiguo),
+                        'CONTEXTO: un evento pasado no se lee en presente (global §4.4b-CONTEXTO)',
+                        ('con "%s" delante, %s se lee igual en presente que en pasado. Si el evento ya '
+                         'paso: hicimos, dimos, tuvimos, o una marca (ayer, el pasado miercoles)'
+                         % (_fecha_ev.group(0), ', '.join(_ambiguo))) if (_fecha_ev and _ambiguo) else '',
+                        aviso=True)
                     chk(False, 'ENTREGA: el contexto antes del ninja, para quien nos lee por PRIMERA vez (global §4.4b-CONTEXTO)',
                         'lee las lineas de antes del bloque como alguien que no nos conoce: ¿sabe que es '
                         'lo que hay detras del enlace, de donde sale, que le resuelve y por que ahora? '

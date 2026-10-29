@@ -287,6 +287,7 @@ miente.**
   pulsó y marcando los internos `@neety.com`).
 - **⛔ Y el clic que se mira es el de `linksStats`, no el de `globalStats`:** `uniqueClicks` cuenta
   también el enlace de BAJA. En el correo 3 son 4 contra 2. **El del panel está inflado por 2x-4x.**
+  - **Caso del 29/10:** el correo 7 marcaba en el panel 32 clics entre 107 (un 30%) y eran **5 personas** (2 al enlace nuestro). Con dos enlaces el inflado se dispara, porque los escáneres pulsan todos. Ningún porcentaje de clics se da sin pasar por `metricas-brevo.py --quien`.
 - **⛔ Y aún así hay que descontar los nuestros:** el 14/09, **2 de los 3 clics de los correos 2 y 3
   eran de `mario@neety.com`** abriéndolos para revisarlos. Un clic interno en una lista de 45 mueve el
   CTR más que cualquier decisión de copy. **Se descuenta siempre, y por eso el script lo marca.**
@@ -635,6 +636,7 @@ Mismo mapa que `post-workflow §8.1b`, porque el objetivo de conversión cambia 
 - **Evento con inscripción abierto** → su Luma (Leads). Así fue en septiembre con el presencial y en octubre con el webinar.
 - **Recurso recién nacido de un evento** (la presentación del webinar, `neety.com/academia/webinar-clientes-ia`) → su gate, mientras dure el «te lo perdiste» (Leads). La grabación solo se promete cuando esté subida.
 - **Sin evento ni recurso nuevo** → `/solicitar-demo` (Oportunidades), el destino por defecto.
+- **📊 Lo que dice nuestro dato (29/10, `historial-newsletter`):** la demo saca más clics que la inscripción al webinar (4,3% contra 2,0%, p≈0,12, dirección) y **ninguno de los dos convierte** (0 reuniones de 14 clics, 1 inscrito de 7). El correo 11 prueba por primera vez un destino de contenido inmediato, la grabación.
 - **⚠️ Lo que cambia en correo:** la lista ya tiene permiso. Un gate no le suma un lead nuevo, le sirve contenido. Por eso el correo que manda al gate del recurso se mide en clics y descargas, no en leads, y no se manda a los que ya lo rellenaron. Esos están en su audiencia `📥 Recursos · …` del CRM, que se usa como exclusión.
 
 ### 4b · La PD

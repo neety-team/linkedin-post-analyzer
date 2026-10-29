@@ -1603,6 +1603,27 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **CSV final de Luma (29/10):** 205 aprobados, 101 se conectaron, 46 casillas. Subido a la herramienta el 29/10 por `POST /api/accounts/webinar-csv` (el evento queda en 205 inscritos y 101 asistentes; leads de eventos 35 → 37). **Subido al CRM el 29/10** (Audiencias → 📅 Inscritos de Luma, `Webinar 1`, modo casilla, lista 19): 205 inscritos en el CRM (160 nuevos), 46 con permiso → Brevo +39, 7 ya estaban, 1 dado de baja que no se toca.
 
+## 📈 REVISIÓN ADELANTADA DE LOS CORREOS 5 A 10 (29/10, con `metricas-brevo.py --quien --listas 15,4,16,19` y el CSV final de Luma)
+
+Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y sin el enlace de baja. Es el único que vale (`email-marketing §1`).
+
+| correo | destino | entregados | aperturas | clic del panel | **clic limpio** | conversión | bajas |
+|---|---|---|---|---|---|---|---|
+| 5 | `/agendar/` | 111 | 65-87% (tanda 2 inflada) | 26 | **7 (6,3%)** | 0 reuniones | 0 |
+| 6 | `/agendar/` | 111 | 57,7% | 26 | **5 (4,5%)** | 0 reuniones | 3 |
+| 7 | `/solicitar-demo` + AMA | 107 | 61,7% | **32 (29,9%)** | **2 al nuestro + 3 a AMA (4,7%)** | 0 reuniones | 2 |
+| 8 | Luma | 108 | 63,9% | 9 | **1 (0,9%)** | 0 inscritos | 1 |
+| 9 | Luma | 119 | 57,1% | 10 | **4 (3,4%)**, 2 a los 60-90 s (posible escáner) | 1 inscrito (partner de IONOS, no comprador) | 3 |
+| 10 | Luma | 116 | **65,5%** | 7 | **2 (1,7%)** | 0 inscritos | 1 |
+
+1. **El "casi 30%" del correo 7 no existe.** Es el contador del panel (32 clics únicos entre 107), que suma el enlace de baja, a los internos y lo que pulsan los escáneres en cada enlace, y ese correo tenía dos. Personas reales: 5, y al enlace nuestro, 2. Es el mismo inflado de `email-marketing §1`, aquí de 6 veces.
+2. **Destino, en dirección:** a la demo o a agendar (5-7), 14 clics limpios entre 329 (4,3%); a Luma (8-10), 7 entre 343 (2,0%). **Fisher p≈0,12: dirección, no prueba**, y cambian a la vez la lista (la cohorte de Neety Forward entra en el 5), el remitente, el pilar y la posición del enlace. **Y ninguno de los dos convierte:** 14 clics a la demo dieron 0 reuniones, y 7 a Luma, 1 inscrito.
+3. **Quien pulsa es casi siempre la misma gente.** 28 clics de lead en toda la serie, de unas 20 personas, y 5 repiten (`blug.es` 3 veces, otros 2-4). Desde el correo 9 **todos los clics y todas las bajas son de la lista 16**; las listas 15 y 4 no pulsan nada. Ningún clicador de los correos 8-10 se inscribió después al webinar por otra vía.
+4. **Correo 10 (ANZUELOS, víspera):** la apertura más alta de la serie comparable (65,5%, con 17 aperturas de Apple que inflan) y el peor resultado en Luma (0 inscritos por 1.000 entregados, contra 8,4 del 9). Asunto en pregunta con secreto: abre; la víspera de una sesión gratis ya no inscribe. 1 baja (lista 16), contra 3 del 9.
+5. **Posición del enlace, a vigilar (sin aislar):** 45-50% (correos 5-6: 6,3% y 4,5%) · 64% (9: 3,4%) · 67% (8: 0,9%) · 75% (10: 1,7%). Baja a la vez que el destino cambia a Luma, así que no se puede separar. El correo 11 lo lleva al 82%, el más tarde de la serie.
+
+**Para el correo 11:** primer destino de contenido inmediato (la grabación), sin reunión ni inscripción. La vara es el clic limpio de los correos 5-7 (4,3%); si la supera, el freno no era el correo sino pedir un compromiso (reunión o fecha). La entran por primera vez las 46 casillas del webinar (lista 19), la audiencia más caliente que ha tenido la newsletter.
+
 ## Ángulos y vehículos usados, puesto al día (2026-10-13)
 - Correo 4 · Kaixito: la lista de invitados en su libro (evento).
 - Correo 5 · Iker: la objeción de la IA que escribe mensajes.

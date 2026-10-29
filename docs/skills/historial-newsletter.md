@@ -1580,6 +1580,29 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Hecho al programar:** ninja a `QUEMADAS` de `validar-email.py` con fecha 27/10, cuerpo al corpus, regla de la trastada a `email-marketing §8l`. `validar-email.py` acepta además «por internet» y pide «evento» en la línea del webinar (regla del 21/10, portada hoy), y `--antes` ya no da por nuevo cualquier aviso.
 
+## 📝 CORREO 11 · Kaixito · la GRABACIÓN del webinar (BORRADOR 2026-10-29, para el vie 30/10 09:05 +01:00)
+
+**Campaña Brevo 33 en BORRADOR**, releída de la API: `draft`, sin `scheduledAt`, remitente `Kaixito de Neety` (id 3), preheader, pie de la casa, un solo `href` con su UTM, GIF `alegría` (estreno; 200, 346.643 bytes, comprobado el 29/10). Auditor en verde para la 33. **Prueba enviada a `mario@neety.com`** (`204`). Se programa cuando Iker revise la prueba (`email-marketing §9a-BIS`). `salud-suscriptores.py` 5/5.
+
+| | |
+|---|---|
+| Asunto | `te perdiste el webinar? no pasa nada` (36 car, pregunta de tú a tú sin `¿`, con `webinar` explícito a petición de Iker). Descartados: `te cuelo en el webinar?` (la trastada de colarse roza la travesura del correo 10) y `llegaste tarde al webinar?` (suena a reproche, la culpa del correo 0) |
+| Preview | `Te lo paso por la puerta de atrás.` |
+| Palanca | **alivio** (nueva en Kaixito: `email-marketing §8l` la tenía sin gastar) + el trato de casa: en la web se pide el formulario, a la lista se le da directo |
+| Micro-apertura | `Respira.` (nueva). `Buenas noticias.` la tumba el validador como saludo |
+| Destino | **la grabación en Loom, directa** (Iker, 29/10: la lista ya está dentro, no tiene sentido mandarla al gate). `loom.com/share/8bf01bd444fa4ca1b906429fc591632c` con `utm_campaign=correo-11-kaixito-grabacion`. ⚠️ La web tiene desde esta mañana un enlace que abre el gate sin formulario (`neety.com/academia/webinar-clientes-ia?acceso=nl-29oct`, `landing` 83d6a6d): si Iker lo prefiere, solo cambia el `href` |
+| Ninja | `Lo que sí pasa factura son los meses buscando.` / `Cómo ahorrártelos, en la grabación entera:` (46/42), recoge `pasa` del asunto · contexto `Perderse una sesión tiene arreglo.` |
+| Destinatarios | listas **15 + 4 + 16 + 19**, sin exclusión (es contenido para todos, también para los inscritos). 168 activos únicos el 29/10 **antes** de subir el CSV final al CRM; con él entran ~29 casillas del webinar que hoy no están en Brevo |
+| Longitud | 131 palabras · Validador **43/43** (aviso aceptado: una sola PD) |
+| PD | una, de broma, del libro: los apuntes en la página 113, la 112 sigue siendo la de la siesta (vuelve al correo 9) |
+| Real / inventado | real: grabación de 51 min (Loom, 3.065 s), los 3 niveles (descripción de Luma), el turno de preguntas, el gate de la web. Inventado: que Kaixito la ha visto 2 veces y sus apuntes |
+
+**Variable en prueba: la línea de por qué le llega** (`Tú ya te apuntaste un día a algo nuestro.`), brazo B del A/B abierto el 26/10, medido en **bajas de la lista 16 por entregado** contra los correos 6 y 9 (brazo A). Cambia también el destino (Loom, no Luma), que lo impone el contenido. Clics de Loom en `linksStats`; las visualizaciones, en Loom.
+
+🔴 **Riesgo avisado:** cuarto correo en 16 días para la cohorte de la lista 16 (correos 8, 9, 10 y 11) y segundo de esta semana. En el 9 se dieron 3 de baja (las 3 de la 16) y en el 10, 1 (lectura del 29/10, sin desglosar por lista).
+
+**CSV final de Luma (29/10):** 205 aprobados, 101 se conectaron, 46 casillas. Subido a la herramienta el 29/10 por `POST /api/accounts/webinar-csv` (el evento queda en 205 inscritos y 101 asistentes; leads de eventos 35 → 37). **Al CRM lo sube Iker** (Audiencias → 📅 Inscritos de Luma, `Webinar 1`, modo casilla): la ruta pide sesión. Hasta entonces la lista 19 tiene 7 contactos y faltan 29 casillas que no existen en Brevo (ninguna bloqueada).
+
 ## Ángulos y vehículos usados, puesto al día (2026-10-13)
 - Correo 4 · Kaixito: la lista de invitados en su libro (evento).
 - Correo 5 · Iker: la objeción de la IA que escribe mensajes.

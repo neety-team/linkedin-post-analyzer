@@ -17,7 +17,8 @@ Formato esperado del fichero:
     (cuerpo)
 
 Uso:
-    python scripts/validar-email.py <fichero.txt> [--antes <version anterior.txt>]
+    python scripts/validar-email.py <fichero.txt> --punch "neutro -> elegido -> se pasa" [--antes <version anterior.txt>]
+    (--punch: la escalera del verbo del asunto, obligatoria, email-marketing §2-PUNCH)
     (--antes: retoque pedido sobre una version ya validada; sale ❌ si abre un fallo o un aviso
     que la anterior no tenia, working-preferences §1d-BIS)
 
@@ -814,6 +815,18 @@ def main():
         checks.append(ok('Firma con el nombre del remitente'))
     else:
         checks.append(fallo('No se ve la firma humana con el nombre del remitente al final'))
+
+    # ⛔ ESCALERA DEL VERBO DEL ASUNTO (29/10, email-marketing §2-PUNCH): la regla de
+    # global §2.9-ESCALERA es de TODO gancho y el asunto es el gancho del correo, pero solo
+    # la pedia validar-post.py. El correo 11 salio en verde con `te perdiste` (el neutro)
+    # sin que nada preguntase por un peldaño mejor. Se escribe por argumento, como la
+    # clave `punch` de --criterio: --punch "perderse -> escaparse -> plantar".
+    _punch = sys.argv[sys.argv.index('--punch') + 1] if '--punch' in sys.argv[:-1] else ''
+    if len([p for p in re.split(r'\s*(?:→|->)\s*', _punch) if p.strip()]) >= 3:
+        checks.append(ok(f'Escalera del verbo del asunto escrita ({_punch})'))
+    else:
+        checks.append(fallo('Falta la escalera del verbo del ASUNTO: --punch "neutro -> elegido -> el que se pasa" '
+                            '(global §2.9-ESCALERA, email-marketing §2-PUNCH). El verde no dice si para el scroll'))
 
     # ⛔ RETOQUE (Iker, 2026-10-22, working-preferences §1d-BIS): el retoque se queda y lo
     # que rompa se arregla; si no hay forma, el retoque se rechaza. Se compara con la version

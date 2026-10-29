@@ -1622,7 +1622,7 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 4. **Correo 10 (ANZUELOS, víspera):** la apertura más alta de la serie comparable (65,5%, con 17 aperturas de Apple que inflan) y el peor resultado en Luma (0 inscritos por 1.000 entregados, contra 8,4 del 9). Asunto en pregunta con secreto: abre; la víspera de una sesión gratis ya no inscribe. 1 baja (lista 16), contra 3 del 9.
 5. **Posición del enlace, a vigilar (sin aislar):** 45-50% (correos 5-6: 6,3% y 4,5%) · 64% (9: 3,4%) · 67% (8: 0,9%) · 75% (10: 1,7%). Baja a la vez que el destino cambia a Luma, así que no se puede separar. El correo 11 lo lleva al 82%, el más tarde de la serie.
 
-**Para el correo 11:** primer destino de contenido inmediato (la grabación), sin reunión ni inscripción. La vara es el clic limpio de los correos 5-7 (4,3%); si la supera, el freno no era el correo sino pedir un compromiso (reunión o fecha). La entran por primera vez las 46 casillas del webinar (lista 19), la audiencia más caliente que ha tenido la newsletter.
+**Para el correo 11:** primer destino de contenido inmediato (la grabación), sin reunión ni inscripción. La vara es el clic limpio de los correos 5-7 (4,3%); si la supera, el freno no era el correo sino pedir un compromiso (reunión o fecha). Y entran por primera vez las 46 casillas del webinar (lista 19), la audiencia más caliente que ha tenido la newsletter.
 
 ## Ángulos y vehículos usados, puesto al día (2026-10-13)
 - Correo 4 · Kaixito: la lista de invitados en su libro (evento).

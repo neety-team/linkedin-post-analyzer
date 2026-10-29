@@ -357,6 +357,211 @@ def main():
                                 f'la suelta es la base (§3: 92-99% del corpus) y los bloques '
                                 f'son la variedad'))
 
+    # ======================================================================
+    # PORTADO DE validar-post.py (29/10, email-marketing §3-PORTADOS). El correo 11 salio
+    # 45/45 con un salto al ninja (el dolor aparecia por primera vez dentro del bloque),
+    # un 2 y un 3 separados solo por el GIF y un ciclo 1-2-1-2-1 al final que el check de
+    # ciclo no veia porque excluye el tramo de la venta. Todo eso ya lo miraba el validador
+    # de posts. Se cuenta el cuerpo hasta la firma: ni la firma ni las postdatas.
+    # ======================================================================
+    _i_pd = next((i for i, b in enumerate(bloques) if re.match(r'^\s*PP?\.?D\.?[ .:]', b, re.I)), len(bloques))
+    _cb = bloques[:_i_pd]
+    if _cb and rem_base and rem_base in _cb[-1].lower() and len(_cb[-1].splitlines()) == 1:
+        _cb = _cb[:-1]                                   # fuera la firma
+    _ls_de = lambda b: [l.strip() for l in b.splitlines() if l.strip()]
+    _prosa = [(i, _ls_de(b)) for i, b in enumerate(_cb)
+              if not b.strip().startswith('[') and not es_lista_con_marcador(b)]
+
+    # 1) LINEA INDIVIDUAL ENTRE BLOQUES (§3: "nunca un bloque de 2 pegado a uno de 3, y siempre
+    #    una linea individual entre bloques"). Estaba escrito y no lo miraba nadie. El GIF NO
+    #    separa: se ve, pero no es una linea, y en Outlook o con imagenes bloqueadas desaparece.
+    _pegados = []
+    _seq = [b for b in _cb if not es_lista_con_marcador(b)]
+    _seq = [_ls_de(b) for b in _seq if not b.strip().startswith('[')]
+    for a, b in zip(_seq, _seq[1:]):
+        if len(a) > 1 and len(b) > 1:
+            _pegados.append(f'{len(a)}+{len(b)} ("{a[0][:30]}…" / "{b[0][:30]}…")')
+    if _pegados:
+        checks.append(fallo('Bloque pegado a otro bloque, sin línea suelta en medio (el GIF no cuenta): '
+                            + ' | '.join(_pegados[:2]) + ' (§3, global §3.2)'))
+    else:
+        checks.append(ok('Línea individual entre cada bloque de 2-3 (el GIF no separa)'))
+
+    # 2) EL PRIMER BLOQUE MULTIPLE ES DE DOS, y 3) MAS DOSES QUE TRESES (global §3.2, Iker
+    #    10/08 y 16/10: "mas lineas individuales, luego bloques de dos y luego de tres").
+    _multi = [len(ls) for _, ls in _prosa if len(ls) > 1]
+    if _multi and _multi[0] != 2:
+        checks.append(aviso(f'El primer bloque múltiple es de {_multi[0]}: los doses van antes que los '
+                            f'treses (global §3.2)'))
+    elif _multi:
+        checks.append(ok('El primer bloque múltiple es de DOS'))
+    _n2 = sum(1 for n in _multi if n == 2)
+    _n3 = sum(1 for n in _multi if n >= 3)
+    if _n3 > _n2:
+        checks.append(aviso(f'{_n3} bloque(s) de 3 y {_n2} de 2: el orden de frecuencia es sueltas, '
+                            f'luego doses, luego treses (global §3.2)'))
+    else:
+        checks.append(ok(f'Más doses que treses ({_n2} de 2, {_n3} de 3)'))
+
+    # 4) CADA LINEA DE UN BLOQUE ES UNA ORACION CERRADA (global §3.2, 21/10) y
+    # 5) UNA ORACION POR LINEA (Iker, 26/10). Las postdatas quedan fuera: son broma y los
+    #    correos 9 y 10, aprobados, llevan dos frases en la PD.
+    _partidas, _dos_or = [], []
+    for _, ls in _prosa:
+        for k, l in enumerate(ls):
+            if 'http' in l:
+                continue
+            _sig = ls[k + 1] if k + 1 < len(ls) else ''
+            if len(ls) > 1 and (l.endswith((',', ';')) or (_sig[:1].islower() and 'http' not in _sig)):
+                _partidas.append(l[:50])
+            if re.search(r'[a-záéíóúñü0-9)%"»”][.!?…]["»”]?\s+[¿¡"«“A-ZÁÉÍÓÚÑ]', l):
+                _dos_or.append(l[:50])
+    if _partidas:
+        checks.append(fallo('Oración partida en varias líneas de un bloque: ' + ' | '.join(_partidas[:2])
+                            + ' (cada línea de un bloque se cierra, global §3.2)'))
+    else:
+        checks.append(ok('Cada línea de un bloque es una oración cerrada'))
+    if _dos_or:
+        checks.append(aviso('Dos oraciones en una línea: ' + ' | '.join(_dos_or[:2])
+                            + '. Van en dos líneas, en bloque (Iker, 26/10)'))
+    else:
+        checks.append(ok('Una oración por línea en el cuerpo'))
+
+    # 6) LINEAS CORTAS (§3: diana 7-9 palabras; "si una linea pasa de ~12, partela") y
+    # 7) RITMO VISUAL EN EL MOVIL (global §3.2-VISUAL, 21/10): el patron cuenta las lineas que
+    #    escribo, el lector ve las que pinta el movil. Se mide con el tope de 55 del ninja
+    #    (§5-NINJA: pasando de ahi la linea se parte en el movil). La URL no cuenta, igual
+    #    que en el tope de 55 del ninja: con ella saltaban los correos 9 y 10, aprobados.
+    _largas = [l for _, ls in _prosa for l in ls
+               if 'http' not in l and len(re.findall(r'\w+', l)) > 12]
+    if _largas:
+        checks.append(aviso(f'{len(_largas)} línea(s) de más de 12 palabras: "{_largas[0][:55]}…". '
+                            f'Diana 7-9 (§3)'))
+    else:
+        checks.append(ok('Ninguna línea pasa de 12 palabras'))
+    _vis = []
+    for _, ls in _prosa:
+        _v = sum(-(-len(re.sub(r'https?://\S+', '', l).rstrip()) // 55) or 1 for l in ls)
+        _vis.append(_v)
+    _pv = [i for i in range(len(_vis) - 1) if _vis[i] > 1 and _vis[i + 1] > 1]
+    if _pv:
+        checks.append(aviso(f'Ritmo visto en el móvil {"-".join(map(str, _vis))}: una línea de más de 55 '
+                            f'se pinta como dos y queda pegada a otro bloque. Acórtala (global §3.2-VISUAL)'))
+    else:
+        checks.append(ok(f'Ritmo visto en el móvil sin bloques pegados ({"-".join(map(str, _vis))})'))
+
+    # 8) EL CICLO Y LA SUELTA, SOBRE LO QUE VE EL OJO. El check de arriba excluye el tramo de la
+    #    venta para no medir una regla contra otra; pero el lector no lo excluye, y el 1-2-1-2-1
+    #    del final del correo 11 (contexto, ninja, suelta, par, suelta) se leia de metronomo.
+    _pf = [len(ls) for _, ls in _prosa]
+    if len(_pf) >= 6:
+        _cf = any(_pf[i] == _pf[i+2] == _pf[i+4] and _pf[i+1] == _pf[i+3] and _pf[i] != _pf[i+1]
+                  for i in range(len(_pf)-4))
+        if _cf:
+            checks.append(aviso(f'Ritmo entero {"-".join(map(str, _pf))}: alterna cinco bloques seguidos '
+                                f'(1-2-1-2-1), contando el ninja. Junta dos sueltas o mete una más'))
+        else:
+            checks.append(ok('Ritmo entero, con el ninja, sin alternancia de metrónomo'))
+        _suf = sum(1 for n in _pf if n == 1) / len(_pf)
+        if _suf < 0.6:
+            checks.append(aviso(f'Contando el ninja, solo el {_suf:.0%} de los bloques son líneas sueltas. '
+                                f'La prioridad es sueltas, luego doses, luego treses (§3)'))
+        else:
+            checks.append(ok(f'Contando el ninja, la suelta domina ({_suf:.0%})'))
+
+    # 9) LA TRANSICION AL NINJA (global §4.4b-TRANSICION, 20/10): el cuerpo llega al bloque
+    #    por una escalera (siembra, bisagra, giro, dolor), no de un salto. Lo mecanizable: la
+    #    linea 1 del ninja repite una palabra (raiz de 5) de las 3 lineas de antes, sin contar
+    #    la de contexto de un evento. Si no repite ninguna, el dolor sale por primera vez
+    #    dentro del bloque. El oido decide el resto: se imprimen para leerlas en alto.
+    _raiz = lambda t: {re.sub(r'[áàä]', 'a', re.sub(r'[éè]', 'e', re.sub(r'[íì]', 'i', re.sub(r'[óò]', 'o',
+                       re.sub(r'[úùü]', 'u', w.lower())))))[:5] for w in re.findall(r'[A-Za-zÁÉÍÓÚÑáéíóúñü]{5,}', t)}
+    _vacias = {'porqu', 'despu', 'tambi', 'cuand', 'donde', 'mient', 'sobre', 'entre', 'hasta',
+               'desde', 'estoy', 'estas', 'tiene', 'puede', 'hacer', 'todos', 'ahora', 'nuest'}
+    _todas = [l for b in _cb if not b.strip().startswith('[') for l in _ls_de(b)]
+    _il = next((k for k, l in enumerate(_todas) if 'http' in l), None)
+    if _il and _il >= 1:
+        _n1 = _todas[_il - 1]
+        _prev = [l for l in _todas[:_il - 1] if not l.startswith('→')]
+        if _prev and re.search(r'\b(lunes|martes|mi[eé]rcoles|jueves|viernes)\b', _prev[-1], re.I):
+            _prev = _prev[:-1]
+        _prev = _prev[-3:]
+        _com = (_raiz(_n1) & _raiz(' '.join(_prev))) - _vacias
+        _leer = ' / '.join('"%s"' % x[:45] for x in _prev) + ' → "' + _n1[:50] + '"'
+        if _com:
+            checks.append(ok(f'Transición al ninja: la línea 1 recoge "{sorted(_com)[0]}…" de las de '
+                             f'antes. Léelas en alto: {_leer}'))
+        else:
+            checks.append(aviso(f'Transición al ninja con SALTO: la línea 1 no repite nada de las 3 de antes, '
+                                f'así que el dolor sale por primera vez dentro del bloque. {_leer}. Escalera: '
+                                f'siembra, bisagra, giro, dolor (global §4.4b-TRANSICION)'))
+        # 10) LA BISAGRA: LA LINEA 2 RECOGE LA 1 (global §4.4b-MOLDE). Un demostrativo, un
+        #     sustantivo repetido, el "si" que contesta a un "no", o un interrogativo que
+        #     recoge el nombre de arriba ("Saber cuales te compran", correo 10).
+        _n2l = _todas[_il]
+        _pre2 = re.split(r'https?://', _n2l)[0]
+        _dem = re.search(r'\b(es[ae]s?|eso|est[aeo]s?|ah[ií]|all[ií]|aqu[ií]|cu[aá]l(es)?|qui[eé]n(es)?)\b', _pre2, re.I)
+        if not _dem and re.search(r'\b(no|nunca|nadie)\b', _n1, re.I):
+            _dem = re.search(r'\bs[ií]\b', _pre2, re.I)
+        _eco = (_raiz(_n1) & _raiz(_pre2)) - _vacias
+        if _dem or _eco:
+            checks.append(ok('Ninja: la línea 2 recoge la 1 (bisagra: %s)'
+                             % (('"%s"' % _dem.group(0)) if _dem else 'repite ' + sorted(_eco)[0])))
+        else:
+            checks.append(fallo(f'Ninja: la línea 2 no recoge la 1, ni con un demostrativo ni repitiendo una '
+                                f'palabra suya: dos frases sueltas, no un bloque ("{_pre2.strip()[:50]}"). '
+                                f'Un pronombre pegado al verbo no basta: se pierde (global §4.4b-MOLDE)'))
+        # 11) EL NINJA VA DESPUES DEL VALOR (global §4.4b-VALOR, 08/10): si hay lista, detras.
+        _pos_l = cuerpo.find(_n2l)
+        _items = [m.start() for m in re.finditer(r'(?m)^\s*(?:\d+[.)]\s|→)', cuerpo)]
+        if _items and _pos_l < max(_items):
+            checks.append(fallo('Ninja ANTES de la lista: el enlace se gana después del valor (global §4.4b-VALOR)'))
+        elif _items:
+            checks.append(ok('Ninja después del valor (la lista)'))
+
+    # 12) MARCA, IGUAL QUE EN LOS POSTS (brand-voice §2b, aboutme §1, brand-voice §1b): el
+    #     lector del correo es el mismo director comercial de 55 que el del post.
+    _ANGL = {'prompt': 'la instrucción / lo que le pides', 'prompts': 'las instrucciones / lo que le pides',
+             'pipeline': 'la cartera', 'funnel': 'el embudo', 'forecast': 'la previsión',
+             'workflow': 'el proceso', 'engagement': 'la respuesta', 'insight': 'el hallazgo',
+             'insights': 'los hallazgos', 'pitch': 'el discurso', 'closing': 'el cierre',
+             'software': 'la herramienta', 'online': 'por videollamada / en directo'}
+    _sin_url = re.sub(r'https?://\S+', ' ', cuerpo)
+    _ang = [w for w in _ANGL if re.search(r'\b' + w + r'\b', _sin_url, re.I)]
+    if _ang:
+        checks.append(fallo('Anglicismo con traducción llana: ' + ' · '.join(f'"{w}" → {_ANGL[w]}' for w in _ang)
+                            + ' (brand-voice §2b)'))
+    else:
+        checks.append(ok('Sin anglicismos que tengan traducción llana'))
+    if re.search(r'\b(la|una|esta|esa|nuestra|su)\s+(nueva\s+|primera\s+)?neety\b(?!\s+forward)', _sin_url, re.I):
+        checks.append(fallo('NEETY va en masculino: el nuevo Neety (aboutme §1)'))
+    _sust = [l for l in cuerpo.splitlines()
+             if re.search(r'd[ií]as contados|sustitu\w*|reemplaz\w*|jubil\w*', l, re.I)
+             and re.search(r'comercial|vendedor|equipo|personas|puesto', l, re.I)]
+    if _sust:
+        checks.append(fallo(f'MARCA: plantea que la IA sustituye al comercial ("{_sust[0][:50]}"). '
+                            f'Es la visión de la casa, también en correo (brand-voice §1b)'))
+    _cuerpo_sin_firma = '\n'.join(l for b in _cb for l in _ls_de(b))
+    _nn = len(re.findall(r'\bneety\b(?!\s+forward)', re.sub(r'https?://\S+', ' ', _cuerpo_sin_firma), re.I))
+    if _nn > 1:
+        checks.append(aviso(f'Neety sale {_nn} veces en el cuerpo: como mucho una, y la firma ya lo dice '
+                            f'(brand-voice §4.5)'))
+    # 13) CIFRAS ELEGIDAS EN IMPAR (global §2.5b): lo que eliges tu va impar y creible; un dato
+    #     verificado se queda como esta (el script no los distingue, asi que es aviso).
+    _pares = []
+    _sl = re.sub(r'(?m)^\s*\d+[.)]\s', '', _sin_url)
+    for _m in re.finditer(r'(?<![\d.,])(\d{1,2})(?![\d.,])', _sl):
+        _cola = _sl[_m.end():_m.end() + 4]
+        _ant = _sl[max(0, _m.start() - 12):_m.start()]
+        if re.match(r'\s*[€%]|\s*[MkKh](?![a-záéíóúñ])', _cola) or re.search(
+                r'(lunes|martes|mi[eé]rcoles|jueves|viernes|\bel|\bdel|p[aá]gina|a las)\s+$', _ant, re.I):
+            continue
+        if int(_m.group(1)) % 2 == 0 and int(_m.group(1)):
+            _pares.append(_m.group(1))
+    if _pares:
+        checks.append(aviso(f'Cifra par {", ".join(_pares)}: si la eliges tú, impar (global §2.5b). '
+                            f'Si es un dato verificado, se queda'))
+
     # --- enlaces: 1 principal como máximo ---
     links = re.findall(r'https?://\S+', cuerpo)
     # ⛔ PUERTA NUEVA (Iker, 2026-10-05): "ya no mandamos a la web de recursos a

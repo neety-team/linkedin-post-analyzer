@@ -1330,19 +1330,23 @@ sorprende, que es de lo que vive este pilar.
 > **Y la gracia no depende de conocer una herramienta concreta** (Docusign, un CRM, Spotify en el CV): si un comercial cualquiera no la conoce, el chiste se cae (`§4.4-SUJETO`). Pasó el 29/10 con una referencia de 52% de risa que se tumbó por eso.
 >
 > ### 🗂️🗂️ 4.4-SUBTIPOS · EL MEME SE DIVIDE EN CINCO SUBTIPOS, Y CADA UNO SIRVE PARA UN OBJETIVO (medido el 2026-10-30) — GLOBAL
-> **Igual que el peloteo se abre en mapa, "Las 10" y despiece, el meme se abre en subtipos.** La psicología de fondo es siempre la misma (hacer reír con una verdad de ventas); cambia el formato, y con él lo que mueve. Clasificación hecha a mano leyendo cada gancho y su ficha del historial (memes de las 3 cuentas desde mayo; BD del 30/10). n pequeños: dirección, no ley.
+> **Igual que el peloteo se abre en mapa, "Las 10" y despiece, el meme se abre en cinco subtipos de una o dos palabras: desgaste, captura, gráfica, traductor y personaje.** La psicología de fondo es siempre la misma (hacer reír con una verdad de ventas); cambia el formato, y con él lo que mueve. n pequeños: dirección, no ley.
 >
-> | subtipo | qué es | n | impresiones (mediana · máx) | clics por 1.000 (mediana, posts con enlace) | para qué |
+> | subtipo (pilar en la BD) | qué es | n | impresiones (mediana · máx) | clics por 1.000 impresiones | para qué |
 > |---|---|---|---|---|---|
-> | **A · Desgaste físico o humano** | un rasgo del cuerpo o de la vida que empeora con el cargo, el tiempo o las llamadas: calvicie, peso, la cara del wojak | 7 | **139.493** · 226.456 | 0,37 (n=3) | **ALCANCE**: el que más llega, con diferencia |
-> | **B · Captura documental** | pantallazo creíble de un correo, chat, tuit, buscador, factura o llamada | 12 | 25.587 · 101.028 | **2,17** (n=8) | **CONVERSIÓN**: el que más clics saca por impresión |
-> | **C · Gráfica con rótulos** (humor inteligente) | una curva o un eje que cuenta la verdad de ventas: la montaña rusa del caos | 2 | 88.111 · 134.816 | 0,40 | alcance con el mejor engagement (618 likes y 62 reposts en el caos) |
-> | **D · Traductor o dos cajas** | lo que se dice contra lo que es | 4 | 7.639 · 193.410 | 1,64 | lotería: un outlier enorme (el perro) y el resto flojo |
-> | **E · Plantilla de personaje o escena** | fotograma de película, animal o viñeta de reacción | 14 | **4.088** · 49.831 | 2,2 (n=5, muestras de pocos clics) | **el que peor alcanza**: no es la primera opción |
+> | **desgaste** · `Meme (desgaste)` | un rasgo del cuerpo o de la vida que empeora con el cargo, el tiempo o las llamadas: calvicie, peso, la cara del wojak | 8 | **135.924** · 226.457 | 0,17 | **ALCANCE**: el que más llega, con diferencia, y el que menos clica |
+> | **captura** · `Meme (captura)` | pantallazo creíble de un correo, chat, tuit, buscador, factura, llamada o ficha de producto | 15 | 14.174 · 101.032 | **1,27** | **CONVERSIÓN**: el que más clics saca por impresión |
+> | **gráfica** · `Meme (grafica)` | una curva, un eje o un mapa dibujado con rótulos que cuenta la verdad de ventas: la montaña rusa del caos, el país inventado | 4 | 62.182 · 134.823 | 0,29 | alcance con humor inteligente (618 likes y 62 reposts en el caos) |
+> | **traductor** · `Meme (traductor)` | lo que se dice contra lo que es, en dos cajas | 4 | 7.644 · 193.415 | 0,50 | lotería: un outlier enorme (el perro) y el resto flojo |
+> | **personaje** · `Meme (personaje)` | plantilla de película, dibujo animado, animal o viñeta de reacción | 17 | **4.101** · 49.837 | 0,62 | **el que peor alcanza**: no es la primera opción |
 >
-> - **Cómo se usa:** el objetivo del post elige el subtipo (`§8.1b`). Si es **alcance o marca**, A o C. Si es **Oportunidades o Leads**, B. A y C se pueden juntar (una gráfica de desgaste) y suman las dos palancas de alcance.
-> - **Dentro de A, la psicología que ya está gastada:** la calvicie (5 veces), el peso (2), el sueño (1, borrado), las canas y las arrugas (remixes propios, rindieron menos). **Pendientes de probar, si aparece referencia de ventas validada:** las ojeras y el cansancio, la voz, la espalda, el café y el estrés.
-> - **Al buscar referencia se dice primero el subtipo** que pide el objetivo del día, y se busca en la cantera de ese subtipo (Mundorf para A y gráficas, 1up para capturas y plantillas).
+> **Cómo se midió:** memes de las 3 cuentas desde mayo, clasificados a mano uno por uno leyendo el gancho, la imagen y su ficha del historial (BD del 30/10). Clics por 1.000 = clics totales del subtipo entre sus impresiones totales. **Manda la plantilla sobre el tema:** el Bob Esponja que se va poniendo cachas (14/08) cuenta un cambio corporal, pero es `personaje` porque el chiste depende de reconocer al personaje; la katana (26/08 y 27/08) también. Los dos "este país" (12/06 y 23/06) son `gráfica` (`§4.2-PAIS`). Los posts antiguos que el clasificador había marcado como meme y no lo eran (eventos, anuncios, encuestas) pasaron a `otro`, y el webinar del 28/10/2025 a `evento`.
+>
+> - **⛔ Toda entrega de un meme dice su subtipo** en la entrega, fuera del bloque (`Subtipo: desgaste`), y por qué encaja con el objetivo del post. La clave `motor` de `--criterio` ya lo pregunta.
+> - **Al publicarlo se le pone el pilar del subtipo a mano** en la herramienta (⋮ del post en Cuentas): el clasificador automático solo sabe decir `meme`, y un meme sin subtipo no entra en la tabla de arriba. Los filtros por `meme` incluyen los cinco subtipos.
+> - **Cómo se usa:** el objetivo del post elige el subtipo (`§8.1b`). Si es **alcance o marca**, desgaste o gráfica. Si es **Oportunidades o Leads**, captura. Desgaste y gráfica se pueden juntar (una gráfica de desgaste) y suman las dos palancas de alcance.
+> - **Dentro de desgaste, la psicología que ya está gastada:** la calvicie (5 veces: por cargo, por minutos y por roles), el peso (2), el sueño (1, borrado), las canas y las arrugas (remixes propios, rindieron menos). **Pendientes de probar, si aparece referencia de ventas validada:** las ojeras y el cansancio, la voz, la espalda, el café y el estrés. Lo que se quema es el eje de la escalera, no el rasgo: la calvicie por número de llamadas (30/10) es un ángulo nuevo.
+> - **Al buscar referencia se dice primero el subtipo** que pide el objetivo del día, y se busca en la cantera de ese subtipo (Mundorf para desgaste y gráficas, 1up para capturas y plantillas).
 > - **Se rehace en la revisión del lunes** con los memes nuevos, como `outliers-database §4.0b-MOTOR`.
 >
 > **⭐ PASO 0 — ELIGE LA CUENTA QUE AGUANTA EL MEME, NO REBAJES EL MEME PARA LA CUENTA (Iker, 2026-07-27).** El nivel de burrada del original es parte del motor: si lo suavizas para que encaje en una cuenta sobria, te quedas con el tema y sin el chiste.

@@ -2783,7 +2783,7 @@ Te marcamos quién va a comprar y cuándo, y tu comercial entra solo ahí: [link
 
 **⛔ Lo que NO es esto:** una excusa para quitar agendar porque cuesta escribirlo. Si el post habla de vender, de clientes o de prospección, agendar entra y manda. Esto es solo para el post cuyo tema vive fuera de eso.
 
-**Mecanizado** con `--solo-correo` en `validar-post.py`, que convierte el fallo de orden en un check declarado. **Se declara, no se omite:** sin el flag, el validador sigue exigiendo el bloque de agendar, que es lo que tiene que pasar el 90% de las veces.
+**Mecanizado** con `--solo-correo` en `validar-post.py`, que convierte el fallo de orden en un check declarado. **Se declara, no se omite:** sin el flag, el validador sigue exigiendo el bloque de agendar, que es lo que toca cuando el post habla de vender. 🔄 30/10: sin el "90% de las veces" que ponía aquí, que no tenía dato; el destino se razona post a post (`post-workflow §8.1b`).
 
 #### ⛔⛔⛔ 4.4b-AUTOGOL · EL DOLOR DEL POST NUNCA PUEDE SER LO QUE NOSOTROS VENDEMOS, CONTADO COMO QUE NOS PASA (Iker, 2026-08-27) — GLOBAL
 
@@ -2968,11 +2968,11 @@ Recordatorios rápidos que siguen viviendo aquí porque afectan a la elección d
 
 ## 7 · Timing
 
-- **Mejores días:** martes (mayor outlier ratio), miércoles y jueves cerca. Lunes tibio. Viernes y fin de semana: evitar (feed de ocio).
+- **Mejores días:** martes (mayor outlier ratio), miércoles y jueves cerca. Lunes tibio. ~~Viernes y fin de semana: evitar (feed de ocio).~~ 🔄 **El viernes no es mal día** (`post-workflow`, medido sobre 20 viernes: ahí están nuestros dos mejores posts). La hora, en `working-preferences §1h`, que es la medición más reciente y manda sobre esta sección.
 - **Mejores horas — MANDA LO MEDIDO (`outliers-database §3.16`, 230 posts de las 3 cuentas):** **las 10:00** (mejor mediana y el doble de impresiones que cualquier franja; 14 de los 18 posts >4x salieron a las 10 o las 12), segunda opción **las 12:00**. 🔴 **Las 9:00 es un error** (1 de 23 pasó de 2x, rinde como las 8:00): la clave es adelantarse al pico de las 11, no madrugar. **La tarde no mata un post, pero la franja 17-19 va 0 de 12** → un lead magnet (motor = comentarios) NO se publica después de comer. *(El viejo "11-12 / 14-15 / 18-19" era folklore sin medir; queda anulado por esto.)*
   > **Criterio general:** cuando dos reglas de estas skills se contradicen, **manda SIEMPRE la basada en datos actuales de nuestras cuentas** sobre la intuición o el folklore heredado (mismo principio que `outliers-database §4` manda sobre `§3`).
 - **Cadencia:** por defecto **3 posts/semana por cuenta** (≈9/semana entre las 3); máx. 1/día por cuenta (dos el mismo día se canibalizan). Mínimo absoluto: 1/semana/cuenta. Exclusividad de CATEGORÍA por día entre las 3 cuentas (peloteo / lead magnet / meme intercalados) — lógica completa en `post-workflow §8`.
-- **Ventana de oro:** primeros 60 min tras publicar. Si no hay 5+ likes / 1-2 comentarios en la primera hora, LinkedIn deja de distribuir.
+- **Ventana de oro (HIPÓTESIS, sin dato propio; 30/10):** se dice que si en los primeros 60 minutos no hay 5 o más likes y 1-2 comentarios, LinkedIn deja de distribuir. **Tenemos dos casos en contra:** un meme casi sin interacción interna que se hizo viral (punto siguiente) y un post programado, sin nadie delante, que llegó a 218.529 impresiones (`post-workflow §8`). No se usa para explicar un post flojo sin mirar antes el texto.
 - **Palanca de las 3 cuentas (interna, gratis):** somos 3 fundadores de la MISMA empresa → Iker, Unai y Asier **se comentan y repostean entre sí** en los primeros 30 min de cada post (comentario sustancioso, no "🔥"). Es el motor de arranque más fiable que tenemos y no cuesta nada. ⚠️ **Decisivo, pero no en el 100% de los casos (Iker, 2026-09-29):** en las 2 semanas de vacaciones hubo días sin que los jefes se comentaran entre sí y, aunque las historias fueron mal, un meme casi sin interacción interna se hizo súper viral. Se hace siempre que se pueda; si un día no se puede, no se da el post por perdido.
 - **Comentar antes de publicar:** 30-60 min antes, la cuenta que publica comenta de verdad en 5-10 personas que comentaron su post anterior → les salta la notificación y devuelven el comentario en la ventana de oro (táctica externa validada, `outliers-database §5.2`).
 - **Responder rápido:** contesta a los primeros comentarios en cuanto entran (alimenta la ventana de oro), con la voz de `brand-voice §7` (corto, vocales alargadas, agradecer si elogian).

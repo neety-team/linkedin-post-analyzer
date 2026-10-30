@@ -104,7 +104,7 @@ defecto.
 - **Tabla, infografía o datos:** en los datos, que son lo único que lleva caja (`§2b-bis`).
 - **Foto real o portada de vídeo:** en la cara y su gesto, con el titular arriba y grande.
 
-**Las reglas que ya eran esto sin llamarlo así:** la palabra naranja (`§4`), solo los datos llevan caja (`§2b-bis`), el titular más grande y más arriba (`§0a-bis` punto 3), la cifra del cheque que no va en naranja (`§0a-DIBUJO-2` punto 7) y la prueba de los 360 px. **Auditoría del 30/10 contra esta regla:** el único sitio donde el naranja caía fuera del foco era el meme dibujado (corregido ese día) y el sistema del meme desde cero de `§6`, que pedía la palabra naranja siempre y queda superado. El lead magnet, el mapa y el título de dos líneas en escalera ya ponían el naranja en el mensaje. **No está medido:** es un principio de diseño; si un meme sin naranja rinde distinto, se ve en la revisión del lunes.
+**Las reglas que ya eran esto sin llamarlo así:** la palabra naranja (`§4`), solo los datos llevan caja (`§2b-bis`), el titular más grande y más arriba (`§0a-bis` punto 3), la cifra del cheque que no va en naranja (`§0a-DIBUJO-2` punto 7) y la prueba de los 360 px. **Auditoría del 30/10 contra esta regla:** el único sitio donde el naranja caía fuera del foco era el meme dibujado (corregido ese día) y el sistema del meme desde cero de `§6`, que pedía la palabra naranja siempre y queda superado. El lead magnet, el mapa y el título de dos líneas en escalera ya ponían el naranja en el mensaje. **No está medido, y hay un dato en contra que hay que tener delante:** nuestros dos mejores memes de gráfica, la escalera de Asier del 12/08 (121.706 impresiones) y la de Iker (138.828), llevaban una palabra naranja en el título. No demuestra que el naranja ayude (no hubo versión sin él), pero impide dar la regla nueva por buena. **Queda como A/B abierto** en el registro de `historial-publicaciones.md`: memes con palabra naranja en el título contra memes sin ella, empezando por el de las llamadas de Iker del 30/10.
 
 ## ✏️✏️ 0a-DIBUJO · TODO LO QUE DIBUJA EL GENERADOR SALE EN DIBUJO MINIMALISTA, AUNQUE LA REFERENCIA SEA FOTO O 3D (Iker, 2026-10-01)
 
@@ -172,7 +172,7 @@ Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. *
 2. **⛔ La CAJA solo se queda donde separa una etiqueta de la ilustración: los roles.** El **título** y los **rótulos de los ejes** van en **texto suelto berenjena `#431b44` sobre el fondo**, sin recuadro. La caja ahí no aporta nada y encima mete una masa de color que compite con las figuras.
 3. **Y el motivo por el que se puede quitar, dicho por Iker:** *"como ya tenemos el fondo que no es un blanco, ya podemos aprovechar para poner arriba los textos en morado, y así no hace falta que tengan ese recuadro"*. **Sobre el mint claro, la berenjena tiene contraste de sobra**; la caja solo hace falta cuando el texto cae encima de una foto.
 
-**EL MODELO, y es nuestro:** la escalera de calvicie de Asier del 12/08 (**121.706 impresiones**). Título en berenjena con **una** palabra en naranja y sin caja · línea fina berenjena debajo · cajas berenjena con texto blanco **solo** en los seis roles · rótulo del eje en berenjena suelto · fondo mint. **Cuando el remix sea un gráfico o una infografía, ese es el acabado al que va, no el del original.**
+**EL MODELO, y es nuestro:** la escalera de calvicie de Asier del 12/08 (**121.706 impresiones**). Título en berenjena con **una** palabra en naranja (🔄 30/10: en el meme, sin palabra naranja salvo que la referencia la traiga; A/B abierto, ver `§0a-FOCO`) y sin caja · línea fina berenjena debajo · cajas berenjena con texto blanco **solo** en los seis roles · rótulo del eje en berenjena suelto · fondo mint. **Cuando el remix sea un gráfico o una infografía, ese es el acabado al que va, no el del original.**
 
 - **⚠️ Esto NO toca la excepción del pantallazo documental** (`§0a-sexta-bis` y `§0a-sexta-ter`): cuando la imagen finge ser una pantalla real, se calcan color y tipografía del original, porque lo que hace el chiste es reconocer el formato. La regla de aquí es para lo que **diseñamos nosotros**.
 - **Mecanizado** como punto 7 del aviso de entrega del prompt de imagen en `validar-post.py`.
@@ -1042,7 +1042,7 @@ esto:
 
 | elemento | cómo va |
 |---|---|
-| **Título** | **SIN caja**, texto berenjena directo sobre el fondo, con **UNA palabra en naranja** (`§0h`). El suyo: *"Subir en ventas siempre pasa **factura**"* |
+| **Título** | **SIN caja**, texto berenjena directo sobre el fondo, con **UNA palabra en naranja** (`§0h`; 🔄 30/10: en el meme, ninguna salvo que la referencia la traiga, A/B abierto en `§0a-FOCO`). El suyo: *"Subir en ventas siempre pasa **factura**"* |
 | **Etiquetas de datos** (los roles) | **CON caja** berenjena y texto blanco. **Las seis iguales entre sí** |
 | **Etiqueta del eje** | **SIN caja**, texto berenjena suelto |
 

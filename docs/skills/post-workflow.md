@@ -1327,6 +1327,23 @@ sorprende, que es de lo que vive este pilar.
 > **Se contesta en `--criterio`, clave `motor`**, que desde el 28/10 lo pregunta en meme. Primer caso: el meme de dos tribus de Iker del 29/10 (Loki, comercial contra el técnico: plantilla de ficción pero de relación entre roles; gancho llevado a absoluto discutible).
 > **🔄 29/10 · LA GRACIA TIENE QUE SOBREVIVIR A NUESTRO DIBUJO EN FLAT.** Nosotros redibujamos todo en flat illustration (`images §0a-DIBUJO`), así que una referencia que vive de reconocer a un personaje concreto pierde el motor al dibujarla: Loki en flat es un señor con melena y ropa verde, y nadie ve a Loki. **Vale** cuando la gracia está en un rasgo universal que se ve igual dibujado (el calvo, el esqueleto, el peso, el gesto) o en el texto, o cuando el personaje conserva en flat un rasgo icónico inconfundible (la bruja verde con sombrero en punta de Wicked). **No vale** cuando hay que reconocer a un actor o un personaje sin rasgo icónico. Por eso el Loki del 28/10 se cambió antes de publicar. El test: dibuja mentalmente la referencia en flat y sin nombres; si el chiste sigue, sirve.
 > **Y el ancla del gancho, de una sola lectura en el mundo del lector:** `pedido` se lee también como pedido de comida o de paquetería; en el gancho va `venta` o el término que solo exista en B2B (`global §2.2d-CORPUS`).
+> **Y la gracia no depende de conocer una herramienta concreta** (Docusign, un CRM, Spotify en el CV): si un comercial cualquiera no la conoce, el chiste se cae (`§4.4-SUJETO`). Pasó el 29/10 con una referencia de 52% de risa que se tumbó por eso.
+>
+> ### 🗂️🗂️ 4.4-SUBTIPOS · EL MEME SE DIVIDE EN CINCO SUBTIPOS, Y CADA UNO SIRVE PARA UN OBJETIVO (medido el 2026-10-30) — GLOBAL
+> **Igual que el peloteo se abre en mapa, "Las 10" y despiece, el meme se abre en subtipos.** La psicología de fondo es siempre la misma (hacer reír con una verdad de ventas); cambia el formato, y con él lo que mueve. Clasificación hecha a mano leyendo cada gancho y su ficha del historial (memes de las 3 cuentas desde mayo; BD del 30/10). n pequeños: dirección, no ley.
+>
+> | subtipo | qué es | n | impresiones (mediana · máx) | clics por 1.000 (mediana, posts con enlace) | para qué |
+> |---|---|---|---|---|---|
+> | **A · Desgaste físico o humano** | un rasgo del cuerpo o de la vida que empeora con el cargo, el tiempo o las llamadas: calvicie, peso, la cara del wojak | 7 | **139.493** · 226.456 | 0,37 (n=3) | **ALCANCE**: el que más llega, con diferencia |
+> | **B · Captura documental** | pantallazo creíble de un correo, chat, tuit, buscador, factura o llamada | 12 | 25.587 · 101.028 | **2,17** (n=8) | **CONVERSIÓN**: el que más clics saca por impresión |
+> | **C · Gráfica con rótulos** (humor inteligente) | una curva o un eje que cuenta la verdad de ventas: la montaña rusa del caos | 2 | 88.111 · 134.816 | 0,40 | alcance con el mejor engagement (618 likes y 62 reposts en el caos) |
+> | **D · Traductor o dos cajas** | lo que se dice contra lo que es | 4 | 7.639 · 193.410 | 1,64 | lotería: un outlier enorme (el perro) y el resto flojo |
+> | **E · Plantilla de personaje o escena** | fotograma de película, animal o viñeta de reacción | 14 | **4.088** · 49.831 | 2,2 (n=5, muestras de pocos clics) | **el que peor alcanza**: no es la primera opción |
+>
+> - **Cómo se usa:** el objetivo del post elige el subtipo (`§8.1b`). Si es **alcance o marca**, A o C. Si es **Oportunidades o Leads**, B. A y C se pueden juntar (una gráfica de desgaste) y suman las dos palancas de alcance.
+> - **Dentro de A, la psicología que ya está gastada:** la calvicie (5 veces), el peso (2), el sueño (1, borrado), las canas y las arrugas (remixes propios, rindieron menos). **Pendientes de probar, si aparece referencia de ventas validada:** las ojeras y el cansancio, la voz, la espalda, el café y el estrés.
+> - **Al buscar referencia se dice primero el subtipo** que pide el objetivo del día, y se busca en la cantera de ese subtipo (Mundorf para A y gráficas, 1up para capturas y plantillas).
+> - **Se rehace en la revisión del lunes** con los memes nuevos, como `outliers-database §4.0b-MOTOR`.
 >
 > **⭐ PASO 0 — ELIGE LA CUENTA QUE AGUANTA EL MEME, NO REBAJES EL MEME PARA LA CUENTA (Iker, 2026-07-27).** El nivel de burrada del original es parte del motor: si lo suavizas para que encaje en una cuenta sobria, te quedas con el tema y sin el chiste.
 > - **Iker (2º jefe) = memes BRUTOS o informales.** Le da igual el registro mientras el post viaje.

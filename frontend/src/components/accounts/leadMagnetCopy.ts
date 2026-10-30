@@ -245,10 +245,12 @@ const CATALOGO: RecursoDef[] = [
     ],
   },
   {
-    // WEBINAR (Unai, 2026-10-30). La grabacion y la presentacion del webinar del 28/10, en la
-    // Academia de neety.com. Primer lead magnet de comentario con este recurso: los posts del
-    // 28/10 lo llevaban con enlace directo en el cuerpo. La palabra va DENTRO de la imagen
-    // (`WEBINAR` + el sector), asi que al post lo reconocen las PISTAS.
+    // WEBINAR (2026-10-30). La grabacion y la presentacion del webinar del 28/10, en la
+    // Academia de neety.com. Se dio de alta para un lead magnet de comentario en Unai que al
+    // final salio con el enlace directo en el cuerpo (sin nadie para contestar el fin de
+    // semana), asi que hoy no hay palabra en ningun post. Se queda para el primer lead magnet
+    // de comentario con este recurso: la palabra irá DENTRO de la imagen (`WEBINAR` + el
+    // sector) y al post lo reconoceran las PISTAS, que hay que volver a comprobar contra su texto.
     //
     // El enlace lleva el UTM del DM de este post para poder comparar los dos brazos del A/B;
     // en el siguiente lead magnet con este recurso se cambia utm_campaign y utm_content.

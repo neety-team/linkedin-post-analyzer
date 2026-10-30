@@ -131,7 +131,7 @@ Maximo 80 palabras en total. No inventes nada que no se vea.`,
   return resumen;
 }
 
-const PENDIENTE_SQL = `p.pillar = 'meme'
+const PENDIENTE_SQL = `(p.pillar = 'meme' OR p.pillar LIKE 'meme_%')
   AND p.image_summary IS NULL
   AND (p.image_summary_tried_at IS NULL
        OR p.image_summary_tried_at < NOW() - INTERVAL '${REINTENTO_HORAS} hours')`;
@@ -146,7 +146,7 @@ export async function getMemeImageSummary(postId: string): Promise<string | null
     const { rows } = await pool.query(
       `SELECT p.image_summary, p.raw_data, (${PENDIENTE_SQL}) AS pendiente
          FROM posts p JOIN creators c ON c.id = p.creator_id
-        WHERE p.id = $1 AND p.pillar = 'meme' AND c.is_managed = TRUE`,
+        WHERE p.id = $1 AND (p.pillar = 'meme' OR p.pillar LIKE 'meme_%') AND c.is_managed = TRUE`,
       [postId]
     );
     const post = rows[0];

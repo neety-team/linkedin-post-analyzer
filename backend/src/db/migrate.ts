@@ -1020,6 +1020,19 @@ const migration = `
     ('historia_evento', 'Historia/Evento', 'indigo', 'Historia cuya escena es nuestro evento (no basta con que el ninja lleve al evento)', TRUE, 75)
   ON CONFLICT (slug) DO UPDATE SET builtin = TRUE;
 
+  -- SUBTIPOS DEL MEME (2026-10-30, post-workflow §4.4-SUBTIPOS): como el peloteo
+  -- se abre en mapa, "Las 10" y despiece, el meme se abre en cinco. Se asignan A
+  -- MANO (pillar_manual), porque el subtipo esta en la imagen y el clasificador
+  -- no la ve; el clasificador sigue emitiendo 'meme' y todo lo que filtra por
+  -- 'meme' acepta tambien 'meme_*' (utils/pilarBase).
+  INSERT INTO pillars (slug, label, color, ayuda, builtin, sort_order) VALUES
+    ('meme_desgaste',  'Meme (desgaste)',  'naranja', 'Meme de desgaste fisico o humano por cargo, tiempo o llamadas (calvicie, peso). El que mas alcanza', TRUE, 61),
+    ('meme_captura',   'Meme (captura)',   'naranja', 'Meme de captura documental: correo, chat, tuit, buscador, factura o llamada. El que mas convierte', TRUE, 62),
+    ('meme_grafica',   'Meme (grafica)',   'naranja', 'Meme de grafica con rotulos: una curva o un eje que cuenta la verdad de ventas', TRUE, 63),
+    ('meme_traductor', 'Meme (traductor)', 'naranja', 'Meme de traductor o dos cajas: lo que se dice contra lo que es', TRUE, 64),
+    ('meme_personaje', 'Meme (personaje)', 'naranja', 'Meme de plantilla de personaje o escena: pelicula, animal o vineta de reaccion', TRUE, 65)
+  ON CONFLICT (slug) DO UPDATE SET builtin = TRUE;
+
   -- v36: la config del lead magnet, a la base (Iker, 2026-08-20).
   --
   -- Vivia en localStorage con clave por post. Con la pestana Lead Magnet

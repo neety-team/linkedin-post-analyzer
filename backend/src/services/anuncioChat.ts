@@ -23,6 +23,7 @@ import pool from '../db';
 import { sendToGoogleChat } from './googleChat';
 import { generateSupportiveComments } from './commentGenerator';
 import { cabeceraChat } from './cabeceraChat';
+import { pilarBase } from '../utils/pilarBase';
 // OJO: `scrapeCreatorPosts` vive en routes/accounts y ESE modulo importa de
 // aqui (`anunciarPostsDeHoy` para el endpoint manual). Un import estatico
 // cerraria un ciclo y en CommonJS el que se cargue segundo se veria al otro a
@@ -87,7 +88,7 @@ export function componerMensaje(input: {
 }): string {
   // Solo el nombre de pila, para que las tres cuentas se lean igual.
   const first = ((input.creatorName || '').trim().split(/\s+/)[0] || 'ACCOUNT').toUpperCase();
-  const frase = pick(CABECERAS[input.pillar || 'otro'] || CABECERAS.otro);
+  const frase = pick(CABECERAS[pilarBase(input.pillar) || 'otro'] || CABECERAS.otro);
   const header = `${input.cabecera || `🐝 ${frase.replace('{N}', first)}:`}\n${input.url || '(sin URL)'}`;
   const recordatorio = pick(RECORDATORIOS);
   const cleaned = input.comments.map((c) => c.trim()).filter(Boolean);

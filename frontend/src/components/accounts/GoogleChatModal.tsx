@@ -73,7 +73,7 @@ function buildHeader(creatorName: string | null, url: string | null, pillar: str
   // Solo el nombre de pila, para que las tres cuentas se lean igual
   // (IKER / UNAI / ASIER), nunca nombre y apellido.
   const first = ((creatorName || '').trim().split(/\s+/)[0] || 'ACCOUNT').toUpperCase();
-  const frase = pick(CABECERAS[pillar || 'otro'] || CABECERAS.otro);
+  const frase = pick(CABECERAS[(pillar && pillar.startsWith('meme_') ? 'meme' : pillar) || 'otro'] || CABECERAS.otro);
   return `🐝 ${frase.replace('{N}', first)}:\n${url || '(sin URL)'}`;
 }
 

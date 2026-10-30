@@ -1,4 +1,5 @@
 import pool from '../db';
+import { expandirPilares } from '../utils/pilarBase';
 
 /**
  * El buscador de outliers.
@@ -237,7 +238,9 @@ function construirWhere(f: FiltrosOutliers): Construccion {
     ['tipo_contenido', 'p.content_type = ANY($?::text[])'],
   ];
   for (const [clave, sql] of listas) {
-    const v = f[clave] as string[] | undefined;
+    let v = f[clave] as string[] | undefined;
+    // 30/10: pedir 'meme' trae tambien sus subtipos (meme_desgaste...).
+    if (clave === 'pilar' && v?.length) v = expandirPilares(v);
     if (v?.length) add(sql, v);
   }
 

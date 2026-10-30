@@ -19,6 +19,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { trackedCreate } from './claudeClient';
 import { stripLoneSurrogates } from '../utils/sanitizeText';
+import { esMeme, pilarBase } from '../utils/pilarBase';
 
 const PILAR_PALABRA: Record<string, string> = {
   historia: 'HISTORIA',
@@ -39,8 +40,8 @@ function esVideo(contentType: string | null | undefined): boolean {
 
 /** La palabra del pilar. Con video manda el formato ("VIDEO RESUMEN EVENTOOO"). Sin pilar, nada. */
 export function palabraDelPilar(pillar: string | null | undefined, contentType?: string | null): string {
-  if (esVideo(contentType) && pillar !== 'meme') return 'VIDEO';
-  return PILAR_PALABRA[pillar || ''] || '';
+  if (esVideo(contentType) && !esMeme(pillar)) return 'VIDEO';
+  return PILAR_PALABRA[pilarBase(pillar) || ''] || '';
 }
 
 // Se alarga la ULTIMA vocal, y solo en palabras que acaban en vocal o en

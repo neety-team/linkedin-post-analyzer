@@ -68,7 +68,8 @@ export type Pillar =
   | 'peloteo_objeto'
   | 'lead_magnet'
   | 'meme'
-  // Subtipos del meme (30/10): solo a mano, el clasificador emite 'meme'.
+  // Subtipos del meme (30/10): el clasificador emite 'meme'; el subtipo lo pone
+  // la lectura de la imagen (postImageText) o se pone a mano, que manda.
   | 'meme_desgaste'
   | 'meme_captura'
   | 'meme_grafica'

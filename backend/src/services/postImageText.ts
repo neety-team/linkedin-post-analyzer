@@ -1,5 +1,6 @@
 import pool from '../db';
 import { trackedCreate } from './claudeClient';
+import { MEME_SUBTIPOS } from '../utils/pilarBase';
 
 // LA IMAGEN DEL MEME, EN TEXTO Y UNA SOLA VEZ (Iker, 2026-09-17)
 //
@@ -27,6 +28,12 @@ import { trackedCreate } from './claudeClient';
 //
 // NUNCA LANZA: sin resumen, el generador sigue con la RULE 3f (no afirmar nada
 // de lo que la foto ensena), que es lo que habia hasta el 17/09.
+//
+// Y DE PASO, EL SUBTIPO DEL MEME (30/10, post-workflow §4.4-SUBTIPOS). El
+// clasificador por reglas no ve la imagen y solo sabe decir 'meme'; el subtipo
+// esta en la imagen. Asi que la misma llamada, que ya la mira, devuelve una
+// linea mas con el subtipo, y si el post sigue en 'meme' a secas y nadie lo ha
+// tocado a mano, pasa a 'meme_<subtipo>'. Lo que se ponga a mano manda siempre.
 
 const MAX_DIM = 512;
 const REINTENTO_HORAS = 6;
@@ -93,7 +100,25 @@ async function bajarReducida(url: string): Promise<string | null> {
 
 // La unica llamada que gasta tokens. Se marca el intento ANTES de nada, para
 // que un fallo no se reintente en cada vuelta ni en cada respuesta.
-async function resumir(postId: string, raw: any): Promise<string | null> {
+// Las definiciones son las de la tabla de la receta, con los casos frontera
+// que se decidieron al clasificar a mano los 48 memes del 30/10.
+const SUBTIPOS_PROMPT = `SUBTIPO: una sola palabra de estas cinco.
+- desgaste: un rasgo del cuerpo o de la vida empeora con el cargo, el tiempo o las llamadas (pelo, peso, ojeras, canas, cansancio). Aunque vaya en una grafica.
+- captura: pantallazo creible de un correo, chat, tuit, buscador, factura, llamada o ficha.
+- grafica: una curva, un eje, un mapa o un diagrama con rotulos, sin cambio fisico de una persona.
+- traductor: dos cajas o columnas, lo que se dice frente a lo que es.
+- personaje: plantilla de pelicula, dibujo animado, animal o viñeta de reaccion reconocible. Manda sobre desgaste si el chiste depende de reconocer al personaje.`;
+
+/** Saca la linea SUBTIPO del resumen. Devuelve el slug ('meme_desgaste') y el resumen sin esa linea. */
+export function separarSubtipo(texto: string): { subtipo: string | null; resumen: string } {
+  const m = texto.match(/^\s*SUBTIPO:\s*([a-záéíóú]+)\s*$/im);
+  const palabra = (m?.[1] || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const slug = `meme_${palabra}`;
+  const resumen = texto.replace(/^\s*SUBTIPO:.*$/im, '').trim();
+  return { subtipo: (MEME_SUBTIPOS as readonly string[]).includes(slug) ? slug : null, resumen };
+}
+
+async function resumir(postId: string, raw: any, textoPost?: string | null): Promise<string | null> {
   await pool.query(`UPDATE posts SET image_summary_tried_at = NOW() WHERE id = $1`, [postId]);
   const url = extraerUrlImagen(raw);
   if (!url) return null;
@@ -114,15 +139,23 @@ async function resumir(postId: string, raw: any): Promise<string | null> {
 TEXTO: todo el texto que se lee en la imagen, literal y en orden (si no hay, "ninguno").
 ESCENA: una frase con lo que se ve (personajes, situacion), sin interpretar.
 BROMA: una frase con donde esta el chiste.
-Maximo 80 palabras en total. No inventes nada que no se vea.`,
+${SUBTIPOS_PROMPT}
+Maximo 80 palabras sin contar el subtipo. No inventes nada que no se vea.${textoPost ? `\n\nEl texto del post, solo como contexto para el subtipo:\n${String(textoPost).slice(0, 600)}` : ''}`,
           },
         ],
       },
     ],
   });
   const block = message.content.find((b) => b.type === 'text') as { type: 'text'; text: string } | undefined;
-  const resumen = (block?.text || '').trim();
+  const { subtipo, resumen } = separarSubtipo((block?.text || '').trim());
   if (!resumen) return null;
+  if (subtipo) {
+    const r = await pool.query(
+      `UPDATE posts SET pillar = $2 WHERE id = $1 AND pillar = 'meme' AND pillar_manual IS NOT TRUE`,
+      [postId, subtipo]
+    );
+    if (r.rowCount) console.log(`[postImageText] subtipo ${subtipo} para el meme ${postId}`);
+  }
   await pool.query(
     `UPDATE posts SET image_summary = $2, image_summary_source_url = $3 WHERE id = $1`,
     [postId, resumen, url]
@@ -144,7 +177,7 @@ const PENDIENTE_SQL = `(p.pillar = 'meme' OR p.pillar LIKE 'meme_%')
 export async function getMemeImageSummary(postId: string): Promise<string | null> {
   try {
     const { rows } = await pool.query(
-      `SELECT p.image_summary, p.raw_data, (${PENDIENTE_SQL}) AS pendiente
+      `SELECT p.image_summary, p.raw_data, p.content_text, (${PENDIENTE_SQL}) AS pendiente
          FROM posts p JOIN creators c ON c.id = p.creator_id
         WHERE p.id = $1 AND (p.pillar = 'meme' OR p.pillar LIKE 'meme_%') AND c.is_managed = TRUE`,
       [postId]
@@ -153,7 +186,7 @@ export async function getMemeImageSummary(postId: string): Promise<string | null
     if (!post) return null;
     if (post.image_summary) return post.image_summary;
     if (!post.pendiente) return null;
-    return await resumir(postId, post.raw_data);
+    return await resumir(postId, post.raw_data, post.content_text);
   } catch (err: any) {
     console.warn('[postImageText] fallo leyendo el resumen:', err?.message);
     return null;
@@ -168,7 +201,7 @@ export async function getMemeImageSummary(postId: string): Promise<string | null
 export async function resumirMemesPendientes(): Promise<void> {
   try {
     const { rows } = await pool.query(
-      `SELECT p.id, p.raw_data
+      `SELECT p.id, p.raw_data, p.content_text
          FROM posts p JOIN creators c ON c.id = p.creator_id
         WHERE c.is_managed = TRUE
           AND p.published_at > NOW() - INTERVAL '7 days'
@@ -177,7 +210,7 @@ export async function resumirMemesPendientes(): Promise<void> {
         LIMIT ${MEMES_POR_VUELTA}`
     );
     for (const r of rows) {
-      await resumir(r.id, r.raw_data).catch((e: any) =>
+      await resumir(r.id, r.raw_data, r.content_text).catch((e: any) =>
         console.warn(`[postImageText] ${r.id}: ${e?.message}`)
       );
     }

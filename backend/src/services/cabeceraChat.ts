@@ -19,16 +19,24 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { trackedCreate } from './claudeClient';
 import { stripLoneSurrogates } from '../utils/sanitizeText';
-import { esMeme, pilarBase } from '../utils/pilarBase';
+import { esMeme } from '../utils/pilarBase';
 
 const PILAR_PALABRA: Record<string, string> = {
   historia: 'HISTORIA',
   // Para el equipo sigue siendo una historia: "EVENTO" delante suena a anuncio.
   historia_evento: 'HISTORIA',
   meme: 'MEME',
-  peloteo_mapa: 'PELOTEO',
-  peloteo_los10: 'LAS 10',
-  peloteo_objeto: 'DESPIECE',
+  // Los pilares con subtipo llevan el subtipo entre parentesis (30/10), para
+  // que el equipo lo vea igual que se apunta en la herramienta y el calendario.
+  // El parentesis no se alarga nunca: se alarga el pilar o el contexto.
+  meme_desgaste: 'MEME (DESGASTE)',
+  meme_captura: 'MEME (CAPTURA)',
+  meme_grafica: 'MEME (GRÁFICA)',
+  meme_traductor: 'MEME (TRADUCTOR)',
+  meme_personaje: 'MEME (PERSONAJE)',
+  peloteo_mapa: 'PELOTEO REGIONAL (MAPA)',
+  peloteo_los10: 'PELOTEO REGIONAL (LAS 10)',
+  peloteo_objeto: 'PELOTEO REGIONAL (DESPIECE)',
   lead_magnet: 'LEAD MAGNET',
   evento: 'EVENTO',
   tarjeta: 'TARJETA',
@@ -41,7 +49,7 @@ function esVideo(contentType: string | null | undefined): boolean {
 /** La palabra del pilar. Con video manda el formato ("VIDEO RESUMEN EVENTOOO"). Sin pilar, nada. */
 export function palabraDelPilar(pillar: string | null | undefined, contentType?: string | null): string {
   if (esVideo(contentType) && !esMeme(pillar)) return 'VIDEO';
-  return PILAR_PALABRA[pilarBase(pillar) || ''] || '';
+  return PILAR_PALABRA[pillar || ''] || (esMeme(pillar) ? 'MEME' : '');
 }
 
 // Se alarga la ULTIMA vocal, y solo en palabras que acaban en vocal o en

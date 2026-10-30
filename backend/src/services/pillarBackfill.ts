@@ -21,6 +21,7 @@
  */
 import pool from '../db';
 import { classifyPillar, PILLAR_RULES_VERSION } from './pillar';
+import { esMeme } from '../utils/pilarBase';
 
 const CLAVE = 'pillar_rules_version';
 
@@ -54,6 +55,9 @@ export async function reclassifyAllPosts(
       content_type: r.content_type,
     });
     por_pilar[pilar] = (por_pilar[pilar] || 0) + 1;
+    // El subtipo del meme lo pone la lectura de la imagen (postImageText) y el
+    // clasificador solo sabe decir 'meme': si los dos dicen meme, se queda el subtipo.
+    if (pilar === 'meme' && esMeme(r.pillar)) continue;
     if (pilar !== r.pillar) cambios.push({ id: r.id, pilar });
   }
 

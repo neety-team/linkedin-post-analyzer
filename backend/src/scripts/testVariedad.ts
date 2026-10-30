@@ -54,6 +54,7 @@ import {
 } from '../services/variedadComentarios';
 import { alargarPalabra, esEstirada, letrasAlAzar, alternarVocales, moverAlVerbo, limitarEstiradas } from '../services/replyGenerator';
 import { componerCabecera, limpiarContexto, palabraDelPilar } from '../services/cabeceraChat';
+import { separarSubtipo } from '../services/postImageText';
 import { classifyPillar } from '../services/pillar';
 
 // Textos reales de Unai (15/10 y 14/10), recortados a lo que decide el pilar.
@@ -418,6 +419,10 @@ ok(componerCabecera('VIDEO', 'COMERCIAL 5 AÑOS', 'UNAI', { cual: 0.99, letras: 
 ok(limpiarContexto('Nueva: "Kilómetros boli" de Iker', 'IKER', 'HISTORIA') === 'KILÓMETROS BOLI', 'limpia lo que devuelve el modelo', limpiarContexto('Nueva: "Kilómetros boli" de Iker', 'IKER', 'HISTORIA'));
 ok(limpiarContexto('cliente ideal vs sector', 'ISMAEL', '') === 'CLIENTE IDEAL vs SECTOR', 'el vs en minuscula');
 ok(limpiarContexto('La Rioja', 'ASIER', 'LAS 10') === 'LA RIOJA', 'la region conserva su articulo');
+ok(palabraDelPilar('meme_desgaste') === 'MEME (DESGASTE)' && palabraDelPilar('peloteo_mapa') === 'PELOTEO REGIONAL (MAPA)' && palabraDelPilar('meme') === 'MEME', 'el subtipo va entre parentesis detras del pilar (30/10)');
+ok(componerCabecera('MEME (DESGASTE)', '101 LLAMADAS FRÍO', 'IKER', { cual: 0, letras: 2 }) === '🐝 MEMEEE (DESGASTE) 101 LLAMADAS FRÍO de IKER:', 'el parentesis del subtipo no se alarga');
+ok(separarSubtipo('TEXTO: x\nSUBTIPO: Gráfica\nBROMA: y').subtipo === 'meme_grafica' && !separarSubtipo('TEXTO: x\nSUBTIPO: Gráfica').resumen.includes('SUBTIPO'), 'la linea del subtipo se lee y sale del resumen');
+ok(separarSubtipo('TEXTO: x\nSUBTIPO: otro').subtipo === null, 'un subtipo que no existe no se escribe');
 ok(palabraDelPilar('historia_evento', 'text_video') === 'VIDEO' && palabraDelPilar('historia_evento', 'image') === 'HISTORIA', 'video manda; historia/evento se anuncia como historia');
 ok(classifyPillar({ content_text: TELMO }) === 'historia_evento', 'la entrevista de Telmo es historia/evento');
 ok(classifyPillar({ content_text: EXCEL }) === 'historia', 'la historia del Excel con el ninja a Luma sigue siendo historia');

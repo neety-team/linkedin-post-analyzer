@@ -162,6 +162,21 @@ Iker le pasa a Unai (casi) siempre sus posts de evento o de historia para que lo
 - **Lo que no cambia:** el gancho sigue necesitando un hueco (`global §2.0`); en este carril suele ser el porqué (quién nos lleva, qué haremos), y se paga con el hito (`No vamos por nuestra cuenta.` → `Nos eligieron @ICEX y @Red.es…`). Y ventas puede ir en el cuerpo en una línea (`la nuestra va a hablar de vender a la industria`).
 - ~~*Propuesta mía:* que este carril no pase de 1 de cada 4 posts de Unai~~ (superada el 26/10: el ecosistema es lo principal de su cuenta). **Lo que sí sigue:** se mide aparte (impresiones, comentarios de fuera y la demografía de quién lo ve: `Venture Capital`, seniority), para que no se mezcle con la serie de ventas al leer su cuenta.
 
+#### ☂️ EL PARAGUAS DE SU CUENTA SE LLAMA EMPRENDIMIENTO, Y VENTAS CABE DEBAJO (2026-10-30)
+
+Lo que arriba son "dos tejados" (ventas y ecosistema) en la cuenta de Unai se planifica desde el 30/10 bajo **un solo paraguas: EMPRENDIMIENTO**, entendido como construir una empresa. Debajo caben sus cuatro caras, cada post en una: **vender** (el carril de siempre, con caso real cuando el post tiene que convertir), **fundar y liderar** (fundadores, equipo, decisiones), **invertir** (inversores, fondos, rondas) y **el territorio y sus instituciones** (programas, foros). Con ventas pasaba igual: el paraguas era ventas y cada gancho entraba por una perspectiva distinta.
+- **Por qué encaja:** vender es lo primero que tiene que resolver quien emprende, así que un post de ventas en su cuenta no se sale del paraguas, y uno de inversores tampoco. El límite es el mismo que en cualquier cuenta: un post que no toca ni la empresa ni el oficio de construirla (un plan de ocio, una afición) se sale.
+- **⚠️ Paraguas para PLANIFICAR, no palabra para el GANCHO.** `emprendimiento` o `emprendedores` dichos tal cual estrechan el gancho a la burbuja startup, y nuestro ICP (director comercial de 45-60, `aboutme §1`) no se llama a sí mismo emprendedor. En el gancho se rota la familia de siempre (`§1b` de arriba: inversores, fondos, fundadores, el programa, el territorio…) o se va a ventas. El validador ya acepta `emprend…` como ancla de ecosistema; usarla es posible, abusar de ella no.
+- **Iker y Asier siguen bajo el paraguas de ventas**, con excepciones declaradas.
+
+#### 🧪 GANCHO GENÉRICO EN UNAI: A/B DECLARADO, NO CARRIL NUEVO (2026-10-30, lanzamiento del 03/11)
+
+En un anuncio de la casa (el lanzamiento del nuevo Neety, colaborativo desde San Francisco) el gancho va **sin ancla de ventas ni de ecosistema** y con el bucle al máximo (`Hoy es el gran día y nos pilla a 9.000 km de casa 🌉`). Va contra el ancla de `global §2.3` (un gancho que podría subir cualquier cuenta no le dice a LinkedIn de qué va), así que se trata como **A/B**, no como regla:
+- **Las dos mitades del brazo:** el gancho no ancla y no delata el anuncio; **el cuerpo ata con ventas desde la línea 2** y paga el bucle con la misma palabra (`Hoy es el gran día porque sale el nuevo @Neety.`). Sin la segunda mitad no es un A/B, es un post huérfano.
+- **El efecto que busca es el del cumpleaños** (`post-workflow §4.6-HITO`): "hoy es un gran día" pide felicitar, y felicitar no pide postura. Es la psicología de la curiosidad (`global §1`) sin ningún dato que la cierre.
+- **Validador:** `--gancho-generico` (solo Unai, historia/evento o evento) pasa el ancla del gancho a aviso y exige que el cuerpo nombre la venta. Cada uso se declara en la entrega y entra en el registro de A/B del historial el día que se publica.
+- **Cómo se lee:** impresiones contra sus vídeos de historia/evento (3.197 y 3.941, con gancho de escena), demografía (cargos de ventas e industria contra el 1% y 0% de San Francisco) y clics a `/solicitar-demo` por 1.000. ⚠️ Confundido con el formato (vídeo de marca) y con el colaborativo: n=1, dirección y no ley.
+
 #### 🎙️ SUS POSTS DE PARTICIPACIÓN (MODERA, PONE O ASISTE): NADA QUE SE LEA COMO AUTOELOGIO NI REFRANES DE VENTAS METIDOS A LA FUERZA (revisión de Unai, 2026-10-27, mesa de DBA Conecta)
 
 Unai revisó el post de la mesa que moderó y quitó dos líneas. Lo que se aprende de ahí, y vale para cualquier post suyo que cuente un evento en el que estuvo:

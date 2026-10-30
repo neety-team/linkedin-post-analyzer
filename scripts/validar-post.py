@@ -744,6 +744,11 @@ ANCLA_DIRECCION = False
 # que NO es nuestro y no tiene inscripcion (Desafia San Francisco). No lleva Luma ni ninja de
 # agendar; si hay puerta, va sin enlace (el cafe). Solo con --pilar evento --evento-ajeno.
 EVENTO_AJENO = False
+# GANCHO GENERICO (2026-10-30, lanzamiento del 03/11): A/B declarado en la cuenta de Unai,
+# historia/evento o evento. El gancho va sin ancla de ventas ni de ecosistema ("Hoy es el gran
+# dia…") para medir si el bucle maximo alcanza mas, y el cuerpo ata con ventas en lo explicito.
+# El ancla del gancho pasa a aviso; que el cuerpo nombre la venta es fallo duro.
+GANCHO_GENERICO = False
 DIRECCION_ANCLA = (r'\b(inversi[oó]n\w*|invers\w+|inversor\w*|validar|valid\w+|mercados?'
                    r'|startups?|fundador\w*|capital|rondas?|emprend\w+|fondos?|venture|ecosistema'
                    r'|instituci\w+|empresari\w+|directiv\w+|CEOs?|aceleradoras?|cohorte)\b')
@@ -2177,6 +2182,20 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 '(cliente, cuenta, soporte, seguimiento) y la vinculacion con ventas baja al CUERPO'
                 if not _cs else f'ancla de su oficio: "{_cs.group(0)}" - y la vinculacion con VENTAS '
                 f'tiene que estar en el CUERPO (aboutme 2)')
+    elif GANCHO_GENERICO:
+        _es_unai = (cuenta or '').strip().lower() == 'unai'
+        chk(_es_unai and pilar in ('evento', 'historia'),
+            'GANCHO GENERICO: A/B declarado, solo Unai en historia/evento o evento (brand-voice §1b, 30/10)',
+            '' if (_es_unai and pilar in ('evento', 'historia')) else
+            '--gancho-generico solo vale en la cuenta de Unai y en historia/evento o evento')
+        chk(False, 'GANCHO GENERICO: el gancho va sin ancla a proposito (A/B declarado)',
+            ((detalle + '. ') if (fuerte or ambigua) else '') +
+            'Se declara en la entrega con su brazo de comparacion y se anota en el registro de A/B '
+            'del historial el dia que se publica', aviso=True)
+        _vt = re.search(ANCLA_VENTAS, cuerpo, re.I)
+        chk(bool(_vt), 'GANCHO GENERICO: el CUERPO ata con VENTAS (es la otra mitad del A/B)',
+            f'ancla de ventas en el cuerpo: "{_vt.group(0)}"' if _vt else
+            'el gancho no ancla y el cuerpo tampoco nombra la venta: el post no le dice a nadie de que va')
     elif ((cuenta or '').strip().lower() == 'unai' and not generico
           and (pilar in ('evento', 'historia') or ANCLA_DIRECCION)):
         # 2026-10-26 (Iker): deja de ser excepcion declarada. En la cuenta de Unai, sobre
@@ -5964,6 +5983,11 @@ def main():
                          'dos puntos) pasan a AVISO. Siguen duros el gancho, la puntuacion anti-IA '
                          '(guion largo, coma antes de "y"), la senal de ilegalidad, el spam ninja y el '
                          'UTM. Nunca en una cuenta de Iker, Unai, Asier o Mario.')
+    ap.add_argument('--gancho-generico', action='store_true', dest='gancho_generico',
+                    help='A/B DECLARADO, solo UNAI en historia/evento o evento (2026-10-30): el '
+                         'gancho va sin ancla de ventas ni de ecosistema para medir si el bucle '
+                         'maximo alcanza mas. El ancla del gancho pasa a aviso y el cuerpo tiene '
+                         'que nombrar la venta. Solo si la entrega lo declara.')
     ap.add_argument('--generico', action='store_true',
                     help='Lead magnet modelo GENÉRICO (Martín Arosa/Guillermo): una palabra igual para '
                          'todos + recurso genérico + landing que captura. Salta el check del 2º dato.')
@@ -5978,6 +6002,8 @@ def main():
     ANCLA_DIRECCION = a.ancla_direccion
     global EVENTO_AJENO
     EVENTO_AJENO = a.evento_ajeno
+    global GANCHO_GENERICO
+    GANCHO_GENERICO = a.gancho_generico
     texto = io.open(a.fichero, encoding='utf-8').read()
     card = io.open(a.tarjeta, encoding='utf-8').read() if a.tarjeta else None
     res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico, a.publica_manana)

@@ -538,10 +538,20 @@ Esto es la vista que pidió el 2026-07-22, tras rechazar dos intentos: uno "supe
 
 - **El objetivo del A/B es el del post** (memoria `feedback_objetivo_por_post`): **leads** (Luma o un gate) se mide en inscritos o altas por cada 1.000 impresiones; **oportunidades** (`/solicitar-demo`), en reuniones y CTR; **autoridad** (sin enlace), en guardados, envíos, seguidores nuevos y visitas al perfil. Un A/B que mide otra cosa que el objetivo del post no sirve para decidir nada.
 - **Una sola variable**, y dicha: qué cambia, en qué brazo va este post y con qué post se compara (misma cuenta y mismo pilar, `post-workflow §9b`).
+- **🔄 La variable se elige ANTES de escribir el post, no se le busca después (2026-10-30).** Un meme se entregó con un A/B que no aislaba nada (el post de comparación tenía el mismo destino y el mismo subtipo) y la razón real del destino era la regla por defecto. Se decide primero qué se quiere aprender, y lo demás (destino, formato, hora) se deja fijo respecto al post con el que se compara. Si el post de comparación cambia en muchas cosas a la vez, se dice que es una lectura orientativa, no un A/B.
 - **Si este post alimenta un A/B ya abierto, se dice a qué brazo suma** en vez de abrir otro. Si no hay ninguno que encaje, se propone uno nuevo.
 - **Las ideas grandes que no caben hoy** (una plantilla nueva, un formato que cuesta más) se apuntan igual en el registro como pendientes, para no perderlas.
 - **Va en la entrega, antes de la predicción**, en una sección corta (`🧪 A/B`), y la fila entra en el registro único del historial (`historial-publicaciones.md`, arriba) el día que se publica.
 - **Mecanizado** como aviso de entrega en `validar-post.py` (`ENTREGA: propone un A/B alineado con el OBJETIVO del post`).
+
+## 🔎🔎 1f-AUTOAUDITORÍA · UNA INCOHERENCIA QUE VEO ABRE LA AUDITORÍA DE SU FAMILIA, SIN QUE ME LA PIDAN (2026-10-30) — GLOBAL
+
+**Cuando al hacer un post, una imagen o un correo detecto una incoherencia, no la arreglo solo en esa pieza: paro, le pongo nombre a su FAMILIA y audito las recetas buscando el resto de la familia.** Lo que falló una vez en un sitio suele estar igual en otros. El 30/10 salieron dos de la misma familia en un día, y las dos las vio el equipo antes que yo: la palabra naranja en todos los memes y el destino del enlace por defecto.
+
+- **Las familias que ya conocemos:** (1) **regla por defecto sin dato**, que se aplica sola aunque su motivo no se cumpla (el naranja en un meme, reuniones porque no hay evento); (2) **corrección que no se propagó**, viva en un sitio y contradicha en otro; (3) **regla escrita que nadie exige**, sin check, sin clave de criterio y sin línea en `cobertura-reglas.txt`; (4) **derivación perdida**, algo que sabíamos y dejamos de hacer sin decidirlo (`scripts/auditar-derivas.py`); (5) **regla universal guardada en un caso** (un pilar o una cuenta, `§0c-BIS`).
+- **Cómo se hace:** se dice en una línea (`Esto es de la familia X; audito las recetas antes de seguir`). Si la búsqueda es corta, se hace en el momento; si cruza muchos ficheros, la hace un agente de solo lectura con el encargo 3 de `scripts/auditoria-recetas-encargos.md` mientras sigo con la pieza. Lo que salga se aplica el mismo día, con su dueño, y se cuenta en la entrega.
+- **Familia nueva:** si la incoherencia no encaja en ninguna, se añade a la lista con su caso.
+- **El lunes** se pasa además el encargo 3 entero (paso -1 de la revisión, `historial-publicaciones.md`), aunque la semana no haya dado ningún aviso.
 
 ## 2 · Valida de forma proactiva (no esperes a que pregunte)
 

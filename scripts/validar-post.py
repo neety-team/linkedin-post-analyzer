@@ -1601,7 +1601,7 @@ CRITERIO = [
     ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje? ¿Y la foto NO huele a evento ni a venta (escenario, ponente, photocall, acreditaciones, carpeta del evento) y se le ve la CARA al que publica? ¿Y a 360 px lo primero que se ve es lo que hay que entender, sin un segundo foco que compita (una palabra naranja, una caja)? (global §2.0c, post-workflow §4.6-FOTO-VENTA, images §0a-FOCO)'),
     # 28/10: la linea de contexto decia "Iba de dar con las empresas que te comprarian", el
     # tema del evento y no su valor, y la pregunta no lo miraba. Ahora lo pide por escrito.
-    ('ninja', 'Tapa el post: ¿la linea 1 dice que falta, la 2 lo cubre, y el destino cumple la promesa? ¿Va despues del valor? Y si lleva contexto encima: ¿nombra el dolor CONCRETO que resuelve (tiempo buscando, acertar con la empresa, la persona de dentro) y no el tema? (global §4.4b, §4.4b-CONTEXTO)'),
+    ('ninja', 'Tapa el post: ¿la linea 1 dice que falta, la 2 lo cubre, y el destino cumple la promesa? ¿Va despues del valor? ¿Por que ESE destino para este post y no otro (continua el tema, mide la variable del A/B, cabe en el reparto de puertas de la semana)? Por defecto no vale (post-workflow §8.1b, 30/10). Y si lleva contexto encima: ¿nombra el dolor CONCRETO que resuelve (tiempo buscando, acertar con la empresa, la persona de dentro) y no el tema? (global §4.4b, §4.4b-CONTEXTO)'),
     # Iker, 15/10: la tarjeta de Asier juzgaba al cliente que paga poco y nadie lo vio,
     # porque la regla solo existia en el meme y en Unai. El lexico de main() caza lo
     # explicito; esto obliga a mirar lo que no tiene palabra clave (y la imagen).

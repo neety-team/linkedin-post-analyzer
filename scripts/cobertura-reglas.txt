@@ -64,3 +64,4 @@ working-preferences | 1h ANTES DE QUE SUBA NADA PREGUNTARLE LA HORA Ik | fuera: 
 working-preferences | 1f LO QUE SE COPIA NO SE PARTE A MANO Iker 2026- | fuera: forma de entregar o de trabajar, no el texto del post
 working-preferences | 1e-REF LA REFERENCIA DE LA COMPARATIVA COMPARTE  | fuera: forma de entregar o de trabajar, no el texto del post
 working-preferences | 1e-COPIA EL MECANISMO SE ROBA LAS PALABRAS NO Ik | fuera: forma de entregar o de trabajar, no el texto del post
+working-preferences | 1f-AUTOAUDITORIA UNA INCOHERENCIA QUE VEO ABRE L | fuera: forma de entregar o de trabajar, no el texto del post

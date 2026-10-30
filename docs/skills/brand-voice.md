@@ -79,6 +79,8 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 
 **Lo medido, y es poco (`working-preferences §0c`: esto es preferencia del jefe, no doctrina de datos):** su historia del 23/09 con el gancho grandioso hizo **9.928 impresiones, 43 clics y 18 comentarios** (el máximo de comentarios de sus historias), por encima de su mediana de historia desde julio (**8.917**, n=6). En contra: el del 24/09 (`Ya solo nos quedan unos minutos para que empiece el después en ventas`) hizo **1.279**, aunque salió 40 minutos antes del evento y sin enlace. n=2: se hace porque lo pide él, y se sigue midiendo.
 
+- **🥇 EL ARTÍCULO TAMBIÉN ES GRANDIOSO: `el gran día`, NUNCA `un gran día` (2026-10-30).** Con el indefinido el momento es uno de tantos (cualquiera tiene un gran día); con el definido es EL momento, el único, y el lector entiende que pasa algo que no se repite. Una sola palabra separa un gancho tibio de uno grande. Vale para cualquier nombre de momento (`el gran paso`, `el gran anuncio`, `la gran noticia`); no para personas o tipos (`un gran comercial` habla de una clase de gente y ahí el indefinido es el correcto). **Mecanizado:** `validar-post.py` falla en Unai y Asier si el gancho lleva `un/una gran` + un nombre de momento, y avisa en el resto de cuentas; el borrador tumbado está en `scripts/test-borradores-tumbados.py`.
+
 **Mecanizado:** con `--cuenta unai`, el aviso `ENTREGA: ¿el gancho PRESUME?` de `validar-post.py` ya no pide la versión humilde: pide comprobar que lo grande es verdad, sobrio y sin compararse.
 
 #### 👑 UNAI NUNCA SE HACE DE MENOS: FUERA LA INCREDULIDAD PROPIA EN SUS GANCHOS (Iker, 2026-10-08) — MANDA SOBRE LO DE ARRIBA
@@ -171,7 +173,7 @@ Lo que arriba son "dos tejados" (ventas y ecosistema) en la cuenta de Unai se pl
 
 #### 🧪 GANCHO GENÉRICO EN UNAI: A/B DECLARADO, NO CARRIL NUEVO (2026-10-30, lanzamiento del 03/11)
 
-En un anuncio de la casa (el lanzamiento del nuevo Neety, colaborativo desde San Francisco) el gancho va **sin ancla de ventas ni de ecosistema** y con el bucle al máximo (`Hoy es el gran día y nos pilla a 9.000 km de casa 🌉`). Va contra el ancla de `global §2.3` (un gancho que podría subir cualquier cuenta no le dice a LinkedIn de qué va), así que se trata como **A/B**, no como regla:
+En un anuncio de la casa (el lanzamiento del nuevo Neety, colaborativo desde San Francisco) el gancho va **sin ancla de ventas ni de ecosistema** y con el bucle al máximo (`Hoy es el gran día y nos pilla en San Francisco 🌉`; la alternativa `…a 9.000 km de casa` abre además el dónde). Va contra el ancla de `global §2.3` (un gancho que podría subir cualquier cuenta no le dice a LinkedIn de qué va), así que se trata como **A/B**, no como regla:
 - **Las dos mitades del brazo:** el gancho no ancla y no delata el anuncio; **el cuerpo ata con ventas desde la línea 2** y paga el bucle con la misma palabra (`Hoy es el gran día porque sale el nuevo @Neety.`). Sin la segunda mitad no es un A/B, es un post huérfano.
 - **El efecto que busca es el del cumpleaños** (`post-workflow §4.6-HITO`): "hoy es un gran día" pide felicitar, y felicitar no pide postura. Es la psicología de la curiosidad (`global §1`) sin ningún dato que la cierre.
 - **Validador:** `--gancho-generico` (solo Unai, historia/evento o evento) pasa el ancla del gancho a aviso y exige que el cuerpo nombre la venta. Cada uso se declara en la entrega y entra en el registro de A/B del historial el día que se publica.

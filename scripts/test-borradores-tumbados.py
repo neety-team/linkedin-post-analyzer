@@ -118,6 +118,17 @@ CASOS += [
 ]
 
 
+# Lanzamiento del 03/11 (colaborativo de Unai): "un gran dia" con el indefinido se lee como un
+# dia cualquiera; con el definido es EL dia (30/10).
+LANZAMIENTO_UN_GRAN_DIA = 'Hoy es un gran día para nosotros 🎬\n\nMás de 130 empresas que venden nos contaron cómo trabajan.\n\nCasi todas sabían sacar su lista.\nLos meses se les iban en todo lo de después.\n\n"Pico y pala, buscando uno a uno", así lo resumió uno.\n\nPor eso se nos ocurrió darle la vuelta a la búsqueda de clientes.\n\nTú defines a quién vendes.\nTú apruebas o descartas cada empresa.\nTú decides con quién hablar dentro de cada una.\n\nLa herramienta te propone cómo llegar y aprende de cada sí y cada no.\n\nHoy es el gran día porque sale el nuevo @Neety.\nHoy lo estrenamos en San Francisco, aunque se rodó en casa.\n\nLo vemos con tu mercado en una reunión de 30 minutos.\n\nSales sabiendo qué empresas encajan y quién decide.\n\nUn gran comercial no llama a cualquier puerta.\nQuién te abre la puerta, eso te lo ponemos delante: https://neety.com/solicitar-demo?utm_source=linkedin&utm_medium=post&utm_campaign=historia-lanzamiento-03nov&utm_content=unai\n\nLa herramienta propone y el comercial decide.\n'
+FLAGS_LANZAMIENTO = ['--pilar', 'historia', '--cuenta', 'unai', '--historia-evento', '--foto-grupo',
+                     '--publica-manana', '--gancho-generico']
+CASOS += [
+    (LANZAMIENTO_UN_GRAN_DIA,
+     '30/10: "un gran dia" suena a un dia cualquiera; "el gran dia" es EL dia',
+     'el gran dia", no "un gran dia', FLAGS_LANZAMIENTO, None),
+]
+
 # "Las 10" de Aragon de Iker del 15/10, primera version: 84/84 en verde con el gancho
 # reciclado del mapa de Asier (14/07: "jota, Pilar" y el cierzo) y Uruguay, que Iker ya
 # habia usado en Murcia. Iker: "habra cosas mas conocidas de Aragon que el Pilar y el cierzo".

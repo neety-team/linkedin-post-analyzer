@@ -1947,6 +1947,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             (f'"{_incredulo.group(0)}": es la psicologia de sorprenderse de haber llegado, y a Unai '
              'no le gusta. Cuenta el hecho grande en firme ("Defendi ante mas de 100 personas que...")')
             if _incredulo else '')
+    # 🥇 EL GRAN DIA, NO UN GRAN DIA (2026-10-30): con el indefinido el momento es uno de
+    # tantos; con el definido es EL momento, y eso es lo grandioso. Fallo en las cuentas
+    # que van a lo grande (Unai y Asier), aviso en el resto. Solo con nombres de momento:
+    # "un gran comercial" habla de un tipo de persona y ahi el indefinido es el correcto.
+    _un_gran = re.search(r'\bun(?:as?)?\s+gran(?:des)?\s+(d[ií]as?|momentos?|pasos?|anuncios?|noticias?'
+                         r'|semanas?|mes|a[ñn]os?|cambios?|hitos?|noches?|ma[ñn]anas?)\b', hook_txt, re.I)
+    chk(not _un_gran, 'GANCHO: "el gran dia", no "un gran dia" (brand-voice §1b, 30/10)',
+        (f'"{_un_gran.group(0)}" suena a un dia cualquiera. Con el articulo definido es EL dia: '
+         f'"Hoy es el gran dia"') if _un_gran else '',
+        aviso=(cuenta or '').strip().lower() not in ('unai', 'asier'))
+    if _cta_grande in ('unai', 'asier'):
         # 🔭 LA LENTE DEL INVERSOR (Unai via Iker, 2026-10-07): su cuenta la leen
         # tambien inversores, que miran como habla de sus clientes, como cuenta un
         # error y si usa LinkedIn para mandar el mismo mensaje a veinte. Desempate,

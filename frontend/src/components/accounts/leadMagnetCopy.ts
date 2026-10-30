@@ -244,6 +244,25 @@ const CATALOGO: RecursoDef[] = [
       'un solo encargo', 'mismas empresas de siempre',
     ],
   },
+  {
+    // WEBINAR (Unai, 2026-10-30). La grabacion y la presentacion del webinar del 28/10, en la
+    // Academia de neety.com. Primer lead magnet de comentario con este recurso: los posts del
+    // 28/10 lo llevaban con enlace directo en el cuerpo. La palabra va DENTRO de la imagen
+    // (`WEBINAR` + el sector), asi que al post lo reconocen las PISTAS.
+    //
+    // El enlace lleva el UTM del DM de este post para poder comparar los dos brazos del A/B;
+    // en el siguiente lead magnet con este recurso se cambia utm_campaign y utm_content.
+    // Pistas comprobadas contra el texto real del post (casan las cinco) y contra las de los
+    // otros recursos: ninguna casa. Ojo con /gemelos/: su pista es "filtro por sector" y la
+    // nuestra "buscar clientes por sector", que no la contiene.
+    link: 'https://neety.com/academia/webinar-clientes-ia?utm_source=linkedin&utm_medium=dm&utm_campaign=leadmagnet-webinar-30oct&utm_content=unai',
+    topic: 'cómo detectar los clientes que tardas meses en encontrar, en 3 niveles',
+    claves: ['webinar'],
+    pistas: [
+      'buscar clientes por sector', 'tornillos', 'en 3 niveles',
+      'la sesion en video', 'acaba de enterrarlo',
+    ],
+  },
 ];
 
 const RECURSOS: Record<string, Recurso> = Object.fromEntries(

@@ -295,6 +295,11 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Iker 30/10, meme de las llamadas (desgaste), leido del texto publicado (BD, 13:56).
+    '101 llamadas las hace cualquiera, saber a quién no': '2026-10-30 meme de Iker 30/10 (desgaste, /solicitar-demo, tipo 2), la linea 1 del ninja',
+    '101 llamadas las hace cualquiera, saber a quien no': '2026-10-30 meme de Iker 30/10, sin tilde',
+    'eso sí te lo damos hecho, empresa y persona': '2026-10-30 meme de Iker 30/10, la linea 2 del ninja',
+    'eso si te lo damos hecho, empresa y persona': '2026-10-30 meme de Iker 30/10, sin tilde',
     # Asier 29/10, mapa de Navarra de adicion, leido del texto publicado (BD, 12:05).
     'desde la valla del corral no ves quién te compraría': '2026-10-29 mapa de Asier 29/10 (Navarra, gate del webinar, tipo 1), la linea 1 del ninja (recoge la metafora del gancho)',
     'desde la valla del corral no ves quien te compraria': '2026-10-29 mapa de Asier 29/10, sin tilde',

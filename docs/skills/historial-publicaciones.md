@@ -414,6 +414,21 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Vara y predicción** | San Francisco (foto de los tres, mismo colaborativo): **18.763** en la BD el 30/10 · vídeos de historia/evento de Unai: 3.197-3.941 · `§4.6-HITO`: vídeo grabado, 1.200-4.500 · predicción: 4.000-9.000 imp, 8-25 clics, 0-2 reuniones |
 | ⏳ | al publicar: hora, enlace y marcarlo como colaborativo · quemadas: ninja, contexto y arranques `tú` y `hoy` · a los 3 días: impresiones, comentarios de fuera, demografía y clics por UTM |
 
+## ✅ PUBLICADO · JUE 30/10 13:56 · IKER · MEME (DESGASTE): EL PELO POR NÚMERO DE LLAMADAS EN FRÍO (ninja a `/solicitar-demo`, 🎯 Oportunidades)
+
+| dato | |
+|---|---|
+| **Estado** | publicado el **jue 30/10 a las 13:56** (BD, 12:56 UTC) · [post](https://www.linkedin.com/feed/update/urn:li:activity:7521917940389023744/) · pilar `Meme (desgaste)` puesto a mano en la herramienta · `ENTREGABLE: SÍ · mecánico 70/70 · criterio 10/10` (`--pilar meme --cuenta iker --comprador-ok --ref-con-texto --referencia-fuera`) |
+| **Subtipo** | **desgaste** (el pelo se va llamada a llamada) en formato gráfica: los dos subtipos de más alcance (`post-workflow §4.4-SUBTIPOS`). Primer meme entregado con el subtipo dicho |
+| **Referencia** | [Jan B. Mundorf, "Cold calling in 2026"](https://www.linkedin.com/posts/jan-b-mundorf_cold-calling-in-2026-10-calls-confidence-activity-7458428285371375616-8DuG?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3Y0xIBY3GmF1Fzh8sTaB5OABfF0GgS7OQ) · 367 reacciones · 29% de risa · 95 comentarios · inglés → `--referencia-fuera` · la escalera de llamadas es la suya, con las cifras pasadas a impares (9 · 31 · 57 · 73 · 101) |
+| **Gancho** | `Cada llamada en frío se le cobra al comercial en otro sitio 🤣` (61) · repite a propósito el esqueleto del meme del 01/09 (`Cada ascenso en ventas se cobra en otro sitio`, 226.456) con otro sujeto · escalera `pasar factura → cobrarse en otro sitio → desangrar` |
+| **Ninja → `/solicitar-demo`** | `101 llamadas las hace cualquiera, saber a quién no.` / `Eso sí te lo damos hecho, empresa y persona:` · tipo 2 · UTM `meme-llamadas-30oct` · **por qué ese destino:** el recurso del webinar ya salía ese día en el lead magnet de Unai y la semana llevaba tres posts al gate |
+| **Imagen** | gráfica en flat, 5 escalones del mismo comercial perdiendo pelo y en el último con melena y gafas de sol · título `Llamar en frío sin anestesia`, todo en berenjena y **sin palabra naranja** · ejes `Pelo que te queda` y `Llamadas en frío hechas` · etiquetas `1 a 9 llamadas` … `+101 llamadas` · cuatro ediciones; de ellas salen `images §0a-FOCO` y los checks 19-21 de `§0h-CHECKLIST` |
+| **🧪 A/B** | **palabra naranja en el título del meme, brazo B (sin naranja), n=1** contra las escaleras de Asier del 12/08 (121.706) y de Iker (138.828), que la llevaban. La transición suave al ninja se lee aparte, orientativa contra el meme del 01/09 (226.456 imp, 118 clics): cambian también gancho, referencia y fecha |
+| **Vara y predicción** | vara: pasar de 5.400 · techo del subtipo desgaste, mediana 135.924 · en contra: risa moderada de la referencia (29%), calvicie muy usada (la última, 01/09) y 693 caracteres de cuerpo · el subtipo convierte poco (0,17 clics por 1.000), así que se esperan pocas reuniones |
+| ✅ **Quemadas (30/10)** | las dos líneas del ninja a `SPAM_QUEMADO` · sin arranque repetido que quemar (la escalera arranca por cifras distintas) |
+| ⏳ | a los 3 días: impresiones contra 5.400 y contra los memes de desgaste de Iker, clics y oportunidades por `utm_campaign=meme-llamadas-30oct`, y leer el brazo B del naranja |
+
 ## ✅ PUBLICADO · JUE 29/10 12:05 · ASIER · MAPA "DE ADICIÓN" DE **NAVARRA** (20 nuevas sobre las 20 del mapa de Iker del 30/06 = 40 en la foto · ninja al GATE de la grabación y la presentación del webinar, 🎯 Leads)
 
 | dato | |

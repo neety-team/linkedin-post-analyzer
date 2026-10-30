@@ -1951,7 +1951,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # tantos; con el definido es EL momento, y eso es lo grandioso. Fallo en las cuentas
     # que van a lo grande (Unai y Asier), aviso en el resto. Solo con nombres de momento:
     # "un gran comercial" habla de un tipo de persona y ahi el indefinido es el correcto.
-    _un_gran = re.search(r'\bun(?:as?)?\s+gran(?:des)?\s+(d[ií]as?|momentos?|pasos?|anuncios?|noticias?'
+    # Y solo cuando el gancho habla de ESTA ocasion (hoy, es, fue, ha sido…): "Un gran dia de
+    # ventas empieza a las 7" es una frase general y ahi el indefinido tambien es el correcto.
+    # Medido el 30/10: 0 ganchos con "un/el gran + momento" en los 334 nuestros y en los 500
+    # outliers de la competencia, asi que no tumba a ningun ganador; es criterio, no dato.
+    _un_gran = re.search(r'\b(hoy|es|fue|ha\s+sido|ser[aá]|era|vivimos|tenemos|tuvimos)\b[^.!?\n]{0,25}?'
+                         r'\bun(?:as?)?\s+gran(?:des)?\s+(d[ií]as?|momentos?|pasos?|anuncios?|noticias?'
                          r'|semanas?|mes|a[ñn]os?|cambios?|hitos?|noches?|ma[ñn]anas?)\b', hook_txt, re.I)
     chk(not _un_gran, 'GANCHO: "el gran dia", no "un gran dia" (brand-voice §1b, 30/10)',
         (f'"{_un_gran.group(0)}" suena a un dia cualquiera. Con el articulo definido es EL dia: '

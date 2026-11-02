@@ -634,11 +634,19 @@ El correo 11 salió 45/45 con tres defectos que `validar-post.py` ya cazaba: el 
 ### 4a · 🎯 A DÓNDE LLEVA EL ENLACE DEL CORREO: LO DECIDE EL MOMENTO, IGUAL QUE EN LOS POSTS (2026-10-28)
 Mismo mapa que `post-workflow §8.1b`, porque el objetivo de conversión cambia por temporadas y los correos y los posts lo siguen a la vez:
 - **Evento con inscripción abierto** → su Luma (Leads). Así fue en septiembre con el presencial y en octubre con el webinar.
-- **Recurso recién nacido de un evento** (la presentación del webinar, `neety.com/academia/webinar-clientes-ia`) → su gate, mientras dure el «te lo perdiste» (Leads). La grabación solo se promete cuando esté subida.
+- ~~**Recurso recién nacido de un evento** → su gate~~ ⛔ **Retirado el 02/11 (`§4a-SIN-GATE`, abajo): en correo el recurso va DIRECTO, nunca por su gate.** La grabación solo se promete cuando esté subida.
 - **Sin evento ni recurso nuevo** → `/solicitar-demo` (Oportunidades), el destino por defecto.
 - 🔄 **02/11: «el destino por defecto» está superado por `post-workflow §8.1b` (30/10):** sin cuenta atrás, el destino se razona correo a correo con las mismas tres preguntas (qué continúa el tema, qué se quiere medir, cuántos van ya a cada puerta) y nunca por defecto; `/solicitar-demo` sigue siendo el más frecuente, pero como decisión razonada. Y el recurso del webinar dejó de ser «recién nacido» el 29/10.
 - **📊 Lo que dice nuestro dato (29/10, `historial-newsletter`):** la demo saca más clics que la inscripción al webinar (4,3% contra 2,0%, p≈0,12, dirección) y **ninguno de los dos convierte** (0 reuniones de 14 clics, 1 inscrito de 7). El correo 11 prueba por primera vez un destino de contenido inmediato, la grabación.
-- **⚠️ Lo que cambia en correo:** la lista ya tiene permiso. Un gate no le suma un lead nuevo, le sirve contenido. Por eso el correo que manda al gate del recurso se mide en clics y descargas, no en leads, y no se manda a los que ya lo rellenaron. Esos están en su audiencia `📥 Recursos · …` del CRM, que se usa como exclusión.
+- ~~**⚠️ Lo que cambia en correo:** el correo que manda al gate del recurso se mide en clics y descargas…~~ Superado el 02/11 por la regla de abajo.
+
+### ⛔⛔ 4a-SIN-GATE · LA NEWSLETTER NUNCA MANDA A UN GATE DE RECURSO NI A UN FORMULARIO DE SUSCRIPCIÓN (2026-11-02) — CANÓNICO EN EMAIL
+**El porqué, en una línea:** el gate existe para conseguir un correo y un permiso, y quien lee la newsletter ya nos ha dado los dos. Mandarle a un formulario es pedirle otra vez lo que ya dio: fricción, confusión (*"¿no estaba ya suscrito?"*) y un clic que no suma ningún lead. Aunque la casilla de la newsletter sea opcional en ese formulario, el sinsentido es el mismo.
+- **El contenido se le da DIRECTO:** la grabación en Loom, el PDF, la página sin formulario. Es lo que se hizo con el correo 11 (30/10): Loom directo, y sacó el mejor clic limpio desde el correo 7 (4,7%).
+- **La reunión va a `/solicitar-demo`**, que no es un gate: es la puerta de la conversación, y ahí el formulario es la reserva, no la suscripción.
+- **⛔ Y al revés también vale para frenar:** si alguna vez se propone (lo proponga quien lo proponga) mandar un correo de la newsletter a `neety.com/academia/…`, a `recursos.neety.com/…` o a `/newsletter`, se para y se dice por qué antes de escribir nada.
+- **Solo es de correo.** En los posts el gate sigue siendo la puerta del recurso (`post-workflow §8.1b`): allí el lector todavía no nos ha dado nada.
+- **Mecanizado** como fallo duro en `validar-email.py` (`Destino: la newsletter no manda a un gate`), con `recursos.neety.com/agendar` aparte porque ya tiene su propio fallo.
 
 ### 4b · La PD
 
@@ -2478,6 +2486,8 @@ ZIP `newslettershasta19oct.zip`, 27 ficheros. **Fuera del conteo (6):** SINGULAR
 | 7 | `cuántas empresas tiene tu lista?` + `No me lo digas, que me enfado.` | enfado de broma: romper una creencia |
 | **9** | `a ti también te entra sueño?` + `Yo anoche me quedé frito encima del libro.` | **complicidad y torpeza propia** (la mascota falla y cae mejor, `§8i` punto 12) sobre el dolor de buscar |
 | **10** | `no se lo digas a mis jefes, vale?` + `He cotilleado su guion de mañana.` | **travesura y secreto compartido**: cotillea el guion que sus jefes se dejaron en la mesa (víspera del webinar). GIF curiosidad |
+| **11** | `se te escapó el webinar? no pasa nada` + `Te lo paso por la puerta de atrás.` | **alivio**: la grabación directa, sin formulario. GIF alegría |
+| **12** | `te hago un hueco con mis jefes?` + `Me han dejado su agenda. Error suyo.` | **orgullo**: le dejan a cargo de la agenda mientras los jefes están en San Francisco, y abre huecos sin preguntar. GIF alegría |
 
 #### ⭐⭐ KAIXITO CUELGA DE UNA TRASTADA SUYA, DEL ASUNTO A LA PD (Iker, 2026-10-26, correo 10)
 > **Iker, sobre la v1:** *"me falta un poco de chispa, un poco de gracia… con esta mascota tenemos un tono… gracioso, travieso, pícaro"*. **Sobre la final:** *"me parece brutal… súper divertido, súper chulo. Sin jugarnos a la contra"*.
@@ -2538,6 +2548,35 @@ ZIP `newslettershasta26oct.zip`, 30 ficheros, descomprimido en una carpeta nueva
 
 #### 📥 Intake (Mario)
 Lavender: séptima semana llegando la de Illinois. **RunnerPro: segunda semana sin nada (comprobar la suscripción).** EDEM vuelve. **WaLead: nueva, se queda en el corpus como competencia** (cada 15 días).
+
+### 8n · UNDÉCIMA VENTANA — 16 newsletters, 7 remitentes, 7 días (26 oct - 2 nov 2026, analizado el 2026-11-02)
+
+ZIP `newslettershasta2nov.zip`, 22 ficheros, leídos como datos. **Fuera (6):** SINGULARU (2), Lavender (3, **octava semana llegando la mala**) y 1 aviso de Substack. **Dentro (16):** Isra Bravo (7), Juan Domínguez (3), Hugo López (2), Cosas de Freelance (1), BOGA/EDEM (1), Lara Acosta (1), Kieran Flanagan (1, en inglés). **Sin nada:** RunnerPro (tercera semana), lemlist, Tendios, Hoppy Copy; WaLead va cada 15 días.
+
+**Por qué pesa:** es la semana en que la newsletter vuelve a `/solicitar-demo` (correo 12) después de tres correos de evento, y la serie lleva **14 clics a la demo y 0 reuniones** (`historial-newsletter`, 29/10). Lo que se buscó es cómo vende el corpus un compromiso (una llamada, un directo con venta dentro).
+
+#### ⏰ Horas y asunto (Date a +01:00)
+Isra 15:29, 7 de 7 · Juan 16:01 lunes y miércoles · Hugo sin hora fija (19:44 y 10:01) · Cosas de Freelance 08:02 · BOGA 12:03. **Remitentes-persona en español (n=13): mediana 32 caracteres y 6 palabras**, dentro de la banda 31-37 por sexta ventana; Hugo vuelve a ser el único por encima de 62. **Asunto + preheader como dos mitades:** Juan 3 de 3, y BOGA con una palabra de asunto y la curiosidad en el preheader (`Factos` + una frase). Nada cambia en nuestras 09:05.
+
+#### 🗓️ CÓMO SE VENDE UN COMPROMISO SIN QUE PAREZCA ANUNCIO (lo que usa el correo 12)
+1. **⭐⭐ Nadie promete «sin venta». Lo que hacen es decir qué pasa, cuánto dura, quién está y para quién NO es** (Juan, directo de 60 minutos con un máster detrás: avisa de que habrá venta, da tres «sí te merece la pena» y dos «no es para ti», y cierra con que prefiere decirlo a que pierdas la hora). **Para nosotros:** la reunión se cuenta por su duración, con quién es y la salida honesta que ya promete la página (`si no encajamos, te lo digo yo mismo`). El «para quién no es» encaja con el anti-ICP (`neety-icp`: compradores concentrados) y se dice sin juzgar al lector.
+2. **⭐ Quitar el deber de llegar preparado** (BOGA: no hace falta llegar con todas las respuestas). Versión Neety: `no hace falta traer ninguna lista preparada`.
+3. **⭐ Lo que se lleva aunque no compre** (Juan regala una calculadora al apuntarse; Hugo promete la herramienta con la que trabaja con cada cliente). Para la demo solo con lo que de verdad se ve en ella: empresas de su mercado y con quién hablar dentro (la página enseña ese buscador en directo).
+4. **El después del clic en verbos cortos** (Isra: lo pides, te llega, lo lees). Versión Neety, como bloque de tres: `Eliges hora. / Le cuentas qué vendes. / Y ves qué empresas encajan.` Sin estrenar.
+5. **La reunión como visita y no como venta** (Cosas de Freelance, el único que pide una reunión explícita: *"te muestro por dentro"*), y con una alternativa al vendedor (hablar con un cliente). ⚠️ Nosotros no tenemos clientes con permiso para eso.
+6. **La sesión 1:1 en condicional** (Isra: lo que haría si te tuviera delante). Molde de cuerpo para un correo de demo: `Si te tuviera delante, te preguntaría qué vendes…`.
+
+#### ⭐ LO DEMÁS QUE MERECE ROBARSE
+7. **El reloj del año** (BOGA: las semanas que quedan para cerrar el año). Pilar CALENDARIO de noviembre: el cierre del año como fecha, sin escasez inventada.
+8. **Vender sin caso de éxito** (Cosas de Freelance: se pierde la venta por falta de confianza, no de casos). Mientras no haya casos con permiso, la confianza la pone quién está detrás y el «si no encaja, te lo digo».
+9. **Desmontar el «esto no es para mí»** (Isra: un oficio pequeño puede tener mejor historia que una multinacional). Para la duda «¿es para una empresa como la mía?», sin cifras.
+10. **El usuario intensivo de IA que deja de usarla para escribir** (Kieran, en inglés). Refuerza la complicidad con el escéptico de `§8m` punto 13 y el veto del automatismo.
+
+#### ⛔ Lo que NO se copia
+Los tacos, el registro sexual y la opinión política de Isra; las erratas (Isra, Juan, BOGA); el aforo y el contador de Hugo y el «ya está lleno» de Cosas de Freelance (escasez que para nosotros sería falsa); el *"la IA ya está haciendo una purga"* de Hugo (choca con la visión de la casa) y su *"auténtica basura"* (juzga al sector); las cifras sin fuente (ROI en 30 días, el 50% de conversión, el «ocho de cada diez»); los 54 enlaces de Cosas de Freelance.
+
+#### 📥 Intake (Mario)
+**RunnerPro: tercera semana sin nada, comprobar la suscripción ya.** Lavender: octava semana con la de Illinois, darse de baja o corregirla. Sonia Ferrent: solo llegan sus notas de Substack, falta la suscripción a la newsletter. lemlist, Tendios y Hoppy Copy: comprobar si siguen vivas.
 
 ## 9 · Entrega y validación (cada email, sin excepción)
 

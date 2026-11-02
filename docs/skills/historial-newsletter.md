@@ -1622,6 +1622,30 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 - **Quién pulsó:** por primera vez desde el correo 9 hay clics fuera de la lista 16: entran las altas del webinar (lista 19) y del gate. Al menos 1 de los 9 ya había pulsado en los correos 6 y 7.
 - **Lo que se aprende para el siguiente:** a la audiencia caliente del webinar (lista 19 y altas del gate) le llega bien el contenido; el siguiente paso con ella es una reunión, y ahí la serie lleva 0 de 14 clics.
 
+## 📝 CORREO 12 · Kaixito · la agenda de los jefes, vuelta a `/solicitar-demo` (TEXTO ENTREGADO 02/11, para el mar 03/11 09:05 +01:00)
+
+**Estado:** texto validado **58/58**, pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
+
+| | |
+|---|---|
+| Asunto | `te hago un hueco con mis jefes?` (31 car, pregunta de tú a tú sin `¿`) · escalera `te reservo una reunión → te hago un hueco → te encierro con mis jefes` |
+| Preview | `Me han dejado su agenda. Error suyo.` |
+| Pilar | BASTIDORES (los jefes en San Francisco y el lanzamiento del Neety nuevo ese mismo día) con el ninja a la demo |
+| Palanca y trastada | **orgullo** (nueva en Kaixito: le han dejado a cargo de la agenda) · trastada: abre huecos sin preguntar y les deja la agenda llena de tachones |
+| GIF | `alegría` (el mismo del 11: va con la palanca) |
+| Micro-apertura | `Ascenso de mascota.` (nueva) |
+| Destino | **`/solicitar-demo`**, `utm_campaign=correo-12-kaixito-agenda`. Primer correo a la demo desde el 7 (06/10). Ni gate ni formulario de suscripción: regla nueva `email-marketing §4a-SIN-GATE` |
+| Ninja | contexto `Es una reunión de media hora, desde donde estés.` · `Un hueco en la agenda no te dice a quién llamar.` / `Eso te lo saca Iker con tu mercado delante:` (47/43) · tipo **2** (la persona de dentro) · detrás, la salida honesta de la página (`Si no encajáis, te lo dice él a la cara.`) y `Y no hace falta traer ninguna lista preparada.` (`§8n` puntos 1 y 2) |
+| Por qué le llega | `Te escribo porque un día te apuntaste a algo nuestro.` (brazo B otra vez, como el 11) |
+| Longitud y posición | 125 palabras · bloque al 62%, URL al 78% (11: 82%) · ritmo `1-2-1-1-1-3-1-2-1-1-1` |
+| PD | una, de broma, del libro: las reuniones van en la página 114; la 113 sigue con los apuntes del webinar (vuelve a los correos 9 y 11) |
+| Real / inventado | real: los jefes en San Francisco del 2 al 13/11, el lanzamiento del 03/11 (post de Unai), la reunión de 30 minutos con Iker y el `si no encajamos, te lo digo yo mismo` (página leída el 02/11). Inventado: que Kaixito lleva la agenda y abre huecos |
+| Destinatarios previstos | listas 15 + 4 + 16 + 19, como el 11 |
+
+**Variable en prueba: el DESTINO** (contenido directo en Loom → reunión en `/solicitar-demo`). Todo lo demás como el correo 11: Kaixito, molde corto, asunto en pregunta, GIF, un enlace, la línea de por qué le llega, PD de broma, 09:05. Cambia también la palanca, que en Kaixito rota por regla. **Se mide** en clic limpio (`metricas-brevo.py --quien --listas 15,4,16,19`) contra el 4,7% del 11 y el 4,3% de los correos 5-7, y en **solicitudes de reunión con `utm_campaign=correo-12-kaixito-agenda`** en la base de la web (vara: 0 de 14 clics en la serie). Bajas de la lista 16 por entregado, como siempre. **Revisión: lunes 09/11.**
+
+🔴 **Dos cosas que confirmar antes de programar:** (1) que el lanzamiento sigue siendo el martes 03/11 (si se mueve, cae la línea `Hoy estrenan el Neety nuevo desde allí.`); (2) que la agenda de `/solicitar-demo` da huecos reales a Iker con él en San Francisco (9 horas de diferencia) o que cubre otra persona. La página dice hoy `Esta semana: 3 huecos libres`.
+
 ## 📈 REVISIÓN ADELANTADA DE LOS CORREOS 5 A 10 (29/10, con `metricas-brevo.py --quien --listas 15,4,16,19` y el CSV final de Luma)
 
 Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y sin el enlace de baja. Es el único que vale (`email-marketing §1`).
@@ -1652,11 +1676,12 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 - Correo 9 · Kaixito (enviado 20/10): la mascota dormida encima del libro en la empresa 37, mirando webs.
 - Correo 10 · Kaixito (enviado 27/10): cotillea el guion de sus jefes la víspera del webinar.
 - Correo 11 · Kaixito (programado 30/10): la grabación por la puerta de atrás; la palabra hilo es «escapar», del asunto al enlace.
+- Correo 12 · Kaixito (texto 02/11, para el 03/11): los jefes en San Francisco le dejan la agenda y abre huecos; la palabra hilo es «hueco».
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Ascenso de mascota.` (correo 12)
 - **Asier:** `Apunta.` (correo 8)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)

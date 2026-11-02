@@ -572,6 +572,19 @@ def main():
     if _dt.date.today() >= _dt.date(2026, 10, 5) and 'recursos.neety.com/agendar' in cuerpo:
         checks.append(fallo('La puerta de agendar es https://neety.com/solicitar-demo, no '
                             'recursos.neety.com/agendar (Iker, 05/10)'))
+    # ⛔ LA NEWSLETTER NUNCA MANDA A UN GATE NI A UN FORMULARIO DE SUSCRIPCION (2026-11-02,
+    # email-marketing §4a-SIN-GATE). Quien lee el correo ya dio el permiso: el gate solo
+    # existe para conseguir un correo que aqui ya tenemos. El contenido se le da directo
+    # (Loom, PDF, la pagina sin formulario) y la reunion va a /solicitar-demo.
+    _gates = [u for u in links if re.search(
+        r'neety\.com/(academia|recursos?|newsletter|correo)\b|recursos\.neety\.com', u, re.I)
+        and 'recursos.neety.com/agendar' not in u]
+    if _gates:
+        checks.append(fallo(f'Destino: la newsletter no manda a un gate ni a un formulario de '
+                            f'suscripcion ({_gates[0][:60]}). Ya tienen el permiso: el contenido '
+                            f'va directo y la reunion a /solicitar-demo (email-marketing §4a-SIN-GATE)'))
+    else:
+        checks.append(ok('Destino: ningun gate ni formulario de suscripcion'))
     # --colaboracion (2026-10-05, correo 7): una COLABORACION con un tercero (difundir
     # algo de otra entidad) permite UN segundo enlace. ⛔ CORREGIDO EL MISMO DIA POR
     # IKER: la primera version lo mandaba a la PD, detras de la firma, y eso "queda

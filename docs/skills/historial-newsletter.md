@@ -12,6 +12,7 @@
 > | **Longitud** | 116-158 palabras | 240 (correo 8) | sección del correo 8 | **19/10:** el correo 8 abrió igual que los demás (67 de 108, 62%) y sacó **1 clic limpio** (más 1 de Mario) y **0 inscritos al webinar** en el CSV de Luma (ningún `correo-08`). Es el peor de la serie en clics (el 7 sacó 8, el 6 sacó 6). Cambiaban a la vez el remitente (Asier, su estreno), el pilar (receta), la longitud y el destino (webinar): **dirección, no prueba**. Dirección: volver a 116-158 palabras en el siguiente. **19/10: mecanizado en `validar-email.py`** (fallo por encima de 180, aviso de 159 a 180) y el correo 9 sale con 116 |
 > | **Remitente** | Iker | Kaixito (correo 2) | `## 🧪 Correo 2`, más abajo | Leer allí el resultado y decidir si se cierra |
 > | **Tipo de cliente del ninja** | — | — | `global §4.4b-TIPOS`, igual que en los posts | Cada correo apunta en su sección a qué tipo le habla (desde el 16/10, con los tamaños de `§4.4b-MUNICIÓN-1510`) |
+> | 🆕 **Asunto, dentro del mismo correo (abierto el 02/11, sin brazo todavía)** | asunto A | asunto B, con otra psicología | `abTesting` nativo de Brevo, 50/50 de la lista, mismo cuerpo | Con ~200 entregados son ~100 por brazo: solo se ve una diferencia de unos **20 puntos** de apertura, y la apertura está inflada por Apple y escáneres (el 75,7% del 11). Por eso **una misma hipótesis se repite en 3-4 correos y se suma** (p. ej., pregunta contra afirmación); el clic limpio por brazo (4-5 personas) no se lee. Empieza en el correo 13, para que el 12 mida solo el destino |
 
 > **🔄 Repaso fila por fila del lunes 26/10 (correo 9):**
 > - **Posición del ninja:** sin dato nuevo de una sola variable (el 9 lo lleva al 50-64%, como los correos 5 y 6).
@@ -1625,33 +1626,34 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ## 📝 CORREO 12 · Kaixito · la maleta de los jefes, vuelta a `/solicitar-demo` (TEXTO ENTREGADO 02/11, para el mar 03/11 09:05 +01:00)
 
-**Estado:** texto validado **62/62** (v5, 02/11), pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
+**Estado:** texto validado **63/63** (v6, 02/11), pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
 
-**Cómo se llegó (02/11), cinco versiones:**
+**Cómo se llegó (02/11), seis versiones:**
 - **v1** (`te hago un hueco con mis jefes?`, ninja `te lo enseña Iker`): prometía una reunión con los jefes, y la primera es una discovery con el equipo de ventas; vendía la demo como novedad, y dependía del lanzamiento sin confirmar → `email-marketing §4a-DEMO`.
 - **v2 y v3** (`adivina quién ocupa la silla grande?`): correctas y planas. Llevaban `Ascenso de mascota.`, que repetía el molde de las aperturas 4 y 9, la línea de por qué le llega (ya no hace falta en cada correo), `mis compis` y `te lo dicen a la cara` (poco serio y brusco para un director de más de 50) y unas plumas que Kaixito no tiene (no es un pájaro).
 - **v4** (`adivina cuánto me he subido el sueldo?`): original, pero el dinero de la casa como trastada puede volverse en contra aunque firme la mascota, y la línea `Lo de mi sueldo es de broma.` explicaba el chiste. Además repetía la perspectiva de la silla: la oficina vacía porque los jefes no están.
-- **v5**: perspectiva nueva. Kaixito quería ir a San Francisco, se cuela en la maleta de sus jefes y no cabe porque es un rombo. La palabra `encajar` hace de hilo de la trastada al dolor, al ninja y a la salida honesta de la discovery.
+- **v5**: perspectiva nueva, Kaixito quería ir a San Francisco y se cuela en la maleta de sus jefes. Pero no cabía porque «es un rombo», y su forma no está confirmada (`email-marketing §4b`).
+- **v6**: la maleta no cierra porque sobra él. La palabra hilo pasa a ser `sobrar`, con la escalera entera hasta el ninja (escena `La cremallera, no.` → bisagra `Lo que sobraba era yo.` → giro en primera persona `Con las listas de empresas me pasaba igual.` → dolor en pasado `Hasta ver qué empresas sobraban, se me iban meses.`), y la salida de la discovery remata la trastada (`A mí ya me lo dijo la maleta.`).
 
 | | |
 |---|---|
 | Asunto | `me colé en la maleta de mis jefes` (33 car, vale para toda la lista) · escalera `me metí en la maleta de mis jefes → me colé en la maleta de mis jefes → me facturé con mis jefes` |
 | Preview | `Se iban a San Francisco sin mí.` (la autoridad y la emoción ya en la notificación del móvil) |
 | Pilar | BASTIDORES (los jefes en San Francisco, elegidos por un programa; primera vez que la newsletter lo cuenta) con el ninja a la demo |
-| Palanca y trastada | **ternura** (quería ir con ellos; estreno, estaba en las sin gastar) · trastada: se cuela en la maleta y no cierra (`El libro, dentro.` / `Los brazos, dentro.` / `Los picos, no.`) |
+| Palanca y trastada | **ternura** (quería ir con ellos; estreno, estaba en las sin gastar) · trastada: se cuela en la maleta y no cierra (`El libro, dentro.` / `Yo, dentro.` / `La cremallera, no.`) |
 | GIF | `estresado` (el apuro de meterse en la maleta), justo después de colarse |
 | Micro-apertura | `Misión fallida.` (nueva, molde nuevo) |
 | Destino | **`/solicitar-demo`**, `utm_campaign=correo-12-kaixito-maleta`. Primer correo a la demo desde el 7 (06/10). Ni gate ni formulario (`email-marketing §4a-SIN-GATE`) |
-| Ninja | puente `Por lo visto, los rombos no encajan en las maletas.` · `Comprobar qué empresa encaja, una a una, lleva meses.` · `Lo que no encaja se ve en una maleta, no en una lista.` / `Eso lo miramos contigo en media hora:` (54/37) · tipo **1-4** (la identificación, en meses: depurar la lista una a una) · detrás, `No hace falta traer nada preparado.` y `Y si no encaja, te lo decimos.` / `De no encajar, sé un rato.` (la salida honesta de la discovery, con el hilo de la trastada) |
+| Ninja | escalera `Lo que sobraba era yo.` · `Con las listas de empresas me pasaba igual.` · `Hasta ver qué empresas sobraban, se me iban meses.` (una sola persona, el dolor en pasado) · `Lo que sobra en una maleta se ve, en una lista no.` / `Eso lo miramos contigo en media hora:` (50/37) · tipo **1-4** (la identificación, en meses: depurar la lista una a una) · detrás, `No hace falta traer nada preparado.` y `Y si no encaja, te lo decimos.` / `A mí ya me lo dijo la maleta.` (la salida honesta de la discovery, con el hilo de la trastada) |
 | Por qué le llega | sin la línea (02/11: solo en casos puntuales) |
-| Longitud y ritmo | 99 palabras · `1-2-1-1-3-1-1-2-1-2` |
+| Longitud y ritmo | 101 palabras · `1-2-1-3-1-1-1-2-1-2` |
 | PD | una, de broma, del libro: `El libro sí cabía. Ahora está en San Francisco, sin mí.` |
 | Real / inventado | real: los jefes en San Francisco entre inversores, fondos y fundadores, elegidos por el programa Desafía (ICEX y Red.es), la media hora y el «si no encaja, te lo digo» de la discovery. Inventado: la maleta |
 | Destinatarios previstos | listas 15 + 4 + 16 + 19, como el 11 |
 
 **Variable en prueba: el DESTINO** (contenido directo en Loom → reunión en `/solicitar-demo`). Todo lo demás como el correo 11: Kaixito, molde corto, GIF, un enlace, PD de broma, 09:05. Cambian también la palanca (en Kaixito rota por regla) y la línea de por qué le llega, que sale (casos puntuales, 02/11): las bajas se leen sabiéndolo. **Se mide** en clic limpio (`metricas-brevo.py --quien --listas 15,4,16,19`) contra el 4,7% del 11 y el 4,3% de los correos 5-7, y en **solicitudes de reunión con `utm_campaign=correo-12-kaixito-maleta`** en la base de la web (vara: 0 de 14 clics en la serie). Bajas de la lista 16 por entregado, como siempre. **Revisión: lunes 09/11.**
 
-**Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`lo que no encaja se ve en una maleta`, `eso lo miramos contigo en media hora`), `mision fallida` a `APERTURAS_USADAS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
+**Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`lo que sobra en una maleta se ve`, `eso lo miramos contigo en media hora`), `mision fallida` a `APERTURAS_USADAS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
 
 ## 📈 REVISIÓN ADELANTADA DE LOS CORREOS 5 A 10 (29/10, con `metricas-brevo.py --quien --listas 15,4,16,19` y el CSV final de Luma)
 
@@ -1683,7 +1685,7 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 - Correo 9 · Kaixito (enviado 20/10): la mascota dormida encima del libro en la empresa 37, mirando webs.
 - Correo 10 · Kaixito (enviado 27/10): cotillea el guion de sus jefes la víspera del webinar.
 - Correo 11 · Kaixito (programado 30/10): la grabación por la puerta de atrás; la palabra hilo es «escapar», del asunto al enlace.
-- Correo 12 · Kaixito (texto 02/11, para el 03/11): los jefes en San Francisco le dejan la oficina y se sube el sueldo de 0 € a 0 €; la palabra hilo es «sueldo».
+- Correo 12 · Kaixito (texto 02/11, para el 03/11): quería ir a San Francisco con sus jefes, se cuela en su maleta y la cremallera no cierra; la palabra hilo es «sobrar». (Descartados: la silla grande y el sueldo, la misma perspectiva de la oficina vacía.)
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)

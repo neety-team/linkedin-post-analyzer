@@ -290,6 +290,15 @@ def main():
                             f'de broma, aunque firme la mascota (email-marketing §8l)'))
     else:
         checks.append(ok('Sin el dinero de la casa como trastada'))
+    # ⛔ La forma de Kaixito no está confirmada (2026-11-02, email-marketing §4b): ni pájaro ni
+    # rombo ni nada con lo que compararla. Los gags salen del libro, los ojos y los brazos.
+    if 'kaixito' in cab.get('REMITENTE', '').lower():
+        _forma = re.search(r'\b(rombos?|romboidal|plumas?|alas|b[uú]ho|p[aá]jaro|picos?)\b', cuerpo, re.I)
+        if _forma:
+            checks.append(fallo(f'Forma de Kaixito inventada: "{_forma.group(0)}". Su forma no está confirmada: '
+                                f'los gags salen del libro, los ojos y los brazos (email-marketing §4b)'))
+        else:
+            checks.append(ok('Kaixito sin una forma inventada'))
 
     # --- párrafos de prosa ≤3 líneas (global §3.2 heredado) ---
     # Excepción, la misma que en LinkedIn (global §3.2): SOLO las listas con MARCADOR

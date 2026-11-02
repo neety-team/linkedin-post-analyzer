@@ -2119,7 +2119,13 @@ router.get('/live-posts', async (req: Request, res: Response) => {
       creatorFilter = `AND ${c.sql}`;
     } else if (creatorId) {
       params.push(creatorId);
-      creatorFilter = `AND c.id = $${params.length}`;
+      // Un colaborativo sale TAMBIEN en la lista de sus coautores (2026-11-02):
+      // lo firman y sale en su perfil, asi que filtrar por uno de ellos y no
+      // verlo parecia que se habia perdido. Solo en esta LISTA: las cifras de
+      // cuenta (/analytics, base de outliers) lo siguen contando una vez, en
+      // quien lo publico, para no triplicar.
+      creatorFilter = `AND (c.id = $${params.length}
+        OR EXISTS (SELECT 1 FROM post_coautores pc WHERE pc.post_id = p.id AND pc.creator_id = $${params.length}))`;
     }
     if (!incluirManual) creatorFilter += ` AND c.is_manual IS NOT TRUE`;
     let dateFilter: string;

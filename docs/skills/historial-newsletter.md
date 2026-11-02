@@ -27,6 +27,7 @@
 > - **Remitente:** Kaixito, 4,7% de clic limpio, el mejor de sus correos desde el 7. Sin cerrar.
 > - **Tipo de cliente del ninja:** el 11 no apunta a un tipo (es contenido). Sin dato.
 > - **Recordar a la lista 16 por qué le llega (brazo B, correo 11):** **1 baja de la lista 16** entre unos 68 entregados de esa lista, contra 3 en el correo 6 y 3 en el 9 (brazo A). La otra baja del 11 es de la lista 15: un alta del gate del 28/10 que se dio de baja en su primer correo. Dirección a favor de la línea, n=1 por brazo.
+> - 🔒 **Cerrada el 02/11, sin más brazos:** la línea de por qué le llega va solo en casos puntuales (primer correo a una cohorte nueva, o cuando el contenido depende de su origen, como en el 11). No se repite en cada correo: la cohorte de Neety Forward lleva 7 correos y las altas del webinar ya recibieron el 11. Regla en `email-marketing §8m` punto 11. El correo 12 va sin ella; sus bajas de la lista 16 se siguen mirando como siempre.
 
 > 🗂️ **19/10 · LA COHORTE DEL PRESENCIAL ES UNA SOLA LISTA: `Neety Forward 2026` (id 16).** Por petición de Iker: (1) se metieron los **9 aprobados que se inscribieron el 23 y el 24/09**, después de la carga del 22/09 (con la casilla de "objetivos comerciales" aceptada; ninguno existía en Brevo ni estaba bloqueado); (2) la lista 16 se renombró (antes `📅 Inscritos · NEETY FORWARD 2026`); y (3) **se borraron las listas de tanda 17 y 18**, que estaban enteras dentro de la 16 (comprobado antes de borrar). Borrar una lista no toca los contactos ni sus bajas: **siguen los mismos 10 bloqueados**, y la lista queda con **81 contactos, 71 activos**. Las estadísticas por campaña no se pierden. **Desde hoy, los correos van a las listas 15 + 4 + 16**, no a 15 + 4 + 17 + 18.
 > 🔗 **Y desde el 19/10 el CRM guarda las dos cohortes (`saldu`, botón 📅 Inscritos de Luma):** `Neety Forward 2026` (enganchada a la lista 16, permiso por los términos del evento, solo aprobados, y se respeta a quien ya estaba en la lista) y `Webinar 1` (lista nueva, permiso por la casilla). Las bajas van en los dos sentidos: Brevo → CRM por webhook y por la blocklist, y CRM → Brevo por `propagarBajasPendientes`. **Brevo manda.** El espejo pasa cada día solo.
@@ -1624,7 +1625,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ## 📝 CORREO 12 · Kaixito · la silla grande, vuelta a `/solicitar-demo` (TEXTO ENTREGADO 02/11, para el mar 03/11 09:05 +01:00)
 
-**Estado:** texto validado **59/59** (v2, tras la revisión del 02/11), pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
+**Estado:** texto validado **60/60** (v3, 02/11: fuera la línea de por qué le llega y apertura nueva), pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
 
 **Por qué hubo v2 (02/11):** la v1 (`te hago un hueco con mis jefes?`, ninja `Eso mismo te lo enseña Iker…`) prometía una reunión con los jefes, y la primera es una discovery con el equipo de ventas (calendario rotativo); vendía la demo como novedad a una lista que lleva meses viendo ese enlace, y dependía de que se confirmase el lanzamiento del 03/11. Reglas en `email-marketing §4a-DEMO`, con check nuevo en `validar-email.py`.
 
@@ -1635,16 +1636,18 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Pilar | BASTIDORES (los jefes en San Francisco, elegidos por un programa) con el ninja a la demo |
 | Palanca y trastada | **orgullo** (nueva en Kaixito: le dejan la oficina a su cargo) · trastada: se sienta en la silla grande y la deja llena de plumas |
 | GIF | `alegría` (el mismo del 11: va con la palanca) |
-| Micro-apertura | `Ascenso de mascota.` (nueva) |
+| Micro-apertura | `Te doy una pista.` (nueva; estira la adivinanza del asunto). `Ascenso de mascota.` se tumbó: repetía el molde de `Aviso de mascota.` y `Confesión de mascota.` |
 | Destino | **`/solicitar-demo`**, `utm_campaign=correo-12-kaixito-silla`. Primer correo a la demo desde el 7 (06/10). Ni gate ni formulario de suscripción (`email-marketing §4a-SIN-GATE`) |
 | Ninja | contexto `Aunque ellos estén fuera, las reuniones siguen.` · `Una silla grande no te dice a quién llamar primero.` / `Eso lo miran contigo mis compis en media hora:` (50/45) · tipo **2** (a quién llamar) · detrás, `Si no encaja, te lo dicen a la cara.` y `Y no hace falta traer nada preparado.` (`§8n` puntos 1 y 2) |
-| Por qué le llega | `Te escribo porque un día te apuntaste a algo nuestro.` (brazo B otra vez, como el 11) |
-| Longitud y posición | 128 palabras · bloque al 65%, URL al 80% (11: 82%) |
+| Por qué le llega | **sin la línea** (02/11: solo va en casos puntuales; A/B cerrado arriba) |
+| Longitud y posición | 117 palabras · el bloque y la URL, hacia el 63-79% (11: 82%) |
 | PD | una, de broma, del libro: lo que ha mandado hoy cabe en la página 114 y sobra media (vuelve a las páginas de los correos 9 y 11) |
 | Real / inventado | real: los jefes en San Francisco entre inversores, fondos y fundadores, elegidos por el programa Desafía (ICEX y Red.es), las reuniones que siguen por calendario rotativo, la media hora y el «si no encaja, te lo digo» de la discovery. Inventado: la silla y las plumas |
 | Destinatarios previstos | listas 15 + 4 + 16 + 19, como el 11 |
 
-**Variable en prueba: el DESTINO** (contenido directo en Loom → reunión en `/solicitar-demo`). Todo lo demás como el correo 11: Kaixito, molde corto, asunto en pregunta, GIF, un enlace, la línea de por qué le llega, PD de broma, 09:05. Cambia también la palanca, que en Kaixito rota por regla. **Se mide** en clic limpio (`metricas-brevo.py --quien --listas 15,4,16,19`) contra el 4,7% del 11 y el 4,3% de los correos 5-7, y en **solicitudes de reunión con `utm_campaign=correo-12-kaixito-silla`** en la base de la web (vara: 0 de 14 clics en la serie). Bajas de la lista 16 por entregado, como siempre. **Revisión: lunes 09/11.**
+**Variable en prueba: el DESTINO** (contenido directo en Loom → reunión en `/solicitar-demo`). Todo lo demás como el correo 11: Kaixito, molde corto, asunto en pregunta, GIF, un enlace, PD de broma, 09:05. Cambian también la palanca (en Kaixito rota por regla) y la línea de por qué le llega, que sale (casos puntuales, 02/11): las bajas se leen sabiéndolo. **Se mide** en clic limpio (`metricas-brevo.py --quien --listas 15,4,16,19`) contra el 4,7% del 11 y el 4,3% de los correos 5-7, y en **solicitudes de reunión con `utm_campaign=correo-12-kaixito-silla`** en la base de la web (vara: 0 de 14 clics en la serie). Bajas de la lista 16 por entregado, como siempre. **Revisión: lunes 09/11.**
+
+**Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`una silla grande no te dice a quien llamar`, `eso lo miran contigo mis compis`), `te doy una pista` a `APERTURAS_USADAS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
 
 ## 📈 REVISIÓN ADELANTADA DE LOS CORREOS 5 A 10 (29/10, con `metricas-brevo.py --quien --listas 15,4,16,19` y el CSV final de Luma)
 
@@ -1681,7 +1684,7 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Ascenso de mascota.` (correo 12)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Te doy una pista.` (correo 12)
 - **Asier:** `Apunta.` (correo 8)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)

@@ -256,6 +256,21 @@ def main():
         checks.append(aviso(f'Sin micro-apertura: la línea 1 tiene {_pal} palabras. El corpus abre con '
                             f'1-3 palabras y punto ("Mira." / "Oye." / "Te cuento.") y línea en blanco '
                             f'detrás. Si es un arranque in medias res a propósito, ignora el aviso'))
+    # ⛔ La apertura rota de FRASE y de MOLDE (2026-11-02, email-marketing §8l): "Aviso de
+    # mascota." y "Confesión de mascota." ya gastaron el molde "X de mascota". Se añade aqui
+    # cada apertura enviada; falla si se repite entera o si comparte las dos ultimas palabras.
+    APERTURAS_USADAS = ['te cuento', 'una frase', 'al grano', 'calendario en mano', 'aviso de mascota',
+                        'hoy vengo enfadado', 'apunta', 'confesion de mascota', 'shhh', 'respira']
+    import unicodedata as _ud
+    _ap = ''.join(c for c in _ud.normalize('NFD', primera.lower()) if _ud.category(c) != 'Mn')
+    _ap = re.sub(r'[^a-z ]', '', _ap).strip()
+    _cola = ' '.join(_ap.split()[-2:])
+    _rep = [a for a in APERTURAS_USADAS if a == _ap or (len(_ap.split()) > 2 and a.endswith(' ' + _cola))]
+    if _rep:
+        checks.append(fallo(f'Apertura gastada: "{primera.strip()}" repite "{_rep[0]}". Rota la frase y el '
+                            f'molde (email-marketing §8l)'))
+    elif 1 <= _pal <= 4:
+        checks.append(ok('Apertura nueva (ni la frase ni el molde están gastados)'))
 
     # --- párrafos de prosa ≤3 líneas (global §3.2 heredado) ---
     # Excepción, la misma que en LinkedIn (global §3.2): SOLO las listas con MARCADOR

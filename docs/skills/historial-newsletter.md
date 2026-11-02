@@ -1626,7 +1626,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ## 📝 CORREO 12 · Kaixito · la maleta de los jefes, vuelta a `/solicitar-demo` (TEXTO ENTREGADO 02/11, para el mar 03/11 09:05 +01:00)
 
-**Estado:** texto validado **64/64** (v7, 02/11), pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
+**Estado:** texto validado **64/64** (v7, 02/11) con el OK al texto. **✅ Campaña Brevo 34 en BORRADOR (02/11, 14:15 +01:00)**, releída de la API: `draft`, sin `scheduledAt`, remitente `Kaixito de Neety` (id 3), preheader, pie de la casa copiado de la 33, un solo `href` con su UTM, GIF `estresado` (200, `image/gif`, 377.723 bytes), listas 15 + 4 + 16 + 19. Auditor en verde para la 34 (la 32, `test`, es un borrador ajeno sin tocar). `salud-suscriptores.py` 5/5. **Prueba enviada a `mario@neety.com`** (`204`). Se programa para el mar 03/11 09:05 +01:00 cuando se revise la prueba (`email-marketing §9a-BIS`).
 
 **Cómo se llegó (02/11), siete versiones:**
 - **v1** (`te hago un hueco con mis jefes?`, ninja `te lo enseña Iker`): prometía una reunión con los jefes, y la primera es una discovery con el equipo de ventas; vendía la demo como novedad, y dependía del lanzamiento sin confirmar → `email-marketing §4a-DEMO`.

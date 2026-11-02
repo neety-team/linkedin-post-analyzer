@@ -544,7 +544,7 @@ Esto es la vista que pidió el 2026-07-22, tras rechazar dos intentos: uno "supe
 - **Va en la entrega, antes de la predicción**, en una sección corta (`🧪 A/B`), y la fila entra en el registro único del historial (`historial-publicaciones.md`, arriba) el día que se publica.
 - **Mecanizado** como aviso de entrega en `validar-post.py` (`ENTREGA: propone un A/B alineado con el OBJETIVO del post`).
 
-## 🔎🔎 1f-AUTOAUDITORÍA · UNA INCOHERENCIA QUE VEO ABRE LA AUDITORÍA DE SU FAMILIA, SIN QUE ME LA PIDAN (2026-10-30) — GLOBAL
+## 🔎🔎 1f-AUTOAUDITORÍA · UNA INCOHERENCIA QUE VEO ABRE LA AUDITORÍA DE SU FAMILIA, SIN QUE ME LA PIDAN (2026-10-30) — GLOBAL *(criterio de proceso, no se mide)*
 
 **Cuando al hacer un post, una imagen o un correo detecto una incoherencia, no la arreglo solo en esa pieza: paro, le pongo nombre a su FAMILIA y audito las recetas buscando el resto de la familia.** Lo que falló una vez en un sitio suele estar igual en otros. El 30/10 salieron dos de la misma familia en un día, y las dos las vio el equipo antes que yo: la palabra naranja en todos los memes y el destino del enlace por defecto.
 
@@ -600,7 +600,7 @@ Este es un tema importante para mí: **quiero seguir sorprendiendo al lector**. 
 - **Bloques de empresas: RELLÉNALOS con empresas reales verificadas** (política nueva, ver `post-workflow §4.0`) — de la fuente que te pase o de web con cita, marcando las dudosas y sin inventar (lo no verificable va como `→ [PENDIENTE · no verificado]`). Yo doy el visto bueno final. Formato: 20 líneas en 5 bloques de 4, con `→ @Empresa - @Persona` (arroba delante de ambos y nombres exactos de LinkedIn, para que al clicar salte el autocompletado).
 - **Verificar cifras de mapa antes de dibujar el cuerpo.** Lista las cifras shock (exportación €, ranking, puerto, habitantes) y dime qué fuentes hay que verificar (ICEX, autoridad portuaria, INE, Eurostat, IDESCAT/EUSTAT/IECA). No entregues cuerpo con números sin verificar — un dato mal me tira el mapa de 6x a 0.5x.
 - **Triage de menciones @** por actividad real en LinkedIn (no por cargo): descartar dormidos >3 meses aunque sean el CEO de la región.
-- **Link de agendar en spam ninja** en TODOS los pilares menos el lead magnet (no el link del mapa de pampam). Máx 2 líneas cortas, sin nombrar a Neety, girando el concepto del hook con verbo punchy. Reglas: `global-instructions §4.4b`.
+- 🔄 **02/11: el destino del spam ninja se razona post a post con tres preguntas, nunca por defecto ni por pilar (`post-workflow §8.1b`, 30/10)**; `/solicitar-demo` es una de las opciones (la URL `/agendar/` está retirada desde la web nueva, 05/10) y el gate de un recurso es otra. Antes ponía: **Link de agendar en spam ninja** en TODOS los pilares menos el lead magnet (no el link del mapa de pampam). Lo que sigue vivo: máx 2 líneas cortas, sin nombrar a Neety, girando el concepto del hook con verbo punchy. Reglas: `global-instructions §4.4b`.
 - **Modo texto / vídeo:** si digo "modo texto" o "modo vídeo" respétalo como sticky hasta que diga lo contrario.
 
 ---

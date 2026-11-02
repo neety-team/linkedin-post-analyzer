@@ -21,6 +21,13 @@
 > - **Fila del reto en la PPD: borrada hoy** (cerrada el 19/10).
 > - 🆕 **Abierta hoy, sin brazo todavía: recordar a la lista 16 por qué le llega el correo.** Brazo A: sin la línea (correos 6 y 9: 5 de 6 bajas de la cohorte). Brazo B: con una línea que lo diga. Se mide en bajas de la lista 16 por entregado. Detalle en la sección del correo 9 y en `email-marketing §8m`. **26/10: el correo 10 NO es brazo** (prueba el pilar, ver su sección); va en el siguiente correo a la 16.
 
+> **🔄 Repaso fila por fila del lunes 02/11 (correo 11, la grabación, con `metricas-brevo.py --quien --listas 15,4,16,19` y la ficha de Brevo de cada baja):**
+> - **Posición del ninja:** sin dato limpio. El 11 lleva el enlace al 82%, el más tarde de la serie, y saca el mejor clic desde el 7; cambia a la vez el destino (contenido inmediato, sin compromiso). No aísla nada.
+> - **Longitud:** tercer dato a favor del corto: 150 palabras y 4,7% de clic limpio. Dirección, n=3.
+> - **Remitente:** Kaixito, 4,7% de clic limpio, el mejor de sus correos desde el 7. Sin cerrar.
+> - **Tipo de cliente del ninja:** el 11 no apunta a un tipo (es contenido). Sin dato.
+> - **Recordar a la lista 16 por qué le llega (brazo B, correo 11):** **1 baja de la lista 16** entre unos 68 entregados de esa lista, contra 3 en el correo 6 y 3 en el 9 (brazo A). La otra baja del 11 es de la lista 15: un alta del gate del 28/10 que se dio de baja en su primer correo. Dirección a favor de la línea, n=1 por brazo.
+
 > 🗂️ **19/10 · LA COHORTE DEL PRESENCIAL ES UNA SOLA LISTA: `Neety Forward 2026` (id 16).** Por petición de Iker: (1) se metieron los **9 aprobados que se inscribieron el 23 y el 24/09**, después de la carga del 22/09 (con la casilla de "objetivos comerciales" aceptada; ninguno existía en Brevo ni estaba bloqueado); (2) la lista 16 se renombró (antes `📅 Inscritos · NEETY FORWARD 2026`); y (3) **se borraron las listas de tanda 17 y 18**, que estaban enteras dentro de la 16 (comprobado antes de borrar). Borrar una lista no toca los contactos ni sus bajas: **siguen los mismos 10 bloqueados**, y la lista queda con **81 contactos, 71 activos**. Las estadísticas por campaña no se pierden. **Desde hoy, los correos van a las listas 15 + 4 + 16**, no a 15 + 4 + 17 + 18.
 > 🔗 **Y desde el 19/10 el CRM guarda las dos cohortes (`saldu`, botón 📅 Inscritos de Luma):** `Neety Forward 2026` (enganchada a la lista 16, permiso por los términos del evento, solo aprobados, y se respeta a quien ya estaba en la lista) y `Webinar 1` (lista nueva, permiso por la casilla). Las bajas van en los dos sentidos: Brevo → CRM por webhook y por la blocklist, y CRM → Brevo por `propagarBajasPendientes`. **Brevo manda.** El espejo pasa cada día solo.
 > ✅ **Comprobado el 19/10 tras la primera subida de Iker:** `Neety Forward 2026` (16) con 81 (71 activos + 10 bajas intactas; el CRM guarda 103 inscritos y 81 con permiso) y **`Webinar 1` (id 19) con 6**, todos activos (la de PTGARAIA, con la casilla pero bloqueada por rebote, no entró). **Webinar 1 dio permiso para "recursos, eventos y novedades": entra en la newsletter igual que la 15 y la 16.**
@@ -1604,6 +1611,16 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 🔴 **Riesgo avisado:** cuarto correo en 16 días para la cohorte de la lista 16 (correos 8, 9, 10 y 11) y segundo de esta semana. En el 9 se dieron 3 de baja (las 3 de la 16) y en el 10, 1 (lectura del 29/10, sin desglosar por lista).
 
 **CSV final de Luma (29/10):** 205 aprobados, 101 se conectaron, 46 casillas. Subido a la herramienta el 29/10 por `POST /api/accounts/webinar-csv` (el evento queda en 205 inscritos y 101 asistentes; leads de eventos 35 → 37). **Subido al CRM el 29/10** (Audiencias → 📅 Inscritos de Luma, `Webinar 1`, modo casilla, lista 19): 205 inscritos en el CRM (160 nuevos), 46 con permiso → Brevo +39, 7 ya estaban, 1 dado de baja que no se toca.
+
+### 📈 RESULTADO DEL CORREO 11 (leído el lunes 02/11)
+
+| entregados | aperturas | clic del panel | **clic limpio** | conversión | bajas |
+|---|---|---|---|---|---|
+| 193 de 200 | 75,7% (inflado por Apple y escáneres) | 23 | **9 personas de fuera (4,7%)** + 1 interno | contenido: la grabación en Loom (las visualizaciones, en Loom) · 0 solicitudes de reunión en la semana con UTM de correo | 2 (1 de la lista 16, 1 de la 15) |
+
+- **Supera la vara** (4,3% de los correos 5-7, que iban a una reunión) por poco: con un destino sin compromiso el clic sube, pero no tanto como para decir que el freno era pedir una reunión. **Dirección, n=1.**
+- **Quién pulsó:** por primera vez desde el correo 9 hay clics fuera de la lista 16: entran las altas del webinar (lista 19) y del gate. Al menos 1 de los 9 ya había pulsado en los correos 6 y 7.
+- **Lo que se aprende para el siguiente:** a la audiencia caliente del webinar (lista 19 y altas del gate) le llega bien el contenido; el siguiente paso con ella es una reunión, y ahí la serie lleva 0 de 14 clics.
 
 ## 📈 REVISIÓN ADELANTADA DE LOS CORREOS 5 A 10 (29/10, con `metricas-brevo.py --quien --listas 15,4,16,19` y el CSV final de Luma)
 

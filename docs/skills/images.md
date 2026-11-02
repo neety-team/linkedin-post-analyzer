@@ -89,7 +89,7 @@ defecto.
 
 **3. Se tiene que entender en UN SEGUNDO.** Minimalista. El hueco que dejan la marca y los subtitulos se usa para que el titular sea lo primero que se lee, mas grande y mas arriba.
 
-## 🎯 0a-FOCO · JERARQUÍA VISUAL: UN SOLO PUNTO FOCAL, Y ES LO QUE HACE ENTENDER LA IMAGEN (2026-10-30) — GLOBAL
+## 🎯 0a-FOCO · JERARQUÍA VISUAL: UN SOLO PUNTO FOCAL, Y ES LO QUE HACE ENTENDER LA IMAGEN (2026-10-30) — GLOBAL *(criterio, en A/B: palabra naranja del meme)*
 
 **La categoría de diseño es la JERARQUÍA VISUAL, y en concreto el PUNTO FOCAL** (también se llama énfasis o dominancia). Antes de leer nada, el ojo va solo a lo que más contrasta con lo que tiene alrededor: un color de acento sobre una pieza neutra, lo más grande, una cara, una caja, lo que está aislado. No se elige, pasa en el primer vistazo. **Por eso una imagen tiene UN punto focal, y ese punto tiene que ser lo que hace entender la imagen en un segundo**, como la miniatura de un vídeo de YouTube. Todo lo demás baja de contraste y acompaña.
 
@@ -1451,6 +1451,7 @@ UN párrafo simple en prosa, listo para pegar en un generador de imágenes. Nomb
 - **Tipografía (solo si la imagen lleva texto):** Bricolage Grotesque para títulos (bold, display) · Switzer para cuerpo. Ninguna otra fuente bajo ningún concepto.
   - ⭐ **Y SIEMPRE que las nombres en un prompt, añade que le adjuntas los instaladores** (Iker, 2026-07-20): `Te adjunto los dos archivos instaladores de las fuentes.` Los manda Iker junto al prompt. Nombrar una fuente que el diseñador no tiene instalada es pedirle que improvise: acaba usando la que mas se le parezca y la imagen sale fuera de marca.
 - **Regla de la palabra naranja:** cuando hay texto, la ÚNICA palabra más importante va en Persian Orange; el resto en Dark Blue sobre Alabastro. Elígela deliberadamente (es el scroll-stop) y nómbrala explícitamente en el párrafo.
+  - 🔄 **02/11: en el MEME no va palabra naranja salvo que la referencia ya lleve una palabra de color** (corrección del 30/10 en `§0a-FOCO`, A/B abierto): el foco del meme es el dibujo. En el resto de imágenes (lead magnet, mapa, banner, portada, tarjeta de evento) la regla sigue igual.
 
 ---
 
@@ -1462,7 +1463,7 @@ Un sujeto principal, un scroll-stopper, composición limpia, paleta de marca. Lo
 ### (B) MEME CON IMAGEN DE REFERENCIA que pasa el usuario → CALCAR LA REFERENCIA
 La referencia manda: layout, nº de paneles, escena, expresiones, lenguaje corporal, mecánica cómica y el chiste. Cópiala lo más fielmente posible en todo eso. **El acabado NO se calca: sale siempre en ilustración plana minimalista, aunque la referencia sea foto, 3D o recargada** (`§0a-DIBUJO`, Iker 01/10; aquí ponía *"si es recargado → recargado"* y producía calcos fotográficos que se veían copiados). Sea cual sea su forma (un panel, tres, un sketch, una tira, un screenshot, una foto candid, incluso un meme no-Neety) → clávala. Sobrescribe SOLO esto:
 1. **Remapea los colores** a la paleta Neety **y añade detalles de marca** (no solo recolorear): corbatas naranjas, patrones, siluetas, props narrativos en naranja.
-2. **Textos:** si los hay, tradúcelos al español (adaptados a ventas) en Bricolage Grotesque (títulos) + Switzer (cuerpo) con la regla de la palabra naranja.
+2. **Textos:** si los hay, tradúcelos al español (adaptados a ventas) en Bricolage Grotesque (títulos) + Switzer (cuerpo). 🔄 02/11: antes ponía *"con la regla de la palabra naranja"*; desde el 30/10, sin palabra naranja salvo que la referencia ya lleve una palabra de color (`§0a-FOCO`, A/B abierto).
 3. **Props específicos:** conserva el elemento pero varía el detalle (café → otro café, avión → otro avión).
 4. **Roles de trabajadores Y CUALQUIER etiqueta de la imagen:** en español genérico, **sin anglicismos ni jerga** (stack, pipeline, CRM, lead…), entendibles por un industrial de 50+. No es solo para los roles: es para TODO texto que vaya en la foto. Fallo real (Iker, 2026-07-22): una etiqueta decía *"Tu stack de ventas"* y un jefe de ventas de 55 no tiene por qué saber qué es un "stack". Se cambió a *"Tu comercial como lo pintan"* (dicho que sí se pilla) vs *"Tu comercial de verdad"*.
 Todo lo demás de la referencia se preserva. No fuerces el uniforme camisa-blanca+corbata-naranja ni el grid simétrico si la referencia no los tiene. (Runbook operativo completo en `post-workflow §4.4`.)
@@ -1479,6 +1480,8 @@ Aplica el filtro de 4 puntos del meme (`global-instructions §4.3`: jerarquía d
 
 ## 6 · Sistema visual del meme (SOLO memes SIN referencia)
 Cuando hay referencia → la referencia manda (§5-B). Esto es solo para memes desde cero.
+
+> 🔄 **02/11: la palabra naranja del título está superada** por la corrección del 30/10 (`§0a-FOCO` y `§0a-sexta-quater`, A/B abierto): el foco del meme es el dibujo, así que el título va en un solo color. Donde abajo se pide `UNA palabra` naranja en el título (slot b, Tipografía, checklist punto 4), léelo como `ninguna`. El naranja de la corbata y de los props narrativos se queda.
 
 **Color + fondo**
 - Fondo Alabastro `#f9f3ef` SIEMPRE (nunca invertir a Dark Blue).
@@ -1507,9 +1510,9 @@ Cuando hay referencia → la referencia manda (§5-B). Esto es solo para memes d
 - Cambio corporal progresivo a lo largo de paneles (calvicie, ojeras, encorvamiento, sudor) — el motor del meme (`global-instructions §4.3`, MOTOR A).
 - "Personaje de contraste" en el último panel (el "Mikel" con taza de café, el AE impasible) = punchline visual.
 
-**Checklist al proponer un meme desde cero (dilo explícito):** 1) fondo Alabastro · 2) layout grid simétrico (nº de paneles) · 3) personaje base camisa blanca + corbata naranja · 4) título 2 líneas Bricolage bold MAYÚSCULAS + la palabra EXACTA en naranja (última o casi) · 5) texto interior Switzer bold Dark Blue · 6) qué cambio corporal y en qué paneles · 7) personaje de contraste y su prop · 8) lista de todos los sitios donde aparece el naranja.
+**Checklist al proponer un meme desde cero (dilo explícito):** 1) fondo Alabastro · 2) layout grid simétrico (nº de paneles) · 3) personaje base camisa blanca + corbata naranja · 4) título 2 líneas Bricolage bold MAYÚSCULAS en un solo color (🔄 02/11: antes ponía *"+ la palabra EXACTA en naranja (última o casi)"*; superado el 30/10 por `§0a-FOCO`) · 5) texto interior Switzer bold Dark Blue · 6) qué cambio corporal y en qué paneles · 7) personaje de contraste y su prop · 8) lista de todos los sitios donde aparece el naranja.
 
-**NO proponer:** fondos oscuros · personajes sin el uniforme · más de UNA palabra naranja en el título · viñetas de cómic con bocadillos · fuentes distintas de Bricolage/Switzer · personas distintas entre paneles (debe ser el MISMO personaje cambiando).
+**NO proponer:** fondos oscuros · personajes sin el uniforme · palabra naranja en el título (🔄 02/11: antes ponía *"más de UNA"*; desde el 30/10, ninguna, `§0a-FOCO`) · viñetas de cómic con bocadillos · fuentes distintas de Bricolage/Switzer · personas distintas entre paneles (debe ser el MISMO personaje cambiando).
 
 ---
 
@@ -1647,8 +1650,10 @@ El generador deforma a las personas en cada iteración. **En el prompt el avatar
 **No se le pide al generador ni a Canva: se corre `scripts/montar-portada-evento.py`** y la portada sale montada en `NEETY FORWARD/`. Primer caso aprobado: `Portada Webinar.png`, del webinar del 28/10.
 
 ```
-python scripts/montar-portada-evento.py --l1 "Menos buscar." --l2 "Más vender." --fecha "Miércoles 28 octubre" --hora "10:00" --info1 "Online y gratis" --info2 "30 minutos" --salida "Portada Webinar.png"
+python scripts/montar-portada-evento.py --l1 "Menos buscar." --l2 "Más vender." --fecha "Miércoles 28 octubre" --hora "10:00" --info1 "Por internet y gratis" --info2 "30 minutos" --salida "Portada Webinar.png"
 ```
+
+🔄 02/11: el comando modelo llevaba `--info1 "Online y gratis"`, pero `online` está vetado (anglicismo, `global §4.4b-FORMATO-EVENTO`). La portada del 28/10 ya publicada lo lleva; las próximas, `Por internet y gratis` o equivalente. ⚠️ El valor por defecto del script sigue siendo `Online y gratis`: pásale siempre `--info1` y mide que la frase más larga cabe antes de darla por buena.
 
 **Versión ancha para la ficha de neety.com/eventos:** el mismo script con `--ancha` saca `Portada Webinar ancha.png` (1916×1200). Solo lleva el título y a Kaixito arriba, sin fecha ni "Online y gratis": la ficha le pone encima, en el tercio de abajo, las chapas de fecha y lugar, que las tapaban y las repetían (08/10, primera versión).
 

@@ -2766,7 +2766,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # Iker, 15/10: 'software' llevaba muchas publicaciones colandose y nuestro
         # lector es mayor. Lo nuestro funciona en el navegador: ni 'programa' ni
         # 'pagina web' son verdad, 'herramienta' si. Y 'online' tiene recambio llano.
-        'software': 'la herramienta', 'online': 'por videollamada / en directo / a distancia',
+        # 🔄 02/11: 'por internet' primero; 'videollamada' se lee mas pobre que
+        # 'evento' desde el 21/10 (global §4.4b-FORMATO-EVENTO).
+        'software': 'la herramienta', 'online': 'por internet / en directo / a distancia',
     }
     # Se mira el texto SIN las URLs: la cola de UTM lleva `utm_medium=post`
     # (4.4b-UTM) y `post` es ahora anglicismo, asi que el check se disparaba
@@ -3330,9 +3332,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                                                   'recursos.neety.com/correo', 'recursos.neety.com/newsletter'))
                         or _es_evento)
             chk(_dest_ok, 'El spam ninja apunta a una puerta nuestra: reuniones, gate de un recurso o correo (§4.4b, post-workflow §8.1b)',
-                'hay enlace pero no es el de agendar. Prioridad 1 = agendar (demo y venta), '
-                'prioridad 2 = lead magnet (correo). Solo el mapa enlaza a otro sitio, y '
-                'porque su pagina ya lleva el CTA a agendar dentro' if not _dest_ok else '')
+                # 🔄 02/11: el texto decia "Prioridad 1 = agendar... Solo el mapa enlaza a
+                # otro sitio"; desde el 30/10 el destino se razona post a post (§8.1b).
+                'hay enlace pero no va a ninguna puerta nuestra. El destino se razona post a '
+                'post con las tres preguntas de post-workflow §8.1b (que continua el tema, que '
+                'se quiere medir, cuantos van ya a cada puerta): /solicitar-demo, el gate de '
+                'un recurso (neety.com/academia/), el correo o el evento abierto' if not _dest_ok else '')
     # ⛔ ESTE BLOQUE VA FUERA DEL `if pilar in (mapa/los10/meme/evento)` (2026-08-12).
     # Estaba DENTRO, asi que en HISTORIA (y en cualquier pilar de prosa con enlace)
     # no se comprobaba ninguna regla del ninja: ni el https, ni que no nombre la
@@ -3644,7 +3649,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                         'Spam ninja: el CONTEXTO del destino se entiende sin conocernos (global §4.4b-CONTEXTO)',
                         ('"%s" da por sabido de que se habla. Antes del bloque, una linea que diga '
                          'que es, cuando o como fue y que le resuelve al lector: "De eso dimos hoy '
-                         'una charla por videollamada."' % _ref.group(0)) if (_ref and not _ctx) else '')
+                         'un evento gratis por internet."' % _ref.group(0)) if (_ref and not _ctx) else '')
                     # ⏳ PASADO SIN AMBIGUEDAD (29/10, global §4.4b-CONTEXTO): con una fecha de
                     # evento delante, "el miercoles 28 organizamos" se lee igual en presente que
                     # en pasado, y un evento que ya paso parece anunciarse. Los -amos/-imos
@@ -4178,8 +4183,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             _puertas.add('correo')
         elif 'luma.com' in _u or 'forward.neety.com' in _u:
             _puertas.add('evento')
+        # 🔄 02/11: el GATE de un recurso tambien es una puerta (post-workflow §8.1b:
+        # sustituye a agendar o al correo, nunca va con ellos). Antes no contaba y un
+        # post con gate + /solicitar-demo pasaba este check en verde. La pagina del
+        # mapa (/mapas/) sigue sin contar como puerta.
+        elif 'neety.com/academia/' in _u or ('recursos.neety.com' in _u and '/mapas/' not in _u):
+            _puertas.add('gate')
     chk(len(_puertas) <= 1, 'UNA sola puerta por post: nunca dos enlaces (§4.4e-UNA)',
-        ('lleva ' + ' + '.join(sorted(_puertas)) + '. Se elige UNA segun el tema y el pilar '
+        ('lleva ' + ' + '.join(sorted(_puertas)) + '. Se elige UNA, razonada post a post (post-workflow §8.1b), '
          'y la otra se QUITA: 3 de 3 posts con dos enlaces se quedaron sin link_url y sin '
          'un solo clic medido') if len(_puertas) > 1 else '')
     _correo = 'recursos.neety.com/correo' in cuerpo or 'recursos.neety.com/newsletter' in cuerpo
@@ -4690,11 +4701,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'visto bueno. Una mencion en un post de evento les asocia al acto, y eso '
             'no es informacion publica como en un mapa. El 05/08 hubo que borrar un '
             'post ya publicado por saltarse esto', aviso=True)
-        chk(EVENTO_AJENO or 'luma.com/ujffj66o' in texto or 'forward.neety.com' in texto,
-            'EVENTO: lleva el enlace de inscripción (§4.4b)',
-            'falta https://luma.com/ujffj66o, o https://forward.neety.com/ que redirige '
-            'a ese mismo evento conservando la query. Un post de evento sin el enlace '
-            'no sirve de nada')
+        # 🔄 02/11: el enlace de Neety Forward (presencial del 24/09) solo se exige si el
+        # post habla de Neety Forward o mientras ese evento estaba vivo. Antes saltaba en
+        # TODO --pilar evento y tumbaba cualquier historia/evento sin ese enlace.
+        _forward = (re.search(r'neety\s*forward|forward\.neety', texto, re.I)
+                    or datetime.date.today() <= datetime.date(2026, 9, 24))
+        if _forward:
+            chk(EVENTO_AJENO or 'luma.com/ujffj66o' in texto or 'forward.neety.com' in texto,
+                'EVENTO: lleva el enlace de inscripción (§4.4b)',
+                'falta https://luma.com/ujffj66o, o https://forward.neety.com/ que redirige '
+                'a ese mismo evento conservando la query. Un post de evento sin el enlace '
+                'no sirve de nada')
         _agenda = re.search(r'\b(agenda|programa|ponencias?|horario|charlas?)\b.{0,40}\b(ser[aá]|habr[aá]|incluye)',
                             texto, re.I)
         chk(not _agenda, 'EVENTO: vende la SALA, no el programa (§4.4b)',
@@ -5597,12 +5614,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             _menos = min((nom for nom, _ in TIPOS_CLIENTE), key=lambda t: _cuenta_t.get(t, 0))
             chk(False, 'ENTREGA: a que TIPO de cliente le habla el ninja (§4.4b-TIPOS)',
                 'este: %s. Ultimos de %s: %s. En las 3 cuentas (21 dias): %s. El menos '
-                'probado: %s. Rota entre los 4 y apuntalo en el historial; con el webinar, '
-                'solo los tipos que la pagina de Luma cumple' % (
+                'probado: %s. Rota entre los 4 y apuntalo en el historial%s' % (
                     ', '.join(t[:6] for t in _tmio) or 'ninguno claro', _cta or '?',
                     ' | '.join('%s %s' % (_x[1][5:], ', '.join(t[:6] for t in tipos_de(_x[2])) or '?') for _x in _suyos) or 'ninguno',
                     ', '.join('%s=%d' % (nom[:6], _cuenta_t.get(nom, 0)) for nom, _ in TIPOS_CLIENTE),
-                    _menos[:6]), aviso=True)
+                    _menos[:6],
+                    # 🔄 02/11: la coletilla de Luma solo si el post enlaza a Luma
+                    # (antes salia siempre, tambien con el webinar ya caducado)
+                    ('; con un evento en Luma, solo los tipos que su pagina cumple'
+                     if 'luma.com' in cuerpo else '')), aviso=True)
             if re.search(r'qui[eé]n decide', _nj, re.I):
                 chk(False, 'ENTREGA: "quien decide" ya esta muy visto (§4.4b-ROTACION)',
                     '%d de los ultimos 12 ninjas de las 3 cuentas lo dicen. Mismo dolor, otra '

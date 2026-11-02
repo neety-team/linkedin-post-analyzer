@@ -258,7 +258,7 @@ Escribe como un founder-operador se lo diría **a un director comercial de 55 a�
 | pitch | el discurso · cómo lo cuentas |
 | closing | el cierre |
 | software | **la herramienta** (Iker, 15/10: funciona en el navegador, así que `programa` y `página web` no son verdad; `herramienta` sí) |
-| online | **por videollamada** · en directo · a distancia (Iker, 15/10) |
+| online | **por internet** · en directo · a distancia (15/10). 🔄 02/11: antes ponía `por videollamada` en primer lugar, pero desde el 21/10 `videollamada` se lee más pobre que `evento` (`global §4.4b-FORMATO-EVENTO`) |
 
 **Test:** ¿lo diría un director comercial de 55 años que vende maquinaria y puede no tener CRM? Si la respuesta es que él diría "la cartera", nosotros decimos "la cartera". Mecanizado en `validar-post.py` (fallo duro, en TODO el texto) y en el prompt de `replyGenerator.ts`.
 

@@ -23,6 +23,9 @@ import os
 import sys
 import urllib.request
 
+# La consola de Windows (cp1252) revienta con los emojis del informe.
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 BASE = 'https://linkedin-post-analyzer-production.up.railway.app'
 
 

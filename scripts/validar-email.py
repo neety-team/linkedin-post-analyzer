@@ -525,7 +525,8 @@ def main():
              'pipeline': 'la cartera', 'funnel': 'el embudo', 'forecast': 'la previsión',
              'workflow': 'el proceso', 'engagement': 'la respuesta', 'insight': 'el hallazgo',
              'insights': 'los hallazgos', 'pitch': 'el discurso', 'closing': 'el cierre',
-             'software': 'la herramienta', 'online': 'por videollamada / en directo'}
+             # 🔄 02/11: 'por internet', no 'videollamada' (global §4.4b-FORMATO-EVENTO)
+             'software': 'la herramienta', 'online': 'por internet / en directo'}
     _sin_url = re.sub(r'https?://\S+', ' ', cuerpo)
     _ang = [w for w in _ANGL if re.search(r'\b' + w + r'\b', _sin_url, re.I)]
     if _ang:

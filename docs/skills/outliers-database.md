@@ -206,7 +206,7 @@ Ratios de todas las cuentas; n bajo (2-7 posts) → priors, no leyes.
 > Foto domina en volumen, pero **texto solo rinde igual de alto (~13.6x)**: no todo post necesita imagen. Doc y carrusel quedan por debajo (coherente con "infografías 0/3" de la skill `images §7`).
 
 ### 3.9 · Timing (confirma y afina §4/§7)
-- **Horas por outlier-ratio (señal FUERTE):** `11:00 → 8.21x` (la mejor con diferencia) · `12:00 → 7.10x` · `14:00 → 7.03x` · `09:00 → 6.75x` · `05:00 → 6.66x` · `07:00 → 6.57x` · `15:00 → 6.12x` · `16:00 → 6.02x`. → Refuerza la ventana **11:00-12:00 y 14:00-15:00** ya recomendada; 11:00 es el pico claro.
+- **Horas por outlier-ratio (señal FUERTE):** `11:00 → 8.21x` (la mejor con diferencia) · `12:00 → 7.10x` · `14:00 → 7.03x` · `09:00 → 6.75x` · `05:00 → 6.66x` · `07:00 → 6.57x` · `15:00 → 6.12x` · `16:00 → 6.02x`. → Refuerza la ventana **11:00-12:00 y 14:00-15:00** ya recomendada; 11:00 es el pico claro. 🔄 **02/11: superado para decidir la hora; manda `working-preferences §1h`** (remedido el 01/10 con controles: la mañana da una ventaja real pero pequeña, de un 10-40%; las 14:00 son la peor franja en nuestras cuentas). Esto queda como dato cross-creator, no como recomendación.
 - **Días (señal DÉBIL):** las tasas por día están todas apretadas ~4.3-4.9% (Sáb 4.9%, Mié 4.6%, Vie 4.6%, Mar 4.5%, Jue 4.5%). No hay un día ganador nítido cross-creator; el "martes" de §4 sigue siendo el prior propio, con miércoles-jueves igual de válidos.
 
 ### 3.9b · 🔎 CÓMO CAZAR LEAD MAGNETS EN LA BD (huella dactilar + remix cross-sector)
@@ -423,7 +423,7 @@ Es el paso que más se falla y el que convierte el robo en algo original. Robar 
 - Estructura recurrente: `[claim único O métrica única] + [tensión/reframe] + 👇`, con verbo físico (matar, enterrar, quemar, tirar, reventar) en al menos una parte. El primer salto en blanco va DESPUÉS del gancho.
 
 ### Timing confirmado
-- Mejor día: martes (miércoles-jueves cerca). Mejores horas: 11:00-12:00 y 14:00-15:00 (hora local).
+- Mejor día: martes (miércoles-jueves cerca). Mejores horas: 11:00-12:00 y 14:00-15:00 (hora local). 🔄 **02/11: la hora está superada por `working-preferences §1h`** (remedido el 01/10: la mañana da una ventaja de un 10-40% y las 14:00 son la peor franja; antes ponía 14:00-15:00 como mejor hora).
 
 ---
 
@@ -437,7 +437,7 @@ Es el paso que más se falla y el que convierte el robo en algo original. Robar 
 - **Posts de texto/historia largos:** la tasa sube casi lineal con la longitud (<100 palabras 12,4% · 300-400 39,4% · 400-500 58,3%). Confirma nuestro rango de 300-500 palabras (`§3.3`). **Ojo de alcance:** esto es para posts de TEXTO/historia — NO para memes ni screenshots, que en nuestros datos van CORTOS (`global-instructions §4.3`). Ahí manda lo nuestro.
 - **Una idea por línea + voz humana sin clichés de IA:** "here's the thing" / "let that sink in" casi ausentes en top creators. Refuerza `§3` (variedad rítmica, líneas cortas) y la tabla anti-IA de `brand-voice §3`.
 - **Comment-to-get como CTA rey:** 41,3% viral y 378 comentarios de media, vs pregunta 81, link en el post 46, y "sígueme" 35 (9,1% viral, el PEOR). Solo ~8% de posts lo usan. Valida de lleno nuestro lead magnet con "Comenta X + Y" (`§4.4`) y la regla del UNO en el cierre.
-- **Timing:** ventana de media mañana europea (11:00-12:30) y los primeros 30 min deciden. Confirma nuestro `§3.9`/`§4/§7` (11:00-12:00 y la ventana de oro).
+- **Timing:** ventana de media mañana europea (11:00-12:30) y los primeros 30 min deciden. Confirma nuestro `§3.9`/`§4/§7` (11:00-12:00 y la ventana de oro). 🔄 **02/11: no lo confirma.** La hora manda en `working-preferences §1h` (la mañana da un 10-40% de ventaja, nada más). La ventana de oro quedó el 30/10 como **HIPÓTESIS sin dato propio**, con dos casos nuestros en contra (`global-instructions §7`). Esto es dato externo, no prueba.
 - **Vulnerabilidad rinde** (53% viral vs 28% baseline) → coherente con nuestro tono Empatía/Vulnerable alto (`§3.4`).
 - **"Operator lane":** los operadores ganan con **prueba y números grandes** (posts más largos y densos, 62,8% con número). Es exactamente nuestro posicionamiento founder-en-trincheras + cifras de cliente (`brand-voice §1`, `§4.2`).
 - **Apropiarte de un concepto/formato y repetirlo:** los mejores reejecutan su formato/hook firma. Encaja con "reusa una palabra-concepto que sea nuestra" (`brand-voice §4.4`). **Matiz nuestro:** apropiarse del CONCEPTO/estructura sí, pero **variando las palabras cada vez** (`working-preferences §4`) — no repetir el hook calcado.

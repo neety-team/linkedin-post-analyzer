@@ -30,6 +30,9 @@ import re
 import subprocess
 import sys
 
+# La consola de Windows (cp1252) revienta con los emojis del informe.
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PY = sys.executable
 ENV = dict(os.environ, PYTHONIOENCODING='utf-8')

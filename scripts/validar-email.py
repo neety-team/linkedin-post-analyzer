@@ -265,7 +265,8 @@ def main():
     # mascota." y "Confesión de mascota." ya gastaron el molde "X de mascota". Se añade aqui
     # cada apertura enviada; falla si se repite entera o si comparte las dos ultimas palabras.
     APERTURAS_USADAS = ['te cuento', 'una frase', 'al grano', 'calendario en mano', 'aviso de mascota',
-                        'hoy vengo enfadado', 'apunta', 'confesion de mascota', 'shhh', 'respira']
+                        'hoy vengo enfadado', 'apunta', 'confesion de mascota', 'shhh', 'respira',
+                        'mision fallida']
     import unicodedata as _ud
     _ap = ''.join(c for c in _ud.normalize('NFD', primera.lower()) if _ud.category(c) != 'Mn')
     _ap = re.sub(r'[^a-z ]', '', _ap).strip()
@@ -298,7 +299,7 @@ def main():
     # ⛔ La unidad del dolor rota sin bajar (2026-11-02, global §4.4b-UNIDAD): los clientes miden
     # el dolor en mucho tiempo, no en la palabra "meses". Falla si un correo de los 3 anteriores
     # usó la misma unidad; avisa si baja a semanas, días u horas. Al programar, se añade aquí.
-    UNIDADES_CORREOS = {7: 'meses', 8: 'meses', 10: 'meses'}
+    UNIDADES_CORREOS = {7: 'meses', 8: 'meses', 10: 'meses', 12: 'la vida'}
     _cuerpo_u = re.sub(r'https?://\S+', '', _cuerpo_sin_pd).lower()
     _uds = [u for u, rx in UNIDADES_TIEMPO if re.search(rx, _cuerpo_u)]
     _num = re.search(r'correo-(\d+)-', cuerpo)
@@ -853,6 +854,9 @@ def main():
             # correo 11 · Kaixito · GRABACION (programado vie 30/10 09:05)
             'se escapan menos si sabes cuales buscar': '2026-10-30',
             'de eso va la grabacion entera': '2026-10-30',
+            # correo 12 · Kaixito · LA MALETA (programado mar 03/11 09:05)
+            'lo que sobra en una maleta se ve': '2026-11-03',
+            'eso lo miramos contigo en media hora': '2026-11-03',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el

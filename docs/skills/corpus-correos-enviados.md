@@ -759,6 +759,61 @@ PD. Yo ya me la he visto 3 veces. En la tercera hasta tomé apuntes en mi libro,
 
 ---
 
+## Kaixito 12 · la maleta de los jefes (pilar BASTIDORES · vuelta a `/solicitar-demo`)
+
+**Programado:** mar 2026-11-03 09:05 (+01:00) · campaña Brevo 34 · listas 15 + 4 + 16 + 19, sin exclusión (el 11 entregó 193)
+**Remitente:** `Kaixito de Neety` (`hola@neety.com`) · firma `Kaixito, la mascota de Neety` · GIF `estresado`, justo después de colarse en la maleta
+**UTM escrito a mano:** `utm_campaign=correo-12-kaixito-maleta`
+
+### El asunto y el preheader
+
+```
+me colé en la maleta de mis jefes
+```
+```
+Se iban a San Francisco sin mí.
+```
+
+### El cuerpo, literal
+
+```
+Misión fallida.
+
+A mis jefes los han elegido para ir a San Francisco.
+Están allí entre inversores, fondos y fundadores.
+
+Quería ir con ellos, así que me colé en su maleta.
+
+[GIF estresado]
+
+El libro, dentro.
+Yo, dentro.
+La cremallera, no.
+
+Lo que sobraba era yo.
+
+Con las listas de empresas me pasaba igual.
+
+Hasta ver qué empresas sobraban, se me iba la vida.
+
+Lo que sobra en una maleta se ve, en una lista no.
+Eso lo miramos contigo en media hora: https://neety.com/solicitar-demo?utm_source=brevo&utm_medium=email&utm_campaign=correo-12-kaixito-maleta
+
+No hace falta traer nada preparado.
+
+Y si no encaja, te lo decimos.
+A mí ya me lo dijo la maleta.
+
+Kaixito, la mascota de Neety
+
+PD. El libro sí cabía. Ahora está en San Francisco, sin mí.
+```
+
+> **Real / inventado:** real, que los jefes están en San Francisco entre inversores, fondos y fundadores, elegidos por el programa Desafía (ICEX y Red.es), y la media hora de la discovery con su «si no encaja, te lo decimos». Inventado, la maleta.
+
+---
+
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

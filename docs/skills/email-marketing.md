@@ -637,6 +637,7 @@ Mismo mapa que `post-workflow §8.1b`, porque el objetivo de conversión cambia 
 - ~~**Recurso recién nacido de un evento** → su gate~~ ⛔ **Retirado el 02/11 (`§4a-SIN-GATE`, abajo): en correo el recurso va DIRECTO, nunca por su gate.** La grabación solo se promete cuando esté subida.
 - **Sin evento ni recurso nuevo** → `/solicitar-demo` (Oportunidades), el destino por defecto.
 - 🔄 **02/11: «el destino por defecto» está superado por `post-workflow §8.1b` (30/10):** sin cuenta atrás, el destino se razona correo a correo con las mismas tres preguntas (qué continúa el tema, qué se quiere medir, cuántos van ya a cada puerta) y nunca por defecto; `/solicitar-demo` sigue siendo el más frecuente, pero como decisión razonada. Y el recurso del webinar dejó de ser «recién nacido» el 29/10.
+- **🎯 La conversión que más vale es la OPORTUNIDAD (la primera reunión de `/solicitar-demo`), y en semanas de evento la newsletter no va a la inscripción por defecto (02/11).** Con el dato de abajo, mandar la lista al Luma no ha llenado eventos (7 clics y 1 inscrito en tres correos), y la gente que entra por los eventos ya ha visto uno. Se manda a la inscripción solo si ese mes la dirección pide llenar el evento, y entonces se dice en el correo cuál es la variable. Ojo: la demo tampoco ha convertido todavía (0 reuniones de 14 clics hasta el correo 11); el correo 12 es la primera prueba con un correo de Kaixito a la demo.
 - **📊 Lo que dice nuestro dato (29/10, `historial-newsletter`):** la demo saca más clics que la inscripción al webinar (4,3% contra 2,0%, p≈0,12, dirección) y **ninguno de los dos convierte** (0 reuniones de 14 clics, 1 inscrito de 7). El correo 11 prueba por primera vez un destino de contenido inmediato, la grabación.
 - ~~**⚠️ Lo que cambia en correo:** el correo que manda al gate del recurso se mide en clics y descargas…~~ Superado el 02/11 por la regla de abajo.
 
@@ -671,6 +672,8 @@ En los emails importantes, SIEMPRE (Timepack lo lleva en el 86% de los correos, 
 ## 5 · Pilares de contenido y cadencia semanal
 
 **Cadencia:** mínimo 1 email/semana a la lista activa (una lista abandonada muere); el objetivo de crucero es 2-3/semana alternando pilares y remitentes. **Mismo día y misma hora local, religiosamente:** Timepack manda a las 06:30 hora española clavadas durante 16 meses (ajusta el UTC con el horario de verano) y esa costumbre ES el activo. Un "empleado digital que no falla" predica con el ejemplo no fallando.
+
+**🔄 Cadencia, decidido el 02/11 (manda sobre el «2-3/semana» de arriba):** **uno por semana, y que sea muy bueno.** Un correo original a la semana rinde más que uno diario: el lector es un directivo B2B con la bandeja llena, y la frecuencia diaria de Timepack, RunnerPro o Isra es de infoproducto con lista caliente (`§5-NINJA-POSICION`). Mandar más trae bajas y denuncias, y una cuenta ya nos la cancelaron (`§0b`). **El dato propio:** la semana del 27-30/10 llevó dos correos (10 y 11) y la cohorte de la lista 16 llegó a 4 correos en 16 días; las bajas fueron 1 y 2. **Un segundo correo semanal solo como prueba declarada**, midiendo bajas y denuncias por entregado contra las semanas de uno. Diario, no.
 
 **⭐ DÍA DE LA SEMANA Y HORA — medido el 2026-08-10 sobre las fechas reales de envío de 480 correos (los nombres de fichero del corpus llevan fecha y hora).**
 

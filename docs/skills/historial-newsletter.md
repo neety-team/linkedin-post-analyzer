@@ -1450,7 +1450,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 1. **Asunto: las 4 preguntas cortas de tú a tú (contando el correo 0, 46,8%) están por encima de las 2 afirmaciones.** Dentro de la misma lista de 45 la diferencia es 46,7 contra 35,6/31,1. Pasa de hipótesis n=2 a **n=4 contra 2**: se sigue haciendo y se propone como regla cuando haya un correo-afirmación que la desmienta o la confirme con la lista de 111.
 2. **Pilar: los que ARGUMENTAN sacan más clics que los que CUENTAN.** Historia (2 y 3): 0 y 1 clic. Novedades, objeción y calendario: 3, 5-7 y 5. ⚠️ Confundido con la lista (de 45 a 111 desde el 5) y con la puerta (Luma en 3-4, `/agendar/` desde el 5). Lo que sí aguanta sin confusión es la comparación 2 contra 4, misma lista y misma época: 0 contra 3.
 3. **Remitente: Kaixito es el que más abre en la lista comparable** (46,7 contra 35,6 de Iker y 31,1 de Unai) **y el único con 0 bajas en sus dos envíos de Brevo**. `email-marketing §1` decía *"si abre más, gana papel"*: ya abre más.
-4. **🔴 Clics sí, reservas no.** 12 clics de lead en los correos 5 y 6 y **0 reuniones**. Desde el correo 0 (1 reunión el 07/08 en MailerLite) la newsletter no ha traído ninguna. **El cuello de botella ya no es el correo: es lo que pasa después del clic.**
+4. **🔴 Clics sí, reservas no.** 12 clics de lead en los correos 5 y 6 y **0 reuniones**. Desde el correo 0 (1 reunión el 07/08 en MailerLite) la newsletter no ha traído ninguna. 🔄 **Falso, corregido el 02/11:** la tanda 6 de Kaixito 01 (28/08) trajo 1 oportunidad (ver «CORRECCIÓN 02/11»). **El cuello de botella ya no es el correo: es lo que pasa después del clic.**
 5. **Las bajas viven en la cohorte del evento.** 0 en 45 durante 4 correos con la lista de siempre; 3 en 111 en cuanto la cohorte nueva recibe su segundo correo en 6 días.
 
 ## ✅ CORREO 7 · Kaixito · MITO + colaboración AMA (PROGRAMADO mar 06/10 09:05)
@@ -1561,7 +1561,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 2. **La cohorte de Neety Forward (lista 16) es a la vez la única que pulsa y la única que se va.** Tercera vez (correo 6: 2 de 3 bajas; correo 9: 3 de 3 bajas y 4 de 4 clics). No pidieron una newsletter: aceptaron los términos de un evento. **Hipótesis para el próximo correo a la 16 (robada de WaLead, `email-marketing §8m`): una línea que le recuerde por qué le llega** («Te escribo porque viniste o te apuntaste a Neety Forward»).
 3. **Corto contra largo, segundo dato a favor del corto:** el 9 (116 palabras) sacó 4 clics y 1 inscrito; el 8 (240), 1 clic y 0 inscritos. Cambian también el remitente y el pilar: sigue siendo **dirección**, ahora con dos correos.
 4. **Kaixito ya no es el que más abre.** Desde que la lista es de ~110, Asier (63,0%) e Iker abren igual o más. Lo que sí mantiene es que su molde corto es el que más clics saca hacia una fecha (correos 4 y 9).
-5. **Oportunidades y reuniones: 0 desde el correo 0** (1 reunión el 07/08 en MailerLite). La newsletter ha traído 2 inscritos a eventos y ninguna reunión. Pendiente de Iker: si alguna reunión salió de alguien de la lista y no se atribuyó.
+5. **Oportunidades y reuniones: 0 desde el correo 0** (1 reunión el 07/08 en MailerLite). 🔄 **Falso, corregido el 02/11:** 1 oportunidad más de la tanda 6 de Kaixito 01 (28/08), ver «CORRECCIÓN 02/11». La newsletter ha traído 2 inscritos a eventos y ninguna reunión. Pendiente de Iker: si alguna reunión salió de alguien de la lista y no se atribuyó.
 
 ## ✅ CORREO 10 · Kaixito · ANZUELOS, víspera del webinar (PROGRAMADO mar 27/10 09:05 +01:00)
 
@@ -1652,9 +1652,25 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Real / inventado | real: los jefes en San Francisco entre inversores, fondos y fundadores, elegidos por el programa Desafía (ICEX y Red.es), la media hora y el «si no encaja, te lo digo» de la discovery. Inventado: la maleta |
 | Destinatarios previstos | listas 15 + 4 + 16 + 19, como el 11 |
 
-**Variable en prueba: el DESTINO** (contenido directo en Loom → reunión en `/solicitar-demo`). Todo lo demás como el correo 11: Kaixito, molde corto, GIF, un enlace, PD de broma, 09:05. Cambian también la palanca (en Kaixito rota por regla) y la línea de por qué le llega, que sale (casos puntuales, 02/11): las bajas se leen sabiéndolo. **Se mide** en clic limpio (`metricas-brevo.py --quien --listas 15,4,16,19`) contra el 4,7% del 11 y el 4,3% de los correos 5-7, y en **solicitudes de reunión con `utm_campaign=correo-12-kaixito-maleta`** en la base de la web (vara: 0 de 14 clics en la serie). Bajas de la lista 16 por entregado, como siempre. **Revisión: lunes 09/11.**
+**Variable en prueba: el DESTINO** (contenido directo en Loom → reunión en `/solicitar-demo`). Todo lo demás como el correo 11: Kaixito, molde corto, GIF, un enlace, PD de broma, 09:05. Cambian también la palanca (en Kaixito rota por regla) y la línea de por qué le llega, que sale (casos puntuales, 02/11): las bajas se leen sabiéndolo. **Se mide** en clic limpio (`metricas-brevo.py --quien --listas 15,4,16,19`) contra el 4,7% del 11 y el 4,3% de los correos 5-7, y en **solicitudes de reunión con `utm_campaign=correo-12-kaixito-maleta`** en la base de la web (vara, corregida el 02/11: 2 oportunidades en la serie, las dos de Kaixito 01, y ninguna desde el 28/08). Bajas de la lista 16 por entregado, como siempre. **Revisión: lunes 09/11.**
 
 **Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`lo que sobra en una maleta se ve`, `eso lo miramos contigo en media hora`), `mision fallida` a `APERTURAS_USADAS`, `12: 'la vida'` a `UNIDADES_CORREOS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
+
+## 🔎 CORRECCIÓN 02/11: LA NEWSLETTER SÍ HA TRAÍDO REUNIONES, Y LAS DOS SON DE KAIXITO 01
+
+Leído de la base de la web nueva (`/api/accounts/conversiones` del analizador, que cuenta las solicitudes de `/solicitar-demo` y `/agendar/` por su UTM) y del rescate de MailerLite. **Aquí ponía «0 reuniones desde el correo 0» y era falso:** nadie había mirado la base por campaña.
+
+| correo | herramienta | fecha | destino | solicitudes | **oportunidades** (cualificada y con hora) |
+|---|---|---|---|---|---|
+| Kaixito 01 · tanda 1 (`¿no te acuerdas de mí?`) | MailerLite | 07/08 | `/agendar/` | — | **1 reunión ese mismo día** (rescate de MailerLite; quién fue no está guardado, y el que más pulsó era cliente) |
+| Kaixito 01 · tanda 6 (enlace subido al cuerpo) | Brevo | 28/08 | `/agendar/` | 1 | **1** (pedida entre el 01 y el 15/09, `kaixito-01-tanda-6`) |
+| 6 · Unai (calendario) | Brevo | sep | `/agendar/` | 1 | 0 |
+| 7 · Kaixito (mito) | Brevo | 06/10 | `/solicitar-demo` | 1 | 0 |
+| 5, 8, 9, 10, 11 | Brevo | | | 0 | 0 |
+
+- **Por destino:** la reunión ha dado **2 oportunidades y 2 solicitudes sin cualificar**; Luma, **1 inscrito** en tres correos. Refuerza volver a `/solicitar-demo` (`email-marketing §4a`).
+- **Las dos oportunidades salen del mismo correo, el primero de Kaixito**, a gente que llegaba en frío. ⚠️ La tanda 6 iba a contactos sin la casilla de comunicaciones (`feedback_un_clic_no_es_consentimiento`) y el correo 0 es el copy que costó MailerLite: **el dato no autoriza a repetir ese envío**, solo dice que la mascota ya ha convertido a la reunión.
+- **La vara del correo 12 cambia:** ya no es «0 de 14 clics», es **2 oportunidades en 13 correos**, y ninguna desde el 28/08.
 
 ## 📈 REVISIÓN ADELANTADA DE LOS CORREOS 5 A 10 (29/10, con `metricas-brevo.py --quien --listas 15,4,16,19` y el CSV final de Luma)
 

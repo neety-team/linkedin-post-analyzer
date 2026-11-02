@@ -585,6 +585,14 @@ def main():
                             f'va directo y la reunion a /solicitar-demo (email-marketing §4a-SIN-GATE)'))
     else:
         checks.append(ok('Destino: ningun gate ni formulario de suscripcion'))
+    # ⛔ La primera reunion de /solicitar-demo es una discovery con el equipo de ventas
+    # (calendario rotativo), no con los jefes (2026-11-02, email-marketing §4a-DEMO).
+    _l_demo = [l for l in cuerpo_lineas if 'solicitar-demo' in l]
+    if _l_demo and re.search(r'\b(jefes?|iker|unai|asier)\b', re.sub(r'https?://\S+', '', _l_demo[0]), re.I):
+        checks.append(fallo('Demo: la línea del enlace no promete a un jefe. La primera reunión es '
+                            'con el equipo de ventas (email-marketing §4a-DEMO)'))
+    elif _l_demo:
+        checks.append(ok('Demo: la línea del enlace no promete a un jefe'))
     # --colaboracion (2026-10-05, correo 7): una COLABORACION con un tercero (difundir
     # algo de otra entidad) permite UN segundo enlace. ⛔ CORREGIDO EL MISMO DIA POR
     # IKER: la primera version lo mandaba a la PD, detras de la firma, y eso "queda

@@ -648,6 +648,14 @@ Mismo mapa que `post-workflow §8.1b`, porque el objetivo de conversión cambia 
 - **Solo es de correo.** En los posts el gate sigue siendo la puerta del recurso (`post-workflow §8.1b`): allí el lector todavía no nos ha dado nada.
 - **Mecanizado** como fallo duro en `validar-email.py` (`Destino: la newsletter no manda a un gate`), con `recursos.neety.com/agendar` aparte porque ya tiene su propio fallo.
 
+### ⛔ 4a-DEMO · QUÉ SE PUEDE DECIR DE LA REUNIÓN DE `/solicitar-demo` (2026-11-02, correo 12)
+- **La primera reunión NO es una demo con los jefes: es una discovery de media hora** con uno de los dos compañeros de ventas, por calendario rotativo (`discovery-neety`: cómo buscáis clientes, dónde se atasca y, si no encaja, se dice). Solo si pasa esa puerta hay una segunda reunión, y esa es con el segundo jefe. Los otros dos jefes no están en ninguna. La página dice `Reserva 30 min con Iker`, pero quien atiende la primera es el equipo.
+- **Por eso el ninja a la demo nunca promete a un jefe** (`con mis jefes`, `te lo enseña Iker`): para quien no encaja sería mentira. Kaixito sí puede hablar de `mis jefes` en la escena (dónde están, qué hacen); la reunión la hacen `mis compis` o va sin sujeto.
+- **Lo que sí se puede prometer:** media hora, que miran contigo cómo buscas clientes y dónde se atasca, que si no encaja te lo dicen, y que no hace falta llegar preparado (`§8n`).
+- **⛔ La demo no se vende como novedad.** La lista lleva meses viendo ese enlace. El asunto tiene que valer para toda la lista a la vez (el que se apuntó ayer y el que lleva desde agosto), porque los correos van a todos aunque las audiencias estén separadas. Novedad solo es lo que lo es (un webinar, un lanzamiento).
+- **Si un dato del correo depende de una confirmación que no llega a tiempo (una fecha de lanzamiento, quién atiende), se escribe sin él.** Un correo de la serie no vale el riesgo: se cambia de escena y sale igual.
+- **Mecanizado** como fallo duro en `validar-email.py` (`Demo: la línea del enlace no promete a un jefe`).
+
 ### 4b · La PD
 
 > **⛔ EN ESPAÑOL SE ESCRIBE "PD", NUNCA "P.S." (medido el 2026-08-06).** Sobre el corpus español entero (Timepack + Hugo López + Sales Hackers + newsletters): **453 "PD" y 141 "PPD" contra CERO "P.S."**. El "P.S." es un anglicismo y delata traducción. Cuando hay dos postdatas, la segunda es **PPD**. Está en el validador.
@@ -2487,7 +2495,7 @@ ZIP `newslettershasta19oct.zip`, 27 ficheros. **Fuera del conteo (6):** SINGULAR
 | **9** | `a ti también te entra sueño?` + `Yo anoche me quedé frito encima del libro.` | **complicidad y torpeza propia** (la mascota falla y cae mejor, `§8i` punto 12) sobre el dolor de buscar |
 | **10** | `no se lo digas a mis jefes, vale?` + `He cotilleado su guion de mañana.` | **travesura y secreto compartido**: cotillea el guion que sus jefes se dejaron en la mesa (víspera del webinar). GIF curiosidad |
 | **11** | `se te escapó el webinar? no pasa nada` + `Te lo paso por la puerta de atrás.` | **alivio**: la grabación directa, sin formulario. GIF alegría |
-| **12** | `te hago un hueco con mis jefes?` + `Me han dejado su agenda. Error suyo.` | **orgullo**: le dejan a cargo de la agenda mientras los jefes están en San Francisco, y abre huecos sin preguntar. GIF alegría |
+| **12** | `adivina quién ocupa la silla grande?` + `Mis jefes están en San Francisco.` | **orgullo**: le dejan la oficina a su cargo mientras los jefes están en San Francisco, y se sienta en la silla grande. GIF alegría |
 
 #### ⭐⭐ KAIXITO CUELGA DE UNA TRASTADA SUYA, DEL ASUNTO A LA PD (Iker, 2026-10-26, correo 10)
 > **Iker, sobre la v1:** *"me falta un poco de chispa, un poco de gracia… con esta mascota tenemos un tono… gracioso, travieso, pícaro"*. **Sobre la final:** *"me parece brutal… súper divertido, súper chulo. Sin jugarnos a la contra"*.

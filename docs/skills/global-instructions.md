@@ -2844,6 +2844,8 @@ Si la respuesta es que no, da igual lo bien que suene: **es publicidad engañosa
 | `/correo/` | cómo encontrar clientes y vender más, antes que nadie | noticias, polémicas, actualidad, salseo |
 | gate de un recurso | exactamente el entregable que hay dentro | "todo lo demás" |
 
+**🔄 02/11 · `/solicitar-demo` tampoco promete con quién es la reunión.** La primera es una discovery de media hora con el equipo de ventas (calendario rotativo), no con los jefes; solo si encaja hay una segunda con el segundo jefe. Un ninja que dice `te lo enseña Iker` o `con mis jefes` miente al que no encaja. Detalle y check en `email-marketing §4a-DEMO`; en posts es pregunta de `--criterio ninja`.
+
 **⭐ Y la columna de la derecha del `/agendar/` no es estilística: cada entrada es una objeción medida en el informe de demos**, con su tamaño en `§4.4b-MUNICIÓN`. Prometer volumen no es "poco elegante": es la queja literal contra Waalaxy y Apollo en 5 empresas.
 
 **⭐ Y CUANDO EL TEMA DEL POST NO ES EL DEL DESTINO, NO SE MIENTE: SE TIENDE UN PUENTE.** Es lo que resuelve el caso, y la forma del puente es siempre la misma: **la primera línea dice lo que el tema del post SÍ te da y lo que NO**, y la segunda dice que de lo que no, va el enlace. Es la forma `eso lo hace cualquiera, lo otro no` de `§4.4b`, aplicada al TEMA en vez de a la broma.

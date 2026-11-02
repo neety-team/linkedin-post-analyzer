@@ -94,15 +94,15 @@
 
 > 📅 **PLAN DE LAS SEMANAS DEL 02/11 Y DEL 09/11 (rehecho el lunes 02/11 por la tarde a 9 publicaciones por semana, 3 por cuenta; pendiente de pasárselo a Unai). Manda sobre las filas del 03/11 al 13/11 de la tabla de abajo.** Objetivo del mes: **leads**. Los tres jefes están en San Francisco (9 h menos que España). Todo va **programado por la mañana de España** y el apoyo de la primera hora lo da el equipo desde aquí. Lo de San Francisco se publica **al día siguiente**: el jefe manda foto y dos líneas al acabar su día (madrugada en España), el texto se cierra por la mañana y el jefe lo aprueba antes de dormir. Cada hueco dice su destino, su objetivo y su **función** (lo que se le mide por su pilar).
 >
-> **Semana del 02/11** (el colaborativo cuenta como un post en cada cuenta: 3 + 6 = 9)
+> **Semana del 02/11** (ajustada el 02/11 por la tarde: dos colaborativos, el lanzamiento y el Demo Day; cada uno cuenta como un post en cada cuenta: Unai 3, Iker 4, Asier 4)
 >
 > | | Unai (San Francisco) | Iker | Asier |
 > |---|---|---|---|
 > | **Lun 02** | — | — | — |
 > | **Mar 03** | 🎬 **Colaborativo del lanzamiento**, el único post del día · 🎯 Oportunidades · falta su OK | ← mismo post | ← mismo post |
 > | **Mié 04** | — | **Lead magnet público** (el que no se subió el 30/10: enlace al gate a la vista, sin palabra que comentar) → gate del webinar · 🎯 Leads · función: leads, brazo B del A/B | **Meme de captura**, sobrio (`--meme-sobrio`) → `/solicitar-demo` · 🎯 Oportunidades · función: clics (el subtipo que más clica, sin usar desde el 22/09) |
-> | **Jue 05** | **Demo Day** (mié 4 allí) · historia/evento, foto de personas, sin enlace · 🎯 Autoridad · cara: invertir | — | **Historia con cita real del informe** (la que no salió el 30/10) → gate de clientes gemelos · 🎯 Leads · función: debate |
-> | **Vie 06** | **Recepción del Cónsul** (jue 5 allí) · sin enlace · 🎯 Autoridad · cara: territorio e instituciones | **Meme de desgaste o gráfica** con referencia validada y **otro rasgo que no sea la calvicie** → `/solicitar-demo` · 🎯 Oportunidades · función: alcance y risa | — |
+> | **Jue 05** | 🎬 **Colaborativo del Demo Day** (mié 4 allí), el único post del día · foto de los tres sin escenario · sin enlace · 🎯 Autoridad · cara: invertir | ← mismo post | ← mismo post |
+> | **Vie 06** | **Recepción del Cónsul** (jue 5 allí), **en solitario**, no colaborativo · sin enlace · 🎯 Autoridad · cara: territorio e instituciones. Si no hay foto o no quiere, se junta con HappyRobot el lunes | **Meme de desgaste o gráfica** con referencia validada y **otro rasgo que no sea la calvicie** → `/solicitar-demo` · 🎯 Oportunidades · función: alcance y risa | **Historia con cita real del informe** (movida del jueves por el colaborativo) → gate de clientes gemelos · 🎯 Leads · función: debate |
 >
 > **Semana del 09/11** (9: tres por cuenta)
 >
@@ -114,6 +114,8 @@
 > | **Jue 12** | — | **Vídeo "un día en San Francisco"** si lo graban (sin enlace, 🎯 Autoridad); si no, **historia** → `/solicitar-demo` · 🎯 Oportunidades | — |
 > | **Vie 13** | **RevOps para EE. UU.** (jue 12): historia con la lección de venta → `/solicitar-demo` · 🎯 Oportunidades · cara: vender | **Meme** (el subtipo según cómo quede el del 06) → `/solicitar-demo` · 🎯 Oportunidades · función: alcance | **Peloteo: "Las 10"** (región por elegir) → gate de clientes gemelos · 🎯 Leads · función: guardados y envíos |
 >
+> - **Colaborativos (02/11):** el día de un colaborativo no sale nada más en ninguna cuenta, y lo que se desplaza se mueve de día, no se quita. Como mucho **dos en la semana** (lanzamiento y Demo Day): la recepción del Cónsul va solo en Unai. *(hipótesis, sin medir)*: tres colaborativos en cuatro días ponen el mismo post de San Francisco tres veces delante del mismo público, que es lo que quemó el peloteo cuando se juntaron 4 en 10 días; y dejarían a Iker y Asier sin contenido de ventas ni leads en tres de los cinco días. El único dato de colaborativo es el del 23/10 (19.286 impresiones, 32 comentarios, contra 2.495-4.502 de las historias de evento de Unai de octubre): n=1 y era el anuncio del viaje.
+> - **Plan B del martes:** si el texto del lanzamiento no está validado a primera hora, el lanzamiento pasa al miércoles y lo del miércoles (lead magnet de Iker y meme de captura de Asier) se adelanta al martes.
 > - **Peloteo:** ninguno hasta el 09/11, porque hasta el 06/11 lleva 5 detrás en 21 días (con 5, mediana 7.411). El 10/11 lleva 3 detrás y el 13/11 otros 3 (`post-workflow §4.0d` punto 1). Un mapa y un "Las 10", en cuentas distintas (`§8.2`).
 > - **Gates:** 2 esta semana y 3 la siguiente, nunca el mismo recurso el mismo día. Con el objetivo del mes en leads no rige el tope de 1-2 (`post-workflow §8.1b`).
 > - **Unai:** carril de San Francisco bajo el paraguas de emprendimiento, una cara por post. Repite historia/evento en la semana, declarado: es el viaje. La de RevOps es la que puede atarse a ventas.

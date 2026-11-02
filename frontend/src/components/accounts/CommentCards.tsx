@@ -87,6 +87,13 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
   // unico que hay es gente a la que ya le pediste la solicitud, aqui no puedes
   // hacer nada y el post solo te haria abrirlo para nada.
   if (threads.length === 0 && !(esLm && (accionables > 0 || fallidos > 0 || seguimientos > 0))) return null;
+  // ⛔ LO QUE CUENTA LA CHAPA SE TIENE QUE VER AL ABRIR (2026-11-02). El
+  // workspace del lead magnet deja fuera las paginas de empresa (no son lead ni
+  // se les puede mandar un DM), pero «N sin responder» las cuenta: comento una
+  // pagina en un lead magnet de hace dos meses, la chapa dijo «1 sin responder»
+  // y al abrirlo ponia «Nada que hacer aqui». Esas van con su tarjeta normal,
+  // que ya sabe contestar a una empresa sin @.
+  const deEmpresa = esLm ? threads.filter((t) => t.author.is_company) : [];
 
   const headline = (post.hook_text || post.content_text || '').replace(/\s+/g, ' ').trim().slice(0, 160);
 
@@ -173,7 +180,26 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
           ofrecer dos cajas distintas para el mismo comentario, y contestar por
           las dos manda dos respuestas. */}
       {abierto && (esLm && children ? (
-        children
+        <>
+          {/* Arriba y no debajo: el workspace es largo y lo de abajo no se ve. No
+              duplica cajas, porque el workspace nunca pinta a una empresa. */}
+          {deEmpresa.length > 0 && (
+            <div className="space-y-3 mb-4 pb-4 border-b border-border">
+              <p className="text-[11px] text-text-muted">
+                Comentario{deEmpresa.length === 1 ? '' : 's'} de página de empresa: no es lead, pero se contesta en público.
+              </p>
+              {deEmpresa.map((t) => (
+                <ThreadCard
+                  key={t.id}
+                  thread={t}
+                  postId={post.id}
+                  onReplied={() => setDismissed((s) => new Set(s).add(t.id))}
+                />
+              ))}
+            </div>
+          )}
+          {children}
+        </>
       ) : (
         <>
           <div className="space-y-3">

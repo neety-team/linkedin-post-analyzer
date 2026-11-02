@@ -272,6 +272,25 @@ def main():
     elif 1 <= _pal <= 4:
         checks.append(ok('Apertura nueva (ni la frase ni el molde están gastados)'))
 
+    # ⛔ La broma no se explica (2026-11-02, email-marketing §8l): "Lo de mi sueldo es de broma."
+    # avisaba al lector de que era un chiste. Si hace falta decirlo, la broma no funciona.
+    _cuerpo_sin_pd = re.split(r'(?im)^\s*p\.?\s?p?\.?\s?d\b', cuerpo)[0]
+    _expl = re.search(r'\b(es|era|va) (de |una )?broma\b|\bbromas aparte\b|\bfuera bromas\b', _cuerpo_sin_pd, re.I)
+    if _expl:
+        checks.append(fallo(f'Broma explicada: "{_expl.group(0)}". Si es buena no se avisa; quita la línea '
+                            f'y deja que el giro hable solo (email-marketing §8l)'))
+    else:
+        checks.append(ok('La broma no se explica'))
+    # ⛔ El dinero de la casa no es trastada (2026-11-02, email-marketing §8l): el sueldo o la
+    # nómina de la mascota se lee como la empresa bromeando con lo que paga, aunque firme Kaixito.
+    _din = re.search(r'\bmi (sueldo|n[oó]mina|salario)\b|\bme he (subido|bajado|doblado|triplicado) el '
+                     r'(sueldo|salario)\b|\bn[oó]mina\b', cuerpo, re.I)
+    if _din:
+        checks.append(fallo(f'Dinero de la casa como trastada: "{_din.group(0)}". Sueldos y nóminas no se usan '
+                            f'de broma, aunque firme la mascota (email-marketing §8l)'))
+    else:
+        checks.append(ok('Sin el dinero de la casa como trastada'))
+
     # --- párrafos de prosa ≤3 líneas (global §3.2 heredado) ---
     # Excepción, la misma que en LinkedIn (global §3.2): SOLO las listas con MARCADOR
     # (→, guion, viñeta, numeradas) quedan fuera del tope, porque son el bloque de

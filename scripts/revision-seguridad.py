@@ -89,12 +89,20 @@ RECETAS = ('global-instructions.md', 'post-workflow.md', 'brand-voice.md', 'work
            'aboutme.md', 'images.md', 'video.md', 'email-marketing.md', 'lead-magnet-web.md')
 
 
+def _receta(fich):
+    try:
+        with open(os.path.join(RAIZ, 'docs', 'skills', fich), encoding='utf-8') as f:
+            return {x.strip() for x in f}
+    except OSError:
+        return set()
+
+
 def reglas_nuevas():
     titulo('3 · REGLAS DURAS NUEVAS DE LA SEMANA: ¿llevan su dato o su etiqueta?')
     desde = (dt.date.today() - dt.timedelta(days=8)).isoformat()
     r = subprocess.run(['git', 'log', f'--since={desde}', '-p', '--unified=0', '--', 'docs/skills/'],
                        cwd=RAIZ, capture_output=True, text=True, encoding='utf-8', errors='replace')
-    sin, decision, fich, vistos = [], [], '', set()
+    sin, decision, fich, vistos, vivas = [], [], '', set(), {}
     for l in r.stdout.splitlines():
         if l.startswith('+++ b/'):
             fich = l[6:].split('/')[-1]
@@ -103,6 +111,10 @@ def reglas_nuevas():
             continue
         l = l[1:].strip()
         if l in vistos or len(l) < 40:
+            continue
+        # Solo cuenta lo que sigue vivo: una linea ya etiquetada o reescrita en un commit
+        # posterior aparece en el log con su version vieja (02/11).
+        if l not in vivas.setdefault(fich, _receta(fich)):
             continue
         vistos.add(l)
         if EVIDENCIA.search(l) or ETIQUETA.search(l):

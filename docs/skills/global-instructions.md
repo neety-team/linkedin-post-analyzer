@@ -1948,10 +1948,10 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 **Mecanizado** en `validar-post.py` cuando el enlace lleva `7hhyx07z`: fallo duro si la línea de encima no dice fecha, online y gratis, fallo duro si el bloque vende escasez, y aviso si sale `webinar`. Sustituye para este enlace al check de la sala del presencial. ⏳ **Caduca solo el 28/10/2026**; ese día esta sección se borra. 🔄 **02/11: no se borra, se queda como registro** (ver la nota de cabecera).
 
-#### 🗣️🗣️ 4.4b-FORMATO-EVENTO · UN EVENTO POR INTERNET SE LLAMA `EVENTO`, NUNCA `ONLINE` NI `VIDEOLLAMADA` (2026-10-15 y 2026-10-21) · GLOBAL, SIN CADUCIDAD
+#### 🗣️🗣️ 4.4b-FORMATO-EVENTO · UN EVENTO POR INTERNET SE LLAMA `EVENTO`, NUNCA `ONLINE` NI `VIDEOLLAMADA` (2026-10-15 y 2026-10-21) · GLOBAL, SIN CADUCIDAD *(criterio de idioma, no se mide)*
 
 🔄 **Rescatada el 02/11 de `§4.4b-WEBINAR`**, que caducó el 28/10: estas dos piezas no dependían de aquel webinar y valen para cualquier evento, charla o grabación que se nombre en un post, un correo o una imagen.
-- **⛔ `online` no se escribe (15/10):** es anglicismo (`brand-voice §2b`). Su recambio es `por internet`, que lo entiende cualquiera.
+- **⛔ `online` no se escribe (15/10):** *(criterio de idioma)* es anglicismo (`brand-voice §2b`). Su recambio es `por internet`, que lo entiende cualquiera.
 - **⛔ `videollamada` tampoco vende el evento (21/10):** se lee más pobre que decir `evento`. Lo que se hace por internet se nombra con la palabra de lo que es: `evento`, `seminario` o `conferencia`, más `por internet` y, si aplica, `gratis` (o su variante). Ejemplo: `un evento gratis por internet`. `en directo` sobra cuando ya va `por internet`; si se usa, va sin `por internet` al lado.
 - **Mecanizado:** `online` es fallo duro en todo el texto (lista de anglicismos de `validar-post.py` y `validar-email.py`, que desde el 02/11 propone `por internet` y no `por videollamada`). El aviso de `videollamada` vivía en el check del webinar y caducó con él el 28/10, así que hoy se mira a ojo.
 

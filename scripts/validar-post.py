@@ -1492,8 +1492,26 @@ def ganchos_recientes(cuenta, n=3):
             out.append(((x.get('published_at') or '')[:10], x.get('pillar') or '', g))
     return out[:n]
 
-def ninjas_recientes(dias=21, hoy=None):
-    """[(cuenta, fecha, ninja)] de las 3 cuentas, sin repetir resubidas."""
+def zona_ninja(texto):
+    """Las 3 lineas de antes del enlace mas el ninja, sin la URL: donde vive el dolor (global §4.4b-UNIDAD)."""
+    L = [l for l in texto.split('\n') if l.strip()]
+    for i, l in enumerate(L):
+        if re.search(r'https?://|lnkd\.in', l) and 'mapa completo' not in l.lower():
+            return re.sub(r'https?://\S+', '', ' '.join(L[max(0, i - 4):i + 1])).strip()
+    return ''
+
+# Unidades con las que se mide el dolor de buscar (global §4.4b-UNIDAD): rotan, ninguna baja de "meses".
+UNIDADES_TIEMPO = [('meses', r'\bmeses\b'), ('años', r'\baños\b'), ('trimestres', r'\btrimestres?\b'),
+                   ('la vida', r'\b(la|media) vida\b'), ('una eternidad', r'\beternidad\b'),
+                   ('temporadas', r'\btemporadas?\b'), ('el tiempo', r'\b(el|mucho|todo el) tiempo\b'),
+                   ('el calendario', r'\bcalendario\b')]
+
+def unidades_de(zona):
+    z = zona.lower()
+    return [u for u, rx in UNIDADES_TIEMPO if re.search(rx, z)]
+
+def ninjas_recientes(dias=21, hoy=None, extraer=None):
+    """[(cuenta, fecha, ninja)] de las 3 cuentas, sin repetir resubidas. Con extraer=zona_ninja, la zona."""
     import json, base64, urllib.request
     u, pw = os.environ.get('APP_BASIC_USER'), os.environ.get('APP_BASIC_PASS')
     if not (u and pw):
@@ -1513,7 +1531,7 @@ def ninjas_recientes(dias=21, hoy=None):
                             continue
                     except ValueError:
                         continue
-                    nj = ninja_de(x.get('content_text') or '')
+                    nj = (extraer or ninja_de)(x.get('content_text') or '')
                     if nj and (quien, nj) not in vistos:
                         vistos.add((quien, nj))
                         out.append((quien, f, nj))
@@ -5581,6 +5599,29 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             '"%s" junto a una cita: si la frase es de un cliente o de una empresa que nos valoraba, '
             'el sitio sobra y nos expone. Si la escena es inventada y no hay cita real, ignora el aviso'
             % _reu.group(0) if (_con_cita and _reu) else '', aviso=True)
+
+    # ---------- UNIDAD DEL DOLOR (global §4.4b-UNIDAD, 2026-11-02) ----------
+    # "meses" salio en el dolor de 5 de 29 posts con enlace en octubre, 3 de Iker en 8 dias.
+    # La unidad rota por cuenta (sus 3 ultimos posts con enlace) y nunca baja a semanas u horas.
+    _zn = zona_ninja(texto)
+    if _zn and not historico:
+        _uds = unidades_de(_zn)
+        _recz = ninjas_recientes(extraer=zona_ninja) if _uds else []
+        if _recz is None:
+            chk(False, 'UNIDAD DEL DOLOR: rota en la cuenta (global §4.4b-UNIDAD)',
+                'no pude leer la BD. Este post mide el dolor en "%s": mira a mano que sus 3 ultimos '
+                'no lo usen' % ', '.join(_uds), aviso=True)
+        else:
+            _cta = (cuenta or '').strip().capitalize()
+            _gast = [(r[1], u) for r in [x for x in _recz if x[0] == _cta][:3] for u in unidades_de(r[2]) if u in _uds]
+            chk(not _gast, 'UNIDAD DEL DOLOR: rota en la cuenta (global §4.4b-UNIDAD)',
+                ('"%s" ya salio en el post de %s del %s. Rota a otra igual o mas fuerte (la vida, media '
+                 'vida, una eternidad, los trimestres, años), nunca a una mas floja'
+                 % (_gast[0][1], _cta, _gast[0][0])) if _gast else '')
+        _baja = re.search(r'\b(semanas|d[ií]as|horas|minutos|un rato)\b', _zn.lower())
+        chk(not _baja, 'UNIDAD DEL DOLOR: no baja de "mucho tiempo" (global §4.4b-UNIDAD)',
+            ('"%s" junto al ninja: si mide lo que cuesta buscar, se queda corta. Si es una fecha '
+             '(el miercoles, a las 10:00), ignora el aviso' % _baja.group(0)) if _baja else '', aviso=True)
 
     # ---------- ROTACION DEL DOLOR DEL NINJA (global §4.4b-ROTACION) ----------
     _nj = ninja_de(texto)

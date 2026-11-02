@@ -1626,14 +1626,15 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 ## 📝 CORREO 12 · Kaixito · la maleta de los jefes, vuelta a `/solicitar-demo` (TEXTO ENTREGADO 02/11, para el mar 03/11 09:05 +01:00)
 
-**Estado:** texto validado **63/63** (v6, 02/11), pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
+**Estado:** texto validado **64/64** (v7, 02/11), pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
 
-**Cómo se llegó (02/11), seis versiones:**
+**Cómo se llegó (02/11), siete versiones:**
 - **v1** (`te hago un hueco con mis jefes?`, ninja `te lo enseña Iker`): prometía una reunión con los jefes, y la primera es una discovery con el equipo de ventas; vendía la demo como novedad, y dependía del lanzamiento sin confirmar → `email-marketing §4a-DEMO`.
 - **v2 y v3** (`adivina quién ocupa la silla grande?`): correctas y planas. Llevaban `Ascenso de mascota.`, que repetía el molde de las aperturas 4 y 9, la línea de por qué le llega (ya no hace falta en cada correo), `mis compis` y `te lo dicen a la cara` (poco serio y brusco para un director de más de 50) y unas plumas que Kaixito no tiene (no es un pájaro).
 - **v4** (`adivina cuánto me he subido el sueldo?`): original, pero el dinero de la casa como trastada puede volverse en contra aunque firme la mascota, y la línea `Lo de mi sueldo es de broma.` explicaba el chiste. Además repetía la perspectiva de la silla: la oficina vacía porque los jefes no están.
 - **v5**: perspectiva nueva, Kaixito quería ir a San Francisco y se cuela en la maleta de sus jefes. Pero no cabía porque «es un rombo», y su forma no está confirmada (`email-marketing §4b`).
 - **v6**: la maleta no cierra porque sobra él. La palabra hilo pasa a ser `sobrar`, con la escalera entera hasta el ninja (escena `La cremallera, no.` → bisagra `Lo que sobraba era yo.` → giro en primera persona `Con las listas de empresas me pasaba igual.` → dolor en pasado `Hasta ver qué empresas sobraban, se me iban meses.`), y la salida de la discovery remata la trastada (`A mí ya me lo dijo la maleta.`).
+- **v7**: `se me iban meses` → `se me iba la vida`. `meses` ya había salido en el correo 10 y en 5 posts con enlace de octubre: la unidad rota con un sinónimo que pesa igual o más (`global §4.4b-UNIDAD`).
 
 | | |
 |---|---|
@@ -1644,7 +1645,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | GIF | `estresado` (el apuro de meterse en la maleta), justo después de colarse |
 | Micro-apertura | `Misión fallida.` (nueva, molde nuevo) |
 | Destino | **`/solicitar-demo`**, `utm_campaign=correo-12-kaixito-maleta`. Primer correo a la demo desde el 7 (06/10). Ni gate ni formulario (`email-marketing §4a-SIN-GATE`) |
-| Ninja | escalera `Lo que sobraba era yo.` · `Con las listas de empresas me pasaba igual.` · `Hasta ver qué empresas sobraban, se me iban meses.` (una sola persona, el dolor en pasado) · `Lo que sobra en una maleta se ve, en una lista no.` / `Eso lo miramos contigo en media hora:` (50/37) · tipo **1-4** (la identificación, en meses: depurar la lista una a una) · detrás, `No hace falta traer nada preparado.` y `Y si no encaja, te lo decimos.` / `A mí ya me lo dijo la maleta.` (la salida honesta de la discovery, con el hilo de la trastada) |
+| Ninja | escalera `Lo que sobraba era yo.` · `Con las listas de empresas me pasaba igual.` · `Hasta ver qué empresas sobraban, se me iba la vida.` (una sola persona, el dolor en pasado, la unidad sin repetir) · `Lo que sobra en una maleta se ve, en una lista no.` / `Eso lo miramos contigo en media hora:` (50/37) · tipo **1-4** (la identificación: depurar la lista una a una se come mucho tiempo) · detrás, `No hace falta traer nada preparado.` y `Y si no encaja, te lo decimos.` / `A mí ya me lo dijo la maleta.` (la salida honesta de la discovery, con el hilo de la trastada) |
 | Por qué le llega | sin la línea (02/11: solo en casos puntuales) |
 | Longitud y ritmo | 101 palabras · `1-2-1-3-1-1-1-2-1-2` |
 | PD | una, de broma, del libro: `El libro sí cabía. Ahora está en San Francisco, sin mí.` |
@@ -1653,7 +1654,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Variable en prueba: el DESTINO** (contenido directo en Loom → reunión en `/solicitar-demo`). Todo lo demás como el correo 11: Kaixito, molde corto, GIF, un enlace, PD de broma, 09:05. Cambian también la palanca (en Kaixito rota por regla) y la línea de por qué le llega, que sale (casos puntuales, 02/11): las bajas se leen sabiéndolo. **Se mide** en clic limpio (`metricas-brevo.py --quien --listas 15,4,16,19`) contra el 4,7% del 11 y el 4,3% de los correos 5-7, y en **solicitudes de reunión con `utm_campaign=correo-12-kaixito-maleta`** en la base de la web (vara: 0 de 14 clics en la serie). Bajas de la lista 16 por entregado, como siempre. **Revisión: lunes 09/11.**
 
-**Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`lo que sobra en una maleta se ve`, `eso lo miramos contigo en media hora`), `mision fallida` a `APERTURAS_USADAS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
+**Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`lo que sobra en una maleta se ve`, `eso lo miramos contigo en media hora`), `mision fallida` a `APERTURAS_USADAS`, `12: 'la vida'` a `UNIDADES_CORREOS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
 
 ## 📈 REVISIÓN ADELANTADA DE LOS CORREOS 5 A 10 (29/10, con `metricas-brevo.py --quien --listas 15,4,16,19` y el CSV final de Luma)
 

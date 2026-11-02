@@ -27,6 +27,11 @@ Salida: tabla de checks + "N/M". Exit 1 si hay violaciones.
 import sys, os, re, io
 
 REMITENTES = ('iker', 'asier', 'unai', 'kaixito')
+# Unidades con las que se mide el dolor de buscar (global §4.4b-UNIDAD): rotan, ninguna baja de "meses".
+UNIDADES_TIEMPO = [('meses', r'\bmeses\b'), ('años', r'\baños\b'), ('trimestres', r'\btrimestres?\b'),
+                   ('la vida', r'\b(la|media) vida\b'), ('una eternidad', r'\beternidad\b'),
+                   ('temporadas', r'\btemporadas?\b'), ('el tiempo', r'\b(el|mucho|todo el) tiempo\b'),
+                   ('el calendario', r'\bcalendario\b')]
 
 # brand-voice §3 — misma lista literal que validar-post.py (AI-tells)
 AI_TELLS = (r'(lo m[aá]s importante|lo fundamental|lo esencial|es (fundamental|crucial|clave) que'
@@ -290,6 +295,25 @@ def main():
                             f'de broma, aunque firme la mascota (email-marketing §8l)'))
     else:
         checks.append(ok('Sin el dinero de la casa como trastada'))
+    # ⛔ La unidad del dolor rota sin bajar (2026-11-02, global §4.4b-UNIDAD): los clientes miden
+    # el dolor en mucho tiempo, no en la palabra "meses". Falla si un correo de los 3 anteriores
+    # usó la misma unidad; avisa si baja a semanas, días u horas. Al programar, se añade aquí.
+    UNIDADES_CORREOS = {7: 'meses', 8: 'meses', 10: 'meses'}
+    _cuerpo_u = re.sub(r'https?://\S+', '', _cuerpo_sin_pd).lower()
+    _uds = [u for u, rx in UNIDADES_TIEMPO if re.search(rx, _cuerpo_u)]
+    _num = re.search(r'correo-(\d+)-', cuerpo)
+    _num = int(_num.group(1)) if _num else max(UNIDADES_CORREOS) + 1
+    _gast = [(n, u) for n, u in UNIDADES_CORREOS.items() if _num - 3 <= n < _num and u in _uds]
+    if _gast:
+        checks.append(fallo(f'Unidad del dolor gastada: "{_gast[0][1]}" ya salió en el correo {_gast[0][0]}. '
+                            f'Rota a otra igual o más fuerte (la vida, media vida, una eternidad, los '
+                            f'trimestres, años), nunca a una más floja (global §4.4b-UNIDAD)'))
+    else:
+        checks.append(ok('Unidad del dolor sin repetir en los 3 correos anteriores'))
+    _baja = re.search(r'\b(semanas|d[ií]as|horas|minutos|un rato)\b', _cuerpo_u)
+    if _baja:
+        checks.append(aviso(f'Unidad del dolor que se queda corta: "{_baja.group(0)}". Si mide lo que cuesta '
+                            f'buscar, va en mucho tiempo, no en menos (global §4.4b-UNIDAD)'))
     # ⛔ La forma de Kaixito no está confirmada (2026-11-02, email-marketing §4b): ni pájaro ni
     # rombo ni nada con lo que compararla. Los gags salen del libro, los ojos y los brazos.
     if 'kaixito' in cab.get('REMITENTE', '').lower():

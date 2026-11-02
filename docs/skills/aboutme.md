@@ -69,7 +69,7 @@ Neety construye **sistemas de outbound operativo con IA** para **empresas indust
 > 
 > **⭐ Y aun así NO se degrada, porque la pata que lo sostiene ahora es NUESTRA:** la historia de Unai del 11/09 se escribió sobre este dolor y es **el mejor CTR de toda la ventana (0,756%)**, el doble que el segundo, sacando más clics él solo con 3.042 impresiones que los otros dos posts de esa semana juntos. **El informe mide cuántos lo dicen; nuestra base mide cuántos pinchan.** El detalle y la regla que sale de ahí, en `global §4.4b-MUNICIÓN-PUNCH`.
 
-**El elogio que mejor vende, y su unidad de medida — MESES:** *"solamente con los nombres de las empresas ya me vale. Me dice las personas, porque yo las personas las consigo. Claro, puede ser un trabajo de meses"* (Ariel · Composites Martiartu · 10 jul). **Usa "meses", no "horas": es la palabra que ellos usan.**
+**El elogio que mejor vende, y su unidad de medida — MESES:** *"solamente con los nombres de las empresas ya me vale. Me dice las personas, porque yo las personas las consigo. Claro, puede ser un trabajo de meses"* (Ariel · Composites Martiartu · 10 jul). **Usa "meses", no "horas": es la palabra que ellos usan.** 🔄 02/11: lo que manda es la magnitud (mucho tiempo), no la palabra; nuestra redacción rota con sinónimos de igual o más peso (`global §4.4b-UNIDAD`).
 
 **⭐ Y AHORA HAY UN SEGUNDO ELOGIO CON FRASE APROVECHABLE, en 3 empresas:** *"es un poco lo que llevamos haciendo nosotros de forma manual, pero mucho más completo y más rápido"* (Oscar Oteiza · Vi4crane · 22 jul). **La promesa que sí se puede hacer es esa: lo mismo que ya haces, hecho entero.** No es magia, no es automático, y por eso se cree.
 

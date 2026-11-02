@@ -1623,31 +1623,34 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 - **Quién pulsó:** por primera vez desde el correo 9 hay clics fuera de la lista 16: entran las altas del webinar (lista 19) y del gate. Al menos 1 de los 9 ya había pulsado en los correos 6 y 7.
 - **Lo que se aprende para el siguiente:** a la audiencia caliente del webinar (lista 19 y altas del gate) le llega bien el contenido; el siguiente paso con ella es una reunión, y ahí la serie lleva 0 de 14 clics.
 
-## 📝 CORREO 12 · Kaixito · la silla grande, vuelta a `/solicitar-demo` (TEXTO ENTREGADO 02/11, para el mar 03/11 09:05 +01:00)
+## 📝 CORREO 12 · Kaixito · el sueldo del jefe en funciones, vuelta a `/solicitar-demo` (TEXTO ENTREGADO 02/11, para el mar 03/11 09:05 +01:00)
 
-**Estado:** texto validado **60/60** (v3, 02/11: fuera la línea de por qué le llega y apertura nueva), pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
+**Estado:** texto validado **60/60** (v4, 02/11), pendiente del OK al texto. Después: campaña en borrador, prueba a `mario@neety.com` y se programa cuando se revise (`email-marketing §9a-BIS`).
 
-**Por qué hubo v2 (02/11):** la v1 (`te hago un hueco con mis jefes?`, ninja `Eso mismo te lo enseña Iker…`) prometía una reunión con los jefes, y la primera es una discovery con el equipo de ventas (calendario rotativo); vendía la demo como novedad a una lista que lleva meses viendo ese enlace, y dependía de que se confirmase el lanzamiento del 03/11. Reglas en `email-marketing §4a-DEMO`, con check nuevo en `validar-email.py`.
+**Cómo se llegó (02/11), cuatro versiones:**
+- **v1** (`te hago un hueco con mis jefes?`, ninja `te lo enseña Iker`): prometía una reunión con los jefes, y la primera es una discovery con el equipo de ventas; vendía la demo como novedad, y dependía del lanzamiento sin confirmar → `email-marketing §4a-DEMO`.
+- **v2 y v3** (`adivina quién ocupa la silla grande?`): correctas y planas. Llevaban `Ascenso de mascota.`, que repetía el molde de las aperturas 4 y 9, la línea de por qué le llega (ya no hace falta en cada correo), `mis compis` y `te lo dicen a la cara` (poco serio y brusco para un director de más de 50) y unas plumas que Kaixito no tiene (no es un pájaro).
+- **v4**: Kaixito, jefe en funciones, se sube el sueldo.
 
 | | |
 |---|---|
-| Asunto | `adivina quién ocupa la silla grande?` (36 car, pregunta de tú a tú sin `¿`, vale para toda la lista) · escalera `quién está en → quién ocupa → quién se ha adueñado de la silla grande` |
-| Preview | `Mis jefes están en San Francisco.` (la autoridad ya en la notificación del móvil) |
-| Pilar | BASTIDORES (los jefes en San Francisco, elegidos por un programa) con el ninja a la demo |
-| Palanca y trastada | **orgullo** (nueva en Kaixito: le dejan la oficina a su cargo) · trastada: se sienta en la silla grande y la deja llena de plumas |
+| Asunto | `adivina cuánto me he subido el sueldo?` (38 car, pregunta de tú a tú sin `¿`, vale para toda la lista) · escalera `me han cambiado el sueldo → me he subido el sueldo → me he triplicado el sueldo` |
+| Preview | `Mis jefes están en San Francisco.` (la autoridad ya en la notificación del móvil; con el asunto se lee la historia entera) |
+| Pilar | BASTIDORES (los jefes en San Francisco, elegidos por un programa; primera vez que la newsletter lo cuenta) con el ninja a la demo |
+| Palanca y trastada | **orgullo y travesura** (jefe en funciones) · trastada: se sube el sueldo de 0 € a 0 € (`Por algo se empieza.`) |
 | GIF | `alegría` (el mismo del 11: va con la palanca) |
-| Micro-apertura | `Te doy una pista.` (nueva; estira la adivinanza del asunto). `Ascenso de mascota.` se tumbó: repetía el molde de `Aviso de mascota.` y `Confesión de mascota.` |
-| Destino | **`/solicitar-demo`**, `utm_campaign=correo-12-kaixito-silla`. Primer correo a la demo desde el 7 (06/10). Ni gate ni formulario de suscripción (`email-marketing §4a-SIN-GATE`) |
-| Ninja | contexto `Aunque ellos estén fuera, las reuniones siguen.` · `Una silla grande no te dice a quién llamar primero.` / `Eso lo miran contigo mis compis en media hora:` (50/45) · tipo **2** (a quién llamar) · detrás, `Si no encaja, te lo dicen a la cara.` y `Y no hace falta traer nada preparado.` (`§8n` puntos 1 y 2) |
-| Por qué le llega | **sin la línea** (02/11: solo va en casos puntuales; A/B cerrado arriba) |
-| Longitud y posición | 117 palabras · el bloque y la URL, hacia el 63-79% (11: 82%) |
-| PD | una, de broma, del libro: lo que ha mandado hoy cabe en la página 114 y sobra media (vuelve a las páginas de los correos 9 y 11) |
-| Real / inventado | real: los jefes en San Francisco entre inversores, fondos y fundadores, elegidos por el programa Desafía (ICEX y Red.es), las reuniones que siguen por calendario rotativo, la media hora y el «si no encaja, te lo digo» de la discovery. Inventado: la silla y las plumas |
+| Micro-apertura | `Primer día de jefe.` (nueva, molde nuevo) |
+| Destino | **`/solicitar-demo`**, `utm_campaign=correo-12-kaixito-sueldo`. Primer correo a la demo desde el 7 (06/10). Ni gate ni formulario (`email-marketing §4a-SIN-GATE`) |
+| Ninja | puente `Lo de mi sueldo es de broma.` / `El que no tiene gracia es otro.` / `El de un comercial que se pasa meses buscando.` · contexto `Ellos están fuera, pero las reuniones siguen.` · `Un sueldo que se va en buscar empresas no vende nada.` / `Dónde se te va ese sueldo, lo miramos contigo:` (52/46) · tipo **4** (se le van los meses buscando) · la línea 2 es la pregunta literal de la discovery (`¿dónde se os va el tiempo?`) · detrás, `Es media hora y no hace falta traer nada preparado.` y `Y si no encaja, te lo decimos.` (`§8n` puntos 1 y 2) |
+| Por qué le llega | sin la línea (02/11: solo en casos puntuales) |
+| Longitud y ritmo | 125 palabras · `1-2-1-1-2-1-3-1-2-1-1-1` |
+| PD | una, de broma, del libro: su nómina nueva está en la página 114 y ocupa media línea (vuelve a las páginas de los correos 9 y 11) |
+| Real / inventado | real: los jefes en San Francisco entre inversores, fondos y fundadores, elegidos por el programa Desafía (ICEX y Red.es), las reuniones que siguen por calendario rotativo, la media hora y el «si no encaja, te lo digo» de la discovery. Inventado: el sueldo y la nómina de Kaixito |
 | Destinatarios previstos | listas 15 + 4 + 16 + 19, como el 11 |
 
-**Variable en prueba: el DESTINO** (contenido directo en Loom → reunión en `/solicitar-demo`). Todo lo demás como el correo 11: Kaixito, molde corto, asunto en pregunta, GIF, un enlace, PD de broma, 09:05. Cambian también la palanca (en Kaixito rota por regla) y la línea de por qué le llega, que sale (casos puntuales, 02/11): las bajas se leen sabiéndolo. **Se mide** en clic limpio (`metricas-brevo.py --quien --listas 15,4,16,19`) contra el 4,7% del 11 y el 4,3% de los correos 5-7, y en **solicitudes de reunión con `utm_campaign=correo-12-kaixito-silla`** en la base de la web (vara: 0 de 14 clics en la serie). Bajas de la lista 16 por entregado, como siempre. **Revisión: lunes 09/11.**
+**Variable en prueba: el DESTINO** (contenido directo en Loom → reunión en `/solicitar-demo`). Todo lo demás como el correo 11: Kaixito, molde corto, asunto en pregunta, GIF, un enlace, PD de broma, 09:05. Cambian también la palanca (en Kaixito rota por regla) y la línea de por qué le llega, que sale (casos puntuales, 02/11): las bajas se leen sabiéndolo. **Se mide** en clic limpio (`metricas-brevo.py --quien --listas 15,4,16,19`) contra el 4,7% del 11 y el 4,3% de los correos 5-7, y en **solicitudes de reunión con `utm_campaign=correo-12-kaixito-sueldo`** en la base de la web (vara: 0 de 14 clics en la serie). Bajas de la lista 16 por entregado, como siempre. **Revisión: lunes 09/11.**
 
-**Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`una silla grande no te dice a quien llamar`, `eso lo miran contigo mis compis`), `te doy una pista` a `APERTURAS_USADAS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
+**Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`un sueldo que se va en buscar empresas`, `donde se te va ese sueldo, lo miramos`), `primer dia de jefe` a `APERTURAS_USADAS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
 
 ## 📈 REVISIÓN ADELANTADA DE LOS CORREOS 5 A 10 (29/10, con `metricas-brevo.py --quien --listas 15,4,16,19` y el CSV final de Luma)
 
@@ -1679,12 +1682,12 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 - Correo 9 · Kaixito (enviado 20/10): la mascota dormida encima del libro en la empresa 37, mirando webs.
 - Correo 10 · Kaixito (enviado 27/10): cotillea el guion de sus jefes la víspera del webinar.
 - Correo 11 · Kaixito (programado 30/10): la grabación por la puerta de atrás; la palabra hilo es «escapar», del asunto al enlace.
-- Correo 12 · Kaixito (texto 02/11, para el 03/11): los jefes en San Francisco le dejan la oficina y se sienta en la silla grande; la palabra hilo es «silla».
+- Correo 12 · Kaixito (texto 02/11, para el 03/11): los jefes en San Francisco le dejan la oficina y se sube el sueldo de 0 € a 0 €; la palabra hilo es «sueldo».
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Te doy una pista.` (correo 12)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Primer día de jefe.` (correo 12)
 - **Asier:** `Apunta.` (correo 8)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)

@@ -3265,7 +3265,7 @@ router.get('/comments/pending', async (req: Request, res: Response) => {
                 p.content_type, p.post_url, p.creator_id,
                 -- pillar + contadores: los pide el workspace del lead magnet, que
                 -- desde el 2026-08-20 se monta desde aqui al desplegar un post.
-                p.pillar, p.comments_count, p.likes_count,
+                p.pillar, p.comments_count, p.likes_count, p.lead_magnet_config,
                 c.name AS creator_name, c.linkedin_id AS creator_linkedin_id,
                 c.profile_image_url AS creator_image, c.unipile_account_id,
                 -- ¿Este post tiene solicitudes pedidas sin resolver? Es lo que le
@@ -3407,11 +3407,20 @@ router.get('/comments/pending', async (req: Request, res: Response) => {
             // Las tres cuentas del lead magnet. Las paginas de empresa fuera: no
             // se puede mandar un DM a una pagina y su comentario no es un lead.
             const esLm = post.pillar === 'lead_magnet';
+            // Con el enlace en el post (tipo 'enlace', 03/11) no hay recurso que
+            // entregar por privado: lo unico pendiente son los comentarios sin
+            // contestar, que ya cuenta `pending`. Sin esto, cada comentarista de
+            // 1er grado ya contestado salia como «para actuar» por no tener DM.
+            // Gemelo de `sinPrivado` en frontend/src/components/accounts/lmTypes.ts.
+            const cfgLm = typeof post.lead_magnet_config === 'string'
+              ? (() => { try { return JSON.parse(post.lead_magnet_config); } catch { return null; } })()
+              : post.lead_magnet_config;
+            const conEnlaceEnElPost = cfgLm?.kind === 'enlace';
             let accionables = 0;
             let esperando_su_paso = 0;
             let fallidos = 0;
             let seguimientos_pendientes = 0;
-            if (esLm) {
+            if (esLm && !conEnlaceEnElPost) {
               const entregado = dmEnviadoPorPost.get(post.id) ?? new Set<string>();
               const fallado = dmFallidoPorPost.get(post.id) ?? new Set<string>();
               const pedido = askPorPost.get(post.id) ?? new Set<string>();

@@ -442,6 +442,23 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 >
 > **📌 El dato de esta ventana, y no cambia la regla:** la unica horizontal que hemos publicado (Unai, 02/09, 480x270) **no hundio el post** — 10.127 impresiones, dentro de su banda normal — pero fue **la peor CTR de sus 4 historias** (0,316% contra 0,756%, 0,653% y 0,528%). No penaliza el alcance y no compensa. **Todo sigue 1:1.**
 
+## 🎞️🎞️ 0b-GIF · EL GIF DEL LEAD MAGNET LO MONTO YO Y CALCA AL GIF DEL REFERENTE QUE MÁS COMENTARIOS SACÓ (2026-11-03) — GLOBAL *(criterio: no hay ningún GIF nuestro medido)*
+
+**Lo medido, y es de fuera** (la serie de la guía de Claude de `post-workflow §4.5.0-UNA-PAGINA`, Unipile el 30/10): GIF con 2.287 · 4.205 · 6.305 comentarios; fijas con 2.330 a 8.377. **El GIF no gana a la foto fija** (n=8). **Dentro de sus GIF, el que más saca (6.305) es la infografía completa en todos los fotogramas, con una pantalla pequeña animada dentro de cada tarjeta.** El que se va montando desde vacío se quedó en 4.205. Se calca el primero.
+
+**Cómo se hace:** con script, no con generador: `scripts/montar-gif-lead-magnet.py` (Pillow, Bricolage y Switzer instaladas, paleta del brandbook, 1:1 a 1080). Sale directo a `LINKEDIN GROWTH/LEAD MAGNETS/`.
+
+**Las reglas de composición, que salieron de las correcciones del primer GIF (03/11):**
+1. **El texto no se mueve nunca y el primer fotograma va completo.** Solo se anima lo de dentro de cada tarjeta (un filtro que cambia, comprobaciones que se marcan, una etiqueta que aparece). Quien pare en cualquier fotograma lo lee entero. La primera versión se vaciaba y se montaba, y 3 de sus 8 segundos se veían a medias.
+2. **El bucle no salta:** quieto y completo al menos 2,5 s para leer, se recoge en ~0,5 s, pausa corta y se vuelve a montar en ~2 s. Nada vuelve a cero de golpe.
+3. **Ningún dato dos veces en la imagen.** Unas etiquetas de arriba (3 niveles, minutos, diapositivas) repetían el botón y se quitaron. El dato que importa va una vez, en el subtítulo.
+4. **Los huecos se calculan, no se miran:** el mismo espacio entre subtítulo, tarjetas y botón, sacado de la caja real del texto.
+5. **El botón se ajusta a su texto** con el mismo margen a cada lado, nunca al ancho de las tarjetas. El texto se centra por la banda de letras sin tildes ni descendentes y **se comprueba contando píxeles** (arriba y abajo con 1 px de diferencia como mucho).
+6. **Tarjetas blancas, texto berenjena y la palabra clave en naranja, sobre menta.** Los bloques macizos en berenjena se leen pesados.
+7. **El botón no repite datos, vende la diferencia del post.** En el lead magnet con enlace a la vista: `Pulsa "ver más" y llévatelo sin comentar nada` (hipótesis, en el A/B del 03/11; la imagen no la lee LinkedIn, así que pedir ahí que pulsen no toca `post-workflow §4.5.0-CTA-CERO`). Las comillas angulares salen mal con Switzer: van rectas.
+
+**Lo que no se sabe:** si un GIF rinde más que la foto fija en nuestras cuentas. Se lee en el A/B del lead magnet con enlace público (`historial-publicaciones`, registro de A/B) y aquí se apunta el número.
+
 > ### ⛔⛔ 0b-ANCHO · PEDIR 1:1 NO BASTA: HAY QUE PEDIR QUE APROVECHE EL ANCHO (Iker, 2026-08-13)
 > **Decir solo "en formato cuadrado 1:1" es una trampa cuando la referencia es vertical, y es el caso NORMAL** (casi todas lo son). El generador cumple el encargo por la vía barata: **te mete dos franjas blancas a los lados** y ya tiene un cuadrado. El contenido sigue igual de estrecho, se ve más pequeño en el feed y queda a medio hacer.
 > - **Pasó el 14/08** con el meme del SpongeBob: 4 filas verticales, cuadrado perfecto y **dos columnas blancas laterales**. Iker: *"al hacerla cuadrada hacia los lados se tiene que aprovechar y que todo llegue hasta los lados, no como ahora que me ha metido dos columnas verticales blancas para hacerlo cuadrado y queda mal"*.

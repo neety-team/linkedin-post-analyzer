@@ -12,7 +12,7 @@ export function loadConfig(postId: string): LmConfig {
     const p = JSON.parse(raw);
     return {
       // los configs viejos no tienen kind
-      kind: p.kind === 'publico' ? 'publico' : p.kind === 'lista' ? 'lista' : 'dm',
+      kind: p.kind === 'publico' || p.kind === 'lista' || p.kind === 'enlace' ? p.kind : 'dm',
       keyword: p.keyword || '',
       link: p.link || '',
       topic: p.topic || '',

@@ -21,6 +21,7 @@ import {
 } from './leadMagnetCopy';
 import type { ListaCompany, Voice } from './leadMagnetCopy';
 import { loadConfig } from './lmConfigLocal';
+import { emptyConfig, sinPrivado } from './lmTypes';
 import { useLmConfig } from './useLmConfig';
 import type {
   Canal, CanalInfo, CommentsResponse, FollowupRow, GridPost, LmConfig, LmKind,
@@ -69,8 +70,12 @@ export default function LeadMagnetWorkspace({ post, creatorId, compacto = false 
     // Lo escrito a mano manda: si ya hay enlace guardado, no se toca.
     if (saved.link.trim()) return saved;
     const auto = detectarRecurso(post.content_text);
+    // Un post con el enlace en el cuerpo es el lead magnet con enlace publico: sin
+    // config guardada arranca en 'enlace', no en el DM. Con config, manda la suya.
+    const conEnlace = saved === emptyConfig && /https?:\/\/|lnkd\.in\//i.test(post.content_text || '');
     return {
       ...saved,
+      ...(conEnlace ? { kind: 'enlace' as const } : {}),
       // La palabra sale, en este orden: la guardada a mano, el `comenta "X"` del
       // texto si el post es viejo, y por ultimo la CLAVE del recurso que se detecta
       // por pistas — que es el caso de todos los posts nuevos, donde la palabra vive
@@ -575,6 +580,14 @@ export default function LeadMagnetWorkspace({ post, creatorId, compacto = false 
           </p>
         )}
 
+        {cfg.kind === 'enlace' && (
+          <p className="text-[11px] text-text-muted leading-snug pt-1 border-t border-border">
+            Nada que rellenar: el enlace ya está en el post. Aquí solo se{' '}
+            <span className="text-text-secondary">contesta a cada comentario</span>, sin decir que se ha mandado nada.
+            <InfoHint text="Sin mensaje privado ni solicitudes: nadie tiene que pedir el recurso. La respuesta sale del mismo generador que la pestaña de Comentarios." />
+          </p>
+        )}
+
         {cfg.kind === 'publico' && (
           <p className="text-[11px] text-text-muted leading-snug pt-1 border-t border-border">
             Nada que rellenar: el post pide que <span className="text-text-secondary">peguen su web</span> y{' '}
@@ -661,8 +674,8 @@ export default function LeadMagnetWorkspace({ post, creatorId, compacto = false 
             mandara la solicitud, y quién ya la ha mandado.
           · Seguimientos — el HISTÓRICO: los invitados con nota de antes del
             17/08. No se crean más, pero los que hay siguen esperando su recurso.
-          Ninguna de las dos aplica al tipo público, que no tiene canal privado. */}
-      {cfg.kind !== 'publico' && (
+          Ninguna de las dos aplica a los tipos sin canal privado (público y enlace). */}
+      {!sinPrivado(cfg.kind) && (
         <>
           {/* En compacto las solicitudes NO se pintan aqui: el bloque de arriba de
               Comments ya las trae, y de TODA la cuenta, no solo de este post. Dos
@@ -752,13 +765,14 @@ function KindPicker({ value, onChange }: { value: LmKind; onChange: (k: LmKind) 
     { id: 'dm', titulo: 'Por privado', sub: 'Comentan la palabra y les mandamos el recurso al DM' },
     { id: 'publico', titulo: 'En comentarios', sub: 'Les damos el valor en público y el enlace pide el correo' },
     { id: 'lista', titulo: 'Lista personalizada', sub: 'Comentan «lista» + su sector y les montamos la lista de su sector' },
+    { id: 'enlace', titulo: 'Enlace en el post', sub: 'El enlace va en el cuerpo: se contesta como a un comentario normal' },
   ];
   return (
     <div>
       <label className="block text-[11px] font-medium text-text-secondary mb-1.5">
         Tipo de lead magnet
       </label>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
         {OPCIONES.map((o) => {
           const on = value === o.id;
           return (
@@ -897,7 +911,7 @@ function CommenterCard({
   // ⭐ Ya NO se limita al tipo "lista" (Iker, 2026-08-06). El segundo mensaje hace
   // falta en TODOS los lead magnets: el flujo pedir → da el paso → recurso es el
   // mismo siempre.
-  const handledInSeguimientos = cfg.kind !== 'publico' && gestionadosArriba.has(thread.id);
+  const handledInSeguimientos = !sinPrivado(cfg.kind) && gestionadosArriba.has(thread.id);
 
   // 'plain' → they dropped the keyword and nothing else; the template IS the
   // answer. 'rich' → they wrote something real, and "remitido!" would be
@@ -912,6 +926,9 @@ function CommenterCard({
     // personalizado, así que se redacta. Un "Enviado!" precargado aquí sería
     // justo lo contrario de lo que hace funcionar al formato.
     if (cfg.kind === 'publico') return '';
+    // Con el enlace en el post no hay recurso que confirmar: ni plantilla de
+    // "Enviado!" ni petición de solicitud. Se redacta como un comentario normal.
+    if (cfg.kind === 'enlace') return '';
     // ⛔ A QUIEN NO PODEMOS ESCRIBIRLE NO SE LE DICE "ENVIADO" (2026-08-17). Las
     // 13 variantes de buildReply afirman que el recurso ya salió, y en canal
     // `pedir` no ha salido nada ni va a salir hasta que la persona mande su
@@ -962,7 +979,7 @@ function CommenterCard({
     // La LISTA no se autoredacta: su recurso son 15 empresas que hay que ir a
     // buscar a Unipile con el sector del comentario. Se genera al pulsar el
     // botón (handleLista), no al montar la tarjeta.
-    if (cfg.kind === 'lista') return;
+    if (cfg.kind === 'lista' || cfg.kind === 'enlace') return;
     if (msgTouched || alreadySent || !ownsDm) return;
     // En canal `pedir` no hay mensaje privado que redactar: no hay a dónde
     // mandarlo. El recurso se escribe el día que la persona mande su solicitud,
@@ -1091,14 +1108,15 @@ function CommenterCard({
           commenter_name: target.author.name,
           commenter_headline: target.author.headline,
           commenter_profile_id: target.author.profile_id,
-          lead_magnet_topic: ownsDm
+          // 'enlace': sin tema, el generador escribe la respuesta normal de un post.
+          lead_magnet_topic: ownsDm && cfg.kind !== 'enlace'
             ? (cfg.kind === 'lista'
                 ? (sector.trim() ? `la lista de ${sector.trim()}` : 'la lista')
                 : (resolverRecurso(cfg.keyword, cfg.link, cfg.topic)?.topic ?? ''))
             : undefined,
           // Sin contacto no hay envío que prometer: que la respuesta cierre
           // pidiéndole la solicitud en vez de decir "te lo acabo de mandar".
-          pedir_solicitud: canal === 'pedir',
+          pedir_solicitud: canal === 'pedir' && cfg.kind !== 'enlace',
         }
       );
       setReply(res.reply);
@@ -1152,7 +1170,7 @@ function CommenterCard({
   // acción entera. Bloquearla sería bloquear lo único que se puede hacer con esa
   // persona.
   const recursoSinEntregar =
-    cfg.kind !== 'publico' && canal !== 'pedir' && ownsDm && !!thread.author.profile_id &&
+    !sinPrivado(cfg.kind) && canal !== 'pedir' && ownsDm && !!thread.author.profile_id &&
     !alreadySent && !handledInSeguimientos;
   const [forzarRespuesta, setForzarRespuesta] = useState(false);
 
@@ -1506,7 +1524,7 @@ function CommenterCard({
               comentario y en la página con gate, así que no hay nada que mandar
               por privado. Salía igualmente (bug, 2026-07-17) y ofrecía un "Enviar
               DM" con el topic vacío: "Te dejo el recurso sobre  por aquí:". */}
-          {cfg.kind === 'publico' ? null : !ownsDm ? (
+          {sinPrivado(cfg.kind) ? null : !ownsDm ? (
             <p className="mt-3 pt-3 border-t border-border text-[11px] text-text-muted">
               Aquí solo se responde. El recurso se le manda desde su otro comentario, el de la palabra
               clave, y es ahí donde se le avisa del envío.

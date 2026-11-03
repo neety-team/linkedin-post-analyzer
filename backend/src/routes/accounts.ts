@@ -4006,7 +4006,7 @@ router.put('/lead-magnet/config', async (req: Request, res: Response) => {
     if (!post_id || !config) return res.status(400).json({ error: 'Faltan post_id y config' });
     // El tipo SI se acota: es el unico campo que cambia el mensaje que sale, y un
     // valor raro aqui haria que el panel cayera al DM normal sin decir nada.
-    const kind = ['dm', 'publico', 'lista'].includes(config.kind) ? config.kind : 'dm';
+    const kind = ['dm', 'publico', 'lista', 'enlace'].includes(config.kind) ? config.kind : 'dm';
     const limpio = {
       kind,
       keyword: String(config.keyword || '').slice(0, 120),

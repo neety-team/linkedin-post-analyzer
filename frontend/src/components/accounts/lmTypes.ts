@@ -71,7 +71,14 @@ export interface CanalInfo {
 // regalaba TODO y no capturó ni un correo. Por eso el público NO pide campos: su
 // generador (/api/accounts/rastro/generate) escribe el análisis, le crea su
 // página con gate de correo y devuelve el comentario con el enlace ya dentro.
-export type LmKind = 'dm' | 'publico' | 'lista';
+//  · enlace  → el enlace al recurso va EN EL CUERPO del post, a la vista de todos
+//              (lead magnet con enlace publico, 03/11). Nadie pide nada en
+//              comentarios ni se manda nada por privado: los comentarios se
+//              contestan como en cualquier post, sin "te lo acabo de mandar".
+export type LmKind = 'dm' | 'publico' | 'lista' | 'enlace';
+
+// Tipos sin canal privado: ni DM, ni solicitudes, ni seguimientos.
+export const sinPrivado = (k: LmKind) => k === 'publico' || k === 'enlace';
 
 export interface LmConfig {
   kind: LmKind;

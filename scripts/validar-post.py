@@ -2420,6 +2420,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not ms, 'Sin coma antes de "y"/"e" (brand-voice §3)', f'{len(ms)}: {ms[:3]}' if ms else '')
     ms = re.findall(r'\*\*|__|^#{1,6}\s|`', cuerpo, re.M)
     chk(not ms, 'Sin markdown dentro del post (working-preferences §1)', f'{ms[:3]}' if ms else '')
+    # brand-voice §3b: comillas rectas, nunca angulares (en LinkedIn cantan a texto importado), y una
+    # cita de varias lineas se abre en la primera y se cierra en la ultima, no linea a linea. Estaba
+    # escrito y sin check: el 03/11 se entrego un post con «» y la cita cerrada en cada linea.
+    ms = re.findall(r'[«»]', cuerpo)
+    chk(not ms, 'Citas con comillas rectas, nunca angulares (brand-voice §3b)',
+        f'{len(ms)} comillas angulares: cambialas por "..."' if ms else '')
+    _lc = [l.strip() for l in cuerpo.splitlines()]
+    _partida = [i for i in range(len(_lc) - 1)
+                if re.match(r'^["“].*["”]$', _lc[i]) and re.match(r'^["“].*["”]$', _lc[i + 1])]
+    chk(not _partida, 'Cita de varias lineas: se abre en la primera y se cierra en la ultima (brand-voice §3b)',
+        f'dos lineas seguidas con sus propias comillas: "{_lc[_partida[0]][:50]}"' if _partida else '')
     m = re.search(OPENERS_QUEMADOS, cuerpo, re.I)
     chk(not m, 'Sin openers quemados (§2.8)', f'"{m.group(0)}"' if m else '')
     ms = re.findall(NUMERO_EN_LETRA, cuerpo, re.I)

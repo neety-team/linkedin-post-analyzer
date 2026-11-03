@@ -404,6 +404,17 @@ CASOS += [
      'el CONTEXTO del destino', ['--pilar', 'historia', '--cuenta', 'iker']),
 ]
 
+# Lead magnet con enlace a la vista de Iker (03/11): la cita de los tornillos con comillas angulares,
+# y despues con rectas pero cerrada en cada linea. brand-voice §3b ya lo decia y no tenia check.
+LM_PUBLICO_ANGULARES = '⚰️ D.E.P. buscar clientes por sector, yo ya lo enterré con Claude 👇\n\nEmpezó con lo que soltó un cliente.\n\n«Nadie que compra tornillos pone en su web que compra tornillos.»\n«Pero ¿cómo identifica el que vende tornillos a los que compran tornillos?»\n\nAhí murió buscar por sector y nadie lo lloró.\n\nEl que te compraría no se anuncia por lo que compra.\nY buscarlo empresa a empresa se come temporadas.\nY mientras, no vendes.\n\nLa respuesta tiene 3 niveles.\n\n1. Gratis, buscando por lo que hace una empresa, no por su sector\n2. Con Claude, para sacar las que no conoces y ver si encajan\n3. Cómo lo hacemos nosotros, para contactar y no buscar\n\nLos contamos la semana pasada en un evento gratis por internet.\n\nSi te lo perdiste, está entero y sin pedirlo.\n\nPor sector solo salen empresas que ya conoces.\nLas demás, en vídeo y diapositivas: https://neety.com/academia/webinar-clientes-ia?utm_source=linkedin&utm_medium=post&utm_campaign=leadmagnet-publico-webinar-03nov&utm_content=iker\n\nQue buscar por sector descanse en paz.\n'
+LM_PUBLICO_CITA_PARTIDA = '⚰️ D.E.P. buscar clientes por sector, yo ya lo enterré con Claude 👇\n\nEmpezó con lo que soltó un cliente.\n\n"Nadie que compra tornillos pone en su web que compra tornillos."\n"Pero ¿cómo identifica el que vende tornillos a los que compran tornillos?"\n\nAhí murió buscar por sector y nadie lo lloró.\n\nEl que te compraría no se anuncia por lo que compra.\nY buscarlo empresa a empresa se come temporadas.\nY mientras, no vendes.\n\nLa respuesta tiene 3 niveles.\n\n1. Gratis, buscando por lo que hace una empresa, no por su sector\n2. Con Claude, para sacar las que no conoces y ver si encajan\n3. Cómo lo hacemos nosotros, para contactar y no buscar\n\nLos contamos la semana pasada en un evento gratis por internet.\n\nSi te lo perdiste, está entero y sin pedirlo.\n\nPor sector solo salen empresas que ya conoces.\nLas demás, en vídeo y diapositivas: https://neety.com/academia/webinar-clientes-ia?utm_source=linkedin&utm_medium=post&utm_campaign=leadmagnet-publico-webinar-03nov&utm_content=iker\n\nQue buscar por sector descanse en paz.\n'
+CASOS += [
+    (LM_PUBLICO_ANGULARES, '03/11: comillas angulares en la cita, se leen a texto importado',
+     'Citas con comillas rectas', ['--pilar', 'historia', '--cuenta', 'iker']),
+    (LM_PUBLICO_CITA_PARTIDA, '03/11: cita de dos lineas con comillas en cada linea',
+     'Cita de varias lineas', ['--pilar', 'historia', '--cuenta', 'iker']),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

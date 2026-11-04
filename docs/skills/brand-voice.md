@@ -181,14 +181,15 @@ En un anuncio de la casa (el lanzamiento del nuevo Neety, colaborativo desde San
 - **Validador:** `--gancho-generico` (solo Unai, historia/evento o evento) pasa el ancla del gancho a aviso y exige que el cuerpo nombre la venta. Cada uso se declara en la entrega y entra en el registro de A/B del historial el día que se publica.
 - **Cómo se lee:** impresiones contra sus vídeos de historia/evento (3.197 y 3.941, con gancho de escena), demografía (cargos de ventas e industria contra el 1% y 0% de San Francisco) y clics a `/solicitar-demo` por 1.000. ⚠️ Confundido con el formato (vídeo de marca) y con el colaborativo: n=1, dirección y no ley.
 
-#### 🚀 SUS LANZAMIENTOS DE PRODUCTO LOS ESCRIBE EN REGISTRO DE NOTA DE PRENSA (2026-11-03, lanzamiento del nuevo Neety)
+#### 🗣️ SU FORMA DE NARRAR, SACADA DE SU PROPIO TEXTO DEL LANZAMIENTO (2026-11-03) — SOLO EL VOCABULARIO, NO EL FORMATO
 
-Para el lanzamiento del nuevo Neety (colaborativo con cortometraje, desde San Francisco) se le pasó una historia/evento con el bucle en el gancho y un banco de 5 alternativos. **La reescribió entera** en otro registro, y es la que sale:
-- **El anuncio va en el gancho, con la marca:** `Presentamos el nuevo @Neety`. En un lanzamiento propio, el bucle no se lo deja al cuerpo.
-- **Frases de nota de prensa y de cierre de vídeo:** `Una nueva era para…`, `Construido desde Euskadi. Presentado hoy desde San Francisco.`, la marca varias veces y el enlace como última línea.
-- **Lo que sí conserva de la propuesta:** las más de 130 empresas escuchadas, que el comercial mantiene el control y San Francisco como sitio.
-- **Cómo se trabaja la próxima vez:** en un lanzamiento de producto en su cuenta, se le propone desde el principio una versión de anuncio (gancho que lo dice, frases cortas de nota de prensa) **además** de la de historia, y él elige. Sobre su texto solo se proponen los retoques que protegen a la marca (que no prometa automatismo, que lo prometido sea lo que da el enlace, la fecha del UTM), no el formato.
-- **Es preferencia de su cuenta, no doctrina de datos** (`working-preferences §0c`): lo medido dice lo contrario (los ganchos que nos nombran o anuncian algo nuestro rinden menos, `post-workflow §4.6-SERIE` 11). Se mide al publicarse contra San Francisco y contra sus historias/evento, y el resultado se escribe aquí.
+El lanzamiento del nuevo Neety (04/11) lo reescribió él entero. **De ese texto solo se guarda cómo narra**, para que el cuerpo de sus posts suene a él. **El formato y la estructura NO se copian:** el anuncio en el gancho, la marca cuatro veces, la negrita, el punto antes del emoji y el enlace como última línea van contra la receta y contra nuestros datos (`post-workflow §4.6-SERIE` 11: los ganchos que nos nombran o anuncian algo nuestro rinden menos). Son decisiones de ese post, que se respetan, no un molde.
+- **Solemnidad, no hipérbole.** Donde le proponíamos `el gran día`, escribe `un día muy especial`: lo grande lo dice con calma. Es el tono de una presentación de producto, no el de un creador.
+- **Frases nominales cortas, sin verbo, en pareja:** `Dos formas de trabajar. Una nueva forma de vender.` · `Construido desde Euskadi. Presentado hoy desde San Francisco.` (dos participios con su lugar, la casa y el escaparate).
+- **El arco escuchar → pregunta → respuesta:** `Después de escuchar a más de 130 empresas, nos hicimos una pregunta…` y luego `Hoy lo mostramos.` Le gusta que el producto salga de lo que contaron los clientes.
+- **Tríada de verbos de producto:** `identifica empresas, detecta oportunidades y … acciones comerciales`, cerrada con el control en el comercial: `El comercial mantiene el control.`
+- **Sus palabras:** `nueva era`, `mostrar`, `presentar`, `construido`, `equipos comerciales de la industria`, `oportunidad`, `actuar sobre ella`, `mantener el control`. Siempre en plural de la casa.
+- **Cómo se usa:** estas formas entran en el CUERPO de sus posts cuando encajan (sobre todo la pareja nominal y el `construido aquí / presentado allí`). El gancho y el formato siguen la receta de su pilar.
 
 #### 🎙️ SUS POSTS DE PARTICIPACIÓN (MODERA, PONE O ASISTE): NADA QUE SE LEA COMO AUTOELOGIO NI REFRANES DE VENTAS METIDOS A LA FUERZA (revisión de Unai, 2026-10-27, mesa de DBA Conecta)
 

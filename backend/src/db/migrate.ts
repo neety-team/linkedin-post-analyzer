@@ -1189,10 +1189,10 @@ const migration = `
   -- con varios autores. El post es UNO y vive en la cuenta que lo publico
   -- (posts.creator_id, el autor principal): sus metricas son las del post entero,
   -- asi que nunca se suma a los coautores. Aqui solo van los COAUTORES.
-  -- Se marca a mano (menu ⋮ del post): ni Unipile (ni el post, ni el feed: alli el
-  -- coautor sale como un repost cualquiera) ni la pagina publica de LinkedIn dicen
-  -- quien es coautor, y adivinarlo por los reposts mezclaria colaborativos con
-  -- reposts normales (medido el 23/10 con el de San Francisco).
+  -- Se marca a mano (menu ⋮ del post) y, desde el 04/11, tambien solo: ni el post de
+  -- Unipile ni la pagina publica de LinkedIn dicen quien es coautor, pero en el feed
+  -- del coautor el colaborativo sale como repost suyo DOS veces y un repost normal
+  -- una (services/colaborativos.ts, llamado en cada scrape de cuenta propia).
   CREATE TABLE IF NOT EXISTS post_coautores (
     post_id UUID NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
     creator_id UUID NOT NULL REFERENCES creators(id) ON DELETE CASCADE,

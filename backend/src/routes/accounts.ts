@@ -3,6 +3,7 @@ import pool from '../db';
 import { unipileService, LINKEDIN_REACTION_TYPES, LinkedinReactionType, normalizeReactionValue } from '../services/unipile';
 import { enrichPost } from '../services/engagement';
 import { recalcCreatorOutliers } from '../services/outliers';
+import { marcarColaborativosDelFeed } from '../services/colaborativos';
 import { PostModel } from '../models/post';
 import { CreatorModel } from '../models/creator';
 import { maybeTick, capturePostSnapshot, refrescarCifrasOficiales } from '../services/postMonitor';
@@ -125,6 +126,11 @@ export async function scrapeCreatorPosts(
   const postsStart = Date.now();
   const rawPosts = await unipileService.getPosts(providerId, undefined, accountIdOverride, knownIds);
   console.log(`[scrapeCreatorPosts] ${creator.name}: getPosts (incremental) ${Date.now() - postsStart}ms, ${rawPosts.length} raw`);
+  // Antes de quitar los reposts: en el feed de un coautor el colaborativo sale como
+  // repost suyo dos veces, y eso es lo unico que lo delata (services/colaborativos.ts).
+  const colabs = await marcarColaborativosDelFeed(creator.id, providerId, rawPosts)
+    .catch((e) => { console.error('[scrapeCreatorPosts] colaborativos', e?.message); return 0; });
+  if (colabs) console.log(`[scrapeCreatorPosts] ${creator.name}: coautor en ${colabs} colaborativo(s)`);
   const originalPosts = rawPosts.filter((raw: any) => {
     if (raw.type === 'repost' || raw.type === 'RESHARE' || raw.type === 'reshare') return false;
     if (raw.is_repost || raw.is_reshare) return false;

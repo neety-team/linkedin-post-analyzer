@@ -181,6 +181,15 @@ En un anuncio de la casa (el lanzamiento del nuevo Neety, colaborativo desde San
 - **Validador:** `--gancho-generico` (solo Unai, historia/evento o evento) pasa el ancla del gancho a aviso y exige que el cuerpo nombre la venta. Cada uso se declara en la entrega y entra en el registro de A/B del historial el día que se publica.
 - **Cómo se lee:** impresiones contra sus vídeos de historia/evento (3.197 y 3.941, con gancho de escena), demografía (cargos de ventas e industria contra el 1% y 0% de San Francisco) y clics a `/solicitar-demo` por 1.000. ⚠️ Confundido con el formato (vídeo de marca) y con el colaborativo: n=1, dirección y no ley.
 
+#### 🚀 SUS LANZAMIENTOS DE PRODUCTO LOS ESCRIBE EN REGISTRO DE NOTA DE PRENSA (2026-11-03, lanzamiento del nuevo Neety)
+
+Para el lanzamiento del nuevo Neety (colaborativo con cortometraje, desde San Francisco) se le pasó una historia/evento con el bucle en el gancho y un banco de 5 alternativos. **La reescribió entera** en otro registro, y es la que sale:
+- **El anuncio va en el gancho, con la marca:** `Presentamos el nuevo @Neety`. En un lanzamiento propio, el bucle no se lo deja al cuerpo.
+- **Frases de nota de prensa y de cierre de vídeo:** `Una nueva era para…`, `Construido desde Euskadi. Presentado hoy desde San Francisco.`, la marca varias veces y el enlace como última línea.
+- **Lo que sí conserva de la propuesta:** las más de 130 empresas escuchadas, que el comercial mantiene el control y San Francisco como sitio.
+- **Cómo se trabaja la próxima vez:** en un lanzamiento de producto en su cuenta, se le propone desde el principio una versión de anuncio (gancho que lo dice, frases cortas de nota de prensa) **además** de la de historia, y él elige. Sobre su texto solo se proponen los retoques que protegen a la marca (que no prometa automatismo, que lo prometido sea lo que da el enlace, la fecha del UTM), no el formato.
+- **Es preferencia de su cuenta, no doctrina de datos** (`working-preferences §0c`): lo medido dice lo contrario (los ganchos que nos nombran o anuncian algo nuestro rinden menos, `post-workflow §4.6-SERIE` 11). Se mide al publicarse contra San Francisco y contra sus historias/evento, y el resultado se escribe aquí.
+
 #### 🎙️ SUS POSTS DE PARTICIPACIÓN (MODERA, PONE O ASISTE): NADA QUE SE LEA COMO AUTOELOGIO NI REFRANES DE VENTAS METIDOS A LA FUERZA (revisión de Unai, 2026-10-27, mesa de DBA Conecta)
 
 Unai revisó el post de la mesa que moderó y quitó dos líneas. Lo que se aprende de ahí, y vale para cualquier post suyo que cuente un evento en el que estuvo:

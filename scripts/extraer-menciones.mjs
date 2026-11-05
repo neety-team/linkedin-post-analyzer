@@ -59,14 +59,16 @@ export function normalizar(s) {
  * cifra, ni tiene siete palabras.
  */
 function entidadesDeLinea(l) {
-  const sinFlecha = l.replace(/^\s*→\s*/, '');
+  // 2026-11-05 (mapa de España): una etiqueta de region delante ("→ Galicia: Empresa - Persona")
+  // se pegaba al nombre y la empresa no casaba en el cruce de repetidas. Se quita si son 1-4 palabras.
+  const sinFlecha = l.replace(/^\s*→\s*/, '').replace(/^\s*@?([^:@→]{2,30}):\s+(?=\S)/, (m, et) => (et.trim().split(/\s+/).length <= 4 ? '' : m));
   const sinLogro = sinFlecha.split('·')[0];
   return sinLogro
     .split(' - ')
     .map((x) => x.trim())
     .filter((x) =>
       x.length > 2 &&
-      x.length < 45 &&
+      x.length < 55 && // 2026-11-05: 45 tiraba "CAF (Construcciones y Auxiliar de Ferrocarriles)" (48)
       x.split(/\s+/).length <= 6 &&
       !/[€$%]/.test(x) &&
       // 2026-10-28: solo una cifra SUELTA ("3 meses…"). `^\d` a secas tiraba las

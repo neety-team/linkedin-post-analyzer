@@ -3086,7 +3086,7 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 | **no aparece a los 10 min** | 🟠 sospecha, se mira la banda del Explorer. **No se borra** |
 | **no aparece a los 30 min** | 🔴 **ahí sí. Se borra o se deja según convenga, pero ya no se espera más** |
 
-**⛔ NO SE BORRA NADA ANTES DE LOS 30 MINUTOS.**
+**⛔ NO SE BORRA NADA ANTES DE LOS 30 MINUTOS.** 🔄 **Desde el 05/11, 50 MINUTOS** (`§9.0d`): un post de texto con foto tardó ~45 en salir de la revisión, y el umbral va por encima del retraso más largo observado, con margen (la regla de justo debajo). El criterio de los 30 de abajo queda como historia.
 
 **🔴 EL NÚMERO ES 30 Y NO 20, Y NO ES POR PRUDENCIA: es que nuestro único caso de recuperación tardó 20.** Un corte en 20 borraría justo el siguiente que tarde 22. **El umbral va por encima del retraso más largo observado, con margen**, y sube si algún día uno se recupera más tarde.
 
@@ -3097,6 +3097,22 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 **Y borrar y resubir tres veces en una hora es en sí mismo un patrón sospechoso** *(hipótesis mía, sin medir)*.
 
 **⭐ Y por fin hay un dato para la cola de revisión de Iker** (`post-workflow §4.5.0-REVISION`), que llevaba desde el 18/08 en n=0 **precisamente porque siempre borrábamos antes de comprobarla**: **26/08, aparece a los ~20 min y reparte con normalidad.** No era un bloqueo, era un retraso.
+
+### ✅✅ 9.0d · QUINTO CASO (05/11): UN POST DE TEXTO CON FOTO EN REVISIÓN ~45 MINUTOS, Y EL UMBRAL SUBE A 50
+
+**El caso:** mapa de España de Iker (texto con foto, 2.656 caracteres publicados, 26 menciones, enlace a `/solicitar-demo`), publicado a las 12:34.
+
+| minuto | impresiones | feed |
+|---|---|---|
+| 28 | 77 | no aparece en relevantes de su cuenta |
+| ~47 | ~200 | 2 likes de cuentas ajenas; poco después, **aparece en relevantes desde la cuenta de Unai** |
+| 55 | 258 (BD) | banda típica de su cuenta a 52 min: 213-360, mediana 270 |
+| 91 | 1.082 (BD) | **por encima del p75 de su banda** (~750 a esa edad) |
+
+- **No era un capado, era una revisión**, y la pendiente lo dijo antes que el feed: de 2,75 a ~6,5 impresiones por minuto entre los minutos 28 y 47 (`post-workflow §4.5.0-CAPADO-RAPIDO`: un capado frena, este aceleró).
+- **Con el umbral de 30 se habría borrado** un post que a los 90 minutos iba por encima de lo normal de su cuenta.
+- **Qué lo dispara, sin saberlo (hipótesis, n=1):** es el post más largo de la cuenta en un mes, con 26 menciones y el primer mapa a la demo. Ninguna palabra de las familias de riesgo (`brand-voice §2c`); `Lotería` sale en posts que repartieron bien.
+- **Regla operativa:** no se borra antes de los 50 minutos; entre medias se mira la pendiente (dos lecturas separadas 10-15 minutos) y el feed desde OTRA cuenta. Las otras cuentas siguen publicando mientras tanto (`§9.0`).
 
 ### ✅✅ 9.0c · TERCER Y CUARTO CASO (30/09): DOS POSTS DADOS POR CAPADOS APARECIERON A LOS 15 Y 27 MINUTOS
 

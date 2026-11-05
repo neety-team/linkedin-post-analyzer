@@ -2200,6 +2200,30 @@ Lo que se mide, sin interpretar:
 
 **Propuesta (decide Iker):** menos lead magnets y mejor elegidos. El próximo, personalizado o de lista corta región + sector, en Unai (`§4.5.0-CRUCE` punto 2), con el gate en `recursos.neety.com` como siempre.
 
+#### 🆚🆚 4.5.0-BUENOS-CONTRA-MALOS · TRES CUENTAS DE FUERA, EL MISMO AUTOR CON POSTS QUE VOLARON Y QUE NO (medido el 2026-11-05 por Unipile, sin impresiones)
+Nicolas Cort Manubens (IA CORP) e Ignasi Mellado y Alex Solé (Link360, publican en el mismo minuto), 40 posts de cada uno, con todos sus comentarios. Se cuentan **comentaristas** (personas distintas de fuera), porque el contador de LinkedIn suma las respuestas del autor. Los que funcionan están todos comment-gated: la palabra sale en el 88-100% de los comentarios.
+
+| par del mismo autor | qué cambió | comentaristas |
+|---|---|---|
+| el mismo recurso de «10 prompts» (Link360) | gancho que alaba la herramienta («Claude está revolucionando LinkedIn»), PDF y la petición en el texto → gancho de dolor («Tu perfil recibe visitas y no recibe consultas»), imagen del artefacto y la palabra en la imagen | 4 y 9 → 175 (y 120 en 24 h al recalcarlo el 04/11 con imagen nueva) |
+| la petición en el texto o en la imagen (Nicolas) | `Comenta «catálogo»` en el texto → solo en la imagen | 1-2 → 45-785 |
+| la misma empresa reutilizando | texto copiado con imagen nueva → el mismo fichero GIF del 25/08 (idéntico) | 120 → 3 |
+| reciclarse a los 28 días (Nicolas) | texto reescrito, otra palabra y otra cifra, la misma plantilla de imagen | 416 → 780 |
+| tres seguidos al mismo público (Link360, 25-27/08) | lead magnet tres días seguidos | 182 → 25 → 15 |
+| tema de venta o de marketing (Nicolas) | prospección con Claude → masterclass de marketing digital | 416-780 → 45 |
+
+**Lo que confirma de lo nuestro (n=5 de fuera):** la palabra va en la imagen y el texto no pide comentar (`§4.5.0-CTA-CERO`, `§4.5.0-CTA-IMAGEN`); ningún post bueno la pide en el texto. Y saturar al mismo público hunde.
+**Lo que nos faltaba:**
+1. **El gancho es un dolor concreto o una cifra propia, nunca un elogio de la herramienta.** Debajo, una cifra de prueba (`+27 reuniones B2B el último mes`).
+2. **Una línea contra el cansancio del lector**, que se adelanta al «otro lead magnet más» (`no es ninguna skill mágica`, `he descartado el 80%`).
+3. **La imagen enseña el artefacto funcionando** (la interfaz con la tabla, la infografía de lo que trae); el PDF tipo documento fracasó 2 de 2.
+4. **El GIF no es la palanca:** en Link360 los GIF dan una mediana de 68 comentaristas (n=5) y las fijas ~95 (n=16); en los 10 con más comentarios, 2 son GIF, y Nicolas no ha usado ninguno. Va con lo de `§4.5.0-UNA-PAGINA` (n=8). *(n pequeño, de fuera)*
+5. **Un GIF repetido tal cual parece penalizar** (120 contra 3 entre dos cuentas de la misma empresa). *(hipótesis, n=1)*
+6. **El reciclaje que cambia gancho, palabra y cifra sí funcionó fuera** (416 → 780 a los 28 días), contra nuestra regla de que repetir tema en la misma cuenta hunde (n=3 nuestros). Es n=1 de fuera: no cambia la regla, se apunta.
+**Quién comenta «Claude + LinkedIn»** (titulares de los 3 posts grandes): 17-24% dueños o CEO, 14-21% mandos, 9-10% ventas, el resto marketing y consultoría. Es público de quien vende servicios, más que el director comercial de industria.
+**Lo que no se copia:** la promesa de IA CORP es automatismo, volumen y señal (`global §4.4b-MUNICIÓN`, nuestras tres objeciones prohibidas) y vende señales en nuestro mercado: es competencia directa.
+**Contra nuestro lead magnet público de Iker (03/11, 756 impresiones, 6 comentarios, 8 clics):** sin palabra, gancho D.E.P. (familia que Nicolas abandonó), recurso visto por segunda vez en 6 días y GIF. El A/B del enlace público se lee la semana del 09/11 antes de decidir el siguiente.
+
 #### 🔎🔎 4.5.0-COMPETENCIA · PASO 0 OBLIGATORIO: LA INVESTIGACIÓN DE REFERENTES, ANTES DE ELEGIR TEMA (Mario, 2026-08-26)
 
 > **Iker, y es una regla de casa:** *"cada vez que yo te pida una publicación del pilar lead magnet, sea para el jefe que sea, me hagas una investigación primero de nuestros principales competidores, qué patrones hay entre las temáticas entre cuentas de ventas"*.

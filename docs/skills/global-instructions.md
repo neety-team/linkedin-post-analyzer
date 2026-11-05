@@ -3160,6 +3160,7 @@ Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran 
 |---|---|
 | historia + vídeo, Unai **08/10** | 1ª versión: +40 min sin salir (~20 imp), borrada. 2ª versión: **en relevantes a los 28 min** |
 | historia + vídeo (entrevista de Telmo), Unai **15/10** | 19 imp a los 16 min, sin salir. **A los ~30 min sale en relevantes** desde otra cuenta, pasa de 30 a 52 imp en 2 minutos y entran 2 likes de cuentas ajenas. **No estaba capado: estaba en revisión.** Iker esperó y menos mal: yo le había preparado la resubida para no esperar |
+| 🆕 **mapa de texto con foto (SIN vídeo)**, Iker **05/11** | 77 imp a los 28 min y fuera de relevantes en su cuenta. A los 47 min ~200 (de 2,75 a ~6,5 imp/min) con 2 likes ajenos, y luego en relevantes desde otra cuenta. **Primera revisión medida fuera del vídeo**, con la misma duración. n=1: hasta tener más casos, en un post largo o con muchas menciones tampoco se resube antes de los 45 min si la pendiente no ha frenado |
 
 **LA REGLA:**
 - **Con vídeo, no se diagnostica capado ni se resube antes de los 45 minutos.** Entre 0 y 45, ~20 impresiones sin salir en relevantes es lo normal.

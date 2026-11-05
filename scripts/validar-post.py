@@ -84,6 +84,7 @@ SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao
 # COMO SE MANTIENE: cuando publiques un peloteo, mete aqui el verbo que hayas
 # usado. La lista solo crece.
 VERBO_PREJUICIO_QUEMADO = {
+    'alquila': '2026-11-05 España, mapa de país de Iker',
     'despiden': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'dan por oxidado': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
     'dan por oxidada': '2026-10-22 Bizkaia, mapa de Iker (de adición), en femenino',
@@ -299,6 +300,16 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Iker 05/11, mapa de España (país), leido del texto publicado (Unipile, 12:34).
+    'quien la alquila de vacaciones solo ve la fachada': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
+    'quién decide tras esa fachada, te lo marcamos': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
+    'quien decide tras esa fachada, te lo marcamos': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
+    'estas 17 las conoce todo el mundo': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
+    'a quien decide la compra dentro, casi nadie': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
+    'y en las que te comprarían a ti pasa lo mismo': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
+    'y en las que te comprarian a ti pasa lo mismo': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
+    'lo vemos con las empresas de tu mercado en una reunión de media hora': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
+    'lo vemos con las empresas de tu mercado en una reunion de media hora': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
     # Iker 30/10, meme de las llamadas (desgaste), leido del texto publicado (BD, 13:56).
     '101 llamadas las hace cualquiera, saber a quién no': '2026-10-30 meme de Iker 30/10 (desgaste, /solicitar-demo, tipo 2), la linea 1 del ninja',
     '101 llamadas las hace cualquiera, saber a quien no': '2026-10-30 meme de Iker 30/10, sin tilde',
@@ -473,6 +484,7 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
+    'brasil': '2026-11-05 España, mapa de país de Iker',
     'cuba': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'guatemala': '2026-10-27 Galicia, "Las 10" de Iker',
     'bosnia': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
@@ -563,6 +575,7 @@ ARRANQUE_QUEMADO = {
         'queria': '2026-10-15 historia-video de Unai 15/10 ("No queria mas filtros / Queria descartar")',
     },
     'mapa': {
+        'la': '2026-11-05 mapa de España, Iker ("La alquilan por semanas / La levantan los que se quedan")',
         'ese': '2026-10-29 mapa de Navarra, Asier ("Ese corral no vive del chupinazo / de la cuajada")',
         'ni': '2026-09-22 mapa de Álava, Iker ("Ni la llena Celedón / Ni la llenan los blusas")',
         'aqui': '2026-09-22 mapa de Álava, Iker ("Aquí la sal / Aquí se discute / Aquí se sube")',
@@ -618,6 +631,8 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'alquila por semanas': '2026-11-05 España, mapa de país de Iker',
+    'alquilan por semanas': '2026-11-05 España, mapa de país de Iker',
     'corral de la': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'lavadero del fin': '2026-10-27 Galicia, "Las 10" de Iker',
     'desván del cant': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
@@ -649,6 +664,7 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'vuelta al avi': '2026-11-05 España, mapa de país de Iker',
     'y a correr': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'y a secarse': '2026-10-27 Galicia, "Las 10" de Iker',
     'y se acab': '2026-10-22 Bizkaia, mapa de Iker (de adición)',
@@ -683,6 +699,7 @@ FRASE_RABIA_USADA = {
 # la entrega, nunca por defecto). El CUERPO si puede repetir cliches (son de la region).
 # Al publicar un peloteo, se anaden aqui los cliches de su gancho (y el del concepto).
 CLICHE_GANCHO_REGION = {
+    'espana': {'fiesta': '2026-11-05 Iker', 'siesta': '2026-11-05 Iker'},
     'aragon': {'pilar': '2026-07-14 Asier', 'cierzo': '2026-07-14 Asier', 'jota': '2026-07-14 Asier',
                'ternasco': '2026-07-14 Asier', 'secarral': '2026-07-14 Asier',
                'cachirulo': '2026-10-16 Iker', 'esqui': '2026-10-16 Iker'},

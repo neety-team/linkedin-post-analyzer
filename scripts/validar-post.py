@@ -746,6 +746,10 @@ REGION_TOPONIMOS = {
     'espana': ['espan', 'hispan', 'iberic'],
 }
 DOUBLE_DOWN = False
+# 2026-11-05 (mapa de Espana): empresas ya mencionadas que se repiten A PROPOSITO, autorizadas
+# en el chat del post y declaradas en la entrega. Solo las que se nombran aqui ceden; cualquier
+# otra repetida sigue siendo fallo (post-workflow §4.2-ESPAÑA).
+REPITE_AUTORIZADAS = set()
 # EXCEPCION DECLARADA (Mario, 2026-10-22, San Francisco de Unai): en la cuenta de UNAI el
 # gancho puede anclar a su SEGUNDO carril (direccion: inversion, validar un mercado,
 # fundadores, startups; aboutme 2-CARRIL) en vez de a ventas. Solo con --ancla-direccion,
@@ -3285,8 +3289,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # Iker audite el CRITERIO sin releerse la entrega: "con tu decision sabre si
     # te has equivocado o no". El validador mira la mecanica; esto ensena la
     # decision.
-    chk(False, 'ENTREGA: cierra con la PREDICCION DE VIRALIDAD',
-        'ultima seccion del mensaje, titulada 🔮 PREDICCION DE VIRALIDAD. ⛔ TRES BULLETS, '
+    chk(False, 'ENTREGA: lleva la PREDICCION DE VIRALIDAD, antes del Resumen y de Pendientes',
+        'va detras de todo el contenido y justo ANTES del Resumen (penultima seccion) y de Pendientes (ultima, si los hay; working-preferences §0b), titulada 🔮 PREDICCION DE VIRALIDAD. ⛔ TRES BULLETS, '
         'cinco es el techo absoluto, y cada uno de DOS LINEAS COMO MAXIMO. ⛔ Se condensan '
         'varias ideas en cada bullet: NUNCA un bullet por idea. Sin tablas, sin sub-bullets '
         'y sin bloques cercados. Los tres bullets son las tres preguntas, en este orden: '
@@ -5079,6 +5083,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                     if len(e) < 3:
                         continue
                     k = normalizar_entidad(e)
+                    if k in REPITE_AUTORIZADAS:
+                        continue
                     if k in _mm.get('entidades', {}):
                         _rep.append(f"{e} ({', '.join(_mm['entidades'][k]['posts'][:2])})")
             chk(not _rep, 'Ninguna empresa ni persona repetida (§4.0c)',
@@ -6059,6 +6065,10 @@ def main():
                          'mencionadas con su foto, una llamada de una directora de marketing y el '
                          '"Los 10" de Gipuzkoa borrado. Solo se pasa si IKER, en el chat de ESE '
                          'post, ha levantado la prohibicion por escrito. Nunca por deduccion.')
+    ap.add_argument('--repite-autorizadas', default='', dest='repite_autorizadas',
+                    help='MAPA: nombres exactos (separados por ;) de empresas YA mencionadas que se repiten '
+                         'con autorizacion escrita en el chat del post y declaradas en la entrega '
+                         '(post-workflow 4.2-ESPAÑA). Las demas repetidas siguen siendo fallo.')
     ap.add_argument('--double-down', action='store_true', dest='double_down',
                     help='PELOTEO que repite A PROPOSITO cliches del gancho anterior de la region o un '
                          'pais ya usado por la cuenta (Iker, 2026-10-15: "double down es otra estrategia '
@@ -6115,6 +6125,8 @@ def main():
     HISTORIA_EVENTO = a.historia_evento
     global DOUBLE_DOWN
     DOUBLE_DOWN = a.double_down
+    global REPITE_AUTORIZADAS
+    REPITE_AUTORIZADAS = {normalizar_entidad(x) for x in a.repite_autorizadas.split(';') if x.strip()}
     global ANCLA_DIRECCION
     ANCLA_DIRECCION = a.ancla_direccion
     global EVENTO_AJENO

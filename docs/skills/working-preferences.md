@@ -7,6 +7,7 @@
 ---
 
 ## 0b · ⭐ RESUMEN AL FINAL, SIEMPRE — Y EN BULLETS, NO EN PÁRRAFOS (2026-07-16 · reforzado 2026-07-27)
+> 🔄 **2026-11-05 — EL ORDEN DE CIERRE, en toda respuesta: `## Resumen` es la PENÚLTIMA sección y `## Pendientes` la ÚLTIMA, separadas.** El Resumen lleva solo lo hecho y decidido; los pendientes van en su propia sección y solo si los hay (sin pendientes, el Resumen cierra). En una entrega de post, la `🔮 PREDICCIÓN DE VIRALIDAD` va detrás de todo el contenido y **antes** del Resumen: ya no es la última sección (`§1e-PREDICCION`). Motivo: una entrega larga se lee por el final, y lo que hay que decidir tiene que ser lo último que se ve. Lo de abajo sobre el contenido de cada bullet sigue igual.
 **Cada respuesta termina con un `## Resumen` en BULLET POINTS cortos.** Sin excepción, aunque la respuesta sea corta.
 - **Por qué:** "me pones mucho texto y no me entero". Reincidí el 2026-07-27: entregué el resumen como párrafo corrido en una respuesta larga y me lo devolvió ("si no es imposible entenderte"). El resumen en prosa NO cuenta como resumen.
 - **Qué va dentro, en este orden:** bullets de **qué he hecho/decidido** + bullets de **PENDIENTES** (qué falta y qué necesito de él). Un bullet = una cosa, una línea.
@@ -508,7 +509,7 @@ Esto es la vista que pidió el 2026-07-22, tras rechazar dos intentos: uno "supe
 
 **Para qué existe: para que Iker pueda auditar mi CRITERIO sin releerse la entrega entera.** El validador comprueba la mecánica y la comparativa enseña el texto; esto enseña **la decisión**. Si la predicción no se sostiene, el post está mal aunque el script dé 49/49.
 
-**DÓNDE VA: la última sección del mensaje, después de todo lo demás.** Se titula **`🔮 PREDICCIÓN DE VIRALIDAD`**.
+**DÓNDE VA: 🔄 desde el 2026-11-05, detrás de todo el contenido y justo antes del `## Resumen` (penúltima) y de `## Pendientes` (última), `§0b`.** ~~La última sección del mensaje~~. Se titula **`🔮 PREDICCIÓN DE VIRALIDAD`**.
 
 **LA FORMA, y es lo que la hace útil (si se alarga, deja de leerse):**
 - **⛔ TRES BULLETS. Cinco es el techo absoluto y con cinco ya sobra.** Iker, viendo la primera versión de ocho: *"me parece excesiva… máximo cinco, aún así me parecería mucho, máximo tres"*.

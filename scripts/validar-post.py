@@ -750,6 +750,7 @@ DOUBLE_DOWN = False
 # en el chat del post y declaradas en la entrega. Solo las que se nombran aqui ceden; cualquier
 # otra repetida sigue siendo fallo (post-workflow §4.2-ESPAÑA).
 REPITE_AUTORIZADAS = set()
+MAPA_A_DEMO = False
 # EXCEPCION DECLARADA (Mario, 2026-10-22, San Francisco de Unai): en la cuenta de UNAI el
 # gancho puede anclar a su SEGUNDO carril (direccion: inversion, validar un mercado,
 # fundadores, startups; aboutme 2-CARRIL) en vez de a ventas. Solo con --ancla-direccion,
@@ -4784,12 +4785,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # la puerta de cualquier pilar, peloteo incluido. Ya se habia abierto para meme y
         # "Las 10"; el mapa seguia exigiendo el blog y tumbaba el primer mapa al gate.
         _mapa_gate = 'neety.com/academia/' in texto
+        # 2026-11-05 (mapa de España de Iker): un mapa sin pagina propia puede ir a la demo
+        # (/solicitar-demo, aqui ya traducida a /agendar/), objetivo Oportunidades, con el
+        # bloque de dos del ninja normal (tipo 2: a quien llamar dentro). post-workflow 4.2-ESPAÑA.
+        _mapa_demo = 'recursos.neety.com/agendar' in texto and MAPA_A_DEMO
+        _mapa_gate = _mapa_gate or _mapa_demo
         chk(_mapa_web or bool(_mapa_luma) or _mapa_gate,
             'MAPA: el CTA enlaza a /mapas/{region}/ (§4.2 Paso 5)',
             'el mapa NO enlaza a /agendar/. Va "Mapa completo aquí: '
             'https://neety.com/blog/mapa-industrial-{region}", con la region en minuscula y sin '
             'tildes. El enlace a agendar se olia a venta; el del mapa se lee como recurso')
-        chk('recursos.neety.com/agendar' not in texto,
+        chk('recursos.neety.com/agendar' not in texto or MAPA_A_DEMO,
             'MAPA: sin enlace a /agendar/ (§4.2 Paso 5)',
             'queda el CTA viejo a agendar. Se sustituye por el enlace a la pagina del mapa')
 
@@ -6065,6 +6071,9 @@ def main():
                          'mencionadas con su foto, una llamada de una directora de marketing y el '
                          '"Los 10" de Gipuzkoa borrado. Solo se pasa si IKER, en el chat de ESE '
                          'post, ha levantado la prohibicion por escrito. Nunca por deduccion.')
+    ap.add_argument('--mapa-a-demo', action='store_true', dest='mapa_a_demo',
+                    help='MAPA sin pagina propia que manda a /solicitar-demo (Oportunidades) con el bloque '
+                         'de dos del ninja normal. Decision declarada en la entrega (post-workflow 4.2-ESPAÑA).')
     ap.add_argument('--repite-autorizadas', default='', dest='repite_autorizadas',
                     help='MAPA: nombres exactos (separados por ;) de empresas YA mencionadas que se repiten '
                          'con autorizacion escrita en el chat del post y declaradas en la entrega '
@@ -6125,6 +6134,8 @@ def main():
     HISTORIA_EVENTO = a.historia_evento
     global DOUBLE_DOWN
     DOUBLE_DOWN = a.double_down
+    global MAPA_A_DEMO
+    MAPA_A_DEMO = a.mapa_a_demo
     global REPITE_AUTORIZADAS
     REPITE_AUTORIZADAS = {normalizar_entidad(x) for x in a.repite_autorizadas.split(';') if x.strip()}
     global ANCLA_DIRECCION

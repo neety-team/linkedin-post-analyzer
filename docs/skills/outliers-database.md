@@ -367,6 +367,7 @@ Es el paso que más se falla y el que convierte el robo en algo original. Robar 
 > - **Cómo se usa:** al escribir un post se decide QUÉ métrica de su pilar se va a provocar y con qué pieza (en historia, la práctica discutible del gancho y una línea que deje sitio a las dos posturas; en peloteo, la lista que dan ganas de guardar y la región que se manda a alguien; en meme, que el chiste haga reír al que paga). Y va en la predicción de viralidad (`working-preferences §1e-PREDICCION`).
 > - **⚠️ Lo que no dice:** es correlación sobre pocos outliers (en historia, n=1). Las métricas también son consecuencia del alcance. Lo que sí es limpio es lo que NO sube en el outlier: en historia, guardados y envíos no se mueven, así que no son su motor.
 > - **Se rehace en cada revisión del lunes** con los outliers nuevos de cada pilar, y la columna de fuera con `comentarios-de-fuera.py`.
+> - **🔄 Matiz del 2026-11-05 (`§5b.4`): los `xN` de esta tabla son en bruto y suben con el alcance.** Medido por cada 1.000 impresiones y con el suelo nuestro restado, el post que vuela en el mapa se guarda y se envía al mismo ritmo que el resto (0,94 contra 0,90 guardados por 1.000): lo que se sale es el número de lectores, no lo que hace cada uno. **Solo en lead magnet el guardado por lector separa al que vuela** (1,45 contra 0). Así que en peloteo "guardados y envíos" dicen QUÉ hace el público de ese pilar, no qué dispara el alcance; las visitas al perfil, igual, salen a ritmo fijo por pilar.
 
 ### 4.0b · La FIRMA DE ENGAGEMENT de cada pilar (BD en vivo, 2026-07-14 — los 23 outliers)
 > Hallazgo nuevo al revisar los 23 outliers uno a uno. **Cada pilar gana en una métrica distinta.** Sirve para dos cosas: saber si un post está funcionando en las primeras horas, y no juzgar un pilar con la métrica de otro.
@@ -464,6 +465,55 @@ No importar nada de esto; está aquí para reconocerlo y descartarlo:
 
 ---
 
+## 5b · Evidencia externa: el método de Miriam Collado (vídeo de YouTube, revisado el 2026-11-05)
+
+> **Qué es:** un vídeo de una creadora española de LinkedIn con servicios high-ticket (dice 20M de impresiones en un año) que cuenta su sistema para posts virales: idea validada con datos → gancho → guion → formato → programación → análisis. **Cómo tratarlo:** es **opinión de practicante con ejemplos de su cuenta, no un estudio** (no hay n, no hay control). Mismo trato que §5: dirección, nunca por encima de §4. Su método se parece al nuestro (datos + psicología), pero no tiene la capa de BD propia de outliers ni la de motores por pilar. **Lo que se podía medir contra nuestra BD, se midió (5b.4)**: dos de sus afirmaciones fuertes no se sostienen en nuestras cuentas.
+
+### 5b.1 · Lo que CONFIRMA (ya lo hacíamos)
+- **Las ideas salen de datos, no de inspiración**, y se guarda todo post con muchos números aunque sea de otro sector, por estructura y gancho. Es `global §0-DATOS` y el remix cross-sector de `§3.9c`.
+- **Se mide por leads, no por impresiones**, y no se persigue lo viral a toda costa. Es `working-preferences` (objetivo por post) y `§4.0b-MOTOR`.
+- **Viral contra nicho:** cuanto más general el mensaje, más alcance y peor público; para vender B2B, nicho con algo de alcance de vez en cuando. Es exactamente el reparto peloteo/historia (nicho, ICP) contra meme (alcance), con el ancla de ventas de `global §2.3`.
+- **Probar mucho y que un post malo no hunda**: `working-preferences` (A/B en cada entrega).
+- **Rotar 2-3 formatos** para no aburrir: `post-workflow §8` y la regla de no repetir formato en la semana de una cuenta.
+- **Aire: una o dos líneas por bloque**: `global §3.2`, más medido aquí (`§3.7`: +14% de saltos en outliers).
+- **Programar una semana, no un mes, para meter lo aprendido**: es el planificador semanal (`post-workflow §8`) y la revisión de los lunes.
+- **Comentar a otros antes de publicar**: ya en `global §7`.
+
+### 5b.2 · Lo que AÑADE (útil y sin chocar)
+1. **Fuentes de demanda FUERA de LinkedIn para validar un TEMA** (no un gancho): buscar la palabra clave del comprador en TikTok/YouTube/Instagram filtrando por los últimos 3 meses y por likes; el autocompletado de Google letra a letra (`prospección a…`, `prospección b…`); AnswerThePublic; Reddit. Si un tema tiene medio millón de likes en otra red, el tema está validado aunque el formato no se copie. **Para nosotros es la fuente número 4**, detrás de nuestra BD, la competencia y la receta, y detrás también de nuestra escucha propia, que es mejor que la suya: el informe de demos (`global §4.4b-MUNICIÓN`) y los comentarios de nuestros posts por Unipile. Escrito en `global §0-DATOS`.
+2. **El banco de estructuras de cuerpo para un post de VALOR** (tarjeta, noticia, lead magnet, caso de cliente): consecuencia → por qué pasa → cómo hacerlo bien; error común → por qué pasa → paso a paso; antes → proceso → después. Con su encaje en lo nuestro y la señal medida, en `global §3.7`.
+3. **El reencuadre del dolor en la primera línea del cuerpo** (`el problema no es que escribas mal, es que no escribes de lo que le preocupa a tu cliente`): el lector cree que su problema es X y el post le dice que es Y. **Va en el cuerpo, no en el gancho**: como gancho es `rompe_creencia`, que en nuestros memes rinde **0,29×** (`§1`, palancas). Recogido en `global §3.7`.
+4. **La compresión de tiempo como intensificador de una promesa** (`en 1 minuto`, `en 5 minutos`): encaja con `global §2.3d`, con las condiciones de siempre: cifra cumplible (`§2.5b`) y no dar el hecho por cumplido (`§2.3d-FUTURO`).
+5. **La distribución por temas:** dice que LinkedIn ya reparte por intereses con una IA que lee el tema del perfil y del post, y que un viral fuera de tema trae seguidores que no compran y ensucian esa lectura. **No lo hemos medido.** Lo que sí casa: el ancla de ventas en cada gancho (`global §2.3`) no es solo para el lector, también le dice a LinkedIn a quién enseñarlo. Hipótesis a vigilar en los memes muy generales: seguidores ganados que no son ICP.
+
+### 5b.3 · Lo que CHOCA con lo nuestro (manda lo nuestro)
+1. **"La mejor hora es de 8 a 11."** ❌ Las 8:00 y las 9:00 son nuestras peores horas de mañana (`§3.16`); la hora manda en `working-preferences §1h`.
+2. **"El lead magnet, en el primer comentario."** ❌ El enlace va en el cuerpo con el ninja (`global §4.4b`, `§4.5`); el primer comentario como escondite es folklore (§5.3).
+3. **"Lo que hace viral un post son los guardados y las visitas al perfil."** ❌ en nuestras cuentas, salvo los guardados en lead magnet. Medido en 5b.4.
+4. **El gancho de promesa-regalo** (`Truco: te enseño en 1 minuto 3 sitios…`) como gancho por defecto. ⚠️ En nuestros lead magnets, `regalo` rinde **1,00×** contra **3,57×** de `logro` (`§1`, palancas, n pequeños). Vale como banco, no como molde.
+5. **"Publica a mano siempre que puedas."** ⚠️ Sin dato propio a favor y con un caso en contra: un post programado sin nadie delante llegó a 218.529 impresiones (`global §7`).
+
+### 5b.4 · Lo que se midió contra nuestra BD (2026-11-05)
+**108 posts de las 3 cuentas desde el 01/07 con más de 500 impresiones** (`/api/creators/{id}/posts`, campos `saves_count` y `profile_viewers_count`).
+- **En bruto, todo correlaciona con las impresiones** (Spearman: visitas al perfil 0,89 · seguidores 0,83 · likes 0,82 · guardados 0,73). No dice nada: más alcance trae más de todo.
+- **La prueba limpia es por cada 1.000 impresiones, con nuestro suelo restado** (`§4.0b-MOTOR`: ~4 guardados, ~9 envíos y ~3 visitas son nuestros), comparando el cuartil de más alcance de cada pilar contra el resto:
+
+| pilar | guardados /1.000 (top · resto) | visitas al perfil /1.000 (top · resto) |
+|---|---|---|
+| historia (22) | 0,00 · 0,00 | 4,59 · 3,92 |
+| lead magnet (13) | **1,45 · 0,00** | 1,47 · 1,92 |
+| meme captura (11) | 0,10 · 0,04 | 1,95 · 1,94 |
+| mapa (13) | 0,94 · 0,90 | 4,36 · 4,45 |
+| `peloteo_los10` (8, "Los 10" y "Las 10") | 0,35 · 0,41 | 1,89 · 2,53 |
+
+- **Lectura:** las **visitas al perfil son una CONSECUENCIA del alcance, no su motor**: salen a un ritmo casi fijo por pilar (~2 por 1.000 en meme y "Las 10", ~4-4,5 en historia y mapa), igual en los posts que volaron que en los demás. **Los guardados solo separan al que vuela en el lead magnet**, que cuadra con `§4.0b-MOTOR` (desde que `Comenta "X"` dejó de tirar, el lead magnet que se sale lo hace por guardados). En el mapa, el que vuela no se guarda MÁS por lector: se guarda igual y lo ve más gente.
+- **Y lo útil de la cifra fija:** las visitas por 1.000 dicen **cuánto perfil abre cada pilar** (historia y mapa, el doble que meme). Para el objetivo de autoridad, historia y mapa llevan al perfil; el meme da alcance pero poca visita.
+- **Estructura (`post_structure`):** va pegada al pilar (los mapas salen `list_framework`, "Las 10" `long_form_essay`, las historias `narrative_arc`), así que comparar estructuras en el total es comparar pilares. Dentro de un mismo pilar solo hay una señal: en lead magnet, **lista 0,81× (n=5) contra narrativa 0,47× (n=4)**. Débil, pero va en la dirección de sus estructuras de valor.
+- **Aire** (saltos de línea por 100 palabras) contra el multiplicador: **−0,14**, nada. El aire es la condición mínima de lectura, no una palanca: más aire no da más alcance.
+- **Límites:** n pequeños por pilar (8-22), un cuartil "top" de 2-5 posts, y el suelo nuestro es una estimación (`§4.0b-MOTOR`). Se rehace en la revisión del lunes si cambia algo.
+
+---
+
 ## 6 · Cómo pasarme datos frescos (procedimiento)
 
 ### Vía A — Export/HTML del Explorer (la que funciona HOY sin tocar nada) ✅
@@ -487,6 +537,7 @@ En Claude Code local (tu máquina), sin egress restringido, tanto la URL de Post
 - [x] Banco de remix de OTRAS cuentas: §3.10 (curado a los top relevantes para B2B; el resto de las ~150 págs de ejemplos se dejan fuera a propósito).
 - [x] **Split por cuenta Neety** (qué arquetipo rinde mejor en Iker vs Unai vs Asier): RELLENO en §4 con datos en vivo de Railway (2026-07-13). Hallazgo: `curiosity_gap` es el mejor hook por ratio en Iker (2.27x) y Unai (3.15x); `content_with_cta`/`contrarian_proof_reframe` las mejores estructuras; martes mañana el pico. Asier aún sin baseline.
 - [x] **Evidencia externa (guía ColdIQ, 6.750 posts GTM):** destilada en §5 — confirmaciones (5.1), añadidos útiles (5.2) y, sobre todo, los **mitos que chocan con lo nuestro** filtrados y descartados (5.3: links al cuerpo, sin-emoji-hook, infografías, texto-solo-débil, rehook calcado, trigger de lanzamiento IA).
+- [x] **Evidencia externa (vídeo de Miriam Collado, 2026-11-05):** destilada en §5b. Lo nuevo que entra: fuentes de demanda fuera de LinkedIn (`global §0-DATOS` punto 4) y banco de estructuras de valor (`global §3.7`). Lo medido contra nuestra BD: visitas al perfil y guardados NO disparan el alcance (salvo guardados en lead magnet).
 - [ ] **Refresco periódico:** este snapshot es de 2026-07-09; los ratios decaen. Reexporta el Explorer cuando quieras actualizarlo.
 
 ## §3.10 · ⭐ EL UMBRAL DE LAS 3 HORAS Y LOS 3 MOTORES DE ALCANCE (medido 2026-07-20)

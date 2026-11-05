@@ -13,6 +13,7 @@
 1. **NUESTROS datos.** `GET /api/creators/{id}/posts` filtrando por el pilar que toca. ¿Este patrón ya nos ha funcionado a NOSOTROS? ¿Cuántas veces? ¿Con qué números?
 2. **Los outliers de la competencia.** `/api/analysis/cross-creators` y los feeds en vivo por Unipile.
 3. **La receta escrita.** Que es un resumen de lo anterior y puede estar desactualizada.
+4. **La demanda de fuera, solo para validar un TEMA cuando 1-3 no tienen nada sobre él (2026-11-05, `outliers-database §5b`).** Antes que nada, nuestra escucha propia, que es la mejor que hay: las citas del informe de demos (`§4.4b-MUNICIÓN`) y los comentarios de nuestros posts. Después, lo que busca el comprador en otras redes: la palabra clave del director comercial (`prospección`, `captar clientes`, `exportar`, `feria`, `comerciales`…) en TikTok, YouTube o Instagram filtrando por los últimos 3 meses y por likes; el autocompletado de Google letra a letra; AnswerThePublic; Reddit. **Se roba el tema, nunca el formato ni el gancho**: el post sigue el runbook de su pilar y el gancho pasa por `§2`. Y un tema validado fuera no es un dato: sin cifra verificada, el cuerpo no la inventa.
 
 **POR QUÉ ESTÁ EL PRIMERO Y NO EL ÚLTIMO.** Llevábamos semanas refinando el pilar de lead magnet y yo repetía **un solo ejemplo de memoria** ("nuestro mejor lead magnet fue el de Claude, 9.85x"). El 05/08 Iker me preguntó si los OTROS que fueron bien también llevaban Claude. **Dos minutos de consulta:**
 > **Cinco lead magnets con Claude. Los cinco por encima de 100 comentarios: 632, 285, 232, 183 y 167.** Mediana de 167 comentarios con IA contra 20 sin ella. Y el colapso tiene fecha: mediana de 208 comentarios en mayo, **18 en junio**.
@@ -978,6 +979,23 @@ Cuando el cuerpo lleva cifras, **cita la fuente por su nombre** (es escudo: te p
 ⛔ **Y antes que nada, `brand-voice §3c`: el castellano hablado manda sobre la escalera, la anáfora y la tijera.** Estas tres reglas de forma empujan hacia frases que cumplen todos los checks y que no diría nadie en voz alta. Cuando choquen, se cambia el MOLDE, no la frase.
 
 Ver `brand-voice` §3 (tabla de traducción de AI-tells + palabras de registro natural + test de leer en voz alta). Es parte no-negociable del pase de validación de cada cuerpo.
+
+### 🧱 3.7 · Banco de estructuras para el cuerpo de un post de VALOR (2026-11-05, `outliers-database §5b`)
+**Para qué pilares:** los que enseñan algo (lead magnet, tarjeta, noticia, un caso de cliente). **No** para meme ni peloteo, y la historia tiene su propia receta. **El runbook del pilar manda sobre este banco**: esto es un menú para cuando el runbook deja libre el orden del cuerpo, no un molde.
+
+**Las cuatro secuencias:**
+1. **Consecuencia → por qué pasa → cómo hacerlo bien (lista) → cierre.**
+2. **Error común → por qué pasa → paso a paso → cierre.**
+3. **Problema → consecuencia → solución** (la corta, para tarjeta o noticia).
+4. **Antes → proceso → después**, solo para casos de cliente **reales** y con cifra verificada (`CLAUDE.md`: nada inventado).
+
+**Lo que hace funcionar cada paso, con nuestras reglas encima:**
+- **El arranque del cuerpo reencuadra el dolor:** el lector cree que su problema es X y la primera línea le dice que es Y (`el problema no es llamar poco, es llamar a quien no toca`). **Va aquí, no en el gancho**: como gancho es `rompe_creencia`, la palanca que peor rinde en nuestros memes (0,29×, `outliers-database §1`). Y el dolor es lo que aún no tiene (`§2.3b`), no lo que ya hace mal.
+- **La consecuencia, en su mundo y con algo que se vea:** la feria que se va sin una reunión, el comercial que pasa el lunes buscando a quién llamar. Nunca un abstracto (`pierdes oportunidades`).
+- **"Error común" es del proceso o del sector, nunca del que decide la compra** (`CLAUDE.md`, al que compra no se le juzga): `se hace así porque siempre se ha hecho así`, no `los directores comerciales lo hacen mal`.
+- **El "por qué pasa" es donde se demuestra la autoridad**, contando el mecanismo que nadie explica, sin anunciarla (`brand-voice §1`; los outliers usan un 25% menos lenguaje de autoridad, `outliers-database §3.7`).
+- **El "cómo hacerlo bien" se escribe para que lo guarden:** pasos en impar y cumplibles (`§2.5b`), uno por línea. En lead magnet el guardado por lector es lo único que separa al que vuela (`outliers-database §5b.4`), y ahí la lista rinde 0,81× contra 0,47× de la narrativa (n=9, señal débil).
+- **El cierre paga el bucle del gancho** (`§2.0-PAGO`) y lo recoge con la misma palabra; el ninja llega después del valor y por su escalera (`§4.4b-TRANSICION`).
 
 ---
 

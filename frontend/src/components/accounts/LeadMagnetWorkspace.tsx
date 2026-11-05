@@ -681,7 +681,7 @@ export default function LeadMagnetWorkspace({ post, creatorId, compacto = false 
               Comments ya las trae, y de TODA la cuenta, no solo de este post. Dos
               copias serian dos botones para mandarle lo mismo a la misma persona. */}
           {!compacto && (
-            <SolicitudesPedidas post={post} creatorId={creatorId} cfg={cfg} voice={voice} />
+            <SolicitudesPedidas post={post} creators={[{ id: creatorId, name: post.creator_name ?? null }]} cfg={cfg} voice={voice} />
           )}
           {/* Seguimientos SI se queda: son los invitados con nota de antes del
               17/08 y no los cubre ningun bloque global. */}
@@ -1717,15 +1717,67 @@ function CommenterCard({
 // del todo, para la cuenta entera y sin ningun post elegido: era la mitad que
 // faltaba de "a veces se me olvida entrar a lead magnets y perdemos leads".
 // Sin post no se filtra, y salen todas las solicitudes pedidas de esa cuenta.
-export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
-  post?: GridPost; creatorId: string; cfg: LmConfig; voice: Voice;
+//
+// ⛔ UN SOLO BLOQUE PARA TODAS LAS CUENTAS (2026-11-05). Con el filtro «Todas»
+// salia un bloque «Solicitudes pedidas» por cuenta, los dos con el mismo titulo y
+// sin decir de quien era cada uno: parecia un duplicado. Ahora recibe las cuentas
+// y las junta; cada fila lleva su cuenta cuando hay mas de una, porque el recurso
+// sale desde la cuenta que publico el post de esa persona.
+//
+// Las filas se identifican por POST + PERSONA, no solo por persona: la misma
+// persona puede tener solicitud pedida en dos posts (o en dos cuentas), y con la
+// clave de persona sola mandarle a una marcaba la otra como enviada.
+type FilaPedido = PedidoRow & { creator_id: string; cuenta: string | null };
+const claveFila = (f: PedidoRow) => `${f.post_id}:${f.provider_id}`;
+
+// ⛔ PASADOS 30 DIAS SIN DAR EL PASO, SE PLIEGAN (2026-11-05). Medido sobre las
+// 14 solicitudes pedidas hasta hoy en las tres cuentas: las 4 que llegaron lo
+// hicieron en menos de 3 dias, y las otras 10 no han llegado nunca. No se borran:
+// si alguien la manda meses despues, sale arriba en «listos para enviar» igual,
+// porque eso se cruza con las solicitudes recibidas y no mira la fecha. Lo unico
+// que cambia es que dejan de contar en la cabecera y de ocupar la lista.
+const DIAS_VIGENTE = 30;
+
+export function SolicitudesPedidas({ post, creators, cfg, voice }: {
+  post?: GridPost; creators: { id: string; name: string | null }[]; cfg: LmConfig; voice: Voice;
 }) {
   // Sin `refetch`: el refresco a mano se hace remontando el bloque desde el
   // «↻ Actualizar» de arriba de Comments, que es el unico boton de recargar que
   // queda en la pantalla. Tener dos era tener que elegir cual.
-  const { data, loading } = useApi<{
-    llegadas: PedidoRow[]; esperando: PedidoRow[]; aviso: string | null;
-  }>(`/api/accounts/lead-magnet/pendientes-solicitud?creator_id=${creatorId}`);
+  //
+  // Una peticion POR CUENTA y en paralelo, que es lo que ya hacian los bloques
+  // sueltos: el backend cruza con las solicitudes recibidas de UNA cuenta.
+  const varias = creators.length > 1;
+  const idsCuentas = creators.map((c) => c.id).join(',');
+  const [data, setData] = useState<{
+    llegadas: FilaPedido[]; esperando: FilaPedido[]; avisos: string[];
+  } | null>(null);
+  useEffect(() => {
+    let vivo = true;
+    Promise.all(creators.map(async (c) => {
+      const tag = (f: PedidoRow): FilaPedido => ({ ...f, creator_id: c.id, cuenta: c.name });
+      const quien = c.name || 'una cuenta';
+      try {
+        const r = await apiGet<{ llegadas: PedidoRow[]; esperando: PedidoRow[]; aviso: string | null }>(
+          `/api/accounts/lead-magnet/pendientes-solicitud?creator_id=${c.id}`);
+        return {
+          llegadas: r.llegadas.map(tag), esperando: r.esperando.map(tag),
+          aviso: r.aviso ? (varias ? `${quien}: ${r.aviso}` : r.aviso) : null,
+        };
+      } catch (e: any) {
+        return { llegadas: [], esperando: [], aviso: `No he podido leer las solicitudes pedidas de ${quien} (${e?.message}).` };
+      }
+    })).then((rs) => {
+      if (!vivo) return;
+      setData({
+        llegadas: rs.flatMap((r) => r.llegadas),
+        esperando: rs.flatMap((r) => r.esperando).sort((a, b) => a.dias - b.dias),
+        avisos: rs.map((r) => r.aviso).filter((a): a is string => !!a),
+      });
+    });
+    return () => { vivo = false; };
+  }, [idsCuentas]); // eslint-disable-line react-hooks/exhaustive-deps
+  const loading = data === null;
 
   // Solo las de ESTE post: el endpoint devuelve las de la cuenta entera.
   const llegadas = useMemo(
@@ -1738,7 +1790,8 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
   const [sentIds, setSentIds] = useState<Set<string>>(new Set());
   const [err, setErr] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
-  const [ascendidos, setAscendidos] = useState<PedidoRow[]>([]);
+  const [ascendidos, setAscendidos] = useState<FilaPedido[]>([]);
+  const [verAntiguos, setVerAntiguos] = useState(false);
 
   // El texto del recurso. La lista guarda el suyo al pedir la solicitud (son 15
   // empresas que hubo que ir a buscar a Unipile); el resto se monta aquí con el
@@ -1787,19 +1840,28 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
   // ⚠️ Y en automatico NO se avisa de que no hay nadie nuevo. Como boton, «ninguno
   // es contacto todavia» era la respuesta a una pregunta que habias hecho tu; al
   // dispararse solo seria un aviso permanente de que no ha pasado nada.
-  const comprobarGrado = useCallback(async (filas: PedidoRow[], silencioso: boolean) => {
+  // El grado se pregunta POR CUENTA (es «¿es contacto de ESTA cuenta?»), asi que
+  // con varias cuentas juntas se agrupan y se lanza una ronda por cada una.
+  const comprobarGrado = useCallback(async (filas: FilaPedido[], silencioso: boolean) => {
     if (filas.length === 0) return;
-    const ids = filas.map((f) => f.provider_id);
     setChecking(true);
     if (!silencioso) setErr(null);
     try {
-      const r = await apiPost<{ results: { provider_id: string; accepted: boolean }[] }>(
-        '/api/accounts/lead-magnet/check-accepted',
-        { creator_id: creatorId, provider_ids: ids }
-      );
-      const ok = new Set(r.results.filter((x) => x.accepted).map((x) => x.provider_id));
-      setAscendidos(filas.filter((f) => ok.has(f.provider_id)).map((f) => ({ ...f, invitation_id: null })));
-      if (ok.size === 0 && !silencioso) setErr('⚠️ Ninguno de los que esperan es contacto todavía.');
+      const porCuenta = new Map<string, FilaPedido[]>();
+      for (const f of filas) porCuenta.set(f.creator_id, [...(porCuenta.get(f.creator_id) ?? []), f]);
+      const subidos: FilaPedido[] = [];
+      for (const [cuentaId, suyas] of porCuenta) {
+        const r = await apiPost<{ results: { provider_id: string; accepted: boolean }[] }>(
+          '/api/accounts/lead-magnet/check-accepted',
+          { creator_id: cuentaId, provider_ids: suyas.map((f) => f.provider_id) }
+        );
+        const ok = new Set(r.results.filter((x) => x.accepted).map((x) => x.provider_id));
+        subidos.push(...suyas.filter((f) => ok.has(f.provider_id)).map((f) => ({ ...f, invitation_id: null })));
+      }
+      // Se SUMAN a los que ya habian subido: la ronda de los antiguos llega
+      // despues de la de los recientes y no puede borrarla.
+      setAscendidos((prev) => [...prev, ...subidos.filter((s) => !prev.some((p) => claveFila(p) === claveFila(s)))]);
+      if (subidos.length === 0 && !silencioso) setErr('⚠️ Ninguno de los que esperan es contacto todavía.');
     } catch (e: any) {
       // En silencio tampoco se grita: si Unipile no contesta, lo unico que pasa
       // es que nadie sube de cubo, y el bloque sigue siendo util tal cual esta.
@@ -1808,24 +1870,39 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
     } finally {
       setChecking(false);
     }
-  }, [creatorId]);
+  }, []);
 
-  // Una sola vez por (cuenta + gente que espera). La clave lleva los ids para que
-  // volver a montar el bloque con la misma lista NO rehaga la ronda, pero que si
-  // aparece alguien nuevo esperando si se le compruebe.
+  const recientes = useMemo(() => esperando.filter((f) => f.dias <= DIAS_VIGENTE), [esperando]);
+  const antiguos = useMemo(() => esperando.filter((f) => f.dias > DIAS_VIGENTE), [esperando]);
+
+  // Una sola vez por (gente que espera). La clave lleva los ids para que volver a
+  // montar el bloque con la misma lista NO rehaga la ronda, pero que si aparece
+  // alguien nuevo esperando si se le compruebe.
+  // Solo los RECIENTES: es una llamada a Unipile por persona, y los de mas de 30
+  // dias se acumulan para siempre. Los antiguos se comprueban al desplegarlos.
   const yaComprobado = useRef<string>('');
   useEffect(() => {
-    if (esperando.length === 0) return;
-    const clave = `${creatorId}|${esperando.map((f) => f.provider_id).sort().join(',')}`;
+    if (recientes.length === 0) return;
+    const clave = recientes.map((f) => `${f.creator_id}:${claveFila(f)}`).sort().join(',');
     if (yaComprobado.current === clave) return;
     yaComprobado.current = clave;
-    void comprobarGrado(esperando, true);
-  }, [creatorId, esperando, comprobarGrado]);
+    void comprobarGrado(recientes, true);
+  }, [recientes, comprobarGrado]);
 
-  const enviar = async (f: PedidoRow) => {
-    const text = (texts[f.provider_id] ?? textFor(f)).trim();
+  const antiguosComprobados = useRef(false);
+  const desplegarAntiguos = () => {
+    setVerAntiguos((v) => !v);
+    if (!antiguosComprobados.current) {
+      antiguosComprobados.current = true;
+      void comprobarGrado(antiguos, true);
+    }
+  };
+
+  const enviar = async (f: FilaPedido) => {
+    const k = claveFila(f);
+    const text = (texts[k] ?? textFor(f)).trim();
     if (!text) return;
-    setSending(f.provider_id);
+    setSending(k);
     setErr(null);
     try {
       const res = await apiPost<{ status: 'sent' | 'failed'; error: string | null; verificado: boolean | null }>(
@@ -1838,7 +1915,7 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
         }
       );
       if (res.status === 'sent') {
-        setSentIds((s) => new Set(s).add(f.provider_id));
+        setSentIds((s) => new Set(s).add(k));
         // Enviado pero sin recibo: se dice. Un "✓" sobre algo que no hemos podido
         // comprobar es el bug del 13/08 otra vez.
         if (res.verificado !== true) {
@@ -1856,13 +1933,39 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
   // duplicar a nadie que estuviera en las dos listas.
   const accionables = [
     ...llegadas,
-    ...ascendidos.filter((a) => !llegadas.some((l) => l.provider_id === a.provider_id)),
+    ...ascendidos.filter((a) => !llegadas.some((l) => claveFila(l) === claveFila(a))),
   ];
-  const pendientes = esperando.filter((f) => !ascendidos.some((a) => a.provider_id === f.provider_id));
-  const listos = accionables.filter((f) => !sentIds.has(f.provider_id)).length;
+  const noSubido = (f: FilaPedido) => !ascendidos.some((a) => claveFila(a) === claveFila(f));
+  const pendientes = recientes.filter(noSubido);
+  const antiguosPend = antiguos.filter(noSubido);
+  const listos = accionables.filter((f) => !sentIds.has(claveFila(f))).length;
 
-  // Nada pedido → no metas ruido en la pantalla.
-  if (loading || (accionables.length === 0 && pendientes.length === 0)) return null;
+  // Nada pedido → no metas ruido en la pantalla. Los avisos SI se pintan solos:
+  // si una cuenta no contesta, callarlo es esconder que puede haber alguien.
+  if (loading) return null;
+  const avisos = data?.avisos ?? [];
+  if (accionables.length === 0 && pendientes.length === 0 && antiguosPend.length === 0) {
+    return avisos.length ? (
+      <div className="space-y-1">
+        {avisos.map((a) => <p key={a} className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">⚠️ {a}</p>)}
+      </div>
+    ) : null;
+  }
+
+  // La cuenta de cada fila, solo si hay varias: con una sola seria ruido.
+  const deCuenta = (f: FilaPedido) => varias && f.cuenta
+    ? <span className="text-[10px] px-1.5 py-0.5 rounded border border-border text-text-muted">{f.cuenta}</span>
+    : null;
+  const filaEspera = (f: FilaPedido) => (
+    <div key={claveFila(f)} className="flex items-center gap-2 flex-wrap text-sm">
+      <span className="font-medium">{f.provider_name || 'Sin nombre'}</span>
+      {f.sector && <span className="text-[11px] text-text-muted">· {f.sector}</span>}
+      {deCuenta(f)}
+      <span className="ml-auto text-[11px] text-text-muted">
+        sin mandar solicitud · {f.dias === 0 ? 'hoy' : `hace ${f.dias} día${f.dias === 1 ? '' : 's'}`}
+      </span>
+    </div>
+  );
 
   return (
     <div className="bg-bg-card border border-accent/30 rounded-xl p-4 space-y-3">
@@ -1887,7 +1990,7 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
       <p className="text-[11px] text-text-muted leading-snug">
         Les pediste la solicitud: en cuanto la mandan, suben aquí con el recurso escrito y se les contesta sin aceptarla ni gastar nada.
       </p>
-      {data?.aviso && <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">⚠️ {data.aviso}</p>}
+      {avisos.map((a) => <p key={a} className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">⚠️ {a}</p>)}
       {err && (
         <p className={err.startsWith('⚠️')
           ? 'text-[11px] text-amber-700 dark:text-amber-300 font-medium leading-snug'
@@ -1898,39 +2001,42 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
 
       <div className="space-y-2">
         {accionables.map((f) => {
-          if (sentIds.has(f.provider_id)) {
+          if (sentIds.has(claveFila(f))) {
             return (
-              <div key={f.provider_id} className="flex items-center gap-2 flex-wrap text-sm border-t border-border pt-2">
+              <div key={claveFila(f)} className="flex items-center gap-2 flex-wrap text-sm border-t border-border pt-2">
                 <span className="font-medium">{f.provider_name || 'Sin nombre'}</span>
                 {f.sector && <span className="text-[11px] text-text-muted">· {f.sector}</span>}
+                {deCuenta(f)}
                 <span className="ml-auto text-[11px] text-accent">✓ Recurso enviado</span>
               </div>
             );
           }
-          const val = texts[f.provider_id] ?? textFor(f);
+          const k = claveFila(f);
+          const val = texts[k] ?? textFor(f);
           return (
-            <div key={f.provider_id} className="border-t border-border pt-2 space-y-2">
+            <div key={k} className="border-t border-border pt-2 space-y-2">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="font-medium text-sm">{f.provider_name || 'Sin nombre'}</span>
                 {f.sector && <span className="text-[11px] text-text-muted">· {f.sector}</span>}
+                {deCuenta(f)}
                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent/10 text-accent border border-accent/30">
                   {f.invitation_id ? '✓ te ha mandado solicitud' : '✓ ya sois contacto'}
                 </span>
               </div>
               <textarea
                 value={val}
-                onChange={(e) => setTexts((t) => ({ ...t, [f.provider_id]: e.target.value }))}
-                disabled={sending === f.provider_id}
+                onChange={(e) => setTexts((t) => ({ ...t, [k]: e.target.value }))}
+                disabled={sending === k}
                 className={`w-full text-sm bg-bg-primary border border-border rounded-md px-3 py-2 resize-y focus:outline-none focus:border-accent disabled:opacity-50 ${
                   cfg.kind === 'lista' ? 'min-h-[240px]' : 'min-h-[80px]'
                 }`}
               />
               <button
                 onClick={() => enviar(f)}
-                disabled={sending === f.provider_id || !val.trim()}
+                disabled={sending === k || !val.trim()}
                 className="text-xs px-3 py-1.5 rounded-md bg-accent text-on-accent hover:bg-accent-strong disabled:opacity-50 transition-colors"
               >
-                {sending === f.provider_id
+                {sending === k
                   ? 'Enviando y comprobando…'
                   : f.invitation_id ? 'Contestar a su solicitud' : 'Enviar DM'}
               </button>
@@ -1940,15 +2046,22 @@ export function SolicitudesPedidas({ post, creatorId, cfg, voice }: {
 
         {pendientes.length > 0 && (
           <div className="border-t border-border pt-2 space-y-1">
-            {pendientes.map((f) => (
-              <div key={f.provider_id} className="flex items-center gap-2 flex-wrap text-sm">
-                <span className="font-medium">{f.provider_name || 'Sin nombre'}</span>
-                {f.sector && <span className="text-[11px] text-text-muted">· {f.sector}</span>}
-                <span className="ml-auto text-[11px] text-text-muted">
-                  sin mandar solicitud · {f.dias === 0 ? 'hoy' : `hace ${f.dias} día${f.dias === 1 ? '' : 's'}`}
-                </span>
-              </div>
-            ))}
+            {pendientes.map(filaEspera)}
+          </div>
+        )}
+
+        {/* Los de mas de 30 dias, plegados y sin contar arriba. Al desplegarlos
+            se comprueba si alguno ya es contacto, que con ellos no se hace solo. */}
+        {antiguosPend.length > 0 && (
+          <div className="border-t border-border pt-2 space-y-1">
+            <button
+              onClick={desplegarAntiguos}
+              className="text-[11px] text-text-muted hover:text-text-secondary"
+              title={`Llevan más de ${DIAS_VIGENTE} días sin mandar la solicitud. Las que llegaron, llegaron en menos de 3 días. No se borran: si alguno la manda, sube arriba con su recurso.`}
+            >
+              {verAntiguos ? '▾' : '▸'} {antiguosPend.length} sin dar el paso desde hace más de {DIAS_VIGENTE} días
+            </button>
+            {verAntiguos && <div className="space-y-1 opacity-70">{antiguosPend.map(filaEspera)}</div>}
           </div>
         )}
       </div>

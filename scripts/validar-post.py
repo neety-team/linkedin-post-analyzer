@@ -123,6 +123,9 @@ FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|pa
                # la frase-rabia y a la vez tumba la única forma que queda libre.
                r'|y a casa|y nada m[aá]s|y a la autov[ií]a|y se acab|y de ah[ií] no pasa'
                r'|y a secarse'
+               # 2026-11-05, despiece de Andalucia (Asier): el prejuicio real es que
+               # solo se va de vacaciones; el gesto de despacharla es irse a la playa.
+               r'|y a la playa'
                # 2026-09-28, mapa de Extremadura (Asier): el gesto de despacharla
                # es seguir viaje hacia el pais de al lado, que es el prejuicio real
                # de la region (tierra de paso camino de Lisboa).
@@ -734,6 +737,8 @@ REGION_EN_TEXTO = {
     'la rioja': r'la rioja', 'canarias': r'canarias',
     # 2026-11-05: mapa de España entera, una empresa por comunidad (Iker).
     'espana': r'espa[nñ]a',
+    # 2026-11-05: despiece de maquinaria de Asier.
+    'andalucia': r'andaluc[ií]a',
 }
 # ⛔⛔ EL GANCHO NO NOMBRA NINGUN SITIO NI GENTILICIO DE LA REGION (Iker, 2026-10-16). Al
 # cambiar los cliches de Aragon meti "jamon de Teruel": Teruel es una provincia y destapa
@@ -742,6 +747,10 @@ REGION_EN_TEXTO = {
 # coloquial (maño, baturro). Los cliches INSINUAN (el Pilar, la txistorra); un topónimo NOMBRA.
 # Raices sin tilde; se comparan como inicio de palabra.
 REGION_TOPONIMOS = {
+    # 2026-11-05: despiece de maquinaria de Asier (primera vez que hace falta: el mapa de
+    # Iker del 13/05 nombraba la region en el gancho, antes de esta regla).
+    'andalucia': ['andaluc', 'sevill', 'malag', 'cordob', 'granad', 'almeri', 'huelv', 'cadiz',
+                  'gaditan', 'jaen', 'jienense', 'onubense', 'jerez', 'marbell', 'lucena'],
     'aragon': ['arag', 'zaragoz', 'huesca', 'oscense', 'teruel', 'turolense', 'jaca', 'calatayud',
                'monzon', 'barbastro', 'alcaniz', 'mano', 'manos', 'mana', 'manas', 'baturr'],
     'navarra': ['navarr', 'pamplon', 'iruna', 'tudela', 'estella'],
@@ -2579,7 +2588,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         _GENERICO = {'talleres', 'grupo', 'industrias', 'aceros', 'plasticos', 'plásticos',
                      'transmisiones', 'fundiciones', 'metalurgica', 'metalúrgica', 'mecanizados',
                      'construcciones', 'hijos', 'laboratorios', 'productos', 'sociedad',
-                     'troqueleria', 'troquelería', 'estampaciones', 'tornilleria', 'tornillería'}
+                     'troqueleria', 'troquelería', 'estampaciones', 'tornilleria', 'tornillería',
+                     # 🔧 2026-11-05 · mismo falso positivo con los NOMBRES DE PILA: en el
+                     # despiece de Andalucia `@Jose Garcia Dominguez`, `@Jose Antonio Moral` y
+                     # `@Jose Maria TORRES` (tres personas) salian como una mencion repetida.
+                     'jose', 'josé', 'juan', 'pedro', 'antonio', 'francisco', 'manuel', 'maria',
+                     'maría', 'javier', 'carlos', 'david', 'miguel', 'jesus', 'jesús', 'luis',
+                     'alvaro', 'álvaro', 'daniel', 'pablo', 'jorge', 'fernando', 'rafael', 'sergio',
+                     'angel', 'ángel', 'ana', 'alberto', 'enrique', 'mario', 'oscar', 'óscar'}
         _pares = re.findall(r'@([A-Za-zÁÉÍÓÚÑÜáéíóúñü]+)(?:\s+([A-Za-zÁÉÍÓÚÑÜáéíóúñü]+))?', cuerpo)
         _ats = [(a + ' ' + (b or '')).strip().lower() if a.lower() in _GENERICO else a.lower()
                 for a, b in _pares]

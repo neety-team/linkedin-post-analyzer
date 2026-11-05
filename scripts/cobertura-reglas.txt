@@ -65,3 +65,5 @@ working-preferences | 1f LO QUE SE COPIA NO SE PARTE A MANO Iker 2026- | fuera: 
 working-preferences | 1e-REF LA REFERENCIA DE LA COMPARATIVA COMPARTE  | fuera: forma de entregar o de trabajar, no el texto del post
 working-preferences | 1e-COPIA EL MECANISMO SE ROBA LAS PALABRAS NO Ik | fuera: forma de entregar o de trabajar, no el texto del post
 working-preferences | 1f-AUTOAUDITORIA UNA INCOHERENCIA QUE VEO ABRE L | fuera: forma de entregar o de trabajar, no el texto del post
+post-workflow | 4.4-DOS-FASES EL MEME SE ENTREGA EN DOS FASES PR | fuera: orden de la entrega (primero las referencias, luego el post), no es del texto del post
+post-workflow | 4.4-FILTRO-IMAGEN TRES DESCARTES DE UN VISTAZO A | criterio: motor

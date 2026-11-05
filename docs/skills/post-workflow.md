@@ -1316,6 +1316,17 @@ Se filtra por: lleva imagen, reacciones por encima del umbral del autor, y **no 
 en `cross-creators`** (si está, ya lo teníamos). Lo de hace menos de un mes es lo que
 sorprende, que es de lo que vive este pilar.
 
+### ⛔⛔ 4.4-DOS-FASES · EL MEME SE ENTREGA EN DOS FASES: PRIMERO LAS REFERENCIAS, Y SOLO TRAS ELEGIR UNA, EL POST (2026-11-05) — GLOBAL, TODAS LAS CUENTAS
+- **Fase 1, la única que se entrega al recibir un encargo de meme:** la lista de referencias candidatas, **ordenadas de la más recomendada a la menos**, cada una con su enlace completo y pulsable, su imagen a la vista, reacciones, % de risa y risas absolutas, el subtipo y una línea de por qué encaja con la cuenta (y qué riesgo tiene). Nada de texto del post, ni prompt, ni comparativas.
+- **Fase 2, solo cuando se elige una:** el output completo de siempre (post validado, comparativas, prompt, A/B y predicción). Si no convence ninguna, se vuelve a la fase 1 con otra tanda.
+- **Por qué:** el 05/11 se entregó entero un meme para la cuenta del fundador sobre una referencia que tenía que haber caído al primer vistazo (personajes de caricatura, latas de una bebida energética de marca y un chiste que dependía de unas siglas de nicho). La elección de la referencia es la decisión que más pesa, y era la única que no se enseñaba hasta el final.
+- **Lo que no cambia:** todos los filtros de la referencia (`§4.4-PASO-0`, `-TEXTO`, `-SUJETO`, `-PUBLICO`, `-COMPRADOR`, `-FILTRO-IMAGEN` de abajo) se pasan ANTES de ponerla en la lista. La lista no es para que el filtro lo haga otro.
+
+### ⛔⛔ 4.4-FILTRO-IMAGEN · TRES DESCARTES DE UN VISTAZO, ANTES DE MEDIR NADA (2026-11-05) — GLOBAL
+1. **Cuentas de Unai y Asier: ni personajes dibujados ni caricaturas**, wojak incluido, aunque sean "feos" y no monos. La imagen pública del fundador y del socio es la de un directivo; el meme que les vale es la gráfica, la captura o el documento. (Esto corrige `images §0g`, que daba el wojak por bueno para ellos.)
+2. **Ninguna cuenta de los jefes enseña marcas ni consumos que dañen su imagen** (bebidas energéticas, alcohol), aunque estén en la referencia: si el chiste depende de ellos, la referencia se descarta; si es decorado, se dice en la ficha que sale.
+3. **Ninguna cuenta: chistes que dependen de unas siglas o de un proceso de nicho** (RFP, SDR, GTM y similares). Si el lector de 45-60 que vende maquinaria no lo entiende sin traducir, el chiste no viaja (`global §2.4`).
+
 ### 4.4 · Runbook MEME (REMIX de una referencia) — receta definitiva
 
 > **⭐ EL FLUJO EN 5 PASOS (la intuición, antes de los detalles). Costó 8 iteraciones sacarlo el 2026-07-23; que no vuelva a costar:**

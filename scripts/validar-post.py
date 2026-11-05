@@ -68,7 +68,7 @@ SUJETO_ES_MODELO = (r'(claude\s*(opus|sonnet|haiku)?\s*\d|gpt-?\d|gemini\s*\d'
 # §4.2 Paso 1 — En el peloteo el prejuicio SIEMPRE lo dice otro: "la ven como…",
 # "nadie habla de…". Sin ese sujeto, el desprecio se lee como NUESTRO y ofende a
 # quien queriamos que comentara defendiendo lo suyo (Iker, 2026-07-30).
-SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan|l[ao] liquidan|l[ao] mandan de|l[ao] despiden)'
+SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan|l[ao] liquidan|l[ao] mandan de|l[ao] despiden|l[ao] alquila[n]?)'
 # 2026-10-01, "Las 10" de Castilla-La Mancha (Iker): el prejuicio tambien lo dice
 # OTRO cuando es un GESTO de la gente en impersonal ("solo paran a por queso y
 # gasolina"): es el desprecio de la region de paso sin ponerlo en nuestra boca.
@@ -143,7 +143,11 @@ FRASE_RABIA = (r'(y para de contar|y poco m[aá]s|y poco que rascar|y gracias|pa
                # 2026-10-28, mapa de Navarra (Asier): la region de una semana de fiesta
                # se despacha saliendo corriendo. Gesto (irse a la carrera, que ademas
                # guiña al encierro), no un tercer cliche: los dos son San Fermin y pacharan.
-               r'|y a correr)')
+               r'|y a correr'
+               # 2026-11-05, mapa de ESPAÑA entera (Iker, una empresa por comunidad): el
+               # pais de vacaciones se despacha volviendo a casa en avion. Gesto, no un
+               # tercer cliche: los dos son sangria y siesta.
+               r'|y vuelta al avi[oó]n)')
 
 # §4.4b — FRASES DEL SPAM NINJA QUEMADAS. El dolor es SIEMPRE el mismo (dar con
 # el cliente ideal, empresa y persona), pero la FORMA rota en cada post. Iker,
@@ -711,6 +715,8 @@ REGION_EN_TEXTO = {
     'alava': r'[aá]lava', 'bizkaia': r'bizkaia|vizcaya', 'cantabria': r'cantabria',
     'extremadura': r'extremadura', 'castilla-la mancha': r'castilla-la mancha',
     'la rioja': r'la rioja', 'canarias': r'canarias',
+    # 2026-11-05: mapa de España entera, una empresa por comunidad (Iker).
+    'espana': r'espa[nñ]a',
 }
 # ⛔⛔ EL GANCHO NO NOMBRA NINGUN SITIO NI GENTILICIO DE LA REGION (Iker, 2026-10-16). Al
 # cambiar los cliches de Aragon meti "jamon de Teruel": Teruel es una provincia y destapa
@@ -737,6 +743,7 @@ REGION_TOPONIMOS = {
                            'guadalajara'],
     'la rioja': ['rioja', 'logrono', 'haro'],
     'canarias': ['canari', 'tenerife', 'lanzarote', 'fuerteventura'],
+    'espana': ['espan', 'hispan', 'iberic'],
 }
 DOUBLE_DOWN = False
 # EXCEPCION DECLARADA (Mario, 2026-10-22, San Francisco de Unai): en la cuenta de UNAI el
@@ -2433,7 +2440,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         f'dos lineas seguidas con sus propias comillas: "{_lc[_partida[0]][:50]}"' if _partida else '')
     m = re.search(OPENERS_QUEMADOS, cuerpo, re.I)
     chk(not m, 'Sin openers quemados (§2.8)', f'"{m.group(0)}"' if m else '')
-    ms = re.findall(NUMERO_EN_LETRA, cuerpo, re.I)
+    # 2026-11-05: un TOPONIMO con numero dentro (Dos Hermanas, Tres Cantos) no es una cifra.
+    ms = re.findall(NUMERO_EN_LETRA, re.sub(r'\b(Dos Hermanas|Tres Cantos|Dos Torres|Siete Aguas)\b', '', cuerpo), re.I)
     chk(not ms, 'Cifras en dígito, nunca en letra (§3.6)',
         f'{len(ms)} en letra: {ms[:4]} → mezclar "10" y "seiscientos" en un mismo post canta' if ms else '')
     ms = re.findall(r'\((?:[^()]*\b(?:19|20)\d{2}\b[^()]*)\)', cuerpo)
@@ -4789,11 +4797,22 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(bool(menciones), 'Bloque de menciones presente', '')
         if menciones:
             todas = [l for b in menciones for l in b]
-            sin_arroba = [l for l in todas if l.count('@') < 2]
+            # 2026-11-05: alineado con la receta. Una ficha SIN persona es valida como ultimo
+            # recurso (post-workflow §4.0d punto 3 y §4.2 Paso 4: "va SOLO con el nombre de
+            # empresa"), asi que con la @ de la empresa es AVISO; sin ninguna @ sigue siendo fallo.
+            sin_arroba = [l for l in todas if l.count('@') < 1]
+            sin_persona = [l for l in todas if l.count('@') == 1]
             chk(not sin_arroba, 'Menciones con @ en empresa Y persona (§4.2 Paso 4)',
-                f'{len(sin_arroba)} líneas sin las 2 arrobas' if sin_arroba else '')
-            chk(all(len(b) == 4 for b in menciones), 'Menciones en bloques de 4 (5×4)',
-                f'bloques de {[len(b) for b in menciones]}')
+                f'{len(sin_arroba)} líneas sin arroba' if sin_arroba else '')
+            chk(not sin_persona, 'Menciones: ficha sin persona, solo como ultimo recurso y DICHA en la entrega (§4.0d punto 3)',
+                f'{len(sin_persona)} fichas solo con la empresa: di en la entrega el motivo de cada una' if sin_persona else '',
+                aviso=True)
+            # Y el ultimo bloque puede ser de 2 o 3, nunca de 1 (§4.2 Paso 1, "CUANTAS EMPRESAS").
+            _tam = [len(b) for b in menciones]
+            chk(all(t == 4 for t in _tam[:-1]) and _tam[-1] in (2, 3, 4) or
+                (len(_tam) > 1 and all(t == 4 for t in _tam[:-2]) and _tam[-2] in (3, 4) and _tam[-1] in (2, 3)),
+                'Menciones en bloques de 4 (el ultimo, de 2 o 3)',
+                f'bloques de {_tam}')
     # ---------- GARANTIA DE VIRALIDAD · LEAD MAGNET (Iker, 2026-08-05) ----------
     # Estos tres checks NO son de forma: comprueban que el post repite lo que
     # YA nos ha funcionado a NOSOTROS. La evidencia esta en nuestras cuentas:
@@ -5051,6 +5070,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         if _mm:
             _rep = []
             for l in _flechas:
+                # 2026-11-05: una etiqueta delante ("→ Asturias: @CAPSA FOOD", mapa de España
+                # por comunidades) se pegaba al nombre y escondia la repetida, igual que un
+                # nombre acortado (post-workflow §4.2, "EL NOMBRE NUNCA SE ACORTA").
+                l = re.sub(r'^\s*→\s*[^@:→]{2,30}:\s*(?=@)', '→ ', l)
                 for e in l.replace('→', '').split('·')[0].split(' - '):
                     e = e.strip()
                     if len(e) < 3:

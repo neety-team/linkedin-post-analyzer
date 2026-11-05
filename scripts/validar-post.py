@@ -748,7 +748,7 @@ REGION_TOPONIMOS = {
 DOUBLE_DOWN = False
 # 2026-11-05 (mapa de Espana): empresas ya mencionadas que se repiten A PROPOSITO, autorizadas
 # en el chat del post y declaradas en la entrega. Solo las que se nombran aqui ceden; cualquier
-# otra repetida sigue siendo fallo (post-workflow §4.2-ESPAÑA).
+# otra repetida sigue siendo fallo (post-workflow §4.2-PAÍS).
 REPITE_AUTORIZADAS = set()
 MAPA_A_DEMO = False
 # EXCEPCION DECLARADA (Mario, 2026-10-22, San Francisco de Unai): en la cuenta de UNAI el
@@ -2908,6 +2908,23 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         (f'{len(_largas)} linea(s) se parten en dos en el movil, y ahi un bloque de dos '
          f'se lee como cuatro. La peor: "{max(_largas, key=len).strip()[:60]}…"')
         if _largas else '', aviso=True)
+    # ⛔ 2026-11-05 (mapa de España de Iker): en el PELOTEO, una linea de mas de 80 dentro de un
+    # bloque de prosa de 2 o 3 es FALLO, no aviso: el bloque de tres se ve de cuatro en el movil y
+    # el ritmo que el resto de checks cuida se rompe sin que nadie lo vea. Se colo como aviso y se
+    # entrego asi. Las listas (1., →) y las lineas con enlace se saltan, igual que arriba.
+    if pilar in ('mapa', 'las10', 'objeto'):
+        _larga_bloque = [l for b in bloques(texto)[1:] if 2 <= len(b) <= 3 and not es_lista(b)
+                         for l in b if len(l.strip()) > 80 and 'http' not in l]
+        chk(not _larga_bloque, 'PELOTEO: ninguna linea de un bloque de 2-3 pasa de 80 caracteres (post-workflow 4.2-PAÍS)',
+            (f'"{_larga_bloque[0].strip()[:60]}…" ({len(_larga_bloque[0].strip())} car) se parte en el movil y '
+             'el bloque se lee como uno mas largo. Acorta sin quitar lo punchy (quita articulos, '
+             'nunca el cliche)') if _larga_bloque else '')
+        # ⛔ 2026-11-05: el peloteo CIERRA con una frase punchy SUELTA (§4.2 Paso 6). Al cuadrar el
+        # ritmo se metio dentro de un bloque de tres y el validador no lo veia.
+        _ult = bloques(texto)[-1] if bloques(texto) else []
+        chk(len(_ult) == 1, 'PELOTEO: el cierre es UNA frase suelta (post-workflow §4.2 Paso 6)',
+            f'el post acaba en un bloque de {len(_ult)} lineas. La ultima linea va sola, con blanco '
+            'delante: es la frase punchy que se queda') if _ult else None
 
     # 2) RITMO. `1-2-1-2-1-2` es un metronomo: el lector coge el patron y deja de
     #    leer. Iker, 2026-08-06: "superpredecible, es horrible". Se exige AL MENOS
@@ -4787,7 +4804,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         _mapa_gate = 'neety.com/academia/' in texto
         # 2026-11-05 (mapa de España de Iker): un mapa sin pagina propia puede ir a la demo
         # (/solicitar-demo, aqui ya traducida a /agendar/), objetivo Oportunidades, con el
-        # bloque de dos del ninja normal (tipo 2: a quien llamar dentro). post-workflow 4.2-ESPAÑA.
+        # bloque de dos del ninja normal (tipo 2: a quien llamar dentro). post-workflow 4.2-PAÍS.
         _mapa_demo = 'recursos.neety.com/agendar' in texto and MAPA_A_DEMO
         _mapa_gate = _mapa_gate or _mapa_demo
         chk(_mapa_web or bool(_mapa_luma) or _mapa_gate,
@@ -6073,11 +6090,11 @@ def main():
                          'post, ha levantado la prohibicion por escrito. Nunca por deduccion.')
     ap.add_argument('--mapa-a-demo', action='store_true', dest='mapa_a_demo',
                     help='MAPA sin pagina propia que manda a /solicitar-demo (Oportunidades) con el bloque '
-                         'de dos del ninja normal. Decision declarada en la entrega (post-workflow 4.2-ESPAÑA).')
+                         'de dos del ninja normal. Decision declarada en la entrega (post-workflow 4.2-PAÍS).')
     ap.add_argument('--repite-autorizadas', default='', dest='repite_autorizadas',
                     help='MAPA: nombres exactos (separados por ;) de empresas YA mencionadas que se repiten '
                          'con autorizacion escrita en el chat del post y declaradas en la entrega '
-                         '(post-workflow 4.2-ESPAÑA). Las demas repetidas siguen siendo fallo.')
+                         '(post-workflow 4.2-PAÍS). Las demas repetidas siguen siendo fallo.')
     ap.add_argument('--double-down', action='store_true', dest='double_down',
                     help='PELOTEO que repite A PROPOSITO cliches del gancho anterior de la region o un '
                          'pais ya usado por la cuenta (Iker, 2026-10-15: "double down es otra estrategia '

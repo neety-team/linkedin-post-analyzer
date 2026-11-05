@@ -6341,6 +6341,9 @@ def main():
         res.insert(0, (not _nuevos, 'RETOQUE: no abre fallos ni avisos que la version anterior no tenia (working-preferences §1d-BIS)',
                        ('el retoque rompe: %s. Quedate con el retoque y arregla esto antes de entregar'
                         % ' | '.join(_nuevos)) if _nuevos else 'limpio contra la version anterior', False))
+    # 2026-11-05: validar_entregable devuelve tuplas de 3 (sin la marca de aviso) y aqui se
+    # leia x[3]: --pilar entregable petaba siempre. Se completan como checks duros.
+    res = [tuple(x) + (False,) * (4 - len(x)) if len(x) < 4 else x for x in res]
     duras = [x for x in res if not x[3]]
     ok = sum(1 for x in duras if x[0])
     print(f"\n  VALIDADOR — pilar={a.pilar}" + (f" cuenta={a.cuenta}" if a.cuenta else "") + "\n")

@@ -68,7 +68,10 @@ SUJETO_ES_MODELO = (r'(claude\s*(opus|sonnet|haiku)?\s*\d|gpt-?\d|gemini\s*\d'
 # §4.2 Paso 1 — En el peloteo el prejuicio SIEMPRE lo dice otro: "la ven como…",
 # "nadie habla de…". Sin ese sujeto, el desprecio se lee como NUESTRO y ofende a
 # quien queriamos que comentara defendiendo lo suyo (Iker, 2026-07-30).
-SUJETO_AJENO = r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan|l[ao] liquidan|l[ao] mandan de|l[ao] despiden|l[ao] alquila[n]?)'
+SUJETO_AJENO = (r'(nadie (?:habla|la tiene|la cuenta|sabe)|todos? (?:ven|la)|l[ao] (?:ven|llaman|conocen|tienen|despachan|colocan|cuentan|archivan|entierran|resumen|reducen|dan por|dejan atr[aá]s|pasan de largo|sitúan|situan)|le[s]? suena a|para el resto|en el mapa es|la pintan|se la imagina|solo (?:paran|se paran|pasan|la cruzan|lo cruzan|conocen|le conocen|saben de)|se l[ao] ventilan|l[ao] liquidan|l[ao] mandan de|l[ao] despiden|l[ao] alquila[n]?'
+               # 2026-11-06, "Las 10" de Castilla y Leon (Unai): la familia despachar/ventilar/liquidar
+               # ya habia abierto 5 ganchos y se busco un verbo intermedio que sorprenda.
+               r'|l[ao] zanjan|l[ao] saldan|l[ao] rematan)')
 # 2026-10-01, "Las 10" de Castilla-La Mancha (Iker): el prejuicio tambien lo dice
 # OTRO cuando es un GESTO de la gente en impersonal ("solo paran a por queso y
 # gasolina"): es el desprecio de la region de paso sin ponerlo en nuestra boca.

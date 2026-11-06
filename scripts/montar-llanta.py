@@ -480,8 +480,11 @@ def main() -> int:
             # El disco blanco del logo va 2 px mas ancho que el recorte: si es igual o menor,
             # el anillo que queda entre los dos sale transparente y en el PNG se ve como
             # una raya negra discontinua alrededor del logo.
-            huecos.append({'x0': round(cx - dia / 2 - 2), 'y0': round(cy - dia / 2 - 2),
-                           'x1': round(cx + dia / 2 + 1), 'y1': round(cy + dia / 2 + 1)})
+            # 🔧 06/11: con 2 px de mas, el redondeo dejaba 1 px sin disco en un lado (raya
+            # negra junto a IPROMOR). Ahora el disco sobra 4 px por cada lado.
+            huecos.append({'x0': round(cx - dia / 2) - 4, 'y0': round(cy - dia / 2) - 4,
+                           'x1': round(cx + dia / 2) + 3, 'y1': round(cy + dia / 2) + 3,
+                           'cx': cx, 'cy': cy, 'r': dia / 2})
         alfa = np.minimum(np.array(plantilla)[:, :, 3],
                           np.array(m.resize(plantilla.size, Image.LANCZOS)))
         plantilla.putalpha(Image.fromarray(alfa.astype('uint8')))
@@ -515,6 +518,22 @@ def main() -> int:
                   f'Miralo en la imagen.')
 
     out = Image.alpha_composite(fondo, plantilla)
+    if a.huecos_json:
+        # 🔧 06/11: los huecos del PSD salen con dientes de sierra (borrados a mano). Se
+        # tapa ese borde con un aro del color del brazo, pintado a 4x y reducido, que
+        # deja un circulo limpio. El color se muestrea del propio brazo junto a cada hueco.
+        K = 4
+        capa_aro = Image.new('RGBA', (out.width * K, out.height * K), (0, 0, 0, 0))
+        da = ImageDraw.Draw(capa_aro)
+        for h in huecos:
+            cx, cy, r = h['cx'], h['cy'], h['r']
+            col = out.getpixel((int(cx), int(cy - r - 7)))[:3]
+            da.ellipse([(cx - r - 6) * K, (cy - r - 6) * K, (cx + r + 6) * K, (cy + r + 6) * K],
+                       fill=col + (255,))
+            da.ellipse([(cx - r) * K, (cy - r) * K, (cx + r) * K, (cy + r) * K], fill=(0, 0, 0, 0))
+        out = Image.alpha_composite(out, capa_aro.resize(out.size, Image.LANCZOS))
+    # Nunca transparencia en el PNG final: lo que quede transparente sale negro.
+    out = Image.alpha_composite(Image.new('RGBA', out.size, (255, 255, 255, 255)), out)
 
     if a.region:
         titulo = leer_titulo(a.plantilla)

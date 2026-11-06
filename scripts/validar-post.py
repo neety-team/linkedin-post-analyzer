@@ -760,8 +760,10 @@ REGION_TOPONIMOS = {
     'galicia': ['galic', 'galleg', 'coruna', 'vigo', 'lugo', 'ourense', 'pontevedr', 'compostela'],
     'valencia': ['valenci', 'alicant', 'castellon', 'elche'],
     'murcia': ['murcia', 'cartagen', 'lorca'],
+    # 2026-11-06: 'duero' (y 'ribera', que ya veta la lista de vocabulario local). El Duero
+    # va casi entero por esta region y destapa el reveal; el Ebro cruza seis y si vale.
     'castilla y leon': ['leon', 'leones', 'burgos', 'valladolid', 'salamanc', 'segovi', 'avila',
-                        'soria', 'palencia', 'zamora'],
+                        'soria', 'palencia', 'zamora', 'duero'],
     'asturias': ['asturi', 'astur', 'oviedo', 'gijon', 'aviles'],
     'cataluna': ['catalu', 'catalan', 'barcelon', 'girona', 'lleida', 'tarragon'],
     'alava': ['alava', 'alaves', 'araba', 'vitoria', 'gasteiz'],
@@ -1656,6 +1658,9 @@ def puerta_agendar(texto):
 
 
 FOTO_GRUPO = False
+# Despiece: cuantos huecos tiene la plantilla de cada sector (post-workflow 4.7 Paso 4).
+HUECOS_PLANTILLA = {'automocion': 12, 'maquinaria': 10}
+PLANTILLA = 'automocion'
 # Las 5 preguntas de criterio que mas han fallado con el marcador en verde (15/10). Cada
 # una apunta a su regla. Se contestan por escrito en --criterio; ver el final de main().
 CRITERIO = [
@@ -5086,10 +5091,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # que 11 deja un hueco vacio y 13 no cabe. El texto y la imagen son la
         # misma pieza y el numero lo manda la imagen. Vale para el despiece de
         # cualquier objeto y cualquier sector, no solo la llanta de automocion.
-        chk(len(_piezas) == 12,
-            'OBJETO: EXACTAMENTE 12 piezas, las que tiene la plantilla (4.7)',
+        # 🔄 2026-11-06: el numero lo manda la plantilla de CADA sector (HUECOS_PLANTILLA):
+        # la llanta de automocion tiene 12 huecos y el brazo robotico de maquinaria 10, todos
+        # del mismo tamaño para que ninguna empresa parezca mas importante que otra.
+        _n = HUECOS_PLANTILLA[PLANTILLA]
+        chk(len(_piezas) == _n,
+            f'OBJETO: EXACTAMENTE {_n} piezas, las que tiene la plantilla de {PLANTILLA} (4.7)',
             f'{len(_piezas)}. Por debajo de 10 no se publica: se cambia de region, no se rellena'
-            if len(_piezas) < 10 else f'{len(_piezas)} (apunta siempre a 20)')
+            if len(_piezas) < 10 else f'{len(_piezas)} (la plantilla de {PLANTILLA} tiene {_n} huecos; '
+            'otra plantilla se declara con --plantilla)')
         # Bloques de 4, y el ultimo puede bajar a 2 o 3. Nunca uno de 1, y nunca
         # un 5 pegado a un 2: eso es lo que se lee como descuadre.
         _bl, _act = [], 0
@@ -6131,6 +6141,9 @@ def main():
                     help='MAPA: nombres exactos (separados por ;) de empresas YA mencionadas que se repiten '
                          'con autorizacion escrita en el chat del post y declaradas en la entrega '
                          '(post-workflow 4.2-PAÍS). Las demas repetidas siguen siendo fallo.')
+    ap.add_argument('--plantilla', default='automocion', choices=sorted(HUECOS_PLANTILLA),
+                    help='DESPIECE: la plantilla de imagen del sector, que fija cuantas piezas lleva '
+                         '(llanta de automocion 12, brazo robotico de maquinaria 10; post-workflow 4.7).')
     ap.add_argument('--double-down', action='store_true', dest='double_down',
                     help='PELOTEO que repite A PROPOSITO cliches del gancho anterior de la region o un '
                          'pais ya usado por la cuenta (Iker, 2026-10-15: "double down es otra estrategia '
@@ -6181,6 +6194,8 @@ def main():
                     help='Lead magnet modelo GENÉRICO (Martín Arosa/Guillermo): una palabra igual para '
                          'todos + recurso genérico + landing que captura. Salta el check del 2º dato.')
     a = ap.parse_args()
+    global PLANTILLA
+    PLANTILLA = a.plantilla
     global FOTO_GRUPO
     FOTO_GRUPO = a.foto_grupo
     global HISTORIA_EVENTO

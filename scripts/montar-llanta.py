@@ -54,6 +54,9 @@ MIN_PX_HUECO = 1500
 # que el logo toque el borde, asi que el margen solo tiene que dar respiro
 # visual. Con 0.08 encima de la diagonal los logos se quedaban pequeños otra vez.
 MARGEN = 0.04
+# Brazo de maquinaria (06/11): huecos de 94-98 px, con mas aire para que ningun logo
+# cuadrado o alargado toque el borde. Con 0.04 lo tocaban INGRO, Azcaval, INDUSER e INTARCON.
+MARGEN_BRAZO = 0.12
 # Marcador que el diseñador deja en el PSD para la región.
 MARCADOR_REGION = 'XXX'
 FUENTE_DEF = ('C:/Users/LENOVO/Documents/Mario/LINKEDIN GROWTH/TIPOGRAFÍAS/'
@@ -447,6 +450,7 @@ def rellenar_llanta(img: Image.Image, color) -> int:
 
 
 def main() -> int:
+    global MARGEN
     p = argparse.ArgumentParser(description='Monta la imagen del pilar despiece (objeto).')
     p.add_argument('--plantilla', required=True, help='PSD con los huecos transparentes')
     p.add_argument('--logos', required=True, help='Carpeta con 01-….jpg … NN-….jpg')
@@ -507,7 +511,19 @@ def main() -> int:
         if min(logo.size) < lado * (1 - 2 * MARGEN):
             print(f'  ⚠️  {nombre} es {logo.size[0]}px y el hueco pide '
                   f'{round(lado * (1 - 2 * MARGEN))}px: se amplía y pierde nitidez')
-        disco = contener(logo, lado)
+        if 'r' in h:
+            # 🔧 06/11 (brazo de maquinaria): el logo se ajusta al hueco VISIBLE, no al disco
+            # blanco, que sobra 4 px por lado para tapar el borde; y con un 12% de aire: con
+            # el 4% los logos cuadrados (INGRO, Azcaval) y los alargados (INDUSER, INTARCON)
+            # tocaban el borde del circulo.
+            dia = round(2 * h['r'])
+            _m, MARGEN = MARGEN, MARGEN_BRAZO
+            interior = contener(logo, dia)
+            MARGEN = _m
+            disco = Image.new('RGBA', (lado, lado), (255, 255, 255, 255))
+            disco.paste(interior, ((lado - dia) // 2, (lado - dia) // 2))
+        else:
+            disco = contener(logo, lado)
         fondo.paste(disco, (h['x0'], h['y0']))
         print(f'  {i:2}. {nombre[:34]:36} → hueco en ({h["x0"]},{h["y0"]}) {lado}px')
         # Comprobacion de centrado (Iker, 2026-09-16): vacio arriba contra
@@ -534,6 +550,16 @@ def main() -> int:
         out = Image.alpha_composite(out, capa_aro.resize(out.size, Image.LANCZOS))
     # Nunca transparencia en el PNG final: lo que quede transparente sale negro.
     out = Image.alpha_composite(Image.new('RGBA', out.size, (255, 255, 255, 255)), out)
+    if a.huecos_json:
+        # 🔧 06/11: ningun logo puede acercarse al borde del circulo. Se mide el aire
+        # entre el pixel de marca mas alejado y el borde; por debajo de 8 px se ve pegado.
+        arr = np.array(out.convert('RGB')).astype(int)
+        yy, xx = np.mgrid[0:arr.shape[0], 0:arr.shape[1]]
+        for i, h in enumerate(huecos, 1):
+            rr = np.hypot(xx - h['cx'], yy - h['cy'])
+            marca = (rr < h['r'] - 1) & (arr.min(axis=2) < 200)
+            aire = h['r'] - rr[marca].max() if marca.any() else h['r']
+            print(f'  {i:2}. aire hasta el borde: {aire:.0f} px' + ('  ⚠️ PEGADO, mira el logo' if aire < 8 else ''))
 
     if a.region:
         titulo = leer_titulo(a.plantilla)

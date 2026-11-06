@@ -57,6 +57,16 @@ MARGEN = 0.04
 # Brazo de maquinaria (06/11): huecos de 94-98 px, con mas aire para que ningun logo
 # cuadrado o alargado toque el borde. Con 0.04 lo tocaban INGRO, Azcaval, INDUSER e INTARCON.
 MARGEN_BRAZO = 0.12
+# Huecos de las plantillas cuyo PSD no los trae transparentes (el fondo los tapa), con
+# centro, diametro y ORDEN de relleno = orden de las fichas del post. Viven aqui y no en un
+# fichero suelto en la carpeta del diseño (06/11: nada de ficheros auxiliares en sus carpetas).
+# Maquinaria (brazo robotico, PLANTILLA MAQUINARIA.psd): base de izquierda a derecha,
+# antebrazo de arriba abajo y brazo del hombro a la pinza. Base a 98 px por compensacion optica.
+HUECOS_PLANTILLAS = {
+    'maquinaria': [[380, 1108, 98], [543, 1108, 98], [706, 1108, 98], [868, 1108, 98],
+                   [351, 575, 94], [426, 674, 94],
+                   [550, 415, 94], [663, 420, 94], [777, 425, 94], [887, 424, 94]],
+}
 # Marcador que el diseñador deja en el PSD para la región.
 MARCADOR_REGION = 'XXX'
 FUENTE_DEF = ('C:/Users/LENOVO/Documents/Mario/LINKEDIN GROWTH/TIPOGRAFÍAS/'
@@ -462,6 +472,8 @@ def main() -> int:
     # 2026-11-06, plantilla de MAQUINARIA (brazo robotico): los huecos estan en la capa del
     # brazo y el fondo del PSD los tapa, asi que el composite no trae transparencia; y un brazo
     # no se lee como un reloj. El JSON de la plantilla da centro, diametro y ORDEN de cada hueco.
+    p.add_argument('--huecos', choices=sorted(HUECOS_PLANTILLAS),
+                   help='Huecos de una plantilla cuyo PSD no los trae transparentes (maquinaria)')
     p.add_argument('--huecos-json',
                    help='JSON con {"huecos": [[cx, cy, diametro], ...]} en el orden de las fichas del post')
     p.add_argument('--relleno', action='store_true',
@@ -469,9 +481,12 @@ def main() -> int:
     a = p.parse_args()
 
     plantilla = Image.open(a.plantilla).convert('RGBA')
+    if a.huecos and not a.huecos_json:
+        a.huecos_json = a.huecos
     if a.huecos_json:
         import json
-        lista = json.load(open(a.huecos_json, encoding='utf-8'))['huecos']
+        lista = (HUECOS_PLANTILLAS[a.huecos_json] if a.huecos_json in HUECOS_PLANTILLAS
+                 else json.load(open(a.huecos_json, encoding='utf-8'))['huecos'])
         # Se recorta cada circulo del composite con antialias (pintado a 4x), 2 px mas ancho
         # que el hueco para llevarse el borde suavizado del dibujo.
         K = 4

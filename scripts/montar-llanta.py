@@ -57,6 +57,9 @@ MARGEN = 0.04
 # Brazo de maquinaria (06/11): huecos de 94-98 px, con mas aire para que ningun logo
 # cuadrado o alargado toque el borde. Con 0.04 lo tocaban INGRO, Azcaval, INDUSER e INTARCON.
 MARGEN_BRAZO = 0.12
+# Aire minimo entre la marca del logo y el borde del hueco en el brazo (06/11): el logo crece
+# hasta aqui. 6 px a 1254 se ven separados en el feed y no desperdician el hueco.
+AIRE_MIN = 6
 # Huecos de las plantillas cuyo PSD no los trae transparentes (el fondo los tapa), con
 # centro, diametro y ORDEN de relleno = orden de las fichas del post. Viven aqui y no en un
 # fichero suelto en la carpeta del diseño (06/11: nada de ficheros auxiliares en sus carpetas).
@@ -532,8 +535,25 @@ def main() -> int:
             # el 4% los logos cuadrados (INGRO, Azcaval) y los alargados (INDUSER, INTARCON)
             # tocaban el borde del circulo.
             dia = round(2 * h['r'])
-            _m, MARGEN = MARGEN, MARGEN_BRAZO
-            interior = contener(logo, dia)
+            # 🔧 06/11 (2ª vuelta): un margen fijo del 12% dejaba los logos pequeños (11-17 px
+            # de aire) y en LinkedIn no se puede hacer zoom. Ahora cada logo se agranda hasta
+            # el mayor tamaño que deja AIRE_MIN px entre su marca y el borde del circulo.
+            _m = MARGEN
+            interior = None
+            for paso in range(0, 25):
+                MARGEN = 0.0 + paso * 0.005
+                prueba = contener(logo, dia)
+                arr = np.array(prueba.convert('RGB')).astype(int)
+                yy, xx = np.mgrid[0:dia, 0:dia]
+                rr = np.hypot(xx - (dia - 1) / 2, yy - (dia - 1) / 2)
+                marca = arr.min(axis=2) < 200
+                aire = dia / 2 - (rr[marca].max() if marca.any() else 0)
+                if aire >= AIRE_MIN:
+                    interior = prueba
+                    break
+            if interior is None:
+                MARGEN = MARGEN_BRAZO
+                interior = contener(logo, dia)
             MARGEN = _m
             disco = Image.new('RGBA', (lado, lado), (255, 255, 255, 255))
             disco.paste(interior, ((lado - dia) // 2, (lado - dia) // 2))
@@ -574,7 +594,7 @@ def main() -> int:
             rr = np.hypot(xx - h['cx'], yy - h['cy'])
             marca = (rr < h['r'] - 1) & (arr.min(axis=2) < 200)
             aire = h['r'] - rr[marca].max() if marca.any() else h['r']
-            print(f'  {i:2}. aire hasta el borde: {aire:.0f} px' + ('  ⚠️ PEGADO, mira el logo' if aire < 8 else ''))
+            print(f'  {i:2}. aire hasta el borde: {aire:.0f} px' + ('  ⚠️ PEGADO, mira el logo' if aire < AIRE_MIN - 1 else ''))
 
     if a.region:
         titulo = leer_titulo(a.plantilla)

@@ -94,7 +94,7 @@ VERBO_PREJUICIO_QUEMADO = {
     'tienen cerrad': '2026-10-16 Comunidad Valenciana, mapa de Unai',
     'mandan de': '2026-10-08 Canarias, mapa de Iker',
     'liquidan': '2026-10-27 Galicia, "Las 10" de Iker; antes La Rioja, "Las 10" de Asier 07/10',
-    'ventilan': '2026-10-01 Castilla-La Mancha, "Las 10" de Iker',
+    'ventilan': '2026-11-06 Andalucía, despiece de maquinaria de Asier; antes Castilla-La Mancha, "Las 10" de Iker 01/10',
     'dejan atrás': '2026-09-29 Extremadura, mapa de Asier',
     'dejan atras': '2026-09-29 Extremadura, mapa de Asier',
     'tienen calada': '2026-09-22 Álava, mapa de Iker',
@@ -306,6 +306,18 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Asier 06/11, despiece de maquinaria de Andalucía, leido del texto publicado (BD, 13:12).
+    'estas 10 ya han subido del sótano': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'estas 10 ya han subido del sotano': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'las que encajan con lo que vendes siguen abajo': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'y por sector no salen, porque cada una cuenta lo que hace con otras palabras': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'en una reunión de media hora te sacamos las de tu mercado': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'en una reunion de media hora te sacamos las de tu mercado': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'y de cada una, quién decide la compra': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'y de cada una, quien decide la compra': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'a oscuras, el sótano no te enseña a quién llamar': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'a oscuras, el sotano no te ensena a quien llamar': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
+    'esa luz, con nombre y cargo, te la damos': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
     # Iker 05/11, mapa de España (país), leido del texto publicado (Unipile, 12:34).
     'quien la alquila de vacaciones solo ve la fachada': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
     'quién decide tras esa fachada, te lo marcamos': '2026-11-05 España, mapa de país de Iker (ninja a /solicitar-demo, tipo 2)',
@@ -490,6 +502,7 @@ SPAM_QUEMADO = {
 # que ya era el pais del mapa de Navarra. La comparacion es lo que se comparte,
 # asi que repetirla se nota mas que ninguna otra cosa.
 PAIS_QUEMADO = {
+    'chile': '2026-11-06 Andalucía, despiece de maquinaria de Asier',
     'brasil': '2026-11-05 España, mapa de país de Iker',
     'cuba': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'guatemala': '2026-10-27 Galicia, "Las 10" de Iker',
@@ -621,6 +634,7 @@ ARRANQUE_QUEMADO = {
     # El pilar lead magnet tampoco tenia lista. Anotado al PUBLICAR (§0f).
     # El pilar DESPIECE tampoco tenia lista. Leidos los dos publicados.
     'objeto': {
+        'no': '2026-11-06 despiece de Andalucía, Asier ("No mueve ese sótano / No lo mueve la cola")',
         'lo': '2026-07-30 despiece de Euskadi, Iker ("Lo asocias al monte / a la sidreria / a que llueve")',
         'es': '2026-08-07 despiece de Navarra, Asier ("Es el pacharan... / Es el Camino...")',
         'las': '2026-09-16 despiece de Bizkaia, Asier ("Las piezas salen de Zamudio / de Berriz / de Gernika")',
@@ -637,6 +651,8 @@ ARRANQUE_QUEMADO = {
 }
 
 CONCEPTO_QUEMADO = {
+    'sótano de': '2026-11-06 Andalucía, despiece de maquinaria de Asier',
+    'sotano de': '2026-11-06 Andalucía, despiece de maquinaria de Asier, sin tilde',
     'alquila por semanas': '2026-11-05 España, mapa de país de Iker',
     'alquilan por semanas': '2026-11-05 España, mapa de país de Iker',
     'corral de la': '2026-10-29 Navarra, mapa de Asier (de adición)',
@@ -670,6 +686,7 @@ CONCEPTO_QUEMADO = {
 # §4.2 Paso 1 — FRASES-RABIA YA USADAS. Misma historia: la receta pedia no
 # repetirla y no habia con que comprobarlo.
 FRASE_RABIA_USADA = {
+    'y a la playa': '2026-11-06 Andalucía, despiece de maquinaria de Asier',
     'vuelta al avi': '2026-11-05 España, mapa de país de Iker',
     'y a correr': '2026-10-29 Navarra, mapa de Asier (de adición)',
     'y a secarse': '2026-10-27 Galicia, "Las 10" de Iker',
@@ -705,6 +722,7 @@ FRASE_RABIA_USADA = {
 # la entrega, nunca por defecto). El CUERPO si puede repetir cliches (son de la region).
 # Al publicar un peloteo, se anaden aqui los cliches de su gancho (y el del concepto).
 CLICHE_GANCHO_REGION = {
+    'andalucia': {'flamenco': '2026-11-06 Asier', 'gazpacho': '2026-11-06 Asier'},
     'espana': {'fiesta': '2026-11-05 Iker', 'siesta': '2026-11-05 Iker'},
     'aragon': {'pilar': '2026-07-14 Asier', 'cierzo': '2026-07-14 Asier', 'jota': '2026-07-14 Asier',
                'ternasco': '2026-07-14 Asier', 'secarral': '2026-07-14 Asier',

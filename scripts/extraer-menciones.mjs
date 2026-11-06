@@ -61,7 +61,9 @@ export function normalizar(s) {
 function entidadesDeLinea(l) {
   // 2026-11-05 (mapa de España): una etiqueta de region delante ("→ Galicia: Empresa - Persona")
   // se pegaba al nombre y la empresa no casaba en el cruce de repetidas. Se quita si son 1-4 palabras.
-  const sinFlecha = l.replace(/^\s*→\s*/, '').replace(/^\s*@?([^:@→]{2,30}):\s+(?=\S)/, (m, et) => (et.trim().split(/\s+/).length <= 4 ? '' : m));
+  // 2026-11-06 (despiece de maquinaria): la PIEZA del despiece tambien va delante y puede tener
+  // 5 palabras ("El frio de la camara: INTARCON"); con el tope de 4 se colaba como parte del nombre.
+  const sinFlecha = l.replace(/^\s*→\s*/, '').replace(/^\s*@?([^:@→]{2,40}):\s+(?=\S)/, (m, et) => (et.trim().split(/\s+/).length <= 6 ? '' : m));
   const sinLogro = sinFlecha.split('·')[0];
   return sinLogro
     .split(' - ')

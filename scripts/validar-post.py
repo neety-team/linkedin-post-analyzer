@@ -5111,9 +5111,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 _act = 0
         if _act:
             _bl.append(_act)
-        _ok_bl = bool(_bl) and all(b == 4 for b in _bl[:-1]) and _bl[-1] in (2, 3, 4)
-        chk(_ok_bl, 'OBJETO: bloques de 4 y el ultimo de 2, 3 o 4 (4.7)',
-            f'bloques de {_bl}. Todos de 4 salvo el ultimo, que puede bajar a 2 o 3')
+        # 🔄 06/11: con 10 fichas (brazo de maquinaria) van DOS BLOQUES DE 5, como en "Las 10";
+        # el 4-4-2 dejaba un bloque cojo al final sin ningun motivo.
+        if sum(_bl) == 10:
+            _ok_bl = _bl == [5, 5]
+        else:
+            _ok_bl = bool(_bl) and all(b == 4 for b in _bl[:-1]) and _bl[-1] in (2, 3, 4)
+        chk(_ok_bl, 'OBJETO: bloques de 4 (o 5 y 5 con 10 fichas), sin bloque cojo (4.7)',
+            f'bloques de {_bl}. Con 10 fichas, 5 y 5; si no, todos de 4 salvo el ultimo, que puede bajar a 2 o 3')
         # ⛔ CHECK RETIRADO EL 2026-08-07 · CONTRADECIA A §4.2 PASO 1.
         # Aqui se exigia que el despiece NO llevara la comparacion con otro pais
         # ("es la firma del mapa"), mientras que §4.2 Paso 1 la EXIGE. Los dos

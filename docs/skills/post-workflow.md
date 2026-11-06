@@ -3121,7 +3121,7 @@ Acceso libre.
 - **Gancho:** misma fórmula que el mapa (concepto despectivo en palabra universal + EXACTAMENTE 2 clichés universales + frase-rabia) **y el mismo remate con `exporta` + país concreto**. El OBJETO no sustituye a `exporta`: **va DENTRO del remate**, que es lo que diferencia al despiece sin romper el ancla de ventas. Plantilla: *"Y exporta más [piezas de coche] que [PAÍS] entero 👇"*.
   - **🔴 ESTO ES UNA CORRECCIÓN, NO LA RECETA ORIGINAL (Iker, 2026-07-31).** Yo escribí ayer que *"el despiece remata con el OBJETO y esa sustitución es lo que evita canibalizar el mapa"*, y el despiece de Euskadi salió con *"Y ahí se hace tu coche"* en vez de `exporta`. **Está rindiendo peor.** Lo que diferencia al despiece del mapa **no es quitar `exporta`**, es el objeto, el despiece por piezas y la imagen de la llanta: con eso sobra para no canibalizar. Ver los CUATRO INAMOVIBLES en `§4.2`.
 - **Ficha:** `→ La pieza: @Empresa - @Persona`. La pieza delante y los dos puntos son la firma del formato y lo que lo distingue del mapa en el clasificador.
-- **Bloques de 4**, y si el número no es múltiplo de 4 el último es de 2 o de 3, nunca de 1. Nunca un 5 seguido de un 2.
+- **Bloques de 4**, y si el número no es múltiplo de 4 el último es de 2 o de 3, nunca de 1. Nunca un 5 seguido de un 2. 🔄 **06/11: con 10 fichas (brazo de maquinaria), dos bloques de 5**, como en "Las 10". Check `OBJETO: bloques` de `validar-post.py`.
 - **Reveal tardío** de la región, después de la lista, con los clichés locales justo antes.
 - **El final va en el orden del tronco común** (`§4.0d` puntos 5 y 6): reveal → barrido → contexto del evento si toca → bloque del enlace → cierre punchy que rebota contra el concepto.
 - ⚠️ **NO importes la comparación con otro país.** Es la firma del mapa, igual que ya se decidió en "Los 10".
@@ -3142,7 +3142,7 @@ Acceso libre.
   - **✅ CHECKLIST DEL PRÓXIMO DESPIECE DE MAQUINARIA (cualquier región, cualquier cuenta), en este orden:**
     1. **Región:** universo de maquinaria con directivos activos (Sales Navigator, industrias 55, 135, 147, 918 y 901, la región y `posted_on_linkedin`), sin repetir región y formato en la misma cuenta y mirando la cobertura del historial.
     2. **Remate del gancho:** `Y exporta más maquinaria que [PAÍS] entero 👇`, con la partida HS 84 de la región (Ministerio de Economía o la agencia regional) contra la del país en el MISMO año (ONU Comtrade) y un margen de al menos el 15%.
-    3. **10 fichas exactas**, en bloques de 4, 4 y 2, con la pieza delante (`→ La pieza: @Empresa - @Persona`), asignada por la descripción de LinkedIn y con persona que pase `scripts/menciones.py`. Validar con `--pilar objeto --plantilla maquinaria`.
+    3. **10 fichas exactas**, en **dos bloques de 5** (06/11: el 4-4-2 dejaba un bloque cojo sin motivo), con la pieza delante (`→ La pieza: @Empresa - @Persona`), asignada por la descripción de LinkedIn y con persona que pase `scripts/menciones.py`. Validar con `--pilar objeto --plantilla maquinaria`.
     4. **Logos:** uno por ficha, del 01 al 10 en el orden del post, bajados al scratchpad. Si solo traen el símbolo, se busca en su web la versión con nombre.
     5. **Montaje:** el comando de arriba con `--huecos maquinaria` y la región en adjetivo. El script recorta los huecos, tapa sus bordes con un aro limpio, agranda cada logo hasta dejar 6 px de aire y avisa si alguno se pega. Antes de entregar se mira la imagen y un recorte de los 10 huecos ampliado.
     6. **Fichero:** `maquinaria industrial <region> empresas fabricantes exportacion.png` en `DESPIECE/`. En esa carpeta solo quedan los PSD y las imágenes finales; los logos y cualquier fichero de trabajo, fuera.
@@ -4230,6 +4230,8 @@ Vídeo, evento y formatos nuevos quedan **fuera de la rotación por defecto**; e
 ### 8.1b · 🎯 CADA POST LLEVA SU OBJETIVO EN LA TABLA, Y LO DECIDE EL DESTINO DEL ENLACE (Iker, 2026-10-26)
 
 > *"me falta que en cada una me digas el objetivo"*. Iker lo apunta en su calendario de Notion: cada hueco de la tabla del plan lleva pilar, día, hora **y objetivo**. Y **mínimo 9 posts por semana: 3 por cuenta** (más si se puede).
+
+**⛔ EL DESTINO POR DEFECTO ES `/solicitar-demo` (Iker, 2026-11-06).** Se priorizan las reuniones (🎯 Oportunidades). El gate de un recurso o lead magnet solo entra cuando ese recurso está **validado** llevando a leads y el plan lo pide con su motivo; que un recurso esté publicado o pendiente de probar no es motivo. El 06/11 el despiece de Asier salió escrito hacia el gate de clientes gemelos porque así venía en el encargo del plan, y había que haberlo parado: Iker ya había quitado ese gate de su mapa de España del 05/11 por no estar validado. Si el plan trae un gate sin validar, se avisa y se propone `/solicitar-demo`.
 
 **Y en todos, el máximo alcance (2026-10-27).** El objetivo decide la puerta y el ninja; no rebaja la ambición de llegar. Sea cual sea el pilar o el objetivo, cada post se escribe para llegar a cuanta más gente mejor, también los de Autoridad, que además no se pueden medir.
 

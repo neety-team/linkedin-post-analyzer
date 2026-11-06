@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Monta la imagen del pilar DESPIECE pegando los logos en los huecos de la llanta.
+"""Monta la imagen del pilar DESPIECE pegando los logos en los huecos de la plantilla
+(la llanta de automocion o, con --huecos-json, el brazo robotico de maquinaria).
 
 POR QUÉ EXISTE, y es el mismo motivo que `montar-orla.py`: un modelo generativo
 de imagen NO pega, REDIBUJA. Con logos es aún peor que con caras, porque además
@@ -454,12 +455,38 @@ def main() -> int:
     p.add_argument('--fuente', default=FUENTE_DEF, help='Ruta al .ttf del título')
     # El relleno NO va por defecto (Iker, 2026-09-16): lo vio feo y el relleno lo
     # trae la PLANTILLA nueva que pasa él. Se deja como opcion para maquetas.
+    # 2026-11-06, plantilla de MAQUINARIA (brazo robotico): los huecos estan en la capa del
+    # brazo y el fondo del PSD los tapa, asi que el composite no trae transparencia; y un brazo
+    # no se lee como un reloj. El JSON de la plantilla da centro, diametro y ORDEN de cada hueco.
+    p.add_argument('--huecos-json',
+                   help='JSON con {"huecos": [[cx, cy, diametro], ...]} en el orden de las fichas del post')
     p.add_argument('--relleno', action='store_true',
                    help='Maqueta: pinta de berenjena el centro y las ventanas de la llanta')
     a = p.parse_args()
 
     plantilla = Image.open(a.plantilla).convert('RGBA')
-    huecos = buscar_huecos(np.array(plantilla)[:, :, 3])
+    if a.huecos_json:
+        import json
+        lista = json.load(open(a.huecos_json, encoding='utf-8'))['huecos']
+        # Se recorta cada circulo del composite con antialias (pintado a 4x), 2 px mas ancho
+        # que el hueco para llevarse el borde suavizado del dibujo.
+        K = 4
+        m = Image.new('L', (plantilla.width * K, plantilla.height * K), 255)
+        dm = ImageDraw.Draw(m)
+        huecos = []
+        for cx, cy, dia in lista:
+            r = dia / 2 + 1
+            dm.ellipse([(cx - r) * K, (cy - r) * K, (cx + r) * K, (cy + r) * K], fill=0)
+            # El disco blanco del logo va 2 px mas ancho que el recorte: si es igual o menor,
+            # el anillo que queda entre los dos sale transparente y en el PNG se ve como
+            # una raya negra discontinua alrededor del logo.
+            huecos.append({'x0': round(cx - dia / 2 - 2), 'y0': round(cy - dia / 2 - 2),
+                           'x1': round(cx + dia / 2 + 1), 'y1': round(cy + dia / 2 + 1)})
+        alfa = np.minimum(np.array(plantilla)[:, :, 3],
+                          np.array(m.resize(plantilla.size, Image.LANCZOS)))
+        plantilla.putalpha(Image.fromarray(alfa.astype('uint8')))
+    else:
+        huecos = buscar_huecos(np.array(plantilla)[:, :, 3])
     ficheros = sorted(f for f in os.listdir(a.logos)
                       if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')))
     print(f'  plantilla {plantilla.size[0]}x{plantilla.size[1]} · {len(huecos)} huecos · {len(ficheros)} logos')

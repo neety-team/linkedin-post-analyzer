@@ -101,6 +101,7 @@ defecto.
 - **Meme:** en el dibujo, que es el chiste. El título pone el contexto en un solo color y sin palabra naranja, salvo que la referencia lleve color (`§0a-sexta-quater`).
 - **Lead magnet:** en el botón o la palabra que pide el comentario, y ahí va la palabra naranja.
 - **Mapa:** en la región, y ahí va el naranja (`post-workflow §4.2`).
+- **Despiece (desde el 2026-11-06):** en los LOGOS dentro de la silueta. El título de la franja va entero en un solo color, sin palabra naranja: `FIRMA` en naranja se llevaba el primer vistazo y competía con las empresas, que son el mensaje y el motor del peloteo. Criterio, sin medir: los despieces anteriores la llevaban y ninguno se publicó sin ella.
 - **Tabla, infografía o datos:** en los datos, que son lo único que lleva caja (`§2b-bis`).
 - **Foto real o portada de vídeo:** en la cara y su gesto, con el titular arriba y grande.
 

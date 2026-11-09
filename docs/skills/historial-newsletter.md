@@ -1672,7 +1672,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Asunto | A/B nativo de Brevo, 50/50: `tú le habrías pillado copiando?` (pregunta) y `han pillado al nuevo copiando` (afirmación). Preheader común: `Al nuevo le pidieron una lista. Él, muy listo.` |
 | Pilar y por qué | OBJECIÓN (`Eso me lo hace ChatGPT`, 17 empresas, 13 ICP), el pilar con más personas hacia la reunión: correo 5, 7 de 111 (6,3%); 6 CALENDARIO, 5 de 111 (4,5%); 12 BASTIDORES, 5 de 198 (2,5%); 7 MITO, 2 de 107 (1,9%). n=1 por pilar, dirección |
 | Trastada | Kaixito pone notas en su libro al nuevo de una fábrica de válvulas (empresa inventada), que copia su lista de la IA y le suspende su jefe; hilo `copiar` y `notas`. Palanca: orgullo de la mascota que se cree profesor. GIF curiosidad (con gafas) tras `Hoy pongo notas.` |
-| Variable en prueba | quién firma, respecto del correo 5 (pregunta de tú a tú, ~120-140 palabras, enlace hacia la mitad; aquí cae más tarde, ver la entrega). Es la prueba limpia que `§5-UNA-VARIABLE` dejó pendiente el 14/10. Además, A/B de asunto dentro del correo, fila abierta el 02/11 |
+| Variable en prueba | quién firma, respecto del correo 5 (pregunta de tú a tú, ~120-140 palabras, enlace hacia la mitad; aquí al 57%). Es la prueba limpia que `§5-UNA-VARIABLE` dejó pendiente el 14/10. Además, A/B de asunto dentro del correo, fila abierta el 02/11 |
 | Destinatarios | listas 15 + 4 + 16 + 19, excluyendo 6 contactos que son clientes (lista 21 y HubSpot) |
 | Se mide | personas con `--quien` contra 7 de 111 del correo 5, solicitudes con `utm_campaign=correo-13-kaixito-objecion`, bajas contra el 3,0% del 12. Revisión: lunes 16/11 |
 

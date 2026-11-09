@@ -299,9 +299,9 @@ def main():
     # La IA que da una lista mala nunca es de casa (2026-11-09, email-marketing §8l): si la mascota o
     # sus jefes la usan en la escena, se lee que nuestros resultados son los de cualquier IA.
     _ia_casa = next((l.strip() for l in _cuerpo_sin_pd.splitlines()
-                     if re.search(r'(IA|ChatGPT|Copilot|Gemini)', l)
-                     and re.search(r'(copi[eé]|ped[ií]|encargu[eé]|saqu[eé]|hice|us[eé]|firm[eé]|copiamos|pedimos|encargamos'
-                                   r'|usamos|sacamos|hicimos|mis jefes|mi jefe)', l, re.I)), None)
+                     if re.search(r'\b(IA|ChatGPT|Copilot|Gemini)\b', l)
+                     and re.search(r'\b(copi[eé]|ped[ií]|encargu[eé]|saqu[eé]|hice|us[eé]|firm[eé]|copiamos|pedimos|encargamos'
+                                   r'|usamos|sacamos|hicimos|mis jefes|mi jefe)\b', l, re.I)), None)
     if _ia_casa:
         checks.append(fallo(f'IA en la escena de casa: "{_ia_casa[:60]}". El que usa la IA y falla va en otra empresa '
                             f'inventada, nunca la mascota ni sus jefes (email-marketing §8l)'))

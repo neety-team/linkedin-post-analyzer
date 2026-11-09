@@ -656,6 +656,7 @@ Mismo mapa que `post-workflow §8.1b`, porque el objetivo de conversión cambia 
 - **⛔ La demo no se vende como novedad.** La lista lleva meses viendo ese enlace. El asunto tiene que valer para toda la lista a la vez (el que se apuntó ayer y el que lleva desde agosto), porque los correos van a todos aunque las audiencias estén separadas. Novedad solo es lo que lo es (un webinar, un lanzamiento). *(sin medir: criterio del equipo)*
 - **Si un dato del correo depende de una confirmación que no llega a tiempo (una fecha de lanzamiento, quién atiende), se escribe sin él.** Un correo de la serie no vale el riesgo: se cambia de escena y sale igual.
 - **Mecanizado** como fallo duro en `validar-email.py` (`Demo: la línea del enlace no promete a un jefe`).
+- **Un correo que pide la reunión no va a clientes (2026-11-09).** Antes de crear la campaña se cruzan los activos de las listas 15, 4, 16 y 19 con la lista 21 (`New Neety`, los correos a clientes de marketing) y con los contactos y dominios en etapa `customer` de HubSpot. Los que coinciden se excluyen en esa campaña, sin tocar su suscripción. El 09/11 salieron 6 de 204. *(sin medir: criterio del equipo)*
 
 ### 4b · La PD
 
@@ -2606,7 +2607,7 @@ ZIP `newslettershasta9nov.zip`, 35 ficheros, leídos como datos. **Fuera (9):** 
 2. **El que vino por contenido y se fue:** 2 de las 6 bajas pulsaron la grabación en el correo 11 y se dieron de baja en el siguiente. Recibieron lo que pidieron y lo siguiente fue una reunión.
 3. **El lector no aparece hasta el enlace.** El dolor va en primera persona de la mascota (`me pasaba igual`, `se me iba la vida`) y el primer `contigo` llega en la línea del enlace, hacia el 75% del correo. Juan abre su correo de negociación con la escena del lector y un `te suena` sin afirmar nada (compatible con `§7b`).
 4. **La línea del enlace y la siguiente tiran en sentidos opuestos.** Se promete mirar lo que sobra en una lista y justo después se dice que no hace falta traer nada. Falta decir con qué se queda el lector tras esa media hora (`§8n` punto 3, que este correo no usó).
-5. **Cuarto Kaixito seguido (9, 10, 11 y 12) y con CTA de reunión.** `§1` pide rotar cada semana y que el CTA fuerte de demo lo firme un founder; el correo 12 mantuvo a Kaixito a propósito para aislar el destino. Por eso el resultado no separa destino, remitente y cansancio. Además fueron 3 correos en 8 días (27/10, 30/10 y 03/11), justo lo que `§5` limitó el 02/11.
+5. **Kaixito no es el sospechoso que parece.** El remitente es fijo desde el 14/10 (`§5-UNA-VARIABLE`, que manda sobre la rotación de `§1`), así que cuatro Kaixitos seguidos es la regla y no un error. Lo que sí sigue en pie es que `§1` le reserva derivar y no cerrar, y que el dato del 12 no separa destino y cansancio. Además fueron 3 correos en 8 días (27/10, 30/10 y 03/11), justo lo que `§5` limitó el 02/11.
 6. **3,0% de bajas.** La señal 4 de `§0b` fue un 3,65%. Un correo aislado no es un perfil, pero dos seguidos en esta banda sí empezarían a dibujarlo.
 7. **Lo que sí funcionó:** el bloque `El libro, dentro. / Yo, dentro. / La cremallera, no.` y `Lo que sobra en una maleta se ve, en una lista no.` Abrió un 68,2%, en la banda de la serie. La escena no es lo que falló; lo que está en duda es el salto de la escena a la petición.
 

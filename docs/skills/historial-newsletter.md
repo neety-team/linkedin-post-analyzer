@@ -1665,6 +1665,21 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`lo que sobra en una maleta se ve`, `eso lo miramos contigo en media hora`), `mision fallida` a `APERTURAS_USADAS`, `12: 'la vida'` a `UNIDADES_CORREOS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
 
+## ✉️ CORREO 13 · Kaixito · OBJECIÓN (texto entregado 09/11, para el mar 10/11 09:05, pendiente de validar la prueba)
+
+| | |
+|---|---|
+| Asunto | A/B nativo de Brevo, 50/50: `se nota que lo he copiado?` (pregunta) y `me han pillado copiando` (afirmación). Preheader común: `Mis jefes me pidieron una lista. Yo, muy listo.` |
+| Pilar y por qué | OBJECIÓN (`Eso me lo hace ChatGPT`, 17 empresas, 13 ICP), el pilar con más personas hacia la reunión: correo 5, 7 de 111 (6,3%); 6 CALENDARIO, 5 de 111 (4,5%); 12 BASTIDORES, 5 de 198 (2,5%); 7 MITO, 2 de 107 (1,9%). n=1 por pilar, dirección |
+| Trastada | copia de la IA la lista que le encargan sus jefes y le suspenden; hilo `copiar` y `sobresaliente`. Palanca: orgullo que se desinfla. GIF alegría tras `Antes de comer ya estaba lista.` |
+| Variable en prueba | quién firma, respecto del correo 5 (pregunta de tú a tú, ~120-140 palabras, enlace hacia la mitad; aquí al 55%). Es la prueba limpia que `§5-UNA-VARIABLE` dejó pendiente el 14/10. Además, A/B de asunto dentro del correo, fila abierta el 02/11 |
+| Destinatarios | listas 15 + 4 + 16 + 19, excluyendo 6 contactos que son clientes (lista 21 y HubSpot) |
+| Se mide | personas con `--quien` contra 7 de 111 del correo 5, solicitudes con `utm_campaign=correo-13-kaixito-objecion`, bajas contra el 3,0% del 12. Revisión: lunes 16/11 |
+
+**Al programar:** ninja a `QUEMADAS`, `sobresaliente` a `APERTURAS_USADAS`, cuerpo a `corpus-correos-enviados.md`.
+
+**La campaña 35 (`Newsletter clientes`, 06/11, 44 enviados a la lista 21) es de marketing a clientes, con remitente propio, y no forma parte de esta serie:** no entra en las comparaciones de la newsletter.
+
 ## 🔎 CORRECCIÓN 02/11: LA NEWSLETTER SÍ HA TRAÍDO REUNIONES, Y LAS DOS SON DE KAIXITO 01
 
 Leído de la base de la web nueva (`/api/accounts/conversiones` del analizador, que cuenta las solicitudes de `/solicitar-demo` y `/agendar/` por su UTM) y del rescate de MailerLite. **Aquí ponía «0 reuniones desde el correo 0» y era falso:** nadie había mirado la base por campaña.

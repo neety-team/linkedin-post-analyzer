@@ -2595,6 +2595,50 @@ Los tacos, el registro sexual y la opinión política de Isra; las erratas (Isra
 #### 📥 Intake (Mario)
 **RunnerPro: tercera semana sin nada, comprobar la suscripción ya.** Lavender: octava semana con la de Illinois, darse de baja o corregirla. Sonia Ferrent: solo llegan sus notas de Substack, falta la suscripción a la newsletter. lemlist, Tendios y Hoppy Copy: comprobar si siguen vivas.
 
+### 8o · DUODÉCIMA VENTANA — 26 newsletters, 9 remitentes, 8 días (2-9 nov 2026, analizado el 2026-11-09)
+
+ZIP `newslettershasta9nov.zip`, 35 ficheros, leídos como datos. **Fuera (9):** SINGULARU (6), Lavender (2, novena semana llegando la mala) y 1 aviso de Substack. **Dentro (26):** Isra Bravo (8), Lara Acosta y Jake / The B2B Creator (5), Juan Domínguez (4), WaLead (3 invitaciones de Luma), Hugo López (2), BOGA/EDEM (1), Sonia Ferrent (1, primera newsletter suya que llega), Cosas de Freelance (1) y Vibe Prospecting (1, aviso de cierre). **Sin nada:** RunnerPro (cuarta semana), lemlist, Tendios, Hoppy Copy y Kieran Flanagan.
+
+**Por qué pesa:** el correo 12 volvió a `/solicitar-demo` y dejó 5 personas en el enlace, 0 solicitudes y el máximo de bajas de la serie (`historial-newsletter`, lectura ampliada del 09/11). Lo que se buscó es cómo pide el corpus algo a quien acaba de llegar, y qué cambiar en el siguiente correo a la reunión.
+
+#### 🧳 LO QUE ENSEÑA EL CORREO 12 (la maleta), leído contra su dato y contra el corpus *(hipótesis, n=1)*
+1. **Pedimos la reunión en el segundo correo de su vida.** 4 de las 6 bajas y 4 de las 5 personas que pulsaron llevaban 2 correos o menos (altas del 28/10 al 02/11). La cohorte nueva es a la vez la que responde y la que se va, unas 80 personas de 198. `§5b` ya colocaba la invitación al diagnóstico en los días 12-14 y prohibía el doble flujo; esa secuencia no está montada y la cohorte entró directa a la newsletter.
+2. **El que vino por contenido y se fue:** 2 de las 6 bajas pulsaron la grabación en el correo 11 y se dieron de baja en el siguiente. Recibieron lo que pidieron y lo siguiente fue una reunión.
+3. **El lector no aparece hasta el enlace.** El dolor va en primera persona de la mascota (`me pasaba igual`, `se me iba la vida`) y el primer `contigo` llega en la línea del enlace, hacia el 75% del correo. Juan abre su correo de negociación con la escena del lector y un `te suena` sin afirmar nada (compatible con `§7b`).
+4. **La línea del enlace y la siguiente tiran en sentidos opuestos.** Se promete mirar lo que sobra en una lista y justo después se dice que no hace falta traer nada. Falta decir con qué se queda el lector tras esa media hora (`§8n` punto 3, que este correo no usó).
+5. **Cuarto Kaixito seguido (9, 10, 11 y 12) y con CTA de reunión.** `§1` pide rotar cada semana y que el CTA fuerte de demo lo firme un founder; el correo 12 mantuvo a Kaixito a propósito para aislar el destino. Por eso el resultado no separa destino, remitente y cansancio. Además fueron 3 correos en 8 días (27/10, 30/10 y 03/11), justo lo que `§5` limitó el 02/11.
+6. **3,0% de bajas.** La señal 4 de `§0b` fue un 3,65%. Un correo aislado no es un perfil, pero dos seguidos en esta banda sí empezarían a dibujarlo.
+7. **Lo que sí funcionó:** el bloque `El libro, dentro. / Yo, dentro. / La cremallera, no.` y `Lo que sobra en una maleta se ve, en una lista no.` Abrió un 68,2%, en la banda de la serie. La escena no es lo que falló; lo que está en duda es el salto de la escena a la petición.
+
+#### ⏰ Horas y asunto (Date a +01:00)
+Isra 15:29, 8 de 8, también en fin de semana · Juan 16:01-16:02, ahora lunes, miércoles y viernes · Hugo sin hora fija (viernes 15:17, domingo 19:27) · BOGA 12:03 · Sonia y Cosas de Freelance 08:01 · WaLead de 10:01 a 14:08. **Asunto de remitentes-persona en español (n=15): mediana 40 caracteres y 7 palabras**, por encima de la banda 31-37 por primera vez en siete ventanas; lo empujan Isra y Hugo con asuntos de 55 a 80. Una ventana no mueve la regla de ≤40. Asunto + preheader como dos mitades: Juan 3 de 4. Nada cambia en nuestras 09:05.
+
+#### 🎯 CÓMO SE PIDE ALGO SIN ROMPER LA CONFIANZA (para el siguiente correo a la reunión)
+8. **⭐⭐ Pedir para un tercero (BOGA).** El aviso del máster no se dirige al lector sino a alguien de su entorno que lo esté valorando, se aclara que no hace falta tener nada decidido y se reconoce que no se quiere añadirle tareas. Baja la presión y abre el reenvío. Versión Neety: `si tienes cerca a quien lleva lo comercial…`, útil porque parte de la lista no decide.
+9. **⭐⭐ La objeción dicha antes que el lector (Hugo).** Reconoce que ya te habrán llegado decenas de correos de Black Friday y que estarás con la guardia alta, y solo después sigue. Y el fundador reticente: al principio no lo veía y cuenta qué le hizo cambiar. Versión Neety: reconocer que esa lista lleva meses viendo el mismo enlace.
+10. **⭐ Lo que está cerrado se nombra por lo que NO es (Hugo).** Una caja sellada descrita solo por negación, hasta el directo. Para un webinar: una parte de la sesión que no se cuenta, siempre que exista de verdad.
+11. **⭐ Dosificar (Isra, dos correos).** Defiende que lo persuasivo es lo que decides no explicar todavía, y lo practica cortando el correo a mitad de explicación. Encaja con correos cortos y con no contar la reunión entera.
+12. **La venta siempre al final y en una palabra (Isra, 7 de 8).** Última línea, solo el nombre del producto como enlace y una PD que apunta hacia arriba; el octavo no vende nada. Dato para la fila de posición del ninja (el correo 11, con el enlace al 82%, saca el mejor clic desde el correo 7), sin aislar.
+
+#### ⭐ ÁNGULOS QUE MERECE ROBAR
+13. **⭐⭐ El viaje como veta (Isra).** Tres correos de la misma semana salen de un viaje a Japón: cada concepto local es una lección de negocio distinta. **Nosotros tenemos San Francisco y lo gastamos en un chiste.** Al volver los jefes, una serie corta firmada por Unai con lo que vio de verdad, solo con hechos comprobados.
+14. **⭐⭐ La cifra de debajo (Juan).** Le entusiasma un número grande, mira debajo y encuentra otro mucho menor, porque ha cambiado la forma de contar. Cierra preguntándose qué está celebrando. Versión Neety: empresas en la lista contra empresas a las que de verdad se les puede vender; las cifras, solo verificadas.
+15. **⭐⭐ No tener que aprender medio oficio (Juan, la hipoteca).** Contratas a alguien para que te ayude y acabas estudiando su trabajo. Encaja con el comercial industrial que compra una herramienta y acaba de técnico. ⚠️ Solo esa mitad: la otra (yo solo firmé) sería prometer automatismo (`§4.4b-MUNICIÓN`).
+16. **⭐ Montarlo cuando va bien (Cosas de Freelance).** La imagen de los dos aviones: el que vuela paga el combustible del que despega, y el peor momento para arrancar es cuando ya te ha fallado el cliente gordo. Para CALENDARIO de noviembre: buscar la lista de enero cuando el trimestre aún va bien.
+17. **⭐ Black Friday en contra (calendario: viernes 27/11).** El corpus entero se llena de descuentos desde el 02/11. Kaixito puede ser el que no tiene nada que rebajar. No se inventa oferta ni fecha.
+18. **⭐ Nominar (Kleo, K100).** Cinco correos en ocho días con una sola petición: propón a alguien o a ti mismo y recibes una imagen para publicar. **Es la mecánica de nuestros peloteos llevada al correo:** `¿qué empresa debería estar en el próximo mapa?` da candidatos reales y autoidentifica al ICP. Responder nos ha dado cero (correos 0 y 8), así que sería en un clic y sin formulario de suscripción (`§4a-SIN-GATE`).
+19. **Lo que dejé de hacer con la IA y lo que hago ahora (Sonia).** Estructura de dos mitades y la idea de que lo que delegas deja de entrenarse. Refuerza `§8m` punto 13 y la visión de la casa. Su uso de transcribir reuniones no se copia (`brand-voice §2c-DATOS`).
+
+#### 🥊 COMPETENCIA
+20. **WaLead acelera en directos:** 3 invitaciones en 8 días (base de datos, clase para agencias, señales el miércoles 11/11). Compite por volumen (presume de millones de profesionales y empresas) y por señal: justo lo que el ninja no promete, y nuestro contraste sigue siendo la identificación. **Usa la invitación de Luma como canal**, unas 100 palabras y un botón de aceptar. Nosotros no: invitar en frío choca con `§0b` y con que un clic no es consentimiento.
+21. **Vibe Prospecting (Explorium) anuncia su cierre para el 02/12/2026** y que la empresa deja de operar. Correo firmado con DKIM de su dominio; sin contrastar fuera. Posible noticia para Iker, verificando antes en una segunda fuente.
+
+#### Lo que NO se copia
+Tacos, registro sexual y desprecio al lector de Isra; sus erratas; el superlativo de Hugo; el `Re:` de Kleo en un recordatorio masivo, que simula una conversación (`§0b`); las 1.700-2.400 palabras de Sonia, Cosas de Freelance y B2B Creator; las cifras sin fuente.
+
+#### 📥 Intake (Mario)
+**RunnerPro: cuarta semana sin nada.** Lavender: novena semana con la de Illinois. **Sonia Ferrent ya llega** (cerrado el pendiente de `§8n`). lemlist, Tendios y Hoppy Copy siguen sin dar señal. El ZIP trae correos fechados el 09/11 por la tarde: la ventana llega hasta hoy.
+
 ## 9 · Entrega y validación (cada email, sin excepción)
 
 ### 🤝 5-COLABORACION · CUANDO EL CORREO DIFUNDE ALGO DE UN TERCERO (2026-10-05, correo 7)

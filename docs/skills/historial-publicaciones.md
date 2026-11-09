@@ -73,6 +73,24 @@
 > - **Gancho genérico en Unai:** el brazo B sale mañana, mar 03/11 (lanzamiento).
 > - **Lead magnet con enlace público:** ⚠️ **NO SE PUBLICÓ el 30/10** (no está en LinkedIn ni en la BD el 02/11; el material sigue en el Escritorio, `LEAD MAGNET UNAI 30-10`). Sin brazo B. Se mantiene la fila hasta que Iker diga si sale y cuándo.
 
+> **🔄 Repaso fila por fila del lunes 09/11 (paso 0, base refrescada hoy 163 de 164, altas y reuniones por `utm_campaign` en la web):**
+> - **Tipo de cliente del ninja:** sin cierre. Tipo 4 (meme, 91 clics) 0 reuniones · tipo 2 (mapa, despiece, "Las 10") 0 reuniones · tipo 1 (lead magnet) 2,35 leads por 1.000. La única reunión atribuida a un post es del lanzamiento, cuyo ninja no tiene tipo.
+> - **Forma del enlace en peloteo:** sin dato nuevo de línea sola. Los tres de la semana, bloque de 2. Siguen faltando los clics por UTM de GA4.
+> - **Separación del ninja en "Las 10":** Castilla y León, 0,027% de CTR (15 de 54.550). El CTR de la familia cae cuando sube el alcance (14.148: 0,042%; 57.828: 0,033%), así que no aísla la separación. Sin cierre.
+> - **Foto de la historia, selfie contra grupo:** Asier 03/11, foto de socios, 2.098, por debajo de su olfato (4.526, selfie). Va en la misma dirección que el 02/11, confundido con el gancho. Sin cierre.
+> - **Director comercial en la historia:** Asier 03/11 lo lleva en el gancho: 2.098, 2 de fuera. Sus historias con él: 1.470 y 2.098; sin él, mediana 13.655 (n=2). n pequeño, sin cierre y no se mete por defecto.
+> - **Cuadrada o vertical 4:5, mirada de perfil, persona o sala en el ninja, mapa de adición, "Las 20":** sin dato nuevo.
+> - **Hilo conductor en el ninja del peloteo:** los tres de la semana son brazo B, todos a `/solicitar-demo` con 0 reuniones. No se puede comparar con los brazos a Luma. Sin cierre.
+> - **Mapa de país:** brazo B n=1, resultado en `post-workflow §4.2-PAÍS`. Alcance sí, función no. Se ajusta.
+> - **Sector de la plantilla del despiece:** brazo B n=1, 1.507. **Se cierra:** cambiar de sector no arregla el formato (`post-workflow §4.7`).
+> - **Perspectiva del ancla:** Asier 03/11 (el cliente), 2.098 y 0,19% de CTR, contra 27/10 (cliente y empresa) 0,46% y olfato (el que vende) 0,22%. Sin cierre.
+> - **Palabra naranja en el título del meme:** segundo brazo B, las anclas (49.850), contra 13.281 del 30/10. Los brazos A siguen siendo de verano. Sin cierre.
+> - **Gancho genérico en Unai:** sin brazo B.
+> - **Lead magnet con enlace público:** brazo B n=1, 2,35 leads por 1.000 y 852 impresiones (`post-workflow §4.5.0-BUENOS-CONTRA-MALOS`). Sin cierre; el jue 12 va con palabra en la imagen.
+
+> ✅ **VEREDICTO DE LAS SEIS PRUEBAS DE LA SEMANA DEL 02/11 (revisión del 09/11; detalle en cada receta):** lead magnet con enlace público, **se ajusta** (convierte por impresión, no llega) · colaborativo del lanzamiento, **se queda para hitos** (única reunión atribuida a un post) · mapa de país, **se ajusta** (alcance sí, guardados no) · meme de las anclas, **se queda y se repite el molde** (reconocerse con un dato de fuente conocida) · despiece de maquinaria, **se abandona como peloteo de alcance** · "Las 10" con logos en Unai, **se queda** como alcance.
+> **Conversión de la semana:** 12 altas con casilla (6 con UTM de posts, 2 de ellas del lead magnet), 8 solicitudes de reunión y 5 cualificadas con hora (1 por post, 1 por el botón del perfil de Unai, 2 de Google y 1 de otro origen), contra 1 cualificada la semana anterior. ⚠️ **Noviembre es de leads y solo 1 de los 7 posts llevó a un gate:** el destino por defecto del 06/11 (`/solicitar-demo`) y el objetivo del mes tiran en sentidos opuestos, y hay que elegir.
+
 > **Y los correos tienen su propia tabla al principio de `historial-newsletter.md`, que se revisa en la misma sesión.**
 
 > ✅ **Resuelto (comprobado el 02/11 en `landing`):** la banda caducó sola el 28/10 a las 11:00 (`lib/webinar.ts`, con el OK de Iker del 27/10); `WEBINAR_ACTIVE` sigue a `true` solo como interruptor manual. Lo de abajo queda como registro.

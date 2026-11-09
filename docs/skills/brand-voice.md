@@ -938,6 +938,8 @@ año tampoco entra nunca en el prompt del diseñador.
 
 ## ⛔⛔ CANÓNICO · NO CRITICAMOS A NADIE, Y A NOSOTROS TAMPOCO (Iker, 2026-08-11) — GLOBAL
 
+**La IA que falla va siempre en casa ajena (2026-11-09).** Una escena donde alguien saca una lista con la IA y le sale mal no la protagoniza nunca Neety, sus jefes ni la mascota: se cuenta en otra empresa inventada o como creencia ajena. Imagen de marca, las tres cuentas y el correo. *(sin medir: criterio del equipo)*
+
 **Regla única, para TODOS los pilares y TODAS las cuentas, y vale igual en el gancho,
 en el cuerpo, en el cierre, en el spam ninja, en el texto de la imagen y en el DM.**
 

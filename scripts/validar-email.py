@@ -296,6 +296,17 @@ def main():
                             f'de broma, aunque firme la mascota (email-marketing §8l)'))
     else:
         checks.append(ok('Sin el dinero de la casa como trastada'))
+    # La IA que da una lista mala nunca es de casa (2026-11-09, email-marketing §8l): si la mascota o
+    # sus jefes la usan en la escena, se lee que nuestros resultados son los de cualquier IA.
+    _ia_casa = next((l.strip() for l in _cuerpo_sin_pd.splitlines()
+                     if re.search(r'(IA|ChatGPT|Copilot|Gemini)', l)
+                     and re.search(r'(copi[eé]|ped[ií]|encargu[eé]|saqu[eé]|hice|us[eé]|firm[eé]|copiamos|pedimos|encargamos'
+                                   r'|usamos|sacamos|hicimos|mis jefes|mi jefe)', l, re.I)), None)
+    if _ia_casa:
+        checks.append(fallo(f'IA en la escena de casa: "{_ia_casa[:60]}". El que usa la IA y falla va en otra empresa '
+                            f'inventada, nunca la mascota ni sus jefes (email-marketing §8l)'))
+    else:
+        checks.append(ok('La IA de la escena no es de casa'))
     # ⛔ La unidad del dolor rota sin bajar (2026-11-02, global §4.4b-UNIDAD): los clientes miden
     # el dolor en mucho tiempo, no en la palabra "meses". Falla si un correo de los 3 anteriores
     # usó la misma unidad; avisa si baja a semanas, días u horas. Al programar, se añade aquí.

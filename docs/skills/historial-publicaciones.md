@@ -138,6 +138,7 @@
 > | **Vie 13** | **Mapa** de comunidad (25 días sin mapa) → demo · función: guardados y envíos | — | **«Las 10» de maquinaria** (prueba del despiece) → demo | RevOps (jue 12) · el cierre del viaje, colaborativo el lun 16 |
 >
 > - **Excepciones declaradas:** el martes van dos memes de subtipo distinto (captura en Iker, gráfica en Asier), porque es el pilar con más margen en esas dos cuentas y sale en cuentas que se leen por separado; el viernes, dos peloteos de subtipo distinto, como el 06/11.
+> - **Estado de los chats (10/11, 11:00):** la historia de ChatGPT de Iker ya está escrita y validada (85/85, criterio 8/8) y queda para su hueco del miércoles; la fase 1 del meme de Unai (3 referencias) queda para su hueco del miércoles; el lead magnet de FIRMA de Asier (72/72, criterio 10/10, imagen en `LEAD MAGNETS/lead magnet firma asier.png`) queda aparcado. Para hoy faltan dos chats nuevos: el meme de captura de Iker y la historia de Unai.
 > - **Fuera de la semana:** el lead magnet en Asier (su peor pilar) y el "Las 10" en Iker (su mejor pilar, 14 días sin él), que queda para la semana del 16/11.
 > - **Lectura de la prueba del viernes:** si el "Las 10" de maquinaria pasa de 10.000, lo que hundió el despiece fue la imagen; si se queda cerca de 2.000, fueron el sector y las empresas que nadie reconoce.
 >

@@ -63,7 +63,17 @@ export interface PendingGroup {
 // disappears + the count drops) without a full re-scan; the header's
 // "Actualizar" does the real refetch. When every comment is handled, the
 // whole group collapses.
-export function PostGroup({ group, children }: { group: PendingGroup; children?: ReactNode }) {
+export function PostGroup({
+  group,
+  children,
+  onPendingChange,
+}: {
+  group: PendingGroup;
+  children?: ReactNode;
+  // Cuántos hilos quedan pendientes aquí tras contestar o ignorar, para que el
+  // total de la cabecera de la pestaña baje sin recargar.
+  onPendingChange?: (postId: string, pendientes: number) => void;
+}) {
   const PER_POST = 3;
   const [visible, setVisible] = useState(PER_POST);
   const [dismissed, setDismissed] = useState<Set<string>>(new Set());
@@ -75,15 +85,23 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
   // CSS, que es la forma facil y la que dispararia las diez.
   const [abierto, setAbierto] = useState(false);
 
-  // IGNORAR (2026-11-10, spec 2026-11-10-ignorar-comentarios-design). El hilo
-  // que devuelve el backend tras ignorar sustituye al de la carga (null = ya no
-  // queda nada pendiente). La regla vive SOLO en el backend
-  // (services/comentariosPendientes.ts): aquí no se recalcula nada, salvo el
-  // respaldo de abajo si LinkedIn no contesta.
+  // IGNORAR (2026-11-10, spec 2026-11-10-ignorar-comentarios-design).
+  //
+  // La regla de verdad vive SOLO en el backend (services/comentariosPendientes.ts).
+  // Pero recalcular el hilo es pedírselo otra vez a LinkedIn y tarda unos
+  // segundos: esperar con la tarjeta delante se nota lento y se come el tiempo
+  // de deshacer. Así que la tarjeta cambia AL MOMENTO con una estimación (quitar
+  // el ignorado de lo pendiente) y, cuando llega el hilo del backend, ese manda.
+  // null = ya no queda nada pendiente en el hilo.
   const [recalculados, setRecalculados] = useState<Map<string, Thread | null>>(new Map());
   const [deshacer, setDeshacer] = useState<{ commentId: string; threadId: string; previo: Thread } | null>(null);
   const [avisoIgnorar, setAvisoIgnorar] = useState<string | null>(null);
   const timerDeshacer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // La petición de ignorar de cada comentario, para que «Deshacer» espere a que
+  // acabe: si el DELETE llegara antes que el POST, el ignorado se quedaría puesto.
+  const enVuelo = useRef<Map<string, Promise<unknown>>>(new Map());
+  // Los comentarios cuyo ignorar se deshizo: su respuesta tardía ya no manda.
+  const deshechos = useRef<Set<string>>(new Set());
   useEffect(() => () => { if (timerDeshacer.current) clearTimeout(timerDeshacer.current); }, []);
 
   const { post } = group;
@@ -92,23 +110,40 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
     .filter((t): t is Thread => !!t && !dismissed.has(t.id));
   const esLm = !!group.es_lead_magnet;
 
+  // El contador de la cabecera de la pestaña tiene que bajar con lo que se
+  // ignora o se contesta aquí, sin esperar a «Actualizar».
+  useEffect(() => {
+    onPendingChange?.(post.id, threads.length);
+  }, [post.id, threads.length, onPendingChange]);
+
   const ignorar = async (thread: Thread, commentId: string) => {
     setAvisoIgnorar(null);
-    const res = await apiPost<{ thread: Thread | null; recalculado: boolean }>(
+    deshechos.current.delete(commentId);
+    const quedan = (thread.pending_followups ?? []).filter((f) => f.id !== commentId);
+    const estimado = commentId === thread.id || quedan.length === 0 ? null : { ...thread, pending_followups: quedan };
+    setRecalculados((m) => new Map(m).set(thread.id, estimado));
+    setDeshacer({ commentId, threadId: thread.id, previo: thread });
+    if (timerDeshacer.current) clearTimeout(timerDeshacer.current);
+    timerDeshacer.current = setTimeout(() => setDeshacer(null), 8000);
+
+    const peticion = apiPost<{ thread: Thread | null; recalculado: boolean }>(
       `/api/accounts/posts/${post.id}/comments/${encodeURIComponent(commentId)}/ignore`,
       {}
     );
-    let nuevo = res.thread;
-    if (!res.recalculado) {
-      // Respaldo si LinkedIn no respondió: el ignorado ya está guardado y la
-      // próxima carga lo coloca bien. Mientras, se quita de lo pendiente.
-      const quedan = (thread.pending_followups ?? []).filter((f) => f.id !== commentId);
-      nuevo = commentId === thread.id || quedan.length === 0 ? null : { ...thread, pending_followups: quedan };
+    enVuelo.current.set(commentId, peticion.catch(() => undefined));
+    try {
+      const res = await peticion;
+      if (deshechos.current.has(commentId)) return;
+      if (res.recalculado) setRecalculados((m) => new Map(m).set(thread.id, res.thread));
+    } catch (e: any) {
+      if (deshechos.current.has(commentId)) return;
+      // No se guardó: la tarjeta vuelve tal cual estaba y se dice por qué.
+      setRecalculados((m) => new Map(m).set(thread.id, thread));
+      setDeshacer(null);
+      setAvisoIgnorar(`✗ No se pudo ignorar: ${e.message}`);
+    } finally {
+      enVuelo.current.delete(commentId);
     }
-    setRecalculados((m) => new Map(m).set(thread.id, nuevo));
-    setDeshacer({ commentId, threadId: thread.id, previo: thread });
-    if (timerDeshacer.current) clearTimeout(timerDeshacer.current);
-    timerDeshacer.current = setTimeout(() => setDeshacer(null), 6000);
   };
 
   const deshacerIgnorar = async () => {
@@ -116,11 +151,13 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
     const d = deshacer;
     if (timerDeshacer.current) clearTimeout(timerDeshacer.current);
     setDeshacer(null);
+    deshechos.current.add(d.commentId);
+    setRecalculados((m) => new Map(m).set(d.threadId, d.previo));
     try {
+      await enVuelo.current.get(d.commentId);
       await apiDelete(`/api/accounts/posts/${post.id}/comments/${encodeURIComponent(d.commentId)}/ignore`);
-      setRecalculados((m) => new Map(m).set(d.threadId, d.previo));
     } catch (e: any) {
-      setAvisoIgnorar(`✗ No se pudo deshacer: ${e.message}`);
+      setAvisoIgnorar(`✗ No se pudo deshacer: ${e.message}. Seguirá ignorado al recargar.`);
     }
   };
   const onIgnore = esLm ? undefined : ignorar;

@@ -47,9 +47,12 @@ solo existe en nuestra base de datos, LinkedIn no se entera.
   general y la vista de un post dicen lo mismo.
 - **Rutas**: `POST` y `DELETE /api/accounts/posts/:postId/comments/:commentId/ignore`.
 - **Frontend** (`CommentCards.tsx`): botón en `ThreadCard` y en cada respuesta
-  «sin contestar». Al ignorar, la tarjeta se actualiza al momento: desaparece si
-  no queda pendiente, o se reapunta al siguiente follow-up. La chapa «N sin
-  responder» baja. El borrador en curso se descarta.
+  «sin contestar». Al ignorar, la tarjeta cambia al momento con una estimación
+  (quitar el ignorado de lo pendiente) y el hilo que devuelve el backend la
+  sustituye al llegar: recalcular es volver a pedírselo a LinkedIn y tarda unos
+  segundos. «Deshacer» dura 8 s y espera a que acabe el POST antes del DELETE.
+  La chapa del post y el total de la cabecera de la pestaña bajan sin recargar.
+  El borrador en curso se descarta.
 
 ## Pruebas
 

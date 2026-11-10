@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi';
 import { PostGroup } from './CommentCards';
 import type { PendingGroup } from './CommentCards';
@@ -72,7 +72,18 @@ export default function RepliesPanel({ accounts, onSelectCreator }: Props) {
   const groups = choice === 'all'
     ? allGroups
     : allGroups.filter((g) => g.post.creator_id === choice);
-  const totalPending = groups.reduce((n, g) => n + g.pending_count, 0);
+  // Lo que cada post dice que le queda tras contestar o ignorar sin recargar.
+  // Se vacía con cada carga nueva: entonces manda lo que trae el backend.
+  const [restantes, setRestantes] = useState<Map<string, number>>(new Map());
+  useEffect(() => { setRestantes(new Map()); }, [data]);
+  const alCambiarPendientes = useCallback((postId: string, n: number) => {
+    setRestantes((m) => (m.get(postId) === n ? m : new Map(m).set(postId, n)));
+  }, []);
+  const pendientesDe = (g: (typeof groups)[number]) => restantes.get(g.post.id) ?? g.pending_count;
+  const totalPending = groups.reduce((n, g) => n + pendientesDe(g), 0);
+  // Un lead magnet sigue contando como post con trabajo aunque no le queden
+  // comentarios: puede deber recursos.
+  const postsConPendientes = groups.filter((g) => pendientesDe(g) > 0 || g.es_lead_magnet).length;
   // Las cuentas del bloque de solicitudes se filtran igual que los grupos: con
   // una cuenta elegida, las solicitudes de las otras dos no pintan nada aqui.
   const cuentas = (data?.cuentas ?? []).filter((c) => choice === 'all' || c.creator_id === choice);
@@ -103,7 +114,7 @@ export default function RepliesPanel({ accounts, onSelectCreator }: Props) {
         {choice && data && (
           <span className="text-xs text-text-secondary">
             <span className="font-semibold text-text-primary">{totalPending}</span> comentario
-            {totalPending === 1 ? '' : 's'} sin responder en {groups.length} post{groups.length === 1 ? '' : 's'}
+            {totalPending === 1 ? '' : 's'} sin responder en {postsConPendientes} post{postsConPendientes === 1 ? '' : 's'}
           </span>
         )}
         {choice && (
@@ -144,7 +155,7 @@ export default function RepliesPanel({ accounts, onSelectCreator }: Props) {
       )}
 
       {groups.slice(0, visibleGroups).map((g) => (
-        <PostGroup key={g.post.id} group={g}>
+        <PostGroup key={g.post.id} group={g} onPendingChange={alCambiarPendientes}>
           {/* Un lead magnet se trabaja con SU panel entero, el mismo que tenia la
               pestana Lead Magnet: la config del recurso, el filtro por grado, los
               dos bloques de seguimiento y una tarjeta por comentarista con la

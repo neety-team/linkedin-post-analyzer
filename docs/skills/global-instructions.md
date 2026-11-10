@@ -2429,7 +2429,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > - **La herramienta que dura 15 días:** *"están los primeros 15 días muy loquito y después no los utilizas"* (Bianditz, sobre los CRM). Objeción de 12 empresas (sin alguien que la use a diario, se abandona). Meme de oficina, sin juzgar a nadie.
 > - **El correo de `estimado chomín`** (Biele): los mensajes automáticos que reciben a diario. Meme, y refuerza `Tú confirmas`.
 > - **"No es el momento"** (13 empresas, las 13 del ICP: fábricas a tope, el CRM primero, una reestructuración). No es tema de post, pero sí el trabajo de la newsletter (`email-marketing §5-NINJA`).
-> - ⛔ **Fuera, aunque se repitan:** ~~el tamaño por planta (5 ICP) y las empresas con varias plantas son funciones en desarrollo (`§4.4b-NO-EXCEL`, no se nombran);~~ 🔄 10/11: las varias plantas ya están en producción y se pueden contar (`§4.4b`, feedback del 10/11); el CRM dentro (30) y las listas propias (14) son producto, no contenido.
+> - ⛔ **Fuera, aunque se repitan:** ~~el tamaño por planta (5 ICP) y las empresas con varias plantas son funciones en desarrollo (`§4.4b-NO-EXCEL`, no se nombran);~~ 🔄 10/11: las varias plantas ya están en producción y se pueden contar (`§4.4b`, feedback del 10/11); *(criterio de veracidad, sin medir)* el CRM dentro (30) y las listas propias (14) son producto, no contenido.
 >
 > #### ✅ LO QUE EL NINJA SÍ PUEDE PROMETER (ordenado por cuántas empresas lo piden)
 >

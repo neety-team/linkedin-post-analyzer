@@ -201,12 +201,26 @@ const CATALOGO: RecursoDef[] = [
     // el post se reescribio tres veces por un capado de alcance y la palabra
     // cambio, pero la pagina siguio siendo /firma/. Con el catalogo eso es una
     // sola entrada con dos claves, que es lo que siempre fue.
-    link: 'https://recursos.neety.com/firma/',
-    topic: 'los 5 mensajes para dar con quien cierra la compra',
+    //
+    // REEDICION DEL 2026-11-10 (Asier). El recurso vive ya en la Academia de neety.com
+    // (recursos.neety.com/firma/ redirige alli). La palabra va DENTRO de la imagen
+    // (`FIRMA`) y el texto del post no la dice, asi que lo reconocen las PISTAS.
+    // Las cinco de la segunda fila son de ese post: comprobadas contra su texto real
+    // (casan las cinco, mas `firma la compra` y `quien decide` de la primera fila) y
+    // contra los 31 lead magnets publicados desde abril y las pistas de los otros
+    // recursos: ningun solape. Ojo con /webinar/: su pista es `tornillos` y este post
+    // dice `fabrica de tornos`, que no la contiene.
+    //
+    // El enlace lleva el UTM del DM de este post para leer sus leads por campana; en el
+    // siguiente lead magnet con este recurso se cambian utm_campaign y utm_content.
+    link: 'https://neety.com/academia/firma?utm_source=linkedin&utm_medium=dm&utm_campaign=leadmagnet-palabra-10nov&utm_content=asier',
+    topic: 'las 5 preguntas a Claude para saber quién firma la compra',
     claves: ['firma', 'nombre'],
     pistas: [
       'quien firma', 'firma la compra', 'prospeccion por nombre',
       '5 mensajes', 'quien decide', 'con quien hablo',
+      'descuelga el que no firma', 'por quien preguntar', 'fabrica de tornos',
+      'quien lo frenaria', 'no descuelga ningun telefono',
     ],
   },
   {

@@ -17,6 +17,7 @@ import { captureAccountSnapshots } from '../services/accountSnapshots';
 import { extractViewerTimestamps } from '../utils/wvmp';
 import { generateReply, respuestaDeApoyo, diagnosticoUltimaRespuesta } from '../services/replyGenerator';
 import { recordarRespuestasPublicadas } from '../services/variedadComentarios';
+import { marcarPendientes } from '../services/comentariosPendientes';
 import { getMemeImageSummary } from '../services/postImageText';
 import { cortar } from '../services/textoSeguro';
 import { curvaPost, curvaTipica } from '../services/curvaImpresiones';
@@ -3046,90 +3047,14 @@ async function buildThreadsForPost(post: any): Promise<{ threads: ThreadedCommen
   const authorLinkedInId: string | null = post.creator_linkedin_id
     ? String(post.creator_linkedin_id).replace(/^urn:li:[a-z_]+:/, '')
     : null;
-  // ⛔ "CONTESTADO" ES CONTESTADO LO ÚLTIMO, NO CONTESTADO ALGUNA VEZ
-  // (Iker, 2026-08-11).
-  //
-  // Antes bastaba con que EXISTIERA una respuesta nuestra en el hilo para
-  // darlo por cerrado para siempre. Pero un hilo sigue vivo después de que
-  // contestemos: en el lead magnet del 11/08, Iker respondió a Mario, y
-  // después entraron Vicente Garcés pidiendo el recurso y Mario otra vez. La
-  // herramienta ya no los enseñaba, así que un lead que pedía el recurso EN
-  // VOZ ALTA se quedaba sin contestar y sin que nadie lo viera.
-  //
-  // Ahora se compara con la FECHA: un hilo vuelve a estar pendiente si alguien
-  // que no somos nosotros ha escrito DESPUÉS de nuestra última intervención.
-  // Y los mensajes nuevos van aparte en `pending_followups`, para que la UI
-  // pueda enseñar exactamente cuáles hay que responder en vez de repintar el
-  // hilo entero como si no lo hubiéramos tocado.
-  const nuestraUltimaHora = (t: ThreadedComment): number | null => {
-    const mias = [
-      ...(t.author.profile_id === authorLinkedInId ? [t.date] : []),
-      ...t.replies.filter((r) => r.author.profile_id === authorLinkedInId).map((r) => r.date),
-    ].map(tsOf);
-    return mias.length ? Math.max(...mias) : null;
-  };
-  for (const t of topLevel) {
-    if (!authorLinkedInId) {
-      t.answered_by_author = false;
-      t.pending_followups = [];
-      continue;
-    }
-    const mia = nuestraUltimaHora(t);
-    if (mia === null) {
-      // Nunca hemos ESCRITO en el hilo, así que no hay follow-ups que separar:
-      // el pendiente es el comentario de arriba entero.
-      //
-      // Pero sí puede estar atendido con una REACCIÓN, y eso cuenta igual que
-      // en el resto del flujo: la cola aquí es la última respuesta si la hay, y
-      // si no el propio comentario de arriba. Sin esto, reaccionar a un
-      // comentario sin contestarlo lo dejaba en la bandeja para siempre.
-      const colaSinNosotros = t.replies.length ? t.replies[t.replies.length - 1] : t;
-      t.answered_by_author = !!colaSinNosotros.my_reaction;
-      t.pending_followups = [];
-      continue;
-    }
-    // Una fecha ausente vale 0, así que nunca cuenta como posterior: mejor no
-    // resucitar un hilo por un dato que falta que inundar la bandeja.
-    //
-    // ⛔ Y UNA REACCIÓN NUESTRA YA CUENTA COMO ATENDERLO (Iker, 2026-08-11).
-    //
-    // Al empezar a mostrar los follow-ups, la bandeja se llenó: cada hilo vivo
-    // de cada post reciente vuelve a entrar. Pero a muchos de esos mensajes la
-    // respuesta correcta ES un 👍 — no todo merece texto. Si reaccionar no los
-    // sacaba de la lista, la única forma de vaciarla era contestar a todo.
-    //
-    // `my_reaction` viene de `user_reacted` de Unipile, o sea de LinkedIn: vale
-    // igual si la reacción se puso desde la app o desde el móvil.
-    //
-    // ⏱️ El efecto es DIFERIDO a propósito, que es justo como lo pidió: esto se
-    // calcula al pedir los comentarios, así que el que acabas de reaccionar
-    // sigue en pantalla hasta que recargas. Si desapareciera al instante, la
-    // tarjeta se esfumaría bajo el cursor y no podrías rectificar.
-    t.pending_followups = t.replies.filter(
-      (r) => r.author.profile_id !== authorLinkedInId && tsOf(r.date) > mia && !r.my_reaction
-    );
-
-    // ⛔ LO QUE CIERRA UN HILO ES SU COLA, NO QUE NO QUEDE NADA SUELTO EN MEDIO
-    // (Iker, 2026-08-12).
-    //
-    // Antes bastaba UN mensaje sin atender en cualquier punto para que el hilo
-    // volviera. Y hay un caso en el que eso es justo lo contrario de lo que
-    // quieres: el hilo del tatuaje, donde a un comentario hostil de en medio se
-    // decidió NO contestar, y al de abajo se le puso una reacción. Con la regla
-    // vieja ese hilo reaparecía para siempre por el de en medio.
-    //
-    // Iker: *"si entre medias hay un comentario sin responder ni interactuar es
-    // por algo. Dudo que se me haya olvidado"*. Un hilo es una conversación: si
-    // la ÚLTIMA intervención está atendida —es nuestra, o le hemos puesto una
-    // reacción— la conversación está cerrada, decidas lo que decidas del medio.
-    // Y si entra alguien nuevo, la cola cambia y el hilo vuelve solo, que es
-    // exactamente lo que se quiere.
-    //
-    // La cola es la última respuesta; si el hilo no tiene ninguna, es el propio
-    // comentario de arriba.
-    const cola = t.replies.length ? t.replies[t.replies.length - 1] : t;
-    t.answered_by_author = cola.author.profile_id === authorLinkedInId || !!cola.my_reaction;
-  }
+  // Qué hilos siguen pendientes, a quién contestar y los IGNORADOS: las reglas
+  // y su porqué viven en services/comentariosPendientes.ts (sacado el 2026-11-10
+  // para poder testearlo). Los ignorados son de NUESTRA base, no de LinkedIn.
+  const { rows: filasIgnoradas } = await pool.query(
+    'SELECT comment_social_id FROM comment_ignores WHERE post_id = $1',
+    [post.id]
+  );
+  marcarPendientes(topLevel, authorLinkedInId, new Set(filasIgnoradas.map((r: any) => r.comment_social_id)));
 
   // LO YA CONTESTADO EN ESTE POST, para que la siguiente respuesta no repita
   // la idea (Iker, 2026-10-01: en "Las 10" de CLM las 3 dijeron que "nadie lo
@@ -3147,6 +3072,57 @@ async function buildThreadsForPost(post: any): Promise<{ threads: ThreadedCommen
 
   return { threads: topLevel, rawSample: raw[0] };
 }
+
+// IGNORAR UN COMENTARIO (2026-11-10, spec 2026-11-10-ignorar-comentarios-design).
+// POST lo ignora y DELETE lo deshace. Los dos devuelven el hilo recalculado
+// (`thread`), o null si con eso el hilo ya no tiene nada pendiente, para que
+// la tarjeta se actualice con la misma regla que la bandeja y no con una copia.
+// Fuera de los lead magnet: ahí cada comentario es casi siempre un lead.
+async function hiloTrasIgnorar(req: Request, res: Response, ignorar: boolean) {
+  try {
+    const postId = req.params.postId as string;
+    const commentId = req.params.commentId as string;
+    const postQ = await pool.query(
+      `SELECT p.id, p.linkedin_post_id, p.pillar, c.linkedin_id AS creator_linkedin_id,
+              c.unipile_account_id
+         FROM posts p
+         JOIN creators c ON c.id = p.creator_id
+        WHERE p.id = $1`,
+      [postId]
+    );
+    if (postQ.rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
+    const post = postQ.rows[0];
+    if (post.pillar === 'lead_magnet') {
+      return res.status(400).json({ error: 'En un lead magnet no se ignoran comentarios: cada uno es un posible lead' });
+    }
+    if (ignorar) {
+      await pool.query(
+        `INSERT INTO comment_ignores (comment_social_id, post_id) VALUES ($1, $2)
+         ON CONFLICT (comment_social_id) DO NOTHING`,
+        [commentId, postId]
+      );
+    } else {
+      await pool.query('DELETE FROM comment_ignores WHERE comment_social_id = $1', [commentId]);
+    }
+    // El estado ya está guardado. Si LinkedIn no responde, el ignorado vale
+    // igual y la tarjeta se recoloca en la siguiente carga.
+    let thread: any = null;
+    try {
+      const { threads } = await buildThreadsForPost(post);
+      const hilo = threads.find((t) => t.id === commentId || t.replies.some((r) => r.id === commentId));
+      thread = hilo && !hilo.answered_by_author ? hilo : null;
+    } catch (err: any) {
+      console.warn('[comments/ignore] no se pudo recalcular el hilo:', err?.message);
+      return res.json({ ok: true, thread: null, recalculado: false });
+    }
+    res.json({ ok: true, thread, recalculado: true });
+  } catch (err: any) {
+    console.error('[comments/ignore]', err);
+    res.status(500).json({ error: err.message });
+  }
+}
+router.post('/posts/:postId/comments/:commentId/ignore', (req, res) => hiloTrasIgnorar(req, res, true));
+router.delete('/posts/:postId/comments/:commentId/ignore', (req, res) => hiloTrasIgnorar(req, res, false));
 
 router.get('/posts/:postId/comments', async (req: Request, res: Response) => {
   try {

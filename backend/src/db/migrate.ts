@@ -1231,6 +1231,16 @@ const migration = `
     inscritos_luma INTEGER,
     actualizado_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
   );
+
+  -- Comentarios IGNORADOS a proposito en la bandeja (2026-11-10, spec
+  -- 2026-11-10-ignorar-comentarios-design). Una reaccion invisible: cuenta como
+  -- atendido y LinkedIn no se entera. Por COMENTARIO, nunca por persona.
+  CREATE TABLE IF NOT EXISTS comment_ignores (
+    comment_social_id TEXT PRIMARY KEY,
+    post_id UUID REFERENCES posts(id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  );
+  CREATE INDEX IF NOT EXISTS idx_comment_ignores_post ON comment_ignores(post_id);
 `;
 
 /**

@@ -10,7 +10,7 @@
    mismo codigo que llevaba meses funcionando. */
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { apiPost } from '../../hooks/useApi';
+import { apiDelete, apiPost } from '../../hooks/useApi';
 import { Avatar, EmojiPicker, ReactionBar, fmtRelative } from './shared';
 import type { Thread } from './shared';
 
@@ -75,9 +75,55 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
   // CSS, que es la forma facil y la que dispararia las diez.
   const [abierto, setAbierto] = useState(false);
 
+  // IGNORAR (2026-11-10, spec 2026-11-10-ignorar-comentarios-design). El hilo
+  // que devuelve el backend tras ignorar sustituye al de la carga (null = ya no
+  // queda nada pendiente). La regla vive SOLO en el backend
+  // (services/comentariosPendientes.ts): aquí no se recalcula nada, salvo el
+  // respaldo de abajo si LinkedIn no contesta.
+  const [recalculados, setRecalculados] = useState<Map<string, Thread | null>>(new Map());
+  const [deshacer, setDeshacer] = useState<{ commentId: string; threadId: string; previo: Thread } | null>(null);
+  const [avisoIgnorar, setAvisoIgnorar] = useState<string | null>(null);
+  const timerDeshacer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => { if (timerDeshacer.current) clearTimeout(timerDeshacer.current); }, []);
+
   const { post } = group;
-  const threads = group.pending_threads.filter((t) => !dismissed.has(t.id));
+  const threads = group.pending_threads
+    .map((t) => (recalculados.has(t.id) ? recalculados.get(t.id)! : t))
+    .filter((t): t is Thread => !!t && !dismissed.has(t.id));
   const esLm = !!group.es_lead_magnet;
+
+  const ignorar = async (thread: Thread, commentId: string) => {
+    setAvisoIgnorar(null);
+    const res = await apiPost<{ thread: Thread | null; recalculado: boolean }>(
+      `/api/accounts/posts/${post.id}/comments/${encodeURIComponent(commentId)}/ignore`,
+      {}
+    );
+    let nuevo = res.thread;
+    if (!res.recalculado) {
+      // Respaldo si LinkedIn no respondió: el ignorado ya está guardado y la
+      // próxima carga lo coloca bien. Mientras, se quita de lo pendiente.
+      const quedan = (thread.pending_followups ?? []).filter((f) => f.id !== commentId);
+      nuevo = commentId === thread.id || quedan.length === 0 ? null : { ...thread, pending_followups: quedan };
+    }
+    setRecalculados((m) => new Map(m).set(thread.id, nuevo));
+    setDeshacer({ commentId, threadId: thread.id, previo: thread });
+    if (timerDeshacer.current) clearTimeout(timerDeshacer.current);
+    timerDeshacer.current = setTimeout(() => setDeshacer(null), 6000);
+  };
+
+  const deshacerIgnorar = async () => {
+    if (!deshacer) return;
+    const d = deshacer;
+    if (timerDeshacer.current) clearTimeout(timerDeshacer.current);
+    setDeshacer(null);
+    try {
+      await apiDelete(`/api/accounts/posts/${post.id}/comments/${encodeURIComponent(d.commentId)}/ignore`);
+      setRecalculados((m) => new Map(m).set(d.threadId, d.previo));
+    } catch (e: any) {
+      setAvisoIgnorar(`✗ No se pudo deshacer: ${e.message}`);
+    }
+  };
+  const onIgnore = esLm ? undefined : ignorar;
   const accionables = group.accionables ?? 0;
   const esperando = group.esperando_su_paso ?? 0;
   const fallidos = group.fallidos ?? 0;
@@ -86,7 +132,10 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
   // debiendo recursos. Pero `esperando_su_paso` NO cuenta para quedarse: si lo
   // unico que hay es gente a la que ya le pediste la solicitud, aqui no puedes
   // hacer nada y el post solo te haria abrirlo para nada.
-  if (threads.length === 0 && !(esLm && (accionables > 0 || fallidos > 0 || seguimientos > 0))) return null;
+  // Mientras se puede deshacer, el post no se pliega aunque ya no quede nada:
+  // si no, el botón de deshacer desaparecería con él.
+  if (threads.length === 0 && !deshacer && !avisoIgnorar
+      && !(esLm && (accionables > 0 || fallidos > 0 || seguimientos > 0))) return null;
   // ⛔ LO QUE CUENTA LA CHAPA SE TIENE QUE VER AL ABRIR (2026-11-02). El
   // workspace del lead magnet deja fuera las paginas de empresa (no son lead ni
   // se les puede mandar un DM), pero «N sin responder» las cuenta: comento una
@@ -202,13 +251,33 @@ export function PostGroup({ group, children }: { group: PendingGroup; children?:
         </>
       ) : (
         <>
+          {(deshacer || avisoIgnorar) && (
+            <div className="mb-3 flex items-center gap-3 rounded-lg border border-border bg-bg-primary px-3 py-2 text-xs">
+              {deshacer ? (
+                <>
+                  <span className="text-text-secondary">Comentario ignorado. No volverá a salir salvo que alguien escriba después.</span>
+                  <button
+                    onClick={deshacerIgnorar}
+                    className="ml-auto font-medium text-accent hover:text-accent-strong"
+                  >
+                    Deshacer
+                  </button>
+                </>
+              ) : (
+                <span className="text-danger">{avisoIgnorar}</span>
+              )}
+            </div>
+          )}
           <div className="space-y-3">
             {threads.slice(0, visible).map((t) => (
               <ThreadCard
-                key={t.id}
+                // La clave cambia si cambian los pendientes: la tarjeta se monta
+                // de nuevo y no arrastra un borrador escrito para otra persona.
+                key={`${t.id}:${(t.pending_followups ?? []).map((f) => f.id).join(',')}`}
                 thread={t}
                 postId={post.id}
                 onReplied={() => setDismissed((s) => new Set(s).add(t.id))}
+                onIgnore={onIgnore ? (commentId) => onIgnore(t, commentId) : undefined}
               />
             ))}
           </div>
@@ -402,11 +471,14 @@ export function ThreadCard({
   postId,
   onReplied,
   handleRef,
+  onIgnore,
 }: {
   thread: Thread;
   postId: string;
   onReplied: () => void;
   handleRef?: (handle: ThreadCardHandle | null) => void;
+  // Sin él no se pinta el botón Ignorar (lead magnets, 2026-11-10).
+  onIgnore?: (commentId: string) => Promise<void>;
 }) {
   const [draft, setDraft] = useState<string>('');
   const [voice, setVoice] = useState<string | null>(null);
@@ -563,6 +635,11 @@ export function ThreadCard({
             <span className="text-[10px] text-text-muted ml-auto whitespace-nowrap flex-shrink-0">
               {fmtRelative(thread.date)}
             </span>
+            {/* Solo cuando lo que espera respuesta es el de arriba: si hay
+                follow-ups, el botón va en cada uno de ellos. */}
+            {onIgnore && followups.length === 0 && !sent && (
+              <IgnoreButton onIgnore={() => onIgnore(thread.id)} />
+            )}
           </div>
           {thread.is_media_only || !thread.text.trim() ? (
             <p className="text-sm text-text-muted italic flex items-center gap-1">
@@ -597,6 +674,11 @@ export function ThreadCard({
                       {followups.some((f) => f.id === r.id) && (
                         <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent/15 text-accent font-medium">
                           sin contestar
+                        </span>
+                      )}
+                      {onIgnore && !sent && followups.some((f) => f.id === r.id) && (
+                        <span className="ml-auto">
+                          <IgnoreButton compact onIgnore={() => onIgnore(r.id)} />
                         </span>
                       )}
                     </div>
@@ -706,5 +788,38 @@ export function ThreadCard({
         </div>
       </div>
     </div>
+  );
+}
+
+// «Ignorar» un comentario: discreto en reposo para no competir con «Generar
+// respuesta», y claro al pasar el ratón. Ignorar es una reacción invisible:
+// cuenta como atendido y LinkedIn no se entera (2026-11-10).
+function IgnoreButton({ onIgnore, compact = false }: { onIgnore: () => Promise<void>; compact?: boolean }) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const click = async () => {
+    setBusy(true);
+    setError(null);
+    try {
+      await onIgnore();
+    } catch (e: any) {
+      setError(e.message);
+      setBusy(false);
+    }
+  };
+  return (
+    <button
+      onClick={click}
+      disabled={busy}
+      title={error ? `✗ ${error}` : 'Ignorar este comentario: deja de salir en la bandeja sin responder ni reaccionar. LinkedIn no se entera.'}
+      className={`inline-flex items-center gap-1 rounded-full border whitespace-nowrap flex-shrink-0 transition-colors disabled:opacity-50 ${
+        error
+          ? 'border-danger/40 text-danger'
+          : 'border-border text-text-muted hover:border-text-secondary hover:bg-bg-primary hover:text-text-primary'
+      } ${compact ? 'px-1.5 py-0 text-[10px]' : 'px-2 py-0.5 text-[11px]'}`}
+    >
+      <span aria-hidden className="leading-none">{busy ? '…' : '✕'}</span>
+      <span>{busy ? 'Ignorando' : error ? 'Reintentar' : 'Ignorar'}</span>
+    </button>
   );
 }

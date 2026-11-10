@@ -1707,12 +1707,19 @@ CRITERIO = [
     # 28/10: una referencia de meme puede pasar todos los filtros y no parecerse a nada de lo que
     # nos funciono (el globo de Yoda, 5.447). Se pregunta tambien a que meme NUESTRO se parece.
     ('motor', '¿Cual es el MOTOR y en que se sostiene? Meme: el motor A/B, su referencia validada y a que meme NUESTRO se parece por formato y psicologia (grafica o evolucion con rotulos, relacion entre roles, captura) y no a los flojos (una persona sola, plantilla infantil), y si su gracia sobrevive a nuestro dibujo en flat sin reconocer a ningun personaje ni conocer una herramienta concreta, y que SUBTIPO es y si encaja con el objetivo (post-workflow §4.4-PUBLICO y §4.4-SUBTIPOS); mapa o "Las 10": el dato o cliche verificado; lead magnet: el mecanismo (live, urgencia); tarjeta: el original (global §8, post-workflow §4)'),
+    # 10/11: un meme salio 73/73 y 10/10 con el cuerpo hablando de otro tema (la recepcion, el
+    # tecnico, la planta del que firma) mientras la imagen y el texto del original iban de no
+    # querer llamar y de que "los dos tienen razon". La clave remix solo preguntaba por el hueso
+    # y se contesto con el de la imagen. Ahora se pide la tesis del TEXTO del original y la linea
+    # nuestra que la recoge, citada literal: si la cita no esta en el post, cuenta como sin contestar.
+    ('tesis', '¿Cual es la TESIS del TEXTO del post original (no de la imagen), en una frase, y que linea NUESTRA la recoge? Copiala entre comillas, literal, tal cual esta en el post. El cuerpo sigue el tema de la imagen y el giro del texto del original; si habla de otra cosa, se reescribe (post-workflow §4.4-TESIS)'),
     ('remix', '¿Que HUESO del original se roba y la mecanica del gancho es la misma, en una frase? ¿La referencia es de ventas, no la hemos usado ya y la traduccion literal esta escrita? (outliers §3.9c, post-workflow §4.4-PASO-0, -PASO-1-LITERAL, -FUENTE-VENTAS)'),
 ]
 # Que pilar contesta que clave. Las que no estan aqui las contestan todos.
 CRITERIO_PILAR = {
     'motor': {'meme', 'mapa', 'las10', 'los10', 'objeto', 'leadmagnet', 'tarjeta'},
     'remix': {'meme', 'tarjeta'},
+    'tesis': {'meme'},
 }
 HISTORIA_EVENTO = False
 
@@ -6470,6 +6477,11 @@ def main():
         # La escalera del gancho no vale como frase suelta: tres peldaños o no esta hecha.
         if 'punch' not in _falta and len(re.findall(r'→|->', _resp.get('punch', ''))) < 2:
             _falta.append('punch')
+        # La tesis lleva la linea nuestra citada literal: si la cita no esta en el post, no vale (10/11).
+        if any(k == 'tesis' for k, _q in CRITERIO) and 'tesis' not in _falta:
+            _cits = re.findall(r'["«“]([^"»”]{8,})["»”]', _resp.get('tesis', ''))
+            if not any(_c.strip() in texto for _c in _cits):
+                _falta.append('tesis')
         print('  CRITERIO (lo que el script no ve; se contesta en --criterio, una linea por clave):')
         for k, q in CRITERIO:
             print(f"  {'✅' if k not in _falta else '⛔'} {k}: {q}")

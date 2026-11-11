@@ -18,6 +18,7 @@ import { extractViewerTimestamps } from '../utils/wvmp';
 import { generateReply, respuestaDeApoyo, diagnosticoUltimaRespuesta } from '../services/replyGenerator';
 import { recordarRespuestasPublicadas } from '../services/variedadComentarios';
 import { marcarPendientes } from '../services/comentariosPendientes';
+import { umbralesSeguidores, umbralesImpresiones, cruces, acumular } from '../services/hitos';
 import { getMemeImageSummary } from '../services/postImageText';
 import { cortar } from '../services/textoSeguro';
 import { curvaPost, curvaTipica } from '../services/curvaImpresiones';
@@ -350,6 +351,76 @@ router.get('/follower-history', async (req: Request, res: Response) => {
     res.json({ points });
   } catch (err: any) {
     console.error('[accounts/follower-history]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/accounts/milestones?creator_id=&include_manual=
+// HITOS (2026-11-11): el dia en que se cruza cada millon de impresiones y cada
+// cifra redonda de seguidores, sobre TODO el historico. El frontend pinta solo
+// los que caen en el rango elegido. Spec: docs/superpowers/specs/2026-11-11-hitos-en-graficas-design.md
+router.get('/milestones', async (req: Request, res: Response) => {
+  try {
+    const raw = (req.query.creator_id as string) || '';
+    if (raw.startsWith('colab:')) return res.json({ impresiones: [], seguidores: [] });
+    const creatorId = raw || null;
+    const incluirManual = req.query.include_manual !== 'false';
+    const filtroManual = incluirManual ? '' : ' AND is_manual IS NOT TRUE';
+    const hoy = new Date().toISOString().slice(0, 10);
+    const DESDE = '2025-01-01';
+
+    // Impresiones: la misma serie diaria que la grafica (oficial + manuales por fecha de publicacion).
+    const params: any[] = [];
+    let oficialScope = `c.is_managed = TRUE AND c.unipile_account_id IS NOT NULL AND c.is_manual IS NOT TRUE`;
+    let manualScope = `p.creator_id IN (SELECT id FROM creators WHERE is_managed = TRUE${filtroManual})`;
+    if (creatorId) {
+      params.push(creatorId);
+      oficialScope = `c.id = $1 AND c.unipile_account_id IS NOT NULL`;
+      manualScope = `p.creator_id = $1`;
+    }
+    const { rows: imp } = await pool.query(
+      `WITH oficial AS (
+         SELECT d.day, SUM(d.impressions)::bigint AS v
+           FROM creator_daily_impressions d JOIN creators c ON c.id = d.creator_id
+          WHERE ${oficialScope} GROUP BY d.day),
+       manual AS (
+         SELECT (p.published_at)::date AS day, SUM(p.impressions_count)::bigint AS v
+           FROM posts p JOIN creators c ON c.id = p.creator_id AND c.is_manual = TRUE
+          WHERE ${manualScope} AND p.published_at IS NOT NULL
+            AND p.linkedin_post_id <> 'DEMO_LIVE_POST' AND p.deleted_from_linkedin_at IS NULL
+          GROUP BY 1)
+       SELECT day::text AS dia, SUM(v)::bigint AS valor
+         FROM (SELECT * FROM oficial UNION ALL SELECT * FROM manual) x
+        GROUP BY day ORDER BY day`,
+      params,
+    );
+    const acum = acumular(imp.map((r: any) => ({ dia: r.dia, valor: Number(r.valor) || 0 })));
+    const maxImp = acum.length ? acum[acum.length - 1].valor : 0;
+    let nombre: string | null = null;
+    if (creatorId) {
+      const { rows } = await pool.query(`SELECT name FROM creators WHERE id = $1`, [creatorId]);
+      nombre = rows[0]?.name ?? null;
+    }
+    const impresiones = cruces(acum, umbralesImpresiones(maxImp)).map((c) => ({
+      metrica: 'impresiones' as const, ...c, creatorId, creatorName: nombre,
+    }));
+
+    // Seguidores: cuenta a cuenta (la suma tiene saltos por altas de cuentas).
+    const cuentas: { id: string; name: string }[] = creatorId
+      ? [{ id: creatorId, name: nombre || '' }]
+      : (await pool.query(`SELECT id, name FROM creators WHERE is_managed = TRUE${filtroManual} ORDER BY created_at`)).rows;
+    const seguidores: any[] = [];
+    for (const cu of cuentas) {
+      const serie = await serieSeguidores(cu.id, true, DESDE, hoy);
+      const puntos = serie.map((p) => ({ dia: String(p.day).slice(0, 10), valor: p.followers || 0 }));
+      const max = puntos.reduce((m, p) => Math.max(m, p.valor), 0);
+      for (const c of cruces(puntos, umbralesSeguidores(max))) {
+        seguidores.push({ metrica: 'seguidores', ...c, creatorId: cu.id, creatorName: cu.name });
+      }
+    }
+    res.json({ impresiones, seguidores });
+  } catch (err: any) {
+    console.error('[accounts/milestones]', err);
     res.status(500).json({ error: err.message });
   }
 });

@@ -1,6 +1,6 @@
 # Hitos en las gráficas · Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Banderitas de hito (cada millón de impresiones; 1K/2,5K/5K/7,5K/10K y cada 5K de seguidores) en las gráficas de impresiones y de seguidores, solo si el día del hito cae en el rango elegido.
 
@@ -19,7 +19,7 @@
 
 ---
 
-### Task 1: Lógica pura del backend ✅
+### Task 1: Lógica pura del backend
 
 **Files:** Create `backend/src/services/hitos.ts`, `backend/src/services/hitos.test.ts`
 
@@ -27,7 +27,7 @@
 
 - [x] Test escrito (`hitos.test.ts`: umbrales, lo ya superado no cuenta, dos umbrales el mismo día, baja y sube, vacía, acumulado).
 - [x] `cd backend && npx tsx src/services/hitos.test.ts` → `✅ hitos: todos los casos pasan`.
-- [ ] Commit: `Hitos: logica de umbrales y cruces con su test`.
+- [x] Commit: `Hitos: logica de umbrales y cruces con su test`.
 
 ### Task 2: Endpoint `GET /api/accounts/milestones`
 
@@ -36,8 +36,8 @@
 **Consumes:** Task 1 y `serieSeguidores(creatorId, incluirManual, desde, hasta)` de `accounts.ts`.
 **Produces:** `{ impresiones: Hito[], seguidores: Hito[] }`, `Hito = { metrica: 'impresiones' | 'seguidores'; valor: number; dia: string; creatorId: string | null; creatorName: string | null }`.
 
-- [ ] Añadir `import { umbralesSeguidores, umbralesImpresiones, cruces, acumular } from '../services/hitos';`
-- [ ] Añadir la ruta:
+- [x] Añadir `import { umbralesSeguidores, umbralesImpresiones, cruces, acumular } from '../services/hitos';`
+- [x] Añadir la ruta:
 
 ```ts
 router.get('/milestones', async (req: Request, res: Response) => {
@@ -107,8 +107,8 @@ router.get('/milestones', async (req: Request, res: Response) => {
 });
 ```
 
-- [ ] `cd backend && npx tsc --noEmit -p .` → sin errores.
-- [ ] Commit: `Hitos: endpoint /api/accounts/milestones (impresiones del conjunto o de la cuenta, seguidores cuenta a cuenta)`.
+- [x] `cd backend && npx tsc --noEmit -p .` → sin errores.
+- [x] Commit: `Hitos: endpoint /api/accounts/milestones (impresiones del conjunto o de la cuenta, seguidores cuenta a cuenta)`.
 
 ### Task 3: Lógica pura del frontend
 
@@ -116,9 +116,9 @@ router.get('/milestones', async (req: Request, res: Response) => {
 
 **Produces:** `type Hito` (igual que el backend), `hitosEnRango(hitos, inicio, fin): Hito[]`, `cifraCorta(valor): string` (`4M`, `10K`, `2,5K`), `textoHito(hito): { titulo: string; quien: string; fecha: string }`, `porDia(hitos): Map<string, Hito[]>`.
 
-- [ ] Test (`node:assert`): `cifraCorta(4_000_000) === '4M'`, `cifraCorta(10_000) === '10K'`, `cifraCorta(2_500) === '2,5K'`, `cifraCorta(7_500) === '7,5K'`; `hitosEnRango` incluye los bordes y excluye fuera; `textoHito` de impresiones sin cuenta → `quien === 'entre todas las cuentas'`, de seguidores con `creatorName: 'Iker Galarza Rodríguez'` → `quien === 'Iker'`; `titulo` → `'4.000.000 impresiones'` / `'10.000 seguidores'`.
-- [ ] `cd backend && npx tsx ../frontend/src/utils/hitos.test.ts` → pasa.
-- [ ] Commit: `Hitos: utilidades del frontend (rango, cifra corta y textos) con su test`.
+- [x] Test (`node:assert`): `cifraCorta(4_000_000) === '4M'`, `cifraCorta(10_000) === '10K'`, `cifraCorta(2_500) === '2,5K'`, `cifraCorta(7_500) === '7,5K'`; `hitosEnRango` incluye los bordes y excluye fuera; `textoHito` de impresiones sin cuenta → `quien === 'entre todas las cuentas'`, de seguidores con `creatorName: 'Iker Galarza Rodríguez'` → `quien === 'Iker'`; `titulo` → `'4.000.000 impresiones'` / `'10.000 seguidores'`.
+- [x] `cd backend && npx tsx ../frontend/src/utils/hitos.test.ts` → pasa.
+- [x] Commit: `Hitos: utilidades del frontend (rango, cifra corta y textos) con su test`.
 
 ### Task 4: Banderita y tooltip
 
@@ -129,28 +129,33 @@ router.get('/milestones', async (req: Request, res: Response) => {
 - Banderita: mástil 1,5 px y banderín de cola de golondrina de 16 px de alto en `cc.accent`, cifra corta en `cc.onAccent` 10 px negrita, **por encima del área de datos** (la gráfica sube su margen superior a 26 cuando hay hitos). Línea vertical discontinua `3 3` en `cc.accent` al 45 %.
 - Varios hitos el mismo día: banderines uno al lado del otro.
 - Tooltip con el estilo de los de la herramienta (`cc.tooltipBg`, borde `cc.accent` al 55 %, radio 10): `🏁 {titulo}` / `{quien} · {fecha}`.
-- [ ] Commit: `Hitos: banderita con tooltip para las graficas (Recharts)`.
+- [x] Commit: `Hitos: banderita con tooltip para las graficas (Recharts)`.
 
 ### Task 5: Gráfica de seguidores
 
 **Files:** Modify `frontend/src/components/FollowerGrowthChart.tsx`
 
-- [ ] `XAxis dataKey="day"` con `tickFormatter={fmtDay}` (la banderita se coloca por día exacto).
-- [ ] `const { seguidores } = useHitos(creatorId, includeManual, reloadSignal)`; `hitosEnRango(seguidores, startDate, endDate)` y solo los días que existan en `chartData`.
-- [ ] `margin.top = visibles.length ? 26 : 8`; `{capaHitos(...)}` dentro del `ComposedChart`; `<HitoTooltip />` en un `div` relativo que envuelve el `ResponsiveContainer`.
-- [ ] Commit: `Hitos: banderitas en la grafica de seguidores`.
+- [x] `XAxis dataKey="day"` con `tickFormatter={fmtDay}` (la banderita se coloca por día exacto).
+- [x] `const { seguidores } = useHitos(creatorId, includeManual, reloadSignal)`; `hitosEnRango(seguidores, startDate, endDate)` y solo los días que existan en `chartData`.
+- [x] `margin.top = visibles.length ? 26 : 8`; `{capaHitos(...)}` dentro del `ComposedChart`; `<HitoTooltip />` en un `div` relativo que envuelve el `ResponsiveContainer`.
+- [x] Commit: `Hitos: banderitas en la grafica de seguidores`.
 
 ### Task 6: Gráfica de impresiones
 
 **Files:** Modify `frontend/src/components/AccountsEngagementChart.tsx`, `frontend/src/pages/Accounts.tsx`
 
-- [ ] Prop nueva `hitos?: Hito[]` (ya filtrados al rango por la página); solo se pintan con `metrica === 'impressions'`, con `yAxisId="left"`.
-- [ ] `XAxis dataKey="day"` con `tickFormatter` que devuelve el `label` de ese día.
-- [ ] En `Accounts.tsx`: `const { impresiones: hitosImp } = useHitos(esColab ? 'colab:' : cuentaId, incluirManuales, refreshSignal)` y pasar `hitos={hitosEnRango(hitosImp, dateRange.start, dateRange.end)}`.
-- [ ] `cd frontend && npx tsc --noEmit -p tsconfig.app.json` → sin errores.
-- [ ] Commit: `Hitos: banderitas de cada millon en la grafica de impresiones`.
+- [x] Prop nueva `hitos?: Hito[]` (ya filtrados al rango por la página); solo se pintan con `metrica === 'impressions'`, con `yAxisId="left"`.
+- [x] `XAxis dataKey="day"` con `tickFormatter` que devuelve el `label` de ese día.
+- [x] En `Accounts.tsx`: `const { impresiones: hitosImp } = useHitos(esColab ? 'colab:' : cuentaId, incluirManuales, refreshSignal)` y pasar `hitos={hitosEnRango(hitosImp, dateRange.start, dateRange.end)}`.
+- [x] `cd frontend && npx tsc --noEmit -p tsconfig.app.json` → sin errores.
+- [x] Commit: `Hitos: banderitas de cada millon en la grafica de impresiones`.
 
 ### Task 7: Verificación y subida
 
-- [ ] Navegador: Iker del 01/10 al 11/11 → banderita `10K` el 25 oct; todas las cuentas del 01/10 al 11/11 → `4M` el 18 oct en impresiones e `Iker · 10K` en seguidores; hover → tooltip; modo oscuro; un rango sin hitos → sin cambios.
-- [ ] `git pull --rebase` y `git push origin main` (el backend de Railway despliega al subir).
+- [x] Navegador: Iker del 01/10 al 11/11 → banderita `10K` el 25 oct; todas las cuentas del 01/10 al 11/11 → `4M` el 18 oct en impresiones e `Iker · 10K` en seguidores; hover → tooltip; modo oscuro; un rango sin hitos → sin cambios.
+- [x] `git pull --rebase` y `git push origin main` (el backend de Railway despliega al subir).
+
+
+## Resultado (11/11)
+
+Todo hecho y verificado en el navegador contra producción: en todas las cuentas, rango de 30 días, banderita `4M` el 18 oct en impresiones y `10K` (Iker) el 25 oct en seguidores, con su tooltip; modo claro y oscuro; rango de 14 días sin hitos, sin cambios. El endpoint responde en ~0,5 s. Ajuste añadido tras probarlo: zona sensible invisible alrededor del banderín, porque 16 px costaba acertar.

@@ -21,13 +21,23 @@ Skills de artefacto (cargar según el post lo pida):
 
 Otro canal:
 8c. **email-marketing** — la newsletter de Neety: asunto = hook del inbox (corpus Timepack, 353 correos analizados), cuerpo con el formateado de posts, 4 remitentes rotativos (Iker/Asier/Unai/Kaixito), sistema de tandas de 2 semanas (método Carmen/Runner Pro) y validador propio (`scripts/validar-email.py`). Cargar en cualquier tarea de email/newsletter en vez de `global-instructions` §1-2 (el resto de la stack aplica igual).
+8d. **corpus-correos-enviados** — los correos que hemos enviado de verdad, con su remitente, GIF y resultado. Es la evidencia propia de `email-marketing`, igual que `swipe-file` lo es de los posts.
+    > Índice de lectura del paquete de email: `_EMPIEZA-AQUI-email.md`.
 
 Orquestación:
-9. **post-workflow** — cómo montar el workflow, la RECETA cronológica por pilar, y **§8 el workflow real: planificador semanal de las 3 cuentas** (categorías peloteo/lead magnet/meme, intercalado 3×3, pregunta previa). 🌴 **Hasta el 31/08/2026 manda el override de `§8.0-AGOSTO`: cero peloteo, y la rotación es meme / lead magnet / historia.** Adapta el marco de workflows del playbook interno sin pisar las skills de datos.
+9. **post-workflow** — cómo montar el workflow, la RECETA cronológica por pilar, y **§8 el workflow real: planificador semanal de las 3 cuentas** (categorías peloteo/lead magnet/meme, intercalado 3×3, pregunta previa). Adapta el marco de workflows del playbook interno sin pisar las skills de datos.
 
 Estado (no doctrina):
 10. **historial-publicaciones** — registro vivo de lo que publica cada cuenta cada semana. Lo LEE el planificador (§8.3) para respetar el espaciado y lo ACTUALIZA tras aprobar la semana. Hay que **commitearlo** cada vez que cambie.
 11. **historial-newsletter** — lo mismo para el email: envíos, rotación de remitentes, palabras de CTA-respuesta y ángulos usados. Lo lee y actualiza el planificador de tandas (`email-marketing §6`).
+12. **menciones-usadas.json** — las personas y empresas ya mencionadas, para no repetir. Lo rellena `scripts/extraer-menciones.mjs` y lo consulta `scripts/validar-post.py`.
+
+Validadores (se corren antes de cada entrega y se pega su resultado):
+- `scripts/validar-post.py` — posts, por pilar y cuenta.
+- `scripts/validar-email.py` — correos y newsletter.
+- `scripts/validar-video.py` — voz y caption de vídeo.
+- `scripts/validar-recurso.py` — el recurso de `recursos.neety.com` de un lead magnet.
+- Los tests que los vigilan: `scripts/test-validador.py`, `scripts/test-borradores-tumbados.py` y `scripts/test-cobertura-reglas.py`.
 
 ## Dónde vive cada cosa
 - **`docs/skills/`** (esta carpeta) = todo el cerebro. Doctrina + el historial.
@@ -40,7 +50,5 @@ Estado (no doctrina):
 ## Estado / pendiente
 - **`outliers-database` §3** ya está **relleno** con el snapshot cross-creator del Explorer (2026-07-09): recetas hook×estructura×tono, distribuciones, aperturas/cierres, estilo, formato, timing y banco de remix. Fuente: `docs/explorer completo.pdf`.
 - **Sigue pendiente:** el split por cuenta Neety (Iker vs Unai vs Asier) — el export es cross-creator, no por cuenta propia. Y el refresco periódico del snapshot (los ratios decaen).
-- **Backend Railway — CORREGIDO (2026-07-14): NO está bloqueado por red.** La nota anterior decía "403 en egress / TCP timeout" y eso ya no se sostiene: desde Claude Code, `GET /api/health` responde `200 {"status":"ok"}` y el resto de endpoints responde **401**, que no es un bloqueo sino una petición de credenciales. El backend monta **HTTP Basic Auth** (`backend/src/middleware/basicAuth.ts`) delante de todas las rutas.
-  **Lo que falta para refrescar los datos en automático son CREDENCIALES, no red:** `APP_BASIC_USER` y `APP_BASIC_PASS` como variables de entorno (y `DATABASE_URL` si se quiere ir a Postgres directo). En el repo solo hay `backend/.env.example`, sin valores. Con esas vars puestas, `/api/analysis/*` y `/api/creators/*` quedan accesibles y §3/§4 se pueden refrescar en vivo, incluidas las imágenes de cada outlier.
-  **Unipile sí funciona ya** (`UNIPILE_API_KEY`, `UNIPILE_BASE_URL`, `UNIPILE_ACCOUNT_ID` están en el entorno): verificado el 2026-07-14 sacando las 20 empresas de Aragón, su actividad de LinkedIn y sus logos. Ojo, que Unipile funcione NO implica que Railway funcione: son hosts y credenciales distintas.
-- Vía de refresco que funciona hoy sin credenciales: **reexportar el Explorer** (PDF/HTML) y volver a destilarlo a §3.
+- **Backend Railway y Unipile: accesibles.** Las credenciales (`APP_BASIC_USER` / `APP_BASIC_PASS` y las de Unipile) están en el entorno, así que §3 y §4 se refrescan en vivo desde la API. Los endpoints y los IDs de las cuentas están en `CLAUDE.md`.
+- Vía alternativa de refresco: **reexportar el Explorer** (PDF/HTML) y volver a destilarlo a §3.

@@ -1871,8 +1871,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # adonde, que y ante quien. Si el gancho no lleva ningun hueco (algo, lo que, como, por
     # que, a ver si, nunca, tanto…), lo mas probable es que este cerrado. Aviso: un gancho
     # puede abrir el bucle con una metafora sin ninguna de estas palabras.
+    # 11/11 (Demo Day de Unai): el adjetivo de NOVEDAD sin decir que cambia tambien abre el
+    # bucle ("Presentamos el nuevo Neety en…": dice que hay algo nuevo y se calla el que). El
+    # cuerpo lo paga repitiendo "nuevo" junto a lo que trae (clave bucle de --criterio).
     _hueco = re.search(r'\b(algo|lo que|lo [uú]nico|una cosa|qu[eé]|c[oó]mo|por qu[eé]|qui[eé]n\w*|cu[aá]l\w*'
-                       r'|si|nunca|jam[aá]s|tanto|tant[oa]s|nadie|ning[uú]n\w*|ni|menos)\b', hook_txt.lower())
+                       r'|si|nunca|jam[aá]s|tanto|tant[oa]s|nadie|ning[uú]n\w*|ni|menos'
+                       r'|el nuevo|la nueva|los nuevos|las nuevas)\b', hook_txt.lower())
     chk(bool(_hueco), 'GANCHO: deja un HUECO, algo que no dice (global §2.0)',
         'no encuentro nada que el gancho se calle (algo, lo que, como, por que, a ver si, nunca…). '
         'Caso 22/10: "Nos vamos a San Francisco a presentar una startup vasca ante sus inversores" '

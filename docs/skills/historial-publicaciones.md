@@ -606,6 +606,29 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 
 | ⏳ | a las 72 h (vie 13/11): impresiones finales contra la mediana de memes (13.306) y clics y reuniones por UTM |
 
+## ✅ PUBLICADO · MAR 10/11 14:00 · UNAI · HISTORIA: «NUNCA HEMOS VISTO A UN SOLO COMERCIAL CARGAR CON UNA FÁBRICA ENTERA» (`/solicitar-demo`, 🎯 Oportunidades) · MEDIDO A 1 DÍA
+
+| dato | |
+|---|---|
+| **Estado** | ✅ publicado el 10/11 a las 14:00 (hora de Madrid), [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7525905291909971968/) · ficha escrita el 11/11 a partir de la BD (no se había registrado al publicar) |
+| **Pilar** | historia · rama B (testigo: el protagonista es el único comercial de una fábrica, sin nombre) · no regional · en plural (`Nunca hemos visto`), como piden sus ganchos de historia |
+| **Gancho** | `Nunca hemos visto a un solo comercial cargar con una fábrica entera 😅` (69) · absoluto discutible · objeto concreto (`una fábrica entera`) · sin cifra |
+| **Cuerpo** | escena corta (`Yo soy el único comercial dentro de la empresa.`), anáfora de dos (`Él buscaba clientes. / Él cerraba pedidos.`) y el giro: la llamada a la sede que acaba en alguien que no firma, con la decisión en una planta a 3 horas · 707 car. |
+| **Ninja → `/solicitar-demo`** | novedad de producto: `Ahora nuestra herramienta incluso te separa cada empresa grande por plantas.` · `Quién firma en cada planta, eso te lo dejamos a mano:` · tipo: la persona de dentro, con la novedad delante |
+| **Imagen** | selfie en su puesto de trabajo, con la acreditación y los monitores detrás. Individual, no de grupo |
+| **Métricas (BD, ~1 día)** | **5.808 imp** · 29 likes · **12 comentarios** · 3 reposts · 3 guardados · **9 envíos** · 8 clics al enlace · +1 seguidor · 0,42x (p32) |
+| **Por 1.000 imp** | 5,0 likes · 2,1 comentarios · 0,52 reposts · 1,4 clics · **1,5 envíos** |
+| **Contra su cuenta** | mediana de historias de Unai 10.265 · la anterior (28/10, el peaje por país) se quedó en 3.143 · las del 14/10 y el 21/10, 10.3k cada una |
+
+### 📈 Lo que enseña (11/11)
+1. **Es su historia con más conversación desde agosto.** 12 comentarios para 29 likes (0,41). Sus historias anteriores: 0,19 · 0,31 · 0,35 · 0,31 (la del teléfono, 37.5k) · 0,26 · 0,29 · 0,32. El `nunca` en firme sobre algo que muchos lectores viven (vender solo en una pyme industrial) invita a contestar `pues yo sí`.
+2. **El `Nunca` en el gancho es su patrón de historia que más alcance da.** Con `Nunca`: 26/08 16.5k · 02/10 37.5k · 21/10 10.3k (mediana 16.5k). Sin él: 02/09 10.7k · 11/09 6.0k · 14/10 10.3k · 28/10 3.1k (mediana 8.2k). Son 7 posts y no es concluyente, pero va en la misma dirección que la regla 13 de `post-workflow` (gancho de historia para abrir debate). El del 10/11 lo confirmará o no a 72 h.
+3. **Los envíos pesan más que el alcance.** 9 envíos con 5.808 imp (1,5 por 1.000, 1,6 veces los del meme de Iker del mismo día, que hizo 0,95). Un post que retrata al comercial único se reenvía a otro comercial único: el lector es justo el ICP.
+4. **Clics bajos para el objetivo:** 1,4 por 1.000, la mitad que el meme de Iker. La historia se lee entera y comenta, pero el enlace llega después de 600 caracteres. En historia, el clic no es la función principal: la vara es conversación y envíos.
+5. **Estreno de MULTIPLANTA en un post** (`global-instructions`, confirmada por producto el 10/11). Queda apuntado para medir si los comentarios o las reuniones preguntan por ello.
+
+| ⏳ | a las 72 h (vie 13/11): impresiones contra la mediana de historias (10.265) y el corte con/sin `Nunca` · clics y reuniones por UTM |
+
 ## 📝 ENTREGADO EL VIE 06/11 · UNAI · "LAS 10" DE **CASTILLA Y LEÓN** (1er "Las 10" de logos de Unai · ninja a `/solicitar-demo`, 🎯 Oportunidades) · SALE HOY POR LA MAÑANA
 
 | dato | |

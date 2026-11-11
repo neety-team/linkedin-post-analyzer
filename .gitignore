@@ -14,3 +14,7 @@ dist/
 
 # credenciales del MCP en claro, nunca al repo
 .mcp.json
+
+# caches de Python: se regeneran solos y ensuciaban cada commit
+__pycache__/
+*.pyc

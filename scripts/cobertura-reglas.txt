@@ -25,6 +25,7 @@ global-instructions | 9 CAPADO Y MODERACION CANONICO Y GLOBAL Mario 20 | fuera: 
 global-instructions | 9.2 EL CORPUS CADUCA un post de hace meses NO pr | fuera: moderación al publicar
 global-instructions | 9.3c RESUBIR EL MISMO TEXTO VARIAS VECES EN UNA  | fuera: moderación al publicar
 brand-voice | EL INTENSIFICADOR DE UNAI ES EL ADVERBIO FORMAL  | check: UNAI: intensificador formal
+brand-voice | CUANDO UNAI PASA SU BASE DE UN HITO SU FRASE VA | check: Neety NUNCA en el hook
 brand-voice | 3c EL CASTELLANO HABLADO MANDA SOBRE LA ESCALERA | pendiente(2026-10-28): castellano hablado frente a la escalera y la anáfora; criterio de idioma sin pregunta
 brand-voice | 3e SONAR A PERSONA VERBO EN VEZ DE SUSTANTIVO EL | pendiente(2026-10-28): sonar a persona (verbo en vez de sustantivo, coletilla); criterio de idioma sin pregunta
 brand-voice | 7.1g NUNCA SE VACILA NI SE TOMA POR TONTO A NADI | fuera: respuestas a comentarios, que no tienen validador

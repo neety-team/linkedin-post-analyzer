@@ -815,6 +815,13 @@ EVENTO_AJENO = False
 # dia…") para medir si el bucle maximo alcanza mas, y el cuerpo ata con ventas en lo explicito.
 # El ancla del gancho pasa a aviso; que el cuerpo nombre la venta es fallo duro.
 GANCHO_GENERICO = False
+# ANUNCIO DE UNAI (2026-11-11, Demo Day de Desafia San Francisco): cuando Unai pasa su base y
+# el gancho es SU anuncio del hito ("Presentamos Neety en…"), la marca y el evento en el gancho
+# se respetan. Medido en su cuenta: 23/10 (San Francisco en el gancho) 20.737 y 04/11
+# ("Presentamos el nuevo Neety") 8.367, los dos por encima de sus historia/evento de escenario.
+# Con el flag, "Neety en el hook", "el gancho no delata el evento" y "la marca en el ultimo
+# tercio" pasan a AVISO. Solo Unai y solo historia/evento. El bucle abierto sigue siendo duro.
+ANUNCIO_UNAI = False
 DIRECCION_ANCLA = (r'\b(inversi[oó]n\w*|invers\w+|inversor\w*|validar|valid\w+|mercados?'
                    r'|startups?|fundador\w*|capital|rondas?|emprend\w+|fondos?|venture|ecosistema'
                    r'|instituci\w+|empresari\w+|directiv\w+|CEOs?|aceleradoras?|cohorte)\b')
@@ -2801,8 +2808,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     else:
         chk(_neety <= 1, 'Neety se nombra como mucho UNA vez (brand-voice §4.5)',
             f'{_neety} veces' if _neety > 1 else '')
-    chk(not re.search(r'\bNeety\b', hook_txt, re.I), 'Neety NUNCA en el hook (brand-voice §4.5)',
-        'el post vende al pensador, no al producto' if re.search(r'\bNeety\b', hook_txt, re.I) else '')
+    _neety_h = bool(re.search(r'\bNeety\b', hook_txt, re.I))
+    chk(not _neety_h, 'Neety NUNCA en el hook (brand-voice §4.5)',
+        ('ANUNCIO DE UNAI declarado (--anuncio-unai, 11/11): su base manda, se deja y se avisa'
+         if ANUNCIO_UNAI else 'el post vende al pensador, no al producto') if _neety_h else '',
+        aviso=ANUNCIO_UNAI and _neety_h)
 
     # global §4.4b + outliers §3.14 — el link va SIEMPRE a recursos.neety.com
     # (dominio propio), nunca a web ajena. Los CTR mas altos del historico no
@@ -5511,7 +5521,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         _m_marca = re.search(r'\bNeety\b|\bevento\b', _cuerpo_marca, re.I)
         if _m_marca:
             _pos_marca = (len(_txt_marca) - len(_cuerpo_marca) + _m_marca.start()) / max(len(_txt_marca), 1)
-            chk(_pos_marca >= 0.60, 'HISTORIA: la marca y el evento se desvelan en el ultimo tercio (global §2.0-PAGO)',
+            chk(_pos_marca >= 0.60 or ANUNCIO_UNAI, 'HISTORIA: la marca y el evento se desvelan en el ultimo tercio (global §2.0-PAGO)',
                 f'"{_m_marca.group(0)}" aparece en el {round(100 * _pos_marca)}% del texto. En las 13 '
                 f'historias de la receta, Neety y el evento salen entre el 66% y el 85% o no salen. '
                 f'Pegado al gancho se lee como anuncio antes de que la escena enganche: se mueve al '
@@ -5532,8 +5542,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             _m_ev_h = re.search(r'\b(charlas?|conferencias?|jornadas?|moder[oóaé]\w*|panel)\b',
                                 hook_txt, re.I)
         chk(not _m_ev_h, 'HISTORIA: el gancho no delata el EVENTO ni la marca (Iker, 15/10)',
-            f'"{_m_ev_h.group(0)}" en el gancho. Se cuenta la escena de ventas y el evento se '
-            f'desvela en el pago (global §2.0-PAGO), como el 07/10 de Unai' if _m_ev_h else '')
+            (f'"{_m_ev_h.group(0)}" en el gancho. ' + (
+                'ANUNCIO DE UNAI declarado (--anuncio-unai, 11/11): su base manda; el bucle '
+                'tiene que abrirse con una pieza que el gancho se calle' if ANUNCIO_UNAI else
+                'Se cuenta la escena de ventas y el evento se desvela en el pago (global '
+                '§2.0-PAGO), como el 07/10 de Unai')) if _m_ev_h else '',
+            aviso=ANUNCIO_UNAI and bool(_m_ev_h))
         # EL VERBO PUNCHY VA AL FINAL DEL GANCHO, CON UN OBJETO (§4.6-SERIE punto 6,
         # patron cruzado de las 3 cuentas, 2026-10-02). Es criterio: aviso que
         # imprime la segunda mitad del gancho para MIRARLA.
@@ -6220,6 +6234,11 @@ def main():
                          'gancho va sin ancla de ventas ni de ecosistema para medir si el bucle '
                          'maximo alcanza mas. El ancla del gancho pasa a aviso y el cuerpo tiene '
                          'que nombrar la venta. Solo si la entrega lo declara.')
+    ap.add_argument('--anuncio-unai', action='store_true', dest='anuncio_unai',
+                    help='ANUNCIO DE UNAI (2026-11-11): solo cuenta unai en historia/evento, cuando el '
+                         'gancho es SU frase del hito ("Presentamos Neety en…"). Neety y el evento en el '
+                         'gancho pasan a aviso; el bucle abierto sigue siendo duro. Se declara en la '
+                         'entrega. brand-voice §1b.')
     ap.add_argument('--generico', action='store_true',
                     help='Lead magnet modelo GENÉRICO (Martín Arosa/Guillermo): una palabra igual para '
                          'todos + recurso genérico + landing que captura. Salta el check del 2º dato.')
@@ -6242,6 +6261,10 @@ def main():
     EVENTO_AJENO = a.evento_ajeno
     global GANCHO_GENERICO
     GANCHO_GENERICO = a.gancho_generico
+    global ANUNCIO_UNAI
+    ANUNCIO_UNAI = a.anuncio_unai and (a.cuenta or '').strip().lower() == 'unai' and a.pilar == 'historia'
+    if a.anuncio_unai and not ANUNCIO_UNAI:
+        sys.exit('--anuncio-unai solo vale con --cuenta unai y --pilar historia (historia/evento)')
     texto = io.open(a.fichero, encoding='utf-8').read()
     card = io.open(a.tarjeta, encoding='utf-8').read() if a.tarjeta else None
     res = validar(texto, a.pilar, a.cuenta, a.generico, a.meme_sobrio, a.ref_fuera, a.remix, a.sin_menciones, card, a.solo_correo, a.historico, a.publica_manana)
@@ -6417,8 +6440,13 @@ def main():
         _norm = lambda n: n.replace('VOZ AJENA · ', '')
         _todos_antes = {_norm(x[1]) for x in _prev}
         _malos_antes = {_norm(x[1]) for x in _prev if not x[0]}
+        # 11/11: con --anuncio-unai, la marca y el evento en el gancho SON el retoque que pide
+        # el jefe (su base): esos dos avisos no cuentan como roto contra la version anterior.
+        _del_anuncio = ({'Neety NUNCA en el hook (brand-voice §4.5)',
+                         'HISTORIA: el gancho no delata el EVENTO ni la marca (Iker, 15/10)'}
+                        if ANUNCIO_UNAI else set())
         _nuevos = [x[1] for x in res if not x[0] and _norm(x[1]) in _todos_antes
-                   and _norm(x[1]) not in _malos_antes]
+                   and _norm(x[1]) not in _malos_antes and x[1] not in _del_anuncio]
         res.insert(0, (not _nuevos, 'RETOQUE: no abre fallos ni avisos que la version anterior no tenia (working-preferences §1d-BIS)',
                        ('el retoque rompe: %s. Quedate con el retoque y arregla esto antes de entregar'
                         % ' | '.join(_nuevos)) if _nuevos else 'limpio contra la version anterior', False))

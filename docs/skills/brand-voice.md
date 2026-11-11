@@ -182,6 +182,15 @@ En un anuncio de la casa (el lanzamiento del nuevo Neety, colaborativo desde San
 - **Validador:** `--gancho-generico` (solo Unai, historia/evento o evento) pasa el ancla del gancho a aviso y exige que el cuerpo nombre la venta. Cada uso se declara en la entrega y entra en el registro de A/B del historial el día que se publica.
 - **Cómo se lee:** impresiones contra sus vídeos de historia/evento (3.197 y 3.941, con gancho de escena), demografía (cargos de ventas e industria contra el 1% y 0% de San Francisco) y clics a `/solicitar-demo` por 1.000. ⚠️ Confundido con el formato (vídeo de marca) y con el colaborativo: n=1, dirección y no ley.
 
+#### 📣 ⛔ CUANDO UNAI PASA SU BASE DE UN HITO, SU FRASE VA EN EL GANCHO (2026-11-11, Demo Day de Desafía San Francisco)
+
+Si Unai manda el texto base de un hito suyo (`presentamos Neety en san francisco, en AWS builder loft…`), **se respeta casi al máximo**: su frase va en el gancho con la marca y el sitio, lo que pide va en el cuerpo (de qué estamos orgullosos, qué construimos) y la sección de agradecimientos va siempre. Manda sobre "el gancho no delata el evento" y "Neety nunca en el hook" en este caso, y solo en su cuenta.
+- **Por qué, medido en su cuenta:** los dos hitos que llevaron el anuncio en el gancho rindieron por encima de sus historia/evento de escenario (2.628-4.530): 23/10 `Nos vamos 2 semanas a San Francisco…` 20.737 y 04/11 `Presentamos el nuevo Neety` 8.367. Los dos eran colaborativos, así que no se separa cuánto pone el formato *(n=2)*.
+- **Lo que sigue siendo nuestro:** abrir el bucle. A su frase se le añade la pieza que se calla (`Cómo presentamos…`, `Lo que contamos al presentar…`) y el cuerpo la paga. El ancla de ecosistema (`inversores`) y el resto de la puntuación anti-IA siguen igual.
+- **Qué se busca:** autoridad y comentarios de enhorabuena (el efecto cumpleaños de `post-workflow §4.6-HITO`). La foto de él presentando ayuda a que se le felicite a él.
+- **Primer intento fallido (11/11):** se entregó con un gancho de escena sin su frase (`4 minutos para defender en Silicon Valley…`) y se tumbó: la base del jefe no es material para reescribir, es el encargo.
+- **Validador:** `--anuncio-unai` (solo `--cuenta unai --pilar historia`) pasa a aviso `Neety NUNCA en el hook` y `el gancho no delata el EVENTO`, y con `--antes` no los cuenta como roto. El hueco del gancho sigue siendo duro.
+
 #### 🗣️ SU FORMA DE NARRAR, SACADA DE SU PROPIO TEXTO DEL LANZAMIENTO (2026-11-03) — SOLO EL VOCABULARIO, NO EL FORMATO
 
 El lanzamiento del nuevo Neety (04/11) lo reescribió él entero. **De ese texto solo se guarda cómo narra**, para que el cuerpo de sus posts suene a él. **El formato y la estructura NO se copian:** el anuncio en el gancho, la marca cuatro veces, la negrita, el punto antes del emoji y el enlace como última línea van contra la receta y contra nuestros datos (`post-workflow §4.6-SERIE` 11: los ganchos que nos nombran o anuncian algo nuestro rinden menos). Son decisiones de ese post, que se respetan, no un molde.

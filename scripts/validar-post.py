@@ -2810,8 +2810,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'posts: su cuenta es advocacy de empleado, no thought leadership de founder'
             if _falta else '')
     else:
+        # 11/11: en el anuncio de un hito de Unai (--anuncio-unai) la marca va en el gancho con @
+        # y una vez mas en el cuerpo, sin @, para que quede claro que presentamos (su lanzamiento
+        # del 04/11 la nombraba 4 veces). Dos veces pasa a aviso; tres o mas sigue siendo fallo.
         chk(_neety <= 1, 'Neety se nombra como mucho UNA vez (brand-voice §4.5)',
-            f'{_neety} veces' if _neety > 1 else '')
+            (f'{_neety} veces' + (' (ANUNCIO DE UNAI: hasta 2, gancho y cuerpo)' if ANUNCIO_UNAI else ''))
+            if _neety > 1 else '', aviso=ANUNCIO_UNAI and _neety == 2)
     _neety_h = bool(re.search(r'\bNeety\b', hook_txt, re.I))
     chk(not _neety_h, 'Neety NUNCA en el hook (brand-voice §4.5)',
         ('ANUNCIO DE UNAI declarado (--anuncio-unai, 11/11): su base manda, se deja y se avisa'
@@ -6447,6 +6451,7 @@ def main():
         # 11/11: con --anuncio-unai, la marca y el evento en el gancho SON el retoque que pide
         # el jefe (su base): esos dos avisos no cuentan como roto contra la version anterior.
         _del_anuncio = ({'Neety NUNCA en el hook (brand-voice §4.5)',
+                         'Neety se nombra como mucho UNA vez (brand-voice §4.5)',
                          'HISTORIA: el gancho no delata el EVENTO ni la marca (Iker, 15/10)'}
                         if ANUNCIO_UNAI else set())
         _nuevos = [x[1] for x in res if not x[0] and _norm(x[1]) in _todos_antes

@@ -4,6 +4,8 @@ import {
 } from 'recharts';
 import { useChartColors } from '../theme';
 import InfoHint from './InfoHint';
+import { useHitos, capaHitos, HitoTooltip, MARGEN_HITOS, type HoverHito } from './HitoFlag';
+import { hitosEnRango } from '../utils/hitos';
 
 const BASE = import.meta.env.VITE_API_URL || '';
 
@@ -93,6 +95,8 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
   const [previo, setPrevio] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [modo, setModo] = useState<Modo>('cumulative');
+  const [hoverHito, setHoverHito] = useState<HoverHito | null>(null);
+  const { seguidores: hitosSeguidores } = useHitos(creatorId, includeManual, reloadSignal);
 
   const days = useMemo(() => {
     const a = new Date(`${startDate}T00:00:00`);
@@ -136,6 +140,12 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
       return { ...p, label: fmtDay(p.day), acumulado };
     });
   }, [points]);
+
+  // Hitos de seguidores del rango, solo en dias que la grafica pinta.
+  const hitosVisibles = useMemo(() => {
+    const dias = new Set(chartData.map((p) => p.day));
+    return hitosEnRango(hitosSeguidores, startDate, endDate).filter((h) => dias.has(h.dia));
+  }, [hitosSeguidores, chartData, startDate, endDate]);
 
   const xTickInterval = Math.max(0, Math.floor(chartData.length / 8) - 1);
   const ganados = chartData.length ? chartData[chartData.length - 1].acumulado : 0;
@@ -189,8 +199,12 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
       ) : chartData.length === 0 ? (
         <p className="text-center text-text-muted text-sm py-12">Aún no hay datos de seguidores en este periodo.</p>
       ) : (
+        <div style={{ position: 'relative' }}>
         <ResponsiveContainer width="100%" height={240}>
-          <ComposedChart data={chartData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
+          <ComposedChart
+            data={chartData}
+            margin={{ top: hitosVisibles.length ? MARGEN_HITOS : 8, right: 16, left: 0, bottom: 8 }}
+          >
             <defs>
               <linearGradient id="seguidoresFill" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={cc.data} stopOpacity={0.3} />
@@ -199,7 +213,8 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke={cc.grid} />
             <XAxis
-              dataKey="label"
+              dataKey="day"
+              tickFormatter={fmtDay}
               tick={{ fill: cc.muted, fontSize: 11 }}
               axisLine={{ stroke: cc.grid }}
               interval={xTickInterval}
@@ -220,8 +235,11 @@ export default function FollowerGrowthChart({ creatorId, startDate, endDate, inc
             ) : (
               <Bar dataKey="gained" fill={cc.data} radius={[2, 2, 0, 0]} isAnimationActive={false} />
             )}
+            {capaHitos({ hitos: hitosVisibles, onHover: setHoverHito, color: cc.accent })}
           </ComposedChart>
         </ResponsiveContainer>
+        <HitoTooltip hover={hoverHito} />
+        </div>
       )}
     </div>
   );

@@ -1690,6 +1690,10 @@ PLANTILLA = 'automocion'
 # una apunta a su regla. Se contestan por escrito en --criterio; ver el final de main().
 CRITERIO = [
     ('bucle', 'Tapa todo menos el gancho (y la imagen o el video): recorre los interrogativos (que, quien, cuando, donde, como, por que, cual, cuanto, para que/quien) y di cual queda ABIERTO (uno, el que mas sorprenda; el resto cerrados dan contexto); ¿en que linea del ultimo tercio se contesta? (global §2.0, §2.0-INTERROGATIVOS y §2.0-PAGO)'),
+    # 11/11: global §1 y §2.2 punto 3 pedian maximizar UNA emocion (curiosidad, miedo o deseo) y
+    # nadie lo preguntaba por escrito, asi que no se auditaba. Se nombra la dominante (una sola)
+    # y donde se dispara en el gancho; un poco de las otras vale, el empate es un gancho tibio.
+    ('emocion', '¿Que emocion MAXIMIZA el post, una sola: curiosidad, miedo o deseo? Di cual domina y con que pieza del gancho se dispara (su intensificador). Un poco de las otras vale; si empatan, el gancho es tibio (global §1-EMOCION y §2.2)'),
     ('explicito', '¿Que daria por sabido alguien que no nos conoce? Cada nombre propio nuestro con su categoria, cada cifra con su sustantivo (global §2.5b-EXPLICITO)'),
     ('verdad', '¿Todo lo afirmado sale de la fuente (video, BD, cliente, informe), sin cuando, cifra ni frase puesta por nosotros? (CLAUDE.md, post-workflow §4.6)'),
     ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje? ¿Y la foto NO huele a evento ni a venta (escenario, ponente, photocall, acreditaciones, carpeta del evento) y se le ve la CARA al que publica? ¿Y a 360 px lo primero que se ve es lo que hay que entender, sin un segundo foco que compita (una palabra naranja, una caja)? (global §2.0c, post-workflow §4.6-FOTO-VENTA, images §0a-FOCO)'),
@@ -6514,6 +6518,9 @@ def main():
         # La escalera del gancho no vale como frase suelta: tres peldaños o no esta hecha.
         if 'punch' not in _falta and len(re.findall(r'→|->', _resp.get('punch', ''))) < 2:
             _falta.append('punch')
+        # La emocion se nombra: si la respuesta no dice curiosidad, miedo o deseo, no esta contestada (11/11).
+        if 'emocion' not in _falta and not re.search(r'curiosidad|miedo|deseo', _resp.get('emocion', ''), re.I):
+            _falta.append('emocion')
         # La tesis lleva la linea nuestra citada literal: si la cita no esta en el post, no vale (10/11).
         if any(k == 'tesis' for k, _q in CRITERIO) and 'tesis' not in _falta:
             _cits = re.findall(r'["«“]([^"»”]{8,})["»”]', _resp.get('tesis', ''))

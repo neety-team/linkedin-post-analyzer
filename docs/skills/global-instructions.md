@@ -49,6 +49,12 @@ Cada post compromete UN pilar dominante y usa SOLO las palancas de ese pilar. To
 
 Si el hook toma prestada la palanca de otro pilar → reescribe. La mezcla de pilares es la dilución #1.
 
+#### ⛔⛔ 1-EMOCION · TODA PUBLICACIÓN DICE QUÉ EMOCIÓN MAXIMIZA, Y SE DISPARA EN EL GANCHO (2026-11-11) — GLOBAL
+- **Vale para todas las publicaciones, de cualquier pilar y cuenta,** y también para el post en conjunto, no solo para el gancho: **curiosidad, miedo o deseo, una sola dominante.** Un poco de las otras vale; lo que no vale es que no quede claro cuál manda (un gancho tibio en las tres no viaja).
+- **Se dispara en el gancho con el intensificador de esa emoción** (`§2.3d`), y el cuerpo la sostiene hasta el pago.
+- **Llevaba tiempo sin auditarse:** la regla estaba escrita aquí y en `§2.2` (punto 3), pero ninguna pregunta del criterio la pedía. **Dueño:** la clave `emocion` de `--criterio` (todas las publicaciones). La respuesta tiene que nombrar curiosidad, miedo o deseo, o cuenta como sin contestar.
+- **Caso que la reabrió (Demo Day de Unai, 11/11): CURIOSIDAD.** La sorpresa de Amazon y San Francisco arriba ("¿cómo han llegado ahí?") y `el nuevo` ("¿qué trae?"). Miedo no hay, y el deseo (status de vincularse con Amazon) es una traza, no lo que manda.
+
 ---
 
 ## 2 · El HOOK

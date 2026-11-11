@@ -2270,6 +2270,11 @@ Nicolas Cort Manubens (IA CORP) e Ignasi Mellado y Alex Solé (Link360, publican
 | tres seguidos al mismo público (Link360, 25-27/08) | lead magnet tres días seguidos | 182 → 25 → 15 |
 | tema de venta o de marketing (Nicolas) | prospección con Claude → masterclass de marketing digital | 416-780 → 45 |
 
+**📊 Remedido el 11/11 (Unipile, 28 lead magnets de 6 cuentas en español en los últimos ~14 días: Martín Arosa, Giuliana Fonte, Pablo Rodríguez, Ignasi Mellado, Alex Solé y Nicolas Cort; contador de LinkedIn, con las respuestas del autor dentro):**
+- **El tema que comenta es `Claude + conseguir reuniones o clientes`** (agenda, setter, agendador, «máquina de prospección»): 1.228 (Nicolas, «LinkedIn ya se conecta a Claude», +27 reuniones), 996, 830, 654, 587, 530, 504 y 354. Los de marketing, de formatos de publicación o de mapas genéricos se quedan en 3-95. En todos los que vuelan, la palabra sale en el 87-99% de los comentarios.
+- **Hay una ola de ganchos con el modelo nuevo (`Claude Fable 5.2`)**: 587 y 354 comentarios en 24 h. Va contra `§4.5.0` (el modelo como sujeto nos flopea, n=3 nuestros), y el de 587 lo salva porque el sujeto es el trabajo del lector («Antes buscaba clientes de manera manual»).
+- **El GIF es ya la norma (21 de 28) y no gana:** mediana de 190 comentarios con GIF (n=21) contra 384 con imagen fija (n=7). Dentro de cada cuenta sale mixto (en Martín Arosa ganan los GIF: 996, 830 y 553 contra 396 y 130), así que la diferencia la pone la mezcla de cuentas más que el formato. Todos los GIF van en 4:5 (480x600) y enseñan el artefacto funcionando (un panel con contadores que suben, una agenda que se llena), con la palabra en un botón al pie. **Se confirma el punto 4 de abajo: el GIF no es la palanca, y tampoco penaliza.** *(n pequeño, de fuera)*
+
 **Lo que confirma de lo nuestro (n=5 de fuera):** la palabra va en la imagen y el texto no pide comentar (`§4.5.0-CTA-CERO`, `§4.5.0-CTA-IMAGEN`); ningún post bueno la pide en el texto. Y saturar al mismo público hunde.
 **Lo que nos faltaba:**
 1. **El gancho es un dolor concreto o una cifra propia, nunca un elogio de la herramienta.** Debajo, una cifra de prueba (`+27 reuniones B2B el último mes`).

@@ -213,7 +213,13 @@ const CATALOGO: RecursoDef[] = [
     //
     // El enlace lleva el UTM del DM de este post para leer sus leads por campana; en el
     // siguiente lead magnet con este recurso se cambian utm_campaign y utm_content.
-    link: 'https://neety.com/academia/firma?utm_source=linkedin&utm_medium=dm&utm_campaign=leadmagnet-palabra-10nov&utm_content=asier',
+    //
+    // 2026-11-11: el post de Asier del 10/11 no salio, y el recurso pasa al lead magnet
+    // de Iker del 12/11 (brazo CON palabra frente al enlace publico del 03/11), con su
+    // UTM. Las tres pistas de la ultima fila son de ese post: casan contra su texto
+    // real (con las cuatro de arriba que ya casaban, 7) y ninguna aparece en los 48
+    // lead magnets publicados de las tres cuentas.
+    link: 'https://neety.com/academia/firma?utm_source=linkedin&utm_medium=dm&utm_campaign=leadmagnet-palabra-12nov&utm_content=iker',
     topic: 'las 5 preguntas a Claude para saber quién firma la compra',
     claves: ['firma', 'nombre'],
     pistas: [
@@ -221,6 +227,7 @@ const CATALOGO: RecursoDef[] = [
       '5 mensajes', 'quien decide', 'con quien hablo',
       'descuelga el que no firma', 'por quien preguntar', 'fabrica de tornos',
       'quien lo frenaria', 'no descuelga ningun telefono',
+      'a quien venderle', 'pedia reuniones', 'chuleta de claude',
     ],
   },
   {

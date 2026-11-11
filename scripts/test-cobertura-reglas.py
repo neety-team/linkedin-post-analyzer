@@ -16,6 +16,12 @@ Una regla tiene dueño si se cumple una de estas:
      "check: <trozo del nombre>" que salga en validar-post.py, "criterio: <clave>" que este
      en CRITERIO, "fuera: <motivo>" o "pendiente: <que falta>".
 
+11/11 (auditoria): la regla "toda publicacion maximiza UNA emocion" (global §1) llevaba desde abril
+sin dueño porque su cabecera no llevaba ⛔ y este test solo miraba las marcadas, en 4 recetas, y daba
+por cubierta cualquier seccion cuyo texto dijera "mecanizado" o "--criterio". Desde ese dia mira TODAS
+las cabeceras de las 5 recetas del texto del post (aboutme incluida), sin ese atajo, y cada una tiene
+que estar en el registro como check, criterio, fuera, contexto (no es regla) o pendiente con fecha.
+
 Falla si hay una regla dura sin dueño (una regla nueva escrita sin decir quien la mira) o si
 el registro apunta a un check o una clave que no existen. Los "pendiente" no fallan: se
 imprimen, para que la lista se vea y baje.
@@ -28,7 +34,7 @@ import sys
 import unicodedata
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RECETAS = ['global-instructions', 'brand-voice', 'post-workflow', 'working-preferences']
+RECETAS = ['global-instructions', 'brand-voice', 'post-workflow', 'working-preferences', 'aboutme']
 DURA = re.compile(r'⛔|CANÓNICO|— GLOBAL|GLOBAL,')
 
 
@@ -58,15 +64,13 @@ def main():
         cab = [(i, re.match(r'^\s*>?\s*#{2,6}\s+(.*)', l)) for i, l in enumerate(lineas)]
         cab = [(i, m.group(1)) for i, m in cab if m]
         for k, (i, titulo) in enumerate(cab):
-            if not DURA.search(titulo):
+            if not clave(titulo):
                 continue
             todas.add((f, clave(titulo)))
             fin = cab[k + 1][0] if k + 1 < len(cab) else len(lineas)
             cuerpo = ascii_('\n'.join(lineas[i:fin])).lower()
             ids = re.findall(r'(\d+(?:\.\d+)*[a-z]?(?:-[A-ZÁÉÍÓÚÑ0-9]+)+)\s*·', titulo)
             if any(re.search(r'(?<![\w.])' + re.escape(ascii_(x).lower()) + r'(?![\w])', val_n) for x in ids):
-                continue
-            if 'mecanizad' in cuerpo or '--criterio' in cuerpo:
                 continue
             reg = (f, clave(titulo))
             if reg not in registro:
@@ -91,7 +95,7 @@ def main():
                 fallos.append(f'{f}:{i + 1} la clave de criterio "{que}" no existe')
             elif tipo == 'pendiente':
                 pendientes.append(f'{f}:{i + 1} · {que}')
-            elif tipo not in ('check', 'criterio', 'fuera', 'pendiente'):
+            elif tipo not in ('check', 'criterio', 'fuera', 'contexto', 'pendiente'):
                 fallos.append(f'{f}:{i + 1} dueño desconocido: {registro[reg]}')
     for reg in set(registro) - todas:
         fallos.append(f'registro sin regla (se movió o se renombró): {reg[0]} | {reg[1]}')

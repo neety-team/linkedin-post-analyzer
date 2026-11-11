@@ -243,8 +243,10 @@ Unai revisó el post de la mesa que moderó y quitó dos líneas. Lo que se apre
 - **Conclusión:** ponerle voz sobria a Unai **no le cuesta su mejor pilar**. La restricción cae en el **registro de la imagen** (`images §0g`), no en el meme como formato.
 - **⚠️ EL PEAJE QUE CREÍAMOS QUE HABÍA: NO EXISTE. Resuelto por el usuario el 2026-07-20.** Aquí ponía que *"🚨 ÚLTIMA HORA: Claude acaba de matar el cold outbound"* (9.96x, el 2º mejor de Unai) era lo contrario de sobrio, que con la regla de la voz no se le volvía a escribir, y que ese registro debía irse a Iker. **Estaba mal planteado, y encima al revés de los datos**: en Unai hizo 9.96x y 2.72x, y el único de Iker hizo 0.70x.
 
+🔄 Superado en parte el 21/08, el 23/09 y el 30/09 por `§1b` (el intensificador formal de Unai, `ÚLTIMA HORA` fuera de su cuenta y su gancho grandioso): la sobriedad de Unai también toca el GANCHO. Lo que sigue vale para la mecánica del gancho, no para su registro.
+
 **⭐ LA REGLA BUENA: LA SOBRIEDAD VIVE EN EL CUERPO, NO EN EL GANCHO.** El gancho es un mecanismo de atención y **es el mismo para las 3 cuentas**, igual que el gancho del mapa (*"la ven como X… y exporta más que Y"*) se usa en las tres sin que nadie lo discuta. Lo que sube y baja con la cuenta es el **tono del cuerpo**: el volumen, los alargamientos de vocal, los emojis, el guiño.
-- **Si un gancho funciona, se usa en las tres.** `🚨 ÚLTIMA HORA` incluido.
+- **Si un gancho funciona, se usa en las tres.** `🚨 ÚLTIMA HORA` incluido. (🔄 Superado el 23/09 por `§1b`: `ÚLTIMA HORA` no va en la cuenta de Unai.)
 - Lo que NO se comparte: el registro del cuerpo (`§1b`) y el de la imagen (`images §0g`).
 - Corolario práctico: no descartes nunca un gancho ganador "porque esa cuenta es sobria". Si lo dudas, el filtro es el cuerpo.
 
@@ -575,9 +577,9 @@ Iker dudaba entre `lo que nos invadió la barbacoa` y `lo que nos invadió una b
 ## 4 · Las 5 palancas de posicionamiento (aplicar cuando la idea da margen)
 
 1. **Posicionar por CONTRASTE, no por features.** "Most teams do X. We do Y because Z" supera a "We do Y very well". Nombra lo que hace mal el resto del sector antes de decir lo que hacemos.
-2. **Cifras de cliente baten a la auto-promoción.** "+200 PYMEs, +40% conversión" lanza más lejos que "la mejor plataforma de ventas con IA".
-3. **Marco de mercado, no descripción de producto.** Contrastes que cargan el post: operativa vs operacional, agentic vs tool, signal vs cold volume, ejecución vs gestión. Las features sueltas suenan a anuncio.
-4. **Reusa una palabra-concepto que sea nuestra.** "outbound operativo" repetido a lo largo de los posts construye categoría en la cabeza del lector.
+2. **Cifras de cliente baten a la auto-promoción.** Una cifra-resultado real y verificada de un cliente (p. ej. Arania: identifica hasta el 45% de las empresas que muestran interés en su web, `global §4.4b-MUNICIÓN-1510`) lanza más lejos que "la mejor plataforma de ventas con IA". (🔄 Corregido el 11/11: el ejemplo era "+200 PYMEs, +40% conversión", que `aboutme §1` prohíbe publicar sin fuente.)
+3. **Marco de mercado, no descripción de producto.** Contrastes que cargan el post: operativa vs operacional, ejecución vs gestión. (🔄 Corregido el 11/11: el ejemplo traía `agentic vs tool` y `signal vs cold volume`, anglicismos que veta `§2b`, y la señal no es argumento del ninja.) Las features sueltas suenan a anuncio.
+4. **Reusa una palabra-concepto que sea nuestra.** Una palabra-concepto repetida a lo largo de los posts construye categoría en la cabeza del lector. (🔄 Corregido el 11/11: el ejemplo era "outbound operativo", y `outbound` en el gancho es demasiado nicho, check `DEMASIADO_NICHO`.)
 5. **El nombre del founder > el nombre del producto.** El post vende al pensador. Menciona el producto como mucho una vez cerca del final, casi como firma. Nunca en el hook.
 
 **Vender sin vender:** el grueso del post documenta el fallo de mercado, comparte el framework o cuenta el caso de cliente. El producto/empresa se menciona como mucho una vez cerca del final, casi como firma — nunca en el hook.

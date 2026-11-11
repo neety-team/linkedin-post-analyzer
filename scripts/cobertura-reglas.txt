@@ -1,14 +1,16 @@
 # Cobertura de las reglas duras de las recetas (⛔, CANÓNICO, GLOBAL) que no se ven desde el validador por su id.
+# 11/11: desde la auditoria, TODAS las cabeceras de las 5 recetas tienen linea aqui (o su id en validar-post.py).
+# Dueño admite tambien "contexto: <por que no es regla>".
 # Formato: archivo | inicio del título | dueño. Dueño: "check: <trozo del nombre del check>", "criterio: <clave de --criterio>",
 # "fuera: <por qué no es del texto del post>" o "pendiente(AAAA-MM-DD): <qué falta>". Un pendiente caduca a los 14 días: o tiene dueño, o la regla se borra de la receta. Lo comprueba scripts/test-cobertura-reglas.py.
 global-instructions | 2.0c-VISUAL LO QUE DICE LA FOTO NO ES SOLO SU TE | criterio: imagen
 global-instructions | 2.0c-CONTRADICE LA TERCERA FORMA DE ROMPER LA FO | criterio: imagen
 global-instructions | 2.1b LA TENDENCIA ES UN MOTOR Y LO ESTAMOS DESAP | fuera: elegir el tema de la semana (planificación), no el texto
-global-instructions | 2.1b-DONDE UNA TENDENCIA DE NICHO GENERACIONAL V | pendiente(2026-10-28): tendencia generacional en el gancho; sin léxico cerrado, criterio sin pregunta
+global-instructions | 2.1b-DONDE UNA TENDENCIA DE NICHO GENERACIONAL V | criterio: explicito
 global-instructions | 2.3-CRM LA TRADUCCION LLANA DE CRM ES LA FICHA D | check: Hook sin jerga que estrecha alcance
 global-instructions | 2.3-CRM-BIS LA TRADUCCION LLANA LA DECIDE LO QUE | check: Hook sin jerga que estrecha alcance
 global-instructions | 2.2b-NEGATIVO SI EL ORIGINAL DICE PROBLEMAS NOSO | criterio: remix
-global-instructions | 2.3d-FUTURO EN UN GANCHO DE PROMESA EL INTENSIFI | pendiente(2026-10-28): gancho de promesa con el intensificador en futuro; mecanizable solo en parte
+global-instructions | 2.3d-FUTURO EN UN GANCHO DE PROMESA EL INTENSIFI | criterio: bucle
 global-instructions | 2.9-REVOLUCIONAR EL VERBO QUE PARECE DE DIRECTIV | check: revolucionar
 global-instructions | 2.9-ABSTRACTO ROMPER Y REVENTAR PIDEN UN OBJETO  | check: revolucionar
 global-instructions | 2.9-TECHOS LA ESCALERA TIENE DOS TECHOS NO UNO E | check: Sin slang teen
@@ -26,15 +28,15 @@ global-instructions | 9.2 EL CORPUS CADUCA un post de hace meses NO pr | fuera: 
 global-instructions | 9.3c RESUBIR EL MISMO TEXTO VARIAS VECES EN UNA  | fuera: moderación al publicar
 brand-voice | EL INTENSIFICADOR DE UNAI ES EL ADVERBIO FORMAL  | check: UNAI: intensificador formal
 brand-voice | CUANDO UNAI PASA SU BASE DE UN HITO SU FRASE VA | check: Neety NUNCA en el hook
-brand-voice | 3c EL CASTELLANO HABLADO MANDA SOBRE LA ESCALERA | pendiente(2026-10-28): castellano hablado frente a la escalera y la anáfora; criterio de idioma sin pregunta
-brand-voice | 3e SONAR A PERSONA VERBO EN VEZ DE SUSTANTIVO EL | pendiente(2026-10-28): sonar a persona (verbo en vez de sustantivo, coletilla); criterio de idioma sin pregunta
+brand-voice | 3c EL CASTELLANO HABLADO MANDA SOBRE LA ESCALERA | criterio: oido
+brand-voice | 3e SONAR A PERSONA VERBO EN VEZ DE SUSTANTIVO EL | criterio: oido
 brand-voice | 7.1g NUNCA SE VACILA NI SE TOMA POR TONTO A NADI | fuera: respuestas a comentarios, que no tienen validador
 brand-voice | 7.1i CADA RESPUESTA UNA IDEA DISTINTA. Y CUANDO  | fuera: respuestas a comentarios, que no tienen validador
 brand-voice | 7.1c EL QUE NO ENTIENDE EL POST NO NOS ESTA ATAC | fuera: respuestas a comentarios, que no tienen validador
 brand-voice | 7.1b LA APERTURA NO SE ELIGE SE SORTEA. Y NUNCA  | fuera: respuestas a comentarios, que no tienen validador
 brand-voice | CANONICO NO CRITICAMOS A NADIE Y A NOSOTROS TAMP | criterio: comprador
 brand-voice | 5b Y TAMPOCO SE HABLA EN NOMBRE DE OTRO COLECTIV | criterio: comprador
-brand-voice | CANONICO LA PERSONA YO NOSOTROS TU Iker 2026-08- | pendiente(2026-10-28): la persona del gancho (yo > nosotros > tú) solo se mira en historia
+brand-voice | CANONICO LA PERSONA YO NOSOTROS TU Iker 2026-08- | criterio: voz
 brand-voice | EXCEPCION 4 EN MARIO Y HELENA EL CUERPO VA EN NO | check: Hook anclado a MARKETING
 post-workflow | 4.1-GANCHO SI EL PILAR NO ESTA DEFINIDO PRIMERO  | fuera: proceso (primero el gancho si el pilar no está definido)
 post-workflow | 4.3-VETO LOS 10 NO SE ESCRIBE NO SE PROPONE Y NO | check: los10
@@ -68,3 +70,329 @@ working-preferences | 1e-COPIA EL MECANISMO SE ROBA LAS PALABRAS NO Ik | fuera: 
 working-preferences | 1f-AUTOAUDITORIA UNA INCOHERENCIA QUE VEO ABRE L | fuera: forma de entregar o de trabajar, no el texto del post
 post-workflow | 4.4-DOS-FASES EL MEME SE ENTREGA EN DOS FASES PR | fuera: orden de la entrega (primero las referencias, luego el post), no es del texto del post
 post-workflow | 4.4-FILTRO-IMAGEN TRES DESCARTES DE UN VISTAZO A | criterio: motor
+global-instructions | 0-DATOS ANTES DE ESCRIBIR NADA PREGUNTA A NUESTR | fuera: fuera · orden de consulta a la BD antes de escribir (proceso, no texto)
+global-instructions | 0 La tesis raiz el test winlose | pendiente(2026-11-11): necesita-criterio · test win/lose sin dueño: añadir a 'ancla' (o clave nueva 'winlose'): "¿que creencia comun rompe en las 3 prime
+global-instructions | 1 Los 3 pilares psicologicos elige UNO y llevalo | criterio: emocion
+global-instructions | 2 El HOOK | contexto: introduccion del §2
+global-instructions | 2.0 BUCLE ABIERTO EL HOOK PROMETE EL POST PAGA u | check: Bucle abierto: el gancho no CUENTA la respuesta (global §2.0)
+global-instructions | 2.0c EL CUERPO NO EXPLICA LA IMAGEN universal to | pendiente(2026-11-11): necesita-criterio · ninguna clave pregunta si el CUERPO describe la foto: añadir a 'imagen': "¿el cuerpo nombra o explica lo que s
+global-instructions | 2.1 Ley de formato del hook la regla mas importa | check: Hook es UN bloque, sin salto dentro (§2.1)
+global-instructions | 2.0a EL GANCHO SE CONSTRUYE CON UNA METAFORA NO | pendiente(2026-11-11): necesita-check · metafora/objeto: criterio 'punch' (prueba 2, pinta una imagen) la cubre a medias. Sin dueño 'NUNCA NOMBRES LO 
+global-instructions | 2.0b LEY DE VARIEDAD TODO ELEMENTO QUE SE REPITE | pendiente(2026-11-11): necesita-check · inventario cubierto por las listas (CONCEPTO_QUEMADO, SPAM_QUEMADO, OPENERS, CIERRE, REVEAL, ARRANQUE, perspec
+global-instructions | 2.0b-ARRANQUE EL ARRANQUE DE LA ANAFORA ROTA EN | check: RITMO: el arranque de la anafora no esta quemado (§2.0b)
+global-instructions | LA CONSOLIDACION auditoria del 2026-08-25 la pid | fuera: redundante · repite §3.2 l.927-928 (anafora dentro del bloque, variedad entre bloques) y working-preferences §4
+global-instructions | 2.2 Calidad de la idea del hook antes de que el | pendiente(2026-11-11): necesita-criterio · punto 1 (imagen) en 'punch', punto 3 en 'emocion'; punto 2 'toca una herida psicologica real' sin dueño: añadi
+global-instructions | 2.2c A IGUALDAD DE SENTIDO GANA SIEMPRE EL GANCH | check: ENTREGA: ¿este gancho se puede decir mas corto? (§2.2c)
+global-instructions | 2.2d EL TEST DE LA CREADORA DE VIDEOS SI NO SE P | check: ENTREGA: el test de la creadora de videos (§2.2d)
+global-instructions | 2.2d-CORPUS LA SEGUNDA LECTURA NO SIEMPRE ES UNA | pendiente(2026-11-11): necesita-check · _DOBLE_LECTURA (validar-post.py l.1949) solo lleva las de pantalla; faltan las de sector y la ampliacion al cu
+global-instructions | 2.3 Ancla de sector en la primera linea | pendiente(2026-11-11): necesita-check · ancla CUBIERTA ('Hook anclado a VENTAS', 'Hook sin jerga que estrecha alcance', muletilla, criterio 'ancla'). 
+global-instructions | 2.3d EL INTENSIFICADOR CADA PILAR TIENE SU Y POC | pendiente(2026-11-11): necesita-check · intensificador CUBIERTO ('ENTREGA: ¿el gancho tiene INTENSIFICADOR...' + 'emocion'). Sin dueño 'NO SE APILAN D
+global-instructions | 2.3d-ENLACE EL INTENSIFICADOR NO ES SOLO DEL GAN | pendiente(2026-11-11): necesita-check · regla 6 del molde (intensificador en la linea 2 del ninja) sin check: aviso si la linea del enlace no lleva so
+global-instructions | 2.4 Claim universal dentro del sector | fuera: redundante · §2.3b l.1330 (alcance del gancho dentro de ventas); ademas su lista SDR/AE/RevOps choca con el ICP de 55 años
+global-instructions | 2.5 Densidad de numeros en el hook | pendiente(2026-11-11): necesita-check · 'Hook con ≤1 cifra (§2.5)' CUBRE la densidad. Sin dueño 'un porcentaje suelto de gancho suena a fake' (22/07):
+global-instructions | 2.6 Transicion hook cuerpo | pendiente(2026-11-11): necesita-check · transicion sin dueño: aviso si la linea 2 (primera tras el gancho) abre con preambulo de credencial ('Llevamos
+global-instructions | 2.7 Arquetipos de hook que mas outliers producen | contexto: lista de arquetipos (etiquetas de la herramienta)
+global-instructions | 2.8 Openersclosers quemados nunca literales | check: Sin openers quemados (§2.8)
+global-instructions | 2.9 Techo de intensidad del verbo | check: Hook sin verbo flojo (§2.9)
+global-instructions | 2.9-OBJETO EL TECHO NO LO TIENE EL VERBO SOLO LO | criterio: punch
+global-instructions | 2.9c LAS PREPOSICIONES DEL GANCHO TAMBIEN SE TAC | pendiente(2026-11-11): necesita-check · tijera CUBIERTA por el aviso de §2.2c y gerundios por VERBO_FLOJO. Sin dueño 'NO REPITAS EL MISMO VERBO en el 
+global-instructions | 3 El CUERPO formateado y ritmo | contexto: titulo del §3
+global-instructions | 3.1 Enumeracion y frases paralelas | check: UNA oracion por linea en el cuerpo
+global-instructions | 2.3c EL DETALLE QUE NO CARGA EL CHISTE FUERA Ike | fuera: redundante · §2.3b l.1341 y §2.3b-ESCENARIO l.1343 (quitar lo que estrecha sin aportar), con aviso 'ENTREGA: ¿el gancho lle
+global-instructions | 2.3b EL DOLOR ESTA EN LO QUE AUN NO TIENES Iker | pendiente(2026-11-11): necesita-criterio · sin dueño. Añadir a 'emocion': "¿la frustracion recae en lo que el lector AUN NO tiene (a quien QUIERES vender
+global-instructions | 3.2 Bloques en escalera respiracion regla transv | check: Al menos un bloque de DOS
+global-instructions | 3.2-RACHA LA SUELTA DOMINA PERO NUNCA MAS DE 4 S | check: RITMO: como mucho 4 sueltas seguidas
+global-instructions | 3.2-ESPEJO UN TRAMO SIMETRICO ES TAN PREDECIBLE | check: RITMO: ningun tramo en espejo (§3.2)
+global-instructions | 3.3 Variedad ritmica 4 unidades formales | pendiente(2026-11-11): necesita-check · parcial ('Ninguna linea pasa de 80', ciclo/patron). Sin dueño: tope de 1-2 bloques de 3 por post (aviso con 3+
+global-instructions | 3.4 Como leer las peticiones de formato | fuera: fuera · como interpretar peticiones de formato del usuario
+global-instructions | 3.5b Citar fuentes en el cuerpo el NOMBRE si el | check: Sin AÑO de fuente en el cuerpo (§3.5b)
+global-instructions | 3.6 Cifras SIEMPRE en digito nunca en letra univ | check: Cifras en digito, nunca en letra (§3.6)
+global-instructions | 3.5 Cuerpo natural anti-IA | check: Sin AI-tells de la tabla (brand-voice §3)
+global-instructions | 3.7 Banco de estructuras para el cuerpo de un po | fuera: redundante · menu de estructuras; sus reglas remiten a §2.3b, §2.5b, §2.0-PAGO, §4.4b-TRANSICION y 'comprador'. Tension a v
+global-instructions | 4 Las 4 mecanicas fiables CTA | fuera: fuera · eleccion de mecanica
+global-instructions | 4.1 MAPA REGIONAL identidad TOP performer | pendiente(2026-11-11): necesita-criterio · el pilar mapa esta CUBIERTO (reveal, concepto, pais, frase-rabia, menciones, /mapas/, eje callado). Sin dueño:
+global-instructions | 4.2 LOS 10 directorescomerciales por region | fuera: obsoleta · 'Los 10' de personas prohibido desde 16/09; sustituido por 'Las 10' (01/10, post-workflow §4.3-LAS10)
+global-instructions | 4.3 MEME con MOTOR sin motor no viaja | check: MEME: en la zona corta, <=450
+global-instructions | EL FORMATO SE REPITE. LO QUE SE ITERA ES EL ANGU | fuera: fuera · cuando repetir una referencia o subtipo (planificacion; ventana en post-workflow §4.4-REPETIR)
+global-instructions | 4.4 LEAD MAGNET comment-gated | pendiente(2026-11-11): contradice · puerta 4 'CTA explicita: Comenta [X] + [Y]' en el texto y palabra en minusculas (17/07) chocan con los checks 
+global-instructions | LOS 2 SUBTIPOS DE LEAD MAGNET taxonomia medida 2 | fuera: fuera · subtipos de lead magnet (eleccion de mecanica); el subtipo publico con 'Comenta' arrastra la misma contradicci
+global-instructions | 2.5b LAS CIFRAS IMPARES Y CUMPLIBLES EN TODO EL | check: Cifras ELEGIDAS en impar, en todo el post (§2.5b)
+global-instructions | 2.2b COMO SE ROBA UN OUTLIER VEHICULO vs CONTENI | criterio: remix
+global-instructions | LA EXCEPCION AL CALCO TODO LO QUE SEA UNA FECHA | check: Marca temporal verificada contra la fecha REAL de publicacion
+global-instructions | El paso que se falla siempre separar VEHICULO de | criterio: remix
+global-instructions | Los 4 fallos reales del 2026-07-21 todos el mism | contexto: casos del 21/07
+global-instructions | Donde se SUPERA al original | pendiente(2026-11-11): necesita-criterio · añadir a 'remix': "¿en que punto DEBIL del original le ganamos (no solo calcarlo)?"
+global-instructions | 2.3b EL ANCLA VA EN EL HOOK LA ESPECIFICIDAD EN | pendiente(2026-11-11): necesita-check · escenario CUBIERTO por el aviso ESCENARIO; el ADJETIVO de sector no: añadir industrial(es)/industria a DEMASIA
+global-instructions | 2.9b LA CONJUGACION TAMBIEN SE ITERA NO SOLO EL | pendiente(2026-11-11): necesita-criterio · añadir a 'punch': "¿probaste el verbo en presente, condicional y futuro, y por que gana este tiempo?". La repe
+global-instructions | 2.10 UNA O DOS ORACIONES EN EL HOOK NUNCA TRES m | check: Hook de 1 o 2 oraciones, nunca 3
+global-instructions | SE ADOPTA | check: Spam ninja: va DESPUES del valor
+global-instructions | YA LO CUMPLIAMOS no es cambio es confirmacion | check: Spam ninja: la linea del enlace no ORDENA ni parte en dos frases (4.4b-EMAIL)
+global-instructions | 1. DONDE cae el enlace en prosa antes del caract | check: Spam ninja: el enlace cae antes del caracter 650 (§4.4b)
+global-instructions | 2. COMO se presenta bloque de DOS el enlace en l | pendiente(2026-11-11): contradice · 'linea del enlace: maximo 80 caracteres sin la URL' (10/08) choca con §4.4b-MOLDE l.1553 y l.1558 (27/08): <=5
+global-instructions | 3. QUE promete identificar a la persona no el mo | check: Spam ninja: promete IDENTIFICAR, no solo el momento (§4.4b)
+global-instructions | 4.4b-UTM-FECHA LA FECHA DEL UTM SALE DEL RELOJ N | check: La fecha del utm_campaign es la de HOY (§4.4b-UTM)
+global-instructions | LA TERCERA SUPERFICIE LOS BOTONES DE LUMA QUE VI | fuera: fuera · botones de Luma en la web (neety-resources)
+global-instructions | Y LA REGLA QUE LO CIERRA TODO UTM SOLO EN LO QUE | fuera: fuera · UTM en enlaces internos de la web
+global-instructions | Y LA LINEA DE CONTEXTO ROTA COMO TODO LO DEMAS I | check: EVENTO: la frase de contexto no esta quemada (§4.4b-EVENTO-CONTEXTO)
+global-instructions | LAS DOS LINEAS CORTAS TOPE DE 55 CARACTERES SIN | check: Spam ninja: LAS DOS lineas cortas, <=55 sin la URL (§4.4b)
+global-instructions | Y SI EL POST NO TIENE BROMA SE SIGUE LO MAS PUNC | check: Spam ninja: REPITE una palabra del gancho, literal
+global-instructions | EL DOLOR NO CAMBIA LA FRASE SI EL SPAM NINJA ROT | check: SPAM NINJA: la frase no está quemada (§4.4b)
+global-instructions | EL EVENTO DE SEPTIEMBRE 3 POSTS A LA SEMANA UNO | fuera: obsoleta · Evento del 24/09 pasado; ademas es planificacion
+global-instructions | NO SE PUBLICA UN POST DE EVENTO SIN EL OK DE LOS | check: ⚠️ EVENTO: NO PUBLICAR SIN EL OK DE LOS MENCIONADOS
+global-instructions | CADA BLOQUE DE MENCIONES DICE QUE SON Iker 2026- | pendiente(2026-11-11): necesita-check · Aviso en post con evento/Luma: la linea que abre un bloque de @ nombra que son (clientes/partners/ponentes/lo 
+global-instructions | LO QUE YA HACIA UNAI Y HABIAMOS PERDIDO recupera | pendiente(2026-11-11): sin clasificar · 
+global-instructions | EL GANCHO DE UN EVENTO NO ES UN ANUNCIO medido e | fuera: redundante · Mismo dueno que 2227; el resto es CONTEXTO (correccion de un analisis)
+global-instructions | LO QUE SI DICEN LOS DATOS MANDA EL PILAR NO EL G | fuera: fuera · Eleccion de pilar y metodo de analisis
+global-instructions | EL FORMATO VALIDADO PARA ANUNCIARLO VENDE LA SAL | check: EVENTO: vende la SALA, no el programa (§4.4b)
+global-instructions | EL CARTEL DE ASISTENTE Im attending YA ES EL ANU | pendiente(2026-11-11): sin clasificar · 
+global-instructions | HAY DOS TIPOS DE SPAM Y NO SE MEZCLAN Iker 2026- | check: MAPA: el CTA enlaza a /mapas/{region}/ (§4.2 Paso 5)
+global-instructions | 4.4b-FUENTES QUIEN MANDA CUANDO DOS DOCUMENTOS N | fuera: fuera · Jerarquia de fuentes (proceso); su efecto en el texto lo pregunta la clave verdad
+global-instructions | LO QUE EL NINJA SI PUEDE PROMETER ordenado por c | fuera: obsoleta · Sustituida por §4.4b-MUNICION-1510 (l.2402, 16/10); la fila "no pagar por buscar" esta retirada alli
+global-instructions | LO QUE EL NINJA NO PUEDE PROMETER y aqui el tama | check: Spam ninja: no promete AUTOMATISMO
+global-instructions | EL AVISO QUE VA CON ESTA SECCION dicho antes de | fuera: redundante · Repite 2190 (el ninja rota) y §4.4e-ROTA; dueno SPAM_QUEMADO
+global-instructions | 4.4c SI SE NOMBRA A NEETY EN EL CUERPO VA CON AR | pendiente(2026-11-11): necesita-check · Aviso: (?<!@)\bNeety\b fuera de URL. Hoy solo se mira el genero ("NEETY va en masculino") y que salga una vez
+global-instructions | 4.4d EL BLOQUE DE LA PLANTILLA PELOTEO HACIA DEN | fuera: fuera · Cuando usarlo es planificacion
+global-instructions | 4.4e-MEME EN MEME ENTRA A VECES RETIRADA EL 2026 | fuera: obsoleta · El propio texto la retira (27/08)
+global-instructions | 4.4e-QUIEN EL BLOQUE DEL CORREO VA EN PLURAL POR | pendiente(2026-11-11): necesita-check · Fallo con destino correo/newsletter: mi correo/mi newsletter/yo la cuento/yo lo mando en el bloque del ninja
+global-instructions | QUE DICE PARA QUE NO SE VUELVA PLANTILLA EN TRES | fuera: obsoleta · Puntos 1-2 y 5 son del doble bloque. Punto 4 (sin suscribete/newsletter) sigue vivo y CUBIERTO por "Doble ninj
+global-instructions | LOS TRES AVISOS DICHOS ANTES DE EMPEZAR no despu | fuera: obsoleta · Del experimento del doble bloque, retirado
+global-instructions | COMO SE DECIDE SI ESTO SE QUEDA | fuera: obsoleta · Medicion del doble bloque, decidido el 27/08
+global-instructions | 4.5 La regla del UNO en el cierre CTA | check: El post no cierra con una pregunta (global §4.5)
+global-instructions | 4.6 Matriz de eleccion | fuera: fuera · Eleccion de pilar. Ojo: l.3004 "pregunta que apunta a la categoria de producto" choca con §4.5 (30/09) si se l
+global-instructions | 5 IMAGENES Y VIDEO skills aparte | fuera: fuera · Imagen/video; paleta: manda images §0a-ter
+global-instructions | 6 Que esta funcionando que se esta quemando diag | fuera: fuera · Eleccion de pilar y formato
+global-instructions | 7 Timing | fuera: fuera · Publicacion
+global-instructions | 8 Pase de validacion correr en silencio ANTES de | pendiente(2026-11-11): sin clasificar · 
+global-instructions | LO MECANICO NO SE MIRA A OJO LO CORRE EL SCRIPT | fuera: fuera · Proceso
+global-instructions | 8-DUENO TODA REGLA DURA TIENE DUENO O EL TEST FA | fuera: fuera · Proceso; dueno test-cobertura-reglas.py. Solo mira cabeceras ⛔/CANONICO/GLOBAL: las reglas en negrita dentro d
+global-instructions | 9.0 CORRECCION DEL 2608 LA MISMA TARDE EL UMBRAL | pendiente(2026-11-11): sin clasificar · 
+global-instructions | 9.0d QUINTO CASO 0511 UN POST DE TEXTO CON FOTO | pendiente(2026-11-11): sin clasificar · 
+global-instructions | 9.0c TERCER Y CUARTO CASO 3009 DOS POSTS DADOS P | fuera: obsoleta · "el minuto 30 es el umbral" sustituido por 50 (9.0d, 05/11)
+global-instructions | 9.0b SEGUNDO CASO DE LA COLA DE REVISION 2708 Y | fuera: fuera · Operacion/aviso al publicar
+global-instructions | 9.1b UN POST CAPADO SI SALE EN RECIENTES Y SI MA | fuera: fuera · Diagnostico tras publicar
+global-instructions | 9.1 El FEED es el primer diagnostico pero NO es | fuera: fuera · Diagnostico tras publicar
+global-instructions | 9.1b CON VIDEO LA REVISION DURA 30-45 MINUTOS Y | fuera: fuera · Lo imprime validar-video.py
+global-instructions | 9.2b LO QUE EL 2608 DEJA PROBADO Y LO QUE NO | contexto: Conclusiones de un caso
+global-instructions | 9.3 Que dispara el capado segun nuestros propios | check: Sin transcribir/grabar en PRIMERA PERSONA
+global-instructions | 9.3b LinkedIn ESCRITO EN EL POST CAPA LA PUBLICA | check: : vigila el feed (§9.3b)
+global-instructions | 9.3d automatizar CAPO UN POST 0810 Unai CAPADO P | pendiente(2026-11-11): cubierta · "Sin \"automatizar\" (capado probable, §9.3d)"
+global-instructions | 9.6 EL MAPA DE CAPADOS POR PSICOLOGIA CADA CASO | check: Sin palabras VECINAS de un capado, por psicologia (§9.6)
+global-instructions | 9.4 Lo que NO informa | fuera: fuera · Diagnostico
+global-instructions | 9.5 La resubida UNA variable y con el coste sabi | fuera: fuera · Operacion de resubida
+brand-voice | 0 Precedencia leer primero | contexto: jerarquia datos > voz; no es regla de texto
+brand-voice | 1 Identidad de la voz | pendiente(2026-11-11): necesita-criterio · nueva clave voz (o ampliar el aviso ENTREGA: ¿el gancho PRESUME? al CUERPO): la autoridad se demuestra, nunca 
+brand-voice | 1b LAS 3 CUENTAS NO SUENAN IGUAL leer antes de e | pendiente(2026-11-11): necesita-criterio · NUEVA clave voz, todas las cuentas: "¿Suena a ESA cuenta? Unai: sobrio, sin jerga de creador, grandioso en el 
+brand-voice | QUE VA POR CUENTA Y QUE ES DE TODAS auditoria de | fuera: redundante · tabla resumen de lo global vs por cuenta; cada fila ya tiene su seccion (NO CRITICAMOS 5 y 6, IA no sustituye,
+brand-voice | UNAI QUIERE EL GANCHO GRANDIOSO SOBRIO EN LA VOZ | pendiente(2026-11-11): cubierta · check: ENTREGA: ¿el gancho PRESUME? (con --cuenta unai pide lo grande) + GANCHO: "el gran dia", no "un gran di
+brand-voice | UNAI NUNCA SE HACE DE MENOS FUERA LA INCREDULIDA | pendiente(2026-11-11): necesita-check · la incredulidad ya la caza "el gancho no se hace de menos, sin jamas pense" (Unai/Asier). Falta el PLURAL obli
+brand-voice | ASIER TAMBIEN VA GRANDIOSO NI HUMILDE NI PREPOTE | pendiente(2026-11-11): cubierta · checks: ASIER: no se dice que nunca ha vendido + el gancho no se hace de menos (Unai y Asier) + aviso de ganch
+brand-voice | NINGUNA CUENTA PLANTEA QUE LA IA SUSTITUYE AL CO | pendiente(2026-11-11): cubierta · check: MARCA: sin plantear que la IA sustituye al comercial (fallo en Unai/Asier, aviso en Iker)
+brand-voice | SUS POSTS DE EVENTO O HISTORIA LLEVAN GANCHOS AL | pendiente(2026-11-11): cubierta · check (aviso): El elegido primero y 5 alternativos debajo, en UN solo bloque copiable (--historia-evento, --cu
+brand-voice | SUS AGRADECIMIENTOS HISTORIAEVENTO PELOTEO PURO | pendiente(2026-11-11): necesita-criterio · ya cubierto: --agradecimiento falla con enlace y pide problema concreto + puente. Falta la regla del 27/10 "fi
+brand-voice | LA CUENTA DE UNAI AUTORIDAD ANTE EL ECOSISTEMA i | pendiente(2026-11-11): necesita-check · el ancla la cubre "Hook anclado a VENTAS o al ECOSISTEMA (cuenta Unai)". Falta "la palabra del ancla de ecosis
+brand-voice | EL PARAGUAS DE SU CUENTA SE LLAMA EMPRENDIMIENTO | pendiente(2026-11-11): necesita-check · AVISO con --cuenta unai si el gancho lleva emprend* (estrecha a la burbuja startup; "usarla es posible, abusar
+brand-voice | GANCHO GENERICO EN UNAI AB DECLARADO NO CARRIL N | criterio: ancla
+brand-voice | SU FORMA DE NARRAR SACADA DE SU PROPIO TEXTO DEL | contexto: vocabulario de Unai para el cuerpo "cuando encaje"; opcional, no exigible. Si se crea la clave voz, puede cita
+brand-voice | SUS POSTS DE PARTICIPACION MODERA PONE O ASISTE | pendiente(2026-11-11): necesita-criterio · clave voz (nueva) o pregunta extra con --cuenta unai en evento/historia: "Lee cada virtud o conclusion del cue
+brand-voice | LA LENTE DEL INVERSOR LO QUE UN FONDO LEE EN LA | pendiente(2026-11-11): contradice · la lente esta cubierta (aviso ENTREGA: lente del inversor). Pero el bloque final de la seccion (l.246-249, 20/
+brand-voice | 2 El lector manda sobre el vocabulario regla de | criterio: ancla
+brand-voice | 2b LOS ANGLICISMOS CON TRADUCCION LLANA NO VALEN | pendiente(2026-11-11): cubierta · check: Sin anglicismos que tengan traduccion llana (brand-voice §2b)
+brand-voice | 2b-DOS-LISTAS NO ES UNA LISTA DE PALABRAS PROHIB | check: Hook sin jerga que estrecha alcance
+brand-voice | 2c LENGUAJE DE RIESGO LO QUE PUEDE HACER QUE LIN | pendiente(2026-11-11): contradice · cubierta en parte (Gancho sin vocabulario de DELITO, Sin palabras VECINAS de un capado, Sin "LinkedIn" escrito
+brand-voice | 3 Cuerpo natural no robotico matar los AI-tells | pendiente(2026-11-11): necesita-check · cubiertos AI-tells, guion largo, coma antes de y, dos puntos en medio, linea que acaba en dos puntos y punto d
+brand-voice | 3b UNA CITA SE ESCRIBE COMO LA ESCRIBIO QUIEN LA | pendiente(2026-11-11): cubierta · checks: Citas con comillas rectas + Cita de varias lineas se abre y se cierra + Sin coma de vocativo dentro de
+brand-voice | 3c-COLOCACION EL VERBO NO SOLO PIDE OBJETO PIDE | pendiente(2026-11-11): necesita-criterio · ampliar punch: "di la pareja verbo+objeto sola (reinventar la forma / reescribir las reglas): ¿es una colocaci
+brand-voice | 3c-ARTICULO EL OBJETO QUE EL LECTOR NO CONOCE VA | pendiente(2026-11-11): necesita-criterio · clave oido: "leido sin saber nada de la historia, ¿se sabe quien hace que y de que cosa se habla (un/una o pre
+brand-voice | 3d TIEMPOS VERBALES DE ESPANA CADA TIEMPO HACE S | criterio: oido
+brand-voice | 4 Las 5 palancas de posicionamiento aplicar cuan | pendiente(2026-11-11): contradice · palanca 2 pone de ejemplo "+200 PYMEs, +40% conversion", que aboutme §1 (14/07) prohibe publicar sin fuente; p
+brand-voice | 5 Menciones de terceros SIEMPRE en positivo | pendiente(2026-11-11): necesita-criterio · checks parciales (Sin "ese" despectivo, el prejuicio lo dice OTRO en peloteo, el ninja no nombra competidores)
+brand-voice | 6 Atacar el problema nunca al lector | pendiente(2026-11-11): necesita-check · AVISO en todo el texto (no en el CTA ni en preguntas): 2a persona que juzga al lector (no lo entiendes, lo hac
+brand-voice | 7 Voz de comentarios y respuestas Accounts comen | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
+brand-voice | 7.1 Responder a comentarios de NUESTROS posts el | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
+brand-voice | 7.1h UNA LINEA UNA PALABRA ALARGADA Y EL EMOJI L | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
+brand-voice | 7.1j ESPANOL DE ESPANA SIN PARODIA Y CON LOS NOM | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
+brand-voice | 7.1f LA RESPUESTA NUNCA ES UNA PREGUNTA Iker 202 | fuera: fuera · respuestas por codigo (detectarRespuestaBorde). Ojo: id 7.1f duplicado con la seccion de la l.796
+brand-voice | 7.1d QUE LLEVA LA VOZ DE CADA JEFE Y QUE NO audi | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
+brand-voice | 7.1e LAS IMAGENES NO SE LEEN Y ESO OBLIGA A UNA | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
+brand-voice | 7.1f EN UN MEME LA IMAGEN VA EN TEXTO Y LA BROMA | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
+brand-voice | 7.2 Comentar posts de OTROS los 9 angulos | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
+brand-voice | 7.2b Los 5 comentarios de apoyo de Google Chat I | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
+brand-voice | 7.2b-ADULTO APOYO DE ADULTO Y SI LA HISTORIA LA | fuera: fuera · comentarios de apoyo de Google Chat por codigo (commentGenerator / variedadComentarios); id con guion 7.2b-ADU
+brand-voice | 7.3 Que SI es fiable recordatorio | contexto: recordatorio de fiabilidad de fuentes
+brand-voice | NUNCA EL ANO NI EN EL TEXTO NI EN LA IMAGEN Iker | pendiente(2026-11-11): cubierta · check: Sin el AÑO en el post (atemporalidad, brand-voice)
+brand-voice | 5 AL QUE COMPRA NO SE LE JUZGA EN NINGUNA CUENTA | criterio: comprador
+brand-voice | 6 POLITICA NUNCA EN NINGUNA CUENTA auditoria del | pendiente(2026-11-11): necesita-check · POLITICA sin check fuera de la casilla --meme-sobrio (memes de Unai/Asier). FALLO duro en todas las cuentas y 
+brand-voice | Y EN HELENA LA MISMA REGLA APRIETA MAS PORQUE SU | pendiente(2026-11-11): cubierta · check (aviso): ENTREGA: ¿el CUERPO presume? (cuentas Helena y Angela)
+brand-voice | LA TERCERA PERSONA SINGULAR SI PLURAL SOLO PARA | pendiente(2026-11-11): necesita-criterio · clave voz o bucle en historia: "¿el protagonista de la escena es UN actor (1a o 3a singular)? 3a plural solo p
+post-workflow | 0 Regla de oro precedencia | fuera: fuera · proceso: precedencia entre skills
+post-workflow | 1 El marco traducido a posts | fuera: fuera · proceso (workflow/loop)
+post-workflow | 2 Workflow o un solo prompt no sobre-ingenierice | fuera: fuera · proceso
+post-workflow | 3 Los 2 patrones aplicados a posts | fuera: fuera · proceso
+post-workflow | 4 LA RECETA cronologica esqueleto general un run | contexto: contenedor de runbooks
+post-workflow | 4.0 Politica de empresas y menciones CORREGIDA l | criterio: verdad
+post-workflow | 4.0b MAPA vs LOS 10 criterios de seleccion OPUES | pendiente(2026-11-11): cubierta · check: Mapa sin logro en la ficha (§4.0b); el resto es selección (menciones.py)
+post-workflow | 4.0c REPETIR REGION la lista NUNCA repite empres | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.0d EL TRONCO COMUN DEL PELOTEO REGIONAL LO QUE | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.1 Esqueleto general todo post pasa por aqui | criterio: punch
+post-workflow | 4.2 Runbook MAPA REGIONAL encadenado RECETA DEFI | contexto: ver sub-filas 234-593; entregables CSV/título/página/foto = FUERA
+post-workflow | 4.3 Runbook LAS 10 encadenado las 10 EMPRESAS de | pendiente(2026-11-11): sin clasificar · 
+post-workflow | LOS TRES INAMOVIBLES DEL GANCHO DE LOS 10 Iker 2 | fuera: obsoleta · pilar vetado; checks LOS 10: puente/gerundio/región siguen en el validador
+post-workflow | LOS GANCHOS PUBLICADOS SE SACAN DE LA BD ANTES D | fuera: fuera · proceso (global §0-DATOS); el bloque de ganchos lo cubre check ENTREGA: el bloque de los GANCHOS
+post-workflow | LOS 30 DIAS ORDENAN NO DESCARTAN CUANDO LA EMPRE | pendiente(2026-11-11): sin clasificar · 
+post-workflow | Paso 3d EL SUJETO QUE TAPA A LA PERSONA NUNCA ES | fuera: obsoleta · pilar vetado; check EMPRESA_LADRONA (los10). No aplica a las10 (§4.3-LAS10)
+post-workflow | Paso 3e CONCEDE QUE ES TRABAJO EN EQUIPO obligat | fuera: obsoleta · pilar vetado; check: Concede que es trabajo en equipo + El beat de equipo va ANTES de la lista (los10)
+post-workflow | EL BLOQUE DE GANCHOS DEBAJO DEL TEXTO Y EN TODAS | pendiente(2026-11-11): cubierta · check: ENTREGA: el bloque de los GANCHOS del pilar / de "Los 10" y "Las 10"
+post-workflow | CORREGIDO EL 2026-08-18 LA BUSQUEDA DE POSTS SI | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.4-PASO-0c LA CANTERA DE PROGRAMACION NO DA RIS | fuera: obsoleta · superada el 08/10 (Asier se busca en la cantera de ventas)
+post-workflow | 4.4 Runbook MEME REMIX de una referencia receta | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.4-MEME-MARIO POR QUE EL MEME DE MARIO VIAJO Y | contexto: dato y prueba propuesta; "no dar por muerto antes de 72 h" = medición
+post-workflow | 4.4-ESENCIA-MITAD-BIS CORRECCION DEL 2708 EL GAN | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.4-MEDIR LA ANATOMIA DE LA REFERENCIA SE MIDE N | pendiente(2026-11-11): cubierta · check: ENTREGA: mide la anatomia de la referencia antes de entregar (anatomia-referencia.py)
+post-workflow | 4.4-BUCLE ESTA REGLA SE MUDO A global-instructio | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.4-FUENTE DE DONDE SE COGE LA REFERENCIA Iker 2 | contexto: caso (código de verificación)
+post-workflow | 4.4-SERIO EL MEME SERIO GANA EN CALIDAD DE AUDIE | contexto: dato; reparto de registro por cuenta = FUERA (planificación) y --meme-sobrio
+post-workflow | EL PRIMER CASO DE LA CASCADA FUNCIONANDO AL DERE | criterio: remix
+post-workflow | QUE SE CALCA Y QUE NO leer antes del Paso 0 | pendiente(2026-11-11): sin clasificar · 
+post-workflow | EL ORDEN IMPORTA PRIMERO CALCAR DESPUES MEJORAR | pendiente(2026-11-11): necesita-check · bloques de dos y cierre de una línea CUBIERTOS (Al menos un bloque de DOS, Cierre punchy de UNA linea). Sin du
+post-workflow | 4.5 Runbook LEAD MAGNET comment-gated RECETA DEF | contexto: -
+post-workflow | 4.5.-2 TODO LEAD MAGNET TIENE QUE CAPTURAR ALGO | pendiente(2026-11-11): necesita-criterio · gate/destino en parte por checks CTA y El enlace apunta a recursos.neety.com. Añadir a motor (leadmagnet): "si
+post-workflow | 4.5.-1 LA IMAGEN DEL LEAD MAGNET CALCAR SI PERO | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.5.0 EL HOOK ULTIMA HORA medido y NO estaba en | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.5.0c EL RECURSO PROMETE IDENTIFICACION NO SENA | pendiente(2026-11-11): necesita-check · PROMESA_AUTOMATISMO/VOLUMEN y "promete IDENTIFICAR" solo miran el bloque del ninja. Aviso en leadmagnet si gan
+post-workflow | 4.5.0-CRUCE LOS 25 LEAD MAGNETS DE LAS 3 CUENTAS | fuera: fuera · medición y reglas candidatas de planificación (termómetro 24 h, qué cuenta, reutilizar tema)
+post-workflow | 4.5.0-MERCADO NO ES QUE HAYAMOS PERDIDO LA TECLA | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.5.0-UNA-PAGINA EL REFERENTE QUE NO SE SATURA U | contexto: Observación de fuera (n=8) + propuesta de planificación (decide Iker). La 4:5 queda como prueba declarada, sin
+post-workflow | 4.5.0-BUENOS-CONTRA-MALOS TRES CUENTAS DE FUERA | pendiente(2026-11-11): necesita-check · (1) --pilar leadmagnet, AVISO si el gancho ELOGIA la herramienta (revoluciona/está revolucionando/cambia el ju
+post-workflow | 4.5.0-COMPETENCIA PASO 0 OBLIGATORIO LA INVESTIG | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 1 Los tres referentes por Unipile | fuera: fuera · Proceso (consulta Unipile)
+post-workflow | 2 Y si con eso no basta se sacan referentes NUEV | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 3 Que se saca de ahi y es lo unico que importa E | pendiente(2026-11-11): sin clasificar · 
+post-workflow | LA PUERTA DURA ES LA MISMA CUENTA. ENTRE CUENTAS | fuera: fuera · Planificación (90 días + ángulo nuevo en la misma cuenta). Contradicho por las filas 3718 y 4330, que siguen d
+post-workflow | 4.5.0-TECHO UN TEMA SE JUZGA POR SU TECHO FUERA | fuera: fuera · Elección de recurso
+post-workflow | 5 Lo que va en la entrega siempre | fuera: fuera · Entrega interna; podría ser un aviso ENTREGA más, pero no toca el texto
+post-workflow | 4.5.0-YO-LO-HAGO EL RECURSO YA NO SE PIDE POR PR | fuera: fuera · Dueño: scripts/validar-recurso.py --promete N + tools/qa-formato.cjs (neety-resources) + catálogo leadMagnetCo
+post-workflow | 4.5.0-REUTILIZAR EL RECURSO NO SE CREA DE CERO S | pendiente(2026-11-11): necesita-check · La regla de texto ("el GANCHO estrena concepto siempre", nunca calcar un ganador nuestro) no tiene dueño: AVIS
+post-workflow | 4.5.0-CTA-IMAGEN-MEDIDO EL BANNER EN LA FOTO FUN | contexto: Dato medido 12/08
+post-workflow | 4.5.0-ENTREGA EN TODA ENTREGA DE LEAD MAGNET VAN | pendiente(2026-11-11): cubierta · ENTREGA: el bloque de los GANCHOS del pilar, de mas outlier a menos
+post-workflow | 4.5.0-REFERENTES-PRIMERO ANTE LA SOSPECHA DE CAP | fuera: fuera · Diagnóstico de capado
+post-workflow | 4.5.0-CAPADO-RAPIDO COMO SABER EN 45 MINUTOS SI | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.5.0-CALENTAR ANTES DE SUBIR LA CUENTA COMENTA | fuera: fuera · Lanzamiento
+post-workflow | 4.5.0-RITMO EL LECTOR VIENE A POR EL BLOQUE NUME | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.5.0-REFERENTE-OBSERVADO LO QUE HA CAMBIADO MAR | contexto: Lo no copiable ya es CTA: NINGUNA peticion explicita de accion en el TEXTO
+post-workflow | 4.5.0-FIRMA LOS 4 INVARIANTES QUE HACEN RECONOCI | check: en el último tercio
+post-workflow | 4.5.0-CTA-CERO NINGUNA PETICION EXPLICITA DE ACC | pendiente(2026-11-11): cubierta · CTA: NINGUNA peticion explicita de accion en el TEXTO (§4.5.0-CTA). Ojo: solo corre en --pilar leadmagnet; la 
+post-workflow | 4.5.0-DATOS EL CAPADO DEL 1908 ERA DECIR QUE HAB | check: la transcripción/grabación
+post-workflow | 4.5.0-FEED EL DIAGNOSTICO DE PRIMER NIVEL ES EL | fuera: fuera · Medición (global §9 manda)
+post-workflow | 4.5.0-SIN-AVISO LINKEDIN NO AVISA ASI QUE LA AUS | fuera: fuera · Medición
+post-workflow | 4.5.0-REVISION LA HIPOTESIS DE LA COLA DE REVISI | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.5.0-COMPLEMENTO EL TEXTO DE LA IMAGEN COMPLEME | criterio: imagen
+post-workflow | 4.5.0a LOS INAMOVIBLES DEL LEAD MAGNET Iker 2026 | pendiente(2026-11-11): contradice · CUBIERTA en lo mecánico (GARANTIA: Claude nombrado en el GANCHO, GARANTIA: dos moldes, GARANTIA MAXIMA, Hook: 
+post-workflow | 4.5.0b EL MODELO GENERICO PATRONES DE MARTINA RO | pendiente(2026-11-11): cubierta · GENÉRICO: hook SIN cifras / CORTO ≤90 / lista numerada / cuerpo LARGO (--generico). Ver contradicciones en fil
+post-workflow | 4.3-PLANTILLA LA PLANTILLA DE LOS 10 Y SUS COLOR | fuera: fuera · Plantilla de imagen montada por montar-orla.py (--region sustituye XXX); colores del brandbook. "Los 10" de pe
+post-workflow | 4.7 Runbook DESPIECE OBJETO el 3er peloteo regio | pendiente(2026-11-11): cubierta · --pilar objeto (OBJETO: bloques, pieza delante, comparación SI va) + --plantilla (HUECOS_PLANTILLA). Veredicto
+post-workflow | PASO 0 DEL DESPIECE LOS GANCHOS PUBLICADOS SE SA | fuera: fuera · Proceso
+post-workflow | LO QUE DE VERDAD MANDA EN UN PELOTEO NO ES EL GA | pendiente(2026-11-11): sin clasificar · 
+post-workflow | LA ANATOMIA DEL GANCHO PONE EL SUELO NO EL TECHO | contexto: Los 4 inamovibles siguen siendo fallo duro (GANCHO: exporta, comparación, frase-rabia…)
+post-workflow | LONGITUD Y FORMA con lo poco que hay | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.7-SECTORES QUE PLANTILLA TOCA DESPUES DE LA LL | fuera: fuera · Elección de sector y plantilla
+post-workflow | 4.6 Runbook HISTORIA PERSONAL ANECDOTA Iker 2026 | pendiente(2026-11-11): cubierta · --pilar historia (checks HISTORIA:)
+post-workflow | 4.6-FEEDBACK EL DOLOR DE LA HISTORIA SE SACA DEL | pendiente(2026-11-11): necesita-criterio · Clave verdad, en historia: "¿de qué tema del informe sale el dolor (dicho por 3+ empresas), o 'ninguno'?" Hoy 
+post-workflow | 4.6-CORREO ESTE PILAR LLEVA UNA SOLA PUERTA Y ES | fuera: obsoleta · Superado por §8.1b (lo dice el propio texto). Lo vivo, UNA puerta, CUBIERTO por UNA sola puerta por post
+post-workflow | 4.6-OBJETIVO ESTE PILAR NO VA DE VIRALIDAD Iker | fuera: fuera · Medición (cómo se juzga)
+post-workflow | 4.6-MEDIDO LOS DOS DE IKER CON NUMEROS REALES 20 | contexto: Superado por 4.6-SERIE
+post-workflow | EL DATO QUE VENDE ESTE PILAR HACIA DENTRO medido | contexto: Argumento interno
+post-workflow | 4.6-BIO ANTES DE INVENTAR NADA MIRA LA BIOGRAFIA | pendiente(2026-11-11): necesita-criterio · Clave verdad (historia): "¿qué es real y qué inventado, línea por línea? Si la escena viene de otro oficio, ¿e
+post-workflow | LAS DOS RAMAS y las decide QUIEN es el protagoni | contexto: Taxonomía
+post-workflow | Y UNA VARIANTE QUE CRUZA LAS DOS LA HISTORIA REG | pendiente(2026-11-11): sin clasificar · 
+post-workflow | Y LA VARIANTE REGIONAL ES PUNTUAL NO EL NUEVO DE | pendiente(2026-11-11): sin clasificar · 
+post-workflow | COMO SE HACE UNA HISTORIA REGIONAL sin que se co | pendiente(2026-11-11): necesita-check · Puntos 2 y 5: en historia con región declarada, FALLO si hay topónimo o gentilicio en el gancho (reusar GANCHO
+post-workflow | LO QUE HAY QUE APUNTAR PARA PODER MEDIRLO ALGUN | pendiente(2026-11-11): cubierta · ENTREGA: declara la RAMA y si es REGIONAL
+post-workflow | 4.6-FOTO-UNAI EN EL PRIMER JEFE LA FOTO VA CORPO | pendiente(2026-11-11): necesita-criterio · Clave imagen con --cuenta Unai: "¿foto corporativa con autoridad? ¿sale alguien que ya no está en la casa?" (m
+post-workflow | 4.6-FOTO-GRUPO SI UNA CUENTA NO TIENE SELFIES LA | pendiente(2026-11-11): cubierta · --foto-grupo (gancho en 1ª plural). Colaborativo y etiquetas: FUERA
+post-workflow | 4.6-PROMESA LA SEGUNDA FORMA DE GANCHO DEL PILAR | pendiente(2026-11-11): necesita-criterio · Clave bucle: en un gancho de PROMESA, "¿el claim va en futuro y el intensificador en pasado? ¿qué línea puente
+post-workflow | 4.6 Runbook TARJETA imagen sola EN PRUEBA fuera | pendiente(2026-11-11): cubierta · --pilar tarjeta (TARJETA:). Fuera de planificación
+post-workflow | 4.6.0 La evidencia para que no se olvide de dond | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.6-PASO-2 El artefacto registro screenshot docu | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.6-AB-METRICAS AB ABIERTO LA 2a TARJETA ASIER L | contexto: A/B ya leído (tarjeta cerrada); suspende a propósito "NUNCA MÉTRICAS FALSAS"
+post-workflow | 4.6-PASO-4 Validacion y entrega | fuera: fuera · Entrega
+post-workflow | 4.6-HANDLE La cabecera de la tarjeta CERRADO Ike | pendiente(2026-11-11): necesita-criterio · Clave imagen (tarjeta): nombre exacto + handle fijo de la tabla (@ikergalarza, @unaiarambarri, @asierolaizola)
+post-workflow | 4.6-DIAGNOSTICO POR QUE HAN FALLADO LAS DOS TARJ | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.8 Runbook OFICIO la defensa del comercial PROP | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.8.0 La evidencia patrones cruzados no un post | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.8-REGLAS Lo que se hereda y lo que lo mataria | pendiente(2026-11-11): necesita-check · Villano jefe/cliente: CUBIERTO por clave comprador; IA sustituye: MARCA. Sin dueño: "sin consejo en imperativo
+post-workflow | 4.8-CAPTURA SI PEGA CAPTURA aviso obligatorio fe | fuera: obsoleta · Superado por §8.1b (lo dice el texto)
+post-workflow | 4.8-TEST Dos pruebas baratas de meme que saliero | contexto: Ideas
+post-workflow | 5 Donde el circulo SE PARA y te devuelve gates h | fuera: fuera · Proceso
+post-workflow | 6 Formato de salida override del playbook | pendiente(2026-11-11): cubierta · Sin markdown dentro del post
+post-workflow | 7 Cosas del playbook que SI adoptamos tal cual | fuera: fuera · Proceso
+post-workflow | 8 EL WORKFLOW REAL planificador semanal de las 3 | fuera: fuera · Planificación
+post-workflow | 4.9 Runbook NOTICIA lo que ha pasado esta semana | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.9.1 LO QUE DICEN LOS DATOS medido el 2310 sobr | pendiente(2026-11-11): necesita-criterio · La psicología medida (persona conocida > herramienta del lector > choque de comercio > estudio sin protagonist
+post-workflow | 4.9.2 LA RECETA en prueba hasta tener 3 publicad | pendiente(2026-11-11): sin clasificar · 
+post-workflow | LA VENTANA DE PUBLICACION CORREGIDO 2026-07-20 l | fuera: obsoleta · Superada por working-preferences §1h (lo dice el texto)
+post-workflow | 8.0 LA 4a CUENTA OPCIONAL MARIO marketing Iker 2 | pendiente(2026-11-11): cubierta · MARIO: menciona a @Neety y a los 3 jefes + Hook anclado a MARKETING
+post-workflow | 8.0 LEE EL PILAR ANTES DE SACAR CONCLUSIONES Ike | fuera: fuera · Medición
+post-workflow | 8.0-RIESGO UNA SEMANA NO PUEDE DEPENDER DE UN SO | fuera: fuera · Planificación
+post-workflow | 8.0-TENDENCIAS EL CALENDARIO SE MIRA EN CADA PLA | fuera: fuera · Planificación
+post-workflow | 8.0-SEPTIEMBRE LAS 2 PRIMERAS SEMANAS DE SEPTIEM | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 8.0-PROGRAMAR LA HERRAMIENTA NATIVA DE LINKEDIN | fuera: fuera · Medición
+post-workflow | 8.1 Las 3 categorias de pilar unidad de rotacion | fuera: fuera · Planificación (lista "LEAD MAGNET comment-gated" desfasada)
+post-workflow | 8.1b CADA POST LLEVA SU OBJETIVO EN LA TABLA Y L | pendiente(2026-11-11): contradice · "EL DESTINO POR DEFECTO ES /solicitar-demo" (06/11) contra "EL DESTINO SE RAZONA POST A POST, NUNCA POR DEFECT
+post-workflow | 8.2 La regla de intercalado exclusividad por dia | pendiente(2026-11-11): contradice · FUERA en lo demás, pero dos bullets del 10/11 chocan: 4314 "lo que no cambia: un solo mapa y un solo Las 10 po
+post-workflow | 8.3 Guardarrailes de espaciado entre semanas via | pendiente(2026-11-11): contradice · "Lead magnet: NO hay espaciado" (4330) choca con 4.5.0-COMPETENCIA (26/08: misma cuenta ~90 días); el tope col
+post-workflow | 8.4 LA PREGUNTA PREVIA obligatoria antes de plan | fuera: fuera · Planificación
+post-workflow | 8.5 Flujo del workflow paralelo por cuenta | fuera: fuera · Proceso
+post-workflow | 8.6 El output por post lo que te devuelve | fuera: fuera · Entrega
+post-workflow | 9 Cerrar el bucle medir y aprender despues de pu | fuera: fuera · Medición
+post-workflow | 9b COMO SE HACE UN AB DE VERDAD AQUI Mario 2026- | fuera: fuera · Medición (registro en historial)
+post-workflow | EL CRUCE DE MENCIONES anadido 2026-07-20 | pendiente(2026-11-11): cubierta · Ninguna empresa ni persona repetida (§4.0c) + menciones-usadas.json
+working-preferences | 1 Formato de entrega | pendiente(2026-11-11): necesita-check · cubierto "Sin markdown dentro del post". Sin dueño: (1) FALLO duro si no hay linea en blanco entre el bloque d
+working-preferences | 1-PEGAR EL POST SE ENTREGA AQUI Y SE PEGA EN LIN | fuera: fuera · ruta de pegado (Docs -> LinkedIn); no es del texto
+working-preferences | 1c SI UN HALLAZGO CAMBIA UN ENTREGABLE YA DADO R | fuera: fuera · proceso: rehacer entregable ya dado
+working-preferences | 1c-TER SI UN ENTREGABLE MIO DICE TE LO PASO YO E | fuera: fuera · proceso: pendientes mios
+working-preferences | 0e NUNCA git add -A SE ANADEN MIS FICHEROS POR N | fuera: fuera · git
+working-preferences | 0f UNA LISTA DE QUEMADAS SE TOCA AL PUBLICAR NUN | fuera: fuera · mantenimiento de listas de quemadas
+working-preferences | 0d DESPUES DE CADA EDICION POR SCRIPT BUSCAR BYT | fuera: fuera · edicion de codigo
+working-preferences | 1d LOS AVISOS CRITICOS VAN MARCADOS EN ROJO Iker | pendiente(2026-11-11): necesita-check · formato de entrega sin dueño: 🔴 para lo que puede tumbar el post y "⚠️ AVISO, MARIO:" para pasos manuales (nun
+working-preferences | 0c-BIS ANTES DE ESCRIBIR UNA CORRECCION ES GLOBA | fuera: fuera · donde se escribe una correccion (global o pilar)
+working-preferences | 0c MIS DEDUCCIONES NO ENTRAN EN LAS RECETAS SIN | fuera: fuera · que entra en las recetas
+working-preferences | 1d-bis SI DAS REFERENCIA DE IMAGEN DAS TAMBIEN E | criterio: imagen
+working-preferences | 1d-ter LA FOTO DE LA REFERENCIA SE ADJUNTA SIEMP | fuera: redundante · con 1d-QUATER (mismo aviso ENTREGA: la FOTO de la referencia...)
+working-preferences | Arreglo 1 lo mecanizable se MECANIZA no se anota | fuera: fuera · proceso: mecanizar lo mecanizable
+working-preferences | Arreglo 2 el bucle de entrega obligatorio | pendiente(2026-11-11): necesita-check · retoque con --antes cubierto. Sin dueño: "3 candidatos de gancho, siempre" (paso 1 del bucle de entrega). AVIS
+working-preferences | 1e TODA ENTREGA DE UN POST LLEVA LA COMPARATIVA | pendiente(2026-11-11): cubierta · aviso ENTREGA: DOS comparativas + scripts/comparativa.py
+working-preferences | 2 Valida de forma proactiva no esperes a que pre | fuera: redundante · con brand-voice §2c-DATOS (tercera salida, señal legal) y CLAUDE.md; el hueco de "una linea fuera del bloque c
+working-preferences | La trampa de la edicion parcial | pendiente(2026-11-11): cubierta · el validador corre sobre el post entero; --antes
+working-preferences | 3 Avisar antes de ciertos formatos | pendiente(2026-11-11): necesita-check · aviso de riesgo ANTES (innegociable de CLAUDE.md) sin dueño salvo AGOSTO: AVISO con --pilar evento/historia-ev
+working-preferences | 4 Reescritura y sorpresa tic a evitar | criterio: ninja
+working-preferences | 5 Reglas operativas que espero que apliques solo | pendiente(2026-11-11): contradice · "Triage de menciones por actividad real (no por cargo)" contradice CLAUDE.md (26/08: el PRIMER filtro es el ca
+working-preferences | 6 Estilo de interaccion que prefiero | pendiente(2026-11-11): necesita-check · formato de entrega sin dueño: "Tag de viralidad obligatorio en cada opcion" (🔥 ~{ratio}x vs. media · {arquetip
+working-preferences | 7 Huecos cosas que me puedes preguntar | fuera: obsoleta · sugiere martes-jueves 11-12 y 14-15, contradicho por §1h (10:00 mejor, 14:00 peor; hoy se sube todo) y la memo
+working-preferences | Aprendizaje 2026-08-20 verificar frontend sin ba | fuera: fuera · aprendizaje de codigo
+working-preferences | Aprendizaje 2026-08-21 un contador y su lista no | fuera: fuera · aprendizaje de codigo
+working-preferences | Aprendizaje 2026-08-25 al QUITAR un filtro busca | fuera: fuera · aprendizaje de codigo
+aboutme | 1 La empresa Neety | pendiente(2026-11-11): necesita-check · cubiertos: NEETY va en masculino; La puerta de agendar es /solicitar-demo; aviso de web nueva. SIN dueño: "+20
+aboutme | El ICP a quien le hablamos | contexto: ICP y persona del gancho; la vara la aplican el check de jerga y el criterio ancla
+aboutme | 1b Que nos hace DISTINTOS propuesta de valor rea | contexto: municion para cuerpos y ninja (su uso lo vigilan los checks de MUNICION)
+aboutme | Los 3 pilares lo que de verdad nos separa del re | pendiente(2026-11-11): contradice · como municion de post: pilar 1 "interlocutor con email y TELEFONO verificados" vs brand-voice §2c-DATOS (16/09
+aboutme | LO QUE DICEN LOS CLIENTES REALES MANDA SOBRE LA | criterio: ninja
+aboutme | Que NO somos posicionamiento lo que hay que romp | pendiente(2026-11-11): necesita-check · FALLO duro en todo el texto (todas las cuentas): "sin esfuerzo", "lo hace por ti", "tu solo cierras", "en pilo
+aboutme | Los contrastes dolor de mercado como lo resolvem | contexto: mina de contrastes
+aboutme | Las senales concretas el motor de conversion bue | contexto: lista de señales; ojo: el ninja no promete la señal (CLAUDE.md)
+aboutme | Frases-ancla del pitch del deck Propuesta de val | pendiente(2026-11-11): contradice · dice "usar para hooks, cuerpos y spam ninja", pero "De metralleta a francotirador" es la señal que el ninja no
+aboutme | Encuadre CRITICO sobre el publico no confundir e | contexto: a quien se le habla vs a quien encontramos
+aboutme | 2 Los tres perfiles en los que publicamos | fuera: obsoleta · "tres cuentas de founder, todas sobre ventas B2B": hoy 6 cuentas y Unai fuera del paraguas de ventas (26/10)
+aboutme | LA REFERENCIA ES SIEMPRE DE VENTAS EN LOS TRES J | criterio: remix
+aboutme | ACTUALIZADO EL 2026-10-07 Iker LA PALABRA DE VEN | fuera: obsoleta · en suspenso desde el 14/10 (l.162): solo vale la primera linea del original con palabra de ventas
+aboutme | COMO SE COMPRUEBA EL GANCHO DEL ORIGINAL LLEVA U | criterio: remix
+aboutme | Iker Galarza Cofundador parte comercial | contexto: ficha de Iker
+aboutme | Unai Arambarri CEO | contexto: ficha de Unai ("49€ vs Claude" pendiente de reverificar)
+aboutme | Asier Olaizola Cofundador parte de programacion | pendiente(2026-11-11): contradice · "misma paridad: mismos formatos, misma voz" (l.258) contradice brand-voice §1b (registro por cuenta desde 16/0
+aboutme | 2-ASIER-VETOS LO QUE NO ENTRA NUNCA EN LA CUENTA | pendiente(2026-11-11): necesita-check · solo la casilla --meme-sobrio (meme). Con --cuenta asier en TODOS los pilares, texto y --tarjeta: FALLO en fut
+aboutme | Mario Carrillo Ramirez Growth Marketing 4a cuent | pendiente(2026-11-11): necesita-check · cubierto MARIO: menciona a @Neety y a los 3 jefes / experimento sin menciones. Con --cuenta mario, SIN dueño: 
+aboutme | EL PUENTE DE LA CUENTA DE MARIO ATENCION CLIENTE | pendiente(2026-11-11): necesita-criterio · ampliar ninja con --cuenta mario/helena: "¿el puente atencion -> clientes (lo que el tema te trae / lo que no 
+aboutme | Helena Baviera Serigo Partnerships Customer Succ | pendiente(2026-11-11): necesita-check · ⛔ SIN MENCIONES en Helena sin dueño: FALLO con --cuenta helena si queda una @. Ademas CONTRADICE (l.387) "el g
+aboutme | Angela Brook Uria Product Designer 6a cuenta Ike | pendiente(2026-11-11): cubierta · checks: Hook anclado a DISENO DE PRODUCTO + El CUERPO lleva la vinculacion con VENTAS + ENTREGA: ¿el CUERPO pr
+aboutme | 3 Una sola voz para los tres voz Neety | pendiente(2026-11-11): contradice · "NO mantenemos voces por persona... la voz es siempre la misma" contradice brand-voice §1b (registro por perso
+aboutme | 4 Estrategia de publicacion contexto que condici | pendiente(2026-11-11): contradice · enlace https://recursos.neety.com/agendar/ (vetado desde 05/10, aboutme §1 y check de solicitar-demo); "Link d
+aboutme | 5 Que me falta de aqui huecos a rellenar por el | contexto: huecos; seguidores no es variable de contenido

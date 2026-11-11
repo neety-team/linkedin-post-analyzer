@@ -598,10 +598,10 @@ Este es un tema importante para mí: **quiero seguir sorprendiendo al lector**. 
 
 ## 5 · Reglas operativas que espero que apliques solo
 
-- **Bloques de empresas: RELLÉNALOS con empresas reales verificadas** (política nueva, ver `post-workflow §4.0`) — de la fuente que te pase o de web con cita, marcando las dudosas y sin inventar (lo no verificable va como `→ [PENDIENTE · no verificado]`). Yo doy el visto bueno final. Formato: 20 líneas en 5 bloques de 4, con `→ @Empresa - @Persona` (arroba delante de ambos y nombres exactos de LinkedIn, para que al clicar salte el autocompletado).
+- **Bloques de empresas: RELLÉNALOS con empresas reales verificadas** (política nueva, ver `post-workflow §4.0`) — de la fuente que te pase o de web con cita, marcando las dudosas y sin inventar (lo no verificable va como `→ [PENDIENTE · no verificado]`). Yo doy el visto bueno final. Formato (🔄 29/07, `post-workflow §4.2` Paso 1: en el mapa 20 es el objetivo y 10 el suelo; "Las 10" lleva 10 en dos bloques de 5, `§4.3-LAS10`): 20 líneas en 5 bloques de 4, con `→ @Empresa - @Persona` (arroba delante de ambos y nombres exactos de LinkedIn, para que al clicar salte el autocompletado).
 - **Verificar cifras de mapa antes de dibujar el cuerpo.** Lista las cifras shock (exportación €, ranking, puerto, habitantes) y dime qué fuentes hay que verificar (ICEX, autoridad portuaria, INE, Eurostat, IDESCAT/EUSTAT/IECA). No entregues cuerpo con números sin verificar — un dato mal me tira el mapa de 6x a 0.5x.
-- **Triage de menciones @** por actividad real en LinkedIn (no por cargo): descartar dormidos >3 meses aunque sean el CEO de la región.
-- 🔄 **02/11: el destino del spam ninja se razona post a post con tres preguntas, nunca por defecto ni por pilar (`post-workflow §8.1b`, 30/10)**; `/solicitar-demo` es una de las opciones (la URL `/agendar/` está retirada desde la web nueva, 05/10) y el gate de un recurso es otra. Antes ponía: **Link de agendar en spam ninja** en TODOS los pilares menos el lead magnet (no el link del mapa de pampam). Lo que sigue vivo: máx 2 líneas cortas, sin nombrar a Neety, girando el concepto del hook con verbo punchy. Reglas: `global-instructions §4.4b`.
+- 🔄 Superado el 26/08 (`CLAUDE.md` y `post-workflow §4.0d` punto 3): el PRIMER filtro es el cargo con poder de decisión y el segundo la actividad de cualquier tipo en el último mes; lo corre `scripts/menciones.py`. **Triage de menciones @** por actividad real en LinkedIn (no por cargo): descartar dormidos >3 meses aunque sean el CEO de la región.
+- 🔄 **02/11: el destino del spam ninja se razona post a post con tres preguntas, nunca por defecto ni por pilar (`post-workflow §8.1b`, 30/10)** (🔄 06/11, `post-workflow §8.1b`: el destino por defecto vuelve a ser `/solicitar-demo`; el gate solo con un recurso validado y su motivo.); `/solicitar-demo` es una de las opciones (la URL `/agendar/` está retirada desde la web nueva, 05/10) y el gate de un recurso es otra. Antes ponía: **Link de agendar en spam ninja** en TODOS los pilares menos el lead magnet (no el link del mapa de pampam). Lo que sigue vivo: máx 2 líneas cortas, sin nombrar a Neety, girando el concepto del hook con verbo punchy. Reglas: `global-instructions §4.4b`.
 - **Modo texto / vídeo:** si digo "modo texto" o "modo vídeo" respétalo como sticky hasta que diga lo contrario.
 
 ---
@@ -618,7 +618,7 @@ Este es un tema importante para mí: **quiero seguir sorprendiendo al lector**. 
 ## 7 · Huecos / cosas que me puedes preguntar
 
 - [x] Canal de entrega: **el chat de Claude Code**, y los entregables grandes (CSV, ZIP, fotos) al Escritorio. Decidido 2026-07-14.
-- [ ] ¿Hay días/horas de publicación fijos por cuenta que quieras que asuma? (el sistema sugiere martes-jueves, 11:00-12:00 y 14:00-15:00 hora local).
+- [x] ~~¿Hay días/horas de publicación fijos por cuenta que quieras que asuma? (el sistema sugiere martes-jueves, 11:00-12:00 y 14:00-15:00 hora local).~~ ⛔ Obsoleto desde el 01/10: el horario sale de `§1h` (la mañana rinde algo mejor y las 14:00 es la peor franja; lo que está listo se sube ese día) y se publica de martes a viernes (`post-workflow §8.2`, 10/11).
 - [ ] ¿Quieres que lleve yo el control de qué formato tocó a cada cuenta cada día (para la regla de exclusividad) o me lo dices tú en cada sesión?
 
 ## Aprendizaje 2026-08-20 — verificar frontend sin backend local

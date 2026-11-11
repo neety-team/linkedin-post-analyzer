@@ -1170,14 +1170,14 @@ Un meme solo viaja con MOTOR A o MOTOR B. Corre el MOTOR CHECK primero.
 ⚠️ Esta skill decía **9.13x** para "desmonto perfiles": es falso, son **8.52x**. El techo real del pilar es **9.85x**.
 **Firma de engagement del lead magnet: los COMENTARIOS, y casi nada más.** Mira los likes: 95 y 116 en los dos mejores, con 632 y 483 comentarios. Y **5-6 reposts**, los más bajos de todos los pilares. Un lead magnet con muchos likes y pocos comentarios ha fallado, por bien que se lea.
 Corre estas puertas EN ORDEN:
-1. **Frecuencia: ⚠️ REVISADA (2026-07-14) — la "fatiga" NO existe en nuestros datos.**
+1. 🔄 Superado en parte el 26/08 por `post-workflow §4.5.0-COMPETENCIA`: en la MISMA cuenta el tema no vuelve antes de ~90 días y con ángulo nuevo. **Frecuencia: ⚠️ REVISADA (2026-07-14) — la "fatiga" NO existe en nuestros datos.**
    Aquí ponía: *"mín. 1 cada 2 SEMANAS por cuenta. Nunca dos seguidos en la misma cuenta; nunca solapar dos cuentas el mismo día/semana. (3 lead magnets en 3 días hundió el alcance por fatiga)"*. **Contrastado contra la BD y es falso.** La prueba que lo mata: **Iker publicó lead magnet el 27-may (0.59x · 20 com.) y OTRO el 28-may (8.52x · 483 com.)** — días consecutivos, misma cuenta, y el segundo es el 2º mejor post del histórico. Con fatiga eso es imposible.
    **Los 5 flops de junio se explican TODOS por ángulo o mecánica, ninguno por frecuencia:** arsenal 0.64x y biblia 1.20x (entregable genérico, ya muerto) · "destripo" 0.21x (verbo pasado, §2.9) · "traduzco comentarios" 0.43x (sin valor real) · 18-jun 0.57x (el CTA pedía "+ tu mes de cumpleaños", variante ya descartada por tono).
    **Regla nueva:** no hay puerta de frecuencia dura. **Un lead magnet flopea por su ÁNGULO y su MECÁNICA, no por cuándo se publicó.** Puedes tener lead magnet en las 3 cuentas la misma semana en días distintos (es lo que exige la rotación 3×3 de `post-workflow §8.2`). Lo mismo pasa con los mapas: Unai el 28-abr (3.69x) e Iker el 30-abr (7.11x), dos días de diferencia y los dos bien.
    **Lo único que sí vigila:** que el ángulo no se parezca al del último de esa cuenta, y no repitas la misma PALABRA de CTA. Si dudas, la energía va en el ángulo, no en el calendario.
 2. **Topic específico y auto-intrigante.** El genérico "todo mi material en una caja" está MUERTO (biblia 1.2x, arsenal 0.63x): comentan pero LinkedIn no amplifica. Solo si el topic ya pica solo Y el entregable es UNA cosa concreta.
 3. **Entrega LIVE en comentarios** (audit/roast/consejo one-liner) bate al PDF (**8.52x · 483 com. vs 4.10-4.52x · 232-285 com.**) porque la recompensa es pública, personalizada e inmediata → loop de comentarios. Sanity-check: el entregable live tiene que dar VALOR REAL al que comenta, no ser un chiste a su costa ("traduzco tu comentario al vendedor más cringe" flopeó — sin valor + palabra "cringe" aliena al senior).
-4. **CTA explícita:** fórmula literal **"Comenta [X] + [Y]"**. X = palabra atada al recurso ("GUÍA", "PLANTILLA", "SISTEMA", "CHECKLIST"). Y = algo de esfuerzo mental mínimo (su sector, su CRM, su color favorito). Las formas implícitas ("dímelo abajo", "levanto la mano", "X aquí abajo") están DEPRECADAS — hundieron el conteo de comentarios en dos A/B independientes.
+4. 🔄 Superado el 05/08 por `post-workflow §4.5.0-CTA` y `§4.5.0-CTA-CERO` (18/08): en el texto no va ningún "Comenta la palabra X" ni petición de acción; el Comenta "palabra" va DENTRO de la imagen (`§4.5.0-CTA-IMAGEN`). Se conserva como registro: **CTA explícita:** fórmula literal **"Comenta [X] + [Y]"**. X = palabra atada al recurso ("GUÍA", "PLANTILLA", "SISTEMA", "CHECKLIST"). Y = algo de esfuerzo mental mínimo (su sector, su CRM, su color favorito). Las formas implícitas ("dímelo abajo", "levanto la mano", "X aquí abajo") están DEPRECADAS — hundieron el conteo de comentarios en dos A/B independientes.
 
 ### 2.5b · LAS CIFRAS IMPARES Y CUMPLIBLES — EN TODO EL POST, NO SOLO EN EL HOOK (Iker, 2026-07-21 · ámbito ampliado 2026-08-13)
 
@@ -1511,7 +1511,7 @@ allí **la lista ES el contenido** y el lector la baja entera.
 
 Iker, 2026-08-10: *"era mejor venderlo como lo vendíamos antes, en un bloque de
 dos, pero que el enlace siempre esté en la segunda línea, que esa línea sea
-corta y punchy"*. **La línea del enlace: máximo 80 caracteres sin contar la URL**
+corta y punchy"*. (🔄 Superado el 27/08 por `§4.4b-MOLDE`: las dos líneas ≤55 caracteres sin la URL y la 2 más corta que la 1; el tope de 80 que sigue es registro.) **La línea del enlace: máximo 80 caracteres sin contar la URL**
 (la ganadora ocupa 69, la de 0,172% ocupa 101). El lector no lee la URL, lee la
 promesa; si la promesa no cabe de un vistazo, no hace clic.
 
@@ -2000,6 +2000,8 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 #### 🗓️🗓️ 4.4b-EVENTO-CONTEXTO · EL NINJA DEL EVENTO LLEVA UNA LÍNEA DE CONTEXTO ENCIMA (Iker, 2026-08-27) — GLOBAL, Y CADUCA EL 24/09
 
+> ⛔ Obsoleto desde el 24/09: caducó con el evento presencial; lo que sigue es registro. El principio de la línea de contexto vive en `§4.4b-CONTEXTO`.
+
 > **Iker, y lo sube a receta global porque lleva fallando en todos:** *"siempre que hacemos el spam de la web del evento, falta una línea antes de ese bloque de dos en el que explícitamente digamos que el día tal en Donostia vamos a hacer un evento presencial. Los bloques de spam de las otras casuísticas de otros enlaces siempre los haces bien, pero este fallas, porque es nuevo"*.
 
 **LA REGLA:** cuando el enlace del bloque sea el del evento (Luma o `forward.neety.com`), **justo encima del bloque de dos va una línea individual que dice las tres cosas: el 24 de septiembre, en Donostia y que es presencial.** Sin rodeos y sin metáfora: es la única línea del post que informa.
@@ -2178,15 +2180,16 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 **Antes esto se hacía en DOS oraciones y con eso se cumplía, pero era largo.** El trabajo ahora es meter las dos mitades en UNA sola y corta: dolor, coma, y quién lo resuelve. Iker: *"el único error que hacías antes es que lo decías muy largo y en dos oraciones; dilo más corto y en solo una"*.
 
 **⛔ EL FORMATO EXACTO DEL NINJA: UNA SOLA ORACIÓN + DOS PUNTOS + ENLACE, TODO PEGADO (Iker, 2026-08-07).**
+🔄 Superado el 27/08 por `§4.4b-MOLDE` (bloque de DOS líneas ≤55, el enlace en la 2) y el 05/10 por `aboutme §1` (destino `https://neety.com/solicitar-demo`; el enlace del ejemplo se ha actualizado).
 ```
-✅ Saber quién firma dentro de cada una es lo que cuesta meses: https://recursos.neety.com/agendar/
+✅ Saber quién firma dentro de cada una es lo que cuesta meses: https://neety.com/solicitar-demo
 ❌ Dar con estas 12 es lo fácil. Saber quién firma dentro, no. https://…   (DOS oraciones y el enlace)
 ❌ Dar con estas 12 es lo fácil.⏎⏎https://…                                (el enlace suelto en su línea)
 ```
 - **Da igual que esa línea caiga a dos líneas en el móvil.** Iker: *"me da igual que la frase con el enlace caiga a 2 líneas, lo que NO quiero son 2 oraciones y el enlace todo junto"*. Es la única excepción al ancho de línea de `§3.2`, porque la URL mide lo que mide.
 - **🔴 Y esto ya se hacía bien: lo rompí yo el 07/08.** Escribí que *"el enlace va SIEMPRE en línea individual porque la URL es lo único que no puedo acortar"*, y era una deducción mía disfrazada de regla (`working-preferences §0c`). Iker no lo había pedido nunca. **Cuidado con las reglas que suenan razonables y no vienen de él ni de un dato.**
 
-**Qué es:** el link de agendar (`https://recursos.neety.com/agendar/`, `aboutme §1`) tejido DENTRO del cuerpo con gracia. **No es el cierre** y no consume la regla del UNO (§4.5): el post cierra después con un bold statement aparte.
+**Qué es:** 🔄 Superado el 05/10 por `aboutme §1`: la puerta de agendar es `https://neety.com/solicitar-demo` (antes `recursos.neety.com/agendar/`). El link de agendar (`https://neety.com/solicitar-demo`, `aboutme §1`) tejido DENTRO del cuerpo con gracia. **No es el cierre** y no consume la regla del UNO (§4.5): el post cierra después con un bold statement aparte.
 
 > ## 🔄 EL DOLOR NO CAMBIA, LA FRASE SÍ: EL SPAM NINJA ROTA SIEMPRE (Iker, 2026-07-31)
 >
@@ -2203,6 +2206,8 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > **🔄 YA USADAS EL 29-31/07, y hoy libres otra vez:** `dar con el que decide` · `son meses a mano` · `te lo damos hecho` (meme de Unai del 29/07, historia de Iker del 29/07 y mapa de Asturias del 31/07). **Mecanizado en `SPAM_QUEMADO` de `validar-post.py`**: fallo duro solo para la cuenta que la usó y durante 21 días (`§2.0b-VENTANA`); al publicar se mete ahí la frase usada con su fecha y su cuenta. `te lo damos hecho` gusta porque es punchy, así que se conserva el punch cambiando el verbo: `esa parte ya la tenemos hecha`, `ese trabajo ya está hecho`, `eso te lo damos resuelto`.
 
 > ## 📅 EL EVENTO DE SEPTIEMBRE: 3 POSTS A LA SEMANA, UNO POR CUENTA (Iker, 2026-08-03)
+>
+> ⛔ Obsoleto desde el 24/09: el evento ya pasó; lo que sigue es registro, no regla de planificación.
 >
 > **NEETY FORWARD** · `https://luma.com/ujffj66o` · **24 de septiembre, 17:30, Donostia** · **80 plazas**, privado y por solicitud · se anuncia **la nueva generación de Neety** en primicia. **Talent House es la SEDE**, no el producto: me confundí el 04/08. Puertas 17:30, arranque 18:00, y **las solicitudes se revisan una por una**, que es lo que sostiene el FOMO.
 >
@@ -2340,7 +2345,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > ## ⚔️ HAY DOS TIPOS DE SPAM Y NO SE MEZCLAN (Iker, 2026-07-31)
 >
 > **1 · SPAM NINJA — el de siempre. Vale para TODOS los pilares menos el mapa.**
-> Sigue la broma del gancho, vende, y **ataca el punto de dolor que confirmaron las reuniones: encontrar al CLIENTE IDEAL, no el momento adecuado** (`project-diferenciador-real-clientes`). Va fusionado con el cuerpo, máximo 2 líneas, y enlaza a `recursos.neety.com/agendar/`. Ej.: *"Lo caro no es el que calla. Es dar con el que decide. / Eso son meses a mano y nosotros te lo damos hecho: {link}"*.
+> Sigue la broma del gancho, vende, y **ataca el punto de dolor que confirmaron las reuniones: encontrar al CLIENTE IDEAL, no el momento adecuado** (`project-diferenciador-real-clientes`). Va fusionado con el cuerpo, máximo 2 líneas, y enlaza a `https://neety.com/solicitar-demo` (🔄 Superado el 05/10 por `aboutme §1`: antes `recursos.neety.com/agendar/`; el ejemplo viejo usaba `te lo damos hecho`, que está en `SPAM_QUEMADO`). Ej.: *"Lo caro no es el que calla. Es dar con el que decide. / Esa parte ya la tenemos hecha: {link}"*.
 >
 > **2 · SPAM ULTRA NINJA — SOLO el mapa. Dos líneas menos, y por eso funciona.**
 > **Es literalmente esto y nada más:**
@@ -2449,6 +2454,8 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > - ⛔ **Fuera, aunque se repitan:** ~~el tamaño por planta (5 ICP) y las empresas con varias plantas son funciones en desarrollo (`§4.4b-NO-EXCEL`, no se nombran);~~ 🔄 10/11: las varias plantas ya están en producción y se pueden contar (`§4.4b`, feedback del 10/11); *(criterio de veracidad, sin medir)* el CRM dentro (30) y las listas propias (14) son producto, no contenido.
 >
 > #### ✅ LO QUE EL NINJA SÍ PUEDE PROMETER (ordenado por cuántas empresas lo piden)
+>
+> 🔄 Superado el 16/10 por `§4.4b-MUNICIÓN-1510`: los tamaños que se citan son los del informe del 15/10 y la fila de "no pagar por buscar" está retirada allí; esta tabla es historia.
 >
 > | Qué se promete | Empresas | 24/08 | Con qué palabras suyas |
 > |---|---|---|---|
@@ -2664,6 +2671,8 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > **Qué hacer:** deja el enlace definitivo escrito ANTES de publicar (una edición posterior es un riesgo conocido de perder el tracking), y **a las 24-48h comprueba en la herramienta que el post con enlace tiene clics y `link_url`**. Si sale 0 sin URL, ese post no medirá: no lo leas como fracaso del CTA ni cambies el copy por eso.
 
 **Dónde va (por pilar):**
+🔄 Superado en tres puntos: la fila MAPA el 07/10 por `§4.4b-MOLDE` regla 7 (nunca pegado al bloque de menciones: entre la última `→` y el enlace va al menos una línea con texto); la fila "LOS 10" el 16/09 y el 01/10 (la versión de personas está prohibida; la de empresas es "Las 10", `post-workflow §4.3-LAS10`); y la columna "2º bloque de correo" el 27/08 por `§4.4e-UNA` (una sola puerta por post).
+
 | Pilar | Lleva spam ninja | Colocación | 2º bloque de correo (`§4.4e`) |
 |---|---|---|---|
 | MAPA | ✅ | **Justo después del bloque de menciones** (posición fija) | ❌ va en la PÁGINA del mapa |
@@ -2709,7 +2718,7 @@ encima de todos los mapas) pero los números se moverán. Re-medir a ~10 por pil
 Navarra 7.72x (reveal l.28 → lista), Galicia 7.28x (l.23 → lista) y Aragón (l.26 → lista) ponen el reveal ANTES de la lista. El "Los 10" del País Vasco 4.81x lo pone DESPUÉS (l.39). En los dos casos el spam ninja va detrás del reveal: en el mapa eso coincide con "después de las menciones", en "Los 10" no. **Regla:** el spam ninja va **después del reveal**, siempre. Nunca lo metas entre la lista y el reveal, que parte el bloque en dos.
 
 **Las 7 reglas duras:**
-1. **MÁX 2 líneas CORTAS, FUSIONADAS: la broma pegada al CTA y al enlace** (Iker, 2026-07-22). Nada de [broma] → blanco → [CTA genérico "te marcamos quién compra y cuándo, tu comercial entra solo ahí"]: eso deja la broma suelta y el CTA suena a plantilla. Van **juntas, máx 2 líneas, con el enlace dentro**, y la 2ª línea **responde a la broma** (no es un CTA de catálogo). El "te marcamos… tu comercial entra solo ahí" es **demasiado genérico y largo**: se acorta a un remate que conecte con el chiste (ej. broma *"Otra herramienta no te dice en cuál picar ni cuándo."* → remate *"Nosotros sí: [link]"*). Y cuenta el ANCHO, no los puntos: dos líneas kilométricas envuelven en móvil y cantan a anuncio → mantenlas cortas.
+1. **MÁX 2 líneas CORTAS, FUSIONADAS: la broma pegada al CTA y al enlace** (Iker, 2026-07-22). Nada de [broma] → blanco → [CTA genérico "te marcamos quién compra y cuándo, tu comercial entra solo ahí"]: eso deja la broma suelta y el CTA suena a plantilla. Van **juntas, máx 2 líneas, con el enlace dentro**, y la 2ª línea **responde a la broma** (no es un CTA de catálogo). El "te marcamos… tu comercial entra solo ahí" es **demasiado genérico y largo**: se acorta a un remate que conecte con el chiste (🔄 Superado el 27/08 por `§4.4b-EXPLICITO` y el 29/07 por `§4.4b-ORDEN`: el ejemplo viejo era *"…ni cuándo"* → *"Nosotros sí: [link]"*, que no se lee solo y vende el momento; la forma vigente, con ejemplos, está en `§4.4b-MOLDE`). Y cuenta el ANCHO, no los puntos: dos líneas kilométricas envuelven en móvil y cantan a anuncio → mantenlas cortas.
 ```
 ❌ MAL                                    ✅ BIEN
 [chiste que gira el hook]                 [chiste que gira el hook]
@@ -2718,18 +2727,19 @@ Navarra 7.72x (reveal l.28 → lista), Galicia 7.28x (l.23 → lista) y Aragón 
 ```
 2. **NUNCA nombres a Neety.** "Neety detecta…", "Neety te avisa…" convierte el guiño en **publicidad encubierta** y el lector lo caza al instante. Primera persona del plural sin marca ("te marcamos", "te avisamos"); el link es la única firma. (Coherente con `brand-voice §4`: el producto se menciona como mucho una vez y nunca vendiendo.)
 3. **Reenlaza con el CONCEPTO del hook, girándolo.** No repitas la frase del gancho: coge su palabra y úsala para describir el dolor de ventas. Validado (Aragón): hook de "secarral" → *"Llamar a 500 a puerta fría para que compre uno. Eso sí que es un secarral."*
-   > **📊 MEDIDO 2026-07-22 (tentativo, re-medir) — reciclar la palabra-cliché del gancho es lo que más CTR da.** De los 10 posts con enlace de agendar y clics medidos, los **2 de mayor CTR** son los que meten la **palabra-cliché exacta del hook** en el chiste: Aragón *"…que compre uno. Eso sí que es un **secarral**"* (0,41% · 112 clics) y Cataluña *"…que te compre 1. Eso sí que es una **playa**"* (0,38%). El "Los 10" de Asturias lleva la misma estructura "500→3" y la misma fórmula de cierre pero con dolor **genérico** ("desgaste", no el cliché) y cae a 0,10%. **La fórmula ganadora completa:** `[dolor "500 a puerta fría para uno"] + [cliché EXACTO del hook] // Te marcamos quién compra y cuándo. Tu comercial entra solo ahí: [link]`. ⚠️ **Caveats:** n=2 arriba; el CTR de Cataluña está inflado (solo 4.7K impresiones, y el post fue flop 0.59x); y **el CTR NO se compara entre pilares** — los memes (perro 0,05%, iMessage 0,09%) salen bajos solo porque LinkedIn les infla las impresiones (`outliers §3.11`), pero en clics ABSOLUTOS son de los que más (96, 76). Solo tiene sentido comparar CTR dentro del mismo pilar.
+   > **📊 MEDIDO 2026-07-22 (tentativo, re-medir) — reciclar la palabra-cliché del gancho es lo que más CTR da.** De los 10 posts con enlace de agendar y clics medidos, los **2 de mayor CTR** son los que meten la **palabra-cliché exacta del hook** en el chiste: Aragón *"…que compre uno. Eso sí que es un **secarral**"* (0,41% · 112 clics) y Cataluña *"…que te compre 1. Eso sí que es una **playa**"* (0,38%). El "Los 10" de Asturias lleva la misma estructura "500→3" y la misma fórmula de cierre pero con dolor **genérico** ("desgaste", no el cliché) y cae a 0,10%. **La fórmula ganadora completa:** `[dolor "500 a puerta fría para uno"] + [cliché EXACTO del hook] // Te marcamos quién compra. Tu comercial entra solo ahí: [link]` (🔄 Superado el 29/07 por `§4.4b-ORDEN` y el 16/10 por `§4.4b-MUNICIÓN-1510`: el "y cuándo" del original vendía la señal, que el ninja no promete; se ha quitado del ejemplo). ⚠️ **Caveats:** n=2 arriba; el CTR de Cataluña está inflado (solo 4.7K impresiones, y el post fue flop 0.59x); y **el CTR NO se compara entre pilares** — los memes (perro 0,05%, iMessage 0,09%) salen bajos solo porque LinkedIn les infla las impresiones (`outliers §3.11`), pero en clics ABSOLUTOS son de los que más (96, 76). Solo tiene sentido comparar CTR dentro del mismo pilar.
 4. **Verbo punchy CON TECHO** (§2.9): quemar, reventar, tirar, marcar, enterrar. Para en el que encaja; **no te pases a gore** (destripar/descuartizar). Punch sin pasarse de extremo.
 5. **Que tenga GRACIA.** Es un chiste que gira el concepto contra el dolor del lector, no una cuña publicitaria.
-6. **Dolor concreto + diferenciador ATERRIZADO** (`aboutme §1b`: contacto por señal, listado con confianza). Nada de "IA para ventas" en abstracto: el director comercial tiene que VER el cambio (500 llamadas frías → entrar solo en la que va a comprar). En mapas, aterrízalo en el dolor del industrial de ESA región.
+6. 🔄 Superado el 29/07 por `§4.4b-ORDEN` y el 24/08 por `§4.4b-MUNICIÓN`: el diferenciador del ninja es la identificación (a quién vender, quién firma dentro), nunca la señal; el "contacto por señal" del ejemplo se ha quitado. **Dolor concreto + diferenciador ATERRIZADO** (`aboutme §1b`: listado con confianza, quién firma dentro). Nada de "IA para ventas" en abstracto: el director comercial tiene que VER el cambio (500 llamadas frías → entrar solo en la que va a comprar). En mapas, aterrízalo en el dolor del industrial de ESA región.
 7. **Nunca venta directa ni frase corporativa**, y en mapas **nunca el link de PamPam** (es el de agendar).
-8. **El enlace SIEMPRE con `https://` delante en el texto del post** (Iker, 2026-07-22): `https://recursos.neety.com/agendar`, no `recursos.neety.com/agendar` a secas. Sin el protocolo LinkedIn puede no detectarlo como enlace clicable. Mismo criterio que en los DMs (`leadMagnetCopy`). Lo comprueba el validador.
+8. **El enlace SIEMPRE con `https://` delante en el texto del post** (Iker, 2026-07-22): `https://neety.com/solicitar-demo`, no `neety.com/solicitar-demo` a secas (🔄 05/10, `aboutme §1`: el ejemplo usaba el destino viejo `recursos.neety.com/agendar`). Sin el protocolo LinkedIn puede no detectarlo como enlace clicable. Mismo criterio que en los DMs (`leadMagnetCopy`). Lo comprueba el validador.
 
 **Ejemplo validado (variar siempre, nunca copiar literal):**
+🔄 Corregido el 11/11: el original decía *"quién va a comprar y cuándo, y tu comercial…"*; el "y cuándo" vende la señal (`§4.4b-ORDEN`, 29/07) y la coma antes de "y" la veta `brand-voice §3`. La forma vigente del bloque es `§4.4b-MOLDE` (27/08).
 ```
 Llamar a 500 a puerta fría para que compre uno. Eso sí que es un secarral.
 
-Te marcamos quién va a comprar y cuándo, y tu comercial entra solo ahí: [link]
+Te marcamos quién va a comprar y tu comercial entra solo ahí: [link]
 ```
 
 **⛔ La excepción del LEAD MAGNET (no la "arregles"):** el lead magnet NO lleva spam ninja **en el POST**. Su mecánica ES el comentario (632 com. vibe prospecting · 483 desmonto perfiles) y su CTA "Comenta X + Y" es el cierre. Meter el link de agendar **apila dos CTAs** y rompe la regla del UNO (§4.5): el lector que iba a comentar duda entre comentar o clicar, y el conteo de comentarios (que es TODO el motor del formato) se hunde. Si algún día se prueba, es un A/B consciente con expectativa de caída, no el default.
@@ -2765,7 +2775,7 @@ Te marcamos quién va a comprar y cuándo, y tu comercial entra solo ahí: [link
 **Contra 8 de 8 memes con UN solo enlace, que todos registran `link_url` y clics:** 76 · 28 · 28 · 26 · 12 · 7 · 5 · 4.
 
 - **Da igual cuál de las dos causas sea.** O el lector se reparte entre dos puertas y no pulsa ninguna, o LinkedIn deja de medir el post con dos destinos (`§4.4b`, el caso del `🔗 0` sin URL registrada). **El resultado es el mismo: cero clics y encima cero atribución**, que es lo único que teníamos para saber si un post convierte.
-- **⛔ Y NO es que agendar tenga prioridad sobre correo.** *(criterio de proceso)* Esa jerarquía solo existía para decidir cuál de los dos se quedaba cuando iban juntos, y ahora no van juntos nunca. **La puerta la elige el TEMA del post y el PILAR**: si el post toca vender, agendar; si tiene menos que ver con vender o interesa la puerta barata, correo; y **mientras viva el evento, en el primer jefe manda Luma** (Iker, 27/08: *"su prioridad ahora mismo es el evento"*). 🔄 **02/11: superado en cómo se elige la puerta por `post-workflow §8.1b` (30/10): el destino se razona post a post con tres preguntas y nunca por defecto ni por pilar.** Lo que sigue vivo de aquí es que la puerta es UNA.
+- **⛔ Y NO es que agendar tenga prioridad sobre correo.** *(criterio de proceso)* Esa jerarquía solo existía para decidir cuál de los dos se quedaba cuando iban juntos, y ahora no van juntos nunca. (🔄 Superado el 30/10 y el 06/11 por `post-workflow §8.1b`: el destino ya no lo elige el pilar; por defecto `/solicitar-demo`, y el gate solo con un recurso validado.) **La puerta la elige el TEMA del post y el PILAR**: si el post toca vender, agendar; si tiene menos que ver con vender o interesa la puerta barata, correo; y **mientras viva el evento, en el primer jefe manda Luma** (Iker, 27/08: *"su prioridad ahora mismo es el evento"*). 🔄 **02/11: superado en cómo se elige la puerta por `post-workflow §8.1b` (30/10): el destino se razona post a post con tres preguntas y nunca por defecto ni por pilar.** Lo que sigue vivo de aquí es que la puerta es UNA.
 - **Es la regla del UNO de `§4.5` aplicada al enlace**, y el precedente vivo es el lead magnet: no lleva enlace **precisamente** para no partir su motor, igual que cuando hacíamos el `Comenta X` nunca metíamos un enlace al lado.
 - **Mecanizado** en `validar-post.py` como **fallo duro** (`UNA sola puerta por post: nunca dos enlaces`), que cuenta destinos de conversión (agendar · correo/newsletter · evento). **La página del MAPA no cuenta como puerta**: es el contenido que el post lleva nombrando desde el gancho.
 
@@ -2778,6 +2788,8 @@ Te marcamos quién va a comprar y cuándo, y tu comercial entra solo ahí: [link
 **⚠️ LA URL: se escribe `/correo/`, la canónica es `/newsletter/`.** `/correo/` es un **alias 301**. Se escribe la corta en el post porque son 10 caracteres menos en una línea con tope de 55 y porque *correo* lo entiende un industrial de 55 años a la primera; `/newsletter/` es la que indexa Google y la que casa con el `utm_source=newsletter`. GA4 atribuye al destino final, así que no se pierde nada.
 
 #### ⛔⛔ DÓNDE VA Y DÓNDE NO (decidido con los datos de cada pilar, no a ojo)
+
+> ⛔ Obsoleto desde el 27/08: tabla del doble bloque, retirada por `§4.4e-UNA` (un post, un enlace). Se conserva como registro.
 
 | Pilar | Bloque 1 | Bloque 2 (correo) | Por qué |
 |---|---|---|---|
@@ -2815,7 +2827,7 @@ Te marcamos quién va a comprar y cuándo, y tu comercial entra solo ahí: [link
 
 **LA PUERTA ÚNICA, POR PILAR:**
 
-> 🔄 **02/11: esta tabla está superada como regla.** Desde el 30/10 el destino se razona post a post con tres preguntas y nunca por defecto ni por pilar (`post-workflow §8.1b`). El gate de un recurso puede ser la puerta de cualquier pilar y ya tiene dato. Queda como registro de cómo se decidía en agosto-septiembre. Donde abajo pone `agendar`, la URL `/agendar/` está retirada desde la web nueva (05/10): hoy esa opción es `/solicitar-demo`, una de las que se razonan en `§8.1b`. Lo que sigue vigente es que la puerta es UNA (`§4.4e-UNA`).
+> 🔄 **02/11: esta tabla está superada como regla.** Desde el 30/10 el destino se razona post a post con tres preguntas y nunca por defecto ni por pilar (`post-workflow §8.1b`). (🔄 06/11, `post-workflow §8.1b`: el destino por defecto vuelve a ser `/solicitar-demo`; el gate solo con un recurso validado y su motivo.) El gate de un recurso puede ser la puerta de cualquier pilar y ya tiene dato. Queda como registro de cómo se decidía en agosto-septiembre. Donde abajo pone `agendar`, la URL `/agendar/` está retirada desde la web nueva (05/10): hoy esa opción es `/solicitar-demo`, una de las que se razonan en `§8.1b`. Lo que sigue vigente es que la puerta es UNA (`§4.4e-UNA`).
 
 | pilar | puerta | estado |
 |---|---|---|
@@ -2916,6 +2928,8 @@ La palabra del gancho sigue dentro (`caída`), el chiste sigue girado, **y la pr
 
 #### ⛔⛔ LA POSICIÓN: NUNCA PEGADOS Y NUNCA AL FINAL
 
+> ⛔ Obsoleto desde el 27/08: es del doble bloque, retirado por `§4.4e-UNA`. Lo que sigue vivo (el ninja no es la última línea) está en `§4.4b`.
+
 ```
 [cuerpo]
 [NINJA 1 · agendar]         ← NO se mueve de su posición canónica por pilar
@@ -2943,6 +2957,8 @@ La palabra del gancho sigue dentro (`caída`), el chiste sigue girado, **y la pr
 - **El 650 sigue siendo del bloque 1.** Al bloque 2 no se le exige, porque quien llega hasta ahí ya ha decidido leer el post entero.
 
 #### ⛔⛔ QUÉ DICE, PARA QUE NO SE VUELVA PLANTILLA EN TRES SEMANAS
+
+> ⛔ Obsoleto desde el 27/08 (`§4.4e-UNA`): los puntos del doble bloque ya no aplican; sigue vivo que el texto no dice "suscríbete" ni "newsletter".
 
 **1. El gancho tiene dos piezas punchy y se reparten una cada uno.** `§4.4b` dice que lo más punchy de un gancho son siempre **el OBJETO** que pinta la imagen mental y **el VERBO** que frena el scroll. **El bloque 1 se queda una, el bloque 2 la otra.** Nunca la misma raíz en los dos: dos bloques colgando de la misma palabra se leen como un eco y delatan los dos a la vez.
 > Gancho: *"Le pregunté a qué empresas quería vender y me **plantó** el **portátil** delante"*
@@ -2986,16 +3002,20 @@ La palabra del gancho sigue dentro (`caída`), el chiste sigue girado, **y la pr
 
 #### 🔴 LOS TRES AVISOS, DICHOS ANTES DE EMPEZAR (no después)
 
+> ⛔ Obsoleto desde el 27/08: avisos del experimento del doble bloque, retirado por `§4.4e-UNA`.
+
 1. **Dos puertas reparten el clic.** Toda la doctrina del ninja está construida sobre UNA. La auditoría del 12/08 mide que cuando la puerta está peor puesta el post gusta más y se pincha menos (eng/1k x4, clics de 142 a 4). **El que puede perder es `agendar`, que es el caro.**
 2. **En meme cuesta alcance** (la tabla de arriba). Por eso ahí va condicionado a los 450 caracteres.
 3. **LinkedIn NO nos va a desglosar los clics.** La herramienta guarda **un solo `link_url` por post**. El desglose sale de **GA4** (las dos URLs son distintas y se separan solas por página de destino, sin meter UTMs feos en el post) y de **las altas en Brevo**.
 
 #### 📊 CÓMO SE DECIDE SI ESTO SE QUEDA
+> ⛔ Obsoleto desde el 27/08: se decidió retirar el doble bloque (`§4.4e-UNA`).
+
 **La casilla es una: clics a `/agendar/` por post, ANTES contra DESPUÉS.** Si caen más de un tercio y las altas de correo no lo compensan, el bloque 2 se retira de los pilares que más convierten y se queda solo en historia y despiece. **Se re-mide a los 10 posts con doble bloque**, y el resultado se anota aquí.
 
 ### 4.5 · La regla del UNO en el cierre (CTA)
 > **⛔ ACTUALIZADO EL 2026-09-30 (Iker): *"¿desde cuándo cerramos las publicaciones con una pregunta?"*.** La opción de *"una pregunta que fuerza postura"* de abajo **ya no la usamos**: medido ese día, **1 de 80 posts de las 3 cuentas desde julio acaba en pregunta**, y es un lead magnet (`¿La quieres?`, donde la pregunta ES la oferta). **El cierre de la casa es una afirmación corta que remata** (Unai, sus 10 últimos: *"Nada de esto se hace solo."* · *"A Dirección no le vende nadie."* · *"Saber a quién llamar sigue caro."*). Fallo duro en `validar-post.py` salvo en `--pilar leadmagnet`.
-Exactamente UN cierre: una pregunta que fuerza postura, O un lead-magnet con la fórmula "Comenta X + Y", O un link directo en el cuerpo, O ningún CTA (un claim fuerte cierra). **Nunca apiles cierres.** (Nota: LinkedIn en 2026 NO penaliza links en el cuerpo — el folklore "ponlo en el primer comentario" está obsoleto. Un link en el cuerpo no suprime alcance; lo hemos verificado con posts >100K imp.)
+🔄 Superado el 30/09 por la nota de arriba (no se cierra con pregunta) y el 05/08 por `post-workflow §4.5.0-CTA` (el "Comenta X + Y" ya no va en el texto). Exactamente UN cierre: una pregunta que fuerza postura, O un lead-magnet con la fórmula "Comenta X + Y", O un link directo en el cuerpo, O ningún CTA (un claim fuerte cierra). **Nunca apiles cierres.** (Nota: LinkedIn en 2026 NO penaliza links en el cuerpo — el folklore "ponlo en el primer comentario" está obsoleto. Un link en el cuerpo no suprime alcance; lo hemos verificado con posts >100K imp.)
 
 ### 4.6 · Matriz de elección
 - Pico de leads esta semana + entregable real → LEAD MAGNET.
@@ -3137,7 +3157,7 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 
 ### ✅✅ 9.0c · TERCER Y CUARTO CASO (30/09): DOS POSTS DADOS POR CAPADOS APARECIERON A LOS 15 Y 27 MINUTOS
 
-Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran anuncio` y otra con `gran estreno`): a los pocos minutos no salían en "Primero los más relevantes" y se dieron por capadas. **Aparecieron las dos, a los ~27 y ~15 minutos.** Mientras tanto se había borrado la 2ª **a los 7 minutos**, así que de ella no sabemos nada, y se había sacado la conclusión de que `robo` estaba vetado. **Cuatro casos ya: 20, 18, 27 y 15 minutos.** La sensación de *"en el primer minuto ya sé si está bloqueado"* no se sostiene con estos datos: **el minuto 30 es el umbral, también cuando se resube.**
+Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran anuncio` y otra con `gran estreno`): a los pocos minutos no salían en "Primero los más relevantes" y se dieron por capadas. **Aparecieron las dos, a los ~27 y ~15 minutos.** Mientras tanto se había borrado la 2ª **a los 7 minutos**, así que de ella no sabemos nada, y se había sacado la conclusión de que `robo` estaba vetado. **Cuatro casos ya: 20, 18, 27 y 15 minutos.** La sensación de *"en el primer minuto ya sé si está bloqueado"* no se sostiene con estos datos: **el minuto 30 es el umbral, también cuando se resube.** (🔄 Superado el 05/11 por `§9.0d`: el umbral sube a 50 minutos.)
 
 ### ✅✅ 9.0b · SEGUNDO CASO DE LA COLA DE REVISIÓN (27/08) — Y APARECE UN PATRÓN: **EL PRIMER UTM DE CADA CUENTA**
 

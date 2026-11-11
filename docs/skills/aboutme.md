@@ -10,15 +10,15 @@
 
 Neety construye **sistemas de outbound operativo con IA** para **empresas industriales B2B** y **empresas de servicios B2B**.
 
-- Frase raíz de posicionamiento: **"No vendemos AI SDRs. Operamos pipeline."**
-- Categoría que reivindicamos: **outbound operativo** (concepto propio, repetible en los posts para construir categoría).
+- Frase raíz de posicionamiento: **"No vendemos AI SDRs. Operamos pipeline."** (🔄 Es posicionamiento interno, no frase para un post: `pipeline` y los anglicismos los veta `brand-voice §2b`, 07/08.)
+- Categoría que reivindicamos: **outbound operativo** (concepto propio, repetible en los posts para construir categoría). (🔄 `outbound` en el gancho es demasiado nicho, check `DEMASIADO_NICHO`; en los posts la categoría de Neety es `herramienta`, 15/10.)
 - Pruebas de cliente (usar cuando encajen, ancla mejor que la auto-promoción):
   - **+200 PYMEs** atendidas. ⚠️ `[PENDIENTE · sin origen documentado]`
   - **+40% de conversión** sobre baseline en industrial. ⚠️ `[PENDIENTE · sin origen documentado]`
   > ⚠️ **Estas dos cifras NO tienen fuente registrada** (detectado el 2026-07-14 al revisar un gate donde iban a salir publicadas como prueba social). Esta skill las listaba como "pruebas reales", pero nadie ha documentado de dónde salen. **Hasta que alguien las confirme, NO se publican**: ni en un post, ni en un gate, ni en la web. La regla no admite excepciones por ser cifras nuestras — de hecho es peor, porque un cliente las puede preguntar. Si son ciertas, apunta aquí la fuente y quita el aviso.
   - **0 herramientas genéricas** — todo se construye sobre el playbook del cliente.
 - **⛔ Neety es MASCULINO (Iker, 2026-10-16): `el nuevo Neety`, `lo presenté`**, porque es el producto. Se me coló `La nueva @Neety la presenté`. Fallo duro en `validar-post.py` (`NEETY va en masculino`). `la nueva versión de Neety` sí vale: ahí el femenino es de `versión`. **Y en los posts su categoría es `herramienta`** (no `software`, `brand-voice §2b`), así que con `herramienta` de sujeto concuerda en femenino (`nuestra herramienta… la programé`) y con `Neety` solo, en masculino (`el nuevo @Neety lo presenté`).
-- Web: **neety.io**
+- Web: **neety.io** (🔄 desde el 05/10 la web principal y la puerta de los posts es `neety.com`, línea de abajo.)
 - Link de agendar demo (el que metemos en spam ninja): ⛔ **DESDE EL 2026-10-05 ES `https://neety.com/solicitar-demo`, EN POSTS Y EN CORREOS** (Iker: *"a partir de ahora, tanto en publicaciones de LinkedIn como en correos, ya no mandamos a la web de recursos a agendar; vamos a mandar a la web principal a solicitar demo"*). Mismo formato de UTM (`global §4.4b-UTM`), la página lo guarda igual. **`recursos.neety.com/agendar/` es fallo en `validar-post.py` y `validar-email.py`.** Lo que la web nueva todavía no tiene (mapas, `/correo/`, las páginas de lead magnet) sigue en `recursos.neety.com`. ✅ **Iker probó el 05/10 que el calendario de `/solicitar-demo` ya notifica bien**: el aviso de abajo sobre Google Chat queda resuelto.
   - ~~`https://recursos.neety.com/agendar/`, y sigue siéndolo hasta que Iker diga lo contrario.~~ (hasta el 04/10)
 - **✅ MIGRACIÓN CERRADA PARA AGENDAR EL 2026-10-05 (línea de arriba). Historia de cómo se llegó, `https://neety.com/solicitar-demo` (Iker, 2026-09-29):** El 28/09 dijo que se cambiaba y el 29/09 lo frenó: *"esta semana aún estoy retocando todo… si tenemos una demo en la nueva web, aún no notifica bien por Google Chat… aún hay que migrar también todos los recursos, toda la sección de mapas"*. **Hasta entonces, todo post va a `recursos.neety.com` (agendar, correo, mapas).**
@@ -42,6 +42,8 @@ Neety construye **sistemas de outbound operativo con IA** para **empresas indust
 > Esta sección es la munición contra los cuerpos genéricos. Cuando un post toca "cómo vende Neety" o el dolor del comprador, aterrízalo en estos pilares y contrastes concretos en vez de hablar de "IA para ventas" en abstracto. (Fuentes: documento interno "Propuesta de valor vs. landing" + el **deck oficial de 12 páginas firmado por Iker**, en `Documentos/Mario/LINKEDIN GROWTH/PROPUESTA VALOR NEETY.pdf`, jul 2026.) **⭐ ESTA SECCIÓN ES TRANSVERSAL (Iker, 2026-07-27):** no se usa solo en el post que la motivó. Vale para el cuerpo de cualquier publicación, para **todo spam ninja** y para **el contenido de cualquier recurso que regalemos** — un recurso tiene que enseñar de verdad el método manual y, al hacerlo, dejar sentir su coste (que son los 4 dolores del deck), para que el botón final de agendar caiga por su propio peso.
 
 ### Los 3 pilares (lo que de verdad nos separa del resto)
+> 🔄 Superado como munición de post el 24/08 y el 16/09 (`CLAUDE.md`, `global §4.4b-MUNICIÓN`, `brand-voice §2c-DATOS`): esto describe el producto, no son frases para el post. En el texto no se promete la señal (pilar 2), ni automatismo (pilar 3), ni el teléfono del interlocutor (pilar 1: se dice `con su contacto`).
+
 1. **Listados con confianza, no listas.** No es "una lista de empresas": es **segmentación técnica profunda** (materiales, procesos, certificaciones, señales a favor y en contra) que da un **% de confianza** alto de que cada empresa encaja. Dos matices del deck que lo afilan: (a) **los mejores clientes no salen en ningún filtro** — son los poco digitalizados o mal etiquetados, y por eso "descargar 2.000 empresas" no es prospección; (b) **cada empresa llega con su PRUEBA**: la frase literal de su web o su LinkedIn que demuestra que cumple el criterio, con el enlace para comprobarlo ("la prueba, no la etiqueta"). Y el **interlocutor con email y teléfono verificados**. El punto de partida es la **calidad**, no el volumen.
 2. **Contacto por señal, no por secuencia — "de metralleta a francotirador".** No contactamos a 500 personas porque "toca" en una cadencia (eso quema el mercado y hunde la respuesta). Neety **espera a que pase algo que justifique escribir** y entonces avisa y propone el acercamiento **con contexto**. Contactar por señal dispara la respuesta y la conversión muy por encima de la lista fría.
 3. **El comercial enseña; la herramienta replica — "propone, tú confirmas".** Hay automatización del envío, **pero el comercial valida cada comunicación y da feedback**, y Neety aprende **por comercial** (qué empresa acepta o descarta, qué mensaje corrige, qué señal le vale). Entrega **tareas accionables ya redactadas por IA, listas para confirmar**; el tono lo decide el comercial. Cuanto más lo usa, más se parece a él — "se vuelve vuestro".
@@ -105,6 +107,7 @@ Lo que compran es **a quién vender y quién decide dentro**.
 Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / inversión** · noticia relevante del sector · **un premio** · **una visita a tu web** · feria. Cuando hay señal, hay motivo → por eso la conversión sube frente a la lista fría. (La "visita a tu web" y el "premio" salen del deck de propuesta de valor, jul 2026.)
 
 ### Frases-ancla del pitch (del deck "Propuesta de valor Neety", jul 2026 — usar para hooks, cuerpos y spam ninja, variando)
+> 🔄 Superado en parte: `De metralleta a francotirador` vende la señal, que el ninja no promete (24/08, `CLAUDE.md`); `Neety propone, tú confirmas` nombra a Neety, vetado en el ninja (`global §4.4b`); y `Software propio` choca con la categoría `herramienta` (`brand-voice §2b`, 15/10). Esas tres no van en hooks ni en el ninja.
 - **"Tu próximo cliente no está en un filtro."** (el titular del deck — pilar 1)
 - **"Lo caro no es la lista. Es todo lo que viene después."** (el reto: depurar 2.000 a 40, dar con el interlocutor, no quemar el mensaje — pilar 1)
 - **"De metralleta a francotirador."** (pilar 2, el diferenciador)
@@ -123,7 +126,7 @@ Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / i
 
 ## 2 · Los tres perfiles en los que publicamos
 
-Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde julio 2026 las tres están activas y se coordinan entre sí (ver reglas de coordinación abajo y en `global-instructions`).
+⛔ Obsoleto desde el 26/10: hoy son 6 cuentas (las 3 de founder más Mario, Helena y Angela, cada una con su carril, `§2-CARRIL`) y Unai ya no va solo de ventas (autoridad ante el ecosistema). Lo que sigue es registro. Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde julio 2026 las tres están activas y se coordinan entre sí (ver reglas de coordinación abajo y en `global-instructions`).
 
 ### ⛔⛔ 2-CARRIL · CADA CUENTA ES **VENTAS + SU OFICIO**, Y ESO DECIDE QUÉ REFERENCIA LE TOCA (Iker, 2026-08-19) — CANÓNICO
 
@@ -159,6 +162,7 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 
 **⚠️ Y esto AFINA `post-workflow §4.4-FUENTE`, que decía que un meme de OTRO sector con dolor psicológico universal era "la excepción que da los mejores outliers".** Ya no se sale a buscar fuera: **se busca dentro de ventas y ahí se elige el que tenga el dolor más universal**. Lo de "que sea psicológico y universal" sigue mandando **como criterio de elección DENTRO de la cantera de ventas**, no como permiso para salir de ella.
 
+> 🔄 **10/11: SE REABRE** (`post-workflow §4.4-SUJETO`): si el meme va de ventas en la imagen o el texto y no es de herramienta técnica, la referencia vale aunque la primera línea de su post no lleve palabra de ventas; NUESTRO gancho ancla a ventas siempre. La nota que sigue es registro.
 > ⏸️ **EN SUSPENSO DESDE EL 14/10:** la excepción de abajo (gancho original sin palabra de ventas) tuvo un único caso, el león de Dachi, y se quedó en 1.565 impresiones. Hasta que Iker la reabra, solo vale la primera línea del original con palabra de ventas. Y el chiste va de una persona de ventas, nunca de una herramienta (`post-workflow §4.4-SUJETO`).
 
 #### 🔄 ACTUALIZADO EL 2026-10-07 (Iker): LA PALABRA DE VENTAS PUEDE ESTAR EN EL GANCHO **O** EN LA IMAGEN Y EL CUERPO DEL ORIGINAL. LO QUE NO SE NEGOCIA ES QUE **NUESTRO** GANCHO ANCLE A VENTAS
@@ -254,11 +258,12 @@ Publicamos en **tres cuentas de founder**, todas sobre **ventas B2B**. Desde jul
 - Rol: **cofounder**, lado **programación / técnico / producto**.
 - LinkedIn: **https://www.linkedin.com/in/asier-olaizola/**
 - Headline: *Co-Founder @ Neety | Construyo la IA de ventas que te trae reuniones, no promesas | Software para empresas industriales y de servicios B2B*
-- **Empezó a publicar en julio 2026** — es la cuenta más nueva, todavía sin histórico propio grande de outliers. **Estado real (BD, 2026-07-14): 3 posts, 0 outliers.** Uno personal de 2024, la oferta de Full Stack Dev del 5-jun (1.10x · 4.3K imp) y el mapa de Aragón del 14-jul.
-- Se trata con **la misma paridad** que Iker y Unai: mismos formatos, misma voz, misma coordinación.
+- **Empezó a publicar en julio 2026** — es la cuenta más nueva, todavía sin histórico propio grande de outliers. **Estado real (BD, 2026-07-14): 3 posts, 0 outliers.** (⛔ Obsoleto: dato de julio; el histórico actual está en la BD.) Uno personal de 2024, la oferta de Full Stack Dev del 5-jun (1.10x · 4.3K imp) y el mapa de Aragón del 14-jul.
+- Se trata con **la misma paridad** que Iker y Unai: mismos formatos, misma voz, misma coordinación. (🔄 Superado el 16/07 y el 15/10 por `brand-voice §1b`: el registro va por cuenta, y Asier tiene sus vetos y su carril de meme, `§2-ASIER-MEME`.)
 
 > ⚠️ **Nota sobre el ángulo técnico de Asier:** aunque su rol es programación, sus posts **siguen siendo sobre ventas B2B** (misma voz Neety, mismo ICP). Su perfil técnico puede aportar credibilidad cuando el post toca el "cómo está construido por dentro" un sistema de outbound, pero el hook y el cuerpo se anclan en ventas, no en ingeniería. No conviertas sus posts en contenido para AI-builders.
 
+> ⛔ Obsoleto: era para las primeras semanas de la cuenta (jul 2026); ya tiene baseline.
 > ⚠️ **Arranque de la cuenta de Asier:** empezó en jul 2026 sin histórico → **el outlier ratio aún NO significa nada** en su cuenta (necesita ~4-6 semanas de posts para que LinkedIn fije una baseline). Durante ese periodo, júzgalo por **consistencia y engagement absoluto**, no por el ratio (que puede salir ~1x aunque el post sea bueno). No descartes un formato en su cuenta por un ratio bajo temprano.
 
 #### 🔄🔄 2-ASIER-MEME · SUS MEMES SON DE VENTAS UNIVERSAL, NO DE LO TÉCNICO, Y EL GANCHO NUNCA LE PONE UN ROL QUE NO TIENE (Iker, 2026-10-08) — CANÓNICO, MANDA SOBRE `§2-CARRIL` EN EL MEME DE ASIER
@@ -384,7 +389,7 @@ Caso real, el post de la caída de los influencers: *"Una caída te trae atenci�
 - **Frecuencia: OPCIONAL, como Mario.** No entra en el cuadro latino 3×3 de las 3 cuentas de founder (`post-workflow §8.2`).
 - **Tono: joven y cercano, pero SIN burradas** (Iker, 18/08). El registro de Mario, con un freno más: nada de tacos, escatología ni chiste bruto. El humor va en la situación, no en la palabra. En la escala de `brand-voice §1b` se coloca **al lado de Iker, un punto por debajo de Mario**.
 - **⛔ SIN MENCIONES: ni @Neety ni los jefes ni nadie.** Es lo contrario a la regla por defecto de Mario y es deliberado: **su cuenta arranca con el experimento ya validado en él** (12/08, sin ninguna mención, 32.244 impresiones). Con cero arrobas de la empresa junto a un enlace, el spam ninja no se lee como publicidad.
-- **⭐ Público y ángulo: ATENCIÓN AL CLIENTE, CUSTOMER SUCCESS y PARTNERSHIPS**, igual que Mario se ancla a marketing. Los mismos pilares que funcionan, pero **la REFERENCIA del meme se busca en su sector** (soporte, tickets, cuentas, renovaciones) y **el gancho ancla a VENTAS**, que es lo que hizo que el de Mario funcionara: referencia de marketing, gancho de ventas.
+- **⭐ Público y ángulo: ATENCIÓN AL CLIENTE, CUSTOMER SUCCESS y PARTNERSHIPS**, igual que Mario se ancla a marketing. Los mismos pilares que funcionan, pero **la REFERENCIA del meme se busca en su sector** (soporte, tickets, cuentas, renovaciones) y **el gancho ancla a VENTAS**, que es lo que hizo que el de Mario funcionara: referencia de marketing, gancho de ventas. (🔄 Superado el 26/08 por `§2-CARRIL-GANCHO`: en Helena el gancho ancla a SU oficio, atención al cliente, y ventas baja al cuerpo; así lo mira el validador.)
 - **⛔ LA REFERENCIA TIENE QUE SER DE SU OFICIO, no solo de su sector (Iker, 2026-08-18).** El primer intento fue un tuit de soporte sobre un bonus por tickets cerrados y lo tumbó: *"es un meme de comercial"*. Su trabajo es **cuidar al cliente que YA compró** (reuniones de seguimiento, escuchar feedback, estar encima de sus problemas), no cazar al que aún no compra. Un chiste del comercial que persigue no es suyo aunque salga un ticket dentro. **La cantera:** `Customer Success Collective` (`customersuccesscollective`, página de empresa), 200 posts bajados y 16 con más de 600 reacciones, casi todos capturas de tuit sobre el cliente que no contesta.
 - **Referencias ya usadas por Helena:** 18/08, tuit *"hello????????"* de emily june vía Customer Success Collective (2.826 · 29% risa). Descartadas y libres: el font-size de KnowComment (1.793 · 49%), el `please find attached` (4.122 · 53%, pero genérico de correo, sin ancla) y la Dora calva (983 · 56%, la calvicie ya está muy vista en las 3 cuentas).
 
@@ -401,7 +406,7 @@ Caso real, el post de la caída de los influencers: *"Una caída te trae atenci�
 
 ## 3 · Una sola voz para los tres: "voz Neety"
 
-Decisión de producto (julio 2026): **NO mantenemos voces por persona**. Las tres cuentas escriben con **una única voz genérica llamada "Neety"**.
+🔄 Superado el 16/07 y el 15/10 por `brand-voice §1b`: el QUÉ es el mismo en las tres cuentas, pero el registro (volumen, intensificadores, gancho) va por persona; lo que sigue es registro de la decisión de julio. Decisión de producto (julio 2026): **NO mantenemos voces por persona**. Las tres cuentas escriben con **una única voz genérica llamada "Neety"**.
 
 - Antes había perfiles de voz separados (Iker / Unai). Se colapsaron en uno solo porque las tres personas publican sobre lo mismo.
 - Mencionar "Iker", "Unai" o "Asier" en una petición **NO cambia la voz** — solo cambia (en la herramienta) la identidad del preview (nombre + foto). La voz es siempre la misma.
@@ -413,10 +418,10 @@ Decisión de producto (julio 2026): **NO mantenemos voces por persona**. Las tre
 
 Estos puntos son de identidad estratégica; el detalle operativo está en `global-instructions` y `working-preferences`.
 
-- **Objetivo doble (MIX):** ya no es solo alcance/outlier. Ahora es **viralidad + que agenden demo** (https://recursos.neety.com/agendar/). No son excluyentes: el meme iMessage con link de agendar (7.9x · 80.9K) fue el post más visto del periodo.
+- **Objetivo doble (MIX):** ya no es solo alcance/outlier. Ahora es **viralidad + que agenden demo** (https://neety.com/solicitar-demo; 🔄 05/10, §1: antes `recursos.neety.com/agendar/`). No son excluyentes: el meme iMessage con link de agendar (7.9x · 80.9K) fue el post más visto del periodo.
 - **Frecuencia: 3 posts/semana por cuenta** (Iker, Unai, Asier), mínimo absoluto 1/semana. Ojo al histórico: durante abr-jul 2026 eran **4/semana** porque solo se gestionaban 2 cuentas (Iker + Unai); al entrar Asier (jul 2026) se bajó a **3** para no saturar el feed con 3 cuentas a la vez. Si en el futuro cambia el nº de cuentas, revisa esta cifra.
-- **Exclusividad de CATEGORÍA por día (intercalado):** las 3 cuentas rotan las mismas 3 categorías de pilar — **Peloteo** (mapa regional o "Los 10", cuentan como una sola), **Lead magnet** y **Meme** — pero intercaladas: el mismo día NO se repite categoría en dos cuentas. Cada día las 3 cuentas cubren las 3 categorías distintas; cada cuenta pasa por las 3 a lo largo de la semana. La lógica completa (cuadro latino 3×3, frecuencia, pregunta previa) vive en `post-workflow §8`.
-- **Link de agendar SIEMPRE en spam ninja**, atado al hook o a algo gracioso del cuerpo — nunca como venta directa, y **sin nombrar a Neety** (nombrar la marca lo delata como publicidad encubierta). Va en TODOS los pilares menos el lead magnet. Reglas completas: `global-instructions §4.4b`.
+- **Exclusividad de CATEGORÍA por día (intercalado):** (🔄 hoy los pilares son más: historia, noticia, tarjeta, despiece y "Las 10" en vez de "Los 10"; la lógica vigente está en `post-workflow §8.2`) las 3 cuentas rotan las mismas 3 categorías de pilar — **Peloteo** (mapa regional o "Los 10", cuentan como una sola), **Lead magnet** y **Meme** — pero intercaladas: el mismo día NO se repite categoría en dos cuentas. Cada día las 3 cuentas cubren las 3 categorías distintas; cada cuenta pasa por las 3 a lo largo de la semana. La lógica completa (cuadro latino 3×3, frecuencia, pregunta previa) vive en `post-workflow §8`.
+- 🔄 Superado el 30/10 y el 06/11 por `post-workflow §8.1b`: el destino del ninja es `/solicitar-demo` por defecto, y el gate de un recurso solo con su motivo; no siempre es agendar. **Link de agendar SIEMPRE en spam ninja**, atado al hook o a algo gracioso del cuerpo — nunca como venta directa, y **sin nombrar a Neety** (nombrar la marca lo delata como publicidad encubierta). Va en TODOS los pilares menos el lead magnet. Reglas completas: `global-instructions §4.4b`.
 - **Mencionar Neety en el cuerpo está permitido** de vez en cuando (no en cada post, pero no prohibido).
 
 ---

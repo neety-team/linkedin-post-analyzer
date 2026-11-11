@@ -36,7 +36,9 @@ HISTORIAL = os.path.join(RAIZ, 'docs', 'skills', 'historial-publicaciones.md')
 AI_TELLS = (r'\b(lo m[aá]s importante|lo fundamental|lo esencial|es (fundamental|crucial|clave) que'
             r'|hoy en d[ií]a|en la actualidad|en el mundo actual|sin embargo|no obstante|asimismo'
             r'|por lo tanto|en consecuencia|de esta manera|posibilita|optimizar|maximizar|potenciar'
-            r'|numerosos|en definitiva|en resumen|en conclusi[oó]n|la clave est[aá] en|el secreto es)\b')
+            r'|numerosos|en definitiva|en resumen|en conclusi[oó]n|la clave est[aá] en|el secreto es'
+            # 11/11, auditoria: filas de la tabla de brand-voice §3 que faltaban en la lista
+            r'|permite|implementar|diversos|m[uú]ltiples)\b')
 
 # global §2.8 y §6 — cierres quemados. El validador ya miraba OPENERS; estos
 # viven al FINAL y no los veia nadie.
@@ -942,7 +944,8 @@ DISENO_ANCLA = (r'\b(dise[ñn]\w*|pantallas?|bot[oó]n|botones|interfaz|interfac
 # `una publicacion` deja la linea 1 del ninja en 60 car y revienta el tope de
 # 55; `publicar` la deja en 53 y en el gancho cuesta UN solo caracter mas que
 # `post`. Ademas el verbo es mas punchy (2.9).
-DEMASIADO_NICHO = r'\b(b2b|outbound|inbound|pipeline|cadencia|reply rate|touchpoints?|sdr|aes?|cold email|discovery|gtm|icp|crm|forecast|saas|leads?|follow-?up|posts?|postear)\b'
+# 11/11, auditoria: `webinar` dentro (global §2.3): el lector lo entiende y estrecha.
+DEMASIADO_NICHO = r'\b(b2b|outbound|inbound|pipeline|cadencia|reply rate|touchpoints?|sdr|aes?|cold email|discovery|gtm|icp|crm|forecast|saas|leads?|follow-?up|posts?|postear|webinars?)\b'
 # §2.9 — delatores de verbo flojo: describen en vez de frenar el scroll
 # Ojo con "pasa": "pasa factura" es un MODISMO punchy, no un verbo flojo, y es el
 # gancho de "Subir en ventas siempre pasa factura" (13.61x). El check lo tumbaba.
@@ -1689,27 +1692,38 @@ PLANTILLA = 'automocion'
 # Las 5 preguntas de criterio que mas han fallado con el marcador en verde (15/10). Cada
 # una apunta a su regla. Se contestan por escrito en --criterio; ver el final de main().
 CRITERIO = [
-    ('bucle', 'Tapa todo menos el gancho (y la imagen o el video): recorre los interrogativos (que, quien, cuando, donde, como, por que, cual, cuanto, para que/quien) y di cual queda ABIERTO (uno, el que mas sorprenda; el resto cerrados dan contexto); ¿en que linea del ultimo tercio se contesta? (global §2.0, §2.0-INTERROGATIVOS y §2.0-PAGO)'),
+    ('bucle', 'Tapa todo menos el gancho (y la imagen o el video): recorre los interrogativos (que, quien, cuando, donde, como, por que, cual, cuanto, para que/quien) y di cual queda ABIERTO (uno, el que mas sorprenda; el resto cerrados dan contexto); ¿en que linea del ultimo tercio se contesta? El pago repite la palabra del gancho, literal, o la desinfla a proposito. ¿Y el cuerpo cuenta un problema de verdad o la ventaja disfrazada? (global §2.0, §2.0-INTERROGATIVOS y §2.0-PAGO, post-workflow §4.4-ESENCIA-OFICIO) Si es un gancho de promesa, ¿da el hecho por cumplido y el intensificador va en futuro? (global §2.3d-FUTURO)'),
     # 11/11: global §1 y §2.2 punto 3 pedian maximizar UNA emocion (curiosidad, miedo o deseo) y
     # nadie lo preguntaba por escrito, asi que no se auditaba. Se nombra la dominante (una sola)
     # y donde se dispara en el gancho; un poco de las otras vale, el empate es un gancho tibio.
-    ('emocion', '¿Que emocion MAXIMIZA el post, una sola: curiosidad, miedo o deseo? Di cual domina y con que pieza del gancho se dispara (su intensificador). Un poco de las otras vale; si empatan, el gancho es tibio (global §1-EMOCION y §2.2)'),
-    ('explicito', '¿Que daria por sabido alguien que no nos conoce? Cada nombre propio nuestro con su categoria, cada cifra con su sustantivo (global §2.5b-EXPLICITO)'),
-    ('verdad', '¿Todo lo afirmado sale de la fuente (video, BD, cliente, informe), sin cuando, cifra ni frase puesta por nosotros? (CLAUDE.md, post-workflow §4.6)'),
-    ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje? ¿Y la foto NO huele a evento ni a venta (escenario, ponente, photocall, acreditaciones, carpeta del evento) y se le ve la CARA al que publica? ¿Y a 360 px lo primero que se ve es lo que hay que entender, sin un segundo foco que compita (una palabra naranja, una caja)? (global §2.0c, post-workflow §4.6-FOTO-VENTA, images §0a-FOCO)'),
+    ('emocion', '¿Que emocion MAXIMIZA el post, una sola: curiosidad, miedo o deseo? Di cual domina y con que pieza del gancho se dispara (su intensificador). Un poco de las otras vale; si empatan, el gancho es tibio (global §1-EMOCION y §2.2). ¿Que herida del comercial toca, y la frustracion recae en lo que aun NO tiene? (global §2.2 punto 2, §2.3b). Meme o tarjeta: ¿es la MISMA emocion que el original, calcada? (post-workflow §4.4, §4.4-ESENCIA test de la rabia)'),
+    ('explicito', '¿Que daria por sabido alguien que no nos conoce? Cada nombre propio nuestro con su categoria, cada cifra con su sustantivo. ¿El gancho o la imagen dependen de una tendencia o referencia que un director de 55 años no conoce? (global §2.5b-EXPLICITO, §2.1b-DONDE)'),
+    ('verdad', '¿Todo lo afirmado sale de la fuente (video, BD, cliente, informe), sin cuando, cifra ni frase puesta por nosotros? ¿El gancho cuelga a quien publica un rol que no tiene? (post-workflow §4.4-ROL) ¿Alguna cita revela empresa, nombre, cargo o un dato que solo tiene esa empresa? (§4.6-CITA) Peloteo: la comparacion con otro pais va bienes contra bienes, mismo año y margen >=15% (post-workflow §4.2). Municion: ¿la objecion o el dolor sale de 3+ empresas? (global §4.4b-MUNICION) (CLAUDE.md, post-workflow §4.6)'),
+    ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje ni NARRA lo que la foto ya enseña en la mitad de arriba? ¿Y la foto NO huele a evento ni a venta (escenario, ponente, photocall, acreditaciones, carpeta del evento) y se le ve la CARA al que publica? ¿Y a 360 px lo primero que se ve es lo que hay que entender, sin un segundo foco que compita (una palabra naranja, una caja)? Si hay un @ o una firma ficticia en la imagen, ¿has comprobado que no existe? (§4.4-IDENTIDAD) Lead magnet: la imagen enseña el recurso, nunca lo regala (§4.5.-1-BIS) (global §2.0c, post-workflow §4.4-CALLA, §4.6-FOTO-VENTA, images §0a-FOCO)'),
     # 28/10: la linea de contexto decia "Iba de dar con las empresas que te comprarian", el
     # tema del evento y no su valor, y la pregunta no lo miraba. Ahora lo pide por escrito.
-    ('ninja', 'Tapa el post: ¿la linea 1 dice que falta, la 2 lo cubre, y el destino cumple la promesa? ¿Va despues del valor? ¿Por que ESE destino para este post y no otro (continua el tema, mide la variable del A/B, cabe en el reparto de puertas de la semana)? Por defecto no vale (post-workflow §8.1b, 30/10). Y si lleva contexto encima: ¿nombra el dolor CONCRETO que resuelve (tiempo buscando, acertar con la empresa, la persona de dentro) y no el tema? (global §4.4b, §4.4b-CONTEXTO)'),
+    # 11/11, auditoria: "Por defecto no vale" (30/10) contradecia el destino por defecto
+    # /solicitar-demo (06/11, post-workflow §8.1b). Manda la decision mas reciente.
+    ('ninja', 'Tapa el post: ¿la linea 1 dice que falta, la 2 lo cubre, y el destino cumple la promesa? ¿Va despues del valor? ¿Que pieza (la metafora) del gancho recoge la linea 1? (post-workflow §4.0d) Lee la linea 1 sola: confirma la norma y no dice que algo sea imposible (global §4.4b-EXCEPCION, §4.4b-POSIBLE). ¿Por que ese dolor y no otro? Entre dos validos, el mas especifico (§4.4b-MUNICION-PUNCH). ¿Por que ESE destino? /solicitar-demo es el de por defecto (06/11); otro, se razona: continua el tema, mide la variable del A/B, cabe en el reparto de puertas de la semana (post-workflow §8.1b). Y si lleva contexto encima: ¿nombra el dolor CONCRETO que resuelve (tiempo buscando, acertar con la empresa, la persona de dentro) y no el tema? (global §4.4b, §4.4b-CONTEXTO)'),
     # Iker, 15/10: la tarjeta de Asier juzgaba al cliente que paga poco y nadie lo vio,
     # porque la regla solo existia en el meme y en Unai. El lexico de main() caza lo
     # explicito; esto obliga a mirar lo que no tiene palabra clave (y la imagen).
-    ('comprador', '¿Alguna linea, del texto, de la tarjeta o de la imagen, JUZGA al que compra (cargo con poder de decision o el cliente como figura) en vez de contar lo que hace? ¿Algo deja decir "en Neety se rien de sus clientes"? (brand-voice canonico 5)'),
+    # 11/11, auditoria: la clave se amplia a la MARCA entera (brand-voice canonico NO CRITICAMOS,
+    # §5, §5b, global §4.1 menciones), que no tenia pregunta escrita.
+    ('comprador', '¿Alguna linea, del texto, de la tarjeta o de la imagen, JUZGA al que compra (cargo con poder de decision o el cliente como figura) en vez de contar lo que hace? ¿Algo deja decir "en Neety se rien de sus clientes"? Y la MARCA: ¿alguna linea critica a una empresa, region, ciudad o colectivo con nombre, se burla de quien mencionamos, deja a la casa mal (autocritica implicita, "que mal se organizan en Neety"), pone a Neety o a sus jefes como la IA que falla, o habla en nombre de otro oficio? (brand-voice canonico 5 y NO CRITICAMOS, §5, §5b, global §4.1)'),
     # 28/10: una historia paso 10 validaciones en verde con "nos puso precio", sin una sola
     # palabra que parase el scroll. El script solo veta verbos flojos (VERBO_FLOJO) y no puede
     # exigir uno punchy sin fabricar muletillas (global §2.9), asi que se contesta por escrito
     # y con la escalera entera: el neutro, el elegido y el que se pasa (criticar -> desmontar
     # -> despellejar). Vale tambien para un borrador heredado: heredar no exime.
-    ('punch', '¿Que palabra del gancho para el scroll? Escribe la escalera con su objeto: el neutro -> el elegido -> el que se pasa (criticar -> desmontar -> despellejar). Si no la encuentras, no la hay (global §2.9-ESCALERA)'),
+    ('punch', '¿Que palabra del gancho para el scroll? Escribe la escalera con su objeto: el neutro -> el elegido -> el que se pasa (criticar -> desmontar -> despellejar). Si no la encuentras, no la hay. Y el verbo del ninja es el del gancho o de su familia (global §2.9, techo en el ninja). ¿Probaste presente, condicional y futuro? (global §2.9-ESCALERA, §2.9b)'),
+    # 11/11, auditoria de las recetas: tres criterios que solo vivian en prosa y nadie preguntaba.
+    # quemado: CLAUDE.md lo define ("usado por ESA cuenta en sus 3 ultimas") y el script solo ve listas.
+    ('quemado', '¿El angulo, el concepto o la frase del gancho los uso ESTA cuenta en sus 3 ultimas publicaciones, o es un patron que ya flopeo en ella? (global §2.0b-VENTANA, CLAUDE.md "quemado")'),
+    # voz: el registro de cada cuenta (brand-voice §1b) no tiene palabra clave que lo delate.
+    ('voz', '¿Suena a ESA cuenta (registro de brand-voice §1b)? En Unai: ¿alguna linea se lee como autoelogio de su papel o mete un refran de ventas a la fuerza? (brand-voice §1b, §0)'),
+    # oido: la frase de relleno que cuadra una anafora no la ve ninguna regex.
+    ('oido', '¿Alguna frase existe solo para cuadrar la anafora o la escalera, hay sustantivo donde iria un verbo, o una coma que hace de verbo? Leelo en voz alta (brand-voice §3c, §3e)'),
     # 28/10, auditoria del validador: global §8 tenia una lista "lo que el script NO puede ver,
     # esto lo miras tu" y solo 5 de sus puntos se habian pasado a preguntas escritas el 15/10.
     # Lo que no se pregunta por escrito no se mira: se pasan los que quedaban, cada uno solo en
@@ -1728,7 +1742,8 @@ CRITERIO = [
 ]
 # Que pilar contesta que clave. Las que no estan aqui las contestan todos.
 CRITERIO_PILAR = {
-    'motor': {'meme', 'mapa', 'las10', 'los10', 'objeto', 'leadmagnet', 'tarjeta'},
+    # 11/11: noticia dentro (post-workflow §4.9.1, el motor de la noticia es su angulo).
+    'motor': {'meme', 'mapa', 'las10', 'los10', 'objeto', 'leadmagnet', 'tarjeta', 'noticia'},
     'remix': {'meme', 'tarjeta'},
     'tesis': {'meme'},
 }
@@ -6070,6 +6085,193 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             '¿algun detalle, tambien de la IMAGEN, deja como vago o incompetente a un '
             'director comercial, gerente o CEO? Unai borro el meme de los suenos por la '
             'placa EN REUNION del director dormido: es quien nos compra.')
+
+    # ---------- AUDITORIA 11/11: duenos de reglas de las recetas que nadie miraba ----------
+    # Cada check apunta a su regla con el § en el nombre (test-cobertura-reglas lo busca ahi).
+    # Avisos salvo los que no tienen lectura buena (datos de terceros, cifras sin fuente).
+    _cta = (cuenta or '').strip().lower()
+    _hl = hook_txt.lower()
+    _tl = texto.lower()
+    _L = texto.split('\n')
+    _ni = next((i for i, l in enumerate(_L) if i > 0 and re.search(r'https?://|lnkd\.in', l)
+                and 'mapa completo' not in l.lower()), None)
+    _ninja_t = ' '.join(_L[_ni - 1:_ni + 1]) if _ni else ''
+    _ninja_l = _ninja_t.lower()
+    _fuera_ninja = '\n'.join(_L[:_ni - 1] + _L[_ni + 1:]) if _ni else texto
+    # cuerpo sin el gancho y sin el ninja (donde la marca y los emojis se cuentan)
+    _cuerpo_sg = '\n'.join(_fuera_ninja.split('\n')[len(hook):])
+
+    # 11/11, auditoria. global §2.0c-PRESUMIR: el gancho humilde no puede sonar a fastidio
+    # ("me toco", "siempre yo"): humilde no es desganado.
+    _desg = re.search(r'\b(me toc[oó]|me toca|otra vez me|siempre yo)\b', _hl)
+    chk(not _desg, 'GANCHO: humilde no es desganado (global §2.0c-PRESUMIR)',
+        f'"{_desg.group(0)}" suena a fastidio, no a humildad: el lector no quiere leer a alguien '
+        'que hace las cosas a disgusto' if _desg else '', aviso=True)
+    # 11/11, auditoria. global §2.3d: un intensificador por gancho, nunca dos apilados.
+    _ints = [m.group(0) for m in re.finditer(_INTENS, hook_txt, re.I)]
+    chk(len(_ints) < 2, 'GANCHO: un intensificador, nunca dos apilados (global §2.3d)',
+        'lleva %s: dos intensificadores se anulan y el gancho suena a exagerado. Quedate con el '
+        'de la emocion que maximiza' % ', '.join(f'"{x}"' for x in _ints) if len(_ints) >= 2 else '',
+        aviso=True)
+    # 11/11, auditoria. global §2.5: el porcentaje en el gancho es abstracto y sube la barrera;
+    # la cifra del gancho va con su sustantivo (80 empresas), no en tanto por ciento.
+    _pct = re.search(r'\d+(?:[.,]\d+)?\s?%', hook_txt)
+    chk(not _pct, 'GANCHO: sin porcentaje (global §2.5)',
+        f'"{_pct.group(0)}" en el gancho: un porcentaje no se rueda ni se ve. Cifra con sustantivo, '
+        'o el porcentaje al cuerpo' if _pct else '', aviso=True)
+    # 11/11, auditoria. global §2.6: la linea 2 entra en la escena, sin preambulo de credencial
+    # ni anunciador.
+    _l2 = bs[1][0] if len(bs) > 1 and bs[1] else ''
+    _pre = re.match(r'\s*(llevamos (meses|años|semanas)|tras analizar|despu[eé]s de \d+ a[nñ]os'
+                    r'|la realidad es que|te cuento|d[eé]jame explicarte)', _l2, re.I)
+    chk(not _pre, 'Linea 2 sin preambulo (global §2.6)',
+        f'"{_pre.group(0)}…" retrasa lo que el gancho prometio. La linea 2 entra directa en la '
+        'escena o el dato' if _pre else '', aviso=True)
+    # 11/11, auditoria. global §2.9c (y §2.9b): no se repite el mismo verbo en el gancho
+    # (venden/vender). Raiz = 5 primeras letras sin tildes, y una de las dos con forma verbal.
+    _pal = [normalizar_kw(w.lower()) for w in re.findall(r'(?<![@\w])[A-Za-zÁÉÍÓÚÑáéíóúñü]{5,}', hook_txt)]
+    _raices = {}
+    for w in _pal:
+        _raices.setdefault(w[:5], []).append(w)
+    _rep = [v for v in _raices.values() if len(v) >= 2
+            and any(re.search(r'(ar|er|ir|an|en|amos|emos|imos|ando|iendo|aron|ieron|aba|ste)$', x) for x in v)]
+    chk(not _rep, 'GANCHO: no repite el mismo verbo (global §2.9c)',
+        'repite %s: el segundo no suma nada, cambialo o tachalo' % ' / '.join('/'.join(v) for v in _rep)
+        if _rep else '', aviso=True)
+    # 11/11, auditoria. global §4.4b-ORDEN: la señal (el momento de compra) es lo ultimo que se
+    # promete; nunca abre el post. En el gancho es fallo; en el ninja, aviso (va detras del encaje).
+    _SENAL = r'\bse[ñn]al(es)?\b|intenci[oó]n de compra|momento adecuado|llegar antes'
+    _sh = re.search(_SENAL, _hl)
+    chk(not _sh, 'GANCHO: sin la señal, va detras del encaje (global §4.4b-ORDEN)',
+        f'"{_sh.group(0)}": la señal es objecion medida (12 empresas) y en el gancho se promete '
+        'primero. Lo que abre es acertar con la empresa y con quien decide' if _sh else '')
+    _sn = re.search(_SENAL, _ninja_l)
+    chk(not _sn, 'Spam ninja: la señal no es la promesa (global §4.4b-ORDEN)',
+        f'"{_sn.group(0)}" en el ninja: la señal va despues del encaje (empresa y persona), nunca '
+        'como lo que se vende' if _sn else '', aviso=True)
+    # 11/11, auditoria. brand-voice §1b NUNCA SE HACE DE MENOS: el gancho de una historia de Unai
+    # no va en primera del singular (va en nosotros o en la escena).
+    if _cta == 'unai' and pilar == 'historia' and not NOTICIA:
+        _yo = re.match(r'\s*yo\b', _hl) or re.search(
+            r'\b(?!caf[eé]\b|beb[eé]\b|porqu[eé]\b|jos[eé]\b)[a-zñ]{3,}é\b', _hl)
+        chk(not _yo, 'UNAI: el gancho de historia no va en primera del singular (brand-voice §1b)',
+            f'"{_yo.group(0).strip()}": en Unai la historia se cuenta en nosotros o desde la escena; '
+            'el yo le hace de menos o le pone a presumir' if _yo else '', aviso=True)
+
+    # 11/11, auditoria. global §4.4b: nada pasa sin el comercial, tampoco fuera del ninja.
+    # En lead magnet es fallo (abajo); aqui aviso, porque en el cuerpo puede ser el enemigo.
+    if pilar != 'leadmagnet':
+        _af = re.search(PROMESA_AUTOMATISMO, _fuera_ninja.lower())
+        chk(not _af, 'Sin AUTOMATISMO fuera del ninja (global §4.4b)',
+            f'"{_af.group(0)}": nada pasa sin el comercial. Si es el enemigo ("lo que te prometen que '
+            'lo hace por ti"), que se lea claro de que lado esta' if _af else '', aviso=True)
+    # 11/11, auditoria. global §4.4b (municion): creditos, precio, pago anual, puntuacion y licencia
+    # son objeciones de la demo, no argumentos de post.
+    _pre_m = re.search(r'\bcr[eé]ditos?\b|\bprecios?\b|€\s?/\s?mes|\bpago anual\b|\bpuntuaci[oó]n\b'
+                       r'|\bdeja(r)? de pagar\b|te ahorras la licencia', _tl)
+    chk(not _pre_m, 'Sin creditos, precio ni licencia (global §4.4b)',
+        f'"{_pre_m.group(0)}": el precio y la forma de pago se hablan en la demo; en el post abren la '
+        'objecion antes de que exista el interes' if _pre_m else '', aviso=True)
+    # 11/11, auditoria. global §4.4b: no se nombran funciones que no son publicas.
+    _npub = re.search(r'\b(dynamics|salesforce|amplitude|superadmin)\b', _tl)
+    chk(not _npub, 'Sin funciones no publicas (global §4.4b)',
+        f'"{_npub.group(0)}": integracion o funcion que no esta en la web; no se promete' if _npub else '',
+        aviso=True)
+    # 11/11, auditoria. global §4.4b y brand-voice §2c-DATOS: el telefono o el correo de un tercero
+    # que entregamos se lee como datos sin permiso. "con su contacto", nunca "su telefono".
+    _dat = re.search(r'\bsu (tel[eé]fono|m[oó]vil|e-?mail)\b', _tl)
+    chk(not _dat, 'Sin datos de terceros: "su telefono" (global §4.4b, brand-voice §2c-DATOS)',
+        f'"{_dat.group(0)}" -> "su contacto". Se lee como que entregamos datos de terceros sin permiso'
+        if _dat else '')
+    _dec = re.search(r'te encuentro a quien decide', _tl)
+    chk(not _dec, 'Recambio: "te doy el nombre de quien decide" (global §4.4b)',
+        '"te encuentro a quien decide" -> "te doy el nombre de quien decide"' if _dec else '', aviso=True)
+    # 11/11, auditoria. global §2.5, cifras creibles: el 100% no se lo cree nadie.
+    _cien = re.search(r'\b100\s?%', texto)
+    chk(not _cien, 'Cifras creibles, nunca 100% (global §2.5)',
+        '"100%" suena a folleto; una cifra real y redonda por debajo convence mas' if _cien else '',
+        aviso=True)
+    # 11/11, auditoria. Nombres y cifras de clientes que ya se han escrito mal: el cliente es
+    # Betsaide (no "Beside"), y el 45% de Arania va siempre con "hasta" (global §4.4b).
+    _bes = re.search(r'\bBeside\b', texto)
+    chk(not _bes, 'Cliente bien escrito: Betsaide, no Beside (global §4.4b)',
+        '"Beside" -> "Betsaide"' if _bes else '')
+    _45 = [m for m in re.finditer(r'\b45\s?%', texto) if not re.search(r'hasta\s+(un\s+)?$', _tl[max(0, m.start() - 12):m.start()])]
+    chk(not _45, 'El 45% de Arania va con "hasta" (global §4.4b)',
+        'el dato es un maximo: "hasta un 45%"' if _45 else '')
+    # 11/11, auditoria. global §4.4b: el ninja no promete inmediatez (tiempo real, al instante,
+    # en un clic, en N minutos) ni datos siempre al dia: no es lo que hace y no se sostiene.
+    _inm = re.search(r'siempre actualizad\w*|en tiempo real|al instante|en un clic|en \d+ minutos', _ninja_l)
+    chk(not _inm, 'Spam ninja: sin promesa de inmediatez (global §4.4b)',
+        f'"{_inm.group(0)}": no lo prometemos; lo que se promete es acertar y dejar de buscar'
+        if _inm else '', aviso=True)
+    # 11/11, auditoria. global §4.4b: /solicitar-demo no promete con quien es la reunion.
+    _conq = re.search(r'te lo ense[ñn]\w* (iker|unai|asier)|con mis jefes|conmigo', _ninja_l) \
+        if 'recursos.neety.com/agendar' in _ninja_l else None
+    chk(not _conq, 'Spam ninja: la demo no promete con quien es (global §4.4b)',
+        f'"{_conq.group(0)}": la reunion la lleva el equipo; no se promete a un jefe concreto'
+        if _conq else '', aviso=True)
+    # 11/11, auditoria. brand-voice §3 (21/10): pocos emojis en el cuerpo, como mucho uno que
+    # haga trabajo. No cuentan el del gancho, la mano de abajo ni los marcadores de lista.
+    _emo = [e for e in re.findall(r'[\U0001F300-\U0001FAFF☀-➿]', _cuerpo_sg)
+            if e not in '👇👉✅❌✔➡🔹🔸▪•']
+    chk(len(_emo) <= 1, 'Como mucho un emoji en el cuerpo (brand-voice §3)',
+        'lleva %d: %s. Uno, y que haga trabajo' % (len(_emo), ' '.join(_emo)) if len(_emo) > 1 else '',
+        aviso=True)
+    # 11/11, auditoria. brand-voice §3: "no se trata de X sino de Y" una vez es recurso; dos, tic de IA.
+    _nst = re.findall(r'no se trata de .{0,80}?sino', _tl)
+    chk(len(_nst) < 2, 'AI-tell: "no se trata de... sino" repetido (brand-voice §3)',
+        f'{len(_nst)} veces: a la segunda suena a maquina' if len(_nst) >= 2 else '', aviso=True)
+    # 11/11, auditoria. brand-voice §6: fuera la politica. Aviso: "a la derecha" o "mano derecha"
+    # no cuentan, y el Ministerio (de Transformacion Digital) tampoco.
+    _pol = re.search(r'\b(PSOE|PP|Vox|Sumar|Bildu|PNV)\b', texto) or re.search(
+        r'\bgobierno de\b|\bministr[oa]s?\b|\belecciones\b|(?<!a la )(?<!mano )\b(izquierda|derecha)\b', _tl)
+    chk(not _pol, 'Sin politica (brand-voice §6)',
+        f'"{_pol.group(0)}": en el post no entra la politica, ni de pasada' if _pol else '', aviso=True)
+    # 11/11, auditoria. aboutme §1: cifras de la casa sin fuente ("+200 PYMEs", "+40% de
+    # conversion") y la oferta prohibida ("sin esfuerzo", "lo hace por ti", "tu solo cierras").
+    _sinf = re.search(r'\+\s?200 pymes|\+\s?40\s?% de conversi[oó]n|\b200 pymes', _tl)
+    chk(not _sinf, 'Sin cifras de la casa sin fuente: +200 PYMEs, +40% (aboutme §1)',
+        f'"{_sinf.group(0)}" no tiene fuente verificada' if _sinf else '')
+    # Fuera del ninja: dentro ya lo tumba "Spam ninja: no promete AUTOMATISMO" (y asi no se
+    # duplica el fallo ni tumba el 0.5x de Unai del test, que lo lleva en el ninja).
+    _ofp = re.search(r'sin esfuerzo|lo hace por ti|t[uú] solo cierras', _fuera_ninja.lower())
+    chk(not _ofp, 'Sin "sin esfuerzo / lo hace por ti / tu solo cierras" (aboutme §1b)',
+        f'"{_ofp.group(0)}": es la promesa del monton que el lector ya ignora' if _ofp else '')
+    # 11/11, auditoria. aboutme (Asier): ni futbol ni equipos; y lo que ya borro una vez
+    # ("soñe con ella", el corazon) se mira dos veces.
+    if _cta == 'asier':
+        _fut = re.search(r'f[uú]tbol|real sociedad|athletic', _tl)
+        chk(not _fut, 'ASIER: sin futbol (aboutme §2)',
+            f'"{_fut.group(0)}": vetado en su cuenta' if _fut else '')
+        _ella = re.search(r'so[ñn][eé] con ella|❤', texto, re.I)
+        chk(not _ella, 'ASIER: ni "soñe con ella" ni corazones (aboutme §2)',
+            f'"{_ella.group(0)}": ya borro un post asi' if _ella else '', aviso=True)
+    # 11/11, auditoria. post-workflow §4.6-HITO: en historia/evento, sin citas textuales de
+    # clientes (comillas de mas de 4 palabras).
+    if pilar == 'historia' and HISTORIA_EVENTO:
+        _cits = [c for c in re.findall(r'["“«]([^"”»]+)["”»]', texto) if len(c.split()) > 4]
+        chk(not _cits, 'Sin citas textuales de clientes en historia/evento (post-workflow §4.6-HITO)',
+            'cita: "%s". En un evento la cita de un cliente lo expone; se cuenta sin comillas'
+            % _cits[0][:60] if _cits else '', aviso=True)
+    # 11/11, auditoria. post-workflow §4.6 punto 1b-QUATER: en historia sin evento la marca no se
+    # nombra en el cuerpo (el ninja aparte).
+    if pilar == 'historia' and not HISTORIA_EVENTO and not NOTICIA:
+        _mar = re.search(r'@?\bNeety\b', _cuerpo_sg)
+        chk(not _mar, 'HISTORIA: la marca no se nombra en el cuerpo (post-workflow §4.6)',
+            f'"{_mar.group(0)}" en el cuerpo: en una historia sin evento la marca vive solo en el ninja'
+            if _mar else '', aviso=True)
+    # 11/11, auditoria. post-workflow §4.5.0c y §4.5.0-TEMA: en lead magnet el automatismo y el
+    # volumen tampoco se prometen en el gancho ni en el cuerpo, no solo en el ninja.
+    if pilar == 'leadmagnet':
+        _alm = re.search(PROMESA_AUTOMATISMO, _tl)
+        chk(not _alm, 'LEAD MAGNET: no promete AUTOMATISMO en ninguna linea (post-workflow §4.5.0c)',
+            f'"{_alm.group(0)}": objecion medida en 5 empresas' if _alm else '')
+        _vlm = re.search(PROMESA_VOLUMEN, _tl)
+        if _vlm and re.search(r'\b(no|nunca|ni|sin)\b[^.:]{0,30}$', _tl[:_vlm.start()]):
+            _vlm = None
+        chk(not _vlm, 'LEAD MAGNET: no vende VOLUMEN en ninguna linea (post-workflow §4.5.0-TEMA)',
+            f'"{_vlm.group(0)}": vende acierto, no cantidad' if _vlm else '', aviso=True)
 
     if AVISOS_OTRA_CUENTA and not historico:
         chk(True, 'QUEMADAS: otra cuenta lo acaba de usar, no bloquea (2.0b-VENTANA)',

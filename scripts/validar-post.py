@@ -859,6 +859,11 @@ MOLDE_EXPERIMENTO = (
     r'|nunca hab[ií]a|me ha ayudado|acaba de \w+'
     r'|me (?:destapa|caza|saca|desentierra|pone|encuentra|dice)'
     r'|cada semana (?:publico|hago|le)|(?:le )?paso a claude'
+    # 11/11: el antes y despues de fuera, el gancho que mas comenta en lead magnets de
+    # ventas en espanol (Pablo Rodriguez: 1.391 y 587 comentarios, la palabra en el 94-95%;
+    # post-workflow §4.5.0-BUENOS-CONTRA-MALOS, remedido el 11/11)
+    r'|antes [^.\n]{3,70}\.\s*\(?\s*ahora [^.\n]{0,40}claude'
+    r'|se lo (?:encargo|pido|digo) a claude'
     r')\b')
 
 def normalizar_kw(k):

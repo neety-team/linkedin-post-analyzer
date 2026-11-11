@@ -213,13 +213,7 @@ const CATALOGO: RecursoDef[] = [
     //
     // El enlace lleva el UTM del DM de este post para leer sus leads por campana; en el
     // siguiente lead magnet con este recurso se cambian utm_campaign y utm_content.
-    //
-    // 2026-11-11: el post de Asier del 10/11 no salio, y el recurso pasa al lead magnet
-    // de Iker del 12/11 (brazo CON palabra frente al enlace publico del 03/11), con su
-    // UTM. Las tres pistas de la ultima fila son de ese post: casan contra su texto
-    // real (con las cuatro de arriba que ya casaban, 7) y ninguna aparece en los 48
-    // lead magnets publicados de las tres cuentas.
-    link: 'https://neety.com/academia/firma?utm_source=linkedin&utm_medium=dm&utm_campaign=leadmagnet-palabra-12nov&utm_content=iker',
+    link: 'https://neety.com/academia/firma?utm_source=linkedin&utm_medium=dm&utm_campaign=leadmagnet-palabra-10nov&utm_content=asier',
     topic: 'las 5 preguntas a Claude para saber quién firma la compra',
     claves: ['firma', 'nombre'],
     pistas: [
@@ -227,7 +221,6 @@ const CATALOGO: RecursoDef[] = [
       '5 mensajes', 'quien decide', 'con quien hablo',
       'descuelga el que no firma', 'por quien preguntar', 'fabrica de tornos',
       'quien lo frenaria', 'no descuelga ningun telefono',
-      'a quien venderle', 'pedia reuniones', 'chuleta de claude',
     ],
   },
   {
@@ -240,12 +233,21 @@ const CATALOGO: RecursoDef[] = [
     // Ojo: el post lleva `quien decide` (la pista de /firma/), asi que estas
     // pistas tienen que sumar MAS de una. Comprobadas contra el texto real: casan
     // las cinco, y ninguna casa con los posts de los otros recursos.
-    link: 'https://recursos.neety.com/sistema/',
+    //
+    // REUSO DEL 2026-11-11 (lead magnet de Iker del 12/11). La palabra del banner pasa a
+    // ser `VENTAS`, la que mas se repite entre los lead magnets de ventas que mas
+    // comentan fuera (post-workflow §4.5.0-BUENOS-CONTRA-MALOS, remedido el 11/11), asi
+    // que va PRIMERA: `claveDelPost` devuelve claves[0]. `sistema` se queda por el post
+    // de Asier del 30/09. El enlace pasa a la Academia con el UTM de ese post. Las tres
+    // pistas de la ultima fila casan contra su texto real (5 con las de arriba, contra 1
+    // de /firma/ por `quien decide`) y ninguna aparece en los 48 lead magnets publicados.
+    link: 'https://neety.com/academia/sistema?utm_source=linkedin&utm_medium=dm&utm_campaign=leadmagnet-palabra-12nov&utm_content=iker',
     topic: 'los 5 encargos a Claude para cada paso de la venta',
-    claves: ['sistema'],
+    claves: ['ventas', 'sistema'],
     pistas: [
       'caja de herramientas del comercial', '5 encargos', 'encargos a claude',
       'suena a desesperado', 'pongo el orden',
+      'buscaba a mano', 'se lo encargo a claude', 'tonterias de esas',
     ],
   },
   {

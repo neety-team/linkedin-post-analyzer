@@ -460,6 +460,8 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 6. **Tarjetas blancas, texto berenjena y la palabra clave en naranja, sobre menta.** Los bloques macizos en berenjena se leen pesados.
 7. **El botón no repite datos, vende la diferencia del post.** En el lead magnet con enlace a la vista: `Pulsa "ver más" y llévatelo sin comentar nada` (hipótesis, en el A/B del 03/11; la imagen no la lee LinkedIn, así que pedir ahí que pulsen no toca `post-workflow §4.5.0-CTA-CERO`). Las comillas angulares salen mal con Switzer: van rectas.
 
+**🔄 11/11 · EL GIF DEL LEAD MAGNET SE CALCA COMO UN MEME: FIEL A LA REFERENCIA, AUNQUE ROMPA EL MINIMALISMO DE LA CASA.** Las reglas 1-7 de arriba siguen valiendo para la mecánica (primer fotograma completo, bucle sin salto, botón centrado), pero el aspecto ya no es el nuestro: se copian el nivel de detalle, la paleta, la tipografía y la composición del GIF de referencia con más comentarios (un panel de producto denso, de 5-6 bloques en movimiento, no una infografía de 3 tarjetas sobre menta). Lo que no se negocia sigue igual: ninguna persona ni empresa inventada (sectores y cargos), nada de automatismo ni de volumen, y el formato cuadrado salvo que se decida otra cosa (`post-workflow §4.5.0-BUENOS-CONTRA-MALOS`: el 86% de los que vuelan van en 4:5). Molde: `scripts/montar-gif-sistema-ventas.py`, calcado del de Pablo Rodríguez (587 comentarios).
+
 **Lo que no se sabe:** si un GIF rinde más que la foto fija en nuestras cuentas. Se lee en el A/B del lead magnet con enlace público (`historial-publicaciones`, registro de A/B) y aquí se apunta el número.
 
 > ### ⛔⛔ 0b-ANCHO · PEDIR 1:1 NO BASTA: HAY QUE PEDIR QUE APROVECHE EL ANCHO (Iker, 2026-08-13)

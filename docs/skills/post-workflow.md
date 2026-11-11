@@ -3405,6 +3405,8 @@ Acceso libre.
 > **🤝 HISTORIA/EVENTO DE AGRADECIMIENTO EN UNAI (20/10): sin spam ninja, peloteo puro, y el reconocimiento nombra el problema concreto que resuelve el organizador.** Solo en su cuenta; detalle y lo que no se hereda de su texto en `brand-voice §1b` (`SUS AGRADECIMIENTOS`). Se valida con `--agradecimiento`.
 
 > ### 🎂🎂 4.6-HITO · EN HISTORIA/EVENTO VIAJA LA FOTO DE PERSONAS Y LO QUE NOS PASÓ, NO EL EVENTO QUE VENDEMOS (revisión del lunes 26/10, pedido por Iker)
+>
+> 🔄 **11/11 · En historia/evento no van citas textuales de clientes.** Son material de las historias normales (`§4.6-CITA`); en un post de evento o de hito el protagonista es lo que nos pasó, y una cita de cliente lo convierte en otra cosa. *(criterio del equipo, sin medir)*
 > **El caso:** el colaborativo de San Francisco (Unai con Iker y Asier, 23/10) hizo **15.235 impresiones, 174 likes y 11 comentarios de fuera**, su mejor post de ecosistema de siempre. Iker ya apuntó lo que lo separaba: selfie natural de los tres sonriendo, sin escenario y sin vender nada. **Cruzado con los 13 historia/evento de las tres cuentas (BD, 26/10), la diferencia no es de un post: parte el pilar en dos.**
 >
 > ```

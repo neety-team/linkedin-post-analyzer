@@ -396,3 +396,4 @@ aboutme | Angela Brook Uria Product Designer 6a cuenta Ike | pendiente(2026-11-1
 aboutme | 3 Una sola voz para los tres voz Neety | pendiente(2026-11-11): contradice · "NO mantenemos voces por persona... la voz es siempre la misma" contradice brand-voice §1b (registro por perso
 aboutme | 4 Estrategia de publicacion contexto que condici | pendiente(2026-11-11): contradice · enlace https://recursos.neety.com/agendar/ (vetado desde 05/10, aboutme §1 y check de solicitar-demo); "Link d
 aboutme | 5 Que me falta de aqui huecos a rellenar por el | contexto: huecos; seguidores no es variable de contenido
+post-workflow | 4.4-PSICOLOGIA EL SEGUNDO EJE DEL MEME QUE LO HA | criterio: motor

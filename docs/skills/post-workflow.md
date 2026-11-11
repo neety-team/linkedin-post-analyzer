@@ -1401,6 +1401,37 @@ sorprende, que es de lo que vive este pilar.
 > - **Al buscar referencia se dice primero el subtipo** que pide el objetivo del día, y se busca en la cantera de ese subtipo (Mundorf para desgaste y gráficas, 1up para capturas y plantillas).
 > - **Se rehace en la revisión del lunes** con los memes nuevos, como `outliers-database §4.0b-MOTOR`.
 >
+> ### 🧠🧠 4.4-PSICOLOGIA · EL SEGUNDO EJE DEL MEME: QUÉ LO HACE FUNCIONAR, ADEMÁS DE CÓMO SE VE (medido el 2026-11-11) — GLOBAL
+> **Por qué existe.** De los cinco subtipos de arriba, solo `desgaste` describe la psicología del chiste; `captura`, `gráfica`, `traductor` y `personaje` describen el formato. El formato importa y está medido (la captura es la que más clica), pero dentro de un mismo formato el resultado va de un extremo a otro según de qué se ría el chiste: en `captura` hay de 196 impresiones (la herramienta) a 101.034 (la vida del comercial). **Desde hoy cada meme lleva dos etiquetas: formato (la tabla de arriba, que no cambia) y psicología (esta).**
+>
+> | psicología | de qué se ríe | n | impresiones (mediana · máx) | likes / reposts / clics por 1.000 | casos |
+> |---|---|---|---|---|---|
+> | **desgaste** | lo que el oficio te cobra en el cuerpo o en la vida | 6 | **135.928** · 226.486 | 1,87 / 0,08 / 0,45 | la calvicie, el ascenso, la caja de herramientas |
+> | **gasto** | el dinero que duele al que paga la factura | 2 | 47.042 · 66.087 | 1,51 / 0,11 / **2,89** | la herramienta de 4.797 €, la inversión que casi cuesta una boda |
+> | **reconocerse** | «esto me pasa a mí»: una verdad del día a día, a veces con un dato de fuente conocida | 10 | 29.029 · 134.891 | **3,41 / 0,35** / 1,01 | el caos (las dos veces), las anclas, la vida del comercial, la llamada 79 |
+> | **roles** | la relación entre cargos o tribus: quién manda, quién llama, quién escurre el bulto | 4 | 23.971 · 180.372 | 1,77 / 0,14 / 1,40 | el cold calling enterrado, el pedido que encoge, la conversación aterradora |
+> | **orgullo** | el país o el equipo que nadie valora | 3 | 18.947 · 82.960 | 0,77 / 0,09 / 0,37 | los dos «este país», el tiburón |
+> | **postureo** | lo que se dice contra lo que es: el autoengaño o la bravata | 10 | 13.512 · 193.421 | 1,32 / 0,15 / 0,67 | el traductor del informe, el currículum para Amazon, el correo de «estimado» |
+> | **absurdo** | la exageración sin verdad de ventas detrás | 5 | 9.416 · 93.917 | 2,66 / 0,17 / 1,62 | el tatuaje, el descafeinado, el león |
+> | **el casi** | perder lo que tenías a un palmo | 1 | 4.195 | — | el sable (14/10); la pala (11/11) es el segundo caso |
+> | **herramienta** | un software, una app o la IA | 5 | **1.130** · 7.779 | — | el código de verificación, 14 herramientas, el historial de Google |
+>
+> **Cómo se midió.** Los 51 memes de las tres cuentas desde mayo (BD del 11/11), clasificados a mano uno por uno leyendo el gancho y lo que se sabe de la imagen; fuera los borrados y los capados (la katana, los sueños por cargo, la llamada transcrita y el del móvil repetido). Likes y reposts por 1.000 sobre el total del grupo; clics por 1.000 solo desde julio, cuando se empezaron a medir. Las tasas de los grupos de menos de 5.000 de mediana no se leen (pocas impresiones inflan el ratio). **La clasificación es mía y discutible caso a caso; lo que no se discute con estas distancias es la dirección.**
+>
+> **Lo que dice, por orden:**
+> 1. **La psicología explica más que el formato.** El formato ordena de 135.928 a 5.465 de mediana; la psicología, de 135.928 a 1.130, y separa casos que el formato junta (la captura de gasto hace 47.042, la de herramienta 1.130).
+> 2. **Desgaste es el que más llega y el que menos engancha:** casi nadie lo comparte ni lo clica (0,08 reposts y 0,45 clics por 1.000). Es el boleto de alcance.
+> 3. **Reconocerse es el mejor equilibrio para los jefes:** el doble de likes y cuatro veces los reposts de desgaste por cada 1.000, con mediana de 29.029. Es el molde de las anclas y del caos, y el humor inteligente que pide el público industrial.
+> 4. **Gasto y roles son los que más clican** (2,89 y 1,40), y van con el hallazgo del 14/09: convierte el chiste cuyo sujeto es el que paga o el que manda.
+> 5. **Postureo y absurdo son lotería:** medianas bajas con un outlier enorme cada uno (el perro, el tatuaje). El absurdo además trae la polémica (`§4.4-STOP`).
+> 6. **Herramienta no funciona** (mediana 1.130): confirma `§4.4-SUJETO`.
+> 7. **El casi está sin medir** (n=1, 4.195). La pala de Asier del 11/11 es el segundo caso; se lee a 72 h.
+>
+> **Cómo se usa:**
+> - **En la fase 1 se dicen las dos etiquetas** de cada candidata (`gráfica · reconocerse`), y en la entrega van fuera del bloque.
+> - **El objetivo elige primero la psicología y después el formato:** alcance → desgaste o reconocerse; clics → gasto o roles, mejor en captura; nunca herramienta; postureo y absurdo, solo como apuesta declarada.
+> - **En la ficha del historial** se apunta `Psicología:` debajo de `Subtipo:`. La herramienta todavía no tiene este campo: hasta que lo tenga, la tabla se rehace a mano en la revisión del lunes, junto con la de formatos.
+>
 > **⭐ PASO 0 — ELIGE LA CUENTA QUE AGUANTA EL MEME, NO REBAJES EL MEME PARA LA CUENTA (Iker, 2026-07-27).** El nivel de burrada del original es parte del motor: si lo suavizas para que encaje en una cuenta sobria, te quedas con el tema y sin el chiste.
 > - **Iker (2º jefe) = memes BRUTOS o informales.** Le da igual el registro mientras el post viaje.
 > - **Unai (1º) y Asier (3º) = memes de ventas más normalitos y sobrios.** Y sí, eso les cuesta alcance: es una decisión asumida, no un descuido.

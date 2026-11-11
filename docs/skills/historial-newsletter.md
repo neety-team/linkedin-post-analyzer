@@ -1669,7 +1669,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 | | |
 |---|---|
-| Asunto | A/B nativo de Brevo, 50/50: `le di a todos los botones del ascensor` (afirmación, la trastada con el desenlace abierto) y `en qué planta está el que decide?` (pregunta al lector). Preheader común: `Buscaba al que decide. Me echaron en la séptima.` |
+| Asunto | A/B nativo de Brevo, 50/50: `me echaron de la séptima planta` (afirmación; bucle: por qué; palabra potente: echaron) y `en qué planta se esconde el que decide?` (pregunta; bucle: dónde; palabra potente: esconde). Preheader común, una oración: `Y eso que me sé la empresa de memoria.` |
 | Pilar y por qué | OBJECIÓN, el pilar con más personas hacia la reunión (correo 5, 7 de 111; 6 CALENDARIO, 5 de 111; 12 BASTIDORES, 5 de 198; 7 MITO, 2 de 107; n=1 por pilar). La objeción es `Ya los conozco a todos` (17 empresas, la que más crece), respondida con el tipo 2 (quién decide dentro: 16 empresas, 15 ICP) y la novedad de las plantas en el contexto del ninja. **v4 (11/11): el dolor central es quién decide y la planta va como novedad, no como dolor:** el tamaño por planta lo nombran solo 5 empresas del ICP de 131 en el informe del 15/10, y la historia de Unai del 10/11 sobre la planta se quedó en 0,42x de alcance (con buena conversación y envíos) |
 | Por qué cambió desde la v2 | la v2 iba de copiar la lista de la IA. Se cruzó con lo publicado esa semana: la historia de Iker del 11/11 ya contaba la objeción del chat, y el lead magnet de Iker del 12/11 dice que Claude le señala a quién venderle. El mismo día, el correo se habría contradicho con su post |
 | Trastada | v5 (11/11): Kaixito se sabe todas las empresas de memoria, va a buscar al que compra y, como no sabe su planta, le da a todos los botones del ascensor, con gente dentro; en la séptima le explican que compra cada planta (5 fábricas en 5 provincias) y le acompañan al ascensor. Hilo `botones` hasta el ninja (`Todos los botones los pulsa cualquiera, el bueno no.`). Palanca: travesura con orgullo que se desinfla. GIF aburrimiento tras `No sabía su planta, así que le di a todos los botones.` |
@@ -1678,7 +1678,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Destinatarios | listas 15 + 4 + 16 + 19, excluyendo los clientes (lista 21 y HubSpot), cruce rehecho al crear la campaña |
 | Se mide | personas con `--quien` contra 7 de 111 del correo 5, solicitudes con `utm_campaign=correo-13-kaixito-objecion`, bajas contra el 3,0% del 12. Revisión: lunes 16/11 |
 
-**Al programar:** ninja a `QUEMADAS`, `de memoria` a `APERTURAS_USADAS`, cuerpo a `corpus-correos-enviados.md`.
+**Al programar:** ninja a `QUEMADAS`, `culpable` a `APERTURAS_USADAS`, cuerpo a `corpus-correos-enviados.md`.
 
 **La campaña 35 (`Newsletter clientes`, 06/11, 44 enviados a la lista 21) es de marketing a clientes, con remitente propio, y no forma parte de esta serie:** no entra en las comparaciones de la newsletter.
 

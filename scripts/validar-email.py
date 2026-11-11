@@ -17,7 +17,8 @@ Formato esperado del fichero:
     (cuerpo)
 
 Uso:
-    python scripts/validar-email.py <fichero.txt> --punch "neutro -> elegido -> se pasa" [--antes <version anterior.txt>]
+    python scripts/validar-email.py <fichero.txt> --punch "neutro -> elegido -> se pasa" --bucle "por que: ..." --power "<palabra>" [--antes <version anterior.txt>]
+    (--bucle: el interrogativo que el asunto deja abierto; --power: su palabra potente. Obligatorias, email-marketing §2-BUCLE)
     (--punch: la escalera del verbo del asunto, obligatoria, email-marketing §2-PUNCH)
     (--antes: retoque pedido sobre una version ya validada; sale ❌ si abre un fallo o un aviso
     que la anterior no tenia, working-preferences §1d-BIS)
@@ -1150,6 +1151,53 @@ def main():
     else:
         checks.append(fallo('Falta la escalera del verbo del ASUNTO: --punch "neutro -> elegido -> el que se pasa" '
                             '(global §2.9-ESCALERA, email-marketing §2-PUNCH). El verde no dice si para el scroll'))
+
+    # BUCLE Y PALABRA POTENTE DEL ASUNTO (2026-11-11, email-marketing §2-BUCLE): igual que en los
+    # ganchos de LinkedIn. Un asunto que cuenta lo que pasa y con un verbo de todos los dias
+    # (`le di a todos los botones`) pasa todos los checks y no para a nadie. Se declaran por argumento.
+    _INTERROG = ('que', 'quien', 'quienes', 'cuando', 'donde', 'como', 'por que', 'cual', 'cuales',
+                 'cuanto', 'cuantos', 'cuanta', 'cuantas', 'para que', 'para quien')
+    def _sin_tildes(t):
+        import unicodedata as _u
+        return ''.join(c for c in _u.normalize('NFD', t.lower()) if _u.category(c) != 'Mn')
+    _bucle = sys.argv[sys.argv.index('--bucle') + 1] if '--bucle' in sys.argv[:-1] else ''
+    _bq = _sin_tildes(_bucle).strip(' ¿?:')
+    if any(_bq == i or _bq.startswith(i + ' ') or _bq.startswith(i + ':') for i in _INTERROG):
+        checks.append(ok(f'Bucle del asunto declarado ({_bucle})'))
+    else:
+        checks.append(fallo('Falta el bucle del ASUNTO: --bucle "por que: <lo que queda abierto>". Empieza por el '
+                            'interrogativo que el asunto deja sin contestar (que, quien, cuando, donde, como, por que, '
+                            'cual, cuanto, para que). Si no queda ninguno, el asunto cuenta el final (email-marketing §2-BUCLE)'))
+    _FLOJOS = {'dar', 'di', 'dio', 'doy', 'da', 'hacer', 'hice', 'hizo', 'hago', 'hace', 'ir', 'fui', 'fue', 'voy',
+               'va', 'tener', 'tuve', 'tengo', 'tiene', 'estar', 'estuve', 'esta', 'estoy', 'ser', 'soy', 'es',
+               'era', 'poner', 'puse', 'pongo', 'decir', 'dije', 'digo', 'dice', 'ver', 'vi', 'veo', 've', 'subir',
+               'subi', 'llevar', 'lleve', 'pedir', 'pedi', 'mirar', 'mire', 'usar', 'use', 'pasar', 'paso', 'pase',
+               'quedar', 'quede', 'coger', 'cogi', 'buscar', 'busque', 'busco', 'saber', 'se', 'sabia'}
+    _power = sys.argv[sys.argv.index('--power') + 1] if '--power' in sys.argv[:-1] else ''
+    _pw = _sin_tildes(_power).strip()
+    _asu = _sin_tildes(asunto)
+    if not _pw:
+        checks.append(fallo('Falta la palabra potente del ASUNTO: --power "<palabra>". La que hace parar el scroll '
+                            '(email-marketing §2-BUCLE)'))
+    elif not re.search(r'(?<![a-z])' + re.escape(_pw) + r'(?![a-z])', _asu):
+        checks.append(fallo(f'La palabra potente "{_power}" no esta en el asunto'))
+    elif _pw in _FLOJOS:
+        checks.append(fallo(f'Palabra potente floja: "{_power}" es un verbo de todos los dias. Sube un peldano '
+                            f'de la escalera (--punch) hasta uno que se vea (email-marketing §2-BUCLE)'))
+    else:
+        checks.append(ok(f'Palabra potente en el asunto ({_power})'))
+    # PREHEADER: una sola oracion y corta (2026-11-11, email-marketing §2-BUCLE). Completa el asunto
+    # como la segunda mitad de un mensaje; dos oraciones lo alargan y lo cierran.
+    if preview:
+        _orac = [o for o in re.split(r'(?<=[.!?\u2026])\s+', preview.strip()) if o.strip()]
+        if len(_orac) > 1:
+            checks.append(fallo(f'Preheader de {len(_orac)} oraciones: "{preview}". Va una sola, corta '
+                                f'(email-marketing §2-BUCLE)'))
+        elif len(preview) > 45:
+            checks.append(aviso(f'Preheader de {len(preview)} caracteres: corto y bueno mejor que largo y bueno '
+                                f'(diana 45 o menos)'))
+        else:
+            checks.append(ok(f'Preheader de una oracion y {len(preview)} caracteres'))
 
     # ⛔ RETOQUE (Iker, 2026-10-22, working-preferences §1d-BIS): el retoque se queda y lo
     # que rompa se arregla; si no hay forma, el retoque se rechaza. Se compara con la version

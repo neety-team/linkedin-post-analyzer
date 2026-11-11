@@ -3,6 +3,8 @@ import {
   ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import { useChartColors } from '../theme';
+import { capaHitos, HitoTooltip, MARGEN_HITOS, type HoverHito } from './HitoFlag';
+import type { Hito } from '../utils/hitos';
 
 /* ⭐ COMO LA GRAFICA DE LINKEDIN (Iker, 2026-09-17). Antes pintaba a la vez el
    engagement y las impresiones de los posts PUBLICADOS cada dia (sumados a 7
@@ -60,6 +62,9 @@ interface Props {
   // date), so the pencil rows read Iker → Unai → Asier instead of alphabetical.
   // Creators not in the list fall back to alphabetical, after the ordered ones.
   creatorOrder?: string[];
+  // Hitos de impresiones ya filtrados al rango (cada millon). Solo se pintan
+  // con la metrica de impresiones (2026-11-11).
+  hitos?: Hito[];
 }
 
 interface HoverState {
@@ -186,9 +191,10 @@ function MetricRow({
   );
 }
 
-export default function AccountsEngagementChart({ data, hasImpressions, previo, xTickInterval, creatorOrder }: Props) {
+export default function AccountsEngagementChart({ data, hasImpressions, previo, xTickInterval, creatorOrder, hitos = [] }: Props) {
   const cc = useChartColors();
   const [hover, setHover] = useState<HoverState | null>(null);
+  const [hoverHito, setHoverHito] = useState<HoverHito | null>(null);
   const [metrica, setMetrica] = useState<Metrica>(hasImpressions ? 'impressions' : 'engagements');
   const [modo, setModo] = useState<Modo>('cumulative');
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -213,6 +219,9 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
     acumulado += delDia;
     return { ...d, delDia, valor: modo === 'cumulative' ? acumulado : delDia };
   });
+  const etiquetaDia = new Map(data.map((d) => [d.day, d.label] as const));
+  const diasPintados = new Set(data.map((d) => d.day));
+  const hitosVisibles = metrica === 'impressions' ? hitos.filter((h) => diasPintados.has(h.dia)) : [];
   const total = acumulado;
   const totalPrevio = previo ? (metrica === 'impressions' ? previo.impressions : previo.engagement) : 0;
   const variacion = totalPrevio > 0 ? ((total - totalPrevio) / totalPrevio) * 100 : null;
@@ -283,11 +292,11 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
           </span>
         )}
       </div>
-      <div ref={chartBoxRef}>
+      <div ref={chartBoxRef} style={{ position: 'relative' }}>
       <ResponsiveContainer width="100%" height={CHART_HEIGHT}>
         <ComposedChart
           data={filteredData}
-          margin={CHART_MARGIN}
+          margin={hitosVisibles.length ? { ...CHART_MARGIN, top: MARGEN_HITOS } : CHART_MARGIN}
         >
           <defs>
             <linearGradient id="serieFill" x1="0" y1="0" x2="0" y2="1">
@@ -297,7 +306,8 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke={cc.grid} />
           <XAxis
-            dataKey="label"
+            dataKey="day"
+            tickFormatter={(v) => etiquetaDia.get(String(v)) ?? String(v)}
             tick={{ fill: cc.muted, fontSize: 11 }}
             axisLine={{ stroke: cc.grid }}
             interval={effectiveTickInterval}
@@ -333,8 +343,10 @@ export default function AccountsEngagementChart({ data, hasImpressions, previo, 
             activeDot={{ r: 6, fill: color, stroke: cc.tooltipBg, strokeWidth: 2 }}
             isAnimationActive={false}
           />
+          {capaHitos({ hitos: hitosVisibles, yAxisId: 'left', onHover: setHoverHito, color: cc.accent })}
         </ComposedChart>
       </ResponsiveContainer>
+      <HitoTooltip hover={hoverHito} />
       </div>
 
       {/* Pencil strip — one pencil per published post. When the global

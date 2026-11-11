@@ -27,6 +27,8 @@ import { useChartColors, type ChartColors } from '../theme';
 import InfoHint from '../components/InfoHint';
 import AudienciaResumen from '../components/accounts/AudienciaResumen';
 import { pctDecisores, type Demografia } from '../utils/audiencia';
+import { useHitos } from '../components/HitoFlag';
+import { hitosEnRango } from '../utils/hitos';
 
 interface ManagedAccount {
   id: string;
@@ -1146,6 +1148,9 @@ function AccountsInner() {
 
   const hasAccounts = (accounts?.length || 0) > 0;
 
+  // Hitos de impresiones (cada millon) para la grafica de interacciones (2026-11-11).
+  const { impresiones: hitosImpresiones } = useHitos(esColab ? 'colab:' : cuentaId, incluirManuales, refreshSignal);
+
   const dailyChartData = useMemo(() => {
     if (!analytics) return [];
     return analytics.daily.map((d: any) => {
@@ -2191,6 +2196,7 @@ function AccountsInner() {
                 hasImpressions={analytics.totals.total_impressions > 0}
                 previo={analytics.periodo_previo ?? null}
                 xTickInterval={xTickInterval}
+                hitos={hitosEnRango(hitosImpresiones, dateRange.start, dateRange.end)}
                 creatorOrder={(accounts || [])
                   .slice()
                   .sort((a, b) => (a.created_at || '').localeCompare(b.created_at || ''))

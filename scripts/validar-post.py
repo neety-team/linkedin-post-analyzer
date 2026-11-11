@@ -308,6 +308,13 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Iker 11/11, historia del chat de IA, leida del texto publicado (BD, 13:51).
+    'un chat te da clientes que ya conoces, quien compra no': '2026-11-11 historia de ChatGPT de Iker (ninja a /solicitar-demo, tipo 2)',
+    'eso ya lo ponemos nosotros, con cargo y contacto': '2026-11-11 historia de ChatGPT de Iker (ninja a /solicitar-demo, tipo 2)',
+    # Iker 10/11, meme de captura (la conversacion aterradora), leido del texto publicado (BD, 12:11).
+    'llamar sin saber quién firma aterra a cualquiera': '2026-11-10 meme de captura de Iker (ninja a /solicitar-demo, tipo 2)',
+    'llamar sin saber quien firma aterra a cualquiera': '2026-11-10 meme de captura de Iker (ninja a /solicitar-demo, tipo 2)',
+    'ese nombre ya te lo traemos': '2026-11-10 meme de captura de Iker (ninja a /solicitar-demo, tipo 2)',
     # Asier 11/11, meme de gráfica de la pala, leido del texto publicado (BD, 12:48).
     '8 intentos por empresa no caben en una lista sin fondo': '2026-11-11 meme de la pala de Asier (ninja a /solicitar-demo, tipo 1, acierto)',
     'las que sí merecen la pena, esas te las separamos': '2026-11-11 meme de la pala de Asier (ninja a /solicitar-demo, tipo 1, acierto)',
@@ -1703,8 +1710,8 @@ CRITERIO = [
     # nadie lo preguntaba por escrito, asi que no se auditaba. Se nombra la dominante (una sola)
     # y donde se dispara en el gancho; un poco de las otras vale, el empate es un gancho tibio.
     ('emocion', '¿Que emocion MAXIMIZA el post, una sola: curiosidad, miedo o deseo? Di cual domina y con que pieza del gancho se dispara (su intensificador). Un poco de las otras vale; si empatan, el gancho es tibio (global §1-EMOCION y §2.2). ¿Que herida del comercial toca, y la frustracion recae en lo que aun NO tiene? (global §2.2 punto 2, §2.3b). Meme o tarjeta: ¿es la MISMA emocion que el original, calcada? (post-workflow §4.4, §4.4-ESENCIA test de la rabia)'),
-    ('explicito', '¿Que daria por sabido alguien que no nos conoce? Cada nombre propio nuestro con su categoria, cada cifra con su sustantivo. ¿El gancho o la imagen dependen de una tendencia o referencia que un director de 55 años no conoce? (global §2.5b-EXPLICITO, §2.1b-DONDE)'),
-    ('verdad', '¿Todo lo afirmado sale de la fuente (video, BD, cliente, informe), sin cuando, cifra ni frase puesta por nosotros? ¿El gancho cuelga a quien publica un rol que no tiene? (post-workflow §4.4-ROL) ¿Alguna cita revela empresa, nombre, cargo o un dato que solo tiene esa empresa? (§4.6-CITA) Peloteo: la comparacion con otro pais va bienes contra bienes, mismo año y margen >=15% (post-workflow §4.2). Municion: ¿la objecion o el dolor sale de 3+ empresas? (global §4.4b-MUNICION) (CLAUDE.md, post-workflow §4.6)'),
+    ('explicito', '¿Que daria por sabido alguien que no nos conoce? Cada nombre propio nuestro con su categoria, cada cifra con su sustantivo. ¿Se sabe sin deducir QUIEN hace cada verbo del gancho (un infinitivo sin sujeto pegado a me deja dudar, 11/11)? ¿El gancho o la imagen dependen de una tendencia o referencia que un director de 55 años no conoce? (global §2.5b-EXPLICITO, §2.1b-DONDE)'),
+    ('verdad', '¿Todo lo afirmado sale de la fuente (video, BD, cliente, informe), sin cuando, cifra ni frase puesta por nosotros? ¿El gancho cuelga a quien publica un rol que no tiene? (post-workflow §4.4-ROL) ¿Alguna cita revela empresa, nombre, cargo o un dato que solo tiene esa empresa? Si una cita va redactada, ¿dice lo mismo que dijo, sin dato nuevo, y la literal va en la entrega? (§4.6-CITA, 11/11) Peloteo: la comparacion con otro pais va bienes contra bienes, mismo año y margen >=15% (post-workflow §4.2). Municion: ¿la objecion o el dolor sale de 3+ empresas? (global §4.4b-MUNICION) (CLAUDE.md, post-workflow §4.6)'),
     ('imagen', '¿El gancho dice algo DISTINTO de lo que ensena la foto o el video, y el cuerpo no contradice al personaje ni NARRA lo que la foto ya enseña en la mitad de arriba? ¿Y la foto NO huele a evento ni a venta (escenario, ponente, photocall, acreditaciones, carpeta del evento) y se le ve la CARA al que publica? ¿Y a 360 px lo primero que se ve es lo que hay que entender, sin un segundo foco que compita (una palabra naranja, una caja)? Si hay un @ o una firma ficticia en la imagen, ¿has comprobado que no existe? (§4.4-IDENTIDAD) Lead magnet: la imagen enseña el recurso, nunca lo regala (§4.5.-1-BIS) (global §2.0c, post-workflow §4.4-CALLA, §4.6-FOTO-VENTA, images §0a-FOCO)'),
     # 28/10: la linea de contexto decia "Iba de dar con las empresas que te comprarian", el
     # tema del evento y no su valor, y la pregunta no lo miraba. Ahora lo pide por escrito.
@@ -1729,7 +1736,7 @@ CRITERIO = [
     # voz: el registro de cada cuenta (brand-voice §1b) no tiene palabra clave que lo delate.
     ('voz', '¿Suena a ESA cuenta (registro de brand-voice §1b)? En Unai: ¿alguna linea se lee como autoelogio de su papel o mete un refran de ventas a la fuerza? (brand-voice §1b, §0)'),
     # oido: la frase de relleno que cuadra una anafora no la ve ninguna regex.
-    ('oido', '¿Alguna frase existe solo para cuadrar la anafora o la escalera, hay sustantivo donde iria un verbo, o una coma que hace de verbo? Leelo en voz alta (brand-voice §3c, §3e)'),
+    ('oido', '¿Alguna frase existe solo para cuadrar la anafora o la escalera, hay sustantivo donde iria un verbo, o una coma que hace de verbo? ¿Alguna cita, leida en voz alta, suena rota o deja la idea a medias? (post-workflow §4.6-CITA, 11/11) Leelo en voz alta (brand-voice §3c, §3e)'),
     # 28/10, auditoria del validador: global §8 tenia una lista "lo que el script NO puede ver,
     # esto lo miras tu" y solo 5 de sus puntos se habian pasado a preguntas escritas el 15/10.
     # Lo que no se pregunta por escrito no se mira: se pasan los que quedaban, cada uno solo en

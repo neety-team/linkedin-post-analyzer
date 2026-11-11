@@ -308,6 +308,12 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Asier 11/11, meme de gráfica de la pala, leido del texto publicado (BD, 12:48).
+    '8 intentos por empresa no caben en una lista sin fondo': '2026-11-11 meme de la pala de Asier (ninja a /solicitar-demo, tipo 1, acierto)',
+    'las que sí merecen la pena, esas te las separamos': '2026-11-11 meme de la pala de Asier (ninja a /solicitar-demo, tipo 1, acierto)',
+    'las que si merecen la pena, esas te las separamos': '2026-11-11 meme de la pala de Asier (ninja a /solicitar-demo, tipo 1, acierto)',
+    'los que más venden no insisten con todas las empresas': '2026-11-11 meme de la pala de Asier (ninja a /solicitar-demo, tipo 1, acierto)',
+    'los que mas venden no insisten con todas las empresas': '2026-11-11 meme de la pala de Asier (ninja a /solicitar-demo, tipo 1, acierto)',
     # Asier 06/11, despiece de maquinaria de Andalucía, leido del texto publicado (BD, 13:12).
     'estas 10 ya han subido del sótano': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',
     'estas 10 ya han subido del sotano': '2026-11-06 Andalucía, despiece de maquinaria de Asier (ninja a /solicitar-demo, tipo 2)',

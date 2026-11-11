@@ -584,6 +584,28 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Vara y predicción** | mediana de memes de Asier 3.981 · su gráfica 41.416 · predicción: 6.000-30.000 imp, 3-6 likes por 1.000, 10-30 clics, 0-1 reuniones · no se lee antes de 72 h (ola tardía) |
 | ⏳ | a las 72 h (sáb 14/11): impresiones, likes y reposts por 1.000, clics y reuniones por UTM, contra el caos y las anclas |
 
+## ✅ PUBLICADO · MAR 10/11 13:11 · IKER · MEME DE CAPTURA: «ESTA ES LA CONVERSACIÓN MÁS ATERRADORA DE UN EQUIPO DE VENTAS…» (`/solicitar-demo`, 🎯 Oportunidades) · MEDIDO A 1 DÍA
+
+| dato | |
+|---|---|
+| **Estado** | ✅ publicado el 10/11 a las 13:11 (hora de Madrid), [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7525892995871653888/) · ficha escrita el 11/11 a partir de la BD (no se había registrado al publicar) |
+| **Subtipo** | formato **captura** (`meme_captura`): chat de WhatsApp con el contacto `Jefe`. Primer meme de captura de la cuenta desde el 16/09, como pedía el plan del 10/11 |
+| **Gancho** | `Esta es la conversación más aterradora de un equipo de ventas…` + `¿Te suena? 😅` · identificación + bucle abierto · sin cifra |
+| **Cuerpo** | `Y ambos tienen razón.` da la razón a los dos lados del chat (uno pide llamar, el otro no quiere llamar a ciegas) y gira a la confesión: lo que daba miedo no era el teléfono, era llamar a quien no decide · 446 car. |
+| **Ninja → `/solicitar-demo`** | `Llamar sin saber quién firma aterra a cualquiera.` / `Ese nombre ya te lo traemos:` · recoge la palabra del gancho (`aterra`) · tipo: la persona de dentro |
+| **Imagen** | captura de WhatsApp a 1:1: el jefe insiste en `llama al cliente` y el comercial responde con correo, WhatsApp y audio hasta el remate `Vale, le mando un correo para decirle que le llamo`. La gracia es el escalado de horas (09:13 → 09:53) y el `LLÁMALE DE UNA VEZ` en mayúsculas. Nadie queda mal: la risa va a la situación |
+| **Métricas (BD, ~1 día)** | **10.512 imp** · 34 likes · **26 comentarios** · 4 reposts · 3 guardados · **10 envíos** · **31 clics al enlace** · 0,81x (p69) |
+| **Por 1.000 imp** | 3,2 likes · 2,5 comentarios · 0,38 reposts · **2,95 clics** |
+| **Contra su cuenta** | mediana de memes de Iker 13.306 (este va por debajo a 1 día y sigue sumando) · el captura de la llamada 79 (16/09): 45.564 imp, 129 clics = **2,83 clics por 1.000** |
+
+### 📈 Lo que enseña (11/11)
+1. **Clics: el subtipo cumple lo que se le pidió.** 2,95 clics por 1.000 impresiones, a la altura del mejor captura de la cuenta (2,83 en la llamada 79) y con un tercio del alcance. Confirma la lectura del plan: la captura es el meme que más lleva al enlace, porque el lector ya está "dentro" de una conversación de trabajo cuando llega al ninja.
+2. **Comentarios: el mayor debate de sus memes desde agosto.** 26 comentarios para 34 likes (0,76). Los anteriores: llamada 79 0,35 · desgaste del 01/09 0,16 · descafeinado del 14/08 0,12. Lo dispara `Y ambos tienen razón`: el post no elige bando, así que cada lector entra a defender el suyo (llamar o escribir). Es la función de debate sin juicio a nadie.
+3. **Envíos altos para su tamaño:** 10 envíos con 10.512 imp. Una captura de chat se reenvía al compañero que hace lo mismo. Es la señal de reconocerse de `post-workflow §4.4-PSICOLOGIA`.
+4. **Lo que frena el alcance:** el gancho no lleva cifra ni objeto concreto de ventas en la primera línea (`la conversación más aterradora` es abstracto). La llamada 79 abría con un número y una escena (`Llamada 79 y en recepción…`). Hipótesis para el próximo captura: mismo chat y misma imagen, con el gancho anclado a un objeto o un número del propio chat (`9 de la mañana`, `4 mensajes`).
+
+| ⏳ | a las 72 h (vie 13/11): impresiones finales contra la mediana de memes (13.306) y clics y reuniones por UTM |
+
 ## 📝 ENTREGADO EL VIE 06/11 · UNAI · "LAS 10" DE **CASTILLA Y LEÓN** (1er "Las 10" de logos de Unai · ninja a `/solicitar-demo`, 🎯 Oportunidades) · SALE HOY POR LA MAÑANA
 
 | dato | |

@@ -1665,18 +1665,20 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`lo que sobra en una maleta se ve`, `eso lo miramos contigo en media hora`), `mision fallida` a `APERTURAS_USADAS`, `12: 'la vida'` a `UNIDADES_CORREOS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
 
-## ✉️ CORREO 13 · Kaixito · OBJECIÓN (texto entregado 09/11, para el mar 10/11 09:05, pendiente de validar la prueba)
+## ✉️ CORREO 13 · Kaixito · OBJECIÓN (v3 entregada el 11/11, para el jue 12/11 09:05, pendiente de la prueba)
 
 | | |
 |---|---|
-| Asunto | A/B nativo de Brevo, 50/50: `tú le habrías pillado copiando?` (pregunta) y `han pillado al nuevo copiando` (afirmación). Preheader común: `Al nuevo le pidieron una lista. Él, muy listo.` |
-| Pilar y por qué | OBJECIÓN (`Eso me lo hace ChatGPT`, 17 empresas, 13 ICP), el pilar con más personas hacia la reunión: correo 5, 7 de 111 (6,3%); 6 CALENDARIO, 5 de 111 (4,5%); 12 BASTIDORES, 5 de 198 (2,5%); 7 MITO, 2 de 107 (1,9%). n=1 por pilar, dirección |
-| Trastada | Kaixito pone notas en su libro al nuevo de una fábrica de válvulas (empresa inventada), que copia su lista de la IA y le suspende su jefe; hilo `copiar` y `notas`. Palanca: orgullo de la mascota que se cree profesor. GIF curiosidad (con gafas) tras `Hoy pongo notas.` |
-| Variable en prueba | quién firma, respecto del correo 5 (pregunta de tú a tú, ~120-140 palabras, enlace hacia la mitad; aquí al 57%). Es la prueba limpia que `§5-UNA-VARIABLE` dejó pendiente el 14/10. Además, A/B de asunto dentro del correo, fila abierta el 02/11 |
-| Destinatarios | listas 15 + 4 + 16 + 19, excluyendo 6 contactos que son clientes (lista 21 y HubSpot) |
+| Asunto | A/B nativo de Brevo, 50/50: `subí 7 plantas para nada` (afirmación, escena) y `en qué planta está el que decide?` (pregunta al lector). Preheader común: `Me sabía la empresa de memoria. No sirvió.` |
+| Pilar y por qué | OBJECIÓN, el pilar con más personas hacia la reunión (correo 5, 7 de 111; 6 CALENDARIO, 5 de 111; 12 BASTIDORES, 5 de 198; 7 MITO, 2 de 107; n=1 por pilar). La objeción es `Ya los conozco a todos` (17 empresas, la que más crece), respondida con el tipo 2 (quién decide dentro) y la novedad de las plantas en el contexto del ninja |
+| Por qué cambió desde la v2 | la v2 iba de copiar la lista de la IA. Se cruzó con lo publicado esa semana: la historia de Iker del 11/11 ya contaba la objeción del chat, y el lead magnet de Iker del 12/11 dice que Claude le señala a quién venderle. El mismo día, el correo se habría contradicho con su post |
+| Trastada | Kaixito se sabe todas las empresas de memoria, va en persona a buscar al que compra y sube 7 plantas del edificio; allí le dicen que compra cada planta, y plantas son 5 fábricas en 5 provincias. Hilo `planta`. Palanca: orgullo que se desinfla. GIF aburrimiento tras `Subí hasta la séptima planta.` |
+| Variable en prueba | quién firma, respecto del correo 5. El enlace cae al 66% del cuerpo (el 5 lo llevaba al 45-50%): se declara, no aísla nada. Además, A/B de asunto dentro del correo, pregunta contra afirmación (fila abierta el 02/11) |
+| Emoción | el asunto abre por curiosidad; el cuerpo empuja por deseo (lo nuevo y lo que se ve en la media hora), que es lo que les ha faltado a los correos con clics y sin reuniones *(hipótesis)* |
+| Destinatarios | listas 15 + 4 + 16 + 19, excluyendo los clientes (lista 21 y HubSpot), cruce rehecho al crear la campaña |
 | Se mide | personas con `--quien` contra 7 de 111 del correo 5, solicitudes con `utm_campaign=correo-13-kaixito-objecion`, bajas contra el 3,0% del 12. Revisión: lunes 16/11 |
 
-**Al programar:** ninja a `QUEMADAS`, `hoy pongo notas` a `APERTURAS_USADAS`, cuerpo a `corpus-correos-enviados.md`.
+**Al programar:** ninja a `QUEMADAS`, `de memoria` a `APERTURAS_USADAS`, cuerpo a `corpus-correos-enviados.md`.
 
 **La campaña 35 (`Newsletter clientes`, 06/11, 44 enviados a la lista 21) es de marketing a clientes, con remitente propio, y no forma parte de esta serie:** no entra en las comparaciones de la newsletter.
 

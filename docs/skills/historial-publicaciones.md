@@ -584,6 +584,22 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **Vara y predicción** | mediana de memes de Asier 3.981 · su gráfica 41.416 · predicción: 6.000-30.000 imp, 3-6 likes por 1.000, 10-30 clics, 0-1 reuniones · no se lee antes de 72 h (ola tardía) |
 | ⏳ | a las 72 h (sáb 14/11): impresiones, likes y reposts por 1.000, clics y reuniones por UTM, contra el caos y las anclas |
 
+## 🔎 LECTURA CRUZADA DEL MAR 10/11 (dos posts, dos cuentas, mismo destino `/solicitar-demo`) · 11/11, a 1 día
+
+| | Iker · meme de captura | Unai · historia |
+|---|---|---|
+| impresiones | 10.512 | 5.808 |
+| clics por 1.000 | **2,95** | 1,4 |
+| comentarios ÷ likes | **0,76** | 0,41 |
+| envíos por 1.000 | 0,95 | **1,5** |
+| contra su mediana del pilar | por debajo (13.306) | por debajo (10.265) |
+
+1. **Para el objetivo Oportunidades, la captura lleva el doble de clics por impresión que la historia.** Cuando el hueco de la semana es para clics a la demo, el meme de captura es el formato más eficiente que tenemos medido (2,95 y 2,83 en sus dos mejores casos).
+2. **La historia trae otra cosa: envíos y conversación del ICP.** No se mide por clics, se mide por cuántos la reenvían a otro comercial.
+3. **Los dos ninjas iban a la misma idea: saber quién firma.** Uno por el lado del miedo a llamar (Iker), otro por la llamada en falso a la sede (Unai). Es el primer día con el mismo destino y la misma idea en dos cuentas con ángulos distintos: a las 72 h se mira si el segundo en salir (Unai, una hora después) rindió menos por coincidir.
+4. **Ninguno pasa de su mediana a 1 día.** No es una lectura de fracaso: el corte se hace a las 72 h (vie 13/11), y los dos siguen sumando.
+5. **Proceso:** ninguno de los dos tenía ficha en este historial al publicarse. Se han escrito el 11/11 desde la BD. Al publicar, la ficha va el mismo día.
+
 ## ✅ PUBLICADO · MAR 10/11 13:11 · IKER · MEME DE CAPTURA: «ESTA ES LA CONVERSACIÓN MÁS ATERRADORA DE UN EQUIPO DE VENTAS…» (`/solicitar-demo`, 🎯 Oportunidades) · MEDIDO A 1 DÍA
 
 | dato | |

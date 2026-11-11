@@ -814,6 +814,68 @@ PD. El libro sí cabía. Ahora está en San Francisco, sin mí.
 ---
 
 
+## Kaixito 13 · los botones del ascensor (pilar OBJECIÓN · `/solicitar-demo` · A/B de asunto)
+
+**Programado:** jue 2026-11-12 09:05 (+01:00) · campaña Brevo 36 · listas 15 + 4 + 16 + 19, excluidas la 21 (carpeta Clientes) y la 22 (clientes de HubSpot): 198 destinatarios
+**Remitente:** `Kaixito de Neety` (`hola@neety.com`) · firma `Kaixito, la mascota de Neety` · GIF `aburrimiento`
+**UTM escrito a mano:** `utm_campaign=correo-13-kaixito-objecion`
+
+### Los asuntos (A/B nativo, 50/50) y el preheader
+
+```
+A: me echaron de la séptima planta
+B: en qué planta se esconde el que decide?
+```
+```
+Y eso que me sé la empresa de memoria.
+```
+
+### El cuerpo, literal
+
+```
+Culpable.
+
+Me sé todas las empresas grandes de la zona.
+Fui en persona a buscar al que compra en una.
+
+No sabía su planta, así que le di a todos los botones.
+
+[GIF aburrimiento]
+
+El ascensor paró en las 7, con gente dentro.
+
+En la séptima me lo explicaron.
+
+"Aquí no compra nadie, compra cada planta.
+Y plantas tenemos 5, en 5 provincias."
+
+Y me acompañaron al ascensor, con prisa.
+
+"Ya los conozco a todos."
+Nos lo dicen mucho en las reuniones.
+Y tienen razón.
+
+Lo difícil es dar con el botón de quien decide.
+
+Ahora incluso te dejamos elegir en qué planta buscar.
+
+Todos los botones los pulsa cualquiera, el bueno no.
+Quién decide y en qué planta, te lo enseñamos: https://neety.com/solicitar-demo?utm_source=brevo&utm_medium=email&utm_campaign=correo-13-kaixito-objecion
+
+Media hora, sin traer nada preparado.
+
+Y luego, a quién escribir primero y por qué canal.
+El ascensor no cuenta, ya lo sé.
+
+Kaixito, la mascota de Neety
+
+PD. Al bajar les di a todos otra vez. Costumbre.
+```
+
+> **Real / inventado:** reales, la objeción `Ya los conozco a todos` (17 empresas en el informe del 15/10), el dolor de quién decide dentro (16 empresas, 15 ICP), la novedad de elegir planta (confirmada por producto el 10/11) y lo que se hace después (prioridad y canal). Inventados, el edificio, los botones, las 7 plantas y las 5 provincias, sin nombre de empresa.
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

@@ -12,7 +12,7 @@
 > | **Longitud** | 116-158 palabras | 240 (correo 8) | sección del correo 8 | **19/10:** el correo 8 abrió igual que los demás (67 de 108, 62%) y sacó **1 clic limpio** (más 1 de Mario) y **0 inscritos al webinar** en el CSV de Luma (ningún `correo-08`). Es el peor de la serie en clics (el 7 sacó 8, el 6 sacó 6). Cambiaban a la vez el remitente (Asier, su estreno), el pilar (receta), la longitud y el destino (webinar): **dirección, no prueba**. Dirección: volver a 116-158 palabras en el siguiente. **19/10: mecanizado en `validar-email.py`** (fallo por encima de 180, aviso de 159 a 180) y el correo 9 sale con 116 |
 > | **Remitente** | Iker | Kaixito (correo 2) | `## 🧪 Correo 2`, más abajo | Leer allí el resultado y decidir si se cierra |
 > | **Tipo de cliente del ninja** | — | — | `global §4.4b-TIPOS`, igual que en los posts | Cada correo apunta en su sección a qué tipo le habla (desde el 16/10, con los tamaños de `§4.4b-MUNICIÓN-1510`) |
-> | 🆕 **Asunto, dentro del mismo correo (abierto el 02/11, sin brazo todavía)** | asunto A | asunto B, con otra psicología | `abTesting` nativo de Brevo, 50/50 de la lista, mismo cuerpo | Con ~200 entregados son ~100 por brazo: solo se ve una diferencia de unos **20 puntos** de apertura, y la apertura está inflada por Apple y escáneres (el 75,7% del 11). Por eso **una misma hipótesis se repite en 3-4 correos y se suma** (p. ej., pregunta contra afirmación); el clic limpio por brazo (4-5 personas) no se lee. Empieza en el correo 13, para que el 12 mida solo el destino |
+> | 🆕 **Asunto, dentro del mismo correo (abierto el 02/11; primer brazo: correo 13, 12/11, afirmación `me echaron de la séptima planta` contra pregunta `en qué planta se esconde el que decide?`)** | asunto A | asunto B, con otra psicología | `abTesting` nativo de Brevo, 50/50 de la lista, mismo cuerpo | Con ~200 entregados son ~100 por brazo: solo se ve una diferencia de unos **20 puntos** de apertura, y la apertura está inflada por Apple y escáneres (el 75,7% del 11). Por eso **una misma hipótesis se repite en 3-4 correos y se suma** (p. ej., pregunta contra afirmación); el clic limpio por brazo (4-5 personas) no se lee. Empieza en el correo 13, para que el 12 mida solo el destino |
 
 > **🔄 Repaso fila por fila del lunes 26/10 (correo 9):**
 > - **Posición del ninja:** sin dato nuevo de una sola variable (el 9 lo lleva al 50-64%, como los correos 5 y 6).
@@ -1665,7 +1665,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`lo que sobra en una maleta se ve`, `eso lo miramos contigo en media hora`), `mision fallida` a `APERTURAS_USADAS`, `12: 'la vida'` a `UNIDADES_CORREOS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
 
-## ✉️ CORREO 13 · Kaixito · OBJECIÓN (campaña Brevo 36 en BORRADOR el 11/11, prueba enviada a mario@neety.com; se programa para el jue 12/11 09:05 cuando se revise)
+## ✉️ CORREO 13 · Kaixito · OBJECIÓN (campaña Brevo 36 PROGRAMADA el 11/11 para el jue 12/11 09:05, tras revisar las dos pruebas)
 
 | | |
 |---|---|
@@ -1679,7 +1679,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Cambio de la última versión | fuera `Si ya te las sabes todas, no te hacemos falta.` (falso y en contra de la marca); entra `Y luego, a quién escribir primero y por qué canal.` / `El ascensor no cuenta, ya lo sé.` |
 | Se mide | personas con `--quien` contra 7 de 111 del correo 5, solicitudes con `utm_campaign=correo-13-kaixito-objecion`, bajas contra el 3,0% del 12. Revisión: lunes 16/11 |
 
-**Al programar:** ninja a `QUEMADAS`, `culpable` a `APERTURAS_USADAS`, cuerpo a `corpus-correos-enviados.md`.
+**Al programar (hecho el 11/11):** ninja a `QUEMADAS`, `culpable` a `APERTURAS_USADAS`, cuerpo a `corpus-correos-enviados.md`. **Exclusión de clientes, comprobada:** la carpeta `Clientes` de Brevo tiene una sola lista, la 21 `New Neety` (42 contactos), y solo 3 de ellos están en nuestras listas; la 22 añade 3 clientes de HubSpot que no estaban en la 21. Brevo excluye por lista, así que si la carpeta gana listas nuevas hay que añadirlas a la exclusión.
 
 **La campaña 35 (`Newsletter clientes`, 06/11, 44 enviados a la lista 21) es de marketing a clientes, con remitente propio, y no forma parte de esta serie:** no entra en las comparaciones de la newsletter.
 
@@ -1730,11 +1730,12 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 - Correo 10 · Kaixito (enviado 27/10): cotillea el guion de sus jefes la víspera del webinar.
 - Correo 11 · Kaixito (programado 30/10): la grabación por la puerta de atrás; la palabra hilo es «escapar», del asunto al enlace.
 - Correo 12 · Kaixito (programado 03/11): quería ir a San Francisco con sus jefes, se cuela en su maleta y la cremallera no cierra; la palabra hilo es «sobrar». (Descartados: la silla grande y el sueldo, la misma perspectiva de la oficina vacía.)
+- Correo 13 · Kaixito (programado 12/11): se sabe todas las empresas de memoria, le da a todos los botones del ascensor buscando al que decide y le echan de la séptima; la palabra hilo es «botones».
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Misión fallida.` (correo 12)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Misión fallida.` (correo 12) · `Culpable.` (correo 13)
 - **Asier:** `Apunta.` (correo 8)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)

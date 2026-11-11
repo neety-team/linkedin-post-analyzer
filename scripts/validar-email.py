@@ -267,7 +267,7 @@ def main():
     # cada apertura enviada; falla si se repite entera o si comparte las dos ultimas palabras.
     APERTURAS_USADAS = ['te cuento', 'una frase', 'al grano', 'calendario en mano', 'aviso de mascota',
                         'hoy vengo enfadado', 'apunta', 'confesion de mascota', 'shhh', 'respira',
-                        'mision fallida']
+                        'mision fallida', 'culpable']
     import unicodedata as _ud
     _ap = ''.join(c for c in _ud.normalize('NFD', primera.lower()) if _ud.category(c) != 'Mn')
     _ap = re.sub(r'[^a-z ]', '', _ap).strip()
@@ -889,6 +889,9 @@ def main():
             # correo 12 · Kaixito · LA MALETA (programado mar 03/11 09:05)
             'lo que sobra en una maleta se ve': '2026-11-03',
             'eso lo miramos contigo en media hora': '2026-11-03',
+            # correo 13 · Kaixito · OBJECION (programado jue 12/11 09:05)
+            'todos los botones los pulsa cualquiera, el bueno no': '2026-11-12',
+            'quien decide y en que planta, te lo ensenamos': '2026-11-12',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el

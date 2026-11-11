@@ -63,6 +63,14 @@ function Banderitas({ viewBox, hitos, onHover }: { viewBox?: any; hitos: Hito[];
       onMouseEnter={() => onHover({ hitos, x, y: yBanderin })}
       onMouseLeave={() => onHover(null)}
     >
+      {/* Zona sensible invisible algo mayor que el banderin: apuntar a 16 px cuesta. */}
+      <rect
+        x={x - 6}
+        y={yBanderin - 6}
+        width={hitos.reduce((s, h) => s + anchoBanderin(cifraCorta(h.valor)) + 2, 0) + 12}
+        height={ALTO + 12}
+        fill="transparent"
+      />
       <line x1={x} x2={x} y1={yBanderin} y2={top} stroke={cc.accent} strokeWidth={1.5} />
       {hitos.map((h, i) => {
         const texto = cifraCorta(h.valor);

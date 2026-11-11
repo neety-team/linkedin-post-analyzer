@@ -319,6 +319,15 @@ def main():
                             f'una comilla al principio de la primera y otra al final de la segunda (email-marketing §3)'))
     else:
         checks.append(ok('Cita de dos lineas con una sola pareja de comillas'))
+    # Nada que le diga al lector que no nos necesita (2026-11-11, brand-voice NO CRITICAMOS): es falso,
+    # porque la herramienta no se queda en las empresas (detecta, prioriza y actua), y juega en contra.
+    _contra = re.search(r'no (te|os) (hacemos|hace) falta|no nos necesitas|no (te|os) servimos'
+                        r'|no (te|os) hace falta (neety|la herramienta|nuestra herramienta)', cuerpo, re.I)
+    if _contra:
+        checks.append(fallo(f'Juega en contra de la marca: "{_contra.group(0)}". La salida honesta es que no encaje, '
+                            f'nunca que no le hacemos falta (brand-voice, NO CRITICAMOS)'))
+    else:
+        checks.append(ok('Nada le dice al lector que no nos necesita'))
     # ⛔ La unidad del dolor rota sin bajar (2026-11-02, global §4.4b-UNIDAD): los clientes miden
     # el dolor en mucho tiempo, no en la palabra "meses". Falla si un correo de los 3 anteriores
     # usó la misma unidad; avisa si baja a semanas, días u horas. Al programar, se añade aquí.

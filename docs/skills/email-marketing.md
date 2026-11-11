@@ -401,6 +401,8 @@ porque la cuenta volvió a dar `402`.
 Lleva las dos cosas que un correo comercial necesita: **el enlace de baja** y **la dirección postal**.
 El genérico de Brevo no trae la dirección.
 
+**Al crear la campaña por API con `sender: {id}` el nombre sale `[DEFAULT_FROM_NAME]` (2026-11-11, campaña 36).** Se pasa siempre `sender: {name, email}` y se relee antes de mandar la prueba; en el correo 13 la primera prueba salió con el nombre vacío y hubo que reenviarla.
+
 ### ⭐ EL NOMBRE DEL REMITENTE (campo "From" de Brevo) NO ES LA FIRMA DEL CUERPO (Iker, 2026-08-27)
 
 **Son dos campos distintos y se confunden fácil.** La firma de arriba (`§1`, última línea) es texto DENTRO del correo. El remitente es el `sender.name` que Brevo pone en la bandeja de entrada, al lado del asunto, ANTES de que se abra el correo — y ahí un nombre suelto sin marca puede leerse como spam o como un desconocido.

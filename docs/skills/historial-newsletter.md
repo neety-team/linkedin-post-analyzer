@@ -1665,7 +1665,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **Al programar:** ninja a `QUEMADAS` de `validar-email.py` (`lo que sobra en una maleta se ve`, `eso lo miramos contigo en media hora`), `mision fallida` a `APERTURAS_USADAS`, `12: 'la vida'` a `UNIDADES_CORREOS`, y el cuerpo literal a `corpus-correos-enviados.md` el mismo día.
 
-## ✉️ CORREO 13 · Kaixito · OBJECIÓN (v3 entregada el 11/11, para el jue 12/11 09:05, pendiente de la prueba)
+## ✉️ CORREO 13 · Kaixito · OBJECIÓN (campaña Brevo 36 en BORRADOR el 11/11, prueba enviada a mario@neety.com; se programa para el jue 12/11 09:05 cuando se revise)
 
 | | |
 |---|---|
@@ -1675,7 +1675,8 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Trastada | v5 (11/11): Kaixito se sabe todas las empresas de memoria, va a buscar al que compra y, como no sabe su planta, le da a todos los botones del ascensor, con gente dentro; en la séptima le explican que compra cada planta (5 fábricas en 5 provincias) y le acompañan al ascensor. Hilo `botones` hasta el ninja (`Todos los botones los pulsa cualquiera, el bueno no.`). Palanca: travesura con orgullo que se desinfla. GIF aburrimiento tras `No sabía su planta, así que le di a todos los botones.` |
 | Variable en prueba | quién firma, respecto del correo 5. El enlace cae al 71% del cuerpo (el 5 lo llevaba al 45-50%): se declara, no aísla nada. Además, A/B de asunto dentro del correo, pregunta contra afirmación (fila abierta el 02/11) |
 | Emoción | el asunto abre por curiosidad; el cuerpo empuja por deseo (lo nuevo y lo que se ve en la media hora), que es lo que les ha faltado a los correos con clics y sin reuniones *(hipótesis)* |
-| Destinatarios | listas 15 + 4 + 16 + 19, excluyendo los clientes (lista 21 y HubSpot), cruce rehecho al crear la campaña |
+| Destinatarios | listas 15 + 4 + 16 + 19 (204 activos) con exclusión de la 21 (3 clientes) y de la lista nueva 22 `Excluir clientes (correos de reunion)` (3 clientes de HubSpot que no estaban en la 21): **198 destinatarios**. A/B de Brevo con `splitRule` 50, sin ganador automático (la API no guarda criterio ni espera con ese reparto) |
+| Cambio de la última versión | fuera `Si ya te las sabes todas, no te hacemos falta.` (falso y en contra de la marca); entra `Y luego, a quién escribir primero y por qué canal.` / `El ascensor no cuenta, ya lo sé.` |
 | Se mide | personas con `--quien` contra 7 de 111 del correo 5, solicitudes con `utm_campaign=correo-13-kaixito-objecion`, bajas contra el 3,0% del 12. Revisión: lunes 16/11 |
 
 **Al programar:** ninja a `QUEMADAS`, `culpable` a `APERTURAS_USADAS`, cuerpo a `corpus-correos-enviados.md`.

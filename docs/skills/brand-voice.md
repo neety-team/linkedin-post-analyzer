@@ -956,6 +956,8 @@ año tampoco entra nunca en el prompt del diseñador.
 
 ## ⛔⛔ CANÓNICO · NO CRITICAMOS A NADIE, Y A NOSOTROS TAMPOCO (Iker, 2026-08-11) — GLOBAL
 
+**Nunca le decimos al lector que no nos necesita (2026-11-11, correo 13).** `Si ya te las sabes todas, no te hacemos falta.` es falso, porque la herramienta no se queda en encontrar las empresas: detecta, prioriza y actúa (empresas, después las personas si el comercial las aprueba, y el seguimiento de mensajes, envíos y canal). La salida honesta que sí vale es la de la reunión: `si no encaja, te lo decimos`. Fallo en `validar-email.py` (`Juega en contra de la marca`); en posts, pase de criterio. *(sin medir: criterio del equipo)*
+
 **La IA que falla va siempre en casa ajena (2026-11-09).** Una escena donde alguien saca una lista con la IA y le sale mal no la protagoniza nunca Neety, sus jefes ni la mascota: se cuenta en otra empresa inventada o como creencia ajena. Imagen de marca, las tres cuentas y el correo. *(sin medir: criterio del equipo)*
 
 **Regla única, para TODOS los pilares y TODAS las cuentas, y vale igual en el gancho,

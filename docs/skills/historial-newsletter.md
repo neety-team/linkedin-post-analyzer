@@ -615,7 +615,7 @@ Iker pidió aplicar a este correo lo aprendido con Kaixito 01 · Tanda 6 antes d
 - **Las dos reglas nuevas que salen de aquí, y son de planificación, no de este correo:**
   1. **No se repite pilar dos semanas seguidas.**
   2. **No se repite remitente dos semanas seguidas.**
-- **⛔ Y hay una restricción de personas que hay que respetar y no es de contenido.** Iker, literal: *"ya que así, como estaré de vacaciones, si pasa algo raro el segundo jefe no me dirá nada, y no quiero usar de remitente ni al primero ni al tercero hasta que empecemos a mejorar"*. **Unai y Asier NO remiten hasta que los números mejoren.** Los remitentes disponibles hoy son **Iker y Kaixito**, y ya está.
+- **⛔ Y hay una restricción de personas que hay que respetar y no es de contenido.** Es una decisión de remitentes, no de contenido. **Unai y Asier NO remiten hasta que los números mejoren.** Los remitentes disponibles hoy son **Iker y Kaixito**, y ya está.
 - **El GIF del correo de Kaixito sale de la biblioteca ya subida a Brevo** (`corpus-correos-enviados`, las 5 URLs verificadas). **La emoción la decide el TEXTO, no el turno**, y el de **estrés ya se gastó** en el correo 0. Libres: alegría, enfado, curiosidad, aburrimiento.
 - **`aburrimiento` es el candidato natural**: su descripción en la receta es literalmente *"el trabajo manual repetitivo (tema central nuestro)"*.
 

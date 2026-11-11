@@ -2049,13 +2049,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # outliers-database §3.7 (los outliers usan un 25% MENOS lenguaje de
     # autoridad/prueba que los posts normales). La credencial va en el cuerpo si
     # hace falta, o en la foto, que no presume porque no lo dice: lo enseña.
-    # ⚠️ EXCEPCION UNAI (Iker, 2026-09-30): "a este jefe le encanta no ir de
-    # humilde". En su cuenta el aviso NO pide la version humilde (eso le jugaba a
-    # la contra): pide que lo grande sea VERDAD, sobrio y sin compararse
+    # ⚠️ EXCEPCION UNAI (2026-09-30): su gancho va a lo grande. En su cuenta el
+    # aviso NO pide la version humilde (eso le jugaba a la contra): pide que lo grande sea VERDAD, sobrio y sin compararse
     # (brand-voice §1b, UNAI QUIERE EL GANCHO GRANDIOSO).
-    # 🔄 ASIER TAMBIEN (Iker, 2026-10-15): "el tono del tercer jefe tiene que parecerse
-    # bastante al del primero... siendo jefes, publicamente no quieren dar a entender
-    # cosas como nunca habia pensado, nunca habia rezado". Grandioso, sin humildad y sin
+    # 🔄 ASIER TAMBIEN (2026-10-15): su tono se alinea con el de Unai; nada de
+    # "nunca habia pensado" ni "nunca habia rezado". Grandioso, sin humildad y sin
     # prepotencia, en Unai y en Asier. La lente del inversor sigue siendo solo de Unai.
     _cta_grande = (cuenta or '').strip().lower()
     if _cta_grande in ('unai', 'asier'):
@@ -5649,8 +5647,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             # es el molde del 13/08 ("Le pregunté a qué empresas…") y antes solo pasaba si
             # el gancho llevaba un "me" mas adelante.
             _personal = re.match(r'(?:(?:le|les|lo|la|los|las|se|te|nos)\s+)?(?!(aqu[ií]|as[ií]|all[ií]|ah[ií]|ac[aá])\b)(\w+[éí]|dije|hice|puse|tuve|estuve|vine|quise|supe|traje)\b', h.lower().lstrip())
-        # UNAI EN PLURAL (Iker, 2026-10-08): "Defendi" en primera del singular le
-        # suena egocentrico; su gancho de evento o historia va en "Defendimos".
+        # UNAI EN PLURAL (2026-10-08): el merito es del equipo, asi que su gancho de
+        # evento o historia va en "Defendimos", no en "Defendi".
         # En su cuenta la 1a del plural tambien cuenta como gancho personal.
         # Y ASIER (Iker, 2026-10-15): su tono va como el de Unai, grandioso y con el
         # merito de la casa cuando es compartido (brand-voice §1b, ASIER TAMBIEN VA
@@ -6084,9 +6082,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                '' if _exc else 'En los TRES JEFES la referencia nace SIEMPRE dentro de ventas, en cualquier idioma; lo que cambia con la cuenta es de que parte de ventas.'),
             aviso=True)
 
-    # 2026-10-02 (Iker): Asier pasa a ser cuenta restringida como Unai. "Es como lo
-    # que te explique para el primer jefe de restrictivo, el tercero es parecido".
-    # Asier ya habia borrado dos posts suyos por gusto propio (la katana del 26/08 y
+    # 2026-10-02: Asier pasa al mismo criterio sobrio de memes que Unai.
+    # Asier ya habia retirado dos posts suyos (la katana del 26/08 y
     # el "soñe con ella"), asi que el bloqueo es el mismo: solo Iker aguanta lo bruto.
     if pilar == 'meme' and (cuenta or '').strip().lower() in ('unai', 'asier'):
         chk(meme_sobrio,

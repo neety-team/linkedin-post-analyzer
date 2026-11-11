@@ -183,7 +183,7 @@ brand-voice | 0 Precedencia leer primero | contexto: jerarquia datos > voz; no e
 brand-voice | 1 Identidad de la voz | pendiente(2026-11-11): necesita-criterio · nueva clave voz (o ampliar el aviso ENTREGA: ¿el gancho PRESUME? al CUERPO): la autoridad se demuestra, nunca 
 brand-voice | 1b LAS 3 CUENTAS NO SUENAN IGUAL leer antes de e | pendiente(2026-11-11): necesita-criterio · NUEVA clave voz, todas las cuentas: "¿Suena a ESA cuenta? Unai: sobrio, sin jerga de creador, grandioso en el 
 brand-voice | QUE VA POR CUENTA Y QUE ES DE TODAS auditoria de | fuera: redundante · tabla resumen de lo global vs por cuenta; cada fila ya tiene su seccion (NO CRITICAMOS 5 y 6, IA no sustituye,
-brand-voice | UNAI QUIERE EL GANCHO GRANDIOSO SOBRIO EN LA VOZ | pendiente(2026-11-11): cubierta · check: ENTREGA: ¿el gancho PRESUME? (con --cuenta unai pide lo grande) + GANCHO: "el gran dia", no "un gran di
+brand-voice | UNAI EL GANCHO GRANDIOSO SOBRIO EN LA VOZ Y A LO | pendiente(2026-11-11): cubierta · check: ENTREGA: ¿el gancho PRESUME? (con --cuenta unai pide lo grande) + GANCHO: "el gran dia", no "un gran di
 brand-voice | UNAI NUNCA SE HACE DE MENOS FUERA LA INCREDULIDA | pendiente(2026-11-11): necesita-check · la incredulidad ya la caza "el gancho no se hace de menos, sin jamas pense" (Unai/Asier). Falta el PLURAL obli
 brand-voice | ASIER TAMBIEN VA GRANDIOSO NI HUMILDE NI PREPOTE | pendiente(2026-11-11): cubierta · checks: ASIER: no se dice que nunca ha vendido + el gancho no se hace de menos (Unai y Asier) + aviso de ganch
 brand-voice | NINGUNA CUENTA PLANTEA QUE LA IA SUSTITUYE AL CO | pendiente(2026-11-11): cubierta · check: MARCA: sin plantear que la IA sustituye al comercial (fallo en Unai/Asier, aviso en Iker)

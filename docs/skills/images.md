@@ -956,6 +956,8 @@ Sirve para todo lo espacial: separar del borde, llenar un hueco, subir algo que 
 
 **Y el otro medio aprendizaje, que Iker probó ese mismo día: cuando el chat se atasca, se abre uno NUEVO.** Las cinco pasadas fallidas fueron en el mismo hilo; la buena salió en un chat limpio con el mismo prompt. Un hilo largo arrastra sus intentos anteriores y vuelve a caer en ellos. **Si dos pasadas seguidas no arreglan el mismo defecto, el problema ya no es el prompt: es el hilo.**
 
+**📏 Mover un texto: la cifra la saco YO midiendo el fichero, y el generador da la dirección pero no la cantidad (2026-11-11).** Ni `céntralo` ni `sube un poco para que respire` dicen cuánto: con `sube un poco` el título del meme de la pala pasó de 57 a 174 píxeles de aire por debajo. La forma que funciona: mido en el fichero el aire por encima y por debajo, calculo cuántos píxeles hay que mover y se lo doy con el número y con los dos huecos que tienen que quedar. **Medido:** se le pidió bajar 45 px y bajó 80 (de 85 a 165), así que acertó la dirección y se pasó en la cantidad. Por eso, si el resto de la imagen ya está bien y la diferencia es de unas decenas de píxeles, el ajuste fino se hace en Photoshop, en la misma pasada del desenfoque, que hay que hacer igualmente (`§0a-penta`), y no con otra vuelta al generador.
+
 ## 0d · ⭐ EL OBJETIVO NO ES CALCAR: ES CALCAR Y MEJORAR
 > Al remixar una referencia se copia la **esencia** (`post-workflow §4.4`), pero **los DEFECTOS del original no se heredan: se arreglan**. Ser fiel no es ser fiel a sus fallos.
 

@@ -437,6 +437,8 @@ El cuerpo debe sonar a persona afilada hablando, nunca a IA. El enemigo no es el
 
 ### 🗣️ 3b · UNA CITA SE ESCRIBE COMO LA ESCRIBIÓ QUIEN LA DIJO, NO COMO LA CORREGIRÍA UN EDITOR (Iker, 2026-08-17)
 
+**Cita en dos líneas (2026-11-11):** si la misma persona habla en dos líneas seguidas, una comilla al principio de la primera y otra al final de la segunda. Comillas en cada línea se leen como dos voces. Check en `validar-email.py`. *(sin medir: criterio del equipo)*
+
 **Global: vale para cualquier pilar que meta una frase de otro** — la historia con su diálogo, el meme de captura documental, el correo del corpus, el mensaje del cliente.
 
 **LAS DOS REGLAS, y las dos saltaron el mismo día:**

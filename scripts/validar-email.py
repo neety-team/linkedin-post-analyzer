@@ -307,6 +307,17 @@ def main():
                             f'inventada, nunca la mascota ni sus jefes (email-marketing §8l)'))
     else:
         checks.append(ok('La IA de la escena no es de casa'))
+    # Una cita que ocupa dos lineas seguidas lleva una comilla al abrir y otra al cerrar (2026-11-11,
+    # email-marketing §3): con comillas en cada linea parecen dos personas hablando.
+    _lin = _cuerpo_sin_pd.splitlines()
+    _q = re.compile(r'^\s*["\u201c\u00ab].*["\u201d\u00bb]\s*$')
+    _cita2 = next((_lin[k].strip() for k in range(len(_lin) - 1)
+                   if _q.match(_lin[k]) and _q.match(_lin[k + 1])), None)
+    if _cita2:
+        checks.append(fallo(f'Cita partida con comillas en cada linea: "{_cita2[:50]}". Si es la misma persona, '
+                            f'una comilla al principio de la primera y otra al final de la segunda (email-marketing §3)'))
+    else:
+        checks.append(ok('Cita de dos lineas con una sola pareja de comillas'))
     # ⛔ La unidad del dolor rota sin bajar (2026-11-02, global §4.4b-UNIDAD): los clientes miden
     # el dolor en mucho tiempo, no en la palabra "meses". Falla si un correo de los 3 anteriores
     # usó la misma unidad; avisa si baja a semanas, días u horas. Al programar, se añade aquí.

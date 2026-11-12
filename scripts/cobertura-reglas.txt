@@ -288,7 +288,7 @@ post-workflow | 4.5.0-FEED EL DIAGNOSTICO DE PRIMER NIVEL ES EL | fuera: fuera �
 post-workflow | 4.5.0-SIN-AVISO LINKEDIN NO AVISA ASI QUE LA AUS | fuera: fuera · Medición
 post-workflow | 4.5.0-REVISION LA HIPOTESIS DE LA COLA DE REVISI | pendiente(2026-11-11): sin clasificar · 
 post-workflow | 4.5.0-COMPLEMENTO EL TEXTO DE LA IMAGEN COMPLEME | criterio: imagen
-post-workflow | 4.5.0a LOS INAMOVIBLES DEL LEAD MAGNET Iker 2026 | pendiente(2026-11-11): contradice · CUBIERTA en lo mecánico (GARANTIA: Claude nombrado en el GANCHO, GARANTIA: dos moldes, GARANTIA MAXIMA, Hook: 
+post-workflow | 4.5.0a LOS INAMOVIBLES DEL LEAD MAGNET Iker 2026 | check: GARANTIA: el gancho lleva Claude+VERBO
 post-workflow | 4.5.0b EL MODELO GENERICO PATRONES DE MARTINA RO | pendiente(2026-11-11): cubierta · GENÉRICO: hook SIN cifras / CORTO ≤90 / lista numerada / cuerpo LARGO (--generico). Ver contradicciones en fil
 post-workflow | 4.3-PLANTILLA LA PLANTILLA DE LOS 10 Y SUS COLOR | fuera: fuera · Plantilla de imagen montada por montar-orla.py (--region sustituye XXX); colores del brandbook. "Los 10" de pe
 post-workflow | 4.7 Runbook DESPIECE OBJETO el 3er peloteo regio | pendiente(2026-11-11): cubierta · --pilar objeto (OBJETO: bloques, pieza delante, comparación SI va) + --plantilla (HUECOS_PLANTILLA). Veredicto

@@ -5009,16 +5009,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
              'el stack que usamos DE VERDAD, igual que se verifica una cifra') if _gratis else '')
         _disp = re.search(r'ÚLTIMA HORA|ULTIMA HORA|D\.?E\.?P\.?|BREAKING|ADIÓS|ADIOS', hook_txt, re.I)
         _exp = re.search(MOLDE_EXPERIMENTO, hook_txt, re.I)
-        chk(bool(_disp) or bool(_exp),
-            'GARANTIA: el gancho usa uno de los DOS moldes validados (§4.5.0a)',
-            'ni DISPARADOR ("🚨 ÚLTIMA HORA…", nuestro #1 y nuestro #5) ni Claude+VERBO '
-            '("Claude acaba de matar…", "Le tiré las llaves a Claude…"). '
-            'LO IDEAL ES LLEVAR LOS DOS: es la estructura exacta del de 632 comentarios')
-        chk(bool(_disp) and bool(_exp),
-            'GARANTIA MAXIMA: el gancho combina DISPARADOR + Claude+VERBO (§4.5.0a)',
-            'llevas solo uno de los dos. El de 632 comentarios (y el de 167) llevan los dos '
-            'en la misma linea: "🚨 ÚLTIMA HORA: Claude acaba de matar el cold outbound". '
-            'Doble validacion: nuestro historial Y el de Martín Arosa/Guillermo Flor',
+        # 12/11: el disparador de alarma esta en desuso. De 165 lead magnets de las cuentas que
+        # seguimos (12/10-08/11, comment-gated), solo 3 lo llevan (2%). Se sigue la tendencia de
+        # ahora: el gancho pide Claude+VERBO y la alarma pasa a aviso en contra (brand-voice §2c).
+        chk(bool(_exp),
+            'GARANTIA: el gancho lleva Claude+VERBO (§4.5.0a)',
+            'sin Claude+VERBO ("Claude acaba de matar…", "Le tiré las llaves a Claude…", '
+            '"Claude ya puede…"). La novedad se marca con ahora, ya o acaba de' if not _exp else '')
+        chk(not _disp,
+            'LEAD MAGNET: sin alarma en el gancho, esta en desuso (§4.5.0a)',
+            f'"{_disp.group(0)}" en el gancho: solo 3 de 165 lead magnets de fuera la llevan en el '
+            'ultimo mes (12/11) y es familia de riesgo (brand-voice §2c)' if _disp else '',
             aviso=True)
         _yo = len(re.findall(r'\b(yo|mi|mis|me|uso|hago|publico|llevo|prob[eé]|le (?:di|pas[eé]|tir[eé]))\b',
                              cuerpo, re.I))

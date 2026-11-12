@@ -111,13 +111,14 @@ FILAS = [  # sector, detalle, estado
     ('Calderería industrial', '30 empl. · sin web de producto', 'fuera'),
     ('Fabricante de bombas', '200 empl. · exporta a Latinoamérica', 'enc'),
 ]
-RANK = [('Director comercial', 'decide · tiene el presupuesto', 92),
-        ('Director de exportación', 'influye · sufre las ferias', 84),
-        ('Gerente', 'decide si no hay dir. comercial', 79),
-        ('Director financiero', 'puede frenarlo · pide retorno', 71),
-        ('Jefe de producción', 'usa · no pinta en la compra', 58)]
+# 12/11: el encargo 3 no puntua, clasifica en DECIDE / INFLUYE / USA: las etiquetas son las suyas
+RANK = [('Director comercial', 'tiene el presupuesto', 'DECIDE'),
+        ('Director de exportación', 'sufre el problema en ferias', 'INFLUYE'),
+        ('Gerente', 'si no hay director comercial', 'DECIDE'),
+        ('Director financiero', 'puede frenarlo sin retorno', 'INFLUYE'),
+        ('Jefe de producción', 'no pinta en la compra', 'USA')]
 if V:
-    RANK = RANK[:4] + [('Director general', 'decide en las más pequeñas', 66)] + RANK[4:]
+    RANK = RANK[:4] + [('Director general', 'en las empresas pequeñas', 'DECIDE')] + RANK[4:]
 FLOW = [('01', 'A quién vender'), ('02', 'Qué empresas'), ('03', 'Quién decide'), ('04', 'Primer mensaje'), ('05', 'Seguimiento')]
 
 # ---------------------------------------------------------------- medidas fijas
@@ -135,8 +136,9 @@ def frame(i):
     im = Image.new('RGB', (S, H), BG); d = ImageDraw.Draw(im)
 
     # --- cabecera izquierda
-    d.text((M + 6, HEAD_Y), 'Sistema de ventas', font=fH1, fill=INK)
-    x = M + 6 + tw(d, 'Sistema de ventas', fH1) + 16
+    # 12/11: «la mitad del trabajo», como el gancho y la guia; «sistema de ventas» vendia Claude entero
+    d.text((M + 6, HEAD_Y), 'La mitad del trabajo', font=fH1, fill=INK)
+    x = M + 6 + tw(d, 'La mitad del trabajo', fH1) + 16
     wc_ = pegar(im, LOGO_C, x + 22, HEAD_Y + 34, 42); pegar(im, LOGO_IN, x + 22 + wc_ / 2 + 14 + 21, HEAD_Y + 34, 42)
     d.text((M + 6, HEAD_Y + 74), '5 encargos a Claude', font=fH2, fill=(75, 85, 99))
     # --- cabecera derecha: chip, serif y subtitulo que se escribe
@@ -178,7 +180,7 @@ def frame(i):
     px = M + 26; py = CARD_Y + 24
     d.ellipse((px, py, px + 42, py + 42), fill=INK)
     d.ellipse((px + 13, py + 18, px + 18, py + 23), fill=(255, 255, 255)); d.ellipse((px + 24, py + 18, px + 29, py + 23), fill=(255, 255, 255))
-    d.text((px + 56, py - 2), 'Encargo 2 · una tanda a mano', font=fCardT, fill=INK)
+    d.text((px + 56, py - 2), 'Una tanda a mano, con Claude', font=fCardT, fill=INK)
     d.text((px + 56, py + 30), 'Ejemplo · fabricantes industriales · pegadas por tandas pequeñas', font=fCardS, fill=MUT)
     # chips de la derecha
     webs = 9 + int(3 * ease(t * 1.4))
@@ -199,7 +201,7 @@ def frame(i):
     # suben poco para que el reinicio del bucle no se note (regla 2)
     # nivel 2 = una tanda a mano, no todo el mercado: cifras de tanda pequena
     rev = 9 + int(3 * ease(t * 1.4)); enc = 2 + int(ease((t - 0.25) * 2)); fue = rev - enc
-    COUNT = [('EN ESTA TANDA', f'{rev}', 'pegadas a mano, una a una', INK),
+    COUNT = [('EN ESTA TANDA', f'{rev}', 'leídas en su web, una a una', INK),
              ('ENCAJAN', f'{enc}', 'cada una con su frase de prueba', BLUE),
              ('FUERA', f'{fue}', 'sin prueba en su web, aunque cuadren', FAINT)]
     for c, (lab, val, sub2, col) in enumerate(COUNT):
@@ -264,14 +266,15 @@ def frame(i):
         d.text((R[0] + 26, y + 12), f'#{r + 1}', font=fNum, fill=BLUE if r == 0 else NAR if hi else FAINT)
         d.text((R[0] + 70, y + 4), cargo, font=fRank, fill=INK)
         d.text((R[0] + 70, y + 28), papel, font=fRankS, fill=NAR if hi else MUT)
-        sb = f'{sc}'; ws2 = tw(d, sb, fStat) + 22
         if hi: chip(d, R[0] + 70 + tw(d, papel, fRankS) + 8, y + 27, 'NUEVO', (255, 255, 255), NAR, f=SWB(10), padx=6, h=17)
-        d.rounded_rectangle((R[2] - 24 - ws2, y + 12, R[2] - 24, y + 38), radius=13, fill=BLUE_T)
-        texto_centrado(d, R[2] - 24 - ws2 + 11, y + 25, sb, fStat, BLUE)
+        # la etiqueta del encargo 3: DECIDE en berenjena, INFLUYE en naranja suave, USA en gris
+        fT_ = SWB(11); col_ = {'DECIDE': (BLUE, (255, 255, 255)), 'INFLUYE': (NAR_T, NAR), 'USA': (SOFT, MUT)}[sc]
+        wt_ = tw(d, sc, fT_) + 18
+        chip(d, R[2] - 24 - wt_, y + 13, sc, col_[1], col_[0], f=fT_, padx=9, h=24)
 
     # --- flujo de los 5 encargos
     fy = bot + 18 + G3
-    d.text((M + 26, fy), 'EL SISTEMA · 5 ENCARGOS', font=fLab, fill=MUT)
+    d.text((M + 26, fy), 'LOS 5 ENCARGOS · NIVEL 2', font=fLab, fill=MUT)
     tx = 'cada encargo arranca donde acaba el anterior'
     d.text((S - M - 26 - tw(d, tx, fLab), fy), tx, font=fLab, fill=INK)
     act = int(t * 5) % 5; ph = (t * 5) % 1

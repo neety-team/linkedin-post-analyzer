@@ -308,6 +308,11 @@ def vigente(valor, ventana_dias, hoy=None):
 
 
 SPAM_QUEMADO = {
+    # Asier 12/11, historia del info@, leida del texto publicado (BD, 14:30).
+    'escribir a info@ es fácil, lo que falta es un nombre': '2026-11-12 historia del info@ de Asier (ninja a /solicitar-demo, tipo 2)',
+    'escribir a info@ es facil, lo que falta es un nombre': '2026-11-12 historia del info@ de Asier (ninja a /solicitar-demo, tipo 2)',
+    'el nombre de quién compra, ese sí te lo decimos': '2026-11-12 historia del info@ de Asier (ninja a /solicitar-demo, tipo 2)',
+    'el nombre de quien compra, ese si te lo decimos': '2026-11-12 historia del info@ de Asier (ninja a /solicitar-demo, tipo 2)',
     # Iker 11/11, historia del chat de IA, leida del texto publicado (BD, 13:51).
     'un chat te da clientes que ya conoces, quien compra no': '2026-11-11 historia de ChatGPT de Iker (ninja a /solicitar-demo, tipo 2)',
     'eso ya lo ponemos nosotros, con cargo y contacto': '2026-11-11 historia de ChatGPT de Iker (ninja a /solicitar-demo, tipo 2)',
@@ -595,7 +600,7 @@ ARRANQUE_QUEMADO = {
         'recogi': '2026-09-02 historia de Unai 02/09 ("Recogi 200 tarjetas / Recogi la tarjeta")',
         'busco': '2026-09-02 historia de Unai 02/09 ("Busco solo a esos 12 / Busco antes / Busco 2 dias menos")',
         'llame': '2026-09-08 historia de Iker 08/09 ("Llame por orden alfabetico / Llame 60 veces")',
-        'traia': '2026-09-08 historia de Iker 08/09 ("Traia un listado / Traia 400 nombres / Traia empresas")',
+        'traia': '2026-11-12 historia de Asier 12/11 ("Traia el nombre / Traia el sector / Traia hasta el numero de empleados"); antes una historia del 08/09 ("Traia un listado / Traia 400 nombres / Traia empresas")',
         'dentro': '2026-09-09 historia de Asier 09/09 ("Dentro tenia 40 empresas / Dentro tenia fotos")',
         'llevaba': '2026-09-11 historia de Unai 11/09 ("Llevaba 300 empresas / Llevaba 11 anos")',
         'dejo': '2026-09-11 historia de Unai 11/09 ("Dejo el ordenador / Dejo la cartera / Dejo cada ficha")',

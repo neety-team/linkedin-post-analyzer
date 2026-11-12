@@ -944,6 +944,7 @@ Hasta el 12/11 el generador partía de que cada comentario era "un contacto norm
 - **Según el post:** si habla de Neety, orgullo e ilusión desde dentro (`estamos`, `juntos` valen); si va de un tema (región, idea de ventas), apoyo sencillo al que lo escribe, como mucho uno nombra un detalle; evento e historia de equipo siguen con sus reglas (suerte o orgullo según cuándo; complicidad de quien estuvo).
 - **Fallo nuevo, `fichaOLeccion`:** resumir el producto, sentar cátedra o arrancar con `tal cual` / `me quedo con` / `perfecto`. Y `copiaElEjemplo`: el tono de los ejemplos sí, sus frases no.
 - **Sigue en pie:** sin preguntas, guiones largos, dos puntos ni coma antes de "y"; nada inventado (juez de la tanda); nunca dudar del post; español de España; nada de registro de informe; aperturas distintas; dos (a veces uno o tres) con emoji, al final y nunca seguidos.
+- **Posts que no van de Neety (mismo 12/11):** peloteo, cariño por la región y ganas de que se conozca (como mucho dos con un detalle); historia o idea de ventas, ponerse en el lugar del comercial o del cliente, por qué trabajamos en esto, o gracias por compartirla. Sin exagerar ni frases de efecto (`exageraEnChat`) y elogiar cómo está contado, como mucho uno por tanda (`elogiaLaForma`).
 - Prueba: `backend/src/scripts/testComentariosChat.ts`.
 
 #### ⛔⛔ 7.2b-ADULTO · APOYO DE ADULTO, Y SI LA HISTORIA LA VIVIÓ EL EQUIPO, COMPLICIDAD DE QUIEN ESTUVO (Mario, 2026-10-20)

@@ -487,6 +487,23 @@ export function fichaOLeccion(c: string): string | null {
   return m ? m[0].trim() : null;
 }
 
+// Prueba del 12/11 en los posts que no van de Neety: "No sabía lo de Jordania y
+// no me lo puedo quitar de la cabeza", "Me ha cambiado cómo miro el mapa", "Con
+// todo el respeto del mundo para quien carga con todo él solo". Exagera o suena
+// a frase de efecto, y un compañero no habla asi.
+const EXAGERA_CHAT = /(no me (lo|la) puedo quitar|me ha cambiado (como|la forma|mi forma)|me ha dejado (pensando|con ganas de pensar)|todo el respeto del mundo|no sabia lo de|no tenia ni idea|una imagen que se (te|me) queda|se (te|me) queda grabad|es solo el principio|me ha volado la cabeza|piel de gallina|trimestres sin|nunca habia visto|abre los ojos)/;
+export function exageraEnChat(c: string): string | null {
+  const m = c.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').match(EXAGERA_CHAT);
+  return m ? m[0] : null;
+}
+
+/** Elogia COMO esta contado el post. Uno por tanda vale; mas, se leen en fila. */
+export function elogiaLaForma(c: string): boolean {
+  return /(forma de contar|bien contad|como lo cuentas|lo has contado|bien traid|bien escrit|da gusto leer|que bien lo cuentas|bien explicad)/.test(
+    c.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+  );
+}
+
 /** Copia un ejemplo de ASI_SUENAN (mismas cuatro primeras palabras): tienen que ser nuevos cada vez. */
 export function copiaElEjemplo(c: string): boolean {
   // Mas de la mitad de sus palabras de contenido salen en un mismo ejemplo
@@ -546,7 +563,14 @@ export async function generateSupportiveComments(
     ? `ESTA HISTORIA LA VIVIO EL EQUIPO ENTERO y los que comentan estaban. Complicidad de quien estuvo, como por WhatsApp: "Lo de las avispas en el baño fue surrealista", "Aún no me puedo creer que nos pasase eso jajaja", "Qué buen recuerdo aquella noche". Nada de reaccionar como quien se entera ahora, y nada de ventas: se comenta lo que paso.`
     : hablaDeLaCasa
     ? `ESTE POST HABLA DE NEETY, nuestra empresa. Los ${n} son de compañeros que se alegran por lo que ha conseguido la casa: orgullo, ilusion, ganas de lo que viene, el trabajo de todos que empieza a verse. Se puede decir "Neety" y "estamos", "juntos", "lo que queriamos construir". NO se repite lo que el post cuenta ni se explica el producto.`
-    : `ESTE POST NO VA DE NEETY SINO DE UN TEMA (una region, una idea de ventas, una anecdota). Los ${n} son de compañeros que apoyan al que lo ha escrito: se dice lo que te ha hecho sentir o pensar, sencillo y de tu a tu, con tus propias palabras. Las formulas de elogio al post ("qué bien contado", "me ha gustado mucho", "muy bien traído") como mucho UNA vez en los ${n}. Como mucho UNO nombra un detalle del post, y dicho en corto. Nunca se repite la tesis del post ni se convierte en una leccion.`;
+    : `${
+        esPeloteo(input.pillar)
+          ? `ESTE POST RECONOCE A UNA REGION Y A SUS EMPRESAS. Los ${n} son de compañeros que se alegran de verla reconocida y lo dicen sencillo: cariño por esa tierra o por lo que se hace alli, ganas de que se conozca mas, o un detalle del post (un producto, una empresa de la lista) dicho en corto. Como mucho DOS nombran un detalle, y nunca el mismo.`
+          : `ESTE POST CUENTA UNA HISTORIA O UNA IDEA DE VENTAS. Los ${n} son de compañeros que apoyan al que la ha escrito con lo que les ha tocado: que se ponen en el lugar del comercial o del cliente de la historia (nunca como un problema suyo de hoy), que les recuerda por que trabajan en esto, o gracias por compartirla. Como mucho UNO nombra un detalle del post.`
+      } Nunca se repite la tesis del post ni se convierte en una leccion.`;
+  const medida = hablaDeLaCasa || fase || equipo
+    ? ''
+    : `\n★ LA MEDIDA: lo que le dirias en voz alta a un compañero despues de leerlo, sin exagerar. Nada de "no me lo puedo quitar de la cabeza", "me ha cambiado como miro", "me ha dejado pensando", "con todo el respeto del mundo", "no sabia lo de". Sin metaforas ni frases de efecto ("es solo el principio", "una imagen que se te queda"). Elogiar COMO esta contado ("vaya forma de contar", "qué bien contado", "da gusto leer") como mucho UNO de los ${n}.`;
 
   const system = `Escribes los ${n} comentarios de apoyo que el equipo de Neety pega debajo del post de LinkedIn de uno de sus jefes. Se los mandamos por el Google Chat interno a compañeros de ventas, finanzas, producto, programacion, atencion al cliente y marketing, y cada uno pega uno con su nombre.
 
@@ -590,7 +614,7 @@ POST:
 ${safePostContent}
 
 ═══ QUE TOCA ═══
-${queToca}
+${queToca}${medida}
 
 EMOJI: lo llevan SOLO los comentarios ${[...conEmoji].map((i) => i + 1).join(' y ')}, uno al final y sin punto delante (de estos: ${EMOJIS_CHAT.join(' ')}). Los demas acaban en punto.
 
@@ -602,6 +626,7 @@ Escribe los ${n}. JSON solo.`;
     (aperturaHueca(c) ? 'abre con peloteo hueco' : null) ||
     (c.replace(/\p{Extended_Pictographic}️?/gu, '').trim().length < 30 ? 'demasiado corto, no dice nada' : null) ||
     (c.length > LARGO_MAX_CHAT ? `mide ${c.length} caracteres y no cabe en una linea (maximo 80)` : null) ||
+    (exageraEnChat(c) ? `"${exageraEnChat(c)}" exagera o es una frase de efecto: dilo como se lo dirias a un compañero` : null) ||
     (fichaOLeccion(c) ? `"${fichaOLeccion(c)}" es resumir el post, explicar el producto o soltar una leccion: di lo que sientes como compañero` : null) ||
     (copiaElEjemplo(c) ? 'copia uno de los ejemplos: el tono si, la frase no' : null) ||
     (contarEstiradas(c) > 0 ? 'lleva una palabra estirada, y no pega' : null) ||
@@ -669,6 +694,8 @@ Escribe los ${n}. JSON solo.`;
     const vistas = new Map<string, number>();
     for (const c of out) vistas.set(primerasDos(c), (vistas.get(primerasDos(c)) || 0) + 1);
     const repetidas = [...vistas.entries()].filter(([, v]) => v > 1).map(([k]) => k);
+    const sobreLaForma = out.filter((c) => elogiaLaForma(c)).length;
+    if (sobreLaForma > 1) malos.push({ c: `${sobreLaForma} de ${n}`, que: 'varios elogian como esta contado el post: como mucho uno, los demas dicen lo que sienten' });
     const familia = familiaEnTanda(out);
     if (familia) malos.push({ c: `${familia.veces} de ${n}`, que: `repiten la misma idea (${familia.nombre})` });
 

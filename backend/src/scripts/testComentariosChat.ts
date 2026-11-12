@@ -1,5 +1,5 @@
 // Los comentarios del Google Chat: los 5 que encajan pasan y los 5 tumbados caen (12/11).
-import { ASI_SUENAN, fichaOLeccion, copiaElEjemplo, criticaNuestroPost, aperturaHueca, autorPorSuNombre } from '../services/commentGenerator';
+import { ASI_SUENAN, fichaOLeccion, copiaElEjemplo, criticaNuestroPost, aperturaHueca, autorPorSuNombre, exageraEnChat, elogiaLaForma } from '../services/commentGenerator';
 import { nombresDelComentario, nombraTercero, abreAsintiendo } from '../services/replyGenerator';
 import { registroFormal, exageraDeBroma, confiesaElDolor, desvelaLaEstrategia, latinismo } from '../services/variedadComentarios';
 import { contarEstiradas, detectarAperturaGenerica } from '../services/replyGenerator';
@@ -25,6 +25,11 @@ ok(copiaElEjemplo('Orgulloso de ver todo lo que hemos hecho'), 'copiar el arranq
 ok(!copiaElEjemplo('Orgulloso de este equipo y de cómo lo ha contado'), 'el mismo tono con otra frase pasa');
 ok(copiaElEjemplo('Orgulloso de lo que estamos construyendo juntos'), 'casi calcado de un ejemplo cae');
 ok(autorPorSuNombre('Qué bien contado lo tienes, Unai', 'Unai Ejemplo') === 'Unai', 'el nombre del autor se detecta (antes no casaba nunca)');
+
+for (const c of ['No sabía lo de Jordania y no me lo puedo quitar de la cabeza.', 'Me ha cambiado cómo miro el mapa ✨', 'Con todo el respeto del mundo para quien carga con todo él solo.', 'Muchos trimestres sin ver esto así de claro.'])
+  ok(!!exageraEnChat(c), `exagera: ${c}`);
+for (const c of ASI_SUENAN) ok(!exageraEnChat(c), `no exagera: ${c}`);
+ok(elogiaLaForma('Vaya forma de contar lo que tiene Castilla y León por dentro'), 'elogio a la forma detectado');
 
 // Respuestas a comentarios (12/11)
 const POST = 'Las 10 empresas de Burgos que exportan a medio mundo: Grupo Antolin, Campofrio...';

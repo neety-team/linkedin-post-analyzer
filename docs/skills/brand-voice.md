@@ -188,12 +188,49 @@ Si Unai manda el texto base de un hito suyo (`presentamos Neety en san francisco
 - **Por qué, medido en su cuenta:** los dos hitos que llevaron el anuncio en el gancho rindieron por encima de sus historia/evento de escenario (2.628-4.530): 23/10 `Nos vamos 2 semanas a San Francisco…` 20.737 y 04/11 `Presentamos el nuevo Neety` 8.367. Los dos eran colaborativos, así que no se separa cuánto pone el formato *(n=2)*.
 - **Lo que sigue siendo nuestro:** abrir el bucle, **empezando por su verbo y en afirmación** (`Presentamos…`), corto. La pieza que se calla va pegada a su frase, no delante: un adjetivo de novedad sin decir qué cambia (`Presentamos el nuevo Neety en el AWS Builder Loft de San Francisco 🎤`) o `lo que` (`Presentamos en San Francisco lo que llevamos meses construyendo`). El cuerpo lo paga con la misma palabra (`El nuevo trabaja junto a cada comercial…`). `Cómo presentamos…` se tumbó (11/11): convierte su anuncio en un tutorial y deja de ser una afirmación. ⚠️ Riesgo medido (`post-workflow §4.6-HITO`, punto 3 del 04/11): `nuevo Neety` solo tira de quien ya nos conoce, así que el gancho filtra hacia público caliente; aquí se acepta porque el objetivo son los comentarios de enhorabuena. El ancla de ecosistema (`inversores`) y el resto de la puntuación anti-IA siguen igual.
 - **El cuerpo habla de nosotros y de lo que presentamos, no del evento (11/11).** Lo que se le queda al lector tiene que ser el producto, no el formato del evento (los minutos del discurso no pueden ser lo que más se recuerda). El diferencial va en el general de siempre: **Detecta · Prioriza · Actúa** (`global §4.4b`) y, sobre todo, **que decide el comercial y la herramienta aprende de su equipo**, contado en positivo (en Unai no se plantea que la IA le quite el puesto, ni para desmentirlo). La novedad del día anterior (las plantas) no se repite en cada post. Y el diferencial se **cuenta**, no se **anuncia**: nada de `fuimos directos a lo que nos hace distintos`, que dice lo obvio en vez de enseñarlo.
-- **La marca, con @ y explícita (11/11):** `@Neety` va en el propio gancho (el 04/11 lo llevó y funcionó) y `Neety` otra vez en el cuerpo, sin @ para no repetir la mención (`Para eso nació Neety, en 3 pasos.`), por claridad para quien no nos conoce. El sitio que acoge el evento se menciona con su página exacta de Unipile: AWS Builder Loft no tiene página, se menciona `@Amazon Web Services (AWS)` en los agradecimientos. La novedad que se cuenta es la del producto que toque (el 11/11, la precisión de empresas y personas); lo que no cambia es el centro: decide el comercial. Y el orgullo de Euskadi (`Construido desde Euskadi…`) suma en su cuenta.
+- **La marca, con @ y explícita (11/11):** `@Neety` va en el propio gancho (el 04/11 lo llevó y funcionó) y `Neety` otra vez en el cuerpo, sin @ para no repetir la mención (`Para eso nació Neety, en 3 pasos.`), por claridad para quien no nos conoce. El sitio que acoge el evento se menciona con su página exacta de Unipile: AWS Builder Loft no tiene página, así que se menciona `@Amazon Web Services (AWS)` delante de `Builder Loft`, en el gancho (ver abajo), y no se repite en los agradecimientos. La novedad que se cuenta es la del producto que toque (el 11/11, la precisión de empresas y personas); lo que no cambia es el centro: decide el comercial. Y el orgullo de Euskadi (`Construido desde Euskadi…`) suma en su cuenta.
 - **⭐ EN HITO, LA MÁXIMA AUTORIDAD MANDA SOBRE "NO VENDER DE ENTRADA" (11/11).** En historia/evento de un hito de verdad (otro país, una sede que conoce todo el mundo), lo que da autoridad va en el gancho aunque se note que hablamos de nosotros: **vincular la marca con un nombre grande** (`Presentamos el nuevo @Neety en @Amazon Web Services (AWS) Builder Loft de San Francisco 🎤`). La psicología es la del efecto cumpleaños: "fíjate hasta dónde están llegando", y se felicita. El nombre grande va con la mención de su página (al escribir `@AWS`, LinkedIn propone Amazon), y si va en el gancho no se repite en los agradecimientos. El sitio va con **su nombre real, en inglés si lo tiene** (`Builder Loft`): da más autoridad que una perífrasis nuestra (`en la casa de` se tumbó el 11/11 por inventada y por sonar mal). Si la mención alarga el gancho por encima de 90, se quita lo que sobra alrededor (el artículo: `en @Amazon Web Services (AWS) Builder Loft`, como lo escribió el propio jefe), nunca la mención ni el nombre del sitio. *(hipótesis con n=2 colaborativos: 20.737 y 8.367; en un evento local no aplica)*
 - **⭐ EL DIFERENCIAL, BIEN CONTADO (11/11, dado por bueno para reutilizar).** Para los posts que dan bombo al nuevo Neety, el cuerpo que funciona es este, en este orden: el dolor (`Un equipo comercial de la industria no necesita más contactos. Necesita saber a quién ir, cuándo y cómo.`) → `Para eso nació Neety, en 3 pasos.` → **Detecta** las empresas que encajan y quién decide dentro / **Prioriza** a cuál ir primero / **Actúa** con mensaje y canal → la novedad del momento en una línea (el 11/11, la precisión de empresas y personas) → **`En todo momento decide el comercial.`** → nada entra sin que él lo apruebe y la herramienta aprende de cada sí y cada no de su equipo → orgullo de origen (`Construido desde Euskadi…`) → moraleja (`La IA que ayuda a vender es la que deja decidir al comercial.`). Se rota la redacción de post a post, no el orden ni el centro (decide el comercial).
 - **No se cuenta como real lo que fue escenificado:** el lanzamiento del 04/11 "desde San Francisco" se grabó como puesta en escena, así que no se usa como dato (`el mismo día que lo lanzamos`).
 - **Qué se busca:** autoridad y comentarios de enhorabuena (el efecto cumpleaños de `post-workflow §4.6-HITO`). La foto de él presentando ayuda a que se le felicite a él.
 - **Primer intento fallido (11/11):** se entregó con un gancho de escena sin su frase (`4 minutos para defender en Silicon Valley…`) y se tumbó: la base del jefe no es material para reescribir, es el encargo.
+- **🏁 LA VERSIÓN QUE UNAI APROBÓ SIN CAMBIOS (12/11): el punto de partida de sus próximas historias/evento de hito.** Ficha en `historial-publicaciones` (12/11). Lo que tenía y se repite:
+  - **Tono:** sobrio y orgulloso a la vez. Afirma, no exclama; plural de la casa; ni una línea sobre su papel en el escenario; su vocabulario (`Orgullosos de lo que estamos construyendo`, `Construido desde Euskadi`). Un solo emoji, el del gancho.
+  - **Gancho:** su frase en afirmación y empezando por su verbo, con la autoridad arriba (marca + nombre grande + ciudad, todos con su mención) y **un solo hueco**, `el nuevo`. 89 caracteres sin artículo delante del sitio.
+  - **Diferencial:** el general, en el orden de la viñeta de arriba, con **`En todo momento decide el comercial.`** como línea suelta y centro del post. La novedad del producto, en una línea.
+  - **Agradecimiento:** dos líneas, al final y antes de la moraleja. Quien eligió (`@ICEX y @Red.es, que nos eligieron para Desafía`) y quien organizó, con el problema concreto que resuelve (`@SOSA, que lo organizó y nos sentó delante de quien decide`). Sin enlace ni ninja.
+  - **Cierre:** una moraleja que recoge el centro (`La IA que ayuda a vender es la que deja decidir al comercial.`).
+  - **Foto:** él presentando, cara de frente, en 4:5.
+  ```
+  Presentamos el nuevo @Neety en @Amazon Web Services (AWS) Builder Loft de San Francisco 🎤
+
+  Orgullosos de lo que estamos construyendo.
+
+  Un equipo comercial de la industria no necesita más contactos.
+  Necesita saber a quién ir, cuándo y cómo.
+
+  Para eso nació Neety, en 3 pasos.
+
+  Detecta las empresas que encajan y quién decide dentro.
+  Prioriza a cuál ir primero.
+  Actúa con mensaje y canal.
+
+  Lo nuevo es la precisión de las empresas y personas que propone.
+
+  En todo momento decide el comercial.
+
+  Nada entra sin que él lo apruebe.
+  Con cada sí y cada no, la herramienta aprende.
+  Y cada semana afina más con lo que aprueba su equipo.
+
+  Construido desde Euskadi, al lado de la industria que mejor conocemos.
+
+  Gracias a @ICEX y @Red.es, que nos eligieron para Desafía.
+  Y a @SOSA, que lo organizó y nos sentó delante de quien decide.
+
+  La IA que ayuda a vender es la que deja decidir al comercial.
+  ```
+  Se reutiliza la estructura y el tono, no las frases: lo que sale en un post queda quemado para las 3 siguientes de su cuenta (`global §2.0b-VENTANA`).
 - **Validador:** `--anuncio-unai` (solo `--cuenta unai --pilar historia`) pasa a aviso `Neety NUNCA en el hook` y `el gancho no delata el EVENTO`, y con `--antes` no los cuenta como roto. El hueco del gancho sigue siendo duro.
 
 #### 🗣️ SU FORMA DE NARRAR, SACADA DE SU PROPIO TEXTO DEL LANZAMIENTO (2026-11-03) — SOLO EL VOCABULARIO, NO EL FORMATO

@@ -433,24 +433,82 @@ Return ONLY the JSON object with keys: ${COMMENT_KEYS.map(k => `"${k}"`).join(',
   return parsed;
 }
 
+// ⛔⛔ LOS COMENTARIOS DEL GOOGLE CHAT LOS PEGAN COMPAÑEROS, Y SE NOTA (2026-11-12)
+//
+// Hasta el 12/11 este generador partia de una premisa equivocada: "cada uno es un
+// contacto normal que reacciona al post, que no se note que sois de la casa". De
+// ahi salia todo lo demas: anclar cada comentario a un detalle del post, resumir
+// lo que el post explica, no nombrar a Neety, alargadas y exclamaciones forzadas
+// para "sonar humano". El resultado, en la historia/evento del Demo Day:
+//
+//   "Tal cuaal me quedo con lo de que la herramienta aprende con cada sí y cada no!"
+//   "ICEX y Red.es eligiendo proyectos así es justo lo que necesita la industria."
+//   "El comercial que va a ciegas pierde tiempo en empresas que nunca iban a comprar 👌"
+//
+// Suena a alguien de fuera que repite la ficha del producto o suelta una leccion,
+// con tics metidos con calzador. Lo que si encaja (los 5 que se escribieron a mano
+// ese dia, abajo en ASI_SUENAN): todo el mundo sabe que somos del mismo equipo y no
+// se esconde; se dice lo que se SIENTE (orgullo, ilusion, ganas, alegria), no lo que
+// cuenta el post; frases simples y enteras; sin alargadas ni muletillas.
+//
+// Lo que sigue en pie de antes, porque eran errores de verdad: nada de preguntas,
+// guiones largos, dos puntos ni coma antes de "y"; nada inventado; nunca dudar del
+// post; español de España; nunca registro de informe; y en evento, segun cuando es.
+
+/** Los 5 que se escribieron a mano el 12/11 para el post del Demo Day. Son el tono, no plantillas. */
+export const ASI_SUENAN = [
+  'Orgulloso de ver todo lo que estamos construyendo juntos 🙌',
+  'Muchísima ilusión por esta nueva etapa de Neety.',
+  'Da gusto ver cómo tantos meses de trabajo empiezan a salir fuera.',
+  'Con muchas ganas de todo lo que viene ahora 🚀',
+  'Feliz de ver cómo cada vez Neety se parece más a lo que queríamos construir.',
+];
+
+/** Los que salieron el mismo dia y se tumbaron, con el porque. */
+const ASI_NO = [
+  ['Tal cuaal me quedo con lo de que la herramienta aprende con cada sí y cada no!', 'muletilla con alargada, y resume el producto como quien lee la ficha'],
+  ['Nada entra sin que él lo apruebe y eso lo cambia todo.', 'repite una funcion del producto y habla del autor en tercera persona'],
+  ['Perfectooo no es la IA que actúa sola sino la que afina con quien decide 🔥', 'parafrasea la tesis del post, con una alargada que no pega'],
+  ['ICEX y Red.es eligiendo proyectos así es justo lo que necesita la industria.', 'opina de instituciones como un analista de fuera'],
+  ['El comercial que va a ciegas pierde tiempo en empresas que nunca iban a comprar 👌', 'suelta una leccion de ventas, como un anuncio'],
+];
+
+// Lo que delata el registro de "los de fuera": resumir el producto, sentar
+// catedra o arrancar con una muletilla de quien recoge la frase del post.
+const FICHA_O_LECCION = /(la herramienta|la plataforma|el producto|el software|la ia que|aprende con|actua sola|lo apruebe|el comercial que|los comerciales que|las empresas que|empresas que nunca|quien no |el que no |es justo lo que necesita|lo que necesita (la|el) (industria|sector|mercado)|eso lo cambia todo|lo cambia todo)/;
+const ARRANQUE_DE_RESUMEN = /^(tal cual|me quedo con|perfecto|justo|exacto|efectivamente|totalmente|claro que si|eso es)\b/;
+
+/** Explica el producto, resume la tesis o suelta una leccion: registro de alguien de fuera (12/11). */
+export function fichaOLeccion(c: string): string | null {
+  const t = c.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+  const a = t.match(ARRANQUE_DE_RESUMEN);
+  if (a) return a[0];
+  const m = t.match(FICHA_O_LECCION);
+  return m ? m[0].trim() : null;
+}
+
+/** Copia un ejemplo de ASI_SUENAN (mismas cuatro primeras palabras): tienen que ser nuevos cada vez. */
+export function copiaElEjemplo(c: string): boolean {
+  const cuatro = (t: string) => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z\s]/g, ' ').trim().split(/\s+/).slice(0, 4).join(' ');
+  const mia = cuatro(c);
+  return ASI_SUENAN.some((e) => cuatro(e) === mia);
+}
+
+const EMOJIS_CHAT = ['🙌', '🚀', '💪', '👏', '🔥', '✨', '🤝', '🙂'];
+
+/** Dos (a veces uno o tres) con emoji y nunca dos seguidos: como en ASI_SUENAN. */
+function conQueEmoji(n: number): Set<number> {
+  const r = Math.random();
+  if (n >= 5 && r < 0.2) return new Set([0, 2, 4]);
+  if (r > 0.85) return new Set([Math.floor(Math.random() * n)]);
+  const pares: number[][] = [];
+  for (let i = 0; i < n; i++) for (let j = i + 2; j < n; j++) pares.push([i, j]);
+  return new Set(pares[Math.floor(Math.random() * pares.length)] || [0]);
+}
+
 /**
- * Generates N short supportive comments (warm or reinforce-style) in the
- * post's language. Used by the Accounts → Google Chat flow, where the
- * goal is to give teammates copy-pasteable cheerleader lines that won't
- * damage their professional image. Short by design: real teammates won't
- * read paragraphs and won't post anything risky.
- *
- * Compared to generateComments (9 angles for the Network feature):
- * - Only "reinforce" + "warm_supportive" registers — never contrarian.
- * - 2 lines max per comment (≤180 chars enforced downstream).
- * - N is FIXED at 5 (Iker, 2026-07-29): the team grew, so there are enough
- *   people to place five, and rotating 3-5 just left teammates without a line.
- *
- * The prompt below carries the rules from docs/skills/brand-voice.md §3 and
- * §7 (the comment/reply voice). The old one produced generic filler AND broke
- * our own punctuation rules — the 2026-07-29 batch shipped an em dash, which
- * §3 forbids outright. The single biggest fix: each of these five is posted by
- * a DIFFERENT human, so they must not read like five outputs of one template.
+ * Los 5 comentarios de apoyo que se mandan al Google Chat del equipo con cada
+ * post de los jefes. Los pegan compañeros de Neety con su nombre.
  */
 export async function generateSupportiveComments(
   input: CommentGenerationInput,
@@ -460,208 +518,123 @@ export async function generateSupportiveComments(
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY not configured');
   const n = Math.max(3, Math.min(5, Math.round(count)));
 
-  const voiceLines: string[] = [];
-  if (input.profile.headline) voiceLines.push(`IDENTITY: ${input.profile.headline}`);
-  if (input.profile.voice_style) voiceLines.push(`WRITING STYLE: ${input.profile.voice_style}`);
-  if (input.profile.worldview) voiceLines.push(`WORLDVIEW: ${input.profile.worldview}`);
-  if (input.profile.signature_moves) voiceLines.push(`SIGNATURE MOVES: ${input.profile.signature_moves}`);
-  if (input.profile.avoid) voiceLines.push(`AVOID: ${input.profile.avoid}`);
-
-  const profileContext = voiceLines.length > 0
-    ? `COMMENTER VOICE PROFILE:\n${voiceLines.join('\n')}`
-    // Decia "neutral, warm, professional" y es justo el registro que Iker no
-    // quiere (01/10): "muy formales, que no son naturales".
-    : 'COMMENTER VOICE PROFILE: cercano y natural, alguien de 25 a 35 años que comenta desde el movil el post de un conocido. Nada de tono de informe.';
-
   const safePostContent = stripLoneSurrogates(input.postContent || '');
   const detectedLang = detectLanguageHint(safePostContent);
+  const llanoPost = safePostContent.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
-  const system = `You write short, warm LinkedIn comments AS the person described in the voice profile.
-
-═══ NON-NEGOTIABLE RULES ═══
-
-LANGUAGE: every comment in ${detectedLang}. Never switch languages. Never mix English into a Spanish thread.
-
-★ ⛔ NINGUNO ES UNA PREGUNTA, NI RETORICA (Iker, 2026-09-16). El primero de una tanda abrio con "¿Cuantas ventas se pierden antes de llegar al que decide?" y no se quiere: se afirma, se apoya. Ningun signo de interrogacion.
-★ ⛔ NINGUNO EMPIEZA CON COMILLAS (Iker, 2026-09-16): "empezar un comentario con comillas parece escrito por una inteligencia artificial". Si citas una frase del post, va DENTRO de la frase, nunca abriendola.
-★ UNA LINEA MEJOR QUE DOS. Preferible UNA frase por comentario; como mucho uno o dos de los ${n} pueden llevar dos frases cortas. Si los ${n} tienen la forma "frase. frase.", se leen como una plantilla.
-
-★ ⛔ NUNCA SE DEJA MAL A LA PUBLICACION NI A SU AUTOR, Y ESTO YA HA PASADO. El 20/08 se publico esto en el hilo de un post nuestro: "El flujo parece demasiado perfecto para produccion... Bonita demo". Lo pego un companero con su nombre y su cara, poniendo en duda nuestro propio contenido delante de todos y dandole municion a cualquiera que viniera a discutir. PROHIBIDO: poner en duda que lo que cuenta el post sea real o realista, decir que "en la vida real no pasa", que "suena a demo", que es "demasiado perfecto", que "es muy optimista" o que "no es tan facil". Sumar un matiz SI ("y encima pasa que..."); dudar del post, NO.
-
-REGISTER: every comment is SUPPORTIVE and hangs on the CONCRETE part of the post its ANGULO assigns (a company, a product, a town, a phrase, a number, the author's work). NEVER contrarian, NEVER skeptical, NEVER provocative. These are colleagues backing each other up — they will not risk their professional image with edgy takes.
-
-★ ⛔⛔ CADA UNO, UNA IDEA DISTINTA, Y NINGUNO REPITE LA TESIS DEL POST (Iker, 2026-10-01): "siempre hablan de lo mismo, necesito conceptos más originales". En "Las 10" de Castilla-La Mancha, 4 de 5 dijeron con otras palabras la idea central del post ("el foco va a las grandes ciudades", "no aparece en ningún titular", "pedidos que nadie contaba", "los números siempre me pillan por sorpresa"). La idea central YA LA DICE EL POST: repetirla cinco veces es lo que hace que los cinco suenen a la misma mano. Cada comentario va de SU angulo asignado y de nada mas. Como mucho UNO de los ${n} puede rozar la idea central, y con un detalle propio.
-
-LENGTH: entre 40 y 80 caracteres (tope duro ${LARGO_MAX_CHAT}), en UNA sola linea y UNA frase (Iker, 2026-10-01: uno de 107 caracteres caia a una segunda linea en el Chat, y "siempre queremos comentarios cortos en una línea, una línea larga, pero una línea"). ⛔ NUNCA por debajo de 8 palabras: "Qué post más necesario." salio en una tanda y Iker lo tumbo, "demasiado corto, no aporta absolutamente nada". Corto vale, vacio no: hasta el mas breve nombra algo concreto del post. And vary the length across the ${n}: if they are all the same size they read as one template.
-
-★ FIVE DIFFERENT PEOPLE WILL POST THESE. This is the rule everything else hangs off. Each comment is pasted by a DIFFERENT human being into the same thread, under their own name and face. If a reader scrolls the comments and feels they were all written by the same hand, the whole thing backfires and looks coordinated. So vary the length, the opening move, the punctuation and the energy between them, ALWAYS inside a casual register: one more excited, one more dry, one with a small personal aside. ⚠️ This used to say "vary the level of formality", and that is how formal ones crept in.
-
-★ PUNCTUATION OF A REAL PERSON (this is non-negotiable, our brand voice forbids it):
-- NEVER an em dash or en dash. No "—", no "–". Use a full stop or a comma. This rule has been broken before and it is the single clearest tell of AI writing.
-- NEVER a colon. No ":" anywhere in the comment (Iker, 2026-08-12). It reads as AI. Nobody writing a quick comment on their phone sets up a clause and then announces it with a colon. Use a comma, or split it into two short sentences. ⚠️ This line used to say "use a full stop, a comma or a colon" — the prompt itself was teaching the tell.
-- NEVER a comma directly before "y" or "e". A comma before "pero" is fine.
-- No markdown of any kind. No bold, no bullets, no numbered lists.
-- Do not open with an emoji. EMOJIS: los lleva SOLO el comentario al que la ASIGNACION se lo pide, UNO y al final. Los demas, sin ninguno.
-
-★ ⛔ HABLAS, NO REDACTAS (Iker, 2026-10-01): "sigo viendo respuestas muy formales, que no son naturales". Comentarios REALES pegados de aqui: "Crecer en exportaciones a ese ritmo demuestra que el músculo industrial...", "hay ecosistemas muy sólidos fuera del radar", "habla de especialización, continuidad...". Eso es un informe, no alguien comentando desde el movil. PROHIBIDO: "demuestra que", "pone de manifiesto", "cabe destacar", "ecosistema", "tejido industrial/comercial/productivo", "músculo industrial", "motor económico", "fuera del radar", "lejos de los focos", "poner en valor", "capacidad exportadora", "visibilidad", "a nivel de", "en definitiva", "asimismo". Se dice como se escribe por WhatsApp a un compañero, en español de España y con frases enteras: "lo de X fue surrealista", "aún no me lo creo jajaja", "me quedo con lo de...", "no lo había visto así", "qué buen recuerdo lo de...". Nunca se comenta COMO esta escrito el post (la comparacion, la metafora, como lo hila): desvela la estrategia. (20/10: "me ha matado", "me ha dejado sin palabras", "menudo detalle" y "surrealista" salian como vacile, y Mario: "parecemos tontos".)
-★ ⛔⛔ APOYO DE ADULTO, NI SARCASMO NI VACILE (Mario, 2026-10-20): "suenan muy infantiles o muy sarcásticos, como que le están vacilando… tienen que ser de apoyo, formales pero no tanto, con lo de las vocales". La alargada y el emoji dan la cercania; la frase en si es de alguien serio que apoya. Ni sorpresa exagerada, ni ironia, ni nada que se pueda leer como que te ries del autor o de lo que cuenta. Nunca una alargada detras de "no" ("No clarooo" suena a burla). Y la gramatica, perfecta: concordancia incluida ("lo de LAS avispas", nunca "la avispas").
-★ ⛔⛔ QUIEN COMENTA TRABAJA EN LA CASA, Y LA CASA VENDE LA SOLUCION (20/10): ninguno confiesa como propio el problema de ventas que cuenta el post ("A mí me ha pasado llamar a quien no tocaba una vez a la semana", "lo aplico ya a las listas"). Leido desde fuera, es que en la empresa que vende el remedio les pasa a diario. Se comenta la historia y la comparacion; el dolor es del sector, nunca tuyo de hoy.
-★ EL CIERRE DE CADA UNO TE LLEGA ASIGNADO: exclamacion, puntos suspensivos o punto. Iker: "nunca veo respuestas con exclamación al final, estaría guay". Respetalo, y escribe la frase para que ese cierre le pegue.
-
-★ SOUND HUMAN, NOT POLISHED (Iker, 2026-09-16). Los que los pegan son gente joven y cercana. La ASIGNACION te dice que comentarios llevan UNA palabra alargada: esos llevan EXACTAMENTE UNA, y los demas NINGUNA. La palabra alargada es una palabra corta de reaccion con la VOCAL FINAL estirada, y su sitio en la frase lo dice la ASIGNACION y cambia cada vez: "clarooo", "siii", "muy buenoo", "nooo", "bieeen", "totaal", "geniaaal", "brutaal". Unas con DOS vocales de mas y otras con UNA ("buenooo" y "buenoo" valen las dos), nunca siempre la misma. ⛔ Nunca "vale" ni "cierto" alargados. ★ Y SI LA FRASE LLEVA UN VERBO PUNCHY (flipa, mola, encanta, clava), LA ALARGADA VA EN EL VERBO: "Claro me flipaa cómo lo cuenta", nunca "Clarooo me flipa cómo lo cuenta" (Iker, 15/10). Nunca un sustantivo en mitad de la frase y NUNCA dos palabras alargadas en el mismo comentario.
-
-ACCENTS WHEN STRETCHING A VOWEL: if the word you stretch carries a written accent, DROP the accent and write every repeated vowel plain. Write "buenisiiimo", never "buenííísimo"; "graciaas", never "gráciaas". An accent in the middle of a stretched run looks like a typo, not like someone typing with enthusiasm.
-
-⛔ NO VES LA IMAGEN DEL POST y casi todos llevan una. Solo tienes el texto, asi que NO afirmes nada sobre lo que el post ensena ni sobre lo que NO ensena: nada de "la foto", "la imagen", "el dibujo", "la captura". Comenta solo lo que esta ESCRITO.
-
-★ ⛔ EL AUTOR NO SE NOMBRA NI SE HABLA DE EL EN TERCERA PERSONA (Mario, 2026-10-20): "Iker lo no sé qué", "nadie hila esto como Iker" debajo de su propio post suena a que hablas de el a sus espaldas. Se comenta la historia, o se le habla de tu y sin su nombre ("gracias por contarlo"). Solo en un post de evento vale desearle suerte por su nombre.
-NO HOLLOW OPENERS: never "Great post!", "Love this", "Totalmente de acuerdo", "Qué bueno", "Muy buen punto", "Gran post", "Me encanta", "Brutal", "Buena reflexión", "Buen apunte", "Muy cierto", "Qué razón", "Totalmente", "Qué post más necesario".
-⛔ Y OJO CON EL ELOGIO DISFRAZADO DE APERTURA: "Buena reflexión." seguido de la frase de verdad es exactamente el mismo peloteo hueco, solo que con punto en medio. Si la primera frase se puede borrar entera sin perder nada, es relleno. Reference something SPECIFIC from the post (a number, a phrase, a claim) so it's clear you actually read it.
-
-★ NEVER OUT YOURSELVES. These people work at the same company as the author. Do not write anything only an insider would know, do not say "el equipo", "en casa", "nosotros" or anything that reveals coordination, and never speak on the company's behalf. Each one is a normal contact reacting to a post.
-
-★ THE EVENT IS OURS, SO NEVER TALK ABOUT IT LIKE AN OUTSIDER (Iker, 2026-08-27). If the post mentions our September event, the people pasting these comments WORK AT THE SAME COMPANY and their profile says so, so wishing the author luck with "vuestro evento" or "suerte con lo que habéis montado" reads as if a colleague did not know their own company was organising it. BEFORE the event, wishing luck to the PERSON or for the DAY is fine and wanted ("Mucha suerte hoy Unai", "que salga redondo"). ⛔ AFTER it, never: the user message tells you WHEN the event is, and a past event gets pride, congratulations or memories, not luck (Iker, 2026-10-01: "Mucha suerte mañana" salio en el video de un evento que ya habia pasado). Iker has had to rewrite these by hand. Use the FIRST PERSON PLURAL for the event and only for the event ("lo que vamos a montar", "ganas de que llegue", "orgullo de estar en esto"). This does NOT override the rule above: still no "el equipo", no speaking on the company's behalf and nothing that reveals coordination on the POST itself. The event is public, the coordination is not.
-
-★ AND NEVER ASSUME THE COMMENTER IS GOING. Not everyone pasting a comment will attend, and a comment that says "nos vemos allí" or "estaré" puts words in the mouth of someone who may not go. Express interest or pride WITHOUT asserting attendance: "ganas de ver cómo sale" works, "allí estaré" does not.
-
-★ NO NUMBERS OR FACTS THAT ARE NOT IN THE POST. Never invent a figure, a client, a company or a personal story with specifics that could be checked. If a comment needs a personal angle, keep it unfalsifiable ("me ha pasado algo parecido") rather than inventing a case.
-
-★ EL ANGULO Y EL ARRANQUE DE CADA COMENTARIO TE LLEGAN ASIGNADOS en el mensaje de usuario, numerados. NO son un menu del que elegir: el 1 es el 1 y el 3 es el 3. Antes esto era una lista de cinco angulos y el modelo los colapsaba en el mismo, porque nadie decia cual iba en cual.
-Never repeat the same angle, and do not let two comments latch onto the same word of the post.
-
-★ ⛔ NINGUNO PUEDE ABRIR CON UNA ABSTRACCION. Es la tabla de delatores de IA de la casa (brand-voice §3), la misma que el validador de posts tumba desde hace meses y que aqui no miraba nadie. PROHIBIDO empezar un comentario con: "lo más importante", "lo más curioso", "lo más crucial", "lo más clave", "lo fundamental", "lo esencial", "lo cierto es que", "la clave está en", "la clave es", "el secreto es", "la verdad es que", "la realidad es que", "al final del día", "lo que nadie dice", "lo que nadie sabe", "lo interesante es que", "exactamente", "efectivamente".
-Y NO ES SOLO LA LISTA, ES LA FORMA: abrir con un sustantivo abstracto y un verbo copulativo ("La eficiencia comercial no está en...", "El contacto directo es solo un dato", "La diferencia entre X e Y...") se lee igual de robotico aunque la palabra no este en la lista. MEDIDO en los comentarios que de verdad publicamos: 15 de 19 abrian asi. Se abre por lo CONCRETO: un verbo, una persona, un objeto, o una palabra literal del post.
-⛔ Y NINGUNO DE LOS ${n} PUEDE EMPEZAR CON LAS MISMAS DOS PALABRAS QUE OTRO. Los publican personas distintas en el mismo hilo: dos aperturas iguales delatan la coordinacion entera.
-
-★ ⛔⛔ ESPAÑOL DE ESPAÑA, DE ALGUIEN DE AQUI (Iker, 2026-10-15). Salieron "No ciertooo olvidaba el detalle del audio" y "Valeee Multiverse Computing en el Forward...". Iker: "hablando en español latino. Tienes que hablar en español de España". PROHIBIDO: "no cierto", "olvidaba" (aqui se dice "no me acordaba"), "ahorita", "chévere", "platicar", "celular", "computadora", "ustedes", "qué padre", "qué lindo", "nomás". Y NADIE ABRE CON "VALE": "nadie empezaría con vale, suena raro".
-★ ⛔⛔ NI INFANTIL NI DE PARODIA: APOYO NATURAL, CERCANO Y HUMILDE (Iker, 2026-10-15): "respuestas un poco ridículas, como sacadas de una broma o de una parodia". Frases que una persona normal pegaria con su nombre: completas, con su verbo y bien construidas ("Telmo la acreditación colgada y encima con filtros buscaba clientes" no se entiende). Sin superlativos de broma: nada de "de los momentos del año", "el mejor momento", "épico", "leyenda", "me muero".
-★ ⛔ LA GRAMATICA MANDA SOBRE EL ARRANQUE (15/10: salio "Audio al salir de cada visita me ha pasado algo parecido y cambia todo!", que no se entiende). Si empezar por el arranque asignado no da una frase bien construida, se reordena hasta que suene a como lo diria alguien en voz alta.
-★ ⛔ LOS NOMBRES SE ESCRIBEN ENTEROS. El evento se llama "Neety Forward" y asi se escribe, NUNCA "el Forward". Igual las personas y las empresas: como salen en el post.
-
-Return ONLY a JSON object: { "comments": ["...", "...", ...] } with exactly ${n} strings. No markdown fences, no explanation.`;
-
-  // Sorteados SIN REEMPLAZO y asignados uno a uno. Que el banco tenga mas
-  // entradas que huecos es lo que hace que roten tambien ENTRE posts: sin eso,
-  // dos tandas distintas vuelven a los mismos cinco angulos de siempre.
   const modoEvento = esPostDeEvento(input.pillar, safePostContent);
   const fase = modoEvento
     ? await analizarEvento({ postId: input.postId, texto: safePostContent, publicadoEl: input.publishedAt })
     : null;
-  const peloteo = esPeloteo(input.pillar);
-  // 🏡 Historia que vivio el equipo entero (Mario, 20/10): los que comentan estaban.
   const equipo = !fase && esHistoriaDeEquipo(input.pillar, safePostContent);
-  const angulos = reparte(fase ? angulosEvento(fase) : equipo ? angulosHistoriaEquipo() : angulosApoyo(input.pillar), n);
-  // En historia de equipo, "un adverbio de frecuencia" y "una negacion" forzados delante
-  // dieron frases sin sentido ("Pues bieeen casi siempre pero lo del baño…", prueba del 20/10):
-  // ahi se arranca por algo concreto de la escena o por una reaccion.
-  const arranques = reparte(
-    equipo
-      ? arranquesApoyo(input.pillar).filter((a) => !/^una negacion|^un adverbio de frecuencia|^el sujeto concreto/.test(a))
-      : arranquesApoyo(input.pillar),
-    n
-  );
-  // EMOJI, VOCALES Y CIERRE, DECIDIDOS EN CODIGO (`planTanda`, Iker 2026-10-01):
-  // dos o tres con emoji y nunca dos seguidos, dos o tres con vocales, y
-  // siempre alguno acabado en exclamacion. Detalle y por que en el plan.
-  // La palabra alargada se ASIGNA, no se deja al modelo: con "lleva una palabra
-  // alargada" a secas, el 16/09 salieron 0 de 5.
-  const repartir = (k: number) => {
-    const plan = planTanda(k);
-    const emojiDe = new Map<number, string>();
-    for (const i of plan.conEmoji) {
-      let e = sorteaEmoji();
-      while ([...emojiDe.values()].includes(e)) e = sorteaEmoji();
-      emojiDe.set(i, e);
-    }
-    const palabraDe = new Map<number, string>();
-    for (const i of plan.conAlargada) {
-      let p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
-      const usadasYa = () => [...palabraDe.values()].map((v) => desestirarTodo(v).toLowerCase());
-      while (usadasYa().includes(desestirarTodo(p).toLowerCase())) p = ALARGADAS_SUELTAS[Math.floor(Math.random() * ALARGADAS_SUELTAS.length)];
-      // 2 o 3 vocales al azar (Iker, 15/10): el banco viene con 3 y salian siempre iguales.
-      palabraDe.set(i, alargarPalabra(desestirarTodo(p), letrasAlAzar()));
-    }
-    return { plan, conEmoji: plan.conEmoji, conEstirar: plan.conAlargada, emojiDe, palabraDe };
-  };
-  let { plan, conEmoji, conEstirar, emojiDe, palabraDe } = repartir(n);
-  const asignacion = angulos
-    .map(
-      (a, i) =>
-        // Historia de equipo (Mario, 20/10): el arranque forzado era lo que hacia las frases
-        // raras. Ahi se escribe como sale por WhatsApp.
-        `${i + 1}. ANGULO: ${a}. ${equipo ? 'ARRANQUE: el que te salga natural, como por WhatsApp.' : `ARRANQUE: empieza por ${arranques[i]}, y si asi no sale una frase natural, reordenala sin perder la gramatica.`} ${
-          conEstirar.has(i)
-            ? `LLEVA ESTA palabra alargada, tal cual y SOLO esta: "${palabraDe.get(i)!.toLowerCase()}", ${['como PRIMERA palabra del comentario, seguida de coma', 'dentro de la PRIMERA frase, en sus tres primeras palabras y justo antes de una coma'][Math.floor(Math.random() * 2)]} (Iker, 2026-09-18: nunca entre dos comas en mitad del texto ni en la segunda frase). Tiene que sonar a alguien que asiente, no a una palabra metida con calzador.`
-            : 'SIN palabras alargadas.'
-        } CIERRE: ${textoCierre(plan.cierres[i])}${conEmoji.has(i) ? `, y DESPUES este emoji: ${emojiDe.get(i)}` : ', SIN emoji'}.`
-    )
-    .join('\n');
+  const hablaDeLaCasa = /\bneety\b/.test(llanoPost);
 
-  const userMessage = `${profileContext}
+  const queToca = fase
+    ? `ESTE POST ES DE NUESTRO EVENTO. ${textoFase(fase)} Los ${n} van del evento: ${
+        fase.momento === 'despues' ? 'orgullo, enhorabuena o lo bien que salio' : 'suerte, ganas, que salga bien'
+      }, en primera persona del plural o hablandole a la persona. Nunca "vuestro", "habeis" ni "el equipo", que es hablar desde fuera. No digas que vas a ir ni que estuviste si el post no dice que fuimos todos.`
+    : equipo
+    ? `ESTA HISTORIA LA VIVIO EL EQUIPO ENTERO y los que comentan estaban. Complicidad de quien estuvo, como por WhatsApp: "Lo de las avispas en el baño fue surrealista", "Aún no me puedo creer que nos pasase eso jajaja", "Qué buen recuerdo aquella noche". Nada de reaccionar como quien se entera ahora, y nada de ventas: se comenta lo que paso.`
+    : hablaDeLaCasa
+    ? `ESTE POST HABLA DE NEETY, nuestra empresa. Los ${n} son de compañeros que se alegran por lo que ha conseguido la casa: orgullo, ilusion, ganas de lo que viene, el trabajo de todos que empieza a verse. Se puede decir "Neety" y "estamos", "juntos", "lo que queriamos construir". NO se repite lo que el post cuenta ni se explica el producto.`
+    : `ESTE POST NO VA DE NEETY SINO DE UN TEMA (una region, una idea de ventas, una anecdota). Los ${n} son de compañeros que apoyan al que lo ha escrito: se dice lo que te ha hecho sentir o pensar, sencillo y de tu a tu ("Qué bien contado lo de...", "Me ha gustado mucho lo de...", "Ojalá más gente lo viera así"). Como mucho UNO nombra un detalle del post, y dicho en corto. Nunca se repite la tesis del post ni se convierte en una leccion.`;
 
-POST AUTHOR: ${input.creatorName || 'Unknown'}${input.creatorHeadline ? ` — ${input.creatorHeadline}` : ''}
-POST LANGUAGE: ${detectedLang}
+  const system = `Escribes los ${n} comentarios de apoyo que el equipo de Neety pega debajo del post de LinkedIn de uno de sus jefes. Se los mandamos por el Google Chat interno a compañeros de ventas, finanzas, producto, programacion, atencion al cliente y marketing, y cada uno pega uno con su nombre.
 
-POST CONTENT:
+★ LA PREMISA: todo el mundo sabe que son del mismo equipo, y no se esconde. Es un compañero que se alegra por el de al lado y lo dice con naturalidad, como lo diria en voz alta en la oficina. No es un analista que comenta el post desde fuera.
+
+ASI SUENAN (escritos a mano por el equipo, para un post sobre Neety; son el TONO, no frases para copiar):
+${ASI_SUENAN.map((e) => `· ${e}`).join('\n')}
+
+Que tienen:
+- Dicen lo que SIENTEN (orgullo, ilusion, ganas, alegria, gusto), no lo que cuenta el post.
+- Hablan desde dentro: "estamos construyendo", "juntos", "lo que queriamos construir", "esta nueva etapa".
+- Frases simples, enteras y cortas, de una sola idea. Ninguna muletilla, ninguna palabra estirada, ningun truco.
+- Cero datos, cero nombres de terceros, cero explicacion de como funciona nada.
+- Acaban en punto o en un emoji calido. Ninguno con exclamacion forzada.
+
+ASI NO (salieron el mismo dia y se tumbaron):
+${ASI_NO.map(([c, por]) => `· "${c}" → ${por}`).join('\n')}
+
+Lo que delata a esos: hablan desde lejos, como si quien comenta no supiera de que va su propia empresa; resumen el producto o la tesis del post; sueltan una leccion; meten "Tal cual", "Perfectooo", "me quedo con lo de" para parecer espontaneos. El resultado es un apoyo falso y raro, que hace quedar mal a quien lo pega.
+
+REGLAS FIJAS:
+- En ${detectedLang}, español de España. Nada de "ahorita", "platicar", "ustedes", "qué lindo", "olvidaba". Nadie abre con "Vale".
+- Entre 35 y 80 caracteres, UNA linea, UNA frase. Varia un poco el largo entre los ${n}.
+- Ninguno es una pregunta. Ninguno empieza con comillas.
+- Nunca guion largo ni medio, nunca dos puntos, nunca coma justo antes de "y". Sin markdown.
+- Ninguna palabra estirada ("clarooo", "perfectooo", "cuaal").
+- Nunca se pone en duda lo que cuenta el post.
+- No inventes nada: ni cifras, ni nombres, ni vivencias concretas.
+- No nombres al autor ni hables de el en tercera persona ("él", "Unai lo ha clavado"). Se habla de lo que ha pasado, o se le habla de tu.
+- Nada de registro de informe ("demuestra que", "pone en valor", "ecosistema", "cabe destacar").
+- Nada de superlativos de broma ("épico", "leyenda", "me muero") ni sarcasmo.
+- Los ${n} empiezan con palabras distintas: los pegan personas distintas en el mismo hilo.
+
+Devuelve SOLO un JSON: { "comments": ["...", ...] } con exactamente ${n}.`;
+
+  let conEmoji = conQueEmoji(n);
+  const userMessage = `AUTOR DEL POST: ${input.creatorName || 'uno de los jefes'}
+PILAR: ${input.pillar || 'sin etiquetar'}
+
+POST:
 ${safePostContent}
 
-═══ ASIGNACION DE ESTA TANDA (no es un menu, es el reparto) ═══
-${asignacion}
-═══════════════════════════════════════════════════════════════
-⛔ Si el angulo pide algo que este post no trae, usa OTRO detalle concreto del post, nunca su idea central.
-${peloteo ? `
-★ ESTE POST ES UN PELOTEO REGIONAL, y su tesis YA LA DICE EL POST: que a esa region no la ve nadie, que trabaja en silencio, que pasa desapercibida, que no sale en titulares ni folletos, que se ve desde la autovia o la ventanilla, que esta fuera del radar o lejos de los focos. COMO MUCHO UNO de los ${n} puede rozar esa idea. Los demas van a lo concreto de su angulo: una empresa de la lista, un producto de casa con su pueblo, una costumbre, la gente, el dato.
-` : ''}${input.pillar === 'historia_evento' && !equipo ? `
-★ ESTE POST ES UNA HISTORIA CUYA ESCENA ES NUESTRO EVENTO (pilar historia/evento, Iker 2026-10-15). Se comenta como una HISTORIA: cada uno reacciona a un detalle de lo que cuenta (una frase, una persona, lo que hizo o dijo), no al evento. COMO MUCHO UNO de los ${n} nombra el evento, y entero ("Neety Forward"), con orgullo humilde. ⛔ Nadie narra el evento como si lo hubiera vivido ("fue el mejor momento de la sesión", "en directo", "lo vivimos") ni le pone notas: no consta quién fue, y suena falso.
-` : ''}${equipo ? `
-★ ESTA HISTORIA LA VIVIO EL EQUIPO ENTERO Y LOS QUE COMENTAN ESTABAN AHI (Mario, 2026-10-20). Todos saben de que va: nada de reaccionar como quien se entera ("me ha dejado sin palabras", "no me lo esperaba"). Se comenta LA ESCENA, como se le escribiria a un compañero por WhatsApp, con la complicidad de quien lo vivio y sin añadir ningun detalle que el post no cuente. ASI SUENAN (los propone Mario, 20/10): "Lo de las avispas en el baño fue surrealista", "Historias para no dormir", "Aún no me puedo creer que nos pasase eso jajaja", "Lo de esa noche fue brutal". Frases enteras, fluidas, de España, ni prosa ni telegrama. ⛔ NADIE comenta COMO esta escrito el post (que "hila" la anecdota con ventas, la comparacion, la metafora, el gancho): eso le desvela al que lee la estrategia. Ni una palabra de ventas, listas o clientes: se comenta lo que paso. Esto manda sobre "NEVER OUT YOURSELVES" solo para la escena compartida: el "nosotros" vale para lo que vivisteis, nunca para hablar en nombre de la empresa ni de lo que vende.
-` : ''}${fase ? `
-★ ESTE POST ES DE NUESTRO EVENTO (Iker, 2026-09-24). Los ${n} comentarios van del evento. ${textoFase(fase)} Un comentario que solo reflexiona sobre la idea del post y no nombra ni el evento, ni el orgullo, ni las ganas NO VALE. Los pegan compañeros de la misma empresa: nunca "vuestro", "habéis", "contáis" ni "el equipo"; el evento en primera persona del plural o hablandole a la persona.
-` : ''}
-TASK: Write exactly ${n} supportive comments, each between 40 and 80 chars (hard cap ${LARGO_MAX_CHAT}), ONE line and ONE sentence each, all in ${detectedLang}. No risky takes — these go to colleagues who don't want to dent their professional image. Cada comentario respeta EL ANGULO, EL ARRANQUE Y EL CIERRE de su numero.
+═══ QUE TOCA ═══
+${queToca}
 
-Return JSON only: { "comments": ["...", "..."] }`;
+EMOJI: lo llevan SOLO los comentarios ${[...conEmoji].map((i) => i + 1).join(' y ')}, uno al final y sin punto delante (de estos: ${EMOJIS_CHAT.join(' ')}). Los demas acaban en punto.
 
-  // EL GUARDARRAIL, porque un prompt es una peticion y no una garantia. Es la
-  // leccion que `replyGenerator` lleva escrita cuatro veces (las anecdotas, los
-  // dos puntos, las letras triples, el sorteo de aperturas): lo que no se
-  // comprueba, no se cumple.
-  //
-  // Se miran las APERTURAS (formula de IA, dos que empiezan igual), y desde el
-  // 2026-10-01 tambien el CONTENIDO y el REGISTRO: la misma idea en varios
-  // (`familiaEnTanda`), el comentario vacio, el tono de informe y, si el
-  // evento ya paso, la suerte en futuro.
-  //
-  // Tres intentos y no dos desde el 01/10: con los chequeos de contenido el
-  // segundo se quedaba corto, y esto se genera una o dos veces al dia. Si el
-  // tercero sigue flojo se devuelve igual, porque los pega una persona que
-  // puede editarlos antes de publicar.
+Escribe los ${n}. JSON solo.`;
+
+  const fallos = (c: string, i: number): string | null =>
+    detectarAperturaGenerica(c) ||
+    (criticaNuestroPost(c) ? 'pone en duda nuestro propio post' : null) ||
+    (aperturaHueca(c) ? 'abre con peloteo hueco' : null) ||
+    (c.replace(/\p{Extended_Pictographic}️?/gu, '').trim().length < 30 ? 'demasiado corto, no dice nada' : null) ||
+    (c.length > LARGO_MAX_CHAT ? `mide ${c.length} caracteres y no cabe en una linea (maximo 80)` : null) ||
+    (fichaOLeccion(c) ? `"${fichaOLeccion(c)}" es resumir el post, explicar el producto o soltar una leccion: di lo que sientes como compañero` : null) ||
+    (copiaElEjemplo(c) ? 'copia uno de los ejemplos: el tono si, la frase no' : null) ||
+    (contarEstiradas(c) > 0 ? 'lleva una palabra estirada, y no pega' : null) ||
+    (cifraNueva(c, safePostContent) ? `da una cifra que no esta en el post ("${cifraNueva(c, safePostContent)}")` : null) ||
+    (nombreAjeno(c, safePostContent, '', [input.creatorName]) ? `nombra "${nombreAjeno(c, safePostContent, '', [input.creatorName])}", que no sale en el post` : null) ||
+    (registroFormal(c) ? `suena a informe ("${registroFormal(c)}")` : null) ||
+    (inglesColado(c, safePostContent) ? `se cuela una palabra en ingles ("${inglesColado(c, safePostContent)}")` : null) ||
+    (abreConVale(c) ? 'abre con "vale"' : null) ||
+    (latinismo(c) ? `suena a español de America ("${latinismo(c)}")` : null) ||
+    (eventoRecortado(c) ? 'recorta el nombre del evento: "Neety Forward" entero' : null) ||
+    (exageraDeBroma(c) ? `exagera como en una parodia ("${exageraDeBroma(c)}")` : null) ||
+    (desvelaLaEstrategia(c) ? `comenta como esta escrito el post ("${desvelaLaEstrategia(c)}")` : null) ||
+    (confiesaElDolor(c) ? `confiesa como suyo el problema que vende la casa ("${confiesaElDolor(c)}")` : null) ||
+    (concordanciaRota(c) ? `concordancia rota ("${concordanciaRota(c)}")` : null) ||
+    (!fase && autorPorSuNombre(c, input.creatorName) ? `nombra al autor ("${autorPorSuNombre(c, input.creatorName)}")` : null) ||
+    (equipo && sorpresaDeQuienEstuvo(c) ? `reacciona como si se enterara ahora ("${sorpresaDeQuienEstuvo(c)}")` : null) ||
+    (/[¿?]/.test(c) ? 'es una pregunta' : null) ||
+    (/[—–:]/.test(c) ? 'lleva guion largo o dos puntos' : null) ||
+    (comillasDeArranque(c) !== null ? 'empieza con comillas' : null) ||
+    (eventoInventado(c) ? 'se inventa como es el evento' : null) ||
+    (fase?.momento === 'despues' && suerteFutura(c) ? `el evento ya paso y habla en futuro ("${suerteFutura(c)}")` : null) ||
+    (fase?.momento === 'despues' && !fase.juntos && afirmaQueEstuvo(c) ? `dice que estuvo ("${afirmaQueEstuvo(c)}") y no consta` : null) ||
+    (fase && eventoDesdeFuera(c) ? 'habla del evento como alguien de fuera (vuestro, habeis, el equipo)' : null) ||
+    (fase && !(fase.momento === 'despues' ? apoyaEventoPasado(c) : apoyaElEvento(c) || apoyaEventoPasado(c))
+      ? 'el post es del evento y el comentario no lo apoya'
+      : null) ||
+    null;
+
   let out: string[] = [];
   let reproche = '';
   let inventados: { i: number; que: string }[] = [];
-  // Lo que medira en el Chat: si le toca alargada y no la trae, el codigo le
-  // antepondra una (~9 caracteres), y eso tambien cuenta para la linea.
-  const largoChat = (c: string, i: number) => c.length + (conEstirar.has(i) && contarEstiradas(c) === 0 ? 9 : 0);
-
   for (let intento = 1; intento <= 3; intento++) {
     const response = await trackedCreate('comment_generator_supportive', {
       model: 'claude-sonnet-4-6',
-      max_tokens: 1024,
+      max_tokens: 800,
       system,
       messages: [{ role: 'user', content: userMessage + reproche }],
     });
-
     const text = response.content
       .filter((block): block is Anthropic.TextBlock => block.type === 'text')
       .map((block) => block.text)
       .join('');
-
-    // ⛔ EL JSON SE BUSCA, NO SE SUPONE (prueba del 01/10): 2 de 6 tandas de
-    // "Las 10" salieron VACIAS con "Unexpected token 'I', "I need to"...": en
-    // el reintento el modelo explica antes de devolver el JSON, el JSON.parse
-    // lanzaba y el aviso de Google Chat salia sin comentarios. Se coge del
-    // primer "{" al ultimo "}", y si aun asi no se lee, se gasta otro intento
-    // en vez de tirar la tanda.
     const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     let parsed: { comments?: unknown } | null = null;
     try {
@@ -676,236 +649,58 @@ Return JSON only: { "comments": ["...", "..."] }`;
       console.warn(`[commentGenerator] intento ${intento}/3 sin JSON legible: ${cleaned.slice(0, 80)}`);
       if (intento === 3 && out.length === 0) throw new Error('Supportive generator returned no readable comments');
       if (intento < 3) {
-        reproche += `\n\nDEVUELVE SOLO EL JSON { "comments": [...] }, sin ninguna palabra antes ni despues.`;
+        reproche = `\n\nDEVUELVE SOLO EL JSON { "comments": [...] }, sin ninguna palabra antes ni despues.`;
         continue;
       }
       break;
     }
     out = leidos;
 
-    const apoyaSegunFase = (c: string): boolean =>
-      !fase ||
-      (fase.momento === 'despues'
-        ? apoyaEventoPasado(c)
-        : fase.momento === 'desconocido'
-        ? apoyaElEvento(c) || apoyaEventoPasado(c)
-        : apoyaElEvento(c));
-    const genericas = out
-      .map((c, i) => ({
-        c,
-        que:
-          detectarAperturaGenerica(c) ||
-          (criticaNuestroPost(c) ? 'deja mal a nuestra propia publicacion' : null) ||
-          (aperturaHueca(c) ? 'peloteo hueco de apertura' : null) ||
-          comentarioVacio(c) ||
-          (largoChat(c, i) > LARGO_MAX_CHAT ? `mide ${c.length} caracteres y el tope es ${LARGO_MAX_CHAT}: tiene que caber en UNA linea del Chat, quita una idea` : null) ||
-          (cifraNueva(c, safePostContent) ? `da una cifra que no esta en el post ("${cifraNueva(c, safePostContent)}")` : null) ||
-          (nombreAjeno(c, safePostContent, '', [input.creatorName])
-            ? `nombra "${nombreAjeno(c, safePostContent, '', [input.creatorName])}", que no sale en el post: del post, solo lo que pone`
-            : null) ||
-          (registroFormal(c) ? `suena a informe ("${registroFormal(c)}"): dilo como se habla` : null) ||
-          (inglesColado(c, safePostContent) ? `se cuela una palabra en ingles ("${inglesColado(c, safePostContent)}")` : null) ||
-          (nombraLaCasa(c) ? 'nombra a Neety, y quien lo pega trabaja alli: nunca se nombra la casa' : null) ||
-          (abreConVale(c) ? 'abre con "vale", y nadie abre asi un comentario' : null) ||
-          (latinismo(c) ? `suena a español de America ("${latinismo(c)}"): en español de España` : null) ||
-          (eventoRecortado(c) ? 'recorta el nombre del evento: se escribe entero, "Neety Forward"' : null) ||
-          (exageraDeBroma(c) ? `exagera como en una parodia ("${exageraDeBroma(c)}"): apoyo natural y humilde` : null) ||
-          (desvelaLaEstrategia(c) ? `comenta como esta montado el post ("${desvelaLaEstrategia(c)}") y eso desvela la estrategia: comenta lo que cuenta, no como lo cuenta` : null) ||
-          (confiesaElDolor(c) ? `confiesa como suyo el problema que vende la casa ("${confiesaElDolor(c)}"): comenta la historia, el dolor es del sector` : null) ||
-          (alargadaTrasNo(c) ? `"${alargadaTrasNo(c)}" suena a burla: nunca una alargada detras de "no"` : null) ||
-          (concordanciaRota(c) ? `concordancia rota ("${concordanciaRota(c)}")` : null) ||
-          // 20/10 (Mario): "Iker lo no sé qué", "nadie hila… como Iker": hablar del autor en
-          // tercera persona y con su nombre, debajo de su propio post, suena raro. Fuera de un
-          // evento (donde "Mucha suerte hoy Unai" si se quiere), el nombre del autor no sale.
-          (!fase && autorPorSuNombre(c, input.creatorName) ? `nombra al autor ("${autorPorSuNombre(c, input.creatorName)}") y habla de el en tercera persona: se comenta la historia o se le habla de tu, sin su nombre` : null) ||
-          (equipo && sorpresaDeQuienEstuvo(c) ? `reacciona como si se enterara ahora ("${sorpresaDeQuienEstuvo(c)}") y estuvo ahi: complicidad de quien lo vivio` : null) ||
-          (input.pillar === 'historia_evento' && !equipo && afirmaQueEstuvo(c) ? `narra el evento como si hubiera estado ("${afirmaQueEstuvo(c)}")` : null) ||
-          (/[¿?]/.test(c) ? 'es una pregunta, y ninguno puede serlo' : null) ||
-          (comillasDeArranque(c) !== null ? 'empieza con comillas, que parece escrito por una IA' : null) ||
-          (eventoInventado(c) ? 'se inventa lo que se hace en el evento o sus condiciones: del evento solo se dice lo que pone el post' : null) ||
-          (fase?.momento === 'despues' && suerteFutura(c) ? `el evento YA HA PASADO y habla en futuro ("${suerteFutura(c)}")` : null) ||
-          (fase?.momento === 'despues' && !fase.juntos && afirmaQueEstuvo(c) ? `dice que estuvo ("${afirmaQueEstuvo(c)}") y no consta que fueran todos` : null) ||
-          (!apoyaSegunFase(c)
-            ? fase?.momento === 'despues'
-              ? 'el post es del evento, que ya paso, y no dice el orgullo, la enhorabuena ni lo recuerda'
-              : 'el post es del evento y no le desea suerte ni dice las ganas que tiene'
-            : null) ||
-          (fase && eventoDesdeFuera(c) ? 'habla del evento como alguien de fuera (vuestro, habeis, el equipo)' : null) ||
-          (asentimientosAlPrincipio(c) >= 2 ? 'abre con varias palabras de asentir seguidas: deja una' : null) ||
-          (incisoDeAsentir(c) ? `mete "${incisoDeAsentir(c)}" como inciso suelto en mitad` : null) ||
-          (alargadaFueraDeSitio(c) ? `la palabra alargada "${alargadaFueraDeSitio(c)}" va en un sitio que no vale: primera palabra o antes de la primera coma tras "pues"` : null) ||
-          (conEstirar.has(i) && contarEstiradas(c) === 0 && !tieneReaccion(c)
-            ? `le tocaba la palabra alargada "${palabraDe.get(i)}" y no la lleva`
-            : null),
-      }))
-      .filter((x) => x.que);
-    // UNA LINEA MEJOR QUE DOS (Iker, 2026-09-16): en la prueba, 3 de 5 salieron
-    // con la forma "frase. frase.", que leida en fila es una plantilla.
-    const conDosFrases = out.filter((c) => (c.match(/[.!?…](\s|$)/g) || []).length >= 2).length;
+    const malos = out.map((c, i) => ({ c, que: fallos(c, i) })).filter((x) => x.que) as { c: string; que: string }[];
     const vistas = new Map<string, number>();
-    for (const c of out) {
-      const dos = primerasDos(c);
-      vistas.set(dos, (vistas.get(dos) || 0) + 1);
-    }
-    const repetidas = [...vistas.entries()].filter(([, veces]) => veces > 1).map(([k]) => k);
-
-    if (conDosFrases > 2) {
-      genericas.push({ c: `${conDosFrases} de ${n}`, que: 'demasiados con dos frases: como mucho dos, los demas en UNA linea' } as any);
-    }
-    // LA MISMA IDEA EN VARIOS (Iker, 2026-10-01): uno puede rozar la tesis, dos no.
+    for (const c of out) vistas.set(primerasDos(c), (vistas.get(primerasDos(c)) || 0) + 1);
+    const repetidas = [...vistas.entries()].filter(([, v]) => v > 1).map(([k]) => k);
     const familia = familiaEnTanda(out);
-    if (familia) {
-      genericas.push({ c: `${familia.veces} de ${n}`, que: `repiten la misma idea (${familia.nombre}): como mucho UNO, los demas van a lo concreto de su angulo` } as any);
-    }
-    // EL MISMO DETALLE EN DOS (prueba del 01/10: "Kenia, 26 veces" en dos de cinco).
-    const detalle = detalleRepetidoEnTanda(out, [input.creatorName]);
-    if (detalle) {
-      genericas.push({ c: detalle, que: `dos comentarios se agarran al mismo detalle ("${detalle}"): cada uno a una parte DISTINTA del post` } as any);
-    }
-    // EL JUEZ DE INVENTOS, solo cuando lo demas ya pasa (o en el ultimo
-    // intento): es una llamada mas y no se gasta en una tanda que se va a
-    // rehacer igualmente.
+    if (familia) malos.push({ c: `${familia.veces} de ${n}`, que: `repiten la misma idea (${familia.nombre})` });
+
     inventados = [];
-    if ((genericas.length === 0 && repetidas.length === 0) || intento === 3) {
+    if ((malos.length === 0 && repetidas.length === 0) || intento === 3) {
       inventados = await juezDeTanda(out, safePostContent);
-      for (const x of inventados) {
-        genericas.push({ c: out[x.i] || '', que: `afirma algo que el post no dice (${x.que}): del post, solo lo que pone; de quien comenta, nada que no se pueda decir de cualquiera` } as any);
-      }
+      for (const x of inventados) malos.push({ c: out[x.i] || '', que: `afirma algo que el post no dice (${x.que})` });
     }
-    if ((genericas.length === 0 && repetidas.length === 0) || intento === 3) {
-      if (genericas.length || repetidas.length) {
-        console.warn(
-          `[commentGenerator] la tanda de apoyo sale con ${genericas.length} fallo(s) y ${repetidas.length} apertura(s) repetida(s) tras 3 intentos, se devuelve igual: ${genericas.map((x) => x.que).join(' | ')}`
-        );
+    if ((malos.length === 0 && repetidas.length === 0) || intento === 3) {
+      if (malos.length || repetidas.length) {
+        console.warn(`[commentGenerator] la tanda de apoyo sale con ${malos.length} fallo(s) tras 3 intentos: ${malos.map((x) => x.que).join(' | ')}`);
       }
       break;
     }
-
     const partes: string[] = [];
-    if (genericas.length) {
-      partes.push(
-        `fallan estos: ${genericas
-          .map((x) => `"${x.c.slice(0, 40)}" (${x.que})`)
-          .join(', ')}`
-      );
-    }
-    if (repetidas.length) {
-      partes.push(`empiezan con las mismas dos palabras: ${repetidas.map((r) => `"${r}"`).join(', ')}`);
-    }
-    reproche = `\n\nEL INTENTO ANTERIOR NO VALE porque ${partes.join(' y ')}. Reescribe LOS ${n} arreglando los que fallan y respetando el angulo, el arranque y el cierre asignados a cada numero. Los publican personas distintas en el mismo hilo, asi que dos parecidos los delatan a todos.`;
+    if (malos.length) partes.push(`fallan estos: ${malos.map((x) => `"${x.c.slice(0, 50)}" (${x.que})`).join(', ')}`);
+    if (repetidas.length) partes.push(`empiezan igual: ${repetidas.map((r) => `"${r}"`).join(', ')}`);
+    reproche = `\n\nEL INTENTO ANTERIOR NO VALE porque ${partes.join(' y ')}. Reescribe los ${n}, con el tono de los ejemplos que si encajan.`;
     console.warn(`[commentGenerator] intento ${intento}/3 descartado: ${partes.join(' y ')}`);
   }
 
-  // Lo que se garantiza en codigo, sin gastar otra llamada: una sola palabra
-  // alargada por comentario, el emoji y el cierre que le tocaron.
-  // Antes de limitar: si no, la alargada mal puesta se queda huerfana (18/09).
-  // ⛔ LO QUE A LA TERCERA SIGUE INVENTANDO, PRIMERO SE REPARA (ronda 3 del
-  // 01/10: 3 de 9 tandas salian con 4 al quitar el inventado, y el equipo
-  // necesita 5 lineas). UNA llamada que reescribe solo esos, viendo los que
-  // valen para no repetirlos, y vuelve a pasar por el juez.
-  // Y LO QUE A LA TERCERA SIGUE SIN CABER EN UNA LINEA, IGUAL (ronda 5 del
-  // 01/10: 6 de 60 pasaban de la linea). Misma llamada, motivo distinto.
-  const largos = out.map((c, i) => ({ i, que: `mide ${largoChat(c, i)} caracteres y no cabe en una linea: maximo 80` })).filter((x) => largoChat(out[x.i], x.i) > LARGO_MAX_CHAT);
-  // Y el que a la tercera sigue nombrando a Neety, tambien (01/10).
-  const conCasa = out.map((c, i) => ({ i, que: 'nombra a Neety, y quien lo pega trabaja alli: no la nombres' })).filter((x) => nombraLaCasa(out[x.i]));
-  const aReparar = [...inventados, ...largos, ...conCasa].filter((x, k, arr) => arr.findIndex((y) => y.i === x.i) === k);
-  if (aReparar.length) {
-    const malos = [...new Set(aReparar.map((x) => x.i))].sort((a, b) => a - b);
-    const buenos = out.filter((_, i) => !malos.includes(i));
-    try {
-      const r = await trackedCreate('comment_generator_supportive_fix', {
-        model: 'claude-sonnet-4-6',
-        max_tokens: 600,
-        system,
-        messages: [{
-          role: 'user',
-          content: `${userMessage}\n\nYA TIENES ESTOS, QUE VALEN (no repitas su idea ni su detalle):\n${buenos.map((b) => `· ${b}`).join('\n')}\n\nREESCRIBE SOLO ESTOS, cada uno por lo que FALLABA. Del post, solo lo que pone; de quien comenta, nada que no se pueda decir de cualquiera; y entre 40 y 80 caracteres:\n${malos
-            .map((i) => `${i + 1}. ANGULO: ${angulos[i]}. CIERRE: ${textoCierre(plan.cierres[i])}. FALLABA: ${aReparar.find((x) => x.i === i)!.que}`)
-            .join('\n')}\n\nDevuelve SOLO el JSON { "comments": [...] } con ${malos.length}, en ese orden.`,
-        }],
-      });
-      const t = r.content.filter((b): b is Anthropic.TextBlock => b.type === 'text').map((b) => b.text).join('');
-      const nuevos = ((JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1)) as { comments?: unknown }).comments as unknown[] || [])
-        .filter((c): c is string => typeof c === 'string')
-        .map((c) => c.trim());
-      const otraVez = new Set((await juezDeTanda(nuevos, safePostContent)).map((x) => x.i));
-      malos.forEach((i, k) => {
-        const c = nuevos[k];
-        if (c && !otraVez.has(k) && !comentarioVacio(c) && !nombraLaCasa(c) && largoChat(c, i) <= LARGO_MAX_CHAT && !cifraNueva(c, safePostContent) && !nombreAjeno(c, safePostContent, '', [input.creatorName])) {
-          out[i] = c;
-          inventados = inventados.filter((x) => x.i !== i);
-        }
-      });
-    } catch (err: any) {
-      console.warn('[commentGenerator] la reparacion de la tanda ha fallado:', err?.message);
-    }
-  }
-  // ⛔ Y lo que ni reparado deja de inventar NO se entrega: mejor cuatro
-  // comentarios que uno con un dato falso sobre una empresa real que un
-  // compañero firma con su nombre (innegociable de la casa).
+  // Lo que a la tercera sigue inventando no se entrega, si quedan al menos tres:
+  // un dato falso firmado por un compañero es peor que una linea menos.
   if (inventados.length && out.length - inventados.length >= 3) {
     const fuera = new Set(inventados.map((x) => x.i));
-    console.warn(`[commentGenerator] se quitan ${fuera.size} comentario(s) que inventan: ${inventados.map((x) => x.que).join(' | ')}`);
     out = out.filter((_, i) => !fuera.has(i));
-    // Las posiciones se mueven al quitar uno: plan nuevo para que dos emojis
-    // no queden seguidos.
-    ({ plan, conEmoji, conEstirar, emojiDe, palabraDe } = repartir(out.length));
+    conEmoji = conQueEmoji(out.length);
   }
-  const limpios = out.map((c) => {
-    const base = pulirComentario(quitarExactamente(ponerTildesSeguras(quitarComaAntesDeY(limitarEstiradas(quitarIncisosSueltos(recortarEventoInventado(c)))))));
-    // Si a la tercera sigue deseando suerte a un evento que ya paso, se quita
-    // esa frase: es un error de hecho, no de estilo.
-    return fase?.momento === 'despues' ? quitarFraseFutura(base) : base;
-  });
-  // La alargada: primero donde el modelo dejo una palabra de reaccion en su
-  // sitio; solo si no, se antepone. Y nunca delante de una primera persona
-  // (Google Chat 18/09: "Pues exactooo, yo, sin ese contexto…").
-  const anteponible = (t: string) => !/^\s*(yo|me|mi|lo veo|nosotros|a mi)\b/i.test(t);
-  // Y nunca dos que abran con la misma alargada (prueba del 01/10: dos
-  // "Perfectooo," en la misma tanda tras quitar un comentario inventado).
-  const baseAlargada = (t: string) => {
-    const w = (t.match(/\p{L}+/gu) || []).find(esEstirada);
-    return w ? desestirarTodo(w).toLowerCase() : null;
-  };
-  const usadas = new Set(limpios.map(baseAlargada).filter(Boolean) as string[]);
-  const palabraLibre = (i: number) => {
-    const p = palabraDe.get(i);
-    if (p && !usadas.has(desestirarTodo(p).toLowerCase())) return p;
-    return ALARGADAS_SUELTAS.find((w) => !usadas.has(desestirarTodo(w).toLowerCase())) || p;
-  };
-  const conAlargada = limpios.map((r, i) => {
-    // Las vocales solo donde tocan: si el modelo alarga una que no, se quita,
-    // para que nunca queden dos seguidas (Iker, 01/10).
-    if (!conEstirar.has(i)) return desestirarTodo(r);
-    const suave = estirarUna(r, letrasAlAzar());
-    if (contarEstiradas(suave) > 0) return suave;
-    if (!anteponible(r)) return r;
-    const forzada = conservarMayuscula(forzarEstirada(r, letrasAlAzar(), palabraLibre(i)), r, safePostContent);
-    const b = baseAlargada(forzada);
-    if (b) usadas.add(b);
-    return forzada;
-  });
-  // Al menos DOS en la tanda (Iker, 2026-10-01: "que alguna más tenga más
-  // vocales"): si las asignadas no pudieron, se busca otra que la admita.
-  // Y la que se añade va en un hueco que no toque a otra: nunca dos seguidas.
-  for (let falta = 2 - conAlargada.filter((r) => contarEstiradas(r) > 0).length; falta > 0; falta--) {
-    const ocupadas = conAlargada.map((r, k) => (contarEstiradas(r) > 0 ? k : -9)).filter((k) => k >= 0);
-    const huecos = huecosAlargada(ocupadas, conAlargada.length);
-    const j = huecos.find((k) => contarEstiradas(estirarUna(conAlargada[k], 2)) > 0) ?? -1;
-    const k = j >= 0 ? j : huecos.find((k2) => anteponible(conAlargada[k2])) ?? -1;
-    if (k < 0) break;
-    conAlargada[k] = j >= 0 ? estirarUna(conAlargada[k], letrasAlAzar()) : forzarEstirada(conAlargada[k], letrasAlAzar(), [...palabraDe.values()][0]);
-  }
-  // DOS Y TRES VOCALES EN LA MISMA TANDA, DECIDIDO EN CODIGO (Iker, 15/10: "no
-  // metas siempre tres vocales, a veces mete dos... quiero variedad"). En la
-  // primera prueba con la palabra ya sorteada a 2 o 3, el modelo la reescribio
-  // con tres en las tres tandas ("Justooo", "Tal cuaaal", "Geniaaal"). Lo que no
-  // se comprueba no se cumple: aqui se alternan, empezando al azar.
-  const alternadas = alternarVocales(conAlargada.map(moverAlVerbo));
-  return alternadas.map((r, i) => {
-    // Al final, ni coma ni mayuscula detras de la alargada (Iker, 01/10).
-    const cerrado = caberEnLinea(pulirTrasAlargada(pulirComentario(aplicarCierre(quitarEmojis(r), plan.cierres[i])), safePostContent, [input.creatorName]));
-    return conEmoji.has(i) ? ponerEmojiAlFinal(cerrado, emojiDe.get(i)) : cerrado;
+
+  // En codigo, sin otra llamada: sin estiradas, sin coma antes de "y", tildes,
+  // y el emoji solo en los que tocan, al final y sin punto delante.
+  return out.map((c, i) => {
+    let t = pulirComentario(quitarExactamente(ponerTildesSeguras(quitarComaAntesDeY(desestirarTodo(recortarEventoInventado(c))))));
+    if (fase?.momento === 'despues') t = quitarFraseFutura(t);
+    const suEmoji = (t.match(/\p{Extended_Pictographic}/u) || [])[0];
+    t = quitarEmojis(t).replace(/\s+/g, ' ').trim();
+    if (conEmoji.has(i)) {
+      const e = suEmoji && EMOJIS_CHAT.includes(suEmoji) ? suEmoji : EMOJIS_CHAT[Math.floor(Math.random() * EMOJIS_CHAT.length)];
+      return `${t.replace(/[.…]+$/u, '').trimEnd()} ${e}`;
+    }
+    return /[.!…]$/u.test(t) ? t : `${t}.`;
   });
 }
 

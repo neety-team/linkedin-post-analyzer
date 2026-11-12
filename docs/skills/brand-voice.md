@@ -923,6 +923,22 @@ Para comentar en posts ajenos (feature Network), la herramienta genera 9 ángulo
 
 ### 7.2b · Los 5 comentarios de apoyo de Google Chat (Iker, 2026-07-29)
 
+#### ⛔⛔ 7.2b-DENTRO · LOS PEGAN COMPAÑEROS, SE NOTA Y NO SE ESCONDE (2026-11-12, manda sobre todo lo de abajo que lo contradiga)
+Hasta el 12/11 el generador partía de que cada comentario era "un contacto normal que no se delata". De ahí salía el tono raro: anclar cada uno a un detalle del post, resumir el producto o la tesis, soltar una lección de ventas, no nombrar a Neety y meter alargadas y exclamaciones forzadas para "sonar humano". Se lee como alguien de fuera con un apoyo falso, y deja mal a quien lo pega.
+
+**La premisa nueva, para TODOS los pilares:** quien comenta es un compañero de Neety (ventas, finanzas, producto, programación, atención al cliente, marketing) y todo el mundo lo sabe. Dice lo que **siente** (orgullo, ilusión, ganas, alegría), no lo que cuenta el post. Frases simples, enteras, de una idea y de 35 a 80 caracteres.
+
+**Así suenan** (escritos a mano para el post del Demo Day, son el tono y no plantillas): `Orgulloso de ver todo lo que estamos construyendo juntos 🙌` · `Muchísima ilusión por esta nueva etapa de Neety.` · `Da gusto ver cómo tantos meses de trabajo empiezan a salir fuera.` · `Con muchas ganas de todo lo que viene ahora 🚀` · `Feliz de ver cómo cada vez Neety se parece más a lo que queríamos construir.`
+
+**Así no** (salieron el mismo día): `Tal cuaal me quedo con lo de que la herramienta aprende…` (muletilla y ficha del producto) · `Nada entra sin que él lo apruebe…` (función del producto, autor en tercera persona) · `ICEX y Red.es eligiendo proyectos así…` (analista de fuera) · `El comercial que va a ciegas pierde tiempo…` (lección de anuncio).
+
+**Qué cambia en el código (`generateSupportiveComments`):**
+- **Se acaban** la alargada obligatoria, el cierre sorteado con exclamación, el ángulo y el arranque asignados por comentario y el veto a nombrar a Neety. Las alargadas se quitan en código.
+- **Según el post:** si habla de Neety, orgullo e ilusión desde dentro (`estamos`, `juntos` valen); si va de un tema (región, idea de ventas), apoyo sencillo al que lo escribe, como mucho uno nombra un detalle; evento e historia de equipo siguen con sus reglas (suerte o orgullo según cuándo; complicidad de quien estuvo).
+- **Fallo nuevo, `fichaOLeccion`:** resumir el producto, sentar cátedra o arrancar con `tal cual` / `me quedo con` / `perfecto`. Y `copiaElEjemplo`: el tono de los ejemplos sí, sus frases no.
+- **Sigue en pie:** sin preguntas, guiones largos, dos puntos ni coma antes de "y"; nada inventado (juez de la tanda); nunca dudar del post; español de España; nada de registro de informe; aperturas distintas; dos (a veces uno o tres) con emoji, al final y nunca seguidos.
+- Prueba: `backend/src/scripts/testComentariosChat.ts`.
+
 #### ⛔⛔ 7.2b-ADULTO · APOYO DE ADULTO, Y SI LA HISTORIA LA VIVIÓ EL EQUIPO, COMPLICIDAD DE QUIEN ESTUVO (Mario, 2026-10-20)
 > **Captura del Chat, historia de las avispas de Iker:** `Menudo detalle lo de mirar antes de correr, lo aplico ya a las listas 😄` · `Lo de la avispas asiáticas en el baño me ha dejado sin palabras 🔥` · `No clarooo contarlo con la barbacoa…` · `A mí me ha pasado llamar a quien no tocaba una vez a la semana al menos 👌`. Mario: *"suenan muy infantiles o muy sarcásticos, como que le están vacilando… parecemos tontos… todos formamos parte de esta publicación"*.
 

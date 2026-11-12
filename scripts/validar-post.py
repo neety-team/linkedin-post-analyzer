@@ -4973,6 +4973,13 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'GARANTIA: Claude nombrado en el GANCHO (§4.5.0a)',
             'los 5 lead magnets nuestros con Claude pasaron de 100 comentarios; los que no '
             'lo llevan se quedan en 20 de mediana. Va en la PRIMERA linea, no solo en el cuerpo')
+        # 12/11: contradiccion resuelta con datos. §4.5.0-BUENOS-CONTRA-MALOS (05/11) decia "dolor o
+        # cifra propia" en el gancho; el remedido del 11/11 (44 lead magnets de fuera) da MENOS cifras
+        # en los que vuelan (33% contra 43%) y §4.5.0a ya pedia cero. La cifra de prueba va debajo.
+        _cif_lm = re.findall(r'\d[\d.,]*', hook_txt)
+        chk(not _cif_lm, 'LEAD MAGNET: gancho sin cifras, la de prueba va debajo (§4.5.0a)',
+            f'{_cif_lm} en el gancho. Los que vuelan llevan menos cifras (33% contra 43%, 11/11): la cifra '
+            'de prueba, si es real, va en la linea de debajo' if _cif_lm else '', aviso=True)
         # ⭐ 2026-08-05, Iker: yo tenia esto como DOS moldes rivales y basta-con-uno.
         # Es falso. Los 5 lead magnets nuestros de Claude, por comentarios:
         #   632c  🚨 ÚLTIMA HORA: Claude ACABA DE MATAR el cold outbound       <- los dos

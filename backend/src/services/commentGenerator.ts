@@ -475,7 +475,9 @@ const ASI_NO = [
 
 // Lo que delata el registro de "los de fuera": resumir el producto, sentar
 // catedra o arrancar con una muletilla de quien recoge la frase del post.
-const FICHA_O_LECCION = /(la herramienta|la plataforma|el producto|el software|la ia que|aprende con|actua sola|lo apruebe|el comercial que|los comerciales que|las empresas que|empresas que nunca|quien no |el que no |es justo lo que necesita|lo que necesita (la|el) (industria|sector|mercado)|eso lo cambia todo|lo cambia todo|(que|por) rascar|mucho mercado|oportunidad(es)? (en|aqui|ahi)|clientes potenciales)/;
+// (Sin "la herramienta" ni "la IA que": en un post que compara con otra IA,
+// hablar de eso es justo de lo que van los comentarios. Lo que cae es la leccion.)
+const FICHA_O_LECCION = /(el comercial que|los comerciales que|las empresas que|empresas que nunca|quien no |el que no |es justo lo que necesita|lo que necesita (la|el) (industria|sector|mercado)|eso lo cambia todo|lo cambia todo|(que|por) rascar|mucho mercado|oportunidad(es)? (en|aqui|ahi)|clientes potenciales)/;
 const ARRANQUE_DE_RESUMEN = /^(tal cual|me quedo con|perfecto|justo|exacto|efectivamente|totalmente|claro que si|eso es)\b/;
 
 /** Explica el producto, resume la tesis o suelta una leccion: registro de alguien de fuera (12/11). */
@@ -485,6 +487,36 @@ export function fichaOLeccion(c: string): string | null {
   if (a) return a[0];
   const m = t.match(FICHA_O_LECCION);
   return m ? m[0].trim() : null;
+}
+
+/**
+ * ¿El post ANUNCIA un hito de Neety (evento, presentacion, lanzamiento, premio,
+ * etapa nueva) o PLANTEA algo (una idea, un recurso, una opinion, una historia)?
+ * Solo lo primero se comenta con orgullo. Si el clasificador falla, se toma como
+ * contenido: un comentario sobre la idea nunca queda tan raro como un orgullo de
+ * hito debajo de un post que no anuncia nada.
+ */
+export async function anunciaUnHito(post: string): Promise<boolean> {
+  try {
+    const r = await trackedCreate('supportive_hito_classifier', {
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 10,
+      system: `Lees un post de LinkedIn de un fundador de Neety. Responde SOLO "HITO" si el post ANUNCIA o celebra algo que le ha pasado a Neety o a su equipo (un evento, una presentacion, un lanzamiento, un premio, una ronda, un cliente nuevo, una etapa nueva). Responde SOLO "CONTENIDO" si el post plantea una idea, un consejo, un recurso, una opinion, una comparacion o una historia, aunque nombre a Neety (por ejemplo, para decir que Neety hace algo mejor).`,
+      messages: [{ role: 'user', content: post.slice(0, 4000) }],
+    });
+    const t = r.content.filter((b): b is Anthropic.TextBlock => b.type === 'text').map((b) => b.text).join('');
+    return /HITO/i.test(t) && !/CONTENIDO/i.test(t);
+  } catch (err: any) {
+    console.warn('[commentGenerator] el clasificador de hito ha fallado, se toma como contenido:', err?.message);
+    return false;
+  }
+}
+
+/** Orgullo de hito ("nueva etapa", "lo que estamos construyendo") debajo de un post que no anuncia nada. */
+const ORGULLO_DE_HITO = /(orgullos[oa] de (lo que|ver todo|todo lo que|ver como)|nueva etapa|lo que (estamos|hemos estado) (construyendo|sacando adelante)|sacando adelante entre todos|(con|muchas) ganas de (todo )?lo que viene|empieza(n)? a (verse|salir fuera|dar (sus )?frutos?)|dando su fruto|lo que quisimos|lo que queriamos (construir|ser)|el trabajo de (dentro|todos|meses))/;
+export function orgulloDeHito(c: string): string | null {
+  const m = c.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').match(ORGULLO_DE_HITO);
+  return m ? m[0] : null;
 }
 
 // Prueba del 12/11 en los posts que no van de Neety: "No sabía lo de Jordania y
@@ -553,7 +585,12 @@ export async function generateSupportiveComments(
     ? await analizarEvento({ postId: input.postId, texto: safePostContent, publicadoEl: input.publishedAt })
     : null;
   const equipo = !fase && esHistoriaDeEquipo(input.pillar, safePostContent);
-  const hablaDeLaCasa = /\bneety\b/.test(llanoPost);
+  // ⛔ ORGULLO SOLO SI EL POST ANUNCIA ALGO (12/11, lead magnet). Antes bastaba con
+  // que el post dijera "Neety" para tratarlo como un hito, y el lead magnet (que
+  // nombra a Neety al final para ponerla por encima de la IA generica) salio con
+  // cinco "orgulloso de lo que estamos sacando adelante". Lo decide un clasificador.
+  const hablaDeLaCasa = !fase && !equipo && /\bneety\b/.test(llanoPost) && (await anunciaUnHito(safePostContent));
+  const esLeadMagnet = /lead_?magnet/.test(input.pillar || '');
 
   const queToca = fase
     ? `ESTE POST ES DE NUESTRO EVENTO. ${textoFase(fase)} Los ${n} van del evento: ${
@@ -562,12 +599,14 @@ export async function generateSupportiveComments(
     : equipo
     ? `ESTA HISTORIA LA VIVIO EL EQUIPO ENTERO y los que comentan estaban. Complicidad de quien estuvo, como por WhatsApp: "Lo de las avispas en el baño fue surrealista", "Aún no me puedo creer que nos pasase eso jajaja", "Qué buen recuerdo aquella noche". Nada de reaccionar como quien se entera ahora, y nada de ventas: se comenta lo que paso.`
     : hablaDeLaCasa
-    ? `ESTE POST HABLA DE NEETY, nuestra empresa. Los ${n} son de compañeros que se alegran por lo que ha conseguido la casa: orgullo, ilusion, ganas de lo que viene, el trabajo de todos que empieza a verse. Se puede decir "Neety" y "estamos", "juntos", "lo que queriamos construir". NO se repite lo que el post cuenta ni se explica el producto.`
-    : `${
-        esPeloteo(input.pillar)
-          ? `ESTE POST RECONOCE A UNA REGION Y A SUS EMPRESAS. Los ${n} son de compañeros que se alegran de verla reconocida y lo dicen sencillo: cariño por esa tierra o por lo que se hace alli, ganas de que se conozca mas, o un detalle del post (un producto, una empresa de la lista) dicho en corto. Como mucho DOS nombran un detalle, y nunca el mismo.`
-          : `ESTE POST CUENTA UNA HISTORIA O UNA IDEA DE VENTAS. Los ${n} son de compañeros que apoyan al que la ha escrito con lo que les ha tocado: que se ponen en el lugar del comercial o del cliente de la historia (nunca como un problema suyo de hoy), que les recuerda por que trabajan en esto, o gracias por compartirla. Como mucho UNO nombra un detalle del post.`
-      } Nunca se repite la tesis del post ni se convierte en una leccion.`;
+    ? `ESTE POST ANUNCIA UN HITO DE NEETY (un evento, una presentacion, una novedad, una etapa nueva). Los ${n} son de compañeros que se alegran por lo que ha conseguido la casa: orgullo, ilusion, ganas de lo que viene, el trabajo de todos que empieza a verse. Se puede decir "Neety" y "estamos", "juntos", "lo que queriamos construir". NO se repite lo que el post cuenta ni se explica el producto.
+ASI SUENAN, para un hito (escritos a mano por el equipo; son el TONO, no frases para copiar):
+${ASI_SUENAN.map((e) => `· ${e}`).join('\n')}`
+    : esPeloteo(input.pillar)
+    ? `ESTE POST RECONOCE A UNA REGION Y A SUS EMPRESAS. Los ${n} son de compañeros que se alegran de verla reconocida y lo dicen sencillo: cariño por esa tierra o por lo que se hace alli, ganas de que se conozca mas, o un detalle del post (un producto, una empresa de la lista) dicho en corto. Como mucho DOS nombran un detalle, y nunca el mismo. Nunca se convierte en una leccion.`
+    : `ESTE POST NO ANUNCIA NADA: plantea una idea, un recurso, una opinion o una historia. Los ${n} van de LO QUE PLANTEA EL POST, escritos por compañeros que lo comparten y lo apoyan: cada uno se agarra a una parte DISTINTA (la idea de fondo, un paso, un ejemplo, la diferencia que marca) y dice con sus palabras por que le parece verdad o util, o se pone en el lugar del comercial o del cliente de la historia. Si el post compara con otra herramienta o con otra forma de hacerlo, se apoya lo nuestro sin criticar a nadie: lo otro ayuda, lo nuestro llega mas lejos. ⛔ NADA de orgullo de hito ni de anuncio ("orgulloso de lo que estamos construyendo", "nueva etapa", "con ganas de lo que viene", "el trabajo empieza a verse"): este post no anuncia nada y suena a no habertelo leido.${
+        esLeadMagnet ? ` ⛔ Nadie pide el recurso ni escribe la palabra que el post pide comentar: eso es para los de fuera.` : ''
+      }`;
   const medida = hablaDeLaCasa || fase || equipo
     ? ''
     : `\n★ LA MEDIDA: lo que le dirias en voz alta a un compañero despues de leerlo, sin exagerar. Nada de "no me lo puedo quitar de la cabeza", "me ha cambiado como miro", "me ha dejado pensando", "con todo el respeto del mundo", "no sabia lo de". Sin metaforas ni frases de efecto ("es solo el principio", "una imagen que se te queda"). Elogiar COMO esta contado ("vaya forma de contar", "qué bien contado", "da gusto leer") como mucho UNO de los ${n}.`;
@@ -576,17 +615,14 @@ export async function generateSupportiveComments(
 
 ★ LA PREMISA: todo el mundo sabe que son del mismo equipo, y no se esconde. Es un compañero que se alegra por el de al lado y lo dice con naturalidad, como lo diria en voz alta en la oficina. No es un analista que comenta el post desde fuera.
 
-ASI SUENAN (escritos a mano por el equipo, para un post sobre Neety; son el TONO, no frases para copiar):
-${ASI_SUENAN.map((e) => `· ${e}`).join('\n')}
-
-Que tienen:
-- Dicen lo que SIENTEN (orgullo, ilusion, ganas, alegria, gusto), no lo que cuenta el post.
-- Hablan desde dentro: "estamos construyendo", "juntos", "lo que queriamos construir", "esta nueva etapa".
+COMO SUENAN LOS BUENOS, sea cual sea el post:
+- Van de lo que el post cuenta o anuncia (el mensaje de usuario te dice que toca). Un comentario que valdria igual debajo de cualquier otro post no vale.
+- Hablan desde dentro, como alguien que esta en esto, nunca como un analista que lo mira desde fuera.
 - Frases simples, enteras y cortas, de una sola idea. Ninguna muletilla, ninguna palabra estirada, ningun truco.
-- Cero datos, cero nombres de terceros, cero explicacion de como funciona nada.
+- Cero datos inventados, cero nombres de terceros.
 - Acaban en punto o en un emoji calido. Ninguno con exclamacion forzada.
 
-ASI NO (salieron el mismo dia y se tumbaron):
+ASI NO (se tumbaron en un post de un hito):
 ${ASI_NO.map(([c, por]) => `· "${c}" → ${por}`).join('\n')}
 
 Lo que delata a esos: hablan desde lejos, como si quien comenta no supiera de que va su propia empresa; resumen el producto o la tesis del post; sueltan una leccion; meten "Tal cual", "Perfectooo", "me quedo con lo de" para parecer espontaneos. El resultado es un apoyo falso y raro, que hace quedar mal a quien lo pega.
@@ -626,7 +662,8 @@ Escribe los ${n}. JSON solo.`;
     (aperturaHueca(c) ? 'abre con peloteo hueco' : null) ||
     (c.replace(/\p{Extended_Pictographic}️?/gu, '').trim().length < 30 ? 'demasiado corto, no dice nada' : null) ||
     (c.length > LARGO_MAX_CHAT ? `mide ${c.length} caracteres y no cabe en una linea (maximo 80)` : null) ||
-    (exageraEnChat(c) ? `"${exageraEnChat(c)}" exagera o es una frase de efecto: dilo como se lo dirias a un compañero` : null) ||
+    (!hablaDeLaCasa && !fase && orgulloDeHito(c) ? `"${orgulloDeHito(c)}" es orgullo de hito y este post no anuncia nada: comenta lo que plantea` : null) ||
+    (exageraEnChat(c) ?`"${exageraEnChat(c)}" exagera o es una frase de efecto: dilo como se lo dirias a un compañero` : null) ||
     (fichaOLeccion(c) ? `"${fichaOLeccion(c)}" es resumir el post, explicar el producto o soltar una leccion: di lo que sientes como compañero` : null) ||
     (copiaElEjemplo(c) ? 'copia uno de los ejemplos: el tono si, la frase no' : null) ||
     (contarEstiradas(c) > 0 ? 'lleva una palabra estirada, y no pega' : null) ||

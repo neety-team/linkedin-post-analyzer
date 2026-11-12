@@ -1,5 +1,5 @@
 // Los comentarios del Google Chat: los 5 que encajan pasan y los 5 tumbados caen (12/11).
-import { ASI_SUENAN, fichaOLeccion, copiaElEjemplo, criticaNuestroPost, aperturaHueca, autorPorSuNombre, exageraEnChat, elogiaLaForma } from '../services/commentGenerator';
+import { ASI_SUENAN, fichaOLeccion, copiaElEjemplo, criticaNuestroPost, aperturaHueca, autorPorSuNombre, exageraEnChat, elogiaLaForma, orgulloDeHito } from '../services/commentGenerator';
 import { nombresDelComentario, nombraTercero, abreAsintiendo } from '../services/replyGenerator';
 import { registroFormal, exageraDeBroma, confiesaElDolor, desvelaLaEstrategia, latinismo } from '../services/variedadComentarios';
 import { contarEstiradas, detectarAperturaGenerica } from '../services/replyGenerator';
@@ -31,6 +31,12 @@ for (const c of ['No sabía lo de Jordania y no me lo puedo quitar de la cabeza.
 for (const c of ASI_SUENAN) ok(!exageraEnChat(c), `no exagera: ${c}`);
 ok(!!fichaOLeccion('Mucho que rascar en esta región todavía.'), 'insinuar que vamos a venderle a la region cae');
 ok(elogiaLaForma('Vaya forma de contar lo que tiene Castilla y León por dentro'), 'elogio a la forma detectado');
+
+// Lead magnet del 12/11: nombraba a Neety y salio orgullo de hito en los cinco.
+for (const c of ['Orgulloso de lo que estamos sacando adelante entre todos 🙌', 'Se nota que los meses de curro están dando su fruto.', 'Feliz de ver cómo Neety va siendo lo que quisimos que fuera.', 'Con ganas de todo lo que viene a partir de aquí 🚀', 'Da gusto cuando el trabajo de dentro empieza a verse fuera.'])
+  ok(!!orgulloDeHito(c), `orgullo de hito: ${c}`);
+for (const c of ['Claude ayuda un montón, pero hacerlo con todo el mercado es otra cosa 🙌', 'Que la última palabra la tenga siempre el comercial es lo que más me gusta.'])
+  ok(!orgulloDeHito(c) && !fichaOLeccion(c) && !exageraEnChat(c), `comentario de contenido pasa: ${c}`);
 
 // Respuestas a comentarios (12/11)
 const POST = 'Las 10 empresas de Burgos que exportan a medio mundo: Grupo Antolin, Campofrio...';

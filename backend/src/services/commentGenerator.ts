@@ -475,7 +475,7 @@ const ASI_NO = [
 
 // Lo que delata el registro de "los de fuera": resumir el producto, sentar
 // catedra o arrancar con una muletilla de quien recoge la frase del post.
-const FICHA_O_LECCION = /(la herramienta|la plataforma|el producto|el software|la ia que|aprende con|actua sola|lo apruebe|el comercial que|los comerciales que|las empresas que|empresas que nunca|quien no |el que no |es justo lo que necesita|lo que necesita (la|el) (industria|sector|mercado)|eso lo cambia todo|lo cambia todo)/;
+const FICHA_O_LECCION = /(la herramienta|la plataforma|el producto|el software|la ia que|aprende con|actua sola|lo apruebe|el comercial que|los comerciales que|las empresas que|empresas que nunca|quien no |el que no |es justo lo que necesita|lo que necesita (la|el) (industria|sector|mercado)|eso lo cambia todo|lo cambia todo|(que|por) rascar|mucho mercado|oportunidad(es)? (en|aqui|ahi)|clientes potenciales)/;
 const ARRANQUE_DE_RESUMEN = /^(tal cual|me quedo con|perfecto|justo|exacto|efectivamente|totalmente|claro que si|eso es)\b/;
 
 /** Explica el producto, resume la tesis o suelta una leccion: registro de alguien de fuera (12/11). */

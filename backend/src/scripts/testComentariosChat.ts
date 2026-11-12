@@ -29,6 +29,7 @@ ok(autorPorSuNombre('Qué bien contado lo tienes, Unai', 'Unai Ejemplo') === 'Un
 for (const c of ['No sabía lo de Jordania y no me lo puedo quitar de la cabeza.', 'Me ha cambiado cómo miro el mapa ✨', 'Con todo el respeto del mundo para quien carga con todo él solo.', 'Muchos trimestres sin ver esto así de claro.'])
   ok(!!exageraEnChat(c), `exagera: ${c}`);
 for (const c of ASI_SUENAN) ok(!exageraEnChat(c), `no exagera: ${c}`);
+ok(!!fichaOLeccion('Mucho que rascar en esta región todavía.'), 'insinuar que vamos a venderle a la region cae');
 ok(elogiaLaForma('Vaya forma de contar lo que tiene Castilla y León por dentro'), 'elogio a la forma detectado');
 
 // Respuestas a comentarios (12/11)

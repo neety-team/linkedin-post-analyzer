@@ -242,12 +242,14 @@ const CATALOGO: RecursoDef[] = [
     // pistas de la ultima fila casan contra su texto real (5 con las de arriba, contra 1
     // de /firma/ por `quien decide`) y ninguna aparece en los 48 lead magnets publicados.
     link: 'https://neety.com/academia/sistema?utm_source=linkedin&utm_medium=dm&utm_campaign=leadmagnet-palabra-12nov&utm_content=iker',
-    topic: 'los 5 encargos a Claude para cada paso de la venta',
+    // 12/11: el tema del DM dice que es el nivel intermedio, no el sistema de ventas entero
+    // (brand-voice CANONICO: una IA generica nunca esta al nivel de Neety)
+    topic: 'los 5 encargos a Claude, el nivel intermedio para saber a quién vender',
     claves: ['ventas', 'sistema'],
     pistas: [
       'caja de herramientas del comercial', '5 encargos', 'encargos a claude',
       'suena a desesperado', 'pongo el orden',
-      'buscaba a mano', 'se lo encargo a claude', 'tonterias de esas',
+      'buscaba a mano', 'me hace la mitad', 'tonterias de esas',
     ],
   },
   {

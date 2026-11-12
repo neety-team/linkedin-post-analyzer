@@ -1728,7 +1728,7 @@ CRITERIO = [
     # explicito; esto obliga a mirar lo que no tiene palabra clave (y la imagen).
     # 11/11, auditoria: la clave se amplia a la MARCA entera (brand-voice canonico NO CRITICAMOS,
     # §5, §5b, global §4.1 menciones), que no tenia pregunta escrita.
-    ('comprador', '¿Alguna linea, del texto, de la tarjeta o de la imagen, JUZGA al que compra (cargo con poder de decision o el cliente como figura) en vez de contar lo que hace? ¿Algo deja decir "en Neety se rien de sus clientes"? Y la MARCA: ¿alguna linea critica a una empresa, region, ciudad o colectivo con nombre, se burla de quien mencionamos, deja a la casa mal (autocritica implicita, "que mal se organizan en Neety"), pone a Neety o a sus jefes como la IA que falla, o habla en nombre de otro oficio? (brand-voice canonico 5 y NO CRITICAMOS, §5, §5b, global §4.1)'),
+    ('comprador', '¿Alguna linea, del texto, de la tarjeta o de la imagen, JUZGA al que compra (cargo con poder de decision o el cliente como figura) en vez de contar lo que hace? ¿Algo deja decir "en Neety se rien de sus clientes"? Y la MARCA: ¿alguna linea critica a una empresa, region, ciudad o colectivo con nombre, se burla de quien mencionamos, deja a la casa mal (autocritica implicita, "que mal se organizan en Neety"), pone a Neety o a sus jefes como la IA que falla, o habla en nombre de otro oficio? Y si nombra una IA generica (Claude, ChatGPT): ¿queda claramente POR DEBAJO de Neety (el nivel 2 de 3, empresa a empresa y a mano) sin criticarla ni sonar prepotente, en el texto, la imagen y el recurso? (brand-voice canonico 5, NO CRITICAMOS, IA GENERICA 12/11, §5, §5b, global §4.1)'),
     # 28/10: una historia paso 10 validaciones en verde con "nos puso precio", sin una sola
     # palabra que parase el scroll. El script solo veta verbos flojos (VERBO_FLOJO) y no puede
     # exigir uno punchy sin fabricar muletillas (global §2.9), asi que se contesta por escrito
@@ -6251,6 +6251,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         r'\bgobierno de\b|\bministr[oa]s?\b|\belecciones\b|(?<!a la )(?<!mano )\b(izquierda|derecha)\b', _tl)
     chk(not _pol, 'Sin politica (brand-voice §6)',
         f'"{_pol.group(0)}": en el post no entra la politica, ni de pasada' if _pol else '', aviso=True)
+    # 12/11. brand-voice CANONICO "UNA IA GENERICA NUNCA ESTA AL NIVEL DE NEETY": si el post nombra
+    # una IA generica y no deja a Neety por encima (el nivel de arriba), el lector se pregunta para
+    # que nos compra. Aviso: el criterio `comprador` lo pregunta por escrito.
+    _iag = re.search(r'\b(claude|chatgpt|copilot|gemini|grok)\b', _tl)
+    _arriba = re.search(r'\bneety\b|\bnivel (?:2|dos) de (?:3|tres)\b', _tl)
+    chk(not (_iag and not _arriba), 'IA generica por debajo de Neety (brand-voice CANONICO 12/11)',
+        f'nombra "{_iag.group(0)}" y no deja a Neety como el nivel de arriba: di en que nivel esta lo que '
+        'regalas (`Es el nivel 2 de 3`) y nombra a Neety una vez cerca del final, sin criticar a la IA'
+        if (_iag and not _arriba) else '', aviso=True)
     # 11/11, auditoria. aboutme §1: cifras de la casa sin fuente ("+200 PYMEs", "+40% de
     # conversion") y la oferta prohibida ("sin esfuerzo", "lo hace por ti", "tu solo cierras").
     _sinf = re.search(r'\+\s?200 pymes|\+\s?40\s?% de conversi[oó]n|\b200 pymes', _tl)

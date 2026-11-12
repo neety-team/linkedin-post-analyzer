@@ -1113,6 +1113,25 @@ el proceso.
 
 **Dónde aplica más:** en cualquier post que tome partido en una polémica, y muy especialmente en las cuentas que hablan del trabajo de dentro (Mario, Helena), donde el reproche se lee como bronca interna.
 
+## ⛔⛔ CANÓNICO · UNA IA GENÉRICA NUNCA ESTÁ AL NIVEL DE NEETY, Y TAMPOCO SE LA CRITICA (2026-11-12) — GLOBAL
+
+**Vale para todas las cuentas, todos los pilares, el texto, la imagen o el GIF, el recurso de la web y los correos.** Ninguna pieza puede dejar entender que una IA genérica (ChatGPT, Claude, Copilot, Gemini o un agente cualquiera) consigue lo mismo que Neety o lo hace mejor. Si un post o un recurso enseña a hacer con Claude lo que vendemos, el lector se pregunta para qué nos va a comprar, y el contenido juega en contra aunque sea viral.
+
+**Y a la vez, la IA genérica no se critica ni se ridiculiza.** Somos una herramienta de IA: hablar mal de la IA no tiene sentido. Se usa a favor, como gancho (es lo que hace volar los lead magnets de ventas) y como método que el lector puede probar hoy.
+
+**El ángulo que se usa siempre: genérica contra específica, y la escalera de niveles.** Es la narrativa del webinar del 28/10 (`neety.com/academia/webinar-clientes-ia`):
+| nivel | qué es | cómo se cuenta |
+|---|---|---|
+| 1 · gratis | LinkedIn solo | el punto de partida |
+| 2 · poco presupuesto | Claude, ChatGPT o cualquier IA genérica | bien hecho, **empresa a empresa y a mano**: Claude propone y decide el comercial |
+| 3 · lo más completo | Neety | **tu mercado entero, cada semana**: la lista llega revisada, con quién decide y su contacto, y tu equipo dedica el tiempo a contactar, no a buscar |
+
+- **Lo que separa el nivel 2 del 3 es la escala, el tiempo y lo específico**, nunca un fallo de la IA genérica: una IA genérica sirve para muchas cosas; Neety solo hace esto. Los argumentos que han dado los propios clientes en las reuniones (`global §4.4b-MUNICIÓN`, fila "Eso me lo hace ChatGPT", 17 empresas) se usan como lo que el lector todavía no tiene, sin señalar a la herramienta como culpable.
+- **Psicología:** se le da gratis el nivel 2 entero y funcionando (reciprocidad), y el nivel 3 queda a la vista como el escalón de arriba (anclaje), sin pedirle nada. Nunca se dice "es mejor que Claude": se enseña que existe un nivel más.
+- **En la pieza:** el texto dice en qué nivel está lo que regala (`Es el nivel 2 de 3`) y nombra a Neety una vez, cerca del final, como el nivel de arriba. La imagen o el GIF llevan la escalera visible, con Neety arriba. El recurso de la web abre con los tres niveles y cierra con el nivel 3 y su enlace a la demo. Las portadas y las imágenes de compartir no dicen nada como `Todo en Claude`.
+- **Tampoco prepotencia:** nada de `Claude se queda corto` ni de `la IA genérica no sirve`. El tono es el de quien enseña a subir un escalón, no el de quien gana una discusión.
+- **El caso que la fija (12/11):** el lead magnet de `/sistema/` salió calcado de una referencia que vende "Claude como única pantalla de toda la captación", con el gancho `Ahora se lo encargo a Claude`, una lista que se leía como el sistema de ventas entero y una portada que decía `Todo en Claude`. Se reorientó a `Ahora Claude me hace la mitad` (la otra mitad es Neety), con la escalera en el GIF y en la guía, y un CTA a la demo dentro del recurso.
+
 ## ⛔⛔ CANÓNICO · LA PERSONA: YO > NOSOTROS > TÚ (Iker, 2026-08-11) — GLOBAL
 
 **Para afirmar, confesar o nombrar un dolor, se habla en PRIMERA PERSONA DEL

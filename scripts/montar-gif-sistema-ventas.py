@@ -68,6 +68,8 @@ def _cargar_logos():
     ber = Image.new('RGBA', caja.size, INK + (255,)); ber.putalpha(caja.split()[3])
     return ast, ber
 LOGO_C, LOGO_IN = _cargar_logos()
+# Neety: el logotipo oficial en blanco (NEETY LOGO.zip, PNG alta), recortado al ras
+LOGO_N = Image.open(LG + 'neety logo blanco.png').convert('RGBA')
 
 def pegar(im, logo, cx, cy, alto):
     w = max(1, round(logo.width * alto / logo.height))
@@ -100,14 +102,16 @@ RANK = [('Director comercial', 'decide · tiene el presupuesto', 92),
         ('Director financiero', 'puede frenarlo · pide retorno', 71),
         ('Jefe de producción', 'usa · no pinta en la compra', 58)]
 if V:
-    RANK = RANK[:4] + [('Director general', 'decide en las más pequeñas', 66)] + RANK[4:] + [('Jefe de compras', 'tramita · no elige proveedor', 49)]
+    RANK = RANK[:4] + [('Director general', 'decide en las más pequeñas', 66)] + RANK[4:]
 FLOW = [('01', 'A quién vender'), ('02', 'Qué empresas'), ('03', 'Quién decide'), ('04', 'Primer mensaje'), ('05', 'Seguimiento')]
 
 # ---------------------------------------------------------------- medidas fijas
 HEAD_Y = 34
 # en 4:5 los 270 px de mas: aire bajo la cabecera, contadores mas grandes, 2 filas mas en
 # directo y en el ranking, aire en el flujo y una barra algo mas alta
-G1, G2, GR, G3, G4 = (40, 40, 108, 30, 32) if V else (0, 0, 0, 0, 0)
+# 12/11: G1 crece para la escalera de los 3 niveles (la diapositiva 6 del webinar de Iker)
+G1, G2, GR, G3, G4 = (116, 40, 54, 30, 10) if V else (0, 0, 0, 0, 0)
+LADDER = V
 CARD_Y = 182 + G1; CARD_B = 928 + G1 + G2 + GR + G3 + G4
 CTA_Y = CARD_B + 18; CTA_B = H - 30
 
@@ -137,15 +141,32 @@ def frame(i):
         cxp = S - M - 6 - ws + tw(d, shown, fSerifS) + 3
         d.line((cxp, HEAD_Y + 118, cxp, HEAD_Y + 144), fill=(75, 85, 99), width=2)
 
+    # --- la escalera de los 3 niveles: esta guia es el 2; el 3, lo mas completo, es Neety
+    if LADDER:
+        ly = HEAD_Y + 168; lh = 62; gapl = 14; wl = (S - 2 * M - 2 * gapl) / 3
+        NIV = [('NIVEL 1', 'LinkedIn solo', CARD, INK, NAR), ('NIVEL 2 · ESTA GUÍA', 'Con Claude', INK, (255, 255, 255), NAR),
+               ('NIVEL 3 · LO MÁS COMPLETO', None, NAR, (255, 255, 255), (255, 255, 255))]
+        for q, (k_, t_, bg_, fg_, kc_) in enumerate(NIV):
+            x0_ = M + q * (wl + gapl)
+            d.rounded_rectangle((x0_, ly, x0_ + wl, ly + lh), radius=16, fill=bg_, outline=LINE if q == 0 else bg_, width=2)
+            d.text((x0_ + 18, ly + 10), k_, font=SWB(13), fill=kc_)
+            if q == 1:
+                wl_ = pegar(im, LOGO_C, x0_ + 18 + 10, ly + 42, 18)
+                d.text((x0_ + 18 + 26, ly + 30), t_, font=SWB(20), fill=fg_)
+            elif q == 2:
+                pegar(im, LOGO_N, x0_ + 18 + 56, ly + 42, 24)
+            else:
+                d.text((x0_ + 18, ly + 30), t_, font=SWB(20), fill=fg_)
+
     # --- tarjeta principal
     d.rounded_rectangle((M, CARD_Y, S - M, CARD_B), radius=26, fill=CARD, outline=LINE, width=2)
     px = M + 26; py = CARD_Y + 24
     d.ellipse((px, py, px + 42, py + 42), fill=INK)
     d.ellipse((px + 13, py + 18, px + 18, py + 23), fill=(255, 255, 255)); d.ellipse((px + 24, py + 18, px + 29, py + 23), fill=(255, 255, 255))
-    d.text((px + 56, py - 2), 'Encargo en marcha #3', font=fCardT, fill=INK)
-    d.text((px + 56, py + 30), 'Ejemplo · fabricantes industriales · 20 a 200 empleados · decide ventas', font=fCardS, fill=MUT)
+    d.text((px + 56, py - 2), 'Encargo 2 · una tanda a mano', font=fCardT, fill=INK)
+    d.text((px + 56, py + 30), 'Ejemplo · fabricantes industriales · pegadas por tandas pequeñas', font=fCardS, fill=MUT)
     # chips de la derecha
-    webs = 44 + int(4 * ease(t * 1.4))
+    webs = 9 + int(3 * ease(t * 1.4))
     vivo = '• EN VIVO'
     xr = S - M - 26 - tw(d, vivo, fLab)
     d.text((xr, py + 10), vivo, font=fLab, fill=NAR if (i // 6) % 2 == 0 else (255, 196, 160))
@@ -161,8 +182,9 @@ def frame(i):
     d.line((M + 26, cy0 - 8, S - M - 26, cy0 - 8), fill=LINE, width=2)
     colw = (S - 2 * M - 52) / 3
     # suben poco para que el reinicio del bucle no se note (regla 2)
-    rev = 44 + int(4 * ease(t * 1.4)); enc = 8 + int(ease((t - 0.25) * 2)); fue = rev - enc
-    COUNT = [('EMPRESAS REVISADAS', f'{rev}', 'leídas en su propia web', INK),
+    # nivel 2 = una tanda a mano, no todo el mercado: cifras de tanda pequena
+    rev = 9 + int(3 * ease(t * 1.4)); enc = 2 + int(ease((t - 0.25) * 2)); fue = rev - enc
+    COUNT = [('EN ESTA TANDA', f'{rev}', 'pegadas a mano, una a una', INK),
              ('ENCAJAN', f'{enc}', 'cada una con su frase de prueba', BLUE),
              ('FUERA', f'{fue}', 'sin prueba en su web, aunque cuadren', FAINT)]
     for c, (lab, val, sub2, col) in enumerate(COUNT):

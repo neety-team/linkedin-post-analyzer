@@ -10,12 +10,17 @@ Lo que NO se calca (reglas de la casa): ninguna persona ni empresa inventada (so
 cargos), ninguna promesa de automatismo ni de volumen (las cifras son de criba: revisadas,
 encajan, fuera), y el mensaje lo manda el comercial.
 
-Uso: python scripts/montar-gif-sistema-ventas.py "<salida.gif>"   (deja al lado la fija .png)"""
+Uso: python scripts/montar-gif-sistema-ventas.py "<salida.gif>" [4x5|1x1]   (deja al lado la fija .png)
+Por defecto 4:5 (1080x1350 de trabajo, se exporta a 800x1000): desde el 12/11 es el formato
+por defecto (images §0b, medido en el feed) y el de los GIF que vuelan."""
 from PIL import Image, ImageDraw, ImageFont
 import sys, math
 
 OUT = sys.argv[1]
+FORMATO = sys.argv[2] if len(sys.argv) > 2 else '4x5'
 S = 1080
+H = 1350 if FORMATO == '4x5' else 1080
+V = H > S                       # vertical: el alto extra se reparte abajo
 BG = (241, 243, 247); CARD = (255, 255, 255); LINE = (226, 230, 238); SOFT = (246, 248, 251)
 INK = (17, 24, 39); MUT = (107, 114, 128); FAINT = (170, 176, 188)
 BLUE = (37, 99, 235); BLUE_T = (226, 236, 253); NAR = (234, 108, 56); NAR_T = (253, 236, 226)
@@ -30,7 +35,7 @@ MONO = lambda s: ImageFont.truetype(WF + 'consola.ttf', s)
 SERIF_I = lambda s: ImageFont.truetype(WF + 'georgiai.ttf', s)
 
 fH1 = bri(52, b'ExtraBold'); fH2 = SW(44); fChip = MONO(17); fSerif = SERIF_I(64); fSerifS = SERIF_I(24)
-fCardT = SWB(26); fCardS = SW(17); fLab = MONO(16); fBig = bri(78, b'Bold'); fBigS = SW(17)
+fCardT = SWB(26); fCardS = SW(17); fLab = MONO(16); fBig = bri(96 if V else 78, b'Bold'); fBigS = SW(17)
 fRowT = SWB(20); fRowS = SW(15); fStat = SWB(15); fRank = SWB(20); fRankS = SW(14); fNum = SWB(22)
 fFlow = SW(16); fFlowB = SWB(16); fCTA = bri(46, b'Bold')
 
@@ -75,16 +80,21 @@ RANK = [('Director comercial', 'decide · tiene el presupuesto', 92),
         ('Gerente', 'decide si no hay dir. comercial', 79),
         ('Director financiero', 'puede frenarlo · pide retorno', 71),
         ('Jefe de producción', 'usa · no pinta en la compra', 58)]
+if V:
+    RANK = RANK[:4] + [('Director general', 'decide en las más pequeñas', 66)] + RANK[4:] + [('Jefe de compras', 'tramita · no elige proveedor', 49)]
 FLOW = [('01', 'A quién vender'), ('02', 'Qué empresas'), ('03', 'Quién decide'), ('04', 'Primer mensaje'), ('05', 'Seguimiento')]
 
 # ---------------------------------------------------------------- medidas fijas
 HEAD_Y = 34
-CARD_Y = 182; CARD_B = 928
-CTA_Y = 946; CTA_B = S - 30
+# en 4:5 los 270 px de mas: aire bajo la cabecera, contadores mas grandes, 2 filas mas en
+# directo y en el ranking, aire en el flujo y una barra algo mas alta
+G1, G2, GR, G3, G4 = (40, 40, 108, 30, 32) if V else (0, 0, 0, 0, 0)
+CARD_Y = 182 + G1; CARD_B = 928 + G1 + G2 + GR + G3 + G4
+CTA_Y = CARD_B + 18; CTA_B = H - 30
 
 def frame(i):
     t = i / FRAMES                      # 0..1 a lo largo del bucle
-    im = Image.new('RGB', (S, S), BG); d = ImageDraw.Draw(im)
+    im = Image.new('RGB', (S, H), BG); d = ImageDraw.Draw(im)
 
     # --- cabecera izquierda
     d.text((M + 6, HEAD_Y), 'Sistema de ventas', font=fH1, fill=INK)
@@ -138,14 +148,14 @@ def frame(i):
              ('FUERA', f'{fue}', 'sin prueba en su web, aunque cuadren', FAINT)]
     for c, (lab, val, sub2, col) in enumerate(COUNT):
         x0 = M + 26 + c * colw
-        if c: d.line((x0 - 14, cy0 + 6, x0 - 14, cy0 + 132), fill=LINE, width=2)
+        if c: d.line((x0 - 14, cy0 + 6, x0 - 14, cy0 + 132 + G2), fill=LINE, width=2)
         d.text((x0, cy0 + 8), lab, font=fLab, fill=MUT)
         d.text((x0, cy0 + 30), val, font=fBig, fill=col)
-        d.text((x0, cy0 + 118), sub2, font=fBigS, fill=MUT)
+        d.text((x0, cy0 + 118 + G2), sub2, font=fBigS, fill=MUT)
 
     # --- dos columnas
-    top = cy0 + 154
-    bot = top + 330
+    top = cy0 + 154 + G2
+    bot = top + 330 + GR
     lw = 560
     L = (M + 20, top, M + 20 + lw, bot); R = (M + 20 + lw + 16, top, S - M - 20, bot)
     for b in (L, R): d.rounded_rectangle(b, radius=18, fill=SOFT, outline=LINE)
@@ -154,7 +164,7 @@ def frame(i):
     clk = f'10:41:{(2 + secs) % 60:02d}'
     d.text((L[2] - 18 - tw(d, clk, fLab), top + 14), clk, font=fLab, fill=INK)
     # filas que suben: cada 2 s entra una por arriba
-    ROWH = 54; vis = 5
+    ROWH = 54; vis = 5 + GR // 54
     shift = (t * 6) % 1.0; base = int(t * 6)
     sl = ease(min(1, shift / 0.25))
     clip = Image.new('RGB', (lw - 20, vis * ROWH + 8), SOFT); dc = ImageDraw.Draw(clip)
@@ -200,7 +210,7 @@ def frame(i):
         d.text((R[2] - 24 - ws2 + 11, y + 16), sb, font=fStat, fill=BLUE)
 
     # --- flujo de los 5 encargos
-    fy = bot + 18
+    fy = bot + 18 + G3
     d.text((M + 26, fy), 'EL SISTEMA · 5 ENCARGOS', font=fLab, fill=MUT)
     tx = 'cada encargo arranca donde acaba el anterior'
     d.text((S - M - 26 - tw(d, tx, fLab), fy), tx, font=fLab, fill=INK)
@@ -244,12 +254,12 @@ def frame(i):
     return im
 
 frames = [frame(i) for i in range(FRAMES)]
-EXPORT = 800
-small = [f.resize((EXPORT, EXPORT), Image.LANCZOS) for f in frames]
+EXPORT = 720 if V else 800   # 4:5 a 720x900: por debajo de 5 MB, y la referencia se sirve a 480x600
+small = [f.resize((EXPORT, EXPORT * H // S), Image.LANCZOS) for f in frames]
 # fija: el fotograma mas completo (texto escrito entero y la fila nueva ya dentro)
 fija = frames[int(FRAMES * 0.45)]
 fija.save(OUT.rsplit('.', 1)[0] + '.png')
-pal = [s.quantize(colors=128, method=Image.MEDIANCUT, dither=Image.NONE) for s in small]
+pal = [s.quantize(colors=112 if V else 128, method=Image.MEDIANCUT, dither=Image.NONE) for s in small]
 pal[0].save(OUT, save_all=True, append_images=pal[1:], duration=MS, loop=0, optimize=True, disposal=1)
 import os
 print('guardado', OUT, round(os.path.getsize(OUT) / 1e6, 2), 'MB', len(frames), 'fotogramas', FRAMES * MS / 1000, 's')

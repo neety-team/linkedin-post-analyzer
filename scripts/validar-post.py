@@ -5476,6 +5476,13 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'concordar con el. La palabra va entrecomillada y en color. Comprueba que el prompt '
             'del disenador lo lleva, porque este script no puede ver la imagen. Evidencia: '
             'Martin Arosa 1.321c (11/08) y 289c (10/08), Daniel Matias 249c', aviso=True)
+        # 12/11: con GIF, el output lleva la HOJA COMPARATIVA de la imagen (referencias y el
+        # nuestro en una sola imagen), ademas de las dos comparativas de texto.
+        chk(False, 'ENTREGA: con GIF, la HOJA COMPARATIVA de la imagen (§4.5.0-ENTREGA)',
+            'las referencias y el nuestro, uno al lado del otro en UNA imagen, con autor, comentarios '
+            'y palabra encima: python scripts/montar-comparativa-gif.py <salida.png> '
+            '"<gif>|<antetitulo>|<titulo>|<linea>" ... (el nuestro, el ultimo). Se guarda en '
+            'LINKEDIN GROWTH/LEAD MAGNETS y se ensena en el chat', aviso=True)
         m = re.search(ENTREGABLE_GENERICO, cuerpo, re.I)
         chk(not m, 'Entregable UNO y concreto, no generico (§4.5 Paso 2)',
             f'"{m.group(0)}" — la biblia hizo 1.2x · 2.3K' if m else '')

@@ -2588,6 +2588,21 @@ Cuenta las secciones numeradas, los datos y las fuentes, y avisa de tildes comid
 
 **Columnas:** comentarios · ratio · el gancho literal · **el verbo punchy subrayado**, que es lo que hay que comparar contra el gancho nuevo.
 
+**🖼️ CON GIF, EL OUTPUT LLEVA TAMBIÉN LA HOJA COMPARATIVA DE LA IMAGEN (12/11).** Las referencias de las que sale el GIF y el nuestro, uno al lado del otro en UNA sola imagen, con autor, comentarios y palabra encima de cada uno. Sirve para ver de un vistazo qué se ha calcado (composición, densidad, movimiento) y qué hemos mejorado: marca propia, logos oficiales, Neety por encima y nada inventado. Se monta con `python scripts/montar-comparativa-gif.py <salida.png> "<gif>|<antetítulo>|<título>|<línea>" …` (el nuestro, el último), se guarda en `LINKEDIN GROWTH/LEAD MAGNETS` junto a los GIF de las referencias y se enseña en el chat. Va además de las dos comparativas de texto (`working-preferences §1e-DOS`), no en su lugar.
+
+**EL ORDEN DEL OUTPUT DE UN LEAD MAGNET, de arriba abajo:**
+1. El tema elegido con el dato de los patrones cruzados del mes.
+2. El post en bloque, con la línea `ENTREGABLE` del validador y lo esencial del criterio.
+3. El GIF o la imagen, con su ruta.
+4. La hoja comparativa de la imagen.
+5. Las dos comparativas de texto: la referencia y nuestro mejor lead magnet, cada una contra el nuestro.
+6. Los 5 mejores ganchos de la casa.
+7. El recurso y el destino: enlace con UTM, catálogo, firma, portada y CTA a la demo.
+8. La logística de la entrega por privado.
+9. El A/B.
+10. La predicción.
+11. El resumen y los pendientes.
+
 **Para qué sirve de verdad:** es el listón. Antes de dar por bueno un gancho, se pone al lado de esos cinco y se ve si aguanta la comparación. Es la versión práctica de `global §0-DATOS`: **nuestros datos delante, no de memoria.**
 
 #### ⛔⛔ 4.5.0-RESUBIDA · UNA RESUBIDA NO ES UN LEAD MAGNET NUEVO (Iker, 2026-08-10)

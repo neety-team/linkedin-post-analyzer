@@ -599,6 +599,29 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | ✅ **Quemadas (11/11)** | las dos líneas del ninja a `SPAM_QUEMADO` (y las del meme de Iker del 10/11, que no estaban) · sin arranque de anáfora que quemar |
 | ⏳ | a los 3 días (sáb 14/11): comentarios de fuera (`comentarios-de-fuera.py --post`), clics y reuniones por `utm_campaign=historia-chatgpt-11nov`, contra su historia del 28/10 |
 
+## 📝 ENTREGADO EL JUE 12/11 · UNAI · MEME (GRÁFICA · RECONOCERSE): EL LABERINTO DE LA PROSPECCIÓN (`/solicitar-demo`, 🎯 Alcance) · SALE EL VIE 13/11
+
+| dato | |
+|---|---|
+| **Estado** | 📝 entregado el 12/11 para publicar el viernes 13/11 · `ENTREGABLE: SÍ · mecánico 84/84 · criterio 15/15` (`--pilar meme --cuenta unai --meme-sobrio --comprador-ok --ref-con-texto --referencia-fuera --publica-manana --criterio`) · 673 caracteres (zona 451-700) · elegida en la fase 1 entre el laberinto, los obstáculos y el relevo de leads |
+| **Subtipo** | formato **gráfica** (en la herramienta, `Meme (grafica)`) · psicología **reconocerse** |
+| **Referencia** | [Daniel Disney, 14/10/2025, «Your prospects aren't ignoring you. They're trapped in a maze....»](https://www.linkedin.com/feed/update/urn:li:activity:7383887366354259968/) · 232 reacciones, 21 reposts, 32 comentarios · inglés → `--referencia-fuera` · guardada en `LINKEDIN GROWTH/referencia meme laberinto prospeccion.jpg` · estaba en reserva desde el 05/11 |
+| **Gancho** | `Tus clientes no ignoran a tu comercial. Están atrapados en un laberinto 👇` (73) · emoción: curiosidad · escalera `perdidos → atrapados → sepultados` en un laberinto · perspectiva del ancla: el cliente (rota con lo último de la cuenta, el que vende) |
+| **Cuerpo** | recorre los bloques del texto de Disney en su orden (antes había pocas puertas, cada comercial aporrea la suya, el cliente espera en el centro, cada persona tiene su puerta, se le busca la suya) y gira a quién está dentro |
+| **Ninja → `/solicitar-demo`** | `Un laberinto sin nombre en el centro no tiene salida.` / `Ese nombre, el de quien firma, sí te lo damos:` · **tipo 2, la persona de dentro** (pedido para este post: a quién llegar en el centro, no qué canal) · `utm_campaign=meme-grafica-13nov&utm_content=unai` |
+| **Cierre** | `Al cliente no se le arrastra por tu puerta, se le busca la suya.` |
+| **Imagen** | calco en flat 1:1 del laberinto, `EL CLIENTE` en el centro y ocho rótulos en naranja alrededor (Llamada en frío, Correo, Redes, Recomendación, Mensaje, Publicación, Vídeo y Ferias, que sustituye a networking para el público industrial), título `El laberinto de la prospección de hoy` en berenjena · fichero `laberinto prospeccion cliente comercial puertas quien firma ventas.png` |
+| **🧪 A/B** | molde de las anclas SIN dato de fuente conocida contra las anclas (con el 28% de Salesforce: 52.155 imp, 6,2 likes y 0,67 reposts por 1.000), misma cuenta, autor y subtipo · suma al brazo B de la palabra naranja (título sin naranja) · orientativo: cambian el día (viernes) y la validación de la referencia |
+| **Vara y predicción** | mediana de memes de la cuenta 44.431 · las anclas 52.155 · predicción: 8.000-40.000 imp, 3-6 likes por 1.000, 15-50 clics, 0-1 reuniones · en contra: referencia menos validada (232 frente a 1.938 de las anclas), sin dato y tercer meme seguido de las tres cuentas sobre cómo llegar al cliente |
+| ⏳ | al publicar: hora, enlace, pilar `Meme (grafica)` a mano y quemadas · a las 72 h: impresiones, likes y reposts por 1.000, clics y reuniones por UTM |
+
+## 🗂️ RESERVAS DE MEME (12/11)
+
+| para | referencia | números | por qué esa cuenta y qué hay que resolver |
+|---|---|---|---|
+| **Iker, la semana del 16/11** | [Daniel Disney, la carrera de obstáculos del comprador, 14/07/2026](https://www.linkedin.com/posts/danieldisney_consensuspartner-activity-7482811214490746881-dw-K?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3Y0xIBY3GmF1Fzh8sTaB5OABfF0GgS7OQ) (vallas: formulario de descubrimiento, 10 aprobaciones, varias firmas, más reuniones, revisión del contrato) | 464 reacciones · 12 reposts · 31 comentarios · ~0% de risa · post patrocinado | gráfica · reconocerse. Encaja en la mirada de autocrítica del oficio. **Dos riesgos que se resuelven al escribirlo:** (1) el dibujo se ríe de las reuniones y el ninja pide una (`/solicitar-demo` es una primera reunión de descubrimiento): o cambia el destino, o el ninja no puede sonar a «otra valla más»; (2) el que grita con el megáfono es el responsable de ventas, que es quien nos compra: la culpa tiene que quedar en el proceso, no en él (rótulo genérico, sin burla) |
+| **Mario** | [Tom Fishburne, «Marketing Handoff to Sales», 26/02/2024](https://www.linkedin.com/posts/tomfishburne_marketing-cartoon-marketoon-activity-7167896152456019969-jI-v?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3Y0xIBY3GmF1Fzh8sTaB5OABfF0GgS7OQ) (marketing pasa el relevo a ventas sobre una montaña de testigos) | 827 reacciones · 59 reposts · 56 comentarios · 22% de risa | gráfica · roles. Es de dos tribus, ventas y marketing, y encaja en una cuenta de marketing; en las de los jefes traería público de marketing |
+
 ## ✅ PUBLICADO · MIÉ 11/11 12:48 · ASIER · MEME (GRÁFICA · EL CASI): «COMERCIAL, NO TE RINDAS TAN PRONTO…», LA PALA (`/solicitar-demo`, 🎯 Alcance)
 
 | dato | |

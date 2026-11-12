@@ -21,21 +21,23 @@ FORMATO = sys.argv[2] if len(sys.argv) > 2 else '4x5'
 S = 1080
 H = 1350 if FORMATO == '4x5' else 1080
 V = H > S                       # vertical: el alto extra se reparte abajo
-BG = (241, 243, 247); CARD = (255, 255, 255); LINE = (226, 230, 238); SOFT = (246, 248, 251)
-INK = (17, 24, 39); MUT = (107, 114, 128); FAINT = (170, 176, 188)
-BLUE = (37, 99, 235); BLUE_T = (226, 236, 253); NAR = (234, 108, 56); NAR_T = (253, 236, 226)
-NAVY1 = (12, 34, 82); NAVY2 = (22, 72, 168); CLAUDE = (217, 119, 87); LI = (10, 102, 194)
+# Paleta del brandbook (docs/brandbook-neety-2026.pdf, pagina 23): berenjena #431b44, naranja
+# #fe8238, menta #ebfff6 y azul bebe #a7c5f9. Los azules de la referencia pasan a berenjena.
+BG = (235, 255, 246); CARD = (255, 255, 255); LINE = (222, 214, 224); SOFT = (246, 241, 247)
+INK = (67, 27, 68); MUT = (110, 90, 112); FAINT = (182, 168, 184)
+BLUE = (67, 27, 68); BLUE_T = (240, 232, 241); NAR = (254, 130, 56); NAR_T = (255, 238, 226)
+NAVY1 = (67, 27, 68); NAVY2 = (104, 46, 106); BEBE = (167, 197, 249)
 FD = r'C:/Users/LENOVO/AppData/Local/Microsoft/Windows/Fonts/'
 WF = r'C:/Windows/Fonts/'
 def bri(sz, w=b'Bold'):
     f = ImageFont.truetype(FD + 'BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf', sz); f.set_variation_by_name(w); return f
 SW = lambda s: ImageFont.truetype(FD + 'Switzer-Regular.otf', s)
 SWB = lambda s: ImageFont.truetype(FD + 'Switzer-Bold.otf', s)
-MONO = lambda s: ImageFont.truetype(WF + 'consola.ttf', s)
-SERIF_I = lambda s: ImageFont.truetype(WF + 'georgiai.ttf', s)
+MONO = SWB                       # las etiquetas de la referencia van en mono; aqui, Switzer
+SERIF_I = lambda s: bri(s, b'ExtraBold')
 
-fH1 = bri(52, b'ExtraBold'); fH2 = SW(44); fChip = MONO(17); fSerif = SERIF_I(64); fSerifS = SERIF_I(24)
-fCardT = SWB(26); fCardS = SW(17); fLab = MONO(16); fBig = bri(96 if V else 78, b'Bold'); fBigS = SW(17)
+fH1 = bri(52, b'ExtraBold'); fH2 = SW(44); fChip = SWB(15); fSerif = bri(62, b'ExtraBold'); fSerifS = SW(24)
+fCardT = SWB(26); fCardS = SW(17); fLab = SWB(15); fBig = bri(96 if V else 78, b'Bold'); fBigS = SW(17)
 fRowT = SWB(20); fRowS = SW(15); fStat = SWB(15); fRank = SWB(20); fRankS = SW(14); fNum = SWB(22)
 fFlow = SW(16); fFlowB = SWB(16); fCTA = bri(46, b'Bold')
 
@@ -45,16 +47,33 @@ FRAMES = 150; MS = 80            # 12 s de bucle, como el de la referencia (11,9
 def tw(d, t, f): return d.textlength(t, font=f)
 def ease(x): x = max(0.0, min(1.0, x)); return 1 - (1 - x) ** 3
 
-def claude_icon(d, cx, cy, r, col=(255, 255, 255), bg=CLAUDE):
-    d.rounded_rectangle((cx - r, cy - r, cx + r, cy + r), radius=int(r * 0.35), fill=bg)
-    for k in range(12):
-        a = k * math.pi / 6
-        d.line((cx, cy, cx + math.cos(a) * r * 0.62, cy + math.sin(a) * r * 0.62), fill=col, width=max(2, int(r * 0.14)))
+# Logos OFICIALES de la carpeta LINKEDIN GROWTH, nunca redibujados: el asterisco de Claude
+# (solo el simbolo, en su naranja) y el cuadro «in» de LinkedIn en berenjena, en una tinta,
+# como sale en el modo oscuro. Se escalan con su proporcion real, sin estirarlos.
+LG = r'C:/Users/LENOVO/Documents/Mario/LINKEDIN GROWTH/'
+def _cargar_logos():
+    c = Image.open(LG + 'claude logo.png').convert('RGBA')
+    px = c.load(); w, h = c.size
+    m = Image.new('L', c.size, 0); mp = m.load()
+    for y in range(h):
+        for x in range(w):
+            r, g, b, a = px[x, y]
+            if a > 0 and r > 150 and g < 170 and b < 140: mp[x, y] = a
+    ast = Image.new('RGBA', c.size, (0, 0, 0, 0)); ast.paste(c, (0, 0), m); ast = ast.crop(m.getbbox())
+    li = Image.open(LG + 'linkedin logo.png').convert('RGBA'); li = li.crop(li.getbbox())
+    a = li.split()[3]; W, H_ = li.size
+    col = [sum(1 for y in range(0, H_, 4) if a.getpixel((x, y)) > 128) for x in range(W)]
+    full = max(col); xs = [x for x, v in enumerate(col) if v >= full * 0.9]
+    caja = li.crop((min(xs), 0, max(xs) + 1, H_)); caja = caja.crop(caja.split()[3].getbbox())
+    ber = Image.new('RGBA', caja.size, INK + (255,)); ber.putalpha(caja.split()[3])
+    return ast, ber
+LOGO_C, LOGO_IN = _cargar_logos()
 
-def li_icon(d, cx, cy, r):
-    d.rounded_rectangle((cx - r, cy - r, cx + r, cy + r), radius=int(r * 0.3), fill=LI)
-    f = SWB(int(r * 1.25)); b = d.textbbox((0, 0), 'in', font=f)
-    d.text((cx - (b[0] + b[2]) / 2, cy - (b[1] + b[3]) / 2), 'in', font=f, fill=(255, 255, 255))
+def pegar(im, logo, cx, cy, alto):
+    w = max(1, round(logo.width * alto / logo.height))
+    l = logo.resize((w, alto), Image.LANCZOS)
+    im.paste(l, (round(cx - w / 2), round(cy - alto / 2)), l)
+    return w
 
 def chip(d, x, y, txt, fg, bg, f=fStat, padx=12, h=30, outline=None):
     w = tw(d, txt, f) + 2 * padx
@@ -99,7 +118,7 @@ def frame(i):
     # --- cabecera izquierda
     d.text((M + 6, HEAD_Y), 'Sistema de ventas', font=fH1, fill=INK)
     x = M + 6 + tw(d, 'Sistema de ventas', fH1) + 16
-    claude_icon(d, x + 20, HEAD_Y + 33, 20); li_icon(d, x + 66, HEAD_Y + 33, 20)
+    wc_ = pegar(im, LOGO_C, x + 22, HEAD_Y + 34, 42); pegar(im, LOGO_IN, x + 22 + wc_ / 2 + 14 + 21, HEAD_Y + 34, 42)
     d.text((M + 6, HEAD_Y + 74), '5 encargos a Claude', font=fH2, fill=(75, 85, 99))
     # --- cabecera derecha: chip, serif y subtitulo que se escribe
     cw = tw(d, '• CLAUDE PROPONE', fChip) + 24
@@ -129,13 +148,13 @@ def frame(i):
     webs = 44 + int(4 * ease(t * 1.4))
     vivo = '• EN VIVO'
     xr = S - M - 26 - tw(d, vivo, fLab)
-    d.text((xr, py + 10), vivo, font=fLab, fill=BLUE if (i // 6) % 2 == 0 else (120, 160, 240))
+    d.text((xr, py + 10), vivo, font=fLab, fill=NAR if (i // 6) % 2 == 0 else (255, 196, 160))
     tt = f'{webs} webs leídas'
     xr2 = xr - 18 - tw(d, tt, fLab); d.text((xr2, py + 10), tt, font=fLab, fill=MUT)
     cl = 'Claude'; wcl = tw(d, cl, fStat) + 44
     xc = xr2 - 18 - wcl
     d.rounded_rectangle((xc, py + 2, xc + wcl, py + 34), radius=8, fill=SOFT, outline=LINE)
-    claude_icon(d, xc + 16, py + 18, 9); d.text((xc + 32, py + 9), cl, font=fStat, fill=INK)
+    pegar(im, LOGO_C, xc + 18, py + 18, 20); d.text((xc + 34, py + 9), cl, font=fStat, fill=INK)
 
     # --- contadores
     cy0 = CARD_Y + 96
@@ -195,7 +214,7 @@ def frame(i):
     d = ImageDraw.Draw(im)
     # ranking de quien decide
     d.text((R[0] + 18, top + 14), 'QUIÉN DECIDE', font=fLab, fill=MUT)
-    tr = 'empezar por ↓'; d.text((R[2] - 18 - tw(d, tr, fLab), top + 14), tr, font=fLab, fill=INK)
+    tr = 'por dónde empezar'; d.text((R[2] - 18 - tw(d, tr, fLab), top + 14), tr, font=fLab, fill=INK)
     nuevo = (t % 0.5) > 0.12
     for r, (cargo, papel, sc) in enumerate(RANK):
         y = top + 48 + r * 55
@@ -222,7 +241,7 @@ def frame(i):
         x = M + 90 + k * gap
         if k == act:
             rr = 30 + 6 * math.sin(ph * math.pi * 2)
-            d.ellipse((x - rr, cyf - rr, x + rr, cyf + rr), fill=(219, 232, 254) if k % 2 == 0 else NAR_T)
+            d.ellipse((x - rr, cyf - rr, x + rr, cyf + rr), fill=BLUE_T if k % 2 == 0 else NAR_T)
         col = BLUE if k % 2 == 0 else NAR
         d.ellipse((x - 22, cyf - 22, x + 22, cyf + 22), fill=CARD, outline=col, width=3)
         d.ellipse((x - 8, cyf - 8, x + 8, cyf + 8), fill=col)

@@ -77,11 +77,26 @@ def pegar(im, logo, cx, cy, alto):
     im.paste(l, (round(cx - w / 2), round(cy - alto / 2)), l)
     return w
 
+_LIMPIA = str.maketrans('áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN')
+def banda(d, txt, f):
+    """Arriba y abajo de la banda que el ojo centra: sin tildes ni descendentes (images §0b-GIF
+    regla 5). Centrar por la caja entera sube el texto, porque la j o la p tiran de ella hacia abajo."""
+    t = ''.join(c for c in txt.translate(_LIMPIA) if c not in 'gjpqy,;()…·') or 'x'
+    # 12/11: se mide la TINTA dibujada, no la caja que declara la fuente: a 10-15 px la caja
+    # deja el texto 1-2 px alto (medido en el chip NUEVO: 4 px de aire arriba y 7 abajo)
+    m = Image.new('L', (int(d.textlength(t, font=f)) + 20, f.size * 3), 0)
+    ImageDraw.Draw(m).text((10, f.size), t, font=f, fill=255)
+    bb = m.getbbox()
+    return bb[1] - f.size, bb[3] - f.size
+
+def texto_centrado(d, x, cy, txt, f, fill):
+    a, b = banda(d, txt, f)
+    d.text((x, round(cy - (a + b) / 2)), txt, font=f, fill=fill)
+
 def chip(d, x, y, txt, fg, bg, f=fStat, padx=12, h=30, outline=None):
     w = tw(d, txt, f) + 2 * padx
     d.rounded_rectangle((x, y, x + w, y + h), radius=h // 2, fill=bg, outline=outline, width=2 if outline else 0)
-    b = d.textbbox((0, 0), txt, font=f)
-    d.text((x + padx, y + h / 2 - (b[1] + b[3]) / 2), txt, font=f, fill=fg)
+    texto_centrado(d, x + padx, y + h / 2, txt, f, fg)
     return w
 
 # ---------------------------------------------------------------- datos (sin personas ni empresas)
@@ -205,7 +220,8 @@ def frame(i):
     clk = f'10:41:{(2 + secs) % 60:02d}'
     d.text((L[2] - 18 - tw(d, clk, fLab), top + 14), clk, font=fLab, fill=INK)
     # filas que suben: cada 2 s entra una por arriba
-    ROWH = 54; vis = 5 + GR // 54
+    # 12/11: tarjetas de 54 px de alto (antes 46) para que la segunda linea respire
+    ROWH = 62; vis = 5
     shift = (t * 6) % 1.0; base = int(t * 6)
     sl = ease(min(1, shift / 0.25))
     clip = Image.new('RGB', (lw - 20, vis * ROWH + 8), SOFT); dc = ImageDraw.Draw(clip)
@@ -216,22 +232,25 @@ def frame(i):
         if r == 0 and sl < 0.05: continue
         hi = (r == 1 and sl > 0.9 and est == 'enc')
         dc.rounded_rectangle((0, y, lw - 22, y + ROWH - 8), radius=12, fill=CARD, outline=BLUE if hi else LINE, width=2 if hi else 1)
-        dc.ellipse((10, y + 10, 34, y + 34), fill=BLUE_T)
-        dc.ellipse((18, y + 16, 26, y + 24), fill=BLUE)
-        dc.text((44, y + 5), sector, font=fRowT, fill=INK if est != 'fuera' else FAINT)
-        dc.text((44, y + 27), det, font=fRowS, fill=MUT if est != 'fuera' else FAINT)
+        cyr = y + (ROWH - 8) / 2           # centro de la tarjeta: todo se centra aqui
+        dc.ellipse((10, cyr - 12, 34, cyr + 12), fill=BLUE_T)
+        dc.ellipse((18, cyr - 4, 26, cyr + 4), fill=BLUE)
+        # las dos lineas como un bloque: el mismo aire arriba y abajo, medido por la banda
+        a1, b1 = banda(dc, sector, fRowT); a2, b2 = banda(dc, det, fRowS); gap_ = 7
+        alto_ = (b1 - a1) + gap_ + (b2 - a2); top_ = cyr - alto_ / 2
+        dc.text((44, top_ - a1), sector, font=fRowT, fill=INK if est != 'fuera' else FAINT)
+        dc.text((44, top_ + (b1 - a1) + gap_ - a2), det, font=fRowS, fill=MUT if est != 'fuera' else FAINT)
         # puntos de progreso
         for p in range(5):
             on = p < (5 if est == 'enc' else 2 if est == 'fuera' else 1 + int(3 * ((t * 8) % 1)))
-            dc.ellipse((lw - 232 + p * 11, y + 20, lw - 225 + p * 11, y + 27), fill=BLUE if on and est == 'enc' else NAR if on else LINE)
+            dc.ellipse((lw - 232 + p * 11, cyr - 3.5, lw - 225 + p * 11, cyr + 3.5), fill=BLUE if on and est == 'enc' else NAR if on else LINE)
         if est == 'enc':
             cw_ = tw(dc, 'encaja', fStat) + 44; x_ = lw - 165
-            dc.rounded_rectangle((x_, y + 9, x_ + cw_, y + 39), radius=15, fill=BLUE)
-            dc.line((x_ + 13, y + 24, x_ + 18, y + 29, x_ + 27, y + 18), fill=(255, 255, 255), width=3)
-            bb_ = dc.textbbox((0, 0), 'encaja', font=fStat)
-            dc.text((x_ + 33, y + 24 - (bb_[1] + bb_[3]) / 2), 'encaja', font=fStat, fill=(255, 255, 255))
-        elif est == 'fuera': chip(dc, lw - 165, y + 9, 'fuera · sin prueba', FAINT, CARD, f=SW(14))
-        else: chip(dc, lw - 165, y + 9, 'leyendo web…', NAR, NAR_T, outline=(248, 200, 178))
+            dc.rounded_rectangle((x_, cyr - 15, x_ + cw_, cyr + 15), radius=15, fill=BLUE)
+            dc.line((x_ + 13, cyr, x_ + 18, cyr + 5, x_ + 27, cyr - 6), fill=(255, 255, 255), width=3)
+            texto_centrado(dc, x_ + 33, cyr, 'encaja', fStat, (255, 255, 255))
+        elif est == 'fuera': chip(dc, lw - 165, cyr - 15, 'fuera · sin prueba', FAINT, CARD, f=SW(14))
+        else: chip(dc, lw - 165, cyr - 15, 'leyendo web…', NAR, NAR_T, outline=(248, 200, 178))
     im.paste(clip, (L[0] + 10, top + 46))
     d = ImageDraw.Draw(im)
     # ranking de quien decide
@@ -248,7 +267,7 @@ def frame(i):
         sb = f'{sc}'; ws2 = tw(d, sb, fStat) + 22
         if hi: chip(d, R[0] + 70 + tw(d, papel, fRankS) + 8, y + 27, 'NUEVO', (255, 255, 255), NAR, f=SWB(10), padx=6, h=17)
         d.rounded_rectangle((R[2] - 24 - ws2, y + 12, R[2] - 24, y + 38), radius=13, fill=BLUE_T)
-        d.text((R[2] - 24 - ws2 + 11, y + 16), sb, font=fStat, fill=BLUE)
+        texto_centrado(d, R[2] - 24 - ws2 + 11, y + 25, sb, fStat, BLUE)
 
     # --- flujo de los 5 encargos
     fy = bot + 18 + G3

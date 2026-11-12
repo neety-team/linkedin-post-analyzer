@@ -468,6 +468,28 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 - **La única excepción es la captura que imita una app que el lector reconoce** (WhatsApp, X, el propio LinkedIn): ahí se calca también la piel, porque el reconocimiento es el chiste (`feedback_captura_app_calca_formato`). Un panel de producto inventado no lo reconoce nadie, así que va con nuestra marca.
 - **Los logos de terceros, siempre los OFICIALES y sin deformar:** `LINKEDIN GROWTH/claude logo.png` (solo el asterisco, en su naranja) y `LINKEDIN GROWTH/linkedin logo.png` (el cuadro «in», en berenjena y a una tinta, como sale en modo oscuro). Se escalan con su proporción real y nunca se redibujan: el asterisco dibujado a mano del primer montaje se veía raro a tamaño pequeño. Lo que no se negocia sigue igual: ninguna persona ni empresa inventada (sectores y cargos), nada de automatismo ni de volumen, y el formato cuadrado salvo que se decida otra cosa (`post-workflow §4.5.0-BUENOS-CONTRA-MALOS`: el 86% de los que vuelan van en 4:5). Molde: `scripts/montar-gif-sistema-ventas.py`, calcado del de Pablo Rodríguez (587 comentarios).
 
+### ✅ 0b-GIF-CHECKLIST · LO QUE SE COMPRUEBA ANTES DE ENSEÑAR UN GIF, EN ESTE ORDEN (12/11)
+Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada punto es un fallo que vio Iker y no yo. Molde que ya los cumple todos: `scripts/montar-gif-sistema-ventas.py`.
+1. **Referencia:** se calca el GIF de más comentarios del corpus del mes (Unipile) en composición, densidad y movimiento: número grande que sube, lista en directo con estados, ranking, flujo de pasos con el activo latiendo, «en vivo» y barra al pie con la palabra en un chip naranja.
+2. **Piel de la casa:** paleta y tipografía del brandbook. Fuera la monoespaciada y la serif, y se comprueba que la fuente tiene cada glifo: Switzer no tiene `↓` y dejó «empezar por» cortado.
+3. **Logos oficiales, nunca dibujados:**
+   - Claude: `LINKEDIN GROWTH/claude logo.png`, solo el asterisco.
+   - LinkedIn: `LINKEDIN GROWTH/linkedin logo.png`, el cuadro «in» en berenjena.
+   - Neety: `LINKEDIN GROWTH/neety logo blanco.png`, sacado de `NEETY LOGO.zip`.
+   - Se escalan por alto, con su proporción, y se revisan ampliados.
+4. **Neety por encima** (`brand-voice` CANÓNICO «IA genérica»): si el GIF enseña una IA genérica trabajando, lleva arriba la escalera de los 3 niveles (LinkedIn solo · Claude «esta guía» · Neety «lo más completo», en naranja), y las cifras son de una tanda a mano, no del mercado entero.
+5. **Nada inventado:** ni personas ni empresas con nombre, solo sector, tamaño y cargo, con «Ejemplo» en el panel. Nada que suene a automatismo ni a volumen.
+6. **Formato:** 4:5. Se trabaja a 1080x1350 y se exporta a 720x900, por debajo de 5 MB. Bucle de unos 12 s a 80 ms.
+7. **Bucle:** el primer fotograma va completo (el texto que se escribe arranca entero). Los contadores suben poco, para que el reinicio no se note.
+8. **Nada se sale de su caja:** el número de filas de cada columna sale del alto disponible, y un ranking de 7 filas en un hueco de 6 se desborda. Tampoco se pisan textos con chips, como el «NUEVO» sobre el cargo.
+9. **Centrado por la TINTA, medido en píxeles:**
+   - La caja que declara la fuente deja el texto 1-2 px alto a tamaño pequeño, y la «j» o la «p» lo suben aún más. Se mide la tinta dibujada sin tildes ni descendentes y se redondea la posición (`banda()` y `texto_centrado()` del molde).
+   - Tolerancia: 1 px. Cifras de referencia: «encaja» 9/9 px; «NUEVO» 5/6 px.
+10. **Tarjetas de dos líneas:** las dos líneas se centran como UN bloque, con el mismo aire arriba que abajo. Si la segunda línea queda pegada al borde, se sube el alto de la tarjeta (de 46 a 54 px), no se aprieta el texto.
+11. **Antes de enseñarlo:** la fija entera, recortes ampliados de las tarjetas y los chips, y una hoja de 4 fotogramas del GIF exportado (filas entrando, flujo, texto escribiéndose).
+12. **Con el GIF se entregan siempre** la hoja comparativa (los GIF de las referencias al lado del nuestro, con autor, comentarios y palabra) y las comparativas de texto (`working-preferences §1e`).
+13. **El recurso de la web se audita a la vez:** portada, imagen de compartir, título y firma. La portada de `/sistema/` decía «Todo en Claude» y la firma era de otro jefe.
+
 **Lo que no se sabe:** si un GIF rinde más que la foto fija en nuestras cuentas. Se lee en el A/B del lead magnet con enlace público (`historial-publicaciones`, registro de A/B) y aquí se apunta el número.
 
 > ### ⛔⛔ 0b-ANCHO · PEDIR 1:1 NO BASTA: HAY QUE PEDIR QUE APROVECHE EL ANCHO (Iker, 2026-08-13)

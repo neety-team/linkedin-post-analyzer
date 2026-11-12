@@ -604,13 +604,15 @@ El correo 11 salió 45/45 con tres defectos que `validar-post.py` ya cazaba: el 
 - **Biblioteca de gags de Kaixito** (recursos de cómic que funcionan en flat y a miniatura): garabatos/squiggles de estrés sobre la cabeza, gotas de sudor, signos de interrogación flotando, bombilla, hojear el libro frenético, mirar a cámara con el libro del revés, esconderse tras el libro, apuntar algo y que se le caiga el boli.
 - **⭐ BIBLIOTECA DE KAIXITO YA ALOJADA EN MAILERLITE (2026-08-06).** Los 5 GIF están subidos al File manager de la cuenta y tienen URL pública permanente. **Verificadas ese día: las 5 responden 200, `image/gif`, 552×552, 40-43 fotogramas, 270-325 KB.** Para cualquier correo futuro, se pega la URL que toque en el `<img>` vía API: **ya no hay que subir nada ni pedirle nada a Mario.**
 
+**⛔ LOS GIF SALEN DEL GESTOR DE ARCHIVOS DE BREVO (`img.mailinblue.com`), NUNCA DEL DE MAILERLITE (2026-11-12).** La tabla de abajo apuntaba a `storage.mlcdn.com`, de la cuenta cancelada, y por eso los correos 12 y 13 se montaron desde ahí, cuando los correos 4 a 11 salían de Brevo. Ese servidor no es nuestro: desde noviembre sirve los GIF comprimidos (el de aburrimiento, 276 KB y 40 fotogramas en vez de 340 KB y 43), y en el correo 13 una copia interna del brazo A llegó sin el GIF a la vista. Las URL de abajo son las de Brevo, comprobadas el 12/11: responden 200, son los originales y cada una es su emoción. **Mecanizado:** `montar-correo-brevo.py` se niega a montar un `--gif` que no sea de `img.mailinblue.com`.
+
 | Emoción | Cuándo se usa | URL |
 |---|---|---|
-| **Estresado** | El dolor del lector, agobio, no encontrar algo | `https://storage.mlcdn.com/account_image/2536617/u5KyfiIVYeloMbzrChkyrlnfYU4nlMomwt9UdFcV.gif` |
-| **Curiosidad** (con gafas) | El correo educativo, un dato, un descubrimiento | `https://storage.mlcdn.com/account_image/2536617/PtnS2Gy6E1ft7zPmY203lZVkPElj4xdVSyL6wgNo.gif` |
-| **Alegría** | Casos de éxito, novedades, buenas noticias | `https://storage.mlcdn.com/account_image/2536617/8ti5HV7Qfls0vOjDrwAsWO45AUBex4FvVl1l98YI.gif` |
-| **Aburrimiento** | El trabajo manual repetitivo (tema central nuestro) | `https://storage.mlcdn.com/account_image/2536617/Z2e7Wqk1asSbn5y1vSuKTRDzr5xT03Srx2rDSqDZ.gif` |
-| **Enfado** | Romper una creencia, señalar lo que el sector hace mal | `https://storage.mlcdn.com/account_image/2536617/Tp7w4o46iHpb3o1AuKiuKAdzQzJKMzykkz1AtgJO.gif` |
+| **Estresado** | El dolor del lector, agobio, no encontrar algo | `https://img.mailinblue.com/11927007/images/content_library/original/6a8722b7e5f747179059068f.gif` |
+| **Curiosidad** (con gafas) | El correo educativo, un dato, un descubrimiento | `https://img.mailinblue.com/11927007/images/content_library/original/6a8722b7d90d741e712f9a10.gif` |
+| **Alegría** | Casos de éxito, novedades, buenas noticias | `https://img.mailinblue.com/11927007/images/content_library/original/6a8722b7e5f747179059068e.gif` |
+| **Aburrimiento** | El trabajo manual repetitivo (tema central nuestro) | `https://img.mailinblue.com/11927007/images/content_library/original/6a8722afd90d741e712f9a0a.gif` |
+| **Enfado** | Romper una creencia, señalar lo que el sector hace mal | `https://img.mailinblue.com/11927007/images/content_library/original/6a8722b7d90d741e712f9a11.gif` |
 
   - **La elección de emoción la decide Claude** según el pilar del correo, sin preguntar. Una sola por correo.
   - **Snippet estándar** (280 px, centrado, con alt porque muchos clientes bloquean imágenes):

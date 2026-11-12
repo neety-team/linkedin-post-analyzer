@@ -57,6 +57,11 @@ def main():
     ap.add_argument('--enlace-texto', default=None)
     a = ap.parse_args()
 
+    # Los GIF salen del gestor de archivos de Brevo, nunca de otro alojamiento (2026-11-12,
+    # email-marketing §3b): el CDN de MailerLite (cuenta cancelada) sirve los GIF comprimidos
+    # y el correo 13 llego a una copia interna sin el GIF a la vista.
+    if a.gif and not a.gif.startswith('https://img.mailinblue.com/'):
+        sys.exit('GIF fuera de Brevo: ' + a.gif + '. Usa la URL de img.mailinblue.com de la tabla de email-marketing §3b')
     txt = io.open(a.fichero, encoding='utf-8').read()
     partes = []
     for b in bloques_de(txt):

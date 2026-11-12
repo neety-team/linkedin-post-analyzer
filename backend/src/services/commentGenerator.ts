@@ -489,6 +489,15 @@ export function fichaOLeccion(c: string): string | null {
 
 /** Copia un ejemplo de ASI_SUENAN (mismas cuatro primeras palabras): tienen que ser nuevos cada vez. */
 export function copiaElEjemplo(c: string): boolean {
+  // Mas de la mitad de sus palabras de contenido salen en un mismo ejemplo
+  // ("Orgulloso de lo que estamos construyendo juntos", prueba del 12/11).
+  const palabras = (t: string) =>
+    new Set(t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z\s]/g, ' ').split(/\s+/).filter((w) => w.length > 3));
+  const mias = palabras(c);
+  if (mias.size > 0 && ASI_SUENAN.some((e) => {
+    const suyas = palabras(e);
+    return [...mias].filter((w) => suyas.has(w)).length / mias.size > 0.5;
+  })) return true;
   const cuatro = (t: string) => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z\s]/g, ' ').trim().split(/\s+/).slice(0, 4).join(' ');
   const mia = cuatro(c);
   return ASI_SUENAN.some((e) => cuatro(e) === mia);
@@ -537,7 +546,7 @@ export async function generateSupportiveComments(
     ? `ESTA HISTORIA LA VIVIO EL EQUIPO ENTERO y los que comentan estaban. Complicidad de quien estuvo, como por WhatsApp: "Lo de las avispas en el baño fue surrealista", "Aún no me puedo creer que nos pasase eso jajaja", "Qué buen recuerdo aquella noche". Nada de reaccionar como quien se entera ahora, y nada de ventas: se comenta lo que paso.`
     : hablaDeLaCasa
     ? `ESTE POST HABLA DE NEETY, nuestra empresa. Los ${n} son de compañeros que se alegran por lo que ha conseguido la casa: orgullo, ilusion, ganas de lo que viene, el trabajo de todos que empieza a verse. Se puede decir "Neety" y "estamos", "juntos", "lo que queriamos construir". NO se repite lo que el post cuenta ni se explica el producto.`
-    : `ESTE POST NO VA DE NEETY SINO DE UN TEMA (una region, una idea de ventas, una anecdota). Los ${n} son de compañeros que apoyan al que lo ha escrito: se dice lo que te ha hecho sentir o pensar, sencillo y de tu a tu ("Qué bien contado lo de...", "Me ha gustado mucho lo de...", "Ojalá más gente lo viera así"). Como mucho UNO nombra un detalle del post, y dicho en corto. Nunca se repite la tesis del post ni se convierte en una leccion.`;
+    : `ESTE POST NO VA DE NEETY SINO DE UN TEMA (una region, una idea de ventas, una anecdota). Los ${n} son de compañeros que apoyan al que lo ha escrito: se dice lo que te ha hecho sentir o pensar, sencillo y de tu a tu, con tus propias palabras. Las formulas de elogio al post ("qué bien contado", "me ha gustado mucho", "muy bien traído") como mucho UNA vez en los ${n}. Como mucho UNO nombra un detalle del post, y dicho en corto. Nunca se repite la tesis del post ni se convierte en una leccion.`;
 
   const system = `Escribes los ${n} comentarios de apoyo que el equipo de Neety pega debajo del post de LinkedIn de uno de sus jefes. Se los mandamos por el Google Chat interno a compañeros de ventas, finanzas, producto, programacion, atencion al cliente y marketing, y cada uno pega uno con su nombre.
 
@@ -709,5 +718,6 @@ export function autorPorSuNombre(c: string, autor: string | null | undefined): s
   const pila = (autor || '').trim().split(/\s+/)[0];
   if (!pila || pila.length < 3) return null;
   const llanoS = (t: string) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  return new RegExp(`\b${llanoS(pila)}\b`).test(llanoS(c)) ? pila : null;
+  // "\\b" y no "\b": dentro de una plantilla "\b" es un retroceso y esto no casaba nunca (12/11).
+  return new RegExp(`\\b${llanoS(pila)}\\b`).test(llanoS(c)) ? pila : null;
 }

@@ -230,10 +230,13 @@ ${STRETCH_RULES[voice].r12}
 
 ${STRETCH_RULES[voice].r13}`;
 
+/** De cada 3 respuestas que podrian dar la razon, 1 abre asintiendo (12/11). */
+export const PROB_ASENTIR = 0.33;
+
 export function buildPrompt(
   input: ReplyGenerationInput,
   voice: Voice
-): { prompt: string; arranque: string; conEmoji: boolean; estirar: boolean; emojiElegido: string; palabraAlargar: string; thanks: string } {
+): { prompt: string; arranque: string; asentir: boolean; conEmoji: boolean; estirar: boolean; emojiElegido: string; palabraAlargar: string; thanks: string } {
   const v = input.authorVoice;
   const voiceBlock = [
     v.voice_style ? `VOICE STYLE: ${v.voice_style}` : null,
@@ -352,9 +355,23 @@ export function buildPrompt(
   ];
   // En un peloteo, la negacion es la puerta a la tesis ("nadie lo visualiza
   // porque nadie se para a contarlo", 01/09): fuera.
-  const movimientos = esPeloteo(input.pillar)
+  // ⛔ DAR LA RAZON CON UNA PALABRA, SOLO A VECES (2026-11-12). Hasta aqui toda
+  // respuesta que no fuera a una pregunta o a una critica llevaba asignada su
+  // palabra de asentir, y la mitad del banco era "exacto", "justo", "tal cual":
+  // casi todas abrian igual. Ahora lo decide el dado (1 de cada 3) y, cuando no
+  // toca, se apoya con lo que se aporta, no con la muletilla.
+  const comentarioLlano0 = llano(input.commentText);
+  const puedeAsentir = !(
+    /[¿?]/.test(input.commentText) ||
+    DISCREPA.test(comentarioLlano0) ||
+    ES_HOSTIL.test(comentarioLlano0) ||
+    NO_ENTIENDE.test(comentarioLlano0)
+  );
+  const asentir = puedeAsentir && Math.random() < PROB_ASENTIR;
+  const movimientos = (esPeloteo(input.pillar)
     ? OPENING_MOVES.filter((m) => !m.arranque.startsWith('una negacion'))
-    : OPENING_MOVES;
+    : OPENING_MOVES
+  ).filter((m) => asentir || !m.arranque.startsWith('la palabra de asentimiento'));
   const elegido = movimientos[Math.floor(Math.random() * movimientos.length)];
   const move = elegido.move;
 
@@ -366,9 +383,14 @@ export function buildPrompt(
   //
   // Las variantes con vocal estirada solo se ofrecen a las voces que ya estiran
   // (RULE 12): en la de Unai quedarian fuera de registro.
+  // Banco ampliado el 12/11: "exacto", "justo" y "tal cual" eran 3 de 14 y aun
+  // asi eran las que se leian en todas. Ahora son 3 de 24 y solo salen cuando
+  // toca asentir.
   const ASENTIMIENTOS = ['exacto', 'justo', 'eso es', 'tal cual', 'cierto',
     'totalmente', 'claro', 'sin duda', 'ahí está', 'ese es el tema',
-    'y tanto', 'buen punto', 'lo has clavado', 'te compro eso'];
+    'y tanto', 'buen punto', 'lo has clavado', 'te compro eso',
+    'muy de acuerdo', 'eso mismo', 'ahí le has dado', 'qué bien visto',
+    'comparto', 'pues sí', 'me lo apunto', 'bien dicho', 'de acuerdo contigo', 'muy bien visto'];
   // ALARGAR O NO, SORTEADO AQUI (Iker, 2026-09-16). "Casi todas" no es
   // variedad y "a veces" no produce "a veces": lo decide el dado, por voz.
   const PROB_ESTIRAR: Record<Voice, number> = { sobrio: 0.15, medio: 0.35, cercano: 0.55 };
@@ -376,13 +398,11 @@ export function buildPrompt(
   // viene delicado (Iker, 2026-09-18). Salio "tal cuaaal" a "¿el evento es
   // gratis?", "claroo, tramposa, pero…" a una critica y "justooo, normal,
   // culpa mia" a alguien que no entendia el post.
-  const comentarioLlano = llano(input.commentText);
-  const sinAsentir =
-    /[¿?]/.test(input.commentText) ||
-    DISCREPA.test(comentarioLlano) ||
-    ES_HOSTIL.test(comentarioLlano) ||
-    NO_ENTIENDE.test(comentarioLlano);
-  const estirar = !sinAsentir && Math.random() < PROB_ESTIRAR[voice];
+  const sinAsentir = !puedeAsentir;
+  // La alargada abre la respuesta asintiendo ("clarooo, ..."), asi que solo
+  // entra cuando toca asentir, o en un elogio, donde lo que se alarga es el gracias.
+  const estirar =
+    !sinAsentir && (asentir || ES_ELOGIO.test(comentarioLlano0)) && Math.random() < PROB_ESTIRAR[voice];
   // Las variantes estiradas ("juuusto", "clarooo") ya no entran aqui (Iker,
   // 2026-09-18): el asentimiento puede caer en cualquier sitio y la alargada
   // solo tiene dos. La palabra alargada la decide el sorteo de ALARGAR.
@@ -422,7 +442,9 @@ ${sinAsentir
   ? `Esta respuesta NO lleva palabra de asentir. La negacion del arranque va sobre el PROBLEMA del post ("nadie descuelga", "ningun comercial..."), NUNCA sobre lo que dice el que comenta: "no te compro eso", "no es asi" o "no es eso" estan PROHIBIDAS.`
   : estirar
   ? `UNA SOLA PALABRA DE ASENTIR EN TODA LA RESPUESTA (Iker, 2026-09-18): si asientes, la palabra es la ALARGADA de esta respuesta ("${alargarPalabra(palabraAlargar, 2)}") y NO se le suma ninguna otra ("claro", "exacto", "y tanto", "tal cual", "totalmente"...). Nada de "exactooo, claro y tanto".`
-  : `IF your reply agrees with the commenter, the agreement word for THIS reply is "${asent}": use that one and no other, literal, UNA sola vez y al principio, sin convertirla en adverbio ("exactamente" esta PROHIBIDA).`}
+  : asentir
+  ? `IF your reply agrees with the commenter, the agreement word for THIS reply is "${asent}": use that one and no other, literal, UNA sola vez y al principio, sin convertirla en adverbio ("exactamente" esta PROHIBIDA).`
+  : `Esta respuesta NO abre dandole la razon con una palabra de asentir (ni "exacto", "justo", "tal cual", "totalmente", "claro", "eso es", "efectivamente"): se le apoya con lo que le aportas o le devuelves, no con la muletilla. Entra directo.`}
 ⛔ Una palabra de asentir NUNCA va como inciso en mitad de la frase ("el filtro, tal cual, siempre lo pone", "el comercial busca justo, antes de...") ni pegada a otra ("claro y tanto"). Si no asientes, no la metas.
 ⛔ Y recuerda la RULE 10b: no se abre con una abstraccion ni con un sustantivo abstracto mas verbo copulativo. Se abre por lo concreto.${evitaLista}`;
 
@@ -523,7 +545,7 @@ ${previas.map((t) => `· ${cortar(t.trim(), 240)}`).join('\n')}
     : '';
   // ⛔ A QUIEN DISCREPA (tanda del 18/09): "no es una trampa, es que…" le
   // corrige. Se le reconoce lo que dice y se aporta, sin enmendarle.
-  const discrepaNudge = DISCREPA.test(comentarioLlano)
+  const discrepaNudge = DISCREPA.test(comentarioLlano0)
     ? `DISCREPA: el comentario lleva la contraria. Reconocele lo que tiene de razon ("en tu sector pesa mas", "es verdad que...") y aporta el matiz sin decirle que se equivoca: nada de "no es X, es Y", nada de "pero", nada de corregirle.\n`
     : '';
   const emojiNudge =
@@ -633,7 +655,12 @@ ${commenterLine}
 "${input.commentText}"
 
 ${mentionInstruction}
-${leadMagnetInstruction}
+${(() => {
+  const terceros = nombresDelComentario(input.commentText, input.commenterName, input.postContent);
+  return terceros.length
+    ? `⛔ TERCEROS QUE NOMBRA EL COMENTARIO (${terceros.join(', ')}): NO los nombres en tu respuesta, ni para darle la razon ni para decir algo de ellos. No los conocemos y una afirmacion sobre ellos puede traer polemica. Habla en general ("empresas así", "ese tipo de proyectos", "perfiles como ese") y apoya a quien comenta. A quien comenta SI se le nombra, al principio, como siempre.\n`
+    : '';
+})()}${leadMagnetInstruction}
 ${varietyNudge}
 ${tesisNudge}${eventoNudge}${discrepaNudge}
 ${ellipsisNudge}
@@ -645,7 +672,7 @@ ${thanksNudge}
 ${avisoImagen}
 
 Write the reply now. Plain text, ONE single sentence, in the same language as the post/comment.`;
-  return { prompt, arranque: elegido.arranque, conEmoji, estirar, emojiElegido, palabraAlargar, thanks };
+  return { prompt, arranque: elegido.arranque, asentir, conEmoji, estirar, emojiElegido, palabraAlargar, thanks };
 }
 
 // EL GUARDARRAIL, PORQUE UN PROMPT ES UNA PETICION Y NO UNA GARANTIA
@@ -1559,6 +1586,48 @@ function llano(t: string): string {
   return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
+// \u26d4 LOS TERCEROS QUE NOMBRA UN COMENTARIO NO SE NOMBRAN EN LA RESPUESTA (2026-11-12).
+// En un mapa, quien comenta suele sugerir una empresa o una persona que "se nos
+// ha olvidado". La respuesta la nombraba y afirmaba cosas de ella: es gente que
+// no conocemos y eso es arriesgarse a una polemica. Se contesta a quien comenta
+// (su nombre va delante, como siempre) y se habla en general de "empresas as\u00ed".
+const NO_SON_TERCEROS = new Set(['neety', 'linkedin', 'google', 'espana', 'europa', 'gracias', 'enhorabuena', 'felicidades', 'bravo', 'buenas', 'hola']);
+export function nombresDelComentario(comentario: string, comentarista: string | null | undefined, post: string): string[] {
+  const conocidas = new Set(llano(`${comentarista || ''} ${post}`).split(/[^a-z0-9]+/).filter(Boolean));
+  const out: string[] = [];
+  const re = /(@)?(\p{Lu}[\p{L}\d'&-]{2,})/gu;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(comentario))) {
+    const palabra = m[2];
+    const antes = comentario.slice(0, m.index).trimEnd();
+    const abreFrase = antes === '' || /[.!?\u00a1\u00bf:\n"(]$/.test(antes);
+    // Al abrir frase solo cuenta si va con @ o si la siguiente tambien va en mayuscula ("Chocolate Industries").
+    const siguienteMayus = /^\s+\p{Lu}/u.test(comentario.slice(m.index + m[0].length));
+    if (abreFrase && !m[1] && !siguienteMayus) continue;
+    const l = llano(palabra);
+    if (conocidas.has(l) || NO_SON_TERCEROS.has(l)) continue;
+    if (!out.includes(palabra)) out.push(palabra);
+  }
+  return out;
+}
+
+/** El primero de esos terceros que sale en la respuesta, o null. */
+export function nombraTercero(respuesta: string, comentario: string, comentarista: string | null | undefined, post: string): string | null {
+  const r = llano(respuesta);
+  for (const n of nombresDelComentario(comentario, comentarista, post)) {
+    if (new RegExp(`(^|[^a-z0-9])${llano(n).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^a-z0-9]|$)`).test(r)) return n;
+  }
+  return null;
+}
+
+/** La respuesta abre dando la razon con una muletilla ("justo", "tal cual", "exacto"...). */
+const ASIENTE_AL_ABRIR = /^(exacto|exactamente|justo|tal cual|eso es|efectivamente|totalmente|claro|cierto|sin duda|y tanto|correcto|perfecto|totalmente de acuerdo)\b/;
+export function abreAsintiendo(cuerpo: string): string | null {
+  const t = llano(desestirarTodo(cuerpo.trim())).replace(/^[^a-z]+/, '');
+  const m = t.match(ASIENTE_AL_ABRIR);
+  return m ? m[0] : null;
+}
+
 // Marcadores de ESCENA: fecha, sitio o testigo. Son los que convierten una idea
 // general (permitida) en un hecho concreto que no ha pasado (prohibido).
 const PATRONES_ANECDOTA: { re: RegExp; que: string }[] = [
@@ -1731,7 +1800,7 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
     (esPostDeEvento(input.pillar, input.postContent)
       ? await analizarEvento({ postId: input.postId, texto: input.postContent, publicadoEl: input.publishedAt })
       : null);
-  const { prompt, arranque: elegidoArranque, conEmoji, estirar, emojiElegido, palabraAlargar, thanks } = buildPrompt(
+  const { prompt, arranque: elegidoArranque, asentir, conEmoji, estirar, emojiElegido, palabraAlargar, thanks } = buildPrompt(
     { ...input, respuestasPrevias: previas, faseEvento },
     voice
   );
@@ -1890,6 +1959,11 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText, [input.commenterName, input.authorName]);
       const ingles = inglesColado(cuerpoV, `${fuentes.postContent}\n${input.commentText}`);
       if (!ultimoEstilo && ingles) ultimoEstilo = `se cuela una palabra en ingles ("${ingles}"): todo en castellano`;
+      // 12/11: los terceros del comentario no se nombran, y asentir solo cuando toca.
+      const tercero = nombraTercero(cuerpoV, input.commentText, input.commenterName, fuentes.postContent);
+      if (!ultimoEstilo && tercero) ultimoEstilo = `nombras a "${tercero}", que lo menciona el comentario y no lo conocemos: habla en general ("empresas así", "ese tipo de proyectos") sin nombrarlo`;
+      const muletilla = !asentir && !estirar && !ES_ELOGIO.test(llano(input.commentText)) ? abreAsintiendo(cuerpoV) : null;
+      if (!ultimoEstilo && muletilla) ultimoEstilo = `abres con "${muletilla}" y esta respuesta no abre dando la razon con una muletilla: entra directo con lo que aportas`;
     }
     if (ultimoEstilo || ultimoTonoBorde || ultimosInventos.length) {
       diagnostico.push(`intento ${intento}: ${ultimoTonoBorde || ultimoEstilo || textoDelAviso(ultimosInventos)}`);

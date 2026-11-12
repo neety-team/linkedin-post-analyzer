@@ -218,6 +218,7 @@ brand-voice | 7.1f EN UN MEME LA IMAGEN VA EN TEXTO Y LA BROMA | fuera: fuera ·
 brand-voice | 7.2 Comentar posts de OTROS los 9 angulos | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
 brand-voice | 7.2b Los 5 comentarios de apoyo de Google Chat I | fuera: fuera · respuestas/comentarios generados por codigo (replyGenerator, commentGenerator, variedadComentarios); sin valid
 brand-voice | 7.2b-ADULTO APOYO DE ADULTO Y SI LA HISTORIA LA | fuera: fuera · comentarios de apoyo de Google Chat por codigo (commentGenerator / variedadComentarios); id con guion 7.2b-ADU
+brand-voice | 7.1k RESPUESTAS SE APOYA SIN MULETILLA Y LOS TER | fuera: respuestas generadas por codigo (replyGenerator: abreAsintiendo, nombraTercero); prueba en backend/src/scripts/testComentariosChat.ts
 brand-voice | 7.2b-DENTRO LOS PEGAN COMPANEROS SE NOTA Y NO SE | fuera: comentarios de apoyo de Google Chat por codigo (commentGenerator, fichaOLeccion); prueba en backend/src/scripts/testComentariosChat.ts
 brand-voice | 7.3 Que SI es fiable recordatorio | contexto: recordatorio de fiabilidad de fuentes
 brand-voice | NUNCA EL ANO NI EN EL TEXTO NI EN LA IMAGEN Iker | pendiente(2026-11-11): cubierta · check: Sin el AÑO en el post (atemporalidad, brand-voice)

@@ -733,6 +733,13 @@ Esto es lo que hace que una respuesta suene a persona y no a IA. Reglas duras:
 
 **⚠️ Y el detector es conservador a propósito:** el castellano tiene dobles vocales legítimas (`lee`, `cree`, `desee`, `coordinar`) y en los textos se cuelan palabras inglesas (`Neety`, `feedback`, `Google`). Solo cuenta como alargada una racha de 3 letras, una doble a/i/u/o **al final**, una doble a/i/u en medio o una `ss` final. Probado contra todas esas: no toca ninguna.
 
+#### ⛔⛔ 7.1k · RESPUESTAS: SE APOYA SIN MULETILLA, Y LOS TERCEROS QUE NOS SUGIEREN NO SE NOMBRAN (2026-11-12)
+**1 · Dar la razón con una palabra, solo a veces.** Hasta el 12/11 toda respuesta que no fuera a una pregunta o a una crítica llevaba asignada su palabra de asentir, y casi todas abrían con `justo`, `tal cual` o `exacto`. Ahora el dado decide (1 de cada 3, `PROB_ASENTIR`), el banco tiene 24 sinónimos (`eso mismo`, `ahí le has dado`, `qué bien visto`, `comparto`…) y la alargada solo entra cuando toca asentir o en un elogio. Cuando no toca, se apoya con lo que se aporta y se entra directo; si abre igualmente con la muletilla, se reintenta (`abreAsintiendo`). Apoyar sigue siendo lo de siempre (`RULE 3c`), salvo burradas.
+
+**2 · Los terceros que nombra el comentario no se nombran en la respuesta.** En un mapa, quien comenta suele sugerir una empresa o una persona que "se nos ha olvidado". La respuesta no la nombra ni afirma nada de ella: no la conocemos y es arriesgarse a una polémica. A quien comenta SÍ se le menciona, al principio, como siempre; del sugerido se habla en general (`empresas así`, `ese tipo de proyectos`). Ejemplo: a `Se os ha olvidado Chocolates Pepito`, nunca `tienes razón, Chocolates Pepito también…`, sino `empresas así también merecían estar`. Se detecta en código (`nombresDelComentario`, `nombraTercero`) y es motivo de reintento.
+
+Prueba: `backend/src/scripts/testComentariosChat.ts`.
+
 #### ⛔⛔ 7.1j · ESPAÑOL DE ESPAÑA, SIN PARODIA Y CON LOS NOMBRES ENTEROS (Iker, 2026-10-15) — respuestas Y Google Chat
 
 > Captura del Chat (entrevista de Telmo): *"Valeee Multiverse Computing en el Forward fue de los momentos del año"*, *"No ciertooo olvidaba el detalle del audio"*, *"Telmo escribiéndole a su jefe en directo fue el mejor momento de la sesión"*. Iker: *"respuestas un poco infantiles o incluso hablando en español latino… como sacadas de una parodia… que sea un apoyo más natural, más cercano, más humilde"*.

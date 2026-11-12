@@ -337,3 +337,10 @@ CÓMO QUIERO QUE TRABAJES (antes de escribir una línea de copy)
 
 ## 6 · Medición (para pedirla, no para hacerla)
 Visitas → correos dejados → recursos abiertos → respuestas/demos. Si la conversión es baja, el problema suele estar en: promesa poco clara · recurso poco deseable · formulario largo · sin prueba social · CTA débil · demasiado texto · desconexión con el dolor real. Testea títulos, CTAs y formatos (PDF vs quiz vs calculadora vs checklist vs auditoría).
+
+## 7 · La guía en neety.com/academia: tres cosas que se comprueban siempre (2026-11-12)
+
+- **Los enlaces internos de la guía (a `/solicitar-demo`) van SIN utm.** La web guarda el último origen que trae utm (`landing/lib/attribution.ts`), y un utm interno pisa la campaña que trajo a la visita, la del enlace del mensaje privado (`leadmagnet-palabra-…`). La página de entrada ya dice que vino del recurso. El enlace a la demo va al final del texto (tarjeta o cita destacada) y la web lo pinta como botón. Nunca va antes de haber dado el valor: ni en la primera tarjeta ni en los niveles de arriba.
+- **Los apartados abiertos (`openChapters`) se eligen para que lo regalado salga ENTERO.** La muestra cerrada mide 460 px desde md y el formulario sube encima: lo que queda a medias es el primer apartado cerrado, no el último regalado. En `/sistema/` son 3 (la hoja y los encargos 1 y 2).
+- **La firma es una tarjeta cuyo título es el nombre del fundador:** sale con su foto y con «Seguir a … en LinkedIn» como botón de borde. El nombre se escribe tal cual está en `FOTOS_EQUIPO` (`landing/components/academia/detalle/ChapterBlocks.tsx`).
+- **Publicar en Sanity no despliega producción:** hace falta un push a `main` de `landing`. Ese push a veces NO dispara el build. Se comprueba con `npx wrangler deployments list --name landing` (la última fecha), y si a los 3-4 minutos no hay despliegue nuevo, se vuelve a empujar un commit vacío. Después se mira la página viva en ordenador y en móvil (`MSYS_NO_PATHCONV=1 npm run qa:ver -- /academia/<slug> "<texto>"`); lo cerrado se mira con el pase del gate puesto.

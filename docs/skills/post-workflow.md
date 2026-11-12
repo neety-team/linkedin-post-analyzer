@@ -2030,6 +2030,60 @@ Mira la foto **sola**, tapando el texto del post, y escribe en literal:
 
 ### 4.5 · Runbook LEAD MAGNET (comment-gated) — RECETA DEFINITIVA
 
+#### ⭐⭐ 4.5.-4 · LA RECETA REPLICABLE: CALCAR LA REFERENCIA COMO UN MEME, CON NUESTRA MARCA Y NUESTRO DIFERENCIAL ENCIMA (12/11/2026)
+**Se lee primero. Es el orden que salió del lead magnet de Iker del 12/11 (`/sistema/`, «Ahora Claude me hace la mitad»).** Cada paso apunta a la regla que lo detalla. Ninguno se salta, aunque el post parezca sencillo.
+
+**0 · La idea de fondo.** Igual que en el meme, nos parecemos todo lo posible a la referencia que más comenta en tema, molde, estructura, palabra e imagen, y encima aplicamos lo nuestro en dos capas:
+- **Marca:** colores, tipografía y logos del brandbook.
+- **Valor diferencial:** lo que vendemos queda por encima, sin criticar a nadie ni tirarnos piedras.
+
+Copiar no es plagiar: se copian el molde y el orden, nunca frases literales.
+
+**1 · El corpus del mes, por Unipile.** Lead magnets de ventas en español con 80 o más comentarios y comentarios ≥ 0,8 × reacciones, de 6 a 12 cuentas. Se tritura todo:
+- tema, molde del gancho, palabra y su % en los comentarios;
+- estructura del cuerpo y cierre;
+- formato y duración del GIF.
+
+Se comparan los que pasan de 300 comentarios con los que no (`§4.5.0-BUENOS-CONTRA-MALOS`, remedido el 11/11: GIF 504 frente a fija 345, el 86% en 4:5, VENTAS como palabra, `comenta` en el texto 10% frente a 36%). La memoria `feedback_lead_magnet_calco_descarado` explica el porqué.
+
+**2 · Tema, recurso y palabra.**
+- **Tema:** el que más comenta y que podamos regalar SIN prometer automatismo, volumen ni señal.
+- **Recurso:** se reutiliza uno del catálogo si encaja (`§4.5.0-REUTILIZAR`).
+- **Palabra:** la que más se repite entre los que más comentan, aunque no sea original.
+
+**3 · El texto.**
+- **Molde y estructura:** el molde del gancho de la referencia con Claude en la primera línea, y su estructura en el mismo orden.
+- **⛔ El filtro del diferencial** (`brand-voice` CANÓNICO «Una IA genérica nunca está al nivel de Neety»):
+  - Lo que regalamos es el nivel intermedio de la escalera del webinar: Claude, empresa a empresa y a mano.
+  - Neety es el nivel de arriba y se nombra una vez, cerca del final.
+  - Se describe como funciona: te propone empresas, personas y mensajes, y en cada paso decides tú.
+  - Nunca «solo hace esto», frecuencias sin confirmar ni críticas a la IA.
+- **El gancho no puede prometer que Claude lo hace todo:** «me hace la mitad», no «se lo encargo».
+- **Validador** con `--criterio`: la clave `comprador` pregunta por esto y el aviso «IA generica por debajo de Neety» lo vigila.
+
+**4 · El GIF** (`images §0b-GIF-CHECKLIST`, 13 puntos; molde `scripts/montar-gif-sistema-ventas.py`).
+- **De la referencia:** la composición, la densidad y el movimiento.
+- **De la casa:**
+  - la piel: berenjena, naranja y menta, con Bricolage y Switzer;
+  - los logos oficiales de `LINKEDIN GROWTH`, sin deformar;
+  - la escalera de niveles con Neety arriba;
+  - las etiquetas reales del recurso (DECIDE, INFLUYE, USA) y no cifras inventadas;
+  - un título que diga lo mismo que el gancho («La mitad del trabajo»), nunca «Sistema de ventas».
+- **Formato:** 4:5, con todo centrado por la tinta medida en píxeles.
+
+**5 · La guía en la web** (`lead-magnet-web §7`).
+- **El mensaje:** el título y la portada dicen lo mismo que el gancho; los niveles van arriba; el cierre «Nivel 3» en negrita y en su propia línea, con el botón a `/solicitar-demo` SIN utm y solo después del valor.
+- **La firma:** la del jefe que publica, con su foto y en su voz.
+- **El gate:** abierto hasta lo que se regala entero.
+- **El acabado:** ninguna línea suelta a 1440 ni a 390 (`scripts/qa-viudas-academia.cjs`, probando los textos sobre la página viva antes de tocar Sanity).
+- **Producción:** el despliegue se comprueba (memoria `reference_deploy_landing_produccion`).
+
+**6 · El panel.**
+- La palabra va primera en `claves` del catálogo, con el UTM del post en el enlace.
+- Se comprueban las pistas contra el texto final, con el código real (`detectarRecurso`, `claveDelPost`, `matchesKeyword`).
+
+**7 · La entrega, en el orden de `§4.5.0-ENTREGA`.** Incluye la hoja comparativa del GIF (`scripts/montar-comparativa-gif.py`) y las dos comparativas de texto. En la carpeta queda UN solo GIF de cada lead magnet; las versiones viejas se borran.
+
 #### ⛔ 4.5.-3 · POR DÓNDE SE ENTREGA EL RECURSO: YA NO AGREGAMOS A NADIE (Iker, 2026-08-17)
 
 **LA REGLA DE HOY. La herramienta no manda invitaciones ni InMails. La solicitud la manda ELLA.** Tres canales, los tres gratis, y se eligen en este orden:

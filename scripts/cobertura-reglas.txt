@@ -400,3 +400,4 @@ aboutme | 4 Estrategia de publicacion contexto que condici | pendiente(2026-11-1
 aboutme | 5 Que me falta de aqui huecos a rellenar por el | contexto: huecos; seguidores no es variable de contenido
 post-workflow | 4.4-PSICOLOGIA EL SEGUNDO EJE DEL MEME QUE LO HA | criterio: motor
 brand-voice | CANONICO UNA IA GENERICA NUNCA ESTA AL NIVEL DE | check: IA generica por debajo de Neety
+post-workflow | 4.5.-4 LA RECETA REPLICABLE CALCAR LA REFERENCIA | criterio: comprador

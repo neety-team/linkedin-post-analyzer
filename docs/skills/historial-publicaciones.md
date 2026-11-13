@@ -599,6 +599,24 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | ✅ **Quemadas (11/11)** | las dos líneas del ninja a `SPAM_QUEMADO` (y las del meme de Iker del 10/11, que no estaban) · sin arranque de anáfora que quemar |
 | ⏳ | a los 3 días (sáb 14/11): comentarios de fuera (`comentarios-de-fuera.py --post`), clics y reuniones por `utm_campaign=historia-chatgpt-11nov`, contra su historia del 28/10 |
 
+## ✅ PUBLICADO · VIE 13/11 · MARIO · MEME (GRÁFICA · ROLES): EL RELEVO DE MARKETING A VENTAS (`/solicitar-demo`, 🎯 Alcance)
+
+| dato | |
+|---|---|
+| **Estado** | ✅ publicado el vie 13/11 · hora y enlace `[PENDIENTE · su cuenta no está en Unipile]` · `ENTREGABLE: SÍ · mecánico 79/79 · criterio 15/15` (`--pilar meme --cuenta mario --sin-menciones --comprador-ok --ref-con-texto --referencia-fuera --criterio`) · 681 caracteres (zona 451-700) · el UTM se pasó a `13nov` a mano al subirlo · validado SIN `--voz-ajena`: el validador lo rechaza en la cuenta de Mario (`working-preferences §0c-VOZ`) |
+| **Subtipo** | formato **gráfica** (en la herramienta, `Meme (grafica)`) · psicología **roles** (dos tribus) |
+| **Referencia** | [Tom Fishburne, «Marketing Handoff to Sales», 26/02/2024](https://www.linkedin.com/posts/tomfishburne_marketing-cartoon-marketoon-activity-7167896152456019969-jI-v) · 827 reacciones, 59 reposts, 56 comentarios, 22% de risa · inglés → `--referencia-fuera` · guardada en `LINKEDIN GROWTH/referencia meme relevo marketing ventas.jpg` · sale de la reserva del 12/11 |
+| **Dato** | regla 95:5 de John Dawes, Ehrenberg-Bass Institute (2021, encargado por el B2B Institute): solo el 5% de los compradores B2B está en el mercado en un momento dado. Lo cita el texto del original |
+| **Gancho** | `Hago marketing y casi nadie que me lee va a comprar ya. Menos mal 👇` (67) · emoción: curiosidad (`Menos mal`) · escalera `pocos → casi nadie → nadie` · ancla de marketing (carril de la cuenta) |
+| **Cuerpo** | recorre los bloques del texto de Fishburne en su orden (la queja vieja de los leads flojos, mirar si encaja y si busca comprar, el 95:5, al comprador no se le empuja, que se acuerden de nosotros ese día) · pago `Y menos mal, porque son las ventas de mañana.` |
+| **Ninja → `/solicitar-demo`** | `Si casi nadie compra, el montón no sirve de relevo.` / `Qué empresa encaja y quién decide sí te lo marcamos:` · **tipo 1, acierto y no volumen** · `utm_campaign=meme-grafica-13nov&utm_content=mario` |
+| **Cierre** | `En un relevo no gana quien pasa más testigos, gana quien lo pasa a tiempo.` |
+| **Imagen** | calco en flat 1:1 de la viñeta: la corredora con camiseta MARKETING vuelca un volquete de testigos naranjas y el corredor con camiseta VENTAS espera asustado · bocadillo `¿Listo para el relevo? Estoy bastante segura de que algunos de estos contactos de marketing están cualificados.` · sin palabra naranja en el texto · fichero propuesto `relevo marketing ventas contactos cualificados testigos.png` |
+| **🧪 A/B** | viñeta editorial con dato de fuente conocida contra plantilla de película, mismo tema de dos tribus: su Wicked del 21/10 (33.712 imp, 4,8 likes, 0,56 reposts y 0,83 clics por 1.000) · suma al brazo B de la palabra naranja · orientativo: cambian destino (webinar → demo) y fecha |
+| **Vara y predicción** | sus memes con ninja 32.488 · 1.565 · 18.464 · 33.712 · predicción: 8.000-30.000 imp, 3-6 likes y 0,3-0,6 reposts por 1.000, 10-35 clics, 0-1 reuniones · en contra: 681 caracteres, mismo tema que su post anterior y 22% de risa · no se lee antes de 72 h (ola tardía) · métricas a mano |
+| **Quemadas** | ⏳ las dos líneas del ninja a `SPAM_QUEMADO` de `validar-post.py` · `casi nadie` y `Menos mal` del gancho entran en sus 3 últimas |
+| ⏳ | hora y enlace · pilar `Meme (grafica)` a mano · a las 72 h (lun 16/11): impresiones, likes y reposts por 1.000, clics y reuniones por `utm_campaign=meme-grafica-13nov` |
+
 ## 📝 ENTREGADO EL JUE 12/11 · UNAI · MEME (GRÁFICA · RECONOCERSE): EL LABERINTO DE LA PROSPECCIÓN (`/solicitar-demo`, 🎯 Alcance) · SALE EL VIE 13/11
 
 | dato | |
@@ -620,7 +638,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | para | referencia | números | por qué esa cuenta y qué hay que resolver |
 |---|---|---|---|
 | **Iker, la semana del 16/11** | [Daniel Disney, la carrera de obstáculos del comprador, 14/07/2026](https://www.linkedin.com/posts/danieldisney_consensuspartner-activity-7482811214490746881-dw-K?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3Y0xIBY3GmF1Fzh8sTaB5OABfF0GgS7OQ) (vallas: formulario de descubrimiento, 10 aprobaciones, varias firmas, más reuniones, revisión del contrato) | 464 reacciones · 12 reposts · 31 comentarios · ~0% de risa · post patrocinado | gráfica · reconocerse. Encaja en la mirada de autocrítica del oficio. **Dos riesgos que se resuelven al escribirlo:** (1) el dibujo se ríe de las reuniones y el ninja pide una (`/solicitar-demo` es una primera reunión de descubrimiento): o cambia el destino, o el ninja no puede sonar a «otra valla más»; (2) el que grita con el megáfono es el responsable de ventas, que es quien nos compra: la culpa tiene que quedar en el proceso, no en él (rótulo genérico, sin burla) |
-| **Mario** | [Tom Fishburne, «Marketing Handoff to Sales», 26/02/2024](https://www.linkedin.com/posts/tomfishburne_marketing-cartoon-marketoon-activity-7167896152456019969-jI-v?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3Y0xIBY3GmF1Fzh8sTaB5OABfF0GgS7OQ) (marketing pasa el relevo a ventas sobre una montaña de testigos) | 827 reacciones · 59 reposts · 56 comentarios · 22% de risa | gráfica · roles. Es de dos tribus, ventas y marketing, y encaja en una cuenta de marketing; en las de los jefes traería público de marketing |
+| **Mario** | [Tom Fishburne, «Marketing Handoff to Sales», 26/02/2024](https://www.linkedin.com/posts/tomfishburne_marketing-cartoon-marketoon-activity-7167896152456019969-jI-v?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC3Y0xIBY3GmF1Fzh8sTaB5OABfF0GgS7OQ) (marketing pasa el relevo a ventas sobre una montaña de testigos) | 827 reacciones · 59 reposts · 56 comentarios · 22% de risa | gráfica · roles. Es de dos tribus, ventas y marketing, y encaja en una cuenta de marketing; en las de los jefes traería público de marketing · ✅ **usada: publicada en Mario el 13/11** (ficha arriba) |
 
 ## ✅ PUBLICADO · MIÉ 11/11 12:48 · ASIER · MEME (GRÁFICA · EL CASI): «COMERCIAL, NO TE RINDAS TAN PRONTO…», LA PALA (`/solicitar-demo`, 🎯 Alcance)
 

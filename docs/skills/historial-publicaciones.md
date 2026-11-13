@@ -599,11 +599,11 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | ✅ **Quemadas (11/11)** | las dos líneas del ninja a `SPAM_QUEMADO` (y las del meme de Iker del 10/11, que no estaban) · sin arranque de anáfora que quemar |
 | ⏳ | a los 3 días (sáb 14/11): comentarios de fuera (`comentarios-de-fuera.py --post`), clics y reuniones por `utm_campaign=historia-chatgpt-11nov`, contra su historia del 28/10 |
 
-## ✅ PUBLICADO · VIE 13/11 · MARIO · MEME (GRÁFICA · ROLES): EL RELEVO DE MARKETING A VENTAS (`/solicitar-demo`, 🎯 Alcance)
+## ✅ PUBLICADO · VIE 13/11 13:41 · MARIO · MEME (GRÁFICA · ROLES): EL RELEVO DE MARKETING A VENTAS (`/solicitar-demo`, 🎯 Alcance)
 
 | dato | |
 |---|---|
-| **Estado** | ✅ publicado el vie 13/11 · hora y enlace `[PENDIENTE · su cuenta no está en Unipile]` · `ENTREGABLE: SÍ · mecánico 79/79 · criterio 15/15` (`--pilar meme --cuenta mario --sin-menciones --comprador-ok --ref-con-texto --referencia-fuera --criterio`) · 681 caracteres (zona 451-700) · el UTM se pasó a `13nov` a mano al subirlo · validado SIN `--voz-ajena`: el validador lo rechaza en la cuenta de Mario (`working-preferences §0c-VOZ`) |
+| **Estado** | ✅ publicado el vie 13/11 a las 13:41 (12:41 UTC, hora de la BD), [enlace](https://www.linkedin.com/feed/update/urn:li:activity:7526987648062730240/) · en la BD como `meme_personaje`: va como `Meme (grafica)` · `ENTREGABLE: SÍ · mecánico 79/79 · criterio 15/15` (`--pilar meme --cuenta mario --sin-menciones --comprador-ok --ref-con-texto --referencia-fuera --criterio`) · 681 caracteres (zona 451-700) · el UTM se pasó a `13nov` a mano al subirlo · validado SIN `--voz-ajena`: el validador lo rechaza en la cuenta de Mario (`working-preferences §0c-VOZ`) |
 | **Subtipo** | formato **gráfica** (en la herramienta, `Meme (grafica)`) · psicología **roles** (dos tribus) |
 | **Referencia** | [Tom Fishburne, «Marketing Handoff to Sales», 26/02/2024](https://www.linkedin.com/posts/tomfishburne_marketing-cartoon-marketoon-activity-7167896152456019969-jI-v) · 827 reacciones, 59 reposts, 56 comentarios, 22% de risa · inglés → `--referencia-fuera` · guardada en `LINKEDIN GROWTH/referencia meme relevo marketing ventas.jpg` · sale de la reserva del 12/11 |
 | **Dato** | regla 95:5 de John Dawes, Ehrenberg-Bass Institute (2021, encargado por el B2B Institute): solo el 5% de los compradores B2B está en el mercado en un momento dado. Lo cita el texto del original |
@@ -615,7 +615,7 @@ Los aprendizajes de conversión al evento ya viven en su receta: `post-workflow 
 | **🧪 A/B** | viñeta editorial con dato de fuente conocida contra plantilla de película, mismo tema de dos tribus: su Wicked del 21/10 (33.712 imp, 4,8 likes, 0,56 reposts y 0,83 clics por 1.000) · suma al brazo B de la palabra naranja · orientativo: cambian destino (webinar → demo) y fecha |
 | **Vara y predicción** | sus memes con ninja 32.488 · 1.565 · 18.464 · 33.712 · predicción: 8.000-30.000 imp, 3-6 likes y 0,3-0,6 reposts por 1.000, 10-35 clics, 0-1 reuniones · en contra: 681 caracteres, mismo tema que su post anterior y 22% de risa · no se lee antes de 72 h (ola tardía) · métricas a mano |
 | **Quemadas** | ⏳ las dos líneas del ninja a `SPAM_QUEMADO` de `validar-post.py` · `casi nadie` y `Menos mal` del gancho entran en sus 3 últimas |
-| ⏳ | hora y enlace · pilar `Meme (grafica)` a mano · a las 72 h (lun 16/11): impresiones, likes y reposts por 1.000, clics y reuniones por `utm_campaign=meme-grafica-13nov` |
+| ⏳ | cambiar el pilar en la herramienta de `meme_personaje` a `Meme (grafica)` · a las 72 h (lun 16/11): impresiones, likes y reposts por 1.000, clics y reuniones por `utm_campaign=meme-grafica-13nov` |
 
 ## 📝 ENTREGADO EL JUE 12/11 · UNAI · MEME (GRÁFICA · RECONOCERSE): EL LABERINTO DE LA PROSPECCIÓN (`/solicitar-demo`, 🎯 Alcance) · SALE EL VIE 13/11
 

@@ -1695,6 +1695,26 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **La campaña 35 (`Newsletter clientes`, 06/11, 44 enviados a la lista 21) es de marketing a clientes, con remitente propio, y no forma parte de esta serie:** no entra en las comparaciones de la newsletter.
 
+## 📝 CORREO 14 · Kaixito · OBJECIÓN «eso me lo hace ChatGPT» (campaña Brevo 38 en BORRADOR el 16/11, para el mar 17/11 09:05 +01:00)
+
+**Estado:** texto validado **70/70** (v20, con `--ia-nivel2`). Campaña 38 en `draft`, sin `scheduledAt`, remitente `Kaixito de Neety` (id 3; el primer POST lo dejó con el nombre por defecto y se corrigió con PUT antes de la prueba buena), preheader, pie de la casa, un `href` con su UTM, GIF `curiosidad` desde `img.mailinblue.com` (200, `image/gif`), listas 15 + 4 + 16 + 19 con exclusión de la 21 y la 22, **sin A/B**. Auditor en verde para la 38 (la 32 `test` y la 37 `Novedades herramienta` son borradores ajenos, sin tocar). `salud-suscriptores.py` 5/5. **Prueba enviada a `mario@neety.com`** (dos envíos: el primero con el nombre de remitente por defecto, el bueno es el segundo). ⚠️ La exclusión de clientes reutiliza las listas 21 y 22 del 11/11; no se volvió a cruzar con HubSpot.
+
+| | |
+|---|---|
+| Asunto | `interrogué a ChatGPT toda la noche` (34 car) · escalera `pregunté → interrogué → torturé` · bucle: qué le sacó y si ganó la apuesta · ChatGPT con su nombre: son las palabras de la objeción (17 empresas) y en la bandeja no hay veto de marca |
+| Preview | `Quería ganar a mis jefes en lo suyo.` |
+| Pilar | OBJECIÓN «eso me lo hace ChatGPT» (17 empresas, 13 ICP), contada con la escalera de niveles de `brand-voice` (ChatGPT nivel 2 que funciona, Neety nivel 3), sin criticar al chat |
+| Trastada | Kaixito se apuesta con sus jefes que ChatGPT hace lo suyo, lo interroga toda la noche, saca 17 empresas y **las 17 ya las conocía todas**. Apuesta perdida (PPD: friega las tazas) |
+| Regalo antes del enlace | el consejo de buscar por lo que fabrican, no por el sector (nivel 1 del webinar) |
+| Ninja | `Interrogando salen las que ya conoces, el resto no.` / `El resto de tu mercado lo vemos contigo:` → `/solicitar-demo`, `utm_campaign=correo-14-kaixito-chat`. Dolor: descubrir empresas que no conoces (17 empresas, 16 ICP) |
+| Niveles | `Lo veo clarísimo, ChatGPT es el nivel 2.` / `Y Neety es el 3, el que llega al resto.` / `Mucha gente, de momento, sigue en el 2.` |
+| Variable en prueba | **un solo asunto, sin A/B** (todo lo demás como el 13). Se mira primero la apertura humana en Microsoft 365 (2 en el 13, en plena caída de Microsoft; 7-10 en el 11 y el 12) |
+| Previsión | apertura 55-65%, 4-7 personas al enlace, 0-1 reuniones, 1-3 bajas |
+| Pendiente de confirmar | que en la discovery de media hora se enseña el resto de su mercado |
+| Real / inventado | real: la objeción, la escalera de niveles y el consejo. Inventado: la apuesta, la noche, las 17 empresas y las tazas |
+
+**Al programar:** ninja a `QUEMADAS`, `interrogatorio` a `APERTURAS_USADAS`, cuerpo literal a `corpus-correos-enviados.md`. Revisión: lunes 23/11.
+
 ## 🔎 CORRECCIÓN 02/11: LA NEWSLETTER SÍ HA TRAÍDO REUNIONES, Y LAS DOS SON DE KAIXITO 01
 
 Leído de la base de la web nueva (`/api/accounts/conversiones` del analizador, que cuenta las solicitudes de `/solicitar-demo` y `/agendar/` por su UTM) y del rescate de MailerLite. **Aquí ponía «0 reuniones desde el correo 0» y era falso:** nadie había mirado la base por campaña.

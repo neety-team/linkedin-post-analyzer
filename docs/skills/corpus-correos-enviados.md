@@ -876,6 +876,63 @@ PD. Al bajar les di a todos otra vez. Costumbre.
 
 ---
 
+## Kaixito 14 · la apuesta con ChatGPT (pilar OBJECIÓN «eso me lo hace ChatGPT» · `/solicitar-demo` · sin A/B)
+
+**Programado:** mar 2026-11-17 09:05 (+01:00) · campaña Brevo 38 · listas 15 + 4 + 16 + 19, excluidas la 21 y la 22
+**Remitente:** `Kaixito de Neety` (`hola@neety.com`) · firma `Kaixito, la mascota de Neety` · GIF `curiosidad` (Brevo)
+**UTM escrito a mano:** `utm_campaign=correo-14-kaixito-chat`
+
+### El asunto y el preheader
+
+```
+interrogué a ChatGPT toda la noche
+```
+```
+Quería ganar a mis jefes en lo suyo.
+```
+
+### El cuerpo, literal
+
+```
+Interrogatorio.
+
+Me aposté con mis jefes que ChatGPT hacía lo suyo.
+Encontrar empresas que compran, sin la herramienta de casa.
+
+[GIF curiosidad]
+
+Así que lo interrogué hasta las 3.
+
+Y cantó sin rechistar.
+Te dejo su consejo, por si lo pruebas.
+Pregúntale por lo que fabrican, no por el sector.
+
+Al amanecer tenía 17 empresas en el libro.
+
+Las 17 ya las conocía todas.
+
+Interrogando salen las que ya conoces, el resto no.
+El resto de tu mercado lo vemos contigo: https://neety.com/solicitar-demo?utm_source=brevo&utm_medium=email&utm_campaign=correo-14-kaixito-chat
+
+Media hora y no hay que traer nada preparado.
+
+Lo veo clarísimo, ChatGPT es el nivel 2.
+Y Neety es el 3, el que llega al resto.
+Mucha gente, de momento, sigue en el 2.
+
+Y si no encaja, te lo decimos.
+
+Kaixito, la mascota de Neety
+
+PD. Al final le di las gracias. Me sacó otra lista.
+
+PPD. Apuesta perdida. Esta semana friego yo las tazas.
+```
+
+> **Real / inventado:** reales, la objeción «eso me lo hace ChatGPT» (17 empresas en el informe del 15/10), el dolor de descubrir empresas que no conoces (17, 16 ICP), la escalera de niveles de `brand-voice` y el consejo de buscar por lo que fabrican (nivel 1 del webinar). Inventados, la apuesta, la noche, las 17 empresas y las tazas.
+
+---
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

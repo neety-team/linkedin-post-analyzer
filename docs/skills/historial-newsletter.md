@@ -1695,7 +1695,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **La campaña 35 (`Newsletter clientes`, 06/11, 44 enviados a la lista 21) es de marketing a clientes, con remitente propio, y no forma parte de esta serie:** no entra en las comparaciones de la newsletter.
 
-## 📝 CORREO 14 · Kaixito · OBJECIÓN «eso me lo hace ChatGPT» (campaña Brevo 38 en BORRADOR el 16/11, para el mar 17/11 09:05 +01:00)
+## ✅ CORREO 14 · Kaixito · OBJECIÓN «eso me lo hace ChatGPT» (campaña Brevo 38 PROGRAMADA el 16/11 para el mar 17/11 09:05 +01:00, tras revisar la prueba)
 
 **Estado:** texto validado **70/70** (v20, con `--ia-nivel2`). Campaña 38 en `draft`, sin `scheduledAt`, remitente `Kaixito de Neety` (id 3; el primer POST lo dejó con el nombre por defecto y se corrigió con PUT antes de la prueba buena), preheader, pie de la casa, un `href` con su UTM, GIF `curiosidad` desde `img.mailinblue.com` (200, `image/gif`), listas 15 + 4 + 16 + 19 con exclusión de la 21 y la 22, **sin A/B**. Auditor en verde para la 38 (la 32 `test` y la 37 `Novedades herramienta` son borradores ajenos, sin tocar). `salud-suscriptores.py` 5/5. **Prueba enviada a `mario@neety.com`** (dos envíos: el primero con el nombre de remitente por defecto, el bueno es el segundo). ⚠️ La exclusión de clientes reutiliza las listas 21 y 22 del 11/11; no se volvió a cruzar con HubSpot.
 
@@ -1713,7 +1713,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Pendiente de confirmar | que en la discovery de media hora se enseña el resto de su mercado |
 | Real / inventado | real: la objeción, la escalera de niveles y el consejo. Inventado: la apuesta, la noche, las 17 empresas y las tazas |
 
-**Al programar:** ninja a `QUEMADAS`, `interrogatorio` a `APERTURAS_USADAS`, cuerpo literal a `corpus-correos-enviados.md`. Revisión: lunes 23/11.
+**Al programar (hecho el 16/11):** prueba revisada y OK; `queued` con `scheduledAt 2026-11-17T09:05+01:00`, releído de la API (remitente con nombre, preheader, pie, GIF de Brevo, un `href` con UTM, listas y exclusiones) y auditor en verde. Ninja a `QUEMADAS`, `interrogatorio` a `APERTURAS_USADAS`, cuerpo literal a `corpus-correos-enviados.md`. ⚠️ Mañana se comprueba que salió. Revisión: lunes 23/11.
 
 ## 🔎 CORRECCIÓN 02/11: LA NEWSLETTER SÍ HA TRAÍDO REUNIONES, Y LAS DOS SON DE KAIXITO 01
 
@@ -1763,11 +1763,12 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 - Correo 11 · Kaixito (programado 30/10): la grabación por la puerta de atrás; la palabra hilo es «escapar», del asunto al enlace.
 - Correo 12 · Kaixito (programado 03/11): quería ir a San Francisco con sus jefes, se cuela en su maleta y la cremallera no cierra; la palabra hilo es «sobrar». (Descartados: la silla grande y el sueldo, la misma perspectiva de la oficina vacía.)
 - Correo 13 · Kaixito (programado 12/11): se sabe todas las empresas de memoria, le da a todos los botones del ascensor buscando al que decide y le echan de la séptima; la palabra hilo es «botones».
+- Correo 14 · Kaixito (programado 17/11): se apuesta con sus jefes que ChatGPT hace lo suyo, lo interroga toda la noche y las 17 empresas que saca ya las conocía; la palabra hilo es «interrogar».
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
 - **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
-- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Misión fallida.` (correo 12) · `Culpable.` (correo 13)
+- **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Misión fallida.` (correo 12) · `Culpable.` (correo 13) · `Interrogatorio.` (correo 14)
 - **Asier:** `Apunta.` (correo 8)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)

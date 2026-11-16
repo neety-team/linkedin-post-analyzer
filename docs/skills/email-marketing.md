@@ -2656,6 +2656,41 @@ Tacos, registro sexual y desprecio al lector de Isra; sus erratas; el superlativ
 #### 📥 Intake (Mario)
 **RunnerPro: cuarta semana sin nada.** Lavender: novena semana con la de Illinois. **Sonia Ferrent ya llega** (cerrado el pendiente de `§8n`). lemlist, Tendios y Hoppy Copy siguen sin dar señal. El ZIP trae correos fechados el 09/11 por la tarde: la ventana llega hasta hoy.
 
+### 8p · DECIMOTERCERA VENTANA — 21 newsletters, 9 remitentes, 8 días (9-16 nov 2026, analizado el 2026-11-16)
+
+ZIP `newslettershasta16nov.zip`, 28 ficheros, leídos como datos. **Fuera (7):** SINGULARU (4, comercio), Lavender (3, **décima semana llegando la mala**). **Dentro (21):** Isra Bravo (6), Hugo López (4), Juan Domínguez (2), Cosas de Freelance (2), WaLead (1, la newsletter `[GTM#2]`), Sonia Ferrent (1), BOGA/EDEM (1), The B2B Creator / Kleo (2), Kieran Flanagan (1, en inglés), HappyScribe (1, producto). **Sin nada:** RunnerPro (quinta semana), lemlist, Tendios, Hoppy Copy.
+
+**Por qué pesa:** el correo 13 abrió un 44% (el 12, un 68%) con las mismas ~5 personas en el enlace y 2 bajas en vez de 6. La pregunta era si la caída venía del asunto, del pilar o de otra cosa.
+
+#### 📉 LA CAÍDA DEL CORREO 13 NO ES DEL ASUNTO: ES DE MICROSOFT 365 *(medido contacto a contacto, n pequeño)*
+1. **Las aperturas de Apple no se mueven (28 → 27) y las de los escáneres tampoco** (aperturas en los 2 primeros minutos: 18 → 17). Lo que cae son las aperturas humanas: `trackableViews` 69 → 50.
+2. **La caída es igual en todas las cohortes** (antigua 19% → 15%, evento 38% → 26%, altas desde el 28/10 37% → 28%, webinar 50% → 36%): no es cansancio de un grupo.
+3. **Por proveedor del buzón está toda en un sitio.** Aperturas humanas en los 3 últimos correos, mismos destinatarios: **Microsoft 365 corporativo (51 buzones) 7 · 10 · 2**; Google (Gmail y Workspace) 7 · 9 · 7, plano; resto de servidores, 9 · 8 · 6. Gmail personal, 24% → 22%. **Los buzones de Microsoft dejaron de ver el correo 13**, casi seguro en correo no deseado, cuarentena o la pestaña «Otros».
+4. **Los dos brazos del A/B abrieron igual (26,3% contra 26,3% de aperturas rastreables)**, así que el tipo de asunto no lo explica. Lo que cambió en el 13 respecto al 12, aparte del texto: primer envío A/B de la serie, jueves en vez de martes y el GIF servido desde el CDN de la cuenta cancelada de MailerLite (el 12 también, así que eso solo no lo explica). **Sin comprobar cuál de los tres.**
+5. **Lo bueno del 13 era aparente:** más clic por apertura porque cayó el denominador, no porque pulsara más gente (~5 personas, como el 12). Y menos bajas porque lo vieron menos y porque los que querían irse se fueron en el 12.
+6. **Cómo se mira desde ahora:** `metricas-brevo.py` da el total; el reparto por proveedor sale de las estadísticas de contacto de Brevo (aperturas con hora) más el MX del dominio. Si Microsoft vuelve a caer en el 14 sin A/B y con el GIF de Brevo, se mira la reputación del dominio en Microsoft (SNDS) y se manda una prueba a un buzón de Outlook antes del 15.
+
+#### ⏰ Horas y asunto (Date a +01:00)
+Isra 15:29, 6 de 6 · Juan 16:01 · Hugo sin hora fija (15:55 a 20:22) · WaLead jueves 09:01 · Cosas de Freelance y Sonia 08:01 · BOGA 12:03. **Asunto de remitentes-persona en español (n=15): mediana 31 caracteres**, vuelve a la banda 31-37 tras el 40 de `§8o`. Nada cambia en nuestras 09:05.
+
+#### ⭐ LO QUE MERECE ROBARSE
+1. **⭐⭐ Hacer visible un problema que el lector no ve (Isra, la pasta de dientes de Hopkins).** El problema no es tenerlo, es estar tan acostumbrado que parece normal. Versión Neety: el comercial que da por hecho que su mercado son las empresas que ya conoce. Encaja con la objeción del chat (`global §4.4b-MUNICIÓN`, 17 empresas): el lector no sabe cuántas le faltan.
+2. **⭐⭐ «Calcula cuántas empresas podrían comprarte. Casi nadie lo sabe» (WaLead, competencia, tarea para esta semana).** Es nuestra promesa central dicha por otro. Para nosotros, sin cifra inventada: el número lo da la demo, no el correo.
+3. **⭐ El testimonio que llega sin pedirlo (Isra, el pódcast de los vinos).** Alguien cuenta en público que aplicó lo suyo y le cambió el negocio, y el correo solo lo relata. Para nosotros, solo con un cliente que lo haya dicho en público y con permiso.
+4. **⭐ Hacer con la IA el trabajo aburrido sin soltar la decisión (Juan, la IA que pasa sus gastos al Excel).** «La IA me quita trabajo, pero no la responsabilidad». Es la misma frontera de la casa: propone y decide el comercial (`brand-voice` CANÓNICO «IA genérica»).
+5. **El propósito revisado a final de año (Juan, los 11 errores de enero comprobados en noviembre).** Pilar CALENDARIO de diciembre: lo que nos prometimos para la prospección de 2026 y lo que se cumplió.
+6. **El ejemplo de la señal que ya trae la conversación hecha (WaLead, la oficina recién abierta).** Para nosotros, la señal cierra y no abre (`global §4.4b-ORDEN`).
+7. **La caja cerrada de Hugo, cuarta semana:** cuenta atrás de 4 correos en 4 días hacia un directo con venta. Confirma `§8o` punto 10; no aplica sin evento.
+
+#### 🥊 COMPETENCIA
+WaLead pasa de invitaciones de Luma a newsletter quincenal propia (beehiiv, unas 1.500 palabras, índice, tarea de la semana, pregunta de un lector, noticia y reserva de demo al final). Su tesis: el outbound clásico murió por escribir a todo el mundo, y la salida es la señal y el GTM Engineer. Sigue sin competir en la identificación del mercado, que es lo nuestro, aunque la nombra en su tarea 3.
+
+#### ⛔ Lo que NO se copia
+Los tacos, el registro sexual y el desprecio al lector de Isra («mentalidad de mierda», «pardillo»); sus erratas; el superlativo y la escasez de Hugo («la más bestia», «última oportunidad»); las 1.500-3.400 palabras de WaLead, Cosas de Freelance y B2B Creator; las cifras sin fuente.
+
+#### 📥 Intake (Mario)
+RunnerPro: quinta semana sin nada. Lavender: décima semana con la de Illinois. lemlist, Tendios y Hoppy Copy siguen sin dar señal.
+
 ## 9 · Entrega y validación (cada email, sin excepción)
 
 ### 🤝 5-COLABORACION · CUANDO EL CORREO DIFUNDE ALGO DE UN TERCERO (2026-10-05, correo 7)

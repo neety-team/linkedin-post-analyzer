@@ -3336,6 +3336,25 @@ Lo estoy compartiendo de forma gratuita.
 > - **Lo que hay detrás, dicho con su tamaño:** la historia de mejor CTR de septiembre (Unai 11/09, 0,701%) se escribió sobre un dolor del informe, el de la persona de dentro. Que las historias basadas en el informe conviertan más que las demás es **la impresión de Iker, sin medir**. Para poder medirlo, cada ficha de historia apunta de qué tema del informe sale su escena, o "ninguno".
 > - **Si el informe tiene más de un mes, se le pide a Iker el nuevo** antes de planificar historias. El del 15/10 cambió el dolor prioritario en un solo mes.
 
+> ### 🧭 4.6-TEMA-OUTLIER · LA SEGUNDA FUENTE DE HISTORIAS: UN TEMA QUE YA HA VOLADO, CONTADO DESDE LO NUESTRO (2026-11-16)
+> El dolor de los clientes sigue siendo la primera fuente (`§4.6-FEEDBACK`). La segunda: **un tema que ya ha sido outlier**, en nuestras cuentas o en la competencia, contado con una vivencia nuestra y nuestro valor diferencial. **Se copia el tema y la psicología, nunca la historia.** Vale para las tres cuentas, y en la de emprendimiento abre historias sin ventas.
+> - **Cómo se busca:** `neety_outliers_buscar` con `pilar: historia`, `orden: percentil` y `q` en modo `frase` (las búsquedas con `|` no filtran), y se lee el texto entero antes de dar el tema por bueno: el gancho solo engaña (`CARTA DE DESPEDIDA` es una despedida, y eso empuja por sí solo).
+> - **Psicologías con dato (16/11, 54 historias propias y fundadores de la competencia en español):**
+>
+> | psicología | propio | fuera |
+> |---|---|---|
+> | lo que se dejó para empezar y el día que se decidió | 9.867 imp y 41 comentarios (2024) | `salto al vacío` 3,1x y 169 comentarios · origen con foto 12,4x |
+> | error con coste concreto | `Contraté mal. Me costó €12.000` 12.432 | `mi mejor fracaso del 2025` 5,6x |
+> | casi cerrar y seguir, con un momento concreto | — | `CARTA DE DESPEDIDA` 35,9x (confundido) |
+> | etapa que todos vivieron | `Mi primera venta…` 16.662 · `Mi primera clase de ventas…` 20.503 | — |
+> | `Nunca` + alguien conocido haciendo lo contrario | mediana 10.347, récord del pilar 37.465 | — |
+> | **la lección abstracta de emprender** | `Emprender te enseña a golpes` 4.908 · `7 de cada 10 founders se rinden` 3.059 | — |
+>
+> - **Lo que enseña:** la superación funciona cuando es un momento concreto (fecha, cifra, foto, la frase que alguien dijo); como moraleja, queda por debajo de la mediana. Y lo que más alcanza es que el lector se reconozca, no el dolor.
+> - **Sin dato:** "el consejo que no sigo" (absoluto discutible en historia, 0,89 de media, n=6) y los proyectos anteriores a la empresa (solo por psicología de origen). Si se usan, se declaran como prueba.
+> - **Para pedir material a quien firma:** preguntas por un momento concreto y explícitas para quien no ha estado en esta conversación (qué, cuándo, cuánto costó, qué te dijeron), una por psicología con dato.
+> - *n pequeño por psicología: pista, no ley. Se rehace en cada revisión del lunes con las historias nuevas.*
+
 > ### 🧵🧵 4.6-HILO · LA ANÉCDOTA ES UNA METÁFORA DE VENTAS DE PRINCIPIO A FIN, NO SOLO EN EL NINJA (Iker, 2026-10-19) — CANÓNICO DEL PILAR
 > **Iker, sobre la v1 de las avispas:** *"no me parece muy orgánico que simplemente metamos la palabra ventas en el gancho y fuera… todo el cuerpo tiene que ir con la misma narrativa"*. Y al confirmarlo: *"historias así random, medio inventadas pero a la vez no, como lo del robo o lo de las abejas… que tengas la capacidad de inventarte incluso historias así y compararlas siempre con metáforas o analogías de ventas, y que toda la historia vaya con ese hilo conductor… La prioridad siempre tiene que ser el feedback de los clientes y orientarlo por ahí para solucionarlo con el bloque del spam ninja"*.
 > - **El orden de trabajo:** (1) se elige el **dolor del informe de clientes** que sea patrón (`§4.6-FEEDBACK`) y el tipo de cliente del ninja (`global §4.4b-TIPOS`); (2) se busca o se inventa la **anécdota** (real, adornada o inventada: un robo, unas avispas, lo que sea, `§4.6-INVENTAR`); (3) se elige **UNA palabra-hilo** de la escena que sea a la vez el dolor (avispas: `correr` detrás de lo que zumba = correr detrás de empresas que no encajan; 30/09: la `alarma` que avisa de que alguien entra, no de quién). El dolor manda: si la anécdota no da analogía para ese dolor, se cambia la anécdota, no el dolor.

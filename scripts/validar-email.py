@@ -693,6 +693,25 @@ def main():
                             'con el equipo de ventas (email-marketing §4a-DEMO)'))
     elif _l_demo:
         checks.append(ok('Demo: la línea del enlace no promete a un jefe'))
+    # 🆕 2026-11-16 (correo 14): dos fallos de criterio que pasaron 67/67.
+    # (a) El lector no aparece hasta la linea del enlace (ya visto en el correo 12, §8o punto 3).
+    _i_enl = next((i for i, l in enumerate(cuerpo_lineas) if re.search(r'https?://', l)), None)
+    if _i_enl is not None:
+        _antes = ' '.join(cuerpo_lineas[:max(_i_enl - 1, 0)])
+        if not re.search(r'\b(t[uú]|tus?|te|ti|contigo)\b|\b\w*[áéíóú]\w*les?\b', _antes, re.I):
+            checks.append(aviso('El lector no aparece antes del enlace: todo es la escena del remitente y el '
+                                'primer tú llega en el ninja. Dale algo o nómbralo antes (email-marketing §8o punto 3)'))
+        else:
+            checks.append(ok('El lector aparece antes del enlace'))
+    # (b) La casa no puede sonar necesitada de clientes (nunca dejar mal a la casa).
+    _casa = [l for l in [asunto, preview] + cuerpo_lineas
+             if re.search(r'\bclientes?\b', l, re.I) and re.search(r'\b(jefes?|nosotros|neety|nos)\b', l, re.I)
+             and re.search(r'\b(necesit\w*|buscar\w*|faltan?|sin|conseguir\w*)\b', l, re.I)]
+    if _casa:
+        checks.append(aviso(f'La casa suena necesitada de clientes: "{_casa[0][:70]}". Neety no busca clientes '
+                            f'delante del lector (nunca dejar mal a la casa)'))
+    else:
+        checks.append(ok('La casa no suena necesitada de clientes'))
     # --colaboracion (2026-10-05, correo 7): una COLABORACION con un tercero (difundir
     # algo de otra entidad) permite UN segundo enlace. ⛔ CORREGIDO EL MISMO DIA POR
     # IKER: la primera version lo mandaba a la PD, detras de la firma, y eso "queda

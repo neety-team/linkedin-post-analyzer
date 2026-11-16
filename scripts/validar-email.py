@@ -303,7 +303,11 @@ def main():
                      if re.search(r'\b(IA|ChatGPT|Copilot|Gemini|Claude|chat)\b', l, re.I)
                      and re.search(r'\b(copi[eé]|ped[ií]|encargu[eé]|saqu[eé]|hice|us[eé]|firm[eé]|copiamos|pedimos|encargamos'
                                    r'|usamos|sacamos|hicimos|interrogu[eé]|pregunt[eé]|mis jefes|mi jefe)\b', l, re.I)), None)
-    if _ia_casa:
+    if _ia_casa and '--ia-nivel2' in sys.argv:
+        # Excepcion (2026-11-16, correo 14): la mascota puede usar la IA si le sale BIEN y lo que
+        # no llega es la escala (el nivel 2 de la escalera de brand-voice). Se declara con la bandera.
+        checks.append(ok(f'IA en la escena de casa como nivel 2 que funciona (--ia-nivel2): "{_ia_casa[:50]}"'))
+    elif _ia_casa:
         checks.append(fallo(f'IA en la escena de casa: "{_ia_casa[:60]}". El que usa la IA y falla va en otra empresa '
                             f'inventada, nunca la mascota ni sus jefes (email-marketing §8l)'))
     else:

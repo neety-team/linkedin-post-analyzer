@@ -18,9 +18,9 @@ import { registrarToolsSemana } from './toolsSemana';
  *
  * AUTENTICACION
  * -------------
- * Ninguna aqui: /mcp se monta DESPUES de basicAuthMiddleware en index.ts, asi
- * que hereda el mismo Basic Auth que el resto de la app. El cliente manda la
- * cabecera Authorization y no hay una segunda credencial que gestionar.
+ * Ninguna aqui: /mcp se monta DESPUES de accesoMiddleware en index.ts, asi que
+ * pasa por la misma puerta que el resto de la app. El cliente manda
+ * `Authorization: Bearer <API_TOKEN>` y no hay una segunda credencial.
  */
 
 const router = Router();

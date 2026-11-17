@@ -26,46 +26,22 @@ validador, el historial de publicaciones), que por definición no pueden vivir e
 
 No hay nada que clonar ni compilar: el servidor ya va dentro del backend, en `/mcp`.
 
-Necesitas dos datos, los dos de Railway → el servicio → **Variables**:
-
-| Dato | Variable | Dónde se usa |
-|---|---|---|
-| Usuario | `APP_BASIC_USER` | Es `Neety`, con mayúscula |
-| Contraseña | `APP_BASIC_PASS` | La misma que te pide el navegador al abrir la app |
+Necesitas un dato, de Railway → el servicio → **Variables**: `API_TOKEN`, el token de máquina.
+Ya no hay usuario ni contraseña compartida (17/11/2026): las personas entran por la suite de
+neety.team y el MCP con este token.
 
 Y la URL del backend: `https://linkedin-post-analyzer-production.up.railway.app`
 
-### 1. Codifica las credenciales
+### 1. Ten a mano el token
 
-El MCP se autentica con el **mismo Basic Auth que el resto de la app** — no hay credenciales
-nuevas que crear. Van en base64, en una sola cadena `usuario:contraseña`.
-
-**macOS / Linux** (Terminal):
-
-```bash
-echo -n 'Neety:TU-CONTRASEÑA' | base64
-```
-
-**Windows** (PowerShell):
-
-```powershell
-[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('Neety:TU-CONTRASEÑA'))
-```
-
-Devuelve una cadena tipo `TmVldHk6...=`. Cópiala entera, incluido el `=` final.
-
-> **El `-n` de macOS no es opcional.** Sin él, `echo` añade un salto de línea, entra en el base64 y
-> el backend responde **401**. En PowerShell no aplica: `GetBytes` no añade nada.
-
-> **Comillas simples**, no dobles. Si la contraseña lleva `$`, `!` o espacios, con comillas dobles
-> la shell se los come antes de codificar y el base64 sale mal sin avisar.
+No hay nada que codificar: el token va tal cual en la cabecera, detrás de `Bearer `.
 
 ### 2. Registra el servidor
 
-Sustituye solo `EL-BASE64-DEL-PASO-1`. Es el mismo comando en los dos sistemas, todo en una línea:
+Sustituye solo `EL-TOKEN`. Es el mismo comando en los dos sistemas, todo en una línea:
 
 ```bash
-claude mcp add --transport http --scope user neety https://linkedin-post-analyzer-production.up.railway.app/mcp --header "Authorization: Basic EL-BASE64-DEL-PASO-1"
+claude mcp add --transport http --scope user neety https://linkedin-post-analyzer-production.up.railway.app/mcp --header "Authorization: Bearer EL-TOKEN"
 ```
 
 Tiene que responder algo así:
@@ -126,7 +102,7 @@ Mismo JSON en los dos sistemas (aquí no hay rutas locales, así que no hay barr
     "neety": {
       "type": "http",
       "url": "https://linkedin-post-analyzer-production.up.railway.app/mcp",
-      "headers": { "Authorization": "Basic EL-BASE64-DEL-PASO-1" }
+      "headers": { "Authorization": "Bearer EL-TOKEN" }
     }
   }
 }
@@ -197,7 +173,7 @@ Dos avisos: **no cambies el `orden` a mitad de paginación** (la tool te avisa y
 | Síntoma | Causa | Solución |
 |---|---|---|
 | `missing required argument 'commandOrUrl'` | `--header` va antes de la URL y se la traga | Pon `--header` **el último** |
-| `401` | El base64 está mal o lleva un salto de línea | Rehaz el paso 1 **con `-n`** (macOS) y con comillas simples |
+| `401` | El token no vale o falta el `Bearer ` delante | Copia otra vez `API_TOKEN` de Railway y revisa la cabecera |
 | `404` | Falta `/mcp` al final de la URL | Corrígela |
 | Responde HTML | La URL apunta al frontend, no al backend | Usa la URL del servicio de Railway |
 | `405` | Estás haciendo GET | El transporte usa POST; el cliente ya lo hace solo |
@@ -252,8 +228,7 @@ Al terminar tiene que existir `dist/index.js`. Ese fichero es lo que ejecuta Cla
 ```bash
 claude mcp add neety --scope user \
   -e NEETY_API_URL=https://linkedin-post-analyzer-production.up.railway.app \
-  -e APP_BASIC_USER=Neety \
-  -e APP_BASIC_PASS=CONTRASEÑA \
+  -e API_TOKEN=EL-TOKEN \
   -- node /ruta/absoluta/al/repo/mcp/dist/index.js
 ```
 
@@ -262,15 +237,14 @@ Ejemplo real con una ruta de macOS:
 ```bash
 claude mcp add neety --scope user \
   -e NEETY_API_URL=https://linkedin-post-analyzer-production.up.railway.app \
-  -e APP_BASIC_USER=Neety \
-  -e APP_BASIC_PASS='la-de-railway' \
+  -e API_TOKEN='el-de-railway' \
   -- node /Users/iker/repos/linkedin-post-analyzer/mcp/dist/index.js
 ```
 
 **Windows** — en `cmd` y PowerShell el `\` NO parte líneas, así que va todo en una:
 
 ```
-claude mcp add neety --scope user -e NEETY_API_URL=https://linkedin-post-analyzer-production.up.railway.app -e APP_BASIC_USER=Neety -e APP_BASIC_PASS=CONTRASEÑA -- node C:\ruta\al\repo\mcp\dist\index.js
+claude mcp add neety --scope user -e NEETY_API_URL=https://linkedin-post-analyzer-production.up.railway.app -e API_TOKEN=EL-TOKEN -- node C:\ruta\al\repo\mcp\dist\index.js
 ```
 
 #### Tres detalles que rompen la instalación
@@ -281,7 +255,7 @@ claude mcp add neety --scope user -e NEETY_API_URL=https://linkedin-post-analyze
    quieres a nivel de usuario.
 2. **La ruta del `.js` tiene que ser absoluta.** Es la que ejecuta Claude, y no corre desde el
    directorio del repo. Nada de `./dist/index.js` ni de `~/...` sin expandir.
-3. **La contraseña, entre comillas simples** si lleva caracteres raros (`$`, `!`, espacios). En
+3. **El token, entre comillas simples** si lleva caracteres raros (`$`, `!`, espacios). En
    macOS y Linux la shell se los come; en PowerShell, comillas simples también.
 
 ### 3. Comprobar que ha entrado
@@ -318,8 +292,7 @@ El fichero de configuración es `claude_desktop_config.json`:
       "args": ["/Users/TU-USUARIO/repos/linkedin-post-analyzer/mcp/dist/index.js"],
       "env": {
         "NEETY_API_URL": "https://linkedin-post-analyzer-production.up.railway.app",
-        "APP_BASIC_USER": "...",
-        "APP_BASIC_PASS": "..."
+        "API_TOKEN": "..."
       }
     }
   }
@@ -336,8 +309,7 @@ El fichero de configuración es `claude_desktop_config.json`:
       "args": ["C:\\Users\\TU-USUARIO\\repos\\linkedin-post-analyzer\\mcp\\dist\\index.js"],
       "env": {
         "NEETY_API_URL": "https://linkedin-post-analyzer-production.up.railway.app",
-        "APP_BASIC_USER": "...",
-        "APP_BASIC_PASS": "..."
+        "API_TOKEN": "..."
       }
     }
   }
@@ -352,7 +324,7 @@ hay que **reiniciar Claude Desktop** después de tocar el fichero: no lo relee s
 | Variable | Obligatoria | Qué es |
 |---|---|---|
 | `NEETY_API_URL` | sí | La URL del backend. Por defecto `http://localhost:3001` |
-| `APP_BASIC_USER` / `APP_BASIC_PASS` | sí contra producción | Las mismas del Basic Auth del backend |
+| `API_TOKEN` | sí contra producción | El token de máquina del backend |
 | `NEETY_TIMEOUT_MS` | no | Por defecto 15 min, porque `neety_refrescar` escanea LinkedIn y tarda |
 
 Las credenciales van en la config del cliente, **nunca en el repo**.

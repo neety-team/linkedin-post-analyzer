@@ -81,9 +81,11 @@ function entidadesDeLinea(l) {
     );
 }
 
-const auth = 'Basic ' + Buffer.from(
-  `${process.env.APP_BASIC_USER}:${process.env.APP_BASIC_PASS}`
-).toString('base64');
+if (!process.env.API_TOKEN) {
+  console.error('Falta API_TOKEN (el token de máquina del backend) en el entorno.');
+  process.exit(2);
+}
+const auth = `Bearer ${process.env.API_TOKEN}`;
 
 const entidades = new Map();   // normalizado -> {original, posts:[]}
 let postsConMenciones = 0;

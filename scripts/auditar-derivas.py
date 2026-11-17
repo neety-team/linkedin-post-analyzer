@@ -51,12 +51,12 @@ RASGOS = {
 
 
 def posts(desde):
-    a = (os.environ['APP_BASIC_USER'], os.environ['APP_BASIC_PASS'])
+    cab = {'Authorization': 'Bearer ' + os.environ['API_TOKEN']}
     out = []
     for cuenta, cid in CUENTAS.items():
         off = 0
         while True:
-            r = requests.get(f'{BASE}/api/creators/{cid}/posts?limit=100&offset={off}', auth=a, timeout=120).json()
+            r = requests.get(f'{BASE}/api/creators/{cid}/posts?limit=100&offset={off}', headers=cab, timeout=120).json()
             for p in r['posts']:
                 d = (p.get('published_at') or '')[:10]
                 ratio = p.get('outlier_ratio')

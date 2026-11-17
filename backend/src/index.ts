@@ -29,7 +29,7 @@ import reactionsRouter from './routes/reactions';
 import { startPostMonitor } from './services/postMonitor';
 import { startAnuncioChat } from './services/anuncioChat';
 import { startAvisoWebinarLuma } from './services/avisoWebinarLuma';
-import { basicAuthMiddleware, identidadDe } from './middleware/basicAuth';
+import { accesoMiddleware, identidadDe } from './middleware/acceso';
 import rastroRouter from './routes/rastro';
 import gateProxyRouter from './routes/gateProxy';
 import outliersRouter from './routes/outliers';
@@ -55,17 +55,18 @@ app.use((req, _res, next) => {
   next();
 });
 
-// HTTP Basic Auth gate. Mounted BEFORE routes and static files so both the
-// API and the frontend index.html require credentials. Activated only when
-// APP_BASIC_USER and APP_BASIC_PASS are set in env (Railway). Skips OPTIONS
-// preflights and /health endpoints so CORS and uptime checks keep working.
-app.use(basicAuthMiddleware());
+// La puerta de la app. Va ANTES de las rutas y de los ficheros estaticos, para
+// que tanto la API como el index.html del frontend la pasen. Las personas
+// entran por la suite de neety.team y las maquinas con API_TOKEN: ya no hay
+// contraseña compartida (ver middleware/acceso.ts). Deja pasar los preflight
+// OPTIONS y /health para que CORS y los chequeos de salud sigan funcionando.
+app.use(accesoMiddleware());
 
 // Routes
 // /r/… va ANTES que nada y fuera del auth: son las páginas públicas del lead
 // magnet, las únicas de toda la app que abre gente de fuera.
 app.use('/r', rastroRouter);
-// Público (ver basicAuth). La ruta es EXACTAMENTE /api/submit porque el fetch de
+// Público (ver middleware/acceso.ts). La ruta es EXACTAMENTE /api/submit porque el fetch de
 // neety-form.js es relativo a eso y su fichero no se toca.
 app.use('/api/submit', gateProxyRouter);
 app.use('/api/creators', creatorsRouter);
@@ -83,13 +84,13 @@ app.use('/api/reactions', reactionsRouter);
 app.use('/api/outliers', outliersRouter);
 app.use('/api/pillars', pillarsRouter);
 app.use('/api/semana', semanaRouter);
-// El MCP por HTTP. Va DESPUES del basicAuthMiddleware (montado arriba), asi que
-// hereda el mismo Basic Auth que el resto de la app: el cliente MCP manda la
-// cabecera Authorization y no hay una segunda credencial que mantener.
+// El MCP por HTTP. Va DESPUES del accesoMiddleware (montado arriba), asi que
+// pasa por la misma puerta que el resto de la app: el cliente MCP manda
+// `Authorization: Bearer <API_TOKEN>` y no hay una segunda credencial.
 app.use('/mcp', mcpRouter);
 
 // Quien esta mirando: la persona, si entro por el login central de neety.team
-// (ver middleware/basicAuth.ts). Con la contraseña compartida no se sabe y va null.
+// (ver middleware/acceso.ts). Si entra una maquina con su token, va null.
 app.get('/api/yo', (req, res) => {
   const yo = identidadDe(req);
   res.json({ identidad: yo ? { email: yo.email, nombre: yo.nombre } : null });

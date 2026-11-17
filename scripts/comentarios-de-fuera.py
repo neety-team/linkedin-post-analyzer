@@ -50,8 +50,7 @@ TITULAR_NEETY = re.compile(r'\bneety\b', re.I)
 
 
 def _backend(path):
-    auth = base64.b64encode(('%s:%s' % (os.environ['APP_BASIC_USER'], os.environ['APP_BASIC_PASS'])).encode()).decode()
-    r = urllib.request.Request(BACKEND + path, headers={'Authorization': 'Basic ' + auth})
+    r = urllib.request.Request(BACKEND + path, headers={'Authorization': 'Bearer ' + os.environ['API_TOKEN']})
     try:
         with urllib.request.urlopen(r, timeout=180) as f:
             return json.load(f)

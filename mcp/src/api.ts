@@ -8,8 +8,8 @@
  */
 
 const BASE = (process.env.NEETY_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
-const USER = process.env.APP_BASIC_USER || '';
-const PASS = process.env.APP_BASIC_PASS || '';
+// El token de maquina del backend. Ya no hay contraseña compartida (2026-11-17).
+const TOKEN = (process.env.API_TOKEN || '').trim();
 
 // El refresco reescanea creadores contra Unipile de uno en uno: con presupuesto
 // de 15 puede tardar minutos. El resto de llamadas son queries y responden en
@@ -29,9 +29,7 @@ export class ErrorApi extends Error {
 
 function cabeceras(): Record<string, string> {
   const h: Record<string, string> = { Accept: 'application/json' };
-  if (USER && PASS) {
-    h.Authorization = `Basic ${Buffer.from(`${USER}:${PASS}`).toString('base64')}`;
-  }
+  if (TOKEN) h.Authorization = `Bearer ${TOKEN}`;
   return h;
 }
 
@@ -58,7 +56,7 @@ async function pedir<T>(ruta: string, init: RequestInit = {}): Promise<T> {
 
   if (res.status === 401) {
     throw new ErrorApi(
-      'El backend ha devuelto 401. Faltan o no valen APP_BASIC_USER / APP_BASIC_PASS.',
+      'El backend ha devuelto 401. Falta o no vale API_TOKEN, el token de máquina.',
       401,
       ruta
     );

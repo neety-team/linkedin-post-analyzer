@@ -6,19 +6,18 @@
 // El analizador NO se mueve: sigue en Railway (BACKEND_ORIGIN). Este Worker
 // solo decide quien pasa y reenvia la peticion FIRMADA con X-Proxy-Secret mas
 // la identidad en X-Auth-*; el backend deja pasar sin contraseña lo que llega
-// firmado (backend/src/middleware/basicAuth.ts).
+// firmado (backend/src/middleware/acceso.ts).
 //
 // SE ACTIVA SOLO cuando el Worker tiene sus dos secretos, INTERNAL_TOKEN y
-// PROXY_SECRET. Mientras falte uno, reenvia tal cual y es el backend quien
-// decide quien pasa. Desplegar este codigo no cambia nada
-// hasta que se ponen los secretos, y quitarlos lo devuelve a como estaba.
+// PROXY_SECRET. Mientras falte uno, reenvia tal cual, sin firmar, y el backend
+// no deja pasar a ninguna persona: la app ya no tiene contraseña compartida.
 //
 // El contrato del login esta en el AUTH.md del repo `auth`.
 
 const AUTH_BASE_DEFAULT = 'https://auth.neety.team';
 const APP_SLUG_DEFAULT = 'contenido';
 
-// Lo que el backend deja abierto, aqui tambien (mismo criterio que basicAuth.ts):
+// Lo que el backend deja abierto, aqui tambien (mismo criterio que acceso.ts):
 // salud, las paginas publicas del lead magnet y el formulario de recursos.
 function esPublica(pathname) {
   return (
@@ -31,11 +30,11 @@ function esPublica(pathname) {
 }
 
 // El MCP y los scripts no tienen sesion de navegador: entran con su token de
-// maquina (o con la contraseña compartida, mientras exista). Esas peticiones
-// pasan SIN firmar y es el backend quien comprueba la credencial.
+// maquina (`Authorization: Bearer …`). Esas peticiones pasan SIN firmar y es el
+// backend quien comprueba el token.
 function entraConCredencial(pathname, request) {
   if (pathname === '/mcp' || pathname.startsWith('/mcp/')) return true;
-  return /^(Basic|Bearer)\s+\S/i.test(request.headers.get('Authorization') || '');
+  return /^Bearer\s+\S/i.test(request.headers.get('Authorization') || '');
 }
 
 function gateActivo(env) {
@@ -162,7 +161,7 @@ export default {
 
     if (!env.BACKEND_ORIGIN) return pagina('Falta configuración', 'El Worker no tiene BACKEND_ORIGIN.', 500);
 
-    // Sin los dos secretos, proxy puro: decide el backend.
+    // Sin los dos secretos, proxy puro: decide el backend, que solo deja pasar tokens.
     if (!gateActivo(env)) return reenviar(request, url, env, null);
 
     if (request.method === 'OPTIONS' || esPublica(pathname) || entraConCredencial(pathname, request)) {

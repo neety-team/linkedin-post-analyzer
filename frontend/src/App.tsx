@@ -6,6 +6,7 @@ import Ideas from './pages/Ideas'
 import Swipe from './pages/Swipe'
 import Inspiration from './pages/Inspiration'
 import Accounts from './pages/Accounts'
+import Semana from './pages/Semana'
 import { useTheme } from './theme'
 
 export default function App() {
@@ -50,6 +51,7 @@ export default function App() {
               {navLink('/swipe', '🔥 Swipe')}
               {navLink('/ideas', '💡 Ideas')}
               {navLink('/inspiration', '✨ Inspiración')}
+              {navLink('/semana', '🗓️ Semana')}
             </div>
             <button
               type="button"
@@ -88,6 +90,7 @@ export default function App() {
           <Route path="/swipe" element={<Swipe />} />
           <Route path="/ideas" element={<Ideas />} />
           <Route path="/inspiration" element={<Inspiration />} />
+          <Route path="/semana" element={<Semana />} />
         </Routes>
       </main>
     </div>

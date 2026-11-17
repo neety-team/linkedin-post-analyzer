@@ -34,6 +34,7 @@ import rastroRouter from './routes/rastro';
 import gateProxyRouter from './routes/gateProxy';
 import outliersRouter from './routes/outliers';
 import pillarsRouter from './routes/pillars';
+import semanaRouter from './routes/semana';
 import mcpRouter from './mcp/http';
 
 const app = express();
@@ -81,6 +82,7 @@ app.use('/api/usage', usageRouter);
 app.use('/api/reactions', reactionsRouter);
 app.use('/api/outliers', outliersRouter);
 app.use('/api/pillars', pillarsRouter);
+app.use('/api/semana', semanaRouter);
 // El MCP por HTTP. Va DESPUES del basicAuthMiddleware (montado arriba), asi que
 // hereda el mismo Basic Auth que el resto de la app: el cliente MCP manda la
 // cabecera Authorization y no hay una segunda credencial que mantener.

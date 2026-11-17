@@ -1778,6 +1778,7 @@ CRITERIO_PILAR = {
     'conceptos': {'meme', 'leadmagnet', 'historia', 'noticia', 'tarjeta', 'evento', 'entregable'},
 }
 HISTORIA_EVENTO = False
+ORIGEN = False
 
 
 PUERTA_VIEJA = False
@@ -6320,7 +6321,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             % _cits[0][:60] if _cits else '', aviso=True)
     # 11/11, auditoria. post-workflow §4.6 punto 1b-QUATER: en historia sin evento la marca no se
     # nombra en el cuerpo (el ninja aparte).
-    if pilar == 'historia' and not HISTORIA_EVENTO and not NOTICIA:
+    # 17/11: en una historia de ORIGEN (--origen) el nombre es el pago del proyecto sin nombre:
+    # va en el cuerpo, pero en el ultimo tercio y antes del enlace.
+    if pilar == 'historia' and ORIGEN:
+        _mo = re.search(r'@?\bNeety\b', texto)
+        _pe = texto.find('https://')
+        _bien = bool(_mo) and _mo.start() >= 0.6 * len(texto) and (_pe < 0 or _mo.start() < _pe)
+        chk(_bien, 'HISTORIA DE ORIGEN: la marca se revela en el ultimo tercio, antes del enlace (post-workflow §4.6)',
+            '' if _bien else 'sin @Neety, arriba del 60% del texto o detras del enlace')
+    if pilar == 'historia' and not HISTORIA_EVENTO and not NOTICIA and not ORIGEN:
         _mar = re.search(r'@?\bNeety\b', _cuerpo_sg)
         chk(not _mar, 'HISTORIA: la marca no se nombra en el cuerpo (post-workflow §4.6)',
             f'"{_mar.group(0)}" en el cuerpo: en una historia sin evento la marca vive solo en el ninja'
@@ -6489,6 +6498,10 @@ def main():
     ap.add_argument('--criterio', help='fichero con las respuestas escritas al CRITERIO que el script no '
                     'puede medir (una linea por clave: "bucle: …"). Sin el, la entrega sale NO ENTREGABLE '
                     'aunque el marcador mecanico este en verde (Iker, 15/10)')
+    ap.add_argument('--origen', action='store_true',
+                    help='HISTORIA DE ORIGEN (2026-11-17): la historia cuenta como nacio la empresa, asi que '
+                         'el nombre (@Neety) es el pago del proyecto sin nombre y SI va en el cuerpo, en el '
+                         'ultimo tercio y antes del enlace (post-workflow §4.6 punto 1b-QUATER).')
     ap.add_argument('--historia-evento', action='store_true', dest='historia_evento',
                     help='HISTORIA/EVENTO (Iker, 2026-10-15): historia que al final desvela quien lo '
                          'conto y el evento, ademas del ninja. El tope de longitud sube de 800 a 900 '
@@ -6527,6 +6540,8 @@ def main():
     FOTO_GRUPO = a.foto_grupo
     global HISTORIA_EVENTO
     HISTORIA_EVENTO = a.historia_evento
+    global ORIGEN
+    ORIGEN = a.origen
     global DOUBLE_DOWN
     DOUBLE_DOWN = a.double_down
     global MAPA_A_DEMO

@@ -2078,14 +2078,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'cuentas sigue con la version humilde de global §2.0c-PRESUMIR', aviso=True)
         # 👑 UNAI NUNCA SE HACE DE MENOS (Iker, 2026-10-08): "jamas pense" no lo va a
         # decir nunca, y el "nunca pense que iba a presentar delante de 100 personas"
-        # no le gusto. Cae jamas/nunca + pensar/imaginar/creer referido a si mismo;
+        # se descarto. Cae jamas/nunca + pensar/imaginar/creer referido a si mismo;
         # el jamas de un HECHO ("no me deja una propuesta en visto. Jamas") sigue.
         # Ampliado el 15/10 con Asier: "nunca habia rezado tanto", "nunca habia pensado".
         _incredulo = (re.search(r'\b(jam[aá]s|nunca)\s+(me\s+)?(hab[ií]a\s+|hubiera\s+|habr[ií]a\s+)?(pens|imagin|cre[ií]|rez|so[ñn]|esper)\w*', hook_txt, re.I)
                       or re.search(r'\b(jam[aá]s|nunca)\s+(me\s+)?(hubiera|habr[ií]a)\b', hook_txt, re.I))
         chk(not _incredulo, f'{_cta_grande.upper()}: el gancho no se hace de menos, sin "jamas pense" ni "nunca habia rezado" (brand-voice §1b)',
-            (f'"{_incredulo.group(0)}": es la psicologia de sorprenderse de haber llegado, y a Unai '
-             'no le gusta. Cuenta el hecho grande en firme ("Defendi ante mas de 100 personas que...")')
+            (f'"{_incredulo.group(0)}": es la psicologia de sorprenderse de haber llegado, y en esa '
+             'cuenta no encaja. Cuenta el hecho grande en firme ("Defendi ante mas de 100 personas que...")')
             if _incredulo else '')
     # 🥇 EL GRAN DIA, NO UN GRAN DIA (2026-10-30): con el indefinido el momento es uno de
     # tantos; con el definido es EL momento, y eso es lo grandioso. Fallo en las cuentas
@@ -3051,7 +3051,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'delante: es la frase punchy que se queda') if _ult else None
 
     # 2) RITMO. `1-2-1-2-1-2` es un metronomo: el lector coge el patron y deja de
-    #    leer. Iker, 2026-08-06: "superpredecible, es horrible". Se exige AL MENOS
+    #    leer. 2026-08-06: demasiado predecible. Se exige AL MENOS
     #    UN BLOQUE DE TRES y que no se alterne 1-2 mas de dos veces seguidas.
     #    ⭐ AMPLIADO EL 2026-08-06: la primera version solo prohibia el 1-2-1-2, y
     #    a la siguiente entrega le colé un 1-3-1-2-1-3-1-2, que es igual de
@@ -5925,7 +5925,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # ------------------------------------------------------------------
     # MEME + UNAI: bloqueo duro (Iker, 2026-07-29)
     # Unai es el FUNDADOR y CEO: firma la casa. Un meme controversial en su
-    # cuenta ya nos costó que un directivo nos insultara CON SU NOMBRE REAL
+    # cuenta ya nos costó que un directivo respondiera en contra CON SU NOMBRE REAL
     # creyéndose que el tatuaje era de verdad. La doctrina ya lo decía
     # (post-workflow §4.4, brand-voice §1b) y aun así se publicó, así que
     # deja de ser doctrina y pasa a ser un check que hay que desactivar a mano.
@@ -6375,7 +6375,7 @@ def main():
                          'desde el 2026-10-02) no es controversial. '
                          'Es controversial si CUALQUIERA de estas es que si: el chiste depende de '
                          'que alguien se crea que paso de verdad; hay un acto ridiculo o humillante '
-                         'atribuido al que publica; alguien podria insultarnos por creerselo; hay '
+                         'atribuido al que publica; alguien podria respondernos en contra por creerselo; hay '
                          'tacos, escatologia, sexo, politica o religion; se rie de un colectivo; o algun '
                          'detalle, TAMBIEN DE LA IMAGEN (placa, taza, rotulo), deja como vago o '
                          'incompetente a un cargo que decide la compra (Unai borro el meme del 01/10 '

@@ -1216,7 +1216,7 @@ const RESPUESTA_BORDE: { re: RegExp; que: string }[] = [
   // cuenta como si lo estuviera viendo: "en la imagen se ven dos mensajes de
   // alguien que...". Aqui acerto, y ese es justo el peligro: el dia que se
   // equivoque le estaremos describiendo NUESTRO propio post al reves a quien
-  // si lo esta viendo. Es la misma familia que el desastre del meme del peso,
+  // si lo esta viendo. Es la misma familia que el caso del meme del peso,
   // en afirmativo en vez de en negativo.
   { re: /(en|desde) (la|esa|una) (imagen|foto|captura|pantalla|vineta)/, que: 'describes la imagen y NO la estas viendo' },
   { re: /(la|esa) (imagen|foto|captura) (muestra|ensena|dice|pone|sale)/, que: 'describes la imagen y NO la estas viendo' },

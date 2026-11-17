@@ -2011,7 +2011,7 @@ otros 1000."*
   desactiva la sospecha de testimonio inventado), **pero nosotros no tenemos testimonios
   publicables**: las citas del informe son de reuniones privadas (`§5-ECO`). **Sin permiso escrito
   del cliente, no existe.**
-- **La política y el insulto de Isra** (`votas a Sánchez`, la ginecóloga). Igual que en `§8g`.
+- **La política y los ataques personales de Isra.** Igual que en `§8g`.
 - **El año de la fuente en el cuerpo** (Kieran: *"Gartner's 2026 CMO survey"*). En nuestro cuerpo va
   el nombre y nunca el año (`global §3.5b`).
 - **El lanzamiento de Sonia Ferrent:** 131 palabras, dos exclamaciones y un emoji en el asunto
@@ -2349,7 +2349,7 @@ haven't done yet`, 07:01.
 - **Las erratas**, que siguen: `lso`, `comenten`, `mercaso`, `qeu`, `aminal`, `nevento`, `Instragran`,
   `parasiempre`, `mchas`, `pagaria` (Isra) · las preguntas de Juan sin `¿` (*"Cuánto hace que no te
   escapas…?"*) · `cómo está` con tilde de más en el preheader de EDEM.
-- **Los tacos y el registro de Isra** (*"gilipollez"*, *"puta pérdida de tiempo"*, *"Madera pa
+- **Los tacos y el registro de Isra.**
   peonces"*) y su **testimonio con coletilla, segunda vez** (*"Ana L. / \*Este testimonio podría ser
   mentira, pero no lo es"*): igual que en `§8h`, sin permiso escrito del cliente no tenemos testimonio.
 - **La amenaza de subida de precio** y el precio congelado *"para siempre"* (`§8`).
@@ -2437,7 +2437,7 @@ ZIP `newslettershasta13oct.zip`, 35 ficheros. **Fuera del conteo (8):** SINGULAR
 #### ⏰ Horas y asunto (método de siempre: `Date` pasado a +02:00, ritmo por script)
 - **Isra 15:29 (8 de 8)** · Juan 16:01-16:02, pero ahora **lunes y jueves** (antes lun/mié/vie) · RunnerPro 15:02-15:04, **solo 2 correos** (antes 3-4) · BOGA 12:03, martes, 2 de 2 · Sonia 08:01 · **Hugo sin hora fija (12:08-19:08), 5 correos en 6 días, domingo y festivo incluidos**: en lanzamiento rompe su propia cadencia. Nada cambia en nuestras 09:05.
 - **Remitentes-persona (n=25): mediana 38 caracteres y 7 palabras**, en el borde alto de la banda 31-37. La regla de ≤40 no se toca.
-- **⚠️ El punto final en asuntos LARGOS se repite por segunda ventana:** `El día que murió mi infancia.` · `Hay mucho gilipollas, ese es el verdadero problema.` (Isra) · `Cómo echar a las visitas.` · `Resultado de la encuesta.` (EDEM). `§2` lo limita a 2-4 palabras y `§8h` apuntó el primero largo de EDEM. **Con este son 3 largos de remitentes buenos en dos ventanas: es hipótesis, no regla, y se le propone a Iker** (`working-preferences §0c`).
+- **⚠️ El punto final en asuntos LARGOS se repite por segunda ventana:** `El día que murió mi infancia.` · `Cómo echar a las visitas.` · `Resultado de la encuesta.` (EDEM). `§2` lo limita a 2-4 palabras y `§8h` apuntó el primero largo de EDEM. **Con este son 3 largos de remitentes buenos en dos ventanas: es hipótesis, no regla, y se le propone a Iker** (`working-preferences §0c`).
 - **Asunto + preheader como dos mitades, cuarta ventana:** Juan 3 de 3 y ahora **el paréntesis de segundo golpe vive en el preheader** (`La forma más rara de hacerte viral` + `(sin depender del algoritmo)`), EDEM 2 de 2. Isra, RunnerPro y Hugo siguen sin preheader. Ya es sistema.
 
 #### 🚀 CÓMO SE VENDE UNA FECHA SIN QUE EL CORREO SE CONVIERTA EN ANUNCIO (lo que nos sirve para el webinar)

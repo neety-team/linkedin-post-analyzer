@@ -483,7 +483,7 @@ En **cada** entrega de un post (meme, lead magnet, mapa, lo que sea), además de
 - **⚙️ NO SE MAQUETA A MANO: `python scripts/comparativa.py <original.txt> <mio.txt> "<cab izq>" "<cab der>"`.** La he entregado mal **cuatro veces**, siempre por maquetado y nunca por criterio: dos apilada, una en `<pre>`, y una con la regla horizontal más ancha que las columnas —se partía en dos líneas— y encima continua. El script fija los 36 caracteres por columna (75 de ancho total, que es lo que entra sin partirse), pone la regla **discontinua** y del ancho exacto, y **cuenta los emojis como dos celdas**, que es lo que descuadraba el separador en las líneas con 🤣 o 👇.
 - **Columnas estrechas y largas está BIEN.** Iker: *"si los textos son largos, las columnas serán compactas a nivel de anchura pero muy largas a nivel de altura, y eso me parece bien"*. No se recorta ni se resume para que quepa.
 
-**El formato, exacto (Iker es tiquismiquis con esto):**
+**El formato, exacto (aquí se mira al detalle):**
 - **LOS DOS TEXTOS VAN ENTEROS, sin resumir ni poner `[lo malo]` ni recortes.** Una comparativa "general" con etiquetas no vale: se comparan las publicaciones completas, palabra por palabra.
 - **Dos columnas EN LA MISMA FILA**, no dos bloques apilados. Se monta en **un solo bloque cercado monoespaciado**: cada línea = columna izquierda (rellenada a ancho fijo) + hueco + columna derecha, alineadas arriba. **NADA de tabla, nada de floritura, nada de "cosas raras".**
 - Cabecera dentro del bloque: **ORIGINAL** (creador + ratio si es referencia) a la izquierda, **EL MÍO** (cuenta) a la derecha.

@@ -269,7 +269,7 @@ Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / i
 
 #### 🔄🔄 2-ASIER-MEME · SUS MEMES SON DE VENTAS UNIVERSAL, NO DE LO TÉCNICO, Y EL GANCHO NUNCA LE PONE UN ROL QUE NO TIENE (Iker, 2026-10-08) — CANÓNICO, MANDA SOBRE `§2-CARRIL` EN EL MEME DE ASIER
 
-> **Iker:** *"últimamente todos sus memes son demasiado tecnológicos o no están encajando con nuestra audiencia ideal, que son viejos industriales… creo que el error con este jefe es que especificamos demasiado en los memes que la referencia sea tecnológica de ventas. Con que sea de ventas, pero que él no diga de sí mismo cosas como que él llama, porque él no es comercial"*.
+> **El ajuste:** los últimos memes de esta cuenta salían demasiado tecnológicos para una audiencia de industriales veteranos, porque se pedía que la referencia fuera tecnológica y de ventas. Basta con que sea de ventas, y sin que la cuenta diga de sí misma que llama, porque no es comercial.
 
 **Y LOS DATOS LE DAN LA RAZÓN, cruzados el 08/10 sobre sus 10 memes publicados (BD, impresiones a hoy):**
 
@@ -309,7 +309,7 @@ Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / i
 
 | ⛔ veto | por qué |
 |---|---|
-| **Fútbol, en cualquier forma** | Iker, 26/08: el meme del Mundial de los calvos *"al ser de fútbol a él no le hubiese gustado"*. Se subió en otra cuenta por eso |
+| **Fútbol, en cualquier forma** | Iker, 26/08: el meme del Mundial de los calvos: el fútbol no encaja en esta cuenta. Se subió en otra por eso |
 | **Política** | 🔄 desde el 15/10 es veto de las tres cuentas (`brand-voice §NO CRITICAMOS` 6): es imagen de marca |
 | **Cualquier cosa malinterpretable** | *"cosas peligrosas que puedan malinterpretarse en humor. Intentar no facilitar el malinterpretamiento, porque al final la gente lo hará igual"* |
 | **⭐ Hablar de una mujer en clave romántica, o que se pueda leer que tiene pareja** | 🔴 **El caso, y es el más caro: se retiró una publicación suya porque la frase `soñé con ella` se leyó como que hablaba de una mujer.** No hizo falta ninguna queja: se retiró antes |

@@ -3,7 +3,7 @@ import pool from '../db';
 import { unipileService, LINKEDIN_REACTION_TYPES, LinkedinReactionType, normalizeReactionValue } from '../services/unipile';
 import { enrichPost } from '../services/engagement';
 import { recalcCreatorOutliers } from '../services/outliers';
-import { marcarColaborativosDelFeed } from '../services/colaborativos';
+import { marcarColaborativosDelFeed, buscarCoautoresDe } from '../services/colaborativos';
 import { PostModel } from '../models/post';
 import { CreatorModel } from '../models/creator';
 import { maybeTick, capturePostSnapshot, refrescarCifrasOficiales } from '../services/postMonitor';
@@ -1311,7 +1311,10 @@ router.post('/:id/scrape', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Primero añade a este creador el ID de su cuenta de Unipile' });
     }
     const result = await scrapeCreatorPosts(creator.id);
-    res.json(result);
+    // Si lo recien publicado es un colaborativo, el coautor se ve en SU feed.
+    const coautores = await buscarCoautoresDe(creator.id)
+      .catch((e) => { console.error('[accounts/scrape] coautores', e?.message); return 0; });
+    res.json({ ...result, coautores });
   } catch (err: any) {
     console.error('[accounts/scrape]', err);
     res.status(500).json({ error: err.message });

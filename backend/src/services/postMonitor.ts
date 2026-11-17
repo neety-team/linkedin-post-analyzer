@@ -2,6 +2,7 @@ import pool from '../db';
 import { unipileService, esRepost } from './unipile';
 import { calculateEngagement } from './engagement';
 import { recalcCreatorOutliers } from './outliers';
+import { buscarCoautoresDe } from './colaborativos';
 import { refrescarPostManual } from './manualPost';
 import { captureAccountSnapshots } from './accountSnapshots';
 import { runFollowerSync } from './followerSync';
@@ -59,6 +60,23 @@ async function tick(force = false): Promise<{ captured: number; candidates: numb
       await descubrirPostsNuevos();
     } catch (e: any) {
       console.warn('[postMonitor] busqueda de posts nuevos fallo:', e?.message);
+    }
+
+    // Colaborativos: el coautor acepta minutos despues de publicar. Mientras la cuenta
+    // tenga un post joven, se miran los feeds de las otras (services/colaborativos.ts).
+    try {
+      const { rows: jovenes } = await pool.query(
+        `SELECT DISTINCT p.creator_id FROM posts p JOIN creators c ON c.id = p.creator_id
+          WHERE c.is_managed = TRUE AND c.unipile_account_id IS NOT NULL
+            AND p.published_at > NOW() - INTERVAL '3 hours'
+            AND NOT EXISTS (SELECT 1 FROM post_coautores pc WHERE pc.post_id = p.id)`
+      );
+      for (const { creator_id } of jovenes) {
+        const n = await buscarCoautoresDe(creator_id);
+        if (n) console.log(`[postMonitor] colaborativos: ${n} coautor(es) marcado(s) en posts de ${creator_id}`);
+      }
+    } catch (e: any) {
+      console.warn('[postMonitor] busqueda de coautores fallo:', e?.message);
     }
 
     // All managed-account posts within the 7-day window; we'll filter per-post by

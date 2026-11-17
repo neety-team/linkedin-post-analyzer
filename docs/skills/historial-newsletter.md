@@ -157,7 +157,7 @@ Brevo trae **lista blanca de IPs por defecto** en las API keys nuevas. La primer
 MailerLite canceló la cuenta 2536617 por supuesta violación de la política anti-spam, tras 3 envíos y 191 correos. **La tanda 3 (337) nunca llegó a salir y la 4 no se montó.** Post-mortem completo en `email-marketing §0b`.
 - **Apelaciones enviadas:** formulario de cumplimiento (x2) y mensaje de LinkedIn a un empleado de soporte desde la cuenta de Iker, el 2026-08-12.
 - **Datos rescatados por API antes de perder el acceso:** `Escritorio/rescate-mailerlite-2026-08-11.md` — las 5 bajas con su motivo, los 7 rebotes, los 4 leads que clicaron y las métricas finales. **Sin ese fichero no se puede reconstruir la lista de supresión en otra plataforma.**
-- ⚠️ **De los 4 que clicaron, uno (`ahernandez@fagorautomation.es`) es CLIENTE**, no un lead: recibió el correo por no existir lista de supresión. Leads reales: 3.
+- ⚠️ **De los 4 que clicaron, uno (`a***@fagorautomation.es`) es CLIENTE**, no un lead: recibió el correo por no existir lista de supresión. Leads reales: 3.
 
 ## Estado del sistema
 
@@ -215,9 +215,9 @@ MailerLite canceló la cuenta 2536617 por supuesta violación de la política an
 - ✅ **Acumulado 191 enviados, 6 rebotes duros = 3,1% y BAJANDO. 0 denuncias de spam.** Con eso se sigue sin verificar la lista: la verificación se deja para antes de la primera newsletter de venta.
 
 ### Los 6 rebotados, y qué se hace con cada uno
-`mktbeti@gmail.com` · `xavigames911@gmail.com` · `etacescueladearqueroa@gmail.com` · `emprendersjglo21@gmail.com` · `sttrategosolutions@gmail.com` → **5 de 6 son Gmail muertos** (Google borra cuentas inactivas a los 2 años). Se borran del CRM.
-- ⚠️ `emprender**sj**glo21` es **errata** de `emprender**si**glo21@gmail.com`, que sí existe y no rebotó. Solo se borra la errata.
-- 🔵 `pablo.rivadulla@nextbitt.com` es **corporativo: la persona se fue, la EMPRESA sigue siendo prospecto.** En un CRM B2B se invalida el correo, **no se borra la ficha ni el histórico**.
+`m***@gmail.com` · `x***@gmail.com` · `e***@gmail.com` · `e***@gmail.com` · `s***@gmail.com` → **5 de 6 son Gmail muertos** (Google borra cuentas inactivas a los 2 años). Se borran del CRM.
+- ⚠️ `emprender**sj**glo21` es **errata** de `emprender**si**g***@gmail.com`, que sí existe y no rebotó. Solo se borra la errata.
+- 🔵 `p***@nextbitt.com` es **corporativo: la persona se fue, la EMPRESA sigue siendo prospecto.** En un CRM B2B se invalida el correo, **no se borra la ficha ni el histórico**.
 - ✅ **La comprobación gratuita de MX acertó:** marcó `bravorobot.com` como dominio sin servidor de correo y ese fue exactamente el único rebote blando. Detecta poco (1 de 71) pero lo que detecta, acierta. **Merece la pena correrla siempre antes de una tanda: es gratis.**
 
 ⛔ **A un rebotado NO se le borra, en ningún proveedor.** El estado que lo bloquea es automático; borrarlo pierde esa protección y una reimportación posterior lo devuelve limpio. En Brevo ese estado es `emailBlacklisted`, y el CRM lo respeta por los dos lados: los dados de baja **se quedan dentro de la lista a propósito** (sacarlos y reimportarlos algún día los resucitaría), y el sync nunca los vuelve a subir.
@@ -246,7 +246,7 @@ detectarlo antes de tiempo."*
 
 ### ❌ Lo que se probó y NO funciona: puntuar direcciones absurdas
 
-Salió de una observación buena suya: `mongol@gmail.com` estaba en la tanda 3, y quien pone eso
+Salió de una observación buena suya: `m***@gmail.com` estaba en la tanda 3, y quien pone eso
 en un formulario no está dejando su correo. La idea era generalizarlo puntuando la parte local
 por consonantes seguidas, ratio de vocales y bigramas repetidos.
 
@@ -254,9 +254,9 @@ por consonantes seguidas, ratio de vocales y bigramas repetidos.
 
 | dirección | puntuación | ¿es real? |
 |---|---|---|
-| `teleservicesmultiservicios@gmail.com` | 19,4 | sí |
-| `horebbusinessgroup@gmail.com` | 14 | sí |
-| `fuewatclauidia@cfuwomdtradigi.com` | **13** | **no** |
+| `t***@gmail.com` | 19,4 | sí |
+| `h***@gmail.com` | 14 | sí |
+| `f***@cfuwomdtradigi.com` | **13** | **no** |
 | `fabio.archila@...` | 13 | sí |
 | `endtoendgmks.com` (dominio) | 20,8 | sí |
 | `bcncgroup.com` (dominio) | 17 | sí |
@@ -339,28 +339,28 @@ QUIÉN rebotó, que la API de campañas no da.**
 
 | dirección | tipo |
 |---|---|
-| `jvieare@canariaseducacion.com` | corporativo |
-| `mjosealonso@cepaim.org` | corporativo |
-| `laia.roig@omc.com` | corporativo |
-| `vicentebordes@provesa.com` | corporativo |
-| `victoria.francia@arbentia.com` | corporativo |
-| `ventas@alvarozubiaga.com` | corporativo (buzón de rol) |
-| `konntacgdl@gmail.com` | libre |
-| `fehaby@hotmail.com` | libre |
-| `treserlerzerm@gmail.com` | libre |
+| `j***@canariaseducacion.com` | corporativo |
+| `m***@cepaim.org` | corporativo |
+| `l***@omc.com` | corporativo |
+| `v***@provesa.com` | corporativo |
+| `v***@arbentia.com` | corporativo |
+| `v***@alvarozubiaga.com` | corporativo (buzón de rol) |
+| `k***@gmail.com` | libre |
+| `f***@hotmail.com` | libre |
+| `t***@gmail.com` | libre |
 
-**6 de 9 son direcciones impecables de empresas reales.** `laia.roig@omc.com`,
-`victoria.francia@arbentia.com`: nombre, apellido, empresa que existe. **Son personas que
+**6 de 9 son direcciones impecables de empresas reales.** `l***@omc.com`,
+`v***@arbentia.com`: nombre, apellido, empresa que existe. **Son personas que
 cambiaron de trabajo.** No hay nada en el texto de esas direcciones que las delate.
 
 ### El marcador de mis predicciones del viernes: 1 de 4
 
 | sospechoso | ¿rebotó? |
 |---|---|
-| `treserlerzerm@gmail.com` | ✅ sí |
-| `mongol@gmail.com` | ❌ **no** |
-| `dafasasfa@gfdhe.com` | ❌ **no** |
-| `fuewatclauidia@cfuwomdtradigi.com` | ❌ **no** |
+| `t***@gmail.com` | ✅ sí |
+| `m***@gmail.com` | ❌ **no** |
+| `d***@gfdhe.com` | ❌ **no** |
+| `f***@cfuwomdtradigi.com` | ❌ **no** |
 
 **Tres falsos positivos de cuatro.** Si se hubieran quitado, se habrían borrado 3 contactos vivos
 sin tocar el problema.
@@ -779,7 +779,7 @@ conceptos distintos aunque los dos "repartan" la audiencia.
    leídos en directo de Brevo. **1.035 contactos vivos** (no bloqueados) de 1.325 originales.
 
    ⚠️ **CORREGIDO EL MISMO DÍA — aquí escribí que el `member_count` del CRM "está desactualizado" y es
-   FALSO.** Iker se alarmó con razón y al comprobarlo con datos reales resultó que no hay ninguna
+   FALSO.** Se revisó con razón y al comprobarlo con datos reales resultó que no hay ninguna
    desincronización: `/api/marketing/estado-sincronizacion` devuelve `bajasPendientesEnBrevo: 0` y
    `errores: []`, el webhook Brevo→CRM está vivo, y los workers corren solos (bajas cada 5 min,
    audiencias cada 60 min). Cruzando la tanda 6 contacto a contacto: 380 en el CRM, 349 en Brevo, **31
@@ -1131,16 +1131,16 @@ hora:**
 | campaña | quién | cuándo | enlace |
 |---|---|---|---|
 | 15 (correo 2) | **`mario@neety.com`** | **14/09 10:30** | `/agendar/` |
-| 18 (correo 3) | `anderalberdi94@gmail.com` | **09/09 14:50** | `forward` → Luma |
+| 18 (correo 3) | `a***@gmail.com` | **09/09 14:50** | `forward` → Luma |
 | 18 (correo 3) | **`mario@neety.com`** | **14/09 10:31** | `forward` → Luma |
 
 - **`mario@neety.com` pulsó los dos hoy, con 19 segundos de diferencia.** Es él revisando los correos
   para este análisis, no un lead. **Es ruido interno y hay que descontarlo.**
 - **Descontado, la foto real es:** correo 2 → **0 clics de lead en 45 entregados**. Correo 3 → **1
   clic de lead en 45 entregados**.
-- **1 baja**, en el correo 3: `ojacinto@gmail.com`, el 09/09 a las 11:29.
+- **1 baja**, en el correo 3: `o***@gmail.com`, el 09/09 a las 11:29.
 - **0 rebotes y 0 denuncias de spam en los dos.** La lista de 45 está limpia.
-- ⚠️ **De la tanda 6 solo sobrevive un nombre: `jrojo@bondaltiwater.com` (28/08 09:09, a
+- ⚠️ **De la tanda 6 solo sobrevive un nombre: `j***@bondaltiwater.com` (28/08 09:09, a
   `/agendar/`).** Los otros 6 que pulsaron estaban entre los **1.056 contactos borrados** en la
   limpieza que pidió Brevo, y **borrar un contacto borra también su historial de clics**. Es el mismo
   aviso que ya quedó escrito ese día: antes de borrar en un proveedor, comprobar qué se pierde.
@@ -1194,7 +1194,7 @@ la verdad es que ese clic salió de un correo de HubSpot.
    `unai-03-evento-correo`, no `hs_email`.
 
 **⛔ LO QUE FALTA PARA CERRARLO DEL TODO, y solo lo puede mirar quien entra en Luma:** si
-`anderalberdi94@gmail.com` (el único lead que pulsó nuestro enlace, el 09/09 a las 14:50) **aparece o
+`a***@gmail.com` (el único lead que pulsó nuestro enlace, el 09/09 a las 14:50) **aparece o
 no en la lista de invitados**. Si aparece, la newsletter también ha traído uno y en Luma saldrá con
 `utm_source=unai-03-evento-correo`. Si no aparece, pulsó y no se registró.
 
@@ -1242,7 +1242,7 @@ mismo asunto, creado el **08/09**, **en BORRADOR**, con la misma promesa del eve
 | Contactos en Brevo | **47** (lista `📥 Recursos · Todos` 40, con 1 de baja, + `Testers` 5) |
 | Los 1.056 borrados el 28/08 | **anonimizados en el histórico de campañas** |
 | Export de los que PULSARON en la tanda 6 | 6 filas, y **5 dicen `Deleted / Anonymized contact`** |
-| Únicos clics recuperables con nombre | `jrojo@bondaltiwater.com` (tanda 6) y `anderalberdi94@gmail.com` (correo 3), **los dos ya dentro de los 40** |
+| Únicos clics recuperables con nombre | `j***@bondaltiwater.com` (tanda 6) y `a***@gmail.com` (correo 3), **los dos ya dentro de los 40** |
 | CSV de respaldo (`Escritorio/BREVO-CONTACTOS-BORRADOS`) | 1.056 correos, pero **solo 4 columnas**: email, bloqueado, listas, fecha de alta. **No guarda aperturas ni clics** |
 | De esos 1.056 | **68 bloqueados** (bajas + rebotes), un 6,4% |
 
@@ -1313,7 +1313,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 > 🔄 **Releído el 22/09 con `metricas-brevo.py`:** 45 entregados, **20 aperturas (44,4%)**, 4 clics de cuerpo (uno es de Mario: **3 de lead**), 0 bajas. Es el mejor de los correos 2-4 en aperturas y en clics, **pero con 45 destinatarios y seis variables cambiadas a la vez no separa nada** (ver abajo). La lectura del mismo día infravaloraba las aperturas en un 20%: **un correo se cierra a los 5-6 días, no el día del envío.**
 
-- **Los 3 que pulsaron:** `hablemos@garazizuniga.studio` (09:36), `louisedesiree.ldf@gmail.com` (10:53) y `anderalberdi94@gmail.com` (11:36, **segunda vez**: ya pulsó el correo 3). El 4º clic es `mario@neety.com` a las 09:14, revisando.
+- **Los 3 que pulsaron:** `h***@garazizuniga.studio` (09:36), `l***@gmail.com` (10:53) y `a***@gmail.com` (11:36, **segunda vez**: ya pulsó el correo 3). El 4º clic es `mario@neety.com` a las 09:14, revisando.
 - ⭐ **ES EL PRIMER INSCRITO AL EVENTO ATRIBUIDO A LA NEWSLETTER POR UTM.** El del correo 3 resultó ser de HubSpot (14/09). Este llega con `utm_source=kaixito-04-evento-correo`, que es justo lo que se protegió apagando el seguimiento UTM de Brevo antes del test.
 - **Luma pasó de 60 a 65 inscritos** entre el 15/09 por la tarde y el 16/09 a mediodía (**15 plazas libres**). Iker atribuye **al menos 5** al "Los 10" de Gipuzkoa de Unai (`historial-publicaciones`), así que las cuentas no casan exactas y **no se fuerzan**: Luma no deja ver la lista (`email-marketing §7b`).
 - ⚠️ **LO QUE NO SE PUEDE CONCLUIR, y va delante de cualquier celebración:** entre el correo 3 y el 4 cambiaron **seis cosas a la vez** (remitente, pilar, familia de asunto, GIF, que ya es la ÚLTIMA semana y que el ninja dice las sillas que QUEDAN en vez del aforo total). Con 45 destinatarios, **3 contra 1 clic no separa ninguna de ellas**. Lo único que es dato sin discusión: **cero bajas** en un correo de mascota a una lista industrial, y **un inscrito atribuido**.
@@ -1388,16 +1388,16 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Enviados / entregados | 83 / **75** |
 | **Rebotes duros** | **3** · 3,6% del total y **8,3% de los 36 inscritos nuevos**. De los 41 de siempre, **cero** |
 | Aperturas a 1 h | 20 únicas (19 de personas) · **25,3%** |
-| Clic de lead | **1**, `hcalderon@parke.eus` a las 09:29 |
+| Clic de lead | **1**, `h***@parke.eus` a las 09:29 |
 | Bajas / denuncias | **0 / 0** |
 
-**Los 3 que rebotaron:** `ruiz.sika@yahoo.es`, `jsanmiguelcobi@gmail.com`, `xcm@spyro.es`. Brevo los bloquea solo.
+**Los 3 que rebotaron:** `r***@yahoo.es`, `j***@gmail.com`, `x***@spyro.es`. Brevo los bloquea solo.
 
 **🔴 LA LECCIÓN, y es la que justifica las dos tandas:** una lista de inscritos a un evento **NO es una lista limpia**. Los 41 de la newsletter llevan meses sin rebotar y los nuevos rebotaron al 8,3%, cuatro veces el umbral del sector. **Partir el envío es lo que permitió parar a tiempo.**
 
 **⛔ El sondeo SMTP gratis (`src/smtp_probe.js` del CRM) NO sirvió:** los 35 salieron como `no-se-sabe`, o el puerto está bloqueado desde el equipo o son dominios que aceptan todo. **Cuando hay contactos nuevos de golpe, la verificación de pago es la única que llega.**
 
-**✅ Lo que sí funcionó: Bouncer, 35 créditos.** 33 `deliverable` y **2 `risky`** (`bkortabarria@lacor.es`, `susanavelasco@hervel.com`), quitados de la lista 18 antes de programar. Su estimación previa de rebote para ese grupo era 1,9%. **Sin marcar Company Enrichment ni Email Engagement Insights**: no deciden nada y gastan créditos.
+**✅ Lo que sí funcionó: Bouncer, 35 créditos.** 33 `deliverable` y **2 `risky`** (`b***@lacor.es`, `s***@hervel.com`), quitados de la lista 18 antes de programar. Su estimación previa de rebote para ese grupo era 1,9%. **Sin marcar Company Enrichment ni Email Engagement Insights**: no deciden nada y gastan créditos.
 
 **Al enviarlo:** meter el ninja en `QUEMADAS` de `validar-email.py`, el cuerpo literal en `corpus-correos-enviados.md`, y leer las métricas a los 5-6 días.
 **Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. **Remitente cambiado de Unai a Iker (22/09):** Iker llevaba 3 semanas sin escribir (Unai 2), el pilar objeción es suyo porque es quien hace las demos, y así Unai queda libre para el correo de después del evento. **Asier se descartó para este:** estrenar remitente y pilar a la vez no deja atribuir nada. ✅ **Su remitente ya existe: `Asier de Neety` (id 7, `hola@neety.com`, activo), dado de alta por Iker el 22/09.** Candidato para su estreno: pilar 9 · receta regalada.
@@ -1449,10 +1449,10 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | **Bajas** | 🔴 **3 · 2,7%** (correo 5: 0 en 111) |
 | Reuniones atribuidas | **0** |
 
-- **De dónde salen los clics y las bajas, mirado contacto a contacto en Brevo:** 4 de los 5 clics son de la cohorte del evento (listas 16-18) y **2 de las 3 bajas también** (lista 18). La tercera, `jurzelai@fex.eus`, había pulsado el correo 5. **La cohorte del evento es a la vez la que más pulsa y la que más se va.** Era su segundo correo en 6 días (correo 5 tanda 2 el 24/09, correo 6 el 29/09) y no se apuntó a ninguna newsletter (`§ LOS INSCRITOS AL EVENTO ENTRAN EN LA LISTA`).
+- **De dónde salen los clics y las bajas, mirado contacto a contacto en Brevo:** 4 de los 5 clics son de la cohorte del evento (listas 16-18) y **2 de las 3 bajas también** (lista 18). La tercera, `j***@fex.eus`, había pulsado el correo 5. **La cohorte del evento es a la vez la que más pulsa y la que más se va.** Era su segundo correo en 6 días (correo 5 tanda 2 el 24/09, correo 6 el 29/09) y no se apuntó a ninguna newsletter (`§ LOS INSCRITOS AL EVENTO ENTRAN EN LA LISTA`).
 - **Reuniones, cruzado en HubSpot el 05/10:** ninguno de los 12 que pulsaron los correos 5 y 6 existe como contacto en HubSpot ni tiene reunión. Las 4 reservas públicas del periodo (`MEETINGS_PUBLIC`) vienen todas del enlace del perfil de LinkedIn de Iker (`30-min-perfil-iker-link`), no de la newsletter. ⚠️ **La tabla `meeting_requests` de recursos no se pudo leer** (la conexión directa da timeout): falta mirar en `recursos.neety.com/admin/` si alguno de los 12 rellenó el formulario de `/agendar/` y se quedó sin calendario por la cualificación. **Es el sitio más probable de la fuga y es una comprobación de Iker** (tiene la contraseña).
-- 🟡 **Dos coincidencias que NO se atribuyen:** `rarteche@kruce.es` pulsó el correo 5 y el 01/10 hay `Partnership Neety- Kruce`; `victor.maciel.1@hydro.com` pulsó el correo 5 a los 8 minutos (huella de escáner) y el 29/09 se crea `Neety <> NORSK HYDRO`. Las dos pueden venir de prospección normal. **Se preguntan, no se cuentan.**
-- ⭐ **`anderalberdi94@gmail.com` ha pulsado tres correos (3, 4 y 6) y no ha reservado nunca.** Es el lead más caliente de la lista y no hay CTA de newsletter que le falte: le falta un correo uno a uno.
+- 🟡 **Dos coincidencias que NO se atribuyen:** `r***@kruce.es` pulsó el correo 5 y el 01/10 hay `Partnership Neety- Kruce`; `v***@hydro.com` pulsó el correo 5 a los 8 minutos (huella de escáner) y el 29/09 se crea `Neety <> NORSK HYDRO`. Las dos pueden venir de prospección normal. **Se preguntan, no se cuentan.**
+- ⭐ **`a***@gmail.com` ha pulsado tres correos (3, 4 y 6) y no ha reservado nunca.** Es el lead más caliente de la lista y no hay CTA de newsletter que le falte: le falta un correo uno a uno.
 
 ### 🔁 LO QUE DICEN NUESTROS 7 CORREOS CRUZADOS (2026-10-05, n pequeño: dirección, no prueba)
 
@@ -1480,7 +1480,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 - **Dos llamadas a la acción solo por esta colaboración** (`email-marketing §5-COLABORACION`): lo normal sigue siendo una.
 - 🔴 **REVISIÓN DEL LUNES 12/10 (Iker lo pidió expresamente): mirar el IMPACTO DE LA POSICIÓN del ninja adelantado**, además de clics, reservas en la web nueva, clics a AMA y bajas de la cohorte del evento.
 - 🧪 **A/B de posición que sale gratis:** el ninja va al ~25% del cuerpo, contra el 45-50% de los correos 5 y 6. Si saca más clics de lead por entregado que el 6 (5 de 111), se prueba otra vez con un solo ninja antes de convertirlo en regla, porque aquí cambian a la vez remitente, pilar, web y posición.
-- 📊 **RESULTADO A 24 H (leído de la API de Brevo el 07/10 a las 09:50, historial de cada contacto, sin @neety.com): NO sube.** Nuestro enlace lo pulsaron **2 personas de 107 entregados (1,9%; CTOR 3,2%)**, contra **4 de 111 del correo 6 a la misma edad** (5 en total). Contando también el enlace de AMA (al 79%), 5 de 107, lo mismo que el correo 6. Aperturas casi iguales (58% contra 57%), así que asunto y remitente no lo explican. **El "más clics" que se veía es el contador del panel (32 contra 26), inflado por la baja y los escáneres**: el historial solo registra 7 personas en enlaces del cuerpo. Uno de los 2 (tgoni@cein.es) pulsó a los 4 min, igual que en el correo 6 a los 10: puede ser escáner. **Con n tan pequeño, 2 y 5 son el mismo número (Fisher p≈0,45).** Los clics de los correos 5 y 6 llegaron en un 83-100% en las primeras 24 h, así que la lectura ya es comparable. **Conclusión: adelantar al 25% no se convierte en regla**; la única prueba fuerte de posición en correo sigue siendo sacar el enlace de la posdata (7 de 327 contra 2 de 682). Para medir 25% contra 50% hace falta un correo con UN solo enlace.
+- 📊 **RESULTADO A 24 H (leído de la API de Brevo el 07/10 a las 09:50, historial de cada contacto, sin @neety.com): NO sube.** Nuestro enlace lo pulsaron **2 personas de 107 entregados (1,9%; CTOR 3,2%)**, contra **4 de 111 del correo 6 a la misma edad** (5 en total). Contando también el enlace de AMA (al 79%), 5 de 107, lo mismo que el correo 6. Aperturas casi iguales (58% contra 57%), así que asunto y remitente no lo explican. **El "más clics" que se veía es el contador del panel (32 contra 26), inflado por la baja y los escáneres**: el historial solo registra 7 personas en enlaces del cuerpo. Uno de los 2 (t***@cein.es) pulsó a los 4 min, igual que en el correo 6 a los 10: puede ser escáner. **Con n tan pequeño, 2 y 5 son el mismo número (Fisher p≈0,45).** Los clics de los correos 5 y 6 llegaron en un 83-100% en las primeras 24 h, así que la lectura ya es comparable. **Conclusión: adelantar al 25% no se convierte en regla**; la única prueba fuerte de posición en correo sigue siendo sacar el enlace de la posdata (7 de 327 contra 2 de 682). Para medir 25% contra 50% hace falta un correo con UN solo enlace.
 
 **Campaña Brevo 28**, `draft` releído de la API, **sin `scheduledAt`**, remitente `Kaixito de Neety` (`hola@neety.com`), listas **15 + 4 + 17 + 18** (40 + 5 + 33 + 29 según `totalSubscribers`), pie de la casa copiado del correo 6, GIF `enfado`. Los dos `href` con su UTM intacto y **auditor en verde**. El texto visible de los enlaces sale del propio URL desde hoy (`montar-correo-brevo.py`): `neety.com/solicitar-demo` y **solo el dominio `asociacionmarketing.com`**, porque con la ruta la línea del bloque de AMA se partía en el móvil.
 
@@ -1776,4 +1776,4 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 - ✅ **Cuerpo literal rescatado y guardado en `corpus-correos-enviados.md` el 14/10** (con el conector de Brevo).
 
 ### 🚫 Bajas a mano
-- **2026-10-08 · `gorka@easoventures.com`** (inscrito del evento, listas 16 y 18), a petición de Iker. Hecho con `emailBlacklisted: true` en Brevo, **sin borrar el contacto**: así no se le vuelve a escribir aunque alguien lo reimporte. No está en el CRM (la cohorte del evento vive solo en Brevo), así que no hay sync que lo devuelva.
+- **2026-10-08 · `g***@easoventures.com`** (inscrito del evento, listas 16 y 18), a petición de Iker. Hecho con `emailBlacklisted: true` en Brevo, **sin borrar el contacto**: así no se le vuelve a escribir aunque alguien lo reimporte. No está en el CRM (la cohorte del evento vive solo en Brevo), así que no hay sync que lo devuelva.

@@ -74,7 +74,7 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 - **🔄 CORREGIDO EL MISMO 30/09: `no cupo` se queda CORTO. Lo que funciona es la sensación de ROTO:** `no cupo` se queda formal; la escena es que rompimos la sala con nuestra forma de vender. Yo había escrito aquí que `reventar la sala` era de calle y había que decir `no cupo`: **me pasé de sobrio y le quité justo lo que pedía.** `romper` / `reventar` + un objeto CONCRETO de la escena (`la sala`) sí valen en su gancho grandioso; es `§2.9-ABSTRACTO` al derecho: lo que no le gusta es `romper el mercado` (abstracto), no `romper la sala`. `petar` es el peldaño más de calle y está sin probar con él. Candidatos entregados: `Rompimos la sala con una nueva forma de vender 👇` · `La nueva forma de vender que presentamos reventó la sala 👇` · `Nunca una sala se había venido abajo por hablar de ventas 👇` (pendiente de cuál elige).
 - **Grande no es inventado.** El hecho tiene que ser cierto (la sala se quedó pequeña: sí; "la mayor" o "miles": no). `CLAUDE.md`, lo que no se negocia.
 - **Grande no es compararse.** Nada de `mejor que nadie`, `los demás se quedan atrás`: el canónico de no criticar a nadie manda (`§5`).
-- **Y sigue todo lo mecánico del gancho:** bucle abierto, ancla de ventas, ≤1 cifra, sin `LinkedIn`. `ÚLTIMA HORA:` tampoco: a Unai no le gusta (historial, 23/09).
+- **Y sigue todo lo mecánico del gancho:** bucle abierto, ancla de ventas, ≤1 cifra, sin `LinkedIn`. `ÚLTIMA HORA:` tampoco: no encaja en su cuenta (historial, 23/09).
 - **Ni `revolucionar`/`transformar`** (`global §2.9-REVOLUCIONAR`, medido): lo grande sale de un objeto concreto (la sala, el antes y el después), no del verbo gastado.
 
 **Lo medido, y es poco (`working-preferences §0c`: esto es preferencia del jefe, no doctrina de datos):** su historia del 23/09 con el gancho grandioso hizo **9.928 impresiones, 43 clics y 18 comentarios** (el máximo de comentarios de sus historias), por encima de su mediana de historia desde julio (**8.917**, n=6). En contra: el del 24/09 (`Ya solo nos quedan unos minutos para que empiece el después en ventas`) hizo **1.279**, aunque salió 40 minutos antes del evento y sin enlace. n=2: se hace porque lo pide él, y se sigue midiendo.
@@ -873,7 +873,7 @@ Prueba: `backend/src/scripts/testComentariosChat.ts`.
 
 **2 · 🔴 EL GENERADOR ESTABA CIEGO: SOLO RECIBÍA EL TEXTO.** Y esto es un fallo de diseño nuestro, no del modelo, porque **choca de frente con nuestra propia receta**: `§2.0c` manda que el cuerpo **NUNCA** cuente lo que enseña la imagen. O sea que, por construcción, **el texto de un meme nuestro esconde justo la mitad que hace el chiste**, y el generador solo leía esa mitad.
 - **El caso que lo demuestra:** el meme del 03/09 tiene el chiste ENTERO en la captura (un compañero pregunta si esos 4.797€ son un viaje, y la factura resulta ser la renovación de las herramientas de ventas). Sin la foto **no hay nada que explicar**, así que la respuesta salió por la tangente y encima borde.
-- **Y el caso caro:** en el meme del peso, alguien se enfadó y la herramienta contestó *"en ningún momento hemos hablado de peso"*. **Era mentira: estaba en la imagen.** Negarle en público a alguien enfadado algo que sí hicimos es el peor error posible de este flujo.
+- **Y el caso caro:** en el meme del peso, alguien se molestó y la herramienta contestó *"en ningún momento hemos hablado de peso"*. **Era mentira: estaba en la imagen.** Negarle en público a alguien molesto algo que sí hicimos es el peor error posible de este flujo.
 
 **LO QUE SE HA CAMBIADO, en las tres capas de siempre:**
 
@@ -949,7 +949,7 @@ Hasta el 12/11 el generador partía de que cada comentario era "un contacto norm
 - Prueba: `backend/src/scripts/testComentariosChat.ts`.
 
 #### ⛔⛔ 7.2b-ADULTO · APOYO DE ADULTO, Y SI LA HISTORIA LA VIVIÓ EL EQUIPO, COMPLICIDAD DE QUIEN ESTUVO (Mario, 2026-10-20)
-> **Captura del Chat, historia de las avispas de Iker:** `Menudo detalle lo de mirar antes de correr, lo aplico ya a las listas 😄` · `Lo de la avispas asiáticas en el baño me ha dejado sin palabras 🔥` · `No clarooo contarlo con la barbacoa…` · `A mí me ha pasado llamar a quien no tocaba una vez a la semana al menos 👌`. Mario: *"suenan muy infantiles o muy sarcásticos, como que le están vacilando… parecemos tontos… todos formamos parte de esta publicación"*.
+> **Captura del Chat, historia de las avispas de Iker:** `Menudo detalle lo de mirar antes de correr, lo aplico ya a las listas 😄` · `Lo de la avispas asiáticas en el baño me ha dejado sin palabras 🔥` · `No clarooo contarlo con la barbacoa…` · `A mí me ha pasado llamar a quien no tocaba una vez a la semana al menos 👌`. Suenan infantiles o sarcásticos, como si se vacilara al autor, y todos formamos parte de esa publicación.
 
 **Cuatro fallos, cuatro arreglos en `commentGenerator.ts` / `variedadComentarios.ts`:**
 1. **Historia del equipo entero → los que comentan estaban ahí.** Si el post cuenta algo que vivió todo el equipo (`todo el equipo`, `los 11…`), nadie reacciona como quien se entera: complicidad en pasado y en plural (`qué noche aquella`, `todavía me acuerdo de lo del baño`), sin añadir nada que el post no cuente. Ángulos propios (`angulosHistoriaEquipo`) y fallo si sale sorpresa (`sorpresaDeQuienEstuvo`).

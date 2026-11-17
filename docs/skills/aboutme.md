@@ -169,7 +169,7 @@ Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / i
 #### 🔄 ACTUALIZADO EL 2026-10-07 (Iker): LA PALABRA DE VENTAS PUEDE ESTAR EN EL GANCHO **O** EN LA IMAGEN Y EL CUERPO DEL ORIGINAL. LO QUE NO SE NEGOCIA ES QUE **NUESTRO** GANCHO ANCLE A VENTAS
 > **Iker:** *"no me había dado cuenta de la casuística de que un gancho de una referencia no tenga vinculación a ventas, pero si todo el resto del cuerpo sí que lo tiene, esa referencia sí que es válida"*. Y lo que sigue siendo regla global: *"el gancho que nosotros vamos a subir siempre tiene que tener vinculación con ventas"*.
 > - **El caso:** el león de Dachi Beberashvili (06/10). Gancho `I love motivational speakers.` (sin palabra de ventas), pero la imagen dice `The lion in me after 10 hours of cold calling` y el cuerpo son tres negativas de llamada en frío. 53% de risa, ~305 risas, 26 reposts. Con la regla vieja se habría descartado la mejor referencia de la semana.
-> - **⛔ ACOTADO EL MISMO 07/10 (Iker): NO VALE UNA PALABRA SUELTA EN EL CUERPO.** *"No que solo con que tenga una palabra de ventas en el cuerpo cuele… siempre vamos a priorizar referencias, sobre todo en el caso de memes, que en el gancho lo tengan. Hay veces que muchas bromas son internas del sector de las ventas; si ampliamos demasiado, va a ser un desastre"*.
+> - **⛔ ACOTADO EL MISMO 07/10 (Iker): NO VALE UNA PALABRA SUELTA EN EL CUERPO.** *"No que solo con que tenga una palabra de ventas en el cuerpo cuele… siempre vamos a priorizar referencias, sobre todo en el caso de memes, que en el gancho lo tengan. Hay veces que muchas bromas son internas del sector de las ventas"*. Si se amplía demasiado, la regla se diluye.
 > - **La comprobación, por orden, y vale para meme y para CUALQUIER pilar que parta de una referencia:**
 >   1. **PRIORIDAD: el gancho del original lleva palabra de ventas.** Es la vía normal y la que se busca primero. Entre dos candidatas parecidas, gana siempre la que la lleva en el gancho.
 >   2. **EXCEPCIÓN, solo si se cumplen LAS DOS:** (a) **el chiste mismo es de ventas**: el texto de la imagen, que es lo que hace reír, nombra el oficio (`10 hours of cold calling`); y (b) **todo el cuerpo o su gran mayoría va de ventas** (aquí, tres negativas de llamada en frío y la lección de no abandonar la lista). Una palabra suelta de ventas en un cuerpo que habla de otra cosa **NO** la convierte en referencia de ventas, ni un hashtag, ni el headline del autor.
@@ -229,7 +229,7 @@ Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / i
 
 **El caso:** el 26/08 entregué `Monto campañas y la parte lenta de VENDER me la como yo` para Mario, forzando el ancla de ventas al gancho. Quedó en **`Farmeo aura en LinkedIn y el cuello de botella cae más abajo`**, con `LinkedIn` de ancla y `venta` bajada al cuerpo (`Cuento lo que no acaba en venta`).
 
-**Ya estaba bien mecanizado y yo iba por delante del script:** `validar-post.py` solo exige `MARKETING_ANCLA` cuando se le pasa `--cuenta mario`. **El fallo fue mío, no del validador** — pasaba el check y encima le metía ventas de más.
+**Ya estaba bien mecanizado y yo iba por delante del script:** `validar-post.py` solo exige `MARKETING_ANCLA` cuando se le pasa `--cuenta mario`. **El fallo no era del validador** — pasaba el check y encima le metía ventas de más.
 
 **LAS DOS COSAS SE CUMPLEN A LA VEZ, y ese es todo el criterio:** la referencia viene del **oficio** de esa cuenta y el **gancho ancla al carril de esa cuenta** (`global §2.3`, el test del ancla; en los 3 jefes ese carril es ventas, en Mario y Helena es el suyo, ver `§2-CARRIL-GANCHO` justo arriba) (`global §2.3`, el test del ancla). Con solo una de las dos, el post es de otro. Iker: *"todas las cuentas siempre tienen que tener la vinculación a ventas, al igual que hoy Helena ha sido un meme de ventas más atención al cliente, y el otro día con Mario fue de ventas y de marketing"*.
 
@@ -284,7 +284,7 @@ Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / i
 
 **LA VOZ DEL GANCHO, y es la segunda mitad del patrón:**
 - **Sus tres mejores memes llevan el gancho en 3ª persona impersonal**: *En ventas, el pedido encoge…* · *Cada ascenso en ventas cuesta pelo* · *Vender es un caos y punto*. El cuarto (*Mi mayor inversión en ventas…*) va en 1ª, pero en un papel que SÍ es suyo: el socio que paga.
-- **Los que le pusieron un rol que no tiene fallaron:** *Mi historial de Google canta más que **mis ventas*** (3.751) · *Mi **jefe de ventas** me mandó actualizar la ficha* (lo borró él) · *Llevo 13 pestañas abiertas* buscando a quién escribir (718).
+- **Los que le pusieron un rol que no tiene fallaron:** *Mi historial de Google canta más que **mis ventas*** (3.751) · *Mi **jefe de ventas** me mandó actualizar la ficha* (retirado) · *Llevo 13 pestañas abiertas* buscando a quién escribir (718).
 
 **LA REGLA, y son tres cosas a la vez:**
 1. **La referencia: de ventas, del rincón que sea, y la más UNIVERSAL que haya**: la que entiende un director comercial de 55 años que vende maquinaria sin saber nada de software. El pedido que se cae, el cliente que compra a otro, la cuota, el ascenso, el forecast. **Lo técnico solo entra si el chiste se entiende sin saber de software** y, mejor, contado desde quien paga.
@@ -303,7 +303,7 @@ Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / i
 
 #### ⛔⛔⛔ 2-ASIER-VETOS · LO QUE NO ENTRA NUNCA EN LA CUENTA DEL TERCER JEFE (Iker, 2026-08-26 y 2026-08-27) — CANÓNICO
 
-**No son preferencias, son vetos, y ya nos ha costado un post borrado por él mismo.**
+**No son preferencias, son vetos, y ya nos ha costado un post retirado.**
 
 **🔄 Y DESDE EL 2026-10-02 SU CUENTA VA CON EL MISMO CRITERIO DE MEMES QUE LA DE UNAI:** cuentas de CEO y CTO, memes sobrios. Ningún meme controversial va a Asier (solo a Iker, `post-workflow §4.4-STOP`) y el validador le exige `--meme-sobrio` igual que a Unai. Y en las tres cuentas, ningún meme deja mal al cargo que compra (`§4.4-COMPRADOR`, `--comprador-ok`).
 
@@ -312,7 +312,7 @@ Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / i
 | **Fútbol, en cualquier forma** | Iker, 26/08: el meme del Mundial de los calvos *"al ser de fútbol a él no le hubiese gustado"*. Se subió en otra cuenta por eso |
 | **Política** | 🔄 desde el 15/10 es veto de las tres cuentas (`brand-voice §NO CRITICAMOS` 6): es imagen de marca |
 | **Cualquier cosa malinterpretable** | *"cosas peligrosas que puedan malinterpretarse en humor. Intentar no facilitar el malinterpretamiento, porque al final la gente lo hará igual"* |
-| **⭐ Hablar de una mujer en clave romántica, o que se pueda leer que tiene pareja** | 🔴 **El caso, y es el más caro: Asier BORRÓ una publicación suya porque la frase `soñé con ella` se leyó como que hablaba de una mujer.** No hizo falta que nadie se quejara: la borró él |
+| **⭐ Hablar de una mujer en clave romántica, o que se pueda leer que tiene pareja** | 🔴 **El caso, y es el más caro: se retiró una publicación suya porque la frase `soñé con ella` se leyó como que hablaba de una mujer.** No hizo falta ninguna queja: se retiró antes |
 
 **LO QUE ESTO PROHÍBE EN LA PRÁCTICA, y es más ancho que la frase:** ningún **nombre de mujer** dentro de una imagen suya si el papel puede leerse como pareja (el contacto de un chat, quien manda un mensaje, quien aparece en una captura), ningún corazón ni emoji de afecto, y ninguna escena doméstica compartida. **Si el remix necesita una pareja, la referencia se le da a otra cuenta.**
 - **El caso que lo disparó (27/08):** el meme de la factura remixa una captura donde el contacto original es `Amoor ❤️`, o sea la pareja del autor. Con nombre de mujer, aunque quitáramos el corazón, el papel sigue siendo el mismo. **Se cambia a nombre de hombre y a registro de compañero de trabajo**, y con eso la lectura de pareja desaparece.

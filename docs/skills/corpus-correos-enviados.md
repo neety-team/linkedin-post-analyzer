@@ -195,8 +195,8 @@ PPD. Las 200 siguen en el cajón. Alguna, seguro, era la buena.
 | Enviados / entregados | 45 / 45 |
 | Aperturas reales | **13 · 28,9%** |
 | Clic "global" | 4 |
-| **Clic al ENLACE** | **2**, uno es Mario → **1 de lead** (`anderalberdi94@gmail.com`, 09/09 14:50) |
-| Bajas | 1 (`ojacinto@gmail.com`) |
+| **Clic al ENLACE** | **2**, uno es Mario → **1 de lead** (`a***@gmail.com`, 09/09 14:50) |
+| Bajas | 1 (`o***@gmail.com`) |
 
 ⚠️ **El asistente del evento NO vino de aquí, vino de HubSpot** (`historial-newsletter`, 14/09). Con 45 destinatarios, 0 y 1 clic son el mismo número: ni el correo 2 ni el 3 confirman ni desmienten nada sobre la posición del ninja.
 
@@ -334,7 +334,7 @@ PPD. El jueves lo vas a ver en LinkedIn igual. Mejor desde dentro.
 | Enviados / entregados | 83 / **75** |
 | **Rebotes duros** | **3** (3,6% del total · **8,3% de los 36 inscritos nuevos**; de los 41 de siempre, cero) |
 | Aperturas a 1 h | 20 únicas, 19 de personas · **25,3%** |
-| Clic de lead | **1** (`hcalderon@parke.eus`, 09:29) |
+| Clic de lead | **1** (`h***@parke.eus`, 09:29) |
 | Bajas / denuncias | **0 / 0** |
 
 ### El asunto y el preheader
@@ -406,8 +406,8 @@ PPD. Si contestas a este correo, te responde una persona.
 |---|---|
 | Enviados / entregados | 111 / 111 |
 | Aperturas únicas | 63 · 56,8% |
-| **Clic al ENLACE** | **6**, uno es Mario → **5 de lead** (`tgoni@cein.es`, `isantander@smartlg.com`, `josebafernandez@blug.es`, `anderalberdi94@gmail.com`, `julen.cuesta@baskeat.com`) |
-| **Bajas** | 🔴 **3** (2,7%): `andres.saguillo@agencia-gas-axpo.es` y `jmolina@battera.tech` (lista 18, inscritos del evento) y `jurzelai@fex.eus` (que había pulsado el correo 5) |
+| **Clic al ENLACE** | **6**, uno es Mario → **5 de lead** (`t***@cein.es`, `i***@smartlg.com`, `j***@blug.es`, `a***@gmail.com`, `j***@baskeat.com`) |
+| **Bajas** | 🔴 **3** (2,7%): `a***@agencia-gas-axpo.es` y `j***@battera.tech` (lista 18, inscritos del evento) y `j***@fex.eus` (que había pulsado el correo 5) |
 | Reuniones | **0**: ninguno de los 5 está en HubSpot ni tiene reunión (comprobado el 05/10) |
 
 > ⚠️ **Rescatado de la API el 2026-10-05, 6 días después de salir.** La regla del disparador (`el ENVÍO`) se volvió a incumplir.

@@ -8,7 +8,7 @@
 
 ## 00 · ⛔⛔ PASO 0 DE TODO VÍDEO, SIN EXCEPCIÓN (Iker, 2026-09-30)
 
-> *"Me parece ridículo que te hayas equivocado tan grande y me habías dado un guion que no era de vídeo ni era de nada."* El primer guion de la casa se entregó **sin leer esta skill entera ni los apuntes**: 9 frases sueltas que describían los planos.
+> **Por qué es el paso 0:** el primer guion de la casa se entregó **sin leer esta skill entera ni los apuntes**: 9 frases sueltas que describían los planos, que no eran un guion de vídeo.
 
 1. **Esta skill ENTERA**, y en un vlog, todo el `§6`.
 2. **Los apuntes, en `Documentos/Mario/APRILYNNE/`:** `TRANSCRIPCIONES @rodri_qf.txt` y `CHECKLIST @rodri_qf.txt` (cómo se narra), `APUNTES JENNY SHORTS.txt` y `APUNTES JENNY SHORTS 2.txt` (estructura) y `APUNTES TIKTOK.txt`.
@@ -274,7 +274,7 @@ LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir
 
 ### 6.5b · LA VOZ EN OFF ES NARRACIÓN, NO TELEGRAMA (Iker, 30/09)
 
-> *"Lo veo horrible. Tienen que ser frases realmente de narración, no puntos y tanta pausa de respiración."* La primera versión eran 9 frases sueltas de 2-5 palabras (`11 personas. Una casa rural.`): leídas por ElevenLabs suenan a lista, no a alguien contando algo.
+> **Tienen que ser frases de narración, sin puntos sueltos ni tantas pausas de respiración.** La primera versión eran 9 frases sueltas de 2-5 palabras (`11 personas. Una casa rural.`): leídas por ElevenLabs suenan a lista, no a alguien contando algo.
 
 - **La referencia de cómo se escribe es Rodri** (`Documentos/Mario/APRILYNNE/TRANSCRIPCIONES @rodri_qf.txt` y `CHECKLIST @rodri_qf.txt`): frases enteras y conversacionales que encadenan (`Y claro…`, `Lo gracioso es que…`, `Supongo que…`), micro-confesión al arrancar (`Igual es una tontería, pero…`), historia y reflexión alternadas, y **el giro sencillo y sin insinuar antes**. Las frases cortas se reservan para el golpe, no para todo el guion.
 - **La psicología de Rodri, leída en sus 5 transcripciones (30/09):**

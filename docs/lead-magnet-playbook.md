@@ -32,7 +32,7 @@ Dos formas de "verificar" que no valen para nada, las dos aprendidas fallando:
 
   - Comprobar "¿desborda?" y llamarlo verificado. `overflow: false` no dice NADA
     sobre si algo se ve bien. Una maqueta de LinkedIn estirada a 1032px no
-    desborda y es horrible.
+    desborda y queda mal.
 
 Una regla escrita no se cumple sola: el spec original ya decía "medir, no
 estimar" y aun así se estimó tres veces y se falló las tres. Lo que sí funciona

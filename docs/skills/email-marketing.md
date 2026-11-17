@@ -963,7 +963,7 @@ No se dispara lo mismo a toda la base. Mínimo separar por: **origen** (lead mag
 
 ## ⛔⛔ 5-UNA-VARIABLE · CADA CORREO PRUEBA UNA SOLA COSA (Mario, 2026-10-14) — CANÓNICO
 
-> **Mario, tras el correo 8:** *"que cada vez que hagamos un correo siempre incluyamos solo un A/B testing… si cambiamos cuatro elementos, puede incluso ser un desastre"*. El correo 8 cambió a la vez el remitente (estreno de Asier), el pilar (estreno de receta), la longitud (240 palabras contra 116-158) y el destino (el webinar). Salga como salga, no sabremos por qué.
+> **Mario, tras el correo 8:** *"que cada vez que hagamos un correo siempre incluyamos solo un A/B testing"*. Con cuatro cambios a la vez no se puede leer el resultado. El correo 8 cambió a la vez el remitente (estreno de Asier), el pilar (estreno de receta), la longitud (240 palabras contra 116-158) y el destino (el webinar). Salga como salga, no sabremos por qué.
 
 **La regla:** cada correo copia las variables de FORMA del correo de referencia y cambia **una sola**, que se declara antes de escribirlo. El contenido (la historia, el tema) cambia siempre: eso no es la variable.
 
@@ -2687,7 +2687,7 @@ Isra 15:29, 6 de 6 · Juan 16:01 · Hugo sin hora fija (15:55 a 20:22) · WaLead
 WaLead pasa de invitaciones de Luma a newsletter quincenal propia (beehiiv, unas 1.500 palabras, índice, tarea de la semana, pregunta de un lector, noticia y reserva de demo al final). Su tesis: el outbound clásico murió por escribir a todo el mundo, y la salida es la señal y el GTM Engineer. Sigue sin competir en la identificación del mercado, que es lo nuestro, aunque la nombra en su tarea 3.
 
 #### ⛔ Lo que NO se copia
-Los tacos, el registro sexual y el desprecio al lector de Isra («mentalidad de mierda», «pardillo»); sus erratas; el superlativo y la escasez de Hugo («la más bestia», «última oportunidad»); las 1.500-3.400 palabras de WaLead, Cosas de Freelance y B2B Creator; las cifras sin fuente.
+Los tacos, el registro sexual y el tono despectivo con el lector de Isra; sus erratas; el superlativo y la escasez de Hugo («la más bestia», «última oportunidad»); las 1.500-3.400 palabras de WaLead, Cosas de Freelance y B2B Creator; las cifras sin fuente.
 
 #### 📥 Intake (Mario)
 RunnerPro: quinta semana sin nada. Lavender: décima semana con la de Illinois. lemlist, Tendios y Hoppy Copy siguen sin dar señal.
@@ -2869,14 +2869,14 @@ Se comprobaron por DNS los 71 dominios únicos de la tanda 2 buscando dominios m
 **Antes de importar un solo contacto a cualquier plataforma, se crea un grupo de EXCLUSIÓN y se excluye en TODAS las campañas, sin excepción.** No se decide caso por caso ni se confía en acordarse.
 
 Qué entra, por orden de gravedad:
-1. **CLIENTES ACTUALES.** Mandarle a un cliente un correo que dice *"no sé de qué te conozco"* es el peor error posible: el cliente no se da de baja, llama al comercial. Pasó el 2026-08-11 con **Fagor Automation** (`ahernandez@fagorautomation.es`, 4 clics: probablemente alucinando de que no le reconociéramos) y se evitó por poco con **Telpark**.
+1. **CLIENTES ACTUALES.** Mandarle a un cliente un correo que dice *"no sé de qué te conozco"* es el peor error posible: el cliente no se da de baja, llama al comercial. Pasó el 2026-08-11 con **Fagor Automation** (`a***@fagorautomation.es`, 4 clics: probablemente alucinando de que no le reconociéramos) y se evitó por poco con **Telpark**.
 2. **Los que se dieron de baja.** Requisito legal, y reimportarlos es la vía más rápida a otro baneo.
 3. **Los rebotados.**
 4. **Prospectos en conversación comercial abierta**, que tampoco deben recibir correo de lista fría.
 
 ⛔ **Y el aviso de método: la lista de clientes NO la puede reconstruir Claude.** Los 5 nombres que aparecen en `project-personas-clientes` (Fagor Automation, Telpark, OJMAR, Arania, Betsaide) salieron de UN post de Iker, no de la cartera. **Cualquier cliente que no saliera en ese post es invisible para mí.** Hay que exportarla del CRM y pedirla explícitamente. Es exactamente el mismo principio que las menciones: lo que no se puede verificar, se pregunta (`§7`).
 
-⚠️ **Y no basta con el dominio.** `p.carbonell@telpark.com` se pilla por dominio, pero un contacto de un cliente con Gmail personal no. La exclusión fiable sale del CRM cruzando por EMPRESA, no por cadena de texto en el correo.
+⚠️ **Y no basta con el dominio.** `p***@telpark.com` se pilla por dominio, pero un contacto de un cliente con Gmail personal no. La exclusión fiable sale del CRM cruzando por EMPRESA, no por cadena de texto en el correo.
 
 ### ⛔ EL DOMINIO DEL CORREO NO DICE EL PAÍS (medido el 2026-08-10)
 Sobre los 151 candidatos a la tanda 2: **85% no da ninguna señal de país** (56% gmail/hotmail/outlook/icloud + 29% dominios `.com`/`.io`/`.ai`). Solo 9 eran `.es` y 13 LatAm.

@@ -15,12 +15,19 @@
  * el post tal como se vera en LinkedIn, con su foto. Si la foto no esta, sale
  * el hueco de "Foto pendiente" y se sube desde ahi mismo.
  *
+ * CALENDARIO Y POST ABIERTO (2026-11-17): en el calendario cada post es una
+ * ficha corta (objetivo, titulo, por que y foto). Al pulsarla se abre el post
+ * entero, al ancho del feed de LinkedIn, con lo que falta, la foto y el
+ * feedback al lado, y con el anterior y el siguiente a mano. El post abierto
+ * va en la URL (`&p=clave`). "Leer solo mis posts" los pone ya abiertos, uno
+ * debajo de otro.
+ *
  * MOVERSE ENTRE SEMANAS (2026-11-17): se va a la anterior y a la siguiente como
  * en un calendario, tengan posts o no, y la semana va en la URL (`?s=2026-W48`)
  * para poder pasar el enlace. Sin `?s=` se abre la semana que se esta
  * preparando: la que viene si ya tiene posts, y si no, la actual.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApi, apiPost } from '../hooks/useApi';
 
@@ -214,25 +221,72 @@ function semanaPorDefecto(conPosts: string[], hoy: string): string {
 const BOTON_NAV =
   'px-3.5 py-1.5 rounded-full text-[13px] font-semibold border bg-bg-card text-text-secondary border-border hover:border-text-muted hover:text-text-primary transition-colors tabular-nums';
 
+const PASTILLA = 'px-3.5 py-1.5 rounded-full text-[13px] font-semibold border transition-colors';
+const PASTILLA_OFF = 'bg-bg-card text-text-secondary border-border hover:border-text-muted';
+const PASTILLA_ON = 'bg-text-primary text-bg-primary border-text-primary';
+
 // ── El post como se vera en LinkedIn ─────────────────────────────────────────
-// Colores y medidas de la tarjeta de LinkedIn, no los de esta app: lo que se
-// revisa es como quedara publicado. Tiene su version clara y su version oscura.
+// Colores y medidas de LinkedIn, no los de esta app: lo que se revisa es como
+// quedara publicado. Va sobre el fondo del feed y al ancho del feed (555 px), en
+// claro o en oscuro segun elija quien mira, sea cual sea el tema de la app.
+
+type TemaLI = 'claro' | 'oscuro';
+
+const LI: Record<TemaLI, { feed: string; tarjeta: string; gris: string; azul: string; hueco: string; boton: string; mas: string }> = {
+  claro: {
+    feed: 'bg-[#f4f2ee]',
+    tarjeta: 'bg-white text-black/90 border-black/10',
+    gris: 'text-black/60',
+    azul: 'text-[#0a66c2]',
+    hueco: 'border-black/25 bg-black/[0.04]',
+    boton: 'border-black/50 hover:bg-black/[0.06]',
+    mas: 'bg-white',
+  },
+  oscuro: {
+    feed: 'bg-black',
+    tarjeta: 'bg-[#1b1f23] text-white/90 border-white/15',
+    gris: 'text-white/60',
+    azul: 'text-[#71b7fb]',
+    hueco: 'border-white/30 bg-white/[0.06]',
+    boton: 'border-white/60 hover:bg-white/10',
+    mas: 'bg-[#1b1f23]',
+  },
+};
 
 const LI_FUENTE = {
   fontFamily: '-apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
 };
-const LI_AZUL = 'text-[#0a66c2] dark:text-[#71b7fb]';
-const LI_GRIS = 'text-black/60 dark:text-white/60';
+
+const CLAVE_TEMA_LI = 'semana.linkedin';
+const CLAVE_GUIA = 'semana.guia';
+
+function leer(clave: string): string {
+  try {
+    return localStorage.getItem(clave) || '';
+  } catch {
+    return '';
+  }
+}
+
+function guardar(clave: string, valor: string) {
+  try {
+    localStorage.setItem(clave, valor);
+  } catch {
+    /* sin almacenamiento: se elige otra vez la proxima visita */
+  }
+}
 
 const API = import.meta.env.VITE_API_URL || '';
 const FOTO_MAX = 8 * 1024 * 1024;
 const FOTO_TIPOS = 'image/jpeg,image/png,image/webp,image/gif';
 
+const urlFoto = (post: PostSemana) => `${API}/api/semana/posts/${post.id}/imagen?v=${post.imagen_version || ''}`;
+
 /**
  * El texto del post: lo que falta por rellenar ([...]) resaltado, y los enlaces
  * y las menciones (@Nombre Apellido) en el azul de LinkedIn.
  */
-function TextoPost({ texto }: { texto: string }) {
+function TextoPost({ texto, azul }: { texto: string; azul: string }) {
   const partes = texto.split(
     /(\[[^\]\n]*\]|https?:\/\/[^\s]+|@\p{Lu}\p{L}+(?: \p{Lu}\p{L}+){0,3})/gu
   );
@@ -241,21 +295,21 @@ function TextoPost({ texto }: { texto: string }) {
       {partes.map((p, i) => {
         if (p.startsWith('[') && p.endsWith(']')) {
           return (
-            <mark key={i} className="bg-naranja/25 text-inherit rounded px-0.5">
+            <mark key={i} className="bg-naranja/30 text-inherit rounded px-0.5">
               {p}
             </mark>
           );
         }
         if (/^https?:\/\//.test(p)) {
           return (
-            <span key={i} className={`${LI_AZUL} font-semibold break-all`}>
+            <span key={i} className={`${azul} font-semibold break-all`}>
               {p}
             </span>
           );
         }
         if (/^@\p{Lu}/u.test(p)) {
           return (
-            <span key={i} className={`${LI_AZUL} font-semibold`}>
+            <span key={i} className={`${azul} font-semibold`}>
               {p.slice(1)}
             </span>
           );
@@ -266,7 +320,7 @@ function TextoPost({ texto }: { texto: string }) {
   );
 }
 
-function Avatar({ foto, nombre }: { foto: string | null; nombre: string }) {
+function Avatar({ foto, nombre, oscuro }: { foto: string | null; nombre: string; oscuro: boolean }) {
   const [rota, setRota] = useState(false);
   if (foto && !rota) {
     return (
@@ -282,7 +336,9 @@ function Avatar({ foto, nombre }: { foto: string | null; nombre: string }) {
   return (
     <span
       aria-hidden="true"
-      className="w-12 h-12 rounded-full shrink-0 flex items-center justify-center bg-black/10 dark:bg-white/15 text-[18px] font-semibold"
+      className={`w-12 h-12 rounded-full shrink-0 flex items-center justify-center text-[18px] font-semibold ${
+        oscuro ? 'bg-white/15' : 'bg-black/10'
+      }`}
     >
       {nombre.charAt(0)}
     </span>
@@ -302,38 +358,165 @@ function fechaLinkedIn(fecha: string): string {
     .replace(/\./g, '');
 }
 
-function Tarjeta({
+/** Subir, cambiar y quitar la foto de un post. */
+function useFoto(post: PostSemana, onCambio: () => void) {
+  const [subiendo, setSubiendo] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const enviar = async (metodo: 'PUT' | 'DELETE', fichero?: File) => {
+    if (fichero && fichero.size > FOTO_MAX) {
+      setError('La foto pesa más de 8 MB.');
+      return;
+    }
+    setSubiendo(true);
+    setError(null);
+    try {
+      const res = await fetch(`${API}/api/semana/posts/${post.id}/imagen`, {
+        method: metodo,
+        headers: fichero ? { 'Content-Type': fichero.type || 'application/octet-stream' } : undefined,
+        body: fichero,
+      });
+      if (!res.ok) {
+        const cuerpo = await res.json().catch(() => null);
+        throw new Error(cuerpo?.error || `Error ${res.status}`);
+      }
+      onCambio();
+    } catch (e) {
+      setError(`No se ha podido: ${e instanceof Error ? e.message : 'error desconocido'}`);
+    } finally {
+      setSubiendo(false);
+    }
+  };
+
+  const elegir = (etiqueta: string, clases: string) => (
+    <label className={`${clases} cursor-pointer focus-within:ring-2 focus-within:ring-accent`}>
+      {subiendo ? 'Subiendo…' : etiqueta}
+      <input
+        type="file"
+        accept={FOTO_TIPOS}
+        disabled={subiendo}
+        className="sr-only"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          e.target.value = '';
+          if (f) enviar('PUT', f);
+        }}
+      />
+    </label>
+  );
+
+  return { subiendo, error, elegir, quitar: () => enviar('DELETE') };
+}
+
+/** La tarjeta de LinkedIn: cabecera, texto con su corte del feed, foto y acciones. */
+function PostLinkedIn({
   post,
   perfil,
-  autor,
-  mio,
-  abierto,
-  onCambio,
+  tema,
+  entero,
+  onVerMas,
+  foto,
 }: {
   post: PostSemana;
   perfil: Perfil | undefined;
-  autor: string;
-  mio: boolean;
-  abierto: boolean;
-  onCambio: () => void;
+  tema: TemaLI;
+  entero: boolean;
+  onVerMas: () => void;
+  foto: ReturnType<typeof useFoto>;
 }) {
-  const [verTodo, setVerTodo] = useState(false);
-  const [borrador, setBorrador] = useState('');
-  const [enviando, setEnviando] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [subiendo, setSubiendo] = useState(false);
-  const [errorFoto, setErrorFoto] = useState<string | null>(null);
-  const obj = OBJETIVO[post.objetivo] || OBJETIVO.alcance;
-  const cuenta = CUENTAS.find((c) => c.id === post.cuenta);
+  const c = LI[tema];
   const nombre = perfil?.nombre || NOMBRE_COMPLETO[post.cuenta];
   const titular = perfil?.titular || 'Neety';
   // En el feed LinkedIn enseña tres lineas y corta con "…más".
   const largo = post.texto.length > 210 || post.texto.split('\n').length > 3;
-  const entero = abierto || verTodo || !largo;
+  const cortado = largo && !entero;
+
+  return (
+    <div className={`rounded-xl px-2 py-3 sm:p-5 ${c.feed}`}>
+      <div
+        style={LI_FUENTE}
+        className={`mx-auto max-w-[555px] rounded-lg overflow-hidden border ${c.tarjeta}`}
+        aria-label={`Así se verá en LinkedIn el post de ${nombre}`}
+      >
+        <div className="flex items-start gap-2 px-4 pt-3">
+          <Avatar foto={perfil?.foto || null} nombre={nombre} oscuro={tema === 'oscuro'} />
+          <div className="min-w-0 flex-1">
+            <p className="text-[14px] font-semibold leading-5 truncate">{nombre}</p>
+            <p className={`text-[12px] leading-4 truncate ${c.gris}`}>{titular}</p>
+            <p className={`text-[12px] leading-4 flex items-center gap-1 ${c.gris}`}>
+              {fechaLinkedIn(post.fecha)} •
+              <svg viewBox="0 0 16 16" className="w-3 h-3" fill="currentColor" aria-hidden="true">
+                <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM3 8c0-.4 0-.7.1-1L5 9v1l1 1v2.6A5 5 0 0 1 3 8zm8.9 3.1c-.2-.7-.8-1.1-1.4-1.1H10V8.5c0-.3-.2-.5-.5-.5H6V7h1c.3 0 .5-.2.5-.5V5.5h1A1.5 1.5 0 0 0 10 4v-.6a5 5 0 0 1 1.9 7.7z" />
+              </svg>
+            </p>
+          </div>
+          <svg viewBox="0 0 24 24" className={`w-6 h-6 shrink-0 ${c.gris}`} fill="currentColor" aria-hidden="true">
+            <circle cx="5" cy="12" r="1.8" />
+            <circle cx="12" cy="12" r="1.8" />
+            <circle cx="19" cy="12" r="1.8" />
+          </svg>
+        </div>
+
+        <div className="px-4 pt-3 pb-2">
+          {post.texto ? (
+            <div className="relative">
+              <div className={`text-[14px] leading-5 whitespace-pre-wrap break-words ${cortado ? 'line-clamp-3' : ''}`}>
+                <TextoPost texto={post.texto} azul={c.azul} />
+              </div>
+              {cortado && (
+                <button
+                  type="button"
+                  onClick={onVerMas}
+                  className={`absolute bottom-0 right-0 pl-2 text-[14px] leading-5 hover:underline ${c.mas} ${c.gris}`}
+                >
+                  …más
+                </button>
+              )}
+            </div>
+          ) : (
+            <p className={`text-[14px] leading-5 ${c.gris}`}>Todavía sin texto.</p>
+          )}
+        </div>
+
+        {post.tiene_imagen ? (
+          <img src={urlFoto(post)} alt={post.nota_imagen || `Foto del post de ${nombre}`} className="w-full block" />
+        ) : (
+          <div className={`mx-4 mb-2 rounded-md border border-dashed px-5 py-10 text-center ${c.hueco}`}>
+            <p className="text-[14px] font-semibold">Foto pendiente</p>
+            {post.nota_imagen && (
+              <p className={`mt-1.5 mx-auto max-w-[44ch] text-[12px] leading-4 ${c.gris}`}>{post.nota_imagen}</p>
+            )}
+            {foto.elegir(
+              'Subir la foto',
+              `mt-4 inline-block rounded-full border px-4 py-1.5 text-[14px] font-semibold ${c.boton}`
+            )}
+          </div>
+        )}
+
+        <div className={`flex justify-around border-t mx-4 py-1 ${tema === 'oscuro' ? 'border-white/15' : 'border-black/10'} ${c.gris}`} aria-hidden="true">
+          {ACCIONES_LI.map(([etiqueta, trazo]) => (
+            <span key={etiqueta} className="min-w-0 py-2.5 flex items-center gap-1.5">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
+                <path d={trazo} />
+              </svg>
+              <span className="hidden min-[420px]:inline text-[14px] font-semibold truncate">{etiqueta}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Lo que ya se ha comentado de un post y el campo para dejar feedback. */
+function Comentarios({ post, autor, onCambio }: { post: PostSemana; autor: string; onCambio: () => void }) {
+  const [borrador, setBorrador] = useState('');
+  const [enviando, setEnviando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const enviar = async () => {
     if (!autor) {
-      setError('Elige arriba quién eres para dejar feedback.');
+      setError('Elige arriba, junto a «Soy», quién eres para dejar feedback.');
       return;
     }
     if (!borrador.trim()) {
@@ -353,204 +536,32 @@ function Tarjeta({
     }
   };
 
-  const foto = async (metodo: 'PUT' | 'DELETE', fichero?: File) => {
-    if (fichero && fichero.size > FOTO_MAX) {
-      setErrorFoto('La foto pesa más de 8 MB.');
-      return;
-    }
-    setSubiendo(true);
-    setErrorFoto(null);
-    try {
-      const res = await fetch(`${API}/api/semana/posts/${post.id}/imagen`, {
-        method: metodo,
-        headers: fichero ? { 'Content-Type': fichero.type || 'application/octet-stream' } : undefined,
-        body: fichero,
-      });
-      if (!res.ok) {
-        const cuerpo = await res.json().catch(() => null);
-        throw new Error(cuerpo?.error || `Error ${res.status}`);
-      }
-      onCambio();
-    } catch (e) {
-      setErrorFoto(`No se ha podido: ${e instanceof Error ? e.message : 'error desconocido'}`);
-    } finally {
-      setSubiendo(false);
-    }
-  };
-
-  const elegirFoto = (etiqueta: string, clases: string) => (
-    <label className={`${clases} cursor-pointer focus-within:ring-2 focus-within:ring-accent`}>
-      {subiendo ? 'Subiendo…' : etiqueta}
-      <input
-        type="file"
-        accept={FOTO_TIPOS}
-        disabled={subiendo}
-        className="sr-only"
-        onChange={(e) => {
-          const f = e.target.files?.[0];
-          e.target.value = '';
-          if (f) foto('PUT', f);
-        }}
-      />
-    </label>
-  );
-
   return (
-    <article
-      className={`min-w-0 bg-bg-card border rounded-xl p-4 flex flex-col gap-2.5 ${
-        mio ? 'border-accent/60' : 'border-border'
-      }`}
-    >
-      <span className="md:hidden text-[11px] font-semibold uppercase tracking-wider text-text-muted">
-        {cuenta?.nombre}
-        {mio ? ' · tú' : ''}
-      </span>
-      <div className="flex flex-wrap items-center gap-1.5">
-        <span className={`text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded ${obj.chip}`}>
-          {obj.etiqueta}
-          {post.experimento ? ' · experimento' : ''}
-        </span>
-        <span className="text-[11px] font-semibold px-2 py-0.5 rounded border border-border text-text-secondary">
-          {ESTADO[post.estado] || post.estado}
-        </span>
-      </div>
-      <h3 className="font-display text-[16px] font-semibold leading-snug text-text-primary">{post.titulo}</h3>
-      {post.pilar && <p className="text-xs text-text-muted">{post.pilar}</p>}
-
-      {/* El porque va ANTES del post: primero se entiende para que se publica. */}
-      {(post.por_que || post.vara) && (
-        <div className="border-l-2 border-accent/50 pl-3 text-[13px] leading-relaxed text-text-secondary">
-          {post.por_que && (
-            <p>
-              <span className="font-semibold text-text-primary">Por qué se publica. </span>
-              {post.por_que}
-            </p>
-          )}
-          {post.vara && <p className="mt-1 text-xs text-text-muted tabular-nums">Con qué se compara: {post.vara}</p>}
-        </div>
-      )}
-
-      <div
-        style={LI_FUENTE}
-        className="rounded-lg overflow-hidden border border-black/10 dark:border-white/15 bg-white dark:bg-[#1b1f23] text-black/90 dark:text-white/90"
-        aria-label={`Así se verá en LinkedIn el post de ${nombre}`}
-      >
-        <div className="flex gap-2 px-3 pt-3">
-          <Avatar foto={perfil?.foto || null} nombre={nombre} />
-          <div className="min-w-0">
-            <p className="text-[14px] font-semibold leading-5 truncate">{nombre}</p>
-            <p className={`text-[12px] leading-4 truncate ${LI_GRIS}`}>{titular}</p>
-            <p className={`text-[12px] leading-4 flex items-center gap-1 ${LI_GRIS}`}>
-              {fechaLinkedIn(post.fecha)} ·
-              <svg viewBox="0 0 16 16" className="w-3 h-3" fill="currentColor" aria-hidden="true">
-                <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM3 8c0-.4 0-.7.1-1L5 9v1l1 1v2.6A5 5 0 0 1 3 8zm8.9 3.1c-.2-.7-.8-1.1-1.4-1.1H10V8.5c0-.3-.2-.5-.5-.5H6V7h1c.3 0 .5-.2.5-.5V5.5h1A1.5 1.5 0 0 0 10 4v-.6a5 5 0 0 1 1.9 7.7z" />
-              </svg>
-            </p>
-          </div>
-        </div>
-
-        <div className="px-3 pt-2 pb-2 relative">
-          {post.texto ? (
-            <>
-              <div
-                className={`text-[14px] leading-5 whitespace-pre-wrap break-words ${entero ? '' : 'line-clamp-3'}`}
-              >
-                <TextoPost texto={post.texto} />
-              </div>
-              {largo && !abierto && (
-                <button
-                  type="button"
-                  onClick={() => setVerTodo((v) => !v)}
-                  aria-expanded={entero}
-                  className={`mt-0.5 text-[14px] leading-5 font-semibold hover:underline ${LI_GRIS}`}
-                >
-                  {entero ? 'ver menos' : 'ver más'}
-                </button>
-              )}
-            </>
-          ) : (
-            <p className={`text-[14px] leading-5 ${LI_GRIS}`}>Todavía sin texto.</p>
-          )}
-        </div>
-
-        {post.tiene_imagen ? (
-          <img
-            src={`${API}/api/semana/posts/${post.id}/imagen?v=${post.imagen_version || ''}`}
-            alt={post.nota_imagen || `Foto del post de ${nombre}`}
-            loading="lazy"
-            className="w-full block"
-          />
-        ) : (
-          <div className="border-y border-dashed border-black/20 dark:border-white/25 bg-black/[0.04] dark:bg-white/[0.06] px-4 py-7 text-center">
-            <p className="text-[12px] font-semibold uppercase tracking-wider">Foto pendiente</p>
-            {post.nota_imagen && <p className={`mt-1.5 text-[12px] leading-4 ${LI_GRIS}`}>{post.nota_imagen}</p>}
-            {elegirFoto(
-              'Subir foto',
-              'mt-3 inline-block rounded-full border border-black/40 dark:border-white/50 px-3.5 py-1 text-[13px] font-semibold'
-            )}
-          </div>
-        )}
-
-        <div className={`flex border-t border-black/10 dark:border-white/15 mt-1 ${LI_GRIS}`} aria-hidden="true">
-          {ACCIONES_LI.map(([etiqueta, trazo]) => (
-            <span key={etiqueta} className="flex-1 min-w-0 py-2 flex flex-col items-center gap-0.5">
-              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
-                <path d={trazo} />
-              </svg>
-              <span className="text-[11px] font-semibold truncate max-w-full">{etiqueta}</span>
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {post.tiene_imagen && (
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-muted">
-          {post.nota_imagen && <span className="basis-full leading-relaxed">Foto: {post.nota_imagen}</span>}
-          {elegirFoto('Cambiar la foto', 'font-semibold text-text-secondary hover:text-accent rounded')}
-          <button
-            type="button"
-            disabled={subiendo}
-            onClick={() => {
-              if (window.confirm('¿Quitar la foto de este post?')) foto('DELETE');
-            }}
-            className="font-semibold text-text-secondary hover:text-danger"
-          >
-            Quitar
-          </button>
-        </p>
-      )}
-      {errorFoto && <p className="text-xs text-danger">{errorFoto}</p>}
-
-      {post.falta && (
-        <p className="text-[13px] text-text-secondary border-t border-border pt-2 leading-relaxed">
-          <span className="font-semibold text-text-primary">Falta: </span>
-          {post.falta}
-        </p>
-      )}
-
+    <div className="space-y-3">
+      <h4 className="font-display text-[15px] font-semibold text-text-primary">
+        Feedback
+        {post.feedback.length > 0 && <span className="ml-1.5 font-sans font-normal text-text-muted">{post.feedback.length}</span>}
+      </h4>
       {post.feedback.length > 0 && (
-        <ul className="border-t border-border pt-2 space-y-2">
+        <ul className="space-y-3">
           {post.feedback.map((f) => (
             <li key={f.id} className="text-[13px] leading-relaxed">
               <p className="text-text-primary">
                 <span className="font-semibold">{f.autor}: </span>
                 {f.texto}
               </p>
-              {f.respuesta && (
-                <p className="mt-1 pl-3 border-l-2 border-accent/40 text-text-secondary">{f.respuesta}</p>
-              )}
-              <p className="mt-0.5 text-[11px] text-text-muted">
+              {f.respuesta && <p className="mt-1 pl-3 border-l-2 border-accent/40 text-text-secondary">{f.respuesta}</p>}
+              <p className={`mt-0.5 text-xs ${f.resuelto ? 'text-success' : 'text-warning'}`}>
                 {f.resuelto ? 'Aplicado' : 'Pendiente de aplicar'}
-                {f.nivel ? ` · ${NIVEL[f.nivel]}` : ''}
+                {f.nivel ? <span className="text-text-muted"> · {NIVEL[f.nivel]}</span> : null}
               </p>
             </li>
           ))}
         </ul>
       )}
-
-      <div className="border-t border-border pt-2 space-y-2">
+      <div className="space-y-2">
         <label htmlFor={`fb-${post.id}`} className="block text-xs font-semibold text-text-muted">
-          {autor ? `Tu feedback, como ${autor}` : 'Tu feedback (elige arriba quién eres)'}
+          {autor ? `Qué cambiarías, ${autor}` : 'Qué cambiarías'}
         </label>
         <textarea
           id={`fb-${post.id}`}
@@ -559,22 +570,284 @@ function Tarjeta({
             setBorrador(e.target.value);
             if (error) setError(null);
           }}
-          rows={2}
+          rows={4}
           placeholder="Yo esto lo diría así…"
-          className="w-full bg-bg-secondary border border-border rounded-lg p-2.5 text-[13px] text-text-primary resize-y focus:outline-none focus:border-accent leading-relaxed"
+          className="w-full bg-bg-secondary border border-border rounded-lg p-3 text-[14px] text-text-primary resize-y focus:outline-none focus:border-accent leading-relaxed"
         />
         {error && <p className="text-xs text-danger">{error}</p>}
         <button
           type="button"
           onClick={enviar}
           disabled={enviando}
-          className="px-3.5 py-1.5 rounded-full bg-accent text-on-accent text-[13px] font-semibold hover:bg-accent-strong disabled:opacity-60 transition-colors"
+          className="px-4 py-2 rounded-full bg-accent text-on-accent text-[13px] font-semibold hover:bg-accent-strong disabled:opacity-60 transition-colors"
         >
           {enviando ? 'Guardando…' : 'Dejar feedback'}
         </button>
       </div>
+    </div>
+  );
+}
+
+/**
+ * Un post para revisarlo: primero por que se publica, despues el post como se
+ * vera en LinkedIn, y al lado lo que falta, la foto y el feedback.
+ */
+function Revision({
+  post,
+  perfil,
+  autor,
+  tema,
+  onTema,
+  onCambio,
+}: {
+  post: PostSemana;
+  perfil: Perfil | undefined;
+  autor: string;
+  tema: TemaLI;
+  onTema: (t: TemaLI) => void;
+  onCambio: () => void;
+}) {
+  const [entero, setEntero] = useState(false);
+  const foto = useFoto(post, onCambio);
+  const largo = post.texto.length > 210 || post.texto.split('\n').length > 3;
+
+  return (
+    <div className="grid gap-x-8 gap-y-6 lg:grid-cols-[minmax(0,595px)_minmax(0,1fr)]">
+      <div className="min-w-0 space-y-4">
+        {/* El porque va ANTES del post: primero se entiende para que se publica. */}
+        {(post.por_que || post.vara) && (
+          <div className="border-l-[3px] border-accent pl-4">
+            <p className="font-display text-[15px] font-semibold text-text-primary">Por qué se publica</p>
+            {post.por_que && <p className="mt-1 text-[15px] leading-relaxed text-text-secondary max-w-[62ch]">{post.por_que}</p>}
+            {post.vara && <p className="mt-1.5 text-[13px] text-text-muted tabular-nums">Con qué se compara: {post.vara.replace(/^Vara:\s*/i, '')}</p>}
+          </div>
+        )}
+
+        <div className="space-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-[13px] text-text-muted">Así se verá en LinkedIn</p>
+            <div className="flex flex-wrap items-center gap-3 text-[13px]">
+              {largo && (
+                <button
+                  type="button"
+                  aria-pressed={entero}
+                  onClick={() => setEntero((v) => !v)}
+                  className="font-semibold text-text-secondary hover:text-accent underline-offset-2 hover:underline"
+                >
+                  {entero ? 'Cortarlo como en el feed' : 'Ver el texto entero'}
+                </button>
+              )}
+              <span className="inline-flex rounded-full border border-border overflow-hidden" role="group" aria-label="Tema de LinkedIn">
+                {(['claro', 'oscuro'] as const).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    aria-pressed={tema === t}
+                    onClick={() => onTema(t)}
+                    className={`px-2.5 py-0.5 font-semibold capitalize ${
+                      tema === t ? 'bg-text-primary text-bg-primary' : 'text-text-secondary hover:text-text-primary'
+                    }`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </span>
+            </div>
+          </div>
+          <PostLinkedIn post={post} perfil={perfil} tema={tema} entero={entero} onVerMas={() => setEntero(true)} foto={foto} />
+        </div>
+      </div>
+
+      <aside className="min-w-0 space-y-5 lg:pt-1">
+        {post.falta && (
+          <div>
+            <h4 className="font-display text-[15px] font-semibold text-text-primary">Qué falta</h4>
+            <p className="mt-1 text-[14px] leading-relaxed text-text-secondary">{post.falta}</p>
+          </div>
+        )}
+
+        <div>
+          <h4 className="font-display text-[15px] font-semibold text-text-primary">Foto</h4>
+          {post.nota_imagen && <p className="mt-1 text-[13px] leading-relaxed text-text-secondary">{post.nota_imagen}</p>}
+          {post.tiene_imagen ? (
+            <p className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px]">
+              <span className="text-success">Subida</span>
+              {foto.elegir('Cambiarla', 'font-semibold text-text-secondary hover:text-accent rounded')}
+              <button
+                type="button"
+                disabled={foto.subiendo}
+                onClick={() => {
+                  if (window.confirm('¿Quitar la foto de este post?')) foto.quitar();
+                }}
+                className="font-semibold text-text-secondary hover:text-danger"
+              >
+                Quitarla
+              </button>
+            </p>
+          ) : (
+            <p className="mt-1.5 text-[13px]">
+              <span className="text-warning">Pendiente. </span>
+              {foto.elegir('Subir la foto', 'font-semibold text-accent hover:underline underline-offset-2 rounded')}
+            </p>
+          )}
+          {foto.error && <p className="mt-1 text-xs text-danger">{foto.error}</p>}
+        </div>
+
+        <div className="border-t border-border pt-5">
+          <Comentarios post={post} autor={autor} onCambio={onCambio} />
+        </div>
+      </aside>
+    </div>
+  );
+}
+
+function Etiquetas({ post }: { post: PostSemana }) {
+  const obj = OBJETIVO[post.objetivo] || OBJETIVO.alcance;
+  return (
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+      <span className={`text-xs font-semibold px-2 py-0.5 rounded ${obj.chip}`}>
+        {obj.etiqueta}
+        {post.experimento ? ', experimento' : ''}
+      </span>
+      <span className="text-xs text-text-muted">{ESTADO[post.estado] || post.estado}</span>
+    </div>
+  );
+}
+
+/** El post en el calendario: lo justo para saber que es. Al pulsarlo se abre entero. */
+function Ficha({ post, mio, onAbrir }: { post: PostSemana; mio: boolean; onAbrir: () => void }) {
+  const cuenta = CUENTAS.find((c) => c.id === post.cuenta);
+  const pendientes = post.feedback.filter((f) => !f.resuelto).length;
+
+  return (
+    <article
+      className={`group relative min-w-0 h-full bg-bg-card border rounded-xl overflow-hidden flex flex-col transition-colors hover:border-text-muted focus-within:border-accent ${
+        mio ? 'border-accent/60' : 'border-border'
+      }`}
+    >
+      {post.tiene_imagen && (
+        <img src={urlFoto(post)} alt="" loading="lazy" className="w-full aspect-[16/9] object-cover border-b border-border" />
+      )}
+      <div className="p-4 flex flex-col gap-2 flex-1">
+        <span className="md:hidden text-xs font-semibold text-text-muted">
+          {cuenta?.nombre}
+          {mio ? ' (tú)' : ''}
+        </span>
+        <Etiquetas post={post} />
+        <h3 className="font-display text-[16px] font-semibold leading-snug text-text-primary">
+          <button
+            type="button"
+            onClick={onAbrir}
+            className="text-left after:absolute after:inset-0 focus:outline-none group-hover:text-accent transition-colors"
+          >
+            {post.titulo}
+          </button>
+        </h3>
+        {post.por_que && <p className="text-[13px] leading-relaxed text-text-secondary line-clamp-3">{post.por_que}</p>}
+        <p className="mt-auto pt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-muted">
+          {!post.tiene_imagen && <span>Foto pendiente</span>}
+          {post.feedback.length > 0 && (
+            <span className={pendientes ? 'text-warning font-semibold' : ''}>
+              {pendientes
+                ? `${pendientes} ${pendientes === 1 ? 'comentario' : 'comentarios'} por aplicar`
+                : `${post.feedback.length} ${post.feedback.length === 1 ? 'comentario aplicado' : 'comentarios aplicados'}`}
+            </span>
+          )}
+          <span className="ml-auto font-semibold text-text-secondary group-hover:text-accent">Ver el post</span>
+        </p>
+      </div>
     </article>
   );
+}
+
+const FLECHA = 'w-9 h-9 grid place-items-center rounded-full border border-border text-text-secondary hover:text-text-primary hover:border-text-muted disabled:opacity-30 disabled:hover:border-border transition-colors';
+
+/** El post abierto, a pantalla casi completa, con el anterior y el siguiente a mano. */
+function Visor({
+  post,
+  posicion,
+  total,
+  onMover,
+  onCerrar,
+  children,
+}: {
+  post: PostSemana;
+  posicion: number;
+  total: number;
+  onMover: (paso: number) => void;
+  onCerrar: () => void;
+  children: React.ReactNode;
+}) {
+  const ref = useRef<HTMLDialogElement>(null);
+  const cuenta = CUENTAS.find((c) => c.id === post.cuenta);
+
+  useEffect(() => {
+    const d = ref.current;
+    if (d && !d.open) d.showModal();
+  }, []);
+
+  // Al cambiar de post, arriba del todo.
+  useEffect(() => {
+    ref.current?.querySelector('[data-cuerpo]')?.scrollTo({ top: 0 });
+  }, [post.id]);
+
+  return (
+    <dialog
+      ref={ref}
+      aria-labelledby="visor-titulo"
+      onClose={onCerrar}
+      onClick={(e) => {
+        if (e.target === ref.current) ref.current?.close();
+      }}
+      onKeyDown={(e) => {
+        const t = e.target as HTMLElement;
+        if (t.tagName === 'TEXTAREA' || t.tagName === 'INPUT') return;
+        if (e.key === 'ArrowLeft') onMover(-1);
+        if (e.key === 'ArrowRight') onMover(1);
+      }}
+      className="m-auto p-0 w-[min(1120px,calc(100vw-16px))] max-w-none h-[calc(100dvh-16px)] sm:h-auto sm:max-h-[calc(100dvh-48px)] rounded-2xl border border-border bg-bg-primary text-text-primary shadow-2xl backdrop:bg-ink/75 open:flex flex-col overflow-hidden"
+    >
+      <header className="shrink-0 flex items-start gap-3 px-4 sm:px-7 py-4 border-b border-border bg-bg-card">
+        <div className="min-w-0 flex-1 space-y-1.5">
+          <p className="text-[13px] text-text-muted">
+            <span className="font-semibold text-text-primary">{cuenta?.nombre}</span>, {diaLargo(post.fecha)}
+            {post.pilar ? <span className="hidden sm:inline"> · {post.pilar}</span> : null}
+          </p>
+          <h2 id="visor-titulo" className="font-display text-xl sm:text-2xl font-semibold leading-tight tracking-tight">
+            {post.titulo}
+          </h2>
+          <Etiquetas post={post} />
+        </div>
+        <div className="shrink-0 flex items-center gap-1.5">
+          <button type="button" className={FLECHA} onClick={() => onMover(-1)} disabled={posicion === 0} aria-label="Post anterior">
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M15 5l-7 7 7 7" />
+            </svg>
+          </button>
+          <span className="hidden sm:inline text-xs text-text-muted tabular-nums" aria-label={`Post ${posicion + 1} de ${total}`}>
+            {posicion + 1} de {total}
+          </span>
+          <button type="button" className={FLECHA} onClick={() => onMover(1)} disabled={posicion === total - 1} aria-label="Post siguiente">
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button type="button" className={`${FLECHA} ml-2`} onClick={() => ref.current?.close()} aria-label="Cerrar">
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+      </header>
+      <div data-cuerpo className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-7 py-6">
+        {children}
+      </div>
+    </dialog>
+  );
+}
+
+function diaLargo(fecha: string): string {
+  return new Date(`${fecha}T12:00:00`).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
 }
 
 export default function Semana() {
@@ -599,22 +872,37 @@ export default function Semana() {
   // La cuenta de quien mira: por su nombre de pila, venga del login o del boton.
   const miCuenta = CUENTAS.find((c) => autor.trim().toLowerCase().split(/\s+/)[0] === c.id)?.id || null;
   const [soloMios, setSoloMios] = useState(false);
-  const visibles = soloMios && miCuenta ? CUENTAS.filter((c) => c.id === miCuenta) : CUENTAS;
+  const enLista = soloMios && !!miCuenta;
+  const visibles = enLista ? CUENTAS.filter((c) => c.id === miCuenta) : CUENTAS;
   const [filtro, setFiltro] = useState<Objetivo | ''>('');
-  const [todosAbiertos, setTodosAbiertos] = useState(false);
+  const [tema, setTema] = useState<TemaLI>(() => (leer(CLAVE_TEMA_LI) === 'oscuro' ? 'oscuro' : 'claro'));
+  // La guia sale abierta hasta que alguien la recoge; despues se queda recogida.
+  const [guia, setGuia] = useState(() => leer(CLAVE_GUIA) !== 'recogida');
 
   useEffect(() => {
-    try {
-      if (elegido) localStorage.setItem(CLAVE_AUTOR, elegido);
-    } catch {
-      /* sin almacenamiento: se elige otra vez la proxima visita */
-    }
+    if (elegido) guardar(CLAVE_AUTOR, elegido);
   }, [elegido]);
+
+  const cambiarTema = (t: TemaLI) => {
+    setTema(t);
+    guardar(CLAVE_TEMA_LI, t);
+  };
 
   const posts = useMemo(() => datos?.posts || [], [datos]);
   const dias = useMemo(() => Array.from(new Set(posts.map((p) => p.fecha))).sort(), [posts]);
   const cuenta = (o: Objetivo) => posts.filter((p) => p.objetivo === o).length;
   const pendiente = posts.reduce((n, p) => n + p.feedback.filter((f) => !f.resuelto).length, 0);
+
+  // El orden del calendario: por dia y, dentro del dia, por columna.
+  const enOrden = useMemo(() => {
+    const col = (c: Cuenta) => CUENTAS.findIndex((x) => x.id === c);
+    return [...posts].sort((a, b) => a.fecha.localeCompare(b.fecha) || col(a.cuenta) - col(b.cuenta));
+  }, [posts]);
+  // El post abierto va en la URL (`&p=clave`), para poder pasar el enlace.
+  const clave = params.get('p');
+  const iAbierto = clave ? enOrden.findIndex((p) => p.clave === clave) : -1;
+  const abierto = iAbierto >= 0 ? enOrden[iAbierto] : null;
+  const abrir = (c: string | null) => setParams(c ? { s: elegida, p: c } : { s: elegida }, { replace: !!c && !!clave });
 
   if (lista.loading) return <p className="text-sm text-text-muted">Cargando la semana…</p>;
   if (lista.error) return <p className="text-sm text-danger">No se ha podido cargar: {lista.error}</p>;
@@ -637,12 +925,12 @@ export default function Semana() {
 
   const cabecera = (
     <>
-      <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">
-        LinkedIn · {distancia(elegida, hoy)}
-      </p>
-      <h1 className="font-display text-3xl font-semibold tracking-tight text-text-primary tabular-nums">
-        Semana {numero(elegida)} <span className="text-text-muted font-normal">· {rangoCorto(elegida)}</span>
-      </h1>
+      <div>
+        <p className="text-[13px] text-text-muted">{distancia(elegida, hoy)} en LinkedIn</p>
+        <h1 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-text-primary tabular-nums">
+          Semana {numero(elegida)} <span className="text-text-muted font-normal">{rangoCorto(elegida)}</span>
+        </h1>
+      </div>
       <nav aria-label="Moverse entre semanas" className="flex flex-wrap items-center gap-2">
         <Link to={{ search: `?s=${anterior}` }} className={BOTON_NAV} aria-label={`Ir a la semana ${numero(anterior)}, la anterior`}>
           ← Semana {numero(anterior)}
@@ -678,7 +966,7 @@ export default function Semana() {
   if (!existe) {
     return (
       <div className="space-y-8">
-        <header className="space-y-3">{cabecera}</header>
+        <header className="space-y-4">{cabecera}</header>
         <div className="bg-bg-card border border-border rounded-xl p-8 max-w-2xl space-y-3">
           <h2 className="font-display text-xl font-semibold text-text-primary">
             No hay posts planificados para la semana {numero(elegida)}
@@ -705,40 +993,70 @@ export default function Semana() {
     );
   }
 
+  const revision = (p: PostSemana) => (
+    <Revision
+      post={p}
+      perfil={perfiles.data?.perfiles?.[p.cuenta]}
+      autor={autor}
+      tema={tema}
+      onTema={cambiarTema}
+      onCambio={detalle.refetch}
+    />
+  );
+
   return (
-    <div className="space-y-8">
-      <header className="space-y-3">
+    <div className="space-y-7">
+      <header className="space-y-4">
         {cabecera}
-        <p className="inline-flex items-center gap-2 text-[13px] font-semibold text-text-secondary bg-bg-card border border-border rounded-full px-3 py-1">
-          <span
-            className={`w-2 h-2 rounded-full ${datos && datos.estado !== 'propuesta' ? 'bg-text-muted' : 'bg-naranja'}`}
-            aria-hidden="true"
-          />
-          {datos ? ESTADO_SEMANA[datos.estado] || datos.estado : 'Cargando…'}
-          {datos?.nota ? ` · ${datos.nota}` : ''}
-        </p>
-        <p className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-text-secondary tabular-nums">
-          <span>
-            <b className="text-text-primary">{posts.length}</b> {posts.length === 1 ? 'post' : 'posts'}
-          </span>
-          <span>
-            <b className="text-text-primary">{cuenta('alcance')}</b> de alcance
-          </span>
-          <span>
-            <b className="text-text-primary">{cuenta('notoriedad')}</b> de notoriedad
-          </span>
-          <span>
-            <b className="text-text-primary">{cuenta('conversion')}</b> de conversión
-          </span>
-          <span>
-            <b className="text-text-primary">{pendiente}</b> comentarios por aplicar
-          </span>
-        </p>
+        <div className="space-y-2">
+          <p className="flex items-start gap-2 text-[14px] text-text-secondary max-w-4xl">
+            <span
+              className={`mt-[7px] w-2 h-2 shrink-0 rounded-full ${datos && datos.estado !== 'propuesta' ? 'bg-text-muted' : 'bg-naranja'}`}
+              aria-hidden="true"
+            />
+            <span>
+              <b className="text-text-primary">{datos ? ESTADO_SEMANA[datos.estado] || datos.estado : 'Cargando…'}</b>
+              {datos?.nota ? `. ${datos.nota}` : ''}
+            </span>
+          </p>
+          <p className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-text-secondary tabular-nums">
+            <span>
+              <b className="text-text-primary">{posts.length}</b> {posts.length === 1 ? 'post' : 'posts'}
+            </span>
+            <span>
+              <b className="text-text-primary">{cuenta('alcance')}</b> de alcance
+            </span>
+            <span>
+              <b className="text-text-primary">{cuenta('notoriedad')}</b> de notoriedad
+            </span>
+            <span>
+              <b className="text-text-primary">{cuenta('conversion')}</b> de conversión
+            </span>
+            <span className={pendiente ? 'text-warning' : ''}>
+              <b className={pendiente ? '' : 'text-text-primary'}>{pendiente}</b>{' '}
+              {pendiente === 1 ? 'comentario por aplicar' : 'comentarios por aplicar'}
+            </span>
+          </p>
+        </div>
       </header>
 
-      <section className="bg-bg-card border border-border rounded-xl p-5 space-y-3" aria-label="Cómo trabajamos">
-        <h2 className="font-display text-lg font-semibold text-text-primary">Cómo trabajamos</h2>
-        <ol className="list-decimal pl-5 space-y-1.5 text-sm text-text-secondary leading-relaxed max-w-3xl">
+      <details
+        open={guia}
+        onToggle={(e) => {
+          const abierta = (e.target as HTMLDetailsElement).open;
+          setGuia(abierta);
+          guardar(CLAVE_GUIA, abierta ? 'abierta' : 'recogida');
+        }}
+        className="group/guia bg-bg-card border border-border rounded-xl"
+      >
+        <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden px-5 py-3 flex items-center justify-between gap-3 rounded-xl">
+          <span className="font-display text-[16px] font-semibold text-text-primary">Cómo trabajamos</span>
+          <span className="text-[13px] font-semibold text-text-secondary">
+            <span className="group-open/guia:hidden">Leer</span>
+            <span className="hidden group-open/guia:inline">Recoger</span>
+          </span>
+        </summary>
+        <ol className="list-decimal pl-10 pr-5 pb-5 space-y-1.5 text-sm text-text-secondary leading-relaxed max-w-3xl">
           <li>
             <b className="text-text-primary">Una semana cada vez.</b> Los posts se escriben la semana anterior
             para que dé tiempo a afinarlos y dejarlos programados.
@@ -769,49 +1087,41 @@ export default function Semana() {
             .
           </li>
         </ol>
-      </section>
+      </details>
 
       <section className="space-y-4" aria-label="Calendario de la semana">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
-          {identificado ? (
-            <p className="text-[13px] text-text-muted">
-              Entras como <b className="text-text-primary">{identificado}</b>
-            </p>
-          ) : (
-          <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Quién eres">
-            <span className="text-[13px] text-text-muted">Soy</span>
-            {CUENTAS.map((c) => (
+            {identificado ? (
+              <p className="text-[13px] text-text-muted">
+                Entras como <b className="text-text-primary">{identificado}</b>
+              </p>
+            ) : (
+              <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Quién eres">
+                <span className="text-[13px] text-text-muted">Soy</span>
+                {CUENTAS.map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    aria-pressed={autor === c.nombre}
+                    onClick={() => setAutor(c.nombre)}
+                    className={`${PASTILLA} ${autor === c.nombre ? PASTILLA_ON : PASTILLA_OFF}`}
+                  >
+                    {c.nombre}
+                  </button>
+                ))}
+              </div>
+            )}
+            {miCuenta && (
               <button
-                key={c.id}
                 type="button"
-                aria-pressed={autor === c.nombre}
-                onClick={() => setAutor(c.nombre)}
-                className={`px-3.5 py-1.5 rounded-full text-[13px] font-semibold border transition-colors ${
-                  autor === c.nombre
-                    ? 'bg-text-primary text-bg-primary border-text-primary'
-                    : 'bg-bg-card text-text-secondary border-border hover:border-text-muted'
-                }`}
+                aria-pressed={soloMios}
+                onClick={() => setSoloMios((v) => !v)}
+                className={`${PASTILLA} ${soloMios ? 'bg-accent text-on-accent border-accent' : PASTILLA_OFF}`}
               >
-                {c.nombre}
+                {soloMios ? 'Leyendo solo mis posts' : 'Leer solo mis posts'}
               </button>
-            ))}
-          </div>
-          )}
-          {miCuenta && (
-            <button
-              type="button"
-              aria-pressed={soloMios}
-              onClick={() => setSoloMios((v) => !v)}
-              className={`px-3.5 py-1.5 rounded-full text-[13px] font-semibold border transition-colors ${
-                soloMios
-                  ? 'bg-accent text-on-accent border-accent'
-                  : 'bg-bg-card text-text-secondary border-border hover:border-text-muted'
-              }`}
-            >
-              {soloMios ? 'Viendo solo mis posts' : 'Ver solo mis posts'}
-            </button>
-          )}
+            )}
           </div>
           <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar por objetivo">
             <span className="text-[13px] text-text-muted">Ver</span>
@@ -822,105 +1132,110 @@ export default function Semana() {
                   type="button"
                   aria-pressed={filtro === v}
                   onClick={() => setFiltro(v)}
-                  className={`px-3.5 py-1.5 rounded-full text-[13px] font-semibold border transition-colors ${
-                    filtro === v
-                      ? 'bg-text-primary text-bg-primary border-text-primary'
-                      : 'bg-bg-card text-text-secondary border-border hover:border-text-muted'
-                  }`}
+                  className={`${PASTILLA} ${filtro === v ? PASTILLA_ON : PASTILLA_OFF}`}
                 >
                   {etiqueta}
                 </button>
               )
             )}
-            <button
-              type="button"
-              aria-pressed={todosAbiertos}
-              onClick={() => setTodosAbiertos((v) => !v)}
-              className="px-3.5 py-1.5 rounded-full text-[13px] font-semibold border bg-bg-card text-text-secondary border-border hover:border-text-muted"
-            >
-              {todosAbiertos ? 'Recoger los textos' : 'Desplegar todos los textos'}
-            </button>
           </div>
         </div>
 
         {detalle.loading && !datos && <p className="text-sm text-text-muted">Cargando los posts…</p>}
         {detalle.error && <p className="text-sm text-danger">No se ha podido cargar: {detalle.error}</p>}
 
-        {!identificado && (
-          <p className="text-xs text-text-muted" aria-live="polite">
-            {autor
-              ? `Tu feedback saldrá firmado como ${autor}. Tu columna va marcada en naranja.`
-              : 'Elige quién eres: tu feedback saldrá con tu nombre y se marcará tu columna.'}
+        {!identificado && !autor && (
+          <p className="text-[13px] text-text-muted" aria-live="polite">
+            Elige quién eres: tu feedback saldrá con tu nombre y se marcará tu columna.
           </p>
         )}
 
-        <div
-          className={`md:grid gap-3 space-y-3 md:space-y-0 ${
-            visibles.length === 1
-              ? 'md:grid-cols-[84px_minmax(0,560px)]'
-              : 'md:grid-cols-[84px_repeat(3,minmax(0,1fr))]'
-          }`}
-        >
-          <div className="hidden md:block border-b-2 border-text-primary" />
-          {visibles.map((c) => (
-            <div
-              key={c.id}
-              className={`hidden md:block border-b-2 pb-1 ${c.id === miCuenta ? 'border-accent' : 'border-text-primary'}`}
-            >
-              <p className="font-display text-[17px] font-semibold text-text-primary">
-                {c.nombre}
-                {c.id === miCuenta && (
-                  <span className="ml-2 align-middle text-[11px] font-semibold uppercase tracking-wider text-accent">
-                    Tú
-                  </span>
-                )}
-              </p>
-              <p className="text-xs text-text-muted">{c.rol}</p>
-            </div>
-          ))}
+        {enLista ? (
+          // Solo mis posts: uno debajo de otro y ya abiertos, para leerlos seguidos.
+          <div className="space-y-5">
+            {enOrden
+              .filter((p) => p.cuenta === miCuenta && (!filtro || p.objetivo === filtro))
+              .map((p) => (
+                <article key={p.id} className="bg-bg-card border border-border rounded-xl p-4 sm:p-6 space-y-5">
+                  <header className="space-y-1.5">
+                    <p className="text-[13px] text-text-muted first-letter:uppercase">
+                      {diaLargo(p.fecha)}
+                      {p.pilar ? ` · ${p.pilar}` : ''}
+                    </p>
+                    <h3 className="font-display text-xl font-semibold leading-tight text-text-primary">{p.titulo}</h3>
+                    <Etiquetas post={p} />
+                  </header>
+                  {revision(p)}
+                </article>
+              ))}
+          </div>
+        ) : (
+          <div className="md:grid gap-3 space-y-3 md:space-y-0 md:grid-cols-[72px_repeat(3,minmax(0,1fr))]">
+            <div className="hidden md:block border-b-2 border-text-primary" />
+            {visibles.map((c) => (
+              <div
+                key={c.id}
+                className={`hidden md:block border-b-2 pb-1.5 ${c.id === miCuenta ? 'border-accent' : 'border-text-primary'}`}
+              >
+                <p className="font-display text-[17px] font-semibold text-text-primary">
+                  {c.nombre}
+                  {c.id === miCuenta && <span className="ml-2 font-sans text-xs font-semibold text-accent">tú</span>}
+                </p>
+                <p className="text-xs text-text-muted">{c.rol}</p>
+              </div>
+            ))}
 
-          {dias.map((dia) => (
-            <div key={dia} className="md:contents space-y-3">
-              <p className="font-display text-[17px] font-semibold text-text-primary md:pt-3 border-b-2 border-text-primary md:border-0 pb-1 md:pb-0">
-                {diaCorto(dia)}
-              </p>
-              {visibles.map((c) => {
-                const suyos = posts.filter((p) => p.fecha === dia && p.cuenta === c.id);
-                if (!suyos.length) {
+            {dias.map((dia) => (
+              <div key={dia} className="md:contents space-y-3">
+                <p className="font-display text-[17px] font-semibold text-text-primary md:pt-3 border-b-2 border-text-primary md:border-0 pb-1 md:pb-0">
+                  {diaCorto(dia)}
+                </p>
+                {visibles.map((c) => {
+                  const suyos = posts.filter((p) => p.fecha === dia && p.cuenta === c.id);
+                  if (!suyos.length) {
+                    return (
+                      <div
+                        key={c.id}
+                        className="hidden md:flex min-w-0 rounded-xl border border-dashed border-border p-4 text-[13px] text-text-muted items-center justify-center"
+                      >
+                        Sin post
+                      </div>
+                    );
+                  }
                   return (
-                    <div
-                      key={c.id}
-                      className="min-w-0 rounded-xl border border-dashed border-border p-4 text-[13px] text-text-muted flex md:flex-col gap-1.5 md:justify-center"
-                    >
-                      <span className="md:hidden font-semibold">{c.nombre}:</span>
-                      <span>Sin post</span>
+                    <div key={c.id} className="min-w-0 flex flex-col gap-3">
+                      {suyos.map((p) => (
+                        <div key={p.id} className={`flex-1 transition-opacity ${filtro && p.objetivo !== filtro ? 'opacity-25' : ''}`}>
+                          <Ficha post={p} mio={p.cuenta === miCuenta} onAbrir={() => abrir(p.clave)} />
+                        </div>
+                      ))}
                     </div>
                   );
-                }
-                return (
-                  <div key={c.id} className="min-w-0 space-y-3">
-                    {suyos.map((p) => (
-                      <div key={p.id} className={filtro && p.objetivo !== filtro ? 'opacity-25' : ''}>
-                        <Tarjeta
-                          post={p}
-                          perfil={perfiles.data?.perfiles?.[p.cuenta]}
-                          autor={autor}
-                          mio={p.cuenta === miCuenta}
-                          abierto={todosAbiertos}
-                          onCambio={detalle.refetch}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                );
-              })}
-            </div>
-          ))}
-        </div>
+                })}
+              </div>
+            ))}
+          </div>
+        )}
         <p className="text-xs text-text-muted">
           Lo resaltado en naranja dentro de un post es lo que falta y no se puede escribir sin inventar.
         </p>
       </section>
+
+      {abierto && (
+        <Visor
+          key="visor"
+          post={abierto}
+          posicion={iAbierto}
+          total={enOrden.length}
+          onMover={(paso) => {
+            const destino = enOrden[iAbierto + paso];
+            if (destino) abrir(destino.clave);
+          }}
+          onCerrar={() => abrir(null)}
+        >
+          <div key={abierto.id}>{revision(abierto)}</div>
+        </Visor>
+      )}
     </div>
   );
 }

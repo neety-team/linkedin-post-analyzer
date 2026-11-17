@@ -6803,6 +6803,16 @@ def main():
         _ent = ok == len(duras) and not _falta
         print(f"\n  ENTREGABLE: {'SÍ' if _ent else 'NO'} · mecánico {ok}/{len(duras)} · "
               f"criterio {len(CRITERIO) - len(_falta)}/{len(CRITERIO)} contestado\n")
+        # 17/11: tercera vez que el bloque entregado no era el del fichero validado (un cierre
+        # retecleado a mano). Con ENTREGABLE: SI el validador imprime el bloque para pegar,
+        # volcado del fichero; la entrega copia ESTE bloque y nada mas (working-preferences §1).
+        if _ent:
+            _crudo = io.open(a.fichero, encoding='utf-8').read().strip()
+            print('  BLOQUE PARA PEGAR (volcado del fichero validado; se entrega este y solo este):')
+            print('```')
+            print(_crudo)
+            print('```')
+            print(f"  ultima linea: {_crudo.splitlines()[-1][:80]}\n")
         if ok == len(duras) and _falta:
             sys.exit(3)
     sys.exit(0 if ok == len(duras) else 1)

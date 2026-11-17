@@ -1749,7 +1749,7 @@ CRITERIO = [
     ('conceptos', 'Escribe al menos 5 ganchos de familias distintas separados por " | ": la frase hecha reconvertida (colgar las botas -> colgar la tiza), la metafora fisica, el objeto de la escena, el absoluto o refran invertido y la palabra del material de quien firma. ¿Por que gana el elegido? Cuenta el MISMO tema y psicologia de la referencia outlier (la originalidad va en el envoltorio, no en el tema), se entiende SIN leer el cuerpo, se rueda y deja una pregunta abierta. Si cambiaste el gancho, ¿el cuerpo lleva ya la palabra-hilo nueva y no queda nada del concepto viejo? (global §2.2e, post-workflow §4.6-HILO)'),
     ('quemado', '¿El angulo, el concepto o la frase del gancho los uso ESTA cuenta en sus 3 ultimas publicaciones, o es un patron que ya flopeo en ella? (global §2.0b-VENTANA, CLAUDE.md "quemado")'),
     # voz: el registro de cada cuenta (brand-voice §1b) no tiene palabra clave que lo delate.
-    ('voz', '¿Suena a ESA cuenta (registro de brand-voice §1b)? En Unai: ¿alguna linea se lee como autoelogio de su papel o mete un refran de ventas a la fuerza? (brand-voice §1b, §0)'),
+    ('voz', '¿Suena a ESA cuenta (registro de brand-voice §1b)? En Unai: ¿alguna linea se lee como autoelogio de su papel o mete un refran de ventas a la fuerza? Y en Unai y Asier, ¿el gancho resta autoridad, pone a la casa como victima de otro o se pasa de tono? En la historia/evento de ecosistema de Unai, ¿algo de vulnerabilidad en el cuerpo en vez de agradecimiento y recorrido? (brand-voice §1b, §0)'),
     # oido: la frase de relleno que cuadra una anafora no la ve ninguna regex.
     ('oido', '¿Alguna frase existe solo para cuadrar la anafora o la escalera, hay sustantivo donde iria un verbo, o una coma que hace de verbo? ¿Alguna cita, leida en voz alta, suena rota o deja la idea a medias? (post-workflow §4.6-CITA, 11/11) Leelo en voz alta (brand-voice §3c, §3e)'),
     # 28/10, auditoria del validador: global §8 tenia una lista "lo que el script NO puede ver,
@@ -2101,14 +2101,28 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # 👑 2026-11-17, historia/evento de SeedRocket (Unai): "Un año después de desmontarnos,
         # @SeedRocket nos sienta ante sus inversores" se tumbo. La casa no va en el gancho
         # como la que recibe el golpe de otro (nos desmontaron, nos examinaban, nos
-        # tumbaron): es otra forma de hacerse de menos. Lo humilde puede ir en el cuerpo.
+        # tumbaron): resta autoridad (brand-voice §1b, el punto medio).
         _victima = (re.search(r'\bnos\s+(desmont|examin|tumb|suspend|machac|destroz|pisote|rechaz|humill|aplast|despedaz|ningune|pill|pusieron\s+a\s+prueba)\w*', hook_txt, re.I)
                     or re.search(r'\b(desmont|examin|tumb|suspend|machac|destroz|pisote|rechaz|humill|aplast|despedaz|ningune)\w*(arnos|ernos|irnos|ndonos)\b', hook_txt, re.I))
         chk(not _victima, f'{_cta_grande.upper()}: la casa no va en el gancho como la VICTIMA de otro (brand-voice §1b)',
             (f'"{_victima.group(0)}": en el gancho la casa no recibe el golpe de nadie. Cuenta el hecho '
-             'grande desde nuestro lado ("Volvemos ante los inversores de X sin nada que pedirles"); '
-             'lo humilde, si hace falta, va en el cuerpo')
+             'grande desde nuestro lado, con una imagen propia y gratitud ("Volvemos al microfono de '
+             '@X con algo que contar a sus inversores")')
             if _victima else '')
+        # Mismo dia, los otros dos tropiezos del punto medio (avisos: el script no sabe si el
+        # tono se pasa). (a) Sonar a que ya no necesitamos a quien nos ayudo: "Volvemos ante
+        # los inversores de X sin nada que pedirles" se leyo prepotente. (b) Compararse con el
+        # antes en el gancho ("Un año despues…", "Hace un año nos…"): el antes va en la linea 2.
+        _sobrado = re.search(r'\bsin (nada|nadie) que (pedir|demostrar|esperar)\w*|\bya no (necesitamos|nos hace falta)\b',
+                             hook_txt, re.I)
+        chk(not _sobrado, f'{_cta_grande.upper()}: el gancho no suena a que ya no necesitamos a nadie (brand-voice §1b)',
+            (f'"{_sobrado.group(0)}": firme sin pasarse; la gratitud implicita gana ("con algo que contar")')
+            if _sobrado else '', aviso=True)
+        _antes = re.search(r'\b(un|1|dos|2|tres|3) (año|años|mes|meses) despu[eé]s\b|\bhace (un|1|dos|2) (año|años)\b'
+                           r'|\bel año pasado\b', hook_txt, re.I)
+        chk(not _antes, f'{_cta_grande.upper()}: el gancho no se compara con el antes (brand-voice §1b)',
+            (f'"{_antes.group(0)}": basta con "Volvemos" o con lo que pasa ahora; el antes va en la linea 2')
+            if _antes else '', aviso=True)
     # 🥇 EL GRAN DIA, NO UN GRAN DIA (2026-10-30): con el indefinido el momento es uno de
     # tantos; con el definido es EL momento, y eso es lo grandioso. Fallo en las cuentas
     # que van a lo grande (Unai y Asier), aviso en el resto. Solo con nombres de momento:

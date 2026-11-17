@@ -195,7 +195,7 @@ CASOS += [
     # 17/11, historia/evento de SeedRocket (Unai): la casa como victima de otro en el gancho
     # es otra forma de hacerse de menos (brand-voice §1b). Lo humilde, al cuerpo.
     ('Un año después de desmontarnos, @SeedRocket nos sienta ante sus inversores 🔧\n\n' + CUERPO_ASIER,
-     '17/11: en el gancho del primer jefe la casa no puede salir desmontada por otro',
+     '17/11: en un gancho grandioso la casa no sale desmontada por otro',
      'como la VICTIMA de otro', ['--pilar', 'historia', '--cuenta', 'unai', '--historia-evento']),
     # 16/10: la v1 aprobada salio en verde con 6 sueltas seguidas (77% de sueltas) porque
     # el check de ciclo empujaba a "meter lineas sueltas seguidas" y no habia techo.

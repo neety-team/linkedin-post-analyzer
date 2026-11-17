@@ -1942,6 +1942,12 @@ sorprende, que es de lo que vive este pilar.
 >
 > ⚠️ **Tiene un coste y hay que saberlo:** la referencia de la calvicie hizo 13.51x cerrando con "Etiqueta al compi que ya empezo a mirar champus anticaida", y el etiquetado es motor de alcance en memes. Se cambia alcance por intencion **a proposito**, no por descuido. Corre el pase de validación (§8). **Output 1 = el TEXTO copy-ready.**
 
+> ### ⛔⛔ 4.4-IMAGEN-ESENCIA · AL REVISAR LA IMAGEN DE UN MEME, PRIMERO LA ESENCIA Y DESPUÉS EL DISEÑO (2026-11-17) — GLOBAL, TODAS LAS CUENTAS *(criterio del equipo, sin medir)*
+> - **El orden de la revisión, siempre:** (1) ¿se entiende el chiste igual que en el original, con el mismo objeto y las mismas palabras que lo cargan, traducidas con su matiz (`brand-voice §3c-CALCO`)?; (2) ¿se reconoce cada elemento a la primera, también en miniatura de 360 px?; (3) solo entonces paleta, tipografía, aire y colocación. Un diseño impecable que pierde el chiste no se publica; un fallo de diseño que no toca el chiste se arregla después.
+> - **El estilo no es la esencia:** nuestro dibujo en flat sustituye a la foto o al fotograma del original sin perder nada si el objeto se sigue entendiendo (Wicked se redibujó y viajó igual). Lo que no se puede cambiar es lo que el lector tiene que leer para reírse.
+> - **Caso que la fijó (meme del secuestro, Iker, 18/11):** la v1 rotulaba la furgoneta con `CLIENTES QUE DESCUELGAN A LA PRIMERA`. Era más corto y no repetía palabras del gancho, pero quitaba el teléfono (el objeto del chiste) y convertía al `prospect` en un cliente que ya lo es. La v2 dice `POSIBLES CLIENTES / QUE COGEN EL TELÉFONO / A LA PRIMERA`, en tres líneas: se gana una línea y se conserva la esencia.
+> - **Dueño:** la clave `imagen` de `--criterio`.
+
 **Paso 6a — ⭐ INVENTARIO DE LA IMAGEN (antes de escribir una sola línea del prompt).**
 > **El objetivo es UN prompt que salga a la primera, no una cadena de prompts de edición.** Cuando hacen falta 3 rondas, el fallo casi nunca es del diseñador: es que el primer prompt pedía mal las cosas.
 

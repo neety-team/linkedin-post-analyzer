@@ -1,3 +1,4 @@
+import { idiomaDe } from './idioma';
 import Anthropic from '@anthropic-ai/sdk';
 import { trackedCreate } from './claudeClient';
 import { stripLoneSurrogates } from '../utils/sanitizeText';
@@ -578,6 +579,10 @@ export async function generateSupportiveComments(
 
   const safePostContent = stripLoneSurrogates(input.postContent || '');
   const detectedLang = detectLanguageHint(safePostContent);
+  // EN EL IDIOMA DEL POST (2026-11-17): a un post en ingles se le comenta en
+  // ingles. Las reglas y los ejemplos de abajo son de castellano y valen como
+  // tono; los retoques que solo existen en castellano se saltan.
+  const enIngles = idiomaDe(safePostContent) === 'en';
   const llanoPost = safePostContent.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
   const modoEvento = esPostDeEvento(input.pillar, safePostContent);
@@ -631,7 +636,7 @@ ${ASI_NO.map(([c, por]) => `· "${c}" → ${por}`).join('\n')}
 Lo que delata a esos: hablan desde lejos, como si quien comenta no supiera de que va su propia empresa; resumen el producto o la tesis del post; sueltan una leccion; meten "Tal cual", "Perfectooo", "me quedo con lo de" para parecer espontaneos. El resultado es un apoyo falso y raro, que hace quedar mal a quien lo pega.
 
 REGLAS FIJAS:
-- En ${detectedLang}, español de España. Nada de "ahorita", "platicar", "ustedes", "qué lindo", "olvidaba". Nadie abre con "Vale".
+${enIngles ? '- En INGLES natural, porque el post esta en ingles: los compañeros lo pegan debajo de un post en ingles. Los ejemplos y las reglas de estilo de aqui, que estan en castellano, valen para el TONO; ni una palabra en castellano.' : `- En ${detectedLang}, español de España. Nada de "ahorita", "platicar", "ustedes", "qué lindo", "olvidaba". Nadie abre con "Vale".`}
 - Entre 35 y 80 caracteres, UNA linea, UNA frase. Varia un poco el largo entre los ${n}.
 - Ninguno es una pregunta. Ninguno empieza con comillas.
 - Nunca guion largo ni medio, nunca dos puntos, nunca coma justo antes de "y". Sin markdown.
@@ -673,14 +678,14 @@ Escribe los ${n}. JSON solo.`;
     (cifraNueva(c, safePostContent) ? `da una cifra que no esta en el post ("${cifraNueva(c, safePostContent)}")` : null) ||
     (nombreAjeno(c, safePostContent, '', [input.creatorName]) ? `nombra "${nombreAjeno(c, safePostContent, '', [input.creatorName])}", que no sale en el post` : null) ||
     (registroFormal(c) ? `suena a informe ("${registroFormal(c)}")` : null) ||
-    (inglesColado(c, safePostContent) ? `se cuela una palabra en ingles ("${inglesColado(c, safePostContent)}")` : null) ||
+    (!enIngles && inglesColado(c, safePostContent) ? `se cuela una palabra en ingles ("${inglesColado(c, safePostContent)}")` : null) ||
     (abreConVale(c) ? 'abre con "vale"' : null) ||
-    (latinismo(c) ? `suena a español de America ("${latinismo(c)}")` : null) ||
+    (!enIngles && latinismo(c) ? `suena a español de America ("${latinismo(c)}")` : null) ||
     (eventoRecortado(c) ? 'recorta el nombre del evento: "Neety Forward" entero' : null) ||
     (exageraDeBroma(c) ? `exagera como en una parodia ("${exageraDeBroma(c)}")` : null) ||
     (desvelaLaEstrategia(c) ? `comenta como esta escrito el post ("${desvelaLaEstrategia(c)}")` : null) ||
     (confiesaElDolor(c) ? `confiesa como suyo el problema que vende la casa ("${confiesaElDolor(c)}")` : null) ||
-    (concordanciaRota(c) ? `concordancia rota ("${concordanciaRota(c)}")` : null) ||
+    (!enIngles && concordanciaRota(c) ? `concordancia rota ("${concordanciaRota(c)}")` : null) ||
     (!fase && autorPorSuNombre(c, input.creatorName) ? `nombra al autor ("${autorPorSuNombre(c, input.creatorName)}")` : null) ||
     (equipo && sorpresaDeQuienEstuvo(c) ? `reacciona como si se enterara ahora ("${sorpresaDeQuienEstuvo(c)}")` : null) ||
     (/[¿?]/.test(c) ? 'es una pregunta' : null) ||
@@ -768,7 +773,8 @@ Escribe los ${n}. JSON solo.`;
   // En codigo, sin otra llamada: sin estiradas, sin coma antes de "y", tildes,
   // y el emoji solo en los que tocan, al final y sin punto delante.
   return out.map((c, i) => {
-    let t = pulirComentario(quitarExactamente(ponerTildesSeguras(quitarComaAntesDeY(desestirarTodo(recortarEventoInventado(c))))));
+    const base = quitarComaAntesDeY(desestirarTodo(recortarEventoInventado(c)));
+    let t = pulirComentario(enIngles ? base : quitarExactamente(ponerTildesSeguras(base)));
     if (fase?.momento === 'despues') t = quitarFraseFutura(t);
     const suEmoji = (t.match(/\p{Extended_Pictographic}/u) || [])[0];
     t = quitarEmojis(t).replace(/\s+/g, ' ').trim();

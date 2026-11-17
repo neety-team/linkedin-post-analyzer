@@ -132,7 +132,8 @@ export function registrarToolsSemana(servidor: McpServer): void {
         'Guarda la semana y sus posts para que los fundadores los vean en /semana. NO borra: un post ' +
         'que no venga en la llamada se queda como estaba. En un post que ya existe solo cambian los ' +
         'campos que vienen, así que para corregir un borrador basta `{clave, texto}`. El feedback de un ' +
-        'post se conserva aunque cambie su texto.',
+        'post se conserva aunque cambie su texto. Un post con huecos entre corchetes o sin texto no ' +
+        'se puede dejar en aprobado, programado ni publicado: la llamada entera se rechaza.',
       inputSchema: {
         semana: z.string().describe('Código ISO, p. ej. 2026-W48'),
         estado: z.string().optional().describe('propuesta | aprobada | cerrada'),

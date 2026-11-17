@@ -28,6 +28,25 @@ export const NIVELES = ['estilo', 'pilar', 'post'] as const;
 
 const RE_SEMANA = /^\d{4}-W\d{2}$/;
 
+/**
+ * EL CANDADO (2026-11-17). Un post no puede quedar aprobado, programado ni
+ * publicado si su texto tiene un hueco entre corchetes (`[pendiente · …]`,
+ * `[PAÍS]`) o esta vacio. Los corchetes son como se marca lo que falta y no se
+ * puede escribir sin inventar: si uno llega a LinkedIn, sale publicado tal cual.
+ * Se comprueba aqui, en el unico sitio por donde se guarda un post, para que
+ * valga igual para la pagina, para el MCP y para una publicacion automatica.
+ */
+const ESTADOS_CERRADOS = ['aprobado', 'programado', 'publicado'];
+const RE_HUECO = /\[[^\]\n]+\]/;
+
+export function motivoNoPublicable(estado: string, texto: string): string | null {
+  if (!ESTADOS_CERRADOS.includes(estado)) return null;
+  if (!texto.trim()) return 'no tiene texto';
+  const hueco = RE_HUECO.exec(texto);
+  if (hueco) return `tiene huecos sin rellenar, el primero: ${hueco[0].slice(0, 80)}`;
+  return null;
+}
+
 export function esSemanaValida(s: unknown): s is string {
   return typeof s === 'string' && RE_SEMANA.test(s);
 }
@@ -151,10 +170,19 @@ export async function guardarSemana(
         throw new Error(`Estado no válido en ${clave}: ${p.estado}`);
       }
 
-      const existe = await client.query(`SELECT id FROM semana_posts WHERE semana = $1 AND clave = $2`, [
-        semana,
-        clave,
-      ]);
+      const existe = await client.query(
+        `SELECT id, estado, texto FROM semana_posts WHERE semana = $1 AND clave = $2`,
+        [semana, clave]
+      );
+
+      // El candado: se mira como QUEDARIA el post despues de guardar.
+      const estadoFinal = p.estado ?? existe.rows[0]?.estado ?? 'idea';
+      const textoFinal = p.texto !== undefined ? p.texto ?? '' : existe.rows[0]?.texto ?? '';
+      const motivo = motivoNoPublicable(estadoFinal, textoFinal);
+      if (motivo) {
+        throw new Error(`El post ${clave} no puede quedar en «${estadoFinal}»: ${motivo}`);
+      }
+
       if (!existe.rows.length) {
         if (!p.fecha || !p.cuenta || !p.objetivo || !p.titulo) {
           throw new Error(`El post nuevo ${clave} necesita fecha, cuenta, objetivo y titulo`);

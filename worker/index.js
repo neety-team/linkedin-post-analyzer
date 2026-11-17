@@ -9,8 +9,8 @@
 // firmado (backend/src/middleware/basicAuth.ts).
 //
 // SE ACTIVA SOLO cuando el Worker tiene sus dos secretos, INTERNAL_TOKEN y
-// PROXY_SECRET. Mientras falte uno, reenvia tal cual y el backend sigue
-// pidiendo su contraseña de siempre. Desplegar este codigo no cambia nada
+// PROXY_SECRET. Mientras falte uno, reenvia tal cual y es el backend quien
+// decide quien pasa. Desplegar este codigo no cambia nada
 // hasta que se ponen los secretos, y quitarlos lo devuelve a como estaba.
 //
 // El contrato del login esta en el AUTH.md del repo `auth`.
@@ -30,12 +30,12 @@ function esPublica(pathname) {
   );
 }
 
-// El MCP y los scripts no tienen sesion de navegador: entran con la contraseña
-// compartida. Esas peticiones pasan SIN firmar y es el backend quien comprueba
-// la contraseña.
-function entraConContrasena(pathname, request) {
+// El MCP y los scripts no tienen sesion de navegador: entran con su token de
+// maquina (o con la contraseña compartida, mientras exista). Esas peticiones
+// pasan SIN firmar y es el backend quien comprueba la credencial.
+function entraConCredencial(pathname, request) {
   if (pathname === '/mcp' || pathname.startsWith('/mcp/')) return true;
-  return /^Basic\s+\S/i.test(request.headers.get('Authorization') || '');
+  return /^(Basic|Bearer)\s+\S/i.test(request.headers.get('Authorization') || '');
 }
 
 function gateActivo(env) {
@@ -162,10 +162,10 @@ export default {
 
     if (!env.BACKEND_ORIGIN) return pagina('Falta configuración', 'El Worker no tiene BACKEND_ORIGIN.', 500);
 
-    // Sin los dos secretos, proxy puro: manda la contraseña del backend.
+    // Sin los dos secretos, proxy puro: decide el backend.
     if (!gateActivo(env)) return reenviar(request, url, env, null);
 
-    if (request.method === 'OPTIONS' || esPublica(pathname) || entraConContrasena(pathname, request)) {
+    if (request.method === 'OPTIONS' || esPublica(pathname) || entraConCredencial(pathname, request)) {
       return reenviar(request, url, env, null);
     }
 

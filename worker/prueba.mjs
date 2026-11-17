@@ -78,6 +78,10 @@ for (const ruta of ['/api/health', '/r/abc', '/api/submit']) {
 }
 r = await pedir('/mcp', { method: 'POST', body: '{}', headers: { authorization: 'Basic abc' } });
 comprobar('el MCP pasa sin firma y con su contraseña', r.status === 200 && alBackend[0].headers.get('authorization') === 'Basic abc' && alBackend[0].headers.get('x-proxy-secret') === null);
+r = await pedir('/mcp', { method: 'POST', body: '{}', headers: { authorization: 'Bearer token-mcp' } });
+comprobar('el MCP con token pasa sin firma', r.status === 200 && alLogin.length === 0 && alBackend[0].headers.get('authorization') === 'Bearer token-mcp' && alBackend[0].headers.get('x-proxy-secret') === null);
+r = await pedir('/api/outliers/buscar', { headers: { authorization: 'Bearer token-mcp', 'x-auth-email': 'intruso@fuera.com' } });
+comprobar('un script con token pasa sin firma ni identidad', r.status === 200 && alLogin.length === 0 && alBackend[0].headers.get('x-proxy-secret') === null && alBackend[0].headers.get('x-auth-email') === null);
 r = await pedir('/api/outliers/buscar', { headers: { authorization: 'Basic abc' } });
 comprobar('un script con contraseña pasa sin firma', r.status === 200 && alLogin.length === 0 && alBackend[0].headers.get('x-proxy-secret') === null);
 

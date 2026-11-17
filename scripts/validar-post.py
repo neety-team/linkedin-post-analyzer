@@ -5637,6 +5637,13 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # historia/evento el objetivo es autoridad y el nombre conocido (empresa, sitio, quien
         # nos elige) se prioriza en el gancho. Aviso: el script no sabe si la escena tenia uno.
         if HISTORIA_EVENTO:
+            # 17/11 (SeedRocket): un gancho que ABRE con la mencion se lee raro; el nombre
+            # famoso va dentro de la frase ("Volvemos al microfono de @SeedRocket…").
+            chk(not hook_txt.lstrip().startswith('@'),
+                'HISTORIA/EVENTO: el gancho no ABRE con la mencion (post-workflow §4.6, 17/11)',
+                'el gancho empieza por la @: se lee raro. Abre con el verbo y mete el nombre '
+                'dentro ("Volvemos a @X…", "At @X we…")' if hook_txt.lstrip().startswith('@') else '',
+                aviso=True)
             # La primera palabra se salta porque va en mayuscula siempre, salvo si es una
             # mencion: "@SeedRocket nos devuelve el microfono…" (17/11) salia sin nombre.
             _pal_h = hook_txt.split()

@@ -5604,13 +5604,26 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         if not _m_ev_h and HISTORIA_EVENTO:
             _m_ev_h = re.search(r'\b(charlas?|conferencias?|jornadas?|moder[oóaé]\w*|panel)\b',
                                 hook_txt, re.I)
-        chk(not _m_ev_h, 'HISTORIA: el gancho no delata el EVENTO ni la marca (Iker, 15/10)',
+        chk(not _m_ev_h, 'HISTORIA: el gancho no delata el EVENTO ni NUESTRA marca (15/10)',
             (f'"{_m_ev_h.group(0)}" en el gancho. ' + (
                 'ANUNCIO DE UNAI declarado (--anuncio-unai, 11/11): su base manda; el bucle '
                 'tiene que abrirse con una pieza que el gancho se calle' if ANUNCIO_UNAI else
                 'Se cuenta la escena de ventas y el evento se desvela en el pago (global '
                 '§2.0-PAGO), como el 07/10 de Unai')) if _m_ev_h else '',
             aviso=ANUNCIO_UNAI and bool(_m_ev_h))
+        # 17/11 (post-workflow §4.6, EL NOMBRE FAMOSO DE LA ESCENA SI VA EN EL GANCHO): en
+        # historia/evento el objetivo es autoridad y el nombre conocido (empresa, sitio, quien
+        # nos elige) se prioriza en el gancho. Aviso: el script no sabe si la escena tenia uno.
+        if HISTORIA_EVENTO:
+            _pal_aut = [w.strip('.,;:!?¿¡"“”«»()') for w in hook_txt.split()[1:]]
+            _aut = [w for w in _pal_aut if w and (w.startswith('@') or w[:1].isupper())
+                    and not re.match(r'@?neety', w, re.I)]
+            chk(bool(_aut), 'HISTORIA/EVENTO: el gancho lleva el NOMBRE FAMOSO de la escena (post-workflow §4.6, 17/11)',
+                ('nombre de autoridad: ' + ', '.join(_aut[:3])) if _aut else
+                'no veo ningun nombre propio en el gancho. Si la escena tiene una empresa conocida, '
+                'un sitio que todo el mundo conoce o quien nos elige, va en el gancho (con @ si se '
+                'menciona) y el bucle se abre con otra pieza. Si no hay ninguno, se dice en la entrega',
+                aviso=True)
         # EL VERBO PUNCHY VA AL FINAL DEL GANCHO, CON UN OBJETO (§4.6-SERIE punto 6,
         # patron cruzado de las 3 cuentas, 2026-10-02). Es criterio: aviso que
         # imprime la segunda mitad del gancho para MIRARLA.

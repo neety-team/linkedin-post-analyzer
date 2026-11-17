@@ -51,6 +51,25 @@ export function esSemanaValida(s: unknown): s is string {
   return typeof s === 'string' && RE_SEMANA.test(s);
 }
 
+/**
+ * POSTS COLABORATIVOS (2026-11-17). Un post puede firmarlo mas de una cuenta:
+ * `cuenta` es la que lo publica y `coautores`, las otras que lo firman. Se
+ * normaliza al orden de las columnas (iker, unai, asier) para que el mismo
+ * reparto se guarde siempre igual. `null` vacia la lista.
+ */
+export function normalizarCoautores(v: unknown, cuenta: string | undefined, clave: string): string[] {
+  if (v === null) return [];
+  if (!Array.isArray(v)) throw new Error(`\`coautores\` de ${clave} tiene que ser una lista de cuentas`);
+  for (const c of v) {
+    if (!CUENTAS.includes(c as any)) throw new Error(`Coautor no válido en ${clave}: ${c}`);
+  }
+  if (new Set(v).size !== v.length) throw new Error(`Coautor repetido en ${clave}`);
+  if (cuenta && v.includes(cuenta)) {
+    throw new Error(`En ${clave}, ${cuenta} es quien publica: no puede ser también coautor`);
+  }
+  return CUENTAS.filter((c) => v.includes(c));
+}
+
 export interface PostSemanaEntrada {
   clave: string;
   fecha?: string;
@@ -65,6 +84,8 @@ export interface PostSemanaEntrada {
   por_que?: string | null;
   falta?: string | null;
   nota_imagen?: string | null;
+  /** Las otras cuentas que firman un post colaborativo. `null` o [] = post de una cuenta. */
+  coautores?: string[] | null;
 }
 
 function limpio(v: unknown, max: number): string | null {
@@ -103,7 +124,7 @@ export async function leerSemana(semana: string) {
 
   const posts = await pool.query(
     `SELECT id, semana, clave, to_char(fecha, 'YYYY-MM-DD') AS fecha, cuenta, objetivo,
-            experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, updated_at,
+            experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, coautores, updated_at,
             (imagen IS NOT NULL) AS tiene_imagen,
             (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS imagen_version
        FROM semana_posts
@@ -171,9 +192,19 @@ export async function guardarSemana(
       }
 
       const existe = await client.query(
-        `SELECT id, estado, texto FROM semana_posts WHERE semana = $1 AND clave = $2`,
+        `SELECT id, estado, texto, cuenta, coautores FROM semana_posts WHERE semana = $1 AND clave = $2`,
         [semana, clave]
       );
+
+      // Coautores: se validan contra la cuenta con la que QUEDARA el post. Si
+      // solo cambia la cuenta, tampoco puede pasar a ser uno de sus coautores.
+      const cuentaFinal: string | undefined = p.cuenta ?? existe.rows[0]?.cuenta;
+      let coautores: string[] | undefined;
+      if (p.coautores !== undefined) {
+        coautores = normalizarCoautores(p.coautores, cuentaFinal, clave);
+      } else if (p.cuenta !== undefined && (existe.rows[0]?.coautores || []).includes(p.cuenta)) {
+        throw new Error(`En ${clave}, ${p.cuenta} ya es coautor: quítalo de \`coautores\` para que lo publique`);
+      }
 
       // El candado: se mira como QUEDARIA el post despues de guardar.
       const estadoFinal = p.estado ?? existe.rows[0]?.estado ?? 'idea';
@@ -190,8 +221,8 @@ export async function guardarSemana(
         await client.query(
           `INSERT INTO semana_posts
              (semana, clave, fecha, cuenta, objetivo, experimento, pilar, titulo, texto, estado,
-              vara, por_que, falta, nota_imagen)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14)`,
+              vara, por_que, falta, nota_imagen, coautores)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14,$15)`,
           [
             semana,
             clave,
@@ -207,6 +238,7 @@ export async function guardarSemana(
             limpio(p.por_que, 2000),
             limpio(p.falta, 2000),
             limpio(p.nota_imagen, 3000),
+            coautores ?? [],
           ]
         );
         creados++;
@@ -232,6 +264,7 @@ export async function guardarSemana(
       if (p.por_que !== undefined) pon('por_que', limpio(p.por_que, 2000));
       if (p.falta !== undefined) pon('falta', limpio(p.falta, 2000));
       if (p.nota_imagen !== undefined) pon('nota_imagen', limpio(p.nota_imagen, 3000));
+      if (coautores !== undefined) pon('coautores', coautores);
       if (sets.length) {
         vals.push(existe.rows[0].id);
         await client.query(
@@ -354,7 +387,7 @@ export async function listarFeedback(opts: { semana?: string; soloPendiente?: bo
   }
   const { rows } = await pool.query(
     `SELECT sf.id, sf.autor, sf.texto, sf.nivel, sf.resuelto, sf.respuesta, sf.created_at,
-            sp.id AS post_id, sp.semana, sp.clave, sp.cuenta, sp.titulo, sp.pilar, sp.objetivo,
+            sp.id AS post_id, sp.semana, sp.clave, sp.cuenta, sp.coautores, sp.titulo, sp.pilar, sp.objetivo,
             to_char(sp.fecha, 'YYYY-MM-DD') AS fecha
        FROM semana_feedback sf
        JOIN semana_posts sp ON sp.id = sf.post_id

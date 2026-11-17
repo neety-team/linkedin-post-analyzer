@@ -26,6 +26,13 @@
  * en un calendario, tengan posts o no, y la semana va en la URL (`?s=2026-W48`)
  * para poder pasar el enlace. Sin `?s=` se abre la semana que se esta
  * preparando: la que viene si ya tiene posts, y si no, la actual.
+ *
+ * POSTS COLABORATIVOS (2026-11-17): un post que firman varios fundadores lleva
+ * `coautores` (las otras cuentas) ademas de `cuenta` (la que lo publica). En el
+ * calendario es UNA ficha que ocupa las columnas de todos los que firman, con
+ * sus caras juntas y una marca encima de cada columna; en el post abierto, la
+ * cabecera de LinkedIn lleva a los autores juntos. Cuenta como post de cada
+ * uno: "Leer solo mis posts" se lo enseña a todos los que firman.
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -61,6 +68,8 @@ interface PostSemana {
   nota_imagen: string | null;
   tiene_imagen: boolean;
   imagen_version: string | null;
+  /** Las otras cuentas que firman el post. Vacio si es de una sola. */
+  coautores?: Cuenta[] | null;
   feedback: Feedback[];
 }
 
@@ -96,6 +105,25 @@ const NOMBRE_COMPLETO: Record<Cuenta, string> = {
   unai: 'Unai Arambarri Yeregui',
   asier: 'Asier Olaizola Paniagua',
 };
+
+type Perfiles = Partial<Record<Cuenta, Perfil>> | undefined;
+
+const nombreDe = (c: Cuenta) => CUENTAS.find((x) => x.id === c)?.nombre || c;
+const columnaDe = (c: Cuenta) => CUENTAS.findIndex((x) => x.id === c);
+const esColaborativo = (p: PostSemana) => !!p.coautores?.length;
+
+/** Quien firma un post, en el orden de las columnas. */
+function firmantes(p: PostSemana): Cuenta[] {
+  return CUENTAS.map((c) => c.id).filter((id) => id === p.cuenta || !!p.coautores?.includes(id));
+}
+
+/** Un colaborativo es post de cada uno de los que lo firman. */
+const esDe = (p: PostSemana, c: Cuenta | null) => !!c && (p.cuenta === c || !!p.coautores?.includes(c));
+
+/** 'Iker, Unai y Asier' */
+function juntar(nombres: string[]): string {
+  return nombres.length < 2 ? nombres.join('') : `${nombres.slice(0, -1).join(', ')} y ${nombres[nombres.length - 1]}`;
+}
 
 // Clases escritas enteras: Tailwind solo compila las que ve en el codigo.
 const OBJETIVO: Record<Objetivo, { etiqueta: string; chip: string }> = {
@@ -320,7 +348,17 @@ function TextoPost({ texto, azul }: { texto: string; azul: string }) {
   );
 }
 
-function Avatar({ foto, nombre, oscuro }: { foto: string | null; nombre: string; oscuro: boolean }) {
+function Avatar({
+  foto,
+  nombre,
+  oscuro,
+  clase = 'w-12 h-12 text-[18px]',
+}: {
+  foto: string | null;
+  nombre: string;
+  oscuro: boolean;
+  clase?: string;
+}) {
   const [rota, setRota] = useState(false);
   if (foto && !rota) {
     return (
@@ -329,15 +367,15 @@ function Avatar({ foto, nombre, oscuro }: { foto: string | null; nombre: string;
         alt=""
         onError={() => setRota(true)}
         referrerPolicy="no-referrer"
-        className="w-12 h-12 rounded-full object-cover shrink-0"
+        className={`${clase} rounded-full object-cover shrink-0`}
       />
     );
   }
   return (
     <span
       aria-hidden="true"
-      className={`w-12 h-12 rounded-full shrink-0 flex items-center justify-center text-[18px] font-semibold ${
-        oscuro ? 'bg-white/15' : 'bg-black/10'
+      className={`${clase} rounded-full shrink-0 flex items-center justify-center font-semibold ${
+        oscuro ? 'bg-[#38434f]' : 'bg-[#e8e5df]'
       }`}
     >
       {nombre.charAt(0)}
@@ -411,22 +449,32 @@ function useFoto(post: PostSemana, onCambio: () => void) {
 /** La tarjeta de LinkedIn: cabecera, texto con su corte del feed, foto y acciones. */
 function PostLinkedIn({
   post,
-  perfil,
+  perfiles,
   tema,
   entero,
   onVerMas,
   foto,
 }: {
   post: PostSemana;
-  perfil: Perfil | undefined;
+  perfiles: Perfiles;
   tema: TemaLI;
   entero: boolean;
   onVerMas: () => void;
   foto: ReturnType<typeof useFoto>;
 }) {
   const c = LI[tema];
+  const perfil = perfiles?.[post.cuenta];
   const nombre = perfil?.nombre || NOMBRE_COMPLETO[post.cuenta];
   const titular = perfil?.titular || 'Neety';
+  // Colaborativo: quien lo publica primero y despues los coautores, como en
+  // LinkedIn. Sus caras van juntas y sus nombres en una sola linea.
+  const autores = [post.cuenta, ...(post.coautores || [])].map((a) => ({
+    id: a,
+    nombre: perfiles?.[a]?.nombre || NOMBRE_COMPLETO[a],
+    foto: perfiles?.[a]?.foto || null,
+  }));
+  const conjunto = autores.length > 1;
+  const firma = juntar(autores.map((a) => a.nombre));
   // En el feed LinkedIn enseña tres lineas y corta con "…más".
   const largo = post.texto.length > 210 || post.texto.split('\n').length > 3;
   const cortado = largo && !entero;
@@ -436,13 +484,29 @@ function PostLinkedIn({
       <div
         style={LI_FUENTE}
         className={`mx-auto max-w-[555px] rounded-lg overflow-hidden border ${c.tarjeta}`}
-        aria-label={`Así se verá en LinkedIn el post de ${nombre}`}
+        aria-label={`Así se verá en LinkedIn el post de ${firma}`}
       >
         <div className="flex items-start gap-2 px-4 pt-3">
-          <Avatar foto={perfil?.foto || null} nombre={nombre} oscuro={tema === 'oscuro'} />
+          {conjunto ? (
+            <span className="flex shrink-0 -space-x-3" aria-hidden="true">
+              {autores.map((a) => (
+                <span key={a.id} className={`rounded-full ring-2 ${tema === 'oscuro' ? 'ring-[#1b1f23]' : 'ring-white'}`}>
+                  <Avatar foto={a.foto} nombre={a.nombre} oscuro={tema === 'oscuro'} clase="w-10 h-10 text-[15px]" />
+                </span>
+              ))}
+            </span>
+          ) : (
+            <Avatar foto={perfil?.foto || null} nombre={nombre} oscuro={tema === 'oscuro'} />
+          )}
           <div className="min-w-0 flex-1">
-            <p className="text-[14px] font-semibold leading-5 truncate">{nombre}</p>
-            <p className={`text-[12px] leading-4 truncate ${c.gris}`}>{titular}</p>
+            {conjunto ? (
+              <p className="text-[14px] font-semibold leading-5 line-clamp-2">{firma}</p>
+            ) : (
+              <>
+                <p className="text-[14px] font-semibold leading-5 truncate">{nombre}</p>
+                <p className={`text-[12px] leading-4 truncate ${c.gris}`}>{titular}</p>
+              </>
+            )}
             <p className={`text-[12px] leading-4 flex items-center gap-1 ${c.gris}`}>
               {fechaLinkedIn(post.fecha)} •
               <svg viewBox="0 0 16 16" className="w-3 h-3" fill="currentColor" aria-hidden="true">
@@ -594,14 +658,14 @@ function Comentarios({ post, autor, onCambio }: { post: PostSemana; autor: strin
  */
 function Revision({
   post,
-  perfil,
+  perfiles,
   autor,
   tema,
   onTema,
   onCambio,
 }: {
   post: PostSemana;
-  perfil: Perfil | undefined;
+  perfiles: Perfiles;
   autor: string;
   tema: TemaLI;
   onTema: (t: TemaLI) => void;
@@ -654,7 +718,7 @@ function Revision({
               </span>
             </div>
           </div>
-          <PostLinkedIn post={post} perfil={perfil} tema={tema} entero={entero} onVerMas={() => setEntero(true)} foto={foto} />
+          <PostLinkedIn post={post} perfiles={perfiles} tema={tema} entero={entero} onVerMas={() => setEntero(true)} foto={foto} />
         </div>
       </div>
 
@@ -760,11 +824,192 @@ function Ficha({ post, mio, onAbrir }: { post: PostSemana; mio: boolean; onAbrir
   );
 }
 
+/** Una cara de la app (no de LinkedIn): la foto de perfil o la inicial. */
+function Cara({ cuenta, perfil, publica, clase }: { cuenta: Cuenta; perfil?: Perfil; publica: boolean; clase: string }) {
+  const [rota, setRota] = useState(false);
+  const anillo = `rounded-full ring-2 ring-bg-card ${clase}`;
+  if (perfil?.foto && !rota) {
+    return (
+      <img
+        src={perfil.foto}
+        alt=""
+        onError={() => setRota(true)}
+        referrerPolicy="no-referrer"
+        className={`${anillo} object-cover shrink-0 ${publica ? 'outline-2 outline-offset-2 outline-accent' : ''}`}
+      />
+    );
+  }
+  return (
+    <span
+      className={`${anillo} shrink-0 grid place-items-center font-display font-semibold ${
+        publica ? 'bg-accent text-on-accent' : 'bg-text-primary text-bg-card'
+      }`}
+    >
+      {nombreDe(cuenta).charAt(0)}
+    </span>
+  );
+}
+
+/**
+ * Las caras de quien firma un colaborativo, solapadas y en el orden de las
+ * columnas. La de quien lo publica va en naranja, como su marca en la ficha.
+ */
+function Caras({ post, perfiles, clase = 'w-10 h-10 text-[16px]' }: { post: PostSemana; perfiles: Perfiles; clase?: string }) {
+  return (
+    <span className="flex shrink-0 -space-x-2.5" aria-hidden="true">
+      {firmantes(post).map((c) => (
+        <Cara key={c} cuenta={c} perfil={perfiles?.[c]} publica={c === post.cuenta} clase={clase} />
+      ))}
+    </span>
+  );
+}
+
+/** 'Iker, Unai y Asier' y, debajo, quien lo publica. */
+function Firma({ post, perfiles }: { post: PostSemana; perfiles: Perfiles }) {
+  return (
+    <span className="flex items-center gap-3 min-w-0">
+      <Caras post={post} perfiles={perfiles} />
+      <span className="min-w-0">
+        <span className="block font-display text-[16px] font-semibold leading-tight text-text-primary">
+          {juntar(firmantes(post).map(nombreDe))}
+        </span>
+        <span className="block text-xs text-text-muted">
+          Post colaborativo,{' '}
+          <span className="whitespace-nowrap">
+            lo publica <span className="font-semibold text-accent">{nombreDe(post.cuenta)}</span>
+          </span>
+        </span>
+      </span>
+    </span>
+  );
+}
+
+/**
+ * Un colaborativo en el calendario: UNA ficha a lo ancho de las columnas de
+ * todos los que lo firman. Encima de cada columna lleva una marca, naranja la
+ * de quien lo publica, para que se lea como post de cada uno sin repetirlo.
+ * Es subgrid del calendario: las marcas caen justo bajo cada columna.
+ */
+function FichaConjunta({
+  post,
+  perfiles,
+  mio,
+  desde,
+  ancho,
+  fila,
+  atenuado,
+  onAbrir,
+}: {
+  post: PostSemana;
+  perfiles: Perfiles;
+  mio: boolean;
+  desde: number;
+  ancho: number;
+  fila: number;
+  atenuado: boolean;
+  onAbrir: () => void;
+}) {
+  const pendientes = post.feedback.filter((f) => !f.resuelto).length;
+  const quienes = firmantes(post);
+  const columnas = CUENTAS.slice(desde, desde + ancho);
+
+  return (
+    <article
+      style={{ gridColumn: `${desde + 2} / span ${ancho}`, gridRow: fila }}
+      className={`group relative min-w-0 bg-bg-card border rounded-xl overflow-hidden md:grid md:grid-cols-subgrid md:grid-rows-[auto_1fr] transition-[border-color,opacity] hover:border-text-muted focus-within:border-accent ${
+        mio ? 'border-accent/60' : 'border-border'
+      } ${atenuado ? 'opacity-25' : ''}`}
+    >
+      {columnas.map((c) => (
+        <span
+          key={c.id}
+          aria-hidden="true"
+          className={`hidden md:block mx-4 h-1.5 rounded-b-full ${
+            c.id === post.cuenta ? 'bg-accent' : quienes.includes(c.id) ? 'bg-text-primary' : ''
+          }`}
+        />
+      ))}
+      <div className="col-span-full flex flex-col md:flex-row gap-4 p-4 md:pt-3">
+        <div className="min-w-0 flex-1 flex flex-col gap-2.5">
+          <Firma post={post} perfiles={perfiles} />
+          <Etiquetas post={post} />
+          <h3 className="font-display text-[19px] font-semibold leading-snug tracking-tight text-text-primary max-w-[48ch]">
+            <button
+              type="button"
+              onClick={onAbrir}
+              className="text-left after:absolute after:inset-0 focus:outline-none group-hover:text-accent transition-colors"
+            >
+              {post.titulo}
+            </button>
+          </h3>
+          {post.por_que && (
+            <p className="text-[13px] leading-relaxed text-text-secondary line-clamp-3 max-w-[72ch]">{post.por_que}</p>
+          )}
+          <p className="mt-auto pt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-muted">
+            {!post.tiene_imagen && <span>Foto pendiente</span>}
+            {post.feedback.length > 0 && (
+              <span className={pendientes ? 'text-warning font-semibold' : ''}>
+                {pendientes
+                  ? `${pendientes} ${pendientes === 1 ? 'comentario' : 'comentarios'} por aplicar`
+                  : `${post.feedback.length} ${post.feedback.length === 1 ? 'comentario aplicado' : 'comentarios aplicados'}`}
+              </span>
+            )}
+            <span className="ml-auto font-semibold text-text-secondary group-hover:text-accent">Ver el post</span>
+          </p>
+        </div>
+        {post.tiene_imagen && (
+          <img
+            src={urlFoto(post)}
+            alt=""
+            loading="lazy"
+            className="order-first md:order-none w-full md:w-[min(40%,360px)] aspect-[16/9] self-start object-cover rounded-lg border border-border"
+          />
+        )}
+      </div>
+    </article>
+  );
+}
+
+type Celda =
+  | { col: number; ancho: number; conjunto: PostSemana; posts?: undefined }
+  | { col: number; ancho: 1; conjunto?: undefined; posts: PostSemana[] };
+
+/**
+ * Las filas de un dia en el calendario. Cada colaborativo va en su propia fila
+ * y ocupa desde la primera hasta la ultima columna de quienes lo firman; los
+ * posts sueltos de las columnas que quedan fuera van a su lado. Lo que sobra
+ * (los sueltos de quien tambien firma el colaborativo) va en una fila debajo.
+ */
+function filasDelDia(delDia: PostSemana[]): Celda[][] {
+  const conjuntos = delDia.filter(esColaborativo);
+  const sueltos = delDia.filter((p) => !esColaborativo(p));
+  const colocados = new Set<string>();
+  const filas: Celda[][] = conjuntos.map((cj, i) => {
+    const cols = firmantes(cj).map(columnaDe);
+    const desde = Math.min(...cols);
+    const hasta = Math.max(...cols);
+    const fila: Celda[] = [{ col: desde, ancho: hasta - desde + 1, conjunto: cj }];
+    CUENTAS.forEach((c, col) => {
+      if (col >= desde && col <= hasta) return;
+      const suyos = i === 0 ? sueltos.filter((p) => p.cuenta === c.id) : [];
+      suyos.forEach((p) => colocados.add(p.id));
+      fila.push({ col, ancho: 1, posts: suyos });
+    });
+    return fila.sort((a, b) => a.col - b.col);
+  });
+  const resto = sueltos.filter((p) => !colocados.has(p.id));
+  if (resto.length || !filas.length) {
+    filas.push(CUENTAS.map((c, col) => ({ col, ancho: 1 as const, posts: resto.filter((p) => p.cuenta === c.id) })));
+  }
+  return filas;
+}
+
 const FLECHA = 'w-9 h-9 grid place-items-center rounded-full border border-border text-text-secondary hover:text-text-primary hover:border-text-muted disabled:opacity-30 disabled:hover:border-border transition-colors';
 
 /** El post abierto, a pantalla casi completa, con el anterior y el siguiente a mano. */
 function Visor({
   post,
+  perfiles,
   posicion,
   total,
   onMover,
@@ -772,6 +1017,7 @@ function Visor({
   children,
 }: {
   post: PostSemana;
+  perfiles: Perfiles;
   posicion: number;
   total: number;
   onMover: (paso: number) => void;
@@ -819,10 +1065,27 @@ function Visor({
     >
       <header className="shrink-0 flex items-start gap-3 px-4 sm:px-7 py-4 border-b border-border bg-bg-card">
         <div className="min-w-0 flex-1 space-y-1.5">
-          <p className="text-[13px] text-text-muted">
-            <span className="font-semibold text-text-primary">{cuenta?.nombre}</span>, {diaLargo(post.fecha)}
-            {post.pilar ? <span className="hidden sm:inline"> · {post.pilar}</span> : null}
-          </p>
+          {esColaborativo(post) ? (
+            <div className="flex items-center gap-2.5">
+              <Caras post={post} perfiles={perfiles} clase="w-7 h-7 text-[12px] sm:w-8 sm:h-8 sm:text-[13px]" />
+              <p className="min-w-0 text-[13px] text-text-muted">
+                <span className="font-semibold text-text-primary">{juntar(firmantes(post).map(nombreDe))}</span>,{' '}
+                {diaLargo(post.fecha)}
+                {post.pilar ? <span className="hidden sm:inline"> · {post.pilar}</span> : null}
+                <span className="block text-xs">
+                  <span className="hidden sm:inline">Post colaborativo, </span>
+                  <span className="whitespace-nowrap first-letter:uppercase sm:first-letter:normal-case inline-block">
+                    lo publica <span className="font-semibold text-accent">{nombreDe(post.cuenta)}</span>
+                  </span>
+                </span>
+              </p>
+            </div>
+          ) : (
+            <p className="text-[13px] text-text-muted">
+              <span className="font-semibold text-text-primary">{cuenta?.nombre}</span>, {diaLargo(post.fecha)}
+              {post.pilar ? <span className="hidden sm:inline"> · {post.pilar}</span> : null}
+            </p>
+          )}
           <h2 id="visor-titulo" className="font-display text-xl sm:text-2xl font-semibold leading-tight tracking-tight">
             {post.titulo}
           </h2>
@@ -1006,7 +1269,7 @@ export default function Semana() {
   const revision = (p: PostSemana) => (
     <Revision
       post={p}
-      perfil={perfiles.data?.perfiles?.[p.cuenta]}
+      perfiles={perfiles.data?.perfiles}
       autor={autor}
       tema={tema}
       onTema={cambiarTema}
@@ -1164,10 +1427,15 @@ export default function Semana() {
           // Solo mis posts: uno debajo de otro y ya abiertos, para leerlos seguidos.
           <div className="space-y-5">
             {enOrden
-              .filter((p) => p.cuenta === miCuenta && (!filtro || p.objetivo === filtro))
+              .filter((p) => esDe(p, miCuenta) && (!filtro || p.objetivo === filtro))
               .map((p) => (
                 <article key={p.id} className="bg-bg-card border border-border rounded-xl p-4 sm:p-6 space-y-5">
                   <header className="space-y-1.5">
+                    {esColaborativo(p) && (
+                      <div className="pb-1">
+                        <Firma post={p} perfiles={perfiles.data?.perfiles} />
+                      </div>
+                    )}
                     <p className="text-[13px] text-text-muted first-letter:uppercase">
                       {diaLargo(p.fecha)}
                       {p.pilar ? ` · ${p.pilar}` : ''}
@@ -1195,35 +1463,62 @@ export default function Semana() {
               </div>
             ))}
 
-            {dias.map((dia) => (
-              <div key={dia} className="md:contents space-y-3">
-                <p className="font-display text-[17px] font-semibold text-text-primary md:pt-3 border-b-2 border-text-primary md:border-0 pb-1 md:pb-0">
-                  {diaCorto(dia)}
-                </p>
-                {visibles.map((c) => {
-                  const suyos = posts.filter((p) => p.fecha === dia && p.cuenta === c.id);
-                  if (!suyos.length) {
-                    return (
-                      <div
-                        key={c.id}
-                        className="hidden md:flex min-w-0 rounded-xl border border-dashed border-border p-4 text-[13px] text-text-muted items-center justify-center"
-                      >
-                        Sin post
-                      </div>
-                    );
-                  }
-                  return (
-                    <div key={c.id} className="min-w-0 flex flex-col gap-3">
-                      {suyos.map((p) => (
-                        <div key={p.id} className={`flex-1 transition-opacity ${filtro && p.objetivo !== filtro ? 'opacity-25' : ''}`}>
-                          <Ficha post={p} mio={p.cuenta === miCuenta} onAbrir={() => abrir(p.clave)} />
+            {dias.map((dia) => {
+              const filas = filasDelDia(posts.filter((p) => p.fecha === dia));
+              return (
+                // Cada dia es una subrejilla del calendario: el dia ocupa sus filas a
+                // la izquierda y un colaborativo se estira sobre varias columnas.
+                <div key={dia} className="space-y-3 md:space-y-0 md:col-span-4 md:grid md:grid-cols-subgrid md:gap-3">
+                  <p
+                    style={{ gridColumn: 1, gridRow: `1 / span ${filas.length}` }}
+                    className="font-display text-[17px] font-semibold text-text-primary md:pt-3 border-b-2 border-text-primary md:border-0 pb-1 md:pb-0"
+                  >
+                    {diaCorto(dia)}
+                  </p>
+                  {filas.map((fila, r) =>
+                    fila.map((celda) => {
+                      if (celda.conjunto) {
+                        const p = celda.conjunto;
+                        return (
+                          <FichaConjunta
+                            key={p.id}
+                            post={p}
+                            perfiles={perfiles.data?.perfiles}
+                            mio={esDe(p, miCuenta)}
+                            desde={celda.col}
+                            ancho={celda.ancho}
+                            fila={r + 1}
+                            atenuado={!!filtro && p.objetivo !== filtro}
+                            onAbrir={() => abrir(p.clave)}
+                          />
+                        );
+                      }
+                      const lugar = { gridColumn: celda.col + 2, gridRow: r + 1 };
+                      if (!celda.posts.length) {
+                        return (
+                          <div
+                            key={`${r}-${celda.col}`}
+                            style={lugar}
+                            className="hidden md:flex min-w-0 rounded-xl border border-dashed border-border p-4 text-[13px] text-text-muted items-center justify-center"
+                          >
+                            Sin post
+                          </div>
+                        );
+                      }
+                      return (
+                        <div key={`${r}-${celda.col}`} style={lugar} className="min-w-0 flex flex-col gap-3">
+                          {celda.posts.map((p) => (
+                            <div key={p.id} className={`flex-1 transition-opacity ${filtro && p.objetivo !== filtro ? 'opacity-25' : ''}`}>
+                              <Ficha post={p} mio={p.cuenta === miCuenta} onAbrir={() => abrir(p.clave)} />
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+                      );
+                    })
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
         <p className="text-xs text-text-muted">
@@ -1235,6 +1530,7 @@ export default function Semana() {
         <Visor
           key="visor"
           post={abierto}
+          perfiles={perfiles.data?.perfiles}
           posicion={iAbierto}
           total={enOrden.length}
           onMover={(paso) => {

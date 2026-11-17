@@ -88,7 +88,8 @@ app.use('/mcp', mcpRouter);
 
 // Health check
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  // commit: el que esta desplegado, para esperar a un despliegue sin adivinar.
+  res.json({ status: 'ok', timestamp: new Date().toISOString(), commit: (process.env.RAILWAY_GIT_COMMIT_SHA || '').slice(0, 7) || null });
 });
 
 // Catch-all for unknown API routes

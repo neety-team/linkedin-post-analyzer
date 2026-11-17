@@ -2044,9 +2044,9 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   //     accented letters working (á→Á).
   text = text.replace(/([.!?])(\s+)(\p{Ll})/gu, (_m, p, sp, ch) => `${p}${sp}${ch.toUpperCase()}`);
   const letrasVoz = voice === 'sobrio' ? 1 : 2;
-  // En ingles no se fuerza la palabra alargada sorteada (es castellana): se
-  // deja como mucho una, como la escribio el modelo.
-  if (enIngles) text = limitarEstiradas(text);
+  // En ingles no se alarga ninguna palabra: la alargada es un gesto del
+  // castellano y en ingles sale como errata ("hopee", prueba del 17/11).
+  if (enIngles) text = desestirarTodo(text);
   // 1e. UNA SOLA PALABRA ALARGADA, EN CUALQUIER VOZ (Iker, 2026-09-16). Se
   //     aplica al cuerpo, no al nombre, para que un nombre raro nunca cuente
   //     como la palabra alargada.

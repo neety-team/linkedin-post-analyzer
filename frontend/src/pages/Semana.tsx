@@ -281,17 +281,21 @@ export default function Semana() {
   const semanas = lista.data?.semanas || [];
   const elegida = params.get('s') || semanas[0]?.semana || null;
   const detalle = useApi<SemanaDetalle>(elegida ? `/api/semana/${elegida}` : null);
-  const [autor, setAutor] = useState(leerAutor);
+  // Quien entra por el login de neety.team ya viene identificado: no elige nombre.
+  const yo = useApi<{ identidad: { email: string; nombre: string } | null }>('/api/yo');
+  const identificado = yo.data?.identidad?.nombre || '';
+  const [elegido, setAutor] = useState(leerAutor);
+  const autor = identificado || elegido;
   const [filtro, setFiltro] = useState<Objetivo | ''>('');
   const [todosAbiertos, setTodosAbiertos] = useState(false);
 
   useEffect(() => {
     try {
-      if (autor) localStorage.setItem(CLAVE_AUTOR, autor);
+      if (elegido) localStorage.setItem(CLAVE_AUTOR, elegido);
     } catch {
       /* sin almacenamiento: se elige otra vez la proxima visita */
     }
-  }, [autor]);
+  }, [elegido]);
 
   const posts = useMemo(() => detalle.data?.posts || [], [detalle.data]);
   const dias = useMemo(() => Array.from(new Set(posts.map((p) => p.fecha))).sort(), [posts]);
@@ -398,6 +402,11 @@ export default function Semana() {
 
       <section className="space-y-4" aria-label="Calendario de la semana">
         <div className="flex flex-wrap items-center justify-between gap-3">
+          {identificado ? (
+            <p className="text-[13px] text-text-muted">
+              Entras como <b className="text-text-primary">{identificado}</b>
+            </p>
+          ) : (
           <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Quién eres">
             <span className="text-[13px] text-text-muted">Soy</span>
             {CUENTAS.map((c) => (
@@ -416,6 +425,7 @@ export default function Semana() {
               </button>
             ))}
           </div>
+          )}
           <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar por objetivo">
             <span className="text-[13px] text-text-muted">Ver</span>
             {([['', 'Todos'], ['alcance', 'Alcance'], ['notoriedad', 'Notoriedad'], ['conversion', 'Conversión']] as const).map(

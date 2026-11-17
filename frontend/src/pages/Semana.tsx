@@ -786,6 +786,16 @@ function Visor({
     if (d && !d.open) d.showModal();
   }, []);
 
+  // Escape cierra siempre. El cierre propio del <dialog> no salta si se llega
+  // por un enlace directo al post y se pulsa Escape sin haber tocado nada.
+  useEffect(() => {
+    const alPulsar = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') ref.current?.close();
+    };
+    document.addEventListener('keydown', alPulsar);
+    return () => document.removeEventListener('keydown', alPulsar);
+  }, []);
+
   // Al cambiar de post, arriba del todo.
   useEffect(() => {
     ref.current?.querySelector('[data-cuerpo]')?.scrollTo({ top: 0 });

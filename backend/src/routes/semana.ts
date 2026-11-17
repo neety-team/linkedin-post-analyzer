@@ -172,6 +172,17 @@ router.put('/:semana', async (req: Request, res: Response) => {
     if (posts !== undefined && !Array.isArray(posts)) {
       return res.status(400).json({ error: '`posts` tiene que ser una lista' });
     }
+    // Colaborativos: `coautores` es una lista de cuentas o null. El resto (que
+    // existan y que no repitan a quien publica) lo comprueba guardarSemana.
+    const malCoautores = (posts || []).find(
+      (p: any) =>
+        p?.coautores !== undefined &&
+        p.coautores !== null &&
+        (!Array.isArray(p.coautores) || p.coautores.some((c: unknown) => typeof c !== 'string'))
+    );
+    if (malCoautores) {
+      return res.status(400).json({ error: `\`coautores\` de ${malCoautores.clave} tiene que ser una lista de cuentas` });
+    }
     const r = await guardarSemana(semana, { estado, nota, posts });
     res.json({ ...r, semana: await leerSemana(semana) });
   } catch (err: any) {

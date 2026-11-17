@@ -54,6 +54,14 @@ const postEntrada = z.object({
     .nullable()
     .optional()
     .describe('Qué foto o imagen lleva el post. La foto en sí se sube desde la página /semana'),
+  coautores: z
+    .array(z.enum(CUENTAS))
+    .nullable()
+    .optional()
+    .describe(
+      'Post colaborativo: las OTRAS cuentas que lo firman, sin repetir `cuenta` (que es la que lo publica). ' +
+        'En /semana ocupa las columnas de todas y le sale a cada una. `null` o [] lo deja de una sola cuenta'
+    ),
 });
 
 function renderSemana(s: any): string {
@@ -63,7 +71,7 @@ function renderSemana(s: any): string {
     const pend = p.feedback.filter((f: any) => !f.resuelto).length;
     l.push(
       '',
-      `── ${p.fecha} · ${p.cuenta} · ${p.objetivo}${p.experimento ? ' (experimento)' : ''} · ${p.estado}`,
+      `── ${p.fecha} · ${p.cuenta}${p.coautores?.length ? ` con ${p.coautores.join(' y ')} (colaborativo)` : ''} · ${p.objetivo}${p.experimento ? ' (experimento)' : ''} · ${p.estado}`,
       `   ${p.titulo}${p.pilar ? ' · ' + p.pilar : ''}`,
       `   clave: ${p.clave} · post_id: ${p.id}` + (pend ? ` · feedback pendiente: ${pend}` : ''),
       `   Foto: ${p.tiene_imagen ? 'subida' : 'pendiente'}${p.nota_imagen ? ' · ' + p.nota_imagen : ''}`
@@ -185,7 +193,7 @@ export function registrarToolsSemana(servidor: McpServer): void {
           filas
             .map(
               (f: any) =>
-                `${f.semana} · ${f.fecha} · ${f.cuenta} · ${f.titulo} (${f.pilar || 'sin pilar'}, ${f.objetivo})\n` +
+                `${f.semana} · ${f.fecha} · ${f.cuenta}${f.coautores?.length ? ` con ${f.coautores.join(' y ')}` : ''} · ${f.titulo} (${f.pilar || 'sin pilar'}, ${f.objetivo})\n` +
                 `  ${f.autor}${f.nivel ? ' [' + f.nivel + ']' : ''}${f.resuelto ? ' (resuelto)' : ''}: ${f.texto}\n` +
                 (f.respuesta ? `  ↳ ${f.respuesta}\n` : '') +
                 `  feedback_id: ${f.id} · clave: ${f.clave}`

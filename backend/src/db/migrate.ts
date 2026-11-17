@@ -1316,6 +1316,10 @@ const migracionSemana = `
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen BYTEA;
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen_tipo TEXT;
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen_at TIMESTAMPTZ;
+
+  -- Posts colaborativos (2026-11-17): las otras cuentas que firman el post.
+  -- \`cuenta\` sigue siendo la que lo publica; \`coautores\` nunca la repite.
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS coautores TEXT[] NOT NULL DEFAULT '{}';
 `;
 
 export async function runMigrations() {

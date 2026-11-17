@@ -29,7 +29,7 @@ import reactionsRouter from './routes/reactions';
 import { startPostMonitor } from './services/postMonitor';
 import { startAnuncioChat } from './services/anuncioChat';
 import { startAvisoWebinarLuma } from './services/avisoWebinarLuma';
-import { basicAuthMiddleware } from './middleware/basicAuth';
+import { basicAuthMiddleware, identidadDe } from './middleware/basicAuth';
 import rastroRouter from './routes/rastro';
 import gateProxyRouter from './routes/gateProxy';
 import outliersRouter from './routes/outliers';
@@ -87,6 +87,13 @@ app.use('/api/semana', semanaRouter);
 // hereda el mismo Basic Auth que el resto de la app: el cliente MCP manda la
 // cabecera Authorization y no hay una segunda credencial que mantener.
 app.use('/mcp', mcpRouter);
+
+// Quien esta mirando: la persona, si entro por el login central de neety.team
+// (ver middleware/basicAuth.ts). Con la contraseña compartida no se sabe y va null.
+app.get('/api/yo', (req, res) => {
+  const yo = identidadDe(req);
+  res.json({ identidad: yo ? { email: yo.email, nombre: yo.nombre } : null });
+});
 
 // Health check
 app.get('/api/health', (_req, res) => {

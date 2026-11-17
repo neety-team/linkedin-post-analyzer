@@ -1,0 +1,17 @@
+{
+  // Worker de contenido.neety.team: la puerta de la suite de neety.team delante
+  // del analizador, que sigue en Railway. Ver worker/README.md.
+  "name": "team-contenido",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-08-31",
+  "vars": {
+    "BACKEND_ORIGIN": "https://linkedin-post-analyzer-production.up.railway.app",
+    "AUTH_BASE_URL": "https://auth.neety.team",
+    "APP_SLUG": "contenido"
+  },
+  // El dominio lo gestiona el Worker. Antes del primer deploy hay que borrar en
+  // Cloudflare el CNAME `contenido` que apunta a Railway (ver worker/README.md).
+  "routes": [{ "pattern": "contenido.neety.team", "custom_domain": true }]
+  // Secretos (nunca aqui): INTERNAL_TOKEN y PROXY_SECRET. Sin los dos, el
+  // Worker es un proxy puro y manda la contraseña del backend.
+}

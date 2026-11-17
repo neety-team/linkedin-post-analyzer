@@ -2,6 +2,83 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { timingSafeEqual } from 'crypto';
 
 /**
+ * QUIEN ENTRA (2026-11-17).
+ *
+ * Hay dos puertas, y las dos pasan por este middleware:
+ *
+ * 1. El Worker de `contenido.neety.team` (carpeta `worker/`). Valida la sesion
+ *    del login central de neety.team y reenvia la peticion FIRMADA con
+ *    `X-Proxy-Secret`, mas quien es la persona en `X-Auth-*`. Una peticion
+ *    firmada no necesita contraseña.
+ * 2. La contraseña compartida (Basic Auth), que es lo que habia: sigue valiendo
+ *    para la direccion de Railway, el MCP y los scripts.
+ *
+ * La identidad SOLO se cree si la firma es buena. A cualquier otra peticion se
+ * le borran las cabeceras `X-Auth-*` antes de seguir, para que nadie pueda
+ * presentarse como otro escribiendolas a mano.
+ *
+ * Si `PROXY_SECRET` no esta definido, la puerta 1 no existe y todo funciona
+ * como antes.
+ */
+export interface Identidad {
+  email: string;
+  nombre: string;
+  rol: string | null;
+}
+
+function iguales(a: string, b: string): boolean {
+  const x = Buffer.from(a, 'utf8');
+  const y = Buffer.from(b, 'utf8');
+  if (x.length !== y.length) {
+    timingSafeEqual(y, y); // comparacion de relleno: el tiempo no delata la longitud
+    return false;
+  }
+  return timingSafeEqual(x, y);
+}
+
+function cabecera(req: Request, nombre: string): string {
+  const v = req.headers[nombre];
+  return (Array.isArray(v) ? v[0] : v) || '';
+}
+
+function descodificar(v: string): string {
+  try {
+    return decodeURIComponent(v);
+  } catch {
+    return v;
+  }
+}
+
+/**
+ * Lee la firma del Worker. Devuelve la identidad si la firma es buena y trae
+ * correo; en cualquier otro caso borra las cabeceras de identidad y devuelve
+ * null. La firma se borra siempre: no tiene que viajar mas alla de aqui.
+ */
+function identidadFirmada(req: Request, secreto: string): { firmado: boolean; identidad: Identidad | null } {
+  const firma = cabecera(req, 'x-proxy-secret');
+  const firmado = !!secreto && !!firma && iguales(firma, secreto);
+  delete req.headers['x-proxy-secret'];
+
+  if (!firmado) {
+    for (const k of Object.keys(req.headers)) {
+      if (k.toLowerCase().startsWith('x-auth-')) delete req.headers[k];
+    }
+    return { firmado: false, identidad: null };
+  }
+
+  const email = cabecera(req, 'x-auth-email').trim().toLowerCase();
+  if (!email) return { firmado: true, identidad: null };
+  const nombre = descodificar(cabecera(req, 'x-auth-name')).trim() || email.split('@')[0];
+  const rol = cabecera(req, 'x-auth-role').trim() || null;
+  return { firmado: true, identidad: { email, nombre: nombre.slice(0, 80), rol } };
+}
+
+/** La persona que hace la peticion, si entro por el login central. */
+export function identidadDe(req: Request): Identidad | null {
+  return ((req as any).identidad as Identidad | undefined) || null;
+}
+
+/**
  * HTTP Basic Auth middleware. When both APP_BASIC_USER and APP_BASIC_PASS
  * env vars are set, every request that isn't a CORS preflight or the
  * dedicated /health endpoint is gated behind Basic credentials.
@@ -17,6 +94,12 @@ import { timingSafeEqual } from 'crypto';
 export function basicAuthMiddleware(): RequestHandler {
   const user = (process.env.APP_BASIC_USER || '').trim();
   const pass = (process.env.APP_BASIC_PASS || '').trim();
+  const secretoProxy = (process.env.PROXY_SECRET || '').trim();
+
+  if (secretoProxy) {
+    // eslint-disable-next-line no-console
+    console.log('[auth] PROXY_SECRET definido: se aceptan peticiones firmadas por el Worker de neety.team');
+  }
 
   if (!user || !pass) {
     // eslint-disable-next-line no-console
@@ -24,7 +107,13 @@ export function basicAuthMiddleware(): RequestHandler {
       '[basicAuth] APP_BASIC_USER / APP_BASIC_PASS not set — Basic Auth is DISABLED. ' +
         'Anyone with the URL can use the app. Set both env vars in Railway to enable.'
     );
-    return (_req: Request, _res: Response, next: NextFunction) => next();
+    return (req: Request, _res: Response, next: NextFunction) => {
+      // Sin contraseña (desarrollo local) la identidad se sigue leyendo igual:
+      // solo se cree si viene firmada.
+      const { identidad } = identidadFirmada(req, secretoProxy);
+      if (identidad) (req as any).identidad = identidad;
+      next();
+    };
   }
 
   // Pre-compute the encoded "user:pass" buffer once. Comparing equal-length
@@ -39,6 +128,11 @@ export function basicAuthMiddleware(): RequestHandler {
     // Always let CORS preflights through — the auth header isn't sent on
     // OPTIONS, so blocking it would break browser CORS handshakes.
     if (req.method === 'OPTIONS') return next();
+
+    // Antes que nada: o la peticion viene firmada por el Worker, o se le quita
+    // cualquier identidad que traiga escrita.
+    const { firmado, identidad } = identidadFirmada(req, secretoProxy);
+    if (identidad) (req as any).identidad = identidad;
 
     // Health endpoint open so Railway / uptime checks aren't 401-ing.
     if (req.path === '/health' || req.path === '/api/health') return next();
@@ -55,6 +149,9 @@ export function basicAuthMiddleware(): RequestHandler {
     // porque el fetch de su fichero es a `/api/submit` RELATIVO (su línea 237) y
     // no se toca: servimos SU fichero tal cual, sin fork.
     if (req.path === '/api/submit') return next();
+
+    // Firmada por el Worker: la sesion ya la valido el login central.
+    if (firmado) return next();
 
     const header = req.headers.authorization || '';
     const [scheme, encoded] = header.split(' ');

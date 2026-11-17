@@ -15,6 +15,7 @@ import {
   listarFeedback,
   actualizarFeedback,
 } from '../services/semana';
+import { identidadDe } from '../middleware/basicAuth';
 
 const router = Router();
 
@@ -65,7 +66,10 @@ router.post('/posts/:id/feedback', async (req: Request, res: Response) => {
     const id = param(req, 'id');
     if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
     const { autor, texto } = req.body || {};
-    const fila = await crearFeedback(id, autor, texto);
+    // Si la persona entro por el login central, firma con su nombre real y lo
+    // que mande el navegador en `autor` no cuenta.
+    const yo = identidadDe(req);
+    const fila = await crearFeedback(id, yo ? yo.nombre : autor, texto);
     if (!fila) return res.status(404).json({ error: 'Post no encontrado' });
     res.status(201).json(fila);
   } catch (err: any) {

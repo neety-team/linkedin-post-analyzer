@@ -1926,7 +1926,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # cuerpo lo paga repitiendo "nuevo" junto a lo que trae (clave bucle de --criterio).
     _hueco = re.search(r'\b(algo|lo que|lo [uú]nico|una cosa|qu[eé]|c[oó]mo|por qu[eé]|qui[eé]n\w*|cu[aá]l\w*'
                        r'|si|nunca|jam[aá]s|tanto|tant[oa]s|nadie|ning[uú]n\w*|ni|menos'
-                       r'|el nuevo|la nueva|los nuevos|las nuevas)\b', hook_txt.lower())
+                       r'|el nuevo|la nueva|los nuevos|las nuevas'
+                       # 17/11 (SeedRocket): "nos devuelve el microfono" da por hecho que fue
+                       # nuestro antes y se calla cuando y para que, como el "nuevo" del 11/11.
+                       r'|nos devuelv\w*|nos devolvi\w*)\b', hook_txt.lower())
     chk(bool(_hueco), 'GANCHO: deja un HUECO, algo que no dice (global §2.0)',
         'no encuentro nada que el gancho se calle (algo, lo que, como, por que, a ver si, nunca…). '
         'Caso 22/10: "Nos vamos a San Francisco a presentar una startup vasca ante sus inversores" '
@@ -5634,7 +5637,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # historia/evento el objetivo es autoridad y el nombre conocido (empresa, sitio, quien
         # nos elige) se prioriza en el gancho. Aviso: el script no sabe si la escena tenia uno.
         if HISTORIA_EVENTO:
-            _pal_aut = [w.strip('.,;:!?¿¡"“”«»()') for w in hook_txt.split()[1:]]
+            # La primera palabra se salta porque va en mayuscula siempre, salvo si es una
+            # mencion: "@SeedRocket nos devuelve el microfono…" (17/11) salia sin nombre.
+            _pal_h = hook_txt.split()
+            _pal_aut = [w.strip('.,;:!?¿¡"“”«»()') for w in
+                        (_pal_h if _pal_h and _pal_h[0].startswith('@') else _pal_h[1:])]
             _aut = [w for w in _pal_aut if w and (w.startswith('@') or w[:1].isupper())
                     and not re.match(r'@?neety', w, re.I)]
             chk(bool(_aut), 'HISTORIA/EVENTO: el gancho lleva el NOMBRE FAMOSO de la escena (post-workflow §4.6, 17/11)',

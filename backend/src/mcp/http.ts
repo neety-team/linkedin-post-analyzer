@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { registrarTools } from './tools';
+import { registrarToolsSemana } from './toolsSemana';
 
 /**
  * El MCP servido por HTTP desde el propio backend.
@@ -39,6 +40,7 @@ async function atender(req: Request, res: Response) {
     }
   );
   registrarTools(servidor);
+  registrarToolsSemana(servidor);
 
   const transporte = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
 

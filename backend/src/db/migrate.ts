@@ -1259,6 +1259,59 @@ const migracionTexto = `
     ON posts USING GIN (hook_text gin_trgm_ops);
 `;
 
+/**
+ * LA SEMANA (2026-11-17): calendario de posts y feedback por post.
+ *
+ * Va en su propio bloque y en modo "best-effort", como pg_trgm: la migracion
+ * grande corre ENTERA en cada arranque y un fallo tumba el backend. Estas
+ * tablas son nuevas y solo las usa /api/semana, asi que si algo fallara aqui
+ * la app arranca igual y solo esa pagina devolveria error.
+ */
+const migracionSemana = `
+  CREATE TABLE IF NOT EXISTS semanas (
+    semana TEXT PRIMARY KEY,
+    estado TEXT NOT NULL DEFAULT 'propuesta',
+    nota TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  );
+
+  CREATE TABLE IF NOT EXISTS semana_posts (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    semana TEXT NOT NULL REFERENCES semanas(semana) ON DELETE CASCADE,
+    clave TEXT NOT NULL,
+    fecha DATE NOT NULL,
+    cuenta TEXT NOT NULL,
+    objetivo TEXT NOT NULL,
+    experimento BOOLEAN NOT NULL DEFAULT FALSE,
+    pilar TEXT,
+    titulo TEXT NOT NULL,
+    texto TEXT NOT NULL DEFAULT '',
+    estado TEXT NOT NULL DEFAULT 'idea',
+    vara TEXT,
+    por_que TEXT,
+    falta TEXT,
+    nota_imagen TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (semana, clave)
+  );
+  CREATE INDEX IF NOT EXISTS idx_semana_posts_semana ON semana_posts (semana, fecha);
+
+  CREATE TABLE IF NOT EXISTS semana_feedback (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    post_id UUID NOT NULL REFERENCES semana_posts(id) ON DELETE CASCADE,
+    autor TEXT NOT NULL,
+    texto TEXT NOT NULL,
+    nivel TEXT,
+    resuelto BOOLEAN NOT NULL DEFAULT FALSE,
+    respuesta TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    resuelto_at TIMESTAMPTZ
+  );
+  CREATE INDEX IF NOT EXISTS idx_semana_feedback_post ON semana_feedback (post_id);
+`;
+
 export async function runMigrations() {
   const client = await pool.connect();
   try {
@@ -1282,6 +1335,17 @@ export async function runMigrations() {
     );
   } finally {
     clienteTexto.release();
+  }
+
+  // Best-effort: un fallo aqui deja sin /semana, no rompe el boot.
+  const clienteSemana = await pool.connect();
+  try {
+    await clienteSemana.query(migracionSemana);
+    console.log('Migration (semana) completed successfully');
+  } catch (err: any) {
+    console.warn(`[migrate] las tablas de la semana no se han podido crear (${err?.message}).`);
+  } finally {
+    clienteSemana.release();
   }
 }
 

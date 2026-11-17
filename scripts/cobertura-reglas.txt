@@ -401,3 +401,6 @@ aboutme | 5 Que me falta de aqui huecos a rellenar por el | contexto: huecos; se
 post-workflow | 4.4-PSICOLOGIA EL SEGUNDO EJE DEL MEME QUE LO HA | criterio: motor
 brand-voice | CANONICO UNA IA GENERICA NUNCA ESTA AL NIVEL DE | check: IA generica por debajo de Neety
 post-workflow | 4.5.-4 LA RECETA REPLICABLE CALCAR LA REFERENCIA | criterio: comprador
+global-instructions | 2.2e BANCO DE CONCEPTOS ANTES DEL GANCHO CINCO I | criterio: conceptos
+post-workflow | 4.6-CONCEPTO ANTES DEL GANCHO CINCO CONCEPTOS Y | criterio: conceptos
+post-workflow | 4.6-TEMA-OUTLIER LA SEGUNDA FUENTE DE HISTORIAS | fuera: de dónde sale la idea de una historia (planificación), no el texto del post

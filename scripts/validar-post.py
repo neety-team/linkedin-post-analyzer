@@ -1742,6 +1742,11 @@ CRITERIO = [
     ('punch', '¿Que palabra del gancho para el scroll? Escribe la escalera con su objeto: el neutro -> el elegido -> el que se pasa (criticar -> desmontar -> despellejar). Si no la encuentras, no la hay. Y el verbo del ninja es el del gancho o de su familia (global §2.9, techo en el ninja). ¿Probaste presente, condicional y futuro? (global §2.9-ESCALERA, §2.9b)'),
     # 11/11, auditoria de las recetas: tres criterios que solo vivian en prosa y nadie preguntaba.
     # quemado: CLAUDE.md lo define ("usado por ESA cuenta en sus 3 ultimas") y el script solo ve listas.
+    # 17/11: una historia salio 96/96 con un gancho escrito una sola vez y pulido contra el validador
+    # (`pelea`, palabra del material de quien firma que solo se entendia tras leer el post). La
+    # alternativa buena (`colgar la tiza`, frase hecha reconvertida) salio en cuanto se pidieron
+    # varias. Antes de pulir se escriben 5 conceptos de familias distintas (global §2.2e).
+    ('conceptos', 'Escribe al menos 5 ganchos de familias distintas separados por " | ": la frase hecha reconvertida (colgar las botas -> colgar la tiza), la metafora fisica, el objeto de la escena, el absoluto o refran invertido y la palabra del material de quien firma. ¿Por que gana el elegido? Cuenta el MISMO tema y psicologia de la referencia outlier (la originalidad va en el envoltorio, no en el tema), se entiende SIN leer el cuerpo, se rueda y deja una pregunta abierta. Si cambiaste el gancho, ¿el cuerpo lleva ya la palabra-hilo nueva y no queda nada del concepto viejo? (global §2.2e, post-workflow §4.6-HILO)'),
     ('quemado', '¿El angulo, el concepto o la frase del gancho los uso ESTA cuenta en sus 3 ultimas publicaciones, o es un patron que ya flopeo en ella? (global §2.0b-VENTANA, CLAUDE.md "quemado")'),
     # voz: el registro de cada cuenta (brand-voice §1b) no tiene palabra clave que lo delate.
     ('voz', '¿Suena a ESA cuenta (registro de brand-voice §1b)? En Unai: ¿alguna linea se lee como autoelogio de su papel o mete un refran de ventas a la fuerza? (brand-voice §1b, §0)'),
@@ -1769,6 +1774,8 @@ CRITERIO_PILAR = {
     'motor': {'meme', 'mapa', 'las10', 'los10', 'objeto', 'leadmagnet', 'tarjeta', 'noticia'},
     'remix': {'meme', 'tarjeta'},
     'tesis': {'meme'},
+    # 17/11: el gancho del peloteo es estructura (global §2.2e).
+    'conceptos': {'meme', 'leadmagnet', 'historia', 'noticia', 'tarjeta', 'evento', 'entregable'},
 }
 HISTORIA_EVENTO = False
 
@@ -6777,6 +6784,9 @@ def main():
         # La escalera del gancho no vale como frase suelta: tres peldaños o no esta hecha.
         if 'punch' not in _falta and len(re.findall(r'→|->', _resp.get('punch', ''))) < 2:
             _falta.append('punch')
+        # Los conceptos van en lista: 5 ganchos separados por ' | ' o no se probaron (17/11).
+        if any(k == 'conceptos' for k, _q in CRITERIO) and 'conceptos' not in _falta and _resp.get('conceptos', '').count(' | ') < 4:
+            _falta.append('conceptos')
         # La emocion se nombra: si la respuesta no dice curiosidad, miedo o deseo, no esta contestada (11/11).
         if 'emocion' not in _falta and not re.search(r'curiosidad|miedo|deseo', _resp.get('emocion', ''), re.I):
             _falta.append('emocion')

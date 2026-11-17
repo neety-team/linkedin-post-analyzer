@@ -1,7 +1,7 @@
 // AUDITORIA DE LA SECCION ACCOUNTS (Iker, 2026-09-17): produccion contra
 // LinkedIn en vivo y coherencia interna. SOLO LECTURAS.
 //   npx tsx src/scripts/auditoriaAccounts.ts
-// Necesita APP_BASIC_USER / APP_BASIC_PASS y las variables de Unipile.
+// Necesita API_TOKEN (el token de maquina del backend) y las variables de Unipile.
 // Compara: cifras de cuenta (resumen, series diarias, seguidores), cada post de
 // los ultimos 30 dias contra su pagina de analiticas, y que KPIs, tabla por
 // cuenta, graficas y listas cuadren entre si. LinkedIn a veces devuelve una
@@ -10,7 +10,7 @@ import { fetchPremiumAnalytics } from '../services/premiumAnalytics';
 import { fetchResumenLinkedIn, fetchSeriesDiarias, fetchSeguidoresDiarios } from '../services/linkedinOverview';
 
 const B = 'https://linkedin-post-analyzer-production.up.railway.app';
-const AUTH = 'Basic ' + Buffer.from(`${process.env.APP_BASIC_USER}:${process.env.APP_BASIC_PASS}`).toString('base64');
+const AUTH = `Bearer ${process.env.API_TOKEN || ''}`;
 const api = async (u: string): Promise<any> => (await fetch(B + u, { headers: { Authorization: AUTH } })).json();
 const pausa = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const hoy = new Date();

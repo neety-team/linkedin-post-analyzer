@@ -69,7 +69,7 @@ Carga `docs/skills/email-marketing.md` **más** `aboutme.md`, `brand-voice.md` y
 - `POST {BASE}/api/v1/linkedin/search?account_id=…` con `{"api":"classic","category":"people","company":["{id}"]}` → directivos de una empresa
 - `GET {BASE}/api/v1/posts/{linkedin_post_id}/comments?account_id=…&limit=50` → **el texto de los comentarios de cualquier post** (la BD no los guarda). Es la prueba del lead magnet: si una palabra sale en ≥50-60% de los comentarios, es comment-gated (`outliers-database §3.9b`).
 
-**Backend propio (Railway)** — outliers reales, imágenes de nuestros posts y la BD cross-creator de la competencia. Basic Auth con `APP_BASIC_USER` / `APP_BASIC_PASS`. ✅ **Ya están en el entorno, verificado 2026-07-14** (`/api/creators` responde 200). Si algún día dan 401, pídeselas al usuario como variables de entorno, nunca pegadas en el chat.
+**Backend propio (Railway)** — outliers reales, imágenes de nuestros posts y la BD cross-creator de la competencia. Se entra con el token de máquina, `Authorization: Bearer $API_TOKEN` (variable `API_TOKEN` del entorno). **Desde el 2026-11-17 no hay contraseña compartida:** las personas entran por la suite de neety.team (`contenido.neety.team`) y las máquinas con este token. Si da 401, pídeselo al usuario como variable de entorno, nunca pegado en el chat.
 - `GET /api/creators` · `GET /api/creators/{id}/posts?outliers_only=true&limit=60` · `GET /api/analysis/{id}/stats`
 - `GET /api/analysis/cross-creators` — los ~1.894 outliers de la competencia (el Paso 2 de la receta de lead magnet los pide)
 - `GET /api/posts/post/{id}/media` + `POST /api/posts/post/{id}/refresh-media` (las URLs de LinkedIn caducan y dan 403)

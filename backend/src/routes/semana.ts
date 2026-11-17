@@ -15,7 +15,7 @@ import {
   listarFeedback,
   actualizarFeedback,
 } from '../services/semana';
-import { identidadDe } from '../middleware/basicAuth';
+import { identidadDe } from '../middleware/acceso';
 
 const router = Router();
 

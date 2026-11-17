@@ -3,7 +3,9 @@
 //
 // POR QUÉ UN PROXY Y NO UNA LLAMADA DESDE EL NAVEGADOR: el roaster entero va
 // detrás de Basic Auth, y esas credenciales no pueden bajar al front. Aquí sí
-// viven (mismas APP_BASIC_USER / APP_BASIC_PASS que el resto).
+// viven: ROASTER_USER / ROASTER_PASS. Son las de la app del ROASTER, no las de
+// esta, que ya no tiene contraseña (2026-11-17). Mientras no se definan, se
+// usan APP_BASIC_USER / APP_BASIC_PASS, que es donde estaban.
 //
 // EL DETALLE QUE HACE QUE ESTO FUNCIONE, y que conviene no romper: la app está
 // cerrada pero **las páginas /r/{shareId} son PÚBLICAS**. Verificado: `/` da 401
@@ -53,10 +55,10 @@ export interface RoastResult {
 }
 
 export async function roastProfile(input: RoastInput): Promise<RoastResult> {
-  const user = process.env.APP_BASIC_USER;
-  const pass = process.env.APP_BASIC_PASS;
+  const user = process.env.ROASTER_USER || process.env.APP_BASIC_USER;
+  const pass = process.env.ROASTER_PASS || process.env.APP_BASIC_PASS;
   if (!user || !pass) {
-    throw new Error('Faltan APP_BASIC_USER / APP_BASIC_PASS: son las credenciales del roaster');
+    throw new Error('Faltan ROASTER_USER / ROASTER_PASS: son las credenciales de la app del roaster');
   }
 
   const res = await fetch(`${BASE}/api/analyze`, {

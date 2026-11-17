@@ -10,8 +10,8 @@ lunes (`historial-publicaciones`, auditoría fija).
 Uso:  python scripts/refrescar-creadores.py            # todos
       python scripts/refrescar-creadores.py --viejos 7 # solo los no actualizados en 7 días
 
-Basic Auth con APP_BASIC_USER / APP_BASIC_PASS del entorno, como el resto de
-scripts. Concurrencia 3, igual que el Panel: más tropieza con el límite de
+Entra con API_TOKEN (el token de maquina del backend), del entorno, como el
+resto de scripts. Concurrencia 3, igual que el Panel: más tropieza con el límite de
 Unipile.
 """
 import argparse
@@ -30,8 +30,8 @@ BASE = 'https://linkedin-post-analyzer-production.up.railway.app'
 
 
 def _req(path, method='GET', timeout=600):
-    tok = base64.b64encode(f"{os.environ['APP_BASIC_USER']}:{os.environ['APP_BASIC_PASS']}".encode()).decode()
-    r = urllib.request.Request(BASE + path, method=method, headers={'Authorization': 'Basic ' + tok})
+    r = urllib.request.Request(BASE + path, method=method,
+                               headers={'Authorization': 'Bearer ' + os.environ['API_TOKEN']})
     with urllib.request.urlopen(r, timeout=timeout) as resp:
         body = resp.read()
         return resp.status, (json.loads(body) if body else None)

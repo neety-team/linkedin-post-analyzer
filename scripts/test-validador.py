@@ -199,8 +199,7 @@ CASOS = [
 
 def bajar(cuenta: str) -> list:
     req = urllib.request.Request(f'{BASE}/api/creators/{CREADORES[cuenta]}/posts?limit=200')
-    cred = f"{os.environ['APP_BASIC_USER']}:{os.environ['APP_BASIC_PASS']}"
-    req.add_header('Authorization', 'Basic ' + base64.b64encode(cred.encode()).decode())
+    req.add_header('Authorization', 'Bearer ' + os.environ['API_TOKEN'])
     return json.load(urllib.request.urlopen(req, timeout=90))['posts']
 
 
@@ -211,8 +210,8 @@ def main() -> int:
             _f.reconfigure(encoding='utf-8', errors='replace')
         except Exception:
             pass
-    if not os.environ.get('APP_BASIC_USER'):
-        print('Faltan APP_BASIC_USER / APP_BASIC_PASS en el entorno.', file=sys.stderr)
+    if not os.environ.get('API_TOKEN'):
+        print('Falta API_TOKEN (el token de maquina del backend) en el entorno.', file=sys.stderr)
         return 2
     cache, tmp, malo = {}, os.path.join(os.environ.get('TMP', '/tmp'), '_reg.txt'), False
     for caso in CASOS:

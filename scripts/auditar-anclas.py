@@ -37,13 +37,13 @@ def main():
     ap.add_argument('--peloteo', action='store_true', help='solo peloteos (por defecto se excluyen)')
     ap.add_argument('--ultimos', type=int, default=5)
     a = ap.parse_args()
-    auth = (os.environ['APP_BASIC_USER'], os.environ['APP_BASIC_PASS'])
+    cab = {'Authorization': 'Bearer ' + os.environ['API_TOKEN']}
 
     filas = []
     for nombre, cid in CUENTAS.items():
         if a.cuenta and a.cuenta != nombre:
             continue
-        posts = requests.get(f'{BASE}/api/creators/{cid}/posts?limit=300', auth=auth, timeout=120).json()['posts']
+        posts = requests.get(f'{BASE}/api/creators/{cid}/posts?limit=300', headers=cab, timeout=120).json()['posts']
         vistos = set()
         for p in posts:
             dia = str(p['published_at'])[:10]

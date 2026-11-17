@@ -2,7 +2,7 @@
 
 Uso:  python scripts/auditar-ninjas.py [--dias 60] [--desde 2026-09-25]
 
-Lee de la BD (Basic Auth del entorno) los posts de las 3 cuentas, saca el bloque
+Lee de la BD (con API_TOKEN, del entorno) los posts de las 3 cuentas, saca el bloque
 del ninja (las dos lineas del enlace), lo clasifica por dolor con las mismas
 reglas que validar-post.py y saca una tabla por PILAR y DOLOR: posts, clics,
 impresiones y CTR mediano. Es la pieza fija de la revision de los lunes
@@ -32,14 +32,13 @@ def bajar_posts():
     import base64
     import json
     import urllib.request
-    u, pw = os.environ.get('APP_BASIC_USER'), os.environ.get('APP_BASIC_PASS')
-    if not (u and pw):
-        sys.exit('faltan APP_BASIC_USER/APP_BASIC_PASS en el entorno')
-    auth = base64.b64encode(f'{u}:{pw}'.encode()).decode()
+    tok = os.environ.get('API_TOKEN')
+    if not tok:
+        sys.exit('falta API_TOKEN (el token de maquina del backend) en el entorno')
     posts = []
     for quien, cid in vp.BD_CREADORES.items():
         req = urllib.request.Request(f'{vp.BD_BASE}/api/creators/{cid}/posts?limit=200',
-                                     headers={'Authorization': 'Basic ' + auth})
+                                     headers={'Authorization': 'Bearer ' + tok})
         with urllib.request.urlopen(req, timeout=30) as resp:
             for x in json.load(resp).get('posts', []):
                 x['_cuenta'] = quien

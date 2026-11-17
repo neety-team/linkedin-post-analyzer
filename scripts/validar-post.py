@@ -1464,15 +1464,15 @@ def _palabras_eco(t):
 def eco_reciente(cuerpo, dias=14, hoy=None):
     """Devuelve (lista de ecos, error). Cada eco: (palabra, cuenta, fecha, linea)."""
     import json, base64, urllib.request
-    u, p = os.environ.get('APP_BASIC_USER'), os.environ.get('APP_BASIC_PASS')
-    if not (u and p):
-        return None, 'faltan APP_BASIC_USER/APP_BASIC_PASS en el entorno'
-    auth = base64.b64encode(f'{u}:{p}'.encode()).decode()
+    tok = os.environ.get('API_TOKEN')
+    if not tok:
+        return None, 'falta API_TOKEN (el token de maquina del backend) en el entorno'
+    auth = 'Bearer ' + tok
     posts = []
     try:
         for quien, cid in BD_CREADORES.items():
             req = urllib.request.Request(f'{BD_BASE}/api/creators/{cid}/posts?limit=120',
-                                         headers={'Authorization': 'Basic ' + auth})
+                                         headers={'Authorization': auth})
             with urllib.request.urlopen(req, timeout=20) as resp:
                 for x in json.load(resp).get('posts', []):
                     posts.append((quien, (x.get('published_at') or '')[:10], x.get('content_text') or ''))
@@ -1567,13 +1567,13 @@ def ganchos_recientes(cuenta, n=3):
     """[(fecha, pilar, gancho)] de los ultimos posts de esa cuenta, del mas nuevo al mas viejo."""
     import json, base64, urllib.request
     cid = BD_CREADORES.get((cuenta or '').strip().capitalize())
-    u, pw = os.environ.get('APP_BASIC_USER'), os.environ.get('APP_BASIC_PASS')
-    if not (cid and u and pw):
+    tok = os.environ.get('API_TOKEN')
+    if not (cid and tok):
         return None
-    auth = base64.b64encode(f'{u}:{pw}'.encode()).decode()
+    auth = 'Bearer ' + tok
     try:
         req = urllib.request.Request(f'{BD_BASE}/api/creators/{cid}/posts?limit=20',
-                                     headers={'Authorization': 'Basic ' + auth})
+                                     headers={'Authorization': auth})
         with urllib.request.urlopen(req, timeout=20) as resp:
             posts = json.load(resp).get('posts', [])
     except Exception:
@@ -1607,16 +1607,16 @@ def unidades_de(zona):
 def ninjas_recientes(dias=21, hoy=None, extraer=None):
     """[(cuenta, fecha, ninja)] de las 3 cuentas, sin repetir resubidas. Con extraer=zona_ninja, la zona."""
     import json, base64, urllib.request
-    u, pw = os.environ.get('APP_BASIC_USER'), os.environ.get('APP_BASIC_PASS')
-    if not (u and pw):
+    tok = os.environ.get('API_TOKEN')
+    if not tok:
         return None
-    auth = base64.b64encode(f'{u}:{pw}'.encode()).decode()
+    auth = 'Bearer ' + tok
     hoy = hoy or datetime.date.today()
     out, vistos = [], set()
     try:
         for quien, cid in BD_CREADORES.items():
             req = urllib.request.Request(f'{BD_BASE}/api/creators/{cid}/posts?limit=60',
-                                         headers={'Authorization': 'Basic ' + auth})
+                                         headers={'Authorization': auth})
             with urllib.request.urlopen(req, timeout=20) as resp:
                 for x in json.load(resp).get('posts', []):
                     f = (x.get('published_at') or '')[:10]

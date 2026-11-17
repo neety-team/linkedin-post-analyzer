@@ -2183,7 +2183,7 @@ venta en 9 días y uno de después.**
 | mar 22 | `El mercado no paga el esfuerzo` | caso (480 vídeos, 3 libros, <1.000 €) |
 | mié 23 | `2 mujeres` | caso |
 | jue 24 | `El peligro de pagar para que más gente vea algo que todavía no sabes vender` | caso (la escritora desconocida) |
-| vie 25 | `Explicar te hace vender menos` | caso (el método que parece "una gilipollez" antes de probarlo) |
+| vie 25 | `Explicar te hace vender menos` | caso (el método que parece una tontería antes de probarlo) |
 | sáb 26 | `Último día. Y 9 poderosas razones` | **el índice: 9 viñetas, y al menos 6 son los casos de los correos anteriores** |
 | dom 27 | `Ganador del concurso.` | cerrado ya: **no vende lo suyo, cede el correo a otro** |
 

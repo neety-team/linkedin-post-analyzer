@@ -539,6 +539,13 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 > ### 6 · Cuando el cuadrado no puede con todo, se DICE
 > En una foto de grupo ancha el cuadrado no da para todos. Se elige el subgrupo que sostiene el sentido de la foto y **se declara en la entrega a quién se ha dejado fuera**, para que sea una decisión y no un descuido. Casos reales: `unai equipo salon` y `unai equipo cafe` pierden a las personas del extremo opuesto.
 
+## 🖥️ 0b-PANTALLA · UNA PANTALLA CON TEXTO QUE NO QUEREMOS EN UNA FOTO REAL: PHOTOSHOP, NO GENERADOR (2026-11-17)
+*(criterio de imagen, n=1, sin medir)* La foto de escenario del año pasado de una historia/evento llevaba una diapositiva vieja del producto. Se pidió al generador que dejara la pantalla en azul liso con el logo, y salió falsa por tres cosas:
+- **Reescribe todo el texto pequeño del fondo**, aunque no se le pida: los roll-ups de terceros salieron en galimatías (`leen financre`, `dr tantor d`). Es lo primero que delata la edición.
+- **La pantalla queda demasiado limpia** para una foto de móvil: logo enorme y nítido, sin el brillo ni el desenfoque leve del resto de la foto.
+- **Retoca a la persona** aunque no se le toque (por eso el cuerpo siempre se recupera del original con máscara).
+**La vía buena es Photoshop sobre el original:** (1) lazo poligonal a las 4 esquinas de la pantalla y restar a la persona con Seleccionar sujeto; (2) en una capa nueva, rellenar con el color de la propia pantalla (cuentagotas) y Desenfoque gaussiano fuerte para conservar el degradado y los reflejos; (3) el logo oficial blanco a ~40% del ancho de la pantalla, deformado con Transformar › Distorsionar a la perspectiva, con opacidad 85-90%, un desenfoque de 0,5-1 px y un poco de ruido para igualar el grano; (4) revisar al 100% el borde de la cabeza y la mano; (5) recorte 4:5 y exportar sin metadatos. Si se usa el generador, de su imagen solo se aprovecha la pantalla y el resto vuelve del original.
+
 ## 🚨 0a-CAPADO · LINKEDIN CAPA POSTS SUELTOS, Y HAY QUE SABER RECONOCERLO (Iker, 2026-08-06)
 
 **El capado es POR POST, no por cuenta ni por dispositivo.** Iker lo vio antes que yo: *"ya nos pasó la semana pasada con Asier y solo fue con el post del meme, con el resto de cuentas fueron bien"*. Yo había apuntado a las 4 cuentas del mismo equipo interactuando desde la misma wifi, y **eso no lo explica**: si fuera el dispositivo, habrían caído las tres cuentas a la vez, y no pasó.

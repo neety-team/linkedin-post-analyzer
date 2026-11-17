@@ -192,6 +192,11 @@ CASOS += [
     ('Nunca había rezado tanto para que saliera bien una demo de ventas 🙏\n\n' + CUERPO_ASIER,
      '15/10: "siendo jefes, publicamente no quieren dar a entender cosas como nunca habia rezado"',
      'el gancho no se hace de menos', FLAGS_ASIER),
+    # 17/11, historia/evento de SeedRocket (Unai): la casa como victima de otro en el gancho
+    # es otra forma de hacerse de menos (brand-voice §1b). Lo humilde, al cuerpo.
+    ('Un año después de desmontarnos, @SeedRocket nos sienta ante sus inversores 🔧\n\n' + CUERPO_ASIER,
+     '17/11: en el gancho del primer jefe la casa no puede salir desmontada por otro',
+     'como la VICTIMA de otro', ['--pilar', 'historia', '--cuenta', 'unai', '--historia-evento']),
     # 16/10: la v1 aprobada salio en verde con 6 sueltas seguidas (77% de sueltas) porque
     # el check de ciclo empujaba a "meter lineas sueltas seguidas" y no habia techo.
     ("""Nunca vi a un comercial vender más por tener más empresas 👇

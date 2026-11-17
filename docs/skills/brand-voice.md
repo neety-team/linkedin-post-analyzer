@@ -97,6 +97,7 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 - **Corrige lo de arriba y lo de otros ficheros:** la tabla del intensificador listaba `lo último que me imaginaba`, y su historia del 21/08 (`jamás me imaginé…`) sale como ejemplo en `global §2.2c`, `§2.3d` y `post-workflow §4.6`. Funcionó (6.788 imp, 0,678% CTR), pero en su cuenta manda su preferencia: ese molde ya no se le propone.
 - **Solo Unai.** En el resto de cuentas, el superlativo de incredulidad de `global §2.3d` sigue en pie.
 - **Mecanizado:** con `--cuenta unai`, `validar-post.py` falla si el gancho lleva `jamás`/`nunca` + `pensé`/`imaginé`/`me imaginé`/`creí`.
+- **🔄 17/11 · Tampoco de VÍCTIMA de otro en el gancho (Unai y Asier).** *(criterio de imagen del jefe, sin medir)* Es la misma psicología por otra puerta: la casa como la que recibe el golpe (`Un año después de desmontarnos, @SeedRocket nos sienta ante sus inversores`, tumbado: `nos desmontaron`, `nos examinaban`, `nos tumbaron`). El gancho cuenta el hecho grande desde nuestro lado (`Volvemos ante los inversores de @SeedRocket sin nada que pedirles`). Lo humilde puede ir en el cuerpo (`Una semana pidiendo tiempo a sus mentores.`). **Mecanizado:** fallo duro `la casa no va en el gancho como la VICTIMA de otro` con `--cuenta unai|asier`; el gancho tumbado está en `scripts/test-borradores-tumbados.py`.
 
 #### 👑 ASIER TAMBIÉN VA GRANDIOSO: NI HUMILDE NI PREPOTENTE (Iker, 2026-10-15) — MANDA SOBRE `§2.0c-PRESUMIR` EN SU CUENTA
 

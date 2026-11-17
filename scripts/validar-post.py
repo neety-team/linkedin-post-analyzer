@@ -2095,6 +2095,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             (f'"{_incredulo.group(0)}": es la psicologia de sorprenderse de haber llegado, y en esa '
              'cuenta no encaja. Cuenta el hecho grande en firme ("Defendi ante mas de 100 personas que...")')
             if _incredulo else '')
+        # 👑 2026-11-17, historia/evento de SeedRocket (Unai): "Un año después de desmontarnos,
+        # @SeedRocket nos sienta ante sus inversores" se tumbo. La casa no va en el gancho
+        # como la que recibe el golpe de otro (nos desmontaron, nos examinaban, nos
+        # tumbaron): es otra forma de hacerse de menos. Lo humilde puede ir en el cuerpo.
+        _victima = (re.search(r'\bnos\s+(desmont|examin|tumb|suspend|machac|destroz|pisote|rechaz|humill|aplast|despedaz|ningune|pill|pusieron\s+a\s+prueba)\w*', hook_txt, re.I)
+                    or re.search(r'\b(desmont|examin|tumb|suspend|machac|destroz|pisote|rechaz|humill|aplast|despedaz|ningune)\w*(arnos|ernos|irnos|ndonos)\b', hook_txt, re.I))
+        chk(not _victima, f'{_cta_grande.upper()}: la casa no va en el gancho como la VICTIMA de otro (brand-voice §1b)',
+            (f'"{_victima.group(0)}": en el gancho la casa no recibe el golpe de nadie. Cuenta el hecho '
+             'grande desde nuestro lado ("Volvemos ante los inversores de X sin nada que pedirles"); '
+             'lo humilde, si hace falta, va en el cuerpo')
+            if _victima else '')
     # 🥇 EL GRAN DIA, NO UN GRAN DIA (2026-10-30): con el indefinido el momento es uno de
     # tantos; con el definido es EL momento, y eso es lo grandioso. Fallo en las cuentas
     # que van a lo grande (Unai y Asier), aviso en el resto. Solo con nombres de momento:

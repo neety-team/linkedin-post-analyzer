@@ -188,9 +188,11 @@ Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. *
 
 ## 🔴 0a-penta · DESPUES DE TODO PROMPT DE IMAGEN, EL RECORDATORIO DE POSTPRODUCCION (Iker, 2026-07-27)
 
+> 🧰 **Desde el 2026-11-17 la herramienta de retoque es PhotoCraft, no Photoshop** (gratuita en el ordenador del equipo). Todos los avisos de postproducción (desenfoque de superficie, exportar sin metadatos, pasar el magenta a transparente, mover un elemento) se dan con PhotoCraft. ⚠️ Los nombres de menú que cita esta skill (`Exportar como`, `Metadatos: Ninguno`, `desenfoque de superficie`) son los de Photoshop y no están comprobados en PhotoCraft: si allí se llaman distinto, se anota aquí el nombre real. Las menciones a Photoshop que quedan en casos pasados son historia.
+
 **Siempre que entregues un prompt de imagen — de calca, de edicion, de cero, de cualquier pilar — justo DEBAJO del bloque del prompt va este aviso en rojo, sin excepcion:**
 
-> ⚠️ **AVISO, MARIO: acuérdate de aplicar el desenfoque de superficie en Photoshop y de exportar sin metadatos con Exportar como.**
+> ⚠️ **AVISO, MARIO: acuérdate de aplicar el desenfoque de superficie en PhotoCraft y de exportar sin metadatos con Exportar como.**
 
 **⛔⛔ EL LITERAL Y EL EMOJI SON EXACTAMENTE ESOS, Y NO ES UN DETALLE DE ESTILO (Iker, 2026-08-18).** Yo venía entregándolo con `⚙️` y con la palabra *postproducción*, que se lee como un paso técnico opcional. Iker: *"si me pones ese emoji de un engranaje no me parece algo urgente, y si un día estoy agobiado o despistado puede que no lo note. Es muy importante que me pongas el emoji del triángulo amarillo y textualmente aviso, Mario, dos puntos, o cuidado, Mario, dos puntos"*.
 
@@ -221,10 +223,10 @@ Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. *
   - **Pieza de DISEÑO generada** (infografia, tabla, ilustracion, portada): **radio 8, umbral 12**. Mata el acabado de render.
   - **ROSTRO fotorrealista**: **radio 1, umbral 12**. Quita el ruido del generador **y la piel sigue con su poro y su textura**. Con radio 8 el rostro SI se cartoniza y parece un dibujo, que es de donde salio la regla vieja.
   - **🔴 CORRECCION DE MI REGLA ANTERIOR.** El 30/07 escribi *"el desenfoque NO va en las fotos realistas de personas"* y lo convertí en un si-o-no. **Estaba mal planteado: la variable no era si aplicarlo, era el RADIO.** Iker lo probo el 31/07 y con radio 1 funciona. **Algo hay que aplicarle siempre**, porque todo lo que sale del generador lleva su ruido; lo que no vale es aplicarle el mismo valor a una infografia y a una cara. **Leccion de fondo: cuando una tecnica "estropea" algo, mira primero sus parametros antes de prohibirla entera.**
-- **Exportar sin metadatos → SIEMPRE que la imagen haya pasado por un GENERADOR o por PHOTOSHOP.** Eso va de la firma del generador, no del aspecto. **Se hace con `Archivo > Exportar > Exportar como` y `Metadatos: Ninguno`.** NUNCA con `Guardar como`, que los arrastra.
+- **Exportar sin metadatos → SIEMPRE que la imagen haya pasado por un GENERADOR o por PHOTOCRAFT.** Eso va de la firma del generador, no del aspecto. **Se hace con `Archivo > Exportar > Exportar como` y `Metadatos: Ninguno`.** NUNCA con `Guardar como`, que los arrastra.
 - **🚫 PERO NO EN UNA CAPTURA DE PANTALLA, Y EL MAPA ES EL CASO (Iker, 2026-07-31).** Iker pregunto si convenia limpiar tambien la imagen del mapa, que sale de PamPam. **No.** Y el porque importa mas que la respuesta: **PamPam es una web, no un fichero**, asi que no incrusta nada. Los metadatos de esa imagen los pone **la herramienta de captura**, y Recortes de Windows deja dimensiones y resolucion, nada mas: ni camara, ni GPS, ni autor, ni firma de generador. **Los dos metadatos que nos perjudican de verdad son (a) las marcas de procedencia de IA tipo C2PA, que solo mete un generador, y (b) lo que escribe Photoshop, que ademas arrastra los campos del fichero original.** Una captura de tu propia pantalla no tiene ninguna de las dos. **Evidencia:** todos los mapas se han subido tal cual desde siempre y varios son virales, incluido el 12.92x de Gipuzkoa. Añadir el paso no arregla nada y mete friccion justo al publicar.
-  - **Unica excepcion:** si la captura se abre en Photoshop para recortarla o retocarla, entonces si se exporta sin metadatos, porque **el que ensucia es Photoshop, no PamPam**.
-  - **La regla general que se saca de aqui:** el disparador de limpiar metadatos **no es "voy a subir una imagen"**, es **"esta imagen ha pasado por un generador o por Photoshop"**. Si no ha pasado por ninguno de los dos, no hay nada que limpiar.
+  - **Unica excepcion:** si la captura se abre en PhotoCraft para recortarla o retocarla, entonces si se exporta sin metadatos, porque **el que ensucia es PhotoCraft, no PamPam**.
+  - **La regla general que se saca de aqui:** el disparador de limpiar metadatos **no es "voy a subir una imagen"**, es **"esta imagen ha pasado por un generador o por PhotoCraft"**. Si no ha pasado por ninguno de los dos, no hay nada que limpiar.
   - **Y el hueco que deja ese aviso en el mapa NO se queda vacio: se sustituye por el del ENCUADRE** (`post-workflow §4.2`), en **UNA sola linea**: logos grandes y bien espaciados, y si alguno queda muy lejos, moverle la ubicacion a mano en PamPam. Ahi la imagen ES el contenido, y la captura la hace el usuario, asi que es el unico punto del pilar que yo no puedo verificar.
 - **⚠️ OJO, SON DOS MENUS DISTINTOS Y ES FACIL BUSCARLO EN EL SITIO EQUIVOCADO** (Iker, 2026-07-30): **calidad → `Guardar para web`** · **metadatos → `Exportar como`**. En un meme hacen falta los dos. *(Atajo: `Guardar para web` tambien trae su propio desplegable de `Metadatos`, asi que si lo pones a `Ninguno` ahi te ahorras el segundo paso.)*
 - **🚨🚨 LA DEGRADACIÓN A PROPÓSITO ESTÁ EN CUARENTENA (medido el 2026-08-04). NO la apliques hasta nuevo aviso.**
@@ -539,12 +541,12 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 > ### 6 · Cuando el cuadrado no puede con todo, se DICE
 > En una foto de grupo ancha el cuadrado no da para todos. Se elige el subgrupo que sostiene el sentido de la foto y **se declara en la entrega a quién se ha dejado fuera**, para que sea una decisión y no un descuido. Casos reales: `unai equipo salon` y `unai equipo cafe` pierden a las personas del extremo opuesto.
 
-## 🖥️ 0b-PANTALLA · UNA PANTALLA CON TEXTO QUE NO QUEREMOS EN UNA FOTO REAL: PHOTOSHOP, NO GENERADOR (2026-11-17)
+## 🖥️ 0b-PANTALLA · UNA PANTALLA CON TEXTO QUE NO QUEREMOS EN UNA FOTO REAL: PHOTOCRAFT, NO GENERADOR (2026-11-17)
 *(criterio de imagen, n=1, sin medir)* La foto de escenario del año pasado de una historia/evento llevaba una diapositiva vieja del producto. Se pidió al generador que dejara la pantalla en azul liso con el logo, y salió falsa por tres cosas:
 - **Reescribe todo el texto pequeño del fondo**, aunque no se le pida: los roll-ups de terceros salieron en galimatías (`leen financre`, `dr tantor d`). Es lo primero que delata la edición.
 - **La pantalla queda demasiado limpia** para una foto de móvil: logo enorme y nítido, sin el brillo ni el desenfoque leve del resto de la foto.
 - **Retoca a la persona** aunque no se le toque (por eso el cuerpo siempre se recupera del original con máscara).
-**La vía buena es Photoshop sobre el original:** (1) lazo poligonal a las 4 esquinas de la pantalla y restar a la persona con Seleccionar sujeto; (2) en una capa nueva, rellenar con el color de la propia pantalla (cuentagotas) y Desenfoque gaussiano fuerte para conservar el degradado y los reflejos; (3) el logo oficial blanco a ~40% del ancho de la pantalla, deformado con Transformar › Distorsionar a la perspectiva, con opacidad 85-90%, un desenfoque de 0,5-1 px y un poco de ruido para igualar el grano; (4) revisar al 100% el borde de la cabeza y la mano; (5) recorte 4:5 y exportar sin metadatos. Si se usa el generador, de su imagen solo se aprovecha la pantalla y el resto vuelve del original.
+**La vía buena es PhotoCraft sobre el original:** (1) lazo poligonal a las 4 esquinas de la pantalla y restar a la persona con Seleccionar sujeto; (2) en una capa nueva, rellenar con el color de la propia pantalla (cuentagotas) y Desenfoque gaussiano fuerte para conservar el degradado y los reflejos; (3) el logo oficial blanco a ~40% del ancho de la pantalla, deformado con Transformar › Distorsionar a la perspectiva, con opacidad 85-90%, un desenfoque de 0,5-1 px y un poco de ruido para igualar el grano; (4) revisar al 100% el borde de la cabeza y la mano; (5) recorte 4:5 y exportar sin metadatos. Si se usa el generador, de su imagen solo se aprovecha la pantalla y el resto vuelve del original.
 
 ## 🚨 0a-CAPADO · LINKEDIN CAPA POSTS SUELTOS, Y HAY QUE SABER RECONOCERLO (Iker, 2026-08-06)
 
@@ -656,7 +658,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 
 **LA CAUSA, y es de las que hay que anotar porque explica el patrón:** arrastré la vía del **overlay manual** del meme del Aquaman… **que `§0i-2b` DEGRADÓ el 2026-08-13.** Desde que se genera con la opción instantánea, una película o un famoso **ya no se manda a montaje a mano**. Le di una instrucción de dos semanas atrás.
 
-- **LA REGLA: el prompt describe QUÉ tiene que quedar, nunca CON QUÉ hacerlo.** Ni Photoshop, ni Canva, ni "genera", ni "monta por encima". Quien lo recibe —generador o diseñador— elige su herramienta.
+- **LA REGLA: el prompt describe QUÉ tiene que quedar, nunca CON QUÉ hacerlo.** Ni PhotoCraft, ni Photoshop, ni Canva, ni "genera", ni "monta por encima". Quien lo recibe —generador o diseñador— elige su herramienta.
 - **Lo único que sí se dice del acabado es el ENTREGABLE:** formato 1:1, y JPG a calidad baja y 500×500 (`§5-B` punto 5), porque eso es resultado, no procedimiento.
 - **⚠️ Y al retirar una vía de trabajo (como el overlay del Aquaman), hay que mirar qué PROMPTS la nombran**, no solo la sección que la describía. Es `feedback_regla_nueva_revisar_codigo` aplicado a las recetas: una regla degradada sigue viva en las plantillas que la citan.
 
@@ -808,11 +810,11 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **⚠️ Y EL PEAJE, que hay que mirar SIEMPRE porque el 27/08 se nos coló a los dos:** el chat nuevo **no arrastra ninguna de las correcciones anteriores**, así que puede devolver la imagen perfecta de forma y **rota de esencia**. Aquí regeneró a los cinco muñecos gordos y **se comió la segunda mitad de la curva del peso** —en el original engorda hasta el del medio y vuelve a adelgazar—, que es justo el motor del chiste y de lo que colgaba el cuerpo del post (`Lo peor es el medio`).
 - **EL CHEQUEO al recibir la versión del chat nuevo:** poner la referencia al lado y **repasar el inventario del Paso 6a otra vez, entero**, como si fuera la primera versión. Lo que se comprueba primero es **el mecanismo del gag**, no el color ni la colocación, que son lo que veníamos mirando.
 
-### 🧰🧰 0i-PHOTOSHOP · SI LA IMAGEN YA ES BUENA Y SOLO FALTA MOVER ALGO, SE MUEVE EN PHOTOSHOP, NO EN EL GENERADOR (2026-09-17)
+### 🧰🧰 0i-PHOTOCRAFT · SI LA IMAGEN YA ES BUENA Y SOLO FALTA MOVER ALGO, SE MUEVE EN PHOTOCRAFT, NO EN EL GENERADOR (2026-09-17)
 
 **El caso (lead magnet de Asier, `/perfil/`):** la tercera versión solo tenía el título alineado a la izquierda y pegado arriba. Pedí al generador *"centra el título y reparte el aire"* con *"ni la caja, ni el desenfoque"* en la contención, y **rehízo la imagen entera**: el texto nítido de la caja salió más pequeño y con otros cortes de línea, el punto se metió dentro de la franja y el desenfoque cambió. Iker: *"ha empeorado todo bastante"*. Se volvió a la versión anterior.
 
-**LA REGLA:** cuando la imagen ya está bien de contenido y lo que falta es **colocación** (centrar, subir, bajar, repartir aire) de un elemento que está sobre **fondo liso**, no se pide al generador: se hace en Photoshop en dos minutos (seleccionar, `Ctrl+J`, rellenar el hueco con el color del fondo, alinear sobre el lienzo). **Cada edición en el generador rehace la imagen y vuelve a poner en juego todo lo que ya estaba bien**, diga lo que diga la contención.
+**LA REGLA:** cuando la imagen ya está bien de contenido y lo que falta es **colocación** (centrar, subir, bajar, repartir aire) de un elemento que está sobre **fondo liso**, no se pide al generador: se hace en PhotoCraft en dos minutos (seleccionar, `Ctrl+J`, rellenar el hueco con el color del fondo, alinear sobre el lienzo). **Cada edición en el generador rehace la imagen y vuelve a poner en juego todo lo que ya estaba bien**, diga lo que diga la contención.
 - ~~**El generador se reserva para cambios de contenido** (un texto, un desenfoque, un elemento nuevo).~~
 - ~~**Y en la entrega, la alternativa manual va primero** cuando el retoque es solo de posición.~~
 - **🔄 CORREGIDO POR IKER EL 2026-10-02: EL DEFAULT ES EL PROMPT DE EDICIÓN AL GENERADOR, TAMBIÉN PARA MOVER COSAS.** Le recomendé Photoshop para subir el título y el botón de TikTok del meme de Asier y se descartó: el generador lo hace bien, aunque redibuja la imagen y cambia algo que el lector no nota. La v3 salió casi perfecta con un prompt de dos frases. **Se entrega el prompt de edición** (corto y por el efecto, `§0i-3-EFECTO`, con los píxeles medidos traducidos a algo que se vea). **Photoshop queda como plan B**, solo si una edición rompe algo que ya estaba bien, como el lead magnet del 17/09.
@@ -896,7 +898,7 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
   - **El límite real no es el borde del lienzo, son las PIEZAS AZULES**, que entran en diagonal, así que el ancho libre **depende de la altura a la que caiga cada línea**. Se mide sobre el fondo limpio, buscando el primer píxel de la pieza en la banda de esa línea.
   - **El suelo sale de lo que Iker aceptó y rechazó, no de mi criterio:** rechazó las de **4 px** y **34 px** de aire (`Encuentras la empresa`, `Los filtros se acabaron`) y dio por buenas todas las de **89 px para arriba**. El hueco quedó en el **5% del ancho**, 87 px sobre el lienzo de 1731.
   - **Y las tres trampas de la medición, que costaron una pasada cada una:** buscar "lo claro" cuenta el **halo magenta** como pieza · medir después de dibujar la línea 1 la detecta a **ella** como pieza (el mint también tiene el azul alto) · contar el descendente entero deja que mande **la punta del triángulo** y tumba hasta el copy ya publicado.
-- **🔴 Y ESTA IMAGEN YA NO LLEVA POSTPRODUCCIÓN**, porque no ha pasado por un generador ni por Photoshop: no hay acabado de render que suavizar ni firma de IA que borrar. **Misma excepción que "Los 10" y el despiece** (`§0a-penta`). Lo único que queda de su circuito es el último paso: **pasársela al chat de la web de recursos para que le inserte el logo y la suba.**
+- **🔴 Y ESTA IMAGEN YA NO LLEVA POSTPRODUCCIÓN**, porque no ha pasado por un generador ni por PhotoCraft: no hay acabado de render que suavizar ni firma de IA que borrar. **Misma excepción que "Los 10" y el despiece** (`§0a-penta`). Lo único que queda de su circuito es el último paso: **pasársela al chat de la web de recursos para que le inserte el logo y la suba.**
 - **Qué cambia en la ENTREGA del lead magnet:** las cuatro piezas siguen siendo cuatro, pero ahora **la de compartir va como FICHERO ya montado**, no como prompt. Iker solo genera **una** imagen, la del post.
 
 ## ⭐ 0b-OG · LA IMAGEN DE COMPARTIR DEL RECURSO WEB (Iker, 2026-08-06)
@@ -920,7 +922,7 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
 
 **El aviso va en UNO SOLO, el rojo de `§0a-penta` ampliado — no en dos (Iker, 2026-08-06).** Yo lo había partido en un 🔴 y un 🟣 y es la misma cadena de postproducción. Literal, para copiar:
 
-> 🔴 **Acuérdate Mario de aplicar el desenfoque de superficie en Photoshop, exportar sin metadatos con Exportar como, y pasársela al otro chat, el de la web de recursos, para que le inserte el logo y la suba.**
+> 🔴 **Acuérdate Mario de aplicar el desenfoque de superficie en PhotoCraft, exportar sin metadatos con Exportar como, y pasársela al otro chat, el de la web de recursos, para que le inserte el logo y la suba.**
 
 **Quién decide qué dice:** el texto sale del gancho del post, igual que el H1 del gate (`lead-magnet-web §2`).
 
@@ -1190,7 +1192,7 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 **Lo que NO se hace:** ni decir "la imagen es de nuestra propiedad" (es FALSO, no es nuestra), ni cambiar el modo de generación para colarlo. Es la misma mentira que con los logos (`§0i-2`), y además generar con IA un póster de peli y la cara de un actor para un post de marca es justo lo que el filtro bloquea con razón.
 
 **Lo que SÍ se hace: el meme sobre una imagen con copyright NO se genera con IA, se monta por ENCIMA de la plantilla que ya existe** — que es como se hacen los memes: la imagen se usa tal cual de plantilla y solo se le cambia el texto. Publicar un meme de foto de peli es práctica normal (el original hizo 10.4x); lo que es estricto es el *generador* de IA, no el publicar. Dos vías:
-- **Canva/Photoshop:** coger la plantilla (imgflip, "Aquaman rake meme") y poner nuestras etiquetas con Bricolage. Cero IA, cero filtro.
+- **Canva/PhotoCraft:** coger la plantilla (imgflip, "Aquaman rake meme") y poner nuestras etiquetas con Bricolage. Cero IA, cero filtro.
 - **Script (Pillow):** overlay directo sobre la imagen de referencia — cajas oscuras que tapan el texto original + etiquetas en español (Impact blanco con borde, la palabra clave en naranja `#ee9363`), cuadrado 1:1, tapando la marca de agua. Validado el 2026-07-22 (`meme-stack-asier.png`).
 
 **Consecuencia para elegir referencia (`post-workflow §4.4`):** al bajar por Inspiration, si el meme outlier se monta sobre un **fotograma de película / cara de famoso**, sé consciente de que **la imagen NO la va a generar la IA** — se hará por overlay. No es motivo para descartarla (el motor sigue siendo válido), pero sí para avisar y montarla a mano.
@@ -1432,7 +1434,7 @@ Idea de Iker para el pilar **despiece**, y resuelve el problema de fondo: el map
 - **Una plantilla por SECTOR**, no por región: la llanta se reutiliza en toda España y en las tres cuentas, solo cambia el título. Otro sector pide otra silueta.
 - **La compone `scripts/montar-llanta.py`**, nunca un generador: rechaza logos de terceros y, si los acepta, los redibuja (`§0i-2`).
 - **El título va en capa de texto editable con `XXX` como marcador de región**, y el script lo sustituye respetando los colores del PSD (la palabra punchy en naranja).
-- **Los huecos se marcan en MAGENTA liso** en la generación y luego se pasan a transparente en Photoshop. El magenta no existe en nuestra paleta, así que la selección por color sale limpia de una.
+- **Los huecos se marcan en MAGENTA liso** en la generación y luego se pasan a transparente en PhotoCraft. El magenta no existe en nuestra paleta, así que la selección por color sale limpia de una.
 - **⭐ El aro tiene que BISECAR cada hueco**, pasarle por el centro y dejarlo partido en dos mitades, y estar en la capa de DETRÁS. Así el logo queda montado sobre la rueda en vez de flotando al lado. Costó cuatro pasadas el 30/07.
 - **🔴 EL CUERPO DEL TÍTULO NO SE RECALCULA, SE LEE DEL PSD (Iker, 2026-07-30).** Mi primera versión del script ajustaba el tamaño de letra a la caja por prueba y error, y salió **más pequeño que el que había puesto el diseñador**. El `FontSize` del PSD está en **unidades del documento, no en píxeles**: hay que multiplicarlo por la escala de la **matriz de transformación de la capa** (`capa.transform`). En esta plantilla, 29 x 2,82 = **81,8 px**. El interlineado igual (`Leading` x escala) y la posición sale de la misma matriz: `tr[4]` es el centro horizontal y `tr[5]` la primera línea base. **Si el diseñador puso un tamaño, se respeta.**
 - **Los huecos llevan CONTORNO en berenjena** (Iker, 2026-07-30): un logo blanco sobre el menta claro no se despega del fondo. El aro morado lo enmarca y de paso aprovecha la paleta. **Y en la orla de "Las 10" igual, a 5 px** (01/10, el grosor del trazo de los nombres; `post-workflow §4.3-LAS10`).
@@ -1665,7 +1667,7 @@ El generador deforma a las personas en cada iteración. **En el prompt el avatar
 
 ### 9.8 · Lo que se arregla FUERA del generador (Iker, 2026-09-17)
 
-- **⛔ El halo claro alrededor de las letras y el ruido del generador NUNCA se piden por prompt.** Iker: *"eso la herramienta de generación nunca lo va a poder arreglar"*. Lo quita el **desenfoque de superficie** de Photoshop, y tras aplicarlo se comprobó en el fichero: el anillo de píxeles alrededor de las letras da 226,8 contra 228 del fondo, sin halo.
+- **⛔ El halo claro alrededor de las letras y el ruido del generador NUNCA se piden por prompt.** Iker: *"eso la herramienta de generación nunca lo va a poder arreglar"*. Lo quita el **desenfoque de superficie** de PhotoCraft, y tras aplicarlo se comprobó en el fichero: el anillo de píxeles alrededor de las letras da 226,8 contra 228 del fondo, sin halo.
 - **Los huecos entre párrafos se MIDEN en el PNG final, de arriba de línea a arriba de línea.** En la primera tarjeta salieron 161 px y 134 px aunque el prompt pedía iguales. Se corrigió bajando la banda del P3 27 px en píxeles (costura de 0,4 niveles, invisible), y de paso el aire de abajo quedó en 69 px contra 70 arriba. `montar-avatar-tarjeta.py` ya imprime estas medidas y avisa si no cuadran.
 
 ### 9.6 · El texto de la tarjeta pasa los mismos filtros que el cuerpo

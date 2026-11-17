@@ -11,7 +11,7 @@ EL FLUJO (post-workflow §4.6-PASO-2, images §9.7):
   1. El prompt del diseñador pide el avatar como un CÍRCULO MAGENTA LISO, y el
      generador no ve ninguna foto de persona.
   2. Se itera la tarjeta (fondo, cabecera, texto) hasta que doy el OK.
-  3. Iker aplica el desenfoque, pasa el magenta a TRANSPARENTE en Photoshop,
+  3. Iker aplica el desenfoque, pasa el magenta a TRANSPARENTE en PhotoCraft,
      exporta sin metadatos en PNG y me pasa el fichero.
   4. Este script mete la foto DEBAJO y la tarjeta ENCIMA: la máscara redonda es
      la del círculo que dibujó el generador, y la foto entra píxel a píxel.

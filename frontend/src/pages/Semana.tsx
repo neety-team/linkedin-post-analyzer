@@ -9,9 +9,14 @@
  * QUIEN ESCRIBE: la app va detras de una contraseña compartida, asi que no se
  * sabe quien esta mirando. Cada uno elige su nombre una vez y se recuerda en
  * este navegador.
+ *
+ * MOVERSE ENTRE SEMANAS (2026-11-17): se va a la anterior y a la siguiente como
+ * en un calendario, tengan posts o no, y la semana va en la URL (`?s=2026-W48`)
+ * para poder pasar el enlace. Sin `?s=` se abre la semana que se esta
+ * preparando: la que viene si ya tiene posts, y si no, la actual.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useApi, apiPost } from '../hooks/useApi';
 
 type Cuenta = 'iker' | 'unai' | 'asier';
@@ -82,6 +87,13 @@ const ESTADO: Record<string, string> = {
   publicado: 'Publicado',
 };
 
+// Al volver atras se ven semanas ya cerradas: no son "propuesta sin aprobar".
+const ESTADO_SEMANA: Record<string, string> = {
+  propuesta: 'Propuesta sin aprobar',
+  aprobada: 'Aprobada',
+  cerrada: 'Cerrada',
+};
+
 const NIVEL: Record<string, string> = {
   estilo: 'Se aplica a todos tus posts',
   pilar: 'Se aplica a este tipo de post',
@@ -105,13 +117,82 @@ function diaCorto(fecha: string): string {
   return `${dia.charAt(0).toUpperCase()}${dia.slice(1)} ${d.getDate()}`;
 }
 
-function rangoSemana(posts: PostSemana[]): string {
-  if (!posts.length) return '';
-  const fechas = posts.map((p) => p.fecha).sort();
-  const f = (s: string) =>
-    new Date(`${s}T12:00:00`).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
-  return `Del ${f(fechas[0])} al ${f(fechas[fechas.length - 1])}`;
+// ── Semanas ISO ('2026-W48'). Todo en UTC, para que el cambio de hora no mueva
+// un lunes al domingo.
+const DIA_MS = 86_400_000;
+
+/** El lunes de una semana ISO. La semana 1 es la que contiene el 4 de enero. */
+function lunesDe(codigo: string): Date {
+  const anio = Number(codigo.slice(0, 4));
+  const num = Number(codigo.slice(6));
+  const ene4 = new Date(Date.UTC(anio, 0, 4));
+  const diaSemana = ene4.getUTCDay() || 7;
+  return new Date(ene4.getTime() + (1 - diaSemana + (num - 1) * 7) * DIA_MS);
 }
+
+/** La semana ISO de una fecha: la del jueves de esa semana. */
+function codigoDe(fecha: Date): string {
+  const d = new Date(Date.UTC(fecha.getUTCFullYear(), fecha.getUTCMonth(), fecha.getUTCDate()));
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const anio = d.getUTCFullYear();
+  const num = Math.ceil(((d.getTime() - Date.UTC(anio, 0, 1)) / DIA_MS + 1) / 7);
+  return `${anio}-W${String(num).padStart(2, '0')}`;
+}
+
+function semanaDeHoy(): string {
+  const h = new Date();
+  return codigoDe(new Date(Date.UTC(h.getFullYear(), h.getMonth(), h.getDate())));
+}
+
+function mover(codigo: string, semanas: number): string {
+  return codigoDe(new Date(lunesDe(codigo).getTime() + semanas * 7 * DIA_MS));
+}
+
+/** Solo semanas que existen: '2026-W54' o '2026-W00' no pasan. */
+function esCodigo(s: string | null): s is string {
+  return !!s && /^\d{4}-W\d{2}$/.test(s) && codigoDe(lunesDe(s)) === s;
+}
+
+function numero(codigo: string): number {
+  return Number(codigo.slice(6));
+}
+
+/** '23 al 29 nov', o '30 nov al 6 dic' si la semana cruza de mes. */
+function rangoCorto(codigo: string): string {
+  const lunes = lunesDe(codigo);
+  const domingo = new Date(lunes.getTime() + 6 * DIA_MS);
+  const mes = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', timeZone: 'UTC' }).replace('.', '');
+  return lunes.getUTCMonth() === domingo.getUTCMonth()
+    ? `${lunes.getUTCDate()} al ${domingo.getUTCDate()} ${mes(domingo)}`
+    : `${lunes.getUTCDate()} ${mes(lunes)} al ${domingo.getUTCDate()} ${mes(domingo)}`;
+}
+
+/** Donde cae una semana respecto a hoy. */
+function distancia(codigo: string, hoy: string): string {
+  const n = Math.round((lunesDe(codigo).getTime() - lunesDe(hoy).getTime()) / (7 * DIA_MS));
+  if (n === 0) return 'Esta semana';
+  if (n === 1) return 'La semana que viene';
+  if (n === -1) return 'La semana pasada';
+  return n > 0 ? `Dentro de ${n} semanas` : `Hace ${-n} semanas`;
+}
+
+/**
+ * La semana que se abre sin `?s=`: la que se esta preparando. Es la que viene
+ * si ya tiene posts; si no, la actual; si tampoco, la mas cercana que venga, y
+ * a falta de todas, la ultima que hubo.
+ */
+function semanaPorDefecto(conPosts: string[], hoy: string): string {
+  const siguiente = mover(hoy, 1);
+  if (conPosts.includes(siguiente)) return siguiente;
+  if (conPosts.includes(hoy)) return hoy;
+  const futuras = conPosts.filter((c) => c > hoy).sort();
+  if (futuras.length) return futuras[0];
+  const pasadas = [...conPosts].sort();
+  return pasadas[pasadas.length - 1] || hoy;
+}
+
+const BOTON_NAV =
+  'px-3.5 py-1.5 rounded-full text-[13px] font-semibold border bg-bg-card text-text-secondary border-border hover:border-text-muted hover:text-text-primary transition-colors tabular-nums';
 
 /** El texto del post, con lo que falta por rellenar ([...]) resaltado. */
 function TextoPost({ texto }: { texto: string }) {
@@ -278,9 +359,16 @@ function Tarjeta({
 export default function Semana() {
   const [params, setParams] = useSearchParams();
   const lista = useApi<{ semanas: SemanaResumen[] }>('/api/semana');
-  const semanas = lista.data?.semanas || [];
-  const elegida = params.get('s') || semanas[0]?.semana || null;
-  const detalle = useApi<SemanaDetalle>(elegida ? `/api/semana/${elegida}` : null);
+  const semanas = useMemo(() => lista.data?.semanas || [], [lista.data]);
+  const conPosts = useMemo(() => semanas.map((s) => s.semana), [semanas]);
+  const hoy = useMemo(() => semanaDeHoy(), []);
+  const pedida = params.get('s');
+  const elegida = esCodigo(pedida) ? pedida : semanaPorDefecto(conPosts, hoy);
+  // Una semana sin posts no esta en la base: no se pide, se enseña vacia.
+  const existe = conPosts.includes(elegida);
+  const detalle = useApi<SemanaDetalle>(existe ? `/api/semana/${elegida}` : null);
+  // Al cambiar de semana el hook conserva la anterior hasta que llega la nueva.
+  const datos = existe && detalle.data?.semana === elegida ? detalle.data : null;
   // Quien entra por el login de neety.team ya viene identificado: no elige nombre.
   const yo = useApi<{ identidad: { email: string; nombre: string } | null }>('/api/yo');
   const identificado = yo.data?.identidad?.nombre || '';
@@ -297,7 +385,7 @@ export default function Semana() {
     }
   }, [elegido]);
 
-  const posts = useMemo(() => detalle.data?.posts || [], [detalle.data]);
+  const posts = useMemo(() => datos?.posts || [], [datos]);
   const dias = useMemo(() => Array.from(new Set(posts.map((p) => p.fecha))).sort(), [posts]);
   const cuenta = (o: Objetivo) => posts.filter((p) => p.objetivo === o).length;
   const pendiente = posts.reduce((n, p) => n + p.feedback.filter((f) => !f.resuelto).length, 0);
@@ -316,39 +404,96 @@ export default function Semana() {
     );
   }
 
+  const anterior = mover(elegida, -1);
+  const siguiente = mover(elegida, 1);
+  const previaConPosts = conPosts.filter((c) => c < elegida).sort().pop();
+  const proximaConPosts = conPosts.filter((c) => c > elegida).sort()[0];
+
+  const cabecera = (
+    <>
+      <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">
+        LinkedIn · {distancia(elegida, hoy)}
+      </p>
+      <h1 className="font-display text-3xl font-semibold tracking-tight text-text-primary tabular-nums">
+        Semana {numero(elegida)} <span className="text-text-muted font-normal">· {rangoCorto(elegida)}</span>
+      </h1>
+      <nav aria-label="Moverse entre semanas" className="flex flex-wrap items-center gap-2">
+        <Link to={{ search: `?s=${anterior}` }} className={BOTON_NAV} aria-label={`Ir a la semana ${numero(anterior)}, la anterior`}>
+          ← Semana {numero(anterior)}
+        </Link>
+        <Link to={{ search: `?s=${siguiente}` }} className={BOTON_NAV} aria-label={`Ir a la semana ${numero(siguiente)}, la siguiente`}>
+          Semana {numero(siguiente)} →
+        </Link>
+        {elegida !== hoy && (
+          <Link to={{ search: `?s=${hoy}` }} className={BOTON_NAV}>
+            Esta semana
+          </Link>
+        )}
+        {(semanas.length > 1 || !existe) && (
+          <select
+            value={existe ? elegida : ''}
+            onChange={(e) => e.target.value && setParams({ s: e.target.value })}
+            aria-label="Ir a una semana con posts"
+            className="max-w-full min-w-0 truncate bg-bg-card border border-border rounded-full px-3 py-1.5 text-[13px] font-semibold text-text-secondary"
+          >
+            {!existe && <option value="">Semanas con posts</option>}
+            {semanas.map((s) => (
+              <option key={s.semana} value={s.semana}>
+                Semana {numero(s.semana)} · {rangoCorto(s.semana)} · {s.posts} {s.posts === 1 ? 'post' : 'posts'}
+                {s.feedback_pendiente ? ` · ${s.feedback_pendiente} por aplicar` : ''}
+              </option>
+            ))}
+          </select>
+        )}
+      </nav>
+    </>
+  );
+
+  if (!existe) {
+    return (
+      <div className="space-y-8">
+        <header className="space-y-3">{cabecera}</header>
+        <div className="bg-bg-card border border-border rounded-xl p-8 max-w-2xl space-y-3">
+          <h2 className="font-display text-xl font-semibold text-text-primary">
+            No hay posts planificados para la semana {numero(elegida)}
+          </h2>
+          <p className="text-sm text-text-secondary leading-relaxed">
+            Los posts de una semana se escriben la anterior. Cuando estén, aparecerán aquí.
+          </p>
+          {(previaConPosts || proximaConPosts) && (
+            <p className="flex flex-wrap gap-2 pt-1">
+              {previaConPosts && (
+                <Link to={{ search: `?s=${previaConPosts}` }} className={BOTON_NAV}>
+                  ← Semana {numero(previaConPosts)}, la última con posts
+                </Link>
+              )}
+              {proximaConPosts && (
+                <Link to={{ search: `?s=${proximaConPosts}` }} className={BOTON_NAV}>
+                  Semana {numero(proximaConPosts)}, la próxima con posts →
+                </Link>
+              )}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       <header className="space-y-3">
-        <div className="flex flex-wrap items-center gap-3">
-          <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">
-            LinkedIn · Semana {elegida?.slice(6)}
-          </p>
-          {semanas.length > 1 && (
-            <select
-              value={elegida || ''}
-              onChange={(e) => setParams({ s: e.target.value })}
-              aria-label="Elegir semana"
-              className="bg-bg-card border border-border rounded-lg px-2 py-1 text-xs text-text-primary"
-            >
-              {semanas.map((s) => (
-                <option key={s.semana} value={s.semana}>
-                  {s.semana} · {s.estado}
-                </option>
-              ))}
-            </select>
-          )}
-        </div>
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-text-primary">
-          {rangoSemana(posts) || `Semana ${elegida}`}
-        </h1>
+        {cabecera}
         <p className="inline-flex items-center gap-2 text-[13px] font-semibold text-text-secondary bg-bg-card border border-border rounded-full px-3 py-1">
-          <span className="w-2 h-2 rounded-full bg-naranja" aria-hidden="true" />
-          {detalle.data?.estado === 'aprobada' ? 'Aprobada' : 'Propuesta sin aprobar'}
-          {detalle.data?.nota ? ` · ${detalle.data.nota}` : ''}
+          <span
+            className={`w-2 h-2 rounded-full ${datos && datos.estado !== 'propuesta' ? 'bg-text-muted' : 'bg-naranja'}`}
+            aria-hidden="true"
+          />
+          {datos ? ESTADO_SEMANA[datos.estado] || datos.estado : 'Cargando…'}
+          {datos?.nota ? ` · ${datos.nota}` : ''}
         </p>
         <p className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-text-secondary tabular-nums">
           <span>
-            <b className="text-text-primary">{posts.length}</b> posts
+            <b className="text-text-primary">{posts.length}</b> {posts.length === 1 ? 'post' : 'posts'}
           </span>
           <span>
             <b className="text-text-primary">{cuenta('alcance')}</b> de alcance
@@ -456,7 +601,7 @@ export default function Semana() {
           </div>
         </div>
 
-        {detalle.loading && !detalle.data && <p className="text-sm text-text-muted">Cargando los posts…</p>}
+        {detalle.loading && !datos && <p className="text-sm text-text-muted">Cargando los posts…</p>}
         {detalle.error && <p className="text-sm text-danger">No se ha podido cargar: {detalle.error}</p>}
 
         <div className="md:grid md:grid-cols-[84px_repeat(3,minmax(0,1fr))] gap-3 space-y-3 md:space-y-0">

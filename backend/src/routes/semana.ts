@@ -5,7 +5,7 @@
  * Orden de las rutas: las fijas (`/feedback/...`, `/posts/...`) van ANTES que
  * `/:semana`, o Express las tomaria por el codigo de una semana.
  */
-import { Router, Request, Response } from 'express';
+import express, { Router, Request, Response, NextFunction } from 'express';
 import {
   esSemanaValida,
   listarSemanas,
@@ -14,6 +14,11 @@ import {
   crearFeedback,
   listarFeedback,
   actualizarFeedback,
+  guardarImagen,
+  leerImagen,
+  borrarImagen,
+  perfilesDeCuentas,
+  IMAGEN_MAX_BYTES,
 } from '../services/semana';
 import { identidadDe } from '../middleware/basicAuth';
 
@@ -74,6 +79,73 @@ router.post('/posts/:id/feedback', async (req: Request, res: Response) => {
     res.status(201).json(fila);
   } catch (err: any) {
     res.status(400).json({ error: err.message });
+  }
+});
+
+/** GET /api/semana/perfiles — nombre, titular y foto de las tres cuentas. */
+router.get('/perfiles', async (_req: Request, res: Response) => {
+  res.json({ perfiles: await perfilesDeCuentas() });
+});
+
+/** GET /api/semana/posts/:id/imagen — la foto del post. */
+router.get('/posts/:id/imagen', async (req: Request, res: Response) => {
+  try {
+    const id = param(req, 'id');
+    if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+    const img = await leerImagen(id);
+    if (!img) return res.status(404).json({ error: 'Ese post no tiene foto' });
+    // La pagina pide la foto con ?v=<version>: cada foto nueva es otra URL, asi
+    // que esta se puede guardar en cache. `nosniff` para que el navegador no la
+    // interprete como otra cosa que una imagen.
+    res.setHeader('Content-Type', img.tipo);
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Content-Disposition', 'inline');
+    res.setHeader('Cache-Control', req.query.v ? 'private, max-age=31536000, immutable' : 'private, no-cache');
+    res.send(img.datos);
+  } catch (err: any) {
+    console.error('[semana/imagen/get]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * PUT /api/semana/posts/:id/imagen — sube o cambia la foto. El cuerpo es el
+ * fichero tal cual (no JSON), con su Content-Type de imagen.
+ */
+const cuerpoImagen = express.raw({ type: ['image/*', 'application/octet-stream'], limit: IMAGEN_MAX_BYTES });
+
+router.put(
+  '/posts/:id/imagen',
+  // El lector del cuerpo falla con un error generico si el fichero se pasa de
+  // tamaño: aqui se convierte en un 413 que la pagina puede enseñar.
+  (req: Request, res: Response, next: NextFunction) =>
+    cuerpoImagen(req, res, (err?: any) => {
+      if (!err) return next();
+      const grande = err.status === 413 || err.type === 'entity.too.large';
+      res.status(grande ? 413 : 400).json({ error: grande ? 'La imagen pesa más de 8 MB' : 'No se ha podido leer la imagen' });
+    }),
+  async (req: Request, res: Response) => {
+    try {
+      const id = param(req, 'id');
+      if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+      if (!Buffer.isBuffer(req.body)) return res.status(400).json({ error: 'Manda el fichero de la imagen en el cuerpo' });
+      const r = await guardarImagen(id, req.body);
+      if (!r) return res.status(404).json({ error: 'Post no encontrado' });
+      res.json(r);
+    } catch (err: any) {
+      res.status(400).json({ error: err.message });
+    }
+  }
+);
+
+/** DELETE /api/semana/posts/:id/imagen — quita la foto. */
+router.delete('/posts/:id/imagen', async (req: Request, res: Response) => {
+  try {
+    const id = param(req, 'id');
+    if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+    res.json({ borrada: await borrarImagen(id) });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
   }
 });
 

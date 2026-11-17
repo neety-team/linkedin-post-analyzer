@@ -1310,6 +1310,12 @@ const migracionSemana = `
     resuelto_at TIMESTAMPTZ
   );
   CREATE INDEX IF NOT EXISTS idx_semana_feedback_post ON semana_feedback (post_id);
+
+  -- La foto que acompaña a cada post (2026-11-17). Va en la propia fila: son
+  -- pocas (unas 9 por semana) y asi no hace falta un almacen de ficheros aparte.
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen BYTEA;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen_tipo TEXT;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen_at TIMESTAMPTZ;
 `;
 
 export async function runMigrations() {

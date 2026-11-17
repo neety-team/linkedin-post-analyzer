@@ -49,7 +49,11 @@ const postEntrada = z.object({
   vara: z.string().nullable().optional().describe('Con qué se compara: la mediana de ese pilar en esa cuenta'),
   por_que: z.string().nullable().optional(),
   falta: z.string().nullable().optional().describe('Qué falta para poder publicarlo'),
-  nota_imagen: z.string().nullable().optional(),
+  nota_imagen: z
+    .string()
+    .nullable()
+    .optional()
+    .describe('Qué foto o imagen lleva el post. La foto en sí se sube desde la página /semana'),
 });
 
 function renderSemana(s: any): string {
@@ -61,7 +65,8 @@ function renderSemana(s: any): string {
       '',
       `── ${p.fecha} · ${p.cuenta} · ${p.objetivo}${p.experimento ? ' (experimento)' : ''} · ${p.estado}`,
       `   ${p.titulo}${p.pilar ? ' · ' + p.pilar : ''}`,
-      `   clave: ${p.clave} · post_id: ${p.id}` + (pend ? ` · feedback pendiente: ${pend}` : '')
+      `   clave: ${p.clave} · post_id: ${p.id}` + (pend ? ` · feedback pendiente: ${pend}` : ''),
+      `   Foto: ${p.tiene_imagen ? 'subida' : 'pendiente'}${p.nota_imagen ? ' · ' + p.nota_imagen : ''}`
     );
     if (p.falta) l.push(`   Falta: ${p.falta}`);
     for (const f of p.feedback) {

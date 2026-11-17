@@ -84,7 +84,9 @@ export async function leerSemana(semana: string) {
 
   const posts = await pool.query(
     `SELECT id, semana, clave, to_char(fecha, 'YYYY-MM-DD') AS fecha, cuenta, objetivo,
-            experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, updated_at
+            experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, updated_at,
+            (imagen IS NOT NULL) AS tiene_imagen,
+            (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS imagen_version
        FROM semana_posts
       WHERE semana = $1
       ORDER BY fecha, array_position(ARRAY['iker','unai','asier'], cuenta), clave`,
@@ -219,6 +221,82 @@ export async function guardarSemana(
   } finally {
     client.release();
   }
+}
+
+// ── La foto de un post ───────────────────────────────────────────────────────
+
+export const IMAGEN_MAX_BYTES = 8 * 1024 * 1024;
+
+/**
+ * El tipo de una imagen segun sus primeros bytes, o null si no es JPEG, PNG,
+ * WebP ni GIF. No se cree lo que diga el navegador en Content-Type: asi no se
+ * puede guardar un HTML o un SVG con script haciendolo pasar por foto.
+ */
+export function tipoDeImagen(b: Buffer): string | null {
+  if (b.length < 12) return null;
+  if (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return 'image/jpeg';
+  if (b.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) return 'image/png';
+  if (b.toString('latin1', 0, 4) === 'RIFF' && b.toString('latin1', 8, 12) === 'WEBP') return 'image/webp';
+  const gif = b.toString('latin1', 0, 6);
+  if (gif === 'GIF87a' || gif === 'GIF89a') return 'image/gif';
+  return null;
+}
+
+/** Guarda la foto de un post. Devuelve null si el post no existe. */
+export async function guardarImagen(postId: string, datos: Buffer) {
+  if (!datos.length) throw new Error('La imagen está vacía');
+  if (datos.length > IMAGEN_MAX_BYTES) throw new Error('La imagen pesa más de 8 MB');
+  const tipo = tipoDeImagen(datos);
+  if (!tipo) throw new Error('Solo se admiten fotos JPEG, PNG, WebP o GIF');
+  const { rows } = await pool.query(
+    `UPDATE semana_posts SET imagen = $2, imagen_tipo = $3, imagen_at = NOW(), updated_at = NOW()
+      WHERE id = $1
+      RETURNING id, (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS imagen_version`,
+    [postId, datos, tipo]
+  );
+  return rows[0] ? { id: rows[0].id, tipo, bytes: datos.length, imagen_version: rows[0].imagen_version } : null;
+}
+
+export async function leerImagen(postId: string): Promise<{ datos: Buffer; tipo: string; version: string } | null> {
+  const { rows } = await pool.query(
+    `SELECT imagen, imagen_tipo, (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS version
+       FROM semana_posts WHERE id = $1 AND imagen IS NOT NULL`,
+    [postId]
+  );
+  if (!rows.length) return null;
+  return { datos: rows[0].imagen, tipo: rows[0].imagen_tipo || 'application/octet-stream', version: rows[0].version };
+}
+
+/** Quita la foto de un post. true si tenia una. */
+export async function borrarImagen(postId: string): Promise<boolean> {
+  const { rowCount } = await pool.query(
+    `UPDATE semana_posts SET imagen = NULL, imagen_tipo = NULL, imagen_at = NULL, updated_at = NOW()
+      WHERE id = $1 AND imagen IS NOT NULL`,
+    [postId]
+  );
+  return !!rowCount;
+}
+
+/**
+ * Nombre, titular y foto de perfil de las tres cuentas, para pintar cada post
+ * como se vera en LinkedIn. Sale de `creators` (las cuentas propias llevan
+ * `is_managed`). Si no hay datos devuelve {} y la pagina pone solo el nombre.
+ */
+export async function perfilesDeCuentas(): Promise<Record<string, { nombre: string; titular: string | null; foto: string | null }>> {
+  const out: Record<string, { nombre: string; titular: string | null; foto: string | null }> = {};
+  try {
+    const { rows } = await pool.query(
+      `SELECT name, headline, profile_image_url FROM creators WHERE is_managed = TRUE AND name IS NOT NULL`
+    );
+    for (const r of rows) {
+      const primero = String(r.name).trim().split(/\s+/)[0].toLowerCase();
+      const cuenta = CUENTAS.find((c) => c === primero);
+      if (cuenta) out[cuenta] = { nombre: r.name, titular: r.headline || null, foto: r.profile_image_url || null };
+    }
+  } catch {
+    /* sin tabla o sin columna: la pagina se apaña con el nombre */
+  }
+  return out;
 }
 
 /** Un fundador deja feedback en un post. */

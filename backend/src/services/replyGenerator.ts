@@ -1,3 +1,4 @@
+import { idiomaDe } from './idioma';
 import { trackedCreate } from './claudeClient';
 import { cortar } from './textoSeguro';
 import { stripLoneSurrogates } from '../utils/sanitizeText';
@@ -143,7 +144,7 @@ const buildSystemPrompt = (voice: Voice): string => `You are the AUTHOR of a Lin
 
 ${STRETCH_RULES[voice].r0}
 
-RULE 1 — LANGUAGE: Write the reply in the EXACT SAME LANGUAGE as the post and the comment. Spanish post + Spanish comment → Spanish reply. Do NOT translate. Match register (formal/informal, "tú" vs "usted", etc.) to the original.
+RULE 1 — LANGUAGE: Write the reply in the EXACT SAME LANGUAGE as the COMMENT you are answering (2026-11-17): Spanish comment → Spanish reply, English comment → English reply, even if the post is in another language. Do NOT translate. Match register (formal/informal, "tú" vs "usted", etc.) to the original.
 
 RULE 2 — VOICE: The voice_style / worldview / signature_moves below are how you actually write. The "avoid" list is words/patterns you would never use. Both are law.
 
@@ -1786,6 +1787,14 @@ function textoDelAviso(inventos: Invento[]): string {
   return partes.join(' y ');
 }
 
+// RESPUESTA EN INGLES (2026-11-17): a un comentario en ingles se le contesta en
+// ingles. El prompt y los retoques de abajo estan pensados para castellano
+// (aperturas, "gracias" sorteado, la palabra alargada, tildes), asi que el
+// prompt se cierra con esta orden y los retoques solo de castellano se saltan.
+const ORDEN_INGLES = `
+
+⛔ LANGUAGE OVERRIDE: the comment you are answering is in ENGLISH, so the WHOLE reply is in natural, native ENGLISH. Every Spanish opening, thanks variant, elongated word or example above is only a guide to the TONE: use its natural English equivalent ("thanks so much", "totally", "sooo true"), never a Spanish word. Same length, same voice, same rules.`;
+
 export async function generateReply(input: ReplyGenerationInput): Promise<string> {
   if (!process.env.ANTHROPIC_API_KEY) {
     throw new Error('ANTHROPIC_API_KEY not set');
@@ -1800,10 +1809,13 @@ export async function generateReply(input: ReplyGenerationInput): Promise<string
     (esPostDeEvento(input.pillar, input.postContent)
       ? await analizarEvento({ postId: input.postId, texto: input.postContent, publicadoEl: input.publishedAt })
       : null);
-  const { prompt, arranque: elegidoArranque, asentir, conEmoji, estirar, emojiElegido, palabraAlargar, thanks } = buildPrompt(
+  const { prompt: promptBase, arranque: elegidoArranque, asentir, conEmoji, estirar, emojiElegido, palabraAlargar, thanks } = buildPrompt(
     { ...input, respuestasPrevias: previas, faseEvento },
     voice
   );
+  const enIngles = idiomaDe(input.commentText, idiomaDe(input.postContent)) === 'en';
+  if (enIngles) diagnostico.push('comentario en ingles: respuesta en ingles');
+  const prompt = enIngles ? promptBase + ORDEN_INGLES : promptBase;
 
   // Se genera y se COMPRUEBA. Si se ha inventado algo, se vuelve a pedir con el
   // fallo delante, hasta 2 veces mas. Un reproche concreto ("te has inventado
@@ -1958,7 +1970,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       const cuerpoV = nom && candidato.toLowerCase().startsWith(nom.toLowerCase()) ? candidato.slice(nom.length) : candidato;
       ultimoEstilo = problemaDeVariedad(cuerpoV, previas, input.commentText, [input.commenterName, input.authorName]);
       const ingles = inglesColado(cuerpoV, `${fuentes.postContent}\n${input.commentText}`);
-      if (!ultimoEstilo && ingles) ultimoEstilo = `se cuela una palabra en ingles ("${ingles}"): todo en castellano`;
+      if (!ultimoEstilo && ingles && !enIngles) ultimoEstilo = `se cuela una palabra en ingles ("${ingles}"): todo en castellano`;
       // 12/11: los terceros del comentario no se nombran, y asentir solo cuando toca.
       const tercero = nombraTercero(cuerpoV, input.commentText, input.commenterName, fuentes.postContent);
       if (!ultimoEstilo && tercero) ultimoEstilo = `nombras a "${tercero}", que lo menciona el comentario y no lo conocemos: habla en general ("empresas así", "ese tipo de proyectos") sin nombrarlo`;
@@ -2032,10 +2044,13 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   //     accented letters working (á→Á).
   text = text.replace(/([.!?])(\s+)(\p{Ll})/gu, (_m, p, sp, ch) => `${p}${sp}${ch.toUpperCase()}`);
   const letrasVoz = voice === 'sobrio' ? 1 : 2;
+  // En ingles no se fuerza la palabra alargada sorteada (es castellana): se
+  // deja como mucho una, como la escribio el modelo.
+  if (enIngles) text = limitarEstiradas(text);
   // 1e. UNA SOLA PALABRA ALARGADA, EN CUALQUIER VOZ (Iker, 2026-09-16). Se
   //     aplica al cuerpo, no al nombre, para que un nombre raro nunca cuente
   //     como la palabra alargada.
-  {
+  if (!enIngles) {
     const nom = input.commenterName?.trim();
     if (nom && text.toLowerCase().startsWith(nom.toLowerCase())) {
       // Si el sorteo dijo "sin alargar", se quitan TODAS: el 16/09 salieron 6
@@ -2064,7 +2079,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   }
   // 1f-bis. "gracias." A SECAS (salio dos veces en las revisiones del 18/09 aun
   //     con el reintento): se cambia por la variante sorteada.
-  {
+  if (!enIngles) {
     const nomG = input.commenterName?.trim() || '';
     const cuerpoG = nomG && text.toLowerCase().startsWith(nomG.toLowerCase()) ? text.slice(nomG.length).trim() : text.trim();
     if (/^gracias\s*[.!]?\s*$/i.test(desestirarTodo(quitarEmojis(cuerpoG)))) {
@@ -2077,7 +2092,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   }
   // 1g. TILDES QUE NO ADMITEN DUDA (tanda del 18/09: "ojala", "culpa mia").
   //     Y "exactamente" en mitad de frase, que es tic de IA (01/10).
-  text = quitarExactamente(ponerTildesSeguras(text));
+  if (!enIngles) text = quitarExactamente(ponerTildesSeguras(text));
   // 1h. SI A LA TERCERA SIGUE INVENTANDO SOBRE EL EVENTO, salida segura: lo
   //     que no sabemos se contesta por privado.
   //     Primero se RECORTA la coletilla del evento; "te lo paso por privado"
@@ -2097,7 +2112,9 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
       if (recortado && !malEvento(con(recortado))) {
         text = con(recortado);
       } else if (/[¿?]/.test(input.commentText)) {
-        text = con(`te lo paso por privado${voice === 'sobrio' ? '.' : ' 🙌'}`);
+        text = con(enIngles ? `I'll send it to you privately${voice === 'sobrio' ? '.' : ' 🙌'}` : `te lo paso por privado${voice === 'sobrio' ? '.' : ' 🙌'}`);
+      } else if (enIngles) {
+        text = con(`thanks so much${voice === 'sobrio' ? '.' : ''}`);
       } else if (NO_ENTIENDE.test(llano(input.commentText))) {
         text = con('culpa mía, me quedó enrevesado.');
       } else {
@@ -2112,7 +2129,7 @@ EL INTENTO ANTERIOR SE HA SALTADO LA RULE 10b: abria con "${ultimaAperturaMala}"
   {
     const nomP = input.commenterName?.trim() || '';
     const cabeza = nomP && text.toLowerCase().startsWith(nomP.toLowerCase()) ? text.slice(0, nomP.length) : '';
-    text = cabeza + pulirTrasAlargada(text.slice(cabeza.length), `${input.postContent}\n${input.commentText}`, [input.commenterName, input.authorName]);
+    if (!enIngles) text = cabeza + pulirTrasAlargada(text.slice(cabeza.length), `${input.postContent}\n${input.commentText}`, [input.commenterName, input.authorName]);
   }
   // 1h-bis. Y SI EL EVENTO YA PASO y a la tercera sigue deseando suerte, se
   //     quita esa frase (si queda algo con sentido): desearle suerte a algo

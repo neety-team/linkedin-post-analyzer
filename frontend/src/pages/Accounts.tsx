@@ -2361,6 +2361,11 @@ function AccountsInner() {
             <p className="text-xs text-text-muted mb-3">
               Impresiones e interacciones del rango, como en la analítica de contenido de LinkedIn{selectedCreator === 'all' ? ', de todas las cuentas propias' : ''}. Los lápices marcan los días en que publicaste.
               {selectedCreator === 'all' && <InfoHint text="Las cuentas manuales se estiman por día de publicación." />}
+              {/* Las banderas son del histórico entero y la curva arranca en 0 al inicio del rango:
+                  sin esta línea, un 4M encima de una curva de 3,1M parece un bug (2026-11-18). */}
+              {hitosEnRango(hitosImpresiones, dateRange.start, dateRange.end).length > 0 && (
+                <span className="block mt-0.5">🏁 Las banderas cuentan desde el primer post, no desde el inicio del rango: por eso pueden marcar más que la cifra de arriba.</span>
+              )}
             </p>
             {dailyChartData.length === 0 ? (
               <p className="text-center text-text-muted text-sm py-12">No hay posts en este rango.</p>

@@ -1311,6 +1311,15 @@ const migracionSemana = `
   );
   CREATE INDEX IF NOT EXISTS idx_semana_feedback_post ON semana_feedback (post_id);
 
+  -- El interruptor de la subida automatica a LinkedIn (2026-11-18). Una sola
+  -- fila: se enciende y se apaga desde la pagina Semana, con quien y cuando.
+  CREATE TABLE IF NOT EXISTS publicador_ajustes (
+    id INT PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+    activo BOOLEAN NOT NULL DEFAULT FALSE,
+    cambiado_por TEXT,
+    cambiado_at TIMESTAMPTZ
+  );
+
   -- La foto que acompaña a cada post (2026-11-17). Va en la propia fila: son
   -- pocas (unas 9 por semana) y asi no hace falta un almacen de ficheros aparte.
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen BYTEA;

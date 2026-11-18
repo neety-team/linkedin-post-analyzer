@@ -6,10 +6,11 @@
  * programa (no tiene campo de hora): la hora la guarda `programado_para` y
  * este servicio decide cuando toca.
  *
- * INTERRUPTOR: solo publica de verdad con PUBLICAR_LINKEDIN=1. Sin eso escribe
- * en el log lo que habria publicado («simulado») y deja el post como estaba.
- * Un despliegue no puede encender un emisor que escribe en LinkedIn en nombre
- * de los fundadores sin que nadie lo haya decidido (igual que anuncioChat).
+ * INTERRUPTOR (18/11): se enciende y se apaga con un boton de la pagina Semana
+ * (tabla `publicador_ajustes`, con quien y cuando). Empieza apagado: un
+ * despliegue no enciende nada. Apagado, escribe en el log lo que habria
+ * publicado («simulado») y deja el post como estaba. PUBLICAR_LINKEDIN=0 en el
+ * entorno lo apaga pase lo que pase (freno de emergencia); =1 lo fuerza encendido.
  *
  * NUNCA DOS VECES: antes de subir un post se reclama con un UPDATE atomico
  * (`publicando_desde = NOW() WHERE estado = 'programado' AND publicando_desde IS
@@ -21,8 +22,9 @@
  * de red o un tiempo agotado no dicen si LinkedIn lo recibio: el mensaje lo
  * avisa para que alguien lo mire antes de volver a programarlo.
  *
- * Cada cuenta publica desde su propia cuenta de Unipile:
- * UNIPILE_ACCOUNT_IKER, UNIPILE_ACCOUNT_UNAI y UNIPILE_ACCOUNT_ASIER.
+ * Cada cuenta publica desde su propia cuenta de Unipile. Se busca sola en
+ * `GET /api/v1/accounts` por el nombre de LinkedIn del fundador (una y solo
+ * una, conectada); UNIPILE_ACCOUNT_IKER/UNAI/ASIER la fijan a mano si hace falta.
  */
 import pool from '../db';
 import { CUENTAS, motivoParaPublicar } from './semana';
@@ -33,15 +35,114 @@ const UN_MINUTO = 60 * 1000;
 export const RETRASO_MAXIMO_MIN = 180;
 const TIEMPO_UNIPILE_MS = 90 * 1000;
 
-export const publicarActivo = () => process.env.PUBLICAR_LINKEDIN === '1';
 const variableCuenta = (cuenta: string) => `UNIPILE_ACCOUNT_${cuenta.toUpperCase()}`;
 
-/** Lo que enseña la pagina: si la subida esta encendida y que cuentas tienen su variable. */
-export function estadoPublicador() {
+/** El freno del entorno: '0' apaga siempre, '1' fuerza encendido, nada deja mandar al boton. */
+const forzadoPorEntorno = (): 'apagado' | 'encendido' | null =>
+  process.env.PUBLICAR_LINKEDIN === '0' ? 'apagado' : process.env.PUBLICAR_LINKEDIN === '1' ? 'encendido' : null;
+
+async function leerAjustes(): Promise<{ activo: boolean; cambiado_por: string | null; cambiado_at: string | null }> {
+  const { rows } = await pool.query(`SELECT activo, cambiado_por, cambiado_at FROM publicador_ajustes WHERE id = 1`);
+  return rows[0] || { activo: false, cambiado_por: null, cambiado_at: null };
+}
+
+export async function publicarActivo(): Promise<boolean> {
+  const f = forzadoPorEntorno();
+  if (f) return f === 'encendido';
+  return (await leerAjustes()).activo;
+}
+
+/** El boton de la pagina. Devuelve el estado nuevo. */
+export async function cambiarSubidaAutomatica(activo: boolean, quien: string) {
+  await pool.query(
+    `INSERT INTO publicador_ajustes (id, activo, cambiado_por, cambiado_at) VALUES (1, $1, $2, NOW())
+     ON CONFLICT (id) DO UPDATE SET activo = $1, cambiado_por = $2, cambiado_at = NOW()`,
+    [activo, quien.slice(0, 80)]
+  );
+  console.log(`[publicador] subida automatica ${activo ? 'ENCENDIDA' : 'apagada'} por ${quien}`);
+  return estadoPublicador();
+}
+
+// ── Las cuentas de Unipile de cada fundador ──────────────────────────────────
+
+/** Nombre exacto en LinkedIn (como lo devuelve Unipile) de cada cuenta. */
+export const NOMBRE_EN_LINKEDIN: Record<string, string> = {
+  iker: 'Iker Galarza Rodríguez',
+  unai: 'Unai Arambarri Yeregui',
+  asier: 'Asier Olaizola',
+};
+const sinTildes = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').replace(/\s+/g, ' ').trim().toLowerCase();
+let cacheCuentas: { at: number; mapa: Record<string, string | null> } | null = null;
+const CACHE_CUENTAS_MS = 10 * UN_MINUTO;
+
+/** De una lista de cuentas de Unipile, la de cada fundador: solo si hay una y esta conectada. */
+export function elegirCuentas(items: any[]): Record<string, string | null> {
+  const out: Record<string, string | null> = {};
+  for (const c of CUENTAS) {
+    const nombre = sinTildes(NOMBRE_EN_LINKEDIN[c] || '');
+    const m = (items || []).filter(
+      (a) =>
+        a?.type === 'LINKEDIN' &&
+        sinTildes(String(a?.name || '')) === nombre &&
+        (a?.sources || []).length > 0 &&
+        (a.sources as any[]).every((s) => s?.status === 'OK')
+    );
+    out[c] = m.length === 1 ? String(m[0].id) : null;
+  }
+  return out;
+}
+
+async function listarCuentasUnipile(): Promise<any[]> {
+  const base = (process.env.UNIPILE_BASE_URL || '').replace(/\/+$/, '');
+  const key = process.env.UNIPILE_API_KEY || '';
+  if (!base || !key) return [];
+  const items: any[] = [];
+  let cursor: string | null = null;
+  for (let i = 0; i < 10; i++) {
+    const url = `${base}/api/v1/accounts?limit=250${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`;
+    const res = await fetch(url, { headers: { 'X-API-KEY': key, accept: 'application/json' } });
+    if (!res.ok) throw new Error(`Unipile ha contestado ${res.status} al listar cuentas`);
+    const j: any = await res.json();
+    items.push(...(j?.items || []));
+    cursor = j?.cursor || null;
+    if (!cursor) break;
+  }
+  return items;
+}
+
+/** La cuenta de Unipile de cada fundador: la variable si esta puesta; si no, la que se encuentra sola. */
+export async function cuentasUnipile(forzar = false): Promise<Record<string, string | null>> {
+  const mapa: Record<string, string | null> = {};
+  const faltan = CUENTAS.filter((c) => {
+    const v = process.env[variableCuenta(c)]?.trim();
+    if (v) mapa[c] = v;
+    return !v;
+  });
+  if (!faltan.length) return mapa;
+  if (forzar || !cacheCuentas || Date.now() - cacheCuentas.at > CACHE_CUENTAS_MS) {
+    try {
+      cacheCuentas = { at: Date.now(), mapa: elegirCuentas(await listarCuentasUnipile()) };
+    } catch (e: any) {
+      console.error('[publicador] no se han podido leer las cuentas de Unipile:', e?.message);
+      cacheCuentas = { at: Date.now() - CACHE_CUENTAS_MS + UN_MINUTO, mapa: cacheCuentas?.mapa || {} };
+    }
+  }
+  for (const c of faltan) mapa[c] = cacheCuentas?.mapa[c] ?? null;
+  return mapa;
+}
+
+/** Lo que enseña la pagina: si la subida esta encendida, quien la cambio y que cuentas se encuentran. */
+export async function estadoPublicador() {
+  const aj = await leerAjustes();
+  const forzado = forzadoPorEntorno();
+  const ids = await cuentasUnipile();
   const cuentas: Record<string, boolean> = {};
-  for (const c of CUENTAS) cuentas[c] = !!process.env[variableCuenta(c)]?.trim();
+  for (const c of CUENTAS) cuentas[c] = !!ids[c];
   return {
-    activo: publicarActivo(),
+    activo: forzado ? forzado === 'encendido' : aj.activo,
+    forzado,
+    cambiado_por: aj.cambiado_por,
+    cambiado_at: aj.cambiado_at,
     unipile: !!process.env.UNIPILE_API_KEY && !!process.env.UNIPILE_BASE_URL,
     cuentas,
   };
@@ -90,12 +191,16 @@ export function prepararPublicacion(fila: {
   falta?: string | null;
   imagen?: Buffer | null;
   imagen_tipo?: string | null;
+  account_id?: string | null;
 }): Publicacion {
   const motivo = motivoParaPublicar(fila.texto || '', fila.menciones, fila.falta);
   if (motivo) throw new Error(`No se ha publicado: ${motivo}`);
-  const variable = variableCuenta(fila.cuenta);
-  const account_id = process.env[variable]?.trim();
-  if (!account_id) throw new Error(`Falta ${variable} en el entorno: no se sabe desde qué cuenta de LinkedIn publicar`);
+  const account_id = (fila.account_id ?? process.env[variableCuenta(fila.cuenta)])?.trim();
+  if (!account_id) {
+    throw new Error(
+      `No se encuentra la cuenta de LinkedIn de ${NOMBRE_EN_LINKEDIN[fila.cuenta] || fila.cuenta} en Unipile: tiene que estar conectada (o ponerla en ${variableCuenta(fila.cuenta)})`
+    );
+  }
   const aplicadas = aplicarMenciones(fila.texto, fila.menciones);
   // Cómo espera Unipile las menciones en multipart no está documentado ni lo usa su
   // SDK oficial (comprobado el 18/11/2026). Si el formato fuera otro, el post saldría
@@ -214,7 +319,8 @@ export async function publicarReclamado(
         `No se ha publicado: su hora pasó hace ${Math.round(retraso / 60)} h sin que el publicador estuviera en marcha. Vuelve a programarlo si aún vale`
       );
     }
-    const pub = prepararPublicacion(fila);
+    const cuentas = await cuentasUnipile();
+    const pub = prepararPublicacion({ ...fila, account_id: cuentas[fila.cuenta] });
     const r = await enviarAUnipile(pub, fetchImpl);
     await marcarPublicado(fila.id, r);
     console.log(
@@ -245,7 +351,7 @@ export interface OpcionesVuelta {
 
 /** Una vuelta: lo que toca publicar ahora. Devuelve lo que ha hecho, para los tests. */
 export async function vueltaPublicador(op: OpcionesVuelta = {}) {
-  const activo = op.activo ?? publicarActivo();
+  const activo = op.activo ?? (await publicarActivo());
   const { rows } = await pool.query(
     `SELECT id, clave, semana, cuenta, texto, menciones, programado_para, (imagen IS NOT NULL) AS tiene_imagen
        FROM semana_posts
@@ -263,13 +369,13 @@ export async function vueltaPublicador(op: OpcionesVuelta = {}) {
       simuladosVistos.add(marca);
       let detalle: string;
       try {
-        const pub = prepararPublicacion({ ...p, imagen: null });
+        const pub = prepararPublicacion({ ...p, imagen: null, account_id: (await cuentasUnipile())[p.cuenta] });
         detalle = `${pub.text.length} caracteres · ${p.tiene_imagen ? 'con foto' : 'sin foto'} · ${pub.mentions.length} menciones`;
       } catch (e: any) {
         detalle = `no saldría: ${e?.message}`;
       }
       console.log(
-        `[publicador] simulado (PUBLICAR_LINKEDIN != 1): habría publicado «${p.clave}» (${p.semana}) en la cuenta de ${p.cuenta}, programado para el ${new Date(p.programado_para).toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })} (Madrid) · ${detalle}. No se ha enviado nada y el post sigue como estaba`
+        `[publicador] simulado (subida automática apagada): habría publicado «${p.clave}» (${p.semana}) en la cuenta de ${p.cuenta}, programado para el ${new Date(p.programado_para).toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })} (Madrid) · ${detalle}. No se ha enviado nada y el post sigue como estaba`
       );
       continue;
     }
@@ -295,12 +401,18 @@ async function tick() {
 }
 
 export function startPublicador(): void {
-  const e = estadoPublicador();
-  const sinCuenta = CUENTAS.filter((c) => !e.cuentas[c]);
-  console.log(
-    `[publicador] ${e.activo ? 'ACTIVO: publica en LinkedIn' : 'simulado (PUBLICAR_LINKEDIN != 1): no publica nada'} · cada minuto` +
-      (sinCuenta.length ? ` · sin cuenta de Unipile: ${sinCuenta.join(', ')}` : '')
-  );
+  setTimeout(async () => {
+    try {
+      const e = await estadoPublicador();
+      const sinCuenta = CUENTAS.filter((c) => !e.cuentas[c]);
+      console.log(
+        `[publicador] ${e.activo ? 'ENCENDIDO: publica en LinkedIn' : 'apagado: no publica nada'}${e.forzado ? ` (forzado por PUBLICAR_LINKEDIN)` : ''} · cada minuto` +
+          (sinCuenta.length ? ` · sin cuenta de Unipile: ${sinCuenta.join(', ')}` : '')
+      );
+    } catch (err: any) {
+      console.error('[publicador] no se ha podido leer su estado:', err?.message);
+    }
+  }, 10 * 1000);
   setTimeout(() => {
     void tick();
     setInterval(() => void tick(), UN_MINUTO);

@@ -81,13 +81,16 @@ Reglas de TODOS los textos:
 - Nunca plantees que la IA sustituye al comercial.
 - NADA INVENTADO. No cuentes nada que no este en el post: ni que paso, ni que pregunto alguien, ni como reacciono la gente, ni datos, cifras, clientes o nombres. Ni en el comentario ni en la respuesta.
 - Un comentario opina, pregunta o suma una idea general desde el oficio de quien lo escribe. No describe escenas que el post no cuenta.
-- La respuesta del autor agradece, opina o devuelve la pregunta, sin hechos nuevos. Si le preguntan algo que el post no responde, contesta con su opinion o con lo que piensa hacer, nunca con un dato o una anecdota.
+- La respuesta del autor agradece, opina o devuelve la pregunta, sin hechos nuevos.
+- Sin años ni fechas.
+- MAL (cuenta lo que paso): "Every conversation that night had the same friction point", "That shift in the room was the real signal", "TAM was the first question".
+- BIEN (opina o pregunta): "The who-decides problem shows up in every market we look at", "Did any of them push back on how long industrial sales take?", "Good question. I think that is where we still have to explain it better". Si le preguntan algo que el post no responde, contesta con su opinion o con lo que piensa hacer, nunca con un dato o una anecdota.
 - Escribe en el MISMO idioma que el post.
 
 Devuelves SOLO estas lineas, una por texto, sin nada alrededor y sin comillas de mas:
-COMENTARIO <cuenta>: <el comentario>
-RESPUESTA <cuenta>: <lo que contesta el AUTOR del post a ese comentario>
-Una pareja COMENTARIO/RESPUESTA por cada cuenta pedida. Cada texto en UNA sola linea.
+COMENTARIO <cuenta de quien comenta>: <el comentario>
+RESPUESTA <cuenta de quien comenta>: <lo que le contesta el AUTOR del post>
+Una pareja COMENTARIO/RESPUESTA por cada cuenta pedida, la respuesta justo debajo de su comentario. Cada texto en UNA sola linea.
 La respuesta del autor es corta, cercana y contesta de verdad (si le ponen en duda, responde a la duda).`;
 
 /** Una llamada al modelo para toda la ronda. Lanza si no hay clave o si la respuesta no vale. */
@@ -132,13 +135,18 @@ export async function generarRonda(input: {
 export function interpretarRonda(crudo: string, comentaristas: { cuenta: Cuenta; rol: Rol }[], idioma: Idioma): Ronda {
   const t = String(crudo || '').replace(/```[a-z]*\s*/gi, '').replace(/```/g, '').trim();
   const porLineas: Record<string, { comentario?: string; respuesta?: string }> = {};
+  // La RESPUESTA va con el COMENTARIO que tiene encima, ponga el nombre que ponga:
+  // el modelo a veces la firma con el autor del post («RESPUESTA unai»).
+  let ultimo: string | null = null;
   for (const linea of t.split(/\r?\n/)) {
     // Tolera lo que el modelo añade alrededor: negritas, «<iker>», «(apoyo)», mayusculas.
     const m = linea.match(/^[\s\-*#>_]*(COMENTARIO|RESPUESTA)[\s*_<\[(]*(iker|unai|asier)\b[^:：\n]*[:：][\s*_]*(.+?)[\s*_]*$/i);
     if (!m) continue;
-    const c = m[2].toLowerCase();
+    const esComentario = m[1].toUpperCase() === 'COMENTARIO';
+    const c: string = esComentario || !ultimo ? m[2].toLowerCase() : ultimo;
+    if (esComentario) ultimo = c;
     porLineas[c] = porLineas[c] || {};
-    porLineas[c][m[1].toUpperCase() === 'COMENTARIO' ? 'comentario' : 'respuesta'] = m[3];
+    porLineas[c][esComentario ? 'comentario' : 'respuesta'] = m[3];
   }
   let lista: any[] = Object.entries(porLineas).map(([cuenta, v]) => ({ cuenta, ...v }));
   if (!lista.length) {

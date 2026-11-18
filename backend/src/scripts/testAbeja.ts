@@ -122,6 +122,15 @@ const cuentas = { iker: 'A-iker', unai: 'A-unai', asier: 'A-asier' };
     'es'
   );
   ok(r3.comentarios[0].texto === 'Muy de acuerdo' && r3.comentarios[0].respuesta === 'Gracias' && r3.comentarios[1].texto === '¿Y en ferias?', 'tolera negritas, <cuenta>, el rol y mayúsculas');
+  const r4 = interpretarRonda(
+    'COMENTARIO iker: Uno\nRESPUESTA unai: R-iker\n\nCOMENTARIO asier: Dos\nRESPUESTA unai: R-asier',
+    [
+      { cuenta: 'iker', rol: 'apoyo' },
+      { cuenta: 'asier', rol: 'duda' },
+    ],
+    'en'
+  );
+  ok(r4.comentarios[0].respuesta === 'R-iker' && r4.comentarios[1].respuesta === 'R-asier', 'la respuesta va con el comentario de encima aunque la firme el autor');
   ok(r2.comentarios[0].texto === 'Lo de "quién decide" es la clave' && r2.comentarios[1].respuesta === 'También', 'lee el formato de líneas, con comillas dentro');
   const aviso = componerAviso({
     cabecera: 'CAB',

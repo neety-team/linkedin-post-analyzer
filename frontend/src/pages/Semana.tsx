@@ -74,6 +74,7 @@ interface PostSemana {
   por_que: string | null;
   falta: string | null;
   nota_imagen: string | null;
+  referencia?: string | null;
   tiene_imagen: boolean;
   imagen_version: string | null;
   /** Las otras cuentas que firman el post. Vacio si es de una sola. */
@@ -777,6 +778,7 @@ function Revision({
             {post.vara && <p className="mt-1.5 text-[13px] text-text-muted tabular-nums">Con qué se compara: {post.vara.replace(/^Vara:\s*/i, '')}</p>}
           </div>
         )}
+        <Referencia texto={post.referencia} />
 
         <div className="space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -1163,6 +1165,30 @@ function pilarVisible(pilar: string | null): string | null {
     .map((p) => p.trim())
     .filter((p) => p && !NOTAS_DE_TRABAJO.test(p));
   return partes.length ? partes.join(' · ') : null;
+}
+
+/** De dónde sale el post (2026-11-18): el post de referencia, la reunión o el dato. Los enlaces se abren. */
+function Referencia({ texto }: { texto?: string | null }) {
+  if (!texto) {
+    return <p className="text-[13px] text-warning">Sin referencia: falta decir de qué post, reunión o dato sale.</p>;
+  }
+  const trozos = texto.split(/(https?:\/\/[^\s)]+)/g);
+  return (
+    <div className="rounded-lg border border-border px-4 py-3">
+      <p className="font-display text-[15px] font-semibold text-text-primary">Referencia</p>
+      <p className="mt-1 text-[14px] leading-relaxed text-text-secondary max-w-[62ch] break-words">
+        {trozos.map((t, i) =>
+          /^https?:\/\//.test(t) ? (
+            <a key={i} href={t} target="_blank" rel="noreferrer" className="text-accent underline underline-offset-2">
+              {t.replace(/^https?:\/\/(www\.)?/, '').slice(0, 48)}…
+            </a>
+          ) : (
+            <span key={i}>{t}</span>
+          )
+        )}
+      </p>
+    </div>
+  );
 }
 
 function Etiquetas({ post }: { post: PostSemana }) {

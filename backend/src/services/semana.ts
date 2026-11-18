@@ -127,6 +127,8 @@ export interface PostSemanaEntrada {
   por_que?: string | null;
   falta?: string | null;
   nota_imagen?: string | null;
+  /** De dónde sale el post: el enlace al post de referencia (con sus cifras), la reunión o el dato propio. */
+  referencia?: string | null;
   /** Las otras cuentas que firman un post colaborativo. `null` o [] = post de una cuenta. */
   coautores?: string[] | null;
   /** Los perfiles de los `@Nombre` del texto: [{nombre, profile_id}]. `null` vacia la lista. */
@@ -169,7 +171,7 @@ export async function leerSemana(semana: string) {
 
   const posts = await pool.query(
     `SELECT id, semana, clave, to_char(fecha, 'YYYY-MM-DD') AS fecha, cuenta, objetivo,
-            experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, coautores, updated_at,
+            experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, referencia, coautores, updated_at,
             menciones, programado_para, publicando_desde, publicado_at, linkedin_post_id, unipile_draft_id,
             error_publicacion,
             (imagen IS NOT NULL) AS tiene_imagen,
@@ -305,8 +307,8 @@ export async function guardarSemana(
         await client.query(
           `INSERT INTO semana_posts
              (semana, clave, fecha, cuenta, objetivo, experimento, pilar, titulo, texto, estado,
-              vara, por_que, falta, nota_imagen, coautores, menciones)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14,$15,$16)`,
+              vara, por_que, falta, nota_imagen, coautores, menciones, referencia)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14,$15,$16,$17)`,
           [
             semana,
             clave,
@@ -324,6 +326,7 @@ export async function guardarSemana(
             limpio(p.nota_imagen, 3000),
             coautores ?? [],
             JSON.stringify(menciones ?? []),
+            limpio(p.referencia, 2000),
           ]
         );
         creados++;
@@ -349,6 +352,7 @@ export async function guardarSemana(
       if (p.por_que !== undefined) pon('por_que', limpio(p.por_que, 2000));
       if (p.falta !== undefined) pon('falta', limpio(p.falta, 2000));
       if (p.nota_imagen !== undefined) pon('nota_imagen', limpio(p.nota_imagen, 3000));
+      if (p.referencia !== undefined) pon('referencia', limpio(p.referencia, 2000));
       if (coautores !== undefined) pon('coautores', coautores);
       if (menciones !== undefined) pon('menciones', JSON.stringify(menciones));
       // La unica columna de la programacion que toca el PUT, y solo para quitar la hora.

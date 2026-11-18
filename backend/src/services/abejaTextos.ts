@@ -133,7 +133,8 @@ export function interpretarRonda(crudo: string, comentaristas: { cuenta: Cuenta;
   const t = String(crudo || '').replace(/```[a-z]*\s*/gi, '').replace(/```/g, '').trim();
   const porLineas: Record<string, { comentario?: string; respuesta?: string }> = {};
   for (const linea of t.split(/\r?\n/)) {
-    const m = linea.match(/^\s*[-*]?\s*(COMENTARIO|RESPUESTA)\s+(iker|unai|asier)\s*[:：]\s*(.+)$/i);
+    // Tolera lo que el modelo añade alrededor: negritas, «<iker>», «(apoyo)», mayusculas.
+    const m = linea.match(/^[\s\-*#>_]*(COMENTARIO|RESPUESTA)[\s*_<\[(]*(iker|unai|asier)\b[^:：\n]*[:：][\s*_]*(.+?)[\s*_]*$/i);
     if (!m) continue;
     const c = m[2].toLowerCase();
     porLineas[c] = porLineas[c] || {};
@@ -151,7 +152,9 @@ export function interpretarRonda(crudo: string, comentaristas: { cuenta: Cuenta;
     const item = lista.find((x) => String(x?.cuenta || '').toLowerCase() === c.cuenta) || lista[i];
     const texto = limpiarTexto(item?.comentario || '', idioma, MAX_COMENTARIO);
     const respuesta = limpiarTexto(item?.respuesta || '', idioma, MAX_RESPUESTA);
-    if (!texto || !respuesta) throw new Error(`Falta el comentario o la respuesta de ${c.cuenta}`);
+    if (!texto || !respuesta) {
+      throw new Error(`Falta el comentario o la respuesta de ${c.cuenta}. El modelo devolvió: ${t.slice(0, 400)}`);
+    }
     return { cuenta: c.cuenta, rol: c.rol, texto, respuesta };
   });
   return { idioma, comentarios };

@@ -368,6 +368,11 @@ router.get('/milestones', async (req: Request, res: Response) => {
     const filtroManual = incluirManual ? '' : ' AND is_manual IS NOT TRUE';
     const hoy = new Date().toISOString().slice(0, 10);
     const DESDE = '2025-01-01';
+    // Las banderas de IMPRESIONES miden la estrategia, no el historico de la cuenta: cuentan
+    // desde la primera publicacion de la estrategia (el mapa del 14/04/2026). Antes se sumaba
+    // todo lo que LinkedIn guardaba desde 2025 (~200.000 de antes) y el 4M salia adelantado.
+    // Los seguidores no: su bandera es la cifra que LinkedIn enseño ese dia (2026-11-18).
+    const ESTRATEGIA_DESDE = '2026-04-14';
 
     // Impresiones: la misma serie diaria que la grafica (oficial + manuales por fecha de publicacion).
     const params: any[] = [];
@@ -382,11 +387,12 @@ router.get('/milestones', async (req: Request, res: Response) => {
       `WITH oficial AS (
          SELECT d.day, SUM(d.impressions)::bigint AS v
            FROM creator_daily_impressions d JOIN creators c ON c.id = d.creator_id
-          WHERE ${oficialScope} GROUP BY d.day),
+          WHERE ${oficialScope} AND d.day >= '${ESTRATEGIA_DESDE}'::date GROUP BY d.day),
        manual AS (
          SELECT (p.published_at)::date AS day, SUM(p.impressions_count)::bigint AS v
            FROM posts p JOIN creators c ON c.id = p.creator_id AND c.is_manual = TRUE
           WHERE ${manualScope} AND p.published_at IS NOT NULL
+            AND (p.published_at)::date >= '${ESTRATEGIA_DESDE}'::date
             AND p.linkedin_post_id <> 'DEMO_LIVE_POST' AND p.deleted_from_linkedin_at IS NULL
           GROUP BY 1)
        SELECT day::text AS dia, SUM(v)::bigint AS valor

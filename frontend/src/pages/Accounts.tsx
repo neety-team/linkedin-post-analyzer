@@ -2364,7 +2364,7 @@ function AccountsInner() {
               {/* Las banderas son del histórico entero y la curva arranca en 0 al inicio del rango:
                   sin esta línea, un 4M encima de una curva de 3,1M parece un bug (2026-11-18). */}
               {hitosEnRango(hitosImpresiones, dateRange.start, dateRange.end).length > 0 && (
-                <span className="block mt-0.5">🏁 Las banderas cuentan desde el primer post, no desde el inicio del rango: por eso pueden marcar más que la cifra de arriba.</span>
+                <span className="block mt-0.5">🏁 Las banderas cuentan desde que empezó la estrategia (14 de abril), no desde el inicio del rango: por eso pueden marcar más que la cifra de arriba.</span>
               )}
             </p>
             {dailyChartData.length === 0 ? (

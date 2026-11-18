@@ -1388,7 +1388,7 @@ sorprende, que es de lo que vive este pilar.
 > |---|---|---|---|---|---|
 > | **desgaste** · `Meme (desgaste)` | un rasgo del cuerpo o de la vida que empeora con el cargo, el tiempo o las llamadas: calvicie, peso, la cara del wojak | 8 | **135.924** · 226.457 | 0,17 | **ALCANCE**: el que más llega, con diferencia, y el que menos clica |
 > | **captura** · `Meme (captura)` | pantallazo creíble de un correo, chat, tuit, buscador, factura, llamada o ficha de producto | 15 | 14.174 · 101.032 | **1,27** | **CONVERSIÓN**: el que más clics saca por impresión |
-> | **gráfica** · `Meme (grafica)` | una curva, un eje o un mapa dibujado con rótulos que cuenta la verdad de ventas: la montaña rusa del caos, el país inventado | 4 | 62.182 · 134.823 | 0,29 | alcance con humor inteligente (618 likes y 62 reposts en el caos) |
+> | **gráfica** · `Meme (grafica)` | una curva, un eje o un mapa dibujado con rótulos que cuenta la verdad de ventas: la montaña rusa del caos, el país inventado; 🔄 18/11: también el dibujo editorial de una escena o un objeto con rótulos que cuentan el chiste (las anclas, el laberinto, la furgoneta del secuestro), que es lo que ya se venía etiquetando aquí. La captura es solo lo que finge ser una pantalla o un documento real | 4 | 62.182 · 134.823 | 0,29 | alcance con humor inteligente (618 likes y 62 reposts en el caos) |
 > | **traductor** · `Meme (traductor)` | lo que se dice contra lo que es, en dos cajas | 4 | 7.644 · 193.415 | 0,50 | lotería: un outlier enorme (el perro) y el resto flojo |
 > | **personaje** · `Meme (personaje)` | plantilla de película, dibujo animado, animal o viñeta de reacción | 17 | **4.101** · 49.837 | 0,62 | **el que peor alcanza**: no es la primera opción |
 >

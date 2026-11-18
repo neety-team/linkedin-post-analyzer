@@ -909,7 +909,17 @@ function PanelProgramar({
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const [marcados, setMarcados] = useState<Set<string>>(
-    () => new Set(posts.filter((p) => !p.motivo_no_programable).map((p) => p.id))
+    // Marcados de entrada: los que se pueden programar y cuya hora por defecto aún no ha pasado
+    () =>
+      new Set(
+        posts
+          .filter((p) => !p.motivo_no_programable)
+          .filter((p) => {
+            const t = instanteMadrid(p.fecha, HORA_POR_DEFECTO);
+            return !!t && t.getTime() > Date.now();
+          })
+          .map((p) => p.id)
+      )
   );
   const [horas, setHoras] = useState<Record<string, string>>({});
   const [enviando, setEnviando] = useState(false);

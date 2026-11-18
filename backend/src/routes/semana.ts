@@ -17,6 +17,7 @@ import {
   guardarImagen,
   leerImagen,
   borrarImagen,
+  numeroFoto,
   perfilesDeCuentas,
   programarPosts,
   desprogramarPost,
@@ -27,12 +28,61 @@ import {
   IMAGEN_MAX_BYTES,
 } from '../services/semana';
 import { estadoPublicador, cambiarSubidaAutomatica } from '../services/publicadorLinkedin';
+import { estadoAbeja, cambiarAbeja, rondaDePost, ensayarRonda } from '../services/abeja';
 import { identidadDe } from '../middleware/basicAuth';
 
 const router = Router();
 
 const RE_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const param = (req: Request, k: string) => String((req.params as any)[k] || '');
+
+/** GET /api/semana/abeja — si el efecto abeja (la ronda entre fundadores) esta encendido. */
+router.get('/abeja', async (_req: Request, res: Response) => {
+  try {
+    res.json(await estadoAbeja());
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/** POST /api/semana/abeja {activo} — el boton de la pagina. Queda apuntado quien y cuando. */
+router.post('/abeja', async (req: Request, res: Response) => {
+  try {
+    const { activo, autor } = req.body || {};
+    if (typeof activo !== 'boolean') return res.status(400).json({ error: 'Falta `activo` (true o false)' });
+    const yo = identidadDe(req);
+    const quien = (yo ? yo.nombre : String(autor || '').trim()) || 'alguien sin identificar';
+    res.json(await cambiarAbeja(activo, quien));
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/semana/posts/:id/abeja/ensayo — escribe los comentarios y las
+ * respuestas que llevaria ese post, sin guardar ni enviar nada. Para ver como
+ * suenan antes de que salgan.
+ */
+router.post('/posts/:id/abeja/ensayo', async (req: Request, res: Response) => {
+  try {
+    const id = param(req, 'id');
+    if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+    res.json(await ensayarRonda(id));
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+/** GET /api/semana/posts/:id/abeja — la ronda de un post publicado: quien hace que y cuando. */
+router.get('/posts/:id/abeja', async (req: Request, res: Response) => {
+  try {
+    const id = param(req, 'id');
+    if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+    res.json({ acciones: await rondaDePost(id) });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 /** GET /api/semana — las semanas que hay, la mas reciente primero. */
 router.get('/', async (_req: Request, res: Response) => {
@@ -231,12 +281,12 @@ router.get('/perfiles', async (_req: Request, res: Response) => {
   res.json({ perfiles: await perfilesDeCuentas() });
 });
 
-/** GET /api/semana/posts/:id/imagen — la foto del post. */
+/** GET /api/semana/posts/:id/imagen[?n=2] — la foto del post (con n=2, la segunda). */
 router.get('/posts/:id/imagen', async (req: Request, res: Response) => {
   try {
     const id = param(req, 'id');
     if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
-    const img = await leerImagen(id);
+    const img = await leerImagen(id, numeroFoto(req.query.n));
     if (!img) return res.status(404).json({ error: 'Ese post no tiene foto' });
     // La pagina pide la foto con ?v=<version>: cada foto nueva es otra URL, asi
     // que esta se puede guardar en cache. `nosniff` para que el navegador no la
@@ -273,7 +323,7 @@ router.put(
       const id = param(req, 'id');
       if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
       if (!Buffer.isBuffer(req.body)) return res.status(400).json({ error: 'Manda el fichero de la imagen en el cuerpo' });
-      const r = await guardarImagen(id, req.body);
+      const r = await guardarImagen(id, req.body, numeroFoto(req.query.n));
       if (!r) return res.status(404).json({ error: 'Post no encontrado' });
       res.json(r);
     } catch (err: any) {
@@ -287,7 +337,7 @@ router.delete('/posts/:id/imagen', async (req: Request, res: Response) => {
   try {
     const id = param(req, 'id');
     if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
-    res.json({ borrada: await borrarImagen(id) });
+    res.json({ borrada: await borrarImagen(id, numeroFoto(req.query.n)) });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

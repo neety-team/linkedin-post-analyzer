@@ -93,6 +93,10 @@ interface PostSemana {
   referencia?: string | null;
   tiene_imagen: boolean;
   imagen_version: string | null;
+  /** La segunda foto de un post de varias fotos (2026-11-18): va detras de la 1. */
+  tiene_imagen2?: boolean;
+  imagen2_version?: string | null;
+  linkedin_url?: string | null;
   /** Las otras cuentas que firman el post. Vacio si es de una sola. */
   coautores?: Cuenta[] | null;
   /** Programar (2026-11-18): la hora a la que el publicador lo sube solo. */
@@ -177,6 +181,161 @@ function SubidaAutomatica({ estado, autor, onCambio }: { estado: EstadoPublicado
         {cambiando ? '…' : estado.activo ? 'Apagar' : 'Encender'}
       </button>
       {error && <span className="block w-full text-xs text-danger">{error}</span>}
+    </div>
+  );
+}
+
+interface EstadoAbeja {
+  activo: boolean;
+  forzado: 'apagado' | null;
+  cambiado_por: string | null;
+  cambiado_at: string | null;
+  webhook: boolean;
+}
+
+/**
+ * El interruptor del efecto abeja (2026-11-18). Encendido, cuando sale un post
+ * los otros dos fundadores le dan like, comentan y repostean, y el autor
+ * responde, cada cosa a su hora. El aviso al Chat sale siempre.
+ */
+function EfectoAbeja({ estado, autor, onCambio }: { estado: EstadoAbeja; autor: string; onCambio: () => void }) {
+  const [cambiando, setCambiando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const cambiar = async (activo: boolean) => {
+    const pregunta = activo
+      ? 'Encender el efecto abeja: cuando salga un post, los otros dos fundadores le darán like, comentarán y repostearán desde sus cuentas, y el autor responderá. ¿Seguro?'
+      : 'Apagar el efecto abeja: el aviso al Chat sigue saliendo, pero nadie comenta ni da like solo. ¿Apagar?';
+    if (!window.confirm(pregunta)) return;
+    setCambiando(true);
+    setError(null);
+    try {
+      await apiPost('/api/semana/abeja', { activo, autor });
+      onCambio();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se ha podido');
+    } finally {
+      setCambiando(false);
+    }
+  };
+  if (estado.forzado) {
+    return <p className="text-[13px] text-warning">Efecto abeja apagado desde el servidor (EFECTO_ABEJA=0).</p>;
+  }
+  const cuando = estado.cambiado_at
+    ? new Date(estado.cambiado_at).toLocaleString('es-ES', { timeZone: 'Europe/Madrid', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+    : null;
+  const quien = estado.cambiado_por && cuando ? ` · ${estado.activo ? 'lo encendió' : 'lo apagó'} ${estado.cambiado_por}, ${cuando}` : '';
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+      <span className={`text-[13px] ${estado.activo ? 'text-success' : 'text-warning'}`}>
+        <b>Efecto abeja {estado.activo ? 'encendido' : 'apagado'}</b>
+        {estado.activo ? ': likes, comentarios y reposts entre los tres' : ': solo el aviso al Chat'}
+        {!estado.webhook && <span className="text-warning"> · sin webhook del Chat</span>}
+        <span className="text-text-muted">{quien}</span>
+      </span>
+      <button
+        type="button"
+        onClick={() => cambiar(!estado.activo)}
+        disabled={cambiando}
+        className={`px-3 py-1.5 rounded-full text-[13px] font-semibold border transition-colors disabled:opacity-60 ${
+          estado.activo ? 'border-border text-text-primary hover:bg-bg-secondary' : 'border-success/50 text-success hover:bg-success/10'
+        }`}
+      >
+        {cambiando ? '…' : estado.activo ? 'Apagar' : 'Encender'}
+      </button>
+      {error && <span className="block w-full text-xs text-danger">{error}</span>}
+    </div>
+  );
+}
+
+const NOMBRE_ACCION: Record<string, string> = {
+  verificar: 'Busca el post en LinkedIn',
+  aviso: 'Aviso al Chat de contenido',
+  like_post: 'Like al post',
+  comentar: 'Comenta',
+  responder: 'Responde',
+  like_comentario: 'Like al comentario',
+  repost: 'Repost',
+};
+const NOMBRE_CUENTA: Record<string, string> = { iker: 'Iker', unai: 'Unai', asier: 'Asier' };
+
+interface AccionAbeja {
+  id: string;
+  tipo: string;
+  actor: string | null;
+  texto: string | null;
+  programado_para: string;
+  estado: 'pendiente' | 'en_curso' | 'hecho' | 'fallo' | 'saltado';
+  error: string | null;
+}
+
+/**
+ * La ronda de los fundadores de un post. Publicado: lo que ha salido y lo que
+ * falta, con su hora. Sin publicar: un ensayo de como sonarian los comentarios.
+ */
+function RondaAbeja({ post }: { post: PostSemana }) {
+  const publicado = post.estado === 'publicado';
+  const ronda = useApi<{ acciones: AccionAbeja[] }>(publicado ? `/api/semana/posts/${post.id}/abeja` : null);
+  const [ensayo, setEnsayo] = useState<{ comentarios: { cuenta: string; rol: string; texto: string; respuesta: string }[] } | null>(null);
+  const [cargando, setCargando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const ensayar = async () => {
+    setCargando(true);
+    setError(null);
+    try {
+      setEnsayo(await apiPost(`/api/semana/posts/${post.id}/abeja/ensayo`, {}));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se ha podido');
+    } finally {
+      setCargando(false);
+    }
+  };
+  const autor = NOMBRE_CUENTA[post.cuenta] || post.cuenta;
+  return (
+    <div>
+      <h4 className="font-display text-[15px] font-semibold text-text-primary">Ronda de los fundadores</h4>
+      {publicado ? (
+        ronda.data?.acciones?.length ? (
+          <ul className="mt-1.5 space-y-1.5 text-[13px] leading-snug">
+            {ronda.data.acciones.map((a) => (
+              <li key={a.id} className="flex gap-2">
+                <span className="shrink-0 w-11 tabular-nums text-text-muted">{horaMadrid(a.programado_para)}</span>
+                <span className="min-w-0">
+                  <span className={a.estado === 'hecho' ? 'text-success' : a.estado === 'fallo' ? 'text-danger' : a.estado === 'saltado' ? 'text-text-muted line-through' : 'text-text-primary'}>
+                    {a.actor ? `${NOMBRE_CUENTA[a.actor] || a.actor} · ` : ''}
+                    {NOMBRE_ACCION[a.tipo] || a.tipo}
+                  </span>
+                  {a.texto && a.tipo !== 'aviso' && <span className="block text-text-secondary">«{a.texto}»</span>}
+                  {a.error && a.estado !== 'hecho' && <span className="block text-xs text-danger">{a.error}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-1 text-[13px] text-text-secondary">{ronda.loading ? 'Cargando…' : 'Este post no tiene ronda: salió antes del efecto abeja o no lo subió el publicador.'}</p>
+        )
+      ) : (
+        <>
+          <p className="mt-1 text-[13px] leading-relaxed text-text-secondary">
+            Cuando salga, los otros dos le darán like y comentarán ({autor} responde) y lo repostearán. Los comentarios se escriben al publicarse.
+          </p>
+          <button type="button" onClick={ensayar} disabled={cargando} className="mt-1.5 text-[13px] font-semibold text-accent hover:underline underline-offset-2 disabled:opacity-60">
+            {cargando ? 'Escribiendo…' : ensayo ? 'Otro ensayo' : 'Ver cómo sonarían los comentarios'}
+          </button>
+          {ensayo && (
+            <ul className="mt-1.5 space-y-2 text-[13px] leading-snug">
+              {ensayo.comentarios.map((c) => (
+                <li key={c.cuenta}>
+                  <span className="font-semibold text-text-primary">{NOMBRE_CUENTA[c.cuenta] || c.cuenta}</span>
+                  <span className="text-text-muted"> · {c.rol === 'apoyo' ? 'apoya' : c.rol === 'duda' ? 'pone en duda' : 'otro ángulo'}</span>
+                  <span className="block text-text-secondary">«{c.texto}»</span>
+                  <span className="block text-text-secondary">↳ {autor}: «{c.respuesta}»</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {error && <p className="mt-1 text-xs text-danger">{error}</p>}
+        </>
+      )}
     </div>
   );
 }
@@ -411,6 +570,7 @@ const FOTO_MAX = 8 * 1024 * 1024;
 const FOTO_TIPOS = 'image/jpeg,image/png,image/webp,image/gif';
 
 const urlFoto = (post: PostSemana) => `${API}/api/semana/posts/${post.id}/imagen?v=${post.imagen_version || ''}`;
+const urlFoto2 = (post: PostSemana) => `${API}/api/semana/posts/${post.id}/imagen?n=2&v=${post.imagen2_version || ''}`;
 
 /**
  * El texto del post: lo que falta por rellenar ([...]) resaltado, y los enlaces
@@ -498,8 +658,8 @@ function fechaLinkedIn(fecha: string): string {
     .replace(/\./g, '');
 }
 
-/** Subir, cambiar y quitar la foto de un post. */
-function useFoto(post: PostSemana, onCambio: () => void) {
+/** Subir, cambiar y quitar una foto de un post (la 1 o la 2). */
+function useFoto(post: PostSemana, onCambio: () => void, n: 1 | 2 = 1) {
   const [subiendo, setSubiendo] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -511,7 +671,7 @@ function useFoto(post: PostSemana, onCambio: () => void) {
     setSubiendo(true);
     setError(null);
     try {
-      const res = await fetch(`${API}/api/semana/posts/${post.id}/imagen`, {
+      const res = await fetch(`${API}/api/semana/posts/${post.id}/imagen${n === 2 ? '?n=2' : ''}`, {
         method: metodo,
         headers: fichero ? { 'Content-Type': fichero.type || 'application/octet-stream' } : undefined,
         body: fichero,
@@ -645,7 +805,12 @@ function PostLinkedIn({
           )}
         </div>
 
-        {post.tiene_imagen ? (
+        {post.tiene_imagen && post.tiene_imagen2 ? (
+          <div className="grid grid-cols-2 gap-0.5">
+            <img src={urlFoto(post)} alt={post.nota_imagen || `Foto 1 del post de ${nombre}`} className="w-full h-full object-cover block aspect-[3/4]" />
+            <img src={urlFoto2(post)} alt={`Foto 2 del post de ${nombre}`} className="w-full h-full object-cover block aspect-[3/4]" />
+          </div>
+        ) : post.tiene_imagen ? (
           <img src={urlFoto(post)} alt={post.nota_imagen || `Foto del post de ${nombre}`} className="w-full block" />
         ) : (
           <div className={`mx-4 mb-2 rounded-md border border-dashed px-5 py-10 text-center ${c.hueco}`}>
@@ -987,6 +1152,7 @@ function Revision({
 }) {
   const [entero, setEntero] = useState(false);
   const foto = useFoto(post, onCambio);
+  const foto2 = useFoto(post, onCambio, 2);
   const largo = post.texto.length > 210 || post.texto.split('\n').length > 3;
 
   return (
@@ -1076,7 +1242,32 @@ function Revision({
             </p>
           )}
           {foto.error && <p className="mt-1 text-xs text-danger">{foto.error}</p>}
+          {post.tiene_imagen && (
+            <p className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px]">
+              {post.tiene_imagen2 ? (
+                <>
+                  <span className="text-success">Segunda foto subida</span>
+                  {foto2.elegir('Cambiarla', 'font-semibold text-text-secondary hover:text-accent rounded')}
+                  <button
+                    type="button"
+                    disabled={foto2.subiendo}
+                    onClick={() => {
+                      if (window.confirm('¿Quitar la segunda foto?')) foto2.quitar();
+                    }}
+                    className="font-semibold text-text-secondary hover:text-danger"
+                  >
+                    Quitarla
+                  </button>
+                </>
+              ) : (
+                foto2.elegir('Añadir una segunda foto', 'font-semibold text-text-secondary hover:text-accent rounded')
+              )}
+            </p>
+          )}
+          {foto2.error && <p className="mt-1 text-xs text-danger">{foto2.error}</p>}
         </div>
+
+        <RondaAbeja post={post} />
 
         <div className="border-t border-border pt-5">
           <Comentarios post={post} autor={autor} onCambio={onCambio} />
@@ -1919,6 +2110,7 @@ export default function Semana() {
   const autor = identificado || elegido;
   const perfiles = useApi<{ perfiles: Partial<Record<Cuenta, Perfil>> }>('/api/semana/perfiles');
   const publicador = useApi<EstadoPublicador>('/api/semana/publicador');
+  const abeja = useApi<EstadoAbeja>('/api/semana/abeja');
   const [programando, setProgramando] = useState(false);
   const [aviso, setAviso] = useState<string | null>(null);
   // La cuenta de quien mira: por su nombre de pila, venga del login o del boton.
@@ -2108,6 +2300,7 @@ export default function Semana() {
               Programar posts
             </button>
             {publicador.data && <SubidaAutomatica estado={publicador.data} autor={autor} onCambio={publicador.refetch} />}
+            {abeja.data && <EfectoAbeja estado={abeja.data} autor={autor} onCambio={abeja.refetch} />}
             {aviso && (
               <p className="text-[13px] text-success" role="status">
                 {aviso}

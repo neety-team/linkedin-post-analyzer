@@ -159,6 +159,8 @@ interface FilaReclamada {
   pendientes: Pendiente[] | null;
   imagen: Buffer | null;
   imagen_tipo: string | null;
+  imagen2: Buffer | null;
+  imagen2_tipo: string | null;
   programado_para: Date;
 }
 
@@ -171,7 +173,7 @@ export async function reclamar(id: string): Promise<FilaReclamada | null> {
     `UPDATE semana_posts SET publicando_desde = NOW()
       WHERE id = $1 AND estado = 'programado' AND publicando_desde IS NULL
         AND programado_para IS NOT NULL AND programado_para <= NOW()
-      RETURNING id, clave, semana, cuenta, texto, menciones, falta, pendientes, imagen, imagen_tipo, programado_para`,
+      RETURNING id, clave, semana, cuenta, texto, menciones, falta, pendientes, imagen, imagen_tipo, imagen2, imagen2_tipo, programado_para`,
     [id]
   );
   return rows[0] || null;
@@ -181,7 +183,8 @@ export interface Publicacion {
   account_id: string;
   text: string;
   mentions: MencionUnipile[];
-  imagen: { datos: Buffer; tipo: string } | null;
+  /** Las fotos en el orden en que salen: la 1 y, si la hay, la 2. */
+  imagenes: { datos: Buffer; tipo: string }[];
 }
 
 /** Monta lo que se manda a Unipile, o lanza el motivo por el que no se puede. */
@@ -193,6 +196,8 @@ export function prepararPublicacion(fila: {
   pendientes?: Pendiente[] | null;
   imagen?: Buffer | null;
   imagen_tipo?: string | null;
+  imagen2?: Buffer | null;
+  imagen2_tipo?: string | null;
   account_id?: string | null;
 }): Publicacion {
   const motivo = motivoParaPublicar(fila.texto || '', fila.menciones, fila.falta, fila.pendientes);
@@ -217,7 +222,10 @@ export function prepararPublicacion(fila: {
     account_id,
     text: texto,
     mentions,
-    imagen: fila.imagen?.length ? { datos: fila.imagen, tipo: fila.imagen_tipo || 'image/jpeg' } : null,
+    imagenes: [
+      fila.imagen?.length ? { datos: fila.imagen, tipo: fila.imagen_tipo || 'image/jpeg' } : null,
+      fila.imagen?.length && fila.imagen2?.length ? { datos: fila.imagen2, tipo: fila.imagen2_tipo || 'image/jpeg' } : null,
+    ].filter((x): x is { datos: Buffer; tipo: string } => !!x),
   };
 }
 
@@ -233,10 +241,11 @@ export function cuerpoUnipile(pub: Publicacion): FormData {
     body.append(`mentions[${i}][name]`, m.name);
     body.append(`mentions[${i}][profile_id]`, m.profile_id);
   });
-  if (pub.imagen) {
-    const ext = pub.imagen.tipo.split('/')[1] || 'jpg';
-    body.append('attachments', new Blob([new Uint8Array(pub.imagen.datos)], { type: pub.imagen.tipo }), `foto.${ext}`);
-  }
+  // Varias fotos = varios `attachments`, en orden: LinkedIn las enseña tal cual llegan.
+  pub.imagenes.forEach((img, i) => {
+    const ext = img.tipo.split('/')[1] || 'jpg';
+    body.append('attachments', new Blob([new Uint8Array(img.datos)], { type: img.tipo }), `foto${i + 1}.${ext}`);
+  });
   return body;
 }
 
@@ -325,6 +334,14 @@ export async function publicarReclamado(
     const pub = prepararPublicacion({ ...fila, account_id: cuentas[fila.cuenta] });
     const r = await enviarAUnipile(pub, fetchImpl);
     await marcarPublicado(fila.id, r);
+    // El efecto abeja: aviso al Chat y ronda entre fundadores. Import dinamico
+    // porque abeja.ts usa las cuentas de este modulo. Nunca lanza.
+    try {
+      const { planificarAbeja } = await import('./abeja');
+      await planificarAbeja({ id: fila.id, cuenta: fila.cuenta, texto: fila.texto });
+    } catch (e: any) {
+      console.error(`[publicador] la ronda del efecto abeja de «${fila.clave}» no se ha podido planificar: ${e?.message}`);
+    }
     console.log(
       `[publicador] publicado «${fila.clave}» (${fila.semana}) en la cuenta de ${fila.cuenta} · ${r.status} · post_id ${r.post_id ?? '-'}${r.draft_id ? ` · draft_id ${r.draft_id}` : ''}`
     );
@@ -355,7 +372,7 @@ export interface OpcionesVuelta {
 export async function vueltaPublicador(op: OpcionesVuelta = {}) {
   const activo = op.activo ?? (await publicarActivo());
   const { rows } = await pool.query(
-    `SELECT id, clave, semana, cuenta, texto, menciones, falta, pendientes, programado_para, (imagen IS NOT NULL) AS tiene_imagen
+    `SELECT id, clave, semana, cuenta, texto, menciones, falta, pendientes, programado_para, (imagen IS NOT NULL) AS tiene_imagen, (imagen IS NOT NULL AND imagen2 IS NOT NULL) AS tiene_imagen2
        FROM semana_posts
       WHERE estado = 'programado' AND publicando_desde IS NULL
         AND programado_para IS NOT NULL AND programado_para <= NOW()
@@ -371,8 +388,9 @@ export async function vueltaPublicador(op: OpcionesVuelta = {}) {
       simuladosVistos.add(marca);
       let detalle: string;
       try {
-        const pub = prepararPublicacion({ ...p, imagen: null, account_id: (await cuentasUnipile())[p.cuenta] });
-        detalle = `${pub.text.length} caracteres · ${p.tiene_imagen ? 'con foto' : 'sin foto'} · ${pub.mentions.length} menciones`;
+        const pub = prepararPublicacion({ ...p, imagen: null, imagen2: null, account_id: (await cuentasUnipile())[p.cuenta] });
+        const fotos = p.tiene_imagen2 ? 'con 2 fotos' : p.tiene_imagen ? 'con foto' : 'sin foto';
+        detalle = `${pub.text.length} caracteres · ${fotos} · ${pub.mentions.length} menciones`;
       } catch (e: any) {
         detalle = `no saldría: ${e?.message}`;
       }

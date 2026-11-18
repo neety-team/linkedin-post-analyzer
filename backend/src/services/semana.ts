@@ -408,7 +408,10 @@ export async function leerSemana(semana: string) {
             menciones, pendientes, programado_para, publicando_desde, publicado_at, linkedin_post_id, unipile_draft_id,
             error_publicacion,
             (imagen IS NOT NULL) AS tiene_imagen,
-            (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS imagen_version
+            (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS imagen_version,
+            (imagen2 IS NOT NULL) AS tiene_imagen2,
+            (EXTRACT(EPOCH FROM imagen2_at) * 1000)::bigint::text AS imagen2_version,
+            linkedin_url
        FROM semana_posts
       WHERE semana = $1
       ORDER BY fecha, array_position(ARRAY['iker','unai','asier'], cuenta), clave`,
@@ -827,38 +830,60 @@ export function tipoDeImagen(b: Buffer): string | null {
   return null;
 }
 
-/** Guarda la foto de un post. Devuelve null si el post no existe. */
-export async function guardarImagen(postId: string, datos: Buffer) {
+/**
+ * Cada post lleva hasta DOS fotos (2026-11-18): la 1 es la de siempre y la 2,
+ * la que va detras en un post de varias fotos. Las columnas de la 2 son
+ * imagen2, imagen2_tipo e imagen2_at.
+ */
+export type NumeroFoto = 1 | 2;
+const COL: Record<NumeroFoto, { d: string; t: string; at: string }> = {
+  1: { d: 'imagen', t: 'imagen_tipo', at: 'imagen_at' },
+  2: { d: 'imagen2', t: 'imagen2_tipo', at: 'imagen2_at' },
+};
+export const numeroFoto = (v: unknown): NumeroFoto => (String(v ?? '1') === '2' ? 2 : 1);
+
+/** Guarda una foto de un post. Devuelve null si el post no existe. */
+export async function guardarImagen(postId: string, datos: Buffer, n: NumeroFoto = 1) {
   if (!datos.length) throw new Error('La imagen está vacía');
   if (datos.length > IMAGEN_MAX_BYTES) throw new Error('La imagen pesa más de 8 MB');
   const tipo = tipoDeImagen(datos);
   if (!tipo) throw new Error('Solo se admiten fotos JPEG, PNG, WebP o GIF');
+  const c = COL[n];
+  if (n === 2) {
+    const { rows: r1 } = await pool.query(`SELECT (imagen IS NOT NULL) AS tiene FROM semana_posts WHERE id = $1`, [postId]);
+    if (r1.length && !r1[0].tiene) throw new Error('Sube primero la foto 1: la 2 es la que va detrás');
+  }
   const { rows } = await pool.query(
-    `UPDATE semana_posts SET imagen = $2, imagen_tipo = $3, imagen_at = NOW(), updated_at = NOW()
+    `UPDATE semana_posts SET ${c.d} = $2, ${c.t} = $3, ${c.at} = NOW(), updated_at = NOW()
       WHERE id = $1
-      RETURNING id, (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS imagen_version`,
+      RETURNING id, (EXTRACT(EPOCH FROM ${c.at}) * 1000)::bigint::text AS imagen_version`,
     [postId, datos, tipo]
   );
-  return rows[0] ? { id: rows[0].id, tipo, bytes: datos.length, imagen_version: rows[0].imagen_version } : null;
+  return rows[0] ? { id: rows[0].id, foto: n, tipo, bytes: datos.length, imagen_version: rows[0].imagen_version } : null;
 }
 
-export async function leerImagen(postId: string): Promise<{ datos: Buffer; tipo: string; version: string } | null> {
+export async function leerImagen(postId: string, n: NumeroFoto = 1): Promise<{ datos: Buffer; tipo: string; version: string } | null> {
+  const c = COL[n];
   const { rows } = await pool.query(
-    `SELECT imagen, imagen_tipo, (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS version
-       FROM semana_posts WHERE id = $1 AND imagen IS NOT NULL`,
+    `SELECT ${c.d} AS datos, ${c.t} AS tipo, (EXTRACT(EPOCH FROM ${c.at}) * 1000)::bigint::text AS version
+       FROM semana_posts WHERE id = $1 AND ${c.d} IS NOT NULL`,
     [postId]
   );
   if (!rows.length) return null;
-  return { datos: rows[0].imagen, tipo: rows[0].imagen_tipo || 'application/octet-stream', version: rows[0].version };
+  return { datos: rows[0].datos, tipo: rows[0].tipo || 'application/octet-stream', version: rows[0].version };
 }
 
-/** Quita la foto de un post. true si tenia una. */
-export async function borrarImagen(postId: string): Promise<boolean> {
-  const { rowCount } = await pool.query(
-    `UPDATE semana_posts SET imagen = NULL, imagen_tipo = NULL, imagen_at = NULL, updated_at = NOW()
-      WHERE id = $1 AND imagen IS NOT NULL`,
-    [postId]
-  );
+/** Quita una foto de un post. true si la tenia. Quitar la 1 sube la 2 a su sitio. */
+export async function borrarImagen(postId: string, n: NumeroFoto = 1): Promise<boolean> {
+  const sql =
+    n === 2
+      ? `UPDATE semana_posts SET imagen2 = NULL, imagen2_tipo = NULL, imagen2_at = NULL, updated_at = NOW()
+          WHERE id = $1 AND imagen2 IS NOT NULL`
+      : `UPDATE semana_posts
+            SET imagen = imagen2, imagen_tipo = imagen2_tipo, imagen_at = CASE WHEN imagen2 IS NULL THEN NULL ELSE NOW() END,
+                imagen2 = NULL, imagen2_tipo = NULL, imagen2_at = NULL, updated_at = NOW()
+          WHERE id = $1 AND imagen IS NOT NULL`;
+  const { rowCount } = await pool.query(sql, [postId]);
   return !!rowCount;
 }
 

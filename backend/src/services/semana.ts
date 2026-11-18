@@ -447,6 +447,30 @@ export const RECLAMACION_COLGADA_MIN = 10;
  * colgada mas de RECLAMACION_COLGADA_MIN minutos.
  * Devuelve 'ok', 'no_existe', 'no_programado' o 'publicando'.
  */
+/**
+ * Cambia la hora de un post que ya está programado (2026-11-18), sin pasar por
+ * «aprobado»: así no hay un momento en que se quede sin programar. No se toca si
+ * se está publicando, y la hora nueva no puede haber pasado.
+ */
+export async function reprogramarPost(
+  id: string,
+  programadoPara: string,
+  ahora = new Date()
+): Promise<'ok' | 'no_existe' | 'no_programado' | 'publicando' | 'hora_pasada' | 'hora_no_valida'> {
+  const t = Date.parse(programadoPara);
+  if (!Number.isFinite(t)) return 'hora_no_valida';
+  if (t < ahora.getTime() - MARGEN_PASADO_MS) return 'hora_pasada';
+  const { rowCount } = await pool.query(
+    `UPDATE semana_posts SET programado_para = $2, error_publicacion = NULL, updated_at = NOW()
+      WHERE id = $1 AND estado = 'programado' AND publicando_desde IS NULL`,
+    [id, new Date(t).toISOString()]
+  );
+  if (rowCount) return 'ok';
+  const { rows } = await pool.query(`SELECT estado, publicando_desde FROM semana_posts WHERE id = $1`, [id]);
+  if (!rows.length) return 'no_existe';
+  return rows[0].estado === 'programado' ? 'publicando' : 'no_programado';
+}
+
 export async function desprogramarPost(id: string): Promise<'ok' | 'no_existe' | 'no_programado' | 'publicando'> {
   const { rowCount } = await pool.query(
     `UPDATE semana_posts

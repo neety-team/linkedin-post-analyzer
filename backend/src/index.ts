@@ -29,6 +29,7 @@ import reactionsRouter from './routes/reactions';
 import { startPostMonitor } from './services/postMonitor';
 import { startAnuncioChat } from './services/anuncioChat';
 import { startAvisoWebinarLuma } from './services/avisoWebinarLuma';
+import { startPublicador } from './services/publicadorLinkedin';
 import { basicAuthMiddleware, identidadDe } from './middleware/basicAuth';
 import rastroRouter from './routes/rastro';
 import gateProxyRouter from './routes/gateProxy';
@@ -132,6 +133,9 @@ runMigrations()
     // Avisa al chat de Growth & Sales de cada inscrito al webinar de Luma.
     // Apagado salvo que exista LUMA_CHAT_WEBHOOK_URL.
     startAvisoWebinarLuma();
+    // Sube a LinkedIn los posts de /semana que se han programado, a su hora.
+    // Solo publica de verdad con PUBLICAR_LINKEDIN=1; si no, lo deja en el log.
+    startPublicador();
     // Reprocesa el pilar del historico SOLO si han cambiado las reglas de
     // services/pillar.ts (guarda de version en app_state). No bloquea el
     // arranque y no corre a diario: el disparador es el cambio de reglas.

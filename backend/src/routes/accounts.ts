@@ -28,7 +28,7 @@ import { runFollowerSync, getFollowerSyncProgress } from '../services/followerSy
 import { clasificarGanchosPendientes, estadoGanchos } from '../services/ganchoPsicologia';
 import { fetchPremiumAnalytics, savePremiumAnalytics } from '../services/premiumAnalytics';
 import { leerDemos, leerLeads } from '../services/conversionesWeb';
-import { leerEventos, leerLeadsCombinados, guardarInscritosLuma } from '../services/conversionesEventos';
+import { leerEventos, leerLeadsCombinados, guardarInscritosLuma, registrarEvento } from '../services/conversionesEventos';
 import { fetchAudiencia, saveAudiencia } from '../services/audienciaPost';
 import {
   extraerPost,
@@ -1440,14 +1440,25 @@ router.get('/conversiones', async (req: Request, res: Response) => {
 });
 
 // POST /api/accounts/webinar-csv  { filas: [{guest_id, created_at, utm_source, utm_medium,
-// approval_status, acepta_correo, asistio, h}] } — el CSV de invitados de Luma del evento en curso,
+// approval_status, acepta_correo, asistio, h}], evento? } — el CSV de invitados de Luma de ese evento (sin evento, el en curso),
 // ya leido en el navegador: solo viajan esos campos y la huella del correo de quien marco la
 // casilla, nunca nombres ni correos (23-oct-2026).
 router.post('/webinar-csv', async (req: Request, res: Response) => {
   try {
     const filas = Array.isArray(req.body?.filas) ? req.body.filas : [];
     if (filas.length > 20000) return res.status(400).json({ error: 'Demasiadas filas' });
-    res.json(await guardarInscritosLuma(filas));
+    const evento = typeof req.body?.evento === 'string' && req.body.evento ? req.body.evento : undefined;
+    res.json(await guardarInscritosLuma(filas, evento));
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// POST /api/accounts/eventos  { url, tipo: 'webinar' | 'presencial' } — da de alta un evento de
+// Luma en la seccion «Eventos» (2026-11-18). Nombre y fecha se leen de Luma.
+router.post('/eventos', async (req: Request, res: Response) => {
+  try {
+    res.json(await registrarEvento(String(req.body?.url || ''), String(req.body?.tipo || 'webinar')));
   } catch (err: any) {
     res.status(400).json({ error: err.message });
   }

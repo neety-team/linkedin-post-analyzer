@@ -45,8 +45,8 @@ export function contarInscritos(d: any): number | null {
   return null;
 }
 
-export async function leerEvento(): Promise<Evento | null> {
-  const res = await fetch(`https://api.lu.ma/url?url=${SLUG}`);
+export async function leerEvento(slug: string = SLUG): Promise<Evento | null> {
+  const res = await fetch(`https://api.lu.ma/url?url=${encodeURIComponent(slug)}`);
   if (!res.ok) return null;
   const d = ((await res.json()) as any)?.data;
   // Sin el campo no es un cero: un servicio externo puede devolver vacio a ratos.
@@ -56,7 +56,7 @@ export async function leerEvento(): Promise<Evento | null> {
     inscritos: contarInscritos(d),
     empieza: new Date(d.event.start_at),
     acaba: new Date(d.event.end_at),
-    url: `https://luma.com/${SLUG}`,
+    url: `https://luma.com/${slug}`,
   };
 }
 

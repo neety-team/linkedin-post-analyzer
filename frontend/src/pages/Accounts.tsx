@@ -342,7 +342,8 @@ interface LeadsResumen {
   origenes: Arbol; por_recurso: Record<string, number>; csv_at: string | null;
 }
 interface EventoResumen {
-  slug: string; nombre: string; empieza: string; url: string; inscritos_luma: number | null;
+  slug: string; nombre: string; empieza: string; acaba: string | null; url: string; inscritos_luma: number | null;
+  tipo: string | null; numero: number; en_periodo: boolean;
   csv: null | { csv_at: string; inscritos: number; asistentes: number | null; origenes: Arbol };
 }
 
@@ -801,7 +802,7 @@ const etiquetaPilarUtm = (k: string) => PILAR_UTM_LABELS[k] ?? k.charAt(0).toUpp
 // el jefe en los DMs. Un canal a 0 no se pinta.
 const ORDEN_CANALES = ['linkedin', 'dm', 'newsletter', 'eventos', 'web', 'google', 'otros', 'sin_rastro'];
 const CANAL_LABEL: Record<string, string> = {
-  linkedin: 'LinkedIn', dm: 'DMs', newsletter: 'Newsletter', eventos: 'Eventos', web: 'Web',
+  linkedin: 'LinkedIn contenido', dm: 'DMs', newsletter: 'Newsletter', eventos: 'Eventos', web: 'Web',
   google: 'Google', otros: 'Otros', sin_rastro: 'Sin rastro',
 };
 function etiquetaDetalle(canal: string, k: string): string {
@@ -873,7 +874,7 @@ function leerCsv(texto: string): string[][] {
   if (fila.some((c) => c !== '')) filas.push(fila);
   return filas;
 }
-function SubirCsvLuma({ onSubido }: { onSubido: () => void }) {
+function SubirCsvLuma({ onSubido, evento }: { onSubido: () => void; evento?: string }) {
   const [msg, setMsg] = useState<string | null>(null);
   const subir = async (file: File) => {
     setMsg('Leyendo…');
@@ -884,6 +885,9 @@ function SubirCsvLuma({ onSubido }: { onSubido: () => void }) {
       const need = ['guest_id', 'utm_source'].filter((n) => col(n) < 0);
       if (need.length) throw new Error(`no es el CSV de invitados de Luma (falta ${need.join(', ')})`);
       const v = (f: string[], n: string) => (col(n) >= 0 ? f[col(n)] ?? '' : '');
+      // El presencial no trae has_joined_event sino checked_in_at (la hora de entrada en la
+      // puerta). Si nadie la tiene, no se pasó lista: asistencia sin dato, nunca un 0.
+      const conCheckIn = col('has_joined_event') < 0 && datos.some((f) => v(f, 'checked_in_at').trim());
       // Huella (SHA-256 del correo en minúsculas) SOLO de quien marcó la casilla: es lo que
       // hace falta para no contar dos veces a quien también se dio de alta en la web. El
       // correo no sale del navegador.
@@ -898,11 +902,12 @@ function SubirCsvLuma({ onSubido }: { onSubido: () => void }) {
           guest_id: v(f, 'guest_id'), created_at: v(f, 'created_at'), approval_status: v(f, 'approval_status'),
           utm_source: v(f, 'utm_source'), utm_medium: v(f, 'utm_medium'), utm_campaign: v(f, 'utm_campaign'),
           acepta_correo: acepta,
-          asistio: unido === 'yes' ? true : unido === 'no' ? false : undefined,
+          asistio: unido === 'yes' ? true : unido === 'no' ? false
+            : conCheckIn ? !!v(f, 'checked_in_at').trim() : undefined,
           h: acepta && v(f, 'email') ? await huella(v(f, 'email')) : undefined,
         };
       }));
-      const r = await apiPost<{ guardados: number }>('/api/accounts/webinar-csv', { filas });
+      const r = await apiPost<{ guardados: number }>('/api/accounts/webinar-csv', { filas, evento });
       setMsg(`✓ ${r.guardados} inscritos`);
       onSubido();
     } catch (err: any) {
@@ -913,9 +918,199 @@ function SubirCsvLuma({ onSubido }: { onSubido: () => void }) {
   };
   return (
     <label className="cursor-pointer text-text-muted hover:text-accent" title="Sube el CSV de invitados que exportas de Luma (Invitados → Exportar) para ver de dónde viene cada inscrito. Solo se guardan los UTMs y la casilla de correos.">
-      {msg ?? '⬆ Subir CSV de Luma'}
+      {msg ?? '⬆ Subir CSV'}
       <input type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) subir(f); e.target.value = ''; }} />
     </label>
+  );
+}
+
+// ── SECCIÓN «EVENTOS» (2026-11-18) ──────────────────────────────────────────────────
+// La única parte de Cuentas que NO depende del rango de fechas: los eventos son pocos (uno
+// presencial al año y algún webinar) y lo que se quiere es acordarse de cómo se llenó cada uno.
+// Próximos arriba (aunque esté vacío, para que se sepa dónde se añade el siguiente) y pasados
+// debajo. Cada tarjeta: inscritos, asistencia y de dónde vino cada inscrito.
+const etiquetaEvento = (ev: EventoResumen) =>
+  ev.tipo === 'presencial'
+    ? `Presencial ${new Date(ev.empieza).getFullYear()}`
+    : `Webinar ${ev.numero}`;
+const fechaEvento = (iso: string) =>
+  new Date(iso).toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Europe/Madrid' });
+function coloresCanal(c: ChartColors): Record<string, string> {
+  return {
+    linkedin: c.linkedin, dm: c.engagement, newsletter: c.hue.violet, eventos: c.hue.gold,
+    web: c.data, google: c.hue.amber, otros: c.faint, sin_rastro: c.emptyCell,
+  };
+}
+function BarraOrigen({ arbol, total }: { arbol: Arbol; total: number }) {
+  const c = useChartColors();
+  const col = coloresCanal(c);
+  const canales = [...ORDEN_CANALES, ...Object.keys(arbol).filter((k) => !ORDEN_CANALES.includes(k))]
+    .filter((k) => arbol[k]?.total > 0);
+  if (!total) return null;
+  return (
+    <div className="space-y-2.5">
+      <div className="flex h-2.5 w-full overflow-hidden rounded-full bg-bg-secondary">
+        {canales.map((k) => (
+          <div key={k} title={`${CANAL_LABEL[k] ?? k}: ${arbol[k].total}`}
+            style={{ width: `${(arbol[k].total / total) * 100}%`, background: col[k] ?? c.faint }}
+            className="h-full first:rounded-l-full last:rounded-r-full border-r border-bg-card last:border-r-0" />
+        ))}
+      </div>
+      <ul className="space-y-1.5 text-xs">
+        {canales.map((k) => {
+          const g = arbol[k];
+          const det = Object.entries(g.detalle)
+            .sort((a, b) => (a[0].startsWith('sin-') ? 1 : 0) - (b[0].startsWith('sin-') ? 1 : 0) || b[1] - a[1]);
+          const tenue = k === 'sin_rastro' || k === 'otros';
+          return (
+            <li key={k} className="flex items-baseline gap-2">
+              <span className="h-2 w-2 shrink-0 rounded-full translate-y-[-1px]" style={{ background: col[k] ?? c.faint }} />
+              <span className={tenue ? 'text-text-muted' : 'text-text-secondary'}>{CANAL_LABEL[k] ?? k}</span>
+              <span className="font-semibold tabular-nums text-text-primary">{fmtNum(g.total)}</span>
+              <span className="tabular-nums text-text-muted">{Math.round((g.total / total) * 100)}%</span>
+              {det.length > 0 && (
+                <span className="text-text-muted truncate" title={det.map(([d, n]) => `${etiquetaDetalle(k, d)} ${n}`).join(' · ')}>
+                  {det.map(([d, n]) => `${etiquetaDetalle(k, d)} ${fmtNum(n)}`).join(' · ')}
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+function TarjetaEvento({ ev, onSubido }: { ev: EventoResumen; onSubido: () => void }) {
+  const faltan = Math.ceil((new Date(ev.empieza).getTime() - Date.now()) / 86400000);
+  const proximo = faltan > 0;
+  const inscritos = proximo ? (ev.inscritos_luma ?? ev.csv?.inscritos ?? null) : (ev.csv?.inscritos ?? ev.inscritos_luma ?? null);
+  const asist = ev.csv?.asistentes ?? null;
+  const presencial = ev.tipo === 'presencial';
+  return (
+    <article className="bg-bg-card border border-border rounded-xl p-5 flex flex-col gap-4 min-w-0">
+      <header className="flex items-start gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 flex-wrap text-[10px] uppercase tracking-wide">
+            <span className={`rounded-full px-2 py-0.5 font-semibold ${presencial ? 'bg-accent/10 text-accent' : 'bg-data/10 text-data'}`}>
+              {presencial ? '📍' : '🖥️'} {etiquetaEvento(ev)}
+            </span>
+            <span className="text-text-muted">{fechaEvento(ev.empieza)}</span>
+            {proximo && <span className="text-text-muted">· faltan {faltan} {faltan === 1 ? 'día' : 'días'}</span>}
+          </div>
+          <h4 className="mt-1.5 font-display text-[15px] font-semibold leading-snug text-text-primary">{ev.nombre}</h4>
+        </div>
+        <a href={ev.url} target="_blank" rel="noopener noreferrer" className="shrink-0 text-xs text-accent hover:text-accent-strong">Luma →</a>
+      </header>
+      <div className="flex items-end gap-8">
+        <div>
+          <div className="text-[10px] uppercase tracking-wide text-text-muted">{proximo ? 'Inscritos ahora' : 'Inscritos'}</div>
+          <div className="text-3xl font-bold tabular-nums text-text-primary leading-none mt-1">{inscritos != null ? fmtNum(inscritos) : '—'}</div>
+        </div>
+        {!proximo && (
+          <div>
+            <div className="flex items-center text-[10px] uppercase tracking-wide text-text-muted">
+              Asistieron
+              {asist == null && <InfoHint className="mt-0" text={presencial
+                ? 'El CSV de Luma de este evento no trae quién entró: en la puerta no se pasó lista en Luma (checked_in_at vacío).'
+                : 'Falta subir el CSV de después del evento: es el que dice quién entró.'} />}
+            </div>
+            <div className="flex items-baseline gap-1.5 mt-1">
+              <span className="text-3xl font-bold tabular-nums text-text-primary leading-none">{asist != null ? fmtNum(asist) : '—'}</span>
+              {asist != null && inscritos ? <span className="text-xs tabular-nums text-text-muted">{Math.round((asist / inscritos) * 100)}%</span> : null}
+            </div>
+          </div>
+        )}
+      </div>
+      {ev.csv ? (
+        <BarraOrigen arbol={ev.csv.origenes} total={ev.csv.inscritos} />
+      ) : (
+        <p className="text-xs text-text-muted">Sube el CSV de invitados de Luma para ver de dónde viene cada inscrito.</p>
+      )}
+      <footer className="mt-auto flex items-center gap-3 border-t border-border pt-3 text-[11px] text-text-muted">
+        <span className="inline-flex items-center">
+          {ev.csv ? `CSV del ${fmtFechaCorta(ev.csv.csv_at)}` : 'Sin CSV'}
+          <InfoHint className="mt-0" text="Aprobados del último CSV de invitados de Luma subido a esta tarjeta, por el utm_source de su enlace: {pilar}-{tema}-{fecha}-{cuenta} en los posts y dm-… en los mensajes privados. LinkedIn contenido = posts y botón del perfil; los DMs van aparte." />
+        </span>
+        <span className="ml-auto"><SubirCsvLuma evento={ev.slug} onSubido={onSubido} /></span>
+      </footer>
+    </article>
+  );
+}
+function AnadirEvento({ onAnadido, siguiente }: { onAnadido: () => void; siguiente: string }) {
+  const [abierto, setAbierto] = useState(false);
+  const [url, setUrl] = useState('');
+  const [tipo, setTipo] = useState<'webinar' | 'presencial'>('webinar');
+  const [estado, setEstado] = useState<string | null>(null);
+  const enviar = async () => {
+    setEstado('Leyendo Luma…');
+    try {
+      const r = await apiPost<{ nombre: string }>('/api/accounts/eventos', { url, tipo });
+      setEstado(`✓ ${r.nombre}`); setUrl(''); setAbierto(false); onAnadido();
+    } catch (err: any) {
+      setEstado(`✗ ${err.message}`);
+    }
+  };
+  if (!abierto) {
+    return (
+      <div className="rounded-xl border border-dashed border-border px-5 py-6 flex items-center gap-4 flex-wrap">
+        <div className="min-w-0 flex-1">
+          <p className="text-sm text-text-secondary">Ningún evento a la vista.</p>
+          <p className="text-xs text-text-muted">El {siguiente} aparecerá aquí en cuanto se pegue su enlace de Luma: desde ese día cuenta inscritos y, con el CSV, de dónde vienen.</p>
+        </div>
+        <button onClick={() => { setAbierto(true); setEstado(null); }}
+          className="px-3 py-1.5 bg-accent/10 border border-accent/30 text-accent text-xs font-medium rounded-lg hover:bg-accent/20 transition-colors">
+          + Añadir evento
+        </button>
+        {estado && <span className="basis-full text-xs text-text-muted">{estado}</span>}
+      </div>
+    );
+  }
+  return (
+    <div className="rounded-xl border border-dashed border-accent/40 px-5 py-4 flex items-center gap-3 flex-wrap">
+      <div className="inline-flex rounded-lg border border-border p-0.5 text-xs">
+        {(['webinar', 'presencial'] as const).map((t) => (
+          <button key={t} onClick={() => setTipo(t)}
+            className={`px-2.5 py-1 rounded-md ${tipo === t ? 'bg-accent text-on-accent' : 'text-text-secondary hover:text-text-primary'}`}>
+            {t === 'webinar' ? '🖥️ Webinar' : '📍 Presencial'}
+          </button>
+        ))}
+      </div>
+      <input autoFocus value={url} onChange={(e) => setUrl(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && url.trim()) enviar(); }}
+        placeholder="https://luma.com/…" className="min-w-0 flex-1 basis-56 bg-bg-secondary border border-border rounded-lg px-3 py-1.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent/60" />
+      <button disabled={!url.trim()} onClick={enviar}
+        className="px-3 py-1.5 bg-accent text-on-accent text-xs font-medium rounded-lg disabled:opacity-40">Añadir</button>
+      <button onClick={() => setAbierto(false)} className="text-xs text-text-muted hover:text-text-primary">Cancelar</button>
+      {estado && <span className="basis-full text-xs text-text-muted">{estado}</span>}
+    </div>
+  );
+}
+function SeccionEventos({ eventos, cargando, onCambio }: { eventos: EventoResumen[]; cargando: boolean; onCambio: () => void }) {
+  const ahora = Date.now();
+  const proximos = eventos.filter((e) => new Date(e.empieza).getTime() > ahora).sort((a, b) => a.empieza.localeCompare(b.empieza));
+  const pasados = eventos.filter((e) => new Date(e.empieza).getTime() <= ahora).sort((a, b) => b.empieza.localeCompare(a.empieza));
+  const webinars = eventos.filter((e) => e.tipo !== 'presencial').length;
+  return (
+    <section id="eventos" className="scroll-mt-24 space-y-3 pt-2">
+      <div>
+        <h2 className="text-xl font-semibold">Eventos</h2>
+        <p className="text-xs text-text-muted">Todos, sin depender del rango de fechas: cuántos se apuntaron, cuántos vinieron y de dónde llegó cada uno.</p>
+      </div>
+      <p className="text-[10px] uppercase tracking-wide text-text-muted">Próximos</p>
+      {proximos.length > 0 && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          {proximos.map((ev) => <TarjetaEvento key={ev.slug} ev={ev} onSubido={onCambio} />)}
+        </div>
+      )}
+      {!cargando && <AnadirEvento onAnadido={onCambio} siguiente={`webinar ${webinars + 1}`} />}
+      <p className="text-[10px] uppercase tracking-wide text-text-muted pt-1">Pasados</p>
+      {pasados.length > 0 ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          {pasados.map((ev) => <TarjetaEvento key={ev.slug} ev={ev} onSubido={onCambio} />)}
+        </div>
+      ) : (
+        <p className="text-xs text-text-muted">{cargando ? 'Cargando…' : 'Todavía no hay eventos pasados.'}</p>
+      )}
+    </section>
   );
 }
 
@@ -1284,6 +1479,12 @@ function AccountsInner() {
               className="px-3 py-1.5 bg-bg-card border border-border text-text-secondary text-xs font-medium rounded-lg hover:border-accent/40 hover:text-text-primary transition-colors"
             >
               📊 Resumen del periodo ↓
+            </a>
+            <a
+              href="#eventos"
+              className="px-3 py-1.5 bg-bg-card border border-border text-text-secondary text-xs font-medium rounded-lg hover:border-accent/40 hover:text-text-primary transition-colors"
+            >
+              📅 Eventos ↓
             </a>
           </div>
         )}
@@ -1921,13 +2122,13 @@ function AccountsInner() {
                   : `${fmtNum(conversiones.leads.current.web)} de la web · ${fmtNum(conversiones.leads.current.eventos)} de eventos`}
                 ayuda={`Personas nuevas que nos dan permiso para escribirles (entran en la newsletter): la casilla de cualquier formulario de la web o la de un evento de Luma. Sin casilla no es lead${conversiones?.leads && !conversiones.leads.error_web && conversiones.leads.current.sin_permiso ? ` (en el periodo, ${conversiones.leads.current.sin_permiso} dejaron el correo en la web sin marcarla)` : ''}. Quien está en las dos fuentes cuenta una vez. La parte de eventos sale del último CSV de Luma subido${conversiones?.leads?.current.csv_at ? ` (${fmtFechaCorta(conversiones.leads.current.csv_at)})` : ''}.`}
               />
-              {(conversiones?.eventos ?? []).map((ev) => {
+              {(conversiones?.eventos ?? []).filter((ev) => ev.en_periodo).map((ev) => {
                 const faltan = Math.ceil((new Date(ev.empieza).getTime() - Date.now()) / 86400000);
                 const pasado = faltan <= 0;
                 return (
                   <Kpi
                     key={ev.slug}
-                    etiqueta={`Inscritos · evento del ${fmtFechaCorta(ev.empieza, false)}`}
+                    etiqueta={`Inscritos · ${etiquetaEvento(ev)} (${fmtFechaCorta(ev.empieza, false)})`}
                     valor={fmtNum((pasado ? ev.csv?.inscritos : ev.inscritos_luma) ?? ev.csv?.inscritos ?? ev.inscritos_luma ?? 0)}
                     sinComparar="sin evento anterior"
                     pie={pasado
@@ -1960,37 +2161,8 @@ function AccountsInner() {
                 ayuda={`De dónde viene cada lead: el enlace por el que llegó a la web o, si se apuntó a un evento, «Eventos». Quien está en la web y en un evento cuenta en la web. Por recurso (altas con casilla): ${Object.entries(conversiones.leads.current.por_recurso).map(([k, n]) => `${k} ${n}`).join(' · ') || '—'}.`}
               />
             )}
-            {(conversiones?.eventos ?? []).map((ev) => {
-              const faltan = Math.ceil((new Date(ev.empieza).getTime() - Date.now()) / 86400000);
-              return (
-                <div key={ev.slug} className="flex items-center gap-x-3 gap-y-1 flex-wrap bg-bg-card border border-border rounded-xl px-4 py-2.5 text-xs text-text-secondary">
-                  <span>📅 <span className="text-text-primary font-medium">{ev.nombre}</span></span>
-                  {ev.inscritos_luma != null && faltan > 0 && (
-                    <span className="text-text-primary font-semibold tabular-nums">{fmtNum(ev.inscritos_luma)} inscritos en Luma</span>
-                  )}
-                  {faltan > 0 && <span className="text-text-muted">faltan {faltan} {faltan === 1 ? 'día' : 'días'}</span>}
-                  <span className="ml-auto inline-flex items-center gap-3">
-                    <SubirCsvLuma onSubido={refetchConversiones} />
-                    <a href={ev.url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-strong">Ver en Luma →</a>
-                  </span>
-                  <div className="basis-full border-t border-border pt-2 mt-1">
-                    {ev.csv ? (
-                      <FranjaOrigen
-                        sinCaja
-                        icono="👥"
-                        titulo="Inscritos por origen"
-                        total={ev.csv.inscritos}
-                        extra={`CSV del ${fmtFechaCorta(ev.csv.csv_at)}${ev.csv.asistentes != null ? ` · ${fmtNum(ev.csv.asistentes)} asistieron` : ''}`}
-                        arbol={ev.csv.origenes}
-                        ayuda="Aprobados del último CSV de invitados de Luma subido, por el utm_source de su enlace: {pilar}-{tema}-{fecha}-{cuenta} en los posts y dm-… en los mensajes privados. Puede ir por detrás del total en vivo de Luma: es el de la hora del CSV."
-                      />
-                    ) : (
-                      <span className="text-text-muted">Sube el CSV de invitados de Luma para ver de dónde viene cada inscrito.</span>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+            {/* Las franjas de cada evento se mudaron a la sección «Eventos» (2026-11-18), que no
+                depende del rango. Aquí solo queda la tarjeta de cifra de los del periodo. */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {/* Medias A LOS 7 DÍAS de cada post (2026-10-23): el número y su % sobre la misma
                   base, para comparar posts a la misma edad. Los de menos de 7 días aún no entran. */}
@@ -2088,6 +2260,8 @@ function AccountsInner() {
               );
             })()}
           </section>
+
+          <SeccionEventos eventos={conversiones?.eventos ?? []} cargando={loadingConversiones && !conversiones} onCambio={refetchConversiones} />
 
           {/* Per-account comparison */}
           {!selectedCreator || selectedCreator === 'all' ? (

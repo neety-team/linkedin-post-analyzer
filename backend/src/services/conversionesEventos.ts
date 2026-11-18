@@ -17,7 +17,7 @@
 // sin_rastro. En Luma la identidad del post va en utm_source ({pilar}-{tema}-{ddmes}-{cuenta},
 // global-instructions «Luma no lee utm_campaign»); los DMs, dm-{campaña}-{cuenta}.
 import pool from '../db';
-import { leerEvento, SLUG } from './avisoWebinarLuma';
+import { leerEvento, SLUG, type Evento } from './avisoWebinarLuma';
 import { parsearCampana, type LeadsWeb, type Arbol } from './conversionesWeb';
 
 const CUENTAS = ['iker', 'unai', 'asier', 'mario'];
@@ -32,7 +32,8 @@ export function origenInscrito(
   const cuenta = [...partes, ...camp.split('-')].reverse().find((x) => CUENTAS.includes(x)) ?? null;
   if (!src && !med && !camp) return { canal: 'sin_rastro', detalle: null };
   if (src.startsWith('dm-') || med === 'dm' || camp.startsWith('dm-')) return { canal: 'dm', detalle: cuenta ?? 'sin-cuenta' };
-  if (src.startsWith('correo-') || med === 'email' || /^(brevo|newsletter|correo)$/.test(src)) return { canal: 'newsletter', detalle: null };
+  // kaixito-NN-… y hs_email: correos de la newsletter (Kaixito) y de HubSpot (Neety Forward).
+  if (src.startsWith('correo-') || src.startsWith('kaixito-') || med === 'email' || /^(brevo|newsletter|correo|hs_email)$/.test(src)) return { canal: 'newsletter', detalle: null };
   if (src.startsWith('perfil') || med === 'boton-perfil') return { canal: 'linkedin', detalle: 'perfil' };
   if (/^(web|neety|recursos)(-|$)/.test(src)) return { canal: 'web', detalle: null };
   if (parsearCampana(src.replace(new RegExp(`-(${CUENTAS.join('|')})(-.*)?$`), ''), '2100-12-31') || med === 'post') {
@@ -50,7 +51,7 @@ function sumar(arbol: Arbol, canal: string, detalle: string | null) {
 
 // ── Subida del CSV ──────────────────────────────────────────────────────────────
 const HUELLA = /^[0-9a-f]{64}$/;
-export async function guardarInscritosLuma(filas: any[]): Promise<{ evento: string; guardados: number }> {
+export async function guardarInscritosLuma(filas: any[], evento: string = SLUG): Promise<{ evento: string; guardados: number }> {
   const limpias = filas
     .map((f) => ({
       guest_id: String(f?.guest_id || '').trim().slice(0, 80),
@@ -66,18 +67,22 @@ export async function guardarInscritosLuma(filas: any[]): Promise<{ evento: stri
     }))
     .filter((f) => f.guest_id);
   if (!limpias.length) throw new Error('El CSV no trae ninguna fila con guest_id: ¿es el export de invitados de Luma?');
-  // El evento al que pertenece el CSV es el que esta en curso en Luma (LUMA_WEBINAR_SLUG).
+  // El CSV de Luma no dice de que evento es: lo dice el boton que se pulsa (cada tarjeta de la
+  // seccion «Eventos» sube el suyo). Sin evento, el que esta en curso (LUMA_WEBINAR_SLUG).
   await recordarEvento().catch(() => {});
+  const { rowCount } = await pool.query(`SELECT 1 FROM luma_eventos WHERE slug = $1`, [evento]);
+  if (!rowCount) throw new Error(`No conozco el evento ${evento}: añádelo primero con su enlace de Luma.`);
+  const SLUG_CSV = evento;
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-    await client.query(`DELETE FROM luma_inscritos WHERE evento = $1`, [SLUG]);
+    await client.query(`DELETE FROM luma_inscritos WHERE evento = $1`, [SLUG_CSV]);
     for (const f of limpias) {
       await client.query(
         `INSERT INTO luma_inscritos
            (evento, guest_id, inscrito_at, utm_source, utm_medium, utm_campaign, estado, acepta_correo, asistio, email_hash)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) ON CONFLICT (evento, guest_id) DO NOTHING`,
-        [SLUG, f.guest_id, f.inscrito_at, f.utm_source, f.utm_medium, f.utm_campaign, f.estado, f.acepta_correo, f.asistio, f.email_hash]
+        [SLUG_CSV, f.guest_id, f.inscrito_at, f.utm_source, f.utm_medium, f.utm_campaign, f.estado, f.acepta_correo, f.asistio, f.email_hash]
       );
     }
     await client.query('COMMIT');
@@ -87,34 +92,64 @@ export async function guardarInscritosLuma(filas: any[]): Promise<{ evento: stri
   } finally {
     client.release();
   }
-  return { evento: SLUG, guardados: limpias.length };
+  return { evento: SLUG_CSV, guardados: limpias.length };
 }
 
 // ── Eventos ─────────────────────────────────────────────────────────────────────
 let recordadoAt = 0;
-let vivo: { inscritos: number | null; at: number } | null = null;
-/** Lee el evento de Luma y lo guarda (nombre, fechas, url). Como mucho una vez cada 5 min. */
-async function recordarEvento(): Promise<void> {
-  if (Date.now() - recordadoAt < 5 * 60 * 1000) return;
-  const ev = await leerEvento();
-  recordadoAt = Date.now();
-  if (!ev) return;
-  vivo = { inscritos: ev.inscritos, at: Date.now() };
+const vivos = new Map<string, number | null>(); // slug → inscritos en vivo de la ultima lectura
+async function guardarEvento(slug: string, ev: Evento, tipo: string | null): Promise<void> {
   await pool.query(
-    `INSERT INTO luma_eventos (slug, nombre, empieza, acaba, url, inscritos_luma, actualizado_at)
-     VALUES ($1, $2, $3, $4, $5, $6, NOW())
+    `INSERT INTO luma_eventos (slug, nombre, empieza, acaba, url, inscritos_luma, tipo, actualizado_at)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())
      ON CONFLICT (slug) DO UPDATE SET nombre = EXCLUDED.nombre, empieza = EXCLUDED.empieza,
        acaba = EXCLUDED.acaba, url = EXCLUDED.url,
-       inscritos_luma = COALESCE(EXCLUDED.inscritos_luma, luma_eventos.inscritos_luma), actualizado_at = NOW()`,
-    [SLUG, ev.nombre, ev.empieza.toISOString(), ev.acaba.toISOString(), ev.url, ev.inscritos]
+       inscritos_luma = COALESCE(EXCLUDED.inscritos_luma, luma_eventos.inscritos_luma),
+       tipo = COALESCE(EXCLUDED.tipo, luma_eventos.tipo), actualizado_at = NOW()`,
+    [slug, ev.nombre, ev.empieza.toISOString(), ev.acaba.toISOString(), ev.url, ev.inscritos, tipo]
   );
+}
+/** Relee de Luma el evento en curso y los que aun no han terminado. Como mucho cada 5 min. */
+async function recordarEvento(): Promise<void> {
+  if (Date.now() - recordadoAt < 5 * 60 * 1000) return;
+  recordadoAt = Date.now();
+  const { rows } = await pool.query(
+    `SELECT slug FROM luma_eventos WHERE COALESCE(acaba, empieza) >= NOW() - INTERVAL '1 day'`
+  );
+  const slugs = [...new Set([SLUG, ...rows.map((r) => r.slug as string)])];
+  for (const slug of slugs) {
+    const ev = await leerEvento(slug).catch(() => null);
+    if (!ev) continue;
+    vivos.set(slug, ev.inscritos);
+    await guardarEvento(slug, ev, null);
+  }
+}
+
+/** «Añadir evento» de la seccion Eventos: con el enlace de Luma basta (nombre y fecha salen de Luma). */
+export async function registrarEvento(url: string, tipo: string): Promise<{ slug: string; nombre: string }> {
+  const m = String(url || '').trim().match(/(?:lu\.ma|luma\.com)\/(?:event\/)?([A-Za-z0-9_-]+)/) ??
+    String(url || '').trim().match(/^([A-Za-z0-9_-]{4,})$/);
+  if (!m) throw new Error('Pega el enlace del evento en Luma (luma.com/…)');
+  const slug = m[1];
+  const ev = await leerEvento(slug);
+  if (!ev) throw new Error(`Luma no devuelve ningún evento en luma.com/${slug}`);
+  await guardarEvento(slug, ev, tipo === 'presencial' ? 'presencial' : 'webinar');
+  vivos.set(slug, ev.inscritos);
+  return { slug, nombre: ev.nombre };
 }
 
 export interface EventoResumen {
   slug: string;
   nombre: string;
   empieza: string;
+  acaba: string | null;
   url: string;
+  /** webinar | presencial (null si nadie lo ha dicho; la pantalla lo trata como webinar). */
+  tipo: string | null;
+  /** Orden dentro de su tipo por fecha: Webinar 1, Webinar 2… */
+  numero: number;
+  /** Fecha o inscripciones dentro del rango pedido: la tarjeta de cifra del resumen sale solo con estos. */
+  en_periodo: boolean;
   /** Recuento de Luma (en vivo mientras el evento no ha pasado; luego, el ultimo leido). */
   inscritos_luma: number | null;
   /** Del ultimo CSV subido; null si no hay ninguno. */
@@ -126,18 +161,20 @@ export interface EventoResumen {
   };
 }
 
-/** Eventos con fecha dentro del rango o con inscripciones dentro del rango (dias de Madrid). */
+/** TODOS los eventos (la seccion «Eventos» no depende del rango), marcando los del rango. */
 export async function leerEventos(desde: string, hasta: string): Promise<EventoResumen[]> {
   await recordarEvento().catch((e) => console.warn('[eventos] Luma:', e?.message));
   const { rows: evs } = await pool.query(
-    `SELECT e.slug, e.nombre, e.empieza, e.url, e.inscritos_luma
+    `SELECT e.slug, e.nombre, e.empieza, e.acaba, e.url, e.inscritos_luma, e.tipo,
+            ROW_NUMBER() OVER (PARTITION BY COALESCE(e.tipo, 'webinar') ORDER BY e.empieza) AS numero,
+            ((e.empieza AT TIME ZONE 'Europe/Madrid')::date BETWEEN $1::date AND $2::date
+              -- El que aun no ha terminado cuenta siempre: si no, antes del primer CSV no habria
+              -- tarjeta de inscritos en el resumen.
+              OR COALESCE(e.acaba, e.empieza) >= NOW()
+              OR EXISTS (SELECT 1 FROM luma_inscritos i WHERE i.evento = e.slug
+                          AND (i.inscrito_at AT TIME ZONE 'Europe/Madrid')::date BETWEEN $1::date AND $2::date)
+            ) AS en_periodo
        FROM luma_eventos e
-      WHERE (e.empieza AT TIME ZONE 'Europe/Madrid')::date BETWEEN $1::date AND $2::date
-         -- El que aun no ha terminado sale siempre: si no, antes del primer CSV no habria
-         -- ni franja ni boton para subirlo.
-         OR COALESCE(e.acaba, e.empieza) >= NOW()
-         OR EXISTS (SELECT 1 FROM luma_inscritos i WHERE i.evento = e.slug
-                     AND (i.inscrito_at AT TIME ZONE 'Europe/Madrid')::date BETWEEN $1::date AND $2::date)
       ORDER BY e.empieza DESC`,
     [desde, hasta]
   );
@@ -165,10 +202,12 @@ export async function leerEventos(desde: string, hasta: string): Promise<EventoR
         origenes,
       };
     }
-    const enCurso = e.slug === SLUG && vivo ? vivo.inscritos : null;
+    const enVivo = vivos.has(e.slug) ? vivos.get(e.slug) ?? null : null;
     out.push({
-      slug: e.slug, nombre: e.nombre, empieza: new Date(e.empieza).toISOString(), url: e.url,
-      inscritos_luma: enCurso ?? e.inscritos_luma ?? null, csv,
+      slug: e.slug, nombre: e.nombre, empieza: new Date(e.empieza).toISOString(),
+      acaba: e.acaba ? new Date(e.acaba).toISOString() : null, url: e.url,
+      tipo: e.tipo ?? null, numero: Number(e.numero), en_periodo: !!e.en_periodo,
+      inscritos_luma: enVivo ?? e.inscritos_luma ?? null, csv,
     });
   }
   return out;

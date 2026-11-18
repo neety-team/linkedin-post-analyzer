@@ -1231,6 +1231,15 @@ const migration = `
     inscritos_luma INTEGER,
     actualizado_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
   );
+  -- Seccion «Eventos» de Cuentas (2026-11-18): todos los eventos, pasados y proximos, fuera
+  -- del rango de fechas. tipo = webinar | presencial; el numero (Webinar 1, 2…) se calcula.
+  ALTER TABLE luma_eventos ADD COLUMN IF NOT EXISTS tipo TEXT;
+  UPDATE luma_eventos SET tipo = 'webinar' WHERE slug = '7hhyx07z' AND tipo IS NULL;
+  -- El presencial de septiembre no paso por la herramienta (era anterior al boton del CSV).
+  INSERT INTO luma_eventos (slug, nombre, empieza, acaba, url, tipo)
+  VALUES ('ujffj66o', 'Neety Forward 2026', '2026-09-24T16:00:00Z', '2026-09-24T18:30:00Z',
+          'https://luma.com/ujffj66o', 'presencial')
+  ON CONFLICT (slug) DO UPDATE SET tipo = COALESCE(luma_eventos.tipo, 'presencial');
 
   -- Comentarios IGNORADOS a proposito en la bandeja (2026-11-10, spec
   -- 2026-11-10-ignorar-comentarios-design). Una reaccion invisible: cuenta como

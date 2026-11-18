@@ -929,7 +929,9 @@ function PanelProgramar({
   };
   const elegidos = posts.filter((p) => marcados.has(p.id) && !p.motivo_no_programable);
   const conProblema = elegidos.filter(pasada);
-  const sinCuenta = Array.from(new Set(elegidos.map((p) => p.cuenta))).filter((c) => publicador && !publicador.cuentas[c]);
+  const sinCuenta = CUENTAS.map((c) => c.id).filter(
+    (c) => publicador && !publicador.cuentas[c] && elegidos.some((p) => p.cuenta === c)
+  );
 
   const cambiar = (id: string, si: boolean) =>
     setMarcados((m) => {
@@ -1004,7 +1006,7 @@ function PanelProgramar({
             const marcado = marcados.has(p.id) && !deshabilitado;
             const id = `prog-${p.id}`;
             return (
-              <li key={p.id} className={`flex items-start gap-3 px-3 sm:px-4 py-3 ${deshabilitado ? 'opacity-70' : ''}`}>
+              <li key={p.id} className={`flex flex-wrap items-start gap-x-3 gap-y-2 px-3 sm:px-4 py-3 ${deshabilitado ? 'opacity-70' : ''}`}>
                 <input
                   id={id}
                   type="checkbox"
@@ -1013,7 +1015,7 @@ function PanelProgramar({
                   onChange={(e) => cambiar(p.id, e.target.checked)}
                   className="mt-1 w-4 h-4 shrink-0 accent-accent disabled:cursor-not-allowed"
                 />
-                <label htmlFor={id} className={`min-w-0 flex-1 ${deshabilitado ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
+                <label htmlFor={id} className={`min-w-[12rem] flex-1 basis-0 ${deshabilitado ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
                   <span className="block text-xs text-text-muted">
                     {diaCorto(p.fecha)} · {juntar(firmantes(p).map(nombreDe))}
                     {esColaborativo(p) ? ` (lo publica ${nombreDe(p.cuenta)})` : ''} · {ESTADO[p.estado] || p.estado}
@@ -1035,7 +1037,7 @@ function PanelProgramar({
                     onChange={(e) => setHoras((h) => ({ ...h, [p.id]: e.target.value }))}
                     disabled={!marcado}
                     aria-label={`Hora de «${p.titulo}»`}
-                    className="shrink-0 w-[7.5rem] bg-bg-secondary border border-border rounded-lg px-2 py-1 text-[14px] tabular-nums text-text-primary focus:outline-none focus:border-accent disabled:opacity-50"
+                    className="shrink-0 ml-7 sm:ml-0 w-[7.5rem] bg-bg-secondary border border-border rounded-lg px-2 py-1 text-[14px] tabular-nums text-text-primary focus:outline-none focus:border-accent disabled:opacity-50"
                   />
                 )}
               </li>

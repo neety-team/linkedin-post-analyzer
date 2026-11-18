@@ -62,6 +62,19 @@ const postEntrada = z.object({
       'Post colaborativo: las OTRAS cuentas que lo firman, sin repetir `cuenta` (que es la que lo publica). ' +
         'En /semana ocupa las columnas de todas y le sale a cada una. `null` o [] lo deja de una sola cuenta'
     ),
+  menciones: z
+    .array(
+      z.object({
+        nombre: z.string().describe('El nombre tal cual va en el texto detrás de la @, p. ej. "Ana Pérez García"'),
+        profile_id: z.string().describe('El provider_id de LinkedIn (Unipile): ACo… para personas, dígitos para empresas'),
+      })
+    )
+    .nullable()
+    .optional()
+    .describe(
+      'Los perfiles de LinkedIn de cada @Nombre del texto. Al publicar, cada @Nombre se convierte en mención. ' +
+        'Un post con un @Algo sin perfil aquí no se puede programar. `null` o [] vacía la lista'
+    ),
 });
 
 function renderSemana(s: any): string {
@@ -77,6 +90,12 @@ function renderSemana(s: any): string {
       `   Foto: ${p.tiene_imagen ? 'subida' : 'pendiente'}${p.nota_imagen ? ' · ' + p.nota_imagen : ''}`
     );
     if (p.falta) l.push(`   Falta: ${p.falta}`);
+    if (p.menciones?.length) l.push(`   Menciones: ${p.menciones.map((m: any) => '@' + m.nombre).join(', ')}`);
+    if (p.estado === 'programado' && p.programado_para) {
+      l.push(`   Programado para: ${new Date(p.programado_para).toISOString()}`);
+    }
+    if (p.publicado_at) l.push(`   Publicado: ${new Date(p.publicado_at).toISOString()} · post_id ${p.linkedin_post_id || p.unipile_draft_id || '-'}`);
+    if (p.error_publicacion) l.push(`   ⚠ Error al publicar: ${p.error_publicacion}`);
     for (const f of p.feedback) {
       l.push(
         `   💬 ${f.autor}${f.nivel ? ' [' + f.nivel + ']' : ''}${f.resuelto ? ' (resuelto)' : ''}: ${f.texto}`,
@@ -141,7 +160,10 @@ export function registrarToolsSemana(servidor: McpServer): void {
         'que no venga en la llamada se queda como estaba. En un post que ya existe solo cambian los ' +
         'campos que vienen, así que para corregir un borrador basta `{clave, texto}`. El feedback de un ' +
         'post se conserva aunque cambie su texto. Un post con huecos entre corchetes o sin texto no ' +
-        'se puede dejar en aprobado, programado ni publicado: la llamada entera se rechaza.',
+        'se puede dejar en aprobado, programado ni publicado: la llamada entera se rechaza. ' +
+        'Esta tool NO programa ni desprograma: eso se hace en /semana con «Programar posts». El estado de un ' +
+        'post programado o ya publicado no cambia por aquí, y si cambian el texto, la cuenta o el día de uno ' +
+        'programado, vuelve a «aprobado» y pierde la hora.',
       inputSchema: {
         semana: z.string().describe('Código ISO, p. ej. 2026-W48'),
         estado: z.string().optional().describe('propuesta | aprobada | cerrada'),

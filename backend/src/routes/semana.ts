@@ -18,8 +18,11 @@ import {
   leerImagen,
   borrarImagen,
   perfilesDeCuentas,
+  programarPosts,
+  desprogramarPost,
   IMAGEN_MAX_BYTES,
 } from '../services/semana';
+import { estadoPublicador } from '../services/publicadorLinkedin';
 import { identidadDe } from '../middleware/basicAuth';
 
 const router = Router();
@@ -79,6 +82,49 @@ router.post('/posts/:id/feedback', async (req: Request, res: Response) => {
     res.status(201).json(fila);
   } catch (err: any) {
     res.status(400).json({ error: err.message });
+  }
+});
+
+/** GET /api/semana/publicador — si la subida automatica a LinkedIn esta encendida. */
+router.get('/publicador', (_req: Request, res: Response) => {
+  res.json(estadoPublicador());
+});
+
+/**
+ * POST /api/semana/:semana/programar {posts: [{id, programado_para}]}
+ * Programa los posts marcados en el panel. Todo o nada: si uno no se puede, no
+ * se programa ninguno y el error dice cual y por que.
+ */
+router.post('/:semana/programar', async (req: Request, res: Response) => {
+  try {
+    const semana = param(req, 'semana');
+    if (!esSemanaValida(semana)) return res.status(400).json({ error: 'Semana no válida (formato 2026-W48)' });
+    const posts = req.body?.posts;
+    if (!Array.isArray(posts)) return res.status(400).json({ error: '`posts` tiene que ser una lista' });
+    if (posts.some((p: any) => !RE_UUID.test(String(p?.id || '')))) {
+      return res.status(400).json({ error: 'Id no válido' });
+    }
+    const r = await programarPosts(semana, posts);
+    res.json({ ...r, semana: await leerSemana(semana) });
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+/** POST /api/semana/posts/:id/desprogramar — lo devuelve a «aprobado» y quita la hora. */
+router.post('/posts/:id/desprogramar', async (req: Request, res: Response) => {
+  try {
+    const id = param(req, 'id');
+    if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+    const r = await desprogramarPost(id);
+    if (r === 'no_existe') return res.status(404).json({ error: 'Post no encontrado' });
+    if (r === 'no_programado') return res.status(409).json({ error: 'Ese post no está programado' });
+    if (r === 'publicando') {
+      return res.status(409).json({ error: 'Se está publicando ahora mismo: espera un minuto y mira si ha salido' });
+    }
+    res.json({ ok: true });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -182,6 +228,12 @@ router.put('/:semana', async (req: Request, res: Response) => {
     );
     if (malCoautores) {
       return res.status(400).json({ error: `\`coautores\` de ${malCoautores.clave} tiene que ser una lista de cuentas` });
+    }
+    const malMenciones = (posts || []).find(
+      (p: any) => p?.menciones !== undefined && p.menciones !== null && !Array.isArray(p.menciones)
+    );
+    if (malMenciones) {
+      return res.status(400).json({ error: `\`menciones\` de ${malMenciones.clave} tiene que ser una lista de {nombre, profile_id}` });
     }
     const r = await guardarSemana(semana, { estado, nota, posts });
     res.json({ ...r, semana: await leerSemana(semana) });

@@ -12,6 +12,7 @@
  * un post NO cambia su id, asi que el feedback que ya tiene no se pierde.
  */
 import pool from '../db';
+import { normalizarMenciones, motivoMenciones, type Mencion } from './menciones';
 
 export const CUENTAS = ['iker', 'unai', 'asier'] as const;
 export const OBJETIVOS = ['alcance', 'notoriedad', 'conversion'] as const;
@@ -45,6 +46,48 @@ export function motivoNoPublicable(estado: string, texto: string): string | null
   const hueco = RE_HUECO.exec(texto);
   if (hueco) return `tiene huecos sin rellenar, el primero: ${hueco[0].slice(0, 80)}`;
   return null;
+}
+
+/**
+ * PROGRAMAR (2026-11-18). Solo se programa un post escrito o aprobado, que pase
+ * el candado y cuyas menciones (`@Nombre`) tengan todas su perfil de LinkedIn.
+ * Lo mira la pagina para el panel de «Programar posts», la ruta de programar
+ * antes de guardar y el publicador otra vez justo antes de subirlo.
+ */
+export const ESTADOS_PROGRAMABLES = ['aprobado', 'escrito'];
+
+const ESTADO_LEGIBLE: Record<string, string> = {
+  idea: 'idea',
+  esqueleto: 'esqueleto',
+  a_medias: 'a medias',
+  escrito: 'escrito',
+  aprobado: 'aprobado',
+  programado: 'programado',
+  publicado: 'publicado',
+};
+
+export function motivoNoProgramable(p: {
+  estado: string;
+  texto: string | null;
+  menciones?: Mencion[] | null;
+  falta?: string | null;
+}): string | null {
+  if (p.estado === 'programado') return 'Ya está programado';
+  if (p.estado === 'publicado') return 'Ya está publicado';
+  if (!ESTADOS_PROGRAMABLES.includes(p.estado)) {
+    return `Está en «${ESTADO_LEGIBLE[p.estado] || p.estado}»: solo se programan los posts escritos o aprobados`;
+  }
+  return motivoParaPublicar(p.texto || '', p.menciones, p.falta);
+}
+
+/** El candado y las menciones, sin mirar el estado. Lo usa tambien el publicador. */
+export function motivoParaPublicar(texto: string, menciones?: Mencion[] | null, falta?: string | null): string | null {
+  // Lo que dice «Qué falta» bloquea igual que un hueco: un post con algo pendiente
+  // (un visto bueno, una foto, un dato) no se programa ni se publica (2026-11-18).
+  if (falta && falta.trim()) return `Falta: ${falta.trim()}`;
+  const candado = motivoNoPublicable('programado', texto);
+  if (candado) return candado.charAt(0).toUpperCase() + candado.slice(1);
+  return motivoMenciones(texto, menciones);
 }
 
 export function esSemanaValida(s: unknown): s is string {
@@ -86,6 +129,8 @@ export interface PostSemanaEntrada {
   nota_imagen?: string | null;
   /** Las otras cuentas que firman un post colaborativo. `null` o [] = post de una cuenta. */
   coautores?: string[] | null;
+  /** Los perfiles de los `@Nombre` del texto: [{nombre, profile_id}]. `null` vacia la lista. */
+  menciones?: Mencion[] | null;
 }
 
 function limpio(v: unknown, max: number): string | null {
@@ -125,6 +170,8 @@ export async function leerSemana(semana: string) {
   const posts = await pool.query(
     `SELECT id, semana, clave, to_char(fecha, 'YYYY-MM-DD') AS fecha, cuenta, objetivo,
             experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, coautores, updated_at,
+            menciones, programado_para, publicando_desde, publicado_at, linkedin_post_id, unipile_draft_id,
+            error_publicacion,
             (imagen IS NOT NULL) AS tiene_imagen,
             (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS imagen_version
        FROM semana_posts
@@ -148,7 +195,11 @@ export async function leerSemana(semana: string) {
   }
   return {
     ...cab.rows[0],
-    posts: posts.rows.map((p) => ({ ...p, feedback: porPost.get(p.id) || [] })),
+    posts: posts.rows.map((p) => ({
+      ...p,
+      motivo_no_programable: motivoNoProgramable(p),
+      feedback: porPost.get(p.id) || [],
+    })),
   };
 }
 
@@ -192,9 +243,42 @@ export async function guardarSemana(
       }
 
       const existe = await client.query(
-        `SELECT id, estado, texto, cuenta, coautores FROM semana_posts WHERE semana = $1 AND clave = $2`,
+        `SELECT id, estado, texto, cuenta, coautores, to_char(fecha, 'YYYY-MM-DD') AS fecha,
+                programado_para, publicando_desde, publicado_at
+           FROM semana_posts WHERE semana = $1 AND clave = $2
+           FOR UPDATE`,
         [semana, clave]
       );
+      const actual = existe.rows[0];
+
+      // PROGRAMADOS Y PUBLICADOS (2026-11-18). El PUT no programa, no desprograma
+      // y no toca la hora: eso solo lo hacen las rutas de programar y quitar y el
+      // publicador. Asi, volver a subir la semana desde los scripts (que mandan
+      // `estado: escrito`) no desprograma nada. Con una excepcion: si cambia lo
+      // que se va a publicar (texto, cuenta o dia), el post vuelve a «aprobado» y
+      // pierde la hora, para que nadie publique algo que no ha visto.
+      let estadoPedido = p.estado;
+      let desprogramar = false;
+      const protegido =
+        !!actual && (actual.estado === 'programado' || (actual.estado === 'publicado' && !!actual.publicado_at));
+      if (protegido) estadoPedido = undefined;
+      if (actual?.estado === 'programado') {
+        const cambia =
+          (p.texto !== undefined && (p.texto ?? '') !== actual.texto) ||
+          (p.cuenta !== undefined && p.cuenta !== actual.cuenta) ||
+          (p.fecha !== undefined && p.fecha !== actual.fecha);
+        if (cambia) {
+          if (actual.publicando_desde) {
+            throw new Error(`El post ${clave} se está publicando ahora mismo: espera a que acabe para cambiarlo`);
+          }
+          estadoPedido = 'aprobado';
+          desprogramar = true;
+        }
+      }
+      if (estadoPedido === 'programado' && actual?.estado !== 'programado') {
+        throw new Error(`El post ${clave} se programa desde la página, con «Programar posts», no al guardar la semana`);
+      }
+      const menciones = p.menciones !== undefined ? normalizarMenciones(p.menciones, clave) : undefined;
 
       // Coautores: se validan contra la cuenta con la que QUEDARA el post. Si
       // solo cambia la cuenta, tampoco puede pasar a ser uno de sus coautores.
@@ -207,7 +291,7 @@ export async function guardarSemana(
       }
 
       // El candado: se mira como QUEDARIA el post despues de guardar.
-      const estadoFinal = p.estado ?? existe.rows[0]?.estado ?? 'idea';
+      const estadoFinal = estadoPedido ?? actual?.estado ?? 'idea';
       const textoFinal = p.texto !== undefined ? p.texto ?? '' : existe.rows[0]?.texto ?? '';
       const motivo = motivoNoPublicable(estadoFinal, textoFinal);
       if (motivo) {
@@ -221,8 +305,8 @@ export async function guardarSemana(
         await client.query(
           `INSERT INTO semana_posts
              (semana, clave, fecha, cuenta, objetivo, experimento, pilar, titulo, texto, estado,
-              vara, por_que, falta, nota_imagen, coautores)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14,$15)`,
+              vara, por_que, falta, nota_imagen, coautores, menciones)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14,$15,$16)`,
           [
             semana,
             clave,
@@ -233,12 +317,13 @@ export async function guardarSemana(
             limpio(p.pilar, 200),
             limpio(p.titulo, 300),
             p.texto ?? '',
-            p.estado ?? null,
+            estadoPedido ?? null,
             limpio(p.vara, 300),
             limpio(p.por_que, 2000),
             limpio(p.falta, 2000),
             limpio(p.nota_imagen, 3000),
             coautores ?? [],
+            JSON.stringify(menciones ?? []),
           ]
         );
         creados++;
@@ -259,14 +344,17 @@ export async function guardarSemana(
       if (p.pilar !== undefined) pon('pilar', limpio(p.pilar, 200));
       if (p.titulo !== undefined) pon('titulo', limpio(p.titulo, 300));
       if (p.texto !== undefined) pon('texto', p.texto ?? '');
-      if (p.estado !== undefined) pon('estado', p.estado);
+      if (estadoPedido !== undefined && estadoPedido !== actual.estado) pon('estado', estadoPedido);
       if (p.vara !== undefined) pon('vara', limpio(p.vara, 300));
       if (p.por_que !== undefined) pon('por_que', limpio(p.por_que, 2000));
       if (p.falta !== undefined) pon('falta', limpio(p.falta, 2000));
       if (p.nota_imagen !== undefined) pon('nota_imagen', limpio(p.nota_imagen, 3000));
       if (coautores !== undefined) pon('coautores', coautores);
+      if (menciones !== undefined) pon('menciones', JSON.stringify(menciones));
+      // La unica columna de la programacion que toca el PUT, y solo para quitar la hora.
+      if (desprogramar) sets.push('programado_para = NULL');
       if (sets.length) {
-        vals.push(existe.rows[0].id);
+        vals.push(actual.id);
         await client.query(
           `UPDATE semana_posts SET ${sets.join(', ')}, updated_at = NOW() WHERE id = $${vals.length}`,
           vals
@@ -282,6 +370,91 @@ export async function guardarSemana(
   } finally {
     client.release();
   }
+}
+
+// ── Programar y quitar de la programacion ────────────────────────────────────
+
+/** Margen para una hora que ya ha pasado mientras se confirmaba el panel. */
+const MARGEN_PASADO_MS = 2 * 60 * 1000;
+
+export interface PeticionProgramar {
+  id: string;
+  /** Instante ISO, calculado en el navegador (hora de Madrid). */
+  programado_para: string;
+}
+
+/**
+ * Pasa a «programado» los posts pedidos, cada uno con su hora. Es todo o nada:
+ * si uno no se puede programar, no se programa ninguno y el error dice cual y
+ * por que. El candado y las menciones se comprueban aqui, en el servidor,
+ * aunque la pagina ya los haya mirado.
+ */
+export async function programarPosts(semana: string, peticiones: PeticionProgramar[], ahora = new Date()) {
+  if (!Array.isArray(peticiones) || !peticiones.length) throw new Error('No hay ningún post marcado para programar');
+  const ids = new Set<string>();
+  for (const p of peticiones) {
+    if (!p || typeof p.id !== 'string') throw new Error('Cada post necesita su `id`');
+    if (ids.has(p.id)) throw new Error('Hay un post repetido');
+    ids.add(p.id);
+    const t = typeof p.programado_para === 'string' ? Date.parse(p.programado_para) : NaN;
+    if (!Number.isFinite(t)) throw new Error('Cada post necesita su hora (`programado_para`, en ISO)');
+    if (t < ahora.getTime() - MARGEN_PASADO_MS) throw new Error('Una de las horas ya ha pasado: elige una posterior');
+  }
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const programados: { id: string; clave: string; programado_para: string }[] = [];
+    for (const p of peticiones) {
+      const { rows } = await client.query(
+        `SELECT id, clave, semana, estado, texto, menciones, falta FROM semana_posts WHERE id = $1 FOR UPDATE`,
+        [p.id]
+      );
+      const fila = rows[0];
+      if (!fila || fila.semana !== semana) throw new Error('Uno de los posts no es de esta semana');
+      const motivo = motivoNoProgramable(fila);
+      if (motivo) throw new Error(`«${fila.clave}» no se puede programar: ${motivo}`);
+      const r = await client.query(
+        `UPDATE semana_posts
+            SET estado = 'programado', programado_para = $2, publicando_desde = NULL,
+                error_publicacion = NULL, updated_at = NOW()
+          WHERE id = $1
+          RETURNING id, clave, programado_para`,
+        [p.id, new Date(p.programado_para).toISOString()]
+      );
+      programados.push(r.rows[0]);
+    }
+    await client.query('COMMIT');
+    return { programados };
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+/** Una reclamacion que lleva mas que esto sin acabar se da por colgada. */
+export const RECLAMACION_COLGADA_MIN = 10;
+
+/**
+ * Quita un post de la programacion: vuelve a «aprobado» y pierde la hora. No se
+ * puede mientras el publicador lo esta subiendo, salvo que esa subida lleve
+ * colgada mas de RECLAMACION_COLGADA_MIN minutos.
+ * Devuelve 'ok', 'no_existe', 'no_programado' o 'publicando'.
+ */
+export async function desprogramarPost(id: string): Promise<'ok' | 'no_existe' | 'no_programado' | 'publicando'> {
+  const { rowCount } = await pool.query(
+    `UPDATE semana_posts
+        SET estado = 'aprobado', programado_para = NULL, publicando_desde = NULL, updated_at = NOW()
+      WHERE id = $1 AND estado = 'programado'
+        AND (publicando_desde IS NULL OR publicando_desde < NOW() - ($2 || ' minutes')::interval)`,
+    [id, String(RECLAMACION_COLGADA_MIN)]
+  );
+  if (rowCount) return 'ok';
+  const { rows } = await pool.query(`SELECT estado FROM semana_posts WHERE id = $1`, [id]);
+  if (!rows.length) return 'no_existe';
+  return rows[0].estado === 'programado' ? 'publicando' : 'no_programado';
 }
 
 // ── La foto de un post ───────────────────────────────────────────────────────

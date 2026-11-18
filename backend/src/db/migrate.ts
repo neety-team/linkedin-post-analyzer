@@ -1320,6 +1320,21 @@ const migracionSemana = `
   -- Posts colaborativos (2026-11-17): las otras cuentas que firman el post.
   -- \`cuenta\` sigue siendo la que lo publica; \`coautores\` nunca la repite.
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS coautores TEXT[] NOT NULL DEFAULT '{}';
+
+  -- Programar posts (2026-11-18): el publicador (services/publicadorLinkedin.ts)
+  -- sube solo cada post \`programado\` cuando llega su \`programado_para\`.
+  -- \`publicando_desde\` es la reclamacion atomica: el que la pone es el unico que
+  -- lo publica. Estas columnas NO las toca el PUT de la semana.
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS programado_para TIMESTAMPTZ;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS publicando_desde TIMESTAMPTZ;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS publicado_at TIMESTAMPTZ;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS linkedin_post_id TEXT;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS unipile_draft_id TEXT;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS error_publicacion TEXT;
+  -- Las personas que el texto menciona con @Nombre: [{nombre, profile_id}].
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS menciones JSONB NOT NULL DEFAULT '[]'::jsonb;
+  CREATE INDEX IF NOT EXISTS idx_semana_posts_programados
+    ON semana_posts (programado_para) WHERE estado = 'programado';
 `;
 
 export async function runMigrations() {

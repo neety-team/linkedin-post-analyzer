@@ -27,7 +27,7 @@
  * una, conectada); UNIPILE_ACCOUNT_IKER/UNAI/ASIER la fijan a mano si hace falta.
  */
 import pool from '../db';
-import { CUENTAS, motivoParaPublicar } from './semana';
+import { CUENTAS, motivoParaPublicar, type Pendiente } from './semana';
 import { aplicarMenciones, type Mencion, type MencionUnipile } from './menciones';
 
 const UN_MINUTO = 60 * 1000;
@@ -156,6 +156,7 @@ interface FilaReclamada {
   texto: string;
   menciones: Mencion[] | null;
   falta: string | null;
+  pendientes: Pendiente[] | null;
   imagen: Buffer | null;
   imagen_tipo: string | null;
   programado_para: Date;
@@ -170,7 +171,7 @@ export async function reclamar(id: string): Promise<FilaReclamada | null> {
     `UPDATE semana_posts SET publicando_desde = NOW()
       WHERE id = $1 AND estado = 'programado' AND publicando_desde IS NULL
         AND programado_para IS NOT NULL AND programado_para <= NOW()
-      RETURNING id, clave, semana, cuenta, texto, menciones, falta, imagen, imagen_tipo, programado_para`,
+      RETURNING id, clave, semana, cuenta, texto, menciones, falta, pendientes, imagen, imagen_tipo, programado_para`,
     [id]
   );
   return rows[0] || null;
@@ -189,11 +190,12 @@ export function prepararPublicacion(fila: {
   texto: string;
   menciones: Mencion[] | null;
   falta?: string | null;
+  pendientes?: Pendiente[] | null;
   imagen?: Buffer | null;
   imagen_tipo?: string | null;
   account_id?: string | null;
 }): Publicacion {
-  const motivo = motivoParaPublicar(fila.texto || '', fila.menciones, fila.falta);
+  const motivo = motivoParaPublicar(fila.texto || '', fila.menciones, fila.falta, fila.pendientes);
   if (motivo) throw new Error(`No se ha publicado: ${motivo}`);
   const account_id = (fila.account_id ?? process.env[variableCuenta(fila.cuenta)])?.trim();
   if (!account_id) {
@@ -353,7 +355,7 @@ export interface OpcionesVuelta {
 export async function vueltaPublicador(op: OpcionesVuelta = {}) {
   const activo = op.activo ?? (await publicarActivo());
   const { rows } = await pool.query(
-    `SELECT id, clave, semana, cuenta, texto, menciones, programado_para, (imagen IS NOT NULL) AS tiene_imagen
+    `SELECT id, clave, semana, cuenta, texto, menciones, falta, pendientes, programado_para, (imagen IS NOT NULL) AS tiene_imagen
        FROM semana_posts
       WHERE estado = 'programado' AND publicando_desde IS NULL
         AND programado_para IS NOT NULL AND programado_para <= NOW()

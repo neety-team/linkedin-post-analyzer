@@ -54,6 +54,11 @@ const postEntrada = z.object({
     .nullable()
     .optional()
     .describe('Qué foto o imagen lleva el post. La foto en sí se sube desde la página /semana'),
+  referencia: z
+    .string()
+    .nullable()
+    .optional()
+    .describe('De dónde sale el post: el enlace al post de referencia con su autor y cifras, la reunión o el dato propio'),
   coautores: z
     .array(z.enum(CUENTAS))
     .nullable()

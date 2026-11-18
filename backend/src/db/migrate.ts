@@ -1342,6 +1342,9 @@ const migracionSemana = `
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS error_publicacion TEXT;
   -- Las personas que el texto menciona con @Nombre: [{nombre, profile_id}].
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS menciones JSONB NOT NULL DEFAULT '[]'::jsonb;
+  -- De dónde sale el post (2026-11-18): el post de otro creador que se calca o adapta,
+  -- una reunión o un dato propio, con su enlace y sus cifras.
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS referencia TEXT;
   CREATE INDEX IF NOT EXISTS idx_semana_posts_programados
     ON semana_posts (programado_para) WHERE estado = 'programado';
 `;

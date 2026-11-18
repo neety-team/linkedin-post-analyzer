@@ -61,6 +61,11 @@ const RECORDATORIOS = [
   '🔥 Comentario y guardado son los que más pesan. Con el like y el compartir, pleno.',
 ];
 
+/** Uno de los recordatorios de las cuatro acciones, para otros avisos (efecto abeja). */
+export function recordatorioAlAzar(): string {
+  return pick(RECORDATORIOS);
+}
+
 function pick<T>(xs: T[]): T {
   return xs[Math.floor(Math.random() * xs.length)];
 }

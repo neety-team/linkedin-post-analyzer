@@ -1365,6 +1365,39 @@ const migracionSemana = `
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS pendientes JSONB NOT NULL DEFAULT '[]'::jsonb;
   CREATE INDEX IF NOT EXISTS idx_semana_posts_programados
     ON semana_posts (programado_para) WHERE estado = 'programado';
+
+  -- EFECTO ABEJA (2026-11-18): al publicarse un post, aviso al Chat de contenido y
+  -- ronda entre los fundadores (likes, comentarios, respuestas y reposts), cada
+  -- acción a su hora. Ver services/abeja.ts.
+  -- La segunda foto de un post de varias fotos (2026-11-18). Va detras de la 1.
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen2 BYTEA;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen2_tipo TEXT;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS imagen2_at TIMESTAMPTZ;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS linkedin_social_id TEXT;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS linkedin_url TEXT;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS chat_avisado_at TIMESTAMPTZ;
+  ALTER TABLE publicador_ajustes ADD COLUMN IF NOT EXISTS abeja_activa BOOLEAN NOT NULL DEFAULT FALSE;
+  ALTER TABLE publicador_ajustes ADD COLUMN IF NOT EXISTS abeja_cambiado_por TEXT;
+  ALTER TABLE publicador_ajustes ADD COLUMN IF NOT EXISTS abeja_cambiado_at TIMESTAMPTZ;
+  CREATE TABLE IF NOT EXISTS abeja_acciones (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    semana_post_id UUID NOT NULL REFERENCES semana_posts(id) ON DELETE CASCADE,
+    orden INT NOT NULL,
+    tipo TEXT NOT NULL CHECK (tipo IN ('verificar','aviso','like_post','comentar','responder','like_comentario','repost')),
+    actor TEXT,
+    texto TEXT,
+    depende_de UUID REFERENCES abeja_acciones(id) ON DELETE CASCADE,
+    programado_para TIMESTAMPTZ NOT NULL,
+    estado TEXT NOT NULL DEFAULT 'pendiente' CHECK (estado IN ('pendiente','en_curso','hecho','fallo','saltado')),
+    intentos INT NOT NULL DEFAULT 0,
+    empezado_at TIMESTAMPTZ,
+    hecho_at TIMESTAMPTZ,
+    resultado JSONB,
+    error TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  );
+  CREATE INDEX IF NOT EXISTS idx_abeja_pendientes ON abeja_acciones (programado_para) WHERE estado = 'pendiente';
+  CREATE INDEX IF NOT EXISTS idx_abeja_post ON abeja_acciones (semana_post_id);
 `;
 
 export async function runMigrations() {

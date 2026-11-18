@@ -2402,6 +2402,11 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # de Unai el ecosistema sigue pidiendo --ancla-direccion. Si va de ecosistema, el
         # cuerpo sin ventas es solo aviso. La variedad del ancla es criterio (brand-voice §1b).
         _dr = re.search(DIRECCION_ANCLA, hook_txt, re.I)
+        # 18/11 (SeedRocket): en historia/evento la @ de la organizacion del ecosistema que
+        # nos recibe ya ancla el gancho, y nombrar a la gente por su papel financiero
+        # (inversores, fondos) la deshumaniza. Con --historia-evento, la @ cuenta como ancla.
+        if not _dr and HISTORIA_EVENTO:
+            _dr = re.search(r'@[A-Za-z0-9][\w.&-]*', hook_txt)
         _ventas = bool(fuerte or ambigua)
         chk(_ventas or bool(_dr), 'Hook anclado a VENTAS o al ECOSISTEMA (cuenta Unai, brand-voice §1b, 26/10)',
             detalle if _ventas else (f'ancla de ecosistema: "{_dr.group(0)}". Varia la palabra del '

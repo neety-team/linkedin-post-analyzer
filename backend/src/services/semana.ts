@@ -71,23 +71,249 @@ export function motivoNoProgramable(p: {
   texto: string | null;
   menciones?: Mencion[] | null;
   falta?: string | null;
+  pendientes?: Pendiente[] | null;
 }): string | null {
   if (p.estado === 'programado') return 'Ya está programado';
   if (p.estado === 'publicado') return 'Ya está publicado';
   if (!ESTADOS_PROGRAMABLES.includes(p.estado)) {
     return `Está en «${ESTADO_LEGIBLE[p.estado] || p.estado}»: solo se programan los posts escritos o aprobados`;
   }
-  return motivoParaPublicar(p.texto || '', p.menciones, p.falta);
+  return motivoParaPublicar(p.texto || '', p.menciones, p.falta, p.pendientes);
 }
 
 /** El candado y las menciones, sin mirar el estado. Lo usa tambien el publicador. */
-export function motivoParaPublicar(texto: string, menciones?: Mencion[] | null, falta?: string | null): string | null {
-  // Lo que dice «Qué falta» bloquea igual que un hueco: un post con algo pendiente
+export function motivoParaPublicar(
+  texto: string,
+  menciones?: Mencion[] | null,
+  falta?: string | null,
+  pendientes?: Pendiente[] | null
+): string | null {
+  // Con lista de pendientes, manda la lista y `falta` queda como nota. Sin ella,
+  // lo que dice «Qué falta» bloquea igual que un hueco: un post con algo pendiente
   // (un visto bueno, una foto, un dato) no se programa ni se publica (2026-11-18).
-  if (falta && falta.trim()) return `Falta: ${falta.trim()}`;
+  if (Array.isArray(pendientes) && pendientes.length) {
+    const p = motivoPendientes(pendientes);
+    if (p) return p;
+  } else if (falta && falta.trim()) {
+    return `Falta: ${falta.trim()}`;
+  }
   const candado = motivoNoPublicable('programado', texto);
   if (candado) return candado.charAt(0).toUpperCase() + candado.slice(1);
   return motivoMenciones(texto, menciones);
+}
+
+/**
+ * LO QUE FALTA, CONFIRMABLE (2026-11-18). En vez de un texto libre, la lista de
+ * lo que falta para publicar un post: cada cosa la confirma o la cuenta una
+ * persona desde la propia pagina.
+ *
+ * - `check` (si o no): «sí» lo deja hecho; «no» lo deja respondido, porque pide
+ *   que alguien actue (retirar el post, cambiarlo).
+ * - `texto` (hay que contar algo): con la respuesta queda respondido, porque hay
+ *   que meterla en el post. Lo pasa a hecho quien la aplica, por el PUT o el MCP.
+ *
+ * Mientras quede alguno sin hacer, el post no se programa ni se publica. Cuando
+ * el ultimo pasa a hecho, el post queda aprobado (si no tiene huecos).
+ */
+export const TIPOS_PENDIENTE = ['check', 'texto'] as const;
+export const ESTADOS_PENDIENTE = ['pendiente', 'respondido', 'hecho'] as const;
+
+export interface Pendiente {
+  id: string;
+  texto: string;
+  tipo: (typeof TIPOS_PENDIENTE)[number];
+  quien: (typeof CUENTAS)[number] | null;
+  estado: (typeof ESTADOS_PENDIENTE)[number];
+  respuesta: string | null;
+  por: string | null;
+  at: string | null;
+}
+
+/** Lo que bloquea por la lista: el primero que no esta hecho, en llano. */
+export function motivoPendientes(pendientes: Pendiente[] | null | undefined): string | null {
+  const abiertos = (pendientes || []).filter((p) => p.estado !== 'hecho');
+  if (!abiertos.length) return null;
+  const p = abiertos[0];
+  const mas = abiertos.length > 1 ? ` (y ${abiertos.length - 1} más)` : '';
+  if (p.estado === 'respondido' && p.tipo === 'check') {
+    return `Falta: ${p.texto} · ${p.por || 'alguien'} ha dicho que no: hay que decidir qué se hace con el post${mas}`;
+  }
+  if (p.estado === 'respondido') {
+    return `Falta: ${p.texto} · respondido («${(p.respuesta || '').slice(0, 120)}»), a la espera de meterlo en el post${mas}`;
+  }
+  return `Falta: ${p.texto}${mas}`;
+}
+
+const ESTADOS_ANTES_DE_APROBAR = ['idea', 'esqueleto', 'a_medias', 'escrito'];
+
+/** Si la lista acaba de quedar toda hecha, el estado al que pasa el post (o el mismo). */
+function estadoTrasPendientes(antes: Pendiente[], despues: Pendiente[], estado: string, texto: string): string {
+  const abiertosAntes = antes.some((p) => p.estado !== 'hecho');
+  const todoHecho = despues.length > 0 && despues.every((p) => p.estado === 'hecho');
+  if (!abiertosAntes || !todoHecho) return estado;
+  if (!ESTADOS_ANTES_DE_APROBAR.includes(estado)) return estado;
+  if (motivoNoPublicable('aprobado', texto)) return estado;
+  return 'aprobado';
+}
+
+function idDeTexto(texto: string, usados: Set<string>): string {
+  const base =
+    texto
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .split('-')
+      .slice(0, 4)
+      .join('-')
+      .slice(0, 32) || 'p';
+  let id = base;
+  for (let n = 2; usados.has(id); n++) id = `${base}-${n}`;
+  return id;
+}
+
+/** Valida y normaliza la lista que llega por el PUT o el MCP. `null` = lista vacia. */
+export function normalizarPendientes(v: unknown, clave: string): Pendiente[] {
+  if (v === null) return [];
+  if (!Array.isArray(v)) throw new Error(`\`pendientes\` de ${clave} tiene que ser una lista`);
+  const usados = new Set<string>();
+  const out: Pendiente[] = [];
+  for (const e of v) {
+    if (!e || typeof e !== 'object') throw new Error(`Cada pendiente de ${clave} tiene que ser un objeto`);
+    const texto = limpio((e as any).texto, 500);
+    if (!texto) throw new Error(`Un pendiente de ${clave} no tiene \`texto\``);
+    const tipo = (e as any).tipo ?? 'check';
+    if (!TIPOS_PENDIENTE.includes(tipo)) throw new Error(`Tipo de pendiente no válido en ${clave}: ${tipo} (check o texto)`);
+    const quien = (e as any).quien ?? null;
+    if (quien !== null && !CUENTAS.includes(quien)) throw new Error(`\`quien\` no válido en ${clave}: ${quien}`);
+    const estado = (e as any).estado ?? 'pendiente';
+    if (!ESTADOS_PENDIENTE.includes(estado)) throw new Error(`Estado de pendiente no válido en ${clave}: ${estado}`);
+    let id = limpio((e as any).id, 40);
+    if (id && !/^[a-z0-9][a-z0-9-]*$/i.test(id)) throw new Error(`Id de pendiente no válido en ${clave}: ${id}`);
+    if (id && usados.has(id)) throw new Error(`Id de pendiente repetido en ${clave}: ${id}`);
+    if (!id) id = idDeTexto(texto, usados);
+    usados.add(id);
+    out.push({
+      id,
+      texto,
+      tipo,
+      quien,
+      estado,
+      respuesta: limpio((e as any).respuesta, 4000),
+      por: limpio((e as any).por, 60),
+      at: limpio((e as any).at, 40),
+    });
+  }
+  return out;
+}
+
+/**
+ * Mezcla por `id` la lista que llega con la que hay en la base. La que llega
+ * manda en el texto, el tipo, quien y el orden; el estado y la respuesta que ya
+ * hay NO se pisan, salvo que la que llega marque ese id como hecho a proposito.
+ * Lo que ya tiene respuesta y no viene se conserva al final (no se pierde lo que
+ * contesto alguien); lo que no tiene respuesta y no viene, se quita.
+ */
+export function mezclarPendientes(actuales: Pendiente[], entrantes: Pendiente[], ahora = new Date()): Pendiente[] {
+  const porId = new Map(actuales.map((p) => [p.id, p]));
+  const out: Pendiente[] = entrantes.map((e) => {
+    const a = porId.get(e.id);
+    if (!a) {
+      return e.estado === 'pendiente'
+        ? { ...e, respuesta: null, por: null, at: null }
+        : { ...e, por: e.por ?? 'Claude', at: e.at ?? ahora.toISOString() };
+    }
+    const base = { ...a, texto: e.texto, tipo: e.tipo, quien: e.quien };
+    if (e.estado === 'hecho' && a.estado !== 'hecho') {
+      return { ...base, estado: 'hecho' as const, por: e.por ?? 'Claude', at: ahora.toISOString() };
+    }
+    return base;
+  });
+  const vienen = new Set(entrantes.map((e) => e.id));
+  for (const a of actuales) {
+    if (!vienen.has(a.id) && a.estado !== 'pendiente') out.push(a);
+  }
+  return out;
+}
+
+/**
+ * Una persona responde a un pendiente desde la pagina. `respuesta` es 'si' o
+ * 'no' en un check, y lo que cuenta en un texto. Devuelve el post entero como lo
+ * da la semana, o null si el post no existe.
+ */
+export async function responderPendiente(postId: string, pid: string, respuesta: unknown, autor: unknown, ahora = new Date()) {
+  const quien = limpio(autor, 60);
+  if (!quien) throw new Error('Falta quién responde: elige arriba, junto a «Soy», quién eres');
+  const client = await pool.connect();
+  let semana: string;
+  try {
+    await client.query('BEGIN');
+    const { rows } = await client.query(
+      `SELECT id, semana, estado, texto, pendientes FROM semana_posts WHERE id = $1 FOR UPDATE`,
+      [postId]
+    );
+    if (!rows.length) {
+      await client.query('ROLLBACK');
+      return null;
+    }
+    const post = rows[0];
+    semana = post.semana;
+    const antes: Pendiente[] = Array.isArray(post.pendientes) ? post.pendientes : [];
+    const i = antes.findIndex((p) => p.id === pid);
+    if (i < 0) throw new Error('Ese pendiente ya no está en el post');
+    const p = antes[i];
+    if (p.estado === 'hecho') throw new Error('Eso ya está hecho');
+    const at = ahora.toISOString();
+    let nuevo: Pendiente;
+    if (p.tipo === 'check') {
+      const r = String(respuesta ?? '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '');
+      if (r !== 'si' && r !== 'no') throw new Error('La respuesta tiene que ser «sí» o «no»');
+      nuevo = r === 'si'
+        ? { ...p, estado: 'hecho', respuesta: 'sí', por: quien, at }
+        : { ...p, estado: 'respondido', respuesta: 'no', por: quien, at };
+    } else {
+      const t = limpio(respuesta, 4000);
+      if (!t) throw new Error('La respuesta está vacía');
+      nuevo = { ...p, estado: 'respondido', respuesta: t, por: quien, at };
+    }
+    const despues = antes.map((x, j) => (j === i ? nuevo : x));
+    const estado = estadoTrasPendientes(antes, despues, post.estado, post.texto || '');
+    await client.query(
+      `UPDATE semana_posts SET pendientes = $2, estado = $3, updated_at = NOW() WHERE id = $1`,
+      [postId, JSON.stringify(despues), estado]
+    );
+    await client.query('COMMIT');
+  } catch (err) {
+    await client.query('ROLLBACK').catch(() => {});
+    throw err;
+  } finally {
+    client.release();
+  }
+  const s = await leerSemana(semana);
+  return s?.posts.find((x: any) => x.id === postId) ?? null;
+}
+
+/** Los pendientes respondidos que esperan a meterse en su post, para la rutina de feedback. */
+export async function listarPendientesRespondidos(opts: { semana?: string } = {}) {
+  const vals: any[] = [];
+  let cond = '';
+  if (opts.semana) {
+    vals.push(opts.semana);
+    cond = 'AND sp.semana = $1';
+  }
+  const { rows } = await pool.query(
+    `SELECT sp.id AS post_id, sp.semana, sp.clave, sp.cuenta, sp.titulo, to_char(sp.fecha, 'YYYY-MM-DD') AS fecha, e AS pendiente
+       FROM semana_posts sp, jsonb_array_elements(sp.pendientes) e
+      WHERE e->>'estado' = 'respondido' ${cond}
+      ORDER BY sp.fecha, sp.clave`,
+    vals
+  );
+  return rows as { post_id: string; semana: string; clave: string; cuenta: string; titulo: string; fecha: string; pendiente: Pendiente }[];
 }
 
 export function esSemanaValida(s: unknown): s is string {
@@ -133,6 +359,11 @@ export interface PostSemanaEntrada {
   coautores?: string[] | null;
   /** Los perfiles de los `@Nombre` del texto: [{nombre, profile_id}]. `null` vacia la lista. */
   menciones?: Mencion[] | null;
+  /**
+   * Lo que falta para publicarlo, confirmable desde la pagina. Si no viene, se
+   * conserva la que hay; si viene, se mezcla por id sin pisar respuestas.
+   */
+  pendientes?: Partial<Pendiente>[] | null;
 }
 
 function limpio(v: unknown, max: number): string | null {
@@ -172,7 +403,7 @@ export async function leerSemana(semana: string) {
   const posts = await pool.query(
     `SELECT id, semana, clave, to_char(fecha, 'YYYY-MM-DD') AS fecha, cuenta, objetivo,
             experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, referencia, coautores, updated_at,
-            menciones, programado_para, publicando_desde, publicado_at, linkedin_post_id, unipile_draft_id,
+            menciones, pendientes, programado_para, publicando_desde, publicado_at, linkedin_post_id, unipile_draft_id,
             error_publicacion,
             (imagen IS NOT NULL) AS tiene_imagen,
             (EXTRACT(EPOCH FROM imagen_at) * 1000)::bigint::text AS imagen_version
@@ -246,7 +477,7 @@ export async function guardarSemana(
 
       const existe = await client.query(
         `SELECT id, estado, texto, cuenta, coautores, to_char(fecha, 'YYYY-MM-DD') AS fecha,
-                programado_para, publicando_desde, publicado_at
+                programado_para, publicando_desde, publicado_at, pendientes
            FROM semana_posts WHERE semana = $1 AND clave = $2
            FOR UPDATE`,
         [semana, clave]
@@ -293,11 +524,24 @@ export async function guardarSemana(
       }
 
       // El candado: se mira como QUEDARIA el post despues de guardar.
-      const estadoFinal = estadoPedido ?? actual?.estado ?? 'idea';
+      let estadoFinal = estadoPedido ?? actual?.estado ?? 'idea';
       const textoFinal = p.texto !== undefined ? p.texto ?? '' : existe.rows[0]?.texto ?? '';
       const motivo = motivoNoPublicable(estadoFinal, textoFinal);
       if (motivo) {
         throw new Error(`El post ${clave} no puede quedar en «${estadoFinal}»: ${motivo}`);
+      }
+
+      // Pendientes: se mezclan con los que hay sin pisar respuestas. Si con esto
+      // queda todo hecho, el post pasa solo a aprobado.
+      const pendientesAntes: Pendiente[] = Array.isArray(actual?.pendientes) ? actual.pendientes : [];
+      let pendientes: Pendiente[] | undefined;
+      if (p.pendientes !== undefined) {
+        pendientes = mezclarPendientes(pendientesAntes, normalizarPendientes(p.pendientes, clave));
+        const tras = estadoTrasPendientes(pendientesAntes, pendientes, estadoFinal, textoFinal);
+        if (tras !== estadoFinal) {
+          estadoFinal = tras;
+          estadoPedido = tras;
+        }
       }
 
       if (!existe.rows.length) {
@@ -307,8 +551,8 @@ export async function guardarSemana(
         await client.query(
           `INSERT INTO semana_posts
              (semana, clave, fecha, cuenta, objetivo, experimento, pilar, titulo, texto, estado,
-              vara, por_que, falta, nota_imagen, coautores, menciones, referencia)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14,$15,$16,$17)`,
+              vara, por_que, falta, nota_imagen, coautores, menciones, referencia, pendientes)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14,$15,$16,$17,$18)`,
           [
             semana,
             clave,
@@ -327,6 +571,7 @@ export async function guardarSemana(
             coautores ?? [],
             JSON.stringify(menciones ?? []),
             limpio(p.referencia, 2000),
+            JSON.stringify(pendientes ?? []),
           ]
         );
         creados++;
@@ -355,6 +600,7 @@ export async function guardarSemana(
       if (p.referencia !== undefined) pon('referencia', limpio(p.referencia, 2000));
       if (coautores !== undefined) pon('coautores', coautores);
       if (menciones !== undefined) pon('menciones', JSON.stringify(menciones));
+      if (pendientes !== undefined) pon('pendientes', JSON.stringify(pendientes));
       // La unica columna de la programacion que toca el PUT, y solo para quitar la hora.
       if (desprogramar) sets.push('programado_para = NULL');
       if (sets.length) {
@@ -411,7 +657,7 @@ export async function programarPosts(semana: string, peticiones: PeticionProgram
     const programados: { id: string; clave: string; programado_para: string }[] = [];
     for (const p of peticiones) {
       const { rows } = await client.query(
-        `SELECT id, clave, semana, estado, texto, menciones, falta FROM semana_posts WHERE id = $1 FOR UPDATE`,
+        `SELECT id, clave, semana, estado, texto, menciones, falta, pendientes FROM semana_posts WHERE id = $1 FOR UPDATE`,
         [p.id]
       );
       const fila = rows[0];

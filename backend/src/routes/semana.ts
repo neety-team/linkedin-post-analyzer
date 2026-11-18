@@ -23,6 +23,7 @@ import {
   reprogramarPost,
   moverPost,
   retirarPost,
+  responderPendiente,
   IMAGEN_MAX_BYTES,
 } from '../services/semana';
 import { estadoPublicador, cambiarSubidaAutomatica } from '../services/publicadorLinkedin';
@@ -83,6 +84,27 @@ router.post('/posts/:id/feedback', async (req: Request, res: Response) => {
     const fila = await crearFeedback(id, yo ? yo.nombre : autor, texto);
     if (!fila) return res.status(404).json({ error: 'Post no encontrado' });
     res.status(201).json(fila);
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/semana/posts/:id/pendientes/:pid {respuesta, autor?} — una persona
+ * confirma («si» o «no») o cuenta lo que falta. Firma como el feedback: con el
+ * login central si lo hay; si no, con `autor`. Devuelve el post actualizado.
+ */
+router.post('/posts/:id/pendientes/:pid', async (req: Request, res: Response) => {
+  try {
+    const id = param(req, 'id');
+    const pid = param(req, 'pid');
+    if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+    if (!/^[a-z0-9][a-z0-9-]{0,39}$/i.test(pid)) return res.status(400).json({ error: 'Pendiente no válido' });
+    const { respuesta, autor } = req.body || {};
+    const yo = identidadDe(req);
+    const post = await responderPendiente(id, pid, respuesta, yo ? yo.nombre : autor);
+    if (!post) return res.status(404).json({ error: 'Post no encontrado' });
+    res.json(post);
   } catch (err: any) {
     res.status(400).json({ error: err.message });
   }
@@ -310,6 +332,12 @@ router.put('/:semana', async (req: Request, res: Response) => {
     );
     if (malMenciones) {
       return res.status(400).json({ error: `\`menciones\` de ${malMenciones.clave} tiene que ser una lista de {nombre, profile_id}` });
+    }
+    const malPendientes = (posts || []).find(
+      (p: any) => p?.pendientes !== undefined && p.pendientes !== null && !Array.isArray(p.pendientes)
+    );
+    if (malPendientes) {
+      return res.status(400).json({ error: `\`pendientes\` de ${malPendientes.clave} tiene que ser una lista` });
     }
     const r = await guardarSemana(semana, { estado, nota, posts });
     res.json({ ...r, semana: await leerSemana(semana) });

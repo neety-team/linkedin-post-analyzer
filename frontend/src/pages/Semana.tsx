@@ -59,6 +59,18 @@ interface Feedback {
   created_at: string;
 }
 
+/** Algo que falta para publicar un post y que una persona confirma o cuenta (2026-11-18). */
+interface Pendiente {
+  id: string;
+  texto: string;
+  tipo: 'check' | 'texto';
+  quien: Cuenta | null;
+  estado: 'pendiente' | 'respondido' | 'hecho';
+  respuesta: string | null;
+  por: string | null;
+  at: string | null;
+}
+
 interface PostSemana {
   id: string;
   semana?: string;
@@ -74,6 +86,8 @@ interface PostSemana {
   vara: string | null;
   por_que: string | null;
   falta: string | null;
+  /** Lo que falta, como lista que se confirma desde aquí. Si hay, `falta` es solo una nota. */
+  pendientes?: Pendiente[] | null;
   nota_imagen: string | null;
   referencia?: string | null;
   tiene_imagen: boolean;
@@ -746,6 +760,215 @@ function Comentarios({ post, autor, onCambio }: { post: PostSemana; autor: strin
   );
 }
 
+const abiertos = (p: PostSemana) => (p.pendientes || []).filter((q) => q.estado !== 'hecho');
+
+/** La línea corta de la tarjeta del calendario: «Faltan 2 confirmaciones», o nada. */
+function LineaPendientes({ post, miCuenta }: { post: PostSemana; miCuenta: Cuenta | null }) {
+  const lista = abiertos(post);
+  if (!lista.length) return null;
+  const porConfirmar = lista.filter((q) => q.estado === 'pendiente');
+  const mios = miCuenta ? porConfirmar.filter((q) => q.quien === miCuenta).length : 0;
+  const respondidos = lista.length - porConfirmar.length;
+  const texto = porConfirmar.length
+    ? `${porConfirmar.length === 1 ? 'Falta' : 'Faltan'} ${porConfirmar.length} ${porConfirmar.length === 1 ? 'confirmación' : 'confirmaciones'}` +
+      (respondidos ? ` y ${respondidos} por aplicar` : '')
+    : `${respondidos === 1 ? 'Falta' : 'Faltan'} aplicar ${respondidos === 1 ? 'una respuesta' : `${respondidos} respuestas`}`;
+  return (
+    <span className="text-warning font-semibold">
+      {texto}
+      {mios > 0 && <span className="text-accent">{` · ${mios === porConfirmar.length && mios > 1 ? 'todas tuyas' : mios === 1 && porConfirmar.length === 1 ? 'tuya' : `${mios} tuya${mios === 1 ? '' : 's'}`}`}</span>}
+    </span>
+  );
+}
+
+function cuandoCorto(iso: string | null): string {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  return d.toLocaleString('es-ES', { timeZone: 'Europe/Madrid', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+/** Un elemento de «Qué falta para publicarlo»: confirmarlo o contarlo aquí mismo. */
+function ElementoPendiente({
+  post,
+  q,
+  autor,
+  miCuenta,
+  onCambio,
+}: {
+  post: PostSemana;
+  q: Pendiente;
+  autor: string;
+  miCuenta: Cuenta | null;
+  onCambio: () => void;
+}) {
+  const [borrador, setBorrador] = useState('');
+  const [enviando, setEnviando] = useState<'si' | 'no' | 'texto' | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const mio = !!miCuenta && q.quien === miCuenta;
+  const quien = q.quien ? nombreDe(q.quien) : null;
+
+  const responder = async (respuesta: string, cual: 'si' | 'no' | 'texto') => {
+    if (!autor) {
+      setError('Elige arriba, junto a «Soy», quién eres para responder.');
+      return;
+    }
+    if (cual === 'texto' && !respuesta.trim()) {
+      setError('Escribe la respuesta.');
+      return;
+    }
+    if (cual === 'no' && !window.confirm('¿Seguro que no? El post se quedará sin publicar hasta que se decida qué hacer con él.')) return;
+    setEnviando(cual);
+    setError(null);
+    try {
+      await apiPost(`/api/semana/posts/${post.id}/pendientes/${q.id}`, { respuesta: respuesta.trim(), autor });
+      setBorrador('');
+      onCambio();
+    } catch (e) {
+      setError(`No se ha guardado: ${e instanceof Error ? e.message : 'error desconocido'}`);
+    } finally {
+      setEnviando(null);
+    }
+  };
+
+  const firma = [q.por, cuandoCorto(q.at)].filter(Boolean).join(', ');
+
+  return (
+    <li
+      className={`rounded-lg border p-3 text-[14px] leading-relaxed ${
+        q.estado === 'hecho'
+          ? 'border-border bg-success/10'
+          : mio
+            ? 'border-accent/60 bg-accent/10'
+            : q.estado === 'respondido'
+              ? 'border-warning/40 bg-warning/10'
+              : 'border-border bg-bg-card'
+      }`}
+    >
+      <p className="flex flex-wrap items-baseline gap-x-2">
+        {q.estado === 'hecho' && (
+          <span aria-hidden className="text-success font-bold">
+            ✓
+          </span>
+        )}
+        <span className={q.estado === 'hecho' ? 'text-text-secondary line-through decoration-text-muted' : 'text-text-primary'}>
+          {quien && <span className="font-semibold">{mio ? 'Tú' : quien}: </span>}
+          {q.texto}
+        </span>
+      </p>
+
+      {q.estado === 'hecho' && (
+        <p className="mt-1 text-xs text-success">
+          {q.tipo === 'check' ? 'Confirmado' : 'Hecho'}
+          {firma ? ` · ${firma}` : ''}
+          {q.tipo === 'texto' && q.respuesta ? <span className="text-text-muted"> · «{q.respuesta}»</span> : null}
+        </p>
+      )}
+
+      {q.estado === 'respondido' && (
+        <div className="mt-1.5 space-y-0.5">
+          {q.tipo === 'check' ? (
+            <p className="text-[13px] text-text-primary">
+              <span className="font-semibold">Ha dicho que no.</span>{' '}
+              <span className="text-text-secondary">Hay que decidir qué se hace con el post.</span>
+            </p>
+          ) : (
+            <p className="pl-3 border-l-2 border-warning/40 text-[13px] text-text-primary whitespace-pre-line">{q.respuesta}</p>
+          )}
+          <p className="text-xs text-warning">
+            {q.tipo === 'check' ? 'Pendiente de decidir' : 'A la espera de meterlo en el post'}
+            {firma ? <span className="text-text-muted"> · {firma}</span> : null}
+          </p>
+        </div>
+      )}
+
+      {q.estado === 'pendiente' && q.tipo === 'check' && (
+        <div className="mt-2 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => responder('si', 'si')}
+            disabled={!!enviando}
+            className="px-4 py-1.5 rounded-full bg-accent text-on-accent text-[13px] font-semibold hover:bg-accent-strong disabled:opacity-60 transition-colors"
+          >
+            {enviando === 'si' ? 'Guardando…' : 'Sí, confirmo'}
+          </button>
+          <button
+            type="button"
+            onClick={() => responder('no', 'no')}
+            disabled={!!enviando}
+            className="px-4 py-1.5 rounded-full border border-border text-text-secondary text-[13px] font-semibold hover:border-text-muted hover:text-text-primary disabled:opacity-60 transition-colors"
+          >
+            {enviando === 'no' ? 'Guardando…' : 'No'}
+          </button>
+        </div>
+      )}
+
+      {q.estado === 'pendiente' && q.tipo === 'texto' && (
+        <div className="mt-2 space-y-2">
+          <label htmlFor={`pd-${post.id}-${q.id}`} className="sr-only">
+            {q.texto}
+          </label>
+          <textarea
+            id={`pd-${post.id}-${q.id}`}
+            value={borrador}
+            onChange={(e) => {
+              setBorrador(e.target.value);
+              if (error) setError(null);
+            }}
+            rows={3}
+            placeholder="Cuéntalo como se lo contarías a alguien del equipo…"
+            className="w-full bg-bg-secondary border border-border rounded-lg p-3 text-[14px] text-text-primary resize-y focus:outline-none focus:border-accent leading-relaxed"
+          />
+          <button
+            type="button"
+            onClick={() => responder(borrador, 'texto')}
+            disabled={!!enviando}
+            className="px-4 py-1.5 rounded-full bg-accent text-on-accent text-[13px] font-semibold hover:bg-accent-strong disabled:opacity-60 transition-colors"
+          >
+            {enviando === 'texto' ? 'Guardando…' : 'Enviar'}
+          </button>
+        </div>
+      )}
+
+      {error && <p className="mt-1.5 text-xs text-danger">{error}</p>}
+    </li>
+  );
+}
+
+/** «Qué falta para publicarlo»: la lista confirmable o, si no hay, la nota de siempre. */
+function QueFalta({ post, autor, miCuenta, onCambio }: { post: PostSemana; autor: string; miCuenta: Cuenta | null; onCambio: () => void }) {
+  const lista = post.pendientes || [];
+  if (!lista.length) {
+    if (!post.falta) return null;
+    return (
+      <div>
+        <h4 className="font-display text-[15px] font-semibold text-text-primary">Qué falta</h4>
+        <p className="mt-1 text-[14px] leading-relaxed text-text-secondary">{post.falta}</p>
+      </div>
+    );
+  }
+  const quedan = abiertos(post).length;
+  return (
+    <div className="space-y-2">
+      <h4 className="font-display text-[15px] font-semibold text-text-primary">
+        Qué falta para publicarlo
+        <span className="ml-1.5 font-sans text-[13px] font-normal text-text-muted">
+          {quedan ? `${lista.length - quedan} de ${lista.length} hecho` : 'todo hecho'}
+        </span>
+      </h4>
+      {post.falta && <p className="text-[13px] leading-relaxed text-text-muted">{post.falta}</p>}
+      <ul className="space-y-2">
+        {lista.map((q) => (
+          <ElementoPendiente key={q.id} post={post} q={q} autor={autor} miCuenta={miCuenta} onCambio={onCambio} />
+        ))}
+      </ul>
+      {!quedan && post.estado === 'aprobado' && (
+        <p className="text-[13px] text-success font-semibold">Aprobado y listo para programar.</p>
+      )}
+    </div>
+  );
+}
+
 /**
  * Un post para revisarlo: primero por que se publica, despues el post como se
  * vera en LinkedIn, y al lado lo que falta, la foto y el feedback.
@@ -754,6 +977,7 @@ function Revision({
   post,
   perfiles,
   autor,
+  miCuenta,
   tema,
   onTema,
   onCambio,
@@ -761,6 +985,7 @@ function Revision({
   post: PostSemana;
   perfiles: Perfiles;
   autor: string;
+  miCuenta: Cuenta | null;
   tema: TemaLI;
   onTema: (t: TemaLI) => void;
   onCambio: () => void;
@@ -829,12 +1054,7 @@ function Revision({
       <aside className="min-w-0 space-y-5 lg:pt-1">
         <Programacion post={post} onCambio={onCambio} />
 
-        {post.falta && (
-          <div>
-            <h4 className="font-display text-[15px] font-semibold text-text-primary">Qué falta</h4>
-            <p className="mt-1 text-[14px] leading-relaxed text-text-secondary">{post.falta}</p>
-          </div>
-        )}
+        <QueFalta post={post} autor={autor} miCuenta={miCuenta} onCambio={onCambio} />
 
         <div>
           <h4 className="font-display text-[15px] font-semibold text-text-primary">Foto</h4>
@@ -1322,7 +1542,19 @@ function Etiquetas({ post }: { post: PostSemana }) {
 }
 
 /** El post en el calendario: lo justo para saber que es. Al pulsarlo se abre entero. */
-function Ficha({ post, mio, onAbrir, onCambio }: { post: PostSemana; mio: boolean; onAbrir: () => void; onCambio: () => void }) {
+function Ficha({
+  post,
+  mio,
+  miCuenta,
+  onAbrir,
+  onCambio,
+}: {
+  post: PostSemana;
+  mio: boolean;
+  miCuenta: Cuenta | null;
+  onAbrir: () => void;
+  onCambio: () => void;
+}) {
   const cuenta = CUENTAS.find((c) => c.id === post.cuenta);
   const pendientes = post.feedback.filter((f) => !f.resuelto).length;
 
@@ -1353,6 +1585,7 @@ function Ficha({ post, mio, onAbrir, onCambio }: { post: PostSemana; mio: boolea
         {post.por_que && <p className="text-[13px] leading-relaxed text-text-secondary line-clamp-3">{post.por_que}</p>}
         <LineaProgramacion post={post} onCambio={onCambio} />
         <p className="mt-auto pt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-muted">
+          <LineaPendientes post={post} miCuenta={miCuenta} />
           {!post.tiene_imagen && <span>Foto pendiente</span>}
           {post.feedback.length > 0 && (
             <span className={pendientes ? 'text-warning font-semibold' : ''}>
@@ -1438,6 +1671,7 @@ function FichaConjunta({
   post,
   perfiles,
   mio,
+  miCuenta,
   desde,
   ancho,
   fila,
@@ -1448,6 +1682,7 @@ function FichaConjunta({
   post: PostSemana;
   perfiles: Perfiles;
   mio: boolean;
+  miCuenta: Cuenta | null;
   desde: number;
   ancho: number;
   fila: number;
@@ -1493,7 +1728,8 @@ function FichaConjunta({
           )}
           <LineaProgramacion post={post} onCambio={onCambio} />
           <p className="mt-auto pt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-muted">
-            {!post.tiene_imagen && <span>Foto pendiente</span>}
+            <LineaPendientes post={post} miCuenta={miCuenta} />
+          {!post.tiene_imagen && <span>Foto pendiente</span>}
             {post.feedback.length > 0 && (
               <span className={pendientes ? 'text-warning font-semibold' : ''}>
                 {pendientes
@@ -1819,6 +2055,7 @@ export default function Semana() {
       post={p}
       perfiles={perfiles.data?.perfiles}
       autor={autor}
+      miCuenta={miCuenta}
       tema={tema}
       onTema={cambiarTema}
       onCambio={detalle.refetch}
@@ -2056,6 +2293,7 @@ export default function Semana() {
                             post={p}
                             perfiles={perfiles.data?.perfiles}
                             mio={esDe(p, miCuenta)}
+                            miCuenta={miCuenta}
                             desde={celda.col}
                             ancho={celda.ancho}
                             fila={r + 1}
@@ -2081,7 +2319,7 @@ export default function Semana() {
                         <div key={`${r}-${celda.col}`} style={lugar} className="min-w-0 flex flex-col gap-3">
                           {celda.posts.map((p) => (
                             <div key={p.id} className={`flex-1 transition-opacity ${filtro && p.objetivo !== filtro ? 'opacity-25' : ''}`}>
-                              <Ficha post={p} mio={p.cuenta === miCuenta} onAbrir={() => abrir(p.clave)} onCambio={detalle.refetch} />
+                              <Ficha post={p} mio={p.cuenta === miCuenta} miCuenta={miCuenta} onAbrir={() => abrir(p.clave)} onCambio={detalle.refetch} />
                             </div>
                           ))}
                         </div>

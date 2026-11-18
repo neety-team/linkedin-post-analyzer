@@ -33,10 +33,18 @@
  * sus caras juntas y una marca encima de cada columna; en el post abierto, la
  * cabecera de LinkedIn lleva a los autores juntos. Cuenta como post de cada
  * uno: "Leer solo mis posts" se lo enseña a todos los que firman.
+ *
+ * PROGRAMAR POSTS (2026-11-18): el boton «Programar posts» de la cabecera abre
+ * un panel con los posts de la semana. Los que se pueden programar salen
+ * marcados con su dia y las 08:30 (hora de Madrid); los que no, deshabilitados
+ * y con el motivo que da el servidor. Un post programado lo dice en su ficha y
+ * en el post abierto, con «Quitar de la programacion». El publicador del
+ * backend lo sube a su hora; si falla, el error sale en rojo en la ficha.
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApi, apiPost } from '../hooks/useApi';
+import { instanteMadrid, cuandoMadrid, HORA_POR_DEFECTO } from '../utils/horaMadrid';
 
 type Cuenta = 'iker' | 'unai' | 'asier';
 type Objetivo = 'alcance' | 'notoriedad' | 'conversion';
@@ -70,7 +78,21 @@ interface PostSemana {
   imagen_version: string | null;
   /** Las otras cuentas que firman el post. Vacio si es de una sola. */
   coautores?: Cuenta[] | null;
+  /** Programar (2026-11-18): la hora a la que el publicador lo sube solo. */
+  programado_para?: string | null;
+  publicando_desde?: string | null;
+  publicado_at?: string | null;
+  linkedin_post_id?: string | null;
+  error_publicacion?: string | null;
+  /** Por que no se puede programar, o null si se puede. Lo calcula el servidor. */
+  motivo_no_programable?: string | null;
   feedback: Feedback[];
+}
+
+interface EstadoPublicador {
+  activo: boolean;
+  unipile: boolean;
+  cuentas: Partial<Record<Cuenta, boolean>>;
 }
 
 interface Perfil {
@@ -723,6 +745,8 @@ function Revision({
       </div>
 
       <aside className="min-w-0 space-y-5 lg:pt-1">
+        <Programacion post={post} onCambio={onCambio} />
+
         {post.falta && (
           <div>
             <h4 className="font-display text-[15px] font-semibold text-text-primary">Qué falta</h4>
@@ -765,6 +789,287 @@ function Revision({
   );
 }
 
+// ── Programar ────────────────────────────────────────────────────────────────
+
+const programado = (p: PostSemana) => p.estado === 'programado';
+
+/** El boton para devolver un post programado a «aprobado». */
+function QuitarProgramacion({ post, onCambio, clase }: { post: PostSemana; onCambio: () => void; clase: string }) {
+  const [quitando, setQuitando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const quitar = async () => {
+    if (!window.confirm('¿Quitar este post de la programación? Volverá a «aprobado» y no se publicará solo.')) return;
+    setQuitando(true);
+    setError(null);
+    try {
+      await apiPost(`/api/semana/posts/${post.id}/desprogramar`, {});
+      onCambio();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se ha podido');
+    } finally {
+      setQuitando(false);
+    }
+  };
+  return (
+    <>
+      <button type="button" onClick={quitar} disabled={quitando} className={clase}>
+        {quitando ? 'Quitando…' : 'Quitar de la programación'}
+      </button>
+      {error && <span className="block text-xs text-danger">{error}</span>}
+    </>
+  );
+}
+
+/**
+ * Como va la programacion de un post, en la ficha del calendario: programado y
+ * a que hora, o el error de la ultima vez que se intento publicar, en rojo.
+ */
+function LineaProgramacion({ post, onCambio }: { post: PostSemana; onCambio: () => void }) {
+  if (programado(post)) {
+    return (
+      // relative z-10: por encima del boton que abre el post, que cubre la ficha.
+      <div className="relative z-10 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+        <span className="font-semibold text-success">
+          {post.publicando_desde
+            ? 'Publicándose ahora'
+            : post.programado_para
+              ? `Programado · ${cuandoMadrid(post.programado_para)}`
+              : 'Programado'}
+        </span>
+        {!post.publicando_desde && (
+          <QuitarProgramacion
+            post={post}
+            onCambio={onCambio}
+            clase="font-semibold text-text-secondary hover:text-danger underline-offset-2 hover:underline"
+          />
+        )}
+      </div>
+    );
+  }
+  if (post.estado === 'publicado' && post.publicado_at) {
+    return <p className="text-xs font-semibold text-success">Publicado · {cuandoMadrid(post.publicado_at)}</p>;
+  }
+  if (post.error_publicacion) {
+    return (
+      <p className="text-xs leading-relaxed text-danger">
+        <b>No se ha publicado.</b> <span className="line-clamp-3">{post.error_publicacion}</span>
+      </p>
+    );
+  }
+  return null;
+}
+
+/** El bloque de programacion en el post abierto. */
+function Programacion({ post, onCambio }: { post: PostSemana; onCambio: () => void }) {
+  if (!programado(post) && !post.error_publicacion && !(post.estado === 'publicado' && post.publicado_at)) return null;
+  return (
+    <div>
+      <h4 className="font-display text-[15px] font-semibold text-text-primary">Programación</h4>
+      {programado(post) ? (
+        <div className="mt-1 space-y-1.5 text-[14px]">
+          <p className="font-semibold text-success">
+            {post.publicando_desde
+              ? 'Publicándose ahora'
+              : post.programado_para
+                ? `Programado · ${cuandoMadrid(post.programado_para)}`
+                : 'Programado, sin hora'}
+          </p>
+          {!post.publicando_desde && (
+            <QuitarProgramacion
+              post={post}
+              onCambio={onCambio}
+              clase="px-3.5 py-1.5 rounded-full border border-border text-[13px] font-semibold text-text-secondary hover:border-danger hover:text-danger disabled:opacity-60 transition-colors"
+            />
+          )}
+        </div>
+      ) : post.estado === 'publicado' && post.publicado_at ? (
+        <p className="mt-1 text-[14px] font-semibold text-success">Publicado · {cuandoMadrid(post.publicado_at)}</p>
+      ) : (
+        <p className="mt-1 text-[14px] leading-relaxed text-danger">
+          <b>No se ha publicado.</b> {post.error_publicacion}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/** El panel de «Programar posts»: que se programa, a que hora y por que no los demas. */
+function PanelProgramar({
+  semana,
+  posts,
+  publicador,
+  onCerrar,
+  onHecho,
+}: {
+  semana: string;
+  posts: PostSemana[];
+  publicador: EstadoPublicador | null;
+  onCerrar: () => void;
+  onHecho: (n: number) => void;
+}) {
+  const ref = useRef<HTMLDialogElement>(null);
+  const [marcados, setMarcados] = useState<Set<string>>(
+    () => new Set(posts.filter((p) => !p.motivo_no_programable).map((p) => p.id))
+  );
+  const [horas, setHoras] = useState<Record<string, string>>({});
+  const [enviando, setEnviando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const ahora = Date.now();
+
+  useEffect(() => {
+    const d = ref.current;
+    if (d && !d.open) d.showModal();
+  }, []);
+
+  const horaDe = (p: PostSemana) => horas[p.id] ?? HORA_POR_DEFECTO;
+  const instante = (p: PostSemana) => instanteMadrid(p.fecha, horaDe(p));
+  const pasada = (p: PostSemana) => {
+    const t = instante(p);
+    return !t || t.getTime() <= ahora;
+  };
+  const elegidos = posts.filter((p) => marcados.has(p.id) && !p.motivo_no_programable);
+  const conProblema = elegidos.filter(pasada);
+  const sinCuenta = Array.from(new Set(elegidos.map((p) => p.cuenta))).filter((c) => publicador && !publicador.cuentas[c]);
+
+  const cambiar = (id: string, si: boolean) =>
+    setMarcados((m) => {
+      const n = new Set(m);
+      if (si) n.add(id);
+      else n.delete(id);
+      return n;
+    });
+
+  const confirmar = async () => {
+    if (!elegidos.length || conProblema.length) return;
+    setEnviando(true);
+    setError(null);
+    try {
+      await apiPost(`/api/semana/${semana}/programar`, {
+        posts: elegidos.map((p) => ({ id: p.id, programado_para: instante(p)!.toISOString() })),
+      });
+      onHecho(elegidos.length);
+      ref.current?.close();
+    } catch (e) {
+      setError(`No se ha programado ninguno: ${e instanceof Error ? e.message : 'error desconocido'}`);
+    } finally {
+      setEnviando(false);
+    }
+  };
+
+  return (
+    <dialog
+      ref={ref}
+      aria-labelledby="programar-titulo"
+      onClose={onCerrar}
+      onClick={(e) => {
+        if (e.target === ref.current) ref.current?.close();
+      }}
+      className="m-auto p-0 w-[min(760px,calc(100vw-16px))] max-w-none max-h-[calc(100dvh-16px)] sm:max-h-[calc(100dvh-48px)] rounded-2xl border border-border bg-bg-primary text-text-primary shadow-2xl backdrop:bg-ink/75 open:flex flex-col overflow-hidden"
+    >
+      <header className="shrink-0 flex items-start gap-3 px-4 sm:px-6 py-4 border-b border-border bg-bg-card">
+        <div className="min-w-0 flex-1">
+          <h2 id="programar-titulo" className="font-display text-xl font-semibold tracking-tight">
+            Programar posts · semana {numero(semana)}
+          </h2>
+          <p className="mt-0.5 text-[13px] text-text-muted">
+            Cada post sale el día que tiene en el calendario, a la hora que pongas (hora de Madrid).
+          </p>
+        </div>
+        <button type="button" className={FLECHA} onClick={() => ref.current?.close()} aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </header>
+
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-6 py-4 space-y-3">
+        {publicador && !publicador.activo && (
+          <p className="rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-[13px] leading-relaxed text-text-primary">
+            <b>La subida automática está apagada.</b> Puedes dejarlos programados, pero no se publicarán solos hasta que
+            se encienda.
+          </p>
+        )}
+        {sinCuenta.length > 0 && (
+          <p className="rounded-lg border border-danger/40 bg-danger/10 px-3 py-2 text-[13px] leading-relaxed text-text-primary">
+            <b>Falta conectar la cuenta de LinkedIn de {juntar(sinCuenta.map(nombreDe))}.</b> Si los programas, al llegar
+            la hora no saldrán y lo dirá en su ficha.
+          </p>
+        )}
+
+        <ul className="divide-y divide-border rounded-xl border border-border bg-bg-card">
+          {posts.map((p) => {
+            const motivo = p.motivo_no_programable;
+            const yaProgramado = programado(p);
+            const deshabilitado = !!motivo;
+            const marcado = marcados.has(p.id) && !deshabilitado;
+            const id = `prog-${p.id}`;
+            return (
+              <li key={p.id} className={`flex items-start gap-3 px-3 sm:px-4 py-3 ${deshabilitado ? 'opacity-70' : ''}`}>
+                <input
+                  id={id}
+                  type="checkbox"
+                  checked={marcado}
+                  disabled={deshabilitado}
+                  onChange={(e) => cambiar(p.id, e.target.checked)}
+                  className="mt-1 w-4 h-4 shrink-0 accent-accent disabled:cursor-not-allowed"
+                />
+                <label htmlFor={id} className={`min-w-0 flex-1 ${deshabilitado ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
+                  <span className="block text-xs text-text-muted">
+                    {diaCorto(p.fecha)} · {juntar(firmantes(p).map(nombreDe))}
+                    {esColaborativo(p) ? ` (lo publica ${nombreDe(p.cuenta)})` : ''} · {ESTADO[p.estado] || p.estado}
+                  </span>
+                  <span className="block text-[14px] font-semibold leading-snug text-text-primary">{p.titulo}</span>
+                  {yaProgramado && p.programado_para ? (
+                    <span className="block mt-0.5 text-xs font-semibold text-success">
+                      Programado · {cuandoMadrid(p.programado_para)}
+                    </span>
+                  ) : motivo ? (
+                    <span className="block mt-0.5 text-xs text-warning">{motivo}</span>
+                  ) : null}
+                  {marcado && pasada(p) && <span className="block mt-0.5 text-xs text-danger">Esa hora ya ha pasado</span>}
+                </label>
+                {!deshabilitado && (
+                  <input
+                    type="time"
+                    value={horaDe(p)}
+                    onChange={(e) => setHoras((h) => ({ ...h, [p.id]: e.target.value }))}
+                    disabled={!marcado}
+                    aria-label={`Hora de «${p.titulo}»`}
+                    className="shrink-0 w-[7.5rem] bg-bg-secondary border border-border rounded-lg px-2 py-1 text-[14px] tabular-nums text-text-primary focus:outline-none focus:border-accent disabled:opacity-50"
+                  />
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <footer className="shrink-0 flex flex-wrap items-center justify-end gap-3 px-4 sm:px-6 py-3 border-t border-border bg-bg-card">
+        {error && <p className="w-full text-[13px] text-danger">{error}</p>}
+        <button
+          type="button"
+          onClick={() => ref.current?.close()}
+          className="px-4 py-2 rounded-full border border-border text-[13px] font-semibold text-text-secondary hover:border-text-muted"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          onClick={confirmar}
+          disabled={enviando || !elegidos.length || conProblema.length > 0}
+          className="px-4 py-2 rounded-full bg-accent text-on-accent text-[13px] font-semibold hover:bg-accent-strong disabled:opacity-50 transition-colors"
+        >
+          {enviando
+            ? 'Programando…'
+            : elegidos.length
+              ? `Programar ${elegidos.length} ${elegidos.length === 1 ? 'post' : 'posts'}`
+              : 'Ninguno marcado'}
+        </button>
+      </footer>
+    </dialog>
+  );
+}
+
 function Etiquetas({ post }: { post: PostSemana }) {
   const obj = OBJETIVO[post.objetivo] || OBJETIVO.alcance;
   return (
@@ -779,7 +1084,7 @@ function Etiquetas({ post }: { post: PostSemana }) {
 }
 
 /** El post en el calendario: lo justo para saber que es. Al pulsarlo se abre entero. */
-function Ficha({ post, mio, onAbrir }: { post: PostSemana; mio: boolean; onAbrir: () => void }) {
+function Ficha({ post, mio, onAbrir, onCambio }: { post: PostSemana; mio: boolean; onAbrir: () => void; onCambio: () => void }) {
   const cuenta = CUENTAS.find((c) => c.id === post.cuenta);
   const pendientes = post.feedback.filter((f) => !f.resuelto).length;
 
@@ -808,6 +1113,7 @@ function Ficha({ post, mio, onAbrir }: { post: PostSemana; mio: boolean; onAbrir
           </button>
         </h3>
         {post.por_que && <p className="text-[13px] leading-relaxed text-text-secondary line-clamp-3">{post.por_que}</p>}
+        <LineaProgramacion post={post} onCambio={onCambio} />
         <p className="mt-auto pt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-muted">
           {!post.tiene_imagen && <span>Foto pendiente</span>}
           {post.feedback.length > 0 && (
@@ -899,6 +1205,7 @@ function FichaConjunta({
   fila,
   atenuado,
   onAbrir,
+  onCambio,
 }: {
   post: PostSemana;
   perfiles: Perfiles;
@@ -908,6 +1215,7 @@ function FichaConjunta({
   fila: number;
   atenuado: boolean;
   onAbrir: () => void;
+  onCambio: () => void;
 }) {
   const pendientes = post.feedback.filter((f) => !f.resuelto).length;
   const quienes = firmantes(post);
@@ -945,6 +1253,7 @@ function FichaConjunta({
           {post.por_que && (
             <p className="text-[13px] leading-relaxed text-text-secondary line-clamp-3 max-w-[72ch]">{post.por_que}</p>
           )}
+          <LineaProgramacion post={post} onCambio={onCambio} />
           <p className="mt-auto pt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-muted">
             {!post.tiene_imagen && <span>Foto pendiente</span>}
             {post.feedback.length > 0 && (
@@ -1142,6 +1451,9 @@ export default function Semana() {
   const [elegido, setAutor] = useState(leerAutor);
   const autor = identificado || elegido;
   const perfiles = useApi<{ perfiles: Partial<Record<Cuenta, Perfil>> }>('/api/semana/perfiles');
+  const publicador = useApi<EstadoPublicador>('/api/semana/publicador');
+  const [programando, setProgramando] = useState(false);
+  const [aviso, setAviso] = useState<string | null>(null);
   // La cuenta de quien mira: por su nombre de pila, venga del login o del boton.
   const miCuenta = CUENTAS.find((c) => autor.trim().toLowerCase().split(/\s+/)[0] === c.id)?.id || null;
   const [soloMios, setSoloMios] = useState(false);
@@ -1309,7 +1621,33 @@ export default function Semana() {
               <b className={pendiente ? '' : 'text-text-primary'}>{pendiente}</b>{' '}
               {pendiente === 1 ? 'comentario por aplicar' : 'comentarios por aplicar'}
             </span>
+            {posts.some(programado) && (
+              <span>
+                <b className="text-text-primary">{posts.filter(programado).length}</b> programados
+              </span>
+            )}
           </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
+            <button
+              type="button"
+              onClick={() => {
+                setAviso(null);
+                setProgramando(true);
+              }}
+              disabled={!datos}
+              className="px-4 py-2 rounded-full bg-accent text-on-accent text-[13px] font-semibold hover:bg-accent-strong disabled:opacity-60 transition-colors"
+            >
+              Programar posts
+            </button>
+            {publicador.data && !publicador.data.activo && (
+              <p className="text-[13px] text-warning">La subida automática está apagada: lo programado no se publica solo.</p>
+            )}
+            {aviso && (
+              <p className="text-[13px] text-success" role="status">
+                {aviso}
+              </p>
+            )}
+          </div>
         </div>
       </header>
 
@@ -1490,6 +1828,7 @@ export default function Semana() {
                             fila={r + 1}
                             atenuado={!!filtro && p.objetivo !== filtro}
                             onAbrir={() => abrir(p.clave)}
+                            onCambio={detalle.refetch}
                           />
                         );
                       }
@@ -1509,7 +1848,7 @@ export default function Semana() {
                         <div key={`${r}-${celda.col}`} style={lugar} className="min-w-0 flex flex-col gap-3">
                           {celda.posts.map((p) => (
                             <div key={p.id} className={`flex-1 transition-opacity ${filtro && p.objetivo !== filtro ? 'opacity-25' : ''}`}>
-                              <Ficha post={p} mio={p.cuenta === miCuenta} onAbrir={() => abrir(p.clave)} />
+                              <Ficha post={p} mio={p.cuenta === miCuenta} onAbrir={() => abrir(p.clave)} onCambio={detalle.refetch} />
                             </div>
                           ))}
                         </div>
@@ -1525,6 +1864,19 @@ export default function Semana() {
           Lo resaltado en naranja dentro de un post es lo que falta y no se puede escribir sin inventar.
         </p>
       </section>
+
+      {programando && datos && (
+        <PanelProgramar
+          semana={elegida}
+          posts={enOrden}
+          publicador={publicador.data}
+          onCerrar={() => setProgramando(false)}
+          onHecho={(n) => {
+            setAviso(`${n === 1 ? 'Programado 1 post' : `Programados ${n} posts`}.`);
+            detalle.refetch();
+          }}
+        />
+      )}
 
       {abierto && (
         <Visor

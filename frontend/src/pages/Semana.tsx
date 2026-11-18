@@ -1151,14 +1151,34 @@ function PanelProgramar({
   );
 }
 
+/**
+ * El pilar como se ve desde fuera (2026-11-18): sin las notas de trabajo que
+ * lleva el dato («voz nueva», «receta actual»…), que no dicen de qué va el post.
+ */
+const NOTAS_DE_TRABAJO = /^(voz nueva|receta actual|receta antigua|formato nuevo|primero de su tipo|en ingl[eé]s|plan b)$/i;
+function pilarVisible(pilar: string | null): string | null {
+  if (!pilar) return null;
+  const partes = pilar
+    .split('·')
+    .map((p) => p.trim())
+    .filter((p) => p && !NOTAS_DE_TRABAJO.test(p));
+  return partes.length ? partes.join(' · ') : null;
+}
+
 function Etiquetas({ post }: { post: PostSemana }) {
   const obj = OBJETIVO[post.objetivo] || OBJETIVO.alcance;
+  const pilar = pilarVisible(post.pilar);
   return (
     <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
       <span className={`text-xs font-semibold px-2 py-0.5 rounded ${obj.chip}`}>
         {obj.etiqueta}
         {post.experimento ? ', experimento' : ''}
       </span>
+      {pilar && (
+        <span className="text-xs font-medium px-2 py-0.5 rounded border border-border text-text-primary" title="Pilar">
+          {pilar}
+        </span>
+      )}
       <span className="text-xs text-text-muted">{ESTADO[post.estado] || post.estado}</span>
     </div>
   );
@@ -1461,7 +1481,6 @@ function Visor({
               <p className="min-w-0 text-[13px] text-text-muted">
                 <span className="font-semibold text-text-primary">{juntar(firmantes(post).map(nombreDe))}</span>,{' '}
                 {diaLargo(post.fecha)}
-                {post.pilar ? <span className="hidden sm:inline"> · {post.pilar}</span> : null}
                 <span className="block text-xs">
                   <span className="hidden sm:inline">Post colaborativo, </span>
                   <span className="whitespace-nowrap first-letter:uppercase sm:first-letter:normal-case inline-block">
@@ -1473,7 +1492,6 @@ function Visor({
           ) : (
             <p className="text-[13px] text-text-muted">
               <span className="font-semibold text-text-primary">{cuenta?.nombre}</span>, {diaLargo(post.fecha)}
-              {post.pilar ? <span className="hidden sm:inline"> · {post.pilar}</span> : null}
             </p>
           )}
           <h2 id="visor-titulo" className="font-display text-xl sm:text-2xl font-semibold leading-tight tracking-tight">
@@ -1855,7 +1873,6 @@ export default function Semana() {
                     )}
                     <p className="text-[13px] text-text-muted first-letter:uppercase">
                       {diaLargo(p.fecha)}
-                      {p.pilar ? ` · ${p.pilar}` : ''}
                     </p>
                     <h3 className="font-display text-xl font-semibold leading-tight text-text-primary">{p.titulo}</h3>
                     <Etiquetas post={p} />

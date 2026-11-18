@@ -24,7 +24,7 @@ import {
   retirarPost,
   IMAGEN_MAX_BYTES,
 } from '../services/semana';
-import { estadoPublicador } from '../services/publicadorLinkedin';
+import { estadoPublicador, cambiarSubidaAutomatica } from '../services/publicadorLinkedin';
 import { identidadDe } from '../middleware/basicAuth';
 
 const router = Router();
@@ -88,8 +88,28 @@ router.post('/posts/:id/feedback', async (req: Request, res: Response) => {
 });
 
 /** GET /api/semana/publicador — si la subida automatica a LinkedIn esta encendida. */
-router.get('/publicador', (_req: Request, res: Response) => {
-  res.json(estadoPublicador());
+router.get('/publicador', async (_req: Request, res: Response) => {
+  try {
+    res.json(await estadoPublicador());
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/semana/publicador {activo: boolean} — el boton de la pagina que
+ * enciende o apaga la subida automatica. Queda apuntado quien y cuando.
+ */
+router.post('/publicador', async (req: Request, res: Response) => {
+  try {
+    const { activo, autor } = req.body || {};
+    if (typeof activo !== 'boolean') return res.status(400).json({ error: 'Falta `activo` (true o false)' });
+    const yo = identidadDe(req);
+    const quien = (yo ? yo.nombre : String(autor || '').trim()) || 'alguien sin identificar';
+    res.json(await cambiarSubidaAutomatica(activo, quien));
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 /**

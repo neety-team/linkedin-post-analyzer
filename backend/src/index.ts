@@ -134,7 +134,7 @@ runMigrations()
     // Apagado salvo que exista LUMA_CHAT_WEBHOOK_URL.
     startAvisoWebinarLuma();
     // Sube a LinkedIn los posts de /semana que se han programado, a su hora.
-    // Solo publica de verdad con PUBLICAR_LINKEDIN=1; si no, lo deja en el log.
+    // Solo publica de verdad con la subida automática encendida desde la página Semana.
     startPublicador();
     // Reprocesa el pilar del historico SOLO si han cambiado las reglas de
     // services/pillar.ts (guarda de version en app_state). No bloquea el

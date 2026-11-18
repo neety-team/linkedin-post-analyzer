@@ -91,8 +91,77 @@ interface PostSemana {
 
 interface EstadoPublicador {
   activo: boolean;
+  /** PUBLICAR_LINKEDIN en el entorno manda sobre el boton: 'apagado' es el freno de emergencia. */
+  forzado: 'apagado' | 'encendido' | null;
+  cambiado_por: string | null;
+  cambiado_at: string | null;
   unipile: boolean;
   cuentas: Partial<Record<Cuenta, boolean>>;
+}
+
+/**
+ * El interruptor de la subida automatica (2026-11-18). Encendido, los posts
+ * programados se publican solos en LinkedIn a su hora. Se confirma antes de
+ * encender, y queda apuntado quien y cuando.
+ */
+function SubidaAutomatica({ estado, autor, onCambio }: { estado: EstadoPublicador; autor: string; onCambio: () => void }) {
+  const [cambiando, setCambiando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const cambiar = async (activo: boolean) => {
+    const pregunta = activo
+      ? 'Encender la subida automática: los posts programados se publicarán solos en LinkedIn, cada uno a su hora. ¿Seguro?'
+      : 'Apagar la subida automática: lo programado se queda programado, pero no se publicará solo. ¿Apagar?';
+    if (!window.confirm(pregunta)) return;
+    setCambiando(true);
+    setError(null);
+    try {
+      await apiPost('/api/semana/publicador', { activo, autor });
+      onCambio();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se ha podido');
+    } finally {
+      setCambiando(false);
+    }
+  };
+  const cuando = estado.cambiado_at
+    ? new Date(estado.cambiado_at).toLocaleString('es-ES', {
+        timeZone: 'Europe/Madrid',
+        day: 'numeric',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    : null;
+  const quien = estado.cambiado_por && cuando ? ` · ${estado.activo ? 'la encendió' : 'la apagó'} ${estado.cambiado_por}, ${cuando}` : '';
+  if (estado.forzado) {
+    return (
+      <p className={`text-[13px] ${estado.activo ? 'text-success' : 'text-warning'}`}>
+        Subida automática {estado.activo ? 'encendida' : 'apagada'} desde el servidor (PUBLICAR_LINKEDIN).
+      </p>
+    );
+  }
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+      <span className={`text-[13px] ${estado.activo ? 'text-success' : 'text-warning'}`}>
+        <b>Subida automática {estado.activo ? 'encendida' : 'apagada'}</b>
+        {estado.activo ? ': lo programado se publica solo a su hora' : ': lo programado no se publica solo'}
+        <span className="text-text-muted">{quien}</span>
+      </span>
+      <button
+        type="button"
+        onClick={() => cambiar(!estado.activo)}
+        disabled={cambiando}
+        className={`px-3 py-1.5 rounded-full text-[13px] font-semibold border transition-colors disabled:opacity-60 ${
+          estado.activo
+            ? 'border-border text-text-primary hover:bg-bg-secondary'
+            : 'border-success/50 text-success hover:bg-success/10'
+        }`}
+      >
+        {cambiando ? '…' : estado.activo ? 'Apagar' : 'Encender'}
+      </button>
+      {error && <span className="block w-full text-xs text-danger">{error}</span>}
+    </div>
+  );
 }
 
 interface Perfil {
@@ -998,7 +1067,7 @@ function PanelProgramar({
         {publicador && !publicador.activo && (
           <p className="rounded-lg border border-warning/40 bg-warning/10 px-3 py-2 text-[13px] leading-relaxed text-text-primary">
             <b>La subida automática está apagada.</b> Puedes dejarlos programados, pero no se publicarán solos hasta que
-            se encienda.
+            la enciendas con el botón «Encender» de la cabecera de la semana.
           </p>
         )}
         {sinCuenta.length > 0 && (
@@ -1651,9 +1720,7 @@ export default function Semana() {
             >
               Programar posts
             </button>
-            {publicador.data && !publicador.data.activo && (
-              <p className="text-[13px] text-warning">La subida automática está apagada: lo programado no se publica solo.</p>
-            )}
+            {publicador.data && <SubidaAutomatica estado={publicador.data} autor={autor} onCambio={publicador.refetch} />}
             {aviso && (
               <p className="text-[13px] text-success" role="status">
                 {aviso}

@@ -79,7 +79,9 @@ Reglas de TODOS los textos:
 - Nunca guion largo. En castellano, nunca coma antes de "y".
 - Nunca juzgues al que compra (directores, clientes): la culpa va a la situacion o al proceso.
 - Nunca plantees que la IA sustituye al comercial.
-- No inventes datos, cifras, clientes ni nombres.
+- NADA INVENTADO. No cuentes nada que no este en el post: ni que paso, ni que pregunto alguien, ni como reacciono la gente, ni datos, cifras, clientes o nombres. Ni en el comentario ni en la respuesta.
+- Un comentario opina, pregunta o suma una idea general desde el oficio de quien lo escribe. No describe escenas que el post no cuenta.
+- La respuesta del autor agradece, opina o devuelve la pregunta, sin hechos nuevos. Si le preguntan algo que el post no responde, contesta con su opinion o con lo que piensa hacer, nunca con un dato o una anecdota.
 - Escribe en el MISMO idioma que el post.
 
 Devuelves SOLO estas lineas, una por texto, sin nada alrededor y sin comillas de mas:

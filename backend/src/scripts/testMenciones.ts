@@ -54,7 +54,7 @@ igual(motivoMenciones('@Luis y @Marta', null), 'Falta el perfil de LinkedIn de @
 igual(motivoMenciones('Con @Ana Pérez', [ana]), null, 'con todo resuelto no hay motivo');
 
 // Un correo no es una mencion
-igual(aplicarMenciones('Escribe a iker@neety.com', []).sinPerfil, [], 'un correo no es una mención');
+igual(aplicarMenciones('Escribe a ventas@empresa.com', []).sinPerfil, [], 'un correo no es una mención');
 // Una @ suelta tampoco
 igual(aplicarMenciones('Nos vemos @ 9:00', []).sinPerfil, [], 'una @ suelta no es una mención');
 // Al final del texto y seguido de puntuacion

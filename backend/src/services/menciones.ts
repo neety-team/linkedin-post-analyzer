@@ -14,7 +14,7 @@
  * - El nombre tiene que acabar ahi: «@Ana» no casa dentro de «@Anabel».
  * - Un `@Algo` que queda sin perfil hace que el post no se pueda programar: en
  *   LinkedIn saldria como texto plano, sin mencion.
- * - Un correo (`iker@neety.com`) no es una mencion: la @ va pegada a letras.
+ * - Un correo (`ventas@empresa.com`) no es una mencion: la @ va pegada a letras.
  */
 
 export interface Mencion {

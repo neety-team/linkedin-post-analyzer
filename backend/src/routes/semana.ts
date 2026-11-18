@@ -20,6 +20,8 @@ import {
   perfilesDeCuentas,
   programarPosts,
   desprogramarPost,
+  moverPost,
+  retirarPost,
   IMAGEN_MAX_BYTES,
 } from '../services/semana';
 import { estadoPublicador } from '../services/publicadorLinkedin';
@@ -122,6 +124,42 @@ router.post('/posts/:id/desprogramar', async (req: Request, res: Response) => {
     if (r === 'publicando') {
       return res.status(409).json({ error: 'Se está publicando ahora mismo: espera un minuto y mira si ha salido' });
     }
+    res.json({ ok: true });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/semana/posts/:id/mover — { semana, fecha?, clave? }. Cambia el post
+ * de semana con su feedback y su foto, en vez de copiarlo. No mueve programados
+ * ni publicados.
+ */
+router.post('/posts/:id/mover', async (req: Request, res: Response) => {
+  try {
+    const id = param(req, 'id');
+    if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+    const { semana, fecha, clave } = req.body || {};
+    const r = await moverPost(id, { semana, fecha, clave });
+    if (r === 'no_existe') return res.status(404).json({ error: 'Post no encontrado' });
+    if (r === 'datos_no_validos') return res.status(400).json({ error: 'Semana (2026-W48), fecha (AAAA-MM-DD) o clave no válidas' });
+    if (r === 'bloqueado') return res.status(409).json({ error: 'Un post programado o publicado no se mueve: quítalo antes de la programación' });
+    if (r === 'clave_ocupada') return res.status(409).json({ error: 'En esa semana ya hay un post con esa clave' });
+    res.json({ ok: true });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/** DELETE /api/semana/posts/:id — retira un post repetido. No borra feedback ni programados. */
+router.delete('/posts/:id', async (req: Request, res: Response) => {
+  try {
+    const id = param(req, 'id');
+    if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+    const r = await retirarPost(id);
+    if (r === 'no_existe') return res.status(404).json({ error: 'Post no encontrado' });
+    if (r === 'bloqueado') return res.status(409).json({ error: 'Un post programado o publicado no se retira' });
+    if (r === 'con_feedback') return res.status(409).json({ error: 'Tiene feedback: muévelo de semana en vez de retirarlo' });
     res.json({ ok: true });
   } catch (err: any) {
     res.status(500).json({ error: err.message });

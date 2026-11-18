@@ -457,6 +457,81 @@ export async function desprogramarPost(id: string): Promise<'ok' | 'no_existe' |
   return rows[0].estado === 'programado' ? 'publicando' : 'no_programado';
 }
 
+// ── Mover o retirar un post (2026-11-18) ────────────────────────────────────
+//
+// Al adelantar o aplazar un post se creaba una copia en la otra semana y el
+// original seguía en la suya: posts y fotos repetidos entre semanas. Mover lo
+// cambia de semana con su feedback y su foto; retirar lo quita cuando ya hay
+// otro igual. Ninguno de los dos toca un post programado o publicado.
+
+const ESTADOS_INTOCABLES = ['programado', 'publicado'];
+const RE_FECHA = /^\d{4}-\d{2}-\d{2}$/;
+
+export type ResultadoMover = 'ok' | 'no_existe' | 'bloqueado' | 'clave_ocupada' | 'datos_no_validos';
+
+export async function moverPost(
+  id: string,
+  destino: { semana: string; fecha?: string; clave?: string }
+): Promise<ResultadoMover> {
+  if (!esSemanaValida(destino.semana)) return 'datos_no_validos';
+  if (destino.fecha !== undefined && !RE_FECHA.test(destino.fecha)) return 'datos_no_validos';
+  if (destino.clave !== undefined && !/^[a-z0-9][a-z0-9-]{1,79}$/.test(destino.clave)) return 'datos_no_validos';
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const { rows } = await client.query(`SELECT estado FROM semana_posts WHERE id = $1 FOR UPDATE`, [id]);
+    if (!rows.length) {
+      await client.query('ROLLBACK');
+      return 'no_existe';
+    }
+    if (ESTADOS_INTOCABLES.includes(rows[0].estado)) {
+      await client.query('ROLLBACK');
+      return 'bloqueado';
+    }
+    await client.query(
+      `INSERT INTO semanas (semana, estado) VALUES ($1, 'propuesta') ON CONFLICT (semana) DO NOTHING`,
+      [destino.semana]
+    );
+    try {
+      await client.query(
+        `UPDATE semana_posts
+            SET semana = $2, fecha = COALESCE($3::date, fecha), clave = COALESCE($4, clave), updated_at = NOW()
+          WHERE id = $1`,
+        [id, destino.semana, destino.fecha ?? null, destino.clave ?? null]
+      );
+    } catch (e: any) {
+      await client.query('ROLLBACK');
+      if (e?.code === '23505') return 'clave_ocupada';
+      throw e;
+    }
+    await client.query('COMMIT');
+    return 'ok';
+  } catch (e) {
+    await client.query('ROLLBACK').catch(() => {});
+    throw e;
+  } finally {
+    client.release();
+  }
+}
+
+/** Quita un post de su semana. No borra feedback: si lo tiene, hay que moverlo. */
+export async function retirarPost(id: string): Promise<'ok' | 'no_existe' | 'bloqueado' | 'con_feedback'> {
+  const { rows } = await pool.query(
+    `SELECT p.estado, (SELECT COUNT(*) FROM semana_feedback f WHERE f.post_id = p.id)::int AS feedback
+       FROM semana_posts p WHERE p.id = $1`,
+    [id]
+  );
+  if (!rows.length) return 'no_existe';
+  if (ESTADOS_INTOCABLES.includes(rows[0].estado)) return 'bloqueado';
+  if (rows[0].feedback > 0) return 'con_feedback';
+  const { rowCount } = await pool.query(
+    `DELETE FROM semana_posts WHERE id = $1 AND estado <> ALL($2::text[])
+        AND NOT EXISTS (SELECT 1 FROM semana_feedback f WHERE f.post_id = $1)`,
+    [id, ESTADOS_INTOCABLES]
+  );
+  return rowCount ? 'ok' : 'bloqueado';
+}
+
 // ── La foto de un post ───────────────────────────────────────────────────────
 
 export const IMAGEN_MAX_BYTES = 8 * 1024 * 1024;

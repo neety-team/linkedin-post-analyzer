@@ -104,7 +104,16 @@ const cuentas = { iker: 'A-iker', unai: 'A-unai', asier: 'A-asier' };
     ],
     'es'
   );
-  ok(r.comentarios[0].texto === 'Uno' && r.comentarios[1].respuesta === 'R2', 'casa cada comentario con su cuenta');
+  ok(r.comentarios[0].texto === 'Uno' && r.comentarios[1].respuesta === 'R2', 'casa cada comentario con su cuenta (JSON)');
+  const r2 = interpretarRonda(
+    'COMENTARIO unai: Lo de "quién decide" es la clave\nRESPUESTA unai: Justo eso\nCOMENTARIO asier: ¿Y en ferias?\nRESPUESTA asier: También',
+    [
+      { cuenta: 'unai', rol: 'apoyo' },
+      { cuenta: 'asier', rol: 'duda' },
+    ],
+    'es'
+  );
+  ok(r2.comentarios[0].texto === 'Lo de "quién decide" es la clave' && r2.comentarios[1].respuesta === 'También', 'lee el formato de líneas, con comillas dentro');
   const aviso = componerAviso({
     cabecera: 'CAB',
     url: 'U',

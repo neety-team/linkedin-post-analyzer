@@ -82,9 +82,11 @@ Reglas de TODOS los textos:
 - No inventes datos, cifras, clientes ni nombres.
 - Escribe en el MISMO idioma que el post.
 
-Devuelves SOLO un JSON, sin texto alrededor:
-{"comentarios":[{"cuenta":"...","comentario":"...","respuesta":"..."}]}
-"respuesta" es lo que contesta el AUTOR del post a ese comentario: corta, cercana, que conteste de verdad (si le ponen en duda, responde a la duda).`;
+Devuelves SOLO estas lineas, una por texto, sin nada alrededor y sin comillas de mas:
+COMENTARIO <cuenta>: <el comentario>
+RESPUESTA <cuenta>: <lo que contesta el AUTOR del post a ese comentario>
+Una pareja COMENTARIO/RESPUESTA por cada cuenta pedida. Cada texto en UNA sola linea.
+La respuesta del autor es corta, cercana y contesta de verdad (si le ponen en duda, responde a la duda).`;
 
 /** Una llamada al modelo para toda la ronda. Lanza si no hay clave o si la respuesta no vale. */
 export async function generarRonda(input: {
@@ -120,14 +122,29 @@ export async function generarRonda(input: {
   return interpretarRonda(crudo, input.comentaristas, idioma);
 }
 
-/** Lee el JSON del modelo y lo casa con los comentaristas pedidos. Pura. */
+/**
+ * Lee la respuesta del modelo y la casa con los comentaristas pedidos. Pura.
+ * El formato es de lineas («COMENTARIO unai: ...») porque un JSON se rompe en
+ * cuanto el comentario lleva unas comillas; si aun asi llega un JSON, tambien vale.
+ */
 export function interpretarRonda(crudo: string, comentaristas: { cuenta: Cuenta; rol: Rol }[], idioma: Idioma): Ronda {
-  const limpio = String(crudo || '').replace(/```json\s*/gi, '').replace(/```/g, '').trim();
-  const ini = limpio.indexOf('{');
-  const fin = limpio.lastIndexOf('}');
-  if (ini < 0 || fin <= ini) throw new Error('El modelo no ha devuelto JSON');
-  const j = JSON.parse(limpio.slice(ini, fin + 1));
-  const lista: any[] = Array.isArray(j?.comentarios) ? j.comentarios : [];
+  const t = String(crudo || '').replace(/```[a-z]*\s*/gi, '').replace(/```/g, '').trim();
+  const porLineas: Record<string, { comentario?: string; respuesta?: string }> = {};
+  for (const linea of t.split(/\r?\n/)) {
+    const m = linea.match(/^\s*[-*]?\s*(COMENTARIO|RESPUESTA)\s+(iker|unai|asier)\s*[:：]\s*(.+)$/i);
+    if (!m) continue;
+    const c = m[2].toLowerCase();
+    porLineas[c] = porLineas[c] || {};
+    porLineas[c][m[1].toUpperCase() === 'COMENTARIO' ? 'comentario' : 'respuesta'] = m[3];
+  }
+  let lista: any[] = Object.entries(porLineas).map(([cuenta, v]) => ({ cuenta, ...v }));
+  if (!lista.length) {
+    const ini = t.indexOf('{');
+    const fin = t.lastIndexOf('}');
+    if (ini < 0 || fin <= ini) throw new Error('El modelo no ha devuelto los comentarios en el formato pedido');
+    const j = JSON.parse(t.slice(ini, fin + 1));
+    lista = Array.isArray(j?.comentarios) ? j.comentarios : [];
+  }
   const comentarios = comentaristas.map((c, i) => {
     const item = lista.find((x) => String(x?.cuenta || '').toLowerCase() === c.cuenta) || lista[i];
     const texto = limpiarTexto(item?.comentario || '', idioma, MAX_COMENTARIO);

@@ -66,17 +66,25 @@ const ESTADO_LEGIBLE: Record<string, string> = {
   publicado: 'publicado',
 };
 
-export function motivoNoProgramable(p: { estado: string; texto: string | null; menciones?: Mencion[] | null }): string | null {
+export function motivoNoProgramable(p: {
+  estado: string;
+  texto: string | null;
+  menciones?: Mencion[] | null;
+  falta?: string | null;
+}): string | null {
   if (p.estado === 'programado') return 'Ya está programado';
   if (p.estado === 'publicado') return 'Ya está publicado';
   if (!ESTADOS_PROGRAMABLES.includes(p.estado)) {
     return `Está en «${ESTADO_LEGIBLE[p.estado] || p.estado}»: solo se programan los posts escritos o aprobados`;
   }
-  return motivoParaPublicar(p.texto || '', p.menciones);
+  return motivoParaPublicar(p.texto || '', p.menciones, p.falta);
 }
 
 /** El candado y las menciones, sin mirar el estado. Lo usa tambien el publicador. */
-export function motivoParaPublicar(texto: string, menciones?: Mencion[] | null): string | null {
+export function motivoParaPublicar(texto: string, menciones?: Mencion[] | null, falta?: string | null): string | null {
+  // Lo que dice «Qué falta» bloquea igual que un hueco: un post con algo pendiente
+  // (un visto bueno, una foto, un dato) no se programa ni se publica (2026-11-18).
+  if (falta && falta.trim()) return `Falta: ${falta.trim()}`;
   const candado = motivoNoPublicable('programado', texto);
   if (candado) return candado.charAt(0).toUpperCase() + candado.slice(1);
   return motivoMenciones(texto, menciones);
@@ -399,7 +407,7 @@ export async function programarPosts(semana: string, peticiones: PeticionProgram
     const programados: { id: string; clave: string; programado_para: string }[] = [];
     for (const p of peticiones) {
       const { rows } = await client.query(
-        `SELECT id, clave, semana, estado, texto, menciones FROM semana_posts WHERE id = $1 FOR UPDATE`,
+        `SELECT id, clave, semana, estado, texto, menciones, falta FROM semana_posts WHERE id = $1 FOR UPDATE`,
         [p.id]
       );
       const fila = rows[0];

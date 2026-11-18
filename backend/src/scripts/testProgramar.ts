@@ -15,8 +15,8 @@ delete process.env.UNIPILE_ACCOUNT_UNAI;
 
 import pool from '../db';
 import { runMigrations } from '../db/migrate';
-import { guardarSemana, leerSemana, programarPosts, desprogramarPost, crearFeedback } from '../services/semana';
-import { reclamar, vueltaPublicador } from '../services/publicadorLinkedin';
+import { guardarSemana, leerSemana, programarPosts, desprogramarPost, crearFeedback, motivoNoProgramable } from '../services/semana';
+import { reclamar, vueltaPublicador, prepararPublicacion, cuerpoUnipile } from '../services/publicadorLinkedin';
 
 if (!/localhost|127\.0\.0\.1/.test(process.env.DATABASE_URL || '')) {
   console.error('Esta prueba solo corre contra un Postgres local (DATABASE_URL con localhost).');
@@ -147,8 +147,18 @@ async function main() {
   const form = acepta.llamadas[0]?.form;
   ok(acepta.llamadas[0]?.url === 'https://unipile.invalid/api/v1/posts', 'llama a /api/v1/posts');
   ok(form?.get('account_id') === 'cuenta-de-prueba-iker', 'con la cuenta de Unipile de Iker');
-  ok(form?.get('text') === 'Gracias {{0}} por todo.', `con la mención cambiada: ${form?.get('text')}`);
-  ok(form?.get('mentions[0][name]') === 'Ana Pérez García' && form?.get('mentions[0][profile_id]') === 'ACoAna', 'y mentions[0]');
+  // Por defecto (UNIPILE_MENCIONES_ENLAZADAS sin poner) la mención va como el nombre en llano
+  ok(form?.get('text') === 'Gracias Ana Pérez García por todo.', `sin enlazar, el nombre en llano: ${form?.get('text')}`);
+  ok(form?.get('mentions[0][name]') === null, 'y sin mentions');
+  // Con el interruptor, {{0}} y mentions[0]
+  process.env.UNIPILE_MENCIONES_ENLAZADAS = '1';
+  const pub = prepararPublicacion({ cuenta: 'iker', texto: 'Gracias @Ana Pérez García por todo.', menciones: [{ nombre: 'Ana Pérez García', profile_id: 'ACoAna' }], falta: '' });
+  const f2 = cuerpoUnipile(pub);
+  ok(f2.get('text') === 'Gracias {{0}} por todo.', `enlazada: ${f2.get('text')}`);
+  ok(f2.get('mentions[0][name]') === 'Ana Pérez García' && f2.get('mentions[0][profile_id]') === 'ACoAna', 'enlazada: mentions[0]');
+  delete process.env.UNIPILE_MENCIONES_ENLAZADAS;
+  // Lo que pone «Qué falta» bloquea igual que un hueco
+  ok(motivoNoProgramable({ estado: 'escrito', texto: 'Hola', falta: 'Su visto bueno.' }) === 'Falta: Su visto bueno.', 'con «Qué falta» no se programa');
 
   // ── 202: se guarda el draft_id
   await guardarSemana(S, { posts: [{ clave: 'f', cuenta: 'iker', estado: 'aprobado', texto: LIMPIO, ...base }] as any });

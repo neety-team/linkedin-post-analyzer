@@ -54,6 +54,7 @@ interface FilaReclamada {
   cuenta: string;
   texto: string;
   menciones: Mencion[] | null;
+  falta: string | null;
   imagen: Buffer | null;
   imagen_tipo: string | null;
   programado_para: Date;
@@ -68,7 +69,7 @@ export async function reclamar(id: string): Promise<FilaReclamada | null> {
     `UPDATE semana_posts SET publicando_desde = NOW()
       WHERE id = $1 AND estado = 'programado' AND publicando_desde IS NULL
         AND programado_para IS NOT NULL AND programado_para <= NOW()
-      RETURNING id, clave, semana, cuenta, texto, menciones, imagen, imagen_tipo, programado_para`,
+      RETURNING id, clave, semana, cuenta, texto, menciones, falta, imagen, imagen_tipo, programado_para`,
     [id]
   );
   return rows[0] || null;
@@ -86,15 +87,25 @@ export function prepararPublicacion(fila: {
   cuenta: string;
   texto: string;
   menciones: Mencion[] | null;
+  falta?: string | null;
   imagen?: Buffer | null;
   imagen_tipo?: string | null;
 }): Publicacion {
-  const motivo = motivoParaPublicar(fila.texto || '', fila.menciones);
+  const motivo = motivoParaPublicar(fila.texto || '', fila.menciones, fila.falta);
   if (motivo) throw new Error(`No se ha publicado: ${motivo}`);
   const variable = variableCuenta(fila.cuenta);
   const account_id = process.env[variable]?.trim();
   if (!account_id) throw new Error(`Falta ${variable} en el entorno: no se sabe desde qué cuenta de LinkedIn publicar`);
-  const { texto, mentions } = aplicarMenciones(fila.texto, fila.menciones);
+  const aplicadas = aplicarMenciones(fila.texto, fila.menciones);
+  // Cómo espera Unipile las menciones en multipart no está documentado ni lo usa su
+  // SDK oficial (comprobado el 18/11/2026). Si el formato fuera otro, el post saldría
+  // con «{{0}}» a la vista. Hasta que una persona lo compruebe, las menciones van como
+  // el nombre en llano, sin enlace; UNIPILE_MENCIONES_ENLAZADAS=1 las enlaza.
+  const enlazadas = process.env.UNIPILE_MENCIONES_ENLAZADAS === '1';
+  const texto = enlazadas
+    ? aplicadas.texto
+    : aplicadas.texto.replace(/\{\{(\d+)\}\}/g, (_, n) => aplicadas.mentions[Number(n)]?.name ?? '');
+  const mentions = enlazadas ? aplicadas.mentions : [];
   return {
     account_id,
     text: texto,

@@ -17,6 +17,7 @@ import { PALANCAS_GANCHO, PALANCA_LABELS, etiqueta } from '../utils/etiquetas';
 import RepliesPanel from '../components/accounts/RepliesPanel';
 import LeadMagnetPanel from '../components/accounts/LeadMagnetPanel';
 import PilarSelector, { PilaresProvider, usePilares } from '../components/accounts/PilarSelector';
+import ObjetivoSelector from '../components/accounts/ObjetivoSelector';
 import FiltroDesplegable from '../components/accounts/FiltroDesplegable';
 import LinkedInPreviewModal from '../components/accounts/LinkedInPreviewModal';
 import {
@@ -143,6 +144,9 @@ interface TopPost {
   premium_button_clicks?: number | null;
   link_url?: string | null;
   pillar?: string | null;
+  /** Objetivo con el que se publico (services/objetivo.ts). Null = sin objetivo. */
+  objetivo?: string | null;
+  objetivo_fuente?: string | null;
   members_reached?: number | null;
   in_network_pct?: number | null;
   audiencia?: Demografia | null;
@@ -182,6 +186,9 @@ interface LivePost {
   premium_button_clicks?: number | null;
   link_url?: string | null;
   pillar?: string | null;
+  /** Objetivo con el que se publico (services/objetivo.ts). Null = sin objetivo. */
+  objetivo?: string | null;
+  objetivo_fuente?: string | null;
   members_reached?: number | null;
   in_network_pct?: number | null;
   audiencia?: Demografia | null;
@@ -3218,8 +3225,11 @@ function LivePostRow({ post, cuentas, onCoautores, onRemoveDemo, onOpenChat, onR
               {/* "metricas" ya no vive aqui: era texto gris sin borde entre dos
                   chapas, asi que se leia como una etiqueta y no como algo que se
                   pulsa (Iker, 2026-08-20). Ahora es la primera opcion del menu. */}
-              <PostMenu post={post} onHidden={onRefreshed} onEditMetrics={onEditMetrics} cuentas={cuentas} onCoautores={onCoautores} />
+              {/* Orden de izquierda a derecha (2026-11-18): QUE es (pilar),
+                  PARA QUE se publico (objetivo), como fue (CTR y
+                  multiplicador) y el menu ⋮ al final, donde se busca. */}
               <PilarSelector postId={post.id} pillar={post.pillar} />
+              <ObjetivoSelector postId={post.id} objetivo={post.objetivo} fuente={post.objetivo_fuente} />
               {/* CTR a la izquierda del multiplicador (Iker, 2026-07-29): el ojo
                   lee de izquierda a derecha y lo ultimo que ve es lo que se le
                   queda, asi que el outlier va el mas a la derecha y en grande.
@@ -3244,6 +3254,7 @@ function LivePostRow({ post, cuentas, onCoautores, onRemoveDemo, onOpenChat, onR
                   {post.outlier_ratio.toFixed(1)}x
                 </span>
               )}
+              <PostMenu post={post} onHidden={onRefreshed} onEditMetrics={onEditMetrics} cuentas={cuentas} onCoautores={onCoautores} />
             </div>
           </div>
           <ExpandablePostText text={post.content_text || post.hook_text} />
@@ -3393,6 +3404,7 @@ function TopPostRow(
               {/* Pilar a la IZQUIERDA del CTR, igual que en Live posts (Iker,
                   2026-09-17): el multiplicador va el ultimo, a la derecha. */}
               <PilarSelector postId={post.id} pillar={post.pillar} />
+              <ObjetivoSelector postId={post.id} objetivo={post.objetivo} fuente={post.objetivo_fuente} />
               {ctr != null && (
                 <span
                   className={`rounded font-semibold tabular-nums bg-amber-500/15 text-amber-700 dark:text-amber-300 ${

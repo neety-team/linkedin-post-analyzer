@@ -4,6 +4,7 @@ import { CreatorModel } from '../models/creator';
 import { unipileService } from '../services/unipile';
 import { reclassifyAllPosts } from '../services/pillarBackfill';
 import pool from '../db';
+import { esObjetivo, sqlObjetivoLateral } from '../services/objetivo';
 
 function paramId(req: Request): string {
   return req.params.id as string;
@@ -50,6 +51,60 @@ router.patch('/:id/pillar', async (req: Request, res: Response) => {
     res.json({ ok: true, ...rows[0] });
   } catch (err: any) {
     console.error('[posts/pillar]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PATCH /api/posts/:id/objetivo — el objetivo cambiado A MANO desde Cuentas.
+// { objetivo: 'alcance' | 'notoriedad' | 'conversion' } lo fija y manda sobre
+// Semana, el barrido y la regla del pilar; { objetivo: null } lo devuelve a
+// automatico. Devuelve el objetivo que queda a la vista y de donde sale.
+router.patch('/:id/objetivo', async (req: Request, res: Response) => {
+  try {
+    const crudo = req.body?.objetivo;
+    if (crudo !== null && !esObjetivo(crudo)) {
+      return res.status(400).json({ error: `"${crudo}" no es un objetivo (alcance, notoriedad o conversion)` });
+    }
+    const { rows } = await pool.query(
+      crudo === null
+        ? `UPDATE posts SET objetivo = NULL, objetivo_origen = NULL WHERE id = $1 RETURNING id`
+        : `UPDATE posts SET objetivo = $2, objetivo_origen = 'manual' WHERE id = $1 RETURNING id`,
+      crudo === null ? [paramId(req)] : [paramId(req), crudo]
+    );
+    if (rows.length === 0) return res.status(404).json({ error: 'Post no encontrado' });
+    const { rows: ahora } = await pool.query(
+      `SELECT obj.objetivo, obj.objetivo_fuente
+         FROM posts p JOIN creators c ON c.id = p.creator_id
+         ${sqlObjetivoLateral()}
+        WHERE p.id = $1`,
+      [paramId(req)]
+    );
+    res.json({ ok: true, id: paramId(req), ...(ahora[0] || { objetivo: null, objetivo_fuente: null }) });
+  } catch (err: any) {
+    console.error('[posts/objetivo]', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/posts/objetivos/barrido — escribe el objetivo decidido leyendo el
+// texto de posts que la regla del pilar no cubre (otro, tarjeta, una historia
+// que en realidad era un hito). { asignaciones: [{ id, objetivo }] }.
+// Nunca pisa uno puesto a mano. Idempotente: relanzarlo deja lo mismo.
+router.post('/objetivos/barrido', async (req: Request, res: Response) => {
+  try {
+    const lista = Array.isArray(req.body?.asignaciones) ? req.body.asignaciones : null;
+    if (!lista) return res.status(400).json({ error: 'Falta `asignaciones`: [{ id, objetivo }]' });
+    const malos = lista.filter((a: any) => !a || typeof a.id !== 'string' || !esObjetivo(a.objetivo));
+    if (malos.length) return res.status(400).json({ error: `${malos.length} asignaciones no válidas`, ejemplo: malos[0] });
+    const { rowCount } = await pool.query(
+      `UPDATE posts p SET objetivo = a.objetivo, objetivo_origen = 'barrido'
+         FROM json_to_recordset($1::json) AS a(id uuid, objetivo text)
+        WHERE p.id = a.id AND p.objetivo_origen IS DISTINCT FROM 'manual'`,
+      [JSON.stringify(lista.map((a: any) => ({ id: a.id, objetivo: a.objetivo })))]
+    );
+    res.json({ ok: true, recibidas: lista.length, escritas: rowCount });
+  } catch (err: any) {
+    console.error('[posts/objetivos/barrido]', err);
     res.status(500).json({ error: err.message });
   }
 });

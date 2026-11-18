@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { sqlObjetivoLateral } from '../services/objetivo';
 import pool from '../db';
 import { unipileService, LINKEDIN_REACTION_TYPES, LinkedinReactionType, normalizeReactionValue } from '../services/unipile';
 import { enrichPost } from '../services/engagement';
@@ -1828,9 +1829,11 @@ router.get('/analytics', async (req: Request, res: Response) => {
         p.engagement_score, p.outlier_ratio, p.is_outlier,
         p.post_url, p.hook_text, p.gancho_palanca, p.gancho_palanca_2, p.gancho_motivo,
         c.name AS creator_name, c.profile_image_url AS creator_image,
-        ${COAUTORES_JSON} AS coautores
+        ${COAUTORES_JSON} AS coautores,
+        obj.objetivo, obj.objetivo_fuente
        FROM posts p
        JOIN creators c ON c.id = p.creator_id
+       ${sqlObjetivoLateral()}
        WHERE p.published_at >= $1 AND p.published_at <= $2 AND ${topScope.sql}
        ORDER BY p.outlier_ratio DESC NULLS LAST, p.engagement_score DESC
        -- 1000 y no 50 (2026-09-17): la web reordena ESTA lista por impresiones,
@@ -2274,6 +2277,7 @@ router.get('/live-posts', async (req: Request, res: Response) => {
          c.id AS creator_id, c.name AS creator_name, c.profile_image_url AS creator_image,
          c.is_manual AS creator_is_manual,
          ${COAUTORES_JSON} AS coautores,
+         obj.objetivo, obj.objetivo_fuente,
          p.snapshot_count,
          p.last_snapshot_at,
          p.readings_count,
@@ -2289,6 +2293,7 @@ router.get('/live-posts', async (req: Request, res: Response) => {
          END AS phase
        FROM candidate_posts p
        JOIN creators c ON c.id = p.creator_id
+       ${sqlObjetivoLateral()}
        WHERE ${dateFilter}
        ORDER BY p.published_at DESC
        -- 500 y no 50 (2026-09-17): con rangos de 90/180 dias desaparecian los

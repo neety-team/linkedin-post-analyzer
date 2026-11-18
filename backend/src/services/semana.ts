@@ -15,7 +15,9 @@ import pool from '../db';
 import { normalizarMenciones, motivoMenciones, type Mencion } from './menciones';
 
 export const CUENTAS = ['iker', 'unai', 'asier'] as const;
-export const OBJETIVOS = ['alcance', 'notoriedad', 'conversion'] as const;
+// Los objetivos viven en services/objetivo.ts: Cuentas los usa tambien y no pueden divergir.
+export { OBJETIVOS } from './objetivo';
+import { OBJETIVOS } from './objetivo';
 export const ESTADOS_POST = [
   'idea',
   'esqueleto',

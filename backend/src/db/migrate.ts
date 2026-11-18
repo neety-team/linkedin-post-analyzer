@@ -60,6 +60,12 @@ const migration = `
   -- que no puede acertar por estructura (mapa-meme sin menciones, fichas con la
   -- flecha en medio) y la correccion humana tiene que sobrevivir al reproceso.
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS pillar_manual BOOLEAN DEFAULT FALSE;
+  -- Objetivo con el que se publico (alcance | notoriedad | conversion). Vacio
+  -- casi siempre: se calcula al leer (services/objetivo.ts). Solo se escribe
+  -- cuando lo cambia alguien a mano o el barrido del historico decidio por el
+  -- texto; objetivo_origen dice cual de los dos ('manual' | 'barrido').
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS objetivo TEXT;
+  ALTER TABLE posts ADD COLUMN IF NOT EXISTS objetivo_origen TEXT;
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS char_count INTEGER DEFAULT 0;
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS line_break_count INTEGER DEFAULT 0;
   ALTER TABLE posts ADD COLUMN IF NOT EXISTS has_aggressive_spacing BOOLEAN DEFAULT FALSE;

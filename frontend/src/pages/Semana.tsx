@@ -45,9 +45,10 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApi, apiPost } from '../hooks/useApi';
 import { instanteMadrid, cuandoMadrid, horaMadrid, HORA_POR_DEFECTO } from '../utils/horaMadrid';
+// Colores y nombres compartidos con Cuentas, donde va el objetivo de lo publicado.
+import { OBJETIVO, type Objetivo } from '../utils/objetivo';
 
 type Cuenta = 'iker' | 'unai' | 'asier';
-type Objetivo = 'alcance' | 'notoriedad' | 'conversion';
 
 interface Feedback {
   id: string;
@@ -232,12 +233,6 @@ function juntar(nombres: string[]): string {
   return nombres.length < 2 ? nombres.join('') : `${nombres.slice(0, -1).join(', ')} y ${nombres[nombres.length - 1]}`;
 }
 
-// Clases escritas enteras: Tailwind solo compila las que ve en el codigo.
-const OBJETIVO: Record<Objetivo, { etiqueta: string; chip: string }> = {
-  alcance: { etiqueta: 'Alcance', chip: 'text-data bg-data/10' },
-  notoriedad: { etiqueta: 'Notoriedad', chip: 'text-diamond bg-diamond/15' },
-  conversion: { etiqueta: 'Conversión', chip: 'text-accent bg-accent/10' },
-};
 
 const ESTADO: Record<string, string> = {
   idea: 'Idea',

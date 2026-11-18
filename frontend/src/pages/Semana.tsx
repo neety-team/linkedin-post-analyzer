@@ -44,7 +44,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApi, apiPost } from '../hooks/useApi';
-import { instanteMadrid, cuandoMadrid, HORA_POR_DEFECTO } from '../utils/horaMadrid';
+import { instanteMadrid, cuandoMadrid, horaMadrid, HORA_POR_DEFECTO } from '../utils/horaMadrid';
 
 type Cuenta = 'iker' | 'unai' | 'asier';
 type Objetivo = 'alcance' | 'notoriedad' | 'conversion';
@@ -61,6 +61,7 @@ interface Feedback {
 
 interface PostSemana {
   id: string;
+  semana?: string;
   clave: string;
   fecha: string;
   cuenta: Cuenta;
@@ -599,7 +600,8 @@ function PostLinkedIn({
               </>
             )}
             <p className={`text-[12px] leading-4 flex items-center gap-1 ${c.gris}`}>
-              {fechaLinkedIn(post.fecha)} •
+              {fechaLinkedIn(post.fecha)}
+              {post.estado === 'programado' && post.programado_para ? `, ${horaMadrid(post.programado_para)}` : ''} •
               <svg viewBox="0 0 16 16" className="w-3 h-3" fill="currentColor" aria-hidden="true">
                 <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM3 8c0-.4 0-.7.1-1L5 9v1l1 1v2.6A5 5 0 0 1 3 8zm8.9 3.1c-.2-.7-.8-1.1-1.4-1.1H10V8.5c0-.3-.2-.5-.5-.5H6V7h1c.3 0 .5-.2.5-.5V5.5h1A1.5 1.5 0 0 0 10 4v-.6a5 5 0 0 1 1.9 7.7z" />
               </svg>
@@ -780,7 +782,16 @@ function Revision({
 
         <div className="space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-[13px] text-text-muted">Así se verá en LinkedIn</p>
+            <p className="text-[13px] text-text-muted">
+              Así se verá en LinkedIn ·{' '}
+              {post.estado === 'publicado' ? (
+                <span className="font-semibold text-success">publicado</span>
+              ) : post.estado === 'programado' && post.programado_para ? (
+                <span className="font-semibold text-success">sale el {cuandoMadrid(post.programado_para)}</span>
+              ) : (
+                <span className="font-semibold text-warning">sin programar</span>
+              )}
+            </p>
             <div className="flex flex-wrap items-center gap-3 text-[13px]">
               {largo && (
                 <button
@@ -925,39 +936,139 @@ function LineaProgramacion({ post, onCambio }: { post: PostSemana; onCambio: () 
       </p>
     );
   }
-  return null;
+  return <p className="text-xs text-text-muted">Sin programar</p>;
 }
 
-/** El bloque de programacion en el post abierto. */
+/**
+ * La publicación del post abierto (2026-11-18): siempre dice en qué estado está
+ * y deja hacerlo todo desde aquí, post a post: programarlo a una hora, cambiar
+ * la hora o quitarlo de la programación. Si no se puede programar, dice por qué.
+ */
 function Programacion({ post, onCambio }: { post: PostSemana; onCambio: () => void }) {
-  if (!programado(post) && !post.error_publicacion && !(post.estado === 'publicado' && post.publicado_at)) return null;
-  return (
-    <div>
-      <h4 className="font-display text-[15px] font-semibold text-text-primary">Programación</h4>
-      {programado(post) ? (
-        <div className="mt-1 space-y-1.5 text-[14px]">
-          <p className="font-semibold text-success">
-            {post.publicando_desde
-              ? 'Publicándose ahora'
-              : post.programado_para
-                ? `Programado · ${cuandoMadrid(post.programado_para)}`
-                : 'Programado, sin hora'}
-          </p>
-          {!post.publicando_desde && (
+  const publicador = useApi<EstadoPublicador>('/api/semana/publicador');
+  const [hora, setHora] = useState(() => (post.programado_para ? horaMadrid(post.programado_para) : HORA_POR_DEFECTO));
+  const [editando, setEditando] = useState(false);
+  const [ocupado, setOcupado] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    setHora(post.programado_para ? horaMadrid(post.programado_para) : HORA_POR_DEFECTO);
+    setEditando(false);
+    setError(null);
+  }, [post.id, post.programado_para]);
+
+  const instante = instanteMadrid(post.fecha, hora);
+  const pasada = !instante || instante.getTime() <= Date.now();
+  const llamar = async (ruta: string, cuerpo: unknown) => {
+    setOcupado(true);
+    setError(null);
+    try {
+      await apiPost(ruta, cuerpo);
+      setEditando(false);
+      onCambio();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se ha podido');
+    } finally {
+      setOcupado(false);
+    }
+  };
+  const programar = () => {
+    if (!instante) return;
+    const s = String(post.semana || '');
+    llamar(`/api/semana/${s}/programar`, { posts: [{ id: post.id, programado_para: instante.toISOString() }] });
+  };
+  const reprogramar = () => {
+    if (!instante) return;
+    llamar(`/api/semana/posts/${post.id}/reprogramar`, { programado_para: instante.toISOString() });
+  };
+
+  const selectorHora = (
+    <label className="inline-flex items-center gap-2 text-[13px] text-text-secondary">
+      <span>{diaCorto(post.fecha)} a las</span>
+      <input
+        type="time"
+        value={hora}
+        onChange={(e) => setHora(e.target.value)}
+        className="rounded-md border border-border bg-bg-primary px-2 py-1 text-[13px] text-text-primary tabular-nums focus:border-accent outline-none"
+      />
+    </label>
+  );
+  const boton = 'px-3.5 py-1.5 rounded-full text-[13px] font-semibold transition-colors disabled:opacity-60';
+  const apagada = publicador.data && !publicador.data.activo;
+
+  let cuerpo: React.ReactNode;
+  if (post.estado === 'publicado') {
+    cuerpo = (
+      <p className="text-[14px] font-semibold text-success">
+        Publicado{post.publicado_at ? ` · ${cuandoMadrid(post.publicado_at)}` : ''}
+      </p>
+    );
+  } else if (programado(post) && post.publicando_desde) {
+    cuerpo = <p className="text-[14px] font-semibold text-success">Publicándose ahora</p>;
+  } else if (programado(post)) {
+    cuerpo = (
+      <div className="space-y-2">
+        <p className="text-[14px] font-semibold text-success">
+          Sale el {post.programado_para ? cuandoMadrid(post.programado_para) : 'día del post'}
+        </p>
+        {editando ? (
+          <div className="flex flex-wrap items-center gap-2">
+            {selectorHora}
+            <button type="button" onClick={reprogramar} disabled={ocupado || pasada} className={`${boton} bg-accent text-on-accent hover:bg-accent-strong`}>
+              Guardar hora
+            </button>
+            <button type="button" onClick={() => setEditando(false)} className={`${boton} text-text-secondary hover:text-text-primary`}>
+              Cancelar
+            </button>
+            {pasada && <span className="w-full text-xs text-danger">Esa hora ya ha pasado.</span>}
+          </div>
+        ) : (
+          <div className="flex flex-wrap items-center gap-2">
+            <button type="button" onClick={() => setEditando(true)} className={`${boton} border border-border text-text-primary hover:border-accent`}>
+              Cambiar la hora
+            </button>
             <QuitarProgramacion
               post={post}
               onCambio={onCambio}
-              clase="px-3.5 py-1.5 rounded-full border border-border text-[13px] font-semibold text-text-secondary hover:border-danger hover:text-danger disabled:opacity-60 transition-colors"
+              clase={`${boton} border border-border text-text-secondary hover:border-danger hover:text-danger`}
             />
-          )}
+          </div>
+        )}
+      </div>
+    );
+  } else if (post.motivo_no_programable) {
+    cuerpo = (
+      <p className="text-[14px] leading-relaxed text-text-secondary">
+        <span className="font-semibold text-text-primary">Sin programar.</span> Aún no se puede: {post.motivo_no_programable}
+      </p>
+    );
+  } else {
+    cuerpo = (
+      <div className="space-y-2">
+        <p className="text-[14px] font-semibold text-warning">Sin programar</p>
+        <div className="flex flex-wrap items-center gap-2">
+          {selectorHora}
+          <button type="button" onClick={programar} disabled={ocupado || pasada} className={`${boton} bg-accent text-on-accent hover:bg-accent-strong`}>
+            Programar
+          </button>
         </div>
-      ) : post.estado === 'publicado' && post.publicado_at ? (
-        <p className="mt-1 text-[14px] font-semibold text-success">Publicado · {cuandoMadrid(post.publicado_at)}</p>
-      ) : (
-        <p className="mt-1 text-[14px] leading-relaxed text-danger">
-          <b>No se ha publicado.</b> {post.error_publicacion}
+        {pasada && <p className="text-xs text-danger">Esa hora ya ha pasado: elige otra o muévelo de día.</p>}
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-xl border border-border bg-bg-card px-4 py-3.5">
+      <h4 className="font-display text-[15px] font-semibold text-text-primary">Publicación</h4>
+      <div className="mt-1.5">{cuerpo}</div>
+      {post.error_publicacion && post.estado !== 'publicado' && (
+        <p className="mt-2 text-[13px] leading-relaxed text-danger">
+          <b>La última vez no se publicó.</b> {post.error_publicacion}
         </p>
       )}
+      {apagada && post.estado !== 'publicado' && (
+        <p className="mt-2 text-xs text-warning">La subida automática está apagada: aunque esté programado, no saldrá solo.</p>
+      )}
+      {error && <p className="mt-2 text-xs text-danger">{error}</p>}
     </div>
   );
 }

@@ -20,6 +20,7 @@ import {
   perfilesDeCuentas,
   programarPosts,
   desprogramarPost,
+  reprogramarPost,
   moverPost,
   retirarPost,
   IMAGEN_MAX_BYTES,
@@ -130,6 +131,23 @@ router.post('/:semana/programar', async (req: Request, res: Response) => {
     res.json({ ...r, semana: await leerSemana(semana) });
   } catch (err: any) {
     res.status(400).json({ error: err.message });
+  }
+});
+
+/** POST /api/semana/posts/:id/reprogramar {programado_para} — cambia la hora de un post ya programado. */
+router.post('/posts/:id/reprogramar', async (req: Request, res: Response) => {
+  try {
+    const id = param(req, 'id');
+    if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+    const r = await reprogramarPost(id, String(req.body?.programado_para || ''));
+    if (r === 'no_existe') return res.status(404).json({ error: 'Post no encontrado' });
+    if (r === 'hora_no_valida') return res.status(400).json({ error: 'Falta la hora nueva (`programado_para`, en ISO)' });
+    if (r === 'hora_pasada') return res.status(400).json({ error: 'Esa hora ya ha pasado: elige una posterior' });
+    if (r === 'no_programado') return res.status(409).json({ error: 'Ese post no está programado: prográmalo primero' });
+    if (r === 'publicando') return res.status(409).json({ error: 'Se está publicando ahora mismo' });
+    res.json({ ok: true });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
   }
 });
 

@@ -3571,6 +3571,18 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # 650 a la primera. Si algun dia se vuelve a tocar: el gate por pilar es solo
     # para 'Spam ninja presente'; las reglas de COMO se escribe el ninja valen para
     # cualquier post que lleve enlace.
+    # ⛔ 4.4b-SUELTO · NUNCA UN ENLACE SOLO EN SU LINEA (2026-11-19), en CUALQUIER pilar y
+    # destino, mapa incluido. Un post del 19/11 acabo con la URL sola en la ultima linea,
+    # sin texto delante, y no era una prueba. El enlace va siempre con texto en su misma
+    # linea («…: https://…»), y al final del post en el bloque de dos. Se mira sobre el
+    # texto entero y no solo sobre nuestros dominios, porque el que se sube ya va acortado
+    # (lnkd.in) y lo que hay que ver es la forma.
+    _sueltos = [l.strip() for l in cuerpo.split('\n')
+                if re.fullmatch(r'\s*(?:[→👉➡️⬇️\-–·•]\s*)?(?:https?://|www\.|lnkd\.in/)\S+\s*', l)]
+    chk(not _sueltos, 'Enlace NUNCA suelto en su linea: lleva texto delante (§4.4b-SUELTO)',
+        'el enlace esta solo en su linea: "%s". Ponle delante la frase que lo pide, en la misma '
+        'linea y con dos puntos, y encima la linea de dolor (bloque de dos)' % _sueltos[0][:70]
+        if _sueltos else '')
     if tiene_link:
         # El enlace SIEMPRE con https:// delante, o LinkedIn puede no detectarlo
         # como clicable (Iker, 2026-07-22). Mismo criterio que los DMs.

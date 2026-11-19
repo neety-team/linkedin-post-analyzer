@@ -432,6 +432,36 @@ CASOS += [
                                        '--repite-autorizadas', 'CAPSA FOOD;Incarlopsa;Siderúrgica Balboa, S.A.;Cervecera de Canarias']),
 ]
 
+# 19/11: historia/evento en ingles que cerraba con la URL sola en la ultima linea, sin texto
+# delante. No era una prueba: el enlace nunca va suelto (global §4.4b-SUELTO).
+ENLACE_SUELTO_AL_FINAL = """In San Francisco we met the people who read the web before a sales team calls
+
+Part of the data we give our clients comes from one team.
+
+They turn websites into data an AI can read.
+We are their customers, so we went to see them at Firecrawl.
+
+We told them what we use it for.
+Finding the factories that fit what our clients sell.
+And who decides inside each one of them, in every market.
+
+They told us about Alexandria.
+
+It's a library of data sources that AI agents can query directly.
+
+Thank you to Kris Oei and Henry Whittle for having us.
+
+Nobody sees the data a sales team works with.
+But every good call starts there.
+
+https://lnkd.in/e7C3-QFC
+"""
+
+CASOS += [
+    (ENLACE_SUELTO_AL_FINAL, '19/11: el post acababa con el enlace solo en su linea, sin texto delante',
+     'Enlace NUNCA suelto', ['--pilar', 'historia', '--historia-evento', '--cuenta', 'asier']),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

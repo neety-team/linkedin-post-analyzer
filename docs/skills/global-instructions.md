@@ -1611,6 +1611,14 @@ Es `working-preferences §0c-BIS` otra vez: **una regla universal guardada dentr
 
 **Mecanizado** en `validar-post.py` (`Spam ninja: la linea 2 RECOGE la 1 (bisagra)`), que busca el demostrativo o la repetición de un sustantivo de la línea 1. Es la única pieza del molde que se puede comprobar sola, y es justo la que faltaba.
 
+#### ⛔ 4.4b-SUELTO · EL ENLACE NUNCA VA SOLO EN SU LÍNEA (2026-11-19) — GLOBAL, todos los pilares y destinos, mapa incluido
+
+**La regla:** un post no acaba nunca con la URL sola en la última línea, ni la lleva suelta en ningún otro sitio. El enlace va siempre con texto delante, en su misma línea (`…: https://…`), y al final del post, dentro del bloque de dos de `§4.4b-MOLDE` (línea de dolor arriba, frase con dos puntos y enlace abajo). En el mapa, el ultra ninja (`Mapa completo aquí: …`) ya cumple: lleva texto en la línea.
+
+**Por qué:** el 19/11 una historia/evento salió con el enlace solo en la última línea, sin nada delante. No era una prueba: fue un despiste. La forma ganadora medida es el bloque de dos (`§4.4b-CLICS`: 0,205 % de CTR contra 0,069 % de la línea suelta), y un enlace sin frase no dice por qué pincharlo.
+
+**Dueño:** check `Enlace NUNCA suelto en su linea` en `validar-post.py` (mira cualquier URL, también `lnkd.in`, porque el texto que se sube ya va acortado) y caso en `scripts/test-borradores-tumbados.py`.
+
 #### 📣❌ 4.4b-EVENTO-EXPLICITO · EL POST QUE VA DEL EVENTO NO CONVIERTE. EL NINJA DENTRO DE OTRO POST, SÍ (medido 2026-09-14)
 
 **Los tres `I’m attending` nativos de LinkedIn que se publicaron para el evento** (Unai 11/08 y 24/08, Asier 26/08), contra los posts que llevaban el evento metido en un ninja:

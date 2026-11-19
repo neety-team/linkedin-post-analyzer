@@ -25,6 +25,13 @@
  * Apagado a mitad de ronda, lo pendiente se queda quieto; si no se enciende en
  * 8 horas, caduca.
  *
+ * LA RESPUESTA DEL AUTOR (19/11): antes de responder se lee el hilo del
+ * comentario en LinkedIn. Si la cuenta del autor ya lo ha respondido (a mano,
+ * desde Cuentas → comentarios), no sale: el 19/11 salieron tres respuestas
+ * dobles por eso. Si el hilo no se puede leer, se reintenta y al final no se
+ * responde. Y la respuesta abre SIEMPRE con la mencion de quien comento, como
+ * las de Cuentas (`buildMentionedReply`): `{{0}}` + el resto en minuscula.
+ *
  * NUNCA DOS VECES: cada accion se reclama con un UPDATE atomico. Una que se
  * queda «en_curso» mas de 15 minutos (el proceso murio a mitad) se da por
  * fallida y NO se repite: un comentario doble se ve mucho mas que uno que falta.
@@ -226,7 +233,18 @@ export async function planificarAbeja(
 export interface Ejecutor {
   /** Busca el post publicado: social_id y enlace. null si aun no aparece. */
   localizar(p: { account_id: string; post_id: string | null; draft_id: string | null }): Promise<{ social_id: string; url: string | null } | null>;
-  comentar(p: { account_id: string; social_id: string; texto: string; responde_a?: string | null }): Promise<{ comment_id: string | null }>;
+  comentar(p: {
+    account_id: string;
+    social_id: string;
+    texto: string;
+    responde_a?: string | null;
+    menciones?: { name: string; profile_id: string }[];
+  }): Promise<{ comment_id: string | null }>;
+  /** Quien escribio un comentario y quien le ha respondido ya. null si no se puede leer. */
+  hilo(p: { account_id: string; social_id: string; comment_id: string }): Promise<{
+    autor: { name: string; profile_id: string | null } | null;
+    respondido_por: string[];
+  } | null>;
   reaccionar(p: { account_id: string; social_id: string; comment_id?: string | null }): Promise<void>;
   repost(p: { account_id: string; social_id: string }): Promise<void>;
   chat(texto: string): Promise<void>;
@@ -280,9 +298,10 @@ export const ejecutorReal: Ejecutor = {
     if (!social) return null;
     return { social_id: String(social), url: p?.share_url || p?.url || null };
   },
-  async comentar({ account_id, social_id, texto, responde_a }) {
+  async comentar({ account_id, social_id, texto, responde_a, menciones }) {
     const json: Record<string, unknown> = { account_id, text: texto };
     if (responde_a) json.comment_id = responde_a;
+    if (menciones?.length) json.mentions = menciones;
     const r = await unipile(`/api/v1/posts/${enc(social_id)}/comments`, { method: 'POST', json });
     let comment_id: string | null = r?.comment_id || r?.id || null;
     if (!comment_id && !responde_a) {
@@ -293,6 +312,20 @@ export const ejecutorReal: Ejecutor = {
       comment_id = m?.id || null;
     }
     return { comment_id };
+  },
+  async hilo({ account_id, social_id, comment_id }) {
+    const base = `/api/v1/posts/${enc(social_id)}/comments?account_id=${enc(account_id)}&limit=100`;
+    const [arriba, respuestas] = await Promise.all([
+      unipile(base).catch(() => null),
+      unipile(`${base}&comment_id=${enc(comment_id)}`).catch(() => null),
+    ]);
+    if (!respuestas) return null;
+    const c = (arriba?.items || []).find((x: any) => String(x?.id) === String(comment_id));
+    const nombre = (x: any) => String(x?.author_details?.name || x?.author || '').trim();
+    return {
+      autor: c ? { name: nombre(c), profile_id: c?.author_details?.id || null } : null,
+      respondido_por: (respuestas.items || []).filter((x: any) => String(x?.id) !== String(comment_id)).map(nombre).filter(Boolean),
+    };
   },
   async reaccionar({ account_id, social_id, comment_id }) {
     const json: Record<string, unknown> = { account_id, post_id: social_id, reaction_type: 'like' };
@@ -335,6 +368,29 @@ interface FilaAccion {
   linkedin_social_id: string | null;
   linkedin_url: string | null;
   dep_resultado: any;
+  dep_actor: Cuenta | null;
+}
+
+const normalizar = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').replace(/\s+/g, ' ').trim().toLowerCase();
+
+/**
+ * La respuesta del autor con la mencion delante: `{{0}} resto`, con el resto en
+ * minuscula como las respuestas de Cuentas. Quita el nombre si el modelo ya lo
+ * puso al principio. Sin profile_id, el nombre va en texto plano. Pura.
+ */
+export function respuestaConMencion(texto: string, autor: { name: string; profile_id: string | null }) {
+  let resto = texto.trim();
+  const nombre = autor.name.trim();
+  for (const n of [nombre, nombre.split(/\s+/)[0]]) {
+    if (n && normalizar(resto.slice(0, n.length)) === normalizar(n)) {
+      resto = resto.slice(n.length).replace(/^[\s,:;.!-]+/, '');
+      break;
+    }
+  }
+  // Minuscula la primera letra, salvo siglas o nombres (segunda letra mayuscula).
+  if (/^\p{Lu}\p{Ll}/u.test(resto)) resto = resto[0].toLowerCase() + resto.slice(1);
+  if (autor.profile_id) return { texto: `{{0}} ${resto}`, plano: `${nombre} ${resto}`, menciones: [{ name: nombre, profile_id: autor.profile_id }] };
+  return { texto: `${nombre} ${resto}`, plano: `${nombre} ${resto}`, menciones: undefined };
 }
 
 async function terminar(id: string, estado: 'hecho' | 'fallo' | 'saltado', extra: { resultado?: any; error?: string } = {}) {
@@ -435,7 +491,22 @@ async function ejecutar(a: FilaAccion, ej: Ejecutor, cuentas: Record<string, str
     const comentario = a.dep_resultado?.comment_id;
     if (!comentario) throw new ErrorDefinitivo('No se sabe el id del comentario al que responder');
     if (a.tipo === 'responder') {
-      await ej.comentar({ account_id: cuenta, social_id: social, texto: a.texto || '', responde_a: comentario });
+      const h = await ej.hilo({ account_id: cuenta, social_id: social, comment_id: comentario });
+      if (!h) throw new Error('No se ha podido leer el hilo del comentario: sin leerlo no se responde, por si ya está respondido');
+      const yo = normalizar(NOMBRE_EN_LINKEDIN[a.actor as string] || '');
+      if (yo && h.respondido_por.some((n) => normalizar(n) === yo)) {
+        await terminar(a.id, 'saltado', { error: 'Ya lo había respondido la cuenta del autor (a mano): no se responde dos veces' });
+        return 'saltado';
+      }
+      const quien = h.autor || { name: NOMBRE_EN_LINKEDIN[a.dep_actor as string] || '', profile_id: null };
+      const r = quien.name ? respuestaConMencion(a.texto || '', quien) : { texto: a.texto || '', plano: a.texto || '', menciones: undefined };
+      try {
+        await ej.comentar({ account_id: cuenta, social_id: social, texto: r.texto, responde_a: comentario, menciones: r.menciones });
+      } catch (e: any) {
+        // Como en Cuentas: si Unipile no acepta la mencion (422), sale con el nombre en texto plano.
+        if (!r.menciones || !/ 422/.test(e?.message || '')) throw e;
+        await ej.comentar({ account_id: cuenta, social_id: social, texto: r.plano, responde_a: comentario });
+      }
     } else {
       await ej.reaccionar({ account_id: cuenta, social_id: social, comment_id: comentario });
     }
@@ -454,7 +525,7 @@ export async function vueltaAbeja(op: { ejecutor?: Ejecutor; automatica?: boolea
   const { rows } = await pool.query<FilaAccion>(
     `SELECT a.id, a.semana_post_id, a.tipo, a.actor, a.texto, a.depende_de, a.intentos, a.programado_para,
             p.cuenta AS autor, p.texto AS post_texto, p.pilar, p.linkedin_post_id, p.unipile_draft_id,
-            p.linkedin_social_id, p.linkedin_url, d.resultado AS dep_resultado
+            p.linkedin_social_id, p.linkedin_url, d.resultado AS dep_resultado, d.actor AS dep_actor
        FROM abeja_acciones a
        JOIN semana_posts p ON p.id = a.semana_post_id
        LEFT JOIN abeja_acciones d ON d.id = a.depende_de
@@ -463,7 +534,7 @@ export async function vueltaAbeja(op: { ejecutor?: Ejecutor; automatica?: boolea
       ORDER BY a.programado_para, a.orden
       LIMIT 20`
   );
-  const hecho: Record<string, string[]> = { hecho: [], aplazada: [], en_espera: [], fallo: [] };
+  const hecho: Record<string, string[]> = { hecho: [], aplazada: [], en_espera: [], fallo: [], saltado: [] };
   if (!rows.length) return hecho;
   const cuentas = op.cuentas || (await cuentasUnipile());
   for (const a of rows) {

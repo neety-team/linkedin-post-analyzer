@@ -12,7 +12,7 @@ import pool from '../db';
 import { runMigrations } from '../db/migrate';
 import { guardarSemana, guardarImagen, leerImagen, borrarImagen } from '../services/semana';
 import { prepararPublicacion, cuerpoUnipile } from '../services/publicadorLinkedin';
-import { planRonda, planificarAbeja, vueltaAbeja, cambiarAbeja, estadoAbeja, type Ejecutor } from '../services/abeja';
+import { planRonda, planificarAbeja, vueltaAbeja, cambiarAbeja, estadoAbeja, respuestaConMencion, type Ejecutor } from '../services/abeja';
 import { repartirRoles, limpiarTexto, interpretarRonda, componerAviso, type Ronda } from '../services/abejaTextos';
 
 let fallos = 0;
@@ -33,7 +33,7 @@ const ronda: Ronda = {
 };
 
 /** Un LinkedIn de mentira que apunta lo que se le pide. */
-function falso() {
+function falso(yaRespondidos: string[] = []) {
   const log: string[] = [];
   let n = 0;
   const ej: Ejecutor = {
@@ -42,8 +42,15 @@ function falso() {
       return { social_id: 'urn:li:activity:1', url: 'https://www.linkedin.com/feed/update/urn:li:activity:1/' };
     },
     async comentar(p) {
-      log.push(`comentar ${p.account_id}${p.responde_a ? ` responde ${p.responde_a}` : ''}: ${p.texto}`);
+      log.push(`comentar ${p.account_id}${p.responde_a ? ` responde ${p.responde_a}` : ''}: ${p.texto}${p.menciones?.length ? ` [@${p.menciones[0].name}]` : ''}`);
       return { comment_id: p.responde_a ? null : `c${++n}` };
+    },
+    async hilo(p) {
+      const n = Number(p.comment_id.slice(1));
+      return {
+        autor: { name: n === 1 ? 'Unai Arambarri Yeregui' : 'Asier Olaizola', profile_id: `ACo-${n}` },
+        respondido_por: yaRespondidos.includes(p.comment_id) ? ['Iker Galarza Rodríguez'] : ['Mario Carrillo'],
+      };
     },
     async reaccionar(p) {
       log.push(`like ${p.account_id}${p.comment_id ? ` en ${p.comment_id}` : ''}`);
@@ -168,10 +175,27 @@ const cuentas = { iker: 'A-iker', unai: 'A-unai', asier: 'A-asier' };
   ok(est.length === 1 && est[0].estado === 'hecho' && est[0].n === 14, 'todas hechas');
   ok(log[0] === 'localizar' && log[1].startsWith('chat '), 'primero localiza y luego avisa');
   ok(log.some((l) => l === 'comentar A-unai: Esto lo vimos en la feria de Bilbao'), 'Unai comenta desde su cuenta');
-  ok(log.some((l) => /^comentar A-iker responde c\d: Justo, Unai$/.test(l)), 'Iker responde al comentario de Unai');
+  ok(log.some((l) => /^comentar A-iker responde c\d: \{\{0\}\} justo, Unai \[@Unai Arambarri Yeregui\]$/.test(l)), 'Iker responde al comentario de Unai, con su mención delante');
   ok(log.filter((l) => l.startsWith('repost')).length === 2, 'dos reposts');
   const sp = (await pool.query(`SELECT linkedin_social_id, chat_avisado_at FROM semana_posts WHERE id = $1`, [P2])).rows[0];
   ok(sp.linkedin_social_id === 'urn:li:activity:1' && !!sp.chat_avisado_at, 'apunta el social_id y el aviso');
+
+  // Si el autor ya respondió a mano, la abeja no responde otra vez.
+  await planificarAbeja({ id: P1, cuenta: 'iker', texto: 'Hola' }, { ahora: hace, ronda, automatica: true, azar: () => 0.5 });
+  const f1 = falso(['c1']);
+  for (let i = 0; i < 6; i++) await vueltaAbeja({ ejecutor: f1.ej, cuentas });
+  ok(f1.log.filter((l) => / responde c1:/.test(l)).length === 0, 'ya respondido a mano: no se responde dos veces');
+  ok(f1.log.filter((l) => / responde c2:/.test(l)).length === 1, 'el otro comentario sí se responde');
+  const salt = (await pool.query(`SELECT estado, error FROM abeja_acciones WHERE semana_post_id = $1 AND tipo = 'responder' ORDER BY programado_para`, [P1])).rows;
+  ok(salt.some((r) => r.estado === 'saltado' && /a mano/.test(r.error || '')), 'queda como saltada y dice por qué');
+
+  // La mención, pura.
+  const m1 = respuestaConMencion('Muy poco definido casi siempre.', { name: 'Unai Arambarri Yeregui', profile_id: 'ACo1' });
+  ok(m1.texto === '{{0}} muy poco definido casi siempre.' && m1.menciones?.[0].profile_id === 'ACo1', 'mención delante y el resto en minúscula');
+  const m2 = respuestaConMencion('Unai, IA no es magia', { name: 'Unai Arambarri Yeregui', profile_id: 'ACo1' });
+  ok(m2.texto === '{{0}} IA no es magia', 'quita el nombre que ya puso el modelo y respeta las siglas');
+  const m3 = respuestaConMencion('Gracias', { name: 'Asier Olaizola', profile_id: null });
+  ok(m3.texto === 'Asier Olaizola gracias' && !m3.menciones, 'sin profile_id, el nombre en texto plano');
 
   // Apagado: el aviso sale, las acciones de las cuentas esperan.
   await cambiarAbeja(false, 'Prueba');

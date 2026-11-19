@@ -22,7 +22,7 @@ global-instructions | 4.4b-FORMA DOS LINEAS PEGADAS Y SIGUIENDO LA BRO | check: 
 global-instructions | POR ESO EL ANGULO NO ES EL PRECIO. ES QUE LA LIC | criterio: ninja
 global-instructions | DONDE VA Y DONDE NO decidido con los datos de ca | fuera: segundo bloque de correo, retirado (4.4e-UNA)
 global-instructions | 4.4e-PUERTA UNA PUERTA POR POST Y LA ELIGE EL DO | criterio: ninja
-global-instructions | LA POSICION NUNCA PEGADOS Y NUNCA AL FINAL | check: Spam ninja NO es la
+global-instructions | LA POSICION NUNCA PEGADOS Y NUNCA AL FINAL | fuera: obsoleta desde el 27/08 (doble bloque, 4.4e-UNA); el post puede cerrar con el bloque de dos (4.4b-SUELTO)
 global-instructions | 9 CAPADO Y MODERACION CANONICO Y GLOBAL Mario 20 | fuera: moderación al publicar (tiempos y borrado); el léxico de riesgo lo cubre brand-voice §2c
 global-instructions | 9.2 EL CORPUS CADUCA un post de hace meses NO pr | fuera: moderación al publicar
 global-instructions | 9.3c RESUBIR EL MISMO TEXTO VARIAS VECES EN UNA  | fuera: moderación al publicar

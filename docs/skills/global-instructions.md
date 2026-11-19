@@ -2963,7 +2963,7 @@ La palabra del gancho sigue dentro (`caída`), el chiste sigue girado, **y la pr
 
 #### ⛔⛔ LA POSICIÓN: NUNCA PEGADOS Y NUNCA AL FINAL
 
-> ⛔ Obsoleto desde el 27/08: es del doble bloque, retirado por `§4.4e-UNA`. Lo que sigue vivo (el ninja no es la última línea) está en `§4.4b`.
+> ⛔ Obsoleto desde el 27/08: es del doble bloque, retirado por `§4.4e-UNA`. **Desde el 19/11 tampoco sigue vivo que el ninja no sea la última línea:** el post puede cerrar con el enlace dentro del bloque de dos, y lo único prohibido es el enlace suelto (`§4.4b-SUELTO`).
 
 ```
 [cuerpo]

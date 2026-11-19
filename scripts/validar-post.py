@@ -3717,10 +3717,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
 
         chk('Neety' not in cuerpo.split(_dom)[0].split('\n')[-1],
             'Spam ninja NO nombra a Neety (§4.4b)', 'nombrar la marca = publicidad encubierta')
-        lineas = [l for l in cuerpo.split('\n') if l.strip()]
-        idx = next(i for i, l in enumerate(lineas) if _dom in l)
-        chk(idx != len(lineas) - 1, 'Spam ninja NO es la última línea (§4.4b)',
-            'el cierre va después' if idx == len(lineas) - 1 else '')
+        # 19/11: RETIRADO el check 'Spam ninja NO es la ultima linea'. Era del doble bloque
+        # (retirado el 27/08, 4.4e-UNA) y fallaba los posts que acaban, como se hace hoy, con el
+        # enlace dentro del bloque de dos. Lo que no se permite es el enlace suelto (4.4b-SUELTO).
         # 4.4e - desde el 2026-08-18 puede haber DOS bloques con enlace en el mismo
         # post. Las reglas de aqui abajo son las del ninja de AGENDAR, asi que el
         # bloque del correo se salta: tiene las suyas, mas abajo.
@@ -5770,13 +5769,17 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         chk(len(_ls) >= 8 and _media <= 78,
             'HISTORIA: ritmo de historia (frases cortas, mucho aire) (§4.6)',
             f'{len(_ls)} líneas, media {int(_media)} car — va en líneas cortas de una frase, no en párrafos densos')
-        chk(bool(_ls) and len(_ls[-1]) <= 78,
+        # 19/11: si el post cierra con el enlace en el bloque de dos (lo permitido desde
+        # 4.4b-SUELTO), la leccion es la ultima linea ANTES de ese bloque: la linea del
+        # enlace y la de dolor no son la moraleja.
+        _cierre = _ls[:-2] if len(_ls) > 2 and 'http' in _ls[-1] else _ls
+        chk(bool(_cierre) and len(_cierre[-1]) <= 78,
             'HISTORIA: cierra con una LECCIÓN corta y punchy (§4.6)',
-            (f'la última línea {len(_ls[-1])} car' if _ls else 'sin cuerpo') + ' — la moraleja es corta ("Moments do", "El método sirve para cualquiera")')
+            (f'la última línea {len(_cierre[-1])} car' if _cierre else 'sin cuerpo') + ' — la moraleja es corta ("Moments do", "El método sirve para cualquiera")')
         # ⛔ LA ULTIMA LINEA NUNCA ES EL DESVELAMIENTO (Iker, 15/10): 'el final de la
         # publicacion es como el final de un video: una moraleja o algo punchy'. El evento
         # y la marca se desvelan en el ultimo tercio, pero ANTES del cierre, no en el.
-        _ult = _ls[-1] if _ls else ''
+        _ult = _cierre[-1] if _cierre else ''
         _m_ult = re.search(r'\b(neety|evento|forward)\b|@', _ult, re.I)
         chk(not _m_ult, 'HISTORIA: la ultima linea es la moraleja, no el desvelamiento (Iker, 15/10)',
             f'"{_ult[:70]}": el evento, la marca o la mencion van antes; el post cierra con '

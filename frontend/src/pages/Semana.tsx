@@ -492,21 +492,6 @@ function distancia(codigo: string, hoy: string): string {
   return n > 0 ? `Dentro de ${n} semanas` : `Hace ${-n} semanas`;
 }
 
-/**
- * La semana que se abre sin `?s=`: la que se esta preparando. Es la que viene
- * si ya tiene posts; si no, la actual; si tampoco, la mas cercana que venga, y
- * a falta de todas, la ultima que hubo.
- */
-function semanaPorDefecto(conPosts: string[], hoy: string): string {
-  const siguiente = mover(hoy, 1);
-  if (conPosts.includes(siguiente)) return siguiente;
-  if (conPosts.includes(hoy)) return hoy;
-  const futuras = conPosts.filter((c) => c > hoy).sort();
-  if (futuras.length) return futuras[0];
-  const pasadas = [...conPosts].sort();
-  return pasadas[pasadas.length - 1] || hoy;
-}
-
 const BOTON_NAV =
   'px-3.5 py-1.5 rounded-full text-[13px] font-semibold border bg-bg-card text-text-secondary border-border hover:border-text-muted hover:text-text-primary transition-colors tabular-nums';
 
@@ -2097,7 +2082,8 @@ export default function Semana() {
   const conPosts = useMemo(() => semanas.map((s) => s.semana), [semanas]);
   const hoy = useMemo(() => semanaDeHoy(), []);
   const pedida = params.get('s');
-  const elegida = esCodigo(pedida) ? pedida : semanaPorDefecto(conPosts, hoy);
+  // Sin `?s=` se abre siempre la semana en curso; la siguiente esta a un clic.
+  const elegida = esCodigo(pedida) ? pedida : hoy;
   // Una semana sin posts no esta en la base: no se pide, se enseña vacia.
   const existe = conPosts.includes(elegida);
   const detalle = useApi<SemanaDetalle>(existe ? `/api/semana/${elegida}` : null);

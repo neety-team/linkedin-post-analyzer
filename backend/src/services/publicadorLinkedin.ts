@@ -209,11 +209,12 @@ export function prepararPublicacion(fila: {
     );
   }
   const aplicadas = aplicarMenciones(fila.texto, fila.menciones);
-  // Cómo espera Unipile las menciones en multipart no está documentado ni lo usa su
-  // SDK oficial (comprobado el 18/11/2026). Si el formato fuera otro, el post saldría
-  // con «{{0}}» a la vista. Hasta que una persona lo compruebe, las menciones van como
-  // el nombre en llano, sin enlace; UNIPILE_MENCIONES_ENLAZADAS=1 las enlaza.
-  const enlazadas = process.env.UNIPILE_MENCIONES_ENLAZADAS === '1';
+  // MENCIONES ENLAZADAS (19/11/2026). En multipart Unipile acepta la lista con
+  // corchetes (mentions[0][name], mentions[0][profile_id], mentions[0][is_company]=true)
+  // y rechaza un JSON en un campo: comprobado contra su validacion con una cuenta
+  // inexistente, sin publicar nada. Hasta el 18/11 salian en llano por no estar
+  // comprobado. UNIPILE_MENCIONES_ENLAZADAS=0 vuelve al nombre en llano (freno).
+  const enlazadas = process.env.UNIPILE_MENCIONES_ENLAZADAS !== '0';
   const texto = enlazadas
     ? aplicadas.texto
     : aplicadas.texto.replace(/\{\{(\d+)\}\}/g, (_, n) => aplicadas.mentions[Number(n)]?.name ?? '');
@@ -231,7 +232,8 @@ export function prepararPublicacion(fila: {
 
 /**
  * El cuerpo multipart. `mentions` es una lista de objetos y en multipart va
- * con corchetes: mentions[0][name], mentions[0][profile_id].
+ * con corchetes: mentions[0][name], mentions[0][profile_id] y, si es una
+ * empresa (su id son solo cifras), mentions[0][is_company]=true.
  */
 export function cuerpoUnipile(pub: Publicacion): FormData {
   const body = new FormData();
@@ -240,6 +242,7 @@ export function cuerpoUnipile(pub: Publicacion): FormData {
   pub.mentions.forEach((m, i) => {
     body.append(`mentions[${i}][name]`, m.name);
     body.append(`mentions[${i}][profile_id]`, m.profile_id);
+    if (/^\d+$/.test(m.profile_id)) body.append(`mentions[${i}][is_company]`, 'true');
   });
   // Varias fotos = varios `attachments`, en orden: LinkedIn las enseña tal cual llegan.
   pub.imagenes.forEach((img, i) => {

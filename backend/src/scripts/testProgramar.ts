@@ -147,15 +147,17 @@ async function main() {
   const form = acepta.llamadas[0]?.form;
   ok(acepta.llamadas[0]?.url === 'https://unipile.invalid/api/v1/posts', 'llama a /api/v1/posts');
   ok(form?.get('account_id') === 'cuenta-de-prueba-iker', 'con la cuenta de Unipile de Iker');
-  // Por defecto (UNIPILE_MENCIONES_ENLAZADAS sin poner) la mención va como el nombre en llano
-  ok(form?.get('text') === 'Gracias Ana Pérez García por todo.', `sin enlazar, el nombre en llano: ${form?.get('text')}`);
-  ok(form?.get('mentions[0][name]') === null, 'y sin mentions');
-  // Con el interruptor, {{0}} y mentions[0]
-  process.env.UNIPILE_MENCIONES_ENLAZADAS = '1';
+  // Por defecto la mención va enlazada: {{0}} y mentions[0]
+  ok(form?.get('text') === 'Gracias {{0}} por todo.', `enlazada por defecto: ${form?.get('text')}`);
+  ok(form?.get('mentions[0][name]') === 'Ana Pérez García' && form?.get('mentions[0][is_company]') === null, 'con mentions[0], persona sin is_company');
+  // Una empresa (id de cifras) lleva is_company=true
+  const pubE = prepararPublicacion({ cuenta: 'iker', texto: 'Gracias @Firecrawl.', menciones: [{ nombre: 'Firecrawl', profile_id: '104100957' }], falta: '' });
+  ok(cuerpoUnipile(pubE).get('mentions[0][is_company]') === 'true', 'empresa: is_company=true');
+  // Con el freno, el nombre en llano y sin mentions
+  process.env.UNIPILE_MENCIONES_ENLAZADAS = '0';
   const pub = prepararPublicacion({ cuenta: 'iker', texto: 'Gracias @Ana Pérez García por todo.', menciones: [{ nombre: 'Ana Pérez García', profile_id: 'ACoAna' }], falta: '' });
   const f2 = cuerpoUnipile(pub);
-  ok(f2.get('text') === 'Gracias {{0}} por todo.', `enlazada: ${f2.get('text')}`);
-  ok(f2.get('mentions[0][name]') === 'Ana Pérez García' && f2.get('mentions[0][profile_id]') === 'ACoAna', 'enlazada: mentions[0]');
+  ok(f2.get('text') === 'Gracias Ana Pérez García por todo.' && f2.get('mentions[0][name]') === null, `con el freno, en llano: ${f2.get('text')}`);
   delete process.env.UNIPILE_MENCIONES_ENLAZADAS;
   // Lo que pone «Qué falta» bloquea igual que un hueco
   ok(motivoNoProgramable({ estado: 'escrito', texto: 'Hola', falta: 'Su visto bueno.' }) === 'Falta: Su visto bueno.', 'con «Qué falta» no se programa');

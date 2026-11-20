@@ -1,0 +1,31 @@
+{
+  "id": 36,
+  "name": "Newsletter 36 (anonimizada)",
+  "sentDate": "2026-11-17T08:05:00.000Z",
+  "globalStats": {
+    "uniqueClicks": 4,
+    "clickers": 4,
+    "complaints": 0,
+    "delivered": 194,
+    "sent": 198,
+    "softBounces": 1,
+    "hardBounces": 3,
+    "uniqueViews": 120,
+    "trackableViews": 80,
+    "unsubscriptions": 2,
+    "viewed": 150,
+    "appleMppOpens": 70
+  },
+  "linksStats": {
+    "https://neety.com/": 1,
+    "https://neety.com/blog/ejemplo": 1,
+    "https://x.r.sp1-brevo.net/unsubscribe/abc123": 1,
+    "https://neety.com/demo": 1
+  },
+  "clics": [
+    { "email": "alguien@neety.com", "url": "https://neety.com/", "t": "2026-11-17T08:20:00.000Z" },
+    { "email": "persona1@example.com", "url": "https://neety.com/blog/ejemplo", "t": "2026-11-17T08:05:30.000Z" },
+    { "email": "persona2@example.com", "url": "https://x.r.sp1-brevo.net/unsubscribe/abc123", "t": "2026-11-17T09:10:00.000Z" },
+    { "email": "persona3@example.com", "url": "https://neety.com/demo", "t": "2026-11-17T10:00:00.000Z" }
+  ]
+}

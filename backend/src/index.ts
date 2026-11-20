@@ -31,12 +31,14 @@ import { startAnuncioChat } from './services/anuncioChat';
 import { startAvisoWebinarLuma } from './services/avisoWebinarLuma';
 import { startPublicador } from './services/publicadorLinkedin';
 import { startAbeja } from './services/abeja';
+import { startNewsletterMetricas } from './services/metricasNewsletter';
 import { basicAuthMiddleware, identidadDe } from './middleware/basicAuth';
 import rastroRouter from './routes/rastro';
 import gateProxyRouter from './routes/gateProxy';
 import outliersRouter from './routes/outliers';
 import pillarsRouter from './routes/pillars';
 import semanaRouter from './routes/semana';
+import newsletterRouter from './routes/newsletter';
 import mcpRouter from './mcp/http';
 
 const app = express();
@@ -85,6 +87,7 @@ app.use('/api/reactions', reactionsRouter);
 app.use('/api/outliers', outliersRouter);
 app.use('/api/pillars', pillarsRouter);
 app.use('/api/semana', semanaRouter);
+app.use('/api/newsletter', newsletterRouter);
 // El MCP por HTTP. Va DESPUES del basicAuthMiddleware (montado arriba), asi que
 // hereda el mismo Basic Auth que el resto de la app: el cliente MCP manda la
 // cabecera Authorization y no hay una segunda credencial que mantener.
@@ -138,6 +141,8 @@ runMigrations()
     // Solo publica de verdad con la subida automática encendida desde la página Semana.
     startPublicador();
     startAbeja();
+    // Lee las campanas de Brevo (cada 6 h) y barre los clics por contacto (cada dia, 07:00 Madrid).
+    startNewsletterMetricas();
     // Reprocesa el pilar del historico SOLO si han cambiado las reglas de
     // services/pillar.ts (guarda de version en app_state). No bloquea el
     // arranque y no corre a diario: el disparador es el cambio de reglas.

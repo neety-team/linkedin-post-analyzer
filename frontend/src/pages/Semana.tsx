@@ -47,6 +47,7 @@ import { useApi, apiPost } from '../hooks/useApi';
 import { instanteMadrid, cuandoMadrid, horaMadrid, HORA_POR_DEFECTO } from '../utils/horaMadrid';
 // Colores y nombres compartidos con Cuentas, donde va el objetivo de lo publicado.
 import { OBJETIVO, type Objetivo } from '../utils/objetivo';
+import CanalSelector from '../components/CanalSelector';
 
 type Cuenta = 'iker' | 'unai' | 'asier';
 
@@ -2155,6 +2156,7 @@ export default function Semana() {
 
   const cabecera = (
     <>
+      <CanalSelector actual="linkedin" />
       <div>
         <p className="text-[13px] text-text-muted">{distancia(elegida, hoy)} en LinkedIn</p>
         <h1 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-text-primary tabular-nums">

@@ -158,9 +158,12 @@ def extraer(texto):
             mg = re.search(r'\[GIF(?::| )\s*([^\]]+)\]', cuerpo)
             if mg:
                 gif_alt = mg.group(1).strip()
-                emocion = next((e for e in GIFS if e in gif_alt), None)
-                if emocion is None and numero in (1, 4, 10):
-                    emocion = {1: 'estresado', 4: 'curiosidad', 10: 'curiosidad'}[numero]
+                mh = re.search(r'GIF:?\*{0,2} `([^`]+)`', bloque)   # cabecera del corpus: GIF `enfado`
+                emocion = mh.group(1) if mh and mh.group(1) in GIFS else None
+                if emocion is None:
+                    emocion = next((e for e in GIFS if e in gif_alt), None)
+                if emocion is None and numero == 1:
+                    emocion = 'estresado'   # corpus: la biblioteca lo usa en el correo 0
                 if numero not in GIF_SIN_URL and emocion:
                     gif_url = GIFS[emocion]
 
@@ -181,6 +184,8 @@ def extraer(texto):
             notas.append('Hora y fecha son las programadas según el corpus; no se comprobó el envío real.')
         if numero in GIF_SIN_URL:
             notas.append('El GIF salió del CDN de MailerLite y su URL no consta: gif_url null.')
+        if gif_alt and not gif_url and numero not in GIF_SIN_URL:
+            notas.append('GIF sin URL: no se pudo deducir su emoción del corpus.')
         if numero == 1:
             notas.append('Fecha y hora del primer envío (MailerLite, 07/08); la primera campaña de Brevo (id 2) salió el 20/08 18:40.')
 

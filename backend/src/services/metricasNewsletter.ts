@@ -211,17 +211,32 @@ export async function barrerContactos(
   campanas: Set<number>,
   fetcher: Fetcher,
   pausaMs = PAUSA_CONTACTO_MS
-): Promise<{ clics: ClicCampana[]; contactos: number; completado: boolean; error: string | null }> {
+): Promise<{
+  clics: ClicCampana[];
+  contactos: number;
+  completado: boolean;
+  error: string | null;
+  /** Listas que ya no existen en Brevo (404): se saltan sin cortar el barrido. */
+  listasSaltadas: number[];
+}> {
   const clics: ClicCampana[] = [];
   const emails = new Set<string>();
+  const listasSaltadas: number[] = [];
   let contactos = 0;
   try {
     for (const lista of listas) {
-      for (let offset = 0; ; offset += 500) {
-        const r = await brevo(`/contacts/lists/${lista}/contacts?limit=500&offset=${offset}`, fetcher, `/contacts/lists/${lista}/contacts`);
-        const cs: any[] = Array.isArray(r?.contacts) ? r.contacts : [];
-        for (const c of cs) if (typeof c?.email === 'string') emails.add(c.email.trim().toLowerCase());
-        if (cs.length < 500) break;
+      // Una lista borrada en Brevo sigue en `recipients.lists` de las campañas viejas (la 17 se
+      // borró el 19/10/2026): da 404, se apunta y se sigue con las demás.
+      try {
+        for (let offset = 0; ; offset += 500) {
+          const r = await brevo(`/contacts/lists/${lista}/contacts?limit=500&offset=${offset}`, fetcher, `/contacts/lists/${lista}/contacts`);
+          const cs: any[] = Array.isArray(r?.contacts) ? r.contacts : [];
+          for (const c of cs) if (typeof c?.email === 'string') emails.add(c.email.trim().toLowerCase());
+          if (cs.length < 500) break;
+        }
+      } catch (e: any) {
+        if (e?.status !== 404) throw e;
+        listasSaltadas.push(lista);
       }
     }
     for (const email of emails) {
@@ -243,9 +258,9 @@ export async function barrerContactos(
       }
       await pausa(pausaMs);
     }
-    return { clics, contactos, completado: true, error: null };
+    return { clics, contactos, completado: true, error: null, listasSaltadas };
   } catch (e) {
-    return { clics, contactos, completado: false, error: mensaje(e) };
+    return { clics, contactos, completado: false, error: mensaje(e), listasSaltadas };
   }
 }
 
@@ -300,7 +315,7 @@ export async function barrerClics(opts: Opts = {}): Promise<{ contactos: number;
 async function barrerClicsSinGuarda(opts: Opts): Promise<{ contactos: number; error: string | null }> {
   const fetcher = opts.fetcher || fetch;
   let error: string | null = null;
-  let r: Awaited<ReturnType<typeof barrerContactos>> = { clics: [], contactos: 0, completado: false, error: null };
+  let r: Awaited<ReturnType<typeof barrerContactos>> = { clics: [], contactos: 0, completado: false, error: null, listasSaltadas: [] };
   const ids = await campanasVinculadas();
   const fallos: string[] = [];
   try {
@@ -331,6 +346,7 @@ async function barrerClicsSinGuarda(opts: Opts): Promise<{ contactos: number; er
     }
     r = await barrerContactos([...listas], new Set(ids), fetcher, opts.pausaMs ?? PAUSA_CONTACTO_MS);
     error = r.error;
+    for (const l of r.listasSaltadas) fallos.push(`lista ${l}: ya no existe en Brevo (404)`);
   } catch (e) {
     error = mensaje(e);
   }

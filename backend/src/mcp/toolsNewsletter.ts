@@ -9,7 +9,7 @@ import {
   REMITENTES,
   NIVELES_CORREO,
 } from '../services/newsletter';
-import { refrescarMetricas, estadoMetricas, estadoBarrido } from '../services/metricasNewsletter';
+import { refrescarMetricas, estadoMetricas, estadoBarrido, barrerClics } from '../services/metricasNewsletter';
 
 /**
  * Las tools de LA NEWSLETTER (2026-11-20): los correos de la base, su
@@ -236,16 +236,27 @@ export function registrarToolsNewsletter(servidor: McpServer): void {
     {
       title: 'Leer de nuevo las métricas de Brevo',
       description:
-        'Lee ahora las campañas vinculadas de Brevo y actualiza sus métricas. Sin BREVO_API_KEY no hace nada.',
-      inputSchema: {},
+        'Lee ahora las campañas vinculadas de Brevo y actualiza sus métricas. Con `barrer_clics: true` lanza además el barrido de quién pulsó (el que corre solo a las 07:00), sin esperar a mañana; tarda unos minutos y su resultado sale en neety_newsletter_ver. Sin BREVO_API_KEY no hace nada.',
+      inputSchema: {
+        barrer_clics: z
+          .boolean()
+          .optional()
+          .describe('Lanza ya el barrido de clics contacto a contacto, en segundo plano'),
+      },
       annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
     },
-    async () => {
+    async ({ barrer_clics }) => {
       try {
         if (!estadoMetricas().configurado) return texto('Sin clave de Brevo (BREVO_API_KEY): no se lee nada.');
         const r = await refrescarMetricas();
+        let barrido = '';
+        if (barrer_clics) {
+          // En segundo plano: recorre cada contacto con pausa y tarda más que una llamada al MCP.
+          barrerClics().catch((e) => console.error('[newsletter] barrido manual:', e));
+          barrido = ' Barrido de clics lanzado: mira neety_newsletter_ver en unos minutos.';
+        }
         return texto(
-          `Campañas leídas: ${r.campanas}.` + (r.error ? ` Error: ${r.error}` : ' Sin errores.')
+          `Campañas leídas: ${r.campanas}.` + (r.error ? ` Error: ${r.error}` : ' Sin errores.') + barrido
         );
       } catch (e) {
         return error(e);

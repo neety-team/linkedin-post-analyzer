@@ -89,11 +89,11 @@ const res = (status: number, body: unknown) =>
     clickedLinks: { 'Version A': [{ clickRate: '0%', clicksCount: 0, link: 'https://google.com' }], 'Version B': [{ clickRate: '60%', clicksCount: 3, link: 'http://www.stackoverflow.com' }] },
     statistics: { clicks: { 'Version A': '0%', 'Version B': '50%' }, openers: { 'Version A': '20%', 'Version B': '100%' } },
   };
-  assert.equal(brazosAB({ abTesting: false }, resAB, 100), undefined);
-  assert.equal(brazosAB({ abTesting: true }, {}, 100), undefined);
-  assert.deepEqual(brazosAB({ abTesting: true, subjectA: 'Uno', subjectB: 'Dos' }, resAB, 100), {
-    a: { asunto: 'Uno', entregados: 50, aperturas: 10, clics: 0, estimado: true },
-    b: { asunto: 'Dos', entregados: 50, aperturas: 50, clics: 25, estimado: true },
+  assert.equal(brazosAB({ abTesting: false }, resAB), undefined);
+  assert.equal(brazosAB({ abTesting: true }, {}), undefined);
+  assert.deepEqual(brazosAB({ abTesting: true, subjectA: 'Uno', subjectB: 'Dos' }, resAB), {
+    a: { asunto: 'Uno', apertura: 0.2, clic: 0 },
+    b: { asunto: 'Dos', apertura: 1, clic: 0.5 },
   });
   const urlsAB: string[] = [];
   const fAB = (async (u: any) => {
@@ -105,7 +105,8 @@ const res = (status: number, body: unknown) =>
   const lab = await leerCampana(36, fAB);
   assert.ok(urlsAB.some((u) => u.endsWith('/emailCampaigns/36/abTestCampaignResult')));
   assert.equal(lab.datos.ab!.b.asunto, 'Dos');
-  assert.equal(lab.datos.ab!.b.entregados, 97);
+  assert.equal(lab.datos.ab!.b.apertura, 1);
+  assert.equal(brazosAB({ abTesting: true, subjectA: 'x' }, { statistics: { openers: { 'Version A': 'raro', 'Version B': '10%' } } })!.a.apertura, null);
 
   // (b) los contactos salen de las listas de la campaña; el barrido pagina y filtra campañas ajenas
   const llamadas: string[] = [];

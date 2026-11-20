@@ -24,10 +24,8 @@ export interface Clic {
 // Un brazo de un test A/B. Lo rellena la capa de Brevo.
 export interface Brazo {
   asunto: string;
-  entregados: number;
-  aperturas: number;
-  clics: number;
-  estimado?: boolean; // los conteos de cada brazo se estiman (Brevo da solo porcentajes)
+  apertura: number | null; // 0-1, tal como lo da Brevo
+  clic: number | null; // 0-1, tal como lo da Brevo
 }
 
 export interface Metricas {
@@ -142,24 +140,21 @@ function porcentaje(v: unknown): number | null {
 }
 
 /**
- * Los dos brazos de un test A/B desde `GET /emailCampaigns/{id}/abTestCampaignResult`
- * (statistics.openers / clicks traen un porcentaje por version: "Version A", "Version B").
- * Brevo no da los conteos por brazo: se estiman con la mitad de los entregados
- * (los grupos del test son iguales) y el brazo va marcado `estimado`.
+ * Los dos brazos de un test A/B desde `GET /emailCampaigns/{id}/abTestCampaignResult`.
+ * Brevo solo da porcentajes por version ("Version A", "Version B"), sin recuentos:
+ * se guardan como tasas 0-1 y no se inventa ningun numero.
  */
-export function brazosAB(campana: any, resultado: any, entregados: number): { a: Brazo; b: Brazo } | undefined {
+export function brazosAB(campana: any, resultado: any): { a: Brazo; b: Brazo } | undefined {
   if (!campana?.abTesting || !resultado || typeof resultado !== 'object') return undefined;
   const st = resultado.statistics || {};
-  const arm = (v: 'Version A' | 'Version B', asunto: unknown): Brazo | null => {
-    const ap = porcentaje(st.openers?.[v]);
-    const cl = porcentaje(st.clicks?.[v]);
-    if (ap === null || cl === null) return null;
-    const n = Math.round(entregados / 2);
-    return { asunto: String(asunto ?? ''), entregados: n, aperturas: Math.round(ap * n), clics: Math.round(cl * n), estimado: true };
-  };
+  const arm = (v: 'Version A' | 'Version B', asunto: unknown): Brazo => ({
+    asunto: String(asunto ?? ''),
+    apertura: porcentaje(st.openers?.[v]),
+    clic: porcentaje(st.clicks?.[v]),
+  });
   const a = arm('Version A', campana.subjectA);
   const b = arm('Version B', campana.subjectB);
-  return a && b ? { a, b } : undefined;
+  return a.apertura === null && a.clic === null && b.apertura === null && b.clic === null ? undefined : { a, b };
 }
 
 // ----- lectura de campanas -----
@@ -188,7 +183,7 @@ export async function leerCampana(
   if (g?.abTesting) {
     try {
       const r = await brevo(`/emailCampaigns/${id}/abTestCampaignResult`, fetcher);
-      const ab = brazosAB(g, r, datos.global.delivered ?? 0);
+      const ab = brazosAB(g, r);
       if (ab) datos.ab = ab;
     } catch (e: any) {
       if (e?.status !== 404 && e?.status !== 400) throw e; // aun sin resultado: sin A/B

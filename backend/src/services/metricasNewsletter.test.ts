@@ -220,6 +220,31 @@ const res = (status: number, body: unknown) =>
   assert.equal(b2.r.error, null);
   assert.equal(b2.r.contactos, 1);
   assert.ok(!pedidas.some((u) => u.includes('/emailCampaigns/')), 'las listas salen de newsletter_metricas');
+
+  // Una lista borrada en Brevo (404) se salta y se apunta: los contactos de la 15 se barren igual
+  const fLista = (async (u: any) => {
+    const url = String(u);
+    if (url.includes('/contacts/lists/17/contacts')) return res(404, {});
+    if (url.includes('/contacts/lists/15/contacts')) return res(200, { contacts: [{ email: 'p@x.com' }] });
+    if (url.includes('/contacts/p%40x.com')) {
+      return res(200, { statistics: { clicked: [{ campaignId: 36, links: [{ url: 'https://neety.com/a', eventTime: '2026-11-17T09:00:00.000Z' }] }] } });
+    }
+    return res(500, {});
+  }) as typeof fetch;
+  const directo = await barrerContactos([17, 15], new Set([36]), fLista, 0);
+  assert.equal(directo.completado, true);
+  assert.deepEqual(directo.listasSaltadas, [17]);
+  assert.equal(directo.contactos, 1);
+  const b3 = await barrido([{ campaign_id: 36, listas: [17, 15] }, { campaign_id: 38, listas: [15] }], fLista);
+  assert.equal(b3.r.contactos, 1, 'la lista 17 no corta el barrido');
+  assert.deepEqual(b3.insertados, [[36, 'p@x.com', 'https://neety.com/a', '2026-11-17T09:00:00.000Z']]);
+  assert.match(b3.r.error!, /^saltadas .*lista 17/);
+  assert.equal(b3.errorGuardado, b3.r.error);
+  // Un error que no es 404 en una lista sí corta, como antes
+  const f500 = (async (u: any) => (String(u).includes('/contacts/lists/') ? res(500, {}) : res(200, {}))) as typeof fetch;
+  const roto = await barrerContactos([15], new Set([36]), f500, 0);
+  assert.equal(roto.completado, false);
+  assert.match(roto.error!, /500/);
   delete process.env.BREVO_API_KEY;
 
   await conversionesAsync();

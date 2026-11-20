@@ -8,6 +8,7 @@
  * Solo Iker aprueba. Un correo aprobado cuyo texto cambia vuelve a borrador.
  */
 import { createHash } from 'node:crypto';
+import type { PoolClient } from 'pg';
 import pool from '../db';
 import type { Identidad } from '../middleware/basicAuth';
 import { metricasDeCorreo } from './metricasNewsletter';
@@ -75,17 +76,62 @@ export function puedeAprobar(id: Identidad | null): boolean {
   return !!id && typeof id.email === 'string' && id.email.trim().toLowerCase() === APROBADOR;
 }
 
-export function motivoNoAprobable(c: { estado: string; validador_ok: boolean }): string | null {
+/** Lo que se contesta cuando el texto que Iker vio ya no es el que hay guardado. */
+export const MOTIVO_CAMBIADO = 'El correo ha cambiado desde que lo abriste: recarga la página';
+
+/**
+ * Por que no se puede aprobar. Con `huellaVista` (la huella que la tarjeta pinto),
+ * ademas exige que el texto guardado sea exactamente el que se vio.
+ */
+export function motivoNoAprobable(
+  c: { estado: string; validador_ok: boolean; huella?: string | null },
+  huellaVista?: string
+): string | null {
   if (c.estado !== 'borrador') return `solo se aprueba un borrador (está en «${c.estado}»)`;
   if (!c.validador_ok) return 'el validador no está en verde';
+  if (huellaVista !== undefined && c.huella !== huellaVista) return MOTIVO_CAMBIADO;
   return null;
 }
 
-/** El estado al vincular o desvincular una campana de Brevo. */
-export function estadoAlVincular(estado: string, campaignId: number | null, historico: boolean): string {
-  if (campaignId == null) return 'borrador';
-  if (historico) return 'enviado';
-  return estado === 'aprobado' ? 'programado' : 'no_aprobado';
+const FORMATO_DIA_MADRID = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit',
+});
+/** El dia (YYYY-MM-DD) en Madrid. */
+export function diaMadrid(d: Date): string {
+  return FORMATO_DIA_MADRID.format(d);
+}
+
+export const MOTIVO_NO_APROBADO = 'no está aprobado: solo Iker lo aprueba en la página Newsletter';
+
+/**
+ * El estado al vincular o desvincular una campana de Brevo, o el motivo por el que no se puede.
+ * - null desvincula y vuelve a borrador, salvo un enviado: lo enviado no se deshace.
+ * - `historico` (cargar lo ya enviado) solo desde idea o borrador y con una fecha anterior a hoy
+ *   en Madrid: no sirve para saltarse la aprobacion de un correo que aun no ha salido.
+ * - Con id, solo un aprobado pasa a programado.
+ */
+export function estadoAlVincular(
+  c: { estado: string; fecha?: string | null },
+  campaignId: number | null,
+  historico: boolean,
+  hoy: Date = new Date()
+): { estado: string } | { motivo: string } {
+  if (campaignId == null) {
+    if (c.estado === 'enviado') return { motivo: 'ya está enviado: un correo enviado no se desvincula' };
+    return { estado: 'borrador' };
+  }
+  if (historico) {
+    if (c.estado !== 'idea' && c.estado !== 'borrador') {
+      return { motivo: `histórico solo vale para una idea o un borrador (está en «${c.estado}»)` };
+    }
+    if (!c.fecha || !RE_FECHA.test(c.fecha)) return { motivo: 'histórico exige la fecha del envío y el correo no la tiene' };
+    if (c.fecha >= diaMadrid(hoy)) {
+      return { motivo: `histórico solo vale para un correo ya enviado: su fecha (${c.fecha}) no es anterior a hoy` };
+    }
+    return { estado: 'enviado' };
+  }
+  if (c.estado !== 'aprobado') return { motivo: MOTIVO_NO_APROBADO };
+  return { estado: 'programado' };
 }
 
 function limpio(v: unknown, max: number): string {
@@ -131,70 +177,86 @@ export async function guardarCorreos(
       rechazados.push({ clave, motivo: malo });
       continue;
     }
-    const { rows } = await pool.query(`SELECT ${COLUMNAS} FROM newsletter_correos WHERE clave = $1`, [clave]);
-    const previo = rows[0];
-    if (previo) {
-      const motivo = motivoNoReescribible(previo);
-      if (motivo) {
-        rechazados.push({ clave, motivo });
-        continue;
-      }
+    // Cada entrada en su transaccion y con la fila bloqueada: entre leer el estado y
+    // escribir no puede colarse una aprobacion ni una vinculacion.
+    const cx = await pool.connect();
+    try {
+      await cx.query('BEGIN');
+      const motivo = await guardarUno(cx, clave, e);
+      await cx.query('COMMIT');
+      if (motivo) rechazados.push({ clave, motivo });
+      else guardados.push(clave);
+    } catch (err) {
+      await cx.query('ROLLBACK').catch(() => {});
+      throw err;
+    } finally {
+      cx.release();
     }
-    const base = previo || {};
-    const m = (k: keyof CorreoEntrada, def: any = null) => (e[k] !== undefined ? (e as any)[k] : (base as any)[k] ?? def);
-    const fusion = {
-      numero: m('numero'),
-      fecha: m('fecha'),
-      hora: m('hora'),
-      remitente: m('remitente'),
-      asunto: limpio(m('asunto', ''), 300),
-      asunto_b: e.asunto_b !== undefined ? opcional(e.asunto_b, 300) : base.asunto_b ?? null,
-      preview: limpio(m('preview', ''), 400),
-      preview_b: e.preview_b !== undefined ? opcional(e.preview_b, 400) : base.preview_b ?? null,
-      cuerpo: String(m('cuerpo', '')).trim(),
-      gif_url: e.gif_url !== undefined ? opcional(e.gif_url, 1000) : base.gif_url ?? null,
-      gif_alt: e.gif_alt !== undefined ? opcional(e.gif_alt, 300) : base.gif_alt ?? null,
-      enlace: e.enlace !== undefined ? opcional(e.enlace, 1000) : base.enlace ?? null,
-      utm_campaign: e.utm_campaign !== undefined ? opcional(e.utm_campaign, 200) : base.utm_campaign ?? null,
-      utm_source: e.utm_source !== undefined ? opcional(e.utm_source, 200) : base.utm_source ?? null,
-      pilar: e.pilar !== undefined ? opcional(e.pilar, 100) : base.pilar ?? null,
-      tipo_cliente: e.tipo_cliente !== undefined ? opcional(e.tipo_cliente, 100) : base.tipo_cliente ?? null,
-      por_que: e.por_que !== undefined ? opcional(e.por_que, 4000) : base.por_que ?? null,
-      validador: e.validador !== undefined ? opcional(e.validador, 8000) : base.validador ?? null,
-      validador_ok: e.validador_ok !== undefined ? !!e.validador_ok : !!base.validador_ok,
-    };
-    const huella = huellaTexto(fusion as any);
-    const estado = previo
-      ? estadoTrasReescribir({ estado: previo.estado, huella: previo.huella }, huella, e.estado)
-      : e.estado || 'idea';
-    const vuelveABorrador = !!previo && previo.estado === 'aprobado' && estado === 'borrador';
-    const vals = [
-      clave, fusion.numero, fusion.fecha, fusion.hora, fusion.remitente, fusion.asunto, fusion.asunto_b,
-      fusion.preview, fusion.preview_b, fusion.cuerpo, fusion.gif_url, fusion.gif_alt, fusion.enlace,
-      fusion.utm_campaign, fusion.utm_source, fusion.pilar, fusion.tipo_cliente, fusion.por_que,
-      fusion.validador, fusion.validador_ok, huella, estado, vuelveABorrador,
-    ];
-    await pool.query(
-      `INSERT INTO newsletter_correos
-         (clave, numero, fecha, hora, remitente, asunto, asunto_b, preview, preview_b, cuerpo, gif_url, gif_alt,
-          enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que, validador, validador_ok, huella, estado)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)
-       ON CONFLICT (clave) DO UPDATE SET
-         numero = EXCLUDED.numero, fecha = EXCLUDED.fecha, hora = EXCLUDED.hora, remitente = EXCLUDED.remitente,
-         asunto = EXCLUDED.asunto, asunto_b = EXCLUDED.asunto_b, preview = EXCLUDED.preview,
-         preview_b = EXCLUDED.preview_b, cuerpo = EXCLUDED.cuerpo, gif_url = EXCLUDED.gif_url,
-         gif_alt = EXCLUDED.gif_alt, enlace = EXCLUDED.enlace, utm_campaign = EXCLUDED.utm_campaign,
-         utm_source = EXCLUDED.utm_source, pilar = EXCLUDED.pilar, tipo_cliente = EXCLUDED.tipo_cliente,
-         por_que = EXCLUDED.por_que, validador = EXCLUDED.validador, validador_ok = EXCLUDED.validador_ok,
-         huella = EXCLUDED.huella, estado = EXCLUDED.estado,
-         aprobado_por = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_por END,
-         aprobado_at = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_at END,
-         updated_at = NOW()`,
-      vals
-    );
-    guardados.push(clave);
   }
   return { guardados, rechazados };
+}
+
+/** Guarda una entrada dentro de la transaccion abierta en `cx`. Devuelve el motivo si se rechaza. */
+async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Promise<string | null> {
+  const { rows } = await cx.query(`SELECT ${COLUMNAS} FROM newsletter_correos WHERE clave = $1 FOR UPDATE`, [clave]);
+  const previo = rows[0];
+  if (previo) {
+    const motivo = motivoNoReescribible(previo);
+    if (motivo) return motivo;
+  }
+  const base = previo || {};
+  const m = (k: keyof CorreoEntrada, def: any = null) => (e[k] !== undefined ? (e as any)[k] : (base as any)[k] ?? def);
+  const fusion = {
+    numero: m('numero'),
+    fecha: m('fecha'),
+    hora: m('hora'),
+    remitente: m('remitente'),
+    asunto: limpio(m('asunto', ''), 300),
+    asunto_b: e.asunto_b !== undefined ? opcional(e.asunto_b, 300) : base.asunto_b ?? null,
+    preview: limpio(m('preview', ''), 400),
+    preview_b: e.preview_b !== undefined ? opcional(e.preview_b, 400) : base.preview_b ?? null,
+    cuerpo: String(m('cuerpo', '')).trim(),
+    gif_url: e.gif_url !== undefined ? opcional(e.gif_url, 1000) : base.gif_url ?? null,
+    gif_alt: e.gif_alt !== undefined ? opcional(e.gif_alt, 300) : base.gif_alt ?? null,
+    enlace: e.enlace !== undefined ? opcional(e.enlace, 1000) : base.enlace ?? null,
+    utm_campaign: e.utm_campaign !== undefined ? opcional(e.utm_campaign, 200) : base.utm_campaign ?? null,
+    utm_source: e.utm_source !== undefined ? opcional(e.utm_source, 200) : base.utm_source ?? null,
+    pilar: e.pilar !== undefined ? opcional(e.pilar, 100) : base.pilar ?? null,
+    tipo_cliente: e.tipo_cliente !== undefined ? opcional(e.tipo_cliente, 100) : base.tipo_cliente ?? null,
+    por_que: e.por_que !== undefined ? opcional(e.por_que, 4000) : base.por_que ?? null,
+    validador: e.validador !== undefined ? opcional(e.validador, 8000) : base.validador ?? null,
+    validador_ok: e.validador_ok !== undefined ? !!e.validador_ok : !!base.validador_ok,
+  };
+  const huella = huellaTexto(fusion as any);
+  const estado = previo
+    ? estadoTrasReescribir({ estado: previo.estado, huella: previo.huella }, huella, e.estado)
+    : e.estado || 'idea';
+  const vuelveABorrador = !!previo && previo.estado === 'aprobado' && estado === 'borrador';
+  const vals = [
+    clave, fusion.numero, fusion.fecha, fusion.hora, fusion.remitente, fusion.asunto, fusion.asunto_b,
+    fusion.preview, fusion.preview_b, fusion.cuerpo, fusion.gif_url, fusion.gif_alt, fusion.enlace,
+    fusion.utm_campaign, fusion.utm_source, fusion.pilar, fusion.tipo_cliente, fusion.por_que,
+    fusion.validador, fusion.validador_ok, huella, estado, vuelveABorrador,
+  ];
+  await cx.query(
+    `INSERT INTO newsletter_correos
+       (clave, numero, fecha, hora, remitente, asunto, asunto_b, preview, preview_b, cuerpo, gif_url, gif_alt,
+        enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que, validador, validador_ok, huella, estado)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)
+     ON CONFLICT (clave) DO UPDATE SET
+       numero = EXCLUDED.numero, fecha = EXCLUDED.fecha, hora = EXCLUDED.hora, remitente = EXCLUDED.remitente,
+       asunto = EXCLUDED.asunto, asunto_b = EXCLUDED.asunto_b, preview = EXCLUDED.preview,
+       preview_b = EXCLUDED.preview_b, cuerpo = EXCLUDED.cuerpo, gif_url = EXCLUDED.gif_url,
+       gif_alt = EXCLUDED.gif_alt, enlace = EXCLUDED.enlace, utm_campaign = EXCLUDED.utm_campaign,
+       utm_source = EXCLUDED.utm_source, pilar = EXCLUDED.pilar, tipo_cliente = EXCLUDED.tipo_cliente,
+       por_que = EXCLUDED.por_que, validador = EXCLUDED.validador, validador_ok = EXCLUDED.validador_ok,
+       huella = EXCLUDED.huella, estado = EXCLUDED.estado,
+       aprobado_por = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_por END,
+       aprobado_at = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_at END,
+       updated_at = NOW()`,
+    vals
+  );
+  return null;
 }
 
 /** Los correos con su feedback. Los enviados, del mas reciente al mas antiguo; el resto, por fecha. */
@@ -225,44 +287,65 @@ export async function listarCorreos(): Promise<{ proximos: any[]; enviados: any[
 }
 
 /** Solo Iker aprueba. Devuelve 'ok', 'no_existe' o el motivo por el que no se puede. */
-export async function aprobarCorreo(id: string, quien: Identidad): Promise<'ok' | 'no_existe' | string> {
-  const { rows } = await pool.query(`SELECT estado, validador_ok FROM newsletter_correos WHERE id = $1`, [id]);
+/**
+ * Solo Iker aprueba, y solo el texto que vio: `huella` es la que la tarjeta pinto. Si el
+ * correo se reescribio entre medias, no se aprueba (MOTIVO_CAMBIADO). El UPDATE repite las
+ * condiciones para que una reescritura concurrente no se cuele entre la lectura y la escritura.
+ */
+export async function aprobarCorreo(id: string, quien: Identidad, huella: string): Promise<'ok' | 'no_existe' | string> {
+  const { rows } = await pool.query(`SELECT estado, validador_ok, huella FROM newsletter_correos WHERE id = $1`, [id]);
   if (!rows.length) return 'no_existe';
   if (!puedeAprobar(quien)) return `solo ${APROBADOR} aprueba los correos`;
-  const motivo = motivoNoAprobable(rows[0]);
+  const motivo = motivoNoAprobable(rows[0], huella);
   if (motivo) return motivo;
-  await pool.query(
+  const r = await pool.query(
     `UPDATE newsletter_correos
         SET estado = 'aprobado', aprobado_por = $2, aprobado_at = NOW(), updated_at = NOW()
-      WHERE id = $1`,
-    [id, quien.email.trim().toLowerCase()]
+      WHERE id = $1 AND estado = 'borrador' AND validador_ok AND huella = $3`,
+    [id, quien.email.trim().toLowerCase(), huella]
   );
-  return 'ok';
+  return r.rowCount ? 'ok' : MOTIVO_CAMBIADO;
 }
 
 /**
- * Enlaza un correo con su campana de Brevo. Con id pasa a `programado` y exige
- * `aprobado`; con `historico` pasa a `enviado` sin exigirlo (solo la carga de lo
- * ya enviado). Con null desvincula y vuelve a `borrador`.
+ * Enlaza un correo con su campana de Brevo (reglas en `estadoAlVincular`). Una campana
+ * solo puede estar en un correo. Devuelve 'ok', 'no_existe' o el motivo por el que no se puede.
  */
 export async function vincularCampana(
   clave: string,
   campaignId: number | null,
   opts: { historico?: boolean } = {}
-): Promise<'ok' | 'no_existe' | 'no_aprobado'> {
-  const { rows } = await pool.query(`SELECT estado FROM newsletter_correos WHERE clave = $1`, [clave]);
-  if (!rows.length) return 'no_existe';
-  const nuevo = estadoAlVincular(rows[0].estado, campaignId, !!opts.historico);
-  if (nuevo === 'no_aprobado') return 'no_aprobado';
-  await pool.query(
-    `UPDATE newsletter_correos
-        SET brevo_campaign_id = $2, estado = $3,
-            aprobado_por = CASE WHEN $3 = 'borrador' THEN NULL ELSE aprobado_por END,
-            aprobado_at = CASE WHEN $3 = 'borrador' THEN NULL ELSE aprobado_at END,
-            updated_at = NOW()
-      WHERE clave = $1`,
-    [clave, campaignId, nuevo]
+): Promise<'ok' | 'no_existe' | string> {
+  const { rows } = await pool.query(
+    `SELECT estado, to_char(fecha, 'YYYY-MM-DD') AS fecha FROM newsletter_correos WHERE clave = $1`,
+    [clave]
   );
+  if (!rows.length) return 'no_existe';
+  const r = estadoAlVincular(rows[0], campaignId, !!opts.historico);
+  if ('motivo' in r) return r.motivo;
+  if (campaignId != null) {
+    const otro = await pool.query(
+      `SELECT clave FROM newsletter_correos WHERE brevo_campaign_id = $1 AND clave <> $2 LIMIT 1`,
+      [campaignId, clave]
+    );
+    if (otro.rows.length) return `la campaña ${campaignId} ya está vinculada al correo ${otro.rows[0].clave}`;
+  }
+  try {
+    // Solo si el estado sigue siendo el que se leyo: si cambio entre medias, no se pisa.
+    const u = await pool.query(
+      `UPDATE newsletter_correos
+          SET brevo_campaign_id = $2, estado = $3,
+              aprobado_por = CASE WHEN $3 = 'borrador' THEN NULL ELSE aprobado_por END,
+              aprobado_at = CASE WHEN $3 = 'borrador' THEN NULL ELSE aprobado_at END,
+              updated_at = NOW()
+        WHERE clave = $1 AND estado = $4`,
+      [clave, campaignId, r.estado, rows[0].estado]
+    );
+    if (!u.rowCount) return 'el correo ha cambiado de estado mientras se vinculaba: vuelve a intentarlo';
+  } catch (err: any) {
+    if (err?.code === '23505') return `la campaña ${campaignId} ya está vinculada a otro correo`;
+    throw err;
+  }
   return 'ok';
 }
 

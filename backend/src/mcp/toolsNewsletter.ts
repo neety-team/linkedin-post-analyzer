@@ -149,8 +149,9 @@ export function registrarToolsNewsletter(servidor: McpServer): void {
       title: 'Vincular un correo con su campaña de Brevo',
       description:
         'Enlaza un correo con la campaña de Brevo. Con `campaign_id` pasa a programado y exige que esté ' +
-        'aprobado por Iker. Con `historico` pasa a enviado sin exigirlo (solo para cargar lo ya enviado). ' +
-        'Con null desvincula y vuelve a borrador.',
+        'aprobado por Iker. Con `historico` pasa a enviado sin exigirlo, pero solo para cargar lo ya ' +
+        'enviado: el correo tiene que estar en idea o borrador y su fecha ser anterior a hoy (Madrid). ' +
+        'Una campaña solo puede estar en un correo. Con null desvincula y vuelve a borrador, salvo un enviado.',
       inputSchema: {
         clave: z.string().describe('La clave del correo'),
         campaign_id: z.number().int().nullable().describe('Id de la campaña en Brevo, o null para desvincular'),
@@ -162,8 +163,7 @@ export function registrarToolsNewsletter(servidor: McpServer): void {
       try {
         const r = await vincularCampana(args.clave, args.campaign_id, { historico: args.historico });
         if (r === 'no_existe') return error(new Error(`No existe el correo ${args.clave}`));
-        if (r === 'no_aprobado')
-          return error(new Error(`El correo ${args.clave} no está aprobado: solo Iker lo aprueba en la página Newsletter`));
+        if (r !== 'ok') return error(new Error(`No se vincula el correo ${args.clave}: ${r}`));
         return texto(
           args.campaign_id == null
             ? `Correo ${args.clave} desvinculado, vuelve a borrador.`

@@ -42,7 +42,24 @@ export const serviciosReales: DepsNewsletter = {
   conversionesDeEnviados,
 };
 
-export function crearRouter(deps: DepsNewsletter = serviciosReales): Router {
+/** Lo más que espera el GET a las conversiones antes de responder sin ellas. */
+export const MS_CONVERSIONES = 2000;
+
+/** La promesa, o `alternativa` si tarda más de `ms`. El temporizador no retiene el proceso. */
+function conTope<T>(p: Promise<T>, ms: number, alternativa: T): Promise<T> {
+  let t: NodeJS.Timeout | undefined;
+  const tope = new Promise<T>((r) => {
+    t = setTimeout(() => r(alternativa), ms);
+    t.unref?.();
+  });
+  return Promise.race([p.catch(() => alternativa), tope]).finally(() => clearTimeout(t));
+}
+
+export function crearRouter(
+  deps: DepsNewsletter = serviciosReales,
+  opts: { msConversiones?: number } = {}
+): Router {
+  const msConversiones = opts.msConversiones ?? MS_CONVERSIONES;
   const router = Router();
   router.use(express.json({ limit: '100kb' }));
 
@@ -54,8 +71,10 @@ export function crearRouter(deps: DepsNewsletter = serviciosReales): Router {
       const { proximos, enviados } = await deps.listarCorreos();
       const { configurado } = deps.estadoMetricas();
       const barrido = await deps.estadoBarrido();
-      // Las conversiones no pueden tumbar la pestaña: si fallan, quedan en null.
-      const conv = await deps.conversionesDeEnviados(enviados).catch(() => []);
+      // Las conversiones no pueden tumbar ni frenar la pestaña: si fallan o tardan más de
+      // ~2 s, quedan en null. Los inscritos ni se leen (conversionesDeEnviados no llama a
+      // leerEventos): hoy siempre darían null, hasta que `origenInscrito` guarde la clave del correo.
+      const conv = await conTope(deps.conversionesDeEnviados(enviados), msConversiones, []);
       res.json({
         proximos,
         enviados: enviados.map((c, i) => ({ ...c, conversiones: conv[i] ?? { demos: null, inscritos: null } })),
@@ -69,8 +88,9 @@ export function crearRouter(deps: DepsNewsletter = serviciosReales): Router {
   });
 
   /**
-   * POST /api/newsletter/correos/:id/aprobar — solo Iker. Primero la identidad
-   * y luego la existencia: quien no aprueba no puede sondear ids.
+   * POST /api/newsletter/correos/:id/aprobar {huella} — solo Iker. Primero la identidad
+   * y luego la existencia: quien no aprueba no puede sondear ids. `huella` es la del texto
+   * que la tarjeta pintó: si el correo cambió desde entonces, 409 y no se aprueba.
    */
   router.post('/correos/:id/aprobar', async (req: Request, res: Response) => {
     try {
@@ -78,7 +98,11 @@ export function crearRouter(deps: DepsNewsletter = serviciosReales): Router {
       if (!deps.puedeAprobar(yo)) return res.status(403).json({ error: 'Solo Iker aprueba los correos' });
       const id = idDe(req);
       if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
-      const r = await deps.aprobarCorreo(id, yo!);
+      const huella = (req.body || {}).huella;
+      if (typeof huella !== 'string' || !huella) {
+        return res.status(400).json({ error: 'Falta la huella del texto que se aprueba: recarga la página' });
+      }
+      const r = await deps.aprobarCorreo(id, yo!, huella);
       if (r === 'no_existe') return res.status(404).json({ error: 'Correo no encontrado' });
       if (r !== 'ok') return res.status(409).json({ error: r });
       const { proximos, enviados } = await deps.listarCorreos();

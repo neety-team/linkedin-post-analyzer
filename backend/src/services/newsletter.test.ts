@@ -7,6 +7,9 @@ import {
   puedeAprobar,
   motivoNoAprobable,
   estadoAlVincular,
+  diaMadrid,
+  MOTIVO_CAMBIADO,
+  MOTIVO_NO_APROBADO,
 } from './newsletter';
 
 const h = huellaTexto({ remitente: 'Kaixito', asunto: 'a', cuerpo: 'x' } as any);
@@ -28,12 +31,32 @@ assert.ok(motivoNoAprobable({ estado: 'idea', validador_ok: true }));
 assert.equal(huellaTexto({ remitente: 'Kaixito', asunto: 'a', cuerpo: 'x', pilar: 'p' } as any), h);
 assert.notEqual(huellaTexto({ remitente: 'Kaixito', asunto: 'b', cuerpo: 'x' } as any), h);
 
-// Vincular una campana
-assert.equal(estadoAlVincular('aprobado', 38, false), 'programado');
-assert.equal(estadoAlVincular('borrador', 38, false), 'no_aprobado');
-assert.equal(estadoAlVincular('idea', 38, false), 'no_aprobado');
-assert.equal(estadoAlVincular('borrador', 36, true), 'enviado');
-assert.equal(estadoAlVincular('programado', null, false), 'borrador');
-assert.equal(estadoAlVincular('enviado', null, false), 'borrador');
+// Aprobar solo el texto que se vio
+assert.equal(motivoNoAprobable({ estado: 'borrador', validador_ok: true, huella: h }, h), null);
+assert.equal(motivoNoAprobable({ estado: 'borrador', validador_ok: true, huella: h }, 'vieja'), MOTIVO_CAMBIADO);
+assert.equal(motivoNoAprobable({ estado: 'borrador', validador_ok: true, huella: null }, h), MOTIVO_CAMBIADO);
+
+// Vincular una campana. "Hoy" es el 20/11 a las 23:30 UTC, que en Madrid ya es el 21/11.
+const hoy = new Date('2026-11-20T23:30:00Z');
+assert.equal(diaMadrid(hoy), '2026-11-21');
+const est = (r: { estado: string } | { motivo: string }) => ('estado' in r ? r.estado : `motivo: ${r.motivo}`);
+assert.equal(est(estadoAlVincular({ estado: 'aprobado' }, 38, false, hoy)), 'programado');
+assert.equal(est(estadoAlVincular({ estado: 'borrador' }, 38, false, hoy)), `motivo: ${MOTIVO_NO_APROBADO}`);
+assert.equal(est(estadoAlVincular({ estado: 'idea' }, 38, false, hoy)), `motivo: ${MOTIVO_NO_APROBADO}`);
+assert.equal(est(estadoAlVincular({ estado: 'programado' }, null, false, hoy)), 'borrador');
+// Un enviado no se desvincula
+assert.match(est(estadoAlVincular({ estado: 'enviado' }, null, false, hoy)), /motivo: .*enviado/);
+// Histórico: idea o borrador con fecha anterior a hoy (Madrid) pasa a enviado
+assert.equal(est(estadoAlVincular({ estado: 'borrador', fecha: '2026-11-12' }, 36, true, hoy)), 'enviado');
+assert.equal(est(estadoAlVincular({ estado: 'idea', fecha: '2026-11-20' }, 36, true, hoy)), 'enviado', 'el 20 ya es ayer en Madrid');
+// Histórico rechazado: desde aprobado, programado o enviado
+for (const estado of ['aprobado', 'programado', 'enviado']) {
+  assert.match(est(estadoAlVincular({ estado, fecha: '2026-11-12' }, 36, true, hoy)), /motivo: histórico solo vale para una idea o un borrador/);
+}
+// Histórico rechazado: fecha de hoy o futura, o sin fecha
+assert.match(est(estadoAlVincular({ estado: 'borrador', fecha: '2026-11-21' }, 39, true, hoy)), /motivo: .*no es anterior a hoy/);
+assert.match(est(estadoAlVincular({ estado: 'borrador', fecha: '2026-11-24' }, 39, true, hoy)), /motivo: .*no es anterior a hoy/);
+assert.match(est(estadoAlVincular({ estado: 'borrador', fecha: null }, 39, true, hoy)), /motivo: .*fecha/);
+assert.match(est(estadoAlVincular({ estado: 'borrador' }, 39, true, hoy)), /motivo: .*fecha/);
 
 console.log('newsletter.test.ts: OK');

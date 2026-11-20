@@ -1360,6 +1360,9 @@ const migracionSemana = `
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
   );
   CREATE INDEX IF NOT EXISTS idx_newsletter_correos_fecha ON newsletter_correos (fecha);
+  -- Una campana de Brevo solo puede estar en un correo (las tandas van cada una en su fila).
+  CREATE UNIQUE INDEX IF NOT EXISTS idx_newsletter_correos_campana
+    ON newsletter_correos (brevo_campaign_id) WHERE brevo_campaign_id IS NOT NULL;
 
   CREATE TABLE IF NOT EXISTS newsletter_feedback (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),

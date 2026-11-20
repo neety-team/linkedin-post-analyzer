@@ -18,3 +18,6 @@ dist/
 # caches de Python: se regeneran solos y ensuciaban cada commit
 __pycache__/
 *.pyc
+
+# salida de scripts/cargar-historico-newsletter.py: datos de correos, no se commitea
+newsletter-historico.json

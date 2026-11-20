@@ -11,11 +11,13 @@ Fuentes (no se inventa nada: lo que no aparece, va a null):
   - docs/skills/historial-newsletter.md    : ids de campaña de Brevo (tabla
     CAMPANAS de abajo, copiada de ahí con su línea) y horas reales.
 
-Regla de varias campañas (tandas): UNA entrada por correo, con la PRIMERA
-campaña de Brevo como `brevo_campaign_id`; las demás se listan en `por_que`.
+Regla de varias campañas (tandas): UNA entrada por TANDA, cada una con su
+campaña de Brevo (una campaña solo puede estar en un correo). La clave es
+`correo-NN-remitente-tanda-N`, el `numero` es el del correo y `por_que` dice
+que es la tanda N de M. Un correo de una sola campaña conserva su clave.
 
 Uso: python3 scripts/cargar-historico-newsletter.py [salida.json]
-El JSON NO se commitea.
+Por defecto escribe ./newsletter-historico.json (en .gitignore: NO se commitea).
 """
 import json
 import re
@@ -24,13 +26,13 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 CORPUS = RAIZ / 'docs' / 'skills' / 'corpus-correos-enviados.md'
-SALIDA_POR_DEFECTO = ('/private/tmp/claude-501/-Users-ikergalarza-Desktop-contenido/'
-                      '0e9a7c21-c5bc-45ff-bdf3-e02a7f1f1232/scratchpad/newsletter-historico.json')
+SALIDA_POR_DEFECTO = 'newsletter-historico.json'   # relativo a donde se ejecuta
 
 REMITENTES = ('Iker', 'Asier', 'Unai', 'Kaixito')
 
 # numero -> (campaña primera, otras campañas, fuente). Ids de historial-newsletter.md
 # (líneas 71, 522, 715 para el 1; las demás, de la cabecera de cada correo en el corpus).
+# Con varias campañas sale una fila por tanda (ver TANDAS).
 CAMPANAS = {
     1: (2, [3, 4, 5, 6, 11], 'historial-newsletter §tandas del correo 0 (ids 2-6 y 11; el envío de MailerLite del 07 y 10/08 no tiene campaña de Brevo)'),
     2: (15, [], 'corpus, cabecera del correo 2'),
@@ -46,6 +48,21 @@ CAMPANAS = {
     12: (34, [], 'corpus, cabecera del correo 12'),
     13: (36, [], 'corpus, cabecera del correo 13 (A/B nativo dentro de la misma campaña)'),
     14: (38, [], 'corpus, cabecera del correo 14'),
+}
+
+# Fecha, hora y utm_campaign de cada tanda (campaña -> datos). Lo que no consta queda
+# como el del correo y `por_que` lo dice.
+TANDAS = {
+    # historial-newsletter, tabla de Brevo del 20/08 (líneas 59-72) y estado del 26/08 (líneas 521-525)
+    2: {'fecha': '2026-08-20', 'hora': '18:40', 'utm_campaign': 'kaixito-01-tanda-1', 'fuente': 'historial, tabla del 20/08'},
+    3: {'fecha': '2026-08-21', 'hora': '09:05', 'utm_campaign': 'kaixito-01-tanda-2', 'fuente': 'historial, tabla del 20/08'},
+    4: {'fecha': '2026-08-24', 'hora': '09:05', 'utm_campaign': 'kaixito-01-tanda-3', 'fuente': 'historial, tabla del 20/08'},
+    5: {'fecha': '2026-08-26', 'hora': '09:17', 'fuente': 'historial, estado leído de la API el 26/08'},
+    6: {'fecha': '2026-08-27', 'hora': '09:05', 'programada': True, 'fuente': 'historial, estado del 26/08 (en cola)'},
+    11: {'fecha': '2026-08-28', 'hora': '09:05', 'programada': True, 'fuente': 'historial, «Tanda 6 programada de verdad: campaña id 11»'},
+    # corpus, cabecera del correo 5
+    22: {'fuente': 'corpus, cabecera del correo 5 (tanda 1)'},
+    23: {'fecha': '2026-09-24', 'hora': '09:05', 'programada': True, 'fuente': 'corpus, cabecera del correo 5 («Tanda 2: campaña 23 … programada para el 24/09 09:05»)'},
 }
 
 # Fecha y hora: la del corpus; solo donde el historial da la real se corrige (12 y 13).
@@ -174,8 +191,6 @@ def extraer(texto):
         primera, otras, fuente = campana
         notas = [f'Histórico ya enviado, cargado de corpus-correos-enviados.md: «{titulo}».',
                  f'Campaña de Brevo {primera} (fuente: {fuente}).']
-        if otras:
-            notas.append('Otras campañas del mismo correo: ' + ', '.join(str(o) for o in otras) + '.')
         if numero == 13:
             notas.append('Dos asuntos en A/B nativo de Brevo (asunto y asunto_b).')
         if numero in HORAS_REALES:
@@ -189,7 +204,7 @@ def extraer(texto):
         if numero == 1:
             notas.append('Fecha y hora del primer envío (MailerLite, 07/08); la primera campaña de Brevo (id 2) salió el 20/08 18:40.')
 
-        items.append({
+        base = {
             'clave': f'correo-{numero:02d}-{remitente.lower()}',
             'numero': numero,
             'fecha': fecha,
@@ -208,7 +223,36 @@ def extraer(texto):
             'por_que': ' '.join(notas),
             'estado': 'borrador',
             'brevo_campaign_id': primera,
-        })
+        }
+        if not otras:
+            items.append(base)
+            continue
+        # Varias campañas: una fila por tanda, cada una con su campaña.
+        todas = [primera] + list(otras)
+        for n, camp in enumerate(todas, start=1):
+            t = TANDAS.get(camp, {})
+            it = dict(base)
+            it['clave'] = f'{base["clave"]}-tanda-{n}'
+            it['brevo_campaign_id'] = camp
+            it['fecha'] = t.get('fecha', fecha)
+            it['hora'] = t.get('hora', hora)
+            if numero == 1:
+                # El utm del correo 0 va por tanda; donde no consta, null (no se hereda el de la tanda 1).
+                it['utm_campaign'] = t.get('utm_campaign')
+            notas_t = [f'Tanda {n} de {len(todas)} del correo {numero}: campaña de Brevo {camp}.',
+                       f'Histórico ya enviado, cargado de corpus-correos-enviados.md: «{titulo}».',
+                       f'Campaña y tandas: {fuente}.']
+            if 'fecha' in t:
+                notas_t.append(f'Fecha y hora de esta tanda ({it["fecha"]} {it["hora"]}): {t["fuente"]}.')
+                if t.get('programada'):
+                    notas_t.append('Es la hora programada; no se comprobó el envío real.')
+            else:
+                notas_t.append(f'Fecha y hora las del correo según el corpus ({t.get("fuente", "sin fuente propia")}).')
+            if numero == 5:
+                notas_t.append(f'Mismo utm_campaign en las dos tandas; utm_content=tanda-{n} (corpus).')
+            notas_t += [x for x in notas[2:] if not x.startswith('Fecha y hora del primer envío')]
+            it['por_que'] = ' '.join(notas_t)
+            items.append(it)
     return items, fuera
 
 
@@ -219,11 +263,15 @@ def main():
         assert it['remitente'] in REMITENTES
     salida.parent.mkdir(parents=True, exist_ok=True)
     salida.write_text(json.dumps(items, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print(f'{"nº":>3}  {"fecha":10} {"hora":5}  {"remitente":8} {"campaña":>7}  estado')
+    campanas = [it['brevo_campaign_id'] for it in items]
+    assert len(campanas) == len(set(campanas)), 'una campaña de Brevo repetida en dos filas'
+    claves = [it['clave'] for it in items]
+    assert len(claves) == len(set(claves)), 'una clave repetida'
+    print(f'{"nº":>3}  {"fecha":10} {"hora":5}  {"remitente":8} {"campaña":>7}  {"clave":30} estado')
     for it in items:
-        nulos = [k for k in ('fecha', 'hora', 'preview', 'enlace', 'pilar') if not it[k]]
+        nulos = [k for k in ('fecha', 'hora', 'preview', 'enlace', 'pilar', 'utm_campaign') if not it[k]]
         print(f'{it["numero"]:>3}  {it["fecha"] or "-":10} {it["hora"] or "-":5}  {it["remitente"]:8} '
-              f'{it["brevo_campaign_id"]:>7}  ok' + (f' (null: {", ".join(nulos)})' if nulos else ''))
+              f'{it["brevo_campaign_id"]:>7}  {it["clave"]:30} ok' + (f' (null: {", ".join(nulos)})' if nulos else ''))
     for n, r, motivo in fuera:
         print(f'{n:>3}  {"-":10} {"-":5}  {r:8} {"-":>7}  FALTA: {motivo}')
     print(f'\n{len(items)} correos escritos en {salida}; {len(fuera)} fuera.')

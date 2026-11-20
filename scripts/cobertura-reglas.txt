@@ -265,6 +265,7 @@ post-workflow | 4.5.0-CRUCE LOS 25 LEAD MAGNETS DE LAS 3 CUENTAS | fuera: fuera 
 post-workflow | 4.5.0-MERCADO NO ES QUE HAYAMOS PERDIDO LA TECLA | pendiente(2026-11-11): sin clasificar · 
 post-workflow | 4.5.0-UNA-PAGINA EL REFERENTE QUE NO SE SATURA U | contexto: Observación de fuera (n=8) + propuesta de planificación (decide Iker). La 4:5 queda como prueba declarada, sin
 post-workflow | 4.5.0-BUENOS-CONTRA-MALOS TRES CUENTAS DE FUERA | pendiente(2026-11-11): necesita-check · (1) --pilar leadmagnet, AVISO si el gancho ELOGIA la herramienta (revoluciona/está revolucionando/cambia el ju
+post-workflow | 4.5.0-DOS-DEL-20NOV DOS LEAD MAGNETS DE FUERA CO | contexto: Observación de fuera (2 autores, n=4 posts) con hipótesis y una propuesta de calendario (decide Iker); no añade regla dura nueva. Lo aplicable entra por el paso 1 de §4.5.-4 y por la clave remix de --criterio.
 post-workflow | 4.5.0-COMPETENCIA PASO 0 OBLIGATORIO LA INVESTIG | pendiente(2026-11-11): sin clasificar · 
 post-workflow | 1 Los tres referentes por Unipile | fuera: fuera · Proceso (consulta Unipile)
 post-workflow | 2 Y si con eso no basta se sacan referentes NUEV | pendiente(2026-11-11): sin clasificar · 

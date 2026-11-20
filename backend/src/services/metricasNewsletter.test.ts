@@ -172,6 +172,7 @@ const res = (status: number, body: unknown) =>
   assert.equal(calls, 1, 'solo el primer barrido lee la campaña; el segundo no llama a nada');
   delete process.env.BREVO_API_KEY;
 
+  await conversionesAsync();
   console.log('metricasNewsletter: OK');
   process.exit(0);
 })().catch((e) => { console.error(e); process.exit(1); });
@@ -201,7 +202,7 @@ const res = (status: number, body: unknown) =>
   // Si el árbol llega a guardar la clave utm_source del correo, se suma entre eventos.
   assert.equal(conversionesDeCorreo(c13, null, [evento({ [c13.utm_source]: 4 }), evento({ [c13.utm_source]: 1 })]).inscritos, 5);
 }
-(async () => {
+async function conversionesAsync() {
   const env = [
     { fecha: '2026-11-12', utm_campaign: 'a', utm_source: 'a' },
     { fecha: '2026-11-03', utm_campaign: 'b', utm_source: 'b' },
@@ -219,5 +220,10 @@ const res = (status: number, body: unknown) =>
     leerEventos: async () => { throw new Error('luma'); },
   });
   assert.deepEqual(caido, [{ demos: null, inscritos: null }, { demos: null, inscritos: null }], 'sin fuentes, null y no 0');
+  const sinFecha = await conversionesDeEnviados([{ utm_campaign: 'a', utm_source: 'a' }], {
+    leerDemos: async () => { throw new Error('no debe leerse sin fechas'); },
+    leerEventos: async () => { throw new Error('no debe leerse sin fechas'); },
+  });
+  assert.deepEqual(sinFecha, [{ demos: null, inscritos: null }], 'enviado sin fecha: todo null');
   console.log('conversiones por correo: OK');
-})();
+}

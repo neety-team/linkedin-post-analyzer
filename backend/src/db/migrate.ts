@@ -1326,6 +1326,54 @@ const migracionSemana = `
   );
   CREATE INDEX IF NOT EXISTS idx_semana_feedback_post ON semana_feedback (post_id);
 
+  -- La newsletter (2026-11-20). Los correos NO van en semana_posts: tienen su
+  -- propio estado, remitente y campana de Brevo. \`huella\` es el hash del
+  -- texto: si cambia en un correo aprobado, vuelve a borrador.
+  CREATE TABLE IF NOT EXISTS newsletter_correos (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    clave TEXT NOT NULL UNIQUE,
+    numero INT,
+    fecha DATE,
+    hora TEXT,
+    remitente TEXT,
+    asunto TEXT NOT NULL DEFAULT '',
+    asunto_b TEXT,
+    preview TEXT NOT NULL DEFAULT '',
+    preview_b TEXT,
+    cuerpo TEXT NOT NULL DEFAULT '',
+    gif_url TEXT,
+    gif_alt TEXT,
+    enlace TEXT,
+    utm_campaign TEXT,
+    utm_source TEXT,
+    pilar TEXT,
+    tipo_cliente TEXT,
+    por_que TEXT,
+    validador TEXT,
+    validador_ok BOOLEAN NOT NULL DEFAULT FALSE,
+    huella TEXT,
+    estado TEXT NOT NULL DEFAULT 'idea',
+    aprobado_por TEXT,
+    aprobado_at TIMESTAMPTZ,
+    brevo_campaign_id INT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  );
+  CREATE INDEX IF NOT EXISTS idx_newsletter_correos_fecha ON newsletter_correos (fecha);
+
+  CREATE TABLE IF NOT EXISTS newsletter_feedback (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    correo_id UUID NOT NULL REFERENCES newsletter_correos(id) ON DELETE CASCADE,
+    autor TEXT NOT NULL,
+    texto TEXT NOT NULL,
+    nivel TEXT,
+    resuelto BOOLEAN NOT NULL DEFAULT FALSE,
+    respuesta TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    resuelto_at TIMESTAMPTZ
+  );
+  CREATE INDEX IF NOT EXISTS idx_newsletter_feedback_correo ON newsletter_feedback (correo_id);
+
   -- El interruptor de la subida automatica a LinkedIn (2026-11-18). Una sola
   -- fila: se enciende y se apaga desde la pagina Semana, con quien y cuando.
   CREATE TABLE IF NOT EXISTS publicador_ajustes (

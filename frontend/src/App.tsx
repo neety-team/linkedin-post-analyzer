@@ -7,6 +7,7 @@ import Swipe from './pages/Swipe'
 import Inspiration from './pages/Inspiration'
 import Accounts from './pages/Accounts'
 import Semana from './pages/Semana'
+import Newsletter from './pages/Newsletter'
 import { useTheme } from './theme'
 
 export default function App() {
@@ -91,6 +92,7 @@ export default function App() {
           <Route path="/ideas" element={<Ideas />} />
           <Route path="/inspiration" element={<Inspiration />} />
           <Route path="/semana" element={<Semana />} />
+          <Route path="/newsletter" element={<Newsletter />} />
         </Routes>
       </main>
     </div>

@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   calcularMetricas, esEnlaceDeBaja, estadoMetricas, fusionarClics, barrerContactos, barrerClics, refrescarMetricas,
-  leerCampana, brazosAB,
+  leerCampana, brazosAB, conversionesDeCorreo, conversionesDeEnviados,
 } from './metricasNewsletter';
 
 const f = JSON.parse(readFileSync(join(__dirname, 'fixtures/brevo-campana.json'), 'utf8'));
@@ -175,3 +175,49 @@ const res = (status: number, body: unknown) =>
   console.log('metricasNewsletter: OK');
   process.exit(0);
 })().catch((e) => { console.error(e); process.exit(1); });
+
+// ── Conversiones por correo ──
+{
+  const rec = (solicitudes: number) => ({ solicitudes, cualificadas: 0, oportunidades: 0 });
+  const demos: any = {
+    ...rec(1), por_canal: { linkedin: 0, newsletter: 1, recursos: 0 },
+    por_campana: { 'correo-13-kaixito-objecion': rec(0), 'correo-12-kaixito-maleta': rec(2) },
+  };
+  const c13 = { utm_campaign: 'correo-13-kaixito-objecion', utm_source: 'correo-13-kaixito-objecion' };
+  assert.deepEqual(conversionesDeCorreo(c13, demos, []).demos, 0);
+  assert.equal(conversionesDeCorreo({ utm_campaign: 'correo-12-kaixito-maleta' }, demos, null).demos, 2);
+  assert.equal(conversionesDeCorreo({ utm_campaign: 'correo-99-nuevo' }, demos, null).demos, 0, 'campaña ausente con por_campana = 0');
+  assert.equal(conversionesDeCorreo({ utm_campaign: null }, demos, null).demos, null, 'sin utm_campaign = null');
+  assert.equal(conversionesDeCorreo(c13, null, null).demos, null, 'web no disponible = null, nunca 0');
+  assert.equal(conversionesDeCorreo(c13, { ...demos, por_campana: undefined }, null).demos, null, 'web vieja sin por_campana = null');
+
+  // Forma REAL del árbol hoy: origenInscrito manda todo `correo-…` a canal newsletter SIN detalle,
+  // así que no se puede saber de qué correo vino cada inscrito: null, no 0.
+  const evento = (detalle: Record<string, number>): any => ({
+    slug: 'x', csv: { csv_at: '', inscritos: 5, asistentes: null, origenes: { newsletter: { total: 5, detalle } } },
+  });
+  assert.equal(conversionesDeCorreo(c13, null, [evento({})]).inscritos, null);
+  assert.equal(conversionesDeCorreo(c13, null, [{ slug: 'y', csv: null } as any]).inscritos, null);
+  // Si el árbol llega a guardar la clave utm_source del correo, se suma entre eventos.
+  assert.equal(conversionesDeCorreo(c13, null, [evento({ [c13.utm_source]: 4 }), evento({ [c13.utm_source]: 1 })]).inscritos, 5);
+}
+(async () => {
+  const env = [
+    { fecha: '2026-11-12', utm_campaign: 'a', utm_source: 'a' },
+    { fecha: '2026-11-03', utm_campaign: 'b', utm_source: 'b' },
+  ];
+  const llamadas: string[][] = [];
+  const base: any = { current: { solicitudes: 0, cualificadas: 0, oportunidades: 0, por_canal: {}, por_campana: { a: { solicitudes: 2 } } } };
+  const r = await conversionesDeEnviados(env, {
+    leerDemos: async (d, h) => { llamadas.push([d, h]); return { configurado: true, ...base, previous: base.current, por_post: {}, sin_casar: 0 }; },
+    leerEventos: async () => [],
+  }, new Date('2026-11-20T10:00:00Z'));
+  assert.deepEqual(llamadas, [['2026-11-03', '2026-11-20']], 'una sola lectura, del más antiguo a hoy');
+  assert.deepEqual(r.map((x) => x.demos), [2, 0]);
+  const caido = await conversionesDeEnviados(env, {
+    leerDemos: async () => ({ configurado: false }),
+    leerEventos: async () => { throw new Error('luma'); },
+  });
+  assert.deepEqual(caido, [{ demos: null, inscritos: null }, { demos: null, inscritos: null }], 'sin fuentes, null y no 0');
+  console.log('conversiones por correo: OK');
+})();

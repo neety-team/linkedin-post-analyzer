@@ -8,6 +8,7 @@ import { puedeAprobar } from '../services/newsletter';
 
 const ID_BORRADOR = '11111111-1111-4111-8111-111111111111';
 const ID_IDEA = '22222222-2222-4222-8222-222222222222';
+const ID_ENVIADO = '44444444-4444-4444-8444-444444444444';
 const ID_NADA = '33333333-3333-4333-8333-333333333333';
 
 const estados: Record<string, string> = { [ID_BORRADOR]: 'borrador', [ID_IDEA]: 'idea' };
@@ -16,7 +17,7 @@ let aprobadosLlamadas = 0;
 const deps: DepsNewsletter = {
   listarCorreos: async () => ({
     proximos: Object.entries(estados).map(([id, estado]) => ({ id, estado, feedback: [], metricas: null })),
-    enviados: [],
+    enviados: [{ id: ID_ENVIADO, estado: 'enviado', fecha: '2026-11-12', feedback: [], metricas: null }],
   }),
   aprobarCorreo: async (id, quien) => {
     aprobadosLlamadas++;
@@ -30,6 +31,7 @@ const deps: DepsNewsletter = {
   estadoMetricas: () => ({ configurado: !!process.env.BREVO_API_KEY }),
   estadoBarrido: async () => ({ ultimo_at: null, error: null }),
   refrescarMetricas: async () => ({ campanas: 0, error: null }),
+  conversionesDeEnviados: async (env) => env.map(() => ({ demos: 3, inscritos: null })),
 };
 
 async function servir(email: string | null) {
@@ -60,6 +62,7 @@ async function main() {
   assert.equal(aprobadosLlamadas, 0);
   let g: any = await await cuerpo(await fetch(s.base));
   assert.equal(g.puedo_aprobar, false);
+  assert.deepEqual(g.enviados[0].conversiones, { demos: 3, inscritos: null }, 'cada enviado trae sus conversiones');
   s.cerrar();
 
   // Sin identidad: 403

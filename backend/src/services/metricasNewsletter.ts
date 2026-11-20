@@ -1,4 +1,6 @@
 import pool from '../db';
+import { leerDemos, type ResumenDemos, type Demos } from './conversionesWeb';
+import { leerEventos, type EventoResumen } from './conversionesEventos';
 // Cálculo de métricas de un envío de newsletter (funciones puras, sin red).
 // Definiciones del diseño: apertura real = aperturas únicas menos las de Apple MPP;
 // clic = personas distintas que han hecho clic / entregados; CTOR = personas / aperturas reales.
@@ -383,4 +385,67 @@ export function startNewsletterMetricas(): void {
       if (r.error) console.warn('[newsletter] barrido:', r.error);
     })().catch((e) => console.warn('[newsletter] barrido:', mensaje(e)));
   }, 10 * 60 * 1000);
+}
+
+// ── Reuniones e inscritos por correo ────────────────────────────────────────────
+export interface ConversionesCorreo {
+  demos: number | null;
+  inscritos: number | null;
+}
+
+/**
+ * Reuniones (demos) e inscritos a eventos que ha traído un correo. `null` = no se sabe, nunca 0.
+ * - Demos: la web las atribuye por `utm_campaign` (`por_campana`). Con la web sin conectar, en error o
+ *   vieja (sin `por_campana`), o un correo sin `utm_campaign`, es null. Con `por_campana` y la
+ *   campaña ausente, son 0: la web solo lista las campañas que han traído algo.
+ * - Inscritos: en Luma la identidad del correo va en `utm_source` (`correo-NN-remitente-pilar`).
+ *   OJO: hoy `origenInscrito` clasifica todo `correo-…` como `newsletter` y tira el detalle, así que
+ *   el árbol de orígenes no dice de qué correo vino cada inscrito y esto da null. En cuanto el árbol
+ *   guarde la clave del correo en `origenes.newsletter.detalle`, sale solo.
+ */
+export function conversionesDeCorreo(
+  c: { utm_campaign?: string | null; utm_source?: string | null },
+  demos: ResumenDemos | null,
+  eventos: EventoResumen[] | null
+): ConversionesCorreo {
+  let nDemos: number | null = null;
+  if (c.utm_campaign && demos?.por_campana) {
+    nDemos = demos.por_campana[c.utm_campaign]?.solicitudes ?? 0;
+  }
+  let inscritos: number | null = null;
+  if (c.utm_source && eventos) {
+    for (const e of eventos) {
+      const n = e.csv?.origenes?.newsletter?.detalle?.[c.utm_source];
+      if (typeof n === 'number') inscritos = (inscritos ?? 0) + n;
+    }
+  }
+  return { demos: nDemos, inscritos };
+}
+
+export interface FuentesConversion {
+  leerDemos: typeof leerDemos;
+  leerEventos: typeof leerEventos;
+}
+
+/**
+ * Conversiones de cada correo enviado, en el mismo orden. Lee demos y eventos UNA vez, en una
+ * ventana desde el correo más antiguo hasta hoy. Si una fuente no está configurada o falla, sus
+ * cifras son null.
+ */
+export async function conversionesDeEnviados(
+  enviados: Array<{ fecha?: string | Date | null; utm_campaign?: string | null; utm_source?: string | null }>,
+  fuentes: FuentesConversion = { leerDemos, leerEventos },
+  hoy: Date = new Date()
+): Promise<ConversionesCorreo[]> {
+  const dia = (f: string | Date) => (f instanceof Date ? f.toISOString() : String(f)).slice(0, 10);
+  const fechas = enviados.map((c) => (c.fecha ? dia(c.fecha) : '')).filter(Boolean).sort();
+  if (!fechas.length) return enviados.map(() => ({ demos: null, inscritos: null }));
+  const desde = fechas[0];
+  const hasta = hoy.toISOString().slice(0, 10);
+  const [d, e] = await Promise.all([
+    fuentes.leerDemos(desde, hasta).catch((): Demos => ({ configurado: true, error: 'fallo' })),
+    fuentes.leerEventos(desde, hasta).catch(() => null),
+  ]);
+  const demos = 'current' in d ? d.current : null;
+  return enviados.map((c) => conversionesDeCorreo(c, demos, e));
 }

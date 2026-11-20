@@ -13,7 +13,7 @@ import {
   crearFeedback,
   puedeAprobar,
 } from '../services/newsletter';
-import { estadoMetricas, estadoBarrido, refrescarMetricas } from '../services/metricasNewsletter';
+import { estadoMetricas, estadoBarrido, refrescarMetricas, conversionesDeEnviados } from '../services/metricasNewsletter';
 import { identidadDe } from '../middleware/basicAuth';
 
 const RE_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -27,6 +27,8 @@ export interface DepsNewsletter {
   estadoMetricas: typeof estadoMetricas;
   estadoBarrido: typeof estadoBarrido;
   refrescarMetricas: typeof refrescarMetricas;
+  /** Reuniones e inscritos de cada enviado (mismo orden). Inyectable para no tocar red ni BD en los tests. */
+  conversionesDeEnviados: typeof conversionesDeEnviados;
 }
 
 export const serviciosReales: DepsNewsletter = {
@@ -37,6 +39,7 @@ export const serviciosReales: DepsNewsletter = {
   estadoMetricas,
   estadoBarrido,
   refrescarMetricas,
+  conversionesDeEnviados,
 };
 
 export function crearRouter(deps: DepsNewsletter = serviciosReales): Router {
@@ -51,9 +54,11 @@ export function crearRouter(deps: DepsNewsletter = serviciosReales): Router {
       const { proximos, enviados } = await deps.listarCorreos();
       const { configurado } = deps.estadoMetricas();
       const barrido = await deps.estadoBarrido();
+      // Las conversiones no pueden tumbar la pestaña: si fallan, quedan en null.
+      const conv = await deps.conversionesDeEnviados(enviados).catch(() => []);
       res.json({
         proximos,
-        enviados,
+        enviados: enviados.map((c, i) => ({ ...c, conversiones: conv[i] ?? { demos: null, inscritos: null } })),
         metricas: { configurado, ultimo_barrido: barrido.ultimo_at, error: barrido.error },
         puedo_aprobar: deps.puedeAprobar(identidadDe(req)),
       });

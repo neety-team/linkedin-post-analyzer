@@ -1,6 +1,6 @@
 import pool from '../db';
 import { leerDemos, type ResumenDemos, type Demos } from './conversionesWeb';
-import { leerEventos, type EventoResumen } from './conversionesEventos';
+import type { leerEventos, EventoResumen } from './conversionesEventos';
 // Cálculo de métricas de un envío de newsletter (funciones puras, sin red).
 // Definiciones del diseño: apertura real = aperturas únicas menos las de Apple MPP;
 // clic = personas distintas que han hecho clic / entregados; CTOR = personas / aperturas reales.
@@ -103,6 +103,7 @@ interface Opts {
 async function brevo(ruta: string, fetcher: Fetcher, etiqueta = ruta): Promise<any> {
   const res = await fetcher(`${BREVO}${ruta}`, {
     headers: { 'api-key': process.env.BREVO_API_KEY || '', accept: 'application/json' },
+    signal: AbortSignal.timeout(15000), // una llamada colgada no bloquea el barrido
   });
   if (!res.ok) {
     const e: any = new Error(`Brevo ${res.status} en ${etiqueta}`);
@@ -301,17 +302,39 @@ async function barrerClicsSinGuarda(opts: Opts): Promise<{ contactos: number; er
   let error: string | null = null;
   let r: Awaited<ReturnType<typeof barrerContactos>> = { clics: [], contactos: 0, completado: false, error: null };
   const ids = await campanasVinculadas();
+  const fallos: string[] = [];
   try {
+    // Las listas de cada campaña salen de la cache (`newsletter_metricas.datos.listas`); solo
+    // si no están se pregunta a Brevo. Una campaña que falla se salta y se apunta: no tumba el
+    // barrido de las demás.
+    const cache = await pool.query(
+      `SELECT campaign_id, datos->'listas' AS listas FROM newsletter_metricas WHERE campaign_id = ANY($1::int[])`,
+      [ids]
+    );
+    const enCache = new Map<number, number[]>();
+    for (const row of cache.rows) {
+      const l = Array.isArray(row?.listas) ? row.listas.filter((x: unknown) => typeof x === 'number') : [];
+      if (row?.campaign_id != null && l.length) enCache.set(Number(row.campaign_id), l);
+    }
     const listas = new Set<number>();
     for (const id of ids) {
-      const c = await brevo(`/emailCampaigns/${id}?statistics=globalStats`, fetcher);
-      for (const l of listasDe(c)) listas.add(l);
+      let ls = enCache.get(id);
+      if (!ls) {
+        try {
+          ls = listasDe(await brevo(`/emailCampaigns/${id}?statistics=globalStats`, fetcher));
+        } catch (e) {
+          fallos.push(`campaña ${id}: ${mensaje(e)}`);
+          continue;
+        }
+      }
+      for (const l of ls) listas.add(l);
     }
     r = await barrerContactos([...listas], new Set(ids), fetcher, opts.pausaMs ?? PAUSA_CONTACTO_MS);
     error = r.error;
   } catch (e) {
     error = mensaje(e);
   }
+  if (fallos.length) error = [`saltadas ${fallos.join('; ')}`, error].filter(Boolean).join(' · ');
   const cx = await pool.connect();
   try {
     await cx.query('BEGIN');
@@ -424,7 +447,8 @@ export function conversionesDeCorreo(
 
 export interface FuentesConversion {
   leerDemos: typeof leerDemos;
-  leerEventos: typeof leerEventos;
+  /** Opcional: sin ella los inscritos son null y no se llama a Luma. */
+  leerEventos?: typeof leerEventos;
 }
 
 /**
@@ -434,7 +458,9 @@ export interface FuentesConversion {
  */
 export async function conversionesDeEnviados(
   enviados: Array<{ fecha?: string | Date | null; utm_campaign?: string | null; utm_source?: string | null }>,
-  fuentes: FuentesConversion = { leerDemos, leerEventos },
+  // Por ahora sin leerEventos: los inscritos darían siempre null hasta que `origenInscrito`
+  // guarde la clave del correo, así que no se paga la lectura de Luma en cada GET.
+  fuentes: FuentesConversion = { leerDemos },
   hoy: Date = new Date()
 ): Promise<ConversionesCorreo[]> {
   const dia = (f: string | Date) => (f instanceof Date ? f.toISOString() : String(f)).slice(0, 10);
@@ -444,7 +470,7 @@ export async function conversionesDeEnviados(
   const hasta = hoy.toISOString().slice(0, 10);
   const [d, e] = await Promise.all([
     fuentes.leerDemos(desde, hasta).catch((): Demos => ({ configurado: true, error: 'fallo' })),
-    fuentes.leerEventos(desde, hasta).catch(() => null),
+    fuentes.leerEventos ? fuentes.leerEventos(desde, hasta).catch(() => null) : Promise.resolve(null),
   ]);
   const demos = 'current' in d ? d.current : null;
   return enviados.map((c) => conversionesDeCorreo(c, demos, e));

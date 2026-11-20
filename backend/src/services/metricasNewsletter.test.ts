@@ -170,6 +170,56 @@ const res = (status: number, body: unknown) =>
   assert.equal(r1.error, null);
   assert.deepEqual(r2, { contactos: 0, error: null });
   assert.equal(calls, 1, 'solo el primer barrido lee la campaña; el segundo no llama a nada');
+
+  // Una campaña que falla (404) no tumba el barrido: los contactos de la otra se barren igual
+  // y el fallo queda apuntado en el error del barrido.
+  const barrido = async (cacheRows: any[], fetcher: typeof fetch) => {
+    const insertados: any[][] = [];
+    let errorGuardado: any;
+    pool.query = async (sql: string) => {
+      if (sql.includes('FROM newsletter_correos')) return { rows: [{ id: 36 }, { id: 38 }] };
+      if (sql.includes('FROM newsletter_metricas')) return { rows: cacheRows };
+      return { rows: [] };
+    };
+    pool.connect = async () => ({
+      query: async (sql: string, vals?: any[]) => {
+        if (sql.includes('INSERT INTO newsletter_clics')) insertados.push(vals!);
+        if (sql.includes('INSERT INTO newsletter_barrido')) errorGuardado = vals![0];
+        return { rows: [] };
+      },
+      release() {},
+    });
+    try {
+      const r = await barrerClics({ fetcher, pausaMs: 0 });
+      return { r, insertados, errorGuardado };
+    } finally {
+      pool.query = queryOrig; pool.connect = lentoPool;
+    }
+  };
+  const pedidas: string[] = [];
+  const fFalla = (async (u: any) => {
+    const url = String(u);
+    pedidas.push(url);
+    if (url.includes('/emailCampaigns/38')) return res(404, {});
+    if (url.includes('/emailCampaigns/36')) return res(200, { recipients: { lists: [7] } });
+    if (url.includes('/contacts/lists/7/contacts')) return res(200, { contacts: [{ email: 'p@x.com' }] });
+    if (url.includes('/contacts/p%40x.com')) {
+      return res(200, { statistics: { clicked: [{ campaignId: 36, links: [{ url: 'https://neety.com/a', eventTime: '2026-11-17T09:00:00.000Z' }] }] } });
+    }
+    return res(404, {});
+  }) as typeof fetch;
+  const b1 = await barrido([], fFalla);
+  assert.equal(b1.r.contactos, 1, 'el contacto de la campaña 36 se barre aunque la 38 falle');
+  assert.deepEqual(b1.insertados, [[36, 'p@x.com', 'https://neety.com/a', '2026-11-17T09:00:00.000Z']]);
+  assert.match(b1.r.error!, /campaña 38: Brevo 404/);
+  assert.equal(b1.errorGuardado, b1.r.error, 'el fallo queda en newsletter_barrido.error');
+
+  // Con las listas en la cache no se pregunta a Brevo por la campaña
+  pedidas.length = 0;
+  const b2 = await barrido([{ campaign_id: 36, listas: [7] }, { campaign_id: 38, listas: [7] }], fFalla);
+  assert.equal(b2.r.error, null);
+  assert.equal(b2.r.contactos, 1);
+  assert.ok(!pedidas.some((u) => u.includes('/emailCampaigns/')), 'las listas salen de newsletter_metricas');
   delete process.env.BREVO_API_KEY;
 
   await conversionesAsync();

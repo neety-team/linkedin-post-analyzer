@@ -1374,6 +1374,27 @@ const migracionSemana = `
   );
   CREATE INDEX IF NOT EXISTS idx_newsletter_feedback_correo ON newsletter_feedback (correo_id);
 
+  -- Cache de Brevo para la newsletter (2026-11-20). \`datos\` guarda lo que lee
+  -- Brevo (globalStats, linksStats, A/B, listas); las metricas se calculan al leer.
+  CREATE TABLE IF NOT EXISTS newsletter_metricas (
+    campaign_id INT PRIMARY KEY,
+    datos JSONB NOT NULL,
+    estado_brevo TEXT,
+    leido_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  );
+  CREATE TABLE IF NOT EXISTS newsletter_clics (
+    campaign_id INT NOT NULL,
+    email TEXT NOT NULL,
+    url TEXT NOT NULL,
+    t TIMESTAMPTZ NOT NULL,
+    PRIMARY KEY (campaign_id, email, url, t)
+  );
+  CREATE TABLE IF NOT EXISTS newsletter_barrido (
+    id INT PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+    ultimo_at TIMESTAMPTZ,
+    error TEXT
+  );
+
   -- El interruptor de la subida automatica a LinkedIn (2026-11-18). Una sola
   -- fila: se enciende y se apaga desde la pagina Semana, con quien y cuando.
   CREATE TABLE IF NOT EXISTS publicador_ajustes (

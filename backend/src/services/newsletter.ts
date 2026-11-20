@@ -10,6 +10,7 @@
 import { createHash } from 'node:crypto';
 import pool from '../db';
 import type { Identidad } from '../middleware/basicAuth';
+import { metricasDeCorreo } from './metricasNewsletter';
 
 export const ESTADOS_CORREO = ['idea', 'borrador', 'aprobado', 'programado', 'enviado'] as const;
 export const REMITENTES = ['Iker', 'Asier', 'Unai', 'Kaixito'] as const;
@@ -212,8 +213,11 @@ export async function listarCorreos(): Promise<{ proximos: any[]; enviados: any[
     l.push(f);
     porCorreo.set(f.correo_id, l);
   }
-  // Las metricas llegan con la tabla de metricas (tarea 3).
-  const correos = rows.map((c) => ({ ...c, feedback: porCorreo.get(c.id) || [], metricas: null }));
+  const correos = [];
+  for (const c of rows) {
+    const metricas = c.brevo_campaign_id != null ? await metricasDeCorreo(c.brevo_campaign_id) : null;
+    correos.push({ ...c, feedback: porCorreo.get(c.id) || [], metricas });
+  }
   return {
     proximos: correos.filter((c) => c.estado !== 'enviado'),
     enviados: correos.filter((c) => c.estado === 'enviado').reverse(),

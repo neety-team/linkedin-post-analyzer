@@ -31,6 +31,7 @@ import { startAnuncioChat } from './services/anuncioChat';
 import { startAvisoWebinarLuma } from './services/avisoWebinarLuma';
 import { startPublicador } from './services/publicadorLinkedin';
 import { startAbeja } from './services/abeja';
+import { startNewsletterMetricas } from './services/metricasNewsletter';
 import { basicAuthMiddleware, identidadDe } from './middleware/basicAuth';
 import rastroRouter from './routes/rastro';
 import gateProxyRouter from './routes/gateProxy';
@@ -138,6 +139,8 @@ runMigrations()
     // Solo publica de verdad con la subida automática encendida desde la página Semana.
     startPublicador();
     startAbeja();
+    // Lee las campanas de Brevo (cada 6 h) y barre los clics por contacto (cada dia, 07:00 Madrid).
+    startNewsletterMetricas();
     // Reprocesa el pilar del historico SOLO si han cambiado las reglas de
     // services/pillar.ts (guarda de version en app_state). No bloquea el
     // arranque y no corre a diario: el disparador es el cambio de reglas.

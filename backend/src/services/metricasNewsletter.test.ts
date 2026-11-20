@@ -59,7 +59,7 @@ const res = (status: number, body: unknown) =>
   const c1 = { email: 'a@x.com', url: 'https://neety.com/a', t: '2026-11-17T09:00:00.000Z' };
   const c2 = { email: 'b@x.com', url: 'https://neety.com/b', t: '2026-11-17T10:00:00.000Z' };
   assert.deepEqual(fusionarClics([c1], [], false), [c1]);
-  assert.deepEqual(fusionarClics([c1], [c2], true), [c2]);
+  assert.deepEqual(fusionarClics([c1], [c2], true), [c1, c2]);
   assert.deepEqual(fusionarClics([c1], [c1, c2], false), [c1, c2]);
 
   // (a) y (b) y (c): la lectura pide globalStats y linksStats, y el clic sale de linksStats/contactos, no de uniqueClicks
@@ -83,14 +83,29 @@ const res = (status: number, body: unknown) =>
   // uniqueClicks (4) nunca es la cifra de clic: sin clics por contacto, personas = 0
   assert.equal(calcularMetricas(lec.datos.global, lec.datos.sentDate, []).personas, 0);
 
-  // A/B defensivo
-  assert.equal(brazosAB({}), undefined);
-  assert.equal(brazosAB({ abTestCampaignResult: { winningVersion: 'A' } }), undefined);
-  const ab = brazosAB({
-    subjectA: 'Uno', subjectB: 'Dos',
-    abTestCampaignResult: { statistics: { openers: { subjectA: [1, 2], subjectB: 5 }, clicks: { subjectA: 1, subjectB: [1, 2, 3] }, delivered: { subjectA: 90, subjectB: 91 } } },
+  // A/B: con abTesting se llama al endpoint propio y se mapea su ejemplo documentado
+  const resAB = {
+    clickRate: '50%', openRate: '100%', winningCriteria: 'Click', winningVersion: 'B', winningVersionRate: '0%',
+    clickedLinks: { 'Version A': [{ clickRate: '0%', clicksCount: 0, link: 'https://google.com' }], 'Version B': [{ clickRate: '60%', clicksCount: 3, link: 'http://www.stackoverflow.com' }] },
+    statistics: { clicks: { 'Version A': '0%', 'Version B': '50%' }, openers: { 'Version A': '20%', 'Version B': '100%' } },
+  };
+  assert.equal(brazosAB({ abTesting: false }, resAB, 100), undefined);
+  assert.equal(brazosAB({ abTesting: true }, {}, 100), undefined);
+  assert.deepEqual(brazosAB({ abTesting: true, subjectA: 'Uno', subjectB: 'Dos' }, resAB, 100), {
+    a: { asunto: 'Uno', entregados: 50, aperturas: 10, clics: 0, estimado: true },
+    b: { asunto: 'Dos', entregados: 50, aperturas: 50, clics: 25, estimado: true },
   });
-  assert.deepEqual(ab, { a: { asunto: 'Uno', entregados: 90, aperturas: 2, clics: 1 }, b: { asunto: 'Dos', entregados: 91, aperturas: 5, clics: 3 } });
+  const urlsAB: string[] = [];
+  const fAB = (async (u: any) => {
+    const x = String(u);
+    urlsAB.push(x);
+    if (x.includes('/abTestCampaignResult')) return res(200, resAB);
+    return res(200, { status: 'sent', abTesting: true, subjectA: 'Uno', subjectB: 'Dos', sentDate: f.sentDate, recipients: { lists: [7] }, statistics: { globalStats: f.globalStats, linksStats: {} } });
+  }) as typeof fetch;
+  const lab = await leerCampana(36, fAB);
+  assert.ok(urlsAB.some((u) => u.endsWith('/emailCampaigns/36/abTestCampaignResult')));
+  assert.equal(lab.datos.ab!.b.asunto, 'Dos');
+  assert.equal(lab.datos.ab!.b.entregados, 97);
 
   // (b) los contactos salen de las listas de la campaña; el barrido pagina y filtra campañas ajenas
   const llamadas: string[] = [];
@@ -139,6 +154,22 @@ const res = (status: number, body: unknown) =>
   assert.deepEqual(await barrerClics({ fetcher: f4 }), { contactos: 0, error: null });
   assert.deepEqual(await refrescarMetricas({ fetcher: f4 }), { campanas: 0, error: null });
   assert.equal(llamado, false);
+
+  // Dos barridos a la vez: el segundo sale sin llamar a nada (base de datos simulada con una campaña)
+  process.env.BREVO_API_KEY = 'k';
+  const pool = (await import('../db')).default as any;
+  const queryOrig = pool.query.bind(pool);
+  pool.query = async () => ({ rows: [{ id: 36 }] });
+  let calls = 0;
+  const lento = (async () => { calls++; await new Promise((r) => setTimeout(r, 50)); return res(200, {}); }) as typeof fetch;
+  const lentoPool = pool.connect;
+  pool.connect = async () => ({ query: async () => ({ rows: [] }), release() {} });
+  const [r1, r2] = await Promise.all([barrerClics({ fetcher: lento, pausaMs: 0 }), barrerClics({ fetcher: lento, pausaMs: 0 })]);
+  pool.query = queryOrig; pool.connect = lentoPool;
+  assert.equal(r1.error, null);
+  assert.deepEqual(r2, { contactos: 0, error: null });
+  assert.equal(calls, 1, 'solo el primer barrido lee la campaña; el segundo no llama a nada');
+  delete process.env.BREVO_API_KEY;
 
   console.log('metricasNewsletter: OK');
   process.exit(0);

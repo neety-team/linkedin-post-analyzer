@@ -27,6 +27,7 @@ export interface Brazo {
   entregados: number;
   aperturas: number;
   clics: number;
+  estimado?: boolean; // los conteos de cada brazo se estiman (Brevo da solo porcentajes)
 }
 
 export interface Metricas {
@@ -122,44 +123,42 @@ export interface ClicCampana extends Clic {
 const claveClic = (c: ClicCampana) => `${c.campaign_id}|${c.email}|${c.url}|${c.t}`;
 
 /**
- * Une los clics ya guardados con los recien barridos. Si el barrido terminó, manda
- * lo nuevo; si se cortó, no se borra nada y solo se añade lo que falte.
+ * Une los clics ya guardados con los recien barridos. Un clic es un hecho que no
+ * se deshace: nunca se descarta uno previo, aunque el barrido haya terminado
+ * (un contacto borrado en Brevo ya no devuelve sus clics). Se deduplica por la clave primaria.
  */
-export function fusionarClics<T extends Clic>(previos: T[], nuevos: T[], completado: boolean): T[] {
-  if (completado) return nuevos;
-  const visto = new Set(previos.map((c) => `${(c as any).campaign_id ?? ''}|${c.email}|${c.url}|${c.t}`));
-  const extra = nuevos.filter((c) => !visto.has(`${(c as any).campaign_id ?? ''}|${c.email}|${c.url}|${c.t}`));
-  return [...previos, ...extra];
+export function fusionarClics<T extends Clic>(previos: T[], nuevos: T[], _completado = true): T[] {
+  const k = (c: T) => `${(c as any).campaign_id ?? ''}|${c.email}|${c.url}|${c.t}`;
+  const visto = new Set(previos.map(k));
+  return [...previos, ...nuevos.filter((c) => !visto.has(k(c)))];
 }
 
 // ----- A/B -----
 
-function numero(v: unknown): number | null {
-  if (typeof v === 'number' && Number.isFinite(v)) return v;
-  if (Array.isArray(v)) return v.length;
-  if (v && typeof v === 'object') {
-    for (const k of ['count', 'value', 'total']) {
-      const n = (v as any)[k];
-      if (typeof n === 'number' && Number.isFinite(n)) return n;
-    }
-  }
-  return null;
+function porcentaje(v: unknown): number | null {
+  if (typeof v !== 'string') return null;
+  const n = Number.parseFloat(v.replace('%', '').replace(',', '.'));
+  return Number.isFinite(n) ? n / 100 : null;
 }
 
-/** Los dos brazos de un test A/B desde `abTestCampaignResult`. Defensivo: si falta algo, sin A/B. */
-export function brazosAB(campana: any): { a: Brazo; b: Brazo } | undefined {
-  const r = campana?.abTestCampaignResult;
-  if (!r || typeof r !== 'object') return undefined;
-  const st = r.statistics || {};
-  const arm = (k: 'subjectA' | 'subjectB', asunto: unknown): Brazo | null => {
-    const aperturas = numero(st.openers?.[k]);
-    const clics = numero(st.clicks?.[k]);
-    if (aperturas === null || clics === null) return null;
-    const entregados = numero(st.delivered?.[k]) ?? numero(st.sent?.[k]) ?? 0;
-    return { asunto: String(asunto ?? ''), entregados, aperturas, clics };
+/**
+ * Los dos brazos de un test A/B desde `GET /emailCampaigns/{id}/abTestCampaignResult`
+ * (statistics.openers / clicks traen un porcentaje por version: "Version A", "Version B").
+ * Brevo no da los conteos por brazo: se estiman con la mitad de los entregados
+ * (los grupos del test son iguales) y el brazo va marcado `estimado`.
+ */
+export function brazosAB(campana: any, resultado: any, entregados: number): { a: Brazo; b: Brazo } | undefined {
+  if (!campana?.abTesting || !resultado || typeof resultado !== 'object') return undefined;
+  const st = resultado.statistics || {};
+  const arm = (v: 'Version A' | 'Version B', asunto: unknown): Brazo | null => {
+    const ap = porcentaje(st.openers?.[v]);
+    const cl = porcentaje(st.clicks?.[v]);
+    if (ap === null || cl === null) return null;
+    const n = Math.round(entregados / 2);
+    return { asunto: String(asunto ?? ''), entregados: n, aperturas: Math.round(ap * n), clics: Math.round(cl * n), estimado: true };
   };
-  const a = arm('subjectA', campana.subjectA ?? campana.subject);
-  const b = arm('subjectB', campana.subjectB);
+  const a = arm('Version A', campana.subjectA);
+  const b = arm('Version B', campana.subjectB);
   return a && b ? { a, b } : undefined;
 }
 
@@ -186,8 +185,15 @@ export async function leerCampana(
     sentDate: g?.sentDate || g?.scheduledAt || '',
     listas: listasDe(g),
   };
-  const ab = brazosAB(g) || brazosAB(l);
-  if (ab) datos.ab = ab;
+  if (g?.abTesting) {
+    try {
+      const r = await brevo(`/emailCampaigns/${id}/abTestCampaignResult`, fetcher);
+      const ab = brazosAB(g, r, datos.global.delivered ?? 0);
+      if (ab) datos.ab = ab;
+    } catch (e: any) {
+      if (e?.status !== 404 && e?.status !== 400) throw e; // aun sin resultado: sin A/B
+    }
+  }
   return { datos, status: String(g?.status || '') };
 }
 
@@ -280,8 +286,20 @@ export async function refrescarMetricas(opts: Opts = {}): Promise<{ campanas: nu
   return { campanas, error };
 }
 
+let enCurso = false;
+
 export async function barrerClics(opts: Opts = {}): Promise<{ contactos: number; error: string | null }> {
   if (!process.env.BREVO_API_KEY) return { contactos: 0, error: null };
+  if (enCurso) return { contactos: 0, error: null }; // ya hay un barrido en marcha
+  enCurso = true;
+  try {
+    return await barrerClicsSinGuarda(opts);
+  } finally {
+    enCurso = false;
+  }
+}
+
+async function barrerClicsSinGuarda(opts: Opts): Promise<{ contactos: number; error: string | null }> {
   const fetcher = opts.fetcher || fetch;
   let error: string | null = null;
   let r: Awaited<ReturnType<typeof barrerContactos>> = { clics: [], contactos: 0, completado: false, error: null };
@@ -300,8 +318,7 @@ export async function barrerClics(opts: Opts = {}): Promise<{ contactos: number;
   const cx = await pool.connect();
   try {
     await cx.query('BEGIN');
-    // Barrido completo: lo nuevo manda. Cortado: no se borra nada, solo se anaden los nuevos.
-    if (r.completado) await cx.query(`DELETE FROM newsletter_clics WHERE campaign_id = ANY($1::int[])`, [ids]);
+    // Un clic es un hecho: solo se insertan los nuevos, nunca se borra ninguno.
     for (const c of r.clics) {
       await cx.query(
         `INSERT INTO newsletter_clics (campaign_id, email, url, t) VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING`,

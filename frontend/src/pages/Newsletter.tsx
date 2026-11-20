@@ -3,17 +3,22 @@
  * llega por el selector LinkedIn / Newsletter de la cabecera de Semana; no hay
  * enlace en la barra de navegación.
  *
- * Arriba los próximos, como llegarán a la bandeja, con su porqué, el validador y
- * el feedback. Debajo los enviados con sus métricas de Brevo. El botón de aprobar
+ * La página es un calendario por meses (`?m=2026-12`, por defecto el mes de hoy
+ * en Madrid): cada correo es una ficha en su día con el color de su estado. Al
+ * pulsarla se abre el correo entero (`&c=<clave>`) con su porqué, el validador,
+ * el feedback y, si ya se envió, sus métricas de Brevo. El botón de aprobar
  * solo sale cuando el backend dice `puedo_aprobar` (la identidad del login
  * central es la de Iker), nunca por lo que elija el navegador.
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useApi } from '../hooks/useApi';
 import CanalSelector from '../components/CanalSelector';
 import CorreoTarjeta from '../components/newsletter/CorreoTarjeta';
-import TablaEnviados from '../components/newsletter/TablaEnviados';
-import type { RespuestaNewsletter } from '../components/newsletter/tipos';
+import CalendarioMes from '../components/newsletter/CalendarioMes';
+import MetricasEnviado from '../components/newsletter/MetricasEnviado';
+import { cuandoCorreo, ESTADO_CORREO, type Correo, type RespuestaNewsletter } from '../components/newsletter/tipos';
+import { mesDeFecha, mesDeHoy, mesDeParam, mesVecino, tituloMes } from '../utils/calendarioMes';
 
 // La misma clave que Semana: quien ya eligió nombre allí no tiene que repetirlo.
 const CLAVE_AUTOR = 'semana.autor';
@@ -34,7 +39,14 @@ function cuandoBarrido(iso: string | null): string {
   return `leídas el ${d.toLocaleString('es-ES', { timeZone: 'Europe/Madrid', day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
 }
 
+/** La ficha visible con esa clave (la cuadrícula y la agenda tienen cada una la suya). */
+function fichaVisible(clave: string): HTMLElement | null {
+  const todas = document.querySelectorAll<HTMLElement>(`[data-clave="${CSS.escape(clave)}"]`);
+  return Array.from(todas).find((el) => el.offsetParent !== null) || null;
+}
+
 export default function Newsletter() {
+  const [params, setParams] = useSearchParams();
   const datos = useApi<RespuestaNewsletter>('/api/newsletter');
   const yo = useApi<{ identidad: { email: string; nombre: string } | null }>('/api/yo');
   const identificado = yo.data?.identidad?.nombre || '';
@@ -51,6 +63,62 @@ export default function Newsletter() {
   }, [elegido]);
 
   const d = datos.data;
+  const correos = useMemo<Correo[]>(() => (d ? [...d.proximos, ...d.enviados] : []), [d]);
+  const clave = params.get('c');
+  const abierto = (clave && correos.find((c) => c.clave === clave)) || null;
+  const hoy = mesDeHoy();
+  // Un enlace con `&c=` y sin `?m=` abre el mes de ese correo; si no, el de hoy.
+  const mes = mesDeParam(params.get('m'), mesDeFecha(abierto?.fecha) || hoy);
+  const sinFecha = correos.filter((c) => !mesDeFecha(c.fecha));
+  const delMes = correos.filter((c) => mesDeFecha(c.fecha) === mes).length;
+
+  const tituloDetalle = useRef<HTMLHeadingElement>(null);
+  const porClic = useRef(false);
+  const ultimaFicha = useRef<string | null>(null);
+
+  const elegir = (c: string) => {
+    porClic.current = true;
+    ultimaFicha.current = c;
+    const p = new URLSearchParams(params);
+    p.set('m', mes);
+    p.set('c', c);
+    setParams(p);
+  };
+
+  const cerrar = () => {
+    const p = new URLSearchParams(params);
+    p.delete('c');
+    setParams(p);
+    const volver = ultimaFicha.current;
+    // Al cerrar, el foco vuelve a la ficha que abrió el correo.
+    if (volver) requestAnimationFrame(() => fichaVisible(volver)?.focus());
+  };
+
+  // Al abrir con un clic, el foco va al detalle (y en el móvil, la vista baja hasta él).
+  useEffect(() => {
+    if (!abierto || !porClic.current) return;
+    porClic.current = false;
+    tituloDetalle.current?.focus({ preventScroll: true });
+    // Con el panel al lado (xl) basta con que se vea; debajo del calendario, se sube hasta él.
+    const alLado = window.matchMedia('(min-width: 1280px)').matches;
+    tituloDetalle.current?.scrollIntoView({ block: alLado ? 'nearest' : 'start' });
+  }, [abierto]);
+
+  // Esc cierra el detalle, salvo con un feedback a medio escribir.
+  useEffect(() => {
+    if (!abierto) return;
+    const tecla = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      const t = e.target;
+      if ((t instanceof HTMLTextAreaElement || t instanceof HTMLInputElement) && t.value.trim()) return;
+      cerrar();
+    };
+    document.addEventListener('keydown', tecla);
+    return () => document.removeEventListener('keydown', tecla);
+  });
+
+  const enlaceMes = (m: string) => `?m=${m}`;
+  const BOTON = 'inline-flex items-center justify-center h-9 rounded-full border border-border bg-bg-card text-text-primary text-[13px] font-semibold hover:border-text-muted transition-colors';
 
   return (
     <div className="space-y-8 min-w-0">
@@ -103,33 +171,97 @@ export default function Newsletter() {
             )}
           </div>
 
-          <section className="space-y-4" aria-labelledby="nl-proximos">
-            <h2 id="nl-proximos" className="font-display text-xl font-semibold text-text-primary">
-              Próximos
-              {d.proximos.length > 0 && <span className="ml-2 font-sans text-[14px] font-normal text-text-muted">{d.proximos.length}</span>}
-            </h2>
-            {d.proximos.length ? (
-              <div className="grid gap-6 max-w-3xl">
-                {d.proximos.map((c) => (
-                  <CorreoTarjeta key={c.id} correo={c} puedoAprobar={d.puedo_aprobar} autor={autor} onCambio={datos.refetch} />
+          <div className={abierto ? 'grid gap-6 items-start xl:grid-cols-[minmax(0,1fr)_minmax(0,25rem)]' : ''}>
+            <section className="space-y-4 min-w-0" aria-labelledby="nl-mes">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <h2 id="nl-mes" className="font-display text-2xl font-semibold text-text-primary" aria-live="polite">
+                    {tituloMes(mes)}
+                  </h2>
+                  <p className="text-[13px] text-text-muted">
+                    {delMes === 0 ? 'Sin correos este mes' : delMes === 1 ? '1 correo' : `${delMes} correos`}
+                    {d.metricas.configurado && <> · métricas de Brevo {cuandoBarrido(d.metricas.ultimo_barrido)}</>}
+                  </p>
+                </div>
+                <nav className="flex items-center gap-1.5" aria-label="Cambiar de mes">
+                  <Link to={enlaceMes(mesVecino(mes, -1))} className={`${BOTON} w-9`} aria-label={`Mes anterior: ${tituloMes(mesVecino(mes, -1))}`}>
+                    <span aria-hidden="true">‹</span>
+                  </Link>
+                  <Link to={enlaceMes(hoy)} className={`${BOTON} px-4`} aria-current={mes === hoy ? 'date' : undefined}>
+                    Hoy
+                  </Link>
+                  <Link to={enlaceMes(mesVecino(mes, 1))} className={`${BOTON} w-9`} aria-label={`Mes siguiente: ${tituloMes(mesVecino(mes, 1))}`}>
+                    <span aria-hidden="true">›</span>
+                  </Link>
+                </nav>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5" aria-label="Leyenda de estados">
+                {Object.entries(ESTADO_CORREO).map(([k, e]) => (
+                  <span key={k} className={`px-2 py-0.5 rounded-full border text-[11px] font-semibold ${e.clase}`}>
+                    {e.texto}
+                  </span>
                 ))}
               </div>
-            ) : (
-              <p className="text-sm text-text-muted">No hay correos por enviar.</p>
-            )}
-          </section>
 
-          <section className="space-y-4 min-w-0" aria-labelledby="nl-enviados">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 id="nl-enviados" className="font-display text-xl font-semibold text-text-primary">
-                Enviados
-              </h2>
-              {d.metricas.configurado && (
-                <p className="text-[12px] text-text-muted">Métricas de Brevo {cuandoBarrido(d.metricas.ultimo_barrido)}</p>
+              <CalendarioMes mes={mes} correos={correos} seleccionada={abierto?.clave || null} onElegir={elegir} />
+
+              {sinFecha.length > 0 && (
+                <div className="space-y-2">
+                  <h3 className="text-[13px] font-semibold text-text-muted">Sin fecha</h3>
+                  <ul className="flex flex-wrap gap-2">
+                    {sinFecha.map((c) => (
+                      <li key={c.id}>
+                        <button
+                          type="button"
+                          data-clave={c.clave}
+                          aria-expanded={abierto?.clave === c.clave}
+                          onClick={() => elegir(c.clave)}
+                          className={`px-2.5 py-1 rounded-md border text-[12px] font-semibold ${(ESTADO_CORREO[c.estado] || ESTADO_CORREO.enviado).clase}`}
+                        >
+                          {c.numero != null ? `nº${c.numero}` : c.clave} · {c.asunto}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
-            </div>
-            <TablaEnviados correos={d.enviados} />
-          </section>
+            </section>
+
+            {abierto && (
+              <section
+                id="nl-detalle"
+                aria-labelledby="nl-detalle-titulo"
+                className="min-w-0 space-y-4 xl:sticky xl:top-20 xl:max-h-[calc(100vh-6rem)] xl:overflow-y-auto xl:pr-1"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <h2
+                    id="nl-detalle-titulo"
+                    ref={tituloDetalle}
+                    tabIndex={-1}
+                    className="text-[13px] font-semibold text-text-muted focus:outline-none scroll-mt-20"
+                  >
+                    {abierto.numero != null ? `Correo ${abierto.numero}` : abierto.clave} · {cuandoCorreo(abierto.fecha, abierto.hora)}
+                  </h2>
+                  <button type="button" onClick={cerrar} className={`${BOTON} px-3.5 shrink-0`}>
+                    Cerrar<span className="sr-only"> el correo</span>
+                  </button>
+                </div>
+                {abierto.estado === 'enviado' && (
+                  <div className="bg-bg-card border border-border rounded-xl p-4">
+                    <MetricasEnviado correo={abierto} />
+                  </div>
+                )}
+                <CorreoTarjeta
+                  key={abierto.id}
+                  correo={abierto}
+                  puedoAprobar={d.puedo_aprobar}
+                  autor={autor}
+                  onCambio={datos.refetch}
+                />
+              </section>
+            )}
+          </div>
         </>
       )}
     </div>

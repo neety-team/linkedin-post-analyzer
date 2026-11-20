@@ -86,6 +86,7 @@ export function cuandoCorreo(fecha: string | null, hora: string | null): string 
 }
 
 export const ESTADO_CORREO: Record<string, { texto: string; clase: string }> = {
+  idea: { texto: 'Idea', clase: 'text-text-muted border-dashed border-border bg-bg-card' },
   borrador: { texto: 'Borrador', clase: 'text-warning border-warning/40 bg-warning/10' },
   aprobado: { texto: 'Aprobado', clase: 'text-success border-success/40 bg-success/10' },
   programado: { texto: 'Programado en Brevo', clase: 'text-data border-data/40 bg-data/10' },

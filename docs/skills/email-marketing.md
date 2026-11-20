@@ -2738,6 +2738,8 @@ Hay correos en los que, además del nuestro, toca dar visibilidad a algo de otra
 
 **Por qué:** el bug del `§3b` (preheader duplicado) llevaba **3 tandas enviadas** antes de que nadie lo viera, porque nadie se había mandado un test. El validador mecánico y el pase de criterio no lo cazan — es justo el tipo de fallo que solo se ve abriendo el correo de verdad en una bandeja real.
 
+**Flujo de envío con el panel (20/11/2026):** el correo validado se sube con `neety_newsletter_publicar`, Iker lo aprueba en `https://contenido.neety.team/newsletter`, y al crear la campaña de Brevo (siempre en borrador, con la prueba enviada) se vincula con `neety_newsletter_vincular`.
+
 ### ⭐ 9b · AVISOS DE PRE-ENVÍO — se pegan SIEMPRE debajo del texto entregado (Iker, 2026-08-06)
 Igual que en LinkedIn se avisa de adjuntar la imagen o de pasarle las tipografías al diseñador, **toda entrega de un correo termina con esta lista**. No es opcional y no se resume: se pega entera, porque es lo que se olvida cuando hay prisa.
 

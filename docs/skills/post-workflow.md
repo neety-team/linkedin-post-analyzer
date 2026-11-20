@@ -2051,7 +2051,7 @@ Copiar no es plagiar: se copian el molde y el orden, nunca frases literales.
 - estructura del cuerpo y cierre;
 - formato y duración del GIF.
 
-Se leen también los dos casos del 20/11 (`§4.5.0-DOS-DEL-20NOV`: el molde `He metido [mi experiencia] en Claude`, la lista de trabajos del lector y el visor con el índice legible). Se comparan los que pasan de 300 comentarios con los que no (`§4.5.0-BUENOS-CONTRA-MALOS`, remedido el 11/11: GIF 504 frente a fija 345, el 86% en 4:5, VENTAS como palabra, `comenta` en el texto 10% frente a 36%). La memoria `feedback_lead_magnet_calco_descarado` explica el porqué.
+**Antes, `§4.5.0-CRUCE-20NOV`: el texto es condición y no palanca; lo que cruza nuestro pico con los ganadores de hoy es llegar el primero con algo nuevo a un nicho sin dueño.** Se leen también los dos casos del 20/11 (`§4.5.0-DOS-DEL-20NOV`: el molde `He metido [mi experiencia] en Claude`, la lista de trabajos del lector y el visor con el índice legible). Se comparan los que pasan de 300 comentarios con los que no (`§4.5.0-BUENOS-CONTRA-MALOS`, remedido el 11/11: GIF 504 frente a fija 345, el 86% en 4:5, VENTAS como palabra, `comenta` en el texto 10% frente a 36%). La memoria `feedback_lead_magnet_calco_descarado` explica el porqué.
 
 **2 · Tema, recurso y palabra.**
 - **Tema:** el que más comenta y que podamos regalar SIN prometer automatismo, volumen ni señal.
@@ -2391,6 +2391,65 @@ Sus posts normales sacan de 0 a 20 comentarios. Cambiaron tres cosas a la vez (t
 **📅 La oportunidad de calendario:** el plan del año que viene se prepara en noviembre y diciembre (Marcial, 571 en un día con el plan de 2027). La versión nuestra sería el plan comercial o de prospección de 2027 con Claude, para el director comercial: las decisiones que nadie toma (a qué empresas ir, en qué orden, quién del equipo, cómo saber si va bien), con Claude como nivel intermedio y Neety arriba. Pendiente de decidir cuenta y fecha; el recurso no existe y no se autogenera (`feedback_lead_magnet_no_autogenerar`).
 
 **Referentes:** Marcial Picó Romera (`marcialpico`) no está en la BD; Juan Cruz Sinkec ya está desde el 30/09.
+
+#### 🧬🧬 4.5.0-CRUCE-20NOV · TODA LA EVIDENCIA DE FUERA CONTRA NUESTROS 29 LEAD MAGNETS DE 2026 (BD + Unipile, 2026-11-20)
+**Con cuántas referencias se mide.**
+- En la BD hay 1.795 lead magnets de la competencia en español. 309 pasan de 80 comentarios, de 21 autores.
+- Para el cruce se bajaron los 1.021 de los 12 autores con más volumen: Martín Arosa 112, Chris Payne 454, Miriam Collado 134, Pablo Rodríguez 125, Ignasi Mellado 53, Anna Bayón 38, Juan Cruz Sinkec 32, Félix Fernández 30, Yago C. 16, Paolo Colonnello 13, Fran Quintero 9 y Miguel Ángel Durán 5.
+- A eso se suman las lecturas por Unipile de los dos últimos meses: unos 150 lead magnets (`§4.5.0-UNA-PAGINA`, `§4.5.0-BUENOS-CONTRA-MALOS`, `§4.5.0-DOS-DEL-20NOV`).
+- De lo nuestro, 29 lead magnets de 2026 con impresiones, más 20 de 2024-2025.
+- ⚠️ **La BD de la competencia casi no tiene septiembre a noviembre** (Martín Arosa, 10 posts), porque los posts nuevos de la competencia entran con el botón manual. Lo reciente sale de Unipile.
+
+**Cómo se mide.** Fuera, dentro de cada autor, el tercio con más comentarios contra el tercio con menos. Así el tamaño de la cuenta se cancela. Solo cuentan los que tienen la palabra puesta (≥20 comentarios y comentarios ≥ 0,8 × likes), y se separan dos épocas: hasta mayo y desde junio. Lo nuestro, abril-mayo (n=10, mediana de 181 comentarios y 9.814 impresiones) contra desde junio (n=19, mediana de 22 y 1.810). Los rasgos se etiquetan por texto: molde, cifras, emoji, lista, persona, tema y emoción.
+
+**1 · Las mismas familias de gancho que funcionaron en abril-mayo fracasaron todas desde junio.**
+
+| familia | nuestro abr-may (mediana) | nuestro desde junio | fuera desde junio |
+|---|---|---|---|
+| yo lo hice / lo regalo (`Le tiré las llaves de mi LinkedIn a Claude…`, `Hoy desmonto perfiles…`) | **286** (ratio 4,37, n=3) | 26 (n=4) | 170 (n=6) |
+| Claude como noticia (`🚨 ÚLTIMA HORA: Claude acaba de…`) | 188 (n=3) | 24 (n=8) | 315 (n=9) |
+| dolor del lector (`Si tus mensajes…`, `Por qué la mayoría…`) | 120 (n=3) | 18 (n=3) | 76 (n=3) |
+
+**El texto y la psicología no explican la caída:** cayeron a la vez todas las familias y las tres cuentas, y fue en junio, el mes en que el género dobló la oferta (`§4.5.0-MERCADO`). Lo que se hundió fue sobre todo el alcance, 5 veces menos (9.814 → 1.810 impresiones), y con él la conversión de fuera (6,7 → 1,9 comentarios con palabra por 1.000, `§4.5.0-CRUCE`).
+
+**2 · Calcar los rasgos de texto de los que ganan no ha movido nada.** Se puntuó cada post nuestro por los 7 rasgos que separan a los ganadores de fuera desde junio:
+
+| rasgo | ganadores | perdedores |
+|---|---|---|
+| tema Claude | 75% | 44% |
+| primera persona | 28% | 12% |
+| lista de 6 o más | 62% | 47% |
+| gancho de 60 caracteres o menos | 59% | 47% |
+| Claude en el gancho, Claude como sujeto y asombro | más | menos |
+
+Nuestros posts pasaron de 1-3 rasgos en abril-mayo a 4-5 de agosto a noviembre, y no mejoraron. La puntuación correlaciona 0,20 con los comentarios y −0,31 con las impresiones (Spearman, n=29). Es lo mismo que le pasó a Link360 cuando copió el texto de Pablo Rodríguez: 69 comentarios contra 1.391. **El texto es condición, no palanca.**
+
+**3 · Lo que SÍ cruza nuestro pico con los ganadores de hoy: llegar el primero con algo nuevo, a un nicho que nadie atiende todavía.**
+- Unai, 30/04 (626): Claude conectado a LinkedIn cuando era noticia.
+- Las «llaves» (232 y 286): el conector recién salido.
+- Marcial: el primero en regalar skills al director de marketing (3.344).
+- Juan Cruz: monta cada novedad el día que sale (Fable 5.2, GrokBot, Claude Code).
+- Lo nuestro desde junio llegó a temas ya quemados fuera. El caso más claro: Asier el 30/09, nueve días después del pico de Martín Arosa del 21/09.
+
+**La palanca está en el ángulo y en el momento, no en la frase.** Nichos nuestros sin dueño en el género, que es de consultores y marca personal: el director comercial de industria, la exportación y el plan comercial de 2027. *(hipótesis, n=4 casos de primero contra un patrón de 19 tarde)*
+
+**4 · Lo que se valida, lo que no y lo que es de época.**
+- ✅ **El logro en primera persona con Claude es nuestra mejor familia**, de media 3,91x en la BD (n=3, todas «llaves» o «cazar leads»). Hoy es la que gana fuera: «Conecté Claude a LinkedIn con un solo clic» (708) es casi nuestra «llaves» de mayo, y está «He metido 15 años… en Claude» (3.344). También funcionan el regalo directo (2,00x; `desmonto perfiles` 8,46x) y la urgencia (1,82x de media, muy desigual: 9,41 el de Unai y casi todos los demás por debajo de 0,7).
+- ❌ **No funcionan en lead magnet:** rompe creencias (0,48x), humor (0,52x; el traductor cringe, 12), confesión (0,65x), escena (0,37x; el comprador en la web, 10; el comité, 20) y ADIÓS/D.E.P. (32 y 6 nuestros; fuera, 248, el peor de Juan Cruz en su semana).
+- ⏳ **`Comenta X` en el texto es cosa de la época, no una ley.** En junio-agosto Martín Arosa sacaba 664 con la petición en el texto y 433 sin ella. De septiembre a noviembre, 0 de sus 10 la llevan, y tampoco Juan Cruz (0 de 3). Nuestro abril-mayo la llevaba (80%). Hoy manda `§4.5.0-CTA-CERO` y se vuelve a medir cada mes (`feedback_reglas_caducan_con_el_algoritmo`).
+- ⚠️ **La cifra de prueba en el cuerpo** la llevaba el 70% de nuestro abril-mayo y el 11% desde junio, pero fuera la llevan menos los que ganan (16% contra 28%). No se valida como palanca, y el veto al volumen sigue (`global §4.4b-MUNICIÓN`).
+- ⚠️ **El solo texto** fue el 50% de nuestro abril-mayo, y fuera, hoy, nadie gana con solo texto (0%). No se recomienda.
+- 📏 **El gancho largo es un hueco constante:** solo el 26-30% de nuestros ganchos tiene 60 caracteres o menos, contra el 59% de los ganadores de fuera. Nuestros dos ganchos de dolor que funcionaron tenían 48 y 61.
+- 👇 **El emoji del gancho se ha vuelto un tic:** desde junio lo lleva el 100% de nuestros ganchos (casi siempre 👇), contra el 34% de los ganadores de fuera y el 70% de nuestro abril-mayo. No hay ningún dato de que ayude.
+
+**5 · La frecuencia y el público.** Los que ganan publican un lead magnet cada 2-3 días a un público que ya sabe comentar la palabra (Juan Cruz 32, Martín Arosa 112). Nosotros sacamos uno cada dos semanas repartido en tres cuentas, a un público de dirección industrial, y nuestras cuentas se reparten con mapas. Entre los que comentan en el género, del 17% al 34% son dueños o dirección (`§4.5.0-DOS-DEL-20NOV` punto 9). *(hipótesis: el lead magnet de palabra es un formato de audiencia entrenada; sin frecuencia no hay entrenamiento)*
+
+**Qué se aplica desde hoy.**
+1. Antes de escribir se busca un ángulo que sea primero en un nicho nuestro.
+2. El molde de gancho, por defecto, es logro en primera persona con Claude o regalo directo, de 60 caracteres o menos y sin emoji obligado.
+3. Fuera humor, escena, confesión, rompe creencias y D.E.P.
+4. La regla de la petición en el texto se vuelve a medir cada mes.
+5. Antes del siguiente análisis se refrescan en la BD los posts de la competencia de septiembre a noviembre.
 
 #### 🔎🔎 4.5.0-COMPETENCIA · PASO 0 OBLIGATORIO: LA INVESTIGACIÓN DE REFERENTES, ANTES DE ELEGIR TEMA (Mario, 2026-08-26)
 

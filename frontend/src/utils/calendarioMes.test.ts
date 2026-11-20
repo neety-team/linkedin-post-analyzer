@@ -12,6 +12,7 @@ import {
   mesDeHoy,
   mesDeParam,
   mesVecino,
+  proximoCorreo,
   semanasDelMes,
   tituloMes,
 } from './calendarioMes';
@@ -89,5 +90,16 @@ const { porFecha, sinFecha } = agruparPorFecha([
 assert.deepEqual(porFecha.get('2026-12-01')?.map((c) => c.id), ['a', 'b']);
 assert.deepEqual(porFecha.get('2026-12-03')?.map((c) => c.id), ['c']);
 assert.deepEqual(sinFecha.map((c) => c.id), ['d', 'e']);
+
+// El próximo correo: de hoy en adelante, el primero por fecha y hora.
+const lista = [
+  { id: 'viejo', fecha: '2026-11-17', hora: '09:05' },
+  { id: 'tarde', fecha: '2026-12-01', hora: '18:00' },
+  { id: 'pronto', fecha: '2026-12-01', hora: '09:05' },
+  { id: 'sin', fecha: null, hora: null },
+];
+assert.equal(proximoCorreo(lista, '2026-11-20')?.id, 'pronto');
+assert.equal(proximoCorreo(lista, '2026-11-17')?.id, 'viejo');
+assert.equal(proximoCorreo(lista, '2026-12-02'), null);
 
 console.log('calendarioMes: ok');

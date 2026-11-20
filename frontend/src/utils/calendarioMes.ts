@@ -127,3 +127,10 @@ export function agruparPorFecha<T extends { fecha: string | null; hora: string |
   for (const lista of porFecha.values()) lista.sort((x, y) => (x.hora || '').localeCompare(y.hora || ''));
   return { porFecha, sinFecha };
 }
+
+/** El primer correo de hoy en adelante (por fecha y hora); null si no queda ninguno. */
+export function proximoCorreo<T extends { fecha: string | null; hora: string | null }>(correos: T[], hoy: string): T | null {
+  const futuros = correos.filter((c) => c.fecha && mesDeFecha(c.fecha) && c.fecha >= hoy);
+  futuros.sort((x, y) => (x.fecha as string).localeCompare(y.fecha as string) || (x.hora || '').localeCompare(y.hora || ''));
+  return futuros[0] || null;
+}

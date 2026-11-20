@@ -10,15 +10,15 @@
  * solo sale cuando el backend dice `puedo_aprobar` (la identidad del login
  * central es la de Iker), nunca por lo que elija el navegador.
  */
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { Link, useLocation, useSearchParams, type SetURLSearchParams } from 'react-router-dom';
 import { useApi } from '../hooks/useApi';
 import CanalSelector from '../components/CanalSelector';
 import CorreoTarjeta from '../components/newsletter/CorreoTarjeta';
 import CalendarioMes from '../components/newsletter/CalendarioMes';
 import MetricasEnviado from '../components/newsletter/MetricasEnviado';
 import { cuandoCorreo, ESTADO_CORREO, type Correo, type RespuestaNewsletter } from '../components/newsletter/tipos';
-import { mesDeFecha, mesDeHoy, mesDeParam, mesVecino, tituloMes } from '../utils/calendarioMes';
+import { hoyMadrid, mesDeFecha, mesDeHoy, mesDeParam, mesVecino, proximoCorreo, tituloMes } from '../utils/calendarioMes';
 
 // La misma clave que Semana: quien ya eligió nombre allí no tiene que repetirlo.
 const CLAVE_AUTOR = 'semana.autor';
@@ -45,6 +45,32 @@ function fichaVisible(clave: string): HTMLElement | null {
   return Array.from(todas).find((el) => el.offsetParent !== null) || null;
 }
 
+/**
+ * Cierra el detalle (sin dejar una entrada en el historial) y devuelve el foco a
+ * la ficha que lo abrió; si se llegó por un enlace, al título del mes.
+ */
+function cerrarDetalle(
+  setParams: SetURLSearchParams,
+  mes: string,
+  ultimaFicha: RefObject<string | null>,
+  tituloMes: RefObject<HTMLHeadingElement | null>,
+) {
+  setParams(
+    (prev) => {
+      const p = new URLSearchParams(prev);
+      p.delete('c');
+      // El mes se fija: sin él, un correo abierto por enlace devolvería al mes de hoy.
+      p.set('m', mes);
+      return p;
+    },
+    { replace: true },
+  );
+  setTimeout(() => {
+    const ficha = ultimaFicha.current ? fichaVisible(ultimaFicha.current) : null;
+    (ficha || tituloMes.current)?.focus();
+  }, 0);
+}
+
 export default function Newsletter() {
   const [params, setParams] = useSearchParams();
   const datos = useApi<RespuestaNewsletter>('/api/newsletter');
@@ -63,21 +89,32 @@ export default function Newsletter() {
   }, [elegido]);
 
   const d = datos.data;
+  const location = useLocation();
   const correos = useMemo<Correo[]>(() => (d ? [...d.proximos, ...d.enviados] : []), [d]);
   const clave = params.get('c');
   const abierto = (clave && correos.find((c) => c.clave === clave)) || null;
+  const claveAbierta = abierto?.clave || null;
   const hoy = mesDeHoy();
   // Un enlace con `&c=` y sin `?m=` abre el mes de ese correo; si no, el de hoy.
   const mes = mesDeParam(params.get('m'), mesDeFecha(abierto?.fecha) || hoy);
   const sinFecha = correos.filter((c) => !mesDeFecha(c.fecha));
   const delMes = correos.filter((c) => mesDeFecha(c.fecha) === mes).length;
+  // Lo que espera a alguien no puede quedar escondido en otro mes: va siempre arriba.
+  const porFechaYHora = (x: Correo, y: Correo) => (x.fecha || '').localeCompare(y.fecha || '') || (x.hora || '').localeCompare(y.hora || '');
+  const porAprobar = correos.filter((c) => c.estado === 'borrador').sort(porFechaYHora);
+  const sinProgramar = correos.filter((c) => c.estado === 'aprobado').sort(porFechaYHora);
+  // Sin mes ni correo pedidos y con el mes de hoy vacío, se dice cuál es el siguiente.
+  const proximo = !params.get('m') && !clave && delMes === 0 ? proximoCorreo(correos, hoyMadrid()) : null;
+  const perdido = (location.state as { perdido?: string } | null)?.perdido;
 
   const tituloDetalle = useRef<HTMLHeadingElement>(null);
-  const porClic = useRef(false);
+  const tituloMesRef = useRef<HTMLHeadingElement>(null);
+  // La clave que hay que enseñar al abrirse (por clic o enlace de la página); se gasta al usarla.
+  const revelar = useRef<string | null>(null);
   const ultimaFicha = useRef<string | null>(null);
 
   const elegir = (c: string) => {
-    porClic.current = true;
+    if (c !== claveAbierta) revelar.current = c;
     ultimaFicha.current = c;
     const p = new URLSearchParams(params);
     p.set('m', mes);
@@ -85,37 +122,47 @@ export default function Newsletter() {
     setParams(p);
   };
 
-  const cerrar = () => {
-    const p = new URLSearchParams(params);
-    p.delete('c');
-    setParams(p);
-    const volver = ultimaFicha.current;
-    // Al cerrar, el foco vuelve a la ficha que abrió el correo.
-    if (volver) requestAnimationFrame(() => fichaVisible(volver)?.focus());
+  /** El enlace a un correo en su mes, para las tiras de arriba. */
+  const enlaceCorreo = (c: Correo) => `?m=${mesDeFecha(c.fecha) || mes}&c=${encodeURIComponent(c.clave)}`;
+  const alPulsarEnlace = (c: Correo) => {
+    if (c.clave !== claveAbierta) revelar.current = c.clave;
+    ultimaFicha.current = c.clave;
   };
 
-  // Al abrir con un clic, el foco va al detalle (y en el móvil, la vista baja hasta él).
+  const cerrar = () => cerrarDetalle(setParams, mes, ultimaFicha, tituloMesRef);
+
+  // `?c=` de un correo que ya no está: se quita sin dejar rastro en el historial y se avisa.
   useEffect(() => {
-    if (!abierto || !porClic.current) return;
-    porClic.current = false;
+    if (!d || !clave || abierto) return;
+    const p = new URLSearchParams(params);
+    p.delete('c');
+    setParams(p, { replace: true, state: { perdido: clave } });
+  }, [d, clave, abierto, params, setParams]);
+
+  // Al abrir un correo nuevo, el foco va al detalle (y en el móvil, la vista baja hasta él).
+  // Solo cuando cambia la clave: aprobar o dejar feedback recargan los datos y no deben mover nada.
+  useEffect(() => {
+    if (!claveAbierta || revelar.current !== claveAbierta) return;
+    revelar.current = null;
     tituloDetalle.current?.focus({ preventScroll: true });
     // Con el panel al lado (xl) basta con que se vea; debajo del calendario, se sube hasta él.
     const alLado = window.matchMedia('(min-width: 1280px)').matches;
     tituloDetalle.current?.scrollIntoView({ block: alLado ? 'nearest' : 'start' });
-  }, [abierto]);
+  }, [claveAbierta]);
 
-  // Esc cierra el detalle, salvo con un feedback a medio escribir.
+  // Esc cierra el detalle, salvo si otro lo ha atendido, en un desplegable o con texto a medio escribir.
   useEffect(() => {
-    if (!abierto) return;
+    if (!claveAbierta) return;
     const tecla = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return;
+      if (e.key !== 'Escape' || e.defaultPrevented) return;
       const t = e.target;
+      if (t instanceof HTMLSelectElement) return;
       if ((t instanceof HTMLTextAreaElement || t instanceof HTMLInputElement) && t.value.trim()) return;
-      cerrar();
+      cerrarDetalle(setParams, mes, ultimaFicha, tituloMesRef);
     };
     document.addEventListener('keydown', tecla);
     return () => document.removeEventListener('keydown', tecla);
-  });
+  }, [claveAbierta, mes, setParams]);
 
   const enlaceMes = (m: string) => `?m=${m}`;
   const BOTON = 'inline-flex items-center justify-center h-9 rounded-full border border-border bg-bg-card text-text-primary text-[13px] font-semibold hover:border-text-muted transition-colors';
@@ -171,11 +218,66 @@ export default function Newsletter() {
             )}
           </div>
 
+          {perdido && !abierto && (
+            <p role="status" className="text-[13px] text-text-muted">
+              Ese correo ya no está.
+            </p>
+          )}
+
+          {(porAprobar.length > 0 || sinProgramar.length > 0 || proximo) && (
+            <div className="space-y-2">
+              {[
+                { lista: porAprobar, titulo: porAprobar.length === 1 ? '1 por aprobar' : `${porAprobar.length} por aprobar`, tono: 'text-warning' },
+                {
+                  lista: sinProgramar,
+                  titulo: sinProgramar.length === 1 ? '1 aprobado sin programar' : `${sinProgramar.length} aprobados sin programar`,
+                  tono: 'text-success',
+                },
+              ]
+                .filter((t) => t.lista.length > 0)
+                .map((t) => (
+                  <div key={t.titulo} className="flex flex-wrap items-center gap-2 min-w-0">
+                    <span className={`text-[13px] font-semibold ${t.tono}`}>{t.titulo}</span>
+                    <ul className="flex flex-wrap gap-1.5 min-w-0">
+                      {t.lista.map((c) => (
+                        <li key={c.id} className="min-w-0 max-w-full">
+                          <Link
+                            to={enlaceCorreo(c)}
+                            onClick={() => alPulsarEnlace(c)}
+                            className={`inline-block max-w-full truncate px-2.5 py-1 rounded-full border text-[12px] font-semibold hover:underline ${
+                              (ESTADO_CORREO[c.estado] || ESTADO_CORREO.enviado).clase
+                            }`}
+                          >
+                            {c.numero != null ? `Correo ${c.numero}` : c.clave} · {cuandoCorreo(c.fecha, c.hora)}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              {proximo && (
+                <p className="text-[13px] text-text-muted">
+                  Próximo correo:{' '}
+                  <Link to={enlaceCorreo(proximo)} onClick={() => alPulsarEnlace(proximo)} className="font-semibold text-accent hover:underline">
+                    {proximo.numero != null ? `Correo ${proximo.numero}` : proximo.clave} · {cuandoCorreo(proximo.fecha, proximo.hora)} ·{' '}
+                    {proximo.asunto}
+                  </Link>
+                </p>
+              )}
+            </div>
+          )}
+
           <div className={abierto ? 'grid gap-6 items-start xl:grid-cols-[minmax(0,1fr)_minmax(0,25rem)]' : ''}>
             <section className="space-y-4 min-w-0" aria-labelledby="nl-mes">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <h2 id="nl-mes" className="font-display text-2xl font-semibold text-text-primary" aria-live="polite">
+                  <h2
+                    id="nl-mes"
+                    ref={tituloMesRef}
+                    tabIndex={-1}
+                    className="font-display text-2xl font-semibold text-text-primary focus:outline-none"
+                    aria-live="polite"
+                  >
                     {tituloMes(mes)}
                   </h2>
                   <p className="text-[13px] text-text-muted">
@@ -217,7 +319,7 @@ export default function Newsletter() {
                           data-clave={c.clave}
                           aria-expanded={abierto?.clave === c.clave}
                           onClick={() => elegir(c.clave)}
-                          className={`px-2.5 py-1 rounded-md border text-[12px] font-semibold ${(ESTADO_CORREO[c.estado] || ESTADO_CORREO.enviado).clase}`}
+                          className={`max-w-full text-left break-words px-2.5 py-1 rounded-md border text-[12px] font-semibold ${(ESTADO_CORREO[c.estado] || ESTADO_CORREO.enviado).clase}`}
                         >
                           {c.numero != null ? `nº${c.numero}` : c.clave} · {c.asunto}
                         </button>

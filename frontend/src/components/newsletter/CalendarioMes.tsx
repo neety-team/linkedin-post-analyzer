@@ -22,7 +22,9 @@ function Ficha({ correo, seleccionada, onElegir }: { correo: Correo; seleccionad
   const estado = ESTADO_CORREO[correo.estado] || { ...ESTADO_OTRO, texto: correo.estado };
   const hora = correo.hora ? correo.hora.slice(0, 5) : '';
   const enviado = correo.estado === 'enviado';
-  const apertura = enviado ? porcentaje(correo.metricas?.apertura_real ?? null) : null;
+  // Solo con dato: un «—» en cada ficha no dice nada.
+  const real = correo.metricas?.apertura_real;
+  const apertura = enviado && real != null ? porcentaje(real) : null;
   const etiqueta = [
     hora,
     correo.remitente,
@@ -75,7 +77,8 @@ export default function CalendarioMes({
   const semanas = useMemo(() => semanasDelMes(mes), [mes]);
   const { porFecha } = useMemo(() => agruparPorFecha(correos), [correos]);
   const hoy = hoyMadrid();
-  const delMes = semanas.flat().filter((d) => d.delMes && porFecha.has(d.fecha));
+  // La agenda también enseña los días de la semana que caen en el mes vecino, como la cuadrícula.
+  const conCorreos = semanas.flat().filter((d) => porFecha.has(d.fecha));
 
   const fichas = (fecha: string) =>
     (porFecha.get(fecha) || []).map((c) => (
@@ -127,19 +130,26 @@ export default function CalendarioMes({
 
       {/* Móvil: el mismo mes como agenda por semanas */}
       <div className="min-[641px]:hidden space-y-5">
-        {delMes.length === 0 && <p className="text-sm text-text-muted">No hay correos este mes.</p>}
+        {conCorreos.length === 0 && <p className="text-sm text-text-muted">No hay correos este mes.</p>}
         {semanas.map((semana) => {
-          const dias = semana.filter((d) => d.delMes && porFecha.has(d.fecha));
+          const dias = semana.filter((d) => porFecha.has(d.fecha));
           if (!dias.length) return null;
           return (
             <section key={semana[0].fecha} className="space-y-2" aria-label={etiquetaSemana(semana)}>
               <h3 className="text-[13px] font-semibold text-text-muted">{etiquetaSemana(semana)}</h3>
               <ul className="space-y-3">
                 {dias.map((d) => (
-                  <li key={d.fecha} aria-current={d.fecha === hoy ? 'date' : undefined} className="space-y-1.5">
+                  <li
+                    key={d.fecha}
+                    aria-current={d.fecha === hoy ? 'date' : undefined}
+                    className={`space-y-1.5 ${d.delMes ? '' : 'opacity-60'}`}
+                  >
                     <p className={`text-[13px] font-semibold ${d.fecha === hoy ? 'text-accent' : 'text-text-primary'}`}>
                       {diaLargo(d.fecha)}
                       {d.fecha === hoy && ' · hoy'}
+                      {!d.delMes && (
+                        <span className="font-normal text-text-muted"> · {d.fecha < `${mes}-01` ? 'mes anterior' : 'mes siguiente'}</span>
+                      )}
                     </p>
                     <ul className="space-y-1.5 [&_button]:text-[13px] [&_button]:px-2.5 [&_button]:py-1.5">{fichas(d.fecha)}</ul>
                   </li>

@@ -39,7 +39,7 @@ export default function TablaEnviados({ correos }: { correos: Correo[] }) {
             <th scope="col" className={`${TH} text-right`}>CTOR</th>
             <th scope="col" className={`${TH} text-right`}>Bajas</th>
             <th scope="col" className={`${TH} text-right`}>Rebotes</th>
-            <th scope="col" className={`${TH} text-right`}>Reuniones / leads</th>
+            <th scope="col" className={`${TH} text-right`}>Reuniones / inscritos</th>
           </tr>
         </thead>
         <tbody>

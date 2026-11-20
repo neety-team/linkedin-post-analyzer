@@ -156,7 +156,8 @@ export default function CorreoTarjeta({
     setAprobando(true);
     setErrorAprobar(null);
     try {
-      await apiPost(`/api/newsletter/correos/${correo.id}/aprobar`, {});
+      // La huella del texto pintado: si el correo cambió desde que se abrió, el servidor no lo aprueba.
+      await apiPost(`/api/newsletter/correos/${correo.id}/aprobar`, { huella: correo.huella });
       onCambio();
     } catch (e) {
       setErrorAprobar(`No se ha aprobado: ${e instanceof Error ? e.message : 'error desconocido'}`);
@@ -194,9 +195,14 @@ export default function CorreoTarjeta({
         {correo.enlace && (
           <p className="text-text-secondary break-all">
             <span className="font-semibold text-text-primary">Enlace: </span>
-            <a href={correo.enlace} target="_blank" rel="noreferrer" className="text-accent hover:underline">
-              {correo.enlace}
-            </a>
+            {/^https?:\/\//i.test(correo.enlace) ? (
+              <a href={correo.enlace} target="_blank" rel="noreferrer" className="text-accent hover:underline">
+                {correo.enlace}
+              </a>
+            ) : (
+              // Solo http(s) se enlaza: otro esquema (javascript:, data:…) se enseña como texto.
+              correo.enlace
+            )}
           </p>
         )}
         <details className="group">

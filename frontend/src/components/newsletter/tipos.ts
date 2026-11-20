@@ -54,6 +54,8 @@ export interface Correo {
   por_que: string | null;
   validador: string | null;
   validador_ok: boolean;
+  /** Hash del texto: se manda al aprobar para aprobar justo lo que se ve. */
+  huella: string | null;
   estado: string;
   aprobado_por: string | null;
   aprobado_at: string | null;

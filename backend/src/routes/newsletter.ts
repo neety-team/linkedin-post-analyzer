@@ -1,0 +1,115 @@
+/**
+ * /api/newsletter — la pestaña Newsletter de contenido (2026-11-20).
+ * La lógica vive en `services/newsletter.ts` y `services/metricasNewsletter.ts`;
+ * esto solo valida y responde.
+ *
+ * La aprobación es solo de Iker y se decide por la IDENTIDAD de la petición
+ * (login central), nunca por lo que mande el navegador en el cuerpo.
+ */
+import express, { Router, Request, Response } from 'express';
+import {
+  listarCorreos,
+  aprobarCorreo,
+  crearFeedback,
+  puedeAprobar,
+} from '../services/newsletter';
+import { estadoMetricas, estadoBarrido, refrescarMetricas } from '../services/metricasNewsletter';
+import { identidadDe } from '../middleware/basicAuth';
+
+const RE_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Lo que usa el router. Se inyecta en los tests para no necesitar base de datos. */
+export interface DepsNewsletter {
+  listarCorreos: typeof listarCorreos;
+  aprobarCorreo: typeof aprobarCorreo;
+  crearFeedback: typeof crearFeedback;
+  puedeAprobar: typeof puedeAprobar;
+  estadoMetricas: typeof estadoMetricas;
+  estadoBarrido: typeof estadoBarrido;
+  refrescarMetricas: typeof refrescarMetricas;
+}
+
+export const serviciosReales: DepsNewsletter = {
+  listarCorreos,
+  aprobarCorreo,
+  crearFeedback,
+  puedeAprobar,
+  estadoMetricas,
+  estadoBarrido,
+  refrescarMetricas,
+};
+
+export function crearRouter(deps: DepsNewsletter = serviciosReales): Router {
+  const router = Router();
+  router.use(express.json({ limit: '100kb' }));
+
+  const idDe = (req: Request) => String(req.params.id || '');
+
+  /** GET /api/newsletter — los correos, sus métricas y si quien mira puede aprobar. */
+  router.get('/', async (req: Request, res: Response) => {
+    try {
+      const { proximos, enviados } = await deps.listarCorreos();
+      const { configurado } = deps.estadoMetricas();
+      const barrido = await deps.estadoBarrido();
+      res.json({
+        proximos,
+        enviados,
+        metricas: { configurado, ultimo_barrido: barrido.ultimo_at, error: barrido.error },
+        puedo_aprobar: deps.puedeAprobar(identidadDe(req)),
+      });
+    } catch (err: any) {
+      console.error('[newsletter]', err);
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  /**
+   * POST /api/newsletter/correos/:id/aprobar — solo Iker. Primero la identidad
+   * y luego la existencia: quien no aprueba no puede sondear ids.
+   */
+  router.post('/correos/:id/aprobar', async (req: Request, res: Response) => {
+    try {
+      const yo = identidadDe(req);
+      if (!deps.puedeAprobar(yo)) return res.status(403).json({ error: 'Solo Iker aprueba los correos' });
+      const id = idDe(req);
+      if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+      const r = await deps.aprobarCorreo(id, yo!);
+      if (r === 'no_existe') return res.status(404).json({ error: 'Correo no encontrado' });
+      if (r !== 'ok') return res.status(409).json({ error: r });
+      const { proximos, enviados } = await deps.listarCorreos();
+      res.json([...proximos, ...enviados].find((c) => c.id === id) || { id, estado: 'aprobado' });
+    } catch (err: any) {
+      console.error('[newsletter/aprobar]', err);
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  /** POST /api/newsletter/correos/:id/feedback {texto, autor?} */
+  router.post('/correos/:id/feedback', async (req: Request, res: Response) => {
+    try {
+      const id = idDe(req);
+      if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+      const { autor, texto } = req.body || {};
+      // Con login central firma con su nombre real; lo que mande el navegador no cuenta.
+      const yo = identidadDe(req);
+      const fila = await deps.crearFeedback(id, yo ? yo.nombre : autor, texto);
+      if (!fila) return res.status(404).json({ error: 'Correo no encontrado' });
+      res.status(201).json(fila);
+    } catch (err: any) {
+      res.status(400).json({ error: err.message });
+    }
+  });
+
+  /** POST /api/newsletter/refrescar — lanza la lectura de Brevo y responde sin esperarla. */
+  router.post('/refrescar', (_req: Request, res: Response) => {
+    if (!deps.estadoMetricas().configurado) {
+      return res.status(409).json({ error: 'Falta BREVO_API_KEY: no hay métricas que refrescar' });
+    }
+    deps.refrescarMetricas().catch((err) => console.error('[newsletter/refrescar]', err));
+    res.status(202).json({ lanzado: true });
+  });
+
+  return router;
+}
+
+export default crearRouter();

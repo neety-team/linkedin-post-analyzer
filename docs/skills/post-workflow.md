@@ -2051,7 +2051,7 @@ Copiar no es plagiar: se copian el molde y el orden, nunca frases literales.
 - estructura del cuerpo y cierre;
 - formato y duración del GIF.
 
-**Antes, `§4.5.0-CRUCE-20NOV`: el texto es condición y no palanca; lo que cruza nuestro pico con los ganadores de hoy es llegar el primero con algo nuevo a un nicho sin dueño.** Se leen también los dos casos del 20/11 (`§4.5.0-DOS-DEL-20NOV`: el molde `He metido [mi experiencia] en Claude`, la lista de trabajos del lector y el visor con el índice legible). Se comparan los que pasan de 300 comentarios con los que no (`§4.5.0-BUENOS-CONTRA-MALOS`, remedido el 11/11: GIF 504 frente a fija 345, el 86% en 4:5, VENTAS como palabra, `comenta` en el texto 10% frente a 36%). La memoria `feedback_lead_magnet_calco_descarado` explica el porqué.
+**Antes, `§4.5.0-CRUCE-20NOV`: el texto es condición y no palanca; lo que cruza nuestro pico con los ganadores de hoy es llegar el primero con algo nuevo a un nicho sin dueño. Su punto 6 (130 lead magnets de septiembre a noviembre): Claude en la primera línea (1,40 contra 0,74) y fuera `ÚLTIMA HORA` / 🚨 (0,49).** Se leen también los dos casos del 20/11 (`§4.5.0-DOS-DEL-20NOV`: el molde `He metido [mi experiencia] en Claude`, la lista de trabajos del lector y el visor con el índice legible). Se comparan los que pasan de 300 comentarios con los que no (`§4.5.0-BUENOS-CONTRA-MALOS`, remedido el 11/11: GIF 504 frente a fija 345, el 86% en 4:5, VENTAS como palabra, `comenta` en el texto 10% frente a 36%). La memoria `feedback_lead_magnet_calco_descarado` explica el porqué.
 
 **2 · Tema, recurso y palabra.**
 - **Tema:** el que más comenta y que podamos regalar SIN prometer automatismo, volumen ni señal.
@@ -2366,7 +2366,7 @@ Nicolas Cort Manubens (IA CORP) e Ignasi Mellado y Alex Solé (Link360, publican
 
 Sus posts normales sacan de 0 a 20 comentarios. Cambiaron tres cosas a la vez (tema, sitio de la palabra y GIF), así que no aísla ninguna; pero `Comenta X` en el texto dio 0, y es el quinto autor de fuera que lo confirma (`§4.5.0-CTA-CERO`). **Con menos seguidores que Asier (4.586) hizo 3.344:** el tamaño de la cuenta deja de valer como argumento contra el lead magnet en Asier (`§4.5.0-CRUCE` punto 5). La decisión sigue en pie hasta que se revise; esto es evidencia para revisarla, no una regla nueva.
 
-**2 · Molde de gancho nuevo: `He metido [mi experiencia] en Claude` + `Te lo regalo` en la segunda línea.** Lo que se regala es el conocimiento del autor y Claude es el envase. Encaja con nuestro filtro del diferencial (`§4.5.-4` paso 3) mejor que «Claude lo hace todo»: el valor es lo que sabemos, Claude es el nivel intermedio y Neety sigue arriba. ⚠️ La cifra de autoridad (`15 años`, `+60 clientes`) tiene que ser real y verificable antes de escribirla. **No cambia la regla de cero cifras en el gancho (`§4.5.0-BUENOS-CONTRA-MALOS` punto 1):** las de Marcial son de AUTORIDAD (años, clientes), no de resultado ni de volumen, y es n=2 de un autor. *(hipótesis: la cifra de autoridad no resta como la de resultado)*
+**2 · Molde de gancho nuevo: `He metido [mi experiencia] en Claude` + `Te lo regalo` en la segunda línea.** Lo que se regala es el conocimiento del autor y Claude es el envase. Encaja con nuestro filtro del diferencial (`§4.5.-4` paso 3) mejor que «Claude lo hace todo»: el valor es lo que sabemos, Claude es el nivel intermedio y Neety sigue arriba. ⚠️ La cifra de autoridad (`15 años`, `+60 clientes`) tiene que ser real y verificable antes de escribirla. **No cambia la regla de cero cifras en el gancho (`§4.5.0-BUENOS-CONTRA-MALOS` punto 1):** las de Marcial son de AUTORIDAD (años, clientes), no de resultado ni de volumen, y es n=2 de un autor. *(hipótesis: la cifra de autoridad no resta como la de resultado)* 🔄 **Remedido el mismo día (`§4.5.0-CRUCE-20NOV` punto 6): el molde solo funciona con Claude en el gancho.** Sin Claude, Pablo Rodríguez sacó 21 y 27 (`…en un chat`, `…en una guía`).
 
 **3 · El cuerpo es la lista de trabajos del LECTOR, y luego el mapeo uno a uno.** Juan Cruz: `Encontrar leads son seis trabajos distintos / Y si estás en ventas, sos vos el que hace los seis` + los seis → `Armé 6 agentes, uno por cada tarea` + los seis. Marcial: las 6 decisiones que nadie toma → `He metido las 30 decisiones en Claude`. El lector se reconoce en la primera lista antes de ver la herramienta. Es el espejo que pide `global §1`, aplicado al cuerpo.
 
@@ -2398,7 +2398,7 @@ Sus posts normales sacan de 0 a 20 comentarios. Cambiaron tres cosas a la vez (t
 - Para el cruce se bajaron los 1.021 de los 12 autores con más volumen: Martín Arosa 112, Chris Payne 454, Miriam Collado 134, Pablo Rodríguez 125, Ignasi Mellado 53, Anna Bayón 38, Juan Cruz Sinkec 32, Félix Fernández 30, Yago C. 16, Paolo Colonnello 13, Fran Quintero 9 y Miguel Ángel Durán 5.
 - A eso se suman las lecturas por Unipile de los dos últimos meses: unos 150 lead magnets (`§4.5.0-UNA-PAGINA`, `§4.5.0-BUENOS-CONTRA-MALOS`, `§4.5.0-DOS-DEL-20NOV`).
 - De lo nuestro, 29 lead magnets de 2026 con impresiones, más 20 de 2024-2025.
-- ⚠️ **La BD de la competencia casi no tiene septiembre a noviembre** (Martín Arosa, 10 posts), porque los posts nuevos de la competencia entran con el botón manual. Lo reciente sale de Unipile.
+- ⚠️ **La BD de la competencia casi no tiene septiembre a noviembre** (Martín Arosa, 10 posts), porque los posts nuevos de la competencia entran con el botón manual. Lo reciente sale de Unipile. 🔄 **Corregido el mismo día (punto 6):** los posts sí estaban (Martín 87, Juan Cruz 50). Lo que fallaba era la etiqueta: el clasificador de pilares (`backend/src/services/pillar.ts`) solo marca lead magnet si el texto dice `comenta <palabra>`, y desde septiembre el género lleva la palabra en la imagen. De los lead magnets con palabra cubre el 89% hasta mayo, el 74% en junio-agosto y el 19% de septiembre a noviembre. **Para medir la competencia reciente no se filtra por `pillar = lead_magnet`: se usa el criterio de comentarios (≥20 y ≥0,8 × likes).**
 
 **Cómo se mide.** Fuera, dentro de cada autor, el tercio con más comentarios contra el tercio con menos. Así el tamaño de la cuenta se cancela. Solo cuentan los que tienen la palabra puesta (≥20 comentarios y comentarios ≥ 0,8 × likes), y se separan dos épocas: hasta mayo y desde junio. Lo nuestro, abril-mayo (n=10, mediana de 181 comentarios y 9.814 impresiones) contra desde junio (n=19, mediana de 22 y 1.810). Los rasgos se etiquetan por texto: molde, cifras, emoji, lista, persona, tema y emoción.
 
@@ -2439,17 +2439,42 @@ Nuestros posts pasaron de 1-3 rasgos en abril-mayo a 4-5 de agosto a noviembre, 
 - ⏳ **`Comenta X` en el texto es cosa de la época, no una ley.** En junio-agosto Martín Arosa sacaba 664 con la petición en el texto y 433 sin ella. De septiembre a noviembre, 0 de sus 10 la llevan, y tampoco Juan Cruz (0 de 3). Nuestro abril-mayo la llevaba (80%). Hoy manda `§4.5.0-CTA-CERO` y se vuelve a medir cada mes (`feedback_reglas_caducan_con_el_algoritmo`).
 - ⚠️ **La cifra de prueba en el cuerpo** la llevaba el 70% de nuestro abril-mayo y el 11% desde junio, pero fuera la llevan menos los que ganan (16% contra 28%). No se valida como palanca, y el veto al volumen sigue (`global §4.4b-MUNICIÓN`).
 - ⚠️ **El solo texto** fue el 50% de nuestro abril-mayo, y fuera, hoy, nadie gana con solo texto (0%). No se recomienda.
-- 📏 **El gancho largo es un hueco constante:** solo el 26-30% de nuestros ganchos tiene 60 caracteres o menos, contra el 59% de los ganadores de fuera. Nuestros dos ganchos de dolor que funcionaron tenían 48 y 61.
-- 👇 **El emoji del gancho se ha vuelto un tic:** desde junio lo lleva el 100% de nuestros ganchos (casi siempre 👇), contra el 34% de los ganadores de fuera y el 70% de nuestro abril-mayo. No hay ningún dato de que ayude.
+- 📏 **El gancho largo es un hueco constante:** solo el 26-30% de nuestros ganchos tiene 60 caracteres o menos, contra el 59% de los ganadores de fuera. Nuestros dos ganchos de dolor que funcionaron tenían 48 y 61. 🔄 *De septiembre a noviembre el largo ya no separa a los que ganan (48% contra 55%; ratio 0,98 contra 1,11, punto 6): sigue siendo un hueco con el género, pero no es palanca.*
+- 👇 **El emoji del gancho se ha vuelto un tic:** desde junio lo lleva el 100% de nuestros ganchos (casi siempre 👇), contra el 34% de los ganadores de fuera y el 70% de nuestro abril-mayo. No hay ningún dato de que ayude. 🔄 *De septiembre a noviembre resta: con emoji en el gancho, ratio 0,76 contra 1,00 sin él (n=21, punto 6).*
 
 **5 · La frecuencia y el público.** Los que ganan publican un lead magnet cada 2-3 días a un público que ya sabe comentar la palabra (Juan Cruz 32, Martín Arosa 112). Nosotros sacamos uno cada dos semanas repartido en tres cuentas, a un público de dirección industrial, y nuestras cuentas se reparten con mapas. Entre los que comentan en el género, del 17% al 34% son dueños o dirección (`§4.5.0-DOS-DEL-20NOV` punto 9). *(hipótesis: el lead magnet de palabra es un formato de audiencia entrenada; sin frecuencia no hay entrenamiento)*
 
+**6 · Remedición de septiembre a noviembre, con la BD refrescada (2026-11-20, tarde).** Se reescanearon los 12 autores (53 posts nuevos) y se tomaron todos sus posts con la palabra puesta, etiquetados o no: **130 lead magnets** (Martín Arosa 46, Pablo Rodríguez 33, Juan Cruz Sinkec 31, Chris Payne 8, Ignasi Mellado 6 y otros 6). Tercio alto (mediana de 549 comentarios) contra tercio bajo (65), dentro de cada autor. Ratio = comentarios entre la mediana del autor en esos tres meses.
+
+| rasgo del gancho | con él | sin él | n |
+|---|---|---|---|
+| **Claude en el gancho** | **1,40** | 0,74 | 46 |
+| logro o regalo en primera persona CON Claude en el gancho | **1,41** | 0,93 | 17 |
+| logro o regalo en primera persona SIN Claude en el gancho | **0,23** | 1,00 | 5 |
+| `completo`, `entero` o `todo` | 1,38 | 0,90 | 34 |
+| `ÚLTIMA HORA` o 🚨 | **0,49** | 1,04 | 10 |
+| emoji | 0,76 | 1,00 | 21 |
+| 60 caracteres o menos | 0,98 | 1,11 | 68 |
+| cifra | 1,03 | 1,00 | 51 |
+| tema de ventas o prospección (en el cuerpo) | 1,02 | 0,52 | 112 |
+
+Lo que confirma, lo que corrige y lo que añade:
+- ✅ **Claude en el gancho es la palanca más fuerte de la época:** el 55% del tercio alto lo lleva, contra el 18% del bajo. En junio-agosto la diferencia era menor (45% contra 27%). La lista de 6 o más en el cuerpo también se confirma (60% contra 32%).
+- 🔄 **El molde `He metido [mi experiencia] en…` (`§4.5.0-DOS-DEL-20NOV` punto 2) solo funciona con Claude en el gancho.** Pablo Rodríguez lo usó sin Claude: `He metido el trabajo de mi agencia en un chat.` (21) y `He metido todo mi sistema de LinkedIn (+2,2M€) en una guía` (27), los dos entre los diez peores. El de Marcial lleva Claude. **La palabra Claude va en la primera línea, no solo en el cuerpo.**
+- 🔄 **La primera persona ya no separa por sí sola** (28% contra 30%; en junio-agosto, 42% contra 9%). Lo que separa es la primera persona con Claude. El punto 2 del cuadro de arriba queda así: «primera persona» se lee siempre junto a Claude.
+- ✅ **El mismo molde quema la misma cuenta en días.** Martín Arosa: `He creado un sistema completo de ventas B2B con Claude.` (21/09, 2.312). Dos días después, `He creado un sistema completo de ventas con Claude. Me ha reservado 9 reuniones…` sacó 102; el 28/09, `…para Fundadores`, 128. Volvió a volar el 15/10 con otro departamento (RRHH, 1.591) y el 29/10 con otro artefacto (50 skills, 1.202). Confirma `global §2.0b-VENTANA` y el punto 3: lo que vuela es el artefacto nuevo, no la frase repetida. (La cifra de resultado en el gancho del de 102 tampoco ayudó: `§4.5.0-BUENOS-CONTRA-MALOS` punto 1.)
+- ❌ **`ÚLTIMA HORA` / 🚨 resta: 0,49** (0% del tercio alto, 5% del bajo). En nuestras cuentas lo llevó el 26% de los lead magnets desde junio, y Claude como sujeto del gancho (`Claude ahora…`, `Claude acaba de…`, `Claude me…`) el 42%, contra el 10% de los que ganan fuera. **Es el molde que más usamos y el que peor funciona hoy en el género.**
+- ❌ **El dolor del lector en el gancho:** 0% del tercio alto y 12% del bajo (`El 99% que publica en LinkedIn no consigue clientes.`, 20, el peor de Juan Cruz).
+- ⏳ **`Comenta X` en el texto ha desaparecido del género:** 1 de 46 en Martín Arosa, 1 de 33 en Pablo, 1 de 31 en Juan Cruz. En junio-agosto Martín lo llevaba en 29 de 47. La excepción es Chris Payne (7 de 8, vídeo, con menos comentarios). `§4.5.0-CTA-CERO` queda confirmado con n=110.
+- 💡 **Deseo antes que curiosidad:** el deseo explícito (regalo, sistema, más clientes) está en el 42% del tercio alto contra el 30% del bajo. Nuestros ganchos desde junio van al 100% por curiosidad (👇, `esto`) y al 21% por deseo.
+- 🧪 *Hipótesis con n pequeña:* el asombro (`QUÉ ES ESTA LOCURA 🤯`, `¿¡¿QUÉ LOCURA ES ESTA?!?`), ratio 2,28 con n=5, y el antes/ahora de Pablo (`Antes montaba toda la prospección de LinkedIn a mano.`, 1.072; `Antes buscaba clientes en LinkedIn de manera manual.`, 1.007), n=2. Nuestro `Antes buscaba a mano a quién vender. Ahora Claude me hace la mitad` (12/11, 18) usó el mismo molde dos días después del segundo de Pablo: llegó tarde a un molde que ya tenía dueño esa semana.
+
 **Qué se aplica desde hoy.**
-1. Antes de escribir se busca un ángulo que sea primero en un nicho nuestro.
-2. El molde de gancho, por defecto, es logro en primera persona con Claude o regalo directo, de 60 caracteres o menos y sin emoji obligado.
-3. Fuera humor, escena, confesión, rompe creencias y D.E.P.
-4. La regla de la petición en el texto se vuelve a medir cada mes.
-5. Antes del siguiente análisis se refrescan en la BD los posts de la competencia de septiembre a noviembre.
+1. Antes de escribir se busca un ángulo que sea primero en un nicho nuestro, con un artefacto nuevo: no se repite el de la última vez con otra frase.
+2. El molde de gancho, por defecto, es logro o regalo en primera persona **con Claude en la primera línea** (`He creado…con Claude`, `He metido…en Claude`, `Estoy regalando…de Claude`), con deseo explícito (`completo`, `entero`) y sin emoji obligado. El largo no es palanca, pero corto sigue siendo mejor.
+3. Fuera humor, escena, confesión, rompe creencias, D.E.P., dolor del lector, **`ÚLTIMA HORA` / 🚨 y `Claude ahora…` como noticia**.
+4. La regla de la petición en el texto se vuelve a medir cada mes (hoy, confirmada: el género la ha abandonado).
+5. ~~Antes del siguiente análisis se refrescan en la BD los posts de la competencia de septiembre a noviembre.~~ Hecho el 20/11 (punto 6). Para medir la competencia reciente se usa el criterio de comentarios, no la etiqueta de pilar.
 
 #### 🔎🔎 4.5.0-COMPETENCIA · PASO 0 OBLIGATORIO: LA INVESTIGACIÓN DE REFERENTES, ANTES DE ELEGIR TEMA (Mario, 2026-08-26)
 

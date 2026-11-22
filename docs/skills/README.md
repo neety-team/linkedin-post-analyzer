@@ -16,7 +16,7 @@ Fuente de verdad del "cerebro": `backend/src/services/postPrompt.ts` y el
 
 Skills de artefacto (cargar según el post lo pida):
 7. **images** — concepto de imagen: 3 registros, paleta + tipografía + palabra naranja, calcar referencia, sistema meme, infografías quemadas.
-8b. **lead-magnet-web** — el TERCER artefacto del lead magnet: el gate y el recurso de `recursos.neety.com`. Ni todo ni nada en el gate (regala una muestra, pide el correo), el recurso resuelve el paso 1 y vende el resto. Output = prompt para el programador. Obligatoria en todo lead magnet.
+8b. **lead-magnet-web** — el TERCER artefacto del lead magnet: el gate y el recurso de `neety.com/academia/<slug>` (`recursos.neety.com` no existe desde el 22/11/2026). Ni todo ni nada en el gate (regala una muestra, pide el correo), el recurso resuelve el paso 1 y vende el resto. Output = prompt para el programador. Obligatoria en todo lead magnet.
 8. **video** — el vídeo es OTRO artefacto: 3 piezas (caption / texto en pantalla / spoken hook), 6 patrones de gancho hablado y el playbook de 36 puntos. Cargar solo en modo vídeo; reemplaza las reglas de hook de texto.
 
 Otro canal:
@@ -36,7 +36,7 @@ Validadores (se corren antes de cada entrega y se pega su resultado):
 - `scripts/validar-post.py` — posts, por pilar y cuenta.
 - `scripts/validar-email.py` — correos y newsletter.
 - `scripts/validar-video.py` — voz y caption de vídeo.
-- `scripts/validar-recurso.py` — el recurso de `recursos.neety.com` de un lead magnet.
+- `scripts/validar-recurso.py` — el recurso de un lead magnet (`neety.com/academia/<slug>`).
 - Los tests que los vigilan: `scripts/test-validador.py`, `scripts/test-borradores-tumbados.py` y `scripts/test-cobertura-reglas.py`.
 
 ## Dónde vive cada cosa

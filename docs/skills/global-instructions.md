@@ -1690,7 +1690,7 @@ Luma:        ?utm_source=historia-euskadi-26ago-unai&utm_medium=post&utm_campaig
 
 ##### 🌐 LA TERCERA SUPERFICIE: LOS BOTONES DE LUMA QUE VIVEN EN NUESTRA WEB (Iker, 2026-08-27)
 
-**El agujero que tapa:** el UTM de arriba solo cubre el clic que sale de un post. Pero el evento también se pide desde **botones dentro de `recursos.neety.com`** (la banda de evento de los 12 mapas y las dos de `/agendar/`), y esos salían pelados: en el panel de Luma todos caían juntos como *directo* y no se sabía **qué página** había convencido al que se inscribe.
+**El agujero que tapa:** el UTM de arriba solo cubre el clic que sale de un post. Pero el evento también se pide desde **botones dentro de nuestra web (entonces `recursos.neety.com`; desde el 22/11/2026 todo vive en `neety.com`)** (la banda de evento de los 12 mapas y las dos de `/agendar/`), y esos salían pelados: en el panel de Luma todos caían juntos como *directo* y no se sabía **qué página** había convencido al que se inscribe.
 
 **Misma excepción de Luma, distinta identidad:** aquí la pieza no es el post, es **la PÁGINA**, y va igual en `utm_source` porque es lo único que Luma lee.
 
@@ -1726,7 +1726,7 @@ botón → luma.com/...?utm_source=recursos-agendar--meme-recepcion-16sep-iker
 | enlace | ¿UTM? | por qué |
 |---|---|---|
 | **Sale a otro dominio** (Luma, y lo que venga) | ✅ **Sí** | no se carga ninguna página nuestra, no hay nada que sobrescribir |
-| **Se queda dentro de `recursos.neety.com`** | ⛔ **NUNCA** | pisa el post que trajo la visita |
+| **Se queda dentro de `neety.com`** (antes `recursos.neety.com`) | ⛔ **NUNCA** | pisa el post que trajo la visita |
 
 **Lo que SÍ se usa para medir qué página empuja a agendar o a la newsletter:** un evento al `dataLayer` con el origen, que no toca la URL. Vive en `assets/attr.js` como `cta_click` (`cta_destino` · `cta_origen` · `cta_texto`), y `/agendar/` conserva los suyos propios, más ricos (`cta_reunion`, `cta_evento`).
 
@@ -1736,7 +1736,7 @@ botón → luma.com/...?utm_source=recursos-agendar--meme-recepcion-16sep-iker
 
 **🔒 DESDE EL 29/09 UN UTM DE POST NO SE PIERDE NUNCA (Iker: *"no quiero que nunca se pierdan UTMs, para saber perfectamente qué genera cada post"*), `attr.js?v=4`.** El "primero de la sesión manda" perdía dos casos: quien entraba antes en la misma pestaña sin UTM y luego llegaba desde un post, y quien pinchaba el post, cerraba y volvía otro día. Reglas ahora: **(1)** la URL con UTM manda siempre y entre dos posts gana el último; **(2)** nada sin UTM (interno, referer, directo) pisa un post guardado; **(3)** con consentimiento de estadística de Cookiebot se recuerda 30 días el último post (`localStorage`, `neety:attr_last`) y rechazar lo borra; **(4)** si no, el referer. Probado en local y en producción. **Lo que sigue sin poder cubrirse, y es legal o físico, no un fallo:** quien rechaza cookies y vuelve otro día, y quien cambia de dispositivo. **Para probarlo a mano:** pestaña de incógnito.
 
-**📌 Para el próximo que añada un botón a la web:** antes de pegarle un UTM, la única pregunta es **¿este enlace sale de recursos.neety.com?** Si la respuesta es no, no lleva UTM y se mide con un evento.
+**📌 Para el próximo que añada un botón a la web:** antes de pegarle un UTM, la única pregunta es **¿este enlace sale de neety.com?** Si la respuesta es no, no lleva UTM y se mide con un evento.
 
 **🚨 Y un tercer sitio donde el UTM se evaporaba, encontrado el mismo dia:** las guias con puerta (`/senales/guia/`, `/llaves/guia/`…) devuelven un **302 a la landing** cuando no traes la cookie del gate, y ese redirect **tiraba la query entera**. Un post que enlazara la URL de la guia perdia sus `utm_*` en el salto, antes de que ninguna pagina pudiera capturarlos. Arreglado en `src/gate.js`: el destino ahora arrastra `url.search`. **La leccion general: cada redirect nuestro es un punto donde la atribucion se puede caer sin ruido**, y hay que comprobarlo con `curl -o /dev/null -w "%{redirect_url}"` antes de dar por bueno un enlace.
 
@@ -1746,7 +1746,7 @@ botón → luma.com/...?utm_source=recursos-agendar--meme-recepcion-16sep-iker
 
 **Mecanizado en tres checks** (`Todo enlace nuestro lleva utm_campaign`, `El UTM de NUESTRA web lleva utm_source=linkedin`, `En LUMA la identidad va en utm_source`), y el de Luma cubre también `forward.neety.com`.
 
-**Mecanizado** en `validar-post.py` como **dos fallos duros** (`Todo enlace nuestro lleva utm_campaign` y `El UTM lleva utm_source=linkedin`), que miran cualquier URL de `recursos.neety.com` o `luma.com` del cuerpo.
+**Mecanizado** en `validar-post.py` como **dos fallos duros** (`Todo enlace nuestro lleva utm_campaign` y `El UTM lleva utm_source=linkedin`), que miran cualquier URL de `neety.com` (o de un subdominio vivo, como `forward.neety.com`) o `luma.com` del cuerpo. `recursos.neety.com` ya no existe desde el 22/11/2026 y enlazarlo es fallo aparte (`lead-magnet-web.md`, arriba).
 
 - **⛔ Lo que NO cambia:** el enlace sigue llevando `https://` delante (`§4.4b` regla 8) y **la URL base no se toca** — el UTM va detrás, con `?`. Si la URL ya llevara parámetros, se encadena con `&`.
 - **📌 PENDIENTE (mío):** el mismo UTM en los enlaces del **DM del lead magnet** y en los **correos** (`email-marketing`), que hoy salen pelados. Es la misma regla en otra superficie, con `utm_medium=dm` y `utm_medium=email`.
@@ -2384,7 +2384,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > **2 · SPAM ULTRA NINJA — SOLO el mapa. Dos líneas menos, y por eso funciona.**
 > **Es literalmente esto y nada más:**
-> > `Mapa completo aquí: https://recursos.neety.com/mapas/{region}/`
+> > `Mapa completo aquí: https://neety.com/blog/mapa-industrial-{region}` (🔄 22/11/2026: antes `recursos.neety.com/mapas/{region}/`, dominio que ya no existe)
 >
 > **Sin línea de dolor delante. Sin girar la palabra del gancho. Sin vender. Nada.**
 >
@@ -2720,7 +2720,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 **📊 CUÁNTO RINDE, MEDIDO (2026-07-20 · solo posts con NUESTRO enlace):**
 
-⚠️ **Solo cuentan los clics a `recursos.neety.com`.** Los CTR más altos del
+⚠️ **Solo cuentan los clics a casa: `neety.com` (hasta el 22/11/2026, también `recursos.neety.com`).** Los CTR más altos del
 histórico son basura para nosotros porque el enlace iba fuera: 1,49% a un
 formulario de empleo, 1,10% y 0,91% a **mapas de PamPam** (web ajena). El mapa de
 Euskadi de Unai tiene 231 clics al 1,10%, y ni uno llegó a nuestra web. Desde
@@ -2779,7 +2779,7 @@ Te marcamos quién va a comprar y tu comercial entra solo ahí: [link]
 
 **⛔ La excepción del LEAD MAGNET (no la "arregles"):** el lead magnet NO lleva spam ninja **en el POST**. Su mecánica ES el comentario (632 com. vibe prospecting · 483 desmonto perfiles) y su CTA "Comenta X + Y" es el cierre. Meter el link de agendar **apila dos CTAs** y rompe la regla del UNO (§4.5): el lector que iba a comentar duda entre comentar o clicar, y el conteo de comentarios (que es TODO el motor del formato) se hunde. Si algún día se prueba, es un A/B consciente con expectativa de caída, no el default.
 
-**⭐ Matiz (Iker, 2026-07-22): eso es el POST. El DM privado del recurso es OTRA superficie, y ahí SÍ va el spam ninja.** Un lead magnet que entrega el recurso por DM y **no crea web ni gate** (p.ej. la lista de empresas) capturaría CERO si el DM no llevara funnel — es exactamente el error del 8.52x "desmonto perfiles": viral y sin capturar nada. Así que **el DM privado cierra con el spam ninja después del recurso**. El destino puede ser `agendar` (demo) o un **recurso con gate de correo** — cualquiera de las vías de captura (`post-workflow §4.5.-2`). En la lista de empresas apunta a **`recursos.neety.com/senales`**, que **complementa la lista**: la lista da el QUIÉN, señales da el CUÁNDO (la señal de compra), y de paso captura el correo con su gate. No apila con el post: el CTA del post es el comentario; esto va en el mensaje 1:1 a alguien que ya comentó y ya tiene su recurso, donde el funnel no compite con nada. Y a diferencia del post, **en el DM SÍ se puede nombrar Neety** (una vez, sin vender, `brand-voice §4`): es outreach personal, no publicidad encubierta. Implementado en `leadMagnetCopy.buildListaDm` (`NINJA_DM`).
+**⭐ Matiz (Iker, 2026-07-22): eso es el POST. El DM privado del recurso es OTRA superficie, y ahí SÍ va el spam ninja.** Un lead magnet que entrega el recurso por DM y **no crea web ni gate** (p.ej. la lista de empresas) capturaría CERO si el DM no llevara funnel — es exactamente el error del 8.52x "desmonto perfiles": viral y sin capturar nada. Así que **el DM privado cierra con el spam ninja después del recurso**. El destino puede ser `agendar` (demo) o un **recurso con gate de correo** — cualquiera de las vías de captura (`post-workflow §4.5.-2`). En la lista de empresas apunta a **`https://neety.com/academia/senales`** (antes `recursos.neety.com/senales`), que **complementa la lista**: la lista da el QUIÉN, señales da el CUÁNDO (la señal de compra), y de paso captura el correo con su gate. No apila con el post: el CTA del post es el comentario; esto va en el mensaje 1:1 a alguien que ya comentó y ya tiene su recurso, donde el funnel no compite con nada. Y a diferencia del post, **en el DM SÍ se puede nombrar Neety** (una vez, sin vender, `brand-voice §4`): es outreach personal, no publicidad encubierta. Implementado en `leadMagnetCopy.buildListaDm` (`NINJA_DM`).
 
 ### @️ 4.4c · SI SE NOMBRA A NEETY EN EL CUERPO, VA CON ARROBA (Iker, 2026-08-05)
 
@@ -2816,7 +2816,7 @@ Te marcamos quién va a comprar y tu comercial entra solo ahí: [link]
 
 > **Fuente única de verdad del BLOQUE 2.** Todo lo de `§4.4b` se hereda tal cual (dos líneas pegadas, ≤55 caracteres cada una sin la URL, la de abajo más corta, una sola oración + `:` + enlace, `https://` delante, nunca nombra a Neety). **Aquí solo está escrito lo que CAMBIA.**
 
-**Qué es:** un **segundo** spam ninja en el mismo post que enlaza a **`https://recursos.neety.com/correo/`** en vez de a `/agendar/`. Vende dejar el correo, no agendar.
+**Qué es:** un **segundo** spam ninja en el mismo post que enlaza a **`https://neety.com/newsletter`** (antes `recursos.neety.com/correo/`, dominio que ya no existe) en vez de a la demo. Vende dejar el correo, no agendar.
 
 **Por qué existe (Iker, 2026-08-18):** todo nuestro alcance desembocaba en dos puertas caras, descargarse un recurso o rellenar el formulario de agendar. El correo es **el paso anterior**: menos fricción, primer contacto más probable, y desde ahí ya trabaja el email marketing que ya tenemos montado.
 

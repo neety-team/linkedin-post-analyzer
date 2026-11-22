@@ -1223,6 +1223,12 @@ def validar_tarjeta(texto, card=None, cuenta=None, historico=False, publica_mana
     # Se mide con el enlace YA ACORTADO, como los 450 del meme (4.4-CORTO): el
     # lector ve `lnkd.in/xxxxxxxx`, no la cola de UTM, y con la URL cruda un
     # enlace de Luma con sus cuatro parametros se comia 130 de los 400.
+    # 2026-11-22: el dominio muerto tambien en la tarjeta (RECURSOS_MUERTO se mira en
+    # validar() antes de traducir; esta funcion recibe el texto ya traducido).
+    if not historico and RECURSOS_MUERTO:
+        chk(False, 'Sin enlaces a recursos.neety.com: el dominio ya no existe (lead-magnet-web, 22/11)',
+            '; '.join('%s → %s' % (u[:60], a_casa(u if u.startswith('http') else 'https://' + u)[:70])
+                      for u in RECURSOS_MUERTO[:3]))
     n = len(re.sub(r'https?://\S+', 'https://lnkd.in/eXXXXXXX', texto))
     chk(150 <= n <= 400, 'TARJETA: el texto de LinkedIn cae entre 150 y 400 caracteres (§4.6-PASO-3)',
         f'{n} caracteres con el enlace acortado. Medido en Hormozi: 1-150 da 0,95x-1,06x y '
@@ -1706,8 +1712,36 @@ def puerta_agendar(texto):
     # check de "enlace fuera" no lo tumbe y los del UTM lo sigan mirando.
     texto = texto.replace('https://neety.com/academia/',
                           'https://recursos.neety.com/academia/')
+    # 2026-11-22: recursos.neety.com YA NO EXISTE (solo redirige con 301; tabla en
+    # lead-magnet-web.md, arriba). La puerta del correo es https://neety.com/newsletter:
+    # se traduce igual que las demas para que los checks del doble ninja la reconozcan.
+    # La URL vieja escrita a mano en el post se caza ANTES de traducir (RECURSOS_MUERTO).
+    texto = re.sub(r'https://neety\.com/newsletter(?=[/?\s]|$)',
+                   'https://recursos.neety.com/correo/', texto)
     return re.sub(r'https://neety\.com/blog/mapa-industrial-([a-z-]+)',
                   r'https://recursos.neety.com/mapas/\1/', texto)
+
+
+def a_casa(u):
+    # 2026-11-22: lo inverso de puerta_agendar(), solo para ENSEÑAR una URL en un
+    # mensaje. Dentro del validador las URLs nuevas van traducidas a recursos.neety.com,
+    # y sin esto el aviso le pedia al autor que tocara una URL que no ha escrito y que
+    # ya no existe. Tambien sirve para sugerir el destino real de una URL vieja.
+    u = re.sub(r'https?://recursos\.neety\.com/agendar/?', 'https://neety.com/solicitar-demo', u)
+    u = re.sub(r'https?://recursos\.neety\.com/(?:correo|newsletter)/?', 'https://neety.com/newsletter', u)
+    u = re.sub(r'https?://recursos\.neety\.com/mapas/([a-z-]+)/?', r'https://neety.com/blog/mapa-industrial-\1', u)
+    u = re.sub(r'https?://recursos\.neety\.com/mapas/?', 'https://neety.com/blog', u)
+    u = re.sub(r'https?://recursos\.neety\.com/(?:academia|evento)/?(?=[?\s]|$)', 'https://neety.com/academia', u)
+    u = re.sub(r'https?://recursos\.neety\.com/([a-z0-9-]+)/?', r'https://neety.com/academia/\1', u)
+    return re.sub(r'https?://recursos\.neety\.com/?', 'https://neety.com/academia', u)
+
+
+def es_casa(u):
+    # 2026-11-22 (outliers §3.14): un enlace nuestro es cualquier URL de neety.com o de
+    # un subdominio suyo. recursos.neety.com tambien lo es por dentro (las URLs nuevas se
+    # traducen ahi), y la escrita a mano la tumba RECURSOS_MUERTO, no este.
+    h = re.sub(r'^https?://', '', u).split('/')[0].split('?')[0].lower()
+    return h == 'neety.com' or h.endswith('.neety.com')
 
 
 FOTO_GRUPO = False
@@ -1784,12 +1818,15 @@ ORIGEN = False
 
 
 PUERTA_VIEJA = False
+RECURSOS_MUERTO = []
 
 
 def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fuera=False, remix=False, sin_menciones=False, card=None, solo_correo=False, historico=False, publica_manana=False):
-    global PUERTA_VIEJA
+    global PUERTA_VIEJA, RECURSOS_MUERTO
     # se mira ANTES de traducir: puerta_agendar() convierte la URL nueva en la vieja
     PUERTA_VIEJA = 'recursos.neety.com/agendar' in texto
+    # 2026-11-22: cualquier recursos.neety.com escrito en el post (dominio muerto)
+    RECURSOS_MUERTO = re.findall(r'(?:https?://)?recursos\.neety\.com\S*', texto)
     texto = puerta_agendar(norm(texto))
     if pilar == 'entregable':
         return validar_entregable(texto)
@@ -2840,8 +2877,15 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # /correo/, recursos de lead magnet) NO entra: la web nueva aun no los tiene.
     if not historico and datetime.date.today() >= datetime.date(2026, 10, 5) and PUERTA_VIEJA:
         chk(False, 'La puerta de agendar es https://neety.com/solicitar-demo (aboutme §1, desde el 05/10)',
-            'recursos.neety.com/agendar ya no se usa ni en posts ni en correos (Iker, 05/10). '
-            'Mismo formato de UTM. Los mapas y /correo/ siguen en recursos')
+            'recursos.neety.com/agendar ya no se usa ni en posts ni en correos (05/10). '
+            'Mismo formato de UTM')
+    # ⛔ 2026-11-22 (lead-magnet-web, arriba; outliers §3.14): recursos.neety.com YA NO
+    # EXISTE, solo redirige con 301 a neety.com. Ningun enlace del post lo lleva: el
+    # 301 pierde la pagina que se queria enseñar y, a veces, el UTM. Se dice el destino real.
+    if not historico and RECURSOS_MUERTO:
+        chk(False, 'Sin enlaces a recursos.neety.com: el dominio ya no existe (lead-magnet-web, 22/11)',
+            '; '.join('%s → %s' % (u[:60], a_casa(u if u.startswith('http') else 'https://' + u)[:70])
+                      for u in RECURSOS_MUERTO[:3]))
 
     # global §2.2b-SIMBOLOS (Iker, 2026-09-29) — los marcadores de lista son
     # ENVASE, no motor: se calca que haya una lista, nunca con que simbolo la
@@ -2905,8 +2949,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
          if ANUNCIO_UNAI else 'el post vende al pensador, no al producto') if _neety_h else '',
         aviso=ANUNCIO_UNAI and _neety_h)
 
-    # global §4.4b + outliers §3.14 — el link va SIEMPRE a recursos.neety.com
-    # (dominio propio), nunca a web ajena. Los CTR mas altos del historico no
+    # global §4.4b + outliers §3.14 — el link va SIEMPRE a casa (neety.com o un
+    # subdominio suyo; hasta el 22/11/2026 era recursos.neety.com), nunca a web ajena. Los CTR mas altos del historico no
     # valian: iban a pampam.city. 727 clics regalados entre tres mapas.
     # Desde 2026-07-23 el mapa enlaza a recursos.neety.com/mapas/{region} (la web
     # embebe el mapa completo, el jefe ya pago PamPam) en vez de a /agendar/:
@@ -2915,7 +2959,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # `(?<!@)` la deja fuera. Tumbaba el post de San Francisco de Unai por mencionar
     # a la entidad que organiza el programa con su nombre exacto de LinkedIn.
     _urls = re.findall(r'https?://\S+|(?<!@)\b[\w.-]+\.(?:com|es|city|io)\S*', cuerpo)
-    _fuera = [u for u in _urls if 'recursos.neety.com' not in u and 'linkedin.com' not in u]
+    _fuera = [u for u in _urls if not es_casa(u) and 'linkedin.com' not in u]
     # ⭐ EL EVENTO ENLAZA DIRECTO A LUMA Y NO SE AVISA DE NADA (Iker, 2026-08-05).
     # Propuse montar recursos.neety.com/evento para que el clic fuera nuestro, y
     # lo descarto con razon: "cada clic intermedio es friccion, y aqui no busco
@@ -2935,7 +2979,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # pilar y tumbaba la historia de Unai del 21/08, que es justo como manda
     # venderlo. Lo que decide es que el UNICO enlace de fuera sea el de Luma.
     if not _solo_luma:
-        chk(not _fuera, 'El enlace apunta a recursos.neety.com, no fuera (outliers §3.14)',
+        chk(not _fuera, 'El enlace apunta a neety.com, no fuera (outliers §3.14)',
             f'{_fuera[:2]} — un clic a web ajena no es un clic nuestro' if _fuera else '')
 
     # global §2.10 — la mano abajo. DURA en peloteo (su formula de hook la lleva
@@ -3596,7 +3640,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                 else 'recursos.neety.com')
         _bare_link = re.search(r'(?<!https://)' + re.escape(_dom), cuerpo)
         chk(not _bare_link, 'El enlace lleva https:// delante (§4.4b regla 8)',
-            f'falta https:// delante de {_dom}' if _bare_link else '')
+            f'falta https:// delante de {a_casa("https://" + _dom).replace("https://", "")}' if _bare_link else '')
         # ⭐ TODO ENLACE NUESTRO LLEVA UTM (Iker, 2026-08-26) — GLOBAL, §4.4b-UTM.
         # Las tres webs a las que mandamos trafico (agendar, correo/newsletter y
         # Luma) tienen analitica detras, pero sin UTM todo el trafico de LinkedIn
@@ -3611,7 +3655,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             ('sin UTM: %s → pega ?utm_source=linkedin&utm_medium=post&utm_campaign='
              '{pilar}-{tema}-{ddmes}&utm_content={cuenta}, p.ej. historia-euskadi-26ago. '
              'Sin esto, GA4 mete el trafico de todos los posts en la misma fila y no se '
-             'sabe cual convierte' % _sin_utm[0][:60]) if _sin_utm else '')
+             'sabe cual convierte' % a_casa(_sin_utm[0])[:60]) if _sin_utm else '')
         # ⛔⛔ LA FECHA DEL UTM ES LA DE HOY, Y SE COMPRUEBA CONTRA EL RELOJ
         # (Iker, 2026-08-27). El 27/08 entregue un post con `meme-aura-26ago`
         # porque arrastre el "26" del historial que estaba leyendo, sin mirar la

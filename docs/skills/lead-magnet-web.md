@@ -1,17 +1,30 @@
-# SKILL: lead-magnet-web — La página del recurso en recursos.neety.com (gate + recurso)
+# SKILL: lead-magnet-web — La página del recurso en neety.com/academia (gate + recurso)
 
 > **name:** lead-magnet-web
-> **description:** El TERCER artefacto del pilar lead magnet. Un lead magnet no es solo el post de LinkedIn: es también la **página de recursos.neety.com** donde aterriza el que comenta, con su gate de email y el recurso en sí. Esta skill define qué se regala, qué se retiene, cómo se pide el correo y cómo se convierte el lead. El output es un **prompt para el programador**, no código.
+> **description:** El TERCER artefacto del pilar lead magnet. Un lead magnet no es solo el post de LinkedIn: es también la **página de neety.com/academia/<slug>** donde aterriza el que comenta, con su gate de email y el recurso en sí. Esta skill define qué se regala, qué se retiene, cómo se pide el correo y cómo se convierte el lead. El output es un **prompt para el programador**, no código.
 > **when-to-use:** Cargar SIEMPRE que el pilar sea LEAD MAGNET (`post-workflow §4.5`). No aplica a mapa, "Los 10" ni meme. Fuente: apuntes internos "APUNTES LEAD MAGNETS" (Documents/Mario/LINKEDIN GROWTH).
 
 ---
+
+> **⛔ CANÓNICO · RECURSOS.NEETY.COM YA NO EXISTE (2026-11-22).** El dominio solo redirige (301) a la web principal, así que ningún post, correo, DM ni prompt lleva ya `recursos.neety.com`: es **FALLO** en `validar-post.py` y `validar-email.py`. Cada enlace va a su destino real (comprobado con curl el 22/11):
+>
+> | Antes (muerto) | Ahora |
+> |---|---|
+> | `recursos.neety.com/`, `/academia/`, `/evento/` | `https://neety.com/academia` |
+> | `recursos.neety.com/<slug>/` (vibe, senales, llaves, sistema, perfil, prospeccion-manual…) | `https://neety.com/academia/<slug>` |
+> | `recursos.neety.com/mapas/<region>/` | `https://neety.com/blog/mapa-industrial-<region>` |
+> | `recursos.neety.com/mapas/` | `https://neety.com/blog` |
+> | `recursos.neety.com/correo/` y `/newsletter/` | `https://neety.com/newsletter` |
+> | `recursos.neety.com/agendar/` | `https://neety.com/solicitar-demo` |
+>
+> `neety.com/recursos` **no existe** (404): el recurso de un lead magnet vive en `neety.com/academia/<slug>`. Los casos medidos de antes conservan la URL de entonces porque son historia.
 
 ## 0 · Los 3 artefactos del lead magnet (no confundirlos)
 | Artefacto | Qué es | Quién lo hace |
 |---|---|---|
 | **POST de LinkedIn** | el gancho + los bullets que tease + el CTA "Comenta X" | el workflow (`post-workflow §4.5`) |
 | **FOTO del post** | foto natural real / selfie (`images §3`) | el usuario, con la recomendación del workflow |
-| **PÁGINA en recursos.neety.com** | el gate de email + el recurso | **el programador**, con el PROMPT que entrega el workflow (esta skill) |
+| **PÁGINA en neety.com/academia/<slug>** | el gate de email + el recurso | **el programador**, con el PROMPT que entrega el workflow (esta skill) |
 
 **El flujo completo:** post → comenta → le pasas el link por privado → **gate** (regala un poco + pide el correo) → **recurso** (el valor prometido) → secuencia de emails → demo.
 
@@ -36,7 +49,7 @@ El error de bulto va en las dos direcciones y las dos matan:
 ## 2 · Qué recurso vale (antes de escribir la página)
 
 - **Nace de una duda real y repetida** de nuestro ICP, no de reciclar contenido con un título bonito. La mejor idea está donde tu audiencia repite una pregunta.
-- **⭐ PERO LO PRIMERO NO ES INVENTAR UN RECURSO, ES MIRAR EL CATÁLOGO (Iker, 2026-08-18).** Si ya hay uno en `recursos.neety.com` cuyo TEMA dio comentarios, se **reutiliza el slug, la palabra y el enlace**, y solo se le mete lo aprendido desde entonces. La cola y el matiz de qué temas valen para esto están en `post-workflow §4.5.0-REUTILIZAR`. **Esto no choca con la línea de arriba:** ahí se prohíbe empaquetar contenido viejo con un título nuevo; aquí se obliga a reeditar un tema que ya demostró que pica.
+- **⭐ PERO LO PRIMERO NO ES INVENTAR UN RECURSO, ES MIRAR EL CATÁLOGO (Iker, 2026-08-18).** Si ya hay uno en `neety.com/academia` cuyo TEMA dio comentarios, se **reutiliza el slug, la palabra y el enlace**, y solo se le mete lo aprendido desde entonces. La cola y el matiz de qué temas valen para esto están en `post-workflow §4.5.0-REUTILIZAR`. **Esto no choca con la línea de arriba:** ahí se prohíbe empaquetar contenido viejo con un título nuevo; aquí se obliga a reeditar un tema que ya demostró que pica.
 - **⛔ EL RECURSO SALE PROBADO POR MÍ, NUNCA POR IKER (Iker, 2026-10-23).** Si el recurso es un prompt o un encargo, se escribe con toda la chicha (qué leer, qué descarta, formato de salida, qué hacer si no encuentra nada en vez de rellenar) y **lo corro yo de principio a fin con empresas reales** (WebSearch/WebFetch) antes de entregar. Iker, literal: *"me tienes que dar un prompt lo suficientemente bueno… para que no tenga yo que probar nada"*. Nunca se deja como pendiente "que Iker lo pegue en Claude". Y la escena en primera persona del post (`le pasé`, `me salieron 15`) solo vale si la respalda esa prueba: si no, se cuenta lo que hace el encargo.
 - **Específico, nunca genérico.** ✅ *"Checklist para saber si tu prospección en LinkedIn está perdiendo oportunidades"* · ❌ *"Guía de ventas"*. (Esto es lo mismo que mató a la biblia 1.20x y al arsenal 0.64x en `global §4.4`.)
 - **Victoria rápida:** big fast value. Cuanto antes obtenga valor, más fácil que suelte el correo.
@@ -82,15 +95,15 @@ El error de bulto va en las dos direcciones y las dos matan:
 | Dónde | La casilla de recibir el correo |
 |---|---|
 | **Gate de cualquier recurso** | ✅ opcional, sin premarcar. **Nunca obligatoria.** |
-| **Formulario de `/agendar/`** | ✅ opcional, sin premarcar. **Nunca obligatoria.** |
-| **`recursos.neety.com/correo/`** (la landing de suscripción) | ⛔ **obligatoria, y es la ÚNICA excepción** |
+| **Formulario de `neety.com/solicitar-demo`** | ✅ opcional, sin premarcar. **Nunca obligatoria.** |
+| **`neety.com/newsletter`** (la landing de suscripción; antes `recursos.neety.com/correo/`) | ⛔ **obligatoria, y es la ÚNICA excepción** |
 
-**Por qué ahí sí, y por qué eso no contradice nada de lo de arriba:** en `/correo/` **el servicio que se pide ES el correo**. No hay nada agrupado, porque no hay dos cosas: el permiso no es un extra sobre otra entrega, es la entrega. Iker, textual: *"obviamente, nos tienes que dar los permisos para mandarte correo"*. Fuera de esa página, la casilla siempre es voluntaria.
+**Por qué ahí sí, y por qué eso no contradice nada de lo de arriba:** en `neety.com/newsletter` **el servicio que se pide ES el correo**. No hay nada agrupado, porque no hay dos cosas: el permiso no es un extra sobre otra entrega, es la entrega. Iker, textual: *"obviamente, nos tienes que dar los permisos para mandarte correo"*. Fuera de esa página, la casilla siempre es voluntaria.
 
 ### Entonces, ¿de dónde saca suscriptores un lead magnet?
 El post del lead magnet **sigue sin llevar enlace** (`global §4.4b` y `§4.4e`): su motor entero es el conteo de comentarios y cualquier enlace lo parte. Así que el correo entra por donde no compite con nada y sin forzar a nadie:
 1. **La casilla opcional del gate**, que ya existía. Quien quiera, la marca.
-2. **El DM privado**, que ya cierra con spam ninja después del recurso (`global §4.4b`, el matiz del 22/07). Ahí el destino puede ser `agendar` o, si el que comenta aún está frío, `https://recursos.neety.com/correo/`, que es la puerta barata.
+2. **El DM privado**, que ya cierra con spam ninja después del recurso (`global §4.4b`, el matiz del 22/07). Ahí el destino puede ser `https://neety.com/solicitar-demo` o, si el que comenta aún está frío, `https://neety.com/newsletter`, que es la puerta barata.
 
 ---
 
@@ -122,7 +135,7 @@ Nunca empieces pidiendo la llamada: primero valor, después la invitación.
 
 ## 📉 4c-bis · UNA PÁGINA NUESTRA SE JUZGA POR EL TIEMPO QUE RETIENE, Y HAY QUE MIRARLO (Mario, 2026-09-14)
 
-**El caso:** el mapa de Cantabria del 01/09 llevó **21 usuarios** a `recursos.neety.com/mapas/cantabria/`. En GA4, esa página los suelta en **14 segundos**.
+**El caso:** el mapa de Cantabria del 01/09 llevó **21 usuarios** a `recursos.neety.com/mapas/cantabria/` (la URL de entonces; hoy `neety.com/blog/mapa-industrial-cantabria`). En GA4, esa página los suelta en **14 segundos**.
 
 ```
 /agendar/            58 vistas · 29 usuarios · 1 min 42 s
@@ -132,7 +145,7 @@ Nunca empieces pidiendo la llamada: primero valor, después la invitación.
 
 > **El post hizo su trabajo: trajo gente. La página la perdió.** Y hasta el 14/09 ni lo mirábamos, porque LinkedIn decía que a esa página no llegaba nadie (`outliers-database §0b`).
 
-**LA REGLA: cada vez que se monta o se revisa una página de recurso, se mira su tiempo de interacción en GA4 y se compara con `/agendar/`, que es nuestra vara.** `/agendar/` retiene 1m42s y está trabajada con aprendizajes de landing pages y un buscador interactivo: es la prueba de que el listón es alcanzable en casa. Una página bonita que retiene 14 segundos está rota aunque el diseño guste.
+**LA REGLA: cada vez que se monta o se revisa una página de recurso, se mira su tiempo de interacción en GA4 y se compara con la página de pedir demo, que es nuestra vara (hoy `neety.com/solicitar-demo`; la medida es de la antigua `/agendar/`).** `/agendar/` retenía 1m42s y está trabajada con aprendizajes de landing pages y un buscador interactivo: es la prueba de que el listón es alcanzable en casa. Una página bonita que retiene 14 segundos está rota aunque el diseño guste.
 
 **Y el diagnóstico del caso, que es aritmético y no de gusto:** el layout de las páginas de mapa es `grid-template-columns: 300px 1fr` dentro de un contenedor de 1.080px con 24px de padding. Al mapa le quedan **~698px de ancho por ~640 de alto: un cuadrado**. Y dentro de esos 698, el panel de PamPam se come ~300 con el título y la descripción, así que **el mapa de verdad se queda en ~400px**: se ve media región y los logos amontonados. En la vista propia de PamPam el mismo mapa tiene ~1.400px y se lee entero.
 
@@ -151,7 +164,7 @@ Nunca empieces pidiendo la llamada: primero valor, después la invitación.
 
 ## 4d · ⚠️ LA MINIATURA DEL ENLACE EN EL DM: SI SALE MAL, ES LA CACHÉ DE LINKEDIN
 
-Cuando el DM con el enlace de `recursos.neety.com` sale **sin foto o con la foto
+Cuando el DM con el enlace del recurso (`neety.com/academia/<slug>`) sale **sin foto o con la foto
 equivocada**, el primer impulso es tocar la página. **No la toques todavía.**
 
 Comprobado el 2026-08-21 (Iker): el mismo enlace que días antes salía sin
@@ -187,7 +200,7 @@ próxima vez la caché tenga que rehacerse otra vez.
 
 ```
 RECURSO: [nombre accionable, vende el resultado no el formato]
-URL: recursos.neety.com/[slug]
+URL: neety.com/academia/[slug]
 PALABRA DEL GATE (la que comentan en LinkedIn): "[X]"
 
 CÓMO QUIERO QUE TRABAJES (antes de escribir una línea de copy)

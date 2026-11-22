@@ -257,7 +257,7 @@ post-workflow | EL PRIMER CASO DE LA CASCADA FUNCIONANDO AL DERE | criterio: rem
 post-workflow | QUE SE CALCA Y QUE NO leer antes del Paso 0 | pendiente(2026-11-11): sin clasificar · 
 post-workflow | EL ORDEN IMPORTA PRIMERO CALCAR DESPUES MEJORAR | pendiente(2026-11-11): necesita-check · bloques de dos y cierre de una línea CUBIERTOS (Al menos un bloque de DOS, Cierre punchy de UNA linea). Sin du
 post-workflow | 4.5 Runbook LEAD MAGNET comment-gated RECETA DEF | contexto: -
-post-workflow | 4.5.-2 TODO LEAD MAGNET TIENE QUE CAPTURAR ALGO | pendiente(2026-11-11): necesita-criterio · gate/destino en parte por checks CTA y El enlace apunta a recursos.neety.com. Añadir a motor (leadmagnet): "si
+post-workflow | 4.5.-2 TODO LEAD MAGNET TIENE QUE CAPTURAR ALGO | pendiente(2026-11-11): necesita-criterio · gate/destino en parte por checks CTA y El enlace apunta a neety.com. Añadir a motor (leadmagnet): "si
 post-workflow | 4.5.-1 LA IMAGEN DEL LEAD MAGNET CALCAR SI PERO | pendiente(2026-11-11): sin clasificar · 
 post-workflow | 4.5.0 EL HOOK ULTIMA HORA medido y NO estaba en | pendiente(2026-11-11): sin clasificar · 
 post-workflow | 4.5.0c EL RECURSO PROMETE IDENTIFICACION NO SENA | pendiente(2026-11-11): necesita-check · PROMESA_AUTOMATISMO/VOLUMEN y "promete IDENTIFICAR" solo miran el bloque del ninja. Aviso en leadmagnet si gan
@@ -398,7 +398,7 @@ aboutme | EL PUENTE DE LA CUENTA DE MARIO ATENCION CLIENTE | pendiente(2026-11-1
 aboutme | Helena Baviera Serigo Partnerships Customer Succ | pendiente(2026-11-11): necesita-check · ⛔ SIN MENCIONES en Helena sin dueño: FALLO con --cuenta helena si queda una @. Ademas CONTRADICE (l.387) "el g
 aboutme | Angela Brook Uria Product Designer 6a cuenta Ike | pendiente(2026-11-11): cubierta · checks: Hook anclado a DISENO DE PRODUCTO + El CUERPO lleva la vinculacion con VENTAS + ENTREGA: ¿el CUERPO pr
 aboutme | 3 Una sola voz para los tres voz Neety | pendiente(2026-11-11): contradice · "NO mantenemos voces por persona... la voz es siempre la misma" contradice brand-voice §1b (registro por perso
-aboutme | 4 Estrategia de publicacion contexto que condici | pendiente(2026-11-11): contradice · enlace https://recursos.neety.com/agendar/ (vetado desde 05/10, aboutme §1 y check de solicitar-demo); "Link d
+aboutme | 4 Estrategia de publicacion contexto que condici | pendiente(2026-11-11): contradice · enlace https://recursos.neety.com/agendar/ (vetado desde 05/10, aboutme §1 y check de solicitar-demo; dominio muerto desde el 22/11/2026, check Sin enlaces a recursos.neety.com); "Link d
 aboutme | 5 Que me falta de aqui huecos a rellenar por el | contexto: huecos; seguidores no es variable de contenido
 post-workflow | 4.4-PSICOLOGIA EL SEGUNDO EJE DEL MEME QUE LO HA | criterio: motor
 brand-voice | CANONICO UNA IA GENERICA NUNCA ESTA AL NIVEL DE | check: IA generica por debajo de Neety

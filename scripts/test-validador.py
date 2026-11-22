@@ -149,7 +149,7 @@ CASOS = [
             'Si este caso deja de fallar, el inamovible nuevo del gancho se ha roto.'
         ),
         'Spam ninja presente': 'mismo artefacto del lnkd.in que el de Asturias, ver abajo',
-        'El enlace apunta a recursos.neety.com': 'el mismo artefacto del lnkd.in: la URL cruda sí era nuestra',
+        'El enlace apunta a neety.com': 'el mismo artefacto del lnkd.in: la URL cruda sí era nuestra',
         'El primer bloque multiple es de DOS': 'regla §3.2 afinada después; aquí el primer múltiple es de 3',
         'Concede que es trabajo en equipo': 'regla §4.3 Paso 3e, adoptada el 2026-07-17; ninguno de los 3 la cumple',
         'Bloques de 2-3 en escalera': 'regla §3.2 afinada después',
@@ -168,7 +168,7 @@ CASOS = [
             'que valida el script de verdad llevan la URL cruda, así que en uso real no pasa. '
             'No "arregles" el validador por esto.'
         ),
-        'El enlace apunta a recursos.neety.com': 'el mismo artefacto del lnkd.in de aquí arriba',
+        'El enlace apunta a neety.com': 'el mismo artefacto del lnkd.in de aquí arriba',
         'Tras el gancho, LINEA INDIVIDUAL': 'formateado anterior a §3.2',
         'Sin el AÑO en el post': 'misma casilla que el 4.92x de arriba: regla posterior + la duda del pilar-ranking',
         'Concede que es trabajo en equipo': 'regla §4.3 Paso 3e, adoptada el 2026-07-17; ninguno de los 3 la cumple',
@@ -176,7 +176,7 @@ CASOS = [
     ('patio trasero de los Pirineos', 'mapa', 'Iker', {
         'NUNCA pegado al bloque de menciones': 'regla posterior (Iker, 2026-10-07): entonces el enlace iba justo detras de la lista',
         'Spam ninja presente': 'este mapa llevaba link de PamPam, no el de agendar',
-        'El enlace apunta a recursos.neety.com': (
+        'El enlace apunta a neety.com': (
             'ESPERADO: mismo motivo que el de arriba y la misma decisión. Este mapa '
             'enlazaba a pampam.city, que es web AJENA: 230 clics que no llegaron a nuestra '
             'web (§4.4b, la tabla del 2026-07-20). Desde julio el enlace es siempre nuestro. '

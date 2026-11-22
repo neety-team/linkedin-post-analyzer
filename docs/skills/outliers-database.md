@@ -41,7 +41,7 @@ Usa el **snapshot cross-creator** (§3), la **taxonomía** (§1) y el **históri
 
 ## ⛔⛔ 0b · UN 0 DE CLICS NO ES UN CERO: ES UN HUECO (Mario, 2026-09-14)
 
-**El caso que lo prueba, y se cerró cruzando dos fuentes:** el mapa de Cantabria de Asier (01/09, 13.021 impresiones, con su enlace a `recursos.neety.com/mapas/cantabria/` en el cuerpo).
+**El caso que lo prueba, y se cerró cruzando dos fuentes:** el mapa de Cantabria de Asier (01/09, 13.021 impresiones, con su enlace a `recursos.neety.com/mapas/cantabria/` en el cuerpo; la URL de entonces, hoy `neety.com/blog/mapa-industrial-cantabria`).
 
 ```
 Panel de LinkedIn ...... "Visits to links from this post"  =  0
@@ -717,6 +717,8 @@ mejores de la casa.
 
 ## §3.14 · ⚠️ UN CLIC A UNA WEB AJENA NO ES UN CLIC NUESTRO (2026-07-20)
 
+> **⛔ 2026-11-22 · CASA ES `neety.com`.** `recursos.neety.com` ya no existe (solo redirige con 301), así que enlazarlo es **FALLO** en los dos validadores. Un enlace nuestro es cualquier URL de `neety.com` o de un subdominio vivo (`forward.neety.com`), más los eventos de `luma.com`. Destinos: recurso de lead magnet en `neety.com/academia/<slug>`, mapas en `neety.com/blog/mapa-industrial-<region>`, correo en `neety.com/newsletter` y demo en `neety.com/solicitar-demo`. Tabla completa del antes y el ahora en `lead-magnet-web.md`, arriba. En la tabla de abajo, `recursos.neety.com/agendar` es la URL medida en julio, no un destino que usar.
+
 Al medir CTR, **filtra siempre por destino del enlace** (`posts.link_url`). Los
 números más altos del histórico no valen para nada:
 
@@ -729,8 +731,9 @@ números más altos del histórico no valen para nada:
 | recursos.neety.com/agendar | 0,11-0,44% | los de julio 2026 | **Sí** |
 
 Los mapas de PamPam mandaban a la gente a **la web de otro**. 727 clics regalados.
-Desde julio 2026 el spam ninja apunta siempre a `recursos.neety.com/agendar`, que
-es un buscador de clientes ideales en vivo desde el que se agenda reunión.
+Desde julio 2026 el spam ninja apunta siempre a casa: hasta el 04/10 a
+`recursos.neety.com/agendar` (un buscador de clientes ideales en vivo desde el que se
+agendaba reunión) y desde el 05/10 a `https://neety.com/solicitar-demo`.
 
 **Al comparar CTR entre épocas, el cambio de destino es una ruptura**: los CTR de
 antes de julio 2026 en mapas no son comparables con los de después. Bajaron, pero

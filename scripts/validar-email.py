@@ -267,7 +267,7 @@ def main():
     # cada apertura enviada; falla si se repite entera o si comparte las dos ultimas palabras.
     APERTURAS_USADAS = ['te cuento', 'una frase', 'al grano', 'calendario en mano', 'aviso de mascota',
                         'hoy vengo enfadado', 'apunta', 'confesion de mascota', 'shhh', 'respira',
-                        'mision fallida', 'culpable', 'interrogatorio', 'planton']
+                        'mision fallida', 'culpable', 'interrogatorio']
     import unicodedata as _ud
     _ap = ''.join(c for c in _ud.normalize('NFD', primera.lower()) if _ud.category(c) != 'Mn')
     _ap = re.sub(r'[^a-z ]', '', _ap).strip()
@@ -335,7 +335,7 @@ def main():
     # ⛔ La unidad del dolor rota sin bajar (2026-11-02, global §4.4b-UNIDAD): los clientes miden
     # el dolor en mucho tiempo, no en la palabra "meses". Falla si un correo de los 3 anteriores
     # usó la misma unidad; avisa si baja a semanas, días u horas. Al programar, se añade aquí.
-    UNIDADES_CORREOS = {7: 'meses', 8: 'meses', 10: 'meses', 12: 'la vida', 15: 'el tiempo'}
+    UNIDADES_CORREOS = {7: 'meses', 8: 'meses', 10: 'meses', 12: 'la vida'}
     _cuerpo_u = re.sub(r'https?://\S+', '', _cuerpo_sin_pd).lower()
     _uds = [u for u, rx in UNIDADES_TIEMPO if re.search(rx, _cuerpo_u)]
     _num = re.search(r'correo-(\d+)-', cuerpo)
@@ -927,9 +927,6 @@ def main():
             # correo 14 · Kaixito · OBJECION ChatGPT (programado mar 17/11 09:05)
             'interrogando salen las que ya conoces, el resto no': '2026-11-17',
             'el resto de tu mercado lo vemos contigo': '2026-11-17',
-            # correo 15 · Kaixito · DOLOR (programado jue 26/11 09:05)
-            'la puerta la encuentra cualquiera, a quien visitar no': '2026-11-26',
-            'a quien visitar, lo miran mis compis contigo': '2026-11-26',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el

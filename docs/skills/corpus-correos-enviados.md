@@ -935,6 +935,8 @@ PPD. Apuesta perdida. Esta semana friego yo las tazas.
 
 ## Kaixito 15 · plantado en la puerta (pilar DOLOR, vía HISTORIA · `/solicitar-demo`)
 
+> ⛔ **NO SALIÓ.** Retirado el 23/11 antes del envío (campaña 39 suspendida): la newsletter pasa a aportar valor en cada correo. Se guarda como borrador del banco, no cuenta como enviado.
+
 **Programado:** jue 2026-11-26 09:05 (+01:00) · campaña Brevo 39 · listas 15 + 4 + 16 + 19, excluidas la 21, la 22 y la 23 (Radar y mapas)
 **Remitente:** `Kaixito de Neety` (`hola@neety.com`) · firma `Kaixito, la mascota de Neety` · GIF `aburrimiento` (Brevo)
 **UTM escrito a mano:** `utm_campaign=correo-15-kaixito-plantado`

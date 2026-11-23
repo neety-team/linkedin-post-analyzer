@@ -690,22 +690,25 @@ En los emails importantes, SIEMPRE (Timepack lo lleva en el 86% de los correos, 
 
 **🔄 Cadencia, decidido el 02/11 (manda sobre el «2-3/semana» de arriba):** **uno por semana, y que sea muy bueno.** Un correo original a la semana rinde más que uno diario: el lector es un directivo B2B con la bandeja llena, y la frecuencia diaria de Timepack, RunnerPro o Isra es de infoproducto con lista caliente (`§5-NINJA-POSICION`). Mandar más trae bajas y denuncias, y una cuenta ya nos la cancelaron (`§0b`). **El dato propio:** la semana del 27-30/10 llevó dos correos (10 y 11) y la cohorte de la lista 16 llegó a 4 correos en 16 días; las bajas fueron 1 y 2. **Un segundo correo semanal solo como prueba declarada**, midiendo bajas y denuncias por entregado contra las semanas de uno. Diario, no.
 
-**🔀 DOS VÍAS QUE SE ALTERNAN, decidido el 23/11 *(sin medir: criterio del equipo)*.** La newsletter deja de ser solo historias. Con un correo por semana, una semana va por cada vía:
-- **HISTORIA → reunión.** Kaixito cuenta algo (una escena, una objeción o un dolor de las reuniones, con cita real de `neety-feedback/temas.json` y sin nombres) y el ninja lleva a `/solicitar-demo`. Se mide en reuniones con su `utm_campaign`.
-- **RECURSO → valor exclusivo.** Algo útil que **solo tiene la newsletter**: un Excel, un informe o una plantilla que no está publicado en la web ni en los posts. El correo es corto, su único enlace va directo al recurso, sin formulario (`§4a-SIN-GATE`), y dice una vez y sin inflarlo que solo llega por aquí. La puerta a la reunión, si la hay, va dentro del recurso, al final y en una línea. Se mide en personas que lo abren y en bajas por entregado.
-- **El recurso se cuelga en `neety.com/para-ti/<slug>`** (23/11, repo `landing`: `components/para-ti/recursos.ts` y el archivo en `public/para-ti/archivos/`), sin indexar, fuera del sitemap y sin formulario. Que exista en la newsletter y en ningún otro sitio es lo que lo hace exclusivo. En LinkedIn sí se puede contar que existe, con el enlace a `neety.com/newsletter`, que es donde se pide el correo.
-- **La pregunta abierta:** si las semanas de recurso tienen menos bajas que las de historia. El primer ciclo (26/11 a 29/12) lleva tres de cada; plan en `contenido/newsletter/plan-2026-11-12.md`.
+**🎁 LA NEWSLETTER APORTA VALOR EN CADA CORREO (2026-11-23, manda sobre las dos vías del mismo día) *(sin medir: criterio del equipo)*.** Contar historias ya no es el formato: cada correo regala algo útil y **exclusivo de la newsletter**.
+- **Qué es un recurso:** un Excel, una plantilla o un informe hecho con datos reales nuestros (el Radar, las reuniones, las guías) que no está publicado tal cual en la web ni en los posts. Si la lista sí está en la web, lo exclusivo es el formato de trabajo (el Excel filtrable, las columnas nuevas) y el correo lo dice así, sin inflarlo.
+- **El correo es corto y va al grano:** qué se regala, para qué sirve y el enlace, directo y sin formulario (`§4a-SIN-GATE`). La historia, si aparece, es una línea, no el correo.
+- **Se cuelga en `neety.com/para-ti/<slug>`** (repo `landing`: `components/para-ti/recursos.ts` y el archivo en `public/para-ti/archivos/`), sin indexar y fuera del sitemap. La puerta a la reunión va dentro del recurso, al final y en una línea.
+- **Se invita a responder** (por ejemplo, «respóndeme qué vendes y te digo por cuáles empezaría»), en el cuerpo y no en la PD. Responder sube la entregabilidad y abre conversación.
+- **Remitente:** el primero de esta etapa (24/11) lo firma Iker, a propuesta del análisis de ese día: un lector de 45-60 años abre a personas, el cambio de remitente avisa de que la newsletter ha cambiado y la invitación a responder pide una persona detrás. Se decide con el resultado si Kaixito vuelve.
+- **Se mide en clic único sobre entregados** (último correo de historias: 0,5 %). Mínimo 5 %, éxito 8 % o más. Además, descargas, respuestas y bajas. El formato se juzga con 3 envíos, no con uno.
+- **El Excel del Radar se genera con `scripts/radar-excel.py <edición.md> <salida.xlsx>`:** las inversiones con su familia de compra y a quién buscar dentro (una clasificación del texto publicado, no datos nuevos).
 
 ### 📡 5R · EL CORREO DEL RADAR ES OTRO CORREO, NO UNA NEWSLETTER DE KAIXITO (2026-11-23)
 
 Hay dos tipos de correo y no se mezclan:
 
-| | Newsletter (Kaixito) | Radar |
+| | Newsletter | Radar |
 |---|---|---|
-| Qué es | Una historia o un recurso, con la voz de la mascota | La edición del mes del Radar de inversiones, para consultar |
+| Qué es | Un recurso exclusivo que aporta valor (arriba, «la newsletter aporta valor») | La edición del mes del Radar de inversiones, para consultar |
 | Cuándo | Cada semana, martes 09:05 | Una vez al mes, la primera semana, con la edición del mes anterior revisada por Iker |
 | A quién | La newsletter | La audiencia del Radar **y** la newsletter, en una sola campaña. Esa semana no hay correo de Kaixito (`§5`, un correo por persona y semana) |
-| Remitente | `Kaixito de Neety` | `Radar de Neety`. Es la única excepción a «siempre firma una persona» (`§1`): quien se apuntó pidió el Radar, no un correo personal |
+| Remitente | Una persona (`Iker de Neety` desde el 24/11) o Kaixito | `Radar de Neety`. Es la única excepción a «siempre firma una persona» (`§1`): quien se apuntó pidió el Radar, no un correo personal |
 | Tono y forma | Todo lo de este documento: asunto en minúscula, bloque de dos, un enlace, PD de broma | **Sobrio y profesional**, con la marca: ni historia, ni broma, ni PD. Las reglas de forma de la newsletter no aplican, y `validar-email.py` no se le pasa |
 
 **El asunto:** `Radar de inversiones · <mes>: <titular>`. El titular es la inversión o la tendencia más llamativa del mes, con el dato que da su fuente (empresa, qué y cuánto). Ejemplo con octubre: `Radar de inversiones · octubre: Gotion entra en la gigafactoría de Sagunto`. La preview dice cuántas empresas trae y de dónde salen.

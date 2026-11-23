@@ -75,8 +75,18 @@ h1 em{font-style:normal;color:var(--coral)}
    de foco, que es lo que interesa aquí. NADA de selectores
    desnudos (form/input/button): pisarian el formulario que inyecta SU
    neety-form.js, que es el mismo pecado de las reglas .hs-* de las que avisa su
-   README. El CSS del formulario es suyo y viene dentro de su fichero. */
-.hs-form-container{width:100%}
+   README. El CSS del formulario es suyo y viene dentro de su fichero.
+   23/11/2026: ya no hay neety-form.js (su dominio de recursos ya no existe); el
+   formulario es nuestro y va con clases .gate-* propias. */
+.gate-form{display:flex;flex-direction:column;gap:10px;text-align:left}
+.gate-label{font-size:13px;color:var(--text-muted)}
+.gate-input{width:100%;padding:11px 12px;border-radius:8px;border:1px solid var(--line-strong);background:var(--bg);color:var(--text);font:inherit;font-size:15px}
+.gate-input:focus{outline:2px solid var(--coral);outline-offset:1px}
+.gate-check{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--text-muted);line-height:1.4}
+.gate-check input{margin-top:2px;accent-color:var(--coral)}
+.gate-check a{color:var(--text)}
+.gate-btn{margin-top:6px;background:var(--coral);color:#0A1524;border:0;padding:12px 18px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer}
+.gate-error{color:var(--coral);font-size:13px;margin:0}
 .gate{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius-lg);padding:32px 28px 28px;margin:22px auto 28px;box-shadow:0 4px 32px rgba(0,0,0,.25),0 0 0 1px var(--line)}
 .gate h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:22px;letter-spacing:-.02em;margin-bottom:6px;text-align:center}
 .gate>p{font-size:14px;color:var(--text-muted);margin:0 0 20px;text-align:center}
@@ -102,32 +112,34 @@ function hallazgoCard(h: Hallazgo, n: number): string {
 }
 
 function page(opts: { sector: string; nombre: string | null; senales: Hallazgo[]; abierto: boolean; shareId: string; error?: string }): string {
-  const { sector, nombre, senales, abierto, shareId } = opts;
+  const { sector, nombre, senales, abierto, shareId, error } = opts;
   const total = senales.length;
   const visibles = abierto ? senales : senales.slice(0, 1);
   const bloqueadas = abierto ? [] : senales.slice(1);
 
-  // El gate es SU fichero, servido desde recursos.neety.com, no una copia.
-  // Aquí solo va el div vacío: neety-form.js lo rellena e inyecta su propio CSS.
-  // El <h2>/<p> son copy nuestro; el formulario, sus dos consentimientos y sus
-  // textos legales son suyos y no se tocan (ver routes/gateProxy.ts).
-  // data-redirect NO se pone: sin él muestra la confirmación inline, que es lo que
-  // queremos porque el contenido vive en esta página.
+  // EL GATE (23/11/2026). Hasta aquí era el `neety-form.js` de recursos.neety.com,
+  // que posteaba a /api/submit y de ahí a recursos.neety.com/api/submit. Ese
+  // dominio ya no existe (el submit responde 410), así que el correo se perdía.
+  // Ahora es un <form> normal a POST /r/:shareId, sin JS: guarda el correo aquí y
+  // lo manda a la lista de leads de neety.com (`enviarLead`). Los dos
+  // consentimientos copian LITERALES los del formulario de neety.com/academia
+  // («Acepto la política de privacidad.» y «Me suscribo a la newsletter.»): el
+  // significado de consent_data / consent_comms en esa lista es su texto, y aquí
+  // no se redacta otro (ver la nota legal de routes/gateProxy.ts).
   const gate = abierto
     ? ''
     : `<div class="gate">
         <h2>Los otros ${total - 1} fallos</h2>
         <p>Déjame el correo y se abren aquí mismo. Acceso inmediato, sin esperar ningún email.</p>
-        <div class="hs-form-container">
-          <div data-neety-form data-resource="auditoria-web" data-cta="Ver los ${total - 1} que quedan"></div>
-        </div>
-      </div>
-      <script src="https://recursos.neety.com/assets/neety-form.js" defer></script>
-      <script>
-        // Su gate no recarga: avisa por evento. Recargamos para que el servidor
-        // vuelva a pintar la página ya abierta, que es quien decide qué se ve.
-        document.addEventListener('neety:submitted', function () { location.reload(); });
-      </script>`;
+        <form class="gate-form" method="post" action="/r/${encodeURIComponent(shareId)}">
+          ${error ? `<p class="gate-error" role="alert">${esc(error)}</p>` : ''}
+          <label class="gate-label" for="gate-email">Correo</label>
+          <input id="gate-email" class="gate-input" type="email" name="email" required autocomplete="email" placeholder="tu@empresa.com">
+          <label class="gate-check"><input type="checkbox" name="consent_data" value="1" required> Acepto la <a href="https://neety.com/politica-de-privacidad" target="_blank" rel="noopener">política de privacidad</a>.</label>
+          <label class="gate-check"><input type="checkbox" name="consent_comms" value="1"> Me suscribo a la newsletter.</label>
+          <button class="gate-btn" type="submit">Ver los ${total - 1} que quedan</button>
+        </form>
+      </div>`;
 
   return `<!doctype html><html lang="es"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -146,7 +158,7 @@ function page(opts: { sector: string; nombre: string | null; senales: Hallazgo[]
   <div class="cierre">
     <p>Arregla esto y el que ya entra en tu web te pedirá presupuesto más veces. Pero seguirás dependiendo de que entre, y eso es lo que no controlas.</p>
     <p style="margin-top:10px">Eso es lo que hacemos nosotros: te decimos a qué empresa escribir y cuándo, sin esperar a que te encuentre.</p>
-    <a class="cta" href="https://recursos.neety.com/agendar/">Ver cómo funciona →</a>
+    <a class="cta" href="https://neety.com/solicitar-demo">Ver cómo funciona →</a>
   </div>
 </div></body></html>`;
 }
@@ -195,12 +207,79 @@ router.post('/:shareId', async (req: Request, res: Response) => {
       })
     );
   }
+  // Sin la casilla de privacidad no se guarda nada: es la condición del formulario
+  // de neety.com y aquí vale igual (el navegador ya la exige con `required`).
+  if (!req.body?.consent_data) {
+    return res.status(400).type('html').send(
+      page({
+        sector: row.sector,
+        nombre: row.commenter_name,
+        senales: row.full_analysis || [],
+        abierto: false,
+        shareId: row.share_id,
+        error: 'Para abrirlos tienes que aceptar la política de privacidad.',
+      })
+    );
+  }
   // Solo se guarda el primero: si vuelve a entrar, la página ya está abierta y
   // no tiene sentido pisar el correo con el que teclee la segunda vez.
   if (!row.email) {
     await pool.query('UPDATE rastro_analysis SET email = $1, email_at = NOW() WHERE share_id = $2', [email, row.share_id]);
+    // A la lista de leads de neety.com. Si falla, la página se abre igual: el
+    // correo ya está guardado aquí y el error queda en el log para recuperarlo.
+    await enviarLead({
+      email,
+      consent_comms: !!req.body?.consent_comms,
+      page: `/r/${row.share_id}`,
+      referer: String(req.get('referer') || ''),
+      userAgent: String(req.get('user-agent') || ''),
+    });
   }
   res.redirect(303, `/r/${encodeURIComponent(row.share_id)}`);
 });
+
+// La lista de leads vive en neety.com (`POST /api/lead`, el mismo endpoint que
+// usa el formulario de neety.com/academia). NEETY_LEAD_URL la cambia para probar.
+const LEAD_URL = process.env.NEETY_LEAD_URL || 'https://neety.com/api/lead';
+// El recurso con el que este gate siempre se ha apuntado en la lista.
+const RESOURCE = 'auditoria-web';
+
+export async function enviarLead(d: {
+  email: string;
+  consent_comms: boolean;
+  page: string;
+  referer?: string;
+  userAgent?: string;
+}): Promise<boolean> {
+  try {
+    const r = await fetch(LEAD_URL, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json',
+        ...(d.referer ? { referer: d.referer } : {}),
+        ...(d.userAgent ? { 'user-agent': d.userAgent } : {}),
+      },
+      body: JSON.stringify({
+        email: d.email,
+        resource: RESOURCE,
+        consent_data: true,
+        consent_comms: d.consent_comms,
+        lang: 'es',
+        page: d.page,
+      }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (!r.ok) {
+      const cuerpo = await r.text().catch(() => '');
+      console.error(`[rastro/lead] neety.com respondió ${r.status} para ${d.page}: ${cuerpo.slice(0, 200)}`);
+      return false;
+    }
+    return true;
+  } catch (err: any) {
+    console.error(`[rastro/lead] no se pudo mandar el lead de ${d.page}: ${err.message}`);
+    return false;
+  }
+}
 
 export default router;

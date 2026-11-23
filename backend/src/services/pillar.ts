@@ -345,7 +345,7 @@ function pideConectar(texto: string): boolean {
  * evento del 11/08 lleva 8 fichas "→ Marca" con las empresas colaboradoras, asi
  * que el clasificador lo dio por `peloteo_mapa` — la forma es identica. Lo unico
  * que NINGUN otro pilar tiene es el enlace de Luma: en el evento hace de spam
- * ninja (`global §4.4b`) y en el resto el enlace es siempre recursos.neety.com.
+ * ninja (`global §4.4b`) y en el resto el enlace es siempre de neety.com (antes recursos.neety.com).
  * Por eso se comprueba ANTES que el peloteo, que si no gana el bloque de fichas.
  */
 /**

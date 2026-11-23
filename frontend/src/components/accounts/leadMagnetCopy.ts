@@ -88,7 +88,7 @@ const CATALOGO: RecursoDef[] = [
     // La clave se conserva igual por dos motivos: los comentarios que llegan
     // dicen "vibe" (lo pide el banner de la foto) y el 632c de abril sigue en
     // la herramienta con su comenta "vibe" dentro del texto.
-    link: 'https://recursos.neety.com/vibe/',
+    link: 'https://neety.com/academia/vibe',
     topic: 'cómo montar tu prospección con Claude',
     claves: ['vibe'],
     pistas: [
@@ -113,7 +113,7 @@ const CATALOGO: RecursoDef[] = [
     // Las cinco pistas se eligieron comprobando DOS cosas contra el texto real
     // del post: que las cinco aparecen, y que ninguna pista de los otros seis
     // recursos casa con el (cero solapes medidos), asi que no puede haber empate.
-    link: 'https://recursos.neety.com/errores/',
+    link: 'https://neety.com/academia/errores',
     topic: 'los 5 errores que dejan tus mensajes sin respuesta',
     claves: ['errores'],
     pistas: [
@@ -122,13 +122,13 @@ const CATALOGO: RecursoDef[] = [
     ],
   },
   {
-    link: 'https://recursos.neety.com/subvencion-euskadi/',
+    link: 'https://neety.com/academia/subvencion-euskadi',
     topic: 'la subvención de IA para industria vasca',
     claves: ['subvencion'],
     pistas: ['subvencion', 'ayuda publica', 'industria vasca', 'euskadi'],
   },
   {
-    link: 'https://recursos.neety.com/prospeccion-manual/',
+    link: 'https://neety.com/academia/prospeccion-manual',
     topic: 'las señales que avisan de que una empresa va a comprar',
     claves: ['manual'],
     pistas: ['prospeccion manual', 'senales que avisan', 'va a comprar', 'senal de compra'],
@@ -142,7 +142,7 @@ const CATALOGO: RecursoDef[] = [
     // de aqui son cuatro y todas exclusivas de este texto: gana por 4 a 1 y no
     // hay empate, que es lo unico que devolveria null y dejaria al panel
     // pidiendo el enlace a mano con 300 comentarios esperando.
-    link: 'https://recursos.neety.com/criba/',
+    link: 'https://neety.com/academia/criba',
     topic: 'los 5 pasos para cribar tu lista de empresas',
     claves: ['criba'],
     pistas: [
@@ -169,7 +169,7 @@ const CATALOGO: RecursoDef[] = [
     // los falsos amigos, que casi cuelan: nuestro texto dice "tumbarme el
     // borrador" (la pista de /vibe/ es "tumbar la prospeccion") y "monte un
     // sistema" (la de /vibe/ es "sistema completo"). Ninguna de las dos casa.
-    link: 'https://recursos.neety.com/llaves/',
+    link: 'https://neety.com/academia/llaves',
     topic: 'el sistema con Claude que critica mis borradores antes de publicar',
     claves: ['riendas', 'llaves'],
     pistas: [
@@ -188,7 +188,7 @@ const CATALOGO: RecursoDef[] = [
     // cinco) y contra los posts de los otros recursos (cero solapes). Ojo al
     // falso amigo: la guia se llama "landing page", pero el post no lo dice, asi
     // que no sirve de pista.
-    link: 'https://recursos.neety.com/perfil/',
+    link: 'https://neety.com/academia/perfil',
     topic: 'las 7 piezas para que tu perfil de LinkedIn venda',
     claves: ['perfil'],
     pistas: [
@@ -907,7 +907,7 @@ export interface ListaInput {
 // de las empresas van SIN protocolo a propósito (prettyUrl), para que no compitan
 // por la preview y la tarjeta que salga sea la de señales.
 const NINJA_DM =
-  'PD: la lista es a quién vender. Cuándo escribirle a cada una (la señal que dispara la compra) lo tienes aquí: https://recursos.neety.com/senales';
+  'PD: la lista es a quién vender. Cuándo escribirle a cada una (la señal que dispara la compra) lo tienes aquí: https://neety.com/academia/senales';
 
 // El DM con la lista entera, para 1er grado. Abre con el saludo regional (mismo
 // que buildDm), dice el número REAL de empresas (no "15" fijo), lista cada una

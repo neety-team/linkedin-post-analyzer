@@ -17,9 +17,15 @@ import pool from '../db';
 // persona: con otra redacción, `consent_comms = true` querría decir dos cosas
 // distintas dentro de la misma lista. Es la lista partida otra vez, pero sin que
 // se vea. Por eso no se reimplementa: se sirve el suyo.
+//
+// 23/11/2026: recursos.neety.com ya no existe (su /api/submit responde 410) y la
+// página /r/ ya no carga neety-form.js: tiene su propio formulario (routes/rastro.ts).
+// Este proxy queda solo para una página vieja abierta o guardada con el gate
+// antiguo, y reenvía a la lista de leads de neety.com (`POST /api/lead`, los
+// mismos campos más `lang` y `page`). Se puede retirar cuando nadie lo llame.
 const router = Router();
 
-const UPSTREAM = process.env.NEETY_SUBMIT_URL || 'https://recursos.neety.com/api/submit';
+const UPSTREAM = process.env.NEETY_LEAD_URL || 'https://neety.com/api/lead';
 // Cerrado a propósito: su whitelist rechaza cualquier otro valor con 400
 // invalid_resource, así que un typo aquí seria cero correos, no correos mal
 // clasificados.
@@ -33,6 +39,7 @@ router.post('/', async (req: Request, res: Response) => {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
+        accept: 'application/json',
         // Nos lo pide su README y es lo más útil que podemos mandar: identifica
         // la auditoría concreta (.../r/<id>). Sin esto, en server-a-server les
         // llegaría el referer de NUESTRO servidor, que no dice nada.
@@ -45,6 +52,8 @@ router.post('/', async (req: Request, res: Response) => {
         email, resource: RESOURCE,
         consent_data: !!consent_data, consent_comms: !!consent_comms,
         utm_source: utm_source ?? null, utm_medium: utm_medium ?? null, utm_campaign: utm_campaign ?? null,
+        lang: 'es',
+        page: (referer.match(/\/r\/[A-Za-z0-9_-]+/) || [null])[0],
       }),
       signal: AbortSignal.timeout(15_000),
     });

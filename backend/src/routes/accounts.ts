@@ -4451,14 +4451,35 @@ async function buscarEntregaPorEnlace(
   if (chatIds.length === 0) return { ok: null, motivo: 'sin conversación con esta persona' };
 
   try {
-    const r = await buscarMensajeEnviado(
-      (id, cursor) => unipileService.getChatMessagesPage(id, { limit: 50, cursor }),
-      { chatIds, texto: enlace, desde: null }
-    );
-    return veredictoDeBusqueda(r, false);
+    // El mismo recurso puede ir con su enlace viejo o con el nuevo (ver
+    // `variantesDelEnlace`): vale que aparezca cualquiera de los dos.
+    let ultima: Awaited<ReturnType<typeof buscarMensajeEnviado>> | null = null;
+    for (const texto of variantesDelEnlace(enlace)) {
+      const r = await buscarMensajeEnviado(
+        (id, cursor) => unipileService.getChatMessagesPage(id, { limit: 50, cursor }),
+        { chatIds, texto, desde: null }
+      );
+      const v = veredictoDeBusqueda(r, false);
+      if (v.ok === true) return v;
+      ultima = r;
+    }
+    return veredictoDeBusqueda(ultima!, false);
   } catch (err: any) {
     return { ok: null, motivo: `no he podido comprobarlo: ${err?.message || String(err)}` };
   }
+}
+
+// RECURSOS.NEETY.COM YA NO EXISTE (23/11/2026): cada recurso vive ahora en
+// neety.com/academia/<slug>. Los DM de antes llevan el enlace viejo y los de
+// ahora el nuevo, así que el barrido busca las dos huellas del mismo recurso:
+// si solo buscara una, en los posts viejos daría por no entregado a quien ya lo
+// tiene y el panel ofrecería mandárselo otra vez.
+export function variantesDelEnlace(enlace: string): string[] {
+  const slug =
+    enlace.match(/recursos\.neety\.com\/([a-z0-9-]+)/i)?.[1] ??
+    enlace.match(/neety\.com\/academia\/([a-z0-9-]+)/i)?.[1];
+  if (!slug) return [enlace];
+  return [...new Set([enlace, `recursos.neety.com/${slug}`, `neety.com/academia/${slug}`])];
 }
 
 // POST /api/accounts/lead-magnet/send

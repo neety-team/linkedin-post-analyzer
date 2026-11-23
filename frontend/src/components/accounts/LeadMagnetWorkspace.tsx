@@ -559,7 +559,7 @@ export default function LeadMagnetWorkspace({ post, creatorId, compacto = false 
               <input
                 value={cfg.link}
                 onChange={(e) => setCfg((c) => ({ ...c, link: e.target.value }))}
-                placeholder="https://recursos.neety.com/…"
+                placeholder="https://neety.com/academia/…"
                 className="w-full md:w-2/3 bg-bg-secondary border border-border rounded px-2 py-1 text-xs"
               />
               <input

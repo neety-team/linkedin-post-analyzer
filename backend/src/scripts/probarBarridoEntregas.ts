@@ -28,7 +28,7 @@ import { unipileService } from '../services/unipile';
 import { buscarMensajeEnviado, veredictoDeBusqueda } from '../services/verificarEnvio';
 
 const CUENTA_UNAI = 'aamcUZmeRYCZ3Se9EP77DQ';
-const ENLACE = 'https://recursos.neety.com/vibe/';
+const ENLACE = 'https://neety.com/academia/vibe';
 
 interface Caso {
   quien: string;

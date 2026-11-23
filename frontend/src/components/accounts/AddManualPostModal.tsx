@@ -294,7 +294,7 @@ export default function AddManualPostModal({
                   type="text"
                   value={linkUrl}
                   onChange={(e) => setLinkUrl(e.target.value)}
-                  placeholder="https://recursos.neety.com/..."
+                  placeholder="https://neety.com/academia/..."
                   className="w-full bg-bg-secondary/60 border border-border rounded-lg px-2 py-1.5 text-xs text-text-secondary focus:outline-none focus:border-accent"
                   spellCheck={false}
                 />

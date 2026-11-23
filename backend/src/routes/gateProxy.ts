@@ -17,22 +17,29 @@ import pool from '../db';
 // persona: con otra redacción, `consent_comms = true` querría decir dos cosas
 // distintas dentro de la misma lista. Es la lista partida otra vez, pero sin que
 // se vea. Por eso no se reimplementa: se sirve el suyo.
+//
+// 23/11/2026: recursos.neety.com ya no existe (su /api/submit responde 410) y la
+// página /r/ ya no carga neety-form.js: tiene su propio formulario (routes/rastro.ts).
+// Este proxy queda solo para una página vieja abierta o guardada con el gate
+// antiguo, y reenvía a la lista de leads de neety.com (`POST /api/lead`, los
+// mismos campos más `lang` y `page`). Se puede retirar cuando nadie lo llame.
 const router = Router();
 
-const UPSTREAM = process.env.NEETY_SUBMIT_URL || 'https://recursos.neety.com/api/submit';
+const UPSTREAM = process.env.NEETY_LEAD_URL || 'https://neety.com/api/lead';
 // Cerrado a propósito: su whitelist rechaza cualquier otro valor con 400
 // invalid_resource, así que un typo aquí seria cero correos, no correos mal
 // clasificados.
 const RESOURCE = 'auditoria-web';
 
 router.post('/', async (req: Request, res: Response) => {
-  const { email, consent_data, consent_comms, utm_source, utm_medium, utm_campaign } = req.body ?? {};
+  const { name, email, consent_data, consent_comms, utm_source, utm_medium, utm_campaign } = req.body ?? {};
   const referer = String(req.get('referer') || '');
   try {
     const r = await fetch(UPSTREAM, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
+        accept: 'application/json',
         // Nos lo pide su README y es lo más útil que podemos mandar: identifica
         // la auditoría concreta (.../r/<id>). Sin esto, en server-a-server les
         // llegaría el referer de NUESTRO servidor, que no dice nada.
@@ -42,9 +49,15 @@ router.post('/', async (req: Request, res: Response) => {
         // submit.js lee cf-connecting-ip y Cloudflare lo reescribe igualmente.
       },
       body: JSON.stringify({
+        // Su lista exige el nombre y el gate viejo no lo pedía: sin él daría 400
+        // name_required. Va el que venga o, si no, la parte del correo antes de
+        // la @, que es lo único que esa persona ha escrito.
+        name: (typeof name === 'string' && name.trim()) || String(email || '').split('@')[0] || null,
         email, resource: RESOURCE,
         consent_data: !!consent_data, consent_comms: !!consent_comms,
         utm_source: utm_source ?? null, utm_medium: utm_medium ?? null, utm_campaign: utm_campaign ?? null,
+        lang: 'es',
+        page: (referer.match(/\/r\/[A-Za-z0-9_-]+/) || [null])[0],
       }),
       signal: AbortSignal.timeout(15_000),
     });

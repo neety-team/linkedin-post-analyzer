@@ -933,6 +933,65 @@ PPD. Apuesta perdida. Esta semana friego yo las tazas.
 
 ---
 
+## Kaixito 15 · plantado en la puerta (pilar DOLOR, vía HISTORIA · `/solicitar-demo`)
+
+**Programado:** jue 2026-11-26 09:05 (+01:00) · campaña Brevo 39 · listas 15 + 4 + 16 + 19, excluidas la 21, la 22 y la 23 (Radar y mapas)
+**Remitente:** `Kaixito de Neety` (`hola@neety.com`) · firma `Kaixito, la mascota de Neety` · GIF `aburrimiento` (Brevo)
+**UTM escrito a mano:** `utm_campaign=correo-15-kaixito-plantado`
+
+### El asunto y el preheader
+
+```
+me quedé plantado en la puerta
+```
+```
+Con el libro bajo el brazo, listo para salir.
+```
+
+### El cuerpo, literal
+
+```
+Plantón.
+
+El lunes iba a salir de visitas con un comercial.
+A la calle, a ver clientes de verdad.
+
+A las 9 ya estaba en la puerta, con mi libro.
+
+[GIF aburrimiento]
+
+A las 12 seguía allí.
+
+Él no se había levantado de la mesa.
+Buscaba a quién ir a ver.
+Web por web, empresa por empresa.
+
+Si vendes, igual te suena.
+
+En casa lo oímos en muchas reuniones.
+
+Un comercial nos contó que busca más que visita.
+
+La puerta la encuentra cualquiera, a quién visitar no.
+A quién visitar, lo miran mis compis contigo: https://neety.com/solicitar-demo?utm_source=brevo&utm_medium=email&utm_campaign=correo-15-kaixito-plantado
+
+Media hora y no hay que traer nada preparado.
+
+Y si no encaja, te lo dicen.
+
+A las 2 salió por fin.
+A comer.
+
+Kaixito, la mascota de Neety
+
+PD. Mañana vuelvo a la puerta. Esta vez, con bocadillo.
+```
+
+> **Real / inventado:** reales, el dolor de buscar a mano en vez de contactar (66 menciones en `temas.json`) y lo que contó un comercial en una reunión del 29/10 (pasa más tiempo buscando que en la calle), en estilo indirecto y sin nombres. Inventada, la escena de la puerta.
+
+---
+
+
 ## 🔴 Las tres líneas que costaron la cuenta
 
 MailerLite canceló la cuenta el 2026-08-11 y, al preguntar, el motivo fue *"su contenido no está permitido"*. **Habían leído el correo.** Estas son las líneas que un revisor de cumplimiento lee como una confesión de lista no consentida:

@@ -1787,7 +1787,7 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 - **Mientras el PR no esté desplegado,** toda campaña de la newsletter excluye a mano a esos contactos.
 - **El Radar** les llega la primera semana de cada mes desde su propia lista de Brevo (hay que encender la sincronización de la audiencia «Radar mensual» en el CRM). Plan en `contenido/newsletter/plan-2026-11-12.md`.
 
-## ✉️ CORREO 15 · Kaixito · DOLOR, vía HISTORIA (campaña Brevo 39 en BORRADOR el 23/11, para el jue 26/11 09:05 +01:00)
+## ✅ CORREO 15 · Kaixito · DOLOR, vía HISTORIA (campaña Brevo 39 PROGRAMADA el 23/11 para el jue 26/11 09:05 +01:00, tras revisar la prueba)
 
 **Estado:** texto validado **71/71**, con dos avisos (un tramo en espejo 1-1-3-1-1 con la escena en medio y una sola PD de broma). Texto aprobado en el chat el 23/11, pendiente del botón de la página Newsletter. Campaña 39 en `draft`, releída de la API: remitente `Kaixito de Neety`, preheader, pie de la casa, un `href` con su UTM, GIF `aburrimiento` de Brevo y auditor en verde. Listas 15 + 4 + 16 + 19 con exclusión de la 21, la 22 y la **23 `Excluir Radar y mapas (hasta PR 249)`**, creada el 23/11 con los 24 contactos sin nombre que entraron en la lista 15 desde el 19/11 (solo el formulario del Radar y el de los mapas dejan apuntarse sin nombre). **198 destinatarios previstos.** Prueba enviada a `iker@neety.com` el 23/11.
 
@@ -1809,3 +1809,5 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 
 ### ✅ Radar y mapas fuera de la lista 15: hecho (2026-11-23, 10:40)
 PR 249 de saldu fusionado y desplegado. En la primera sincronización la lista 15 pasó de 148 a 125: salieron los 24 del Radar y los mapas y nadie más (uno nuevo entró esa mañana por la newsletter). La lista 23 `Excluir Radar y mapas (hasta PR 249)` ya no hace falta; se deja como exclusión en la campaña 39 y se puede borrar después del envío (borrar una lista no borra contactos). **Pendiente para el correo 16:** encender en el CRM (Marketing → Audiencias) la sincronización con Brevo de la audiencia del Radar, para que tenga su lista. Los recursos exclusivos de la newsletter viven en `neety.com/para-ti/<slug>` (PR 17 de `neety-team/landing`, fusionado el 23/11).
+
+**Correo 15, al programar (23/11):** prueba revisada y OK en el chat; campaña 39 `queued` con `scheduledAt 2026-11-26T09:05+01:00`, releída de la API (remitente con nombre, preheader, pie, GIF, un `href` con UTM, listas 15 + 4 + 16 + 19 y exclusión de 21, 22 y 23) y auditor en verde. Ninja a `QUEMADAS`, `planton` a `APERTURAS_USADAS`, `15: 'el tiempo'` a `UNIDADES_CORREOS` y cuerpo literal a `corpus-correos-enviados.md`. **Sin vincular en el panel:** `neety_newsletter_vincular` exige el botón «Aprobar» de la página Newsletter; se vincula en cuanto esté. ⚠️ El jueves se comprueba que salió. Revisión: lunes 30/11.

@@ -94,6 +94,52 @@ def aviso(msg):
     return ('⚠️', msg)
 
 
+# ---------- LO YA USADO, LEÍDO DEL PANEL (2026-11-24) ----------
+# Desde el 24/11 el estado vive en la base de datos y no en el repo: lo que ya ha salido (o está
+# aprobado o programado) se lee de /api/usado con el token de máquinas. Las listas escritas a mano
+# más abajo (APERTURAS_USADAS, UNIDADES_CORREOS, QUEMADAS) se quedan como ARCHIVO de lo anterior al
+# 24/11 y no se les añade nada: lo nuevo llega solo. El propio correo (su utm_campaign) no cuenta.
+API_BASE = os.environ.get('NEETY_API_BASE', 'https://linkedin-post-analyzer-production.up.railway.app').rstrip('/')
+_USADO = None
+
+
+def usado_del_panel():
+    """{'correos': [...], 'posts': [...]} del panel, o {'error': motivo}. Se lee una vez por ejecución."""
+    global _USADO
+    if _USADO is not None:
+        return _USADO
+    tok = os.environ.get('API_TOKEN', '').strip()
+    if not tok:
+        _USADO = {'error': 'falta API_TOKEN en el entorno'}
+        return _USADO
+    try:
+        import json as _json
+        import urllib.request as _ur
+        req = _ur.Request(API_BASE + '/api/usado',
+                          headers={'Authorization': 'Bearer ' + tok, 'User-Agent': 'validar-email (Neety)'})
+        _USADO = _json.load(_ur.urlopen(req, timeout=20))
+    except Exception as e:  # sin red o sin servidor: se avisa y se valida con el archivo
+        _USADO = {'error': str(e)[:120]}
+    return _USADO
+
+
+def correos_usados(cuerpo):
+    """Los correos del panel menos el que se está validando (por su utm_campaign)."""
+    u = usado_del_panel()
+    propio = re.search(r'utm_campaign=([\w-]+)', cuerpo)
+    propio = propio.group(1) if propio else None
+    return [c for c in u.get('correos', []) if not propio or c.get('utm_campaign') != propio]
+
+
+def lineas_enlace(cuerpo):
+    """Las líneas del bloque del enlace, sin la URL ni los dos puntos, en minúscula."""
+    for b in re.split(r'\n\s*\n', cuerpo or ''):
+        if re.search(r'https?://', b):
+            return [re.sub(r':?\s*https?://\S+', '', l).strip().rstrip('.').lower()
+                    for l in b.splitlines() if re.sub(r':?\s*https?://\S+', '', l).strip()]
+    return []
+
+
 def main():
     # Windows saca cp1252 por defecto y los emojis del informe lo tiran
     if hasattr(sys.stdout, 'reconfigure'):
@@ -121,6 +167,13 @@ def main():
     cuerpo_low = cuerpo.lower()
 
     checks = []
+
+    _u = usado_del_panel()
+    if _u.get('error'):
+        checks.append(aviso(f'No he podido leer lo ya usado del panel ({_u["error"]}): solo cuento las '
+                            f'listas del repo, que acaban el 24/11. Mira neety_usado antes de entregar'))
+    else:
+        checks.append(ok(f'Lo ya usado, leído del panel ({len(_u.get("correos", []))} correos)'))
 
     # --- cabecera ---
     if all(k in cab for k in ('REMITENTE', 'ASUNTO', 'PREVIEW')):
@@ -269,6 +322,12 @@ def main():
                         'hoy vengo enfadado', 'apunta', 'confesion de mascota', 'shhh', 'respira',
                         'mision fallida', 'culpable', 'interrogatorio', 'lista nueva']
     import unicodedata as _ud
+    for _c in correos_usados(cuerpo):
+        _a0 = next((l.strip() for l in (_c.get('cuerpo') or '').splitlines() if l.strip() and not l.strip().startswith('[')), '')
+        _a0 = ''.join(ch for ch in _ud.normalize('NFD', _a0.lower()) if _ud.category(ch) != 'Mn')
+        _a0 = re.sub(r'[^a-z ]', '', _a0).strip()
+        if _a0 and len(_a0.split()) <= 4 and _a0 not in APERTURAS_USADAS:
+            APERTURAS_USADAS.append(_a0)
     _ap = ''.join(c for c in _ud.normalize('NFD', primera.lower()) if _ud.category(c) != 'Mn')
     _ap = re.sub(r'[^a-z ]', '', _ap).strip()
     _cola = ' '.join(_ap.split()[-2:])
@@ -336,6 +395,13 @@ def main():
     # el dolor en mucho tiempo, no en la palabra "meses". Falla si un correo de los 3 anteriores
     # usó la misma unidad; avisa si baja a semanas, días u horas. Al programar, se añade aquí.
     UNIDADES_CORREOS = {7: 'meses', 8: 'meses', 10: 'meses', 12: 'la vida'}
+    for _c in correos_usados(cuerpo):
+        if _c.get('numero') is None:
+            continue
+        _cu = re.sub(r'https?://\S+', '', (_c.get('cuerpo') or '').split('\nPD')[0]).lower()
+        _u0 = next((u for u, rx in UNIDADES_TIEMPO if re.search(rx, _cu)), None)
+        if _u0:
+            UNIDADES_CORREOS.setdefault(int(_c['numero']), _u0)
     _cuerpo_u = re.sub(r'https?://\S+', '', _cuerpo_sin_pd).lower()
     _uds = [u for u, rx in UNIDADES_TIEMPO if re.search(rx, _cuerpo_u)]
     _num = re.search(r'correo-(\d+)-', cuerpo)
@@ -931,6 +997,12 @@ def main():
             'quien esta invirtiendo sale en prensa, que compra no': '2026-11-24',
             'lo que puede comprarte, en este excel': '2026-11-24',
         }
+        for _c in correos_usados(cuerpo):
+            if not _c.get('fecha'):
+                continue
+            for _l in lineas_enlace(_c.get('cuerpo') or ''):
+                if len(_l.split()) >= 3:
+                    QUEMADAS.setdefault(_l, _c['fecha'])
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el
         # cuerpo lleva tildes, asi que 'a quien mandarselo' no encontraba

@@ -28,8 +28,8 @@ Orquestación:
 9. **post-workflow** — cómo montar el workflow, la RECETA cronológica por pilar, y **§8 el workflow real: planificador semanal de las 3 cuentas** (categorías peloteo/lead magnet/meme, intercalado 3×3, pregunta previa). Adapta el marco de workflows del playbook interno sin pisar las skills de datos.
 
 Estado (no doctrina):
-10. **historial-publicaciones** — registro vivo de lo que publica cada cuenta cada semana. Lo LEE el planificador (§8.3) para respetar el espaciado y lo ACTUALIZA tras aprobar la semana. Hay que **commitearlo** cada vez que cambie.
-11. **historial-newsletter** — lo mismo para el email: envíos, rotación de remitentes, palabras de CTA-respuesta y ángulos usados. Lo lee y actualiza el planificador de tandas (`email-marketing §6`).
+10. **historial-publicaciones** — ARCHIVO de lo publicado hasta el 24/11/2026. Desde ese día el estado de los posts vive en la página Semana y se toca por el MCP (`notas` y `region` de cada post, `neety_usado`), sin commits: ver «Qué va al repo y qué va al MCP» en `CLAUDE.md`.
+11. **historial-newsletter** y **corpus-correos-enviados** — ARCHIVO del email hasta el 24/11/2026. Desde ese día cada correo guarda su texto, su HTML y sus `notas` en la página Newsletter.
 12. **menciones-usadas.json** — las personas y empresas ya mencionadas, para no repetir. Lo rellena `scripts/extraer-menciones.mjs` y lo consulta `scripts/validar-post.py`.
 
 Validadores (se corren antes de cada entrega y se pega su resultado):
@@ -42,7 +42,7 @@ Validadores (se corren antes de cada entrega y se pega su resultado):
 ## Dónde vive cada cosa
 - **`docs/skills/`** (esta carpeta) = todo el cerebro. Doctrina + el historial.
 - **`CLAUDE.md`** (raíz del repo) = el bootstrap. Se carga **solo** en cada sesión de Claude Code y dice qué cargar, en qué orden y qué no se negocia. Es el equivalente al campo de "instrucciones del proyecto" de Cowork, pero automático.
-- **`historial-publicaciones.md`** = ESTADO, no doctrina: cambia cada semana. Vive aquí igual que el resto porque en git todo está versionado, pero trátalo distinto: se lee antes de planificar y se actualiza (y commitea) después.
+- **`historial-publicaciones.md`** = ARCHIVO del estado hasta el 24/11/2026. El estado nuevo no vive en git: va a la base de datos por el MCP.
 - **Entregables** (CSV de PamPam, ZIPs de fotos, fotos de portada) → **fuera del repo**: Escritorio o scratchpad.
 
 > **Nota histórica:** esto vivió un tiempo en `docs/cowork/` partido en `context/` + `project/` + `output/`, imitando la estructura de un proyecto de Claude Cowork. Se decidió (2026-07-14) quedarse en **Claude Code**, porque aquí las skills están en git: se corrigen y se commitean solas, cada aprendizaje queda versionado con su porqué, y las credenciales de Unipile y Railway están en el entorno para verificar datos reales. En Cowork había que resubir el historial a mano cada semana y se desincronizaba del repo. Si algún día se monta el Cowork, la estructura de 3 carpetas está en el historial de git.

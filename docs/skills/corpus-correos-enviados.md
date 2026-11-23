@@ -1,5 +1,8 @@
 # CORPUS: los correos que hemos enviado de verdad
 
+> 🗄️ **ARCHIVO desde el 24/11/2026.** No se le añade nada más: el estado vive en la base de datos y se toca por el MCP (ver «Qué va al repo y qué va al MCP» en `CLAUDE.md`). Se sigue leyendo para lo anterior a esa fecha.
+
+
 > **name:** corpus-correos-enviados
 > **description:** El texto LITERAL de cada correo que ha salido de Neety, con sus métricas reales. Es el equivalente de `swipe-file.md` para email: nuestros propios correos, no los de otros.
 > **when-to-use:** Cargar SIEMPRE que haya que reescribir, versionar o continuar un correo que ya salió. Antes de tocar una línea de un correo enviado, se lee aquí el original.

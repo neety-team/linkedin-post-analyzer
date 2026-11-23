@@ -91,6 +91,9 @@ interface PostSemana {
   estado: string;
   vara: string | null;
   por_que: string | null;
+  /** El diario del post: resultado y lo aprendido (2026-11-24). */
+  notas?: string | null;
+  region?: string | null;
   falta: string | null;
   /** Lo que falta, como lista que se confirma desde aquí. Si hay, `falta` es solo una nota. */
   pendientes?: Pendiente[] | null;
@@ -1296,6 +1299,12 @@ function Revision({
           </div>
         )}
         <Referencia texto={post.referencia} />
+        {post.notas && (
+          <div className="rounded-lg border border-border bg-bg-secondary px-4 py-3">
+            <p className="font-display text-[14px] font-semibold text-text-primary">Notas</p>
+            <p className="mt-1 whitespace-pre-line text-[13px] leading-relaxed text-text-secondary max-w-[62ch]">{post.notas}</p>
+          </div>
+        )}
 
         <div className="space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-2">

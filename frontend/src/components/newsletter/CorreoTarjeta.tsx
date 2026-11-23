@@ -251,6 +251,12 @@ export default function CorreoTarjeta({
               {correo.por_que}
             </p>
           )}
+          {correo.notas && (
+            <p className="text-text-secondary break-words whitespace-pre-line">
+              <span className="font-semibold text-text-primary">Notas: </span>
+              {correo.notas}
+            </p>
+          )}
           {correo.enlace && (
             <p className="text-text-secondary break-all">
               <span className="font-semibold text-text-primary">Enlace: </span>

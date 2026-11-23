@@ -1362,6 +1362,11 @@ const migracionSemana = `
   CREATE INDEX IF NOT EXISTS idx_newsletter_correos_fecha ON newsletter_correos (fecha);
   -- 2026-11-23: el HTML exacto del correo, para que la pagina lo pinte como llega a la bandeja.
   ALTER TABLE newsletter_correos ADD COLUMN IF NOT EXISTS html TEXT;
+  -- 2026-11-24: el estado vive en la base de datos y no en el repo. notas = el diario de cada
+  -- post y de cada correo (resultado y aprendizaje); region = la de un mapa o «Las 10».
+  ALTER TABLE newsletter_correos ADD COLUMN IF NOT EXISTS notas TEXT;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS notas TEXT;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS region TEXT;
   -- Una campana de Brevo solo puede estar en un correo (las tandas van cada una en su fila).
   CREATE UNIQUE INDEX IF NOT EXISTS idx_newsletter_correos_campana
     ON newsletter_correos (brevo_campaign_id) WHERE brevo_campaign_id IS NOT NULL;

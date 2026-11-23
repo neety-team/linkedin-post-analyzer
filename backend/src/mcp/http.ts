@@ -4,6 +4,7 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import { registrarTools } from './tools';
 import { registrarToolsSemana } from './toolsSemana';
 import { registrarToolsNewsletter } from './toolsNewsletter';
+import { registrarToolsUsado } from './toolsUsado';
 
 /**
  * El MCP servido por HTTP desde el propio backend.
@@ -43,6 +44,7 @@ async function atender(req: Request, res: Response) {
   registrarTools(servidor);
   registrarToolsSemana(servidor);
   registrarToolsNewsletter(servidor);
+  registrarToolsUsado(servidor);
 
   const transporte = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
 

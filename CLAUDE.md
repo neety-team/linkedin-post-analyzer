@@ -2,6 +2,23 @@
 
 Este repo es la herramienta (Post Creator + análisis de outliers) **y** el cerebro con el que Neety escribe en LinkedIn.
 
+## ⛔ QUÉ VA AL REPO Y QUÉ VA AL MCP (2026-11-24)
+
+El repo guarda la **estructura**: doctrina, skills, aprendizajes que se convierten en regla, validadores y código. El **contenido** vive en la base de datos y se toca **solo por el MCP** (`neety-outliers`), sin commits:
+
+| Qué | Dónde | Cómo se toca |
+|---|---|---|
+| Posts: texto, estado, porqué, pendientes, fotos, menciones | Página Semana (`semana_posts`) | `neety_semana_publicar` |
+| El diario de cada post: resultado a 3 y 7 días, qué pasó, lo aprendido de ese post | Campo `notas` del post | `neety_semana_publicar` (vale también en un post programado o publicado) |
+| La región de un mapa o de «Las 10» | Campo `region` del post | `neety_semana_publicar` |
+| Correos: texto, HTML, estado, campaña, métricas | Página Newsletter (`newsletter_correos`) | `neety_newsletter_publicar`, `neety_newsletter_vincular` |
+| El diario de cada correo: a qué listas, resultado, lo aprendido | Campo `notas` del correo | `neety_newsletter_publicar` (en uno programado o enviado solo cambian `notas`, `por_que`, `pilar` y `tipo_cliente`) |
+| Lo ya usado (aperturas, frases del enlace, unidades, palabras de CTA, regiones) | Se calcula de lo anterior | `neety_usado`; los validadores lo leen solos de `/api/usado` con `API_TOKEN` |
+
+- **`historial-publicaciones.md`, `historial-newsletter.md` y `corpus-correos-enviados.md` son ARCHIVO hasta el 24/11/2026.** Se pueden leer, pero no se les añade nada. Donde una skill diga «anota en el historial» o «añade a QUEMADAS», desde el 24/11 significa «escribe en las `notas` del post o del correo por el MCP»: lo usado lo recogen los validadores solos.
+- **Un commit solo cuando cambia la estructura:** una regla nueva, un aprendizaje que pasa a doctrina, un validador o código. Escribir, retocar, programar o medir un post o un correo no lleva commit.
+- **El aprendizaje que vale para más de un post sube a la skill** (con su commit). El que es de un post se queda en sus `notas`.
+
 ## Si la tarea es de CÓDIGO
 Trabaja normal, nada de lo de abajo aplica. Fuente de verdad del cerebro en producción: `backend/src/services/postPrompt.ts` y el `SYSTEM_PROMPT` de `backend/src/routes/chat.ts`.
 
@@ -29,10 +46,10 @@ Orquestación:
 
 ## Si la tarea es de EMAIL MARKETING (newsletter, secuencia de bienvenida, campaña a la base)
 
-Carga `docs/skills/email-marketing.md` **más** `aboutme.md`, `brand-voice.md` y `working-preferences.md` (el cuerpo del email hereda el formateado de `global-instructions §3`). Los 4 remitentes (Iker/Asier/Unai/Kaixito), el asunto como hook, el sistema de tandas de 2 semanas y los patrones del corpus Timepack viven ahí. Los innegociables de abajo aplican con UNA excepción (Iker, 2026-07-27): **en email las historias inventadas SÍ valen** si atacan un dolor real, sin nombre de empresa y con persona solo de nombre de pila; las cifras-resultado atribuidas a Neety siguen siendo solo reales (`email-marketing §7`). **Validador: `python scripts/validar-email.py <fichero.txt>`** y pega su resultado en la entrega, como con los posts. El estado (qué se envió, rotación, palabras usadas) vive en `docs/skills/historial-newsletter.md`: léelo antes de planificar y actualízalo al aprobar. **Operación (20/11/2026):** los correos se suben con `neety_newsletter_publicar`, Iker los aprueba en `https://contenido.neety.team/newsletter` (se llega desde el selector LinkedIn / Newsletter de Semana) y, al crear la campaña de Brevo, se vinculan con `neety_newsletter_vincular`. Las métricas las cuenta el panel; `python3 scripts/metricas-brevo.py --quien` cuenta igual (apertura real y personas, sin internos ni bajas).
+Carga `docs/skills/email-marketing.md` **más** `aboutme.md`, `brand-voice.md` y `working-preferences.md` (el cuerpo del email hereda el formateado de `global-instructions §3`). Los 4 remitentes (Iker/Asier/Unai/Kaixito), el asunto como hook, el sistema de tandas de 2 semanas y los patrones del corpus Timepack viven ahí. Los innegociables de abajo aplican con UNA excepción (Iker, 2026-07-27): **en email las historias inventadas SÍ valen** si atacan un dolor real, sin nombre de empresa y con persona solo de nombre de pila; las cifras-resultado atribuidas a Neety siguen siendo solo reales (`email-marketing §7`). **Validador: `python scripts/validar-email.py <fichero.txt>`** y pega su resultado en la entrega, como con los posts. El estado (qué se envió, a quién, resultado) vive en la página Newsletter: `neety_newsletter_ver` y `neety_usado` antes de planificar, y las `notas` de cada correo al programarlo y al medirlo, sin commit (`historial-newsletter.md` es archivo hasta el 24/11). **Operación (20/11/2026):** los correos se suben con `neety_newsletter_publicar`, Iker los aprueba en `https://contenido.neety.team/newsletter` (se llega desde el selector LinkedIn / Newsletter de Semana) y, al crear la campaña de Brevo, se vinculan con `neety_newsletter_vincular`. Las métricas las cuenta el panel; `python3 scripts/metricas-brevo.py --quien` cuenta igual (apertura real y personas, sin internos ni bajas).
 
-**ESTADO (no es doctrina, cambia cada semana):**
-- `docs/skills/historial-publicaciones.md` — qué publicó cada cuenta y cuándo, más la **cobertura de regiones POR CUENTA**. LÉELO antes de planificar (espaciado, no repetir región en esa cuenta, exclusividad de categoría por día) y **ACTUALÍZALO y commitéalo** cuando se apruebe o publique algo. Si le falta un dato, PREGUNTA. No lo adivines.
+**ESTADO (no es doctrina, cambia cada semana): vive en la base de datos y se toca por el MCP, no en el repo (2026-11-24).**
+- Antes de planificar se mira **`neety_semana_ver`** (lo programado y publicado, con sus `notas` y `region`), **`neety_usado`** (lo ya usado) y, para lo anterior al 24/11, el archivo `docs/skills/historial-publicaciones.md` (cobertura de regiones por cuenta incluida). Al aprobar o publicar algo, se apunta en las `notas` del post con `neety_semana_publicar`, **sin commit**. Si falta un dato, PREGUNTA. No lo adivines.
 
 **ENTREGA:**
 - El post SIEMPRE dentro de un bloque cercado y sin markdown dentro (`working-preferences §1`); el razonamiento, los avisos y el tag de viralidad, fuera del bloque.

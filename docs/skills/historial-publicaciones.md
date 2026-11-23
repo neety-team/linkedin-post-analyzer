@@ -1,5 +1,8 @@
 # HISTORIAL DE PUBLICACIONES — registro vivo (ESTADO, no doctrina)
 
+> 🗄️ **ARCHIVO desde el 24/11/2026.** No se le añade nada más: el estado vive en la base de datos y se toca por el MCP (ver «Qué va al repo y qué va al MCP» en `CLAUDE.md`). Se sigue leyendo para lo anterior a esa fecha.
+
+
 > ⚠️ Esto **no es una skill de reglas**: es el **registro de estado** que el planificador semanal (`post-workflow §8`) LEE antes de planificar y ACTUALIZA después. Cambia cada semana.
 >
 > **Para que sirva, hay que persistirlo:** cada vez que se actualiza, **commitéalo**. Si este registro no está al día, el workflow **te preguntará** qué hizo cada cuenta antes de asignar (no adivina).

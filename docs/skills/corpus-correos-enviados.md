@@ -942,7 +942,7 @@ PPD. Apuesta perdida. Esta semana friego yo las tazas.
 ### El asunto y el preheader
 
 ```
-40 industriales que están invirtiendo
+105 industriales que están invirtiendo
 ```
 ```
 Te las paso en un Excel, sin formulario.
@@ -956,7 +956,7 @@ Lista nueva.
 Cada mes repasamos boletines oficiales y prensa.
 Buscamos las industrias que anuncian una inversión.
 
-En octubre salieron 40 en España.
+En octubre salieron 105 en España.
 
 Plantas nuevas, ampliaciones y ayudas concedidas.
 
@@ -984,7 +984,7 @@ Iker Galarza, cofundador de Neety
 PD. El de noviembre llega a primeros de diciembre.
 ```
 
-> **Real / inventado:** todo real. Las 40 inversiones, los 1.100 M€ de Sagunto y las fuentes salen de la edición de octubre del Radar. La familia de compra y a quién buscar dentro son una clasificación del texto publicado (`scripts/radar-excel.py`).
+> **Real / inventado:** todo real. Las 105 inversiones (la edición de octubre se completó el 23/11, sin el tope de 40), los 1.100 M€ de Sagunto y las fuentes salen de la edición de octubre del Radar. La familia de compra y a quién buscar dentro son una clasificación del texto publicado (`scripts/radar-excel.py`).
 
 ---
 

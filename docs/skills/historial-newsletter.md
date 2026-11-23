@@ -1786,3 +1786,23 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 - **El arreglo.** PR 249 de `neety-team/saldu`: «Todos» deja fuera las filas de `radar` y `mapas`, que se quedan en sus audiencias «Radar mensual» y «Avisos de mapas». La reconciliación los saca de la lista 15. Quien además marcó otra casilla sigue en la newsletter. `salud-suscriptores.py` ya no los cuenta en la comprobación de la lista 15.
 - **Mientras el PR no esté desplegado,** toda campaña de la newsletter excluye a mano a esos contactos.
 - **El Radar** les llega la primera semana de cada mes desde su propia lista de Brevo (hay que encender la sincronización de la audiencia «Radar mensual» en el CRM). Plan en `contenido/newsletter/plan-2026-11-12.md`.
+
+## ✉️ CORREO 15 · Kaixito · DOLOR, vía HISTORIA (campaña Brevo 39 en BORRADOR el 23/11, para el jue 26/11 09:05 +01:00)
+
+**Estado:** texto validado **71/71**, con dos avisos (un tramo en espejo 1-1-3-1-1 con la escena en medio y una sola PD de broma). Texto aprobado en el chat el 23/11, pendiente del botón de la página Newsletter. Campaña 39 en `draft`, releída de la API: remitente `Kaixito de Neety`, preheader, pie de la casa, un `href` con su UTM, GIF `aburrimiento` de Brevo y auditor en verde. Listas 15 + 4 + 16 + 19 con exclusión de la 21, la 22 y la **23 `Excluir Radar y mapas (hasta PR 249)`**, creada el 23/11 con los 24 contactos sin nombre que entraron en la lista 15 desde el 19/11 (solo el formulario del Radar y el de los mapas dejan apuntarse sin nombre). **198 destinatarios previstos.** Prueba enviada a `iker@neety.com` el 23/11.
+
+| | |
+|---|---|
+| Asunto | `me quedé plantado en la puerta` (30 car) · escalera `esperé → me quedé plantado → me dejaron tirado` · bucle: por qué no salió nadie · palabra potente: plantado |
+| Preview | `Con el libro bajo el brazo, listo para salir.` |
+| Vía y pilar | HISTORIA (primera de las dos vías, `email-marketing §5`) · DOLOR: buscar a mano se come el tiempo de contactar (66 menciones en `temas.json`; eslabón 4 de la cadena, buscar contra llamar) |
+| Escena | Kaixito espera en la puerta desde las 9 para salir de visitas con un comercial. A las 12 el comercial sigue en la mesa buscando a quién ir a ver. A las 2 sale por fin, a comer |
+| Cita | en estilo indirecto: un comercial nos contó que busca más que visita (reunión del 29/10). No se usan las dos citas del mismo tema que llevan los posts del 1/12 |
+| Ninja | `La puerta la encuentra cualquiera, a quién visitar no.` / `A quién visitar, lo miran mis compis contigo:` → `/solicitar-demo`, `utm_campaign=correo-15-kaixito-plantado` |
+| Micro-apertura | `Plantón.` (nueva) |
+| Unidad | `el tiempo` (nueva en la serie) |
+| PD | `Mañana vuelvo a la puerta. Esta vez, con bocadillo.` |
+| Real / inventado | real: el dolor y lo que contó el comercial. Inventado: la escena |
+| Se mide | primero la apertura real contra el 32,5 % y el 34,2 % de los correos 13 y 14 (si baja del 40 %, se mira la entregabilidad en Microsoft); después, reuniones con su `utm_campaign` y bajas por entregado. Revisión: lunes 30/11 |
+
+**Al programar:** ninja a `QUEMADAS`, `planton` a `APERTURAS_USADAS`, `15: 'el tiempo'` a `UNIDADES_CORREOS`, cuerpo literal a `corpus-correos-enviados.md` y `neety_newsletter_vincular` con la campaña 39. **Cuando el PR 249 esté desplegado y la lista 15 limpia,** la 23 sobra y se borra.

@@ -257,7 +257,9 @@ VENTANA_IDENTIDAD_DIAS = 42
 _RE_FECHA_ENTRADA = re.compile(r'^(\d{4})-(\d{2})-(\d{2}) ')
 
 
-_CUENTAS = ('iker', 'unai', 'asier')
+# 2026-11-23: Ismael (ventas) publica desde la pagina Semana. Con el aqui, una
+# entrada del historial que diga 'Ismael' cuenta como suya y no veta a las demas.
+_CUENTAS = ('iker', 'unai', 'asier', 'ismael')
 AVISOS_OTRA_CUENTA = []
 
 
@@ -6190,10 +6192,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # 2026-10-02: Asier pasa al mismo criterio sobrio de memes que Unai.
     # Asier ya habia retirado dos posts suyos (la katana del 26/08 y
     # el "soñe con ella"), asi que el bloqueo es el mismo: solo Iker aguanta lo bruto.
-    if pilar == 'meme' and (cuenta or '').strip().lower() in ('unai', 'asier'):
+    # 2026-11-23: Ismael (ventas) tambien. Es imagen de marca, no voz: el que habla
+    # con los prospectos no publica un meme controversial.
+    if pilar == 'meme' and (cuenta or '').strip().lower() in ('unai', 'asier', 'ismael'):
         chk(meme_sobrio,
             'MEME en %s: confirmado que NO es controversial (§4.4-STOP)' % (cuenta or '').strip().capitalize(),
-            'Unai (CEO) y Asier son las dos cuentas restringidas desde el 02/10. Un meme '
+            'Unai (CEO) y Asier son cuentas restringidas desde el 02/10, e Ismael desde el 23/11. Un meme '
             'controversial ahi NO se publica: va a IKER, y si Iker no puede, no se publica '
             '(se cambia el chiste, nunca se suaviza). Si de verdad es sobrio, pasa '
             '--meme-sobrio y quedara constancia de que lo decidiste. Pregunta 6 (01/10): '

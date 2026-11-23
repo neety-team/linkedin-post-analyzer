@@ -133,6 +133,8 @@ function page(opts: { sector: string; nombre: string | null; senales: Hallazgo[]
         <p>Déjame el correo y se abren aquí mismo. Acceso inmediato, sin esperar ningún email.</p>
         <form class="gate-form" method="post" action="/r/${encodeURIComponent(shareId)}">
           ${error ? `<p class="gate-error" role="alert">${esc(error)}</p>` : ''}
+          <label class="gate-label" for="gate-name">Nombre</label>
+          <input id="gate-name" class="gate-input" type="text" name="name" required autocomplete="name" maxlength="120" value="${esc(nombre || '')}">
           <label class="gate-label" for="gate-email">Correo</label>
           <input id="gate-email" class="gate-input" type="email" name="email" required autocomplete="email" placeholder="tu@empresa.com">
           <label class="gate-check"><input type="checkbox" name="consent_data" value="1" required> Acepto la <a href="https://neety.com/politica-de-privacidad" target="_blank" rel="noopener">política de privacidad</a>.</label>
@@ -207,6 +209,20 @@ router.post('/:shareId', async (req: Request, res: Response) => {
       })
     );
   }
+  // La lista de neety.com exige el nombre (sin él responde 400 name_required).
+  const nombreLead = String(req.body?.name || '').trim().slice(0, 120);
+  if (!nombreLead) {
+    return res.status(400).type('html').send(
+      page({
+        sector: row.sector,
+        nombre: row.commenter_name,
+        senales: row.full_analysis || [],
+        abierto: false,
+        shareId: row.share_id,
+        error: 'Escribe tu nombre.',
+      })
+    );
+  }
   // Sin la casilla de privacidad no se guarda nada: es la condición del formulario
   // de neety.com y aquí vale igual (el navegador ya la exige con `required`).
   if (!req.body?.consent_data) {
@@ -228,6 +244,7 @@ router.post('/:shareId', async (req: Request, res: Response) => {
     // A la lista de leads de neety.com. Si falla, la página se abre igual: el
     // correo ya está guardado aquí y el error queda en el log para recuperarlo.
     await enviarLead({
+      name: nombreLead,
       email,
       consent_comms: !!req.body?.consent_comms,
       page: `/r/${row.share_id}`,
@@ -245,6 +262,7 @@ const LEAD_URL = process.env.NEETY_LEAD_URL || 'https://neety.com/api/lead';
 const RESOURCE = 'auditoria-web';
 
 export async function enviarLead(d: {
+  name: string;
   email: string;
   consent_comms: boolean;
   page: string;
@@ -261,6 +279,7 @@ export async function enviarLead(d: {
         ...(d.userAgent ? { 'user-agent': d.userAgent } : {}),
       },
       body: JSON.stringify({
+        name: d.name,
         email: d.email,
         resource: RESOURCE,
         consent_data: true,

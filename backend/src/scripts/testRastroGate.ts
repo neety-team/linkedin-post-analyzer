@@ -55,6 +55,7 @@ async function main() {
   const html = await (await fetch(`${base}/r/abc123`)).text();
   ok(html.includes('<form class="gate-form" method="post" action="/r/abc123">'), 'la página cerrada lleva el formulario propio');
   ok(!html.includes('recursos.neety.com'), 'la página ya no carga nada de recursos.neety.com');
+  ok(html.includes('name="name" required') && html.includes('value="Ana Pérez"'), 'pide el nombre y lo trae relleno');
   ok(html.includes('https://neety.com/politica-de-privacidad') && html.includes('Me suscribo a la newsletter.'), 'los dos consentimientos con el texto de neety.com');
   ok(html.includes('https://neety.com/solicitar-demo'), 'el botón final va a neety.com/solicitar-demo');
 
@@ -63,17 +64,19 @@ async function main() {
     method: 'POST', redirect: 'manual',
     headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: cuerpo,
   });
-  const sin = await post('email=ana%40empresa.com');
+  const sinNombre = await post('email=ana%40empresa.com&consent_data=1');
+  ok(sinNombre.status === 400 && (await sinNombre.text()).includes('Escribe tu nombre'), 'sin nombre da 400 y lo explica');
+  const sin = await post('name=Ana&email=ana%40empresa.com');
   ok(sin.status === 400 && (await sin.text()).includes('política de privacidad'), 'sin aceptar la privacidad da 400 y lo explica');
   ok(escrituras.length === 0 && recibidos.length === 0, 'sin consentimiento no se guarda ni se manda nada');
 
   // 5 · Con la casilla: se guarda aquí, va a la lista y la página se abre.
-  const con = await post('email=Ana%40Empresa.com&consent_data=1&consent_comms=1');
+  const con = await post('name=Ana%20P%C3%A9rez&email=Ana%40Empresa.com&consent_data=1&consent_comms=1');
   ok(con.status === 303 && con.headers.get('location') === '/r/abc123', 'con consentimiento redirige a la página');
   ok(escrituras.length === 1 && escrituras[0].params[0] === 'ana@empresa.com', 'el correo se guarda en minúsculas');
   const l = recibidos[0] || {};
-  ok(l.email === 'ana@empresa.com' && l.resource === 'auditoria-web' && l.consent_data === true && l.consent_comms === true && l.page === '/r/abc123',
-    'la lista de leads recibe correo, recurso, consentimientos y página');
+  ok(l.name === 'Ana Pérez' && l.email === 'ana@empresa.com' && l.resource === 'auditoria-web' && l.consent_data === true && l.consent_comms === true && l.page === '/r/abc123',
+    'la lista de leads recibe nombre, correo, recurso, consentimientos y página');
   const abierta = await (await fetch(`${base}/r/abc123`)).text();
   ok(!abierta.includes('<form class="gate-form"') && !abierta.includes('class="locked"'), 'ya con correo, la página sale abierta');
 

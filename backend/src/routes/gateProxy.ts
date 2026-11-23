@@ -32,7 +32,7 @@ const UPSTREAM = process.env.NEETY_LEAD_URL || 'https://neety.com/api/lead';
 const RESOURCE = 'auditoria-web';
 
 router.post('/', async (req: Request, res: Response) => {
-  const { email, consent_data, consent_comms, utm_source, utm_medium, utm_campaign } = req.body ?? {};
+  const { name, email, consent_data, consent_comms, utm_source, utm_medium, utm_campaign } = req.body ?? {};
   const referer = String(req.get('referer') || '');
   try {
     const r = await fetch(UPSTREAM, {
@@ -49,6 +49,10 @@ router.post('/', async (req: Request, res: Response) => {
         // submit.js lee cf-connecting-ip y Cloudflare lo reescribe igualmente.
       },
       body: JSON.stringify({
+        // Su lista exige el nombre y el gate viejo no lo pedía: sin él daría 400
+        // name_required. Va el que venga o, si no, la parte del correo antes de
+        // la @, que es lo único que esa persona ha escrito.
+        name: (typeof name === 'string' && name.trim()) || String(email || '').split('@')[0] || null,
         email, resource: RESOURCE,
         consent_data: !!consent_data, consent_comms: !!consent_comms,
         utm_source: utm_source ?? null, utm_medium: utm_medium ?? null, utm_campaign: utm_campaign ?? null,

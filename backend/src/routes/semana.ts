@@ -25,6 +25,8 @@ import {
   moverPost,
   retirarPost,
   responderPendiente,
+  descartarPendientes,
+  deshacerDescarte,
   IMAGEN_MAX_BYTES,
 } from '../services/semana';
 import { estadoPublicador, cambiarSubidaAutomatica } from '../services/publicadorLinkedin';
@@ -158,6 +160,49 @@ router.post('/posts/:id/pendientes/:pid', async (req: Request, res: Response) =>
   } catch (err: any) {
     res.status(400).json({ error: err.message });
   }
+});
+
+/**
+ * Descartar (2026-11-23): la pregunta ya se contesto por otro lado. Firma igual
+ * que una respuesta. Devuelven el post actualizado.
+ *
+ * - POST /api/semana/posts/:id/descartar-pendientes {autor?} — todas las abiertas.
+ * - POST /api/semana/posts/:id/pendientes/:pid/descartar {autor?} — una.
+ * - POST /api/semana/posts/:id/pendientes/:pid/deshacer — la vuelve a abrir.
+ */
+async function responderCambio(res: Response, f: () => Promise<any>) {
+  try {
+    const post = await f();
+    if (!post) return res.status(404).json({ error: 'Post no encontrado' });
+    res.json(post);
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+}
+const RE_PID = /^[a-z0-9][a-z0-9-]{0,39}$/i;
+
+router.post('/posts/:id/descartar-pendientes', async (req: Request, res: Response) => {
+  const id = param(req, 'id');
+  if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+  const yo = identidadDe(req);
+  await responderCambio(res, () => descartarPendientes(id, 'abiertos', yo ? yo.nombre : req.body?.autor));
+});
+
+router.post('/posts/:id/pendientes/:pid/descartar', async (req: Request, res: Response) => {
+  const id = param(req, 'id');
+  const pid = param(req, 'pid');
+  if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+  if (!RE_PID.test(pid)) return res.status(400).json({ error: 'Pendiente no válido' });
+  const yo = identidadDe(req);
+  await responderCambio(res, () => descartarPendientes(id, [pid], yo ? yo.nombre : req.body?.autor));
+});
+
+router.post('/posts/:id/pendientes/:pid/deshacer', async (req: Request, res: Response) => {
+  const id = param(req, 'id');
+  const pid = param(req, 'pid');
+  if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+  if (!RE_PID.test(pid)) return res.status(400).json({ error: 'Pendiente no válido' });
+  await responderCambio(res, () => deshacerDescarte(id, pid));
 });
 
 /** GET /api/semana/publicador — si la subida automatica a LinkedIn esta encendida. */

@@ -44,6 +44,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApi, apiPost } from '../hooks/useApi';
+import { trozosConMenciones, type MencionPost } from '../utils/menciones';
 import { instanteMadrid, cuandoMadrid, horaMadrid, HORA_POR_DEFECTO } from '../utils/horaMadrid';
 // Colores y nombres compartidos con Cuentas, donde va el objetivo de lo publicado.
 import { OBJETIVO, type Objetivo } from '../utils/objetivo';
@@ -67,10 +68,13 @@ interface Pendiente {
   texto: string;
   tipo: 'check' | 'texto';
   quien: Cuenta | null;
-  estado: 'pendiente' | 'respondido' | 'hecho';
+  /** `descartado` (2026-11-23): se contestó por otro lado y alguien la quitó desde aquí. Cuenta como hecho. */
+  estado: 'pendiente' | 'respondido' | 'hecho' | 'descartado';
   respuesta: string | null;
   por: string | null;
   at: string | null;
+  descartado_por?: string | null;
+  descartado_at?: string | null;
 }
 
 interface PostSemana {
@@ -90,6 +94,8 @@ interface PostSemana {
   falta: string | null;
   /** Lo que falta, como lista que se confirma desde aquí. Si hay, `falta` es solo una nota. */
   pendientes?: Pendiente[] | null;
+  /** Los perfiles de cada @Nombre del texto: lo que el publicador enlaza como mención. */
+  menciones?: { nombre: string; profile_id: string }[] | null;
   nota_imagen: string | null;
   referencia?: string | null;
   tiene_imagen: boolean;
@@ -580,37 +586,38 @@ const urlFoto2 = (post: PostSemana) => `${API}/api/semana/posts/${post.id}/image
 
 /**
  * El texto del post: lo que falta por rellenar ([...]) resaltado, y los enlaces
- * y las menciones (@Nombre Apellido) en el azul de LinkedIn.
+ * y las menciones en el azul de LinkedIn. Es mención justo lo que enlazará el
+ * publicador: un @Nombre con su perfil en `menciones` (`utils/menciones.ts`).
+ * Un @Algo sin perfil sale en llano, como saldría publicado.
  */
-function TextoPost({ texto, azul }: { texto: string; azul: string }) {
-  const partes = texto.split(
-    /(\[[^\]\n]*\]|https?:\/\/[^\s]+|@\p{Lu}\p{L}+(?: \p{Lu}\p{L}+){0,3})/gu
-  );
+function TextoPost({ texto, menciones, azul }: { texto: string; menciones?: MencionPost[] | null; azul: string }) {
   return (
     <>
-      {partes.map((p, i) => {
-        if (p.startsWith('[') && p.endsWith(']')) {
+      {trozosConMenciones(texto, menciones).map((t, j) => {
+        if (t.tipo === 'mencion') {
           return (
-            <mark key={i} className="bg-naranja/30 text-inherit rounded px-0.5">
-              {p}
-            </mark>
-          );
-        }
-        if (/^https?:\/\//.test(p)) {
-          return (
-            <span key={i} className={`${azul} font-semibold break-all`}>
-              {p}
+            <span key={j} className={`${azul} font-semibold`}>
+              {t.nombre}
             </span>
           );
         }
-        if (/^@\p{Lu}/u.test(p)) {
-          return (
-            <span key={i} className={`${azul} font-semibold`}>
-              {p.slice(1)}
-            </span>
-          );
-        }
-        return <span key={i}>{p}</span>;
+        return t.texto.split(/(\[[^\]\n]*\]|https?:\/\/[^\s]+)/g).map((p, i) => {
+          if (p.startsWith('[') && p.endsWith(']')) {
+            return (
+              <mark key={`${j}-${i}`} className="bg-naranja/30 text-inherit rounded px-0.5">
+                {p}
+              </mark>
+            );
+          }
+          if (/^https?:\/\//.test(p)) {
+            return (
+              <span key={`${j}-${i}`} className={`${azul} font-semibold break-all`}>
+                {p}
+              </span>
+            );
+          }
+          return <span key={`${j}-${i}`}>{p}</span>;
+        });
       })}
     </>
   );
@@ -794,7 +801,7 @@ function PostLinkedIn({
           {post.texto ? (
             <div className="relative">
               <div className={`text-[14px] leading-5 whitespace-pre-wrap break-words ${cortado ? 'line-clamp-3' : ''}`}>
-                <TextoPost texto={post.texto} azul={c.azul} />
+                <TextoPost texto={post.texto} menciones={post.menciones} azul={c.azul} />
               </div>
               {cortado && (
                 <button
@@ -926,7 +933,11 @@ function Comentarios({ post, autor, onCambio }: { post: PostSemana; autor: strin
   );
 }
 
-const abiertos = (p: PostSemana) => (p.pendientes || []).filter((q) => q.estado !== 'hecho');
+/** Hecho o descartado: ya no bloquea. */
+const resuelto = (q: Pendiente) => q.estado === 'hecho' || q.estado === 'descartado';
+const abiertos = (p: PostSemana) => (p.pendientes || []).filter((q) => !resuelto(q));
+/** Lo descartado se puede deshacer hasta que el post se programa. */
+const sePuedeTocar = (p: PostSemana) => p.estado !== 'programado' && p.estado !== 'publicado';
 
 /** La línea corta de la tarjeta del calendario: «Faltan 2 confirmaciones», o nada. */
 function LineaPendientes({ post, miCuenta }: { post: PostSemana; miCuenta: Cuenta | null }) {
@@ -969,7 +980,7 @@ function ElementoPendiente({
   onCambio: () => void;
 }) {
   const [borrador, setBorrador] = useState('');
-  const [enviando, setEnviando] = useState<'si' | 'no' | 'texto' | null>(null);
+  const [enviando, setEnviando] = useState<'si' | 'no' | 'texto' | 'descartar' | 'deshacer' | null>(null);
   const [error, setError] = useState<string | null>(null);
   const mio = !!miCuenta && q.quien === miCuenta;
   const quien = q.quien ? nombreDe(q.quien) : null;
@@ -997,14 +1008,36 @@ function ElementoPendiente({
     }
   };
 
+  // Descartar: la pregunta ya se contestó por otro lado. Deshacer la vuelve a abrir.
+  const cambiar = async (accion: 'descartar' | 'deshacer') => {
+    if (accion === 'descartar' && !autor) {
+      setError('Elige arriba, junto a «Soy», quién eres para descartarla.');
+      return;
+    }
+    setEnviando(accion);
+    setError(null);
+    try {
+      await apiPost(`/api/semana/posts/${post.id}/pendientes/${q.id}/${accion}`, { autor });
+      onCambio();
+    } catch (e) {
+      setError(`No se ha guardado: ${e instanceof Error ? e.message : 'error desconocido'}`);
+    } finally {
+      setEnviando(null);
+    }
+  };
+
   const firma = [q.por, cuandoCorto(q.at)].filter(Boolean).join(', ');
+  const descartada = q.estado === 'descartado';
+  const tocable = sePuedeTocar(post);
 
   return (
     <li
       className={`rounded-lg border p-3 text-[14px] leading-relaxed ${
         q.estado === 'hecho'
           ? 'border-border bg-success/10'
-          : mio
+          : descartada
+            ? 'border-border border-dashed bg-bg-secondary'
+            : mio
             ? 'border-accent/60 bg-accent/10'
             : q.estado === 'respondido'
               ? 'border-warning/40 bg-warning/10'
@@ -1017,11 +1050,39 @@ function ElementoPendiente({
             ✓
           </span>
         )}
-        <span className={q.estado === 'hecho' ? 'text-text-secondary line-through decoration-text-muted' : 'text-text-primary'}>
+        <span
+          className={
+            q.estado === 'hecho'
+              ? 'text-text-secondary line-through decoration-text-muted'
+              : descartada
+                ? 'text-text-muted line-through decoration-text-muted'
+                : 'text-text-primary'
+          }
+        >
           {quien && <span className="font-semibold">{mio ? 'Tú' : quien}: </span>}
           {q.texto}
         </span>
       </p>
+
+      {descartada && (
+        <p className="mt-1 flex flex-wrap items-baseline gap-x-2 text-xs text-text-muted">
+          <span>
+            Descartada por {q.descartado_por || 'alguien'}
+            {q.descartado_at ? `, ${cuandoCorto(q.descartado_at)}` : ''}
+            {q.respuesta ? <span> · {q.por || 'alguien'} había respondido «{q.respuesta}»</span> : null}
+          </span>
+          {tocable && (
+            <button
+              type="button"
+              onClick={() => cambiar('deshacer')}
+              disabled={!!enviando}
+              className="font-semibold text-text-secondary underline underline-offset-2 hover:text-text-primary disabled:opacity-60"
+            >
+              {enviando === 'deshacer' ? 'Deshaciendo…' : 'Deshacer'}
+            </button>
+          )}
+        </p>
+      )}
 
       {q.estado === 'hecho' && (
         <p className="mt-1 text-xs text-success">
@@ -1096,8 +1157,62 @@ function ElementoPendiente({
         </div>
       )}
 
+      {(q.estado === 'pendiente' || q.estado === 'respondido') && tocable && (
+        <p className="mt-2 text-xs text-text-muted">
+          <button
+            type="button"
+            onClick={() => cambiar('descartar')}
+            disabled={!!enviando}
+            title="Ya se ha contestado por otro lado: deja de bloquear el post"
+            className="underline underline-offset-2 hover:text-text-primary disabled:opacity-60"
+          >
+            {enviando === 'descartar' ? 'Descartando…' : 'Descartar'}
+          </button>
+          <span className="hidden sm:inline"> · ya se ha contestado por otro lado</span>
+        </p>
+      )}
+
       {error && <p className="mt-1.5 text-xs text-danger">{error}</p>}
     </li>
+  );
+}
+
+/**
+ * «Descartar las que quedan» (2026-11-23): cuando lo que falta ya se ha
+ * contestado por otro lado, se quitan todas de una vez, con confirmación.
+ */
+function DescartarQuedan({ post, quedan, autor, onCambio }: { post: PostSemana; quedan: number; autor: string; onCambio: () => void }) {
+  const [enviando, setEnviando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const descartar = async () => {
+    if (!autor) {
+      setError('Elige arriba, junto a «Soy», quién eres para descartarlas.');
+      return;
+    }
+    if (!window.confirm(`¿Descartar las ${quedan} preguntas que quedan? Dejarán de bloquear el post. Se puede deshacer cada una mientras no esté programado.`)) return;
+    setEnviando(true);
+    setError(null);
+    try {
+      await apiPost(`/api/semana/posts/${post.id}/descartar-pendientes`, { autor });
+      onCambio();
+    } catch (e) {
+      setError(`No se ha guardado: ${e instanceof Error ? e.message : 'error desconocido'}`);
+    } finally {
+      setEnviando(false);
+    }
+  };
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={descartar}
+        disabled={enviando}
+        className="px-3 py-1 rounded-full border border-border text-text-secondary text-[12px] font-semibold hover:border-text-muted hover:text-text-primary disabled:opacity-60 transition-colors"
+      >
+        {enviando ? 'Descartando…' : `Descartar las ${quedan} que quedan`}
+      </button>
+      {error && <p className="mt-1.5 text-xs text-danger">{error}</p>}
+    </div>
   );
 }
 
@@ -1114,13 +1229,18 @@ function QueFalta({ post, autor, miCuenta, onCambio }: { post: PostSemana; autor
     );
   }
   const quedan = abiertos(post).length;
+  const descartadas = lista.filter((q) => q.estado === 'descartado').length;
+  const hechas = lista.filter((q) => q.estado === 'hecho').length;
+  const cuenta = quedan
+    ? `${hechas} de ${lista.length} hecho` + (descartadas ? ` · ${descartadas} ${descartadas === 1 ? 'descartada' : 'descartadas'}` : '')
+    : descartadas
+      ? 'todo resuelto'
+      : 'todo hecho';
   return (
     <div className="space-y-2">
       <h4 className="font-display text-[15px] font-semibold text-text-primary">
         Qué falta para publicarlo
-        <span className="ml-1.5 font-sans text-[13px] font-normal text-text-muted">
-          {quedan ? `${lista.length - quedan} de ${lista.length} hecho` : 'todo hecho'}
-        </span>
+        <span className="ml-1.5 font-sans text-[13px] font-normal text-text-muted">{cuenta}</span>
       </h4>
       {post.falta && <p className="text-[13px] leading-relaxed text-text-muted">{post.falta}</p>}
       <ul className="space-y-2">
@@ -1128,7 +1248,10 @@ function QueFalta({ post, autor, miCuenta, onCambio }: { post: PostSemana; autor
           <ElementoPendiente key={q.id} post={post} q={q} autor={autor} miCuenta={miCuenta} onCambio={onCambio} />
         ))}
       </ul>
-      {!quedan && post.estado === 'aprobado' && (
+      {quedan >= 2 && sePuedeTocar(post) && (
+        <DescartarQuedan post={post} quedan={quedan} autor={autor} onCambio={onCambio} />
+      )}
+      {!quedan && post.estado === 'aprobado' && !post.motivo_no_programable && (
         <p className="text-[13px] text-success font-semibold">Aprobado y listo para programar.</p>
       )}
     </div>

@@ -696,6 +696,12 @@ En los emails importantes, SIEMPRE (Timepack lo lleva en el 86% de los correos, 
 - **El recurso se cuelga en un enlace sin indexar** (fuera del sitemap y sin formulario). Que exista en la newsletter y en ningún otro sitio es lo que lo hace exclusivo. En LinkedIn sí se puede contar que existe, con el enlace a `neety.com/newsletter`, que es donde se pide el correo.
 - **La pregunta abierta:** si las semanas de recurso tienen menos bajas que las de historia. El primer ciclo (26/11 a 29/12) lleva tres de cada; plan en `contenido/newsletter/plan-2026-11-12.md`.
 
+**📝 PLANIFICAR ES REDACTAR (2026-11-23).** Un correo entra en el calendario de la página Newsletter ya escrito y validado, como `borrador`, nunca como `idea`. Así se aprueba el correo y no una idea, y se ve pronto si el plan aguanta.
+- **Si depende de algo que aún no existe** (un recurso, la edición del Radar, un dato), se escribe igual con lo que hay. Lo que falta se dice en el porqué del correo y el texto no lleva ninguna cifra sin fuente. Al llegar lo que falta se vuelve a pasar el validador.
+- **Los borradores de un plan se escriben en orden y se cruzan entre sí**: ninjas, micro-aperturas, unidades de tiempo y GIF no se repiten dentro del plan, aunque `validar-email.py` solo conozca los ya programados.
+
+**📬 UN CORREO POR PERSONA Y SEMANA, TAMBIÉN CON DOS AUDIENCIAS (2026-11-23).** Cuando dos audiencias tienen algo la misma semana (la newsletter y el Radar mensual), sale **una sola campaña a las dos listas** y Brevo no repite el contacto. Si tienen que ser dos campañas distintas, la segunda excluye la lista de la primera. Nadie recibe dos correos de la casa en la misma semana, salvo una prueba declarada (cadencia, arriba).
+
 **⭐ DÍA DE LA SEMANA Y HORA — medido el 2026-08-10 sobre las fechas reales de envío de 480 correos (los nombres de fichero del corpus llevan fecha y hora).**
 
 > ⚠️ **LAS DOS HORAS DE ESTA TABLA ESTÁN SIN VERIFICAR Y PUEDEN ESTAR CORRIDAS.** Salen del nombre de fichero, que hereda el encabezado `Date`, y **ese encabezado viene en la zona del servidor de envío, no en hora española** — el fallo que `§8g` destapó en las tres ventanas de agosto. **Los días de la semana de esta tabla SÍ valen** (un desfase de horas casi nunca cambia el día). **Las horas, no**: hay que volver a medirlas convirtiendo la zona antes de citarlas.

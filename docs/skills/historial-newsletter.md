@@ -1777,3 +1777,12 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 
 ### 🚫 Bajas a mano
 - **2026-10-08 · `g***@easoventures.com`** (inscrito del evento, listas 16 y 18), a petición de Iker. Hecho con `emailBlacklisted: true` en Brevo, **sin borrar el contacto**: así no se le vuelve a escribir aunque alguien lo reimporte. No está en el CRM (la cohorte del evento vive solo en Brevo), así que no hay sync que lo devuelva.
+
+## 🗂️ EL RADAR Y LOS MAPAS, FUERA DE LA NEWSLETTER (2026-11-23)
+
+- **Qué pasaba.** Desde el 19/11, neety.com tiene un formulario corto (solo correo y casilla) para recibir el Radar cada mes y otro para los avisos de los mapas (`resource` `radar` y `mapas`). El CRM metía en «📥 Recursos · Todos» (lista 15) a todo el que marcaba una casilla, así que esas altas iban a recibir la newsletter semanal.
+- **Por qué no puede ser.** La página del Radar promete «cada edición la primera semana del mes… Solo eso». La de los mapas, un aviso cuando se actualice el mapa. Un correo que no se pidió es lo que nos costó MailerLite y el bloqueo de Brevo (`email-marketing §0b`).
+- **Cuántos.** A 23/11, unos 24 contactos sin nombre en la lista 15, todos del 20/11 en adelante. Aún no les ha llegado nada: el último envío fue el correo 14 (17/11). Falta confirmar cuáles vienen del Radar y cuáles de los mapas: la D1 no se puede consultar sin `CLOUDFLARE_API_TOKEN`.
+- **El arreglo.** PR 249 de `neety-team/saldu`: «Todos» deja fuera las filas de `radar` y `mapas`, que se quedan en sus audiencias «Radar mensual» y «Avisos de mapas». La reconciliación los saca de la lista 15. Quien además marcó otra casilla sigue en la newsletter. `salud-suscriptores.py` ya no los cuenta en la comprobación de la lista 15.
+- **Mientras el PR no esté desplegado,** toda campaña de la newsletter excluye a mano a esos contactos.
+- **El Radar** les llega la primera semana de cada mes desde su propia lista de Brevo (hay que encender la sincronización de la audiencia «Radar mensual» en el CRM). Plan en `contenido/newsletter/plan-2026-11-12.md`.

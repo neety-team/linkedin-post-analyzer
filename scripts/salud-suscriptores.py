@@ -14,7 +14,8 @@ Comprueba:
      (POST meetings.neety.com/api/public/web-leads/sync → 401 sin clave).
   3. Que cada correo con la casilla marcada en la D1 de neety.com está en la lista
      15 de Brevo, o bloqueado en Brevo (la baja manda: también vale). FALLO si falta
-     alguno.
+     alguno. Las casillas del Radar y de los mapas no cuentan: desde el 23/11 no van
+     a la lista 15 de la newsletter, sino a su propia audiencia en el CRM.
   4. Cuánto tardó en entrar en Brevo cada alta nueva desde el arreglo (14/10 11:32):
      menos de ~2 min = el aviso al momento funciona; cerca de 1 h = solo va la
      lectura horaria (no se pierde nadie, pero el aviso está roto).
@@ -74,7 +75,7 @@ def brevo(path, key):
 
 def d1_consentimientos(landing):
     sql = ("SELECT lower(email) email, resource, origin, created_at FROM leads "
-           "WHERE consent_comms = 1 ORDER BY created_at")
+           "WHERE consent_comms = 1 AND resource NOT IN ('radar', 'mapas') ORDER BY created_at")
     out = subprocess.run(
         ['npx', '--no-install', 'wrangler', 'd1', 'execute', 'landing', '--remote', '--json', '--command', sql],
         cwd=landing, capture_output=True, text=True, encoding='utf-8', timeout=180, shell=(os.name == 'nt'))

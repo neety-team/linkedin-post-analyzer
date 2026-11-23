@@ -23,8 +23,9 @@
  * avisa para que alguien lo mire antes de volver a programarlo.
  *
  * Cada cuenta publica desde su propia cuenta de Unipile. Se busca sola en
- * `GET /api/v1/accounts` por el nombre de LinkedIn del fundador (una y solo
- * una, conectada); UNIPILE_ACCOUNT_IKER/UNAI/ASIER la fijan a mano si hace falta.
+ * `GET /api/v1/accounts` por el nombre de LinkedIn de la persona (una y solo
+ * una, conectada); UNIPILE_ACCOUNT_IKER/UNAI/ASIER/ISMAEL la fijan a mano si
+ * hace falta.
  */
 import pool from '../db';
 import { CUENTAS, motivoParaPublicar, type Pendiente } from './semana';
@@ -63,19 +64,21 @@ export async function cambiarSubidaAutomatica(activo: boolean, quien: string) {
   return estadoPublicador();
 }
 
-// ── Las cuentas de Unipile de cada fundador ──────────────────────────────────
+// ── Las cuentas de Unipile de cada persona ───────────────────────────────────
 
 /** Nombre exacto en LinkedIn (como lo devuelve Unipile) de cada cuenta. */
 export const NOMBRE_EN_LINKEDIN: Record<string, string> = {
   iker: 'Iker Galarza Rodríguez',
   unai: 'Unai Arambarri Yeregui',
   asier: 'Asier Olaizola',
+  // Ventas (2026-11-23). Su cuenta de Unipile se llama asi en `GET /api/v1/accounts`.
+  ismael: 'Ismael El Bekkar',
 };
 const sinTildes = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').replace(/\s+/g, ' ').trim().toLowerCase();
 let cacheCuentas: { at: number; mapa: Record<string, string | null> } | null = null;
 const CACHE_CUENTAS_MS = 10 * UN_MINUTO;
 
-/** De una lista de cuentas de Unipile, la de cada fundador: solo si hay una y esta conectada. */
+/** De una lista de cuentas de Unipile, la de cada persona: solo si hay una y esta conectada. */
 export function elegirCuentas(items: any[]): Record<string, string | null> {
   const out: Record<string, string | null> = {};
   for (const c of CUENTAS) {
@@ -110,7 +113,7 @@ async function listarCuentasUnipile(): Promise<any[]> {
   return items;
 }
 
-/** La cuenta de Unipile de cada fundador: la variable si esta puesta; si no, la que se encuentra sola. */
+/** La cuenta de Unipile de cada persona: la variable si esta puesta; si no, la que se encuentra sola. */
 export async function cuentasUnipile(forzar = false): Promise<Record<string, string | null>> {
   const mapa: Record<string, string | null> = {};
   const faltan = CUENTAS.filter((c) => {

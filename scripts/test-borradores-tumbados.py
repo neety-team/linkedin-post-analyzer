@@ -462,6 +462,18 @@ CASOS += [
      'Enlace NUNCA suelto', ['--pilar', 'historia', '--historia-evento', '--cuenta', 'asier']),
 ]
 
+# Ismael (ventas) publica desde la pagina Semana desde el 23/11. Lo que es vision de marca
+# en Unai y Asier vale igual en su cuenta: la IA que sustituye al comercial es fallo duro, y
+# un meme suyo tiene que confirmarse sobrio. Las reglas de voz de cada fundador no le aplican.
+CASOS += [
+    ('Le preguntamos a quien vende IA si los comerciales tienen los días contados 👀\n\n' + CUERPO,
+     '23/11: la vision de la marca vale tambien en la cuenta de Ismael',
+     'sin plantear que la IA sustituye', ['--pilar', 'historia', '--cuenta', 'ismael', '--historia-evento']),
+    ('Cuando el director comercial pide la lista para ayer\n\nY tú todavía con el Excel abierto.',
+     '23/11: el meme de Ismael pasa por el mismo STOP que los de Unai y Asier',
+     'MEME en Ismael', ['--pilar', 'meme', '--cuenta', 'ismael']),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

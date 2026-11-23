@@ -49,7 +49,7 @@ import { instanteMadrid, cuandoMadrid, horaMadrid, HORA_POR_DEFECTO } from '../u
 import { OBJETIVO, type Objetivo } from '../utils/objetivo';
 import CanalSelector from '../components/CanalSelector';
 
-type Cuenta = 'iker' | 'unai' | 'asier';
+type Cuenta = 'iker' | 'unai' | 'asier' | 'ismael';
 
 interface Feedback {
   id: string;
@@ -257,7 +257,7 @@ const NOMBRE_ACCION: Record<string, string> = {
   like_comentario: 'Like al comentario',
   repost: 'Repost',
 };
-const NOMBRE_CUENTA: Record<string, string> = { iker: 'Iker', unai: 'Unai', asier: 'Asier' };
+const NOMBRE_CUENTA: Record<string, string> = { iker: 'Iker', unai: 'Unai', asier: 'Asier', ismael: 'Ismael' };
 
 interface AccionAbeja {
   id: string;
@@ -361,23 +361,28 @@ interface SemanaResumen {
   feedback_pendiente: number;
 }
 
+// El orden de las columnas, el mismo que CUENTAS en el backend (services/semana.ts).
 const CUENTAS: { id: Cuenta; nombre: string; rol: string }[] = [
   { id: 'iker', nombre: 'Iker', rol: 'Ventas' },
   { id: 'unai', nombre: 'Unai', rol: 'CEO' },
   { id: 'asier', nombre: 'Asier', rol: 'Tecnología' },
+  { id: 'ismael', nombre: 'Ismael', rol: 'SDR' },
 ];
+
+// La ronda del efecto abeja es solo entre los tres fundadores (services/abeja.ts).
+const FUNDADORES: Cuenta[] = ['iker', 'unai', 'asier'];
 
 // Por si la base no trae el perfil de la cuenta (en local, por ejemplo).
 const NOMBRE_COMPLETO: Record<Cuenta, string> = {
   iker: 'Iker Galarza Rodríguez',
   unai: 'Unai Arambarri Yeregui',
   asier: 'Asier Olaizola Paniagua',
+  ismael: 'Ismael El Bekkar',
 };
 
 type Perfiles = Partial<Record<Cuenta, Perfil>> | undefined;
 
 const nombreDe = (c: Cuenta) => CUENTAS.find((x) => x.id === c)?.nombre || c;
-const columnaDe = (c: Cuenta) => CUENTAS.findIndex((x) => x.id === c);
 const esColaborativo = (p: PostSemana) => !!p.coautores?.length;
 
 /** Quien firma un post, en el orden de las columnas. */
@@ -534,6 +539,9 @@ const LI_FUENTE = {
 
 const CLAVE_TEMA_LI = 'semana.linkedin';
 const CLAVE_GUIA = 'semana.guia';
+// Las personas que se han quitado del calendario con el filtro de personas.
+// Se guardan las QUITADAS y no las que se ven: asi una persona nueva sale sola.
+const CLAVE_OCULTAS = 'semana.personas.ocultas';
 
 function leer(clave: string): string {
   try {
@@ -548,6 +556,18 @@ function guardar(clave: string, valor: string) {
     localStorage.setItem(clave, valor);
   } catch {
     /* sin almacenamiento: se elige otra vez la proxima visita */
+  }
+}
+
+/** Las personas quitadas del calendario. Si no hay nada guardado (o se quitaria a todas), ninguna. */
+function leerOcultas(): Cuenta[] {
+  try {
+    const crudo: unknown = JSON.parse(leer(CLAVE_OCULTAS) || '[]');
+    if (!Array.isArray(crudo)) return [];
+    const ocultas = CUENTAS.map((c) => c.id).filter((id) => crudo.includes(id));
+    return ocultas.length < CUENTAS.length ? ocultas : [];
+  } catch {
+    return [];
   }
 }
 
@@ -1253,7 +1273,16 @@ function Revision({
           {foto2.error && <p className="mt-1 text-xs text-danger">{foto2.error}</p>}
         </div>
 
-        <RondaAbeja post={post} />
+        {FUNDADORES.includes(post.cuenta) ? (
+          <RondaAbeja post={post} />
+        ) : (
+          <div>
+            <h4 className="font-display text-[15px] font-semibold text-text-primary">Ronda de los fundadores</h4>
+            <p className="mt-1 text-[13px] leading-relaxed text-text-secondary">
+              Los posts de {nombreDe(post.cuenta)} no llevan ronda: el efecto abeja es entre Iker, Unai y Asier.
+            </p>
+          </div>
+        )}
 
         <div className="border-t border-border pt-5">
           <Comentarios post={post} autor={autor} onCambio={onCambio} />
@@ -1844,6 +1873,7 @@ function FichaConjunta({
   perfiles,
   mio,
   miCuenta,
+  visibles,
   desde,
   ancho,
   fila,
@@ -1855,6 +1885,8 @@ function FichaConjunta({
   perfiles: Perfiles;
   mio: boolean;
   miCuenta: Cuenta | null;
+  /** Las columnas que se ven, en orden: `desde` y `ancho` cuentan sobre ellas. */
+  visibles: Cuenta[];
   desde: number;
   ancho: number;
   fila: number;
@@ -1864,7 +1896,7 @@ function FichaConjunta({
 }) {
   const pendientes = post.feedback.filter((f) => !f.resuelto).length;
   const quienes = firmantes(post);
-  const columnas = CUENTAS.slice(desde, desde + ancho);
+  const columnas = visibles.slice(desde, desde + ancho);
 
   return (
     <article
@@ -1875,10 +1907,10 @@ function FichaConjunta({
     >
       {columnas.map((c) => (
         <span
-          key={c.id}
+          key={c}
           aria-hidden="true"
           className={`hidden md:block mx-4 h-1.5 rounded-b-full ${
-            c.id === post.cuenta ? 'bg-accent' : quienes.includes(c.id) ? 'bg-text-primary' : ''
+            c === post.cuenta ? 'bg-accent' : quienes.includes(c) ? 'bg-text-primary' : ''
           }`}
         />
       ))}
@@ -1934,19 +1966,24 @@ type Celda =
  * y ocupa desde la primera hasta la ultima columna de quienes lo firman; los
  * posts sueltos de las columnas que quedan fuera van a su lado. Lo que sobra
  * (los sueltos de quien tambien firma el colaborativo) va en una fila debajo.
+ *
+ * `columnas` son las personas que se ven (el filtro de personas), en el orden
+ * de CUENTAS. Lo de quien no se ve no sale; un colaborativo sale si lo firma
+ * alguien que se ve, estirado solo sobre las columnas de los que se ven.
  */
-function filasDelDia(delDia: PostSemana[]): Celda[][] {
-  const conjuntos = delDia.filter(esColaborativo);
-  const sueltos = delDia.filter((p) => !esColaborativo(p));
+function filasDelDia(delDia: PostSemana[], columnas: Cuenta[]): Celda[][] {
+  const columnaDe = (c: Cuenta) => columnas.indexOf(c);
+  const conjuntos = delDia.filter((p) => esColaborativo(p) && firmantes(p).some((c) => columnas.includes(c)));
+  const sueltos = delDia.filter((p) => !esColaborativo(p) && columnas.includes(p.cuenta));
   const colocados = new Set<string>();
   const filas: Celda[][] = conjuntos.map((cj, i) => {
-    const cols = firmantes(cj).map(columnaDe);
+    const cols = firmantes(cj).map(columnaDe).filter((x) => x >= 0);
     const desde = Math.min(...cols);
     const hasta = Math.max(...cols);
     const fila: Celda[] = [{ col: desde, ancho: hasta - desde + 1, conjunto: cj }];
-    CUENTAS.forEach((c, col) => {
+    columnas.forEach((c, col) => {
       if (col >= desde && col <= hasta) return;
-      const suyos = i === 0 ? sueltos.filter((p) => p.cuenta === c.id) : [];
+      const suyos = i === 0 ? sueltos.filter((p) => p.cuenta === c) : [];
       suyos.forEach((p) => colocados.add(p.id));
       fila.push({ col, ancho: 1, posts: suyos });
     });
@@ -1954,7 +1991,7 @@ function filasDelDia(delDia: PostSemana[]): Celda[][] {
   });
   const resto = sueltos.filter((p) => !colocados.has(p.id));
   if (resto.length || !filas.length) {
-    filas.push(CUENTAS.map((c, col) => ({ col, ancho: 1 as const, posts: resto.filter((p) => p.cuenta === c.id) })));
+    filas.push(columnas.map((c, col) => ({ col, ancho: 1 as const, posts: resto.filter((p) => p.cuenta === c) })));
   }
   return filas;
 }
@@ -2104,7 +2141,17 @@ export default function Semana() {
   const miCuenta = CUENTAS.find((c) => autor.trim().toLowerCase().split(/\s+/)[0] === c.id)?.id || null;
   const [soloMios, setSoloMios] = useState(false);
   const enLista = soloMios && !!miCuenta;
-  const visibles = enLista ? CUENTAS.filter((c) => c.id === miCuenta) : CUENTAS;
+  // El filtro de personas: que columnas salen en el calendario. Se guarda en el
+  // navegador. No toca «Leer solo mis posts», que enseña siempre los de uno.
+  const [ocultas, setOcultas] = useState<Cuenta[]>(leerOcultas);
+  const visibles = CUENTAS.filter((c) => !ocultas.includes(c.id));
+  const columnas = visibles.map((c) => c.id);
+  const verPersona = (id: Cuenta) =>
+    setOcultas((antes) => {
+      const despues = antes.includes(id) ? antes.filter((x) => x !== id) : [...antes, id];
+      // Siempre se ve al menos una persona.
+      return despues.length < CUENTAS.length ? despues : antes;
+    });
   const [filtro, setFiltro] = useState<Objetivo | ''>('');
   const [tema, setTema] = useState<TemaLI>(() => (leer(CLAVE_TEMA_LI) === 'oscuro' ? 'oscuro' : 'claro'));
   // La guia sale abierta hasta que alguien la recoge; despues se queda recogida.
@@ -2113,6 +2160,10 @@ export default function Semana() {
   useEffect(() => {
     if (elegido) guardar(CLAVE_AUTOR, elegido);
   }, [elegido]);
+
+  useEffect(() => {
+    guardar(CLAVE_OCULTAS, JSON.stringify(ocultas));
+  }, [ocultas]);
 
   const cambiarTema = (t: TemaLI) => {
     setTema(t);
@@ -2130,9 +2181,13 @@ export default function Semana() {
     return [...posts].sort((a, b) => a.fecha.localeCompare(b.fecha) || col(a.cuenta) - col(b.cuenta));
   }, [posts]);
   // El post abierto va en la URL (`&p=clave`), para poder pasar el enlace.
+  // Con el filtro de personas, anterior y siguiente pasan solo por lo que se ve;
+  // un enlace a un post de alguien quitado se abre igual, con la semana entera.
   const clave = params.get('p');
-  const iAbierto = clave ? enOrden.findIndex((p) => p.clave === clave) : -1;
-  const abierto = iAbierto >= 0 ? enOrden[iAbierto] : null;
+  const enOrdenVisible = enOrden.filter((p) => firmantes(p).some((c) => columnas.includes(c)));
+  const recorrido = clave && enOrdenVisible.some((p) => p.clave === clave) ? enOrdenVisible : enOrden;
+  const iAbierto = clave ? recorrido.findIndex((p) => p.clave === clave) : -1;
+  const abierto = iAbierto >= 0 ? recorrido[iAbierto] : null;
   const abrir = (c: string | null) => setParams(c ? { s: elegida, p: c } : { s: elegida }, { replace: !!c && !!clave });
 
   if (lista.loading) return <p className="text-sm text-text-muted">Cargando la semana…</p>;
@@ -2274,6 +2329,8 @@ export default function Semana() {
                 <b className="text-text-primary">{posts.filter(programado).length}</b> programados
               </span>
             )}
+            {/* Los contadores son siempre de la semana entera, se vea a quien se vea. */}
+            {ocultas.length > 0 && !enLista && <span className="text-text-muted">De toda la semana, también de quien no se ve</span>}
           </p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
             <button
@@ -2381,6 +2438,38 @@ export default function Semana() {
               </button>
             )}
           </div>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          {!enLista && (
+            <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Qué personas se ven">
+              <span className="text-[13px] text-text-muted">Personas</span>
+              {CUENTAS.map((c) => {
+                const se = !ocultas.includes(c.id);
+                const ultima = se && visibles.length === 1;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    aria-pressed={se}
+                    aria-disabled={ultima || undefined}
+                    title={ultima ? 'Tiene que verse al menos una persona' : undefined}
+                    onClick={() => verPersona(c.id)}
+                    className={`${PASTILLA} ${se ? PASTILLA_ON : PASTILLA_OFF} ${ultima ? 'cursor-default' : ''}`}
+                  >
+                    {c.nombre}
+                  </button>
+                );
+              })}
+              {ocultas.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setOcultas([])}
+                  className="text-[13px] font-semibold text-accent hover:underline underline-offset-2"
+                >
+                  Ver todas
+                </button>
+              )}
+            </div>
+          )}
           <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar por objetivo">
             <span className="text-[13px] text-text-muted">Ver</span>
             {([['', 'Todos'], ['alcance', 'Alcance'], ['notoriedad', 'Notoriedad'], ['conversion', 'Conversión']] as const).map(
@@ -2396,6 +2485,7 @@ export default function Semana() {
                 </button>
               )
             )}
+          </div>
           </div>
         </div>
 
@@ -2432,7 +2522,12 @@ export default function Semana() {
               ))}
           </div>
         ) : (
-          <div className="md:grid gap-3 space-y-3 md:space-y-0 md:grid-cols-[72px_repeat(3,minmax(0,1fr))]">
+          // Las columnas son las de las personas que se ven, a todo el ancho. En
+          // movil no hay rejilla (va todo en una columna) y el estilo no aplica.
+          <div
+            className="md:grid gap-3 space-y-3 md:space-y-0"
+            style={{ gridTemplateColumns: `72px repeat(${visibles.length}, minmax(0, 1fr))` }}
+          >
             <div className="hidden md:block border-b-2 border-text-primary" />
             {visibles.map((c) => (
               <div
@@ -2448,11 +2543,11 @@ export default function Semana() {
             ))}
 
             {dias.map((dia) => {
-              const filas = filasDelDia(posts.filter((p) => p.fecha === dia));
+              const filas = filasDelDia(posts.filter((p) => p.fecha === dia), columnas);
               return (
                 // Cada dia es una subrejilla del calendario: el dia ocupa sus filas a
                 // la izquierda y un colaborativo se estira sobre varias columnas.
-                <div key={dia} className="space-y-3 md:space-y-0 md:col-span-4 md:grid md:grid-cols-subgrid md:gap-3">
+                <div key={dia} className="space-y-3 md:space-y-0 md:col-span-full md:grid md:grid-cols-subgrid md:gap-3">
                   <p
                     style={{ gridColumn: 1, gridRow: `1 / span ${filas.length}` }}
                     className="font-display text-[17px] font-semibold text-text-primary md:pt-3 border-b-2 border-text-primary md:border-0 pb-1 md:pb-0"
@@ -2470,6 +2565,7 @@ export default function Semana() {
                             perfiles={perfiles.data?.perfiles}
                             mio={esDe(p, miCuenta)}
                             miCuenta={miCuenta}
+                            visibles={columnas}
                             desde={celda.col}
                             ancho={celda.ancho}
                             fila={r + 1}
@@ -2531,9 +2627,9 @@ export default function Semana() {
           post={abierto}
           perfiles={perfiles.data?.perfiles}
           posicion={iAbierto}
-          total={enOrden.length}
+          total={recorrido.length}
           onMover={(paso) => {
-            const destino = enOrden[iAbierto + paso];
+            const destino = recorrido[iAbierto + paso];
             if (destino) abrir(destino.clave);
           }}
           onCerrar={() => abrir(null)}

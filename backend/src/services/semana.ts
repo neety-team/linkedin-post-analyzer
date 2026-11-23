@@ -1,6 +1,6 @@
 /**
- * LA SEMANA: el calendario de posts de las tres cuentas y el feedback de cada
- * post (2026-11-17).
+ * LA SEMANA: el calendario de posts de las cuentas (los tres fundadores y,
+ * desde el 23/11, Ismael, de ventas) y el feedback de cada post (2026-11-17).
  *
  * Por que existe: los posts de una semana se escriben la anterior y cada
  * fundador lee los suyos y dice que cambiaria. Hasta ahora eso vivia en un
@@ -14,7 +14,13 @@
 import pool from '../db';
 import { normalizarMenciones, motivoMenciones, type Mencion } from './menciones';
 
-export const CUENTAS = ['iker', 'unai', 'asier'] as const;
+/**
+ * Las cuentas de la semana, en el orden de las columnas. Ismael (ventas) entra
+ * el 2026-11-23: publica y se programa como los demas, pero NO esta en el
+ * efecto abeja, que es entre los tres fundadores (services/abeja.ts).
+ */
+export const CUENTAS = ['iker', 'unai', 'asier', 'ismael'] as const;
+export type CuentaSemana = (typeof CUENTAS)[number];
 // Los objetivos viven en services/objetivo.ts: Cuentas los usa tambien y no pueden divergir.
 export { OBJETIVOS } from './objetivo';
 import { OBJETIVOS } from './objetivo';
@@ -325,7 +331,7 @@ export function esSemanaValida(s: unknown): s is string {
 /**
  * POSTS COLABORATIVOS (2026-11-17). Un post puede firmarlo mas de una cuenta:
  * `cuenta` es la que lo publica y `coautores`, las otras que lo firman. Se
- * normaliza al orden de las columnas (iker, unai, asier) para que el mismo
+ * normaliza al orden de las columnas (el de CUENTAS) para que el mismo
  * reparto se guarde siempre igual. `null` vacia la lista.
  */
 export function normalizarCoautores(v: unknown, cuenta: string | undefined, clave: string): string[] {
@@ -414,8 +420,8 @@ export async function leerSemana(semana: string) {
             linkedin_url
        FROM semana_posts
       WHERE semana = $1
-      ORDER BY fecha, array_position(ARRAY['iker','unai','asier'], cuenta), clave`,
-    [semana]
+      ORDER BY fecha, array_position($2::text[], cuenta), clave`,
+    [semana, [...CUENTAS]]
   );
   const fb = await pool.query(
     `SELECT sf.id, sf.post_id, sf.autor, sf.texto, sf.nivel, sf.resuelto, sf.respuesta,
@@ -888,7 +894,7 @@ export async function borrarImagen(postId: string, n: NumeroFoto = 1): Promise<b
 }
 
 /**
- * Nombre, titular y foto de perfil de las tres cuentas, para pintar cada post
+ * Nombre, titular y foto de perfil de las cuentas de la semana, para pintar cada post
  * como se vera en LinkedIn. Sale de `creators` (las cuentas propias llevan
  * `is_managed`). Si no hay datos devuelve {} y la pagina pone solo el nombre.
  */

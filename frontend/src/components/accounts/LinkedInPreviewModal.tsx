@@ -7,10 +7,10 @@ import LinkedInPostPreview from './LinkedInPostPreview';
    Creator se retiro entero y se salvo solo esto: pegar un texto y ver como
    corta LinkedIn el gancho con el nombre y la foto de la cuenta que publica.
 
-   "Ver como" enseña SOLO a los tres jefes, en su orden (Unai, Iker, Asier), y
-   la cuenta de la empresa. Con las ocho cuentas gestionadas la fila de chips
-   se rompia y los nombres salian cortados; las demas manuales (Mario, Ismael,
-   Helena, Angela) no publican desde aqui. */
+   "Ver como" enseña SOLO a quien publica desde la pagina Semana, en su orden
+   (Unai, Iker, Asier y, desde el 23/11, Ismael), y la cuenta de la empresa. Con
+   las ocho cuentas gestionadas la fila de chips se rompia y los nombres salian
+   cortados; las demas manuales (Mario, Helena, Angela) no publican desde aqui. */
 
 interface Cuenta {
   id: string;
@@ -22,9 +22,10 @@ interface Cuenta {
   unipile_account_id: string | null;
 }
 
-// Orden fijo de los jefes por nombre de pila. Se casa contra las cuentas
-// CONECTADAS (las que tienen sesion de Unipile), que son siempre ellos tres.
-const ORDEN_JEFES = ['unai', 'iker', 'asier'];
+// Orden fijo por nombre de pila de quien publica desde Semana. Se casa primero
+// contra las cuentas CONECTADAS (con sesion de Unipile); si la de esa persona
+// sigue dada de alta como manual (Ismael lo estaba), se usa esa.
+const ORDEN_PERSONAS = ['unai', 'iker', 'asier', 'ismael'];
 const CUENTA_EMPRESA = 'neety';
 const CLAVE_BORRADOR = 'linkedin_preview_borrador';
 const CLAVE_PERSONA = 'linkedin_preview_persona';
@@ -33,14 +34,14 @@ const nombrePila = (c: Cuenta) => (c.name || '').trim().split(/\s+/)[0]?.toLower
 
 export function personasDelPreview(cuentas: Cuenta[]): Cuenta[] {
   const conectadas = cuentas.filter((c) => !c.is_manual && !!c.unipile_account_id);
-  const jefes = ORDEN_JEFES
-    .map((n) => conectadas.find((c) => nombrePila(c) === n))
+  const personas = ORDEN_PERSONAS
+    .map((n) => conectadas.find((c) => nombrePila(c) === n) || cuentas.find((c) => nombrePila(c) === n))
     .filter((c): c is Cuenta => !!c);
   // Una cuenta conectada que no este en la lista (nueva) entra detras, antes
   // que la empresa: no se pierde nadie que publique con sesion propia.
-  const resto = conectadas.filter((c) => !jefes.includes(c));
+  const resto = conectadas.filter((c) => !personas.includes(c));
   const empresa = cuentas.find((c) => (c.name || '').trim().toLowerCase() === CUENTA_EMPRESA);
-  return [...jefes, ...resto, ...(empresa ? [empresa] : [])];
+  return [...personas, ...resto, ...(empresa ? [empresa] : [])];
 }
 
 const leer = (clave: string): string => {

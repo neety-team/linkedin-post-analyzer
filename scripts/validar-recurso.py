@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Validador MECANICO del recurso de recursos.neety.com.
+"""Validador MECANICO del recurso de un lead magnet (hoy en neety.com/academia/<slug>;
+hasta el 22/11/2026 en recursos.neety.com, dominio que ya no existe).
 
 POR QUE EXISTE (Mario, 2026-08-26). El post de /errores/ prometia CINCO errores.
 Yo adapte el gate, di el recurso por hecho y no abri la guia: dentro seguian

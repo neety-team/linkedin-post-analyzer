@@ -676,6 +676,15 @@ def main():
     if _dt.date.today() >= _dt.date(2026, 10, 5) and 'recursos.neety.com/agendar' in cuerpo:
         checks.append(fallo('La puerta de agendar es https://neety.com/solicitar-demo, no '
                             'recursos.neety.com/agendar (Iker, 05/10)'))
+    # ⛔ 2026-11-22: recursos.neety.com YA NO EXISTE (solo redirige con 301 a neety.com;
+    # tabla del antes y el ahora en lead-magnet-web.md, arriba). Ningun correo lo enlaza.
+    _muertos = re.findall(r'(?:https?://)?recursos\.neety\.com\S*', cuerpo)
+    if _muertos:
+        checks.append(fallo(f'Sin enlaces a recursos.neety.com: el dominio ya no existe '
+                            f'({_muertos[0][:60]}). Demo en https://neety.com/solicitar-demo, recursos en '
+                            f'https://neety.com/academia (lead-magnet-web, 22/11)'))
+    else:
+        checks.append(ok('Sin enlaces a recursos.neety.com (dominio muerto desde el 22/11)'))
     # ⛔ LA NEWSLETTER NUNCA MANDA A UN GATE NI A UN FORMULARIO DE SUSCRIPCION (2026-11-02,
     # email-marketing §4a-SIN-GATE). Quien lee el correo ya dio el permiso: el gate solo
     # existe para conseguir un correo que aqui ya tenemos. El contenido se le da directo

@@ -444,7 +444,7 @@ Si sí → se cambia el verbo o se pasa a impersonal. Si no → se queda como es
 
 **⚠️ Y LA FOTO NO ENTRA EN ESTA REGLA.** LinkedIn no lee la imagen (`post-workflow §4.5.0-CTA-IMAGEN`). El rótulo `TRANSCRIPCIÓN LITERAL DE UNA LLAMADA EN FRÍO` se quedó intacto y el post voló. **Si la palabra es el motor del gag, vive en la foto y sale del texto.**
 
-**⛔ ÁMBITO: solo posts y textos de LinkedIn (Iker, 2026-08-20).** La web de `recursos.neety.com` **no** entra: ahí no hay clasificador que reparta y el registro es otro.
+**⛔ ÁMBITO: solo posts y textos de LinkedIn (Iker, 2026-08-20).** La web (`neety.com`, también sus páginas de recursos en `/academia`; antes `recursos.neety.com`) **no** entra: ahí no hay clasificador que reparta y el registro es otro.
 
 ## 3 · Cuerpo natural, no robótico (matar los AI-tells)
 

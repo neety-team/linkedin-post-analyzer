@@ -22,7 +22,7 @@ Skills de artefacto, solo si el post lo pide:
 - `video.md` — el vídeo es OTRO artefacto y reemplaza las reglas de hook de texto. **⛔ OBLIGATORIA en TODO vídeo, entera, más los apuntes de `Documentos/Mario/APRILYNNE/` (Rodri y Jenny), 3 propuestas de voz y `python scripts/validar-video.py <voz.txt> --caption <caption.txt> --cuenta X`** (desde el 2026-09-30)
 - `images.md §9` — la TARJETA de X (pilar en prueba, `post-workflow §4.6`): la marca NO entra, y la barra de metricas se recorta siempre (salvo el A/B abierto el 23/09, `post-workflow §4.6-AB-METRICAS`)
 - **Lead magnet: empieza por `post-workflow §4.5.-4`, la receta replicable del 12/11.** Se calca la referencia del mes como un meme (tema, molde, estructura, palabra, GIF) con nuestra marca y nuestro diferencial encima: Claude es el nivel intermedio y Neety el de arriba, sin criticar a nadie (`brand-voice` CANÓNICO «IA genérica»).
-- `lead-magnet-web.md` — **obligatoria en TODO lead magnet**: el gate y el recurso de `recursos.neety.com`. El post solo consigue el comentario; el lead sale de la página. Entrega un prompt para el programador.
+- `lead-magnet-web.md` — **obligatoria en TODO lead magnet**: el gate y el recurso de `neety.com/academia/<slug>` (`recursos.neety.com` ya no existe desde el 22/11/2026: tabla del antes y el ahora al principio de esa skill). El post solo consigue el comentario; el lead sale de la página. Entrega un prompt para el programador.
 
 Orquestación:
 - `post-workflow.md` — cómo montar el workflow y la RECETA cronológica por pilar (§4), más el planificador semanal de las 3 cuentas (§8). **El runbook del pilar manda sobre lo que creas recordar: léelo entero antes de escribir, aunque el post parezca sencillo.**

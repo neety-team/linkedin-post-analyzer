@@ -345,7 +345,7 @@ Iker creó una campaña de prueba para verlo. **Dos hechos medidos, ya no hipót
 
 | A dónde lleva el enlace | Analytics | Lo que tengo que decir al entregar |
 |---|---|---|
-| `recursos.neety.com/agendar/` (nuestra web, GA4) | **ENCENDIDO** | nada: viene así de fábrica y es lo que queremos |
+| `neety.com/solicitar-demo` (nuestra web, GA4; antes `recursos.neety.com/agendar/`) | **ENCENDIDO** | nada: viene así de fábrica y es lo que queremos |
 | **Luma o `forward.neety.com`** | **APAGADO** | **«acuérdate de desactivar Google Analytics en esta campaña»**, y ANTES de que yo escriba el enlace |
 
 > 🔄 **ACTUALIZADO EL 2026-09-28 (Iker preguntó por qué había que apagarlo si ya no vamos a Luma): desde el correo 5 (22/09) se apaga SIEMPRE, también para `/agendar/`.** La fila de arriba no está mal, pero se quedó vieja. **Para `/agendar/` no es obligatorio:** con Analytics encendido el clic se atribuye igual, solo que con `utm_source=sendinblue` y el NOMBRE de la campaña como `utm_campaign` (`Correo 6  Unai  CALENDARIO`, con espacios). **Se apaga por tres motivos:** (1) **una sola regla para cualquier destino**, sin tener que acordarse de a dónde va el enlace; (2) el nombre lo elegimos nosotros (`correo-06-unai-calendario`) y es igual que en los correos 5 y siguientes, así que en GA4 y en el campo `origen` del formulario todos caen bajo `brevo`; (3) **las tandas de un mismo correo no se parten**, porque cada tanda es una campaña con otro nombre. **Por qué viene encendido:** es el valor de fábrica de Brevo al CREAR la campaña, y ese interruptor no existe en la API (ni se lee ni se escribe). El auditor lo caza en cualquier destino desde el 22/09. **Y un cuarto motivo, comprobado en el código de `neety-resources` (`src/lib/gchat.js`): la tarjeta de Google Chat de cada reserva enseña `Origen` = `utm_source` y `Landing` = la URL entera.** Con el interruptor encendido sale `sendinblue` y un `Correo%206%20%20Unai…` ilegible; apagado, `brevo` y `correo-06-unai-calendario`. ⚠️ **Ninguna de las dos formas pone el correo en `Origen`**: el nombre solo se ve dentro de la URL de `Landing`. **La única casuística en la que encendido sería mejor:** que el enlace saliera SIN UTM escrito a mano. Apagado y sin UTM, el clic llega como tráfico directo y se pierde. Por eso la regla es doble (apagar + escribirlo) y el auditor mira las dos cosas.
@@ -1763,7 +1763,7 @@ destino. Cero historia, cero cuerpo. Y él es el que más sabe de esto de todo e
 
 **Qué es:** el correo es una lista de 8-10 líneas, cada una **una promesa de curiosidad con su gap
 abierto**, y todas apuntan al mismo sitio. Para nosotros el destino no es un capítulo: es el
-diagnóstico, un recurso de `recursos.neety.com` o la demo. *"— Por qué la lista que compraste el año
+diagnóstico, un recurso de `neety.com/academia` o la demo. *"— Por qué la lista que compraste el año
 pasado ya no sirve, y no es por los correos rebotados."*
 
 **Para qué sirve de verdad, y es honesto decirlo así: es el correo que se manda cuando no hay nada
@@ -2876,7 +2876,7 @@ Hay **dos** y hay que repartirlos, o salen duplicados:
 - Probado: web 120/120 y CRM 630/630. **Falta la prueba en producción tras fusionar:** ver que los 5 entran en la lista 15.
 
 ### 📬 DE DÓNDE ENTRAN LOS SUSCRIPTORES DESDE EL 2026-08-18: LA LANDING DE CORREO
-**Hasta ahora la lista se alimentaba de la base del CRM y de los gates de recursos. Desde el 18/08 hay una puerta propia: `recursos.neety.com/newsletter/` (alias `/correo/`), que es un formulario y nada más.**
+**Hasta ahora la lista se alimentaba de la base del CRM y de los gates de recursos. Desde el 18/08 hay una puerta propia: `recursos.neety.com/newsletter/` (alias `/correo/`), que es un formulario y nada más.** 🔄 Desde el 22/11/2026 esa puerta es `https://neety.com/newsletter` (`recursos.neety.com` ya no existe).
 - **Le llega tráfico desde el SEGUNDO spam ninja de los posts** (`global §4.4e`): el bloque de correo que va en historia, despiece, insight, evento y meme corto. No va en mapa, ni en "Los 10", ni en el post del lead magnet.
 - **El formulario pide nombre, correo y el desplegable de "¿cómo nos conociste?"**, que es lo que permite segmentar: la mayoría vendrán de LinkedIn, pero no todos. **Ese campo y los UTM se validan mutuamente**, igual que ya pasó el 10/08 con el `origen: newsletter` del que vino del correo 0.
 - **El consentimiento de newsletter es obligatorio ahí, y esa página es la ÚNICA donde lo es** (`lead-magnet-web §3b`): en un gate de recurso o en `/agendar/` la casilla siempre es voluntaria, porque obligar a suscribirse para descargar otra cosa convierte peor y además es consentimiento agrupado, que por RGPD no vale. En `/correo/` sí, porque ahí el servicio que se pide **es** el correo. Consecuencia buena para nosotros: todo el que entra por esta vía es alta limpia y querida, no hay que filtrar después.

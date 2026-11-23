@@ -1806,3 +1806,6 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 | Se mide | primero la apertura real contra el 32,5 % y el 34,2 % de los correos 13 y 14 (si baja del 40 %, se mira la entregabilidad en Microsoft); después, reuniones con su `utm_campaign` y bajas por entregado. Revisión: lunes 30/11 |
 
 **Al programar:** ninja a `QUEMADAS`, `planton` a `APERTURAS_USADAS`, `15: 'el tiempo'` a `UNIDADES_CORREOS`, cuerpo literal a `corpus-correos-enviados.md` y `neety_newsletter_vincular` con la campaña 39. **Cuando el PR 249 esté desplegado y la lista 15 limpia,** la 23 sobra y se borra.
+
+### ✅ Radar y mapas fuera de la lista 15: hecho (2026-11-23, 10:40)
+PR 249 de saldu fusionado y desplegado. En la primera sincronización la lista 15 pasó de 148 a 125: salieron los 24 del Radar y los mapas y nadie más (uno nuevo entró esa mañana por la newsletter). La lista 23 `Excluir Radar y mapas (hasta PR 249)` ya no hace falta; se deja como exclusión en la campaña 39 y se puede borrar después del envío (borrar una lista no borra contactos). **Pendiente para el correo 16:** encender en el CRM (Marketing → Audiencias) la sincronización con Brevo de la audiencia del Radar, para que tenga su lista. Los recursos exclusivos de la newsletter viven en `neety.com/para-ti/<slug>` (PR 17 de `neety-team/landing`, fusionado el 23/11).

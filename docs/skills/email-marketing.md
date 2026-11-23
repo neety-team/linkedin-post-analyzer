@@ -696,6 +696,37 @@ En los emails importantes, SIEMPRE (Timepack lo lleva en el 86% de los correos, 
 - **El recurso se cuelga en `neety.com/para-ti/<slug>`** (23/11, repo `landing`: `components/para-ti/recursos.ts` y el archivo en `public/para-ti/archivos/`), sin indexar, fuera del sitemap y sin formulario. Que exista en la newsletter y en ningún otro sitio es lo que lo hace exclusivo. En LinkedIn sí se puede contar que existe, con el enlace a `neety.com/newsletter`, que es donde se pide el correo.
 - **La pregunta abierta:** si las semanas de recurso tienen menos bajas que las de historia. El primer ciclo (26/11 a 29/12) lleva tres de cada; plan en `contenido/newsletter/plan-2026-11-12.md`.
 
+### 📡 5R · EL CORREO DEL RADAR ES OTRO CORREO, NO UNA NEWSLETTER DE KAIXITO (2026-11-23)
+
+Hay dos tipos de correo y no se mezclan:
+
+| | Newsletter (Kaixito) | Radar |
+|---|---|---|
+| Qué es | Una historia o un recurso, con la voz de la mascota | La edición del mes del Radar de inversiones, para consultar |
+| Cuándo | Cada semana, martes 09:05 | Una vez al mes, la primera semana, con la edición del mes anterior revisada por Iker |
+| A quién | La newsletter | La audiencia del Radar **y** la newsletter, en una sola campaña. Esa semana no hay correo de Kaixito (`§5`, un correo por persona y semana) |
+| Remitente | `Kaixito de Neety` | `Radar de Neety`. Es la única excepción a «siempre firma una persona» (`§1`): quien se apuntó pidió el Radar, no un correo personal |
+| Tono y forma | Todo lo de este documento: asunto en minúscula, bloque de dos, un enlace, PD de broma | **Sobrio y profesional**, con la marca: ni historia, ni broma, ni PD. Las reglas de forma de la newsletter no aplican, y `validar-email.py` no se le pasa |
+
+**El asunto:** `Radar de inversiones · <mes>: <titular>`. El titular es la inversión o la tendencia más llamativa del mes, con el dato que da su fuente (empresa, qué y cuánto). Ejemplo con octubre: `Radar de inversiones · octubre: Gotion entra en la gigafactoría de Sagunto`. La preview dice cuántas empresas trae y de dónde salen.
+
+**El cuerpo es HTML con la marca y lo genera `scripts/montar-radar-correo.py` desde el fichero de la edición**, no se escribe a mano. Lleva, en este orden:
+1. **La cabecera:** el logotipo de Neety y `Radar de inversiones industriales · España · <mes>`.
+2. **El titular y la entradilla** de la edición.
+3. **Tres cifras del mes**, contadas en la tabla de la edición: inversiones, comunidades y cuántas salen de boletines oficiales.
+4. **El mapa**, en JPG o PNG (nunca AVIF, que Gmail y Outlook no pintan), enlazado a la edición.
+5. **Las tendencias del mes**, tal como las escribe la edición.
+6. **Las destacadas:** 5 inversiones con empresa, dónde, qué y su fuente enlazada.
+7. **Dos botones:** `Ver la edición completa` (la página de la edición) y `Descargar el Excel` (`neety.com/para-ti/radar-<región>-<mes>`).
+8. **El bloque de Neety:** que estas inversiones las reunimos cada mes a mano con fuentes públicas, y que con Neety se ven cada día y filtradas por lo que vende cada uno, con a quién escribir. Botón `Reserva media hora` a `/solicitar-demo`. Se respeta el orden de siempre: abre la identificación (qué empresas encajan y a quién escribir) y la señal va detrás. Ni automatismo ni volumen (`global §4.4b-MUNICIÓN`).
+9. **El pie de la casa** (baja y dirección) y, para quien llega solo por el Radar, una línea: si quiere también el correo semanal, que responda «sí».
+
+- **Varios enlaces, sí.** Es un boletín para investigar: la edición, el Excel, cada fuente y la reunión. Todos llevan `utm_campaign=radar-<región>-<mes>` y su `utm_content`, para saber qué se pulsa.
+- **Nada que no esté en la edición revisada:** empresas, cifras y fuentes salen de su fichero. Sin personas y sin clientes de Neety (las reglas del propio Radar).
+- **Se mide aparte por audiencia:** apertura, clics por enlace, descargas del Excel, reuniones con su `utm_campaign` y bajas.
+
+**👀 LA PREVIEW ES EL CORREO DE VERDAD (2026-11-23).** Todo correo, sea de Kaixito o del Radar, se sube a la página Newsletter con su HTML exacto (el que genera `montar-correo-brevo.py` o `montar-radar-correo.py`, con el pie), y la página lo pinta tal cual, en móvil y en escritorio. Se aprueba lo que se va a enviar, no un texto plano.
+
 **📝 PLANIFICAR ES REDACTAR (2026-11-23).** Un correo entra en el calendario de la página Newsletter ya escrito y validado, como `borrador`, nunca como `idea`. Así se aprueba el correo y no una idea, y se ve pronto si el plan aguanta.
 - **Si depende de algo que aún no existe** (un recurso, la edición del Radar, un dato), se escribe igual con lo que hay. Lo que falta se dice en el porqué del correo y el texto no lleva ninguna cifra sin fuente. Al llegar lo que falta se vuelve a pasar el validador.
 - **Los borradores de un plan se escriben en orden y se cruzan entre sí**: ninjas, micro-aperturas, unidades de tiempo y GIF no se repiten dentro del plan, aunque `validar-email.py` solo conozca los ya programados.

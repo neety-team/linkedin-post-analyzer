@@ -55,6 +55,9 @@ def main():
     # (2026-10-05, correo 7: dos destinos distintos, el nuestro y el de AMA, y un
     # texto unico para los dos habria mentido en uno de ellos).
     ap.add_argument('--enlace-texto', default=None)
+    # Solo para la PREVIEW de la página Newsletter (2026-11-23, email-marketing §5R): el pie que
+    # pone Brevo. A Brevo NO se le sube con --pie: allí el pie va en su campo `footer`.
+    ap.add_argument('--pie', action='store_true')
     a = ap.parse_args()
 
     # Los GIF salen del gestor de archivos de Brevo, nunca de otro alojamiento (2026-11-12,
@@ -77,6 +80,10 @@ def main():
                                 % (m.group(1), a.enlace_texto or texto_corto(m.group(1))), html)
         partes.append('<p style="margin:0 0 20px;">%s</p>' % html)
 
+    if a.pie:
+        partes.append('<p style="margin:40px 0 0;font-size:12px;line-height:1.6;color:#8a7f86;text-align:center;">'
+                      '¿Prefieres que no te escriba más? <a href="#" style="color:#8a7f86;">Date de baja aquí</a>'
+                      ' · Neety · Miramon Pasealekua 170, Donostia, España</p>')
     print('<html><body>\n'
           '<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;'
           'opacity:0;overflow:hidden;mso-hide:all;">%s</div>\n'

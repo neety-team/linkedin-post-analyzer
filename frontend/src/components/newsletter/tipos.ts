@@ -54,6 +54,8 @@ export interface Correo {
   pilar: string | null;
   tipo_cliente: string | null;
   por_que: string | null;
+  /** El diario del correo: a qué listas, resultado y lo aprendido (2026-11-24). */
+  notas?: string | null;
   validador: string | null;
   validador_ok: boolean;
   /** Hash del texto: se manda al aprobar para aprobar justo lo que se ve. */

@@ -47,6 +47,11 @@ const correoEntrada = z.object({
     .nullable()
     .optional()
     .describe('El HTML exacto del correo, con el pie (montar-correo-brevo.py --pie o montar-radar-correo.py --pie). La página lo pinta tal cual, en móvil y en escritorio'),
+  notas: z
+    .string()
+    .nullable()
+    .optional()
+    .describe('El diario del correo: qué se programó, a qué listas, el resultado y lo aprendido. En un correo programado o enviado solo se pueden cambiar notas, por_que, pilar y tipo_cliente. Sustituye a historial-newsletter.md'),
   gif_alt: z.string().nullable().optional(),
   enlace: z.string().nullable().optional(),
   utm_campaign: z.string().nullable().optional(),
@@ -73,6 +78,7 @@ function lineaCorreo(c: any): string {
   ];
   let s = partes.join(' · ');
   if (c.brevo_campaign_id != null) s += ` · campaña Brevo ${c.brevo_campaign_id}`;
+  if (c.notas) s += `\n    notas: ${c.notas}`;
   const m = c.metricas;
   if (m) {
     s +=

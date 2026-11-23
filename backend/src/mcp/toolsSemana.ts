@@ -90,6 +90,16 @@ const postEntrada = z.object({
     .nullable()
     .optional()
     .describe('Qué foto o imagen lleva el post. La foto en sí se sube desde la página /semana'),
+  region: z
+    .string()
+    .nullable()
+    .optional()
+    .describe('Región de un mapa o de «Las 10» (p. ej. «Andalucía»): neety_usado la devuelve para no repetirla en esa cuenta'),
+  notas: z
+    .string()
+    .nullable()
+    .optional()
+    .describe('El diario del post: qué pasó al publicarlo, su resultado a 3 y 7 días y lo aprendido. Se puede escribir también en un post programado o publicado. Sustituye a historial-publicaciones.md'),
   referencia: z
     .string()
     .nullable()
@@ -130,6 +140,8 @@ function renderSemana(s: any): string {
       `   clave: ${p.clave} · post_id: ${p.id}` + (pend ? ` · feedback pendiente: ${pend}` : ''),
       `   Foto: ${p.tiene_imagen ? 'subida' : 'pendiente'}${p.nota_imagen ? ' · ' + p.nota_imagen : ''}`
     );
+    if (p.region) l.push(`   Región: ${p.region}`);
+    if (p.notas) l.push(`   Notas: ${p.notas}`);
     if (p.falta) l.push(`   Falta${p.pendientes?.length ? ' (nota)' : ''}: ${p.falta}`);
     for (const q of p.pendientes || []) {
       const marca =

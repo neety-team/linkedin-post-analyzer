@@ -1134,6 +1134,34 @@ def normalizar_entidad(x):
     return re.sub(r'\s+', ' ', x).strip()
 
 
+# ---------- LO YA USADO, LEÍDO DEL PANEL (2026-11-24) ----------
+# El estado de los posts vive en la base de datos (página Semana) y no en el repo. Lo aprobado,
+# programado o publicado se lee de /api/usado con el token de máquinas. historial-publicaciones.md
+# se queda como ARCHIVO de lo anterior al 24/11 y se sigue leyendo, pero ya no se le añade nada.
+API_BASE = os.environ.get('NEETY_API_BASE', 'https://linkedin-post-analyzer-production.up.railway.app').rstrip('/')
+_USADO = None
+
+
+def usado_del_panel():
+    """{'correos': [...], 'posts': [...]} del panel, o {'error': motivo}. Se lee una vez por ejecución."""
+    global _USADO
+    if _USADO is not None:
+        return _USADO
+    tok = os.environ.get('API_TOKEN', '').strip()
+    if not tok:
+        _USADO = {'error': 'falta API_TOKEN en el entorno'}
+        return _USADO
+    try:
+        import json as _json
+        import urllib.request as _ur
+        req = _ur.Request(API_BASE + '/api/usado',
+                          headers={'Authorization': 'Bearer ' + tok, 'User-Agent': 'validar-post (Neety)'})
+        _USADO = _json.load(_ur.urlopen(req, timeout=20))
+    except Exception as e:  # sin red o sin servidor: se avisa y se valida con el archivo
+        _USADO = {'error': str(e)[:120]}
+    return _USADO
+
+
 def leer_historial():
     if not os.path.exists(HISTORIAL):
         return ''
@@ -6032,21 +6060,32 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
                  'peor: la variedad nunca justifica una frase peor. Pasados 14 dias vuelve a '
                  'estar libre sola (global 2.0b-ECO)'), aviso=True)
 
-    # ---------- CONTRA EL HISTORIAL ----------
+    # ---------- CONTRA EL HISTORIAL (archivo hasta el 24/11) Y EL PANEL (desde el 24/11) ----------
     h = leer_historial()
-    if h:
-        if pilar == 'leadmagnet':
-            m2 = re.search(r'comenta\s+"([^"]+)"', cuerpo, re.I)
-            if m2:
-                pal = m2.group(1).lower()
-                usada = re.search(r'"%s"' % re.escape(pal), h, re.I)
-                chk(not usada, 'La palabra del CTA no se ha usado antes',
-                    f'"{pal}" ya aparece en el historial' if usada else f'"{pal}" limpia')
-        if pilar in ('mapa', 'los10') and cuenta:
-            fila = re.search(r'\|\s*\*\*%s\*\*\s*\|([^|]*)\|([^|]*)\|' % cuenta, h)
-            if fila:
-                usadas = (fila.group(1) if pilar == 'mapa' else fila.group(2)).strip()
-                chk(True, f'Regiones ya usadas por {cuenta} ({pilar})', f'NO repetir: {usadas}')
+    _u = usado_del_panel()
+    if _u.get('error'):
+        chk(True, 'AVISO: no he podido leer lo ya usado del panel',
+            f'{_u["error"]}. Solo cuento historial-publicaciones.md, que acaba el 24/11: mira neety_usado antes de entregar')
+    # El propio post (mismo texto) no cuenta como usado.
+    _posts_db = [x for x in _u.get('posts', []) if (x.get('texto') or '').strip() != cuerpo.strip()]
+    if pilar == 'leadmagnet':
+        m2 = re.search(r'comenta\s+"([^"]+)"', cuerpo, re.I)
+        if m2:
+            pal = m2.group(1).lower()
+            usada = (h and re.search(r'"%s"' % re.escape(pal), h, re.I)) or any(
+                re.search(r'comenta\s+"%s"' % re.escape(pal), x.get('texto') or '', re.I) for x in _posts_db)
+            chk(not usada, 'La palabra del CTA no se ha usado antes',
+                f'"{pal}" ya aparece en el historial o en un post del panel' if usada else f'"{pal}" limpia')
+    if pilar in ('mapa', 'los10') and cuenta:
+        usadas = []
+        fila = re.search(r'\|\s*\*\*%s\*\*\s*\|([^|]*)\|([^|]*)\|' % cuenta, h) if h else None
+        if fila:
+            usadas.append((fila.group(1) if pilar == 'mapa' else fila.group(2)).strip())
+        _rx = r'mapa' if pilar == 'mapa' else r'las ?10|los ?10'
+        usadas += [f"{x['region']} ({x.get('fecha')})" for x in _posts_db
+                   if x.get('region') and x.get('cuenta') == cuenta and re.search(_rx, x.get('pilar') or '', re.I)]
+        if usadas:
+            chk(True, f'Regiones ya usadas por {cuenta} ({pilar})', 'NO repetir: ' + '; '.join(usadas))
 
     # ------------------------------------------------------------------
     # MEME + UNAI: bloqueo duro (Iker, 2026-07-29)

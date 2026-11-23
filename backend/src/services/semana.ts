@@ -484,6 +484,10 @@ export interface PostSemanaEntrada {
    * conserva la que hay; si viene, se mezcla por id sin pisar respuestas.
    */
   pendientes?: Partial<Pendiente>[] | null;
+  /** Región de un mapa o de «Las 10» (2026-11-24): la lee `neety_usado` para no repetirla en esa cuenta. */
+  region?: string | null;
+  /** El diario del post: qué pasó al publicarlo, su resultado y lo aprendido (2026-11-24). Sustituye a historial-publicaciones.md. */
+  notas?: string | null;
 }
 
 function limpio(v: unknown, max: number): string | null {
@@ -522,7 +526,7 @@ export async function leerSemana(semana: string) {
 
   const posts = await pool.query(
     `SELECT id, semana, clave, to_char(fecha, 'YYYY-MM-DD') AS fecha, cuenta, objetivo,
-            experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, referencia, coautores, updated_at,
+            experimento, pilar, titulo, texto, estado, vara, por_que, falta, nota_imagen, referencia, coautores, region, notas, updated_at,
             menciones, pendientes, programado_para, publicando_desde, publicado_at, linkedin_post_id, unipile_draft_id,
             error_publicacion,
             (imagen IS NOT NULL) AS tiene_imagen,
@@ -674,8 +678,8 @@ export async function guardarSemana(
         await client.query(
           `INSERT INTO semana_posts
              (semana, clave, fecha, cuenta, objetivo, experimento, pilar, titulo, texto, estado,
-              vara, por_que, falta, nota_imagen, coautores, menciones, referencia, pendientes)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14,$15,$16,$17,$18)`,
+              vara, por_que, falta, nota_imagen, coautores, menciones, referencia, pendientes, region, notas)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,COALESCE($10,'idea'),$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)`,
           [
             semana,
             clave,
@@ -695,6 +699,8 @@ export async function guardarSemana(
             JSON.stringify(menciones ?? []),
             limpio(p.referencia, 2000),
             JSON.stringify(pendientes ?? []),
+            limpio(p.region, 120),
+            limpio(p.notas, 20000),
           ]
         );
         creados++;
@@ -724,6 +730,9 @@ export async function guardarSemana(
       if (coautores !== undefined) pon('coautores', coautores);
       if (menciones !== undefined) pon('menciones', JSON.stringify(menciones));
       if (pendientes !== undefined) pon('pendientes', JSON.stringify(pendientes));
+      // Región y notas no cambian lo que se publica: se pueden poner también en un post programado o publicado.
+      if (p.region !== undefined) pon('region', limpio(p.region, 120));
+      if (p.notas !== undefined) pon('notas', limpio(p.notas, 20000));
       // La unica columna de la programacion que toca el PUT, y solo para quitar la hora.
       if (desprogramar) sets.push('programado_para = NULL');
       if (sets.length) {

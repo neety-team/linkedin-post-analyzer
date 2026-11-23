@@ -1,5 +1,8 @@
 # Historial de la newsletter (ESTADO, no doctrina)
 
+> 🗄️ **ARCHIVO desde el 24/11/2026.** No se le añade nada más: el estado vive en la base de datos y se toca por el MCP (ver «Qué va al repo y qué va al MCP» en `CLAUDE.md`). Se sigue leyendo para lo anterior a esa fecha.
+
+
 > Equivalente a `historial-publicaciones.md` para el email. Lo LEE el planificador de tandas
 > (`email-marketing §6`) antes de escribir nada, y se ACTUALIZA y commitea al aprobar cada tanda.
 > Si falta un dato, PREGUNTA. No lo adivines.

@@ -37,6 +37,8 @@ export interface CorreoEntrada {
   gif_alt?: string | null;
   /** El HTML exacto del correo, con el pie: lo que la pagina pinta como preview (2026-11-23). */
   html?: string | null;
+  /** El diario del correo: qué se programó, el resultado y lo aprendido (2026-11-24). Sustituye a historial-newsletter.md. */
+  notas?: string | null;
   enlace?: string | null;
   utm_campaign?: string | null;
   utm_source?: string | null;
@@ -51,6 +53,8 @@ export interface CorreoEntrada {
 // `html` entra en la huella: si cambia lo que se ve en la preview, lo aprobado vuelve a borrador.
 const CAMPOS_TEXTO = ['remitente', 'asunto', 'asunto_b', 'preview', 'preview_b', 'cuerpo', 'gif_url', 'enlace', 'html'] as const;
 const MAX_HTML = 400_000;
+/** Lo que se puede cambiar de un correo ya programado o enviado: no cambia lo que lee el suscriptor. */
+export const CAMPOS_META = ['notas', 'por_que', 'pilar', 'tipo_cliente'] as const;
 const RE_FECHA = /^\d{4}-\d{2}-\d{2}$/;
 const RE_HORA = /^([01]\d|2[0-3]):[0-5]\d$/;
 
@@ -161,7 +165,7 @@ function validar(e: CorreoEntrada): string | null {
 }
 
 const COLUMNAS = `id, clave, numero, to_char(fecha, 'YYYY-MM-DD') AS fecha, hora, remitente, asunto, asunto_b,
-  preview, preview_b, cuerpo, gif_url, gif_alt, html, enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que,
+  preview, preview_b, cuerpo, gif_url, gif_alt, html, notas, enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que,
   validador, validador_ok, huella, estado, aprobado_por, aprobado_at, brevo_campaign_id, created_at, updated_at`;
 
 /**
@@ -203,13 +207,42 @@ export async function guardarCorreos(
   return { guardados, rechazados };
 }
 
+/** Solo los datos de trabajo de un correo programado o enviado (CAMPOS_META). */
+async function guardarMeta(cx: PoolClient, clave: string, e: CorreoEntrada): Promise<string | null> {
+  const sets: string[] = [];
+  const vals: any[] = [];
+  const pon = (col: string, v: any) => {
+    vals.push(v);
+    sets.push(col + ' = $' + vals.length);
+  };
+  if (e.notas !== undefined) pon('notas', opcional(e.notas, 20000));
+  if (e.por_que !== undefined) pon('por_que', opcional(e.por_que, 4000));
+  if (e.pilar !== undefined) pon('pilar', opcional(e.pilar, 100));
+  if (e.tipo_cliente !== undefined) pon('tipo_cliente', opcional(e.tipo_cliente, 100));
+  if (!sets.length) return null;
+  vals.push(clave);
+  await cx.query(
+    'UPDATE newsletter_correos SET ' + sets.join(', ') + ', updated_at = NOW() WHERE clave = $' + vals.length,
+    vals
+  );
+  return null;
+}
+
 /** Guarda una entrada dentro de la transaccion abierta en `cx`. Devuelve el motivo si se rechaza. */
 async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Promise<string | null> {
   const { rows } = await cx.query(`SELECT ${COLUMNAS} FROM newsletter_correos WHERE clave = $1 FOR UPDATE`, [clave]);
   const previo = rows[0];
   if (previo) {
     const motivo = motivoNoReescribible(previo);
-    if (motivo) return motivo;
+    if (motivo) {
+      // Programado o enviado (2026-11-24): el texto no se toca, pero sí sus datos de trabajo
+      // (notas, porqué, pilar, tipo de cliente). Si viene algo más, se rechaza como siempre.
+      const extra = Object.keys(e).filter(
+        (k) => k !== 'clave' && !(CAMPOS_META as readonly string[]).includes(k) && (e as any)[k] !== undefined
+      );
+      if (extra.length) return `${motivo} (solo se pueden cambiar ${CAMPOS_META.join(', ')}; vienen además: ${extra.join(', ')})`;
+      return guardarMeta(cx, clave, e);
+    }
   }
   const base = previo || {};
   const m = (k: keyof CorreoEntrada, def: any = null) => (e[k] !== undefined ? (e as any)[k] : (base as any)[k] ?? def);
@@ -226,6 +259,7 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
     gif_url: e.gif_url !== undefined ? opcional(e.gif_url, 1000) : base.gif_url ?? null,
     gif_alt: e.gif_alt !== undefined ? opcional(e.gif_alt, 300) : base.gif_alt ?? null,
     html: e.html !== undefined ? (e.html == null || !String(e.html).trim() ? null : String(e.html)) : base.html ?? null,
+    notas: e.notas !== undefined ? opcional(e.notas, 20000) : base.notas ?? null,
     enlace: e.enlace !== undefined ? opcional(e.enlace, 1000) : base.enlace ?? null,
     utm_campaign: e.utm_campaign !== undefined ? opcional(e.utm_campaign, 200) : base.utm_campaign ?? null,
     utm_source: e.utm_source !== undefined ? opcional(e.utm_source, 200) : base.utm_source ?? null,
@@ -244,13 +278,13 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
     clave, fusion.numero, fusion.fecha, fusion.hora, fusion.remitente, fusion.asunto, fusion.asunto_b,
     fusion.preview, fusion.preview_b, fusion.cuerpo, fusion.gif_url, fusion.gif_alt, fusion.enlace,
     fusion.utm_campaign, fusion.utm_source, fusion.pilar, fusion.tipo_cliente, fusion.por_que,
-    fusion.validador, fusion.validador_ok, huella, estado, vuelveABorrador, fusion.html,
+    fusion.validador, fusion.validador_ok, huella, estado, vuelveABorrador, fusion.html, fusion.notas,
   ];
   await cx.query(
     `INSERT INTO newsletter_correos
        (clave, numero, fecha, hora, remitente, asunto, asunto_b, preview, preview_b, cuerpo, gif_url, gif_alt,
-        enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que, validador, validador_ok, huella, estado, html)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$24)
+        enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que, validador, validador_ok, huella, estado, html, notas)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$24,$25)
      ON CONFLICT (clave) DO UPDATE SET
        numero = EXCLUDED.numero, fecha = EXCLUDED.fecha, hora = EXCLUDED.hora, remitente = EXCLUDED.remitente,
        asunto = EXCLUDED.asunto, asunto_b = EXCLUDED.asunto_b, preview = EXCLUDED.preview,
@@ -258,7 +292,7 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
        gif_alt = EXCLUDED.gif_alt, enlace = EXCLUDED.enlace, utm_campaign = EXCLUDED.utm_campaign,
        utm_source = EXCLUDED.utm_source, pilar = EXCLUDED.pilar, tipo_cliente = EXCLUDED.tipo_cliente,
        por_que = EXCLUDED.por_que, validador = EXCLUDED.validador, validador_ok = EXCLUDED.validador_ok,
-       huella = EXCLUDED.huella, estado = EXCLUDED.estado, html = EXCLUDED.html,
+       huella = EXCLUDED.huella, estado = EXCLUDED.estado, html = EXCLUDED.html, notas = EXCLUDED.notas,
        aprobado_por = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_por END,
        aprobado_at = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_at END,
        updated_at = NOW()`,

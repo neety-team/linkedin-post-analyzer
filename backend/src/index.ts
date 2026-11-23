@@ -39,6 +39,7 @@ import outliersRouter from './routes/outliers';
 import pillarsRouter from './routes/pillars';
 import semanaRouter from './routes/semana';
 import newsletterRouter from './routes/newsletter';
+import usadoRouter from './routes/usado';
 import mcpRouter from './mcp/http';
 
 const app = express();
@@ -88,6 +89,8 @@ app.use('/api/outliers', outliersRouter);
 app.use('/api/pillars', pillarsRouter);
 app.use('/api/semana', semanaRouter);
 app.use('/api/newsletter', newsletterRouter);
+// Lo ya usado en correos y posts, para los validadores (2026-11-24). Con el token de máquinas.
+app.use('/api/usado', usadoRouter);
 // El MCP por HTTP. Va DESPUES del basicAuthMiddleware (montado arriba), asi que
 // hereda el mismo Basic Auth que el resto de la app: el cliente MCP manda la
 // cabecera Authorization y no hay una segunda credencial que mantener.

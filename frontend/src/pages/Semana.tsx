@@ -44,6 +44,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApi, apiPost } from '../hooks/useApi';
+import { trozosConMenciones, type MencionPost } from '../utils/menciones';
 import { instanteMadrid, cuandoMadrid, horaMadrid, HORA_POR_DEFECTO } from '../utils/horaMadrid';
 // Colores y nombres compartidos con Cuentas, donde va el objetivo de lo publicado.
 import { OBJETIVO, type Objetivo } from '../utils/objetivo';
@@ -585,37 +586,38 @@ const urlFoto2 = (post: PostSemana) => `${API}/api/semana/posts/${post.id}/image
 
 /**
  * El texto del post: lo que falta por rellenar ([...]) resaltado, y los enlaces
- * y las menciones (@Nombre Apellido) en el azul de LinkedIn.
+ * y las menciones en el azul de LinkedIn. Es mención justo lo que enlazará el
+ * publicador: un @Nombre con su perfil en `menciones` (`utils/menciones.ts`).
+ * Un @Algo sin perfil sale en llano, como saldría publicado.
  */
-function TextoPost({ texto, azul }: { texto: string; azul: string }) {
-  const partes = texto.split(
-    /(\[[^\]\n]*\]|https?:\/\/[^\s]+|@\p{Lu}\p{L}+(?: \p{Lu}\p{L}+){0,3})/gu
-  );
+function TextoPost({ texto, menciones, azul }: { texto: string; menciones?: MencionPost[] | null; azul: string }) {
   return (
     <>
-      {partes.map((p, i) => {
-        if (p.startsWith('[') && p.endsWith(']')) {
+      {trozosConMenciones(texto, menciones).map((t, j) => {
+        if (t.tipo === 'mencion') {
           return (
-            <mark key={i} className="bg-naranja/30 text-inherit rounded px-0.5">
-              {p}
-            </mark>
-          );
-        }
-        if (/^https?:\/\//.test(p)) {
-          return (
-            <span key={i} className={`${azul} font-semibold break-all`}>
-              {p}
+            <span key={j} className={`${azul} font-semibold`}>
+              {t.nombre}
             </span>
           );
         }
-        if (/^@\p{Lu}/u.test(p)) {
-          return (
-            <span key={i} className={`${azul} font-semibold`}>
-              {p.slice(1)}
-            </span>
-          );
-        }
-        return <span key={i}>{p}</span>;
+        return t.texto.split(/(\[[^\]\n]*\]|https?:\/\/[^\s]+)/g).map((p, i) => {
+          if (p.startsWith('[') && p.endsWith(']')) {
+            return (
+              <mark key={`${j}-${i}`} className="bg-naranja/30 text-inherit rounded px-0.5">
+                {p}
+              </mark>
+            );
+          }
+          if (/^https?:\/\//.test(p)) {
+            return (
+              <span key={`${j}-${i}`} className={`${azul} font-semibold break-all`}>
+                {p}
+              </span>
+            );
+          }
+          return <span key={`${j}-${i}`}>{p}</span>;
+        });
       })}
     </>
   );
@@ -799,7 +801,7 @@ function PostLinkedIn({
           {post.texto ? (
             <div className="relative">
               <div className={`text-[14px] leading-5 whitespace-pre-wrap break-words ${cortado ? 'line-clamp-3' : ''}`}>
-                <TextoPost texto={post.texto} azul={c.azul} />
+                <TextoPost texto={post.texto} menciones={post.menciones} azul={c.azul} />
               </div>
               {cortado && (
                 <button

@@ -32,6 +32,11 @@
  * responde. Y la respuesta abre SIEMPRE con la mencion de quien comento, como
  * las de Cuentas (`buildMentionedReply`): `{{0}}` + el resto en minuscula.
  *
+ * SOLO ENTRE FUNDADORES (2026-11-23): la semana tiene tambien la cuenta de
+ * Ismael (ventas), pero la ronda es de Iker, Unai y Asier. Un post de Ismael
+ * no tiene ronda (ni aviso al Chat, ni likes, ni comentarios) y Ismael nunca
+ * es actor en la de otro: `FUNDADORES` es la lista de aqui, no la de semana.ts.
+ *
  * NUNCA DOS VECES: cada accion se reclama con un UPDATE atomico. Una que se
  * queda «en_curso» mas de 15 minutos (el proceso murio a mitad) se da por
  * fallida y NO se repite: un comentario doble se ve mucho mas que uno que falta.
@@ -44,7 +49,9 @@ import { cuentasUnipile, NOMBRE_EN_LINKEDIN } from './publicadorLinkedin';
 import { repartirRoles, generarRonda, componerAviso, type Cuenta, type Ronda } from './abejaTextos';
 
 const UN_MINUTO = 60 * 1000;
-const CUENTAS: Cuenta[] = ['iker', 'unai', 'asier'];
+/** Quienes hacen la ronda. A proposito NO es la lista de semana.ts (que lleva a Ismael). */
+export const FUNDADORES: Cuenta[] = ['iker', 'unai', 'asier'];
+export const esFundador = (c: string): c is Cuenta => (FUNDADORES as string[]).includes(c);
 const CADUCA_MIN = 8 * 60;
 const COLGADA_MIN = 15;
 const VERIFICAR_INTENTOS = 12;
@@ -183,12 +190,13 @@ export async function planificarAbeja(
   op: { ahora?: Date; ronda?: Ronda | null; automatica?: boolean; azar?: () => number } = {}
 ): Promise<number> {
   try {
-    const autor = fila.cuenta as Cuenta;
-    if (!CUENTAS.includes(autor)) return 0;
+    // Un post que no es de un fundador (Ismael) no tiene ronda: ni aviso ni acciones.
+    if (!esFundador(fila.cuenta)) return 0;
+    const autor = fila.cuenta;
     const ya = await pool.query(`SELECT 1 FROM abeja_acciones WHERE semana_post_id = $1 LIMIT 1`, [fila.id]);
     if (ya.rows.length) return 0;
     const automatica = op.automatica ?? (await abejaActiva());
-    const orden = barajar(CUENTAS.filter((c) => c !== autor), op.azar);
+    const orden = barajar(FUNDADORES.filter((c) => c !== autor), op.azar);
     let ronda: Ronda | null = op.ronda === undefined ? null : op.ronda;
     if (op.ronda === undefined) {
       try {
@@ -570,8 +578,9 @@ export async function vueltaAbeja(op: { ejecutor?: Ejecutor; automatica?: boolea
 export async function ensayarRonda(postId: string) {
   const { rows } = await pool.query(`SELECT cuenta, texto FROM semana_posts WHERE id = $1`, [postId]);
   if (!rows.length) throw new Error('Post no encontrado');
-  const autor = rows[0].cuenta as Cuenta;
-  const orden = barajar(CUENTAS.filter((c) => c !== autor));
+  const autor = rows[0].cuenta as string;
+  if (!esFundador(autor)) throw new Error('El efecto abeja es entre los fundadores: este post no tiene ronda');
+  const orden = barajar(FUNDADORES.filter((c) => c !== autor));
   return generarRonda({ texto: rows[0].texto || '', autor, comentaristas: repartirRoles(orden) });
 }
 

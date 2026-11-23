@@ -276,7 +276,7 @@ router.delete('/posts/:id', async (req: Request, res: Response) => {
   }
 });
 
-/** GET /api/semana/perfiles — nombre, titular y foto de las tres cuentas. */
+/** GET /api/semana/perfiles — nombre, titular y foto de las cuentas de la semana. */
 router.get('/perfiles', async (_req: Request, res: Response) => {
   res.json({ perfiles: await perfilesDeCuentas() });
 });

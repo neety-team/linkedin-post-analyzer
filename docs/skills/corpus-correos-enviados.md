@@ -936,7 +936,7 @@ PPD. Apuesta perdida. Esta semana friego yo las tazas.
 ## Iker 15 · el Radar de octubre en Excel (primer correo de RECURSO · `neety.com/para-ti/radar-espana-2026-10`)
 
 **Programado:** mar 2026-11-24 09:05 (+01:00) · campaña Brevo 40 · listas 15 + 4 + 16 + 19, excluidas la 21, la 22 y la 23
-**Remitente:** `Iker de Neety` (`hola@neety.com`) · firma `Iker Galarza, cofundador de Neety` · sin GIF
+**Remitente:** `Iker de Neety` (`hola@neety.com`) · firma `Iker Galarza, cofundador de Neety` · GIF `alegría` de Kaixito tras `Te las he pasado a un Excel.`
 **UTM escrito a mano:** `utm_campaign=correo-15-iker-radar-excel`
 
 ### El asunto y el preheader
@@ -963,6 +963,8 @@ Plantas nuevas, ampliaciones y ayudas concedidas.
 De los 1.100 M€ de Sagunto a ampliaciones de pymes.
 
 Te las he pasado a un Excel.
+
+[GIF alegría]
 
 Filtras por lo que vendes y por comunidad.
 Cada empresa lleva qué puede necesitar comprar.

@@ -267,7 +267,7 @@ def main():
     # cada apertura enviada; falla si se repite entera o si comparte las dos ultimas palabras.
     APERTURAS_USADAS = ['te cuento', 'una frase', 'al grano', 'calendario en mano', 'aviso de mascota',
                         'hoy vengo enfadado', 'apunta', 'confesion de mascota', 'shhh', 'respira',
-                        'mision fallida', 'culpable', 'interrogatorio']
+                        'mision fallida', 'culpable', 'interrogatorio', 'lista nueva']
     import unicodedata as _ud
     _ap = ''.join(c for c in _ud.normalize('NFD', primera.lower()) if _ud.category(c) != 'Mn')
     _ap = re.sub(r'[^a-z ]', '', _ap).strip()
@@ -927,6 +927,9 @@ def main():
             # correo 14 · Kaixito · OBJECION ChatGPT (programado mar 17/11 09:05)
             'interrogando salen las que ya conoces, el resto no': '2026-11-17',
             'el resto de tu mercado lo vemos contigo': '2026-11-17',
+            # correo 15 · Iker · RECURSO Radar de octubre en Excel (programado mar 24/11 09:05)
+            'quien esta invirtiendo sale en prensa, que compra no': '2026-11-24',
+            'lo que puede comprarte, en este excel': '2026-11-24',
         }
         _hoy = datetime.date.today()
         # 🔴 Se comparan SIN TILDES (23/09): la lista se escribe en ascii y el

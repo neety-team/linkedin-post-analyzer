@@ -933,6 +933,59 @@ PPD. Apuesta perdida. Esta semana friego yo las tazas.
 
 ---
 
+## Iker 15 · el Radar de octubre en Excel (primer correo de RECURSO · `neety.com/para-ti/radar-espana-2026-10`)
+
+**Programado:** mar 2026-11-24 09:05 (+01:00) · campaña Brevo 40 · listas 15 + 4 + 16 + 19, excluidas la 21, la 22 y la 23
+**Remitente:** `Iker de Neety` (`hola@neety.com`) · firma `Iker Galarza, cofundador de Neety` · sin GIF
+**UTM escrito a mano:** `utm_campaign=correo-15-iker-radar-excel`
+
+### El asunto y el preheader
+
+```
+40 industriales que están invirtiendo
+```
+```
+Te las paso en un Excel, sin formulario.
+```
+
+### El cuerpo, literal
+
+```
+Lista nueva.
+
+Cada mes repasamos boletines oficiales y prensa.
+Buscamos las industrias que anuncian una inversión.
+
+En octubre salieron 40 en España.
+
+Plantas nuevas, ampliaciones y ayudas concedidas.
+
+De los 1.100 M€ de Sagunto a ampliaciones de pymes.
+
+Te las he pasado a un Excel.
+
+Filtras por lo que vendes y por comunidad.
+Cada empresa lleva qué puede necesitar comprar.
+Y a quién buscar dentro, con su fuente.
+
+La lista está en la web, el Excel solo va por aquí.
+
+Quién está invirtiendo sale en prensa, qué compra no.
+Lo que puede comprarte, en este Excel: https://neety.com/para-ti/radar-espana-2026-10?utm_source=brevo&utm_medium=email&utm_campaign=correo-15-iker-radar-excel
+
+Respóndeme qué vendes y te digo por cuáles empezaría.
+
+Te contesto yo, no un robot.
+
+Iker Galarza, cofundador de Neety
+
+PD. El de noviembre llega a primeros de diciembre.
+```
+
+> **Real / inventado:** todo real. Las 40 inversiones, los 1.100 M€ de Sagunto y las fuentes salen de la edición de octubre del Radar. La familia de compra y a quién buscar dentro son una clasificación del texto publicado (`scripts/radar-excel.py`).
+
+---
+
 ## Kaixito 15 · plantado en la puerta (pilar DOLOR, vía HISTORIA · `/solicitar-demo`)
 
 > ⛔ **NO SALIÓ.** Retirado el 23/11 antes del envío (campaña 39 suspendida): la newsletter pasa a aportar valor en cada correo. Se guarda como borrador del banco, no cuenta como enviado.

@@ -15,6 +15,7 @@ import { Link, useLocation, useSearchParams, type SetURLSearchParams } from 'rea
 import { useApi } from '../hooks/useApi';
 import CanalSelector from '../components/CanalSelector';
 import CorreoTarjeta from '../components/newsletter/CorreoTarjeta';
+import FichaCorreo from '../components/newsletter/FichaCorreo';
 import CalendarioMes from '../components/newsletter/CalendarioMes';
 import MetricasEnviado from '../components/newsletter/MetricasEnviado';
 import { cuandoCorreo, ESTADO_CORREO, type Correo, type RespuestaNewsletter } from '../components/newsletter/tipos';
@@ -107,14 +108,10 @@ export default function Newsletter() {
   const proximo = !params.get('m') && !clave && delMes === 0 ? proximoCorreo(correos, hoyMadrid()) : null;
   const perdido = (location.state as { perdido?: string } | null)?.perdido;
 
-  const tituloDetalle = useRef<HTMLHeadingElement>(null);
   const tituloMesRef = useRef<HTMLHeadingElement>(null);
-  // La clave que hay que enseñar al abrirse (por clic o enlace de la página); se gasta al usarla.
-  const revelar = useRef<string | null>(null);
   const ultimaFicha = useRef<string | null>(null);
 
   const elegir = (c: string) => {
-    if (c !== claveAbierta) revelar.current = c;
     ultimaFicha.current = c;
     const p = new URLSearchParams(params);
     p.set('m', mes);
@@ -125,8 +122,20 @@ export default function Newsletter() {
   /** El enlace a un correo en su mes, para las tiras de arriba. */
   const enlaceCorreo = (c: Correo) => `?m=${mesDeFecha(c.fecha) || mes}&c=${encodeURIComponent(c.clave)}`;
   const alPulsarEnlace = (c: Correo) => {
-    if (c.clave !== claveAbierta) revelar.current = c.clave;
     ultimaFicha.current = c.clave;
+  };
+
+  // Las flechas de la ficha recorren todos los correos por fecha, aunque cambien de mes.
+  const orden = correos.filter((c) => c.fecha).sort(porFechaYHora);
+  const mover = (paso: number) => {
+    const i = orden.findIndex((c) => c.clave === claveAbierta);
+    const sig = orden[i + paso];
+    if (i < 0 || !sig) return;
+    ultimaFicha.current = sig.clave;
+    const p = new URLSearchParams(params);
+    p.set('m', mesDeFecha(sig.fecha) || mes);
+    p.set('c', sig.clave);
+    setParams(p, { replace: true });
   };
 
   const cerrar = () => cerrarDetalle(setParams, mes, ultimaFicha, tituloMesRef);
@@ -139,30 +148,7 @@ export default function Newsletter() {
     setParams(p, { replace: true, state: { perdido: clave } });
   }, [d, clave, abierto, params, setParams]);
 
-  // Al abrir un correo nuevo, el foco va al detalle (y en el móvil, la vista baja hasta él).
-  // Solo cuando cambia la clave: aprobar o dejar feedback recargan los datos y no deben mover nada.
-  useEffect(() => {
-    if (!claveAbierta || revelar.current !== claveAbierta) return;
-    revelar.current = null;
-    tituloDetalle.current?.focus({ preventScroll: true });
-    // Con el panel al lado (xl) basta con que se vea; debajo del calendario, se sube hasta él.
-    const alLado = window.matchMedia('(min-width: 1280px)').matches;
-    tituloDetalle.current?.scrollIntoView({ block: alLado ? 'nearest' : 'start' });
-  }, [claveAbierta]);
-
-  // Esc cierra el detalle, salvo si otro lo ha atendido, en un desplegable o con texto a medio escribir.
-  useEffect(() => {
-    if (!claveAbierta) return;
-    const tecla = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || e.defaultPrevented) return;
-      const t = e.target;
-      if (t instanceof HTMLSelectElement) return;
-      if ((t instanceof HTMLTextAreaElement || t instanceof HTMLInputElement) && t.value.trim()) return;
-      cerrarDetalle(setParams, mes, ultimaFicha, tituloMesRef);
-    };
-    document.addEventListener('keydown', tecla);
-    return () => document.removeEventListener('keydown', tecla);
-  }, [claveAbierta, mes, setParams]);
+  // Esc, la X y el clic fuera los atiende la ficha (FichaCorreo): al cerrarse llama a `cerrar`.
 
   const enlaceMes = (m: string) => `?m=${m}`;
   const BOTON = 'inline-flex items-center justify-center h-9 rounded-full border border-border bg-bg-card text-text-primary text-[13px] font-semibold hover:border-text-muted transition-colors';
@@ -267,7 +253,7 @@ export default function Newsletter() {
             </div>
           )}
 
-          <div className={abierto ? 'grid gap-6 items-start xl:grid-cols-[minmax(0,1fr)_minmax(0,25rem)]' : ''}>
+          <div>
             <section className="space-y-4 min-w-0" aria-labelledby="nl-mes">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
@@ -331,26 +317,15 @@ export default function Newsletter() {
             </section>
 
             {abierto && (
-              <section
-                id="nl-detalle"
-                aria-labelledby="nl-detalle-titulo"
-                className="min-w-0 space-y-4 xl:sticky xl:top-20 xl:max-h-[calc(100vh-6rem)] xl:overflow-y-auto xl:pr-1"
+              <FichaCorreo
+                correo={abierto}
+                posicion={orden.findIndex((c) => c.clave === abierto.clave)}
+                total={orden.length}
+                onMover={mover}
+                onCerrar={cerrar}
               >
-                <div className="flex items-center justify-between gap-3">
-                  <h2
-                    id="nl-detalle-titulo"
-                    ref={tituloDetalle}
-                    tabIndex={-1}
-                    className="text-[13px] font-semibold text-text-muted focus:outline-none scroll-mt-20"
-                  >
-                    {abierto.numero != null ? `Correo ${abierto.numero}` : abierto.clave} · {cuandoCorreo(abierto.fecha, abierto.hora)}
-                  </h2>
-                  <button type="button" onClick={cerrar} className={`${BOTON} px-3.5 shrink-0`}>
-                    Cerrar<span className="sr-only"> el correo</span>
-                  </button>
-                </div>
                 {abierto.estado === 'enviado' && (
-                  <div className="bg-bg-card border border-border rounded-xl p-4">
+                  <div className="bg-bg-card border border-border rounded-xl p-4 mb-6">
                     <MetricasEnviado correo={abierto} />
                   </div>
                 )}
@@ -361,7 +336,7 @@ export default function Newsletter() {
                   autor={autor}
                   onCambio={datos.refetch}
                 />
-              </section>
+              </FichaCorreo>
             )}
           </div>
         </>

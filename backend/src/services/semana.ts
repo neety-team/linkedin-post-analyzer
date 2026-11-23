@@ -120,11 +120,19 @@ export function motivoParaPublicar(
  * - `texto` (hay que contar algo): con la respuesta queda respondido, porque hay
  *   que meterla en el post. Lo pasa a hecho quien la aplica, por el PUT o el MCP.
  *
- * Mientras quede alguno sin hacer, el post no se programa ni se publica. Cuando
- * el ultimo pasa a hecho, el post queda aprobado (si no tiene huecos).
+ * - `descartado` (2026-11-23): la pregunta ya se contesto por otro lado (un
+ *   chat, una reunion) y alguien la quita desde la pagina. Cuenta como resuelta
+ *   igual que `hecho`, guarda quien y cuando la descarto, y se puede deshacer
+ *   mientras el post no este programado.
+ *
+ * Mientras quede alguno sin resolver (hecho o descartado), el post no se
+ * programa ni se publica. Cuando se resuelve el ultimo, el post queda aprobado
+ * (si no tiene huecos).
  */
 export const TIPOS_PENDIENTE = ['check', 'texto'] as const;
-export const ESTADOS_PENDIENTE = ['pendiente', 'respondido', 'hecho'] as const;
+export const ESTADOS_PENDIENTE = ['pendiente', 'respondido', 'hecho', 'descartado'] as const;
+/** Los estados que ya no bloquean. Todo lo que cuenta «hecho» para desbloquear mira esto. */
+export const ESTADOS_PENDIENTE_RESUELTOS: readonly string[] = ['hecho', 'descartado'];
 
 export interface Pendiente {
   id: string;
@@ -135,11 +143,16 @@ export interface Pendiente {
   respuesta: string | null;
   por: string | null;
   at: string | null;
+  /** Quien lo descarto y cuando. Solo en `descartado`; `por` y `at` siguen siendo de la respuesta, si la hubo. */
+  descartado_por?: string | null;
+  descartado_at?: string | null;
 }
 
-/** Lo que bloquea por la lista: el primero que no esta hecho, en llano. */
+export const pendienteResuelto = (p: Pick<Pendiente, 'estado'>) => ESTADOS_PENDIENTE_RESUELTOS.includes(p.estado);
+
+/** Lo que bloquea por la lista: el primero sin resolver, en llano. */
 export function motivoPendientes(pendientes: Pendiente[] | null | undefined): string | null {
-  const abiertos = (pendientes || []).filter((p) => p.estado !== 'hecho');
+  const abiertos = (pendientes || []).filter((p) => !pendienteResuelto(p));
   if (!abiertos.length) return null;
   const p = abiertos[0];
   const mas = abiertos.length > 1 ? ` (y ${abiertos.length - 1} más)` : '';
@@ -154,10 +167,10 @@ export function motivoPendientes(pendientes: Pendiente[] | null | undefined): st
 
 const ESTADOS_ANTES_DE_APROBAR = ['idea', 'esqueleto', 'a_medias', 'escrito'];
 
-/** Si la lista acaba de quedar toda hecha, el estado al que pasa el post (o el mismo). */
+/** Si la lista acaba de quedar toda resuelta, el estado al que pasa el post (o el mismo). */
 function estadoTrasPendientes(antes: Pendiente[], despues: Pendiente[], estado: string, texto: string): string {
-  const abiertosAntes = antes.some((p) => p.estado !== 'hecho');
-  const todoHecho = despues.length > 0 && despues.every((p) => p.estado === 'hecho');
+  const abiertosAntes = antes.some((p) => !pendienteResuelto(p));
+  const todoHecho = despues.length > 0 && despues.every(pendienteResuelto);
   if (!abiertosAntes || !todoHecho) return estado;
   if (!ESTADOS_ANTES_DE_APROBAR.includes(estado)) return estado;
   if (motivoNoPublicable('aprobado', texto)) return estado;
@@ -202,7 +215,7 @@ export function normalizarPendientes(v: unknown, clave: string): Pendiente[] {
     if (id && usados.has(id)) throw new Error(`Id de pendiente repetido en ${clave}: ${id}`);
     if (!id) id = idDeTexto(texto, usados);
     usados.add(id);
-    out.push({
+    const p: Pendiente = {
       id,
       texto,
       tipo,
@@ -211,7 +224,12 @@ export function normalizarPendientes(v: unknown, clave: string): Pendiente[] {
       respuesta: limpio((e as any).respuesta, 4000),
       por: limpio((e as any).por, 60),
       at: limpio((e as any).at, 40),
-    });
+    };
+    if (estado === 'descartado') {
+      p.descartado_por = limpio((e as any).descartado_por, 60);
+      p.descartado_at = limpio((e as any).descartado_at, 40);
+    }
+    out.push(p);
   }
   return out;
 }
@@ -219,22 +237,39 @@ export function normalizarPendientes(v: unknown, clave: string): Pendiente[] {
 /**
  * Mezcla por `id` la lista que llega con la que hay en la base. La que llega
  * manda en el texto, el tipo, quien y el orden; el estado y la respuesta que ya
- * hay NO se pisan, salvo que la que llega marque ese id como hecho a proposito.
- * Lo que ya tiene respuesta y no viene se conserva al final (no se pierde lo que
- * contesto alguien); lo que no tiene respuesta y no viene, se quita.
+ * hay NO se pisan, salvo que la que llega marque a proposito como hecho o
+ * descartado uno que sigue abierto. Lo ya resuelto (hecho o descartado) no lo
+ * cambia el PUT ni el MCP: un descartado se deshace desde la pagina.
+ * Lo que ya tiene respuesta o esta descartado y no viene se conserva al final
+ * (no se pierde lo que hizo alguien); lo que no tiene respuesta y no viene, se quita.
  */
 export function mezclarPendientes(actuales: Pendiente[], entrantes: Pendiente[], ahora = new Date()): Pendiente[] {
   const porId = new Map(actuales.map((p) => [p.id, p]));
   const out: Pendiente[] = entrantes.map((e) => {
     const a = porId.get(e.id);
     if (!a) {
-      return e.estado === 'pendiente'
-        ? { ...e, respuesta: null, por: null, at: null }
-        : { ...e, por: e.por ?? 'Claude', at: e.at ?? ahora.toISOString() };
+      if (e.estado === 'pendiente') return { ...e, respuesta: null, por: null, at: null };
+      if (e.estado === 'descartado') {
+        return {
+          ...e,
+          descartado_por: e.descartado_por ?? e.por ?? 'Claude',
+          descartado_at: e.descartado_at ?? e.at ?? ahora.toISOString(),
+        };
+      }
+      return { ...e, por: e.por ?? 'Claude', at: e.at ?? ahora.toISOString() };
     }
     const base = { ...a, texto: e.texto, tipo: e.tipo, quien: e.quien };
-    if (e.estado === 'hecho' && a.estado !== 'hecho') {
+    if (pendienteResuelto(a)) return base;
+    if (e.estado === 'hecho') {
       return { ...base, estado: 'hecho' as const, por: e.por ?? 'Claude', at: ahora.toISOString() };
+    }
+    if (e.estado === 'descartado') {
+      return {
+        ...base,
+        estado: 'descartado' as const,
+        descartado_por: e.descartado_por ?? e.por ?? 'Claude',
+        descartado_at: ahora.toISOString(),
+      };
     }
     return base;
   });
@@ -246,13 +281,15 @@ export function mezclarPendientes(actuales: Pendiente[], entrantes: Pendiente[],
 }
 
 /**
- * Una persona responde a un pendiente desde la pagina. `respuesta` es 'si' o
- * 'no' en un check, y lo que cuenta en un texto. Devuelve el post entero como lo
- * da la semana, o null si el post no existe.
+ * Cambia la lista de pendientes de un post dentro de una transaccion, con la
+ * fila bloqueada, y deja el estado del post como toque: si con el cambio queda
+ * todo resuelto, aprobado; si `reabre` y el post estaba aprobado, vuelve a
+ * escrito. Devuelve el post entero como lo da la semana, o null si no existe.
  */
-export async function responderPendiente(postId: string, pid: string, respuesta: unknown, autor: unknown, ahora = new Date()) {
-  const quien = limpio(autor, 60);
-  if (!quien) throw new Error('Falta quién responde: elige arriba, junto a «Soy», quién eres');
+async function cambiarPendientes(
+  postId: string,
+  cambio: (post: { estado: string; texto: string | null }, antes: Pendiente[]) => { despues: Pendiente[]; reabre?: boolean }
+) {
   const client = await pool.connect();
   let semana: string;
   try {
@@ -268,10 +305,38 @@ export async function responderPendiente(postId: string, pid: string, respuesta:
     const post = rows[0];
     semana = post.semana;
     const antes: Pendiente[] = Array.isArray(post.pendientes) ? post.pendientes : [];
+    const { despues, reabre } = cambio(post, antes);
+    let estado = estadoTrasPendientes(antes, despues, post.estado, post.texto || '');
+    if (reabre && estado === 'aprobado' && despues.some((p) => !pendienteResuelto(p))) estado = 'escrito';
+    await client.query(
+      `UPDATE semana_posts SET pendientes = $2, estado = $3, updated_at = NOW() WHERE id = $1`,
+      [postId, JSON.stringify(despues), estado]
+    );
+    await client.query('COMMIT');
+  } catch (err) {
+    await client.query('ROLLBACK').catch(() => {});
+    throw err;
+  } finally {
+    client.release();
+  }
+  const s = await leerSemana(semana);
+  return s?.posts.find((x: any) => x.id === postId) ?? null;
+}
+
+/**
+ * Una persona responde a un pendiente desde la pagina. `respuesta` es 'si' o
+ * 'no' en un check, y lo que cuenta en un texto. Devuelve el post entero como lo
+ * da la semana, o null si el post no existe.
+ */
+export async function responderPendiente(postId: string, pid: string, respuesta: unknown, autor: unknown, ahora = new Date()) {
+  const quien = limpio(autor, 60);
+  if (!quien) throw new Error('Falta quién responde: elige arriba, junto a «Soy», quién eres');
+  return cambiarPendientes(postId, (_post, antes) => {
     const i = antes.findIndex((p) => p.id === pid);
     if (i < 0) throw new Error('Ese pendiente ya no está en el post');
     const p = antes[i];
     if (p.estado === 'hecho') throw new Error('Eso ya está hecho');
+    if (p.estado === 'descartado') throw new Error('Esa pregunta está descartada: deshaz el descarte para responderla');
     const at = ahora.toISOString();
     let nuevo: Pendiente;
     if (p.tipo === 'check') {
@@ -289,21 +354,68 @@ export async function responderPendiente(postId: string, pid: string, respuesta:
       if (!t) throw new Error('La respuesta está vacía');
       nuevo = { ...p, estado: 'respondido', respuesta: t, por: quien, at };
     }
-    const despues = antes.map((x, j) => (j === i ? nuevo : x));
-    const estado = estadoTrasPendientes(antes, despues, post.estado, post.texto || '');
-    await client.query(
-      `UPDATE semana_posts SET pendientes = $2, estado = $3, updated_at = NOW() WHERE id = $1`,
-      [postId, JSON.stringify(despues), estado]
-    );
-    await client.query('COMMIT');
-  } catch (err) {
-    await client.query('ROLLBACK').catch(() => {});
-    throw err;
-  } finally {
-    client.release();
-  }
-  const s = await leerSemana(semana);
-  return s?.posts.find((x: any) => x.id === postId) ?? null;
+    return { despues: antes.map((x, j) => (j === i ? nuevo : x)) };
+  });
+}
+
+/**
+ * DESCARTAR (2026-11-23). La pregunta ya se contesto por otro lado y se quita
+ * desde la pagina: queda resuelta como si estuviera hecha, con quien la descarto
+ * y cuando. `pids` = 'abiertos' descarta de una vez todas las que siguen sin
+ * resolver. Si no queda ninguna abierta, el post pasa a aprobado como cuando se
+ * contesta la ultima (con el resto del candado: sin huecos).
+ */
+export async function descartarPendientes(postId: string, pids: string[] | 'abiertos', autor: unknown, ahora = new Date()) {
+  const quien = limpio(autor, 60);
+  if (!quien) throw new Error('Falta quién descarta: elige arriba, junto a «Soy», quién eres');
+  return cambiarPendientes(postId, (post, antes) => {
+    if (post.estado === 'programado' || post.estado === 'publicado') {
+      throw new Error(`El post ya está ${post.estado}: no se descarta nada`);
+    }
+    let ids: Set<string>;
+    if (pids === 'abiertos') {
+      ids = new Set(antes.filter((p) => !pendienteResuelto(p)).map((p) => p.id));
+      if (!ids.size) throw new Error('No queda ninguna pregunta abierta');
+    } else {
+      for (const pid of pids) {
+        const p = antes.find((x) => x.id === pid);
+        if (!p) throw new Error('Ese pendiente ya no está en el post');
+        if (p.estado === 'hecho') throw new Error('Eso ya está hecho');
+        if (p.estado === 'descartado') throw new Error('Esa pregunta ya está descartada');
+      }
+      ids = new Set(pids);
+    }
+    const at = ahora.toISOString();
+    return {
+      despues: antes.map((p) =>
+        ids.has(p.id) ? { ...p, estado: 'descartado' as const, descartado_por: quien, descartado_at: at } : p
+      ),
+    };
+  });
+}
+
+/**
+ * Deshace un descarte mientras el post no este programado: la pregunta vuelve a
+ * como estaba (respondida si tenia respuesta, si no, pendiente) y vuelve a
+ * bloquear. Si el post habia pasado a aprobado, vuelve a escrito.
+ */
+export async function deshacerDescarte(postId: string, pid: string) {
+  return cambiarPendientes(postId, (post, antes) => {
+    if (post.estado === 'programado' || post.estado === 'publicado') {
+      throw new Error(`El post ya está ${post.estado}: quítalo de la programación antes de deshacer`);
+    }
+    const p = antes.find((x) => x.id === pid);
+    if (!p) throw new Error('Ese pendiente ya no está en el post');
+    if (p.estado !== 'descartado') throw new Error('Esa pregunta no está descartada');
+    return {
+      reabre: true,
+      despues: antes.map((x) => {
+        if (x.id !== pid) return x;
+        const { descartado_por: _p, descartado_at: _a, ...resto } = x;
+        return { ...resto, estado: x.respuesta ? ('respondido' as const) : ('pendiente' as const) };
+      }),
+    };
+  });
 }
 
 /** Los pendientes respondidos que esperan a meterse en su post, para la rutina de feedback. */

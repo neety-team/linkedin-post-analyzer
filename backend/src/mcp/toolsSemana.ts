@@ -70,8 +70,9 @@ const postEntrada = z.object({
           .enum(ESTADOS_PENDIENTE)
           .optional()
           .describe(
-            'Solo hace falta para marcar «hecho» uno ya respondido cuando su respuesta ya está metida en el post. ' +
-              'El estado y la respuesta que ya hay no se pisan con otro valor'
+            'Solo hace falta para marcar «hecho» uno ya respondido cuando su respuesta ya está metida en el post, ' +
+              'o «descartado» uno que ya se ha contestado por otro lado (chat, reunión). ' +
+              'Lo ya resuelto (hecho o descartado) no se pisa con otro valor; un descarte se deshace desde /semana'
           ),
       })
     )
@@ -79,8 +80,9 @@ const postEntrada = z.object({
     .optional()
     .describe(
       'Lo que falta para publicarlo, para que cada fundador lo confirme o lo cuente desde /semana. Mientras ' +
-        'quede alguno sin «hecho», el post no se programa; cuando el último pasa a hecho, el post queda aprobado. ' +
-        'Si no viene, se conservan; si viene, se mezcla por id y lo ya respondido se conserva aunque no venga. ' +
+        'quede alguno sin «hecho» ni «descartado», el post no se programa; cuando se resuelve el último, el post ' +
+        'queda aprobado. Si no viene, se conservan; si viene, se mezcla por id y lo ya respondido o descartado se ' +
+        'conserva aunque no venga. ' +
         '`null` o [] quita los que nadie ha contestado'
     ),
   nota_imagen: z
@@ -130,10 +132,12 @@ function renderSemana(s: any): string {
     );
     if (p.falta) l.push(`   Falta${p.pendientes?.length ? ' (nota)' : ''}: ${p.falta}`);
     for (const q of p.pendientes || []) {
-      const marca = q.estado === 'hecho' ? '✅' : q.estado === 'respondido' ? '📝' : '⏳';
+      const marca =
+        q.estado === 'hecho' ? '✅' : q.estado === 'descartado' ? '🚫' : q.estado === 'respondido' ? '📝' : '⏳';
       l.push(
         `   ${marca} [${q.id}] ${q.quien ? q.quien + ': ' : ''}${q.texto} (${q.tipo}, ${q.estado})` +
           (q.respuesta ? ` → «${q.respuesta}»${q.por ? ' · ' + q.por : ''}` : '') +
+          (q.estado === 'descartado' ? ` · descartada por ${q.descartado_por || 'alguien'}: no bloquea` : '') +
           (q.estado === 'respondido' ? ' · aplícalo y márcalo hecho' : '')
       );
     }
@@ -161,7 +165,8 @@ export function registrarToolsSemana(servidor: McpServer): void {
       description:
         'Los posts planificados de una semana para Iker, Unai, Asier e Ismael (ventas), con su objetivo, su estado y el ' +
         'feedback que han dejado en la página /semana. Sin `semana` lista las semanas que ' +
-        'existen. Con `con_texto` devuelve además el texto de cada post.',
+        'existen. Con `con_texto` devuelve además el texto de cada post. En «Qué falta»: ✅ hecho, 🚫 descartado ' +
+        '(se contestó por otro lado; no bloquea), 📝 respondido (falta meterlo en el post) y ⏳ por contestar.',
       inputSchema: {
         semana: z.string().optional().describe('Código ISO, p. ej. 2026-W48'),
         con_texto: z.boolean().optional(),

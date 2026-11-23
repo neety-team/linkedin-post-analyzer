@@ -1050,11 +1050,6 @@ function ElementoPendiente({
             ✓
           </span>
         )}
-        {descartada && (
-          <span aria-hidden className="text-text-muted font-bold">
-            –
-          </span>
-        )}
         <span
           className={
             q.estado === 'hecho'
@@ -1256,7 +1251,7 @@ function QueFalta({ post, autor, miCuenta, onCambio }: { post: PostSemana; autor
       {quedan >= 2 && sePuedeTocar(post) && (
         <DescartarQuedan post={post} quedan={quedan} autor={autor} onCambio={onCambio} />
       )}
-      {!quedan && post.estado === 'aprobado' && (
+      {!quedan && post.estado === 'aprobado' && !post.motivo_no_programable && (
         <p className="text-[13px] text-success font-semibold">Aprobado y listo para programar.</p>
       )}
     </div>

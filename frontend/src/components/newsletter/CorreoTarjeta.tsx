@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { apiPost } from '../../hooks/useApi';
-import { cuandoCorreo, ESTADO_CORREO, type Correo } from './tipos';
+import type { Correo } from './tipos';
 
 /**
  * Un correo de la newsletter como llegará a la bandeja (2026-11-20): primero el
@@ -211,7 +211,6 @@ export default function CorreoTarjeta({
   const [aprobando, setAprobando] = useState(false);
   const [errorAprobar, setErrorAprobar] = useState<string | null>(null);
   const hayB = !!(correo.asunto_b || correo.preview_b);
-  const estado = ESTADO_CORREO[correo.estado] || { texto: correo.estado, clase: 'text-text-secondary border-border bg-bg-secondary' };
   const aprobable = puedoAprobar && correo.estado === 'borrador' && correo.validador_ok;
 
   const aprobar = async () => {
@@ -230,96 +229,97 @@ export default function CorreoTarjeta({
   };
 
   return (
-    <article className="bg-bg-card border border-border rounded-xl p-4 sm:p-6 space-y-5 min-w-0">
-      <header className="space-y-2">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="font-display text-lg font-semibold text-text-primary tabular-nums">
-            {correo.numero != null ? `Correo ${correo.numero}` : correo.clave}
-            <span className="font-sans text-[14px] font-normal text-text-muted"> · {cuandoCorreo(correo.fecha, correo.hora)} · {correo.remitente}</span>
-          </h3>
-          <span className={`px-2.5 py-0.5 rounded-full border text-[12px] font-semibold ${estado.clase}`}>{estado.texto}</span>
-        </div>
-        {(correo.pilar || correo.tipo_cliente) && (
+    <article className="grid gap-6 lg:gap-8 lg:grid-cols-[minmax(0,21rem)_minmax(0,1fr)] items-start min-w-0">
+      {/* A la izquierda, lo que se decide: el porqué, el validador, aprobar y el feedback */}
+      <div className="space-y-5 min-w-0 lg:order-1 order-2">
+        {correo.pilar && (
           <div className="flex flex-wrap gap-1.5">
-            {correo.pilar && <Etiqueta>{correo.pilar}</Etiqueta>}
-            {correo.tipo_cliente && <Etiqueta>Tipo {correo.tipo_cliente}</Etiqueta>}
+            <Etiqueta>{correo.pilar}</Etiqueta>
           </div>
         )}
-      </header>
-
-      {/* El porqué y el validador, antes del correo */}
-      <div className="space-y-2 text-[13px] leading-relaxed">
-        {correo.por_que && (
-          <p className="text-text-secondary break-words">
-            <span className="font-semibold text-text-primary">Por qué: </span>
-            {correo.por_que}
+        {correo.tipo_cliente && (
+          <p className="text-[13px] leading-relaxed text-text-secondary break-words">
+            <span className="font-semibold text-text-primary">A quién: </span>
+            {correo.tipo_cliente}
           </p>
         )}
-        {correo.enlace && (
-          <p className="text-text-secondary break-all">
-            <span className="font-semibold text-text-primary">Enlace: </span>
-            {/^https?:\/\//i.test(correo.enlace) ? (
-              <a href={correo.enlace} target="_blank" rel="noreferrer" className="text-accent hover:underline">
-                {correo.enlace}
-              </a>
-            ) : (
-              // Solo http(s) se enlaza: otro esquema (javascript:, data:…) se enseña como texto.
-              correo.enlace
-            )}
-          </p>
-        )}
-        <details className="group">
-          <summary className={`cursor-pointer select-none font-semibold ${correo.validador_ok ? 'text-success' : 'text-danger'}`}>
-            {correo.validador_ok ? 'Validador en verde ✓' : 'El validador no está en verde'}
-            {correo.validador && <span className="font-normal text-text-muted"> · ver resultado</span>}
-          </summary>
-          {correo.validador && (
-            <pre className="mt-2 p-3 rounded-lg bg-bg-secondary border border-border text-[12px] text-text-secondary whitespace-pre-wrap break-words font-mono">
-              {correo.validador}
-            </pre>
+        {/* El porqué y el validador, antes del correo */}
+        <div className="space-y-2 text-[13px] leading-relaxed">
+          {correo.por_que && (
+            <p className="text-text-secondary break-words">
+              <span className="font-semibold text-text-primary">Por qué: </span>
+              {correo.por_que}
+            </p>
           )}
-        </details>
+          {correo.enlace && (
+            <p className="text-text-secondary break-all">
+              <span className="font-semibold text-text-primary">Enlace: </span>
+              {/^https?:\/\//i.test(correo.enlace) ? (
+                <a href={correo.enlace} target="_blank" rel="noreferrer" className="text-accent hover:underline">
+                  {correo.enlace}
+                </a>
+              ) : (
+                // Solo http(s) se enlaza: otro esquema (javascript:, data:…) se enseña como texto.
+                correo.enlace
+              )}
+            </p>
+          )}
+          <details className="group">
+            <summary className={`cursor-pointer select-none font-semibold ${correo.validador_ok ? 'text-success' : 'text-danger'}`}>
+              {correo.validador_ok ? 'Validador en verde ✓' : 'El validador no está en verde'}
+              {correo.validador && <span className="font-normal text-text-muted"> · ver resultado</span>}
+            </summary>
+            {correo.validador && (
+              <pre className="mt-2 p-3 rounded-lg bg-bg-secondary border border-border text-[12px] text-text-secondary whitespace-pre-wrap break-words font-mono">
+                {correo.validador}
+              </pre>
+            )}
+          </details>
+        </div>
+
+        {hayB && (
+          <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Versión del A/B">
+            <span className="text-[13px] text-text-muted">A/B:</span>
+            {(['a', 'b'] as const).map((v) => (
+              <button
+                key={v}
+                type="button"
+                aria-pressed={variante === v}
+                onClick={() => setVariante(v)}
+                className={`px-3 py-1 rounded-full text-[12px] font-semibold border transition-colors ${
+                  variante === v ? 'bg-text-primary text-bg-primary border-text-primary' : 'bg-bg-card text-text-secondary border-border hover:border-text-muted'
+                }`}
+              >
+                Versión {v.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {aprobable && (
+          <div className="space-y-1.5">
+            <button
+              type="button"
+              onClick={aprobar}
+              disabled={aprobando}
+              className="px-5 py-2 rounded-full bg-accent text-on-accent text-[14px] font-semibold hover:bg-accent-strong disabled:opacity-60 transition-colors"
+            >
+              {aprobando ? 'Aprobando…' : 'Aprobar'}
+            </button>
+            {errorAprobar && <p className="text-xs text-danger">{errorAprobar}</p>}
+          </div>
+        )}
+        {correo.estado !== 'borrador' && correo.aprobado_por && (
+          <p className="text-xs text-text-muted">Aprobado por {correo.aprobado_por}</p>
+        )}
+
+        <Feedback correo={correo} autor={autor} onCambio={onCambio} />
       </div>
 
-      {hayB && (
-        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Versión del A/B">
-          <span className="text-[13px] text-text-muted">A/B:</span>
-          {(['a', 'b'] as const).map((v) => (
-            <button
-              key={v}
-              type="button"
-              aria-pressed={variante === v}
-              onClick={() => setVariante(v)}
-              className={`px-3 py-1 rounded-full text-[12px] font-semibold border transition-colors ${
-                variante === v ? 'bg-text-primary text-bg-primary border-text-primary' : 'bg-bg-card text-text-secondary border-border hover:border-text-muted'
-              }`}
-            >
-              Versión {v.toUpperCase()}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <ComoEnLaBandeja correo={correo} variante={variante} />
-
-      {aprobable && (
-        <div className="space-y-1.5">
-          <button
-            type="button"
-            onClick={aprobar}
-            disabled={aprobando}
-            className="px-5 py-2 rounded-full bg-accent text-on-accent text-[14px] font-semibold hover:bg-accent-strong disabled:opacity-60 transition-colors"
-          >
-            {aprobando ? 'Aprobando…' : 'Aprobar'}
-          </button>
-          {errorAprobar && <p className="text-xs text-danger">{errorAprobar}</p>}
-        </div>
-      )}
-      {correo.estado !== 'borrador' && correo.aprobado_por && (
-        <p className="text-xs text-text-muted">Aprobado por {correo.aprobado_por}</p>
-      )}
-
-      <Feedback correo={correo} autor={autor} onCambio={onCambio} />
+      {/* A la derecha, el correo como llega */}
+      <div className="min-w-0 lg:order-2 order-1 lg:sticky lg:top-0">
+        <ComoEnLaBandeja correo={correo} variante={variante} />
+      </div>
     </article>
   );
 }

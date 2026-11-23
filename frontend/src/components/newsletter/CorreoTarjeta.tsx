@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { apiPost } from '../../hooks/useApi';
 import { cuandoCorreo, ESTADO_CORREO, type Correo } from './tipos';
 
@@ -38,6 +38,69 @@ function ComoEnLaBandeja({ correo, variante }: { correo: Correo; variante: 'a' |
         <p className="mt-0.5 text-[15px] font-bold text-text-primary break-words">{asunto}</p>
         {preview && <p className="mt-0.5 text-[13px] text-text-muted break-words line-clamp-2">{preview}</p>}
       </div>
+      {correo.html ? <CorreoHtml html={correo.html} /> : <CuerpoTexto correo={correo} />}
+    </div>
+  );
+}
+
+/**
+ * El correo de verdad (2026-11-23): el HTML que se manda a Brevo, con su pie, pintado en un iframe
+ * aislado (sin scripts) al ancho de un móvil o de un escritorio. Se aprueba lo que se va a enviar.
+ */
+function CorreoHtml({ html }: { html: string }) {
+  const [ancho, setAncho] = useState<'movil' | 'escritorio'>('escritorio');
+  const [alto, setAlto] = useState(900);
+  const ref = useRef<HTMLIFrameElement>(null);
+  const medir = () => {
+    const doc = ref.current?.contentDocument;
+    // +4: el borde de 1 px arriba y abajo del iframe, o sale una barra de scroll por 2 px.
+    if (doc?.body) setAlto(Math.max(300, doc.documentElement.scrollHeight + 4));
+  };
+  // Al cambiar de ancho el texto se recoloca y cambia el alto.
+  useEffect(() => {
+    const t = setTimeout(medir, 50);
+    return () => clearTimeout(t);
+  }, [ancho]);
+  // Los enlaces se abren fuera: dentro del iframe no hay a dónde navegar.
+  // Sin barra de scroll propia: el iframe ya mide lo que mide el correo.
+  const cabeza = '<base target="_blank"><style>html,body{overflow:hidden!important}</style>';
+  const doc = html.includes('<head>') ? html.replace('<head>', `<head>${cabeza}`) : `${cabeza}${html}`;
+  return (
+    <div className="bg-bg-secondary">
+      <div className="flex items-center justify-end gap-1 px-4 pt-3" role="group" aria-label="Ancho de la preview">
+        {(['movil', 'escritorio'] as const).map((a) => (
+          <button
+            key={a}
+            type="button"
+            onClick={() => setAncho(a)}
+            aria-pressed={ancho === a}
+            className={`px-2.5 py-1 rounded-full text-[12px] font-semibold border ${
+              ancho === a ? 'bg-text-primary text-bg-card border-text-primary' : 'border-border text-text-secondary'
+            }`}
+          >
+            {a === 'movil' ? 'Móvil' : 'Escritorio'}
+          </button>
+        ))}
+      </div>
+      <div className="px-2 sm:px-4 py-3 overflow-x-auto">
+        <iframe
+          ref={ref}
+          title="Así llega el correo"
+          srcDoc={doc}
+          sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+          onLoad={medir}
+          style={{ height: alto }}
+          className={`block mx-auto bg-white border border-border rounded-lg ${ancho === 'movil' ? 'w-[375px]' : 'w-full max-w-[680px]'}`}
+        />
+      </div>
+    </div>
+  );
+}
+
+/** Sin HTML guardado: el texto del cuerpo y el GIF, como hasta ahora. */
+function CuerpoTexto({ correo }: { correo: Correo }) {
+  return (
+    <>
       {/* El cuerpo abierto */}
       <div className="px-4 sm:px-6 py-5 bg-bg-card space-y-5">
         <p className="whitespace-pre-line break-words text-[15px] leading-relaxed text-text-primary">{correo.cuerpo}</p>
@@ -50,7 +113,7 @@ function ComoEnLaBandeja({ correo, variante }: { correo: Correo; variante: 'a' |
           />
         )}
       </div>
-    </div>
+    </>
   );
 }
 

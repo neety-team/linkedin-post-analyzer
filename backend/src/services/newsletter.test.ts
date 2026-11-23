@@ -30,6 +30,12 @@ assert.ok(motivoNoAprobable({ estado: 'idea', validador_ok: true }));
 // La huella solo depende del texto
 assert.equal(huellaTexto({ remitente: 'Kaixito', asunto: 'a', cuerpo: 'x', pilar: 'p' } as any), h);
 assert.notEqual(huellaTexto({ remitente: 'Kaixito', asunto: 'b', cuerpo: 'x' } as any), h);
+// 2026-11-23: el HTML de la preview es lo que se aprueba; si cambia, cambia la huella.
+assert.notEqual(huellaTexto({ remitente: 'Kaixito', asunto: 'a', cuerpo: 'x', html: '<p>x</p>' } as any), h);
+assert.notEqual(
+  huellaTexto({ remitente: 'Kaixito', asunto: 'a', cuerpo: 'x', html: '<p>x</p>' } as any),
+  huellaTexto({ remitente: 'Kaixito', asunto: 'a', cuerpo: 'x', html: '<p>y</p>' } as any)
+);
 
 // Aprobar solo el texto que se vio
 assert.equal(motivoNoAprobable({ estado: 'borrador', validador_ok: true, huella: h }, h), null);

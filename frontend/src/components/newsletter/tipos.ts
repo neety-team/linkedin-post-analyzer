@@ -48,6 +48,8 @@ export interface Correo {
   cuerpo: string;
   gif_url: string | null;
   gif_alt: string | null;
+  /** El HTML exacto del correo, con el pie: si está, la preview lo pinta tal cual. */
+  html: string | null;
   enlace: string | null;
   pilar: string | null;
   tipo_cliente: string | null;

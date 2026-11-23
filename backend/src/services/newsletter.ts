@@ -14,7 +14,9 @@ import type { Identidad } from '../middleware/basicAuth';
 import { metricasDeCorreo } from './metricasNewsletter';
 
 export const ESTADOS_CORREO = ['idea', 'borrador', 'aprobado', 'programado', 'enviado'] as const;
-export const REMITENTES = ['Iker', 'Asier', 'Unai', 'Kaixito'] as const;
+// 'Radar' (2026-11-23): el correo mensual del Radar de inversiones, que no firma una persona
+// (email-marketing §5R). En la bandeja sale «Radar de Neety».
+export const REMITENTES = ['Iker', 'Asier', 'Unai', 'Kaixito', 'Radar'] as const;
 export const NIVELES_CORREO = ['estilo', 'pilar', 'correo'] as const;
 export type Remitente = (typeof REMITENTES)[number];
 
@@ -33,6 +35,8 @@ export interface CorreoEntrada {
   cuerpo?: string;
   gif_url?: string | null;
   gif_alt?: string | null;
+  /** El HTML exacto del correo, con el pie: lo que la pagina pinta como preview (2026-11-23). */
+  html?: string | null;
   enlace?: string | null;
   utm_campaign?: string | null;
   utm_source?: string | null;
@@ -44,7 +48,9 @@ export interface CorreoEntrada {
   estado?: 'idea' | 'borrador';
 }
 
-const CAMPOS_TEXTO = ['remitente', 'asunto', 'asunto_b', 'preview', 'preview_b', 'cuerpo', 'gif_url', 'enlace'] as const;
+// `html` entra en la huella: si cambia lo que se ve en la preview, lo aprobado vuelve a borrador.
+const CAMPOS_TEXTO = ['remitente', 'asunto', 'asunto_b', 'preview', 'preview_b', 'cuerpo', 'gif_url', 'enlace', 'html'] as const;
+const MAX_HTML = 400_000;
 const RE_FECHA = /^\d{4}-\d{2}-\d{2}$/;
 const RE_HORA = /^([01]\d|2[0-3]):[0-5]\d$/;
 
@@ -147,6 +153,7 @@ function validar(e: CorreoEntrada): string | null {
   if (e.remitente !== undefined && !REMITENTES.includes(e.remitente)) return `remitente no válido: ${e.remitente}`;
   if (e.fecha !== undefined && !RE_FECHA.test(e.fecha)) return `fecha no válida: ${e.fecha}`;
   if (e.hora !== undefined && !RE_HORA.test(e.hora)) return `hora no válida: ${e.hora}`;
+  if (e.html != null && String(e.html).length > MAX_HTML) return `el html pasa de ${MAX_HTML} caracteres`;
   if (e.estado !== undefined && e.estado !== 'idea' && e.estado !== 'borrador') {
     return `estado no válido: ${e.estado} (solo idea o borrador)`;
   }
@@ -154,7 +161,7 @@ function validar(e: CorreoEntrada): string | null {
 }
 
 const COLUMNAS = `id, clave, numero, to_char(fecha, 'YYYY-MM-DD') AS fecha, hora, remitente, asunto, asunto_b,
-  preview, preview_b, cuerpo, gif_url, gif_alt, enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que,
+  preview, preview_b, cuerpo, gif_url, gif_alt, html, enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que,
   validador, validador_ok, huella, estado, aprobado_por, aprobado_at, brevo_campaign_id, created_at, updated_at`;
 
 /**
@@ -218,6 +225,7 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
     cuerpo: String(m('cuerpo', '')).trim(),
     gif_url: e.gif_url !== undefined ? opcional(e.gif_url, 1000) : base.gif_url ?? null,
     gif_alt: e.gif_alt !== undefined ? opcional(e.gif_alt, 300) : base.gif_alt ?? null,
+    html: e.html !== undefined ? (e.html == null || !String(e.html).trim() ? null : String(e.html)) : base.html ?? null,
     enlace: e.enlace !== undefined ? opcional(e.enlace, 1000) : base.enlace ?? null,
     utm_campaign: e.utm_campaign !== undefined ? opcional(e.utm_campaign, 200) : base.utm_campaign ?? null,
     utm_source: e.utm_source !== undefined ? opcional(e.utm_source, 200) : base.utm_source ?? null,
@@ -236,13 +244,13 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
     clave, fusion.numero, fusion.fecha, fusion.hora, fusion.remitente, fusion.asunto, fusion.asunto_b,
     fusion.preview, fusion.preview_b, fusion.cuerpo, fusion.gif_url, fusion.gif_alt, fusion.enlace,
     fusion.utm_campaign, fusion.utm_source, fusion.pilar, fusion.tipo_cliente, fusion.por_que,
-    fusion.validador, fusion.validador_ok, huella, estado, vuelveABorrador,
+    fusion.validador, fusion.validador_ok, huella, estado, vuelveABorrador, fusion.html,
   ];
   await cx.query(
     `INSERT INTO newsletter_correos
        (clave, numero, fecha, hora, remitente, asunto, asunto_b, preview, preview_b, cuerpo, gif_url, gif_alt,
-        enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que, validador, validador_ok, huella, estado)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)
+        enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que, validador, validador_ok, huella, estado, html)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$24)
      ON CONFLICT (clave) DO UPDATE SET
        numero = EXCLUDED.numero, fecha = EXCLUDED.fecha, hora = EXCLUDED.hora, remitente = EXCLUDED.remitente,
        asunto = EXCLUDED.asunto, asunto_b = EXCLUDED.asunto_b, preview = EXCLUDED.preview,
@@ -250,7 +258,7 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
        gif_alt = EXCLUDED.gif_alt, enlace = EXCLUDED.enlace, utm_campaign = EXCLUDED.utm_campaign,
        utm_source = EXCLUDED.utm_source, pilar = EXCLUDED.pilar, tipo_cliente = EXCLUDED.tipo_cliente,
        por_que = EXCLUDED.por_que, validador = EXCLUDED.validador, validador_ok = EXCLUDED.validador_ok,
-       huella = EXCLUDED.huella, estado = EXCLUDED.estado,
+       huella = EXCLUDED.huella, estado = EXCLUDED.estado, html = EXCLUDED.html,
        aprobado_por = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_por END,
        aprobado_at = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_at END,
        updated_at = NOW()`,

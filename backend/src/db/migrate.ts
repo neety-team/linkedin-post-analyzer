@@ -1360,6 +1360,8 @@ const migracionSemana = `
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
   );
   CREATE INDEX IF NOT EXISTS idx_newsletter_correos_fecha ON newsletter_correos (fecha);
+  -- 2026-11-23: el HTML exacto del correo, para que la pagina lo pinte como llega a la bandeja.
+  ALTER TABLE newsletter_correos ADD COLUMN IF NOT EXISTS html TEXT;
   -- Una campana de Brevo solo puede estar en un correo (las tandas van cada una en su fila).
   CREATE UNIQUE INDEX IF NOT EXISTS idx_newsletter_correos_campana
     ON newsletter_correos (brevo_campaign_id) WHERE brevo_campaign_id IS NOT NULL;

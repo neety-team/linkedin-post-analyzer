@@ -42,6 +42,11 @@ const correoEntrada = z.object({
   preview_b: z.string().nullable().optional(),
   cuerpo: z.string().optional().describe('El cuerpo del correo tal cual se enviaría'),
   gif_url: z.string().nullable().optional(),
+  html: z
+    .string()
+    .nullable()
+    .optional()
+    .describe('El HTML exacto del correo, con el pie (montar-correo-brevo.py --pie o montar-radar-correo.py --pie). La página lo pinta tal cual, en móvil y en escritorio'),
   gif_alt: z.string().nullable().optional(),
   enlace: z.string().nullable().optional(),
   utm_campaign: z.string().nullable().optional(),

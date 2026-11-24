@@ -708,7 +708,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 
 **Al mover el momento al final, las etiquetas se vinieron detrás.** Es la prueba de que la capa 1 arrastra a las otras dos: si el momento se cambia, **todo el texto de la imagen se desalinea solo**, y por eso hay que fijarlo ANTES de escribir ninguna etiqueta.
 
-**⚠️ Y CUANDO EL CALCO CHOCA CON `brand-voice`, SE DECLARA, NO SE DISIMULA.** Las tres esperas del original son **a otros equipos** (`DESIGN`, `DEV`, `OPS`), y en la cuenta de Mario eso señalaría a compañeros con nombre (canónico: el culpable nunca es una persona ni un equipo). La salida es esperar **a las COSAS** (`el diseño`, `la versión buena`, `que salga`), que es lo más cerca del original sin romper la regla — **y se dice en la entrega que se ha hecho y por qué**, para que la decisión sea de Iker.
+**⚠️ Y CUANDO EL CALCO CHOCA CON `brand-voice`, SE DECLARA, NO SE DISIMULA.** Las tres esperas del original son **a otros equipos** (`DESIGN`, `DEV`, `OPS`), y en una cuenta de compañero (el caso fue en la de Mario, hoy de baja) eso señalaría a compañeros con nombre (canónico: el culpable nunca es una persona ni un equipo). La salida es esperar **a las COSAS** (`el diseño`, `la versión buena`, `que salga`), que es lo más cerca del original sin romper la regla — **y se dice en la entrega que se ha hecho y por qué**, para que la decisión sea de Iker.
 
 ## 🎭🎭 0b-TEXTO-REF-REVELACION · EN UN MEME DE REVELACIÓN, EL TEXTO DEL PANEL DE PREPARACIÓN SE REPITE IDÉNTICO Y SOLO SE AÑADE EL GIRO (Iker, 2026-10-14) — GLOBAL
 

@@ -37,7 +37,7 @@ brand-voice | 7.1b LA APERTURA NO SE ELIGE SE SORTEA. Y NUNCA  | fuera: respuest
 brand-voice | CANONICO NO CRITICAMOS A NADIE Y A NOSOTROS TAMP | criterio: comprador
 brand-voice | 5b Y TAMPOCO SE HABLA EN NOMBRE DE OTRO COLECTIV | criterio: comprador
 brand-voice | CANONICO LA PERSONA YO NOSOTROS TU Iker 2026-08- | criterio: voz
-brand-voice | EXCEPCION 4 EN MARIO Y HELENA EL CUERPO VA EN NO | check: Hook anclado a MARKETING
+brand-voice | EXCEPCION 4 EN LAS CUENTAS DE LOS COMPANEROS HEL | check: Hook anclado a MARKETING
 post-workflow | 4.1-GANCHO SI EL PILAR NO ESTA DEFINIDO PRIMERO  | fuera: proceso (primero el gancho si el pilar no está definido)
 post-workflow | 4.3-VETO LOS 10 NO SE ESCRIBE NO SE PROPONE Y NO | check: los10
 post-workflow | 6b-quinquies NUNCA SE PIDE OTRA FOTO NI UN ENCUA | fuera: fotos de las menciones
@@ -334,7 +334,7 @@ post-workflow | 4.9 Runbook NOTICIA lo que ha pasado esta semana | pendiente(202
 post-workflow | 4.9.1 LO QUE DICEN LOS DATOS medido el 2310 sobr | pendiente(2026-11-11): necesita-criterio · La psicología medida (persona conocida > herramienta del lector > choque de comercio > estudio sin protagonist
 post-workflow | 4.9.2 LA RECETA en prueba hasta tener 3 publicad | pendiente(2026-11-11): sin clasificar · 
 post-workflow | LA VENTANA DE PUBLICACION CORREGIDO 2026-07-20 l | fuera: obsoleta · Superada por working-preferences §1h (lo dice el texto)
-post-workflow | 8.0 LA 4a CUENTA OPCIONAL MARIO marketing Iker 2 | pendiente(2026-11-11): cubierta · MARIO: menciona a @Neety y a los 3 jefes + Hook anclado a MARKETING
+post-workflow | 8.0 LA CUENTA DE MARIO marketing ESTA DADA DE BA | check: CUENTA DADA DE BAJA
 post-workflow | 8.0 LEE EL PILAR ANTES DE SACAR CONCLUSIONES Ike | fuera: fuera · Medición
 post-workflow | 8.0-RIESGO UNA SEMANA NO PUEDE DEPENDER DE UN SO | fuera: fuera · Planificación
 post-workflow | 8.0-TENDENCIAS EL CALENDARIO SE MIRA EN CADA PLA | fuera: fuera · Planificación
@@ -393,8 +393,8 @@ aboutme | Iker Galarza Cofundador parte comercial | contexto: ficha de Iker
 aboutme | Unai Arambarri CEO | contexto: ficha de Unai ("49€ vs Claude" pendiente de reverificar)
 aboutme | Asier Olaizola Cofundador parte de programacion | pendiente(2026-11-11): contradice · "misma paridad: mismos formatos, misma voz" (l.258) contradice brand-voice §1b (registro por cuenta desde 16/0
 aboutme | 2-ASIER-VETOS LO QUE NO ENTRA NUNCA EN LA CUENTA | pendiente(2026-11-11): necesita-check · solo la casilla --meme-sobrio (meme). Con --cuenta asier en TODOS los pilares, texto y --tarjeta: FALLO en fut
-aboutme | Mario Carrillo Ramirez Growth Marketing 4a cuent | pendiente(2026-11-11): necesita-check · cubierto MARIO: menciona a @Neety y a los 3 jefes / experimento sin menciones. Con --cuenta mario, SIN dueño: 
-aboutme | EL PUENTE DE LA CUENTA DE MARIO ATENCION CLIENTE | pendiente(2026-11-11): necesita-criterio · ampliar ninja con --cuenta mario/helena: "¿el puente atencion -> clientes (lo que el tema te trae / lo que no 
+aboutme | Mario Carrillo Ramirez CUENTA DADA DE BAJA 2026- | check: CUENTA DADA DE BAJA
+aboutme | EL PUENTE DE LAS CUENTAS DE OFICIO Helena Angela | pendiente(2026-11-11): necesita-criterio · ampliar ninja con --cuenta mario/helena: "¿el puente atencion -> clientes (lo que el tema te trae / lo que no 
 aboutme | Helena Baviera Serigo Partnerships Customer Succ | pendiente(2026-11-11): necesita-check · ⛔ SIN MENCIONES en Helena sin dueño: FALLO con --cuenta helena si queda una @. Ademas CONTRADICE (l.387) "el g
 aboutme | Angela Brook Uria Product Designer 6a cuenta Ike | pendiente(2026-11-11): cubierta · checks: Hook anclado a DISENO DE PRODUCTO + El CUERPO lleva la vinculacion con VENTAS + ENTREGA: ¿el CUERPO pr
 aboutme | 3 Una sola voz para los tres voz Neety | pendiente(2026-11-11): contradice · "NO mantenemos voces por persona... la voz es siempre la misma" contradice brand-voice §1b (registro por perso

@@ -1650,7 +1650,7 @@ El resto, con ninja dentro .......   370 clics  ->  15 asistentes
 ```
 - **`utm_campaign` es el que importa** y se lee solo: `historia-euskadi-26ago` · `peloteo-malaga-12sep` · `meme-comerciales-03sep` · `leadmagnet-prospeccion-09sep`. **Pilar + tema en una palabra + día y mes abreviado**, todo en minúsculas, sin tildes y con guiones.
 - **`utm_source=linkedin` no es opcional:** sin `source`, GA4 cuenta la visita como *referral* y la campaña no aparece donde se mira. Es la diferencia entre tener el dato y creer que lo tienes.
-- **`utm_content` = la cuenta** (`unai`, `iker`, `asier`, `mario`, `helena`, `angela`). Es lo que permite ver qué cuenta trae los clics cuando el mismo concepto sale en varias.
+- **`utm_content` = la cuenta** (`unai`, `iker`, `asier`, `helena`, `angela`; `mario` queda solo en los enlaces ya publicados, su cuenta se dio de baja el 24/11). Es lo que permite ver qué cuenta trae los clics cuando el mismo concepto sale en varias.
 
 **⚠️ NO CUESTA ALCANCE NI ESTÉTICA, y por eso no hay que negociarlo:** **LinkedIn reescribe el enlace a `lnkd.in/xxxxx` al publicar** (comprobado en nuestros propios posts en la BD), así que el lector nunca ve la cola de parámetros. Y el tope de 55 caracteres del ninja **se mide sin la URL** (`§4.4b`), o sea que la cola no roba ni un carácter de la línea.
 
@@ -2363,7 +2363,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > **Por qué es un caso aparte y no otro post de evento:** en un post normal la foto insinúa y el texto cuenta. **Aquí la imagen ya dice el qué, el cuándo, el dónde y el quién**, así que es el caso extremo de `§2.0c-VISUAL`: cualquier gancho que hable del evento **repite lo que el lector ya ha leído en la foto** y se queda sin remate. Y encima llega con el olor a venta puesto desde el primer segundo, que es justo lo que hunde el pilar (no lo lee nadie).
 >
 > **LAS TRES REGLAS, y valen para cualquier cartel de asistente futuro (los de speaker incluidos):**
-> 1. **El gancho ancla en el OFICIO del que publica, no en el evento.** En las cuentas de Mario y Helena eso ya lo manda `aboutme §2-CARRIL-GANCHO`; aquí además es lo único que abre bucle, porque el evento no puede abrir ninguno: ya está contado en la imagen.
+> 1. **El gancho ancla en el OFICIO del que publica, no en el evento.** En las cuentas de Helena y Angela eso ya lo manda `aboutme §2-CARRIL-GANCHO`; aquí además es lo único que abre bucle, porque el evento no puede abrir ninguno: ya está contado en la imagen.
 > 2. **Ni la fecha, ni la ciudad, ni la palabra evento en el gancho** (`§2.0a`: nunca se nombra lo que se anuncia). La fecha puede volver **al final**, como guiño que cierra el bucle del gancho, que es donde `§2.0c` permite mirar a la foto.
 > 3. **El evento entra SOLO por el ninja**, con su puerta única de Luma (`§4.4e-PUERTA`) y vendiendo LA SALA (`§4.4b`). El cuerpo va del oficio; la sala aparece cuando ya te han leído.
 >
@@ -2916,7 +2916,7 @@ Te marcamos quién va a comprar y tu comercial entra solo ahí: [link]
 
 **El test corto: el problema del cuerpo es el que el ENLACE resuelve, no el que NUESTRO PRODUCTO resuelve.** En un post de evento eso es *no estar en la sala*; en uno de agendar es *el trabajo que cuesta llegar*. Nunca *no tenemos el dato*.
 
-**⚠️ Aplica a las 5 cuentas, pero es peor en Mario y Helena**, porque hablan del trabajo de dentro y ahí una carencia se lee como confesión de la empresa, no como escena.
+**⚠️ Aplica a todas las cuentas, pero es peor en las de los compañeros (Helena, Angela)**, porque hablan del trabajo de dentro y ahí una carencia se lee como confesión de la empresa, no como escena.
 
 **⛔ Y EN EL GANCHO, EL DOLOR LLEVA UN SUJETO DE FUERA (Iker, 2026-10-22) — GLOBAL.** El gancho de San Francisco de Unai era `Vamos a cruzar medio mundo a ver si allí también se vende a pico y pala ⛏️`. No dice en ningún sitio que nosotros vendamos así, y aun así Iker lo leyó a la primera como que **nosotros vendemos a pico y pala**: el `vamos` nos pone de sujeto, el `se vende` impersonal se nos pega y el `también` nos mete en el grupo de los que lo hacen. Es este mismo autogol, pero sin una sola palabra en primera persona sobre el dolor. **La regla:** si el gancho va en `nosotros` y lleva la metáfora del dolor, el que la sufre se nombra y es otro (`los comerciales de allí`, `un comercial`, `el director comercial`), nunca un impersonal (`se vende`, `se busca`) ni un `también` que nos incluya. Quedó `Nos vamos a San Francisco a ver si los comerciales de allí buscan clientes a pico y pala ⛏️`: misma metáfora, mismo concepto, y la pala es de ellos. **Aviso** en `validar-post.py` (`GANCHO: el dolor no se nos pega`), porque saber a quién se pega es criterio.
 
@@ -3216,7 +3216,7 @@ Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran 
 **⛔ Y EL AGUJERO DE MÉTODO, dicho entero porque invalida media conclusión: NO TENEMOS GRUPO DE CONTROL.** Antes del 26/08 **borrábamos siempre antes del minuto 20**, así que **no sabemos si un post SIN UTM también tarda 18-20 minutos**. La correlación es real y son 2 de 2, pero **no hay un solo caso medido de post sin UTM esperando hasta el minuto 30**. Es exactamente el sesgo que `§9.0` documenta al revés: *"si borras siempre antes del tiempo de recuperación, cualquier cosa que cambies después parecerá la causa"*.
 - **Cómo se cierra:** el próximo post **sin** enlace (un lead magnet, por ejemplo) se cronometra igual. Si también tarda 18-20, el UTM no pinta nada y lo que hay es una cola de revisión normal.
 
-**🔮 CONSECUENCIA OPERATIVA, y es lo único que hay que recordar hoy:** **a Asier, Mario y Helena les queda su primer UTM**. Cuando toque, **se avisa ANTES de subir** de que puede quedarse ~20 minutos en el limbo, para que nadie lo borre. Es el error que ya nos costó dos posts.
+**🔮 CONSECUENCIA OPERATIVA, y es lo único que hay que recordar hoy:** **a Asier y Helena les queda su primer UTM**. Cuando toque, **se avisa ANTES de subir** de que puede quedarse ~20 minutos en el limbo, para que nadie lo borre. Es el error que ya nos costó dos posts.
 
 ### 🔕 9.1b · UN POST CAPADO SÍ SALE EN "RECIENTES" Y SÍ MANDA NOTIFICACIÓN (Iker, 2026-08-27)
 

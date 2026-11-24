@@ -69,7 +69,7 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 **Qué cambia en su cuenta (y en la página de empresa cuando va con su tono):** en el GANCHO no se busca la versión humilde de `global §2.0c-PRESUMIR`. Se busca la versión **grande de la misma escena verdadera**: la sala que se quedó pequeña, la forma de vender que presentamos, el antes y el después. El caso: `Jamás pensamos que tendríamos que cambiar de sala para hablar de ventas 🙂` (tumbado, humilde) → `La nueva forma de vender que presentamos no cupo en una sala 👇`.
 
 **Lo que NO cambia, para que esta regla no juegue a la contra:**
-- **Solo Unai y, desde el 15/10, Asier** (sección `ASIER TAMBIÉN VA GRANDIOSO`, abajo). Iker, Mario y Helena siguen con `§2.0c-PRESUMIR` tal cual. Si una referencia pide gancho humilde y la cuenta es Unai, se hace grande o se da a otra cuenta.
+- **Solo Unai y, desde el 15/10, Asier** (sección `ASIER TAMBIÉN VA GRANDIOSO`, abajo). Iker, Helena y Angela siguen con `§2.0c-PRESUMIR` tal cual. Si una referencia pide gancho humilde y la cuenta es Unai, se hace grande o se da a otra cuenta.
 - **"Cero hype" de la tabla de arriba sigue en pie, y es otra cosa:** el hype que se veta es el de la VOZ (exclamaciones, jerga de creador, `de locos`, `flipa`). Lo grande va en la **ambición del hecho**.
 - **🔄 CORREGIDO EL MISMO 30/09: `no cupo` se queda CORTO. Lo que funciona es la sensación de ROTO:** `no cupo` se queda formal; la escena es que rompimos la sala con nuestra forma de vender. Yo había escrito aquí que `reventar la sala` era de calle y había que decir `no cupo`: **me pasé de sobrio y le quité justo lo que pedía.** `romper` / `reventar` + un objeto CONCRETO de la escena (`la sala`) sí valen en su gancho grandioso; es `§2.9-ABSTRACTO` al derecho: lo que no le gusta es `romper el mercado` (abstracto), no `romper la sala`. `petar` es el peldaño más de calle y está sin probar con él. Candidatos entregados: `Rompimos la sala con una nueva forma de vender 👇` · `La nueva forma de vender que presentamos reventó la sala 👇` · `Nunca una sala se había venido abajo por hablar de ventas 👇` (pendiente de cuál elige).
 - **Grande no es inventado.** El hecho tiene que ser cierto (la sala se quedó pequeña: sí; "la mayor" o "miles": no). `CLAUDE.md`, lo que no se negocia.
@@ -108,7 +108,7 @@ Una única voz de marca para las tres cuentas (Iker, Unai, Asier): la **voz Neet
 > **De dónde sale:** se descartaron dos ganchos humildes de su historia/evento del 16/10. El tono de Asier se alinea con el de Unai: son fundadores, y en público un fundador transmite confianza en lo que ha construido. Ni `nunca había pensado` ni `nunca había rezado`: el hecho grande, sin sonar humilde y sin sonar prepotente.
 
 - **Asier entra en las dos secciones de Unai de arriba:** el gancho grandioso (lo grande va en el hecho cierto, voz sobria, sin compararse) y el veto a hacerse de menos (`nunca pensé`, `nunca había rezado`, `jamás imaginé`, `quién me iba a decir`). **La lente del inversor y el plural obligatorio siguen siendo solo de Unai** (en Asier el plural es lo natural cuando el mérito es compartido, pero no es regla).
-- **Es voz por cuenta, no global** (`§1b`, qué va por cuenta): Iker, Mario y Helena siguen pudiendo abrirse en canal y dudar en público. Iker: *"a mí públicamente sí que soy así de humilde… la audiencia puede conectar mucho más contigo si te abres"*.
+- **Es voz por cuenta, no global** (`§1b`, qué va por cuenta): Iker, Helena y Angela siguen pudiendo abrirse en canal y dudar en público. Iker: *"a mí públicamente sí que soy así de humilde… la audiencia puede conectar mucho más contigo si te abres"*.
 - **⛔ Y "NO VENDE" NO ES "NUNCA HA VENDIDO".** Le propuse `Llevo años programando para comerciales y nunca había vendido nada yo` y es mentira: *"son tres jefes y llevan con la empresa tres o cuatro años, ¿cómo vamos a decir que nunca han vendido nada?"*. Asier no es comercial (`aboutme §2-ASIER-MEME`), pero es socio de una empresa que vende: nada de presentarle como alguien que no ha vendido nunca.
 - **Mecanizado** en `validar-post.py --cuenta asier`: el aviso del gancho grandioso, el fallo duro de `nunca había pensado/rezado/imaginado` (el de Unai, ampliado) y un fallo duro nuevo, `ASIER: no se dice que nunca ha vendido`. Los dos ganchos tumbados están en `scripts/test-borradores-tumbados.py`.
 
@@ -1077,8 +1077,8 @@ Estaba solo en los vetos de Asier (`aboutme §2-ASIER-VETOS`) y en la lista de c
   trasero"*. Nunca en primera persona, siempre atribuido a un sujeto ajeno.
 - **Lo auto-despectivo de la propia región del post**, que es cariño, no ataque.
 
-**⛔ DÓNDE MÁS SE CUELA, Y POR QUÉ ES EL CASO PELIGROSO: LA CUENTA DE MARIO.** Es la
-única que habla del trabajo de DENTRO, así que ahí una queja genérica se lee como un
+**⛔ DÓNDE MÁS SE CUELA, Y POR QUÉ ES EL CASO PELIGROSO: LAS CUENTAS DE LOS COMPAÑEROS** (Helena, Angela;
+nació en la de Mario, dada de baja el 24/11). Son las que hablan del trabajo de DENTRO, así que ahí una queja genérica se lee como un
 reproche a compañeros con nombre —y los jefes comentan sus posts desde sus cuentas,
 con lo que el chiste se convierte en una bronca interna a la vista de todos.
 
@@ -1120,7 +1120,7 @@ el proceso.
 
 **⭐ Y EL EFECTO QUE NO ESPERABA, y por eso vale la pena escribirlo** *(deducción mía, `working-preferences §0c`, no medida)*: **la confesión BLINDA hacia abajo.** En cuanto el que publica se mete él solo en el grupo, las frases colectivas que vienen después dejan de leerse como acusación. En ese post, `Años dándoles al play` y `Todos quieren su caída` sonaban a reproche al lector **hasta** que la línea de arriba dijo *"a mí también"*. Una sola línea arregló tres.
 
-**Dónde aplica más:** en cualquier post que tome partido en una polémica, y muy especialmente en las cuentas que hablan del trabajo de dentro (Mario, Helena), donde el reproche se lee como bronca interna.
+**Dónde aplica más:** en cualquier post que tome partido en una polémica, y muy especialmente en las cuentas que hablan del trabajo de dentro (Helena, Angela), donde el reproche se lee como bronca interna.
 
 ## ⛔⛔ CANÓNICO · UNA IA GENÉRICA NUNCA ESTÁ AL NIVEL DE NEETY, Y TAMPOCO SE LA CRITICA (2026-11-12) — GLOBAL
 
@@ -1170,7 +1170,9 @@ salvas`, titular y etiqueta hablan en dos voces distintas dentro de la misma fot
 3. **El CTA puede ir en segunda** (*"¿quieres los 5 mensajes?"*): es una oferta, no
    un juicio. Lo que no vale en segunda es **afirmar algo sobre el lector**.
 
-#### ⛔⛔ EXCEPCIÓN 4 · EN MARIO Y HELENA, EL CUERPO VA EN NOSOTROS. EL GANCHO SIGUE EN YO (Iker, 2026-08-27)
+#### ⛔⛔ EXCEPCIÓN 4 · EN LAS CUENTAS DE LOS COMPAÑEROS (HELENA, ANGELA), EL CUERPO VA EN NOSOTROS. EL GANCHO SIGUE EN YO (Iker, 2026-08-27)
+
+> 🔄 24/11: nació en la cuenta de Mario, dada de baja (deja la empresa). Sigue valiendo para Helena y Angela; los casos de abajo son registro.
 
 > **Iker, y la razón no es de rendimiento, es de cómo queda él:** *"noto bastante que el hecho de que en el gancho hable en primera persona me parece bien, pero que todo el cuerpo se hable en primera persona del singular me da la sensación de que quedo como de chulo o de prepotente, y yo soy una persona totalmente lo contrario: siempre priorizo más a los demás que a mí, soy muy humilde, muy cercano, muy colaborativo. En vez de decir «me escriben ellos», podemos decir «nos escriben ellos»"*.
 

@@ -6246,7 +6246,6 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         'unai': 'ventas DESDE EL QUE MANDA (jefe de ventas, director comercial, el CEO que pide numeros, el forecast, la reunion de pipeline). Sobrio, cero infantil',
         'iker': 'ventas DE CALLE (llamar, puerta fria, el cliente que no coge, el viaje a ver al cliente). La unica que aguanta el registro bruto',
         'asier': 'ventas UNIVERSAL mirado desde fuera (el pedido, el cliente que compra a otro, la cuota, el ascenso: lo que entiende un director comercial de 55 sin saber de software). Desde el 08/10 ya NO lo tecnico: sus 5 memes tecnicos dan 718 imp de mediana y sus 4 universales ~39.400 (aboutme §2-ASIER-MEME). Y el gancho NUNCA en 1a persona de comercial: 3a impersonal, vocativo a los comerciales o su papel real (programa para ellos)',
-        'mario': 'EXCEPCION: aqui la referencia SI puede ser de MARKETING Y CONTENIDO',
         'helena': 'EXCEPCION: aqui la referencia SI puede ser de ATENCION AL CLIENTE Y PARTNERSHIPS',
         'angela': 'EXCEPCION (por analogia, pendiente de OK): aqui la referencia SI puede ser de DISENO DE PRODUCTO (pantallas, experiencia de usuario)',
     }
@@ -6820,6 +6819,13 @@ def main():
     # nuevo manda SU forma de escribir. La chica de producto reescribio varias
     # veces el gancho que le pulimos porque "no sonaba a ella". El FORMATO de la
     # casa pasa a aviso; lo que protege el alcance, la marca o la ley sigue duro.
+    # CUENTA DADA DE BAJA (2026-11-24): Mario (marketing) deja la empresa. No se
+    # escriben ni se planifican posts para su perfil (aboutme §2, su ficha de baja).
+    # Su carril (MARKETING_ANCLA, menciones a la casa) queda abajo solo como registro.
+    if (a.cuenta or '').strip().lower() == 'mario':
+        res.insert(0, (False, 'CUENTA DADA DE BAJA: mario ya no es una cuenta de Neety (aboutme §2)',
+                       'Deja la empresa el 24/11: no se escriben posts para su perfil ni se buscan '
+                       'referencias de marketing para el. Elige otra cuenta.', False))
     if a.voz_ajena and (a.cuenta or '').strip().lower() in ('iker', 'unai', 'asier', 'mario'):
         res.insert(0, (False, '--voz-ajena NO vale en las cuentas de los 3 jefes ni en la de Mario',
                        'Es para el borrador de un perfil nuevo (Ismael, la chica de producto...). '

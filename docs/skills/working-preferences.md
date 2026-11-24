@@ -194,6 +194,8 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 
 **A QUIÉN APLICA (Iker, 08/10):** a las cuentas de los **compañeros** que no son ni los 3 jefes ni marketing: hoy **Ismael** (Sales Consultant), **Helena** y **Angela** (Product Designer), y a cualquier trabajador que se sume. **Fuera: Iker, Unai, Asier y Mario** (marketing), que van con la receta entera. Iker: *"son compañeros de trabajo que tampoco van a querer hablar como habla un jefe públicamente en LinkedIn. Por eso me pasan un borrador"*.
 
+> 🔄 24/11: la cuenta de marketing está dada de baja (`aboutme §2`); hoy quedan fuera solo Iker, Unai y Asier.
+
 **Cuándo aplica:** Iker pasa un post YA ESCRITO por uno de ellos para retocarlo. Primer caso: Ismael, Sales Consultant, historia del director comercial que "se conocía a todos" (05/10). El precedente: la chica de producto reescribió varias veces el gancho que le pulimos porque *"no sonaba a ella"*.
 
 **Iker, literal:** *"que siempre intente respetar, si es un borrador que me ha pasado esa persona, su manera de escribir, sus muletillas, sus frases"*.
@@ -203,7 +205,7 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 - **Lo que se RESPETA aunque choque con la casa:** sus frases, sus muletillas (*"no te hago el rollo entero, que para eso ya está la web"*), los números en letra, las líneas largas, el cierre en pregunta, la longitud. Se toca solo lo que estorba la lectura (un párrafo con tres datos pasa a bloque, un golpe enterrado sale a línea suelta).
 - **Para recortar, se quita lo redundante, no lo suyo:** primero la frase que repite una idea ya dicha, luego el dato secundario. Sus giros se quedan.
 - **No se verifican sus datos ni sus menciones** (`feedback-revision-post-ajeno-solo-lo-pedido`).
-- **Validador:** `--voz-ajena` (y `--cuenta <Nombre>`). Pasa a AVISO los checks de formato de la casa y deja duros el gancho, la puntuación, la ilegalidad, el ninja y el UTM. **Falla si se usa con Iker, Unai, Asier o Mario.**
+- **Validador:** `--voz-ajena` (y `--cuenta <Nombre>`). Pasa a AVISO los checks de formato de la casa y deja duros el gancho, la puntuación, la ilegalidad, el ninja y el UTM. **Falla si se usa con Iker, Unai o Asier** (y con `mario`, cuenta dada de baja).
 - **Si Iker pide además "cómo quedaría en una cuenta de los jefes"**, esa segunda versión va con la receta entera y sin `--voz-ajena`.
 - **El gancho manda.** Es lo único que se trabaja a fondo, con 3-5 alternativas y una recomendada. El cuerpo puede quedar lejos de lo que sabemos que funciona y no pasa nada: Iker, 08/10, sobre el post de Ismael del 05/10: *"no fuimos en el cuerpo totalmente fiel a lo que sabemos que funciona, pero da igual. Son excepciones"*.
 - **Lleva spam ninja** (lo pidió Iker para Ismael el 05/10), a la puerta de agendar de la web nueva con UTM y `utm_content=<nombre>`.

@@ -3980,7 +3980,7 @@ Pilar NUEVO, distinto de **autoridad** ("mira qué importante soy": premios, eve
 2. **CUERPO:** ritmo de historia — frases cortas, UNA por línea, MUCHO aire. Detalles sensoriales concretos (las botas amarillas, los calcetines: la concreción da credibilidad). Arco: escena → momento → desenlace. Luego un REFRAME/contraste (antes vs ahora). Y una **LECCIÓN corta y universal al final** (*"Moments do"*, *"It can't create a memory"*). La lección ata a tu tema (ventas/marketing) por la HISTORIA, no por el pitch.
 3. **FOTO:** texto puro O una foto **REAL/candid** (un momento de verdad), NUNCA un gráfico diseñado (lo opuesto al lead magnet). Muchos de sus outliers son **text-only** (Josh Braun top).
 4. **CTA:** NO comment-gate. Cierra en la lección; como mucho un PD/spam ninja suave a un recurso. (🔄 La segunda mitad está superada: el spam ninja va siempre en historia, con el molde de `global §4.4b-MOLDE`, y la P.D. es un cierre quemado.)
-5. **Cuenta de Mario = ancla de MARKETING**, no de ventas (`aboutme §2`); el validador lo contempla con `--cuenta Mario`.
+5. **Cuentas de oficio (Helena, Angela) = el gancho ancla a su oficio** y ventas baja al cuerpo (`aboutme §2-CARRIL-GANCHO`). La de Mario (marketing) se dio de baja el 24/11.
 
 **⭐⭐ 4.6b · HISTORIA CON PELOTEO DENTRO (Iker, 2026-07-29).** El pilar sigue siendo **historia**, no se convierte en peloteo. Pero **a veces** (no siempre) la anecdota da pie a nombrar empresas, y entonces se pelotea DENTRO del relato:
 
@@ -4414,8 +4414,8 @@ El playbook dice "output = acción ejecutada o HTML estudio". Para posts **no**:
 
 **Regla operativa:** 🔄 **02/11: lo del "doble de alcance" está superado por `working-preferences §1h`** (remedido el 01/10 con controles por cuenta y mes: la mañana da una ventaja real pero pequeña, de un 10-40%; lo que esté listo se sube hoy). Antes ponía: apunta a **10:00-11:00** si puedes, porque es donde está el doble de alcance. Pasadas las **14:00**, sabes que vas con la muestra en contra. Entre medias, la hora **no** es una explicación válida de un flop: busca la causa en el ángulo o en el motor del pilar (`outliers-database §3.10`).
 
-### ⭐ 8.0 · LA 4ª CUENTA OPCIONAL: MARIO (marketing) — Iker, 2026-07-22
-Al planificar, además de las 3 de founder (Iker/Unai/Asier), considera **opcionalmente ~1 post/semana para Mario** (Growth & Marketing, ficha completa en `aboutme §2`). **NO entra en el cuadro latino 3×3** ni en la exclusividad de categoría de las 3 founder: es un **EXTRA**, unas semanas sí y otras no → **pregunta a Iker si esta semana toca Mario**. Reusa los mismos pilares que funcionan (mapa / meme / "Los 10") pero **anclados a MARKETING** (pelotea a gente y empresas de marketing, no industriales), con las **menciones obligatorias** (`@neety` + `@Unai` + `@Iker` + `@Asier`) y, si es post de resultados, **calcando el dashboard de analíticas de LinkedIn** (no un diseño). Su parte de comentarios/analíticas es **manual** (no está en Unipile). Y es buen sitio para **estrenar pilares nuevos de marketing**.
+### ⛔ 8.0 · LA CUENTA DE MARIO (marketing) ESTÁ DADA DE BAJA (2026-11-24)
+Deja la empresa: **no se planifica ni se escribe nada para su perfil, ni como extra semanal**. La planificación son las 3 de founder más las cuentas opcionales de los compañeros (Helena, Angela). Sus posts publicados siguen en la BD y en el historial como evidencia (el meme del 21/10 en `§4.4-MEME-MARIO`, el webinar del 23/10), no como cuenta en la que publicar. Ficha de baja en `aboutme §2`.
 
 ### 8.0 · ⭐ LEE EL PILAR ANTES DE SACAR CONCLUSIONES (Iker, 2026-07-27)
 Cada post lleva ahora su **etiqueta de PILAR** en la herramienta (chapa de color arriba en la tarjeta, junto al multiplicador; la calcula `backend/src/services/pillar.ts`): `peloteo_mapa · peloteo_los10 · lead_magnet · meme · historia · otro`.

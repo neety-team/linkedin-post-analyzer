@@ -6,7 +6,7 @@
 
 ---
 
-## 00 · ⛔⛔ PASO 0 DE TODO VÍDEO, SIN EXCEPCIÓN (Iker, 2026-09-30)
+## 00 · ⛔⛔ PASO 0 DE TODO VÍDEO, SIN EXCEPCIÓN (2026-09-30)
 
 > **Por qué es el paso 0:** el primer guion de la casa se entregó **sin leer esta skill entera ni los apuntes**: 9 frases sueltas que describían los planos, que no eran un guion de vídeo.
 
@@ -138,12 +138,12 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 ## 4b · Lo que ya sabemos de VÍDEO en nuestras cuentas (medido el 2026-09-23 contra la BD)
 
 - **12 vídeos en las 3 cuentas, mediana 1.950 impresiones**, contra **3.925 de los 222 posts con imagen**. El vídeo nos rinde la mitad de mediana: todo pilar de vídeo es de momento una prueba y así se avisa.
-- **Los 2 vlogs "cómo es nuestro día" van 0 de 2:** la oficina de Lanzadera (Iker 13/12/2024, 0.41x) y Valencia desde el cielo (Unai 10/01/2025, 0.41x). **Ninguno llevaba ancla de ventas ni vector nuevo**: eran un día normal contado en tono reflexivo.
-- **El único vídeo que voló es el mapa de Euskadi de Unai (28/04, 3.54x · 21.846)**, con el patrón §2 nº2 (`Nadie habla del pueblo… que exporta más que países enteros`) y ancla de ventas (`exporta`).
+- **Los 2 vlogs "cómo es nuestro día" van 0 de 2:** la oficina de Lanzadera (Iker 13/12/2024, 0.41x) y Valencia desde el cielo (el primer jefe 10/01/2025, 0.41x). **Ninguno llevaba ancla de ventas ni vector nuevo**: eran un día normal contado en tono reflexivo.
+- **El único vídeo que voló es el mapa de Euskadi del primer jefe (28/04, 3.54x · 21.846)**, con el patrón §2 nº2 (`Nadie habla del pueblo… que exporta más que países enteros`) y ancla de ventas (`exporta`).
 
 ---
 
-## 6 · PILAR "UNA MAÑANA CON…" (vlog con vector) — v0, EN PRUEBA (Iker, 2026-09-23)
+## 6 · PILAR "UNA MAÑANA CON…" (vlog con vector) — v0, EN PRUEBA (2026-09-23)
 
 > **Estado:** primer pilar de vídeo de la casa. Definido el 23/09 con las referencias de Iker (Instagram y TikTok, **ninguna de LinkedIn**). El gancho y el primer frame están definidos; el resto del guion se cierra al ver los planos grabados y se añade aquí. Lo marcado *(deducción)* es mío y está sin validar (`working-preferences §0c`).
 
@@ -180,11 +180,11 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 
 **Los mismos planos y los mismos subtítulos. Solo cambia el gancho.** El segundo: 15,80 s de duración, **10,4 s de retención media (66%)**, **41% lo vio entero** y +1.500 seguidores. Lo observable:
 1. **El detalle que describe (`gigante`) se cambia por una expresión hecha de peligro (`de la muerte`).** El primero dice cómo es la rampa; el segundo promete que va a pasar algo. Es `global §2.3d` (el intensificador) llevado al extremo.
-2. **Bucle abierto hasta el final:** el código del mapa no se enseñaba hasta el último segundo. En nuestro caso, el evento hace de código: **no se nombra en el gancho y se desvela al final** (Iker, 23/09).
+2. **Bucle abierto hasta el final:** el código del mapa no se enseñaba hasta el último segundo. En nuestro caso, el evento hace de código: **no se nombra en el gancho y se desvela al final** (23/09).
 3. **El mismo plano con un zoom distinto en cada palabra del gancho.** Con 3 planos o con uno, en la intro cada palabra lleva su propio corte o zoom.
 4. **3 palabras de gancho y 15,8 s de vídeo.** La duración de 15-30 s de este pilar va en esa línea.
 
-**⚠️ El techo del intensificador lo pone la cuenta (`brand-voice §1b`).** `de la muerte` es de calle: vale en Iker y **no en Unai**, cuyo intensificador es el formal (`jamás`, `en la vida`) o la expresión de prensa (`de infarto`, *(deducción: sin medir en su cuenta)*).
+**⚠️ El techo del intensificador lo pone la cuenta (`brand-voice §1b`).** `de la muerte` es de calle: vale en Iker y **no en el primer jefe**, cuyo intensificador es el formal (`jamás`, `en la vida`) o la expresión de prensa (`de infarto`, *(deducción: sin medir en su cuenta)*).
 
 ### 6.3 · La receta del gancho (lo cerrado el 23/09)
 
@@ -196,12 +196,12 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 - ⛔ `revolucionar` y su familia (`global §2.9-REVOLUCIONAR`: 0.68x, 0.53x y 0.45x en nuestras cuentas).
 - **El verbo del modificador no puede describir.** `intentando vender` es literalmente un delator de `global §2.9` (*intentando, trabajando, haciendo*). Y **`sin descanso` se tumbó el 29/09**: no es punchy y se puede leer como que la empresa explota al equipo. **El test de las dos lecturas vale también para la imagen de empresa**, no solo para el objeto.
 - ~~Apuesta del 29/09: `Una mañana / persiguiendo clientes / desde una casa rural`~~ **→ TUMBADA EL MISMO DÍA POR AUTOGOL (`global §4.4b-AUTOGOL`), y la cacé solo porque Iker pidió autovalidarla.** Nuestro propio ninja del 21/07 (18.933 imp) promete *"Te quitamos los minutos de perseguir a quien nunca iba a comprar"*. Un vídeo de la empresa pasándose la mañana persiguiendo clientes publica que lo que vendemos no nos funciona ni a nosotros.
-- **Longitud, medida contra las referencias de la temática:** van de **7 a 11 palabras (mediana 9)**. La apuesta con `en una casa rural` tenía 10, por encima de la mediana. **`casa rural` sale del gancho (Iker, 29/09): ya la enseñan los planos**, y el vector que queda en palabras es `a contrarreloj`.
+- **Longitud, medida contra las referencias de la temática:** van de **7 a 11 palabras (mediana 9)**. La apuesta con `en una casa rural` tenía 10, por encima de la mediana. **`casa rural` sale del gancho (29/09): ya la enseñan los planos**, y el vector que queda en palabras es `a contrarreloj`.
 - **Apuesta vigente (29/09, 2ª versión):** `Una mañana / de ventas / a contrarreloj`, con **6 palabras y 35 caracteres**, más corta que cualquier referencia. `con nosotros` no entra: está validado en 1 de 6 y son 2 palabras más. ~~1ª versión: `Una mañana de ventas / a contrarreloj / en una casa rural`~~. **El bucle es el más fuerte de todos los candidatos:** *¿contrarreloj, para qué?* lo paga el desvelado del evento, igual que el código del mapa en la rampa (`§6.2b`). Y la piscina lo contradice al final.
 
-#### ⛔⛔ 6.3-CHECK · TODO GANCHO DE VÍDEO SE ENTREGA CON ESTE CHEQUEO ESCRITO, LÍNEA A LÍNEA (Iker, 2026-09-29)
+#### ⛔⛔ 6.3-CHECK · TODO GANCHO DE VÍDEO SE ENTREGA CON ESTE CHEQUEO ESCRITO, LÍNEA A LÍNEA (2026-09-29)
 
-> Iker: *"asegúrate de que siempre que me das una corrección del gancho la autovalidas con todo lo que sabes"*. En tres rondas le di `de infarto` (fuera del registro de Unai), `sin descanso` (segunda lectura de explotación) y `persiguiendo clientes` (autogol). **Los tres fallaban una regla que ya estaba escrita.** No había un check que las juntara para vídeo.
+> Iker: *"asegúrate de que siempre que me das una corrección del gancho la autovalidas con todo lo que sabes"*. En tres rondas le di `de infarto` (fuera del registro del primer jefe), `sin descanso` (segunda lectura de explotación) y `persiguiendo clientes` (autogol). **Los tres fallaban una regla que ya estaba escrita.** No había un check que las juntara para vídeo.
 
 | # | check | fuente |
 |---|---|---|
@@ -212,7 +212,7 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 | 5 | **Punch:** ¿hay verbo que frena o intensificador que lo sustituya? Nada de gerundios que describen | `global §2.9`, `§2.9-SIN-VERBO` |
 | 6 | **Rodable:** ¿qué plano va con cada línea? | `global §2.2d` |
 | 7 | **Verdad:** ¿lo enseñan los planos? ¿no promete un resultado que no hubo? | `CLAUDE.md` |
-| 8 | **Registro de la cuenta** (Unai: nada de expresiones de calle) | `brand-voice §1b` |
+| 8 | **Registro de la cuenta** (el primer jefe: nada de expresiones de calle) | `brand-voice §1b` |
 | 9 | **Longitud** 6-10 palabras, `una mañana` con artículo, cero familias de riesgo, cero palabras quemadas | `§6.3`, `brand-voice §2c` |
 - **El modificador lleva un intensificador extremo, no un adjetivo que describe** (`§6.2b`: `gigante` → `de la muerte`, x166), con el techo de registro de la cuenta.
 - **Si el vídeo lleva un enlace (evento, agendar), el gancho NO lo nombra.** Un post que va del evento trae clics y no inscritos (`global §4.4b-EVENTO-EXPLICITO`: 0 inscritos de 37 clics). El enlace entra como ninja: en el payoff del vídeo y en el caption.
@@ -220,11 +220,11 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 ### 6.4 · El primer frame
 
 - Tiene que enseñar **la identidad y la contradicción a la vez, sin sonido**: en la referencia, cama + cuerpo de deportista.
-- ⛔ **Nada con marca del evento** (photocall, cartel, logo): se lee como promoción desde el segundo 1 (`post-workflow §4.6-FOTO`, el cartel de Unai del 11/08, 0.47x).
+- ⛔ **Nada con marca del evento** (photocall, cartel, logo): se lee como promoción desde el segundo 1 (`post-workflow §4.6-FOTO`, el cartel del primer jefe del 11/08, 0.47x).
 - Si salen caras, gana la sonrisa amplia con los ojos abiertos (criterio de CTR de las fotos de la casa).
 - El giro final (en el primer vídeo, la piscina) **no sale en la intro**.
 
-### 6.4a · LA PORTADA DE LINKEDIN ES UNA IMAGEN APARTE (Iker, 30/09)
+### 6.4a · LA PORTADA DE LINKEDIN ES UNA IMAGEN APARTE (30/09)
 
 LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir un fotograma de la línea de tiempo. Criterio de Iker: *"un fotograma que luego te vayas a encontrar en el vídeo"*, como en YouTube Shorts.
 - **~~El gancho se agranda en la portada~~ → Iker, 30/09: el texto de la portada va IGUAL que dentro del vídeo** (en el primero, 30% del ancho y 7,6% del alto), *"porque si les aparece la portada y pulsan play, coincidirá; si de repente lo pongo mucho más grande, va a quedar feo"*. Manda la continuidad entre portada y vídeo. Lo que sí se cuida es que el texto **no tape la cara** de quien mira a cámara.
@@ -255,9 +255,9 @@ LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir
 - **El gancho, entero desde el fotograma 0** (`Una mañana / de ventas / a contrarreloj`, en 3 líneas y centrado) durante los 3 s de la intro, en vez de palabra a palabra: el primer fotograma es la miniatura que enseña LinkedIn antes de arrancar, y la referencia pone el gancho en 3 líneas. Del gancho en adelante, subtítulo por frases cortas y centrado.
 - **Tamaño:** en el vídeo de Iker, "holaaa" mide **12 px de alto sobre 678 del lienzo (1,8%)** y **54 px de ancho sobre 382 (14%)**. No se sube a ojo: se mide un frame de Rodri y se iguala.
 
-### 6.5 · El guion del primer vídeo (29/09, Unai) — la plantilla del pilar
+### 6.5 · El guion del primer vídeo (29/09, el primer jefe) — la plantilla del pilar
 
-**⏱️ DURACIÓN DEL PILAR: unos 21 s de voz, unas 60 palabras (Iker, 30/09: *"máximo 20, si dura unos 21 segundos estaría guay"*).** Rodri hace vídeos de 40 s a 1 min, pero no manda en la duración: manda la rampa (15,8 s, 66% de retención) y Jenny (TikTok 10-20 s, *"cada segundo cuenta"*). `validar-video.py` falla por encima de 70 palabras y avisa por encima de 62.
+**⏱️ DURACIÓN DEL PILAR: unos 21 s de voz, unas 60 palabras (30/09: *"máximo 20, si dura unos 21 segundos estaría guay"*).** Rodri hace vídeos de 40 s a 1 min, pero no manda en la duración: manda la rampa (15,8 s, 66% de retención) y Jenny (TikTok 10-20 s, *"cada segundo cuenta"*). `validar-video.py` falla por encima de 70 palabras y avisa por encima de 62.
 
 **Estructura (la versión corta del 29/09; la final está en `§6.5c`):**
 1. **0-3 s · gancho con sobrecarga de planos:** 3 planos, uno por línea y un zoom por palabra. Primero el grupo trabajando en el sitio (el primer frame), luego el detalle de trabajo y al final una cara de agobio.
@@ -272,7 +272,7 @@ LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir
 
 **⛔ EL CAPTION NUNCA MANDA AL FINAL DEL VÍDEO (Iker, 30/09).** Ni `al final del vídeo`, ni `ojo al último plano`, ni nada que diga dónde está el pago. Iker: *"les estamos incitando a que salten el vídeo hasta el final… no quiero que nos destroce la retención"*. **El caption abre el bucle, pero no dice dónde se cierra**: el que lo lee antes de ver el vídeo salta al final, se pierde el medio y hunde la retención, que es la señal que reparte un vídeo. Se valida con `--pilar meme --referencia-fuera --meme-sobrio` (y desde el 02/10 también `--comprador-ok`, que todo `--pilar meme` exige), porque el validador no tiene pilar de vídeo: **57/57** el 29/09.
 
-### 6.5b · LA VOZ EN OFF ES NARRACIÓN, NO TELEGRAMA (Iker, 30/09)
+### 6.5b · LA VOZ EN OFF ES NARRACIÓN, NO TELEGRAMA (30/09)
 
 > **Tienen que ser frases de narración, sin puntos sueltos ni tantas pausas de respiración.** La primera versión eran 9 frases sueltas de 2-5 palabras (`11 personas. Una casa rural.`): leídas por ElevenLabs suenan a lista, no a alguien contando algo.
 
@@ -281,23 +281,23 @@ LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir
 
   | recurso | en Rodri | en nuestro guion |
   |---|---|---|
-  | persona | **1ª del singular** en los 5 (habla él solo de su vida) | **⛔ 1ª del PLURAL** cuando en el vídeo sale el equipo (Iker, 30/09): lo sube el CEO y el vídeo es de los 11, así que `nos repiten` / `nos dedicamos` / `éramos`. **Se copia el recurso (primera persona y confesión), no el número:** Rodri habla solo porque sale solo |
+  | persona | **1ª del singular** en los 5 (habla él solo de su vida) | **⛔ 1ª del PLURAL** cuando en el vídeo sale el equipo (30/09): lo sube el CEO y el vídeo es de los 11, así que `nos repiten` / `nos dedicamos` / `éramos`. **Se copia el recurso (primera persona y confesión), no el número:** Rodri habla solo porque sale solo |
   | tiempo del arranque | **presente o pretérito perfecto** en 4 de 5 (`acabo de recibir`, `he tenido`, `he decidido`, `estoy a punto de`): la historia pasa AHORA | la pregunta en presente (`¿Sabes qué me repiten…?`) |
   | la reflexión | salta de `yo` a lo general (`esperamos y esperamos`, `hasta que un día te das cuenta`) | el dolor en presente universal (`se les van meses`) |
   | la memoria | imperfecto (`las guardaba`, `me decía`) | `éramos`, `presentábamos` |
   | marcas orales | `¿sabes?`, `o sea`, `claro`, `lo gracioso es que`, `no me malinterpretéis` | `¿Sabes…?`, `O sea`, `Lo gracioso es que` |
   | el final | 2 de 5 cierran con una pregunta al que mira y **1 con AUDIO REAL** (la abuela) | el `holaaa` real de la piscina |
-- **LA VOZ POR DEFECTO ES UNA VOZ DE IA, Y DE CHICA (Iker, 30/09):** la misma de los tráileres y cortos del evento, hecha en ElevenLabs. **No se ve quién habla**, aunque lo suba un jefe, y por eso el guion va **en primera del plural por defecto**: habla la casa, no una persona.
+- **LA VOZ POR DEFECTO ES UNA VOZ DE IA, Y DE CHICA (30/09):** la misma de los tráileres y cortos del evento, hecha en ElevenLabs. **No se ve quién habla**, aunque lo suba un jefe, y por eso el guion va **en primera del plural por defecto**: habla la casa, no una persona.
   - **Excepción futura:** si algún vídeo lleva la voz real de un jefe, se puede pasar a la primera del singular, como Rodri. Iker lo ve raro porque *"retrasaría mucho mi trabajo depender de que alguien me grabe la voz"*.
   - **Ojo con el género:** con voz de chica, **nada que marque el sexo de quien narra en singular** (`estaba agotado`, `me quedé sorprendido`). En plural el masculino genérico del equipo mixto sí vale (`éramos nosotros`).
 - **Volumen, medido en el primer vídeo (30/09):** la voz de ElevenLabs sale a **-22,1 LUFS con pico de -3,5 dBFS**, y la música de Pixabay a **-14,2 LUFS**. Con la música a -18 dB queda a ~-32 LUFS, **unos 10 LU por debajo de la voz**, y es donde se deja. A -15 dB (7 LU) le pisa la voz a un público mayor. Aparte, **el vídeo entero sale bajo**: se sube la voz con un limitador (techo -1 dBTP) hasta ~-14/-16 LUFS, porque sin limitador solo admite +2,5 dB. *(Los márgenes de 10 LU y -14 LUFS son convención de la industria, no un dato nuestro.)*
 - **Rewatch:** Jenny lo pone como objetivo (*"ideally rewatchability (looping)"* y *"rewatch rate drives virality more than retention alone"*). El corte seco en la piscina hace que el vídeo vuelva a empezar en el grupo trabajando con "a contrarreloj" en pantalla, que leído después de la piscina es irónico.
-- **Música (Iker, 30/09):** sin derechos, de **Pixabay** (licencia de contenido de Pixabay: uso comercial sin atribución), bajita debajo de la voz (Rodri: *"música emocional suave"*), y **se corta en seco en el giro**, para que el audio real suene solo. ⚠️ Las marcadas **"Content ID Registered"** dan reclamaciones en YouTube y Facebook; LinkedIn no tiene Content ID.
+- **Música (30/09):** sin derechos, de **Pixabay** (licencia de contenido de Pixabay: uso comercial sin atribución), bajita debajo de la voz (Rodri: *"música emocional suave"*), y **se corta en seco en el giro**, para que el audio real suene solo. ⚠️ Las marcadas **"Content ID Registered"** dan reclamaciones en YouTube y Facebook; LinkedIn no tiene Content ID.
 - **Y la estructura, de Jenny Hoyos** (`APUNTES JENNY SHORTS.txt` y `2`): pregunta → progresión constante → tensión → pago → corte seco.
 - **Se entregan 3 propuestas de voz, distintas de verdad** (`working-preferences §1d-BIS`): crónica, confesión y cuenta atrás.
 - **⛔ El caption tampoco insinúa el giro** (Rodri: *"no puede estar insinuado antes"*). `Bueno, casi nadie` salió el 30/09 por eso.
 
-### 6.5c · LA VOZ NO CUENTA LO QUE SE VE: LO COMPLEMENTA (Iker, 30/09) — REGLA DEL PILAR
+### 6.5c · LA VOZ NO CUENTA LO QUE SE VE: LO COMPLEMENTA (30/09) — REGLA DEL PILAR
 
 > *"El error garrafal que comete mucha gente es que ya haya grabado un plano de la gente trabajando con los portátiles y que tú digas «estábamos trabajando con los portátiles». La voz en off tiene que ser complementaria, que siga la narración del gancho y tenga vinculación con ventas."*
 
@@ -307,7 +307,7 @@ LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir
 - **El orden cerrado:** gancho → lo que nos cuentan los clientes → a qué nos dedicamos → la ironía (*esa mañana los que íbamos a contrarreloj éramos nosotros*) → el porqué (el evento) → el giro de la piscina y corte seco.
 - **La marca de tiempo del relato la decide Iker.** Los clips son del martes 22 y el evento era el jueves 24. Aun así, el 30/09 Iker pidió `al día siguiente` sabiéndolo: *"la gente no tiene por qué saber cuándo se grabó"*. **Es el tiempo del relato sobre nuestra propia grabación, no un dato de un tercero** (misma lógica que las escenas construidas de `post-workflow §4.6-INVENTAR`). Se avisa una vez con el dato y, si Iker lo confirma, se aplica igual en voz y caption.
 
-### 6.5d · LA ENTREGA DE UN POST DE VÍDEO SON DOS TEXTOS Y UNA MÚSICA (Iker, 30/09)
+### 6.5d · LA ENTREGA DE UN POST DE VÍDEO SON DOS TEXTOS Y UNA MÚSICA (30/09)
 
 > *"Una cosa es el texto del caption con todos los aprendizajes de publicaciones y otra cosa es la transcripción de la voz en off."*
 
@@ -322,27 +322,27 @@ Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-P
 
 **⭐ Y EL CONTENIDO QUE FUNCIONÓ, en palabras de Iker:** *"atacamos el punto de dolor del cliente, que es lo que más conversión nos va a generar… no se nos ha ido la cabeza haciendo un primer vídeo de un trend, un baile que no tenga nada que ver."* **El formato viral pone el alcance; el dolor del cliente, dicho en la voz, pone la conversión.** Es la misma separación de palancas que `post-workflow §4.4-CONVERSION`.
 
-### 6.5e · EL MAPA DE PLANOS USA TODO LO GRABADO, Y EL AUDIO NO SE SUPONE (Iker, 30/09)
+### 6.5e · EL MAPA DE PLANOS USA TODO LO GRABADO, Y EL AUDIO NO SE SUPONE (30/09)
 
 > *"Ya que grabé todo el contenido que pude, no puede ser que haya planos que no me hayas incluido."* En el primer mapa se quedaron fuera 5 de 25 clips, entre ellos **4899, un trabajador**, sin decir por qué.
 
-- **⛔ "DUPLICADO" ES EL MISMO ENCUADRE, NO LA MISMA ACTIVIDAD (Iker, 30/09).** Descarté 4918 como *duplicado de 4916* porque los dos son galletas, y **4918 era el mejor de los dos**: ángulo distinto y fondo desenfocado. Iker: *"cuidado al descartar, asegúrate muy bien de lo que dices"*.
+- **⛔ "DUPLICADO" ES EL MISMO ENCUADRE, NO LA MISMA ACTIVIDAD (30/09).** Descarté 4918 como *duplicado de 4916* porque los dos son galletas, y **4918 era el mejor de los dos**: ángulo distinto y fondo desenfocado. Iker: *"cuidado al descartar, asegúrate muy bien de lo que dices"*.
   - Antes de descartar, **se ponen los dos fotogramas uno al lado del otro** y se compara lo que se ve: encuadre, profundidad de campo, luz, si hay cara o gesto. Si cambian, **no es duplicado: son dos planos**, y se puede usar cada uno en un momento (galletas, luego comida, luego otra vez galletas desde otro ángulo: variedad sin salir de la escena).
   - **Y al revés, que también falló el mismo día:** mantuve 4912 y 4913 como planos distintos y son **el mismo movimiento de cámara por la banderola y el photocall** (igual que 4911). Iker: *"son casi idénticos… quiero variedad"*. Comparar lado a lado sirve para las dos cosas: no descartar un plano distinto y no meter dos veces el mismo.
   - Entre dos tomas de verdad parecidas gana la **más llamativa**: fondo desenfocado, luz, movimiento dentro del plano.
   - Y si el motivo es gusto (*no aporta*, *no llama la atención*), se escribe como `porque…`, nunca disfrazado de `duplicado`.
 - **Si Iker ya está montando, un mapa nuevo va con su lista de cambios (30/09):** qué fila cambia y de qué clip a qué clip (`Esa mañana: 4923 → 4918`). El 30/09 rehíce el mapa seis veces mientras él editaba y acabó con el 4913 donde tocaba el 4912, dos planos del photocall con números casi iguales. **Y cuando dos clips tienen números seguidos y parecidos, se nombran con su descripción al lado** (`4912, photocall con la cámara en movimiento`).
-- **⛔ VARIEDAD DE PLANOS: DOS PLANOS PARECIDOS NUNCA VAN SEGUIDOS (Iker, 30/09).** Es la ley de variedad de `global §2.0b` aplicada a la imagen: *"igual que en las publicaciones hay que tener variedad, a nivel de planos igual"*. Se **intercalan los tipos de escena** (trabajo, comida, evento, sitio) para que el que mira no sienta que ya lo ha visto. El mapa final del primer vídeo lo hace así: `photocall > sartén > galletas`, luego `photocall quieto > la cara con la bolsa`, y nunca dos de photocall ni dos de galletas pegados. **Al revisar el mapa, se lee la columna de clips de arriba abajo y se mira si hay dos seguidos de la misma escena.**
+- **⛔ VARIEDAD DE PLANOS: DOS PLANOS PARECIDOS NUNCA VAN SEGUIDOS (30/09).** Es la ley de variedad de `global §2.0b` aplicada a la imagen: *"igual que en las publicaciones hay que tener variedad, a nivel de planos igual"*. Se **intercalan los tipos de escena** (trabajo, comida, evento, sitio) para que el que mira no sienta que ya lo ha visto. El mapa final del primer vídeo lo hace así: `photocall > sartén > galletas`, luego `photocall quieto > la cara con la bolsa`, y nunca dos de photocall ni dos de galletas pegados. **Al revisar el mapa, se lee la columna de clips de arriba abajo y se mira si hay dos seguidos de la misma escena.**
 - **Cada clip de la carpeta sale en el mapa:** usado, o `DESCARTADO` con su motivo (casi siempre, *duplicado de X*: la misma escena desde otro ángulo). Lo comprueba `validar-video.py --carpeta <dir> --planos <mapa.txt>`.
-- **~~Ritmo: un corte cada ~1 s en el medio y ~0,7 s en la prisa~~ → CORREGIDO EL MISMO DÍA CON EL PREMIERE DELANTE (Iker, 30/09).** *"¿Cómo vas a meterme en dos segundos cinco planos?"* `y el nombre de quien decide` duró **1,4 s** y no cabían dos planos. La regla buena:
+- **~~Ritmo: un corte cada ~1 s en el medio y ~0,7 s en la prisa~~ → CORREGIDO EL MISMO DÍA CON EL PREMIERE DELANTE (30/09).** *"¿Cómo vas a meterme en dos segundos cinco planos?"* `y el nombre de quien decide` duró **1,4 s** y no cabían dos planos. La regla buena:
   - **SOLO el gancho va sobrecargado:** un corte cada ~2 palabras, sin dejar respirar ni un segundo.
-  - **Del gancho en adelante, los planos RESPIRAN, y EL CORTE LO PONE LA VOZ, NO UN NÚMERO (Iker, 30/09):** se corta donde la voz hace su pausa natural (la coma, el punto, la respiración). `Esa mañana, / los del reloj en contra / éramos nosotros.` lleva **3 planos** porque la voz ya se parte en 3. *"Que el cambio de plano sea natural, que tampoco se pueda predecir, pero que no sea plano por meter"*: ni metrónomo cada X palabras ni saturar por dinamismo. **Suelo mecánico: ~3 palabras de voz por plano (~1 s).** No hace falta que el corte caiga exacto en la palabra. Nuestro público es mayor. Iker: *"los niños sí necesitan esa sobrecarga de planos; en nuestro caso necesitamos que los planos puedan respirar"*.
+  - **Del gancho en adelante, los planos RESPIRAN, y EL CORTE LO PONE LA VOZ, NO UN NÚMERO (30/09):** se corta donde la voz hace su pausa natural (la coma, el punto, la respiración). `Esa mañana, / los del reloj en contra / éramos nosotros.` lleva **3 planos** porque la voz ya se parte en 3. *"Que el cambio de plano sea natural, que tampoco se pueda predecir, pero que no sea plano por meter"*: ni metrónomo cada X palabras ni saturar por dinamismo. **Suelo mecánico: ~3 palabras de voz por plano (~1 s).** No hace falta que el corte caiga exacto en la palabra. Nuestro público es mayor. Iker: *"los niños sí necesitan esa sobrecarga de planos; en nuestro caso necesitamos que los planos puedan respirar"*.
   - **Un plano dura lo que tarda en entenderse su acción:** *"la gracia era que se viese cómo colocaba la masa. Si lo hubiese cortado ahí, ni se entendía el plano"*. Se elige el tramo del clip donde la acción se completa.
   - **El giro:** un plano en `Aunque, bueno…` y otro en `¿y este plano?`, y el último se queda en pantalla después de la voz.
   - **Ritmo de voz MEDIDO en este vídeo:** 36 palabras en 11,9 s, **3,0 palabras/s** con pausas. Un plano de ~4 palabras dura ~1,3 s.
   - **Mecanizado** en `validar-video.py` (`~3 palabras de voz por plano como mínimo, salvo gancho y giro`). El mapa con 5 planos en `Esa mañana…` sale en rojo; con 3, en verde.
 - **⛔ El audio de un clip no se supone.** Escribí que en 4922 sonaba un `holaaa` porque medí un pico de volumen y lo crucé con el texto de ejemplo de una captura de Iker: **era el sonido de ambiente**. Ella no dice nada. Un pico de volumen no es una palabra. **Si el guion depende de lo que se oye en un clip, se pregunta a Iker o se transcribe; nunca se deduce.**
-- **FORMATO DEL MAPA (Iker, 30/09) — tres columnas y UNA fila por frase, dentro de un bloque cercado:**
+- **FORMATO DEL MAPA (30/09) — tres columnas y UNA fila por frase, dentro de un bloque cercado:**
   1. **los segundos** de esa frase (`5,5-10 s`), orientativos hasta que haya audio;
   2. **la frase entera, con una `/` donde va cada corte**;
   3. **los clips en orden, con `>`**, y entre paréntesis el tramo del clip o la nota (`(1-2 s)`, `(lento)`, `(música cortada, fin)`).
@@ -353,7 +353,7 @@ Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-P
   ```
 - **Un giro visual basta:** la compañera de espaldas bañándose, después de 20 s de "contrarreloj", es el giro. La voz solo lo presenta (`¿y este plano?`) y se corta.
 
-### 6.5f · FICHA TÉCNICA DEL PRIMER VÍDEO PUBLICADO (Unai, 30/09 16:44), MEDIDA SOBRE EL EXPORT
+### 6.5f · FICHA TÉCNICA DEL PRIMER VÍDEO PUBLICADO (primer jefe, 30/09 16:44), MEDIDA SOBRE EL EXPORT
 
 **La vara para comparar los siguientes.** Medido con ffmpeg sobre `Una mañana de ventas a contrarreloj.mp4`:
 
@@ -374,7 +374,7 @@ Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-P
 - **El primer fotograma solo lleva `Una mañana`**: el gancho se va completando línea a línea y está entero a los ~1,4 s. Lo acordado (`§6.4b`) era el gancho entero desde el fotograma 0. Con reproducción automática y wifi, el primer fotograma es lo primero que se ve. La portada, subida aparte, sí lleva el gancho entero.
 - **La piscina ya se ve a los 3-5 s** (el tramo de 4908 que se usó llega a la casa con la piscina). Puede ser una siembra que hace que el giro se entienda, o destripar parte de la sorpresa. **Lo dirá la curva de retención**, si LinkedIn la da.
 
-### 6.5g · LA MÉTRICA DEL PILAR: PORCENTAJE MEDIO VISTO (Iker, 01/10)
+### 6.5g · LA MÉTRICA DEL PILAR: PORCENTAJE MEDIO VISTO (01/10)
 
 LinkedIn da tres métricas de vídeo (reproducciones, tiempo total y tiempo medio) en la analítica del post. El dashboard guarda las tres y la duración (leída de la cabecera del mp4), y **enseña solo el porcentaje medio visto**, como YouTube Shorts: `▶ 76%` en la franja de cada post de vídeo.
 - **Colores:** neutro por debajo del 80% · **verde desde el 80%** (Iker) · **ámbar desde el objetivo de Jenny para su duración**: 100% si dura menos de 30 s, 90% si dura más. Por encima del 100% se ve más de una vez de media, que es pasarse el juego en un vídeo en bucle.
@@ -386,14 +386,14 @@ LinkedIn da tres métricas de vídeo (reproducciones, tiempo total y tiempo medi
 > **⛔ Iker, 15/10:** *"el jefe quiere subir ese vídeo tal cual… lo ha grabado y editado el filmmaker… los apuntes los aplicamos en el caso de que tengamos que hacer un vídeo de cero. En este caso el vídeo ya está hecho"*. El primer intento de este caso le propuso 3 recortes del vídeo: estaba mal.
 
 **Cuando el vídeo llega HECHO (filmmaker, productora), se sube TAL CUAL, con su duración, y no se toca.** Nada de esta skill que sirva para MONTAR (`§4` playbook, `§6.3`-`§6.5g`, Rodri, Jenny, música, mapa de planos, voz en off, 3 propuestas de voz) aplica. Lo único que se entrega es el **post de texto**:
-- **El caption, con las reglas de post de texto y su pilar** (aquí historia rama B: el protagonista es el entrevistado y el jefe es testigo), y si el post es de **evento presencial en la cuenta de Unai, con su banco de 5 ganchos** (`brand-voice §1b`).
+- **El caption, con las reglas de post de texto y su pilar** (aquí historia rama B: el protagonista es el entrevistado y el jefe es testigo), y si el post es de **evento presencial en la cuenta del primer jefe, con su banco de 5 ganchos** (`brand-voice §1b`).
 - **El cuerpo COMPLEMENTA lo que se oye en el vídeo, no lo repite** (`§6.5c` y `global §2.0c`): lo que el entrevistado ya cuenta lo paga el vídeo; el texto pone el porqué y la mirada del jefe, y cierra el bucle del gancho en el último tercio.
 - **Transcribir sí, siempre** (faster-whisper en local), para saber qué dice el vídeo y no repetirlo, y para identificar a quien sale y mencionarle.
 - **El riesgo se avisa con el dato, pero no se propone recortar:** la entrevista del 08/10 (72 s) retuvo un 22%.
 - **Validador:** `validar-video.py <transcripcion.txt> --caption <caption.txt> --cuenta X --pilar-video entrevista --segundos <duración> --caption-pilar <pilar>`. En este modo la voz y la duración solo dan aviso: lo que cuenta es el caption.
 
 ### 6.6 · Pendiente
-Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la de Unai, y anotarlo en el historial.
+Medir el vídeo a los 3-4 días contra la mediana de vídeo de la casa (1.950, `§4b`) y contra la del primer jefe, y anotarlo en el historial.
 Resto del guion (foreshadow, mecanismo, payoff, giro, corte), duración objetivo (15-30 s, pedida por Iker), caption con ninja y línea de contexto del evento, y el auto-chequeo de `§4` punto 36.
 
 ---

@@ -15,7 +15,7 @@ El análisis real de outliers se calcula en vivo desde la base de datos (secció
 - `GET /api/analysis/{id}/stats` — stats por cuenta: hook_type_breakdown, structure_breakdown, content_type, timing_heatmap, best_timing_slots (base del split por cuenta, §4).
 - `GET /api/analysis/cross-creators` — análisis cross-creator (base de §3).
 - `GET /api/analysis/{id}/export`, `/patterns`, `/timeline`, `/compare` — detalle fino.
-- IDs managed: Iker `3d545376-057c-48db-8b45-c5c5510110bb` · Unai `88d272b7-0f93-49cf-bac1-1334965f361d` · Asier `89610120-758c-4d25-8353-76c1147e0f0c`.
+- IDs managed: Iker `3d545376-057c-48db-8b45-c5c5510110bb` · el primer jefe `88d272b7-0f93-49cf-bac1-1334965f361d` · el tercer jefe `89610120-758c-4d25-8353-76c1147e0f0c`.
 
 **Para refrescar:** consulta esos endpoints y vuelca los números a §3/§4 (los ratios decaen; refresca cada 1-2 meses). Si el acceso vuelve a caer, la vía manual de siempre (pegar el export del Explorer) sigue valiendo.
 
@@ -26,7 +26,7 @@ El análisis real de outliers se calcula en vivo desde la base de datos (secció
 4. Filtrar: español, nicho correcto (fuera sectores ajenos aunque sean virales), no estar ya en la BD, y persona (no empresa). Añadir la shortlist y dejar que el cálculo de outliers de la propia BD sea el juez final.
 5. **Ser muy co-etiquetado mide popularidad en el gremio, NO viralidad.** Caso real: Ana Díaz del Río salía 10 veces co-etiquetada con Miriam y tenía 922 posts con **0 outliers** y engagement medio 3. Se borró.
 
-**⭐ PODA — cómo limpiar cuentas que solo hacen ruido (Iker, 2026-07-27):**
+**⭐ PODA — cómo limpiar cuentas que solo hacen ruido (2026-07-27):**
 Un `total_outliers = 0` NO significa lo mismo en todas. Antes de borrar, mira SIEMPRE el engagement medio junto al número de posts:
 - **BORRAR — plana de verdad:** muestra grande (20+ posts) **y** media baja. Nunca despega y ensucia los filtros de Inspiration. (Borradas el 2026-07-27: Ana Díaz del Río 922p/avg 3 · Ryan Brancheau 105p/avg 29 · Elliott Azoulay 81p/avg 162 · Jaume Iglesias 23p/avg 54 · Dhruvi S. 22p/avg 47.)
 - **BORRAR — perfil duplicado:** la misma persona metida dos veces; se queda el que tiene histórico y outliers. (Borrados: el clon de Kevin French con 1 post y el de Adam Ali con 9.)
@@ -39,9 +39,9 @@ Usa el **snapshot cross-creator** (§3), la **taxonomía** (§1) y el **históri
 
 ---
 
-## ⛔⛔ 0b · UN 0 DE CLICS NO ES UN CERO: ES UN HUECO (Mario, 2026-09-14)
+## ⛔⛔ 0b · UN 0 DE CLICS NO ES UN CERO: ES UN HUECO (2026-09-14)
 
-**El caso que lo prueba, y se cerró cruzando dos fuentes:** el mapa de Cantabria de Asier (01/09, 13.021 impresiones, con su enlace a `recursos.neety.com/mapas/cantabria/` en el cuerpo; la URL de entonces, hoy `neety.com/blog/mapa-industrial-cantabria`).
+**El caso que lo prueba, y se cerró cruzando dos fuentes:** el mapa de Cantabria del tercer jefe (01/09, 13.021 impresiones, con su enlace a `recursos.neety.com/mapas/cantabria/` en el cuerpo; la URL de entonces, hoy `neety.com/blog/mapa-industrial-cantabria`).
 
 ```
 Panel de LinkedIn ...... "Visits to links from this post"  =  0
@@ -61,15 +61,15 @@ GA4, misma ventana ..... /mapas/cantabria/  =  27 vistas, 21 usuarios activos
 
 **Lo que se hace en su lugar:** se marca como **no medido**, se dice que el dato lo perdió LinkedIn, y si hace falta el número se pide por **GA4 cruzando el UTM** (`global §4.4b-UTM`): `Informes → Interacción → Páginas y pantallas` para el total de la página, y `Campaña de la sesión` en Adquisición de tráfico para atribuirlo al post. **Ojo: GA4 también se queda corto** si el visitante no acepta el banner de cookies, así que GA4 por encima de 0 demuestra que LinkedIn se equivoca, pero un 0 en GA4 no demuestra lo contrario.
 
-**⭐ Y ESTO NO TUMBA EL CONTADOR DE LINKEDIN, SOLO EL CERO (Mario, 2026-09-14).** *"Es la única métrica a la que nos podemos agarrar en nuestro dashboard, y no siempre se equivoca. Desde que empezamos a medir los clics y el CTR hemos descubierto qué pilares convierten más y hasta cosas de formateado, como que poner enlaces en líneas individuales convertía muchísimo peor."* **Las cifras distintas de cero se siguen usando con normalidad.** La regla es sobre el cero.
+**⭐ Y ESTO NO TUMBA EL CONTADOR DE LINKEDIN, SOLO EL CERO (2026-09-14).** *"Es la única métrica a la que nos podemos agarrar en nuestro dashboard, y no siempre se equivoca. Desde que empezamos a medir los clics y el CTR hemos descubierto qué pilares convierten más y hasta cosas de formateado, como que poner enlaces en líneas individuales convertía muchísimo peor."* **Las cifras distintas de cero se siguen usando con normalidad.** La regla es sobre el cero.
 
-**El único caso en que un cero SÍ es un cero:** que el post fuera bloqueado o no tuviera impresiones. Se distingue mirando el alcance — un bloqueado se ve como la historia de Unai del 02/09, con **18 impresiones**, no con 13.021.
+**El único caso en que un cero SÍ es un cero:** que el post fuera bloqueado o no tuviera impresiones. Se distingue mirando el alcance — un bloqueado se ve como la historia del primer jefe del 02/09, con **18 impresiones**, no con 13.021.
 
 ## 1 · Taxonomía (el vocabulario del análisis)
 
 La herramienta clasifica cada post por **hook_type × post_structure × tone**. Estas son las etiquetas canónicas — úsalas al referirte a arquetipos.
 
-### 🧠 PSICOLOGÍA DEL GANCHO (`gancho_palanca`) · LA QUE MANDA EN NUESTRAS CUENTAS (Iker, 2026-10-07)
+### 🧠 PSICOLOGÍA DEL GANCHO (`gancho_palanca`) · LA QUE MANDA EN NUESTRAS CUENTAS (2026-10-07)
 
 **En las 3 cuentas propias (y las manuales), el gancho se analiza por `gancho_palanca`, no por `hook_type`.** `hook_type` lo ponen unas regex pensadas para ganchos en inglés: medido el 07/10, el **68%** de nuestros posts desde abril salía `other` (116 de 170). `gancho_palanca` lo pone la IA (`backend/src/services/ganchoPsicologia.ts`, Sonnet) y mide **qué le hace el gancho al lector**, no qué forma tiene (Iker: *"lo que más nos interesa es la psicología detrás de ese gancho"*). Por post: `gancho_palanca` (la principal), `gancho_palanca_2` (si hay otra clara) y `gancho_motivo` (una frase). La competencia sigue solo con `hook_type`: **comparar ganchos entre nosotros y ellos no es directo** hasta que se reclasifique su corpus.
 
@@ -269,7 +269,7 @@ Es el paso que más se falla y el que convierte el robo en algo original. Robar 
 - **Por qué importa (no es estética):** el algoritmo de LinkedIn ES la audiencia, no suerte. Si el post no está alineado con lo que le interesa a nuestro ICP, no lo distribuye a quien queremos. Contenido de ventas → audiencia de ventas.
 - **Cómo se aterriza:** el vocabulario del post tiene que ser el del oficio — vender, cerrar, cliente, comercial, venta, precio, propuesta, cuota, facturar, exportar. No basta con que el TEMA sea traducible: la piel entera se cambia (`global-instructions §2.3`).
 - ⚠️ **Pero NO acotes de más en el hook.** "Ventas B2B", "outbound", "pipeline" o "SDR" estrechan el alcance aunque describan bien al cliente. En el gancho, cuanto más genérico dentro de VENTAS, más lejos llega. La especificidad va en el cuerpo.
-- **Ejemplo real (lead magnet de Asier, 2026-07-14):** el hueso del McKinsey Slide Playbook se remixó a *"tu propuesta entra sola en un comité"*. **Falla el test**: eso lo publica igual una consultora. Arreglado a *"Cierras con tu cliente. Y la venta se cae en un comité en el que no conoces a nadie"* → cerrar + cliente + venta = solo posible en una cuenta de ventas. Mismo hueso, misma emoción, ahora sí es nuestro.
+- **Ejemplo real (lead magnet del tercer jefe, 2026-07-14):** el hueso del McKinsey Slide Playbook se remixó a *"tu propuesta entra sola en un comité"*. **Falla el test**: eso lo publica igual una consultora. Arreglado a *"Cierras con tu cliente. Y la venta se cae en un comité en el que no conoces a nadie"* → cerrar + cliente + venta = solo posible en una cuenta de ventas. Mismo hueso, misma emoción, ahora sí es nuestro.
 
 **Paso 7b — ⚖️ Se calca la ESENCIA, nunca el formateado.** Si ser fiel a la referencia te obliga a romper nuestras reglas (un parrafazo sin saltos, un guion largo, una coma antes de "y", jerga en el hook), **ganan las nuestras**. Se copia lo que hizo volar al post (gancho, imagen, esqueleto, emoción); no se copia cómo lo tecleó su autor. Tabla completa en `post-workflow §4.4`.
 
@@ -290,7 +290,7 @@ Es el paso que más se falla y el que convierte el robo en algo original. Robar 
 - **68.51x · Jan van Musscher · Controversy** — *"Our client just booked a sales call with an 82,000-person company… Comment 'cold' for the script."* → **cifra-cliente concreta** como prueba social + puerta de comentario. La cifra específica (82.000) es el gancho, no el genérico "conseguimos reuniones".
 - **44.62x · Carlos Martínez · Controversy** — *"España tiene un problema 🇪🇸. Y no, no es falta de talento… el talento se va."* → **identidad + agravio + lista** en clave nacional. Mismo motor que los mapas Neety (identidad que genera rabia/orgullo defensivo), a escala país.
 - **37.12x · Hassan Elahi · Social Currency** — *"The SDR role isn't entry-level anymore."* → **reframe que dignifica al comercial**. Es el eje emocional de "Los 10" (§4.2): el que hace el trabajo se siente visto y reposta.
-- **35.24x · Ryan Reisert · Controversy** — *"Not enough people are talking about this country… where the future of SDRs live. 99% can't name it. Any guesses?"* → el **"país misterioso"** como curiosity gap + juego de adivinanza en comentarios. Valida externamente la variante "país inventado/trampa" de Unai (7.1x) — arma de ocasión.
+- **35.24x · Ryan Reisert · Controversy** — *"Not enough people are talking about this country… where the future of SDRs live. 99% can't name it. Any guesses?"* → el **"país misterioso"** como curiosity gap + juego de adivinanza en comentarios. Valida externamente la variante "país inventado/trampa" del primer jefe (7.1x) — arma de ocasión.
 - **30.14x · Josh Braun · Controversy** — *"Why most cold emails get ignored. Maybe it's not your writing… Maybe it's your offer."* → **belief_breaker** sobre una creencia de ventas + descarga parcial en la línea 2 (sin preámbulo). Modelo de transición hook→cuerpo de `global-instructions §2.6`.
 - **39.01x · Chris Donnelly · Controversy** — *"6 ways to stop your top talent from leaving… ♻️ Repost this."* → listicle de liderazgo con CTA de repost → gama alta de **reposts** (la métrica de mayor palanca).
 - **37.42x · Luna Chen · Controversy** — *"Anthropic released how they use Claude for Growth Marketing… Comment 'GROWTH'."* → IA enmarcada por **RESULTADO de negocio** ("conversion 41% above industry avg", "1 persona = un departamento"), no por changelog. Exactamente cómo pide `working-preferences §3` reformular los posts de modelo/IA.
@@ -330,8 +330,8 @@ Es el paso que más se falla y el que convierte el robo en algo original. Robar 
 | Cuenta | Posts | Outliers | Hit rate | Media × | Pico × | Impresiones | Media imp/post |
 |---|---|---|---|---|---|---|---|
 | **Iker Galarza** | 48 | 15 | 31% | 3.00x | 16.5x | 1.18M | 24.7K |
-| **Unai Arambarri** | 34 | 6 | 18% | 2.19x | 17.0x | 518K | 15.2K |
-| **Asier Olaizola** | 1 | 0 | 0% | 0.96x | 1.0x | 4.3K | 4.3K (arranca) |
+| **El primer jefe** | 34 | 6 | 18% | 2.19x | 17.0x | 518K | 15.2K |
+| **El tercer jefe** | 1 | 0 | 0% | 0.96x | 1.0x | 4.3K | 4.3K (arranca) |
 - **Mix de formato publicado:** Texto+Foto 66 · Texto solo 15 · Carrusel 1 · Vídeo 1. (Foto domina; texto solo también rinde.)
 - **Hook por engagement medio:** `bold_claim 399` · `curiosity_gap 314` · `other 221` · `data_shock 159` · `story_opener 106` · `list_promise 102` · `rhetorical_q 86` · `direct_callout 50` · `analogy 35`. → **bold_claim y curiosity_gap** son los tipos que más engagement traen.
 
@@ -342,28 +342,28 @@ Es el paso que más se falla y el que convierte el robo en algo original. Robar 
   - Hook por ratio: **`curiosity_gap` 2.27x (n=20) ← el mejor** · `bold_claim` 1.49x · `other` 1.34x · `list_promise` 0.96x · `story_opener` 0.95x · `rhetorical_q` 0.65x.
   - Estructura por ratio: `data_driven` 16.45x (n=1, el mapa Gipuzkoa) · `content_with_cta` 3.05x · `contrarian_proof_reframe` 2.87x (avgEng 370) · `list_framework` 2.49x (n=21) · `short_punchy` 2.02x.
   - Mejor slot: **martes 11:00 (80% outlier rate, avgEng 647)**, martes 9:00, jueves 9-10.
-- **Unai** (72 posts · 7 outliers · rate 10% · mejor día martes):
+- **El primer jefe** (72 posts · 7 outliers · rate 10% · mejor día martes):
   - Hook por ratio: **`curiosity_gap` 3.15x (n=11) ← el mejor** · `data_shock` 2.01x · `other` 1.11x · `bold_claim` 0.91x · `rhetorical_q` 0.85x.
   - Estructura por ratio: `content_with_cta` 8.25x (n=3) · `comparison` 5.25x (n=2) · `contrarian_proof_reframe` 3.7x · `list_framework` 1.42x.
   - Mejor slot: martes 8:00 (67%).
-- **Asier** (2 posts · 0 outliers): sin señal aún — su cuenta necesita baseline (ver `aboutme`). No leer ratios todavía.
+- **El tercer jefe** (2 posts · 0 outliers): sin señal aún — su cuenta necesita baseline (ver `aboutme`). No leer ratios todavía.
 
-> **Lo más accionable:** en las DOS cuentas con histórico, **`curiosity_gap` es el hook con mejor ratio** (Iker 2.27x, Unai 3.15x) — por encima de bold_claim. Y las estructuras `content_with_cta` y `contrarian_proof_reframe` rinden alto en ambas. El martes por la mañana (9:00-11:00) es el pico claro.
+> **Lo más accionable:** en las DOS cuentas con histórico, **`curiosity_gap` es el hook con mejor ratio** (Iker 2.27x, el primer jefe 3.15x) — por encima de bold_claim. Y las estructuras `content_with_cta` y `contrarian_proof_reframe` rinden alto en ambas. El martes por la mañana (9:00-11:00) es el pico claro.
 
-### 🎯🎯 4.0b-MOTOR · QUÉ MÉTRICA DISPARA LAS IMPRESIONES EN CADA PILAR, MEDIDA EN NUESTROS OUTLIERS (Mario, 2026-10-21) — MANDA SOBRE LA TABLA DE 4.0b
-> **Mario:** *"nos falta por afinar cada pilar qué provoca exactamente, por lo que luego tiene un impacto en las impresiones"*. Y el método: *"nuestra estrategia está basada en outliers… ahora tenemos nuestros propios outliers y los priorizamos"*. **Se mide comparando el OUTLIER de cada pilar contra la mediana de ese pilar**, no la media de todos: los posts normales tienen casi siempre el mismo suelo de interacción (el nuestro, la capa manual), y lo que enseña es en qué métrica se sale el outlier.
+### 🎯🎯 4.0b-MOTOR · QUÉ MÉTRICA DISPARA LAS IMPRESIONES EN CADA PILAR, MEDIDA EN NUESTROS OUTLIERS (2026-10-21) — MANDA SOBRE LA TABLA DE 4.0b
+> **El compañero de marketing:** *"nos falta por afinar cada pilar qué provoca exactamente, por lo que luego tiene un impacto en las impresiones"*. Y el método: *"nuestra estrategia está basada en outliers… ahora tenemos nuestros propios outliers y los priorizamos"*. **Se mide comparando el OUTLIER de cada pilar contra la mediana de ese pilar**, no la media de todos: los posts normales tienen casi siempre el mismo suelo de interacción (el nuestro, la capa manual), y lo que enseña es en qué métrica se sale el outlier.
 >
 > **BD, 21/10, 3 cuentas desde el 01/07, posts de +500 impresiones. `xN` = el post contra la mediana de su pilar:**
 >
 > | pilar (n) | el outlier | impresiones | la métrica que se sale | la que NO se mueve | comentarios DE FUERA (21/10) | MOTOR |
 > |---|---|---|---|---|---|---|
-> | **historia** (16) | Unai 02/10, `Nunca vi sonar tanto el teléfono…` | x4,8 | **comentarios x2,3** (23 contra 10; el resto de historias, x1,0) · likes x2,0 | guardados x1,2 · envíos x1,1 · reposts x1,2 | **9 contra una mediana de 1 = x9** (7 personas). Las dos historias que le siguen en alcance (Asier 25/08, 20.489 · Iker 18/08, 16.635) tuvieron 1 y 2: el suelo de 10 son **8 nuestros** | **COMENTARIOS de debate** (de fuera del equipo: 9 de 7 personas, 3 rebatiendo) **+ likes de identificación** |
-> | **meme** (25) | Iker 01/09 · Unai 15/07 · Unai 06/08 | x9,8 · x8,3 · x5,8 | **likes x9,6 · x4,4 · x18,7** (la risa: 34% `ENTERTAINMENT`, `§3.10`) · guardados x5,4 · x4,0 · x8,6 | — | mediana 3 · **24 (x8) · 7 (x2,3) · 46 (x15)**. El 15/07 (193.382 imp) voló con 7: la risa no necesita conversación | **REACCIÓN DE RISA** |
-> | **peloteo** (21) | Unai 16/10 C. Valenciana · Unai 07/07 Álava | x9,7 · x2,4 | **guardados x5,3 · x3,2 · envíos x3,6 · x3,2** (por encima de los likes, x3,2 · x2,7) | reposts x1,2 · x1,7 | mediana 8,5 (el pilar con más suelo de fuera) · **16 (x1,9) · 21 (x2,5)**: suben, pero mucho menos que los guardados | **GUARDADOS y ENVÍOS** (me lo guardo / se lo mando a alguien de mi región) |
-> | **lead magnet** (12) | Unai 22/07 la lista (la BD la da en Unai, no en Iker) · Iker 24/07 · Iker 28/07 | x4,3 · x2,1 · x1,6 | **guardados x2,4 · x2,4 · x3,2** | comentarios x1,3 · x1,8 · x1,2 | mediana 6 · **10 (x1,7) · 14 (x2,3) · 7 (x1,2)**. El récord de fuera, Unai 12/08 con **48**, se quedó en 3.444 imp | **COMENTARIOS cuando el CTA funcionaba** (632 · 483 en mayo); desde que `Comenta "X"` dejó de funcionar (05/08), los que se salen lo hacen por **GUARDADOS** |
+> | **historia** (16) | El primer jefe 02/10, `Nunca vi sonar tanto el teléfono…` | x4,8 | **comentarios x2,3** (23 contra 10; el resto de historias, x1,0) · likes x2,0 | guardados x1,2 · envíos x1,1 · reposts x1,2 | **9 contra una mediana de 1 = x9** (7 personas). Las dos historias que le siguen en alcance (el tercer jefe 25/08, 20.489 · Iker 18/08, 16.635) tuvieron 1 y 2: el suelo de 10 son **8 nuestros** | **COMENTARIOS de debate** (de fuera del equipo: 9 de 7 personas, 3 rebatiendo) **+ likes de identificación** |
+> | **meme** (25) | Iker 01/09 · el primer jefe 15/07 · el primer jefe 06/08 | x9,8 · x8,3 · x5,8 | **likes x9,6 · x4,4 · x18,7** (la risa: 34% `ENTERTAINMENT`, `§3.10`) · guardados x5,4 · x4,0 · x8,6 | — | mediana 3 · **24 (x8) · 7 (x2,3) · 46 (x15)**. El 15/07 (193.382 imp) voló con 7: la risa no necesita conversación | **REACCIÓN DE RISA** |
+> | **peloteo** (21) | El primer jefe 16/10 C. Valenciana · el primer jefe 07/07 Álava | x9,7 · x2,4 | **guardados x5,3 · x3,2 · envíos x3,6 · x3,2** (por encima de los likes, x3,2 · x2,7) | reposts x1,2 · x1,7 | mediana 8,5 (el pilar con más suelo de fuera) · **16 (x1,9) · 21 (x2,5)**: suben, pero mucho menos que los guardados | **GUARDADOS y ENVÍOS** (me lo guardo / se lo mando a alguien de mi región) |
+> | **lead magnet** (12) | El primer jefe 22/07 la lista (la BD la da en el primer jefe, no en Iker) · Iker 24/07 · Iker 28/07 | x4,3 · x2,1 · x1,6 | **guardados x2,4 · x2,4 · x3,2** | comentarios x1,3 · x1,8 · x1,2 | mediana 6 · **10 (x1,7) · 14 (x2,3) · 7 (x1,2)**. El récord de fuera, el primer jefe 12/08 con **48**, se quedó en 3.444 imp | **COMENTARIOS cuando el CTA funcionaba** (632 · 483 en mayo); desde que `Comenta "X"` dejó de funcionar (05/08), los que se salen lo hacen por **GUARDADOS** |
 >
-> - **🔄 Comentarios DE FUERA (Mario, 2026-10-21): `python scripts/comentarios-de-fuera.py --pilar <pilar> --desde <fecha>`** (o `--post <uuid>`). Cuenta como nuestro por IDENTIDAD: el autor, Iker, Unai, Asier, Mario y la plantilla actual de Neety en LinkedIn (14 personas el 21/10), más quien diga Neety en el titular. **Lo que enseña:** el comentario total aplasta las diferencias. En historia el 02/10 parecía x2,3 y es **x9**, porque 8 de cada 10 comentarios de una historia normal son nuestros. Y en historia SOLO el outlier tiene conversación de fuera; las demás viven de 0 a 3. **El post borrado o capado-y-resubido da 404 en Unipile** y sale como `borrado en LinkedIn`: no se cuenta.
-> - **⚠️ EL SUELO DE CADA MÉTRICA ES NUESTRO (Mario, 21/10):** en cada post comentan al menos 3 cuentas (si publica un jefe, los otros dos y Mario; si publica Mario, los 3 jefes; si es un trabajador, los 3 jefes y Mario) y a veces algún compañero. Y cada una hace también **3 o más envíos, y guarda, repostea, da like y hace clic en el enlace.** Así que en todos los posts **los envíos llevan un suelo nuestro de ~9 o más** (3 cuentas × 3), y **guardados, reposts, likes y clics, de ~3-4** (uno por cuenta). Dos consecuencias: (1) cualquier métrica por debajo de ~10 es casi toda nuestra y no dice nada del público; (2) el suelo **comprime los `xN`** de esta tabla, igual que pasaba con los comentarios, así que una métrica que aquí sale x1,2 puede ser x0 de fuera. Los guardados y envíos de fuera no se pueden separar (LinkedIn no dice quién guarda), los comentarios sí.
+> - **🔄 Comentarios DE FUERA (2026-10-21): `python scripts/comentarios-de-fuera.py --pilar <pilar> --desde <fecha>`** (o `--post <uuid>`). Cuenta como nuestro por IDENTIDAD: el autor, Iker, el primer jefe, el tercer jefe, el compañero de marketing y la plantilla actual de Neety en LinkedIn (14 personas el 21/10), más quien diga Neety en el titular. **Lo que enseña:** el comentario total aplasta las diferencias. En historia el 02/10 parecía x2,3 y es **x9**, porque 8 de cada 10 comentarios de una historia normal son nuestros. Y en historia SOLO el outlier tiene conversación de fuera; las demás viven de 0 a 3. **El post borrado o capado-y-resubido da 404 en Unipile** y sale como `borrado en LinkedIn`: no se cuenta.
+> - **⚠️ EL SUELO DE CADA MÉTRICA ES NUESTRO (21/10):** en cada post comentan al menos 3 cuentas (si publica un jefe, los otros dos y el compañero de marketing; si publica el compañero de marketing, los 3 jefes; si es un trabajador, los 3 jefes y el compañero de marketing) y a veces algún compañero. Y cada una hace también **3 o más envíos, y guarda, repostea, da like y hace clic en el enlace.** Así que en todos los posts **los envíos llevan un suelo nuestro de ~9 o más** (3 cuentas × 3), y **guardados, reposts, likes y clics, de ~3-4** (uno por cuenta). Dos consecuencias: (1) cualquier métrica por debajo de ~10 es casi toda nuestra y no dice nada del público; (2) el suelo **comprime los `xN`** de esta tabla, igual que pasaba con los comentarios, así que una métrica que aquí sale x1,2 puede ser x0 de fuera. Los guardados y envíos de fuera no se pueden separar (LinkedIn no dice quién guarda), los comentarios sí.
 > - **Cómo se usa:** al escribir un post se decide QUÉ métrica de su pilar se va a provocar y con qué pieza (en historia, la práctica discutible del gancho y una línea que deje sitio a las dos posturas; en peloteo, la lista que dan ganas de guardar y la región que se manda a alguien; en meme, que el chiste haga reír al que paga). Y va en la predicción de viralidad (`working-preferences §1e-PREDICCION`).
 > - **⚠️ Lo que no dice:** es correlación sobre pocos outliers (en historia, n=1). Las métricas también son consecuencia del alcance. Lo que sí es limpio es lo que NO sube en el outlier: en historia, guardados y envíos no se mueven, así que no son su motor.
 > - **Se rehace en cada revisión del lunes** con los outliers nuevos de cada pilar, y la columna de fuera con `comentarios-de-fuera.py`.
@@ -385,34 +385,34 @@ Es el paso que más se falla y el que convierte el robo en algo original. Robar 
 - Ojo con leer likes: Gipuzkoa tiene 1.208 likes (nuestro récord) y el mejor post del histórico (wojak 16.56x) solo 257. Los likes no ordenan nada.
 
 ### Mapas regionales (la mecánica más fiable)
-- **Gipuzkoa (Iker, 1er mapa) 12.9x · 112.7K · 1.2K likes · 90 reposts** — "pueblo de 7.000 hab que exporta más que países enteros".
+- **Gipuzkoa (1er mapa) 12.9x · 112.7K · 1.2K likes · 90 reposts** — "pueblo de 7.000 hab que exporta más que países enteros".
 - **Navarra (Iker) 7.7x · 79.2K · 563 likes · 46 reposts** — molde gold ("patio trasero de los Pirineos… y poco más. Exporta más que Bolivia") → ver `swipe-file §2.1`.
 - Galicia (Iker) 7.3x · 64.6K · 60 reposts ("esquina del Atlántico… más que Croacia").
 - Cataluña (Iker) 7.1x · 48.9K · 145 comentarios · 35 reposts.
 - Valencia (Iker) 6.8x · 51.5K · 49 reposts.
 - Andalucía (Iker) 5.4x · 29.8K · 51 reposts.
-- **País inventado / trampa (Unai) 7.87x · 78.7K** — alcance vía curiosidad + guessing game (arma de ocasión).
-- Euskadi (Unai, VÍDEO) 3.7x · 21.1K · 37 reposts.
-- Bizkaia (Unai) 3.3x · 21.3K.
-- Álava "trastienda del norte" (Unai) 2.1x · 20.1K (región menos conocida → techo menor).
-- **FLOP de repetición: "país inventado" REMIX (Iker) 1.2x** — repitió el concepto de Unai semanas después y se hundió. Nunca repetir concepto. (Madrid/capitales siguen baneadas por precedente.)
+- **País inventado / trampa (el primer jefe) 7.87x · 78.7K** — alcance vía curiosidad + guessing game (arma de ocasión).
+- Euskadi (el primer jefe, VÍDEO) 3.7x · 21.1K · 37 reposts.
+- Bizkaia (el primer jefe) 3.3x · 21.3K.
+- Álava "trastienda del norte" (el primer jefe) 2.1x · 20.1K (región menos conocida → techo menor).
+- **FLOP de repetición: "país inventado" REMIX (Iker) 1.2x** — repitió el concepto del primer jefe semanas después y se hundió. Nunca repetir concepto. (Madrid/capitales siguen baneadas por precedente.)
 
 ### Memes (con motor)
-- **"Caja de herramientas engorda" (Unai) 16.56x · 165.5K — el mejor post del histórico** (Motor A, stacking de tools) → `swipe-file §1.1`.
+- **"Caja de herramientas engorda" (el primer jefe) 16.56x · 165.5K — el mejor post del histórico** (Motor A, stacking de tools) → `swipe-file §1.1`.
 - **"Cold calling enterrado en vida" (Iker) 16.4x · 168.9K** (Motor A, jerarquía de roles + staccato "Nadie. Llamó. Al. Cliente.") → `swipe-file §1.2`.
 - **"Subir en ventas / calvicie SDR→VP" (Iker) 13.5x · 138.8K** (Motor A, cambio corporal en escalera de roles) → `swipe-file §1.3`.
 - Factura Claude / "casi me cuesta una boda" (Iker) 5.9x · 60.4K (Motor B, screenshot documental).
 - "El humo de la IA reemplaza al comercial / Mikel vuelve" (Iker) 4.4x · 45.0K (Motor A/B).
-- "49€ vs Claude por 20€/día" (Unai) 2.9x · 28.1K (Motor B, pilar deseo).
-- FLOPS: **"El comercial B2B ha engordado" (Unai) 2.6x** — cambio corporal OK pero timeline de UNA persona (2018→2026) en vez de jerarquía de roles → rinde 6x menos que el meme de jerarquía. "Claude del grupo de pádel" (Unai) 1.5x, "Perder un cliente es arte" (Unai) 1.2x (sátira sin motor).
+- "49€ vs Claude por 20€/día" (el primer jefe) 2.9x · 28.1K (Motor B, pilar deseo).
+- FLOPS: **"El comercial B2B ha engordado" (el primer jefe) 2.6x** — cambio corporal OK pero timeline de UNA persona (2018→2026) en vez de jerarquía de roles → rinde 6x menos que el meme de jerarquía. "Claude del grupo de pádel" (el primer jefe) 1.5x, "Perder un cliente es arte" (el primer jefe) 1.2x (sátira sin motor).
 
 ### "Los 10"
 - **País Vasco (Iker) 4.8x · 49.4K — el molde** ("personas desconocidas quemando el teléfono"; foco en la persona) → `swipe-file §3.1`.
 
 ### Lead magnets (comment-gated)
-- **"Vibe prospecting" (Unai) 10.0x · 632 comentarios** — récord de comentarios (CTA `Comenta "vibe"`).
+- **"Vibe prospecting" (el primer jefe) 10.0x · 632 comentarios** — récord de comentarios (CTA `Comenta "vibe"`).
 - **"Desmonto perfiles" LIVE (Iker) 8.5x · 483 comentarios** — el mejor formato (entrega pública personalizada + verbo "desmonto" + CTA `Comenta "desmonta" + tu departamento`) → `swipe-file §4.1`.
-- "Llaves" (Unai 4.6x · 285 comentarios; Iker 4.1x · 232 comentarios), "perfil" (Iker 3.3x · 183 com.), "frase+emoji" (Unai 2.7x · 167 com.), "mensaje" (Iker 2.3x · 129 com.), cold-email "sí en comentarios" (Iker 2.1x · 120 com.).
+- "Llaves" (el primer jefe 4.6x · 285 comentarios; Iker 4.1x · 232 comentarios), "perfil" (Iker 3.3x · 183 com.), "frase+emoji" (el primer jefe 2.7x · 167 com.), "mensaje" (Iker 2.3x · 129 com.), cold-email "sí en comentarios" (Iker 2.1x · 120 com.).
 - **FLOP: "biblia de ventas" (todo junto) (Iker) 1.2x · 2.3K** — genérico "todo mi material en una caja" → LinkedIn no amplifica aunque comenten. El entregable tiene que ser UNO y específico.
 
 ### Otros
@@ -535,7 +535,7 @@ En Claude Code local (tu máquina), sin egress restringido, tanto la URL de Post
 - [x] §3 relleno con el snapshot cross-creator del Explorer (2026-07-09): recetas, distribuciones de hook/estructura/tono, aperturas/cierres, estilo, formato, timing y banco de remix.
 - [x] Patrones de lenguaje (densidad outlier vs normal): incorporados en §3.7 (el hallazgo contraintuitivo de menos autoridad/urgencia/"tú").
 - [x] Banco de remix de OTRAS cuentas: §3.10 (curado a los top relevantes para B2B; el resto de las ~150 págs de ejemplos se dejan fuera a propósito).
-- [x] **Split por cuenta Neety** (qué arquetipo rinde mejor en Iker vs Unai vs Asier): RELLENO en §4 con datos en vivo de Railway (2026-07-13). Hallazgo: `curiosity_gap` es el mejor hook por ratio en Iker (2.27x) y Unai (3.15x); `content_with_cta`/`contrarian_proof_reframe` las mejores estructuras; martes mañana el pico. Asier aún sin baseline.
+- [x] **Split por cuenta Neety** (qué arquetipo rinde mejor en Iker vs el primer jefe vs el tercer jefe): RELLENO en §4 con datos en vivo de Railway (2026-07-13). Hallazgo: `curiosity_gap` es el mejor hook por ratio en Iker (2.27x) y el primer jefe (3.15x); `content_with_cta`/`contrarian_proof_reframe` las mejores estructuras; martes mañana el pico. El tercer jefe aún sin baseline.
 - [x] **Evidencia externa (guía ColdIQ, 6.750 posts GTM):** destilada en §5 — confirmaciones (5.1), añadidos útiles (5.2) y, sobre todo, los **mitos que chocan con lo nuestro** filtrados y descartados (5.3: links al cuerpo, sin-emoji-hook, infografías, texto-solo-débil, rehook calcado, trigger de lanzamiento IA).
 - [x] **Evidencia externa (vídeo de Miriam Collado, 2026-11-05):** destilada en §5b. Lo nuevo que entra: fuentes de demanda fuera de LinkedIn (`global §0-DATOS` punto 4) y banco de estructuras de valor (`global §3.7`). Lo medido contra nuestra BD: visitas al perfil y guardados NO disparan el alcance (salvo guardados en lead magnet).
 - [ ] **Refresco periódico:** este snapshot es de 2026-07-09; los ratios decaen. Reexporta el Explorer cuando quieras actualizarlo.
@@ -550,13 +550,13 @@ Medido con `post_snapshots` (capturas cada 15 min) y con los tipos de reacción 
 |---|---|---|
 | Iker · lead magnet "desmonto" 8.51x | **2.990** | 44.190 |
 | Iker · "Los 10" 2.01x | **1.952** | 20.700 |
-| Asier · meme 1.79x | **1.937** | 22.605 |
-| Unai · lead magnet "última hora" 9.96x | **1.473** | 21.949 |
-| Asier · mapa Aragón 2.84x | **1.021** | 22.442 |
+| El tercer jefe · meme 1.79x | **1.937** | 22.605 |
+| El primer jefe · lead magnet "última hora" 9.96x | **1.473** | 21.949 |
+| El tercer jefe · mapa Aragón 2.84x | **1.021** | 22.442 |
 | — umbral ≈ 1.000 — | | |
-| Unai · mapa Cataluña 0.59x | 565 | 3.018 |
+| El primer jefe · mapa Cataluña 0.59x | 565 | 3.018 |
 | Iker · lead magnet web 0.29x | 348 | 1.054 |
-| Asier · lead magnet comité 0.47x | 327 | 1.084 |
+| El tercer jefe · lead magnet comité 0.47x | 327 | 1.084 |
 
 **8 de 8, sin una excepción.** Por encima de ~1.000 a las 3h → acaba entre 20.000 y 44.000. Por debajo → acaba entre 1.000 y 3.000. **No hay término medio: el post despega o se queda en el primer círculo.**
 
@@ -597,7 +597,7 @@ El primer análisis dio esto, y es una conclusión FALSA:
 | Post | Impresiones | Clics | CTR |
 |---|---|---|---|
 | Meme iMessage (Iker) | 86.815 | 76 | 0,09% |
-| Mapa "pueblo de 2,2M" (Unai) | 21.071 | 231 | 1,10% |
+| Mapa "pueblo de 2,2M" (el primer jefe) | 21.071 | 231 | 1,10% |
 
 Leído así parece que el meme no convierte y que el enlace en spam ninja no sirve.
 **Es mentira.** LinkedIn reparte impresiones de forma muy distinta según el
@@ -625,7 +625,7 @@ Normalizando por gente que SÍ interactuó, se da la vuelta al resultado:
 | Peloteo | 40,6 | 12 |
 | "otros" | 9,4 | 2 |
 
-Caso a caso: meme de Unai 117,5 · meme de Asier 61,9 · meme iMessage 55,9. Los
+Caso a caso: meme del primer jefe 117,5 · meme del tercer jefe 61,9 · meme iMessage 55,9. Los
 tres por encima de la media del peloteo. El mapa gallego, con 736 interacciones,
 sacó 106 clics (14,4 por 100) — el meme iMessage sacó 76 con solo 136 (55,9).
 
@@ -645,7 +645,7 @@ pero el número exacto se moverá. Re-medir cuando haya ~10.
    significa que alguien pensó en una persona concreta. El mapa del "pueblo de
    7.000 habitantes" tiene **164 guardados y 110 envíos**: eso no lo compra el
    algoritmo.
-4. **El mejor CTR del histórico es una oferta de empleo** (Full Stack, Asier):
+4. **El mejor CTR del histórico es una oferta de empleo** (Full Stack, el tercer jefe):
    1,49% con solo 4.288 impresiones. Audiencia pequeña e híper-intencionada. Ojo
    con despreciar posts de bajo alcance: alcance e intención no son lo mismo.
 
@@ -679,7 +679,7 @@ y texto corto. De 229 posts, 143 cayeron en "otros". Los números por pilar de
 
 ## §3.13 · EN UN MAPA NO IMPORTA A CUÁNTOS MENCIONAS, SINO CUÁNTOS TE CONTESTAN (medido 2026-07-20)
 
-Tras el flop del mapa de Cataluña de Unai (0.59x) la hipótesis era: *se cayeron 4
+Tras el flop del mapa de Cataluña del primer jefe (0.59x) la hipótesis era: *se cayeron 4
 empresas y quedaron 16 menciones en vez de 20, por eso rindió menos*.
 
 **Medido: no se sostiene.** Correlación menciones↔impresiones en 29 posts con
@@ -689,7 +689,7 @@ flechas decorativas. Dentro de los mapas de verdad no explica nada:
 | Menciones | Impresiones | Ratio | Post |
 |---|---|---|---|
 | 16 | 48.866 | **7.10x** | Cataluña (Iker) |
-| 16 | 3.018 | **0.59x** | Cataluña (Unai) |
+| 16 | 3.018 | **0.59x** | Cataluña (el primer jefe) |
 | 20 | 10.266 | 1.00x | Lanzadera (Iker) |
 | 19 | 112.667 | 12.90x | pueblo de 7.000 (Iker) |
 
@@ -700,8 +700,8 @@ Mismo número de menciones y 16x de diferencia. Un mapa con las 20 completas hiz
 
 | Mapa | Comentarios | De fuera | Resultado |
 |---|---|---|---|
-| Aragón (Asier) | 19 | 15 + 4 mencionados dando las gracias | 2.91x |
-| Cataluña (Unai) | 4 | **0** — los 4 del propio equipo | 0.59x |
+| Aragón (el tercer jefe) | 19 | 15 + 4 mencionados dando las gracias | 2.91x |
+| Cataluña (el primer jefe) | 4 | **0** — los 4 del propio equipo | 0.59x |
 
 **Regla:** no persigas llegar a 20. Persigue que contesten. Vale más un mapa de
 16 con gente que responde que uno de 20 mudo. Al elegir, prioriza personas con
@@ -725,7 +725,7 @@ números más altos del histórico no valen para nada:
 | Destino | CTR | Post | ¿Nos sirve? |
 |---|---|---|---|
 | forms.fillout.com | 1,49% | oferta Full Stack | No — es contratar, no vender |
-| **pampam.city** | 1,10% | mapa Euskadi (Unai), 231 clics | **NO — es web ajena** |
+| **pampam.city** | 1,10% | mapa Euskadi (el primer jefe), 231 clics | **NO — es web ajena** |
 | **pampam.city** | 0,91% | mapa Andalucía (Iker), 270 clics | **NO** |
 | **pampam.city** | 0,29% | mapa Navarra (Iker), 226 clics | **NO** |
 | recursos.neety.com/agendar | 0,11-0,44% | los de julio 2026 | **Sí** |
@@ -777,7 +777,7 @@ mejor lo haces, más difícil es volver a parecerlo.
 
 | Cuenta | Memes 1ª mitad (media imp) | 2ª mitad | Veredicto |
 |---|---|---|---|
-| **Unai** | 9.254 | **15.326** | **SUBEN** (ratio 1.15 → 2.16) |
+| **El primer jefe** | 9.254 | **15.326** | **SUBEN** (ratio 1.15 → 2.16) |
 | Iker | 81.247 | 40.471 | Sin señal: varianza de 1.827 a 168.926 con n=9. Su último meme hizo **86.815 imp y 8.45x** |
 
 ### Reglas

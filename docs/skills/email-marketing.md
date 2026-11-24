@@ -88,7 +88,7 @@ Tras la cancelación de MailerLite (`§0b`), migramos a Brevo. Esto no es "monta
 
 El estado vivo, en orden, está en `historial-newsletter.md`.
 
-### Lo que se le pide a Iker, y por qué es él y no Mario quien lo decide
+### Lo que se le pide a Iker, y por qué es él y no el compañero de marketing quien lo decide
 
 1. **🔴 Subdominio de envío, no `neety.com` directo.** Recomendado: algo tipo `mail.neety.com` o `news.neety.com`. Aísla la reputación del envío masivo de la del dominio principal (correo comercial normal, prospección). Era un pendiente ya antes del baneo (ver `§10`) y ahora deja de ser opcional: es la corrección estructural más grande disponible. **Es lo más urgente de pedir**, porque requiere DNS y la propagación + verificación de Brevo puede tardar 24-48 h. Hay que saber YA quién tiene acceso al DNS de neety.com (¿Iker directo, o agencia/hosting?) para meter los registros el mismo día.
 2. **Plan de pago activo desde el minuto uno**, con volumen de sobra para ~1.300 contactos. Una cuenta nueva en plan gratuito/trial con lista importada es exactamente el patrón que MailerLite marcó como sospechoso.
@@ -118,14 +118,14 @@ El estado vivo, en orden, está en `historial-newsletter.md`.
 | Remitente | Ángulo | Registro (escala de `brand-voice §1b`) |
 |---|---|---|
 | **Iker** (cofounder) | Comercial / ventas: prospección, señales, el día a día de vender | El más cercano de los 3 founders, se permite el guiño |
-| **Asier** (cofounder) | Técnico / cómo está construido por dentro (pero SIEMPRE aterrizado en ventas, no en ingeniería — `aboutme §2` nota de Asier) | Punto medio |
-| **Unai** (CEO) | Visión / mercado / hacia dónde va la venta B2B | El más sobrio. Afirma, no exclama |
+| **El tercer jefe** (cofounder) | Técnico / cómo está construido por dentro (pero SIEMPRE aterrizado en ventas, no en ingeniería — `aboutme §2` nota del tercer jefe) | Punto medio |
+| **El primer jefe** (CEO) | Visión / mercado / hacia dónde va la venta B2B | El más sobrio. Afirma, no exclama |
 | **Kaixito** (la mascota) 🦉 | Novedades de producto y del programa, entre bastidores, lo que hemos roto esta semana | **El más informal y gracioso de los 4.** Humor blanco, autodespectivo de mascota, cero corporativo. Es el único que puede ser abiertamente juguetón |
 
 - **La sobriedad vive en el CUERPO, no en el asunto** (misma regla que el gancho de posts, `brand-voice §1b`): un asunto ganador vale para cualquier remitente; lo que cambia con el remitente es el tono del cuerpo.
-- **Cada semana cambia el remitente** (rotación), y el tema va atado al ángulo del remitente: no le pongas a Asier un email de cierre comercial ni a Iker uno de arquitectura.
+- **Cada semana cambia el remitente** (rotación), y el tema va atado al ángulo del remitente: no le pongas al tercer jefe un email de cierre comercial ni a Iker uno de arquitectura.
 - **Kaixito no CIERRA, pero SÍ siembra (decidido el 2026-07-27, tras mirar Duolingo y Alan).** Sus emails son de relación y producto (novedades, historias internas, encuestas "respóndeme"), y su CTA natural es la **derivación en personaje**: *"yo no vendo, que para eso está Iker: responde DEMO y te lo enseña él."* El CTA fuerte de demo lo firma siempre un founder: cerrar una demo B2B pide una autoridad que una mascota no tiene, pero prohibirle vender del todo era tirar su capacidad de convicción (abre puertas y pasa el testigo).
-- **Kaixito tiene que EXISTIR antes de remitir:** presentación (quién es y por qué te escribe: el correo 0 la integra en su línea 1, ver §5c-0), avatar consistente y **humor blanco de adulto, nunca infantil** (la misma línea del registro de Unai en `images §0g`).
+- **Kaixito tiene que EXISTIR antes de remitir:** presentación (quién es y por qué te escribe: el correo 0 la integra en su línea 1, ver §5c-0), avatar consistente y **humor blanco de adulto, nunca infantil** (la misma línea del registro del primer jefe en `images §0g`).
 - **Personalidad de Kaixito (definida el 2026-07-27):** el aprendiz con el playbook. Siempre lleva su libro verde (su atributo fijo, como la lupa de un detective): se estudia las jugadas de ventas y los datos, y por eso "sabe cosas". Curioso, entusiasta, un punto caótico y despistado, honesto sin filtro (dice las verdades del sector que los founders no dirían). Registro: informal-gracioso, un punto por encima de Iker en cercanía, humor de oficina y de ventas, JAMÁS de guardería. **Movimiento** (para GIFs e ilustraciones): cuerpo blando con squash & stretch, brazos de fideo expresivos, parpadeo, y el libro como prop de los gags; emociones de cómic exageradas (biblioteca de gags en §3b). La evidencia de que mascota y compra seria conviven: **Alan** (salud/seguros para empresas, ~41.000 empresas según su web) tiene su marmota por toda la web; **Duolingo** manda emails firmados por personajes a usuarios de pago de todas las edades. En herramientas de prospección B2B no lo hace nadie: es HUECO, no ridículo, mientras el humor sea de sector y no de guardería. Ojo: los personajes de Duolingo funcionan porque su universo ya existe en la app; Kaixito necesita su presentación (y idealmente asomar antes en LinkedIn/web).
 - **Se mide, no se discute:** en las primeras 2-3 tandas, opens/respuestas/bajas de Kaixito contra los founders, por segmento. Si abre más, gana papel; si el segmento industrial senior responde mal, se le acota la lista (p. ej. solo clientes, como los VIP de Runner Pro).
 - Firma humana al final: nombre + rol real ("Iker, cofundador de Neety"). Kaixito firma como "Kaixito, la mascota de Neety".
@@ -179,11 +179,11 @@ Cloudflare   : → luma.com/ujffj66o?utm_source=unai-03-evento   (cabecera Locat
 Luma lee     : utm_source = "unai-03-evento"
 ```
 
-**⛔ REGLA (Iker, 2026-08-28): si el enlace va a LUMA o a FORWARD (que redirige a Luma), la identidad
+**⛔ REGLA (2026-08-28): si el enlace va a LUMA o a FORWARD (que redirige a Luma), la identidad
 va SIEMPRE en `utm_source`, escrita a mano.** No se vuelve a dejar en `utm_campaign`, porque Luma no lo
 lee y perdemos la atribución de los asistentes al evento.
 
-**🏷️ Y EL NOMBRE EMPIEZA POR `correo-` (Iker, 2026-09-22):** `correo-{nº}-{remitente}-{pilar}`, todo en
+**🏷️ Y EL NOMBRE EMPIEZA POR `correo-` (2026-09-22):** `correo-{nº}-{remitente}-{pilar}`, todo en
 minúsculas y sin tildes → `correo-05-iker-objecion`. **El porqué:** en el panel de Luma los UTM de
 correos y de posts salen en la MISMA lista, y los de posts empiezan por su pilar (`meme-…`,
 `historia-…`). Con `correo-` delante los correos se agrupan juntos al ordenar y no se confunden con un
@@ -364,7 +364,7 @@ y va ANTES de la escritura.
 **⚠️ Cuánto duele hoy, para no exagerarlo:** mientras solo haya **un** correo apuntando a Luma, en su
 panel `sendinblue` significa inequívocamente *ese* correo. El problema aparece con el segundo.
 
-### 🔴🔴 EL PIE SE RESETEA SOLO AL EDITAR UNA CAMPAÑA POR API (Iker, 2026-08-28)
+### 🔴🔴 EL PIE SE RESETEA SOLO AL EDITAR UNA CAMPAÑA POR API (2026-08-28)
 
 **El fallo, y lo vio Iker en una captura, no un error:** el correo 2 salió a revisión con el pie
 genérico de Brevo — *"Si desea darse de baja de nuestro boletín de noticias, haga clic aquí"* — en vez
@@ -403,7 +403,7 @@ El genérico de Brevo no trae la dirección.
 
 **Al crear la campaña por API con `sender: {id}` el nombre sale `[DEFAULT_FROM_NAME]` (2026-11-11, campaña 36).** Se pasa siempre `sender: {name, email}` y se relee antes de mandar la prueba; en el correo 13 la primera prueba salió con el nombre vacío y hubo que reenviarla.
 
-### ⭐ EL NOMBRE DEL REMITENTE (campo "From" de Brevo) NO ES LA FIRMA DEL CUERPO (Iker, 2026-08-27)
+### ⭐ EL NOMBRE DEL REMITENTE (campo "From" de Brevo) NO ES LA FIRMA DEL CUERPO (2026-08-27)
 
 **Son dos campos distintos y se confunden fácil.** La firma de arriba (`§1`, última línea) es texto DENTRO del correo. El remitente es el `sender.name` que Brevo pone en la bandeja de entrada, al lado del asunto, ANTES de que se abra el correo — y ahí un nombre suelto sin marca puede leerse como spam o como un desconocido.
 
@@ -425,7 +425,7 @@ El genérico de Brevo no trae la dirección.
   **EL TOPE PRÁCTICO SON ~20 CARACTERES, y se apunta a 16 o menos.** El nombre corto + `de Neety`
   cabe siempre; en cuanto entra un apellido, se cae la marca.
 
-  **⭐ Y EL APELLIDO NO DESAPARECE: SE MUEVE A LA FIRMA (Iker, 2026-08-27).** *"Donde pone si es
+  **⭐ Y EL APELLIDO NO DESAPARECE: SE MUEVE A LA FIRMA (2026-08-27).** *"Donde pone si es
   fundador o cofundador, ahí sí quiero poner el apellido, al final del cuerpo"*. El corte solo existe
   en la **lista de la bandeja**; dentro del correo abierto no hay límite de ancho. Así que el nombre
   completo se gana donde sí cabe y donde además pesa —la firma— y se ahorra donde rompe la marca.
@@ -451,7 +451,7 @@ El asunto es al email lo que el gancho es al post: si no abre, no existe el cuer
 
 - **Corto y punchy: 6-9 palabras es la zona ganadora.** Medido en los 353 asuntos de Timepack (2026-07-27): mediana 8 palabras / 43 caracteres, el 44% cae en 7-9 palabras, p90 62 chars. El grueso vive en 26-55 caracteres: **cabe entero en móvil**. Techo del validador: 62.
 
-**⭐ EL TECHO DE 62 ES EL DE DESKTOP. EN MÓVIL SE CORTA MUCHO ANTES (Iker, 2026-08-27).** ⚠️ Esto NO es una medición de nuestro corpus (como sí lo es el 43/62 de arriba): es el rango que citan de forma consistente las plataformas de email marketing (Litmus, Mailchimp) sobre cómo truncan los clientes de correo el asunto en la vista de bandeja. Se anota aquí porque **no lo teníamos escrito y es justo lo que decide si el gancho se lee entero o a medias**, que es el mismo tipo de fallo que arruinó el correo 0 con el preheader corto (`§3b`).
+**⭐ EL TECHO DE 62 ES EL DE DESKTOP. EN MÓVIL SE CORTA MUCHO ANTES (2026-08-27).** ⚠️ Esto NO es una medición de nuestro corpus (como sí lo es el 43/62 de arriba): es el rango que citan de forma consistente las plataformas de email marketing (Litmus, Mailchimp) sobre cómo truncan los clientes de correo el asunto en la vista de bandeja. Se anota aquí porque **no lo teníamos escrito y es justo lo que decide si el gancho se lee entero o a medias**, que es el mismo tipo de fallo que arruinó el correo 0 con el preheader corto (`§3b`).
 - **Referencia habitual: escritorio ~60-70 caracteres · móvil ~30-40 caracteres.** El hueco es grande porque la pantalla es más estrecha y la fuente por defecto más grande.
 - **Y la mayoría de la lista abre desde el móvil**, así que el límite que de verdad manda no es el de 62 del validador (pensado para que el asunto quepa ENTERO en cualquier sitio): es el de móvil. Un asunto de 50 caracteres pasa el validador y aun así se corta en un iPhone.
 - **Regla práctica: apunta a ≤40 caracteres cuando puedas sin forzar la frase.** No es un tope duro nuevo del validador (el asunto de 39-55 sigue siendo válido y a veces la idea no cabe más corta), pero es la zona que garantiza que el asunto se lea completo en cualquier dispositivo, no solo en el que se probó.
@@ -471,7 +471,7 @@ Lo mismo que se pide a los ganchos de LinkedIn. El correo 13 pasó el validador 
 - **Preheader:** una sola oración, corta (diana de 45 caracteres o menos), que completa el asunto como la segunda mitad de un mensaje sin cerrarlo. Va igual en los dos brazos del A/B de asunto, porque Brevo solo parte el asunto. Corto y bueno gana a largo y bueno.
 - **Mecanizado** en `validar-email.py`: `--bucle "por qué: …"` y `--power "<palabra>"` obligatorios (fallo si faltan, si el bucle no empieza por un interrogativo, si la palabra no está en el asunto o si es un verbo flojo), y fallo si el preheader tiene más de una oración (aviso por encima de 45 caracteres). Probado con la v5 del correo 13, que cae en los tres.
 
-**⛔ Y AL ACORTAR, LA PALABRA QUE SOBREVIVE SE COMPRUEBA, NO SOLO SE CUENTA (Iker, 2026-08-27).** El primer intento de acortar este mismo asunto quitó el `me` de `me traje` y dejó `traje 200 tarjetas…`. Menos caracteres, pero **`traje` sin el `me` es ambiguo: puede leerse como el verbo o como el sustantivo (un traje de boda)**, y encima pierde fuerza la primera persona del singular (`me traje` es más marcado que `traje`). Iker: *"tienes que pensar a este nivel"*. **El recorte correcto salió de otra palabra:** `ninguna` (7 car) → `nadie` (5 car), que ahorra los mismos 2 caracteres sin tocar el verbo. **La regla: antes de quitar una palabra para acortar, comprueba si esa palabra sola puede leerse de otra forma o si sostiene la persona gramatical — si sí, busca el recorte en OTRA palabra de la frase**, casi siempre lo hay.
+**⛔ Y AL ACORTAR, LA PALABRA QUE SOBREVIVE SE COMPRUEBA, NO SOLO SE CUENTA (2026-08-27).** El primer intento de acortar este mismo asunto quitó el `me` de `me traje` y dejó `traje 200 tarjetas…`. Menos caracteres, pero **`traje` sin el `me` es ambiguo: puede leerse como el verbo o como el sustantivo (un traje de boda)**, y encima pierde fuerza la primera persona del singular (`me traje` es más marcado que `traje`). Iker: *"tienes que pensar a este nivel"*. **El recorte correcto salió de otra palabra:** `ninguna` (7 car) → `nadie` (5 car), que ahorra los mismos 2 caracteres sin tocar el verbo. **La regla: antes de quitar una palabra para acortar, comprueba si esa palabra sola puede leerse de otra forma o si sostiene la persona gramatical — si sí, busca el recorte en OTRA palabra de la frase**, casi siempre lo hay.
 - **Máximo 1 número** en el asunto (misma regla que el hook: `global §2.5`). En el corpus solo el 10% lleva número. Un porcentaje suelto de gancho suena a fake.
 - **El asunto de escena no cuenta el desenlace (2026-11-11, correo 13).** `subí 7 plantas y no decidía nadie` contaba lo que pasó y no dejaba nada abierto; `le di a todos los botones del ascensor` cuenta la trastada y deja abierto qué pasó después. Antes de cerrar el asunto se mira qué interrogativo queda abierto (`global §2.0-INTERROGATIVOS`). *(sin medir: criterio del equipo)*
 - **Curiosity gap que NO se cierra:** el asunto promete la historia, jamás la lección. Cero exclamaciones (0 de 353 en el corpus), como mucho UNA palabra en mayúsculas como golpe (7% del corpus: "REGALO", "DE VERDAD"), emojis prácticamente nunca (1 de 353).
@@ -491,7 +491,7 @@ Lo mismo que se pide a los ganchos de LinkedIn. El correo 13 pasó el validador 
 **⭐ A/B DE ASUNTO (verificado en nuestra cuenta el 2026-08-06, ⚰️ en MailerLite — hay que rehacerlo en Brevo):** MailerLite permitía testar **solo el asunto** manteniendo el mismo cuerpo (`type: "ab"`, `test_type: "subject"`). ⚠️ El conector MCP **no** puede configurarlo entero: solo admite un campo de asunto, así que la variante B se mete en el panel.
 - **⛔ Y ojo con qué se mide.** El A/B declara ganador por APERTURAS. Si el correo tiene otra métrica (respuestas, en el correo 0), **el ganador se decide por esa métrica, no por la que declare la herramienta.** Un asunto agresivo puede abrir más y hacer responder menos.
 - **No se hace A/B en las tandas de calentamiento.** Con 25-50 por variante no mide nada. El A/B va en la tanda grande, cuando ya hay volumen.
-- **Sesgo de negatividad (Mario, 2026-08-06):** un asunto en negativo ("¿no te acuerdas de mí?") suele abrir más que su versión neutra, y es un efecto real y documentado. El riesgo no está en la apertura sino en que un reproche baje la respuesta. **Es exactamente el tipo de cosa que hay que testar en vez de decidir a ojo.**
+- **Sesgo de negatividad (2026-08-06):** un asunto en negativo ("¿no te acuerdas de mí?") suele abrir más que su versión neutra, y es un efecto real y documentado. El riesgo no está en la apertura sino en que un reproche baje la respuesta. **Es exactamente el tipo de cosa que hay que testar en vez de decidir a ojo.**
 
 ### ⭐ A/B DE REMITENTE, distinto del A/B de asunto (primer test de la casa, correo 2, 2026-08-27)
 
@@ -517,7 +517,7 @@ que para testar remitente no vale ese mecanismo, hace falta montarlo a mano:
    dominio ya caliente y verificado, un A/B no necesita ir en tandas.
 
 **Preview text: SIEMPRE manual, nunca el automático.** Completa el asunto o estira el gap; no lo repitas. Es la segunda línea del "hook" del inbox.
-- **📱 Y en el móvil se ve antes de abrir (Mario, 14/10, correo 8 en Gmail del móvil):** la notificación enseña **remitente + asunto + preheader**, los tres, y nada más. Con el asunto y el preheader como dos mitades de una frase, la notificación ya se lee como un mensaje de WhatsApp. Es otra razón para no dejar nunca el preheader automático: en el móvil sería la primera línea del cuerpo y se comería el gancho.
+- **📱 Y en el móvil se ve antes de abrir (14/10, correo 8 en Gmail del móvil):** la notificación enseña **remitente + asunto + preheader**, los tres, y nada más. Con el asunto y el preheader como dos mitades de una frase, la notificación ya se lee como un mensaje de WhatsApp. Es otra razón para no dejar nunca el preheader automático: en el móvil sería la primera línea del cuerpo y se comería el gancho.
 
 **Taxonomía de asuntos del corpus (353 clasificados, % aprox.) — rota entre tipos, no te cases con uno:**
 
@@ -542,9 +542,9 @@ que para testar remitente no vale ese mecanismo, hace falta montarlo a mano:
 **El cuerpo de un email se formatea COMO el cuerpo de un post** (`global-instructions §3` + `brand-voice §3`), con los matices del medio:
 
 - **⭐ EN EMAIL LA LÍNEA INDIVIDUAL ES LA NORMA, NO LA EXCEPCIÓN (medido el 2026-08-03 en los 4 corpus).** Porcentaje de bloques de UNA sola línea: **Isra Bravo 99% · Timepack 97% · Hugo López 92% · Sales Hackers 68%** (este último, el B2B con HTML pesado, es el único con bloques de 2 reales, un 21%). **Mediana de 7-9 palabras por línea en los cuatro.**
-  - **⭐ PRIORIDAD DE RITMO EN EMAIL (Mario, 2026-08-03): 1º líneas individuales · 2º bloques de DOS · 3º bloques de TRES.** La línea suelta es la base (el dato del corpus), pero los bloques no se prohíben: dan variedad y son nuestra firma de marca. Cuando haga falta un bloque, **antes de dos que de tres**. El resto de reglas de LinkedIn siguen vigentes: **nunca un bloque de 4** (ni siquiera enumeraciones de prosa con anáfora), nunca un bloque de 2 pegado a uno de 3, y siempre una línea individual entre bloques.
+  - **⭐ PRIORIDAD DE RITMO EN EMAIL (2026-08-03): 1º líneas individuales · 2º bloques de DOS · 3º bloques de TRES.** La línea suelta es la base (el dato del corpus), pero los bloques no se prohíben: dan variedad y son nuestra firma de marca. Cuando haga falta un bloque, **antes de dos que de tres**. El resto de reglas de LinkedIn siguen vigentes: **nunca un bloque de 4** (ni siquiera enumeraciones de prosa con anáfora), nunca un bloque de 2 pegado a uno de 3, y siempre una línea individual entre bloques.
   - **Excepción del tope de 3: solo listas con MARCADOR** (`→`, guion, viñeta, numeradas), que son el bloque de empresas de los mapas. Una enumeración de prosa aunque tenga anáfora NO está exenta.
-  - **⛔ Y NO PARTAS UN BLOQUE DE 3 QUE YA ESTÁ BIEN (Iker, 2026-08-06).** Tres líneas con anáfora completa son un bloque de 3 legítimo: metí un blanco entre la segunda y la tercera "por si acaso" y lo rompí sin motivo. **El tope es 4, no 3.**
+  - **⛔ Y NO PARTAS UN BLOQUE DE 3 QUE YA ESTÁ BIEN (2026-08-06).** Tres líneas con anáfora completa son un bloque de 3 legítimo: metí un blanco entre la segunda y la tercera "por si acaso" y lo rompí sin motivo. **El tope es 4, no 3.**
   - **Al montar el bloque, comprueba la ESCALERA antes de entregar.** Las mismas tres líneas iban en zigzag (37 → 30 → 47 caracteres). Se arregló **solo permutando** (30 → 37 → 47), sin tocar una palabra: siempre prueba a reordenar antes de reescribir (`global §3.2`).
   - **El porqué, en palabras de Iker (2026-08-06):** *"aunque la competencia no lo haga, los bloques de dos y de tres generan mucha mejor retención y el correo se lee más natural; si todo son líneas individuales el lector se agobia"*. **Su experiencia de meses en LinkedIn gana al corpus** en esto: el corpus dice qué hace el sector, no qué funciona mejor para nosotros.
   - **El error típico no es usar demasiadas líneas sueltas, es que las líneas sean largas.** Si una línea pasa de ~12 palabras, pártela. Diana: 7-9.
@@ -585,7 +585,7 @@ El correo 11 salió 45/45 con tres defectos que `validar-post.py` ya cazaba: el 
 - **Formato: GIF animado, SIEMPRE.** El email no ejecuta JavaScript: Lottie/JSON es imposible en correo. Duolingo usa un único GIF de cabecera (492 KB, CDN CloudFront) reutilizado en 10 de 13 correos; los demás llevan PNG estático.
 - **Specs del GIF de Kaixito (MEDIDAS REALES del GIF de Duolingo, 2026-07-30 — corrigen la estimación anterior de "600 px y 8-12 fps", que era de memoria):** el suyo es **450×450 px · 492 KB · 100 fotogramas · 30 ms por fotograma (~33 fps) · 3,0 s · RGBA con fondo transparente**. Nuestro estándar: **512×512, ≤500 KB, loop perfecto de ~3 s, fondo transparente**, y el **primer frame legible por sí solo** (Outlook clásico solo enseña el frame 1). Alt text siempre. El primer GIF de Kaixito (estresado) salió en 512×512 y 352 KB: dentro de spec y más ligero que el de Duolingo.
 - **⛔ Los elementos de gag van SIEMPRE en la misma línea negra que los brazos** (bombilla, destellos, vapor, garabatos, gotas). Nada de colores fuera de paleta, y nada de blanco: sobre fondo transparente el blanco desaparece.
-- **⭐ EL BRAZO DERECHO CON EL LIBRO: la fórmula que funciona (Mario, 2026-07-30, tras horas de intentos).** Es el punto que más se atasca en cada animación, así que va **copiado literal en todo prompt de animación de Kaixito**:
+- **⭐ EL BRAZO DERECHO CON EL LIBRO: la fórmula que funciona (2026-07-30, tras horas de intentos).** Es el punto que más se atasca en cada animación, así que va **copiado literal en todo prompt de animación de Kaixito**:
   - **"Forma de U"** es la descripción que por fin le hizo entender la curva. Fallaron: "arco cerrado", "curva con panza", "letra ce tumbada", "más curvo".
   - **La capa, tramo por tramo:** el tramo largo del brazo pasa **por detrás** del libro y se **corta justo donde entra en contacto con él**; el tramo final que toca la bola va **por delante**; la bola de la mano, **por delante**.
   - **Avisar del efecto secundario en la misma frase.** Al pedir que el tramo final vaya por delante, el generador subía el extremo izquierdo por encima del libro. La frase que lo evitó: *"que esto no haga que la línea de la parte izquierda, en vez de cortarse justo cuando entra en contacto con el libro, ahora salga más arriba"*. **Pedir un cambio y blindar a la vez lo que no debe moverse es lo que cerró el problema.**
@@ -602,7 +602,7 @@ El correo 11 salió 45/45 con tres defectos que `validar-post.py` ya cazaba: el 
 - **Lo que NO se copia de Duolingo:** su correo es 100% imágenes (14 PNGs) porque llevan años de reputación de dominio. El nuestro sigue siendo texto dominante + un solo GIF, sobre todo con el dominio frío.
 - **Dato que corrige una creencia:** Duolingo NO rota remitentes (los 13 correos salen de "Duolingo <hello@duolingo.com>"); el personaje vive en asunto y cuerpo. Nuestra rotación de remitentes-persona es un diferencial propio, no un calco.
 - **Biblioteca de gags de Kaixito** (recursos de cómic que funcionan en flat y a miniatura): garabatos/squiggles de estrés sobre la cabeza, gotas de sudor, signos de interrogación flotando, bombilla, hojear el libro frenético, mirar a cámara con el libro del revés, esconderse tras el libro, apuntar algo y que se le caiga el boli.
-- **⭐ BIBLIOTECA DE KAIXITO YA ALOJADA EN MAILERLITE (2026-08-06).** Los 5 GIF están subidos al File manager de la cuenta y tienen URL pública permanente. **Verificadas ese día: las 5 responden 200, `image/gif`, 552×552, 40-43 fotogramas, 270-325 KB.** Para cualquier correo futuro, se pega la URL que toque en el `<img>` vía API: **ya no hay que subir nada ni pedirle nada a Mario.**
+- **⭐ BIBLIOTECA DE KAIXITO YA ALOJADA EN MAILERLITE (2026-08-06).** Los 5 GIF están subidos al File manager de la cuenta y tienen URL pública permanente. **Verificadas ese día: las 5 responden 200, `image/gif`, 552×552, 40-43 fotogramas, 270-325 KB.** Para cualquier correo futuro, se pega la URL que toque en el `<img>` vía API: **ya no hay que subir nada ni pedirle nada al compañero de marketing.**
 
 **⛔ LOS GIF SALEN DEL GESTOR DE ARCHIVOS DE BREVO (`img.mailinblue.com`), NUNCA DEL DE MAILERLITE (2026-11-12).** La tabla de abajo apuntaba a `storage.mlcdn.com`, de la cuenta cancelada, y por eso los correos 12 y 13 se montaron desde ahí, cuando los correos 4 a 11 salían de Brevo. Ese servidor no es nuestro: desde noviembre sirve los GIF comprimidos (el de aburrimiento, 276 KB y 40 fotogramas en vez de 340 KB y 43), y en el correo 13 una copia interna del brazo A llegó sin el GIF a la vista. Las URL de abajo son las de Brevo, comprobadas el 12/11: responden 200, son los originales y cada una es su emoción. **Mecanizado:** `montar-correo-brevo.py` se niega a montar un `--gif` que no sea de `img.mailinblue.com`.
 
@@ -625,7 +625,7 @@ El correo 11 salió 45/45 con tres defectos que `validar-post.py` ya cazaba: el 
   - Si hay que tocarla por API igualmente, **después hay que volver a poner a mano idioma, texto plano y destinatarios**, y verificar el contador de destinatarios antes de enviar.
 - **Lo que el conector NO podía hacer en MailerLite** (lo hacía el usuario en el panel): subir ficheros, fijar el campo `preheader`, editar el texto plano, cambiar el idioma de la campaña y fijar los destinatarios. **El preheader se resolvía metiendo un div oculto al principio del fragmento HTML**, técnica necesaria en MailerLite porque ese campo no se podía fijar bien por API.
 
-### 🔴🔴 EN BREVO EL DIV OCULTO DEL PREHEADER DUPLICA EL TEXTO. NO SE USA (Iker, 2026-08-27)
+### 🔴🔴 EN BREVO EL DIV OCULTO DEL PREHEADER DUPLICA EL TEXTO. NO SE USA (2026-08-27)
 
 **El fallo, ya enviado en 3 tandas antes de descubrirse:** las tandas 3, 4 y 5 llevaban a la vez (a) el parámetro `previewText` de la API de creación de campaña de Brevo, que es el mecanismo NATIVO de Brevo para el preheader, y (b) el `<div style="display:none">` heredado de la técnica de MailerLite de la línea de arriba. **Brevo SÍ resuelve `previewText` por su cuenta**, así que el div manual era pura redundancia. Gmail concatenó los dos y mostró la frase del preheader **dos veces seguidas** en la vista de bandeja. Iker lo descubrió mandándose un correo de test, no antes.
 
@@ -633,7 +633,7 @@ El correo 11 salió 45/45 con tres defectos que `validar-post.py` ya cazaba: el 
 - **Se pasa `previewText` en la creación de la campaña. Y NUNCA se añade el div oculto manual.** Brevo ya inyecta su propio preheader oculto a partir de ese campo.
 - Si algún día `previewText` deja de funcionar bien por API, se soluciona ahí (o subiendo el idioma/texto a mano en el panel), **nunca volviendo a meter el div** — sería repetir exactamente este bug.
 - Se comprueba mandándose un correo de test y mirando la vista de bandeja de Gmail antes de dar cualquier campaña por buena, no solo el HTML en crudo.
-- **Producción del GIF (flujo de Mario, 2026-07-27):** el diseño de la mascota SE MANTIENE tal cual (el logo con ojos, brazos y libro: es marca en cada gag, no se rediseña). El prompt al generador es **UN párrafo** que pide **UN solo archivo**. Siempre: personaje entero y centrado, estilo plano sin 3D, loop perfecto 2-3 s.
+- **Producción del GIF (flujo del compañero de marketing, 2026-07-27):** el diseño de la mascota SE MANTIENE tal cual (el logo con ojos, brazos y libro: es marca en cada gag, no se rediseña). El prompt al generador es **UN párrafo** que pide **UN solo archivo**. Siempre: personaje entero y centrado, estilo plano sin 3D, loop perfecto 2-3 s.
 - **Colores de Kaixito con el brandbook 2026 (fijados el 2026-07-29):** cuerpo **Naranja `#fe8238`** · tapas del libro **Berenjena `#431b44`** (sustituyen al verde: es el único oscuro de la paleta y da el contraste que el libro necesita contra el cuerpo naranja y contra el fondo claro) · páginas interiores del libro **Azul bebé `#a7c5f9`** (aquí sí funciona un claro, porque va rodeado del berenjena oscuro) · brazos, manos y ojos en negro. ⛔ El libro NO va en azul bebé ni en mint: a tamaño miniatura un claro sobre fondo claro se disuelve (`images §4.0`).
 - **⚠️ EL FONDO DEL GIF VA EN CREMA `#f9f3ef`, NO EN TRANSPARENTE NI EN MAGENTA (corregido el 2026-07-27).** Primero se pidió magenta para recortarlo a mano, y es la técnica correcta solo si la animación tiene que ir sobre fondos distintos (web, vídeo). **Para email es peor:** el GIF solo tiene transparencia de 1 bit (opaco o invisible, sin alfa parcial), así que recortar un personaje con bordes suavizados deja dientes de sierra o halo de color. La solución limpia es **generar el GIF ya sobre el fondo del correo**, que es el Alabastro de la paleta (`images §283`): integración perfecta, cero recorte, cero halos. Corolario: **el fondo del cuerpo del email es Alabastro `#f9f3ef`**, no blanco puro.
 
@@ -755,16 +755,16 @@ Hay dos tipos de correo y no se mezclan:
 | Dos correos el mismo día | 1 de 352 (0%) | 3 de 122 (2%) |
 
 - **⛔ EL LUNES NO SE EVITA EN EMAIL. Es el error de trasladar la intuición de LinkedIn.** Timepack reparte los cinco laborables **exactamente por igual** (19,8-20,1%, una diferencia de 1 correo en 490 días), y Hugo López **concentra en lunes y martes** (49,6% de sus envíos). En LinkedIn el lunes se evita; en la bandeja de entrada no hay ningún dato que lo respalde.
-- **Fin de semana: no.** Timepack, con 5 envíos semanales durante 16 meses, mandó **un solo correo en domingo y ninguno en sábado**. Coincide con el criterio de Mario: se vende a empresas y las empresas trabajan de lunes a viernes.
+- **Fin de semana: no.** Timepack, con 5 envíos semanales durante 16 meses, mandó **un solo correo en domingo y ninguno en sábado**. Coincide con el criterio del compañero de marketing: se vende a empresas y las empresas trabajan de lunes a viernes.
 - **Nunca dos correos el mismo día.** Prácticamente cero en los dos corpus, aunque uno mande 5 por semana.
 - ⛔ **Y OJO CON DISFRAZAR UNA RESTRICCIÓN DE EXPERIMENTO.** Cuando una tanda sale a una hora rara porque es cuando se pudo, eso es una restricción operativa, no una prueba. Apuntarla como "hemos probado las 10:01" contamina el historial con conclusiones que nadie puede sostener. **Se anota la hora y se anota el porqué.**
 - **⛔ NO SE TESTAN LOS DÍAS: la tabla de arriba ya los ha respondido.** Los cinco laborables rinden igual, así que el día de una tanda se elige por criterio OPERATIVO (acabar antes, no caer en viernes), nunca para medir. Y las tandas de un mismo correo **no son comparables entre sí** aunque caigan en días distintos: cambian las personas, el tamaño y la temperatura del dominio.
 - **⭐ HORA DE LA CASA: 09:01, fijada el 2026-08-10.** Todos los envíos a esa hora hasta que el test de hora diga otra cosa.
-  - **El minuto impar es deliberado (Mario):** la mayoría de la gente programa a la hora en punto. Saliendo a las 09:01 llegas DESPUÉS de esa oleada, y en una bandeja ordenada por lo más reciente eso te pone encima de todos ellos. Cuesta cero y la lógica se sostiene; no está medido, pero no hay nada que perder.
+  - **El minuto impar es deliberado (el compañero de marketing):** la mayoría de la gente programa a la hora en punto. Saliendo a las 09:01 llegas DESPUÉS de esa oleada, y en una bandeja ordenada por lo más reciente eso te pone encima de todos ellos. Cuesta cero y la lógica se sostiene; no está medido, pero no hay nada que perder.
   - **⚠️ El porqué original ("los corpus mandan antes de las 08:00") SE CAYÓ con el corpus de 13 remitentes (§8d).**
     - 🔴 **Y el rango que se puso en su lugar TAMBIÉN era falso** ("de las 06:00 a las 23:29"): esas horas estaban sin convertir la zona horaria del encabezado. **En hora española el corpus va de las 08:00 a las 21:30, y los tres remitentes españoles de texto puro mandan entre las 15:00 y las 16:03** (`§8g`). Las 09:01 siguen igual —la constancia manda y su lector no es el nuestro— pero **el test de hora pendiente cambia de contendiente: `09:01 contra 15:01`, no `07:01 contra 09:01`.** Las 09:01 se mantienen igualmente, ahora por otra razón: es la hora más cercana a nuestro único dato real (09:23 → 46,8%) y **lo que de verdad importa es no moverla nunca**.
   - ⛔ **No se traslada la hora de LinkedIn.** En LinkedIn las 12:00 funcionan porque se mira en un descanso; el correo se abre como tarea al empezar la jornada. Son comportamientos distintos.
-  - **⭐ EL PRINCIPIO, en palabras de Mario (2026-08-10): "siempre hay que adelantarse a la hora pico".** Es la formulación correcta del mecanismo, y aplica igual a posts y a correos. Lo que cambia es DÓNDE está el pico:
+  - **⭐ EL PRINCIPIO, en palabras del compañero de marketing (2026-08-10): "siempre hay que adelantarse a la hora pico".** Es la formulación correcta del mecanismo, y aplica igual a posts y a correos. Lo que cambia es DÓNDE está el pico:
     - **LinkedIn: pico a las 12:00** (se mira en un descanso) → se publica antes.
     - **Email: pico al llegar a la oficina, 08:00-09:00** (se abre como primera tarea) → se manda antes, sobre las 07:00. Es lo que hace Timepack con 490 días de constancia.
     - ⛔ **Trasladar las 12:00 de LinkedIn al correo es llegar dos picos tarde.** Toda hora a partir de las 10:00 cae ya en mitad de la jornada.
@@ -776,14 +776,14 @@ Hay dos tipos de correo y no se mezclan:
 |---|---|---|---|---|
 | **1 · DOLOR** (el dolor de encontrarlos) | ~40% | El director comercial que no sabe a quién llamar. La lista comprada que no vale. La feria de 200 tarjetas y cero pedidos. El comercial que se pasa media semana buscando en vez de vendiendo | Iker | Suave, y fuerte 1 de cada 3 |
 | **2 · HISTORIA** (con lección) | ~25% | El molde RunnerPro: una historia (propia o inventada, §7) que aterriza en el dolor y cierra con la frase-puente. Puede colgarse del calendario (agosto, vuelta de vacaciones, cierre de trimestre) | Cualquiera | Suave |
-| **3 · MITO** (rompe una creencia del sector) | ~20% | El molde Isra Bravo: *"lo que te han contado sobre X está mal"*. Ej: "más leads no era tu problema", "el CRM no te va a decir a quién llamar" | Unai o Iker | Suave |
-| **4 · BASTIDORES** (por dentro y novedades) | ~15% | Cómo funciona algo por debajo, aterrizado en ventas · lo que hemos roto esta semana | Asier · Kaixito | Relación |
+| **3 · MITO** (rompe una creencia del sector) | ~20% | El molde Isra Bravo: *"lo que te han contado sobre X está mal"*. Ej: "más leads no era tu problema", "el CRM no te va a decir a quién llamar" | El primer jefe o Iker | Suave |
+| **4 · BASTIDORES** (por dentro y novedades) | ~15% | Cómo funciona algo por debajo, aterrizado en ventas · lo que hemos roto esta semana | El tercer jefe · Kaixito | Relación |
 
 **🆕 Y HAY CUATRO PILARES CANDIDATOS MÁS, sacados del corpus el 2026-09-14 y con su runbook en `§8g`:**
 **5 · el CALENDARIO** (la fecha pone el dolor y la urgencia, y es el mecanismo más usado del corpus) · **6 · la OBJECIÓN entera** (una objeción del informe de demos, en sus palabras, rebatida sin vender: es el pilar con más munición y cero invención) · **7 · la CICATRIZ propia con número pequeño** (el único donde podemos poner una cifra nuestra sin `[PENDIENTE]`, porque las de fracaso sí están medidas) · **8 · las FASCINACIONES** (la lista de bullets de curiosidad: el correo que sostiene la cadencia cuando no hay nada que contar).
 **🆕 Y un 9º, del 2026-09-21 (`§8h`): 9 · la RECETA REGALADA** (el método entero para hacerlo a mano, y lo que se vende es aplicarlo a su caso; el puente nunca promete automatismo).
 
-**🏷️ LOS NOMBRES DE LOS PILARES: UNA PALABRA, Y PUNCHY (Iker, 2026-09-22).** Igual que en posts decimos `meme`, `mapa` o `peloteo`, cada pilar de correo se nombra con **una sola palabra** (dos como mucho). Es el nombre que va en el historial, en el `name` de la campaña de Brevo y en la conversación. La descripción larga se queda solo en la sección del pilar.
+**🏷️ LOS NOMBRES DE LOS PILARES: UNA PALABRA, Y PUNCHY (2026-09-22).** Igual que en posts decimos `meme`, `mapa` o `peloteo`, cada pilar de correo se nombra con **una sola palabra** (dos como mucho). Es el nombre que va en el historial, en el `name` de la campaña de Brevo y en la conversación. La descripción larga se queda solo en la sección del pilar.
 
 | nº | nombre | en una línea |
 |---|---|---|
@@ -798,9 +798,9 @@ Hay dos tipos de correo y no se mezclan:
 | 9 | **RECETA** | el método entero a mano; se vende aplicarlo a su caso |
 ⚠️ **Los cinco son n=0 y NO entran en el reparto de arriba hasta que se prueben.** El orden recomendado y el porqué de no lanzarlos a la vez, en `§8g`.
 
-**📍 Estado a 2026-10-13:** estrenados HISTORIA (2, 3) · BASTIDORES/novedades (4) · OBJECIÓN (5) · CALENDARIO (6) · MITO (7, Kaixito, 06/10). **RECETA en borrador** (correo 8, estreno de Asier, para el 14/10, ninja al webinar). 🔄 **19/10: DOLOR se estrena en el correo 9** (Kaixito, el sueño de buscar empresa a empresa, ninja al webinar). Sin estrenar: CICATRIZ. 🔄 **26/10: ANZUELOS se estrena en el correo 10** (Kaixito, víspera del webinar: las 3 preguntas que contesta la sesión, como el guion que cotillea la mascota). Lo que dicen los 7 correos cruzados (clics por pilar, asunto pregunta contra afirmación, Kaixito contra founders, las bajas de la cohorte del evento) está en `historial-newsletter`, 05/10.
+**📍 Estado a 2026-10-13:** estrenados HISTORIA (2, 3) · BASTIDORES/novedades (4) · OBJECIÓN (5) · CALENDARIO (6) · MITO (7, Kaixito, 06/10). **RECETA en borrador** (correo 8, estreno del tercer jefe, para el 14/10, ninja al webinar). 🔄 **19/10: DOLOR se estrena en el correo 9** (Kaixito, el sueño de buscar empresa a empresa, ninja al webinar). Sin estrenar: CICATRIZ. 🔄 **26/10: ANZUELOS se estrena en el correo 10** (Kaixito, víspera del webinar: las 3 preguntas que contesta la sesión, como el guion que cotillea la mascota). Lo que dicen los 7 correos cruzados (clics por pilar, asunto pregunta contra afirmación, Kaixito contra founders, las bajas de la cohorte del evento) está en `historial-newsletter`, 05/10.
 
-**⭐ LA PROMESA CENTRAL, Y ES UNA SOLA (confirmada por Mario con feedback de clientes, 2026-08-10):**
+**⭐ LA PROMESA CENTRAL, Y ES UNA SOLA (confirmada por el compañero de marketing con feedback de clientes, 2026-08-10):**
 > **Encontrar las empresas que de verdad te pueden comprar, y la persona exacta con la que hablar dentro.**
 
 No son las señales. No es el momento. **Es la identificación.** Los clientes industriales compran eso porque encontrar a quién venderle es su cuello de botella real (coincide con `aboutme` y con el diferenciador que corrigió Iker).
@@ -823,7 +823,7 @@ No son las señales. No es el momento. **Es la identificación.** Los clientes i
 
 **⚠️ Y la regla de entrada es la misma que en el ninja:** un dolor entra en un email cuando el informe lo respalda con **3 empresas o más**. Con 1 o 2 es hipótesis, se prueba en un correo y se anota el resultado en `historial-newsletter.md`.
 
-### ⛔⛔ 5-NINJA · EL SPAM NINJA EN EL CORREO: BLOQUE DE DOS, Y CUELGA DEL ASUNTO (Iker, 2026-08-26) — CANÓNICO EN EMAIL
+### ⛔⛔ 5-NINJA · EL SPAM NINJA EN EL CORREO: BLOQUE DE DOS, Y CUELGA DEL ASUNTO (2026-08-26) — CANÓNICO EN EMAIL
 
 > **Iker, viendo el correo 2 con el enlace en una línea suelta:** *"has puesto el enlace en una línea individual separada, entonces yo creo que en cuanto lo vea una persona que lo reciba detectará que le estamos intentando vender algo, entonces no lo pulsará, generará rechazo y fricción. Es mejor que copies e inyectes en tu receta el bloque de dos de las publicaciones. Solo que en este caso de correos la primera línea del bloque, en vez de seguir la broma del gancho de la publicación, aquí seguirá la broma o el verbo punchy del ASUNTO del correo, que es el equivalente"*.
 
@@ -858,7 +858,7 @@ En LinkedIn la primera línea del bloque cuelga de la broma del gancho, y su **p
 | **No nombrar a Neety** (`§4.4b` regla 2) | ✅ **SÍ, y no por el mismo motivo.** En LinkedIn es porque nombrar la marca lo delata como publicidad ante el clasificador. En el correo no hay clasificador de alcance, pero **el bloque sigue leyendo mejor en plural sin marca**, y la firma de abajo ya dice quiénes somos |
 | **Lista de frases quemadas** | ✅ **SÍ, con las mismas frases de LinkedIn dentro** y su propia lista en `validar-email.py`. El dolor no cambia y la frase sí. **Caduca a los 21 días (3 correos) y no distingue remitente**: los cuatro escriben a la misma lista de suscriptores (`global §2.0b-VENTANA`) |
 
-#### 🔴🔴 5-NINJA-POSICION · EL ENLACE NO VA AL FINAL DEL CUERPO. NUESTRO DATO GANA AL CORPUS (Iker, 2026-08-27)
+#### 🔴🔴 5-NINJA-POSICION · EL ENLACE NO VA AL FINAL DEL CUERPO. NUESTRO DATO GANA AL CORPUS (2026-08-27)
 
 > 🔴 **AQUÍ PONÍA QUE EL ENLACE VA AL FINAL DEL CUERPO, Y ERA UN ERROR MÍO DE JERARQUÍA DE FUENTES.**
 > Me apoyé en que *"el 100% del corpus lo pone al final"* (Timepack, RunnerPro) para defender la
@@ -892,7 +892,7 @@ del correo 2 (2026-09-02) contra los **0 de 336** del correo 0. Cualquier númer
 confirma la dirección; si vuelve a salir 0, el problema no era la posición y hay que buscarlo en el
 cuerpo.
 
-#### 💣 QUÉ PUEDE PROMETER EL NINJA DEL CORREO, Y NO ES OPINABLE (Iker, 2026-08-26)
+#### 💣 QUÉ PUEDE PROMETER EL NINJA DEL CORREO, Y NO ES OPINABLE (2026-08-26)
 > **Iker:** *"también tienes que copiar de la skill de LinkedIn que ahora tenemos nuevo feedback de los clientes, para mejorar también el spam ninja de los correos sabiendo cómo solucionar mejor su punto de dolor y cuál es"*.
 
 **⛔ EL INVENTARIO NO SE COPIA AQUÍ. Vive en `global §4.4b-MUNICIÓN` y en `aboutme §1b`, y se lee de ahí** (🔄 **desde el 16/10 manda el informe del 15/10: 792 citas, 131 empresas, 201 reuniones**, tamaños en `global §4.4b-MUNICIÓN-1510`; antes, el del 14/09 con 359 citas). Dos copias del mismo banco de dolores se desincronizan en tres semanas y entonces el post y el correo empiezan a vender cosas distintas. **Lo que sí es de aquí es qué pesa distinto en la bandeja de entrada:**
@@ -915,7 +915,7 @@ cuerpo.
 
 **Mecanizado en `validar-email.py`** con 7 checks nuevos: dos líneas pegadas · las dos ≤55 sin la URL · escalera invertida · una oración + `:` + enlace pegado · **repite una palabra del ASUNTO** (raíz de 5 letras, sin tildes) · sin frases quemadas · el enlace no es la última línea. **Probado contra la versión mala del correo 2**, que cae con 3 fallos.
 
-### ⭐⭐ 5-HISTORIA · EL PILAR HISTORIA PERSONAL, TRASLADADO DE LINKEDIN AL CORREO (Iker, 2026-08-26) — PRIMERA VERSIÓN, SIN VALIDAR
+### ⭐⭐ 5-HISTORIA · EL PILAR HISTORIA PERSONAL, TRASLADADO DE LINKEDIN AL CORREO (2026-08-26) — PRIMERA VERSIÓN, SIN VALIDAR
 
 > **Iker, pidiéndolo:** *"no tenemos aún pilares de contenido para correos definidos… el que quiero medio copiar, porque realmente la idea la saqué de los correos y la apliqué a LinkedIn, es el pilar historia personal, que ahora ya tenemos nuevo feedback de los clientes y su punto de dolor real. Trasladarlo igual a los correos. Y el gancho de las publicaciones de LinkedIn se puede más o menos transferir a los correos al asunto"*.
 
@@ -970,7 +970,7 @@ El corpus español entero abre con una orden de 1-3 palabras, con punto y línea
 
 #### 🦉 DESDE EL 19/10, LOS CORREOS SALEN SOLO CON KAIXITO (Iker) — de momento
 Por tres razones: (1) **así los A/B son limpios**, porque el remitente deja de ser una variable más (el correo 8 cambió cuatro cosas a la vez y no se pudo leer nada); (2) **la mascota es un diferencial** que ninguna marca de ventas tiene y permite un tono más divertido; y (3) **las newsletters del corpus salen con un solo remitente**. Los datos acompañan: el correo 7 (Kaixito) es el de más clics limpios de la serie (8) y el 8 (Asier, receta técnica de 240 palabras) el de menos (1). Los founders vuelven solo si Iker lo decide.
-- **Y nada técnico ni largo:** la receta técnica del correo 8 fue el peor correo. Lo mismo sale en los posts de Asier (`aboutme §2-ASIER-MEME`, bloque del 19/10).
+- **Y nada técnico ni largo:** la receta técnica del correo 8 fue el peor correo. Lo mismo sale en los posts del tercer jefe (`aboutme §2-ASIER-MEME`, bloque del 19/10).
 
 #### ⭐ LA PD Y LA PPD SE REPARTEN EL TRABAJO, y ninguna de las dos vende
 Es la forma medida de RunnerPro y de Timepack (`§4b`, `§8d`), y resuelve el conflicto con la regla del UNO: **el único CTA es el enlace**, así que las postdatas no pueden pedir otra cosa.
@@ -993,7 +993,7 @@ Día 0: entrega del lead magnet prometido · Día 1-2: quiénes somos y qué pro
 ### 5c-0 · Correo 0: el segmentador por respuesta (diseñado el 2026-07-27, pendiente de enviar)
 El primer correo del sistema no vende: **segmenta la base mezclada por RESPUESTAS** y de paso entrena la entregabilidad (cada respuesta le dice a Gmail que somos legítimos, justo cuando el dominio está frío).
 - **Asunto: `tú quién eres`** (decidido el 2026-07-27): 3 palabras, minúsculas, sin signos de interrogación ni emojis. Con Kaixito de remitente la broma es coherente: es ÉL quien no te encuentra en su libro.
-- **Remitente: KAIXITO "de Neety" (revisado el 2026-07-27; antes decía Iker).** Unai y Asier descartados por sobrios (decisión de Mario). El motivo del cambio: con el gag del GIF (Kaixito estresado sin recordar de qué te conoce), **el correo ES la presentación de la mascota**: se cumple la regla de §1 ("existir antes de remitir") dentro del propio correo. Condiciones: el From lleva la marca (*"Kaixito de Neety"*, nunca "Kaixito" a secas), la línea 1 lo presenta (*"soy Kaixito, la mascota de Neety, y tengo un problema"*), y las respuestas las contesta un humano.
+- **Remitente: KAIXITO "de Neety" (revisado el 2026-07-27; antes decía Iker).** el primer jefe y el tercer jefe descartados por sobrios (decisión del compañero de marketing). El motivo del cambio: con el gag del GIF (Kaixito estresado sin recordar de qué te conoce), **el correo ES la presentación de la mascota**: se cumple la regla de §1 ("existir antes de remitir") dentro del propio correo. Condiciones: el From lleva la marca (*"Kaixito de Neety"*, nunca "Kaixito" a secas), la línea 1 lo presenta (*"soy Kaixito, la mascota de Neety, y tengo un problema"*), y las respuestas las contesta un humano.
 - **El GIF del correo 0:** Kaixito hojeando su libro frenético, garabatos de estrés e interrogaciones creciendo sobre la cabeza, gota de sudor, y remate: para en seco y mira a cámara con el libro del revés. Loop 2-3 s, specs de §3b. Es la ÚNICA imagen del correo.
 - **Cuerpo:** línea 1 desactiva la broma ("era broma, tranquilo"), quiénes somos en UNA frase, por qué te llega este correo (web / evento / LinkedIn / webinar / referido: todas las vías), y **UNA pregunta de respuesta de una palabra**: *"contéstame con una sola palabra: web, linkedin, evento, webinar o ni idea"*. La opción "ni idea" hace gracia Y también segmenta.
 - **⛔ "NI IDEA" SE QUEDA COMO OPCIÓN CERRADA, no se cambia por "especifica dónde" (decidido el 2026-08-06).** La lista cerrada de UNA palabra convierte la respuesta en una decisión de 3 segundos; pedir que redacten la convierte en una tarea, y ahí se cae la gente. Además: (a) en una lista mezclada de un año entero, **los que no se acuerdan son mayoría**, y sin salida fácil simplemente no contestan; (b) "ni idea" **es un cubo accionable** (a ese hay que reintroducirle, no decirle "como viste en nuestro webinar"); (c) en un dominio recién estrenado **cualquier respuesta es señal positiva** para el proveedor de correo. Misma mecánica que la palabra clave del lead magnet: cada requisito extra se come un porcentaje de respuestas.
@@ -1008,15 +1008,15 @@ No se dispara lo mismo a toda la base. Mínimo separar por: **origen** (lead mag
 
 ---
 
-## ⛔⛔ 5-UNA-VARIABLE · CADA CORREO PRUEBA UNA SOLA COSA (Mario, 2026-10-14) — CANÓNICO
+## ⛔⛔ 5-UNA-VARIABLE · CADA CORREO PRUEBA UNA SOLA COSA (2026-10-14) — CANÓNICO
 
-> **Mario, tras el correo 8:** *"que cada vez que hagamos un correo siempre incluyamos solo un A/B testing"*. Con cuatro cambios a la vez no se puede leer el resultado. El correo 8 cambió a la vez el remitente (estreno de Asier), el pilar (estreno de receta), la longitud (240 palabras contra 116-158) y el destino (el webinar). Salga como salga, no sabremos por qué.
+> **El compañero de marketing, tras el correo 8:** *"que cada vez que hagamos un correo siempre incluyamos solo un A/B testing"*. Con cuatro cambios a la vez no se puede leer el resultado. El correo 8 cambió a la vez el remitente (estreno del tercer jefe), el pilar (estreno de receta), la longitud (240 palabras contra 116-158) y el destino (el webinar). Salga como salga, no sabremos por qué.
 
 **La regla:** cada correo copia las variables de FORMA del correo de referencia y cambia **una sola**, que se declara antes de escribirlo. El contenido (la historia, el tema) cambia siempre: eso no es la variable.
 
 | variable de forma | qué se mira |
 |---|---|
-| remitente | Iker · Unai · Asier · Kaixito |
+| remitente | Iker · el primer jefe · el tercer jefe · Kaixito |
 | pilar | historia · objeción · calendario · mito · receta · dolor · cicatriz · anzuelos |
 | longitud | palabras del cuerpo |
 | posición del enlace | % del cuerpo donde cae el bloque |
@@ -1025,29 +1025,29 @@ No se dispara lo mismo a toda la base. Mínimo separar por: **origen** (lead mag
 | la PPD | reenvío, remate o pregunta que pide contestar |
 | la hora | 09:05 o la del día |
 
-- **Correo de referencia, hoy:** el **5** (Iker, objeción, 140 palabras, asunto pregunta, enlace hacia el 45-50%, sin GIF), el de más clics de lead (5-7 de 111). Cuando otro le gane en clics limpios, pasa a ser él la referencia.
+- **Correo de referencia, hoy:** el **5** (objeción, 140 palabras, asunto pregunta, enlace hacia el 45-50%, sin GIF), el de más clics de lead (5-7 de 111). Cuando otro le gane en clics limpios, pasa a ser él la referencia.
 - **En la entrega va una línea:** `Variable en prueba: X (todo lo demás como el correo N)`. Y en `historial-newsletter`, en la ficha de cada correo.
-- **✅ REMITENTE FIJO: KAIXITO (Mario, 2026-10-14). Se acaba la rotación de `§1`.** Motivos:
+- **✅ REMITENTE FIJO: KAIXITO (2026-10-14). Se acaba la rotación de `§1`.** Motivos:
   - **En correo, rotar no suma lectores.** En LinkedIn cada cuenta llega a su propia red; aquí la lista es la misma y solo cambia la firma.
   - **En el corpus, 12 de 13 newsletters las firma siempre la misma persona** y ninguna rota.
   - **Y rotar en cada correo choca con la regla de una sola variable.**
-  - **⚠️ Se eligió a Kaixito por originalidad, no porque abra más.** El "abre más" (46,7% contra 35,6 y 31,1) comparaba asuntos en pregunta contra afirmaciones, así que medía el asunto. Con el asunto igualado (correos 5-7, los tres en pregunta, lista de ~110): **Iker 63,8% · Kaixito 61,7% · Unai 56,8%**, sin ventaja. En clics, Kaixito 2 en 24 h contra 5-7 de los founders. Y **no lleva 0 bajas: el correo 7 tuvo 2.**
+  - **⚠️ Se eligió a Kaixito por originalidad, no porque abra más.** El "abre más" (46,7% contra 35,6 y 31,1) comparaba asuntos en pregunta contra afirmaciones, así que medía el asunto. Con el asunto igualado (correos 5-7, los tres en pregunta, lista de ~110): **Iker 63,8% · Kaixito 61,7% · el primer jefe 56,8%**, sin ventaja. En clics, Kaixito 2 en 24 h contra 5-7 de los founders. Y **no lleva 0 bajas: el correo 7 tuvo 2.**
   - Lo que sí tiene Kaixito: **nadie más lo hace** (ni mascota ni GIF en el corpus) y le quedan dos GIF sin estrenar, **alegría** y **aburrimiento**.
   - Su límite sigue en pie (`§1`): **no cierra demos, deriva** (*"eso te lo enseña Iker"*).
   - **El primer correo con él es la prueba limpia de remitente:** igual que el correo 5 en todo (pregunta de tú a tú, ~140 palabras, enlace hacia el 45-50%) y cambiando solo quién firma.
   - **Los founders vuelven** si un correo necesita su autoridad (un cierre a demo fuerte), y entonces esa es su variable.
-  - **Desde la semana del 19/10, siempre Kaixito salvo que se diga lo contrario** (Mario): por ejemplo, si el primer jefe pide firmar él uno con su nombre.
-- **⛔ Y NINGÚN TIPO DE ASUNTO SE CONVIERTE EN REGLA CON 2 O 3 CASOS (Mario, 14/10).** Que dos o tres asuntos de FOMO o de pregunta hayan abierto bien no significa que a partir de ahora vayan todos así. Se siguen probando tipos de asunto, uno por correo y con lo demás fijo, hasta tener volumen para el A/B de Brevo. **Se podría activar ya, pero con 54 por grupo el resultado no sería fiable.**
+  - **Desde la semana del 19/10, siempre Kaixito salvo que se diga lo contrario** (el compañero de marketing): por ejemplo, si el primer jefe pide firmar él uno con su nombre.
+- **⛔ Y NINGÚN TIPO DE ASUNTO SE CONVIERTE EN REGLA CON 2 O 3 CASOS (14/10).** Que dos o tres asuntos de FOMO o de pregunta hayan abierto bien no significa que a partir de ahora vayan todos así. Se siguen probando tipos de asunto, uno por correo y con lo demás fijo, hasta tener volumen para el A/B de Brevo. **Se podría activar ya, pero con 54 por grupo el resultado no sería fiable.**
 - **Un correo no se compara antes de los 5-6 días** (`historial-newsletter`, 22/09). Una lectura a la hora del envío solo sirve para comprobar que salió.
 - **Y por encima de todo, nuestro dato.** El corpus de newsletters y la psicología dan ideas para probar; lo que decide son nuestras aperturas, clics, inscritos y respuestas.
 - **El A/B nativo de Brevo (dos asuntos al 50%) todavía no compensa, y no por falta de ganas:** con 108 destinatarios son 54 por brazo, y la diferencia más pequeña que se distingue en aperturas ronda los **27 puntos**. Con 200 por brazo baja a ~14 y con 500 a ~9 *(cálculo mío, aproximación normal con un 50% de apertura, no medido)*. **Se activa cuando la lista pase de ~400.** Mientras tanto, la prueba es de un correo al siguiente, con una sola variable.
-- **Y el segmento ya está bien hecho para cuando toque:** cada contacto lleva en el CRM de dónde vino (`lead_origin`, `how_found`, recurso) y solo entra quien marcó la casilla. Eso permite, con volumen, probar el remitente por origen (quien llegó por LinkedIn de Unai, ¿abre más si le escribe Unai?).
+- **Y el segmento ya está bien hecho para cuando toque:** cada contacto lleva en el CRM de dónde vino (`lead_origin`, `how_found`, recurso) y solo entra quien marcó la casilla. Eso permite, con volumen, probar el remitente por origen (quien llegó por LinkedIn del primer jefe, ¿abre más si le escribe el primer jefe?).
 
 ## 6 · Sistema de trabajo (el método Carmen/Runner Pro, adaptado)
 
 Carmen lleva la newsletter de Runner Pro (B2C) entera desde Claude Code con un playbook .md y tandas programadas. Su sistema, adaptado a Neety:
 
-0. **⭐ FASE ACTUAL (Iker, 2026-07-27): CORREO A CORREO, nada de tandas todavía.** Carmen programa tandas de 2 semanas porque lleva meses de datos y pilares validados; nosotros no tenemos ni pilares propios ni una métrica. Igual que en LinkedIn se empezó probando formatos y midiendo antes de tener la receta: **cada correo se trabaja individualmente**, se revisa a fondo, se mide y va definiendo los pilares. Se pasa a tandas cuando haya (a) herramienta de envío con métricas conectada, (b) 3-4 pilares con datos propios y (c) el tono afinado tras una buena serie de correos revisados. El resto de esta sección (pregunta previa, feedback doble, historial) aplica desde el correo nº 1.
+0. **⭐ FASE ACTUAL (2026-07-27): CORREO A CORREO, nada de tandas todavía.** Carmen programa tandas de 2 semanas porque lleva meses de datos y pilares validados; nosotros no tenemos ni pilares propios ni una métrica. Igual que en LinkedIn se empezó probando formatos y midiendo antes de tener la receta: **cada correo se trabaja individualmente**, se revisa a fondo, se mide y va definiendo los pilares. Se pasa a tandas cuando haya (a) herramienta de envío con métricas conectada, (b) 3-4 pilares con datos propios y (c) el tono afinado tras una buena serie de correos revisados. El resto de esta sección (pregunta previa, feedback doble, historial) aplica desde el correo nº 1.
 1. **Tandas de 2 semanas (el DESTINO, no el arranque).** Cuando toque: se planifica y escribe la tanda completa de una vez (con la rotación de remitentes y pilares), no email a email. Un email suelto fuera de tanda es la excepción (algo urgente que comunicar), y va sin bucles con ayer/mañana.
 2. **Antes de cada tanda, SIEMPRE preguntar:** *"¿Hay algo especial que comunicar estas 2 semanas?"* (lanzamiento, oferta, evento, feria, post que ha petado). La respuesta condiciona la tanda.
 2b. **🔄 Desde el 24/11/2026 el estado vive en la página Newsletter (`notas` de cada correo, `neety_usado`) y no en el repo; lo que sigue describe el ARCHIVO.** **El estado vivía en `docs/skills/historial-newsletter.md`** (equivalente al `historial-publicaciones.md` de posts): qué email salió, qué día, con qué remitente, pilar y segmento, más las palabras de CTA-respuesta ya usadas. Se LEE antes de planificar una tanda (rotación de remitentes, no repetir ángulo ni palabra) y se ACTUALIZA y commitea al aprobar la tanda. Si falta un dato, PREGUNTA; no lo adivines.
@@ -1080,7 +1080,7 @@ Carmen lleva la newsletter de Runner Pro (B2C) entera desde Claude Code con un p
 - **Posicionamiento intacto** (`aboutme §1b`): los 3 pilares (listado con confianza / contacto por señal / el comercial valida), nunca "sin esfuerzo / lo hace por ti", más problema del cliente que features, el "cómo funciona exactamente" se guarda para la demo.
 - **⛔ LAS TRES PROMESAS VETADAS, y no son de estilo: cada una es una objeción medida** (informe del **2026-09-14**, inventario en `global §4.4b-MUNICIÓN`). **Automatismo** ("lo escribe la IA", "va solo") → 5 empresas (4 ICP) · **volumen** ("x3 contactos", "cientos de leads") → 5 empresas, la queja contra Waalaxy y Apollo, ⚠️ **aunque solo 1 de esas 5 es ICP: el veto se mantiene, su respaldo es flojo** · **la señal como argumento de apertura** → **15 empresas (11 ICP), sube desde 12** y sigue siendo la objeción nº1 del informe. **Y uno que ha crecido hasta ser veto de pleno derecho: descubrirle un mercado que ya conoce** → **7 empresas (6 ICP)**, eran 4. En email pesan más que en un post: el lector nos lee **dentro de la misma bandeja** donde recibe los mensajes automatizados que ya ignora. **Mecanizado en `validar-email.py`: automatismo como fallo duro, volumen como aviso** — el correo sí puede nombrar el volumen como ENEMIGO, que es literalmente el pilar 3 de `§5` (*"más leads no era tu problema"*).
   - **⭐ Y DESDE EL 2026-09-14 EL VETO TIENE PRUEBA EXTERNA, NO SOLO NUESTRO INFORME (`§8g`):** lemlist, competencia directa, mandó el 09/09 un correo que promete las dos cosas en una frase — *"Claude writes the outreach, lemlist handles the sending, the replies and the follow-up, **at scale**"*. **Automatismo y volumen, firmados por el competidor, con fecha.** No es que esas frases nos parezcan feas: es que son literalmente el discurso que 10 empresas del informe nombran como motivo para ignorar mensajes. **Cuando escribamos contra ese discurso, la cita existe.**
-### ⛔⛔ 7b · NUNCA UNA AFIRMACIÓN ROTUNDA SOBRE LO QUE EL LECTOR HA HECHO O NO (Iker, 2026-09-15) — CANÓNICO
+### ⛔⛔ 7b · NUNCA UNA AFIRMACIÓN ROTUNDA SOBRE LO QUE EL LECTOR HA HECHO O NO (2026-09-15) — CANÓNICO
 
 > **Iker, sobre el correo 4:** *"veo un pequeño peligro y es que a los pocos destinatarios a los que nos dirigimos has dado afirmaciones muy rotundas, como decir que tu nombre no está en la lista. Imagínate que de esos 40 destinatarios sí que hay varios que se han inscrito. Este correo va a ser confuso para ellos e incluso se van a asustar. Intenta en los correos nunca poner ese tipo de afirmaciones tan rotundas en cosas que afecten a nuestra conversión, o por lo menos pregúntamelo a mí"*.
 
@@ -1103,7 +1103,7 @@ Carmen lleva la newsletter de Runner Pro (B2C) entera desde Claude Code con un p
 No es que no la hayamos mirado: **no es accesible.** El evento va con `show_guest_list: false`, la API pública devuelve `guest_data` a nulo (es lo tuyo como visitante anónimo) y `api.lu.ma/event/get-guests` da **404 sin sesión de organizador**. **La cuenta de Luma no es nuestra**, así que tampoco hay export.
 - **Lo que SÍ se lee sin credenciales es el contador** (`api.lu.ma/url?url=<slug>`): inscritos, plazas libres y aforo. Eso son datos nuestros y sí se pueden escribir en un correo.
 - **Corolario:** cualquier correo que quiera hablarle a un inscrito o a un no inscrito **como si lo supiéramos, está escribiendo sobre un dato que no existe.**
-- **⭐ Y cuando SÍ hay lista de inscritos, el correo que vende la fecha los EXCLUYE (Iker, 19/10, correo 9).** Desde el 19/10 los inscritos al webinar con casilla de correo viven en `Webinar 1` (lista 19). Un correo cuyo enlace es apuntarse a esa sesión va con `exclusionListIds: [19]`: a quien ya se apuntó no se le vende otra vez. Los correos que no venden la sesión sí la incluyen, porque dio permiso de newsletter. **Por qué excluir y no dejarlo de recordatorio** (lo dudamos el 19/10): Luma ya les manda el recordatorio de 24 h y el de 1 h (`§8h`), así que el nuestro sería el tercero y ruido; su primer correo nuestro sería volver a venderles lo que acaban de hacer; y sus clics al enlace de Luma inflarían los clics del correo sin traer ningún inscrito. **La exclusión es de la CAMPAÑA, no de la lista:** no da de baja a nadie ni toca la 19 (comprobado el 19/10: 6 contactos, 0 bloqueados), y el siguiente correo los incluye solo con ponerla en destinatarios. ⚠️ Solo excluye a los de la casilla: un inscrito sin casilla que esté en otra lista por otra vía sigue recibiéndolo, y por eso el texto sigue sin afirmar nada del lector (`§7b`).
+- **⭐ Y cuando SÍ hay lista de inscritos, el correo que vende la fecha los EXCLUYE (19/10, correo 9).** Desde el 19/10 los inscritos al webinar con casilla de correo viven en `Webinar 1` (lista 19). Un correo cuyo enlace es apuntarse a esa sesión va con `exclusionListIds: [19]`: a quien ya se apuntó no se le vende otra vez. Los correos que no venden la sesión sí la incluyen, porque dio permiso de newsletter. **Por qué excluir y no dejarlo de recordatorio** (lo dudamos el 19/10): Luma ya les manda el recordatorio de 24 h y el de 1 h (`§8h`), así que el nuestro sería el tercero y ruido; su primer correo nuestro sería volver a venderles lo que acaban de hacer; y sus clics al enlace de Luma inflarían los clics del correo sin traer ningún inscrito. **La exclusión es de la CAMPAÑA, no de la lista:** no da de baja a nadie ni toca la 19 (comprobado el 19/10: 6 contactos, 0 bloqueados), y el siguiente correo los incluye solo con ponerla en destinatarios. ⚠️ Solo excluye a los de la casilla: un inscrito sin casilla que esté en otra lista por otra vía sigue recibiéndolo, y por eso el texto sigue sin afirmar nada del lector (`§7b`).
 
 - **Aviso proactivo** (`working-preferences §2`): si una campaña no captura nada (ni respuesta, ni demo, ni dato), avisar sin que lo pregunten. Si un email va a rendir mal (segmento dormido, ángulo quemado, tercer email de venta seguido), avisar ANTES con dato.
 
@@ -1135,18 +1135,18 @@ No es que no la hayamos mirado: **no es accesible.** El evento va con `show_gues
 - El volumen diario con 60% de storytelling personal: exige un personaje-founder a tiempo completo. Nosotros: 2-3/semana con 4 remitentes.
 
 **Cómo se alimenta el corpus (flujo real desde el 2026-07-27):**
-- **Mario pasa un ZIP de .eml cada pocas semanas** (el conector de Gmail solo admite una cuenta y es la de trabajo de Iker; el reenvío se descartó para no llenarle el buzón). Claude criba (fuera verificaciones y no-newsletters), inventaría por remitente y guarda las observaciones aquí.
+- **El compañero de marketing pasa un ZIP de .eml cada pocas semanas** (el conector de Gmail solo admite una cuenta y es la de trabajo de Iker; el reenvío se descartó para no llenarle el buzón). Claude criba (fuera verificaciones y no-newsletters), inventaría por remitente y guarda las observaciones aquí.
 - **El análisis cruzado gordo se hace con ~2-3 meses acumulados**, no antes: los patrones se confirman con repetición, como los outliers. Cada análisis actualiza ESTA sección.
 - **Inventario a 2026-07-27 (ZIP "hasta 27 julio", 34 correos, 8 fuentes):** RunnerPro (7, el sistema de Carmen en vivo: 300-450 palabras, bienvenida con descuento día 0) · **BOGA/EDEM (2, la más cercana a nuestro género: curiosidad pura en primera persona + storytelling ~1.000 palabras)** · Cosas de Freelance (6, **bienvenida NUMERADA [1/10]…: la secuencia como producto con barra de progreso — patrón robable**) · Singularu (12, e-commerce puro: contraste, no modelo; su "chica Singularu" = truco de tribu) · lemlist (2, competencia: vigilar su discurso de señales) · Kieran Flanagan (4, ensayos 4-5k palabras: otro género) · **Aprilynne Alter (7, ZIP del 27-jul): asuntos TODOS en minúsculas y sin gancho de venta ("are creator conferences worth it?", mediana ~40 chars: valida el estilo del correo 0 desde otro nicho) · P.S. en el 100% · cuerpos educativos de 1.200-2.600 palabras con ~7 imágenes (género ensayo visual, no nuestro formato)**.
 - **Faltan por suscribirse (prioridad):** ~~Isra Bravo~~ ✅ llega desde agosto · **Lavender 🔴 MAL: la suscripción cayó en "The Lavender Newsletter", una publicación queer local de Illinois, no en la herramienta de email de ventas** (`§8g`). Hay que rehacerla apuntando a `lavender.ai`. · CustomerTop, sigue sin aparecer en ningún ZIP.
 - **⭐ REGLA DE INTAKE que sale de ahí: una suscripción nueva no se da por buena por el nombre, se verifica leyendo su primer correo.** La de Lavender estuvo cuatro meses en la lista de "ya suscritos" trayendo noticias municipales de Champaign-Urbana.
 - ~~**🪦 Bajas del corpus:** Content Playbook / Kleo (Lara Acosta) **cerró la newsletter el 2026-08-30**.~~ **🔴 FALSO, corregido en `§8i` (2026-09-28):** el correo del 30/08 anunciaba **2 semanas de descanso**, no un cierre. Volvió el 27/09 como **The B2B Creator** y sigue en el corpus. **Una baja tampoco se da por buena por el asunto: se lee el cuerpo.**
-- **⚠️ A 2026-09-28 (`§8i`): lemlist, Hoppy Copy y Tendios llevan DOS semanas sin mandar nada → toca comprobar las suscripciones (Mario). Lavender, tercera semana llegando la mala. Alta de facto: Kakiyo (competencia, correos de ciclo de vida de producto).**
+- **⚠️ A 2026-09-28 (`§8i`): lemlist, Hoppy Copy y Tendios llevan DOS semanas sin mandar nada → toca comprobar las suscripciones (el compañero de marketing). Lavender, tercera semana llegando la mala. Alta de facto: Kakiyo (competencia, correos de ciclo de vida de producto).**
 - **⚠️ A 2026-09-21 (`§8h`): Lavender sigue llegando mal** (la de Illinois, el 18/09) y **lemlist, Hoppy Copy y Tendios no mandaron nada esa semana.** Tres altas nuevas que en su segunda semana no aparecen: si a la siguiente tampoco, se comprueba que la suscripción siga viva.
 - **🆕 Altas del corpus (2026-09-14):** **Hoppy Copy** (herramienta de copy con IA, jugadas de calendario) · **lemlist** (competencia directa, vigilar su discurso) · **Tendios Bid** (SaaS B2B español, su secuencia de bienvenida es la referencia de `§5b`).
 
 ### 8b · ⭐ SALES HACKERS — la referencia MÁS cercana que tenemos (50 correos, jun 2025 - jul 2026, analizado el 2026-07-27)
-Javi Consuegra (`javi@saleshackers.es`, herramienta: beehiiv/Encharge) vende formación y consultoría de **IA para ventas B2B en español**: nuestro sector EXACTO y nuestro mismo comprador. Los 6 correos con "Fwd:" del ZIP los reenvió Unai, no son otra fuente.
+Javi Consuegra (`javi@saleshackers.es`, herramienta: beehiiv/Encharge) vende formación y consultoría de **IA para ventas B2B en español**: nuestro sector EXACTO y nuestro mismo comprador. Los 6 correos con "Fwd:" del ZIP los reenvió el primer jefe, no son otra fuente.
 
 **Sus números, y el contraste con Timepack:**
 | | Sales Hackers (B2B) | Timepack (B2C) |
@@ -1171,7 +1171,7 @@ Javi Consuegra (`javi@saleshackers.es`, herramienta: beehiiv/Encharge) vende for
 - **Su escalera de cierre de carrito** (asuntos literales, en orden real): *"Mañana cierro las puertas"* → *"Hoy es el último día"* → *"No entres a You Run Ads"* (reversa) → *"Últimas 4 horas y cierro plazas."* → *"60 minutos y adiós."*. Es la plantilla de una ventana de campaña. **Para nosotros aplica al webinar/evento**, nunca a la suscripción (`§8` NO copiar: un SaaS con demo no abre y cierra el producto).
 - **Estructura diaria: la crónica en primera persona.** Abre con lo que ha hecho ("Ayer cerré la oficina a las 21:45", "He estado los últimos días totalmente off"), enlaza con lo que está construyendo, y de ahí sale la oferta. Es autoridad por actividad, no por consejo, y es 100% trasladable a Kaixito y a los founders contando la semana real de Neety.
 - **Las cifras SON el contenido** (400 entradas, 267 piezas, 193→400 asistentes): números propios y comprobables como prueba. Es justo lo que a nosotros nos falta (`aboutme §1`: las nuestras están sin verificar) y el motivo por el que la prueba lógica manda hasta que existan.
-- **Lo que NO copiamos:** el hype apilado ("épico", "bestialidad", "lo vamos a reventar") choca de frente con la voz Neety y sobre todo con el registro de Unai (`brand-voice §1b`), y sus asuntos de 10 palabras contradicen a las otras 3 fuentes: nos quedamos con los 5-8 de Sales Hackers y Timepack.
+- **Lo que NO copiamos:** el hype apilado ("épico", "bestialidad", "lo vamos a reventar") choca de frente con la voz Neety y sobre todo con el registro del primer jefe (`brand-voice §1b`), y sus asuntos de 10 palabras contradicen a las otras 3 fuentes: nos quedamos con los 5-8 de Sales Hackers y Timepack.
 
 ---
 
@@ -1226,7 +1226,7 @@ Una orden o una palabra suelta, **con punto**, y línea en blanco. Es un freno: 
 
 - ⛔ **Se cae la regla de "mandar antes de las 08:00".** Salía de 2 corpus que casualmente madrugaban. Con 13 remitentes la hora va de las 06:00 a las 23:29, y **el mejor copywriter de email en español manda a las 23:29 todos los días**.
 - ✅ **Lo que sí aguanta: cada remitente clava SU hora y no la mueve.** La constancia es el activo, no la hora concreta. Elegir una y no tocarla importa más que cuál elijas.
-- ✅ **Y el minuto impar está en el corpus:** 23:29, 14:02, 06:01, 06:03, 13:01. Nadie manda en punto salvo SINGULARU. Respalda las **09:01** de Mario.
+- ✅ **Y el minuto impar está en el corpus:** 23:29, 14:02, 06:01, 06:03, 13:01. Nadie manda en punto salvo SINGULARU. Respalda las **09:01** del compañero de marketing.
 
 **FIN DE SEMANA: depende de a quién vendas.** Isra manda 7/7 incluido sábado y domingo; RunnerPro, Hugo y Content Playbook mandan en domingo. **Pero los 5 son B2C o infoproducto.** Nuestra regla de lunes a viernes sigue en pie porque vendemos a empresas: no es que el fin de semana sea malo, es que nuestro lector no está trabajando.
 
@@ -1691,7 +1691,7 @@ siguiente (septiembre y octubre es cuando el director comercial pelea el suyo) �
 ferias de otoño · el cierre de ejercicio · agosto parado y la lista de septiembre igual de vacía que
 en julio · enero, objetivos nuevos y la misma cartera de siempre.
 
-**Remitente:** Iker o Unai. **CTA:** suave. **Coste:** el más bajo después de historia, porque no
+**Remitente:** Iker o el primer jefe. **CTA:** suave. **Coste:** el más bajo después de historia, porque no
 necesita ni verificar empresas ni inventar escena.
 **⚠️ El riesgo, y hay que decirlo:** es el ángulo más manido de septiembre. **Lo que nos separa es
 que la fecha sea de SU calendario laboral, no del calendario general.**
@@ -1756,7 +1756,7 @@ fallaba de verdad → la regla que salió → **nunca "y por eso somos mejores"*
 tenía origen claro, que es exactamente lo que nos costó la cuenta (`§0b`). **Y la elección de qué
 fracaso sale en público es de Iker, no mía.**
 
-**Remitente:** Asier para las técnicas, Iker para las comerciales. **CTA:** ninguno o de respuesta.
+**Remitente:** el tercer jefe para las técnicas, Iker para las comerciales. **CTA:** ninguno o de respuesta.
 
 ---
 
@@ -2017,7 +2017,7 @@ otros 1000."*
   pide a Iker la cifra real de la sala.** `Vinieron 65` con 45 en la sala es un dato falso (`§7`).
 - **Las personas y empresas que aparezcan** (ponentes, mesa redonda) **siguen el filtro de las
   menciones de `CLAUDE.md`** y el OK que gestiona el primer jefe (commit del 18/09).
-- **Remitente:** Unai, que es quien firmó el correo 3 del evento. **Kaixito no**: el tono del correo
+- **Remitente:** el primer jefe, que es quien firmó el correo 3 del evento. **Kaixito no**: el tono del correo
   es de gratitud y la mascota lo convertiría en gag.
 - **Día:** el 25/09 cae en viernes. El `§5` no veta el viernes para un correo suelto, solo para la
   última tanda. **Se decide con Iker**, no se da por hecho.
@@ -2044,8 +2044,8 @@ otros 1000."*
 - **⛔ El límite, y es el que más fácil se cruza:** el puente no puede prometer que "se ajusta solo"
   ni que "lo hacemos por ti" (`§7`, automatismo). **La receta es cómo encontrar empresas a mano; lo
   que se vende es la identificación ya hecha para su caso**, con la persona de dentro.
-- **⛔⛔ EL REMITENTE NUNCA DICE QUE HOY LO HACE A MANO (Iker, 2026-10-13, correo 8).** La primera versión ponía en boca de Asier `Antes de programar una búsqueda, la hago así a mano.` Iker: *"¿por qué vamos a estar a día de hoy programando búsquedas de clientes potenciales a mano si tenemos nuestra propia herramienta que lo soluciona?"*. Es el autogol de `global §4.4b-AUTOGOL`: la receta manual contada como el método de la casa HOY dice que el producto no nos sirve ni a nosotros. **La receta a mano se cuenta como ORIGEN** (`brand-voice`, canónico, 01/10): así se hacía antes de que existiera el software → `Antes de programar nuestro buscador, lo hacíamos así a mano.` Y detrás del enlace, donde la receta enseña su límite, una línea que deja ver que el producto nació para eso sin prometer automatismo: `Encontrar esas fue lo que más nos costó programar.` **Así la receta vende la herramienta de forma indirecta**, que es su trabajo.
-- **Remitente:** Asier (es el pilar más técnico de los cinco candidatos) o Iker. **CTA:** el ninja,
+- **⛔⛔ EL REMITENTE NUNCA DICE QUE HOY LO HACE A MANO (2026-10-13, correo 8).** La primera versión ponía en boca del tercer jefe `Antes de programar una búsqueda, la hago así a mano.` Iker: *"¿por qué vamos a estar a día de hoy programando búsquedas de clientes potenciales a mano si tenemos nuestra propia herramienta que lo soluciona?"*. Es el autogol de `global §4.4b-AUTOGOL`: la receta manual contada como el método de la casa HOY dice que el producto no nos sirve ni a nosotros. **La receta a mano se cuenta como ORIGEN** (`brand-voice`, canónico, 01/10): así se hacía antes de que existiera el software → `Antes de programar nuestro buscador, lo hacíamos así a mano.` Y detrás del enlace, donde la receta enseña su límite, una línea que deja ver que el producto nació para eso sin prometer automatismo: `Encontrar esas fue lo que más nos costó programar.` **Así la receta vende la herramienta de forma indirecta**, que es su trabajo.
+- **Remitente:** el tercer jefe (es el pilar más técnico de los cinco candidatos) o Iker. **CTA:** el ninja,
   después de la receta.
 - **En el orden de `§8g`, va 3º, por delante de la cicatriz:** no necesita el OK de Iker sobre qué
   fracaso contar, y tiene la mitad de la semana de RunnerPro detrás.
@@ -2384,7 +2384,7 @@ haven't done yet`, 07:01.
 
 **Cómo quedan los candidatos de `§8g`/`§8h` después de esta ventana:**
 - **9 · RECETA: el más respaldado de la semana** (RunnerPro 2 de 3, Cosas de Freelance y Content
-  Playbook). Y ya tiene dueño: **es el estreno de Asier** (`historial-newsletter`, correo 5).
+  Playbook). Y ya tiene dueño: **es el estreno del tercer jefe** (`historial-newsletter`, correo 5).
 - **6 · OBJECIÓN:** primer referente que la hace como FAQ (Isra). La nuestra ya salió (correo 5, 23/09).
 - **5 · CALENDARIO:** RunnerPro enseña cómo evitar lo manido (mecanismos 4 y 5).
 - **8 · ANZUELOS:** cambia de uso, **de relleno a cierre de campaña** (el índice de Isra).
@@ -2405,7 +2405,7 @@ haven't done yet`, 07:01.
   El calendario adelantado tres meses es ecommerce, no nosotros.
 - **El cierre de Sonia Ferrent** (arriba).
 
-#### 📥 INTAKE: lo que hay que tocar en las suscripciones (lo hace Mario)
+#### 📥 INTAKE: lo que hay que tocar en las suscripciones (lo hace el compañero de marketing)
 - **Lavender:** tercera semana llegando la de Illinois. Sigue pendiente rehacerla contra `lavender.ai`.
 - **lemlist, Hoppy Copy y Tendios: segunda semana sin nada.** `§8` decía que a la segunda se
   comprueba. **Toca mirar en la bandeja del corpus si están en Promociones o Spam o si la suscripción
@@ -2418,7 +2418,7 @@ haven't done yet`, 07:01.
 
 ### 8j · ⭐ SÉPTIMA VENTANA — 21 newsletters, 9 remitentes, 8 días (28 sep - 5 oct 2026, analizado el 2026-10-05)
 
-ZIP `newslettershasta5oct.zip`, 30 ficheros. **Fuera del conteo (9):** SINGULARU (7, contraste de siempre), Lavender (2, **cuarta semana llegando la mala**), 1 aviso de notas de Substack y 1 correo de alta de producto de **HappyScribe** (no es newsletter). **Dentro (21):** **Isra Bravo (7)**, **RunnerPro (4)**, **Juan Domínguez (3)**, Cosas de Freelance (2), Hugo López (1), BOGA/EDEM (1), Kieran Flanagan (1), The B2B Creator (1). **lemlist, Hoppy Copy y Tendios: tercera semana sin nada** → las suscripciones están caídas o en Spam: lo comprueba Mario.
+ZIP `newslettershasta5oct.zip`, 30 ficheros. **Fuera del conteo (9):** SINGULARU (7, contraste de siempre), Lavender (2, **cuarta semana llegando la mala**), 1 aviso de notas de Substack y 1 correo de alta de producto de **HappyScribe** (no es newsletter). **Dentro (21):** **Isra Bravo (7)**, **RunnerPro (4)**, **Juan Domínguez (3)**, Cosas de Freelance (2), Hugo López (1), BOGA/EDEM (1), Kieran Flanagan (1), The B2B Creator (1). **lemlist, Hoppy Copy y Tendios: tercera semana sin nada** → las suscripciones están caídas o en Spam: lo comprueba el compañero de marketing.
 
 **Método:** horas a +02:00 desde el `Date`; ritmo por script sobre el texto plano (RunnerPro sale 100% suelto porque su texto plano separa cada párrafo: **no se toma como medida**, igual que en `§8h`).
 
@@ -2453,7 +2453,7 @@ RunnerPro **15:01-15:07** (lun · mié · vie · dom) · Isra **15:29** (7 de 7)
 2. **⭐ El matiz que salva al mito.** *"Esto no va contra los cursos online"* · *"No te digo que no la compres"*. Una línea que delimita el mito evita que el lector que sí usa esa cosa se sienta tonto.
 3. **⭐⭐ El CTA de respuesta con DOS opciones de identidad.** RunnerPro: *"Dale a responder… y escríbeme una de las dos: «Me gusta correr.» «Me gusta haber corrido.» Con eso me vale. Una línea. Las leo todas."* **Dos opciones, no cinco** (nuestro correo 0 dio 5 y sacó 0 respuestas de 191), y cada opción **le dice al lector algo de sí mismo**. Versión Neety para cuando un correo vaya sin enlace: *«Busco yo.» / «Busca otro.»*.
 4. **La venta declarada, con la costura nombrada.** RunnerPro, el único correo de venta dura de su semana: *"Te lo pongo directo porque hoy sí toca… Si llevas meses leyéndome y aún no has entrado, este es el email."* Quinta forma de nombrar la costura (`§8g` punto 10). ⚠️ Su puente promete *"el plan que se ajusta solo"*: automatismo, no se copia.
-5. **La regla única con número.** *"Vístete como si hiciera 10 grados más"* y *"tres cosas más, rápido"* numeradas. **El pilar RECETA en su forma mínima: una regla que cabe en una línea**, y luego tres matices. Es el formato para el estreno de Asier.
+5. **La regla única con número.** *"Vístete como si hiciera 10 grados más"* y *"tres cosas más, rápido"* numeradas. **El pilar RECETA en su forma mínima: una regla que cabe en una línea**, y luego tres matices. Es el formato para el estreno del tercer jefe.
 6. **La cicatriz con la causa desplazada.** *"Ese día no me falló la cabeza. Me falló el kilómetro uno."* El fallo que se ve al final se causó al principio. Es la palanca `§8i` (*"lo que cenas hoy lo corres mañana"*) dentro de una historia.
 7. **El índice como cierre de la semana de venta, otra vez.** Isra `Montoya, no huyas` el sábado: 9 viñetas con su capítulo, el día antes de cerrar. Tercera ventana: **los anzuelos cierran campañas, no rellenan.**
 8. **Los números propios como contenido.** Hugo: *"El CTR subió un 28%. Y el CPL bajó un 22%. Con un recorte de 16 segundos."* Cifra grande del resultado, cifra pequeña de la causa. Para nosotros solo con cifra propia verificada (`§7`).
@@ -2516,12 +2516,12 @@ ZIP `newslettershasta13oct.zip`, 35 ficheros. **Fuera del conteo (8):** SINGULAR
 - La escasez de Hugo (*"Solo 10."* ×3 por correo): es real para él y **para nosotros sería falsa** (el webinar no tiene aforo, `global §4.4b-WEBINAR`).
 - El correo-plantilla de Tendios (arriba) y las 23-31 enlaces de SINGULARU y Cosas de Freelance.
 
-#### 📥 Intake (Mario)
+#### 📥 Intake (el compañero de marketing)
 Lavender: quinta semana llegando la de Illinois. Hoppy Copy: cuarta semana sin nada. lemlist y Tendios: vivas.
 
 ### 8l · ⭐ NOVENA VENTANA — 21 newsletters, 8 remitentes, 7 días (13-19 oct 2026, analizado el 2026-10-19)
 
-ZIP `newslettershasta19oct.zip`, 27 ficheros. **Fuera del conteo (6):** SINGULARU (4, contraste), Lavender (1, **sexta semana llegando la mala**) y 1 aviso de notas de Substack. **Dentro (21):** **Isra Bravo (6)**, **Hugo López (5)**, Lara Acosta / The B2B Creator (5, en inglés), Juan Domínguez (2), Cosas de Freelance (2), Kieran Flanagan (1). **🔴 RunnerPro y BOGA/EDEM no mandaron nada esta semana** (primera vez desde agosto); lemlist, Tendios y Hoppy Copy tampoco. Si la semana que viene siguen sin llegar, Mario comprueba las suscripciones.
+ZIP `newslettershasta19oct.zip`, 27 ficheros. **Fuera del conteo (6):** SINGULARU (4, contraste), Lavender (1, **sexta semana llegando la mala**) y 1 aviso de notas de Substack. **Dentro (21):** **Isra Bravo (6)**, **Hugo López (5)**, Lara Acosta / The B2B Creator (5, en inglés), Juan Domínguez (2), Cosas de Freelance (2), Kieran Flanagan (1). **🔴 RunnerPro y BOGA/EDEM no mandaron nada esta semana** (primera vez desde agosto); lemlist, Tendios y Hoppy Copy tampoco. Si la semana que viene siguen sin llegar, el compañero de marketing comprueba las suscripciones.
 
 **Por qué esta ventana pesa:** **tres remitentes venden una FECHA a la vez y con tres relojes distintos**, justo cuando a nosotros nos queda un correo antes del webinar del 28/10: Isra (su evento mensual del domingo 25, el precio sube el sábado 24 a las 23:59), Hugo (la lista de su mentoría cierra el martes 20) y Lara (su programa en grupo cierra el domingo 18 por la noche).
 
@@ -2562,7 +2562,7 @@ ZIP `newslettershasta19oct.zip`, 27 ficheros. **Fuera del conteo (6):** SINGULAR
 | **11** | `se te escapó el webinar? no pasa nada` + `Te lo paso por la puerta de atrás.` | **alivio**: la grabación directa, sin formulario. GIF alegría |
 | **12** | `me colé en la maleta de mis jefes` + `Se iban a San Francisco sin mí.` | **ternura**: quería ir a San Francisco con sus jefes, se cuela en su maleta y la cremallera no cierra (`Lo que sobraba era yo.`). GIF estresado |
 
-#### ⭐⭐ KAIXITO CUELGA DE UNA TRASTADA SUYA, DEL ASUNTO A LA PD (Iker, 2026-10-26, correo 10)
+#### ⭐⭐ KAIXITO CUELGA DE UNA TRASTADA SUYA, DEL ASUNTO A LA PD (2026-10-26, correo 10)
 > **Iker, sobre la v1:** *"me falta un poco de chispa, un poco de gracia… con esta mascota tenemos un tono… gracioso, travieso, pícaro"*. **Sobre la final:** *"me parece brutal… súper divertido, súper chulo. Sin jugarnos a la contra"*.
 
 - **La v1 informaba:** una chuleta de 3 preguntas con Kaixito de narrador, abierta con `Martes.` y un guiño al correo anterior. Pasaba el validador (46/46) y era plana.
@@ -2591,12 +2591,12 @@ ZIP `newslettershasta19oct.zip`, 27 ficheros. **Fuera del conteo (6):** SINGULAR
 - Los enlaces repetidos 3-4 veces por correo (Hugo, Juan): nuestra regla es uno (`§3`).
 - Las cifras de otros sin fuente (Lara: *"1,520%"*, *"150,998 impressions"*; Hugo: el 95%; Isra: el dato de las bajas).
 
-#### 📥 Intake (Mario)
+#### 📥 Intake (el compañero de marketing)
 Lavender: sexta semana llegando la de Illinois. **RunnerPro y EDEM: primera semana sin nada.** lemlist, Tendios y Hoppy Copy: sin nada esta semana.
 
 ### 8m · ⭐ DÉCIMA VENTANA — 21 newsletters, 8 remitentes, 7 días (19-26 oct 2026, analizado el 2026-10-26)
 
-ZIP `newslettershasta26oct.zip`, 30 ficheros, descomprimido en una carpeta nueva y leído como datos. **Fuera del conteo (9):** SINGULARU (6, contraste), Lavender (2, **séptima semana llegando la mala**) y 1 aviso de notas de Substack. **Dentro (21):** **Isra Bravo (7)**, **Hugo López (6)**, Juan Domínguez (3), Lara Acosta / The B2B Creator (1), Sonia Ferrent (1), Cosas de Freelance (1), BOGA/EDEM (1, vuelve) y **🆕 WaLead (1, competencia directa: es su número 1)**. **🔴 RunnerPro: segunda semana sin nada**; lemlist, Tendios y Hoppy Copy, tampoco. **Mario comprueba la suscripción de RunnerPro** (lo dejamos dicho el 19/10).
+ZIP `newslettershasta26oct.zip`, 30 ficheros, descomprimido en una carpeta nueva y leído como datos. **Fuera del conteo (9):** SINGULARU (6, contraste), Lavender (2, **séptima semana llegando la mala**) y 1 aviso de notas de Substack. **Dentro (21):** **Isra Bravo (7)**, **Hugo López (6)**, Juan Domínguez (3), Lara Acosta / The B2B Creator (1), Sonia Ferrent (1), Cosas de Freelance (1), BOGA/EDEM (1, vuelve) y **🆕 WaLead (1, competencia directa: es su número 1)**. **🔴 RunnerPro: segunda semana sin nada**; lemlist, Tendios y Hoppy Copy, tampoco. **El compañero de marketing comprueba la suscripción de RunnerPro** (lo dejamos dicho el 19/10).
 
 **Por qué esta ventana pesa más que ninguna:** **Hugo vende una CLASE EN DIRECTO Y GRATIS** (miércoles 4 de noviembre, 19:00), **nuestro formato exacto**, y en esta ventana está su secuencia entera de calentamiento, del primer correo a la invitación. Isra cierra su evento mensual con un correo por día. Y un competidor de prospección B2B en español arranca newsletter.
 
@@ -2627,7 +2627,7 @@ ZIP `newslettershasta26oct.zip`, 30 ficheros, descomprimido en una carpeta nueva
 14. **El caso de una línea con su embudo en números (Cosas de Freelance):** *"mandó 50 paquetes… Seis fueron a posibles clientes… Tres acabaron contratándola."* Tres cifras en una frase y se entiende el método entero. Solo con cifras nuestras y verificadas.
 15. **La maldición del conocimiento (Juan):** borraba preguntas por creerlas obvias y *"el problema es mi percepción"*. Escribe *"para el Juan de hace 3-4 años"*. **Para nosotros:** el comercial que nunca ha usado una herramienta de búsqueda es el lector; lo básico no sobra.
 
-#### 📥 Intake (Mario)
+#### 📥 Intake (el compañero de marketing)
 Lavender: séptima semana llegando la de Illinois. **RunnerPro: segunda semana sin nada (comprobar la suscripción).** EDEM vuelve. **WaLead: nueva, se queda en el corpus como competencia** (cada 15 días).
 
 ### 8n · UNDÉCIMA VENTANA — 16 newsletters, 7 remitentes, 7 días (26 oct - 2 nov 2026, analizado el 2026-11-02)
@@ -2656,7 +2656,7 @@ Isra 15:29, 7 de 7 · Juan 16:01 lunes y miércoles · Hugo sin hora fija (19:44
 #### ⛔ Lo que NO se copia
 Los tacos, el registro sexual y la opinión política de Isra; las erratas (Isra, Juan, BOGA); el aforo y el contador de Hugo y el «ya está lleno» de Cosas de Freelance (escasez que para nosotros sería falsa); el *"la IA ya está haciendo una purga"* de Hugo (choca con la visión de la casa) y su *"auténtica basura"* (juzga al sector); las cifras sin fuente (ROI en 30 días, el 50% de conversión, el «ocho de cada diez»); los 54 enlaces de Cosas de Freelance.
 
-#### 📥 Intake (Mario)
+#### 📥 Intake (el compañero de marketing)
 **RunnerPro: tercera semana sin nada, comprobar la suscripción ya.** Lavender: octava semana con la de Illinois, darse de baja o corregirla. Sonia Ferrent: solo llegan sus notas de Substack, falta la suscripción a la newsletter. lemlist, Tendios y Hoppy Copy: comprobar si siguen vivas.
 
 ### 8o · DUODÉCIMA VENTANA — 26 newsletters, 9 remitentes, 8 días (2-9 nov 2026, analizado el 2026-11-09)
@@ -2685,7 +2685,7 @@ Isra 15:29, 8 de 8, también en fin de semana · Juan 16:01-16:02, ahora lunes, 
 12. **La venta siempre al final y en una palabra (Isra, 7 de 8).** Última línea, solo el nombre del producto como enlace y una PD que apunta hacia arriba; el octavo no vende nada. Dato para la fila de posición del ninja (el correo 11, con el enlace al 82%, saca el mejor clic desde el correo 7), sin aislar.
 
 #### ⭐ ÁNGULOS QUE MERECE ROBAR
-13. **⭐⭐ El viaje como veta (Isra).** Tres correos de la misma semana salen de un viaje a Japón: cada concepto local es una lección de negocio distinta. **Nosotros tenemos San Francisco y lo gastamos en un chiste.** Al volver los jefes, una serie corta firmada por Unai con lo que vio de verdad, solo con hechos comprobados.
+13. **⭐⭐ El viaje como veta (Isra).** Tres correos de la misma semana salen de un viaje a Japón: cada concepto local es una lección de negocio distinta. **Nosotros tenemos San Francisco y lo gastamos en un chiste.** Al volver los jefes, una serie corta firmada por el primer jefe con lo que vio de verdad, solo con hechos comprobados.
 14. **⭐⭐ La cifra de debajo (Juan).** Le entusiasma un número grande, mira debajo y encuentra otro mucho menor, porque ha cambiado la forma de contar. Cierra preguntándose qué está celebrando. Versión Neety: empresas en la lista contra empresas a las que de verdad se les puede vender; las cifras, solo verificadas.
 15. **⭐⭐ No tener que aprender medio oficio (Juan, la hipoteca).** Contratas a alguien para que te ayude y acabas estudiando su trabajo. Encaja con el comercial industrial que compra una herramienta y acaba de técnico. ⚠️ Solo esa mitad: la otra (yo solo firmé) sería prometer automatismo (`§4.4b-MUNICIÓN`).
 16. **⭐ Montarlo cuando va bien (Cosas de Freelance).** La imagen de los dos aviones: el que vuela paga el combustible del que despega, y el peor momento para arrancar es cuando ya te ha fallado el cliente gordo. Para CALENDARIO de noviembre: buscar la lista de enero cuando el trimestre aún va bien.
@@ -2700,7 +2700,7 @@ Isra 15:29, 8 de 8, también en fin de semana · Juan 16:01-16:02, ahora lunes, 
 #### Lo que NO se copia
 Tacos, registro sexual y desprecio al lector de Isra; sus erratas; el superlativo de Hugo; el `Re:` de Kleo en un recordatorio masivo, que simula una conversación (`§0b`); las 1.700-2.400 palabras de Sonia, Cosas de Freelance y B2B Creator; las cifras sin fuente.
 
-#### 📥 Intake (Mario)
+#### 📥 Intake (el compañero de marketing)
 **RunnerPro: cuarta semana sin nada.** Lavender: novena semana con la de Illinois. **Sonia Ferrent ya llega** (cerrado el pendiente de `§8n`). lemlist, Tendios y Hoppy Copy siguen sin dar señal. El ZIP trae correos fechados el 09/11 por la tarde: la ventana llega hasta hoy.
 
 ### 8p · DECIMOTERCERA VENTANA — 21 newsletters, 9 remitentes, 8 días (9-16 nov 2026, analizado el 2026-11-16)
@@ -2736,18 +2736,18 @@ WaLead pasa de invitaciones de Luma a newsletter quincenal propia (beehiiv, unas
 #### ⛔ Lo que NO se copia
 Los tacos, el registro sexual y el tono despectivo con el lector de Isra; sus erratas; el superlativo y la escasez de Hugo («la más bestia», «última oportunidad»); las 1.500-3.400 palabras de WaLead, Cosas de Freelance y B2B Creator; las cifras sin fuente.
 
-#### 📥 Intake (Mario)
+#### 📥 Intake (el compañero de marketing)
 RunnerPro: quinta semana sin nada. Lavender: décima semana con la de Illinois. lemlist, Tendios y Hoppy Copy siguen sin dar señal.
 
 ## 9 · Entrega y validación (cada email, sin excepción)
 
 ### 🤝 5-COLABORACION · CUANDO EL CORREO DIFUNDE ALGO DE UN TERCERO (2026-10-05, correo 7)
-Hay correos en los que, además del nuestro, toca dar visibilidad a algo de otra entidad con la que colaboramos (el primero: los Premios de Marketing de Euskadi de AMA, con quien Unai y Angela ya dieron una sesión en mayo, `aboutme §2`). **Se hace sin regalarle el correo y sin estropear el nuestro:**
+Hay correos en los que, además del nuestro, toca dar visibilidad a algo de otra entidad con la que colaboramos (el primero: los Premios de Marketing de Euskadi de AMA, con quien el primer jefe y la compañera de diseño ya dieron una sesión en mayo, `aboutme §2`). **Se hace sin regalarle el correo y sin estropear el nuestro:**
 1. **El correo se escribe con nuestro pilar y nuestro ninja, como cualquier otro.** Lo del tercero no es el tema: va de añadido.
 2. **⛔ CORREGIDO POR IKER EL MISMO DÍA: LOS DOS VAN EN EL CUERPO, ANTES DE LA FIRMA.** La primera versión mandaba el del tercero a la PD y Iker lo tumbó: *"ponerlo después de la despedida y entre las postdatas queda fatal… si no, nadie va a pulsar en la web de la otra empresa"*. Es nuestro propio dato aplicado al tercero: **con el enlace al final, 0 clics de 336** (`§5-NINJA-POSICION`). Si el compromiso es difundir, el enlace tiene que estar donde se pulsa.
 3. **Bien separados entre ellos:** el nuestro donde la historia toca fondo, el del tercero **al final del cuerpo**, con al menos dos bloques de por medio (una frase que lo presente en la voz del remitente, p. ej. Kaixito: *"Y un recado que apunto con letra grande."*). Juntos se roban el clic (`§3`).
 4. **El bloque del tercero tiene la MISMA FORMA que nuestro ninja:** 2-3 líneas pegadas, **cada una ≤55 caracteres sin la URL** para que ninguna se parta en dos en el móvil, y la última es UNA oración + `:` + enlace. Iker: *"cada línea del bloque es corta; nunca hacemos líneas tan largas que caigan en dos líneas"*. Lo que no cabe ahí (el plazo, el reenvío) va a la PD, sin enlace.
-5. **Siempre en positivo y con su nombre completo** (`brand-voice §5`), con el dato que le sirve al lector (para quién es, si cuesta algo, cuándo cierra), **verificado en la fuente del tercero**. Si dos fuentes del tercero no coinciden, **manda lo que nos ha dicho el tercero directamente** (su mensaje, y su web si coincide) sobre un documento suyo más viejo, y no se le pide confirmación a nadie (Iker, 05/10: *"lo que nos han dicho será la realidad"*). En el correo 7 el PDF de bases decía 15/10 y el mensaje y la web 30/10: vale el 30.
+5. **Siempre en positivo y con su nombre completo** (`brand-voice §5`), con el dato que le sirve al lector (para quién es, si cuesta algo, cuándo cierra), **verificado en la fuente del tercero**. Si dos fuentes del tercero no coinciden, **manda lo que nos ha dicho el tercero directamente** (su mensaje, y su web si coincide) sobre un documento suyo más viejo, y no se le pide confirmación a nadie (05/10: *"lo que nos han dicho será la realidad"*). En el correo 7 el PDF de bases decía 15/10 y el mensaje y la web 30/10: vale el 30.
 6. **Su enlace lleva un UTM en ESPAÑOL y que se entienda sin explicación**, porque quien lo va a leer es el que lleva la web del tercero, no nosotros: `utm_source=newsletter-neety&utm_medium=correo&utm_campaign=correo-07`. Así ven en su analítica que el tráfico les llega de nuestra newsletter, y nosotros lo contamos en `linksStats` para poder darles el número.
 6b. **Mecanizado:** `validar-email.py <fichero> --colaboracion` exige que el primer enlace sea el nuestro, que los dos vayan antes de la firma, separados por al menos dos bloques, y que el del tercero sea un bloque de 2-3 líneas ≤55 acabado en oración + `:` + enlace. Probado rompiéndolo en los tres sentidos (en la PD, pegado al nuestro, línea larga).
 7. **Es excepción, no pilar:** un correo con dos llamadas a la acción como mucho cada 6-8 correos, y nunca dos seguidos.
@@ -2775,7 +2775,7 @@ Hay correos en los que, además del nuestro, toca dar visibilidad a algo de otra
     - **⚠️ Y el ciclo es AVISO y no fallo duro por un dato nuestro:** el **correo 3**, publicado y aprobado, lleva `1-2-1-3-1-2-1-2-1`. Tumbarlo sería silenciar a un ganador, que es justo lo que `global §3.2` dice que no se hace. **Probado rompiendo el dato**: la versión vieja del correo 4 cae con "falta un bloque de TRES".
 - **Pase de criterio en silencio** (lo que el script no ve): ¿el asunto abre un gap real o describe? ¿la primera línea recompensa? ¿una sola idea? ¿el remitente encaja con el tema? ¿el caso es real? ¿el ángulo no está quemado de emails anteriores (mirar `historial-newsletter.md`)? **🆕 16/11 (correo 14, primera versión 67/67 con dos fallos de criterio):** ¿la casa suena necesitada de clientes (`mis jefes necesitaban clientes`)? ¿el lector aparece antes del enlace o solo en el ninja? ¿si se pide la reunión, se regala algo antes (el nivel 2 entero, `brand-voice` CANÓNICO «IA genérica»)? Las dos primeras ya son aviso en `validar-email.py`; la tercera sigue siendo criterio. **Y el pase de criterio se escribe en la entrega, no se hace en silencio.**
 
-### ⛔⛔ 9a-BIS · TODA CAMPAÑA NACE EN BORRADOR Y CON LA PRUEBA ENVIADA; SE PROGRAMA SOLO DESPUÉS DE QUE IKER LA REVISE (Iker, 2026-08-27 · aclarado el 26/10) — CANÓNICO *(criterio de proceso, no se mide)*
+### ⛔⛔ 9a-BIS · TODA CAMPAÑA NACE EN BORRADOR Y CON LA PRUEBA ENVIADA; SE PROGRAMA SOLO DESPUÉS DE QUE IKER LA REVISE (2026-08-27 · aclarado el 26/10) — CANÓNICO *(criterio de proceso, no se mide)*
 
 > **🔄 Aclaración de Iker (26/10):** *"los correos primero siempre se dejan en borrador y se me envía la prueba. Y cuando yo reviso que está todo ok, claro que tú sí que lo programas. La regla dice que de primeras nunca se deja programado."* El "nunca, ni aunque lo pida" es **de primeras**: una vez que Iker ha revisado la prueba y da el OK, programarlo es lo que toca. El título anterior ("nunca programada, ni aunque lo pida") llevó a frenar un envío ya revisado el 26/10.
 
@@ -2787,7 +2787,7 @@ Hay correos en los que, además del nuestro, toca dar visibilidad a algo de otra
 
 **Flujo de envío con el panel (20/11/2026):** el correo validado se sube con `neety_newsletter_publicar`, Iker lo aprueba en `https://contenido.neety.team/newsletter`, y al crear la campaña de Brevo (siempre en borrador, con la prueba enviada) se vincula con `neety_newsletter_vincular`.
 
-### ⭐ 9b · AVISOS DE PRE-ENVÍO — se pegan SIEMPRE debajo del texto entregado (Iker, 2026-08-06)
+### ⭐ 9b · AVISOS DE PRE-ENVÍO — se pegan SIEMPRE debajo del texto entregado (2026-08-06)
 Igual que en LinkedIn se avisa de adjuntar la imagen o de pasarle las tipografías al diseñador, **toda entrega de un correo termina con esta lista**. No es opcional y no se resume: se pega entera, porque es lo que se olvida cuando hay prisa.
 
 ```
@@ -2869,14 +2869,14 @@ Hay **dos** y hay que repartirlos, o salen duplicados:
 
 ~~**Mientras no se arregle la tubería,** antes de cada envío se cruzan los `consent_comms = 1` de la D1 con Brevo y los que falten se suben a mano.~~ Ya no hace falta (arreglado el 14/10, abajo). Antes de un envío basta con comprobar que el último alta de la lista 15 es reciente.
 
-**⭐ MANDA LA DECISIÓN MÁS RECIENTE DE LA PERSONA (Mario, 2026-10-14, CRM 4c9d7ed).** Una casilla marcada DESPUÉS de una baja la deja sin efecto: el CRM borra la baja, la desbloquea en Brevo y sube a la persona. ⛔ **Salvo una queja de spam**, que nunca vuelve sola: una segunda queja es lo que más pesa para que un proveedor cierre la cuenta. Caso: Jonathan, bloqueado en agosto, volvió a marcar la casilla el 13/10 y entró el 14/10 a las 12:19. Una baja posterior a la casilla sigue mandando. **Brevo sigue siendo la fuente de verdad de las bajas** (allí se registra quien pulsa "darse de baja"); lo que manda sobre una baja es una casilla nueva, nunca un dato viejo del CRM.
+**⭐ MANDA LA DECISIÓN MÁS RECIENTE DE LA PERSONA (2026-10-14, CRM 4c9d7ed).** Una casilla marcada DESPUÉS de una baja la deja sin efecto: el CRM borra la baja, la desbloquea en Brevo y sube a la persona. ⛔ **Salvo una queja de spam**, que nunca vuelve sola: una segunda queja es lo que más pesa para que un proveedor cierre la cuenta. Caso: Jonathan, bloqueado en agosto, volvió a marcar la casilla el 13/10 y entró el 14/10 a las 12:19. Una baja posterior a la casilla sigue mandando. **Brevo sigue siendo la fuente de verdad de las bajas** (allí se registra quien pulsa "darse de baja"); lo que manda sobre una baja es una casilla nueva, nunca un dato viejo del CRM.
 
 **✅ RESUELTO Y EN PRODUCCIÓN EL 14/10 a las 11:32** (web `landing` a53d938 en `main`, CRM `saldu` fd56817 en `master`). Comprobado en producción: a las 11:33, al arrancar el CRM, entraron solos en la lista 15 los 4 consentimientos atascados (42 → 46). El quinto **no entra, y es correcto**: estaba bloqueado desde agosto (`Desktop/BREVO-CONTACTOS-BORRADOS/bloqueados-no-volver-a-escribir.txt`), así que la baja manda aunque volviera a marcar la casilla. El aviso al momento de la web está probado en las pruebas y desplegado (el endpoint responde 401 sin clave); falta verlo con la primera casilla real.
 
 **🔧 El arreglo (14/10):**
 - **Web nueva** (`landing`, rama `claude/crm-leads-sync`): `GET /api/crm/leads` con el secreto de la atribución, y aviso al CRM al momento cuando alguien marca o desmarca la casilla o se borra un lead en el admin.
 - **CRM** (`saldu`, rama `claude/leads-web-nueva`): lee los leads de neety.com (el Postgres de recursos queda de respaldo) y sube a Brevo en la misma vuelta. **Brevo manda en las bajas:** antes de subir a alguien nuevo se le pregunta a Brevo y, si está bloqueado, se apunta la baja en el CRM. Repaso diario de bloqueados de la cuenta.
-- **El circuito queda:** formulario de neety.com → D1 → aviso al CRM (al momento) y lectura cada 6 h (Mario, 14/10: cada hora era gastar llamadas para uno o dos altas al día) → audiencia `📥 Recursos · Todos` → lista 15 de Brevo. De vuelta: el webhook de Brevo (bajas, rebotes, spam) más el repaso diario → `mkt_unsubscribes` del CRM → nunca se vuelve a subir.
+- **El circuito queda:** formulario de neety.com → D1 → aviso al CRM (al momento) y lectura cada 6 h (14/10: cada hora era gastar llamadas para uno o dos altas al día) → audiencia `📥 Recursos · Todos` → lista 15 de Brevo. De vuelta: el webhook de Brevo (bajas, rebotes, spam) más el repaso diario → `mkt_unsubscribes` del CRM → nunca se vuelve a subir.
 - Probado: web 120/120 y CRM 630/630. **Falta la prueba en producción tras fusionar:** ver que los 5 entran en la lista 15.
 
 ### 📬 DE DÓNDE ENTRAN LOS SUSCRIPTORES DESDE EL 2026-08-18: LA LANDING DE CORREO
@@ -2886,7 +2886,7 @@ Hay **dos** y hay que repartirlos, o salen duplicados:
 - **El consentimiento de newsletter es obligatorio ahí, y esa página es la ÚNICA donde lo es** (`lead-magnet-web §3b`): en un gate de recurso o en `/agendar/` la casilla siempre es voluntaria, porque obligar a suscribirse para descargar otra cosa convierte peor y además es consentimiento agrupado, que por RGPD no vale. En `/correo/` sí, porque ahí el servicio que se pide **es** el correo. Consecuencia buena para nosotros: todo el que entra por esta vía es alta limpia y querida, no hay que filtrar después.
 - ⚠️ **Al planificar una tanda, estos NO son la base fría del CRM**: han pedido el correo ellos. Van a su propio grupo y no se mezclan con los grupos de origen del warm-up.
 
-### 🔴 LOS UTM SON DE LA CUENTA, NO DE LA CAMPAÑA (Mario, 2026-08-10)
+### 🔴 LOS UTM SON DE LA CUENTA, NO DE LA CAMPAÑA (2026-08-10)
 El rastreo de enlaces vive en **Configuración de la cuenta → Rastreo del enlace**, y sus tres campos se inyectan en **TODAS** las campañas. Si no se tocan, el correo nº 2 llega a GA4 con el `utm_campaign` del correo nº 1 y los datos se mezclan sin que nadie lo note.
 
 - ⚠️ **CORREGIDO EL 2026-08-20 AL MIGRAR A BREVO.** La regla de abajo (`utm_source = newsletter`) era de MailerLite, donde el valor se podía editar. **En Brevo NO se puede**: `utm_source` y `utm_medium` están fijos en `brevo` y `email`, sin lápiz ni en la campaña ni en Configuración → Parámetros UTM. Solo son editables `utm_campaign`, `utm_content`, `utm_term` y `utm_id`.
@@ -2946,7 +2946,7 @@ warnings: ["needs_manual_content_review"]   is_stopped: true   can_be_scheduled:
 - **Por qué pasa:** cuenta nueva escalando volumen rápido (54 → 137 → 337) con lista recién importada. Es el patrón que dispara la revisión en cualquier ESP.
 - ✅ **LA SOLUCIÓN NO ES CONVIVIR CON ELLO: se le pide a soporte que apruebe la cuenta.** Argumentos que valen: lista propia, doble opt-out visible, 0 denuncias de spam en 191 envíos. Se resuelve en horas y deja de pasar.
 - **Si nadie recarga, el correo no sale y no hay ninguna notificación.** En la tanda 2 costó 20 minutos: se pulsó a las 11:30 y salió a las 11:51.
-- **⛔ REGLA: siempre que Mario diga que va a enviar o que ya ha enviado, se le avisa de que lo verifique, y se comprueba por API en el momento.** No es opcional y va en la misma respuesta.
+- **⛔ REGLA: siempre que el compañero de marketing diga que va a enviar o que ya ha enviado, se le avisa de que lo verifique, y se comprueba por API en el momento.** No es opcional y va en la misma respuesta.
 - **Cómo se comprueba:** `get_campaign` → `status` debe ser `sent` (o `ready` con `scheduled_for` si es programado), más `queued_at` y `started_at` con hora real. Un `status: draft` después de darle a enviar significa que se cayó.
 - **Con los programados el riesgo es peor:** si se cae uno puesto para el día siguiente, te enteras cuando ya ha pasado la hora. **Todo programado se verifica el mismo día del envío.**
 
@@ -2965,9 +2965,9 @@ El correo llegó a **bandeja Principal de un Gmail externo**, ni Promociones ni 
 - [ ] **Firma-mantra** de la casa (ver §3.7): decisión de marca.
 - [ ] **Tokens de personalización** ({nombre}…): depende de la herramienta elegida y de qué campos tenemos (muchos contactos son solo un correo).
 - [ ] **Etiqueta `newsletters` en el Gmail** de Iker para que el análisis periódico del corpus (§8) sea un filtro limpio.
-- [ ] 🔴 **FOTO DEL REMITENTE — avisar a Mario en CADA correo hasta que se resuelva (pedido por él, 2026-08-06).** Hoy los correos salen con la inicial genérica de Gmail en vez de un icono. **Dos caminos distintos según el tipo de envío, aclarado el 2026-08-18:**
+- [ ] 🔴 **FOTO DEL REMITENTE — avisar al compañero de marketing en CADA correo hasta que se resuelva (pedido por él, 2026-08-06).** Hoy los correos salen con la inicial genérica de Gmail en vez de un icono. **Dos caminos distintos según el tipo de envío, aclarado el 2026-08-18:**
   - **Envío MASIVO (newsletter, por Brevo/MailerLite):** no se arregla subiendo una imagen a la herramienta. Es **BIMI**, y requiere DMARC en modo estricto (`p=quarantine` o `p=reject`), un registro DNS de BIMI y un **certificado de pago de 650-1.100 $/año** que tarda 1-3 semanas. Cuando se haga, va el **ISOTIPO, no Kaixito**: BIMI se aplica **por dominio**, así que el mismo logo saldría en todos los correos de `neety.com`, incluidos los comerciales de los founders.
-  - **⭐ CORREGIDO el 2026-08-18: NO hace falta Workspace ni tocar el MX del dominio. Mario ya lo probó gratis para sí mismo.** El truco real: crear una **cuenta de Google independiente** que use la dirección `@neety.com` como identidad, sin que eso la convierta en un buzón ni toque el dominio.
+  - **⭐ CORREGIDO el 2026-08-18: NO hace falta Workspace ni tocar el MX del dominio. El compañero de marketing ya lo probó gratis para sí mismo.** El truco real: crear una **cuenta de Google independiente** que use la dirección `@neety.com` como identidad, sin que eso la convierta en un buzón ni toque el dominio.
     1. Ir a `accounts.google.com/signup`.
     2. Nombre y apellido reales (el del founder), y pulsar **"Usar mi dirección de correo actual"** en vez de crear una nueva de Gmail.
     3. Meter `iker@neety.com` (o la que toque). Google manda un código de verificación a esa dirección — llega porque el reenvío actual la lleva a una bandeja real. Se mete el código.
@@ -2976,9 +2976,9 @@ El correo llegó a **bandeja Principal de un Gmail externo**, ni Promociones ni 
     - Gratis, sin dominio propio en Google, sin tocar el DNS. Es individual por persona: cada founder crea la suya.
     - Sigue limitado a **envío individual** (el que sale de verdad autenticado como esa cuenta), no está confirmado que sirva para el envío MASIVO de la newsletter — el envío por lotes de un ESP suele llevar cabeceras de "remitente masivo" (List-Unsubscribe, volumen) que es plausible que Gmail use para NO mostrar avatar y evitar que se abuse del truco para parecer más confiable. **Es una deducción, no algo verificado.**
     - ⭐ **Antes de gastar en BIMI: probarlo gratis con `hola@neety.com`.** Crear la cuenta igual que arriba, poner la foto, mandar UNA campaña de prueba a un Gmail personal y mirar si sale el avatar. Cuesta 10 minutos y nada de dinero; si funciona, nos ahorramos los 650-1.100 $/año de BIMI.
-    - ⭐ **Y con Workspace, la foto se resuelve BIEN y sin trucos (2026-08-18).** El muro con el que chocó Mario es que **un Grupo de Google no puede tener foto de perfil**; un usuario sí. Dos caminos: **Grupo** (gratis, recibe y reparte a varios, sin foto) o **usuario dedicado** con `hola@neety.com` (una licencia más: recibe, reparte con una regla de reenvío a Iker y Mario, **y tiene foto**, además de servir como cuenta real con login). Una licencia suelta es mucho más barato que migrar el dominio entero a Workspace, que era la alternativa que proponía Iker.
-    - 🔴 **INCIDENTE 2026-08-18: `hola@neety.com` se quedó SIN RECIBIR NINGÚN CORREO** (`Address not found`) al desmontar el Grupo de Google que hacía de reenvío, antes de tener el reemplazo funcionando. El DNS del dominio vive en **Cloudflare** (a diferencia del dominio personal de Mario, en Porkbun, donde el truco de la foto funcionó a la primera porque allí el reenvío sí lo daba el registrador).
-      - **🔴🔴 RESUELTO el 2026-08-18, y mi checklist anterior era PELIGROSO. El correo de `neety.com` lo gestiona GOOGLE WORKSPACE, no Cloudflare.** Cloudflare es solo el DNS. En su panel, Email Routing sale como `Disabled` y sus MX como `Missing` — **eso es CORRECTO y debe quedarse así**. Pulsar el botón "Add missing records" habría metido los MX de Cloudflare y **le habría quitado el correo a Google, dejando sin recibir a TODO el dominio** (Iker, Mario, Unai, `management@`), no solo a `hola@`. Estuvo a punto de pasar.
+    - ⭐ **Y con Workspace, la foto se resuelve BIEN y sin trucos (2026-08-18).** El muro con el que chocó el compañero de marketing es que **un Grupo de Google no puede tener foto de perfil**; un usuario sí. Dos caminos: **Grupo** (gratis, recibe y reparte a varios, sin foto) o **usuario dedicado** con `hola@neety.com` (una licencia más: recibe, reparte con una regla de reenvío a Iker y el compañero de marketing, **y tiene foto**, además de servir como cuenta real con login). Una licencia suelta es mucho más barato que migrar el dominio entero a Workspace, que era la alternativa que proponía Iker.
+    - 🔴 **INCIDENTE 2026-08-18: `hola@neety.com` se quedó SIN RECIBIR NINGÚN CORREO** (`Address not found`) al desmontar el Grupo de Google que hacía de reenvío, antes de tener el reemplazo funcionando. El DNS del dominio vive en **Cloudflare** (a diferencia del dominio personal del compañero de marketing, en Porkbun, donde el truco de la foto funcionó a la primera porque allí el reenvío sí lo daba el registrador).
+      - **🔴🔴 RESUELTO el 2026-08-18, y mi checklist anterior era PELIGROSO. El correo de `neety.com` lo gestiona GOOGLE WORKSPACE, no Cloudflare.** Cloudflare es solo el DNS. En su panel, Email Routing sale como `Disabled` y sus MX como `Missing` — **eso es CORRECTO y debe quedarse así**. Pulsar el botón "Add missing records" habría metido los MX de Cloudflare y **le habría quitado el correo a Google, dejando sin recibir a TODO el dominio** (Iker, el compañero de marketing, el primer jefe, `management@`), no solo a `hola@`. Estuvo a punto de pasar.
       - **La causa real del rebote:** al borrar el Grupo de Google, `hola@neety.com` dejó de existir DENTRO de Workspace. Google recibe el correo, no encuentra la dirección y devuelve `Address not found` desde `mailer-daemon@googlemail.com` (el remitente del rebote es la pista: si fuera Cloudflare, el rebote vendría de Cloudflare). **El arreglo está en `admin.google.com`, nunca en Cloudflare.**
       - ⛔ **Regla general: antes de tocar MX o "activar" el correo en un panel de DNS, comprobar QUÉ proveedor gestiona ya el correo del dominio.** Un panel de DNS que ofrece su propio servicio de correo siempre mostrará sus registros como "Missing" aunque todo funcione perfectamente con otro proveedor. "Missing" ahí no significa roto.
       - **Subaddressing (el `hola+etiqueta@`) NO tiene nada que ver con subdominios ni con esto.** Se deja apagado.
@@ -2994,7 +2994,7 @@ El correo llegó a **bandeja Principal de un Gmail externo**, ni Promociones ni 
 - [ ] **Kaixito:** confirmar cómo se presenta (¿remite desde kaixito@neety.com?).
 - [x] ~~**Export del Google Chat de feedback de producto**~~ **RESUELTO EL 2026-08-24, y por otra vía.** No hizo falta el Takeout: llegó el informe de feedback ya destilado (`FEEDBACK CLIENTES 24 AGO.html`, 258 citas / 63 empresas / 87 reuniones). **Y NO se ha creado `dolores-clientes.md`**: el inventario vive en `global §4.4b-MUNICIÓN` (el banco de dolores del spam ninja) y en `aboutme §1b`, que es donde ya lo leen las dos recetas. **Un fichero más habría sido una tercera copia que desincronizar** — cómo se usa desde aquí está en `§5-ECO`.
 
-#### ⛔⛔ 5-NINJA-PRONOMBRE · EL VALIDADOR MIDE LA FORMA, NO A QUÉ APUNTA EL PRONOMBRE (Iker, 2026-08-27)
+#### ⛔⛔ 5-NINJA-PRONOMBRE · EL VALIDADOR MIDE LA FORMA, NO A QUÉ APUNTA EL PRONOMBRE (2026-08-27)
 
 **El fallo, y pasó los 31 checks:** el ninja del correo 2 decía
 

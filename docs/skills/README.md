@@ -6,7 +6,7 @@ Fuente de verdad del "cerebro": `backend/src/services/postPrompt.ts` y el
 `SYSTEM_PROMPT` de `backend/src/routes/chat.ts`.
 
 ## Orden de carga
-1. **aboutme** — identidad: Neety, ICP, los 3 diferenciales (§1b) y los 3 perfiles (Iker / Unai / Asier) con headlines.
+1. **aboutme** — identidad: Neety, ICP, los 3 diferenciales (§1b) y los 3 perfiles (Iker / el primer jefe / el tercer jefe) con headlines.
 2. **brand-voice** — el CÓMO suena (voz Neety literal, regla de audiencia, tabla anti-IA).
 3. **working-preferences** — flujo de trabajo, entrega en bloques cercados, validación proactiva.
 4. **global-instructions** — el QUÉ y el CÓMO-mecánico del post de TEXTO: hooks, cuerpos, 4 mecánicas, timing. Cubre solo el post de texto; imagen y vídeo tienen sus propias skills.
@@ -49,6 +49,6 @@ Validadores (se corren antes de cada entrega y se pega su resultado):
 
 ## Estado / pendiente
 - **`outliers-database` §3** ya está **relleno** con el snapshot cross-creator del Explorer (2026-07-09): recetas hook×estructura×tono, distribuciones, aperturas/cierres, estilo, formato, timing y banco de remix. Fuente: `docs/explorer completo.pdf`.
-- **Sigue pendiente:** el split por cuenta Neety (Iker vs Unai vs Asier) — el export es cross-creator, no por cuenta propia. Y el refresco periódico del snapshot (los ratios decaen).
+- **Sigue pendiente:** el split por cuenta Neety (Iker vs el primer jefe vs el tercer jefe) — el export es cross-creator, no por cuenta propia. Y el refresco periódico del snapshot (los ratios decaen).
 - **Backend Railway y Unipile: accesibles.** Las credenciales (`APP_BASIC_USER` / `APP_BASIC_PASS` y las de Unipile) están en el entorno, así que §3 y §4 se refrescan en vivo desde la API. Los endpoints y los IDs de las cuentas están en `CLAUDE.md`.
 - Vía alternativa de refresco: **reexportar el Explorer** (PDF/HTML) y volver a destilarlo a §3.

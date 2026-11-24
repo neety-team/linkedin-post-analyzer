@@ -7,13 +7,13 @@
 > (`email-marketing §6`) antes de escribir nada, y se ACTUALIZA y commitea al aprobar cada tanda.
 > Si falta un dato, PREGUNTA. No lo adivines.
 
-> 🧪🧪 **REGISTRO DE A/B ABIERTOS DE LA NEWSLETTER · PASO 0 DE CADA REVISIÓN DEL LUNES (Iker, 2026-10-16).** La regla es la misma que en `historial-publicaciones.md`: se recorre fila por fila antes de planificar ningún correo, sin saltarse ninguna ("sin dato nuevo" también se dice). Lo que se cierra va a `email-marketing` ese mismo día y sale de aquí, y lo que se abre entra el día del envío. Recordatorio de `email-marketing §5-UNA-VARIABLE`: si un correo cambia varias cosas a la vez, lo que da es una dirección, no una prueba.
+> 🧪🧪 **REGISTRO DE A/B ABIERTOS DE LA NEWSLETTER · PASO 0 DE CADA REVISIÓN DEL LUNES (2026-10-16).** La regla es la misma que en `historial-publicaciones.md`: se recorre fila por fila antes de planificar ningún correo, sin saltarse ninguna ("sin dato nuevo" también se dice). Lo que se cierra va a `email-marketing` ese mismo día y sale de aquí, y lo que se abre entra el día del envío. Recordatorio de `email-marketing §5-UNA-VARIABLE`: si un correo cambia varias cosas a la vez, lo que da es una dirección, no una prueba.
 >
 > | A/B | brazo A | brazo B | detalle | estado al 16/10 |
 > |---|---|---|---|---|
 > | **Posición del ninja en el cuerpo** | ~45-50% (correos 5 y 6) | ~25% (correo 7) | sección del correo 7, más abajo | A 24 h no sube (2 de 107 contra 4 de 111), con remitente, pilar y web cambiando a la vez. **Falta repetirlo cambiando solo la posición** |
 > | **Asunto en cada envío (abierto el 23/11)** | asunto de lista con número | asunto en pregunta o con el titular más llamativo | desde el correo del Radar del 3/12, en todos los envíos (`email-marketing` «A/B DE ASUNTO EN CADA ENVÍO») | Sin leer aún. Se juzga en acumulado tras 3-4 envíos, por apertura y por clic único; nunca con uno solo |
-> | **Longitud** | 116-158 palabras | 240 (correo 8) | sección del correo 8 | **19/10:** el correo 8 abrió igual que los demás (67 de 108, 62%) y sacó **1 clic limpio** (más 1 de Mario) y **0 inscritos al webinar** en el CSV de Luma (ningún `correo-08`). Es el peor de la serie en clics (el 7 sacó 8, el 6 sacó 6). Cambiaban a la vez el remitente (Asier, su estreno), el pilar (receta), la longitud y el destino (webinar): **dirección, no prueba**. Dirección: volver a 116-158 palabras en el siguiente. **19/10: mecanizado en `validar-email.py`** (fallo por encima de 180, aviso de 159 a 180) y el correo 9 sale con 116 |
+> | **Longitud** | 116-158 palabras | 240 (correo 8) | sección del correo 8 | **19/10:** el correo 8 abrió igual que los demás (67 de 108, 62%) y sacó **1 clic limpio** (más 1 del compañero de marketing) y **0 inscritos al webinar** en el CSV de Luma (ningún `correo-08`). Es el peor de la serie en clics (el 7 sacó 8, el 6 sacó 6). Cambiaban a la vez el remitente (el tercer jefe, su estreno), el pilar (receta), la longitud y el destino (webinar): **dirección, no prueba**. Dirección: volver a 116-158 palabras en el siguiente. **19/10: mecanizado en `validar-email.py`** (fallo por encima de 180, aviso de 159 a 180) y el correo 9 sale con 116 |
 > | **Remitente** | Iker | Kaixito (correo 2) | `## 🧪 Correo 2`, más abajo | Leer allí el resultado y decidir si se cierra |
 > | **Tipo de cliente del ninja** | — | — | `global §4.4b-TIPOS`, igual que en los posts | Cada correo apunta en su sección a qué tipo le habla (desde el 16/10, con los tamaños de `§4.4b-MUNICIÓN-1510`) |
 > | 🆕 **Asunto, dentro del mismo correo (abierto el 02/11; primer brazo: correo 13, 12/11, afirmación `me echaron de la séptima planta` contra pregunta `en qué planta se esconde el que decide?`)** | asunto A | asunto B, con otra psicología | `abTesting` nativo de Brevo, 50/50 de la lista, mismo cuerpo | Con ~200 entregados son ~100 por brazo: solo se ve una diferencia de unos **20 puntos** de apertura, y la apertura está inflada por Apple y escáneres (el 75,7% del 11). Por eso **una misma hipótesis se repite en 3-4 correos y se suma** (p. ej., pregunta contra afirmación); el clic limpio por brazo (4-5 personas) no se lee. Empieza en el correo 13, para que el 12 mida solo el destino |
@@ -21,7 +21,7 @@
 > **🔄 Repaso fila por fila del lunes 26/10 (correo 9):**
 > - **Posición del ninja:** sin dato nuevo de una sola variable (el 9 lo lleva al 50-64%, como los correos 5 y 6).
 > - **Longitud:** segundo dato a favor del corto. El 9 (116 palabras) sacó 4 clics y 1 inscrito; el 8 (240), 1 clic y 0 inscritos. Remitente y pilar también cambian: **dirección**, ahora con n=2.
-> - **Remitente:** Kaixito abrió 55,5%, por debajo de Asier (63,0%) en la misma lista. Ya no es "el que más abre"; sigue siendo el que más clics saca hacia una fecha (correos 4 y 9). Sin cerrar.
+> - **Remitente:** Kaixito abrió 55,5%, por debajo del tercer jefe (63,0%) en la misma lista. Ya no es "el que más abre"; sigue siendo el que más clics saca hacia una fecha (correos 4 y 9). Sin cerrar.
 > - **Tipo de cliente del ninja:** el 9 fue al tipo 4 (se le van los meses buscando): 4 clics y 1 inscrito, contra el tipo 1 del 8 (1 clic y 0). n=1 por brazo.
 > - **Fila del reto en la PPD: borrada hoy** (cerrada el 19/10).
 > - 🆕 **Abierta hoy, sin brazo todavía: recordar a la lista 16 por qué le llega el correo.** Brazo A: sin la línea (correos 6 y 9: 5 de 6 bajas de la cohorte). Brazo B: con una línea que lo diga. Se mide en bajas de la lista 16 por entregado. Detalle en la sección del correo 9 y en `email-marketing §8m`. **26/10: el correo 10 NO es brazo** (prueba el pilar, ver su sección); va en el siguiente correo a la 16.
@@ -171,13 +171,13 @@ MailerLite canceló la cuenta 2536617 por supuesta violación de la política an
 > cuenta, los grupos, el campo `origen` y el conector MCP están muertos.
 
 - **Herramienta de envío: MailerLite, CONECTADA y VERIFICADA el 2026-07-28** (cuenta `management@neety.com`, id 2536617, token hasta jul 2027). Conector MCP probado con lecturas reales: grupos, campañas, campos y suscriptores responden. Escritura disponible (campañas, grupos, segmentos, importación, automatizaciones).
-- **Contenido actual:** 1 suscriptor (Iker/`management@neety.com`) · 1 campaña borrador vacía del 27-jul ("Campaña sin título", sin contenido ni asunto: se puede borrar, pendiente del OK de Mario).
+- **Contenido actual:** 1 suscriptor (Iker/`management@neety.com`) · 1 campaña borrador vacía del 27-jul ("Campaña sin título", sin contenido ni asunto: se puede borrar, pendiente del OK del compañero de marketing).
 - **Estructura creada por Claude vía MCP el 2026-07-29:** campo personalizado **`origen`** (texto, id 1403523) + **7 grupos de segmentación**: `origen-desconocido` · `linkedin-recursos` · `web` · `evento` · `webinar` · `referido` · `contacto-comercial`. Todos vacíos, listos para la importación.
 - **Lo que el MCP NO puede tocar (solo panel web):** idioma de la cuenta, autenticación del dominio, alta de remitentes verificados y ajustes de cuenta. Todo lo demás (contactos, grupos, segmentos, campos, campañas, automatizaciones, programación) sí.
 - ⚠️ **Verificar remitente ≠ autenticar dominio** (las dos hacen falta): verificar remitente = confirmar UNA dirección con un clic en un email; autenticar dominio = meter los registros SPF/DKIM en el DNS de neety.com. Si en la llamada solo se hizo lo primero, el dominio sigue sin autenticar.
 - ✅ **Dominio `neety.com`: autenticado** (verificado el 2026-07-30 creando un borrador con `hola@neety.com` de remitente: MailerLite lo dio por apto para enviar y sin avisos).
 - ✅ **Remitente de la newsletter: `hola@neety.com`**, con **forwarding activado y probado**. **Corregido el 2026-08-06: el reenvío NO va a `news@`, va a `mario@neety.com` y `iker@neety.com`.** Es la condición que sostiene el correo 0, cuya métrica son las RESPUESTAS.
-  - 🔴 **Riesgo operativo a resolver antes de la tanda grande:** las respuestas caen mezcladas en dos bandejas de trabajo personales. Con 49 destinatarios se lleva; con 1.300 se pierden. **Filtro de Gmail `to:hola@neety.com` → etiqueta `respuestas-newsletter`**, y decidir quién las procesa (Mario, que lleva la segmentación) para que no se dupliquen ni se queden sin hacer.
+  - 🔴 **Riesgo operativo a resolver antes de la tanda grande:** las respuestas caen mezcladas en dos bandejas de trabajo personales. Con 49 destinatarios se lleva; con 1.300 se pierden. **Filtro de Gmail `to:hola@neety.com` → etiqueta `respuestas-newsletter`**, y decidir quién las procesa (el compañero de marketing, que lleva la segmentación) para que no se dupliquen ni se queden sin hacer.
   - **Cada respuesta hay que llevarla a mano al grupo que toque** (`web`, `linkedin`, `evento`, `webinar`, `origen-desconocido`). Manual está bien para 49; para la lista entera habrá que automatizarlo desde el CRM.
 - ✅ **Credenciales:** no hace falta API key. Todo va por el conector MCP, que se autentica solo. Si algún día se automatiza desde un script propio, la key iría a variable de entorno (nunca al chat ni al repo).
 - 🔴 **Pendiente de configuración, antes de enviar nada:**
@@ -201,7 +201,7 @@ MailerLite canceló la cuenta 2536617 por supuesta violación de la política an
 - **Bajas 0. Quejas de spam 0.** El formato aguanta: llegó a bandeja Principal.
 - 🔴 **Rebotes duros 2 = 4,3% sobre los 47 reales.** Banda de alarma (2-5%), y con n=47 el dato es impreciso. **Es la razón por la que hay que verificar la lista antes de la tanda grande:** si la tasa se mantiene, en los ~1.263 restantes son ~54 rebotes.
 - ⭐ **1 reunión agendada el mismo día del envío**, de 2 clics en el enlace. Con el `origen: newsletter` y los UTM llegando bien al formulario.
-- ⛔ **RESPUESTAS: 0** (comprobado por Mario el 2026-08-10, 3 días después). La lista cerrada de una palabra **no bastó**. Con 47 destinatarios el dato no concluye nada, pero **si la tanda 2 (149) también da 0, el CTA de respuesta está roto y hay que rediseñarlo**, no repetirlo en la tanda 3.
+- ⛔ **RESPUESTAS: 0** (comprobado por el compañero de marketing el 2026-08-10, 3 días después). La lista cerrada de una palabra **no bastó**. Con 47 destinatarios el dato no concluye nada, pero **si la tanda 2 (149) también da 0, el CTA de respuesta está roto y hay que rediseñarlo**, no repetirlo en la tanda 3.
 - **Composición de la lista (contada, no estimada):** de 151 candidatos, **85% no da señal de país** (gmail/hotmail/.com). Solo 9 `.es` y 13 LatAm. **Para priorizar por ICP hace falta el país del CRM.**
 
 ## Tandas del correo 0
@@ -232,7 +232,7 @@ MailerLite canceló la cuenta 2536617 por supuesta violación de la política an
 **Al día siguiente ya se puede.** El dato que decide es el rebote DURO, y un rebote duro es un rechazo SMTP: llega **en minutos**, no en días. Lo que tarda hasta 72 h son los rebotes blandos (reintentos), que casi no afectan a la reputación. Las quejas de spam llegan en su mayoría en 24 h.
 - **Regla: 24 h entre tandas si el salto es ≤2x; 48 h si el salto es mayor**, para tener margen de reacción antes de multiplicar el volumen.
 - Los calentamientos de dominio del sector escalan **a diario**. Espaciar 3 días era exceso de cautela por mi parte, no doctrina.
-- ⛔ **Y el viernes no se lanza la última tanda:** si no lo abren ese día, el fin de semana se lo come y no vuelven hasta el lunes (criterio de Mario, coherente con vender a empresas).
+- ⛔ **Y el viernes no se lanza la última tanda:** si no lo abren ese día, el fin de semana se lo come y no vuelven hasta el lunes (criterio del compañero de marketing, coherente con vender a empresas).
 
 ## Palabras de CTA-respuesta ya usadas (no se repiten en los 3 correos siguientes, `global §2.0b-VENTANA`)
 - `web` / `linkedin` / `evento` / `webinar` / `ni idea` (correo 0, 2026-08-07)
@@ -440,7 +440,7 @@ Primer envío con verificación de pago. Del CSV combinado de tandas 4+5+6 (981 
 
 | veredicto Bouncer | cuántas | acción |
 |---|---|---|
-| `undeliverable` | **70** | **dadas de baja en CRM y Brevo** (Iker, 2026-08-25, en un solo paso) |
+| `undeliverable` | **70** | **dadas de baja en CRM y Brevo** (2026-08-25, en un solo paso) |
 | `risky` — `low_deliverability` (catch-all, 32/34 con `acceptAll=yes`) | 34 | se quedan: ningún validador puede saber más sobre un dominio catch-all |
 | `risky` — `low_quality` (score 10, casi todo Gmail) | 26 | se quedan: es una señal de reputación, no de rebote |
 | `unknown` | 11 | se quedan |
@@ -456,7 +456,7 @@ el de Bouncer — se decide si la 5 sale el viernes.
 
 ---
 
-## 🔴 PENDIENTE (Iker, 2026-08-25): plan de tandas 5 y 6
+## 🔴 PENDIENTE (2026-08-25): plan de tandas 5 y 6
 
 **Iker no está la semana del 2026-08-31 al 2026-09-04.** Por eso quiere las tandas 5 y 6 fuera antes de esa
 semana, no dentro.
@@ -475,7 +475,7 @@ verificado a mano dos veces tras el aviso de Iker. Con la semana bien puesta, no
 (mandada el miércoles 26). Con 24h de margen desde el envío es de sobra para ese momento.
 
 **Lo único que sigue sin resolver, y esto NO era un error mío:** la tanda 6 en viernes 28 sería la
-ÚLTIMA tanda en viernes — la regla de Mario documentada arriba en este mismo fichero dice explícitamente
+ÚLTIMA tanda en viernes — la regla del compañero de marketing documentada arriba en este mismo fichero dice explícitamente
 que la última tanda no se manda en viernes (se la come el fin de semana). Se decide el 27/08 junto con
 el resto: o se asume el riesgo a sabiendas (Iker está fuera la semana siguiente y quiere todo fuera
 antes), o la 6 se deja para cuando vuelva.
@@ -512,7 +512,7 @@ Acumulado en Brevo: 21 de 366 = 5,74%.
 `utm_campaign=kaixito-01-tanda-5`. Decisión de Iker tras ver el dato de la 4.
 
 **Tanda 6 (viernes 28/08) sigue SIN programar**, a propósito: 3,66% mejora pero no baja del 2%, y sigue
-sin resolverse la regla de Mario de no mandar la última tanda en viernes. Se decide cuando se vea el
+sin resolverse la regla del compañero de marketing de no mandar la última tanda en viernes. Se decide cuando se vea el
 rebote real de la tanda 5.
 
 ---
@@ -593,12 +593,12 @@ Cierra el pendiente que este fichero abrió el 25/08 (*"dos correos NUEVOS, sin 
 
 ## Micro-aperturas fijas por remitente
 - **Iker: `Te cuento.`** (fijada el 2026-08-26, `email-marketing §5-HISTORIA`)
-- Unai, Asier y Kaixito: `[PENDIENTE]`
+- El primer jefe, el tercer jefe y Kaixito: `[PENDIENTE]`
 
 
 ---
 
-## 🔁 CORRECCIÓN DEL PLAN (Iker, 2026-08-26, mismo día): EL CORREO 3 SE DESCARTA
+## 🔁 CORRECCIÓN DEL PLAN (2026-08-26, mismo día): EL CORREO 3 SE DESCARTA
 
 **Iker, sobre el plan de arriba:** *"el tres lo descartaría, porque dos semanas seguidas repetiré el mismo pilar de historia, no creo que sea lo ideal, y repetiré el mismo remitente tampoco. La semana del correo tres volvería a la mascota y así utilizamos otra de las animaciones que tenemos"*.
 
@@ -629,7 +629,7 @@ Iker pidió aplicar a este correo lo aprendido con Kaixito 01 · Tanda 6 antes d
 - **Las dos reglas nuevas que salen de aquí, y son de planificación, no de este correo:**
   1. **No se repite pilar dos semanas seguidas.**
   2. **No se repite remitente dos semanas seguidas.**
-- **⛔ Y hay una restricción de personas que hay que respetar y no es de contenido.** Es una decisión de remitentes, no de contenido. **Unai y Asier NO remiten hasta que los números mejoren.** Los remitentes disponibles hoy son **Iker y Kaixito**, y ya está.
+- **⛔ Y hay una restricción de personas que hay que respetar y no es de contenido.** Es una decisión de remitentes, no de contenido. **El primer jefe y el tercer jefe NO remiten hasta que los números mejoren.** Los remitentes disponibles hoy son **Iker y Kaixito**, y ya está.
 - **El GIF del correo de Kaixito sale de la biblioteca ya subida a Brevo** (`corpus-correos-enviados`, las 5 URLs verificadas). **La emoción la decide el TEXTO, no el turno**, y el de **estrés ya se gastó** en el correo 0. Libres: alegría, enfado, curiosidad, aburrimiento.
 - **`aburrimiento` es el candidato natural**: su descripción en la receta es literalmente *"el trabajo manual repetitivo (tema central nuestro)"*.
 
@@ -648,7 +648,7 @@ El **correo 3 (la centralita, dolor del interlocutor)** queda **escrito pero NO 
 **Tres excepciones asumidas a propósito en este correo, ninguna por descuido:**
 1. **Doble CTA** (reply + `/agendar/`), contra `email-marketing §4` ("un solo CTA por email"). Iker: el
    que más interesa va primero por posición, y no se repite en los correos que vengan.
-2. **Última tanda en viernes**, contra la regla de Mario de más arriba en este fichero. Asumido porque
+2. **Última tanda en viernes**, contra la regla del compañero de marketing de más arriba en este fichero. Asumido porque
    Iker no está la semana del 31/08 al 04/09 y quiere esta campaña de calentamiento fuera antes de irse.
 3. **Sin A/B de la interrogación inicial del asunto.** Se propuso probarla en esta tanda grande (380) y se
    descartó: *"esta primera campaña, estamos haciendo muchas excepciones… es un cambio mínimo"*. El asunto
@@ -664,7 +664,7 @@ mundo, y lo intentaremos mandar los lunes, a lo mejor, o los martes, no lo sé, 
 **Esto es el fin del sistema de tandas del calentamiento, no solo una excepción de esta vez.** Con el
 envío de golpe a toda la lista, el concepto de "última tanda" desaparece: ya no hay una secuencia de días
 cuyo último tramo se pueda comer el fin de semana. **Pero ojo, esto NO decide solo si el viernes vale para
-la ÚLTIMA tanda: decide si el viernes vale para CUALQUIER envío único.** La razón original de Mario
+la ÚLTIMA tanda: decide si el viernes vale para CUALQUIER envío único.** La razón original del compañero de marketing
 ("si no lo abren ese día, el fin de semana se lo come") podría seguir aplicando a un envío de golpe en
 viernes igual que aplicaba a la última tanda — son preguntas distintas y no se ha medido ninguna de las
 dos con Brevo todavía.
@@ -685,7 +685,7 @@ falta una regla de cadencia distinta para el envío semanal de régimen.
 
 **Tanda 6 recreada limpia (id 8, `status: draft`, sin `scheduledAt`), sin el div.** Ver `email-marketing §3b` para la regla corregida.
 
-**Y sale una regla de proceso nueva de aquí (Iker, 2026-08-27):** ninguna campaña se deja programada de primeras nunca más, ni aunque él lo pida explícitamente — se queda en borrador hasta que confirme que se ha mandado un test a sí mismo y está todo bien. Detalle completo en `email-marketing §9a-BIS`.
+**Y sale una regla de proceso nueva de aquí (2026-08-27):** ninguna campaña se deja programada de primeras nunca más, ni aunque él lo pida explícitamente — se queda en borrador hasta que confirme que se ha mandado un test a sí mismo y está todo bien. Detalle completo en `email-marketing §9a-BIS`.
 
 **Pendiente de Iker:** mandarse el test de la campaña id 8, revisar que el preheader ya no sale duplicado, y confirmar para que se programe el viernes 09:05.
 
@@ -910,13 +910,13 @@ operativo**.
 cerraron MailerLite. El día de la vuelta de vacaciones es justo cuando la gente hace limpieza masiva
 de bandeja y se da de baja en bloque. Llegar el miércoles esquiva esa purga.
 
-**La hora, 09:05, y no se mueve.** Brevo no deja las 09:01 de Mario, y las 09:05 siguen cumpliendo el
+**La hora, 09:05, y no se mueve.** Brevo no deja las 09:01 del compañero de marketing, y las 09:05 siguen cumpliendo el
 mecanismo: se sale DESPUÉS de la oleada de los que programan a la hora en punto, así que en una
 bandeja ordenada por lo más reciente quedamos encima.
 
 🔴 **AVISO, IKER: el 2/09 cae dentro de tu semana de vacaciones (31/08 - 04/09).** El CTA es una
 reserva de calendario, así que se gestiona sola, **pero las respuestas al correo caen en `hola@` que
-reenvía a ti y a Mario**. Si alguien contesta esa semana, hay que saber quién lo coge.
+reenvía a ti y al compañero de marketing**. Si alguien contesta esa semana, hay que saber quién lo coge.
 
 ### Estado de las campañas en Brevo
 
@@ -938,11 +938,11 @@ variante B, los clics internos habrían ensuciado las métricas del A/B de verda
 
 ## 🔴🔴 EL DÍA QUE BREVO BLOQUEÓ LA CUENTA (2026-08-28) — y todo lo que cambia
 
-**La cuenta está `under validation`** (la API devuelve `402 account_under_validation` al editar) y **la tanda 6 figura como `rejected`**. La tanda 6 **sí salió** antes del bloqueo: 349 enviados, 327 entregados, 58 aperturas, 9 rebotes (2,58%, el mejor de las seis), **0 quejas de spam** y **6 bajas (1,83%, casi 4x la norma)**. Unai apela.
+**La cuenta está `under validation`** (la API devuelve `402 account_under_validation` al editar) y **la tanda 6 figura como `rejected`**. La tanda 6 **sí salió** antes del bloqueo: 349 enviados, 327 entregados, 58 aperturas, 9 rebotes (2,58%, el mejor de las seis), **0 quejas de spam** y **6 bajas (1,83%, casi 4x la norma)**. El primer jefe apela.
 
 **⛔ Y el pendiente que probablemente lo causó lleva escrito desde el 2026-08-18 en `email-marketing §0c` punto 6:** *"Escribirle a soporte de Brevo ANTES del primer envío real, presentando la cuenta, el origen de la lista y el volumen esperado"*. **Nunca se hizo.** Era la lección nº 6 del post-mortem de MailerLite y se repitió el mismo fallo.
 
-### ⛔⛔ A PARTIR DE AHORA SOLO SE ESCRIBE A QUIEN DIO CONSENTIMIENTO EXPLÍCITO (Iker, 2026-08-28) — CANÓNICO
+### ⛔⛔ A PARTIR DE AHORA SOLO SE ESCRIBE A QUIEN DIO CONSENTIMIENTO EXPLÍCITO (2026-08-28) — CANÓNICO
 
 **El segmento único de envío: `📥 Recursos · Todos` (audiencia CRM 3 → lista Brevo 15).** Su fuente es
 `all`, que en `resources_leads.js` es literalmente `SELECT ... FROM leads WHERE consent_comms = TRUE`.
@@ -996,9 +996,9 @@ correo 2. ⚠️ n pequeño: apunta fuerte, no prueba nada todavía. Se confirma
 |---|---|---|---|---|
 | 11 | Kaixito 01 · Tanda 6 | Kaixito de Neety | 349 | **enviada, luego `rejected`** |
 | **15** | Correo 2 · Iker · la feria | `Iker de Neety` | **45** (listas 15+4) | **programada 02/09 09:05 · test validado por Iker el 28/08** |
-| **18** | Correo 3 · Unai · evento | `Unai de Neety` | **45** (listas 15+4) | **programada 09/09 09:05 · test validado por Iker el 28/08** |
+| **18** | Correo 3 · el primer jefe · evento | `Unai de Neety` | **45** (listas 15+4) | **programada 09/09 09:05 · test validado por Iker el 28/08** |
 
-**✅ ESTADO CERRADO EL 2026-08-28.** Iker revisó los dos correos de prueba en el buzón de Mario y dio
+**✅ ESTADO CERRADO EL 2026-08-28.** Iker revisó los dos correos de prueba en el buzón del compañero de marketing y dio
 las dos por buenas: remitente, asunto y texto de preview correctos en la bandeja; dentro, el cuerpo, el
 ninja y el **pie personalizado**; y el enlace del correo 2 llega a `/agendar/` con sus tres UTMs.
 Verificado además por API contra un segundo endpoint: **40 en `📥 Recursos · Todos` + 5 en `Testers`,
@@ -1078,7 +1078,7 @@ Brevo está levantado y la cuenta está viva (plan activo, 13.820 créditos de e
 | id | correo | remitente | programado | **salió de verdad** |
 |---|---|---|---|---|
 | 15 | Correo 2 · Iker · la feria | `Iker de Neety` | 02/09 09:05 | ✅ **02/09 09:11:57** |
-| 18 | Correo 3 · Unai · evento | `Unai de Neety` | 09/09 09:05 | ✅ **09/09 09:09:50** |
+| 18 | Correo 3 · el primer jefe · evento | `Unai de Neety` | 09/09 09:05 | ✅ **09/09 09:09:50** |
 
 ### 🔴🔴 LA TRAMPA QUE CASI ME HACE DECIR QUE NO HABÍAN SALIDO
 
@@ -1121,7 +1121,7 @@ CTOR del panel). El clic que vale es la suma de `linksStats`, que solo cuenta lo
 | Kaixito 01 · tandas 1-5 | 10-25/08 | al final, dentro de la PPD | 682 | 267 | 8 | **2** | 0,29‰ |
 | Kaixito 01 · tanda 6 | 28/08 | **subido al cuerpo** | 327 | 65 (19,9%) | 16 | **7** | **21,4‰** |
 | **Correo 2 · Iker · la feria** | 02/09 | en el cuerpo (49% del texto) | **45** | **16 (35,6%)** | 3 | **1** | 22,2‰ |
-| **Correo 3 · Unai · evento** | 09/09 | en el cuerpo | **45** | **13 (28,9%)** | 4 | **2** | 44,4‰ |
+| **Correo 3 · el primer jefe · evento** | 09/09 | en el cuerpo | **45** | **13 (28,9%)** | 4 | **2** | 44,4‰ |
 
 **Los números de las tandas 1-5 y de la 6 coinciden exactamente con los apuntados el 28/08** (682
 entregados / 2 clics · 327 entregados / 6 clics, hoy 7 porque entró uno más después). **Que el método
@@ -1175,8 +1175,8 @@ la verdad es que ese clic salió de un correo de HubSpot.
 
 | canal | herramienta | quién firma | fecha | entregados | aperturas | clics a Luma | UTM que llega a Luma |
 |---|---|---|---|---|---|---|---|
-| **clientes** | **HubSpot** | Helena Baviera Serigó (`helena@neety.io`) | **20/08** | **100** | **40 (40,0%)** | **1** | **`hs_email`** ← **es este** |
-| newsletter | Brevo, correo 3 | `Unai de Neety` | 09/09 | 45 | 13 (28,9%) | 2, uno de ellos Mario → **1 real** | `unai-03-evento-correo` |
+| **clientes** | **HubSpot** | La compañera de clientes (`helena@neety.io`) | **20/08** | **100** | **40 (40,0%)** | **1** | **`hs_email`** ← **es este** |
+| newsletter | Brevo, correo 3 | `Unai de Neety` | 09/09 | 45 | 13 (28,9%) | 2, uno de ellos el compañero de marketing → **1 real** | `unai-03-evento-correo` |
 | LinkedIn | los 3 posts semanales | las 3 cuentas | ago-sep | — | — | — | (el de cada post) |
 
 **La prueba, en orden:**
@@ -1262,7 +1262,7 @@ mismo asunto, creado el **08/09**, **en BORRADOR**, con la misma promesa del eve
 
 | vía | estado |
 |---|---|
-| **Los 60 inscritos del evento** | ⛔ **Cerrada.** El formulario de Luma lleva una casilla de términos obligatoria que dice *"Uso de datos para la operativa del evento y con objetivos comerciales"*, pero **no tenemos acceso a la cuenta de Luma**: ni se puede exportar la lista ni añadir una casilla nueva (Iker, 15/09: *"ya es demasiado tarde"*) |
+| **Los 60 inscritos del evento** | ⛔ **Cerrada.** El formulario de Luma lleva una casilla de términos obligatoria que dice *"Uso de datos para la operativa del evento y con objetivos comerciales"*, pero **no tenemos acceso a la cuenta de Luma**: ni se puede exportar la lista ni añadir una casilla nueva (15/09: *"ya es demasiado tarde"*) |
 | **⭐ Los WEBINARS de Iker** | 🟢 **La vía nueva, y es suya (15/09).** Hace bastantes, y en el registro **se añade una casilla de consentimiento de newsletter**. Es consentimiento limpio, separado y con registro, igual que el de `recursos.neety.com`. Es la única fuente recurrente que hoy no estamos aprovechando |
 | La casilla de recursos | 🟢 sigue viva y entra sola (worker horario) |
 | `recursos.neety.com/correo/` | 🟢 alimentada por el segundo ninja de los posts |
@@ -1312,18 +1312,18 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | correo | remitente | aperturas | clics de LEAD (internos fuera) | bajas | inscritos en Luma |
 |---|---|---|---|---|---|
 | 2 · la feria | Iker | 16 · 35,6% | **0** | 0 | — (iba a `/agendar/`) |
-| 3 · evento | Unai | 13 · 28,9% | **1** | 1 | 0 (el `hs_email` era de HubSpot) |
+| 3 · evento | El primer jefe | 13 · 28,9% | **1** | 1 | 0 (el `hs_email` era de HubSpot) |
 | **4 · evento** | **Kaixito** | **16 · 35,6%** → 🔄 **20 · 44,4% al 22/09** | **3** (66,7‰) | **0** | **1** (dato de Iker, visto en Luma; confirmado por UTM el 22/09) |
 
-> 🔄 **Releído el 22/09 con `metricas-brevo.py`:** 45 entregados, **20 aperturas (44,4%)**, 4 clics de cuerpo (uno es de Mario: **3 de lead**), 0 bajas. Es el mejor de los correos 2-4 en aperturas y en clics, **pero con 45 destinatarios y seis variables cambiadas a la vez no separa nada** (ver abajo). La lectura del mismo día infravaloraba las aperturas en un 20%: **un correo se cierra a los 5-6 días, no el día del envío.**
+> 🔄 **Releído el 22/09 con `metricas-brevo.py`:** 45 entregados, **20 aperturas (44,4%)**, 4 clics de cuerpo (uno es del compañero de marketing: **3 de lead**), 0 bajas. Es el mejor de los correos 2-4 en aperturas y en clics, **pero con 45 destinatarios y seis variables cambiadas a la vez no separa nada** (ver abajo). La lectura del mismo día infravaloraba las aperturas en un 20%: **un correo se cierra a los 5-6 días, no el día del envío.**
 
 - **Los 3 que pulsaron:** `h***@garazizuniga.studio` (09:36), `l***@gmail.com` (10:53) y `a***@gmail.com` (11:36, **segunda vez**: ya pulsó el correo 3). El 4º clic es `mario@neety.com` a las 09:14, revisando.
 - ⭐ **ES EL PRIMER INSCRITO AL EVENTO ATRIBUIDO A LA NEWSLETTER POR UTM.** El del correo 3 resultó ser de HubSpot (14/09). Este llega con `utm_source=kaixito-04-evento-correo`, que es justo lo que se protegió apagando el seguimiento UTM de Brevo antes del test.
-- **Luma pasó de 60 a 65 inscritos** entre el 15/09 por la tarde y el 16/09 a mediodía (**15 plazas libres**). Iker atribuye **al menos 5** al "Los 10" de Gipuzkoa de Unai (`historial-publicaciones`), así que las cuentas no casan exactas y **no se fuerzan**: Luma no deja ver la lista (`email-marketing §7b`).
+- **Luma pasó de 60 a 65 inscritos** entre el 15/09 por la tarde y el 16/09 a mediodía (**15 plazas libres**). Iker atribuye **al menos 5** al "Los 10" de Gipuzkoa del primer jefe (`historial-publicaciones`), así que las cuentas no casan exactas y **no se fuerzan**: Luma no deja ver la lista (`email-marketing §7b`).
 - ⚠️ **LO QUE NO SE PUEDE CONCLUIR, y va delante de cualquier celebración:** entre el correo 3 y el 4 cambiaron **seis cosas a la vez** (remitente, pilar, familia de asunto, GIF, que ya es la ÚLTIMA semana y que el ninja dice las sillas que QUEDAN en vez del aforo total). Con 45 destinatarios, **3 contra 1 clic no separa ninguna de ellas**. Lo único que es dato sin discusión: **cero bajas** en un correo de mascota a una lista industrial, y **un inscrito atribuido**.
 - 📏 **Y la cifra de dentro caducó el mismo día:** el cuerpo decía `60 nombres` y `20 sillas`, verdad al programar; al salir ya eran 65 y 15 o casi. **Una cifra de aforo en un correo programado se reverifica a la hora del envío, no la víspera.**
 
-**⭐ QUÉ SE LLEVA EL SIGUIENTE CORREO:** Kaixito **no ha bajado ni aperturas ni bajas** frente a los founders (35,6% igual que Iker, 0 bajas contra 1 de Unai). `email-marketing §1` decía *"se mide, no se discute: si abre más, gana papel"*. **Todavía no abre más, pero tampoco cuesta nada, y es el único que ha traído un inscrito.**
+**⭐ QUÉ SE LLEVA EL SIGUIENTE CORREO:** Kaixito **no ha bajado ni aperturas ni bajas** frente a los founders (35,6% igual que Iker, 0 bajas contra 1 del primer jefe). `email-marketing §1` decía *"se mide, no se discute: si abre más, gana papel"*. **Todavía no abre más, pero tampoco cuesta nada, y es el único que ha traído un inscrito.**
 
 
 ---
@@ -1344,7 +1344,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Validador | **36/36** · ritmo `1-1-1-1-3-1-2-1-1-2-1-1` |
 
 **Por qué NO fue el "última llamada / menos de 24 horas" que se pidió:**
-1. **Era falso:** sale el miércoles a las 09:05 y el evento arranca el jueves a las 18:00 (Luma `start_at` 16:00Z). Son **33 horas**. Se escribe **`Mañana jueves 24`** (Iker, 22/09): el 80% de las aperturas del correo 4 fueron el mismo día (16 de 20), y el `jueves 24` cubre al que lo abra el jueves.
+1. **Era falso:** sale el miércoles a las 09:05 y el evento arranca el jueves a las 18:00 (Luma `start_at` 16:00Z). Son **33 horas**. Se escribe **`Mañana jueves 24`** (22/09): el 80% de las aperturas del correo 4 fueron el mismo día (16 de 20), y el `jueves 24` cubre al que lo abra el jueves.
 2. **Sería el 3.er correo seguido del evento** (3, 4 y este): `§7` pide avisar del tercer correo de venta seguido.
 3. **Los inscritos ya reciben de Luma el recordatorio de 24 h y el de 1 h** (`§8h`): un tercero nuestro es ruido para ellos.
 4. **El post que va DEL evento trae clics y 0 inscritos** (`global §4.4b-EVENTO-EXPLICITO`); el evento se vende dentro de otra cosa.
@@ -1353,7 +1353,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **🔁 Cambio de asunto (22/09, a propuesta de Iker):** el primero decía de qué iba el correo, y los asuntos buenos de las referencias nunca dicen el tema (`email-marketing §8g`). **Hipótesis con nuestro dato, n=2 contra n=2:** los dos asuntos que más abrieron son **preguntas cortas en 2ª persona, de tú a tú y sin tema** (`¿no te acuerdas de mí?` 46,8% · `te guardo la silla o no?` 44,4%) y los dos que menos, **afirmaciones** (`me traje 200 tarjetas…` 35,6% · `en euskadi nos juntamos sin ti` 28,9%). Con 45 destinatarios no es prueba, pero la dirección coincide en los 4. **Si este abre en la franja alta, se propone como regla.** Ninja cambiado para que cuelgue de `abrir`: `Una máquina te escribe el mensaje. Abrirlo, no.` Validador 37/37.
 
-**🔁 PUERTA CAMBIADA A `/agendar/` (Iker, 22/09 tarde), y es la única.** Iker: *"como la ubicación del evento ya restringe mucho"*. **No se sabe dónde vive la lista** (ni Brevo ni el CRM guardan ubicación: 37 de 42 son `.com`), así que Donostia no le sirve a la mayoría. Se descartó añadir un segundo enlace (regla de un solo enlace, `email-marketing §3`) y **se cambió la única puerta**. De paso, el enlace a `/agendar/` resuelve justo lo que dice el cuerpo (*a quién mandárselo*) y hace de este correo la **prueba limpia de OBJECIÓN**, sin el ruido del evento. Se quitó la línea del evento; ninja `Una máquina te escribe el mensaje. Abrirlo, no.` / `A quién mandárselo, con su nombre, nosotros:` (Iker: explícito, quién lo hace, como el `en el evento sí` del post de la mañana). **UTM escrito a mano** (`utm_source=brevo&utm_medium=email&utm_campaign=correo-05-iker-objecion`), porque el seguimiento de Brevo está apagado. Validador 36/37 (solo la `¿`, aceptada). Auditor ✅.
+**🔁 PUERTA CAMBIADA A `/agendar/` (22/09 tarde), y es la única.** Iker: *"como la ubicación del evento ya restringe mucho"*. **No se sabe dónde vive la lista** (ni Brevo ni el CRM guardan ubicación: 37 de 42 son `.com`), así que Donostia no le sirve a la mayoría. Se descartó añadir un segundo enlace (regla de un solo enlace, `email-marketing §3`) y **se cambió la única puerta**. De paso, el enlace a `/agendar/` resuelve justo lo que dice el cuerpo (*a quién mandárselo*) y hace de este correo la **prueba limpia de OBJECIÓN**, sin el ruido del evento. Se quitó la línea del evento; ninja `Una máquina te escribe el mensaje. Abrirlo, no.` / `A quién mandárselo, con su nombre, nosotros:` (Iker: explícito, quién lo hace, como el `en el evento sí` del post de la mañana). **UTM escrito a mano** (`utm_source=brevo&utm_medium=email&utm_campaign=correo-05-iker-objecion`), porque el seguimiento de Brevo está apagado. Validador 36/37 (solo la `¿`, aceptada). Auditor ✅.
 
 ### 🟠 LOS INSCRITOS AL EVENTO ENTRAN EN LA LISTA (decisión de Iker, 2026-09-22 · 19:00)
 
@@ -1404,7 +1404,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 **✅ Lo que sí funcionó: Bouncer, 35 créditos.** 33 `deliverable` y **2 `risky`** (`b***@lacor.es`, `s***@hervel.com`), quitados de la lista 18 antes de programar. Su estimación previa de rebote para ese grupo era 1,9%. **Sin marcar Company Enrichment ni Email Engagement Insights**: no deciden nada y gastan créditos.
 
 **Al enviarlo:** meter el ninja en `QUEMADAS` de `validar-email.py`, el cuerpo literal en `corpus-correos-enviados.md`, y leer las métricas a los 5-6 días.
-**Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. **Remitente cambiado de Unai a Iker (22/09):** Iker llevaba 3 semanas sin escribir (Unai 2), el pilar objeción es suyo porque es quien hace las demos, y así Unai queda libre para el correo de después del evento. **Asier se descartó para este:** estrenar remitente y pilar a la vez no deja atribuir nada. ✅ **Su remitente ya existe: `Asier de Neety` (id 7, `hola@neety.com`, activo), dado de alta por Iker el 22/09.** Candidato para su estreno: pilar 9 · receta regalada.
+**Después del evento (25/09 en adelante):** el ninja vuelve a `/agendar/`. **Remitente cambiado del primer jefe a Iker (22/09):** Iker llevaba 3 semanas sin escribir (el primer jefe 2), el pilar objeción es suyo porque es quien hace las demos, y así el primer jefe queda libre para el correo de después del evento. **El tercer jefe se descartó para este:** estrenar remitente y pilar a la vez no deja atribuir nada. ✅ **Su remitente ya existe: `Asier de Neety` (id 7, `hola@neety.com`, activo), dado de alta por Iker el 22/09.** Candidato para su estreno: pilar 9 · receta regalada.
 
 ### 📈 RESULTADO FINAL DEL CORREO 5, LAS DOS TANDAS (leído el 2026-09-28 con `metricas-brevo.py --quien --listas 15,4,17,18`)
 
@@ -1421,7 +1421,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 - 🔴 **Sin comprobar todavía: si alguno de los 7 llegó a agendar.** Un clic no es una demo. Se mira en el CRM (origen `brevo` + `correo-05-iker-objecion`) antes de dar el pilar por bueno.
 - **Pilar OBJECIÓN: n=1 y con dato bueno.** No se repite la semana siguiente (rotación), pero entra en el cupo.
 
-## 📝 CORREO 6 · Unai · CALENDARIO (BORRADOR 2026-09-28, para el mar 29/09)
+## 📝 CORREO 6 · El primer jefe · CALENDARIO (BORRADOR 2026-09-28, para el mar 29/09)
 
 **Campaña Brevo 27** (la 24 se borró y se recreó el 28/09 para comprobar que, con el UTM apagado en la cuenta, el enlace ya no se pisa: ✅), listas **15 + 4 + 17 + 18** (sin la 16, que aún tiene dentro las 2 direcciones que Bouncer marcó como dudosas), remitente **`Unai de Neety`** (`hola@neety.com`), estado **`draft`** releído de la API, **sin `scheduledAt`** (`email-marketing §9a-BIS`). Un solo envío: los 111 ya recibieron el correo 5 con 0 bajas y 0 denuncias.
 
@@ -1449,7 +1449,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 |---|---|
 | Enviados / entregados | 111 / 111 |
 | Aperturas únicas | 63 · 56,8% |
-| **Clics de lead al enlace** | **5** (4,5%) · el 6º es Mario a las 09:24 |
+| **Clics de lead al enlace** | **5** (4,5%) · el 6º es el compañero de marketing a las 09:24 |
 | **Bajas** | 🔴 **3 · 2,7%** (correo 5: 0 en 111) |
 | Reuniones atribuidas | **0** |
 
@@ -1463,16 +1463,16 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | correo | remitente | pilar | asunto | entregados | % apertura | clics lead | bajas |
 |---|---|---|---|---|---|---|---|
 | 2 | Iker | HISTORIA | `me traje 200 tarjetas…` (afirmación) | 45 | 35,6 | 0 | 0 |
-| 3 | Unai | HISTORIA-TESTIGO | `en euskadi nos juntamos sin ti` (afirmación) | 45 | 31,1 | 1 | 1 |
+| 3 | El primer jefe | HISTORIA-TESTIGO | `en euskadi nos juntamos sin ti` (afirmación) | 45 | 31,1 | 1 | 1 |
 | 4 | Kaixito | NOVEDADES | `te guardo la silla o no?` (pregunta) | 45 | 46,7 | 3 | 0 |
 | 5 | Iker | OBJECIÓN | `tú lo abrirías?` (pregunta) | 111 | 71,2* | 7 (5 sin escáner) | 0 |
-| 6 | Unai | CALENDARIO | `a quién vas a llamar en octubre?` (pregunta) | 111 | 56,8 | 5 | 3 |
+| 6 | El primer jefe | CALENDARIO | `a quién vas a llamar en octubre?` (pregunta) | 111 | 56,8 | 5 | 3 |
 
 \* tanda 2 inflada por escáneres corporativos.
 
 1. **Asunto: las 4 preguntas cortas de tú a tú (contando el correo 0, 46,8%) están por encima de las 2 afirmaciones.** Dentro de la misma lista de 45 la diferencia es 46,7 contra 35,6/31,1. Pasa de hipótesis n=2 a **n=4 contra 2**: se sigue haciendo y se propone como regla cuando haya un correo-afirmación que la desmienta o la confirme con la lista de 111.
 2. **Pilar: los que ARGUMENTAN sacan más clics que los que CUENTAN.** Historia (2 y 3): 0 y 1 clic. Novedades, objeción y calendario: 3, 5-7 y 5. ⚠️ Confundido con la lista (de 45 a 111 desde el 5) y con la puerta (Luma en 3-4, `/agendar/` desde el 5). Lo que sí aguanta sin confusión es la comparación 2 contra 4, misma lista y misma época: 0 contra 3.
-3. **Remitente: Kaixito es el que más abre en la lista comparable** (46,7 contra 35,6 de Iker y 31,1 de Unai) **y el único con 0 bajas en sus dos envíos de Brevo**. `email-marketing §1` decía *"si abre más, gana papel"*: ya abre más.
+3. **Remitente: Kaixito es el que más abre en la lista comparable** (46,7 contra 35,6 de Iker y 31,1 del primer jefe) **y el único con 0 bajas en sus dos envíos de Brevo**. `email-marketing §1` decía *"si abre más, gana papel"*: ya abre más.
 4. **🔴 Clics sí, reservas no.** 12 clics de lead en los correos 5 y 6 y **0 reuniones**. Desde el correo 0 (1 reunión el 07/08 en MailerLite) la newsletter no ha traído ninguna. 🔄 **Falso, corregido el 02/11:** la tanda 6 de Kaixito 01 (28/08) trajo 1 oportunidad (ver «CORRECCIÓN 02/11»). **El cuello de botella ya no es el correo: es lo que pasa después del clic.**
 5. **Las bajas viven en la cohorte del evento.** 0 en 45 durante 4 correos con la lista de siempre; 3 en 111 en cuanto la cohorte nueva recibe su segundo correo en 6 días.
 
@@ -1498,16 +1498,16 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | Micro-apertura | `Hoy vengo enfadado.` (la de Kaixito en el 4 fue `Aviso de mascota.`) |
 | Ninja | `La lista larga te la vende cualquiera.` / `La corta, con quien decide, nosotros:` → **`https://neety.com/solicitar-demo`** (primer correo con la web nueva, Iker 05/10) con `utm_campaign=correo-07-kaixito-mito` |
 | 🧪 Posición del ninja | **subido al ~25% del cuerpo, justo detrás de `De esas 2.000, me podían comprar 40.`, y el GIF baja a donde estaba** (propuesta de Iker, 05/10). Es una prueba nueva: hasta ahora iba al 45-50%. Se compara su clic con los correos 5 y 6 sabiendo que cambian más cosas a la vez (remitente, pilar, web) |
-| Segundo enlace | **colaboración con AMA**: Premios de Marketing de Euskadi, **en el cuerpo, al final y separado del nuestro** (Iker, 05/10: en la PD nadie pulsa), bloque de 2 líneas cortas, UTM en español `utm_source=newsletter-neety&utm_medium=correo&utm_campaign=correo-07` para que lo entienda quien lleva su web |
+| Segundo enlace | **colaboración con AMA**: Premios de Marketing de Euskadi, **en el cuerpo, al final y separado del nuestro** (05/10: en la PD nadie pulsa), bloque de 2 líneas cortas, UTM en español `utm_source=newsletter-neety&utm_medium=correo&utm_campaign=correo-07` para que lo entienda quien lleva su web |
 | Validador | **38/38** con `--colaboracion`: los dos bloques en el cuerpo, separados por 6 bloques y un GIF, el de AMA de 3 líneas (55/52/47) |
 | Destinatarios previstos | listas 15 + 4 + 17 + 18 (los 3 de baja del correo 6 ya están bloqueados) |
 
-- **Fecha de cierre de los premios: 30 de octubre**, la que da AMA en su mensaje y en su web. Las bases en PDF (subidas en julio) dicen 15/10, pero **lo que nos dice el tercero directamente es la fuente** (Iker, 05/10): no hay nada que confirmar. El correo dice `este mes`.
+- **Fecha de cierre de los premios: 30 de octubre**, la que da AMA en su mensaje y en su web. Las bases en PDF (subidas en julio) dicen 15/10, pero **lo que nos dice el tercero directamente es la fuente** (05/10): no hay nada que confirmar. El correo dice `este mes`.
 - **Al enviar:** ninja a `QUEMADAS`, cuerpo literal al corpus el MISMO día, y leer el clic del enlace de AMA en `linksStats` para poder decirle a AMA cuántos de nuestra red pulsaron.
 
-## ✅ CORREO 8 · Asier · RECETA, ninja al webinar (ENVIADO mié 14/10 11:49:51 · 108 enviados, 108 entregados, 0 rebotes)
+## ✅ CORREO 8 · El tercer jefe · RECETA, ninja al webinar (ENVIADO mié 14/10 11:49:51 · 108 enviados, 108 entregados, 0 rebotes)
 
-> **Longitud: primera prueba de un correo largo (240 palabras contra 116-158), no decidida por dato propio sino por el pilar** (la receta necesita sus pasos; las del corpus van de 300 a 450). Se mira en la revisión, sabiendo que cambian a la vez remitente, pilar y longitud. Enviado con el OK de Mario tras revisar el test en Gmail (remitente, preheader una vez, enlace y pie en español). **Hora fuera de la casa (09:05) por una restricción operativa, no por prueba** (`email-marketing §5`): semana de puente y el ordenador roto. Ninja ya en `QUEMADAS`, cuerpo literal en el corpus. **Revisión a los 5-6 días (lunes 19/10 o martes 20/10):** inscritos en Luma con `utm_source=correo-08-asier-receta`, respuestas al reto de la PPD (primera postdata que pide contestar desde el correo 0) y clics limpios con `metricas-brevo.py --quien`.
+> **Longitud: primera prueba de un correo largo (240 palabras contra 116-158), no decidida por dato propio sino por el pilar** (la receta necesita sus pasos; las del corpus van de 300 a 450). Se mira en la revisión, sabiendo que cambian a la vez remitente, pilar y longitud. Enviado con el OK del compañero de marketing tras revisar el test en Gmail (remitente, preheader una vez, enlace y pie en español). **Hora fuera de la casa (09:05) por una restricción operativa, no por prueba** (`email-marketing §5`): semana de puente y el ordenador roto. Ninja ya en `QUEMADAS`, cuerpo literal en el corpus. **Revisión a los 5-6 días (lunes 19/10 o martes 20/10):** inscritos en Luma con `utm_source=correo-08-asier-receta`, respuestas al reto de la PPD (primera postdata que pide contestar desde el correo 0) y clics limpios con `metricas-brevo.py --quien`.
 
 **v3 (14/10, ~10:30), la que está en la campaña 29:** lista de **5 pasos** (impares, `global §2.5b`; el 5 es `La que no tenga esa frase, fuera.`), fuera el par del truco del paso 3, las dos líneas del final del coste en una (`Encontrar las que no publican nada fue lo que más nos costó programar.`). **240 palabras**, cuando los correos 0-7 iban de **116 a 158**: es el más largo que hemos mandado, sin dato propio de que la longitud reste. Enlace al 68%. Validador 42/42. Campaña actualizada por `PUT`, releída (remitente con nombre, pie, preheader, listas) y auditor en verde. **Destinatarios: 108** (contados en las 4 listas a las 11:43 del 14/10: 120 únicos menos 12 bloqueados). Son 4 más que esta mañana porque ya entran los consentimientos de la web nueva. **Correo de prueba enviado a `mario@neety.com` a las 11:44**, en borrador a la espera del OK. 🔴 **5 consentimientos de neety.com del 06-13/10 no están en Brevo** (`email-marketing §9c`, la fuga de la web nueva). Antes: **Texto validado 42/42** (`validar-email.py`, el único aviso es `cientos de empresas`, que va del lado del enemigo). **v2 tras la revisión de Iker (13/10):** la receta pasa a contarse como ORIGEN (`Antes de programar nuestro buscador, lo hacíamos así a mano.`, antes `…la hago así a mano`, que era un autogol), una línea detrás del enlace deja ver el producto (`Encontrar esas fue lo que más nos costó programar.`) y las 6 sueltas del arranque se rompen con un par y una terna (`Por lo que hace de verdad / Por el material con el que trabaja / Por el problema que tú le resuelves cada día`). Ritmo `1-2-1-1-2-1-3-1-1-1-1-3-1-1-1-2-1`. **✅ Campaña Brevo 29 en BORRADOR (14/10, 09:53), creada con el conector de Brevo** porque `BREVO_API_KEY` no llegaba a la sesión (el entorno local de la app estaba cifrado e ilegible, ver abajo). Releída de la API: `draft`, sin `scheduledAt`, remitente `Asier de Neety` (id 7), preheader, pie de la casa, `href` con su UTM intacto, listas 15 + 4 + 17 + 18 → **104 destinatarios**. Sin GIF. ⚠️ El conector no manda el correo de prueba de una campaña ni corre `auditar-campanas-brevo.py` (necesita la clave): el test sale del panel, a `mario@neety.com`.
 
@@ -1515,9 +1515,9 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 |---|---|
 | Asunto | `en qué sector está tu próximo cliente?` (38 car, pregunta de tú a tú sin `¿`). Descartados: `has descrito medio polígono` (afirmación, y en nuestra lista las afirmaciones abren menos, n=2) y `tu próximo cliente no tiene sector` (afirmación y falsa) |
 | Preview | `Si has pensado en uno, este correo es para ti.` (la segunda mitad del asunto, `§8i`) |
-| Pilar | **RECETA (9), primera vez**, y **estreno de Asier** como remitente. ⚠️ Estrenar los dos a la vez no deja separar quién explica el resultado (se dijo el 22/09); se asume porque la receta estaba reservada para él y es el formato del webinar |
+| Pilar | **RECETA (9), primera vez**, y **estreno del tercer jefe** como remitente. ⚠️ Estrenar los dos a la vez no deja separar quién explica el resultado (se dijo el 22/09); se asume porque la receta estaba reservada para él y es el formato del webinar |
 | Molde | la pregunta del lector que el cuerpo tumba (`§8h`) + la receta a mano en 4 pasos (nivel 1 del webinar: buscar por lo que hace la empresa, no por su sector) + el extracto cortado de Isra (`§8k` punto 6): **la segunda parte va el 28** |
-| Micro-apertura | `Apunta.` (nueva, de Asier) |
+| Micro-apertura | `Apunta.` (nueva, del tercer jefe) |
 | Ninja → webinar | contexto `La segunda parte va el miércoles 28 a las 10, online y gratis.` · `Por sector te salen cientos de empresas y sirven pocas.` / `Dar con esas pocas es lo que enseñamos nosotros:` (55/48) → `luma.com/7hhyx07z?utm_source=correo-08-asier-receta&utm_medium=email&utm_campaign=correo-08-asier-receta` · dolor **acierto** (empresas que encajan, no volumen) · **enlace al 67% del cuerpo, con 5 bloques detrás** (correos 5-6 al 45-50%; el 7 al 25% no mejoró) |
 | Detrás del enlace | el coste en meses (`Por cada empresa… / sector… / mercado…`), las que no publican y se escapan, y la rebaja `Haz solo el paso 1 esta semana` |
 | PD / PPD | reenvío a quien lleve la lista · **reto con respuesta** (`contéstame con la línea que te salga. Las leo todas.`, Hugo y Víctor Garcés, `§8k`) |
@@ -1547,7 +1547,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | PD | una sola, de broma, del libro (`§5`, 19/10): la marca de la página 112 en la cara |
 | Real / inventado | real: sesión del miércoles 28 a las 10:00 por Google Meet, gratis (API de Luma, 19/10), y Kaixito con gafas en la portada (`WEBINARS/Portada Webinar.png`). Inventado: la escena de la mascota (empresa 37, página 112) |
 
-**Variable en prueba:** el destino Luma con el molde corto de Kaixito (mascota, GIF, ~120 palabras, pregunta de tú a tú, un solo enlace). Se compara con el correo 8 (mismo destino, 240 palabras, Asier, 0 inscritos) y con el correo 4 (Kaixito al evento presencial, 1 inscrito de 45). ⚠️ Cambian a la vez el pilar y la palanca, así que es **dirección, no prueba** (`§5-UNA-VARIABLE`).
+**Variable en prueba:** el destino Luma con el molde corto de Kaixito (mascota, GIF, ~120 palabras, pregunta de tú a tú, un solo enlace). Se compara con el correo 8 (mismo destino, 240 palabras, el tercer jefe, 0 inscritos) y con el correo 4 (Kaixito al evento presencial, 1 inscrito de 45). ⚠️ Cambian a la vez el pilar y la palanca, así que es **dirección, no prueba** (`§5-UNA-VARIABLE`).
 
 **Al enviar:** ninja a `QUEMADAS` de `validar-email.py` (`mirar las webs de una en una le da sueno`, `buscar menos y llamar mas, eso lo ensenan`), cuerpo literal a `corpus-correos-enviados.md` el MISMO día, y en la revisión del lunes 26/10: **inscritos en Luma con `utm_source=correo-09-kaixito-dolor`** y clics limpios con `metricas-brevo.py --quien`. ⚠️ **No se hizo al enviar: las dos cosas se hicieron el 26/10** (cuerpo leído de la API de Brevo y quemadas con fecha 20/10).
 
@@ -1575,15 +1575,15 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | correo | remitente | destino | palabras | entregados | aperturas | clics de lead | inscritos / reuniones | bajas |
 |---|---|---|---|---|---|---|---|---|
 | 4 | Kaixito | Neety Forward | 116-158 (banda de los correos 0-7) | 45 | 46,7% | 3 | 1 inscrito | 0 |
-| 6 | Unai | `/agendar/` | 116-158 | 111 | 57,7% | 5 | 0 reuniones | 3 (2 de la cohorte) |
+| 6 | El primer jefe | `/agendar/` | 116-158 | 111 | 57,7% | 5 | 0 reuniones | 3 (2 de la cohorte) |
 | 7 | Kaixito | `/solicitar-demo` + AMA | 116-158 | 107 | 61,7% | 2 | 0 reuniones | 2 |
-| 8 | Asier | webinar | 240 | 108 | 63,0% | 1 | 0 inscritos | 1 |
+| 8 | El tercer jefe | webinar | 240 | 108 | 63,0% | 1 | 0 inscritos | 1 |
 | **9** | **Kaixito** | **webinar** | **116** | **119** | **55,5%** | **4** | **1 inscrito** | **3 (las 3 de la cohorte)** |
 
 1. **¿Es baja la conversión? Por correo, sí: 1 inscrito de 119 (0,8%). Por exposición, no:** son 8,4 inscritos por cada 1.000 entregados, contra 0,95 por cada 1.000 impresiones del mejor post. **Lo que limita es el tamaño y la composición de la lista**, no el correo: de 134 contactos ya estaban inscritos 5, y los ~49 de la newsletter de verdad (listas 15 + 4) no pulsaron nada.
 2. **La cohorte de Neety Forward (lista 16) es a la vez la única que pulsa y la única que se va.** Tercera vez (correo 6: 2 de 3 bajas; correo 9: 3 de 3 bajas y 4 de 4 clics). No pidieron una newsletter: aceptaron los términos de un evento. **Hipótesis para el próximo correo a la 16 (robada de WaLead, `email-marketing §8m`): una línea que le recuerde por qué le llega** («Te escribo porque viniste o te apuntaste a Neety Forward»).
 3. **Corto contra largo, segundo dato a favor del corto:** el 9 (116 palabras) sacó 4 clics y 1 inscrito; el 8 (240), 1 clic y 0 inscritos. Cambian también el remitente y el pilar: sigue siendo **dirección**, ahora con dos correos.
-4. **Kaixito ya no es el que más abre.** Desde que la lista es de ~110, Asier (63,0%) e Iker abren igual o más. Lo que sí mantiene es que su molde corto es el que más clics saca hacia una fecha (correos 4 y 9).
+4. **Kaixito ya no es el que más abre.** Desde que la lista es de ~110, el tercer jefe (63,0%) e Iker abren igual o más. Lo que sí mantiene es que su molde corto es el que más clics saca hacia una fecha (correos 4 y 9).
 5. **Oportunidades y reuniones: 0 desde el correo 0** (1 reunión el 07/08 en MailerLite). 🔄 **Falso, corregido el 02/11:** 1 oportunidad más de la tanda 6 de Kaixito 01 (28/08), ver «CORRECCIÓN 02/11». La newsletter ha traído 2 inscritos a eventos y ninguna reunión. Pendiente de Iker: si alguna reunión salió de alguien de la lista y no se atribuyó.
 
 ## ✅ CORREO 10 · Kaixito · ANZUELOS, víspera del webinar (PROGRAMADO mar 27/10 09:05 +01:00)
@@ -1684,7 +1684,7 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 | | |
 |---|---|
 | Asunto | A/B nativo de Brevo, 50/50: `me echaron de la séptima planta` (afirmación; bucle: por qué; palabra potente: echaron) y `en qué planta se esconde el que decide?` (pregunta; bucle: dónde; palabra potente: esconde). Preheader común, una oración: `Y eso que me sé la empresa de memoria.` |
-| Pilar y por qué | OBJECIÓN, el pilar con más personas hacia la reunión (correo 5, 7 de 111; 6 CALENDARIO, 5 de 111; 12 BASTIDORES, 5 de 198; 7 MITO, 2 de 107; n=1 por pilar). La objeción es `Ya los conozco a todos` (17 empresas, la que más crece), respondida con el tipo 2 (quién decide dentro: 16 empresas, 15 ICP) y la novedad de las plantas en el contexto del ninja. **v4 (11/11): el dolor central es quién decide y la planta va como novedad, no como dolor:** el tamaño por planta lo nombran solo 5 empresas del ICP de 131 en el informe del 15/10, y la historia de Unai del 10/11 sobre la planta se quedó en 0,42x de alcance (con buena conversación y envíos) |
+| Pilar y por qué | OBJECIÓN, el pilar con más personas hacia la reunión (correo 5, 7 de 111; 6 CALENDARIO, 5 de 111; 12 BASTIDORES, 5 de 198; 7 MITO, 2 de 107; n=1 por pilar). La objeción es `Ya los conozco a todos` (17 empresas, la que más crece), respondida con el tipo 2 (quién decide dentro: 16 empresas, 15 ICP) y la novedad de las plantas en el contexto del ninja. **v4 (11/11): el dolor central es quién decide y la planta va como novedad, no como dolor:** el tamaño por planta lo nombran solo 5 empresas del ICP de 131 en el informe del 15/10, y la historia del primer jefe del 10/11 sobre la planta se quedó en 0,42x de alcance (con buena conversación y envíos) |
 | Por qué cambió desde la v2 | la v2 iba de copiar la lista de la IA. Se cruzó con lo publicado esa semana: la historia de Iker del 11/11 ya contaba la objeción del chat, y el lead magnet de Iker del 12/11 dice que Claude le señala a quién venderle. El mismo día, el correo se habría contradicho con su post |
 | Trastada | v5 (11/11): Kaixito se sabe todas las empresas de memoria, va a buscar al que compra y, como no sabe su planta, le da a todos los botones del ascensor, con gente dentro; en la séptima le explican que compra cada planta (5 fábricas en 5 provincias) y le acompañan al ascensor. Hilo `botones` hasta el ninja (`Todos los botones los pulsa cualquiera, el bueno no.`). Palanca: travesura con orgullo que se desinfla. GIF aburrimiento tras `No sabía su planta, así que le di a todos los botones.` |
 | Variable en prueba | quién firma, respecto del correo 5. El enlace cae al 71% del cuerpo (el 5 lo llevaba al 45-50%): se declara, no aísla nada. Además, A/B de asunto dentro del correo, pregunta contra afirmación (fila abierta el 02/11) |
@@ -1727,7 +1727,7 @@ Leído de la base de la web nueva (`/api/accounts/conversiones` del analizador, 
 |---|---|---|---|---|---|
 | Kaixito 01 · tanda 1 (`¿no te acuerdas de mí?`) | MailerLite | 07/08 | `/agendar/` | — | **1 reunión ese mismo día** (rescate de MailerLite; quién fue no está guardado, y el que más pulsó era cliente) |
 | Kaixito 01 · tanda 6 (enlace subido al cuerpo) | Brevo | 28/08 | `/agendar/` | 1 | **1** (pedida entre el 01 y el 15/09, `kaixito-01-tanda-6`) |
-| 6 · Unai (calendario) | Brevo | sep | `/agendar/` | 1 | 0 |
+| 6 · el primer jefe (calendario) | Brevo | sep | `/agendar/` | 1 | 0 |
 | 7 · Kaixito (mito) | Brevo | 06/10 | `/solicitar-demo` | 1 | 0 |
 | 5, 8, 9, 10, 11 | Brevo | | | 0 | 0 |
 
@@ -1759,9 +1759,9 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 ## Ángulos y vehículos usados, puesto al día (2026-10-13)
 - Correo 4 · Kaixito: la lista de invitados en su libro (evento).
 - Correo 5 · Iker: la objeción de la IA que escribe mensajes.
-- Correo 6 · Unai: el cierre del trimestre y la lista de enero.
+- Correo 6 · el primer jefe: el cierre del trimestre y la lista de enero.
 - Correo 7 · Kaixito: la lista de 2.000 empresas apuntada en su libro y tachada a mano.
-- Correo 8 · Asier: el cliente descrito por sector y tamaño ("medio polígono") y la receta a mano en 5 pasos.
+- Correo 8 · el tercer jefe: el cliente descrito por sector y tamaño ("medio polígono") y la receta a mano en 5 pasos.
 - Correo 9 · Kaixito (enviado 20/10): la mascota dormida encima del libro en la empresa 37, mirando webs.
 - Correo 10 · Kaixito (enviado 27/10): cotillea el guion de sus jefes la víspera del webinar.
 - Correo 11 · Kaixito (programado 30/10): la grabación por la puerta de atrás; la palabra hilo es «escapar», del asunto al enlace.
@@ -1771,9 +1771,9 @@ Clic **limpio** = personas que pulsan un enlace del cuerpo, sin `@neety.com` y s
 
 ## Micro-aperturas usadas por remitente (2026-10-13)
 - **Iker:** `Te cuento.` (base) · `Una frase.` (correo 5)
-- **Unai:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
+- **El primer jefe:** `Al grano.` (correo 3) · `Calendario en mano.` (correo 6)
 - **Kaixito:** `Aviso de mascota.` (correo 4) · `Hoy vengo enfadado.` (correo 7) · `Confesión de mascota.` (correo 9) · `Shhh.` (correo 10) · `Respira.` (correo 11) · `Misión fallida.` (correo 12) · `Culpable.` (correo 13) · `Interrogatorio.` (correo 14)
-- **Asier:** `Apunta.` (correo 8)
+- **El tercer jefe:** `Apunta.` (correo 8)
 
 ### ⚠️ Correo 7: lo que quedó sin hacer al enviarlo (apuntado el 13/10)
 - ✅ Su ninja ya está en `QUEMADAS` (13/10, con fecha 06/10).

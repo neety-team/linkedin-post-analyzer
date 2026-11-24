@@ -187,7 +187,7 @@ PPD. Las 200 siguen en el cajón. Alguna, seguro, era la buena.
 
 ---
 
-## Unai 03 · el comercial al que le guardaban sitio (pilar HISTORIA-TESTIGO, puerta del EVENTO)
+## el primer jefe 03 · el comercial al que le guardaban sitio (pilar HISTORIA-TESTIGO, puerta del EVENTO)
 
 **Enviado:** 2026-09-09 09:09 · campaña Brevo 18 · misma lista (45)
 **Remitente:** `Unai de Neety` (`hola@neety.com`) · firma `Unai Arambarri, CEO de Neety`
@@ -198,7 +198,7 @@ PPD. Las 200 siguen en el cajón. Alguna, seguro, era la buena.
 | Enviados / entregados | 45 / 45 |
 | Aperturas reales | **13 · 28,9%** |
 | Clic "global" | 4 |
-| **Clic al ENLACE** | **2**, uno es Mario → **1 de lead** (`a***@gmail.com`, 09/09 14:50) |
+| **Clic al ENLACE** | **2**, uno es el compañero de marketing → **1 de lead** (`a***@gmail.com`, 09/09 14:50) |
 | Bajas | 1 (`o***@gmail.com`) |
 
 ⚠️ **El asistente del evento NO vino de aquí, vino de HubSpot** (`historial-newsletter`, 14/09). Con 45 destinatarios, 0 y 1 clic son el mismo número: ni el correo 2 ni el 3 confirman ni desmienten nada sobre la posición del ninja.
@@ -264,7 +264,7 @@ PPD. Aquel comercial se jubiló y su agenda no la heredó nadie.
 |---|---|
 | Enviados / entregados | 45 / 45 |
 | Aperturas reales | **16 · 35,6%** |
-| **Clic al ENLACE** | **4**, uno es Mario → **3 de lead** |
+| **Clic al ENLACE** | **4**, uno es el compañero de marketing → **3 de lead** |
 | Bajas | **0** |
 | **Inscritos en Luma** | **1** (el primero atribuido a la newsletter) |
 
@@ -393,13 +393,13 @@ PPD. Si contestas a este correo, te responde una persona.
 ```
 
 > **Tres cosas de este correo que no se deben perder al versionarlo:**
-> 1. **La puerta cambió a `/agendar/` la víspera del evento** (Iker, 22/09): no sabemos dónde vive la lista y Donostia no le sirve a la mayoría. De paso lo convierte en la prueba limpia del pilar, sin el ruido del evento.
+> 1. **La puerta cambió a `/agendar/` la víspera del evento** (22/09): no sabemos dónde vive la lista y Donostia no le sirve a la mayoría. De paso lo convierte en la prueba limpia del pilar, sin el ruido del evento.
 > 2. **La línea del enlace dice QUIÉN lo hace** (`…, nosotros:`). La primera versión decía `con nombre y apellido:` y se quedaba en el qué. Iker: *"bastantes veces pecas de ser explícito, te falta serlo más"*.
 > 3. **`Abrirlo, no.` cuelga del ASUNTO**: es la palabra que el ninja repite, y cambió cuando cambió el asunto.
 
 ---
 
-## Unai 06 · el calendario del trimestre (pilar CALENDARIO, el primero del pilar · puerta `/agendar/`)
+## el primer jefe 06 · el calendario del trimestre (pilar CALENDARIO, el primero del pilar · puerta `/agendar/`)
 
 **Enviado:** 2026-09-29 09:07 · campaña Brevo 27 · listas 15 + 4 + 17 + 18 (111)
 **Remitente:** `Unai de Neety` (`hola@neety.com`) · firma `Unai Arambarri, CEO de Neety`
@@ -409,7 +409,7 @@ PPD. Si contestas a este correo, te responde una persona.
 |---|---|
 | Enviados / entregados | 111 / 111 |
 | Aperturas únicas | 63 · 56,8% |
-| **Clic al ENLACE** | **6**, uno es Mario → **5 de lead** (`t***@cein.es`, `i***@smartlg.com`, `j***@blug.es`, `a***@gmail.com`, `j***@baskeat.com`) |
+| **Clic al ENLACE** | **6**, uno es el compañero de marketing → **5 de lead** (`t***@cein.es`, `i***@smartlg.com`, `j***@blug.es`, `a***@gmail.com`, `j***@baskeat.com`) |
 | **Bajas** | 🔴 **3** (2,7%): `a***@agencia-gas-axpo.es` y `j***@battera.tech` (lista 18, inscritos del evento) y `j***@fex.eus` (que había pulsado el correo 5) |
 | Reuniones | **0**: ninguno de los 5 está en HubSpot ni tiene reunión (comprobado el 05/10) |
 
@@ -524,9 +524,9 @@ PPD. Si tu lista pasa de 2.000, no me lo cuentes. Me vuelvo a enfadar.
 
 ---
 
-## Asier 08 · la receta del sector (pilar RECETA, el primero del pilar y el estreno de Asier · puerta webinar `luma.com/7hhyx07z`)
+## el tercer jefe 08 · la receta del sector (pilar RECETA, el primero del pilar y el estreno del tercer jefe · puerta webinar `luma.com/7hhyx07z`)
 
-**Enviado:** 2026-10-14 11:49 (fuera de las 09:05: semana de puente y ordenador roto, decisión de Mario) · campaña Brevo 29 · listas 15 + 4 + 17 + 18 · **108 enviados, 107 entregados**
+**Enviado:** 2026-10-14 11:49 (fuera de las 09:05: semana de puente y ordenador roto, decisión del compañero de marketing) · campaña Brevo 29 · listas 15 + 4 + 17 + 18 · **108 enviados, 107 entregados**
 **Remitente:** `Asier de Neety` (`hola@neety.com`) · firma `Asier Olaizola, cofundador de Neety` · sin GIF
 **UTM escrito a mano:** `utm_source=correo-08-asier-receta` (Luma solo lee `utm_source`)
 
@@ -1068,7 +1068,7 @@ Post-mortem completo en `email-marketing §0b`.
 
 ## Lo que hay que arreglar al reescribirlo, y no es solo eso
 
-- **El consentimiento se da por hecho, no se pone en duda** (Iker, 2026-08-20). La broma se mantiene entera; lo que cambia es que Kaixito no recuerda **de cuál de las vías** vino, no si dio permiso. Con la tanda 1 de Brevo elegida por tener el tick, esa afirmación además es verdad y se puede demostrar.
+- **El consentimiento se da por hecho, no se pone en duda** (2026-08-20). La broma se mantiene entera; lo que cambia es que Kaixito no recuerda **de cuál de las vías** vino, no si dio permiso. Con la tanda 1 de Brevo elegida por tener el tick, esa afirmación además es verdad y se puede demostrar.
 - 🔴 **El CTA de respuesta hay que rediseñarlo, no repetirlo.** Sacó **0 respuestas de 191** con un 46% de aperturas. La gente abrió, leyó y no contestó. Si la métrica declarada del correo son las respuestas, ese correo **falló en lo único que medía**. Repetir el mecanismo tal cual es repetir un cero.
 - **La PPD sí funcionó:** los 4 clics de contenido de la tanda 1 salieron de ahí, y de ahí salió la reunión agendada. El enlace de agendar en la PPD se queda.
 
@@ -1098,7 +1098,7 @@ Viven en la biblioteca de contenido de Brevo. ⚠️ **Brevo no tiene gestor de 
 
 ## ⛔ La regla: el GIF lo elige el TEXTO, no el turno
 
-**En cada correo que firme Kaixito se elige la animación cuya emoción encaje con lo que dice el cuerpo** (Iker, 2026-08-20). No se rota por orden ni se repite la del correo anterior por comodidad.
+**En cada correo que firme Kaixito se elige la animación cuya emoción encaje con lo que dice el cuerpo** (2026-08-20). No se rota por orden ni se repite la del correo anterior por comodidad.
 
 En el correo 0 va **estresado** porque el cuerpo entero es la mascota agobiada sin recordar de qué te conoce. Si el GIF fuera alegría, el chiste no existiría: la imagen contradiría al texto y el lector notaría el pegote sin saber por qué.
 

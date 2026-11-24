@@ -28,7 +28,7 @@
 
 **El flujo completo:** post → comenta → le pasas el link por privado → **gate** (regala un poco + pide el correo) → **recurso** (el valor prometido) → secuencia de emails → demo.
 
-**⚠️ EL "LE PASAS EL LINK" TIENE UNA BIFURCACIÓN, Y ES EL CUELLO DE BOTELLA DEL PILAR (Iker, 2026-08-17).** LinkedIn solo entrega un mensaje privado a un contacto de 1er grado. Desde el 17/08 **no agregamos a nadie**: se retiraron la invitación con nota y el InMail (`post-workflow §4.5.-3`). Así que a quien no es contacto y no nos ha mandado solicitud, el link **no le llega en el momento**: se le responde en público pidiéndole que nos mande él la solicitud, y el recurso sale cuando la manda. Consecuencia para el diseño del post: **el gancho y los bullets tienen que valer lo suficiente para que dé ese paso**, porque ahora hay una acción suya entre el comentario y el recurso.
+**⚠️ EL "LE PASAS EL LINK" TIENE UNA BIFURCACIÓN, Y ES EL CUELLO DE BOTELLA DEL PILAR (2026-08-17).** LinkedIn solo entrega un mensaje privado a un contacto de 1er grado. Desde el 17/08 **no agregamos a nadie**: se retiraron la invitación con nota y el InMail (`post-workflow §4.5.-3`). Así que a quien no es contacto y no nos ha mandado solicitud, el link **no le llega en el momento**: se le responde en público pidiéndole que nos mande él la solicitud, y el recurso sale cuando la manda. Consecuencia para el diseño del post: **el gancho y los bullets tienen que valer lo suficiente para que dé ese paso**, porque ahora hay una acción suya entre el comentario y el recurso.
 
 ---
 
@@ -49,8 +49,8 @@ El error de bulto va en las dos direcciones y las dos matan:
 ## 2 · Qué recurso vale (antes de escribir la página)
 
 - **Nace de una duda real y repetida** de nuestro ICP, no de reciclar contenido con un título bonito. La mejor idea está donde tu audiencia repite una pregunta.
-- **⭐ PERO LO PRIMERO NO ES INVENTAR UN RECURSO, ES MIRAR EL CATÁLOGO (Iker, 2026-08-18).** Si ya hay uno en `neety.com/academia` cuyo TEMA dio comentarios, se **reutiliza el slug, la palabra y el enlace**, y solo se le mete lo aprendido desde entonces. La cola y el matiz de qué temas valen para esto están en `post-workflow §4.5.0-REUTILIZAR`. **Esto no choca con la línea de arriba:** ahí se prohíbe empaquetar contenido viejo con un título nuevo; aquí se obliga a reeditar un tema que ya demostró que pica.
-- **⛔ EL RECURSO SALE PROBADO POR MÍ, NUNCA POR IKER (Iker, 2026-10-23).** Si el recurso es un prompt o un encargo, se escribe con toda la chicha (qué leer, qué descarta, formato de salida, qué hacer si no encuentra nada en vez de rellenar) y **lo corro yo de principio a fin con empresas reales** (WebSearch/WebFetch) antes de entregar. Iker, literal: *"me tienes que dar un prompt lo suficientemente bueno… para que no tenga yo que probar nada"*. Nunca se deja como pendiente "que Iker lo pegue en Claude". Y la escena en primera persona del post (`le pasé`, `me salieron 15`) solo vale si la respalda esa prueba: si no, se cuenta lo que hace el encargo.
+- **⭐ PERO LO PRIMERO NO ES INVENTAR UN RECURSO, ES MIRAR EL CATÁLOGO (2026-08-18).** Si ya hay uno en `neety.com/academia` cuyo TEMA dio comentarios, se **reutiliza el slug, la palabra y el enlace**, y solo se le mete lo aprendido desde entonces. La cola y el matiz de qué temas valen para esto están en `post-workflow §4.5.0-REUTILIZAR`. **Esto no choca con la línea de arriba:** ahí se prohíbe empaquetar contenido viejo con un título nuevo; aquí se obliga a reeditar un tema que ya demostró que pica.
+- **⛔ EL RECURSO SALE PROBADO POR MÍ, NUNCA POR IKER (2026-10-23).** Si el recurso es un prompt o un encargo, se escribe con toda la chicha (qué leer, qué descarta, formato de salida, qué hacer si no encuentra nada en vez de rellenar) y **lo corro yo de principio a fin con empresas reales** (WebSearch/WebFetch) antes de entregar. Iker, literal: *"me tienes que dar un prompt lo suficientemente bueno… para que no tenga yo que probar nada"*. Nunca se deja como pendiente "que Iker lo pegue en Claude". Y la escena en primera persona del post (`le pasé`, `me salieron 15`) solo vale si la respalda esa prueba: si no, se cuenta lo que hace el encargo.
 - **Específico, nunca genérico.** ✅ *"Checklist para saber si tu prospección en LinkedIn está perdiendo oportunidades"* · ❌ *"Guía de ventas"*. (Esto es lo mismo que mató a la biblia 1.20x y al arsenal 0.64x en `global §4.4`.)
 - **Victoria rápida:** big fast value. Cuanto antes obtenga valor, más fácil que suelte el correo.
 - **Fórmula mental:** `resultado deseado + alta probabilidad de conseguirlo + poco tiempo + poco esfuerzo`.
@@ -59,7 +59,7 @@ El error de bulto va en las dos direcciones y las dos matan:
 - **Formatos que suenan accionables** (usa estas palabras, evita abstracciones): checklist · plantilla · diagnóstico · calculadora · auditoría · playbook · guía paso a paso · framework · mapa · score.
 - **Personalizado > genérico.** Un diagnóstico sobre SU caso convierte mucho más que un PDF igual para todos. Es lo que ya sabemos del post: la entrega LIVE (8.52x · 483 com.) bate al PDF. Lo mismo aplica a la web.
 - **El título vende el RESULTADO, no el formato.** ❌ "PDF gratuito" · ✅ *"Checklist para detectar si tus mensajes de LinkedIn parecen automatizados"*.
-- **⭐ EL TÍTULO DEL RECURSO Y EL H1 DEL GATE SON EL GANCHO DEL POST, CASI PALABRA POR PALABRA (Iker, 2026-07-27).** Quien aterriza en el gate viene de leer el post y de comentar la palabra: tiene que **reconocer la misma frase** en la primera línea. Un título descriptivo y neutro ("La rutina de prospección industrial que no depende de una herramienta") rompe la promesa y hace dudar de si ha llegado al sitio correcto. Si el post dice *"la prospección manual ha muerto buscando"*, el gate abre con *"La prospección manual ha muerto buscando clientes."* La palabra del gate (`manual`) va además en el `<em>` coral, y así gancho, palabra clave y titular son la misma cosa.
+- **⭐ EL TÍTULO DEL RECURSO Y EL H1 DEL GATE SON EL GANCHO DEL POST, CASI PALABRA POR PALABRA (2026-07-27).** Quien aterriza en el gate viene de leer el post y de comentar la palabra: tiene que **reconocer la misma frase** en la primera línea. Un título descriptivo y neutro ("La rutina de prospección industrial que no depende de una herramienta") rompe la promesa y hace dudar de si ha llegado al sitio correcto. Si el post dice *"la prospección manual ha muerto buscando"*, el gate abre con *"La prospección manual ha muerto buscando clientes."* La palabra del gate (`manual`) va además en el `<em>` coral, y así gancho, palabra clave y titular son la misma cosa.
 
 ---
 
@@ -73,7 +73,7 @@ El error de bulto va en las dos direcciones y las dos matan:
 - **UNA sola acción principal:** dejar el correo. Sin botones que distraigan.
 - **CTA nunca "Enviar".** ✅ "Quiero mi auditoría gratis" · "Descargar checklist" · "Ver mi diagnóstico" · "Recibir la guía".
 - **Formulario mínimo.** Si el recurso es simple, **solo email**. Si hay que cualificar, email + 1-2 campos clave como mucho. Formulario largo con valor percibido bajo = nadie lo rellena.
-- **⭐ EL ESTÁNDAR POR DEFECTO ES **NOMBRE + CORREO**, y nada más (Iker, 2026-07-27).** La fricción se reduce al máximo, pero el **nombre SÍ se pide siempre**: sin él no se pueden personalizar las campañas de email marketing (`email-marketing`), y un correo sin nombre nace muerto para la secuencia.
+- **⭐ EL ESTÁNDAR POR DEFECTO ES **NOMBRE + CORREO**, y nada más (2026-07-27).** La fricción se reduce al máximo, pero el **nombre SÍ se pide siempre**: sin él no se pueden personalizar las campañas de email marketing (`email-marketing`), y un correo sin nombre nace muerto para la secuencia.
   - **La EMPRESA no se pide salvo que haga falta de verdad**, porque **se deduce del dominio del correo**. Pedir un campo que ya sabes es fricción regalada.
   - Cuándo sí pedirla: cuando el recurso se personaliza por empresa o cuando el equipo comercial va a llamar y necesita cualificar antes. Si dudas, no la pidas.
   - Ojo, el histórico no está unificado: el gate de `subvencion-euskadi` pide nombre, email **y empresa**. Es la excepción heredada, no el patrón a copiar.
@@ -83,7 +83,7 @@ El error de bulto va en las dos direcciones y las dos matan:
 
 ---
 
-## 3b · ⛔⛔ EL CONSENTIMIENTO DE NEWSLETTER NUNCA ES OBLIGATORIO EN UN GATE (Iker, 2026-08-18)
+## 3b · ⛔⛔ EL CONSENTIMIENTO DE NEWSLETTER NUNCA ES OBLIGATORIO EN UN GATE (2026-08-18)
 
 > **🔴 ESTO LO PROPUSE AL REVÉS Y ES DE LOS ERRORES QUE MÁS CARO SALEN.** Al montar el segundo spam ninja escribí aquí que el consentimiento de newsletter *"pasa a ser obligatorio"* en el gate del recurso, para que el lead magnet captara suscriptores. **Iker lo tumbó en el momento y tiene razón por dos motivos independientes, cada uno suficiente.**
 
@@ -133,7 +133,7 @@ Nunca empieces pidiendo la llamada: primero valor, después la invitación.
 - Snippet: `const L = el => +(el.getBoundingClientRect().height / parseFloat(getComputedStyle(el).lineHeight)).toFixed(2);`
 - **Si el copy no cuadra, se acorta el copy. NUNCA se toca el CSS**, que es el mismo de los otros seis.
 
-## 📉 4c-bis · UNA PÁGINA NUESTRA SE JUZGA POR EL TIEMPO QUE RETIENE, Y HAY QUE MIRARLO (Mario, 2026-09-14)
+## 📉 4c-bis · UNA PÁGINA NUESTRA SE JUZGA POR EL TIEMPO QUE RETIENE, Y HAY QUE MIRARLO (2026-09-14)
 
 **El caso:** el mapa de Cantabria del 01/09 llevó **21 usuarios** a `recursos.neety.com/mapas/cantabria/` (la URL de entonces; hoy `neety.com/blog/mapa-industrial-cantabria`). En GA4, esa página los suelta en **14 segundos**.
 
@@ -335,11 +335,11 @@ CÓMO QUIERO QUE TRABAJES (antes de escribir una línea de copy)
    has adaptado. data-qa-libre solo en bloques que imitan un texto real.
 ```
 
-> **⭐ DE DÓNDE SALE EL PUNTO 2b (Iker, 2026-08-14, revisando `/criba/` ya construida).** Al briefing le faltaban **dos reglas medibles**, y las dos las descubrió él a mano después: **coherencia de bloques repetidos** (que los bloques gemelos rendericen las mismas líneas) y **ocupación** (que no quede columna fantasma). Son de la misma familia que el *"mide, no estimes"* del §4c: **una regla sin su número se incumple**, así que el briefing fija presupuesto de caracteres y de líneas en vez de dejar la longitud libre.
+> **⭐ DE DÓNDE SALE EL PUNTO 2b (2026-08-14, revisando `/criba/` ya construida).** Al briefing le faltaban **dos reglas medibles**, y las dos las descubrió él a mano después: **coherencia de bloques repetidos** (que los bloques gemelos rendericen las mismas líneas) y **ocupación** (que no quede columna fantasma). Son de la misma familia que el *"mide, no estimes"* del §4c: **una regla sin su número se incumple**, así que el briefing fija presupuesto de caracteres y de líneas en vez de dejar la longitud libre.
 >
 > **⛔ Y LA SEGUNDA TANDA CORRIGIÓ MI PRIMERA VERSIÓN, que es la lección que hay que llevarse.** Yo escribí la ocupación **solo para las tarjetas** y dejé el tope de lectura en el lienzo, y eso es **peor que el defecto de partida**: el lector ve alternarse bloques anchos y columnas estrechas. Iker: *"ancho completo o tope, pero para todo el documento igual"*. **Una regla de maquetación que se aplica a la mitad del documento no es media regla: es una incoherencia nueva.** Y al quitar el tope, la contrapartida no es opcional — sin presupuesto de líneas, un párrafo a ancho completo se va a cuatro líneas y se lee peor que antes.
 
-> **⭐ Y LA TERCERA TANDA (Iker, 2026-08-14) añade el punto 2c, que son dos caras de lo mismo: LO QUE SE VE MIDIENDO NO SE VE LEYENDO EL CÓDIGO.** Una **viuda** no está escrita en ningún sitio del HTML — aparece al renderizar, y encima **la puede fabricar un salto manual** que pusimos nosotros para arreglar otra cosa. Y un **max-width heredado** sí está escrito, pero **dentro de un componente que copiamos de otra guía**, así que quitar la regla global y darlo por hecho deja el bloque estrecho igual (el teaser venía con 600px). **La comprobación no es leer el CSS que escribiste: es medir el ancho y las líneas renderizadas de cada párrafo, uno a uno.**
+> **⭐ Y LA TERCERA TANDA (2026-08-14) añade el punto 2c, que son dos caras de lo mismo: LO QUE SE VE MIDIENDO NO SE VE LEYENDO EL CÓDIGO.** Una **viuda** no está escrita en ningún sitio del HTML — aparece al renderizar, y encima **la puede fabricar un salto manual** que pusimos nosotros para arreglar otra cosa. Y un **max-width heredado** sí está escrito, pero **dentro de un componente que copiamos de otra guía**, así que quitar la regla global y darlo por hecho deja el bloque estrecho igual (el teaser venía con 600px). **La comprobación no es leer el CSS que escribiste: es medir el ancho y las líneas renderizadas de cada párrafo, uno a uno.**
 
 **Antes de entregar el prompt, comprueba:**
 - ¿La muestra del gate **regala la pieza 1 entera**, y el resto se enseña **bloqueado**, no contado?

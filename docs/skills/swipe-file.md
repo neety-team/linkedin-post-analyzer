@@ -13,7 +13,7 @@ Cada ejemplo lleva: ratio real · métricas · y una nota de ANATOMÍA (qué hac
 
 ## 1 · MEME (con motor) — los 3 mejores del histórico
 
-### 1.1 · "Caja de herramientas" — Unai · 16.56x · 257❤ 27💬 12🔁 · 165.5K 👁 (EL mejor post)
+### 1.1 · "Caja de herramientas" — el primer jefe · 16.56x · 257❤ 27💬 12🔁 · 165.5K 👁 (EL mejor post)
 Anatomía: gancho de contraste en una línea (👇) → jerarquía de pasos numerados (1️⃣-7️⃣), cada uno con un dardo corto debajo → staccato de cierre ("Siete sitios… Ninguno se habla con el otro.") → pregunta-producto final. El motor es la imagen (wojak); el texto acompaña.
 ```
 En ventas, cada año la caja de herramientas engorda pero el comercial cierra peor 👇
@@ -111,7 +111,7 @@ Si tu empresa carga contenedores desde ahí, este es su sitio.
 > ⚠️ Fíjate en tres cosas: (a) **cada cifra cita fuente** (Datacomex, Banco Mundial) — obligatorio; (b) el cierre "La gente y las empresas que mueven todo esto:" es una **frase-comodín que se ha repetido** entre mapas → `working-preferences §4` pide variarla cada vez. No la copies literal; (c) **el reveal `Sí, hablo de Navarra.` tampoco se copia**: lo dicen LITERAL los 4 posts de peloteo (Navarra, Galicia, Aragón, País Vasco). El reveal se mantiene y sigue llegando tarde, pero con otras palabras (`global §4.1`). Los dos comodines están ya en el validador.
 
 > **⚠️ La variante "país inventado" NO es un mapa de peloteo** (no menciona a nadie, la imagen es un DIBUJO y no una captura de PamPam, y el motor es la controversia, no el orgullo regional). Está aquí solo por parecido de gancho. Ficha completa en `global-instructions §4.1`.
-> **Variante "país inventado" (trampa)** — Unai 7.87x · 78.7K, pero con **33 likes y 2 reposts**: alcance sin respaldo (Navarra, con las mismas impresiones, tuvo 563 likes y 46 reposts). Gancho `Nadie habla de este país... pero es donde mejor se vende del mundo 👇` + "razones" con guessing game ("¿Alguien se atreve a adivinar?"). ⚠️ **Corrección (2026-07-14): aquí ponía que Iker lo repitió y cayó a 1.2x "porque repetir el concepto lo mata". Es una conclusión mal sacada.** El de Iker (1.24x · 12.7K, "Este país no cuenta para los rankings…") no murió por repetido: murió **porque su país ficticio cayó en un sitio donde no había nada y no ofendió a nadie**. El de Unai voló porque se dibujó pegado a España y sin islas en el Mediterráneo, y la gente leyó que le habíamos puesto un país encima de **Baleares** → se lió. **El motor era la controversia (involuntaria), no la novedad del concepto.** Sin ofendido, no hay post.
+> **Variante "país inventado" (trampa)** — el primer jefe 7.87x · 78.7K, pero con **33 likes y 2 reposts**: alcance sin respaldo (Navarra, con las mismas impresiones, tuvo 563 likes y 46 reposts). Gancho `Nadie habla de este país... pero es donde mejor se vende del mundo 👇` + "razones" con guessing game ("¿Alguien se atreve a adivinar?"). ⚠️ **Corrección (2026-07-14): aquí ponía que Iker lo repitió y cayó a 1.2x "porque repetir el concepto lo mata". Es una conclusión mal sacada.** El de Iker (1.24x · 12.7K, "Este país no cuenta para los rankings…") no murió por repetido: murió **porque su país ficticio cayó en un sitio donde no había nada y no ofendió a nadie**. El del primer jefe voló porque se dibujó pegado a España y sin islas en el Mediterráneo, y la gente leyó que le habíamos puesto un país encima de **Baleares** → se lió. **El motor era la controversia (involuntaria), no la novedad del concepto.** Sin ofendido, no hay post.
 
 ---
 
@@ -169,15 +169,15 @@ Comenta "desmonta" + tu departamento y te respondo.
 > 1. **Sin la palabra "Comenta", la gente NO comenta.** No entiende que hay que hacerlo. El usuario lo probó pensando que el CTA explícito limitaba el alcance y pasó justo lo contrario.
 > 2. **No existe la fatiga de lead magnet.** Dos seguidos en la misma cuenta y el segundo es el 2º mejor post de la historia. Si un lead magnet flopea, mira el ángulo y el CTA, nunca la fecha.
 
-### 4.2 · "Vibe prospecting" — Unai · 9.85x · 95❤ **632💬** 6🔁 · 25.1K 👁 (récord de comentarios · EL mejor lead magnet)
+### 4.2 · "Vibe prospecting" — el primer jefe · 9.85x · 95❤ **632💬** 6🔁 · 25.1K 👁 (récord de comentarios · EL mejor lead magnet)
 Gancho `🚨 ÚLTIMA HORA: Claude acaba de matar el cold outbound como lo conocemos 👇` → bandwagon ("9 de cada 10 ya están migrando. Todos menos tú.") → sistema numerado de 5 puntos ("X > Y") → CTA `Comenta "vibe" y te lo paso.` La fórmula "Comenta [palabra] + te lo paso" repite en todos los lead magnets ganadores (llaves/frase/perfil/mensaje).
 
 ---
 
 ## 5 · FLOPS instructivos (qué NO repetir — mismo autor, mismo periodo)
 - **"Biblia de ventas" (todo en una caja)** — Iker 1.2x · 2.3K 👁. Lead magnet genérico "todo mi material junto" → LinkedIn no amplifica aunque comenten. El entregable tiene que ser UNO y específico.
-- **"País inventado" REMIX** — Iker 1.2x (vs 8.1x el original de Unai). Repetir el mismo concepto de mapa lo mata.
-- **"El comercial B2B ha engordado"** — Unai 2.6x. Cambio corporal bien, PERO timeline de UNA persona (2018→2026) en vez de jerarquía de roles → rinde mucho menos que el meme de jerarquía (16x).
+- **"País inventado" REMIX** — Iker 1.2x (vs 8.1x el original del primer jefe). Repetir el mismo concepto de mapa lo mata.
+- **"El comercial B2B ha engordado"** — el primer jefe 2.6x. Cambio corporal bien, PERO timeline de UNA persona (2018→2026) en vez de jerarquía de roles → rinde mucho menos que el meme de jerarquía (16x).
 - **Posts de ronda/evento** ("330.000€ levantados") — 2.0-2.7x. Normal y esperado: objetivo autoridad, no viralidad.
 - **Post del em-dash "—"** — Iker 1.3x. Opinión/humor sin motor ni mecánica.
 

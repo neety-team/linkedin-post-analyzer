@@ -11,17 +11,17 @@ Una vez publicado un post con foto, la foto **NO se puede cambiar** (habría que
 
 ---
 
-## ⭐ 0a-bis · NUNCA NUESTRA MARCA EN LA IMAGEN, Y LA IMAGEN COMPLEMENTA AL POST (Iker, 2026-07-27)
+## ⭐ 0a-bis · NUNCA NUESTRA MARCA EN LA IMAGEN, Y LA IMAGEN COMPLEMENTA AL POST (2026-07-27)
 
 **1. Ni el logo ni el nombre de Neety van dentro de la foto.** Aunque la referencia que calcamos lo lleve (Beeze lo pone arriba y abajo). En cuanto el lector ve una marca en la imagen, **entiende que le estan vendiendo algo** y baja la guardia del contenido. La foto tiene que parecer una pieza util, no una creatividad de empresa. Fuera tambien los subtitulos de cabecera tipo `SEÑALES DE COMPRA 2026`: ocupan sitio y no aportan.
 
 **2. La imagen COMPLEMENTA al post, y su titular ECHA EL GANCHO.** Si el post abre con *"la prospeccion manual ha muerto"*, el titulo de la imagen no puede ser *"Las 7 señales"*: son dos promesas distintas y el lector no las une. El titular de la imagen **continua** el gancho; el contenido de la imagen es la prueba de lo que el gancho promete.
 
-> ⛔⛔ **Y NUNCA LO REPITE TAL CUAL (Iker, 2026-08-11).** Aquí ponía *"repite o continua"* y el "repite" sobra: *"los textos de cualquier foto siempre tienen que ser complementarios al gancho de la publicación pero NO repetir lo mismo"*. En la vista previa se leen **las dos cosas a la vez**, así que una frase repetida gasta el único titular que tiene la imagen y no añade nada. **Dos frases, un solo chiste:** el gancho pone la regla y el titular de la imagen pone la consecuencia, la cuenta o el remate. Compartir una palabra vale; compartir la frase, no.
+> ⛔⛔ **Y NUNCA LO REPITE TAL CUAL (2026-08-11).** Aquí ponía *"repite o continua"* y el "repite" sobra: *"los textos de cualquier foto siempre tienen que ser complementarios al gancho de la publicación pero NO repetir lo mismo"*. En la vista previa se leen **las dos cosas a la vez**, así que una frase repetida gasta el único titular que tiene la imagen y no añade nada. **Dos frases, un solo chiste:** el gancho pone la regla y el titular de la imagen pone la consecuencia, la cuenta o el remate. Compartir una palabra vale; compartir la frase, no.
 >
 > ⚠️ **Esto es criterio, no dato, y conviene saberlo:** nuestro mejor meme de este formato —la escalera de Iker, **13.92x y 138.828 impresiones**— **sí** repetía: el gancho del post y el titular de la imagen eran la misma frase, *"Subir en ventas siempre pasa factura"*. Así que repetir no hunde nada; la apuesta es que complementar rinde más. Si un remix complementado se queda corto, esta es la primera variable a mirar.
 
-**2b. ⛔ Y EL TITULAR DE LA IMAGEN TAMBIÉN ANCLA A VENTAS (Iker, 2026-08-11).** La misma
+**2b. ⛔ Y EL TITULAR DE LA IMAGEN TAMBIÉN ANCLA A VENTAS (2026-08-11).** La misma
 regla del gancho (`global §2.3`) vale para el titular de la foto: **tiene que llevar una
 palabra de ventas dentro**. No basta con que la lleven las etiquetas, los datos o las
 menciones.
@@ -39,7 +39,7 @@ repita el gancho es fácil irse tan lejos que se pierde el ancla. Pasó el 11/08
 *"Seis peldaños, seis coronillas"*, complementario y sin una sola palabra de ventas. **Las
 dos condiciones se cumplen a la vez:** *"Seis peldaños **en ventas**, seis coronillas"*.
 
-**2c. ⛔ LAS CIFRAS DE LA IMAGEN, EN DÍGITO (Iker, 2026-08-11).** `6 peldaños`, no
+**2c. ⛔ LAS CIFRAS DE LA IMAGEN, EN DÍGITO (2026-08-11).** `6 peldaños`, no
 `Seis peldaños`. **No es una regla nueva: es `global §3.6` —que ya lo exige en el texto
 del post— aplicada también a la foto.** Se me había quedado solo en el post.
 
@@ -50,7 +50,7 @@ se juega todo en la miniatura, cada punto de tamaño cuenta. Además el ojo lo l
 dato y no como prosa, que es justo lo que es.
 
 **2d. ⭐ SI LA REFERENCIA REPITE SU CONCEPTO EN TEXTO E IMAGEN, NOSOTROS LO DEJAMOS SOLO
-EN LA IMAGEN (Iker, 2026-08-11).** Es la forma más barata de *copiar y mejorar* que hemos
+EN LA IMAGEN (2026-08-11).** Es la forma más barata de *copiar y mejorar* que hemos
 encontrado: **le ganamos un sitio entero**.
 
 **El caso:** la referencia de Lauren Vilips dice en el texto *"you work in marketing you're
@@ -71,7 +71,7 @@ recoge ningún texto, la referencia está calcada por fuera y vacía por dentro.
 2. ¿El concepto es puramente verbal y la imagen no lo sostiene? → al texto.
 3. **Nunca a los dos**, y **nunca a ninguno**.
 
-**2e. ⭐ EL DETALLE DEL DIBUJO TAMBIÉN SE PUEDE SUBIR UN PELDAÑO (Iker, 2026-08-11).** No
+**2e. ⭐ EL DETALLE DEL DIBUJO TAMBIÉN SE PUEDE SUBIR UN PELDAÑO (2026-08-11).** No
 solo se mejora el texto, el color y el formato: **el propio dibujo tiene grados**, y subirlo
 un peldaño suele ser gratis.
 
@@ -105,11 +105,11 @@ defecto.
 - **Tabla, infografía o datos:** en los datos, que son lo único que lleva caja (`§2b-bis`).
 - **Foto real o portada de vídeo:** en la cara y su gesto, con el titular arriba y grande.
 
-**Las reglas que ya eran esto sin llamarlo así:** la palabra naranja (`§4`), solo los datos llevan caja (`§2b-bis`), el titular más grande y más arriba (`§0a-bis` punto 3), la cifra del cheque que no va en naranja (`§0a-DIBUJO-2` punto 7) y la prueba de los 360 px. **Auditoría del 30/10 contra esta regla:** el único sitio donde el naranja caía fuera del foco era el meme dibujado (corregido ese día) y el sistema del meme desde cero de `§6`, que pedía la palabra naranja siempre y queda superado. El lead magnet, el mapa y el título de dos líneas en escalera ya ponían el naranja en el mensaje. **No está medido, y hay un dato en contra que hay que tener delante:** nuestros dos mejores memes de gráfica, la escalera de Asier del 12/08 (121.706 impresiones) y la de Iker (138.828), llevaban una palabra naranja en el título. No demuestra que el naranja ayude (no hubo versión sin él), pero impide dar la regla nueva por buena. **Queda como A/B abierto** en el registro de `historial-publicaciones.md`: memes con palabra naranja en el título contra memes sin ella, empezando por el de las llamadas de Iker del 30/10.
+**Las reglas que ya eran esto sin llamarlo así:** la palabra naranja (`§4`), solo los datos llevan caja (`§2b-bis`), el titular más grande y más arriba (`§0a-bis` punto 3), la cifra del cheque que no va en naranja (`§0a-DIBUJO-2` punto 7) y la prueba de los 360 px. **Auditoría del 30/10 contra esta regla:** el único sitio donde el naranja caía fuera del foco era el meme dibujado (corregido ese día) y el sistema del meme desde cero de `§6`, que pedía la palabra naranja siempre y queda superado. El lead magnet, el mapa y el título de dos líneas en escalera ya ponían el naranja en el mensaje. **No está medido, y hay un dato en contra que hay que tener delante:** nuestros dos mejores memes de gráfica, la escalera del tercer jefe del 12/08 (121.706 impresiones) y la de Iker (138.828), llevaban una palabra naranja en el título. No demuestra que el naranja ayude (no hubo versión sin él), pero impide dar la regla nueva por buena. **Queda como A/B abierto** en el registro de `historial-publicaciones.md`: memes con palabra naranja en el título contra memes sin ella, empezando por el de las llamadas de Iker del 30/10.
 
-## ✏️✏️ 0a-DIBUJO · TODO LO QUE DIBUJA EL GENERADOR SALE EN DIBUJO MINIMALISTA, AUNQUE LA REFERENCIA SEA FOTO O 3D (Iker, 2026-10-01)
+## ✏️✏️ 0a-DIBUJO · TODO LO QUE DIBUJA EL GENERADOR SALE EN DIBUJO MINIMALISTA, AUNQUE LA REFERENCIA SEA FOTO O 3D (2026-10-01)
 
-> **Iker, sobre la v1 del meme de Unai (los sueños por cargo, referencia de Mundorf):** *"son imágenes reales. Yo quiero siempre, y siempre te lo he dicho, fotos minimalistas. Aquí literalmente ha calcado, se nota la copia muy descarada, por mucho que haya adaptado bien el formato cuadrado y los colores de la marca… necesito que los dibujos sean realmente dibujos minimalistas"*. Y el precedente bueno: *"ayer en el Lead Magnet me pusiste un hombre en modo minimalista, sin contornos, rollo silueta, aunque la referencia no lo era y era 3D"* (Asier, `/sistema/`, 30/09: *"una silueta de persona de pie en azul bebé"*).
+> **Iker, sobre la v1 del meme del primer jefe (los sueños por cargo, referencia de Mundorf):** *"son imágenes reales. Yo quiero siempre, y siempre te lo he dicho, fotos minimalistas. Aquí literalmente ha calcado, se nota la copia muy descarada, por mucho que haya adaptado bien el formato cuadrado y los colores de la marca… necesito que los dibujos sean realmente dibujos minimalistas"*. Y el precedente bueno: *"ayer en el Lead Magnet me pusiste un hombre en modo minimalista, sin contornos, rollo silueta, aunque la referencia no lo era y era 3D"* (el tercer jefe, `/sistema/`, 30/09: *"una silueta de persona de pie en azul bebé"*).
 
 **La regla.** Toda persona, objeto o escena que **pinte el generador** sale en **ilustración plana minimalista**: figuras de color liso de la paleta, sin sombras, sin volumen, sin degradados, sin texturas ni línea de contorno negra, caras sin rasgos o con lo mínimo para leer el gesto (dos puntos y una línea), fondos vacíos o de un solo plano. **Nunca fotorrealista y nunca 3D**, aunque la referencia lo sea. Lo que se calca de la referencia es la **maquetación, el texto y la mecánica del chiste**; **el acabado es siempre el nuestro**.
 
@@ -118,18 +118,18 @@ defecto.
 **Esto corrige dos líneas viejas** que decían lo contrario: `§0d` y `§5-B` (*"el estilo de dibujo: si es minimalista → minimalista; si es recargado → recargado"*) y `post-workflow §4.4` (*"Fidelidad al diseño original: mantén el estilo de dibujo"*). **Ya no se hereda el estilo de dibujo de la referencia; se heredan su maquetación y su chiste.**
 
 **Lo que NO toca (cuidado con pasarse de frenada):**
-- **Las fotos reales que no pinta el generador:** la foto del jefe en una historia o un lead magnet (`§3.3`, `§0a-octava`), la plantilla fotográfica de un meme famoso que se pega tal cual (Mario, 27/08), los logos de la orla de "Las 10" y la silueta del despiece. Esas no se redibujan.
+- **Las fotos reales que no pinta el generador:** la foto del jefe en una historia o un lead magnet (`§3.3`, `§0a-octava`), la plantilla fotográfica de un meme famoso que se pega tal cual (27/08), los logos de la orla de "Las 10" y la silueta del despiece. Esas no se redibujan.
 - **El pantallazo y el documento fingido** (`§0a-sexta-bis/ter`, `§0a-septima-*`): un chat, un correo, un tuit o una factura calcan la interfaz, que ya es plana. Si dentro del pantallazo sale una persona (el avatar), va en dibujo.
 - **El gesto que hace el chiste NO se pierde por simplificar.** La mano en la frente del jefe agobiado, el calvo, el pelo largo al viento: se dibujan con el mínimo trazo que lo cuenta. Minimalista no es sin expresión.
 
 **🔄 Y SE PIDE CON SU NOMBRE: `flat illustration` (Iker, 2026-10-02).** El primer prompt del meme de Asier del 02/10 decía *ilustración plana de estilo editorial… formas de color liso* y el generador devolvió un dibujo con sombras en la cara, volumen en la sudadera y brillo en la taza. Iker: *"esto yo creo que no es flat illustration… siempre le pidas tal cual flat illustration"*. **El término en inglés es el que el generador reconoce como estilo**; la descripción en castellano la interpreta y mete sombreado. Desde hoy la frase lleva **`flat illustration`** literal y prohíbe por su nombre **sombras, degradados, volumen y brillos**. Eso corrige también las *"sombras mínimas en bloque"* que describían el estilo aprobado el 01/10 en `§0a-DIBUJO-2`.
 - **Y nunca una persona real reconocible.** Si la referencia es la foto o el fotograma de alguien de verdad (el del 02/10 podía ser un influencer polémico), se redibuja en flat illustration de forma que no se le reconozca. Hacerlo en caricatura evitó que se le reconociera. **Y redibujar no basta si conserva su rasgo más reconocible: se cambia uno desde el PRIMER prompt** (pelo, barba, complexión). En la v3 del 02/10 seguía calvo y con la misma barba que el original, y se le puso pelo: el original es un creador polémico y la marca no se asocia con él.
-- **⛔ SALVO QUE EL PERSONAJE SEA PARTE DE LA GRACIA (Iker, 2026-10-21).** Si el chiste vive en que el lector reconozca a un personaje de ficción (Glinda y Elphaba de *Wicked* en el meme de ventas y marketing de Mario), se redibuja en flat **con sus rasgos y colores icónicos intactos**: la bruja con la piel verde y el sombrero de copa alta acabado en punta, la otra rubia, de piel clara y vestida de rosa. Yo había escrito *"sin que se reconozca a ninguna actriz"* y quitado el verde, el pico del sombrero y el rosa (por paleta): la v1 salió con un sombrero de ala plana y una blusa azul bebé, y el contraste bruja contra princesa, que es el chiste, se perdió. Iker: *"aunque los dibujemos con nuestro estilo, tenemos que respetar los colores de la broma, de los personajes, para que la gente los pueda identificar fácil"*. **Lo que no se reconoce es a la ACTRIZ (su cara), no al PERSONAJE.** Y los colores del personaje mandan sobre la paleta de marca, igual que la anatomía (`§0i-4`); la paleta se queda en fondo, textos y atrezo. La prueba: *¿quien vio la referencia reconoce a los personajes en un segundo?* Si no, falta su rasgo icónico.
-- **⛔ Y LAS MIRADAS SE CALCAN, personaje a personaje (Iker, 2026-10-21).** En la misma v1 la de arriba miraba de lado y la de abajo a la izquierda hacia arriba a la derecha; en la referencia la de arriba mira casi al frente, la bruja hacia arriba a la izquierda y la rubia hacia arriba. *"Tienes que calcar hasta las miradas"*. Va en el inventario del Paso 6a (`post-workflow §4.4`, punto 2, la pose) y en el primer prompt, con la dirección de los ojos de cada personaje dicha por separado.
+- **⛔ SALVO QUE EL PERSONAJE SEA PARTE DE LA GRACIA (2026-10-21).** Si el chiste vive en que el lector reconozca a un personaje de ficción (Glinda y Elphaba de *Wicked* en el meme de ventas y marketing del compañero de marketing), se redibuja en flat **con sus rasgos y colores icónicos intactos**: la bruja con la piel verde y el sombrero de copa alta acabado en punta, la otra rubia, de piel clara y vestida de rosa. Yo había escrito *"sin que se reconozca a ninguna actriz"* y quitado el verde, el pico del sombrero y el rosa (por paleta): la v1 salió con un sombrero de ala plana y una blusa azul bebé, y el contraste bruja contra princesa, que es el chiste, se perdió. Iker: *"aunque los dibujemos con nuestro estilo, tenemos que respetar los colores de la broma, de los personajes, para que la gente los pueda identificar fácil"*. **Lo que no se reconoce es a la ACTRIZ (su cara), no al PERSONAJE.** Y los colores del personaje mandan sobre la paleta de marca, igual que la anatomía (`§0i-4`); la paleta se queda en fondo, textos y atrezo. La prueba: *¿quien vio la referencia reconoce a los personajes en un segundo?* Si no, falta su rasgo icónico.
+- **⛔ Y LAS MIRADAS SE CALCAN, personaje a personaje (2026-10-21).** En la misma v1 la de arriba miraba de lado y la de abajo a la izquierda hacia arriba a la derecha; en la referencia la de arriba mira casi al frente, la bruja hacia arriba a la izquierda y la rubia hacia arriba. *"Tienes que calcar hasta las miradas"*. Va en el inventario del Paso 6a (`post-workflow §4.4`, punto 2, la pose) y en el primer prompt, con la dirección de los ojos de cada personaje dicha por separado.
 
 **Cómo se pide (la frase que va en el prompt, después de la maquetación):** *"Todo en flat illustration: colores planos sin sombras, sin degradados, sin volumen ni brillos y sin contorno negro, caras con lo mínimo para entender el gesto, nada fotorrealista ni en 3D."* Si ya hay una v1 fotorrealista, el prompt de edición es ese cambio y nada más (`§0i-3`): **"redibuja toda la imagen en…"** + la frase + la contención corta.
 
-### ✏️ 0a-DIBUJO-2 · LA V2 DEL MISMO MEME: TRES COSAS QUE EL DIBUJO NO ARREGLA SOLO (Iker, 2026-10-01)
+### ✏️ 0a-DIBUJO-2 · LA V2 DEL MISMO MEME: TRES COSAS QUE EL DIBUJO NO ARREGLA SOLO (2026-10-01)
 
 > Sobre la v2 ya dibujada de los sueños por cargo: *"siempre que generamos fotos hay que pensar que en tamaño pequeño se vean bien… cada uno te ha faltado ponerle un pijama diferente… se parecen mucho. Asegúrate de que los cinco personajes son diferentes… queremos siempre variedad"*. Y la cifra del cheque, 777.777 €: *"no es realista… no me gusta"*.
 
@@ -140,7 +140,7 @@ defecto.
 4. **La cifra dentro de la imagen es CREÍBLE: ni redonda ni de dígitos repetidos.** 500.000 € (la del original) es redonda, y 777.777 € suena a lotería y a cifra inventada. Una comisión soñada va grande pero con aspecto de cifra de verdad (**487.350 €**). Es la misma regla que el texto (la de las cifras creíbles del texto), aplicada al atrezo.
 5. **El rótulo del atrezo no repite una etiqueta que ya está en la imagen: lleva un chiste del cargo.** La placa de la mesilla del director decía DIRECTOR COMERCIAL justo al lado de la etiqueta "Director Comercial". Venía de la referencia, pero repetido no suma nada. Iker: *"algo gracioso relacionado con su puesto"*, igual que la taza LLAMA MÁS del junior. Dos palabras como mucho, en letra grande, porque si no a 360 px no se lee. **⛔ Y el chiste del cargo NUNCA deja mal a un cargo que compra (`post-workflow §4.4-COMPRADOR`).** Lo propuse yo, *EN REUNIÓN* en la mesilla del director dormido, y **el post se retiró por ese detalle**: se lee como que el director dice que está reunido y está durmiendo, y el director comercial es quien nos compra. Valen la presión del cargo o lo que sueña (un rótulo tipo *OBJETIVO ANUAL*), nunca que no trabaja.
 
-**✅ EL ESTILO QUE QUEDÓ APROBADO (Iker, 01/10, v3):** *"el estilo de dibujo me convence mucho más… antes eran los personajes como muy pálidos, ahora más carne… me encanta"*. Se llama **ilustración plana (flat illustration) de estilo editorial**: formas de color liso sin contorno, piel y pelo en tonos naturales (la paleta de marca no se aplica a la anatomía, `§0i-4`), ~~sombras mínimas en bloque~~ (🔄 02/10: sin sombras, ver arriba), caras con ojos, cejas y boca, y en los objetos el detalle justo para reconocerlos. Pasa la prueba de los 360 px. **Para pedirlo desde el primer prompt:** *"Todo en flat illustration: colores planos sin sombras, sin degradados, sin volumen ni brillos y sin líneas de contorno, piel y pelo en tonos naturales, caras con solo ojos, cejas y boca, y cada personaje distinto en edad, pelo y ropa. Nada fotorrealista ni en 3D."* (🔄 02/10: antes decía *ilustración plana de estilo editorial* y el generador metía sombreado)
+**✅ EL ESTILO QUE QUEDÓ APROBADO (01/10, v3):** *"el estilo de dibujo me convence mucho más… antes eran los personajes como muy pálidos, ahora más carne… me encanta"*. Se llama **ilustración plana (flat illustration) de estilo editorial**: formas de color liso sin contorno, piel y pelo en tonos naturales (la paleta de marca no se aplica a la anatomía, `§0i-4`), ~~sombras mínimas en bloque~~ (🔄 02/10: sin sombras, ver arriba), caras con ojos, cejas y boca, y en los objetos el detalle justo para reconocerlos. Pasa la prueba de los 360 px. **Para pedirlo desde el primer prompt:** *"Todo en flat illustration: colores planos sin sombras, sin degradados, sin volumen ni brillos y sin líneas de contorno, piel y pelo en tonos naturales, caras con solo ojos, cejas y boca, y cada personaje distinto en edad, pelo y ropa. Nada fotorrealista ni en 3D."* (🔄 02/10: antes decía *ilustración plana de estilo editorial* y el generador metía sombreado)
 6. **El pelo y la barba van en color natural NOMBRADO, nunca en el de la marca.** En la v3 el comercial salió con el pelo y la perilla en berenjena, porque el generador estira la paleta a la anatomía aunque `§0i-4` lo prohíba. Iker: *"ponle el pelo y la barba marrón… nadie lo tenemos así"*. La ropa en berenjena sí se le pasa. **En el prompt se dice el color del pelo de CADA personaje** (rubio, castaño, negro, canoso), sin dejarlo a la paleta.
 7. **El color del texto: todo en berenjena, incluido el del atrezo, y una sola palabra naranja en toda la imagen.** 🔄 **En el MEME, desde el 30/10, ni esa: la palabra naranja solo entra si la referencia ya lleva una palabra de color** (ver la frontera de `§0a-sexta-quater`, que se amplía al meme dibujado). Lo de abajo sigue valiendo para el resto de piezas dibujadas. El "¿DÓNDE ESTÁN LAS VENTAS?" del pósit y el 487.350 € del cheque van en berenjena, como las etiquetas: es la tinta de la pieza y la unifica. **La cifra NO va en naranja aunque sea lo más llamativo del sueño:** con dos focos naranjas el ojo se reparte y deja de caer en la palabra que cierra el chiste del título (*vuelas*). El naranja de los OBJETOS (la taza, los rayos de los cascos, una flecha) no compite porque no es texto: es atrezo y da calor. La regla es la de la palabra naranja (`§4`), aplicada también al texto pequeño.
 8. **El atrezo no contradice al texto.** La gráfica del sueño del jefe de equipo subía mientras el pósit preguntaba "¿dónde están las ventas?". Cada objeto se lee con su texto al lado: si el texto es una pesadilla, la gráfica baja.
@@ -163,7 +163,7 @@ Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. *
 - La **regla de la palabra naranja se mantiene**, solo cambia el tono exacto.
 - **Tipografía sin cambios:** Bricolage Grotesque en títulos, botones y textos cortos; Switzer en texto corrido y anotaciones (pág. 19-20).
 
-## 🎨🎨 0a-ter-CALCO · DEL COLOR DE LA REFERENCIA NO SE CALCA NADA, Y LA CAJA SOLO SE QUEDA EN LAS ETIQUETAS DE ROL (Iker, 2026-08-27)
+## 🎨🎨 0a-ter-CALCO · DEL COLOR DE LA REFERENCIA NO SE CALCA NADA, Y LA CAJA SOLO SE QUEDA EN LAS ETIQUETAS DE ROL (2026-08-27)
 
 > **Iker, viendo la v1 del meme de la escalera del peso:** *"no entiendo de dónde se ha sacado que la paleta de nuestra aplicación sea azul. Eso lo habrá copiado tal cual de la referencia, pero está fatal. Solo en los roles aún te compro los cuadrados, pero en los ejes de las gráficas no lo veo bien"*.
 
@@ -174,7 +174,7 @@ Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. *
 2. **⛔ La CAJA solo se queda donde separa una etiqueta de la ilustración: los roles.** El **título** y los **rótulos de los ejes** van en **texto suelto berenjena `#431b44` sobre el fondo**, sin recuadro. La caja ahí no aporta nada y encima mete una masa de color que compite con las figuras.
 3. **Y el motivo por el que se puede quitar, dicho por Iker:** *"como ya tenemos el fondo que no es un blanco, ya podemos aprovechar para poner arriba los textos en morado, y así no hace falta que tengan ese recuadro"*. **Sobre el mint claro, la berenjena tiene contraste de sobra**; la caja solo hace falta cuando el texto cae encima de una foto.
 
-**EL MODELO, y es nuestro:** la escalera de calvicie de Asier del 12/08 (**121.706 impresiones**). Título en berenjena con **una** palabra en naranja (🔄 30/10: en el meme, sin palabra naranja salvo que la referencia la traiga; A/B abierto, ver `§0a-FOCO`) y sin caja · línea fina berenjena debajo · cajas berenjena con texto blanco **solo** en los seis roles · rótulo del eje en berenjena suelto · fondo mint. **Cuando el remix sea un gráfico o una infografía, ese es el acabado al que va, no el del original.**
+**EL MODELO, y es nuestro:** la escalera de calvicie del tercer jefe del 12/08 (**121.706 impresiones**). Título en berenjena con **una** palabra en naranja (🔄 30/10: en el meme, sin palabra naranja salvo que la referencia la traiga; A/B abierto, ver `§0a-FOCO`) y sin caja · línea fina berenjena debajo · cajas berenjena con texto blanco **solo** en los seis roles · rótulo del eje en berenjena suelto · fondo mint. **Cuando el remix sea un gráfico o una infografía, ese es el acabado al que va, no el del original.**
 
 - **⚠️ Esto NO toca la excepción del pantallazo documental** (`§0a-sexta-bis` y `§0a-sexta-ter`): cuando la imagen finge ser una pantalla real, se calcan color y tipografía del original, porque lo que hace el chiste es reconocer el formato. La regla de aquí es para lo que **diseñamos nosotros**.
 - **Mecanizado** como punto 7 del aviso de entrega del prompt de imagen en `validar-post.py`.
@@ -186,7 +186,7 @@ Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. *
 - **Dos lineas** en cuanto juntarlo en una obligue a reducir el cuerpo de letra. Un titular largo metido a la fuerza en una linea se lee peor en el feed que el mismo titular partido y grande.
 - Sale del mismo sitio que `§0a-quater`: en el movil manda la legibilidad, no la simetria.
 
-## 🔴 0a-penta · DESPUES DE TODO PROMPT DE IMAGEN, EL RECORDATORIO DE POSTPRODUCCION (Iker, 2026-07-27)
+## 🔴 0a-penta · DESPUES DE TODO PROMPT DE IMAGEN, EL RECORDATORIO DE POSTPRODUCCION (2026-07-27)
 
 > 🧰 **Desde el 2026-11-17 la herramienta de retoque es PhotoCraft, no Photoshop** (gratuita en el ordenador del equipo). Todos los avisos de postproducción (desenfoque de superficie, exportar sin metadatos, pasar el magenta a transparente, mover un elemento) se dan con PhotoCraft. ⚠️ Los nombres de menú que cita esta skill (`Exportar como`, `Metadatos: Ninguno`, `desenfoque de superficie`) son los de Photoshop y no están comprobados en PhotoCraft: si allí se llaman distinto, se anota aquí el nombre real. Las menciones a Photoshop que quedan en casos pasados son historia.
 
@@ -194,7 +194,7 @@ Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. *
 
 > ⚠️ **AVISO, MARIO: acuérdate de aplicar el desenfoque de superficie en PhotoCraft y de exportar sin metadatos con Exportar como.**
 
-**⛔⛔ EL LITERAL Y EL EMOJI SON EXACTAMENTE ESOS, Y NO ES UN DETALLE DE ESTILO (Iker, 2026-08-18).** Yo venía entregándolo con `⚙️` y con la palabra *postproducción*, que se lee como un paso técnico opcional. Iker: *"si me pones ese emoji de un engranaje no me parece algo urgente, y si un día estoy agobiado o despistado puede que no lo note. Es muy importante que me pongas el emoji del triángulo amarillo y textualmente aviso, Mario, dos puntos, o cuidado, Mario, dos puntos"*.
+**⛔⛔ EL LITERAL Y EL EMOJI SON EXACTAMENTE ESOS, Y NO ES UN DETALLE DE ESTILO (2026-08-18).** Yo venía entregándolo con `⚙️` y con la palabra *postproducción*, que se lee como un paso técnico opcional. Iker: *"si me pones ese emoji de un engranaje no me parece algo urgente, y si un día estoy agobiado o despistado puede que no lo note. Es muy importante que me pongas el emoji del triángulo amarillo y textualmente aviso, el compañero de marketing, dos puntos, o cuidado, el compañero de marketing, dos puntos"*.
 
 - **El emoji es `⚠️`.** Ni `⚙️`, ni `🔧`, ni `📌`. El triángulo es el único que él lee como alerta cuando va rápido.
 - **Y empieza nombrándole a él:** `AVISO, MARIO:` o `CUIDADO, MARIO:`. Un aviso dirigido a alguien se salta menos que uno impersonal.
@@ -202,45 +202,45 @@ Fuente: `Documentos/Mario/LINKEDIN GROWTH/Brandbook Neety Nuevo.pdf`, pag. 23. *
 - **⛔ Y PEGADO AL AVISO, EL NOMBRE PROPUESTO PARA GUARDAR LA IMAGEN (2026-11-11).** Debajo del aviso de postproducción va SIEMPRE una línea con el nombre del fichero para el export: `📁 Guárdala como: palabras clave del post.png`. Todo en minúsculas y con espacios. Solo palabras clave de ventas y del chiste, que LinkedIn también indexa, sin el jefe, sin la fecha y sin el formato (`cuadrada`, `1x1`). Vale para todo prompt de imagen de cualquier pilar, también en las ediciones, aunque la regla del nombre ya existiera para las fotos de las carpetas: en el meme de la pala se entregaron cinco prompts sin ella.
 
 
-**⛔⛔ LAS EXCEPCIONES: TODA IMAGEN MONTADA POR SCRIPT SOBRE LA PLANTILLA DE IKER — "LOS 10" (`montar-orla.py`) Y EL DESPIECE (`montar-llanta.py`) (Iker, 2026-09-16).** *"ese aviso de exportar la imagen con desenfoque y sin metadatos no hace falta porque tú me has generado la imagen en base a mi plantilla… al igual con el formato de los 10"*. **Ahí NO va el aviso, ni al entregar ni al cerrar la imagen.** El desenfoque se aplicó UNA vez a la plantilla; lo que el script pega son logos y fotos de LinkedIn, sin acabado de render ni firma de generador. El 16/09 lo repetí seis veces en el despiece de Bizkaia porque esta sección solo nombraba "Los 10" (la receta del despiece lo decía en `post-workflow §4.7` Paso 4 y aun así se coló).
+**⛔⛔ LAS EXCEPCIONES: TODA IMAGEN MONTADA POR SCRIPT SOBRE LA PLANTILLA DE IKER — "LOS 10" (`montar-orla.py`) Y EL DESPIECE (`montar-llanta.py`) (2026-09-16).** *"ese aviso de exportar la imagen con desenfoque y sin metadatos no hace falta porque tú me has generado la imagen en base a mi plantilla… al igual con el formato de los 10"*. **Ahí NO va el aviso, ni al entregar ni al cerrar la imagen.** El desenfoque se aplicó UNA vez a la plantilla; lo que el script pega son logos y fotos de LinkedIn, sin acabado de render ni firma de generador. El 16/09 lo repetí seis veces en el despiece de Bizkaia porque esta sección solo nombraba "Los 10" (la receta del despiece lo decía en `post-workflow §4.7` Paso 4 y aun así se coló).
 
-**La excepción original, "LOS 10" (Iker, 2026-07-28):** Ahi la imagen NO la genera una IA: la **compone `scripts/montar-orla.py`** pegando las fotos de LinkedIn sobre la plantilla que pasa Iker, pixel a pixel. No hay acabado de render que suavizar ni metadatos de generador que borrar, asi que **en "Los 10" NO se pone el aviso**. En todos los demas pilares si, porque la imagen sale de un generador.
+**La excepción original, "LOS 10" (2026-07-28):** Ahi la imagen NO la genera una IA: la **compone `scripts/montar-orla.py`** pegando las fotos de LinkedIn sobre la plantilla que pasa Iker, pixel a pixel. No hay acabado de render que suavizar ni metadatos de generador que borrar, asi que **en "Los 10" NO se pone el aviso**. En todos los demas pilares si, porque la imagen sale de un generador.
 
-**🚨 Y SOBRE TODO CUANDO LA IMAGEN QUEDA CERRADA (Iker, 2026-07-29).** Hoy entregue cuatro prompts de edicion seguidos del meme del tatuaje y **no puse el aviso en ninguno**, ni siquiera al dar la imagen por definitiva. **El momento critico es ese**, porque es cuando Mario deja de iterar y se va a subir el fichero:
+**🚨 Y SOBRE TODO CUANDO LA IMAGEN QUEDA CERRADA (2026-07-29).** Hoy entregue cuatro prompts de edicion seguidos del meme del tatuaje y **no puse el aviso en ninguno**, ni siquiera al dar la imagen por definitiva. **El momento critico es ese**, porque es cuando el compañero de marketing deja de iterar y se va a subir el fichero:
 
 - **Debajo de CADA prompt de imagen** va el aviso, tal cual, aunque sea la quinta pasada. Junto al ⚠️ de adjuntos (`§0i`), primero los adjuntos y despues este.
 - **Y cuando la imagen se da por DEFINITIVA** — se apruebe con prompt o sin el, aunque no haya mas edicion que entregar — el aviso se repite **solo, en su propio bloque**, con la frase de por que: sin el desenfoque la imagen conserva el acabado de render y los metadatos del generador, y se nota que es IA.
 
-**Por que en TODOS y no solo en el ultimo (Iker, 2026-07-29):** desde fuera **no hay forma de saber cual es la ultima pasada**. Iker lo sabe cuando ve la imagen, yo no. Asi que va en todos por si acaso, y cambia el TONO segun el momento:
+**Por que en TODOS y no solo en el ultimo (2026-07-29):** desde fuera **no hay forma de saber cual es la ultima pasada**. Iker lo sabe cuando ve la imagen, yo no. Asi que va en todos por si acaso, y cambia el TONO segun el momento:
 
 - **Mientras se itera** → en modo **recordatorio**, seco y de una linea. Que no estorbe.
 - **Cuando Iker dice explicitamente que la imagen esta perfecta o la da por buena** → en modo **alerta final**, en su propio bloque, con el porque y con el detalle de las Content Credentials. Ese es el momento en que se ejecuta de verdad.
 
 **El disparador no es "he escrito un prompt", es "esta imagen se va a subir".** Si la imagen se cierra sin que haya un prompt de por medio, el aviso va igual.
 
-**⚠️ EL DESENFOQUE VA SIEMPRE, LO QUE CAMBIA ES EL RADIO (Iker, 2026-07-31 — corrige lo del 30/07).** Aqui iban los dos pasos siempre juntos y **no son lo mismo**:
+**⚠️ EL DESENFOQUE VA SIEMPRE, LO QUE CAMBIA ES EL RADIO (2026-07-31 — corrige lo del 30/07).** Aqui iban los dos pasos siempre juntos y **no son lo mismo**:
 - **Desenfoque de superficie → EN TODO LO QUE SALGA DE UN GENERADOR, tambien en caras fotorrealistas.** Lo que cambia son los valores:
   - **Pieza de DISEÑO generada** (infografia, tabla, ilustracion, portada): **radio 8, umbral 12**. Mata el acabado de render.
   - **ROSTRO fotorrealista**: **radio 1, umbral 12**. Quita el ruido del generador **y la piel sigue con su poro y su textura**. Con radio 8 el rostro SI se cartoniza y parece un dibujo, que es de donde salio la regla vieja.
   - **🔴 CORRECCION DE MI REGLA ANTERIOR.** El 30/07 escribi *"el desenfoque NO va en las fotos realistas de personas"* y lo convertí en un si-o-no. **Estaba mal planteado: la variable no era si aplicarlo, era el RADIO.** Iker lo probo el 31/07 y con radio 1 funciona. **Algo hay que aplicarle siempre**, porque todo lo que sale del generador lleva su ruido; lo que no vale es aplicarle el mismo valor a una infografia y a una cara. **Leccion de fondo: cuando una tecnica "estropea" algo, mira primero sus parametros antes de prohibirla entera.**
 - **Exportar sin metadatos → SIEMPRE que la imagen haya pasado por un GENERADOR o por PHOTOCRAFT.** Eso va de la firma del generador, no del aspecto. **Se hace con `Archivo > Exportar > Exportar como` y `Metadatos: Ninguno`.** NUNCA con `Guardar como`, que los arrastra.
-- **🚫 PERO NO EN UNA CAPTURA DE PANTALLA, Y EL MAPA ERA EL CASO (Iker, 2026-07-31; desde el 24/11/2026 el mapa sale por código, sin PamPam, y tampoco lleva metadatos que limpiar).** Iker pregunto si convenia limpiar tambien la imagen del mapa, que sale de PamPam. **No.** Y el porque importa mas que la respuesta: **PamPam es una web, no un fichero**, asi que no incrusta nada. Los metadatos de esa imagen los pone **la herramienta de captura**, y Recortes de Windows deja dimensiones y resolucion, nada mas: ni camara, ni GPS, ni autor, ni firma de generador. **Los dos metadatos que nos perjudican de verdad son (a) las marcas de procedencia de IA tipo C2PA, que solo mete un generador, y (b) lo que escribe Photoshop, que ademas arrastra los campos del fichero original.** Una captura de tu propia pantalla no tiene ninguna de las dos. **Evidencia:** todos los mapas se han subido tal cual desde siempre y varios son virales, incluido el 12.92x de Gipuzkoa. Añadir el paso no arregla nada y mete friccion justo al publicar.
+- **🚫 PERO NO EN UNA CAPTURA DE PANTALLA, Y EL MAPA ERA EL CASO (2026-07-31; desde el 24/11/2026 el mapa sale por código, sin PamPam, y tampoco lleva metadatos que limpiar).** Iker pregunto si convenia limpiar tambien la imagen del mapa, que sale de PamPam. **No.** Y el porque importa mas que la respuesta: **PamPam es una web, no un fichero**, asi que no incrusta nada. Los metadatos de esa imagen los pone **la herramienta de captura**, y Recortes de Windows deja dimensiones y resolucion, nada mas: ni camara, ni GPS, ni autor, ni firma de generador. **Los dos metadatos que nos perjudican de verdad son (a) las marcas de procedencia de IA tipo C2PA, que solo mete un generador, y (b) lo que escribe Photoshop, que ademas arrastra los campos del fichero original.** Una captura de tu propia pantalla no tiene ninguna de las dos. **Evidencia:** todos los mapas se han subido tal cual desde siempre y varios son virales, incluido el 12.92x de Gipuzkoa. Añadir el paso no arregla nada y mete friccion justo al publicar.
   - **Unica excepcion:** si la captura se abre en PhotoCraft para recortarla o retocarla, entonces si se exporta sin metadatos, porque **el que ensucia es PhotoCraft, no PamPam**.
   - **La regla general que se saca de aqui:** el disparador de limpiar metadatos **no es "voy a subir una imagen"**, es **"esta imagen ha pasado por un generador o por PhotoCraft"**. Si no ha pasado por ninguno de los dos, no hay nada que limpiar.
   - **Y el hueco que deja ese aviso en el mapa NO se queda vacio: se sustituye por el del ENCUADRE** (`post-workflow §4.2`), en **UNA sola linea**: logos grandes y bien espaciados, y si alguno queda muy lejos, moverle la ubicacion a mano en PamPam. Ahi la imagen ES el contenido, y la captura la hace el usuario, asi que es el unico punto del pilar que yo no puedo verificar.
-- **⚠️ OJO, SON DOS MENUS DISTINTOS Y ES FACIL BUSCARLO EN EL SITIO EQUIVOCADO** (Iker, 2026-07-30): **calidad → `Guardar para web`** · **metadatos → `Exportar como`**. En un meme hacen falta los dos. *(Atajo: `Guardar para web` tambien trae su propio desplegable de `Metadatos`, asi que si lo pones a `Ninguno` ahi te ahorras el segundo paso.)*
+- **⚠️ OJO, SON DOS MENUS DISTINTOS Y ES FACIL BUSCARLO EN EL SITIO EQUIVOCADO** (2026-07-30): **calidad → `Guardar para web`** · **metadatos → `Exportar como`**. En un meme hacen falta los dos. *(Atajo: `Guardar para web` tambien trae su propio desplegable de `Metadatos`, asi que si lo pones a `Ninguno` ahi te ahorras el segundo paso.)*
 - **🚨🚨 LA DEGRADACIÓN A PROPÓSITO ESTÁ EN CUARENTENA (medido el 2026-08-04). NO la apliques hasta nuevo aviso.**
-  - **Los datos.** Los memes de Asier: 16/07 **29.764** impresiones (sin degradar) · 22/07 **345** (JPG calidad 10, 500x500) · 31/07 **196** (JPG calidad 10). Entre medias, su "Los 10" del 29/07 hizo **8.382**, o sea que **la cuenta NO estaba capada**. **Lo único que comparten los dos hundidos es el fichero degradado.**
+  - **Los datos.** Los memes del tercer jefe: 16/07 **29.764** impresiones (sin degradar) · 22/07 **345** (JPG calidad 10, 500x500) · 31/07 **196** (JPG calidad 10). Entre medias, su "Los 10" del 29/07 hizo **8.382**, o sea que **la cuenta NO estaba capada**. **Lo único que comparten los dos hundidos es el fichero degradado.**
   - **Y esto tumba la explicación fácil.** Iker sospechaba de la foto de persona generada por IA del 31/07, pero **el del 22/07 hizo 345 sin ninguna IA**: era un overlay montado a mano sobre plantilla. Si la IA fuera la causa, ese habría ido bien.
   - **La teoría:** LinkedIn premia imagen nítida y nosotros le estábamos mandando un fichero malo a propósito para que "pareciera reenviado mil veces". La convención de meme cutre puede estar costando más alcance del que aporta de credibilidad.
   - **⚠️ n pequeño y con confusión:** son 2 posts, en la cuenta más joven, y en ese periodo la cuenta no estaba verificada. **No es prueba, es la sospecha con más respaldo.** Se resuelve republicando limpio y comparando.
   - **Mientras tanto:** los memes se entregan **a resolución completa y sin bajar calidad**. Si hace falta que parezca reenviado, se consigue con el CONTENIDO (una captura, una interfaz real), no destrozando el fichero.
-- **JPG calidad 10 → SOLO en memes** (`§0`). **⚠️ EL 500x500 NO ES PARA TODOS LOS MEMES (Iker, 2026-07-30).** Ese tamaño salio de los memes de PLANTILLA con etiquetas (wojak, Aquaman), donde el texto va en negrita gruesa con borde y sobrevive a la compresion. **En un meme de REACCION con foto realista, el elemento legible es la CARA**, y es lo primero que destruye el reescalado: a 500x500 se pierde el gesto, que es literalmente el chiste. Ahi **se mantiene la resolucion original y solo se baja la calidad a 10**.
-  - **El porque, que es lo que hay que entender:** la degradacion hace DOS trabajos. (a) *Convencion*: decir "esto lo ha reenviado media internet". Solo funciona si la imagen es una captura de algo que ya existia; en una foto nuestra generada no cuela y solo parece una foto mala. (b) *Matar el acabado de render*: la piel demasiado perfecta del generador. **Ese si hace falta siempre, y la calidad 10 lo consigue a cualquier tamaño.** Cuando la imagen no es una captura, solo se busca (b). **⚠️ Se hace con `Archivo > Guardar para web`, NO con `Exportar como`** (Iker, 2026-07-30): el control de calidad 0-100 solo esta ahi y en `Exportar como` no lo encuentras. Es lo que hace que parezca reenviado mil veces. **Y en un meme de foto realista este paso SUSTITUYE al desenfoque**: el pixelado del JPG ya rompe el acabado limpio sin cartonizar la cara.
+- **JPG calidad 10 → SOLO en memes** (`§0`). **⚠️ EL 500x500 NO ES PARA TODOS LOS MEMES (2026-07-30).** Ese tamaño salio de los memes de PLANTILLA con etiquetas (wojak, Aquaman), donde el texto va en negrita gruesa con borde y sobrevive a la compresion. **En un meme de REACCION con foto realista, el elemento legible es la CARA**, y es lo primero que destruye el reescalado: a 500x500 se pierde el gesto, que es literalmente el chiste. Ahi **se mantiene la resolucion original y solo se baja la calidad a 10**.
+  - **El porque, que es lo que hay que entender:** la degradacion hace DOS trabajos. (a) *Convencion*: decir "esto lo ha reenviado media internet". Solo funciona si la imagen es una captura de algo que ya existia; en una foto nuestra generada no cuela y solo parece una foto mala. (b) *Matar el acabado de render*: la piel demasiado perfecta del generador. **Ese si hace falta siempre, y la calidad 10 lo consigue a cualquier tamaño.** Cuando la imagen no es una captura, solo se busca (b). **⚠️ Se hace con `Archivo > Guardar para web`, NO con `Exportar como`** (2026-07-30): el control de calidad 0-100 solo esta ahi y en `Exportar como` no lo encuentras. Es lo que hace que parezca reenviado mil veces. **Y en un meme de foto realista este paso SUSTITUYE al desenfoque**: el pixelado del JPG ya rompe el acabado limpio sin cartonizar la cara.
 
 Los dos pasos son de postproduccion y se olvidan porque no estan en el prompt: el **desenfoque de superficie** le quita el acabado de render a la imagen generada, y **exportar sin metadatos** borra la firma del generador (`Exportar como…` o `Guardar para web`, con **Metadatos: Ninguno`; NUNCA `Guardar como`, que los arrastra). Ojo tambien con las **Content Credentials de Adobe (C2PA)**: van por un canal aparte y el "Metadatos: Ninguno" no las toca, hay que desactivarlas en `Ventana > Content Credentials`.
 
-## ⭐ 0a-quater · EL TEXTO DE LA IMAGEN SIEMPRE LEGIBLE (Iker, 2026-07-27)
+## ⭐ 0a-quater · EL TEXTO DE LA IMAGEN SIEMPRE LEGIBLE (2026-07-27)
 
 **Todo texto que metamos en una foto tiene que leerse comodo EN EL FEED Y EN EL MOVIL**, que es donde entra la mayoria. No vale que se lea bien en el fichero a tamano completo: la imagen se ve reducida y a un pulgar de distancia.
 
@@ -249,7 +249,7 @@ Los dos pasos son de postproduccion y se olvidan porque no estan en el prompt: e
 - Al pedirlo, dale una **operacion y un espacio** (`§0c`), nunca un juicio: *"agranda el texto de la tabla y aprovecha el espacio que sobra a los lados"*, no *"que se vea mejor"*.
 - Caso real (lead magnet de prospeccion manual, 2026-07-27): el titular se comia el protagonismo y la tabla quedaba pequena. Se agrando la tabla usando margenes e interlineado y se bajo el titular: quedo legible sin perder ninguna fila.
 
-## 🔴 0a-septima · QUÉ SE CAMBIA Y QUÉ NO AL CALCAR (Iker, 2026-07-29)
+## 🔴 0a-septima · QUÉ SE CAMBIA Y QUÉ NO AL CALCAR (2026-07-29)
 
 Al remixar una referencia hay **dos capas** y se confunden con facilidad. **Yo me equivoqué al revés en el meme del tatuaje**: cambié el motor y dejé los detalles.
 
@@ -257,18 +257,18 @@ Al remixar una referencia hay **dos capas** y se confunden con facilidad. **Yo m
 
 **LO QUE SÍ HAY QUE CAMBIAR SIEMPRE, para que no nos pillen el calco:**
 - **La hora** que sale en la captura. **Con minuto impar** (`09:47`, no `10:46`).
-- **⭐⭐ Y TODAS las cifras visibles de la captura, no solo LA hora (Iker, 2026-08-19).** Aquí ponía "la hora" en singular porque nuestras capturas eran de un correo o un chat, donde solo hay una. **En un documento con FILAS hay una marca de tiempo por fila**, y todas se cambian: `hace 6 días`, `hace 9 horas`, contadores de reacciones, número de resultados, precios, cualquier número que se lea.
+- **⭐⭐ Y TODAS las cifras visibles de la captura, no solo LA hora (2026-08-19).** Aquí ponía "la hora" en singular porque nuestras capturas eran de un correo o un chat, donde solo hay una. **En un documento con FILAS hay una marca de tiempo por fila**, y todas se cambian: `hace 6 días`, `hace 9 horas`, contadores de reacciones, número de resultados, precios, cualquier número que se lea.
   - **El fallo:** en la captura de la búsqueda de Google del meme del 20/08 dejé los cuatro tiempos calcados del original (**6 días, 9 horas, 21 horas, 6 días**) y encima con el 6 repetido. Iker: *"cada una de las cuatro páginas tiene un número; quiero que los cambies todos y que sean impares, y que así no se detecte la copia"*.
   - **Las tres condiciones a la vez:** **impares** (`§2.5b`: son cifras que elegimos nosotros), **distintas entre sí** (dos filas con el mismo número cantan a plantilla) y **distintas de las del original** (que es para lo que existe esta sección). Quedaron 3 días · 7 horas · 19 horas · 5 días.
   - **Y que sigan cuadrando con lo que cuenta cada fila:** lo que se presenta como recién salido lleva horas, y lo que se presenta como antiguo lleva días. Cambiar el número no es sortearlo.
-- **El nombre del remitente:** el del dueño de la cuenta donde se publica (Unai, Iker o Asier).
-- **El nombre del destinatario:** un **nombre común en el País Vasco**, que es de donde es la mayor parte de la audiencia. Rota: no repitas el que usó esa cuenta en sus 3 últimas publicaciones (`global §2.0b-VENTANA`). **Usados: Mikel** y **Iñaki** (meme del tatuaje, Unai, 2026-07-29), hoy libres otra vez. Libres: Gorka, Aitor, Jon, Ander, Eneko, Julen, Imanol, Beñat, Koldo. **Apunta aquí el que uses cada vez.**
-  > ### ⛔⛔ 0a-septima-NOMBRES · EL NOMBRE INVENTADO COPIA EL SEXO DEL ORIGINAL Y LA TIERRA DE LA CUENTA (Iker, 2026-08-18)
+- **El nombre del remitente:** el del dueño de la cuenta donde se publica (el primer jefe, Iker o el tercer jefe).
+- **El nombre del destinatario:** un **nombre común en el País Vasco**, que es de donde es la mayor parte de la audiencia. Rota: no repitas el que usó esa cuenta en sus 3 últimas publicaciones (`global §2.0b-VENTANA`). **Usados: Mikel** y **Iñaki** (meme del tatuaje, el primer jefe, 2026-07-29), hoy libres otra vez. Libres: Gorka, Aitor, Jon, Ander, Eneko, Julen, Imanol, Beñat, Koldo. **Apunta aquí el que uses cada vez.**
+  > ### ⛔⛔ 0a-septima-NOMBRES · EL NOMBRE INVENTADO COPIA EL SEXO DEL ORIGINAL Y LA TIERRA DE LA CUENTA (2026-08-18)
   > **Vale para CUALQUIER nombre de persona que aparezca dentro de una imagen remixada** — el destinatario de un correo, el autor de un tuit, el contacto de un chat—, y **la lista de arriba se queda corta porque es toda de hombres.**
   >
   > **LAS TRES REGLAS, y van juntas:**
   > 1. **MISMO SEXO QUE EL ORIGINAL.** Antes de escribir el prompt, mira **de quién es la cuenta de la referencia**: si el tuit lo firma una mujer, el nuestro lo firma una mujer. Cambiar el sexo cambia cómo se lee el chiste y encima delata que hemos pasado por encima del original sin mirarlo.
-  > 2. **NOMBRE ESPAÑOL FICTICIO, DE LA TIERRA DE LA CUENTA QUE PUBLICA.** Por defecto **vasco**, porque los tres jefes lo son y ahí está el grueso de la audiencia. **Pero si la cuenta es de Helena o de Mario, que son de Valencia, el nombre va valenciano** (`aboutme §2`). El nombre es un guiño de cercanía: tiene que sonar a alguien del sitio de quien publica.
+  > 2. **NOMBRE ESPAÑOL FICTICIO, DE LA TIERRA DE LA CUENTA QUE PUBLICA.** Por defecto **vasco**, porque los tres jefes lo son y ahí está el grueso de la audiencia. **Pero si la cuenta es de la compañera de clientes o del compañero de marketing, que son de Valencia, el nombre va valenciano** (`aboutme §2`). El nombre es un guiño de cercanía: tiene que sonar a alguien del sitio de quien publica.
   >    - **Mujer, vasco:** Ainhoa · Nerea · Maialen · Leire · Miren · Garbiñe · Amaia · Uxue · Itziar.
   >    - **Mujer, valenciano:** Aitana · Neus · Empar · Lledó · Núria · Carme · Vicenta · Mar.
   >    - **Hombre, valenciano:** Vicent · Ximo · Pau · Enric · Salva · Quique · Nel·lo.
@@ -280,13 +280,13 @@ Al remixar una referencia hay **dos capas** y se confunden con facilidad. **Yo m
   >
   > **⛔ VASCO SÍ, PERO DE LOS QUE SUENAN EN TODA ESPAÑA (Iker, 2026-09-22).** Propuse cambiar `Aitor G` / `Ander` por `Gorka M` / `Gaizka` y lo tumbó: *"esos nombres a los vascos les molarán pero los veo demasiado específicos, mejor los otros, no pasa nada mientras se cumpla la esencia del meme"*. **El nombre es atrezo, no guiño regional:** se elige de los vascos que el lector de cualquier sitio reconoce sin pararse (`Aitor`, `Ander`, `Mikel`, `Iñaki`, `Jon`, `Asier`), nunca de los muy marcados (`Gorka`, `Gaizka`, `Ekaitz`, `Koldo`). Y el parecido con una persona real mencionada semanas antes en la misma cuenta (lo que me hizo proponer el cambio: `Aitor Lizarraga`, "Los 10" de Unai del 15/09) **no se considera motivo**, si el nombre va sin apellido.
   >
-  > **🔄 NOMBRES FICTICIOS YA USADOS (con fecha y cuenta: frenan solo a esa cuenta durante sus 3 publicaciones siguientes, `global §2.0b-VENTANA`):** `Mikel` e `Iñaki` (correo del tatuaje, Unai, 29/07) · `Cuota Trimestral` (tuit del diccionario, Unai, 13/08, cuenta-rol) · `aitana lledó` (tuit del seguimiento, Helena, 18/08) · `Aitor G` remitente y `Ander` firma (correo a Dirección, Unai, 22/09).
+  > **🔄 NOMBRES FICTICIOS YA USADOS (con fecha y cuenta: frenan solo a esa cuenta durante sus 3 publicaciones siguientes, `global §2.0b-VENTANA`):** `Mikel` e `Iñaki` (correo del tatuaje, el primer jefe, 29/07) · `Cuota Trimestral` (tuit del diccionario, el primer jefe, 13/08, cuenta-rol) · `aitana lledó` (tuit del seguimiento, la compañera de clientes, 18/08) · `Aitor G` remitente y `Ander` firma (correo a Dirección, el primer jefe, 22/09).
 - **La foto de perfil** que aparezca: la del dueño de la cuenta.
 - Y cualquier dato identificable del original (empresa, ciudad, cifras).
 
 **La prueba para no dudar:** si al quitar ese elemento el chiste sigue funcionando, es un detalle y se cambia. Si al quitarlo el chiste se cae, es la esencia y se respeta.
 
-**⚠️ LA TENTACION DE METER NUESTRO LOGO EN LA ESENCIA (Iker, 2026-07-29).** Cuando la esencia viral es un objeto que lleva una marca (el tatuaje del logo del cliente, una taza, una camiseta, un cartel), sale sola la idea de **poner ahi el logo de Neety**. Suena a originalidad y es lo contrario:
+**⚠️ LA TENTACION DE METER NUESTRO LOGO EN LA ESENCIA (2026-07-29).** Cuando la esencia viral es un objeto que lleva una marca (el tatuaje del logo del cliente, una taza, una camiseta, un cartel), sale sola la idea de **poner ahi el logo de Neety**. Suena a originalidad y es lo contrario:
 
 - **Se cae la frase.** El chiste era *me tatuo el logo del CLIENTE al cerrar un trato*. Con el nuestro no hay chiste, hay un tio con un tatuaje.
 - **Se cae la credibilidad.** La pieza vive de que el lector se crea dos segundos que eso paso de verdad (`§0a-sexta-bis`). Un logo nuestro nitido dice "anuncio" antes de que lea el texto.
@@ -296,7 +296,7 @@ Al remixar una referencia hay **dos capas** y se confunden con facilidad. **Yo m
 
 **Corolario, porque la duda salio dos veces el mismo dia:** una vez decidido que va pixelado, **lo que haya debajo es irrelevante, porque no se ve**. No merece la pena otra pasada para que el borron sea "algo de ventas". Y si se hiciera reconocible, seria peor: la censura solo tiene sentido tapando una **marca real**; censurar un icono generico hace que el lector se pregunte por que lo tapas y se le cae la ilusion. **El contexto ya lo dice**: la frase de al lado nombra el logo del cliente, la imagen no tiene que repetirlo.
 
-### 0a-septima-bis · LA PERSPECTIVA DEL PANTALLAZO (Iker, 2026-07-29)
+### 0a-septima-bis · LA PERSPECTIVA DEL PANTALLAZO (2026-07-29)
 
 Antes de repartir nombres y fotos, **decide desde qué bandeja se ve la captura**, porque de eso depende quién es quién. Y esa decisión la manda el CUERPO del post, no la referencia.
 
@@ -305,7 +305,7 @@ Antes de repartir nombres y fotos, **decide desde qué bandeja se ve la captura*
 
 **El error que hay que evitar:** heredar la bandeja de la referencia sin mirar si el cuerpo que hemos escrito va en esa dirección. Si no cuadran, la imagen desmiente al texto en el primer segundo.
 
-### 0a-septima-ter · EL PANTALLAZO, ÍNTEGRO EN ESPAÑOL (Iker, 2026-07-29)
+### 0a-septima-ter · EL PANTALLAZO, ÍNTEGRO EN ESPAÑOL (2026-07-29)
 
 La interfaz que imitamos **está en español entera**, incluidas las palabras del sistema que el generador tiende a dejar en inglés porque la referencia venía así. **Una sola palabra en inglés delata que la captura es falsa.** Repásalo antes de mandar el prompt:
 
@@ -313,7 +313,7 @@ La interfaz que imitamos **está en español entera**, incluidas las palabras de
 - WhatsApp: `online` → **`en línea`** · `typing…` → **`escribiendo…`**
 - LinkedIn: `Connect` → **`Conectar`** · `followers` → **`seguidores`**
 
-### 🌍 0a-septima-LOCAL · EN UN PANTALLAZO SE LOCALIZA TODO, NO SOLO EL IDIOMA — SALVO QUE SEA UN DATO REAL DE UN TERCERO (Iker, 2026-08-25)
+### 🌍 0a-septima-LOCAL · EN UN PANTALLAZO SE LOCALIZA TODO, NO SOLO EL IDIOMA — SALVO QUE SEA UN DATO REAL DE UN TERCERO (2026-08-25)
 
 > **Iker, viendo el pantallazo del buscador de empleo con Seúl y Nueva York dentro:** *"aparte del idioma hay que adaptar las ubicaciones… nos convendría mejor ciudades de España, ¿no? Esto es como cuando te digo que cambies las horas y que las adaptes"*.
 
@@ -331,9 +331,9 @@ La interfaz que imitamos **está en español entera**, incluidas las palabras de
 **📞 EL TELÉFONO ESPAÑOL NO ES SOLO CAMBIAR EL PREFIJO (meme de Iker, 2026-09-16).** Mi prompt pidió `+34 617 43 291` y el generador lo pintó tal cual. Tenía dos fallos que no son de gusto, son de datos:
 - **Un número español tiene 9 cifras** (`617 43 29 15`), no 8. El de la referencia, `+1 (628) 899-2679`, tiene las 10 de EE. UU. **Se cuentan las cifras antes de dar el prompt.**
 - **Un móvil español (`6xx`, `7xx`) no lleva ciudad; un fijo sí, por su prefijo** (`943` = Gipuzkoa, `944` = Bizkaia, `945` = Álava, `948` = Navarra). En EE. UU. el `628` es de San Francisco aunque sea móvil, así que el original cuadraba; `Éibar` encima de un `617` no cuadra. **Si la pantalla enseña ciudad, el número es un fijo de esa provincia.**
-- **Y el topónimo va en español de España: `Éibar`, con tilde (Iker, 2026-09-16).** Yo propuse quitarla por no mezclarla con `Gipuzkoa`, e Iker lo tumbó: *"en español de España, Eibar sí que se escribe con acento"*. Se queda `Éibar, Gipuzkoa`.
+- **Y el topónimo va en español de España: `Éibar`, con tilde (2026-09-16).** Yo propuse quitarla por no mezclarla con `Gipuzkoa`, e Iker lo tumbó: *"en español de España, Eibar sí que se escribe con acento"*. Se queda `Éibar, Gipuzkoa`.
 - **El fijo, además, cuadra con la escena (Iker):** si se pregunta por una persona concreta es porque en ese sitio hay más gente, o sea una oficina, y una oficina llama desde un fijo que empieza por 9.
-- ⛔ **Si un número va censurado en un sitio, va censurado en TODOS los sitios de la captura (Iker, 2026-09-16).** *"Al igual que censuramos el final del número arriba, en el mensaje de abajo esos últimos números también deberían estar censurados"*. **La referencia lo tenía mal** (tapaba el grande y enseñaba el pequeño) y yo lo calqué: **los defectos del original no se heredan** (`§0d`). Y hay un motivo más que el de coherencia: un número completo y verosímil en un post de una empresa que da teléfonos es el disparador de `brand-voice §2c-DATOS`, y puede ser de alguien de verdad.
+- ⛔ **Si un número va censurado en un sitio, va censurado en TODOS los sitios de la captura (2026-09-16).** *"Al igual que censuramos el final del número arriba, en el mensaje de abajo esos últimos números también deberían estar censurados"*. **La referencia lo tenía mal** (tapaba el grande y enseñaba el pequeño) y yo lo calqué: **los defectos del original no se heredan** (`§0d`). Y hay un motivo más que el de coherencia: un número completo y verosímil en un post de una empresa que da teléfonos es el disparador de `brand-voice §2c-DATOS`, y puede ser de alguien de verdad.
 
 **Por qué importa: un pantallazo se cree o no se cree, y no hay término medio.** El registro entero vive de que el lector piense un segundo que eso es una captura de verdad (`§0a-sexta-bis`). Una ciudad americana en la pantalla de un director comercial de Gipuzkoa lo delata igual que una palabra en inglés.
 
@@ -346,7 +346,7 @@ La interfaz que imitamos **está en español entera**, incluidas las palabras de
 - **Dato de un tercero identificable** (la sede de una empresa nombrada, el destino de un vuelo real, el precio real de un producto) → **se queda como es**. Y si esa ubicación molesta al chiste, se **reencuadra** —se recorta esa columna o se quita la línea— pero **no se falsea**.
 - **Y el chiste casi nunca depende de la ciudad:** antes de pelearse con esto, comprueba si el detalle carga el chiste (`global §2.3c`). Si no lo carga, lo que sobra es el detalle, no la verdad.
 
-### 0a-septima-quinquies · EL TEXTO DENTRO DE UN PANTALLAZO (Iker, 2026-07-29)
+### 0a-septima-quinquies · EL TEXTO DENTRO DE UN PANTALLAZO (2026-07-29)
 
 Tres defectos que salieron en la segunda pasada del meme del tatuaje y que **tenian que haber ido ya en el primer prompt**. Van los tres, siempre, desde la version uno:
 
@@ -356,7 +356,7 @@ Tres defectos que salieron en la segunda pasada del meme del tatuaje y que **ten
 
 **El objetivo es que la version UNO ya salga perfecta.** Cada pasada extra es tiempo del diseñador y riesgo de que se rompa algo que ya estaba bien.
 
-### 0a-septima-quater · REENCUADRE Y AIRE (Iker, 2026-07-29)
+### 0a-septima-quater · REENCUADRE Y AIRE (2026-07-29)
 
 Dos defectos que salen solos al pasar una referencia **vertical a cuadrada** y hay que pedir siempre a mano:
 
@@ -365,7 +365,7 @@ Dos defectos que salen solos al pasar una referencia **vertical a cuadrada** y h
 
 **Cómo se le habla al generador:** órdenes concretas y visuales sobre QUÉ mover y HACIA DÓNDE. **No entiende instrucciones de criterio** como «céntralo bien», «equilibra la composición», «que respire» o «mejora el encuadre»: las ignora o hace cualquier cosa.
 
-## ⭐ 0a-sexta-bis · LA PALETA DE MARCA NO SE APLICA A LOS SCREENSHOTS DOCUMENTALES (Iker, 2026-07-29)
+## ⭐ 0a-sexta-bis · LA PALETA DE MARCA NO SE APLICA A LOS SCREENSHOTS DOCUMENTALES (2026-07-29)
 
 La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infografías, orlas, portadas de guía, carteles. **NO se aplica cuando la imagen IMITA UNA PANTALLA REAL** (un correo de Gmail, un chat de LinkedIn, la app del banco, un CRM, un panel de analíticas).
 
@@ -373,7 +373,7 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 
 **La frontera, para no dudar:** ¿la pieza finge ser una captura de algo que existe? → **colores reales de esa interfaz**. ¿La pieza es nuestra y se ve que la hemos hecho? → **paleta de marca**. Caso: el meme del email de la tarta va con el gris de Gmail y el texto en negro sobre blanco, a propósito.
 
-## ⭐⭐ 0a-sexta-ter · LA EXCEPCIÓN NO ES SOLO DE COLOR: EN UN DOCUMENTO FINGIDO SE CALCAN TAMBIÉN LA TIPOGRAFÍA Y EL TAMAÑO (Iker, 2026-08-19)
+## ⭐⭐ 0a-sexta-ter · LA EXCEPCIÓN NO ES SOLO DE COLOR: EN UN DOCUMENTO FINGIDO SE CALCAN TAMBIÉN LA TIPOGRAFÍA Y EL TAMAÑO (2026-08-19)
 
 **El caso.** La primera versión del meme de la transcripción de llamada salió con **nuestra paleta y nuestras fuentes**, y era exactamente lo que yo había pedido en el prompt. Iker, viéndola: *"la fuente la veo muy grande y no se entiende bien, o no parece que es una transcripción. Se tiene que notar todo como más chiquitito, como que es una transcripción de verdad. Mejor copiar la fuente y el tamaño original también, y sin poner ni el naranja ni el morado, sino gris y negro como la referencia, porque la esencia es que en el primer segundo se enteren de que es una transcripción"*.
 
@@ -394,16 +394,16 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 
 **El test, antes de escribir el prompt:** *¿esto pretende que el lector se crea, un segundo, que es un documento de verdad?* Si sí, **la marca no entra**: ni fuente, ni paleta, ni palabra naranja. Si no, entra entera.
 
-**⭐ Y LA ETIQUETA DEL DOCUMENTO SE CALCA CON SU PALABRA, AUNQUE REPITA EL GANCHO (Iker, 2026-08-19).** En un documento fingido, el título no es un segundo titular: es **el rótulo que hace que el formato se reconozca**, así que lleva la palabra del original. `COLD CALL TRANSCRIPT` → **`TRANSCRIPCIÓN LITERAL DE UNA LLAMADA EN FRÍO`**.
+**⭐ Y LA ETIQUETA DEL DOCUMENTO SE CALCA CON SU PALABRA, AUNQUE REPITA EL GANCHO (2026-08-19).** En un documento fingido, el título no es un segundo titular: es **el rótulo que hace que el formato se reconozca**, así que lleva la palabra del original. `COLD CALL TRANSCRIPT` → **`TRANSCRIPCIÓN LITERAL DE UNA LLAMADA EN FRÍO`**.
 - **Se prefiere la palabra explícita a la elegante.** Primero puse `ACTA LITERAL DE UNA PUERTA FRÍA` y es peor por dos sitios: `acta` suena a junta o a notaría y tarda medio segundo más en colocarse, y `puerta fría` obliga a traducir lo que el original ya decía claro. Iker: *"hay que ser más explícito calcando, y más descarado me da igual si va a aclarar a la audiencia a lo que nos referimos"*.
 - **El adjetivo nuestro sí se añade**, que es donde se mejora: `literal` es la ironía (nada de lo que viene debajo lo es) y no existe en el original.
 - **⚠️ Y esto pisa a propósito `§0h-COMPLEMENTO`** (el título de la imagen no repite el concepto ni la frase del gancho): aquí **sí las repite**, porque el rótulo es reconocimiento de formato y no un titular. **Es excepción declarada de este registro, no permiso general.** Precedente a favor: nuestro mejor meme de este tipo (la escalera, 13.92x) repetía el gancho entero en la foto.
 
 **Mecanizado** como matiz del aviso `ENTREGA: el prompt lleva PALETA y TIPOGRAFIA de marca` en `validar-post.py`, que ahora nombra esta excepción con sus dos ejemplos.
 
-## 📱📱 0a-sexta-TIKTOK · UNA CAPTURA DE UNA APP MONTADA EN COLLAGE TAMBIÉN ES FORMATO RECONOCIBLE, AUNQUE LA PERSONA SE REDIBUJE (Iker, 2026-10-02)
+## 📱📱 0a-sexta-TIKTOK · UNA CAPTURA DE UNA APP MONTADA EN COLLAGE TAMBIÉN ES FORMATO RECONOCIBLE, AUNQUE LA PERSONA SE REDIBUJE (2026-10-02)
 
-**El caso, y es la primera referencia de TikTok que tocamos:** el meme de Asier del 02/10 calca un collage de 1up: **texto negro en dos líneas sobre una franja blanca** y debajo **un trozo de fotograma de TikTok**, con el subtítulo pequeño (`We're safe.`) dentro del vídeo y, abajo a la derecha, **el círculo de perfil con el botón rojo de `+` para seguir**. Mi primer prompt redibujó a la persona (bien) pero trató la pieza como si fuera diseño nuestro: título en **tres** líneas, **una palabra naranja**, subtítulo **gigante y saliéndose de la escena** y **sin el botón de TikTok**. Iker: *"la gracia es que se interpretase que esto era como una captura de TikTok, como cuando hacemos capturas de correos, de WhatsApp o de Twitter… hay que ser fiel a la referencia"*.
+**El caso, y es la primera referencia de TikTok que tocamos:** el meme del tercer jefe del 02/10 calca un collage de 1up: **texto negro en dos líneas sobre una franja blanca** y debajo **un trozo de fotograma de TikTok**, con el subtítulo pequeño (`We're safe.`) dentro del vídeo y, abajo a la derecha, **el círculo de perfil con el botón rojo de `+` para seguir**. Mi primer prompt redibujó a la persona (bien) pero trató la pieza como si fuera diseño nuestro: título en **tres** líneas, **una palabra naranja**, subtítulo **gigante y saliéndose de la escena** y **sin el botón de TikTok**. Iker: *"la gracia es que se interpretase que esto era como una captura de TikTok, como cuando hacemos capturas de correos, de WhatsApp o de Twitter… hay que ser fiel a la referencia"*.
 
 **LA REGLA:** que la persona se redibuje en flat illustration (`§0a-DIBUJO`) **no convierte la pieza en diseño nuestro**. Si la referencia es una captura o un collage de una app, se calca su formato igual que en `§0a-sexta-ter`:
 - **La interfaz que se ve**: el círculo de perfil con el `+`, la barra, el icono, lo que sea que diga de qué app es. El avatar, genérico y sin cara (`post-workflow §4.4-IDENTIDAD`).
@@ -426,8 +426,8 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 - **⚠️ AL CALCAR UNA REFERENCIA, el formato es NUESTRO, no suyo.** Si el original es vertical (la referencia del meme del perro era **480x720**, ratio 0,67), el remix **se recompone a 1:1**: se calca la esencia, nunca el encuadre malo (`post-workflow §4.4`, tabla de qué se calca). Calcar un 2:3 es entregar un post recortado.
 - **En el prompt de imagen va escrito siempre**, con estas palabras: `en formato cuadrado 1:1`.
 
-> ## 📱📱 0b-FEED · LO QUE HACE LINKEDIN CON CADA FORMATO, MEDIDO EN EL FEED REAL (Mario, 2026-09-14)
-> **`§0b` decia "va cuadrada" y daba el motivo (la vertical pierde arriba y abajo). Faltaban los otros dos formatos, y yo llegue a escribir que LinkedIn "no recorta", que es falso y contradice esta misma seccion.** Cerrado con capturas del feed de Mario y de cuentas ajenas el 14/09.
+> ## 📱📱 0b-FEED · LO QUE HACE LINKEDIN CON CADA FORMATO, MEDIDO EN EL FEED REAL (2026-09-14)
+> **`§0b` decia "va cuadrada" y daba el motivo (la vertical pierde arriba y abajo). Faltaban los otros dos formatos, y yo llegue a escribir que LinkedIn "no recorta", que es falso y contradice esta misma seccion.** Cerrado con capturas del feed del compañero de marketing y de cuentas ajenas el 14/09.
 >
 > | formato | ¿recorta? | superficie en el feed |
 > |---|---|---|
@@ -436,11 +436,11 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 > | **CUADRADA 1:1** | ⛔ no | **100%** |
 >
 > - **El recorte de la vertical no es teoria:** paso con una foto nuestra hace meses y **el titular se perdio en la previsualizacion** por estar demasiado arriba. Ese caso es el origen de toda esta seccion.
-> - **La horizontal no pierde informacion, pierde PANTALLA.** Y la pantalla es el activo: la imagen la ve el 100% del que scrollea. Comprobado en el feed de Mario comparando nuestra historia cuadrada del 11/09 contra dos posts horizontales de otras cuentas: la cuadrada ocupa mas del doble.
+> - **La horizontal no pierde informacion, pierde PANTALLA.** Y la pantalla es el activo: la imagen la ve el 100% del que scrollea. Comprobado en el feed del compañero de marketing comparando nuestra historia cuadrada del 11/09 contra dos posts horizontales de otras cuentas: la cuadrada ocupa mas del doble.
 > - **⭐ PASA IGUAL CON VIDEO HORIZONTAL** (`video.md`): un video 16:9 se comprime en el feed exactamente como una foto 16:9. El formato de la pieza no depende de si es foto o video, depende del feed.
 >
 > - **✅ 12/11/2026 · CONFIRMADO EN EL FEED, MEDIDO EN PÍXELES: hasta 4:5 se ve ENTERA; más alta que 4:5, se recorta.** Dos posts ajenos del mismo día, archivo original contra cómo salía en el feed: una captura de 800x960 (5:6, ancho/alto 0,83) salió **entera**; un selfie de 800x1066 (3:4, 0,75) salió **recortado**. Ya no es hipótesis. **Y la mayoría de los posts con foto que salían ese día en el feed iban en vertical**, no en cuadrado: es una tendencia que ya han adoptado otros, y el 1:1 que teníamos fijo desde septiembre viene de cuando se miró el recorte, no la superficie.
-> - **Regla desde el 12/11:** foto real que lo permita (con aire arriba o abajo para encuadrar sin cortar a nadie) → **4:5, 1080x1350, exacta**: es lo más alto que el feed enseña sin recortar y ocupa ~25% más que la cuadrada. Nunca más alta que 4:5. Cuadrada solo cuando la foto no da para 4:5 sin cortar lo importante. El rendimiento propio se sigue midiendo en el A/B "cuadrada o vertical 4:5" del historial (primer brazo B: Demo Day de Unai, 12/11).
+> - **Regla desde el 12/11:** foto real que lo permita (con aire arriba o abajo para encuadrar sin cortar a nadie) → **4:5, 1080x1350, exacta**: es lo más alto que el feed enseña sin recortar y ocupa ~25% más que la cuadrada. Nunca más alta que 4:5. Cuadrada solo cuando la foto no da para 4:5 sin cortar lo importante. El rendimiento propio se sigue midiendo en el A/B "cuadrada o vertical 4:5" del historial (primer brazo B: Demo Day del primer jefe, 12/11).
 > - **Y el recorte NO es un zoom a la cara (12/11):** el formato se rellena con la escena (la sala, la pantalla con la marca, el público), no acercándose al jefe. El primer recorte del Demo Day se cerró tanto sobre la cara que dejó de verse que estaba presentando.
 > - **🆕 4:5 (1080x1350), observado el 28/10/2026, sin probar en nuestras cuentas:** un lead magnet ajeno en 480x600 se vio ENTERO en el feed de otra cuenta, sin recorte y más alto que un cuadrado (`post-workflow §4.5.0-UNA-PAGINA`). Lo que recorta es la vertical MÁS alargada que 4:5 (el 2:3 del perro). Hasta probarlo, la regla de abajo sigue en 1:1; publicar en 4:5 es una prueba declarada. (🔄 Superado el 12/11 por la viñeta de arriba: medido en el feed, 4:5 por defecto cuando la foto lo permite.)
 >
@@ -448,7 +448,7 @@ La paleta nueva (`§0a-ter`) manda en todo lo que **diseñamos nosotros**: infog
 > **En la vista de PERFIL, LinkedIn mete barras negras alrededor de la imagen — tambien a las cuadradas.** En el FEED no aparece ninguna. Mismo post, dos renderizados distintos.
 > **Una foto NUNCA se juzga desde el perfil del que publica.** Se mira en el feed, desde otra cuenta. Si solo tienes la vista de perfil, no tienes el dato: dilo y no concluyas.
 >
-> **📌 El dato de esta ventana, y no cambia la regla:** la unica horizontal que hemos publicado (Unai, 02/09, 480x270) **no hundio el post** — 10.127 impresiones, dentro de su banda normal — pero fue **la peor CTR de sus 4 historias** (0,316% contra 0,756%, 0,653% y 0,528%). No penaliza el alcance y no compensa. **Todo sigue 1:1.** (🔄 12/11: la horizontal sigue descartada; la cuadrada deja de ser la de por defecto y pasa a 4:5, ver arriba.)
+> **📌 El dato de esta ventana, y no cambia la regla:** la unica horizontal que hemos publicado (primer jefe, 02/09, 480x270) **no hundio el post** — 10.127 impresiones, dentro de su banda normal — pero fue **la peor CTR de sus 4 historias** (0,316% contra 0,756%, 0,653% y 0,528%). No penaliza el alcance y no compensa. **Todo sigue 1:1.** (🔄 12/11: la horizontal sigue descartada; la cuadrada deja de ser la de por defecto y pasa a 4:5, ver arriba.)
 
 ## 🎞️🎞️ 0b-GIF · EL GIF DEL LEAD MAGNET LO MONTO YO Y CALCA AL GIF DEL REFERENTE QUE MÁS COMENTARIOS SACÓ (2026-11-03) — GLOBAL *(criterio: no hay ningún GIF nuestro medido)*
 
@@ -494,7 +494,7 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 
 **Lo que no se sabe:** si un GIF rinde más que la foto fija en nuestras cuentas. Se lee en el A/B del lead magnet con enlace público (`historial-publicaciones`, registro de A/B) y aquí se apunta el número.
 
-> ### ⛔⛔ 0b-ANCHO · PEDIR 1:1 NO BASTA: HAY QUE PEDIR QUE APROVECHE EL ANCHO (Iker, 2026-08-13)
+> ### ⛔⛔ 0b-ANCHO · PEDIR 1:1 NO BASTA: HAY QUE PEDIR QUE APROVECHE EL ANCHO (2026-08-13)
 > **Decir solo "en formato cuadrado 1:1" es una trampa cuando la referencia es vertical, y es el caso NORMAL** (casi todas lo son). El generador cumple el encargo por la vía barata: **te mete dos franjas blancas a los lados** y ya tiene un cuadrado. El contenido sigue igual de estrecho, se ve más pequeño en el feed y queda a medio hacer.
 > - **Pasó el 14/08** con el meme del SpongeBob: 4 filas verticales, cuadrado perfecto y **dos columnas blancas laterales**. Iker: *"al hacerla cuadrada hacia los lados se tiene que aprovechar y que todo llegue hasta los lados, no como ahora que me ha metido dos columnas verticales blancas para hacerlo cuadrado y queda mal"*.
 > - **LA FRASE QUE VA EN EL PROMPT, siempre que la referencia sea más alta que ancha:** `en formato cuadrado 1:1, ensanchando el contenido para que llegue de borde a borde, sin franjas ni márgenes a los lados`.
@@ -502,11 +502,11 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 > - **Y ojo con el reverso:** ensanchar no es deformar. Se estiran las CAJAS y el texto se reajusta al ancho nuevo; los personajes y las fotos no se aplastan ni se estiran (va en el bloque de contención del final).
 - **⚠️ LA ÚNICA EXCEPCIÓN es la imagen de COMPARTIR del recurso web (`§0b-OG`), que no se publica en el feed: la recorta Open Graph, no LinkedIn.** Todo lo que se sube a un post sigue siendo 1:1.
 
-> ## ✂️✂️ 0b-RECORTE · CÓMO SE RECORTA UNA FOTO REAL A CUADRADO (Mario, 2026-08-21)
+> ## ✂️✂️ 0b-RECORTE · CÓMO SE RECORTA UNA FOTO REAL A CUADRADO (2026-08-21)
 > **`§0b` dice que la imagen VA cuadrada. Faltaba entero el CÓMO se llega a cuadrada partiendo de una foto de móvil**, que es lo que hace el pilar historia con el banco de fotos, y ahí fallé tres veces seguidas el mismo día: composición, color y orientación. **Está mecanizado en `scripts/recortar-cuadrada.py`, que hace las tres cosas y las COMPRUEBA al guardar.**
 >
 > ### 1 · LO IMPORTANTE VA AL CENTRO. Lo decorativo es lo que se sacrifica
-> > Mario: *"con los recortes cuadrados tienes que siempre intentar procurar que en el centro de la imagen, después de recortar, se quede lo más importante"*.
+> > el compañero de marketing: *"con los recortes cuadrados tienes que siempre intentar procurar que en el centro de la imagen, después de recortar, se quede lo más importante"*.
 >
 > **El fallo:** dejé sus dos placas de YouTube al **75% de la altura**, con medio cuadro decorativo ocupando la parte de arriba. *"El cuadro es bonito, pero no es lo más importante"*.
 > - **El procedimiento:** se identifica **la CAJA de lo importante** (el sujeto y lo que lleva en las manos), se calcula su centro, y el cuadrado más grande que quepa se centra ahí. Es lo que hace `--sujeto x1,y1,x2,y2`.
@@ -514,7 +514,7 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 > - **⚠️ Cuando el sujeto está pegado al borde del original, el cuadrado NO se encoge: se empuja hacia dentro.** Encogerlo recortaría al sujeto, que es justo lo que no se hace. El script lo resuelve así y avisa si ni siquiera cabe.
 >
 > ### 2 · NO SE RECORTA NADA QUE CARGUE EL SIGNIFICADO, y las manos cargan
-> > Mario, sobre el recorte viejo de `unai casa camiseta`: *"has recortado su señal que hace y su gesto con las manos, y su cara está un poco desplazada a la derecha. Su cara y su mano como conjunto deberían estar centradas"*.
+> > el compañero de marketing, sobre el recorte viejo de `unai casa camiseta`: *"has recortado su señal que hace y su gesto con las manos, y su cara está un poco desplazada a la derecha. Su cara y su mano como conjunto deberían estar centradas"*.
 >
 > **La caja de lo importante casi nunca es solo la cara.** En un selfie con gesto son **cara + mano, como una sola unidad**, y es esa unidad la que se centra. Cortar la mano deja al sujeto haciendo un gesto invisible, que es peor que no tener gesto.
 > - **La familia de elementos que cargan y que hay que meter dentro:** manos y gestos · el objeto que sujeta (una placa, un portátil, un café) · la mirada · el logo de marca si sale.
@@ -525,7 +525,7 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 > - Caso real: `unai puesto polo`. Está en el borde derecho del original mirando a la izquierda, así que el cuadrado se pega a la derecha y él queda en el tercio derecho **mirando hacia el resto de la foto**. Es composición correcta, no un fallo de centrado.
 >
 > ### 4 · 🎨 EL PERFIL DE COLOR NO SE TOCA. Solo se tira el EXIF
-> > Mario: *"haces que pierda un poco el color, cosa que no puede ser. Asegúrate de no cambiarme el perfil de color"*. Tenía razón y se ve a simple vista.
+> > el compañero de marketing: *"haces que pierda un poco el color, cosa que no puede ser. Asegúrate de no cambiarme el perfil de color"*. Tenía razón y se ve a simple vista.
 >
 > **La causa, para que no se repita:** para quitar los metadatos hice `Image.new('RGB') + paste`, y **eso se lleva por delante el perfil ICC además del EXIF**. Las fotos de móvil son **Display P3** (gama ancha); sin el perfil, el visor las interpreta como sRGB y salen **lavadas**.
 > - **Lo que se QUITA:** el EXIF, y solo por privacidad (lleva GPS y modelo de móvil).
@@ -534,7 +534,7 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 > - **Ojo con los PNG del banco:** vienen en RGBA y JPEG no admite alfa. Se aplanan sobre **blanco**, nunca sobre el negro que pone `convert` por defecto, que deja halos oscuros en los bordes.
 >
 > ### 5 · ⚠️ Y ANTES DE NADA: comprobar si la foto está girada EN LOS PÍXELES
-> Dos fotos del banco de Unai estaban **tumbadas 90° en los píxeles con el EXIF diciendo `orientación 1`**, o sea sin bandera que lo corrigiera. Si recortas sin enderezar, mides sobre una foto tumbada y sale cualquier cosa.
+> Dos fotos del banco del primer jefe estaban **tumbadas 90° en los píxeles con el EXIF diciendo `orientación 1`**, o sea sin bandera que lo corrigiera. Si recortas sin enderezar, mides sobre una foto tumbada y sale cualquier cosa.
 > - **Se mira SIEMPRE antes de medir**, y si está tumbada se endereza primero y se mide sobre la enderezada.
 > - `ImageOps.exif_transpose` **no lo arregla** en este caso, precisamente porque el EXIF dice que está bien.
 >
@@ -548,7 +548,7 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 - **Retoca a la persona** aunque no se le toque (por eso el cuerpo siempre se recupera del original con máscara).
 **La vía buena es PhotoCraft sobre el original:** (1) lazo poligonal a las 4 esquinas de la pantalla y restar a la persona con Seleccionar sujeto; (2) en una capa nueva, rellenar con el color de la propia pantalla (cuentagotas) y Desenfoque gaussiano fuerte para conservar el degradado y los reflejos; (3) el logo oficial blanco a ~40% del ancho de la pantalla, deformado con Transformar › Distorsionar a la perspectiva, con opacidad 85-90%, un desenfoque de 0,5-1 px y un poco de ruido para igualar el grano; (4) revisar al 100% el borde de la cabeza y la mano; (5) recorte 4:5 y exportar sin metadatos. Si se usa el generador, de su imagen solo se aprovecha la pantalla y el resto vuelve del original.
 
-## 🚨 0a-CAPADO · LINKEDIN CAPA POSTS SUELTOS, Y HAY QUE SABER RECONOCERLO (Iker, 2026-08-06)
+## 🚨 0a-CAPADO · LINKEDIN CAPA POSTS SUELTOS, Y HAY QUE SABER RECONOCERLO (2026-08-06)
 
 **El capado es POR POST, no por cuenta ni por dispositivo.** Iker lo vio antes que yo: *"ya nos pasó la semana pasada con Asier y solo fue con el post del meme, con el resto de cuentas fueron bien"*. Yo había apuntado a las 4 cuentas del mismo equipo interactuando desde la misma wifi, y **eso no lo explica**: si fuera el dispositivo, habrían caído las tres cuentas a la vez, y no pasó.
 
@@ -563,9 +563,9 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 | post de esa semana | ¿pide comentar una palabra? | resultado |
 |---|---|---|
 | Mapa CyL 04/08 | no | 8.174 imp |
-| Meme Asier 05/08 | no | 527 imp |
-| Meme Unai 06/08 | no | **61.254 imp** |
-| Despiece Asier 07/08 | no | 915 imp |
+| Meme el tercer jefe 05/08 | no | 527 imp |
+| Meme el primer jefe 06/08 | no | **61.254 imp** |
+| Despiece el tercer jefe 07/08 | no | 915 imp |
 | **Lead magnet 06 y 07/08 ×3** | **sí** | **18-163 imp** |
 
 **El lead magnet es el ÚNICO pilar que pide comentarios y el ÚNICO capado**, cuatro veces seguidas cambiando texto, imagen, gancho y palabras. Y Iker entra a comentar desde las otras tres cuentas nada más publicar. En un mapa eso es interacción normal; **en un post que pide "comenta una palabra", cuatro comentarios en los primeros minutos desde cuentas conectadas entre sí es la firma de un pod de engagement**, que es lo que LinkedIn más persigue. Martín Arosa también pide comentarios, pero le llegan cientos de gente dispersa.
@@ -586,7 +586,7 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 - **LA PRUEBA, y es de una sola variable:** resubir el MISMO texto, a la hora de siempre, cambiando SOLO la imagen. Si vuela, era la imagen. **Cambiar texto e imagen a la vez —que es lo que pide el cuerpo cuando algo sale mal— garantiza no aprender nada.**
 - Quitar los metadatos NO basta: el del 06/08 se subió ya sin ellos y se capó igual.
 
-## 🔴🔴 0b-TEXTO-REF · EL TEXTO DE DENTRO DE LA IMAGEN SE CALCA PALABRA POR PALABRA (Iker, 2026-08-06)
+## 🔴🔴 0b-TEXTO-REF · EL TEXTO DE DENTRO DE LA IMAGEN SE CALCA PALABRA POR PALABRA (2026-08-06)
 > **🗺️ Esta es la CAPA 3 de las tres que tiene una referencia. El indice de las tres, en `global §2.2b-CAPAS`.**
 
 > **⚠️ GLOBAL: vale para el texto dentro de CUALQUIER imagen remixada, no solo del meme.** Es la misma doctrina de `global §2.2b` aplicada a lo que va DENTRO de la foto, que es donde yo la incumplo sin darme cuenta porque el texto del post ya lo tengo vigilado.
@@ -607,11 +607,11 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 - **⚠️ EXCEPCIÓN: si la referencia es un meme NUESTRO (double down), el texto de dentro NO se calca: se reescribe con la misma broma y otras palabras** (`post-workflow §4.4-DOBLE-PROPIO`, Iker 2026-09-17). Nuestro público ya leyó el original.
 - **⛔ Y AL DICTAR LAS ETIQUETAS EN EL PROMPT, SE DICE "SIN PUNTO FINAL" (2026-09-17).** Escribí *"La tres dice ¡Sí! Venta cerrada."* y el generador pegó el punto de MI frase a seis etiquetas que no lo llevaban. En un prompt en prosa el punto que cierra la frase se confunde con el texto literal: **se añade "ninguna etiqueta lleva punto al final" cuando el original no los lleva.**
 
-### ⭐⭐ 0b-TEXTO-REF-CORTE · DÓNDE PARTE LA LÍNEA TAMBIÉN SE CALCA, Y MÁS LÍNEAS NO ES PEOR (Iker, 2026-08-18)
+### ⭐⭐ 0b-TEXTO-REF-CORTE · DÓNDE PARTE LA LÍNEA TAMBIÉN SE CALCA, Y MÁS LÍNEAS NO ES PEOR (2026-08-18)
 
 **La capa 3 no es solo QUÉ palabras van dentro de la foto: es también CÓMO están partidas.** En un pantallazo, el salto de línea es un beat visual igual que en el cuerpo del post (`global §3.3`: la línea aislada funciona porque el aislamiento ES el efecto).
 
-**El caso, y lo vio Iker antes que yo.** El tuit de Helena salió primero en **3 líneas**, con `hola????????` colgando al final de la tercera. La referencia de `emily june` va en **4**, con `hello????????` **sola en la última**. Al forzar por otro motivo que el texto pasara a 4 líneas, salió sola igual que en el original. Iker: *"impacta mucho más que esa palabra con los interrogantes esté sola en una cuarta fila como la referencia"*. **Y tiene el mismo motor que la referencia: la palabra del remate, aislada, cae como un punto final.**
+**El caso, y lo vio Iker antes que yo.** El tuit de la compañera de clientes salió primero en **3 líneas**, con `hola????????` colgando al final de la tercera. La referencia de `emily june` va en **4**, con `hello????????` **sola en la última**. Al forzar por otro motivo que el texto pasara a 4 líneas, salió sola igual que en el original. Iker: *"impacta mucho más que esa palabra con los interrogantes esté sola en una cuarta fila como la referencia"*. **Y tiene el mismo motor que la referencia: la palabra del remate, aislada, cae como un punto final.**
 
 **⛔ Y LA LECCIÓN CONTRAINTUITIVA, que es la que me habría hecho fallar: MÁS LÍNEAS SALIÓ MEJOR.** Mi reflejo es *"cuanto más corto, mejor"*, y **eso es del TEXTO DEL POST, no del texto de dentro de una imagen**. Aquí pasa lo contrario: al repartir el mismo texto en 4 líneas en vez de 3, **el cuerpo de letra crece** y se lee mejor en el feed, que es lo que pide `§0a-quater`. Apretar líneas dentro de una caja fija **encoge la letra**: ahorras alto y pierdes legibilidad justo donde el 100% de la gente lo ve.
 
@@ -620,7 +620,7 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 2. **Nunca se pide "que quepa en N líneas"** para ahorrar espacio. Se pide tamaño de letra grande y uniforme (`§0h-CHECKLIST` check 9) y **que caiga en las líneas que haga falta**.
 3. **Si dudas entre menos líneas con letra pequeña o más líneas con letra grande, gana la letra grande.** Siempre.
 
-**⭐ Y EL DESCUBRIMIENTO QUE QUITA EL MIEDO A LA CUENTA SOBRIA (Iker, 2026-08-06).** Iker temía que ser formal en la cuenta de Unai matara la gracia: *"si perdemos el humor no va a servir de nada por culpa de querer ser sobrio"*. **Míralo antes de asumirlo: en este original no había NI UNA vulgaridad ni una jerga en las diez frases.** El humor estaba entero en la contradicción entre etiquetas vecinas, no en la ordinariez. **El que se puso informal fui yo, no el original.**
+**⭐ Y EL DESCUBRIMIENTO QUE QUITA EL MIEDO A LA CUENTA SOBRIA (2026-08-06).** Iker temía que ser formal en la cuenta del primer jefe matara la gracia: *"si perdemos el humor no va a servir de nada por culpa de querer ser sobrio"*. **Míralo antes de asumirlo: en este original no había NI UNA vulgaridad ni una jerga en las diez frases.** El humor estaba entero en la contradicción entre etiquetas vecinas, no en la ordinariez. **El que se puso informal fui yo, no el original.**
 - **La regla:** antes de "suavizar" para una cuenta sobria, comprueba **cuánto de bruto es el original de verdad**. Si no es bruto, no hay nada que suavizar y calcarlo literal es a la vez lo más fiel y lo más sobrio.
 - Esto **no contradice** `§4.4 PASO 0` (elegir la cuenta que aguanta el meme): sigue siendo verdad que un original bruto no se lima, se manda a Iker. Lo que se añade es que **muchos originales no son brutos y yo los estaba volviendo brutos al traducirlos**.
 
@@ -628,9 +628,9 @@ Salió de seis rondas de correcciones en un solo GIF, el de `/sistema/`. Cada pu
 
 
 
-## 🔁🔁 0h-SERIE · LAS ETIQUETAS DE UNA SERIE MANTIENEN LA MISMA CATEGORÍA GRAMATICAL EN TODOS LOS PANELES (Mario, 2026-08-27)
+## 🔁🔁 0h-SERIE · LAS ETIQUETAS DE UNA SERIE MANTIENEN LA MISMA CATEGORÍA GRAMATICAL EN TODOS LOS PANELES (2026-08-27)
 
-> **La duda la planteó Mario y es la que hace la regla:** *"en la de la derecha tengo dudas: ¿es mejor ESPERANDO EL LANZAMIENTO o ESPERANDO QUE SALGA?"*.
+> **La duda la planteó el compañero de marketing y es la que hace la regla:** *"en la de la derecha tengo dudas: ¿es mejor ESPERANDO EL LANZAMIENTO o ESPERANDO QUE SALGA?"*.
 
 **LA REGLA: si el original repite una forma en sus N paneles, el remix la repite en los N. La categoría gramatical de la etiqueta es parte del calco.**
 
@@ -650,9 +650,9 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 
 **⚠️ Y si el original MEZCLA formas, se mezclan igual.** Esto no es "usa siempre sustantivos": es "usa lo que use él". Si sus tres paneles son tres preguntas, los nuestros son tres preguntas.
 
-## ⛔⛔ 0i-3-HERRAMIENTA · EL PROMPT NUNCA NOMBRA EL PROGRAMA. SE PIDE EL RESULTADO, NO EL CÓMO (Mario, 2026-08-27)
+## ⛔⛔ 0i-3-HERRAMIENTA · EL PROMPT NUNCA NOMBRA EL PROGRAMA. SE PIDE EL RESULTADO, NO EL CÓMO (2026-08-27)
 
-> **Mario:** *"el primer prompt me lo habías dado fatal, porque ya se lo estamos dando directamente al generador. No le tienes que decir en qué programa lo tiene que hacer, porque le has confundido y por eso lo había hecho mal: le habías dicho que use Photoshop o Canva cuando él mismo ya es su propio programa"*.
+> **El compañero de marketing:** *"el primer prompt me lo habías dado fatal, porque ya se lo estamos dando directamente al generador. No le tienes que decir en qué programa lo tiene que hacer, porque le has confundido y por eso lo había hecho mal: le habías dicho que use Photoshop o Canva cuando él mismo ya es su propio programa"*.
 
 **El caso.** Mi prompt abría con *"montándolo por encima de la propia imagen en Photoshop o Canva en vez de generarla con IA"*. Se lo estábamos dando **a un generador**, así que le pedí que hiciera algo que no puede hacer, y salió una primera versión rota.
 
@@ -662,9 +662,9 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **Lo único que sí se dice del acabado es el ENTREGABLE:** formato 1:1, y JPG a calidad baja y 500×500 (`§5-B` punto 5), porque eso es resultado, no procedimiento.
 - **⚠️ Y al retirar una vía de trabajo (como el overlay del Aquaman), hay que mirar qué PROMPTS la nombran**, no solo la sección que la describía. Es `feedback_regla_nueva_revisar_codigo` aplicado a las recetas: una regla degradada sigue viva en las plantillas que la citan.
 
-## 🔡🔡 0a-sexta-quater · LA TIPOGRAFÍA DE UNA PLANTILLA DE MEME ES EL FORMATO RECONOCIBLE, Y SE CALCA COMO EN UN PANTALLAZO (Mario, 2026-08-27)
+## 🔡🔡 0a-sexta-quater · LA TIPOGRAFÍA DE UNA PLANTILLA DE MEME ES EL FORMATO RECONOCIBLE, Y SE CALCA COMO EN UN PANTALLAZO (2026-08-27)
 
-> **Mario, y la intuición es suya:** *"¿tú crees que la fuente mejor dejar esta y no aplicarle la nuestra de la empresa, porque si no pierde la gracia del meme? A veces en memes es mejor que quede cutre, ¿no?"*.
+> **El compañero de marketing, y la intuición es suya:** *"¿tú crees que la fuente mejor dejar esta y no aplicarle la nuestra de la empresa, porque si no pierde la gracia del meme? A veces en memes es mejor que quede cutre, ¿no?"*.
 
 **Sí, y ya teníamos la lógica escrita para OTRO caso: `§0a-sexta-bis` y `§0a-sexta-ter` sacan a los PANTALLAZOS DOCUMENTALES de la paleta y la tipografía de marca**, porque *"lo que hace el chiste es reconocer el formato en el primer segundo"*. **Una plantilla de meme es exactamente el mismo caso y faltaba declararlo**, así que `§4` (*"ninguna otra fuente bajo ningún concepto"*) se leía como si aplicara también aquí.
 
@@ -676,7 +676,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **⛔ La frontera, para no usarlo de coartada:** esto vale cuando la imagen **ES una plantilla reconocible** (meme conocido, pantallazo, documento). En un meme ILUSTRADO desde cero (`§6`) no hay formato que reconocer y **manda `§4` entera**: Bricolage, Switzer y paleta.
 - **🔄 AMPLIADA EL 2026-10-30 AL MEME DIBUJADO: la palabra naranja tampoco entra en un meme que redibujamos en flat, salvo que la referencia ya lleve una palabra de color.** La tipografía y la paleta siguen siendo las nuestras; lo que se cae es el texto en naranja. **Por qué:** un meme tiene que entenderse en un segundo, y el ojo va primero a lo naranja; en el meme de las llamadas iba a la palabra `frío` del título en vez de a la escalera de calvos, que es el chiste. La referencia llevaba el título en un solo color, y la marca ya está en el atrezo naranja (macetas, tazas, mesas), que no compite porque no es texto. **No está medido:** es criterio y sale del mismo razonamiento del 29/09; se revisa en la revisión del lunes si algún meme sin naranja rinde distinto. **Manda sobre `§6`** en este punto. En las piezas que no son meme (lead magnet, banner, portada, tarjeta de evento) la palabra naranja se queda, porque ahí el texto ES el mensaje.
 
-## ⛔⛔⛔ 0b-TEXTO-REF-MOMENTO · EL MOMENTO QUE RETRATA LA ESCENA ES ESENCIA, Y SE CALCA COMO EL RESTO (Iker, 2026-08-27)
+## ⛔⛔⛔ 0b-TEXTO-REF-MOMENTO · EL MOMENTO QUE RETRATA LA ESCENA ES ESENCIA, Y SE CALCA COMO EL RESTO (2026-08-27)
 
 > **Iker, y es la corrección más cara de la sesión porque llegó con la imagen ya montada:** *"veo un claro error en que no has sabido captar bien la esencia del meme de la foto, que al final en la foto es el meme viral. ¿Has cambiado textos, aparte de traducirlos al español, que no tienen nada que ver? Si la broma del original literalmente pone «persona que trabaja marketing con una idea de campaña», ¿por qué tú lo has traducido a «el de marketing después de publicarlo todo»?"*.
 
@@ -708,11 +708,11 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 
 **Al mover el momento al final, las etiquetas se vinieron detrás.** Es la prueba de que la capa 1 arrastra a las otras dos: si el momento se cambia, **todo el texto de la imagen se desalinea solo**, y por eso hay que fijarlo ANTES de escribir ninguna etiqueta.
 
-**⚠️ Y CUANDO EL CALCO CHOCA CON `brand-voice`, SE DECLARA, NO SE DISIMULA.** Las tres esperas del original son **a otros equipos** (`DESIGN`, `DEV`, `OPS`), y en una cuenta de compañero (el caso fue en la de Mario, hoy de baja) eso señalaría a compañeros con nombre (canónico: el culpable nunca es una persona ni un equipo). La salida es esperar **a las COSAS** (`el diseño`, `la versión buena`, `que salga`), que es lo más cerca del original sin romper la regla — **y se dice en la entrega que se ha hecho y por qué**, para que la decisión sea de Iker.
+**⚠️ Y CUANDO EL CALCO CHOCA CON `brand-voice`, SE DECLARA, NO SE DISIMULA.** Las tres esperas del original son **a otros equipos** (`DESIGN`, `DEV`, `OPS`), y en una cuenta de compañero (el caso fue en la del compañero de marketing, hoy de baja) eso señalaría a compañeros con nombre (canónico: el culpable nunca es una persona ni un equipo). La salida es esperar **a las COSAS** (`el diseño`, `la versión buena`, `que salga`), que es lo más cerca del original sin romper la regla — **y se dice en la entrega que se ha hecho y por qué**, para que la decisión sea de Iker.
 
-## 🎭🎭 0b-TEXTO-REF-REVELACION · EN UN MEME DE REVELACIÓN, EL TEXTO DEL PANEL DE PREPARACIÓN SE REPITE IDÉNTICO Y SOLO SE AÑADE EL GIRO (Iker, 2026-10-14) — GLOBAL
+## 🎭🎭 0b-TEXTO-REF-REVELACION · EN UN MEME DE REVELACIÓN, EL TEXTO DEL PANEL DE PREPARACIÓN SE REPITE IDÉNTICO Y SOLO SE AÑADE EL GIRO (2026-10-14) — GLOBAL
 
-> **Iker, sobre la v1 del sable de Asier:** *"el texto de arriba a la izquierda tiene que ser igual que el de abajo a la izquierda para que tenga gracia la broma, y luego a la derecha pones producto de tu competencia… como el sable está cerrado, se queda con la duda hasta que lo termina de abrir. Asegúrate de que esto no vuelva a pasar: tienes que captar muy bien la broma, en este caso los textos que se ven por pantalla también"*.
+> **Iker, sobre la v1 del sable del tercer jefe:** *"el texto de arriba a la izquierda tiene que ser igual que el de abajo a la izquierda para que tenga gracia la broma, y luego a la derecha pones producto de tu competencia… como el sable está cerrado, se queda con la duda hasta que lo termina de abrir. Asegúrate de que esto no vuelva a pasar: tienes que captar muy bien la broma, en este caso los textos que se ven por pantalla también"*.
 
 **El caso.** La referencia (1up, el sable de doble hoja) tiene dos paneles: arriba `we've decided to buy your` a la izquierda, con una sola hoja encendida; abajo **el mismo** `we've decided to buy your` a la izquierda y `competitor's product` a la derecha, al encenderse la segunda hoja. **El chiste es la repetición:** el lector lee dos veces el principio bueno y el giro aparece solo en el sitio que estaba vacío. Yo, al pasarlo al español (`Hemos decidido comprar el producto de tu competencia`), **partí la frase por el orden de las palabras** y puse `Hemos decidido comprar` arriba y `el producto de tu` abajo a la izquierda. El panel de abajo dejó de repetir al de arriba, y la broma quedó desmontada.
 
@@ -723,11 +723,11 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 2. **Si una posición repite el mismo texto en dos paneles, en el remix repite el MISMO texto, idéntico**, y el prompt lo dice así: *"exactamente igual que en el panel de arriba, con la misma letra, el mismo tamaño y en la misma posición"*.
 3. **Al traducir, el corte se hace donde la parte de arriba suena a buena noticia y está completa por sí sola** (`Hemos decidido comprar`), y **todo el giro va al sitio del giro** (`el producto de tu competencia`), aunque en español ocupe más que en inglés. Si el giro no cabe en una línea, va en dos líneas **en su sitio**, nunca prestando palabras al sitio repetido.
 4. **El test, en cinco segundos:** tapa el sitio del giro en el panel final. ¿Lo que queda es idéntico al panel de arriba? Si no, no es el mismo meme.
-5. **⛔ Y LO QUE CAMBIA EN EL DIBUJO ENTRE PANELES TAMBIÉN ES ESENCIA (Iker, 14/10, el mismo meme).** En la referencia, arriba agarra el sable con las dos manos y **abajo con una sola, con el otro brazo echado hacia atrás**: el gesto dice que acaba de encender la segunda hoja y mete movimiento. Mi prompt pedía *"el mismo personaje en la misma postura en los dos paneles"* y lo borró. **En el inventario, panel por panel, se apunta también la POSE: manos, brazos, cabeza y mirada.** Si cambia de un panel a otro, el prompt lo pide con las mismas palabras; *"misma postura"* solo se escribe después de haber comparado los dos paneles.
+5. **⛔ Y LO QUE CAMBIA EN EL DIBUJO ENTRE PANELES TAMBIÉN ES ESENCIA (14/10, el mismo meme).** En la referencia, arriba agarra el sable con las dos manos y **abajo con una sola, con el otro brazo echado hacia atrás**: el gesto dice que acaba de encender la segunda hoja y mete movimiento. Mi prompt pedía *"el mismo personaje en la misma postura en los dos paneles"* y lo borró. **En el inventario, panel por panel, se apunta también la POSE: manos, brazos, cabeza y mirada.** Si cambia de un panel a otro, el prompt lo pide con las mismas palabras; *"misma postura"* solo se escribe después de haber comparado los dos paneles.
 - Vale para toda plantilla de revelación: la katana (`YES` → `YESTERDAY…`), el sable, el antes y después con la misma etiqueta, el *"esperaba / me encontré"*.
 - **Mecanizado** como check 18 de `§0h-CHECKLIST`. El validador no ve el prompt, así que no puede ser un fallo del script.
 
-## 🔠🔠 0b-TEXTO-REF-CUERPO · SI LOS RENGLONES DEL ORIGINAL VAN AL MISMO TAMAÑO, SE DICE EN EL PROMPT (Mario, 2026-08-27)
+## 🔠🔠 0b-TEXTO-REF-CUERPO · SI LOS RENGLONES DEL ORIGINAL VAN AL MISMO TAMAÑO, SE DICE EN EL PROMPT (2026-08-27)
 
 **`§0b-TEXTO-REF-CORTE` ya obliga a calcar DÓNDE parte la línea. Faltaba la otra mitad: a QUÉ TAMAÑO va cada renglón.**
 
@@ -739,7 +739,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **Y la orden de tamaño va con la del espacio que sobra, en la misma frase** (`§0c-TAMAÑO`): *"súbelo hasta igualar al de arriba, aprovechando todo el ancho de la franja que le queda libre a los lados"*.
 - **Solo si el original SÍ tiene jerarquía se pide jerarquía.** Se mira, no se supone.
 
-## 🧱🧱 0b-ETIQUETA-PANEL · CADA ETIQUETA VIVE DENTRO DE SU PANEL Y NO CRUZA LA LÍNEA (Mario, 2026-08-27)
+## 🧱🧱 0b-ETIQUETA-PANEL · CADA ETIQUETA VIVE DENTRO DE SU PANEL Y NO CRUZA LA LÍNEA (2026-08-27)
 
 **El fallo, y es el que mata un meme entero:** en un remix de 3 paneles, las etiquetas de los dos de abajo salieron **fundidas en una sola línea a caballo del borde** (`ESPERANDO IESPERANDO LA VENTA`). Una desapareció y la otra quedó pisada — y era la que llevaba la palabra naranja, o sea **el remate del chiste**.
 
@@ -749,7 +749,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **Y con la salida ya dada, que si no la inventa:** *"si no cabe a ese tamaño, pártela en dos renglones antes que reducirla"* — que es `§0b-TEXTO-REF-CORTE`: **más renglones AGRANDAN la letra, no la empeoran.**
 - **⚠️ Es el mismo fallo de familia que `§0c-TAMAÑO`:** una orden de colocación sin decir de dónde sale el espacio la resuelve el generador como quiere. Aquí el espacio sale de partir la línea, y hay que decirlo.
 
-## 📏📏 0b-ETIQUETA-ANCHO · SI LA ETIQUETA TIENE SITIO AL LADO, LA CAJA SE ENSANCHA. PARTIR A DOS RENGLONES ES EL ÚLTIMO RECURSO (Iker, 2026-08-27)
+## 📏📏 0b-ETIQUETA-ANCHO · SI LA ETIQUETA TIENE SITIO AL LADO, LA CAJA SE ENSANCHA. PARTIR A DOS RENGLONES ES EL ÚLTIMO RECURSO (2026-08-27)
 
 > **Iker, sobre la v2 del meme de la escalera del peso:** *"en vez de hacer que los puestos caigan a dos líneas si son largos, que simplemente el cuadrado que tienen detrás sea más ancho hacia la derecha, pero que todos los puestos salgan en solo una línea, ya que ahora los cuadrados los veo muy altos y queda feo"*.
 
@@ -762,7 +762,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 
 **Y en el prompt se dice de dónde sale el ancho** (`§0c-TAMAÑO`, la orden de tamaño va con la del espacio que sobra): *"ensánchale el rectángulo hacia la derecha hasta que el texto entre en una fila, aprovechando el espacio libre que tiene a ese lado"*.
 
-### ⛔⛔ 0b-ETIQUETA-ANCHO-BIS · CADA CAJA SE AJUSTA A SU TEXTO. LO QUE COMPARTEN ES LA ALTURA Y EL MARGEN, NUNCA EL ANCHO (Iker, 2026-08-27)
+### ⛔⛔ 0b-ETIQUETA-ANCHO-BIS · CADA CAJA SE AJUSTA A SU TEXTO. LO QUE COMPARTEN ES LA ALTURA Y EL MARGEN, NUNCA EL ANCHO (2026-08-27)
 
 > **Iker, sobre la v3:** *"los cuadrados los está estimando, no está midiendo bien ni aprovechando bien el espacio. Me he dado cuenta de que ha hecho coherencia de diseño de que todos los cuadrados sean con la misma anchura, pero es que eso no tiene sentido: cada uno se debería adaptar a la palabra o al conjunto de palabras que tenga"*.
 
@@ -773,7 +773,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **⛔ Y "que abrace el texto" SE PIDE JUNTO CON EL TAMAÑO, en la misma frase.** Si solo dices que se ajuste, lo lee como *"hazlo pequeño"* y te devuelve cinco carteles diminutos con media imagen vacía al lado. Va pegado: *"cada cartel del ancho de su palabra, y a la vez bastante más grandes de lo que son ahora, aprovechando el sitio libre que tienen a la derecha"*. Es `§0c-TAMAÑO` otra vez: la orden de tamaño va con la del espacio de donde sale.
 - **⚠️ Y si un desplazamiento se queda corto, no se repite la misma orden.** Se le dice que **lo anterior no bastó** y se le vuelve a dar la igualdad de los dos huecos con el hueco sobrante nombrado (`§0b-DENTRO-DEL-MARCO-BIS`). Repetir la frase tal cual produce el mismo movimiento tímido: pasó dos veces seguidas el 27/08.
 
-## 🖼️🖼️ 0b-DENTRO-DEL-MARCO · AL COMPRIMIR DE VERTICAL A 1:1, EL ÚLTIMO DE LA DIAGONAL SE SALE DEL CUADRO (Iker, 2026-08-27)
+## 🖼️🖼️ 0b-DENTRO-DEL-MARCO · AL COMPRIMIR DE VERTICAL A 1:1, EL ÚLTIMO DE LA DIAGONAL SE SALE DEL CUADRO (2026-08-27)
 
 > **Iker, en la misma v2:** *"el quinto personaje, el que va al lado del cuadrado de CEO, sus pies están cortados y se sale de la gráfica, cosa que no es realista. Todos los personajes con sus cajas y textos deberían estar dentro de los ejes"*.
 
@@ -783,7 +783,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **Y se dice de dónde sale el espacio, que si no lo inventa** (`§0c-TAMAÑO`): *"reduce un poco el conjunto y súbelo, aprovechando el aire que queda entre el título y la primera figura, hasta que el último apoye los pies encima del eje"*.
 - **El síntoma a buscar al revisar:** mira **el último elemento de la diagonal**, que es donde se acumula el recorte. Si sus pies tocan o pasan el eje, la imagen vuelve.
 
-### 📐📐 0b-DENTRO-DEL-MARCO-BIS · NO SE DICE "SÚBELO UN POCO": SE DA LA IGUALDAD DE LOS DOS HUECOS (Iker, 2026-08-27)
+### 📐📐 0b-DENTRO-DEL-MARCO-BIS · NO SE DICE "SÚBELO UN POCO": SE DA LA IGUALDAD DE LOS DOS HUECOS (2026-08-27)
 
 > **Iker, después de que la v3 siguiera rozando el eje:** *"para que lo entienda, todos los personajes tienen que estar como conjunto a la misma distancia del punto más alto arriba a la izquierda de la línea diagonal y de la flecha de abajo a la derecha. Si te das cuenta, ahora todos están más cerca de la flecha de abajo"*.
 
@@ -800,7 +800,7 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 - **Es la misma familia que `§0c-TAMAÑO`:** una orden de colocación sin decir de dónde sale el espacio la resuelve el generador como quiere. Aquí el espacio sale del hueco sobrante de arriba, y la igualdad lo dice sin tener que nombrarlo.
 - **⚠️ Y SOLO PARA ESO (02/10):** la igualdad de huecos es para una SERIE apoyada en una diagonal o un eje. Para subir o bajar un texto sobre fondo liso falló (agrandó el título y lo bajó); ahí manda la frase de dirección de `§0c`: `sube las 2 lineas de texto hacia arriba para aprovechar el espacio que tiene`.
 
-## 🔄🔄 0i-CHAT-NUEVO · CUANDO EL GENERADOR SE ATASCA EN LA CUARTA EDICIÓN, SE ABRE CHAT NUEVO CON LA ÚLTIMA VERSIÓN BUENA (Iker, 2026-08-27)
+## 🔄🔄 0i-CHAT-NUEVO · CUANDO EL GENERADOR SE ATASCA EN LA CUARTA EDICIÓN, SE ABRE CHAT NUEVO CON LA ÚLTIMA VERSIÓN BUENA (2026-08-27)
 
 > **Iker, después de seis vueltas con el meme de la escalera del peso:** *"la clave es coger esa última versión que nos convence casi definitiva, crear un chat nuevo y ya pedírselo. Mira ahora con ese último prompt qué bien lo ha hecho"*.
 
@@ -812,14 +812,14 @@ El original es `WAITING ON DESIGN / WAITING ON DEV / WAITING ON OPS`: **anáfora
 
 ### 🧰🧰 0i-PHOTOCRAFT · SI LA IMAGEN YA ES BUENA Y SOLO FALTA MOVER ALGO, SE MUEVE EN PHOTOCRAFT, NO EN EL GENERADOR (2026-09-17)
 
-**El caso (lead magnet de Asier, `/perfil/`):** la tercera versión solo tenía el título alineado a la izquierda y pegado arriba. Pedí al generador *"centra el título y reparte el aire"* con *"ni la caja, ni el desenfoque"* en la contención, y **rehízo la imagen entera**: el texto nítido de la caja salió más pequeño y con otros cortes de línea, el punto se metió dentro de la franja y el desenfoque cambió. Iker: *"ha empeorado todo bastante"*. Se volvió a la versión anterior.
+**El caso (lead magnet del tercer jefe, `/perfil/`):** la tercera versión solo tenía el título alineado a la izquierda y pegado arriba. Pedí al generador *"centra el título y reparte el aire"* con *"ni la caja, ni el desenfoque"* en la contención, y **rehízo la imagen entera**: el texto nítido de la caja salió más pequeño y con otros cortes de línea, el punto se metió dentro de la franja y el desenfoque cambió. Iker: *"ha empeorado todo bastante"*. Se volvió a la versión anterior.
 
 **LA REGLA:** cuando la imagen ya está bien de contenido y lo que falta es **colocación** (centrar, subir, bajar, repartir aire) de un elemento que está sobre **fondo liso**, no se pide al generador: se hace en PhotoCraft en dos minutos (seleccionar, `Ctrl+J`, rellenar el hueco con el color del fondo, alinear sobre el lienzo). **Cada edición en el generador rehace la imagen y vuelve a poner en juego todo lo que ya estaba bien**, diga lo que diga la contención.
 - ~~**El generador se reserva para cambios de contenido** (un texto, un desenfoque, un elemento nuevo).~~
 - ~~**Y en la entrega, la alternativa manual va primero** cuando el retoque es solo de posición.~~
-- **🔄 CORREGIDO POR IKER EL 2026-10-02: EL DEFAULT ES EL PROMPT DE EDICIÓN AL GENERADOR, TAMBIÉN PARA MOVER COSAS.** Le recomendé Photoshop para subir el título y el botón de TikTok del meme de Asier y se descartó: el generador lo hace bien, aunque redibuja la imagen y cambia algo que el lector no nota. La v3 salió casi perfecta con un prompt de dos frases. **Se entrega el prompt de edición** (corto y por el efecto, `§0i-3-EFECTO`, con los píxeles medidos traducidos a algo que se vea). **Photoshop queda como plan B**, solo si una edición rompe algo que ya estaba bien, como el lead magnet del 17/09.
+- **🔄 CORREGIDO POR IKER EL 2026-10-02: EL DEFAULT ES EL PROMPT DE EDICIÓN AL GENERADOR, TAMBIÉN PARA MOVER COSAS.** Le recomendé Photoshop para subir el título y el botón de TikTok del meme del tercer jefe y se descartó: el generador lo hace bien, aunque redibuja la imagen y cambia algo que el lector no nota. La v3 salió casi perfecta con un prompt de dos frases. **Se entrega el prompt de edición** (corto y por el efecto, `§0i-3-EFECTO`, con los píxeles medidos traducidos a algo que se vea). **Photoshop queda como plan B**, solo si una edición rompe algo que ya estaba bien, como el lead magnet del 17/09.
 
-### 🌬️🌬️ 0i-3-EFECTO · EL RETOQUE SE PIDE CON EL EFECTO, EN UNA O DOS FRASES (Iker, 2026-09-17)
+### 🌬️🌬️ 0i-3-EFECTO · EL RETOQUE SE PIDE CON EL EFECTO, EN UNA O DOS FRASES (2026-09-17)
 
 **Lo que funcionó a la primera, en chat nuevo, sobre una imagen ya buena:**
 ```
@@ -829,7 +829,7 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
 
 **🔄 02/10: el ejemplo de aquí arriba lleva `centra`, y Iker ya no la quiere en ningún prompt** (`§0c`): para mover se usa la frase de dirección. **LA REGLA:** para retocar, **se describe cómo tiene que VERSE, no cómo medirlo**: `que respire`, `que no quede pegado al borde`, `igual que la frase de abajo`. Una o dos frases y la contención seca (`§0i-3-CONTENCION-CORTA`). Las igualdades de huecos de `§0b-DENTRO-DEL-MARCO-BIS` se quedan para cuando el efecto no baste. Y si el hilo ya lleva varias ediciones, chat nuevo (`§0i-CHAT-NUEVO`).
 
-## ✂️✂️ 0i-3-CONTENCION-CORTA · EL CIERRE ES LA FRASE SECA, SIN LISTA DE LO QUE SE QUEDA (Iker, 2026-08-27)
+## ✂️✂️ 0i-3-CONTENCION-CORTA · EL CIERRE ES LA FRASE SECA, SIN LISTA DE LO QUE SE QUEDA (2026-08-27)
 
 > **Iker:** *"en tu último prompt yo le he dicho «deja todo lo demás intacto y no hagas nada que no te he pedido», y he quitado todos esos detalles específicos que has dado tú. Es mejor así, más sencillo"*.
 
@@ -842,17 +842,17 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
 ```
 **La única excepción sigue siendo la del prompt de creación**, donde la coletilla larga añade *"ni toques colores ni suavices caras ni deformes"*, que son prohibiciones, no una lista de lo que se conserva.
 
-## ⛔⛔ 0b-REF · NINGUNA PROPUESTA DE IMAGEN SIN ENLACE A UNA REFERENCIA REAL (Iker, 2026-08-06)
+## ⛔⛔ 0b-REF · NINGUNA PROPUESTA DE IMAGEN SIN ENLACE A UNA REFERENCIA REAL (2026-08-06)
 
 > **La regla:** *"no me puedes dar una propuesta de foto sin una referencia, porque entonces me estás demostrando que te la estás inventando. Tiene que estar validado en que ese mismo formato de foto ya haya funcionado, por lo tanto me tienes que pasar el enlace."*
 
 - **Aplica a TODOS los pilares, no solo al meme.** Ya estaba escrita para el meme y la generalizo aquí: cualquier brief de imagen que yo entregue **va con el enlace al post real cuyo formato estoy calcando**, y con su ratio.
 - **Prioridad: primero un post NUESTRO, y solo si no hay, uno de fuera.** Es la misma regla que el gancho (`global §0-DATOS`): si tenemos el dato en casa, el de fuera no manda.
 - **Sin enlace no hay propuesta.** Si no encuentro referencia, se dice —"no tengo referencia validada para este formato"— y se propone uno que sí la tenga. No se rellena con criterio.
-- **⛔ AL DISEÑADOR SE LE PASA LA FOTO, NUNCA EL ENLACE (Iker, 2026-08-06).** El enlace es para IKER, para que compruebe que la referencia existe y cuánto hizo. **En el prompt del diseñador se escribe "te paso la foto de referencia", nunca "mira este enlace y saca la foto".** Y la foto hay que dejársela descargada a Iker para que la reenvíe: se baja de la API (`/api/posts/post/{id}/refresh-media` para las nuestras, `attachments[0].url` de Unipile para las suyas) y se entrega como fichero.
+- **⛔ AL DISEÑADOR SE LE PASA LA FOTO, NUNCA EL ENLACE (2026-08-06).** El enlace es para IKER, para que compruebe que la referencia existe y cuánto hizo. **En el prompt del diseñador se escribe "te paso la foto de referencia", nunca "mira este enlace y saca la foto".** Y la foto hay que dejársela descargada a Iker para que la reenvíe: se baja de la API (`/api/posts/post/{id}/refresh-media` para las nuestras, `attachments[0].url` de Unipile para las suyas) y se entrega como fichero.
 - **Y la referencia se MIRA, no se recuerda.** El 2026-08-06 iba a proponer "captura del artefacto" citando a Guillermo Flor de memoria; al bajarme las imágenes de verdad resultó que **nuestros cuatro mejores lead magnets usan cuatro formatos distintos** y ninguno era el que yo tenía en la cabeza. Las URLs de `media.licdn.com` caducan y dan 403: se refrescan con `POST /api/posts/post/{id}/refresh-media` y luego se abren.
 
-### ⭐⭐ 0b-REF-ter · EN LEAD MAGNET, LA REFERENCIA DE IMAGEN ES DE FUERA (Iker, 2026-08-06)
+### ⭐⭐ 0b-REF-ter · EN LEAD MAGNET, LA REFERENCIA DE IMAGEN ES DE FUERA (2026-08-06)
 
 > *"Es mejor coger referencias de fotos de otros, ya que de momento ellos están consiguiendo publicaciones con mil comentarios y nosotros no hemos llegado nunca a eso. Así que ellos hacen de momento todo mejor."*
 
@@ -867,7 +867,7 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
 | **1.245** | **Solo los logos de Claude y LinkedIn** sobre crema, con una costura naranja/azul en medio y unas líneas de circuito muy suaves. **Cero texto.** | No hay artefacto que enseñar todavía, o el post ya lo cuenta todo |
 | **1.217** | Pantallazo de un **workflow de n8n** con los 4 pasos en bloques de color | El recurso es un proceso |
 
-~~**⛔ NINGUNA DE LAS CUATRO LLEVA EL CTA DENTRO DE LA IMAGEN (Iker, 2026-08-06).** Nuestro 183c sí lo lleva (*Comenta "perfil" + tu departamento*) y es de los flojos. **El CTA vive en el texto y solo ahí.**~~
+~~**⛔ NINGUNA DE LAS CUATRO LLEVA EL CTA DENTRO DE LA IMAGEN (2026-08-06).** Nuestro 183c sí lo lleva (*Comenta "perfil" + tu departamento*) y es de los flojos. **El CTA vive en el texto y solo ahí.**~~
 **🚨 SUPERADA EL 2026-08-12, y al REVÉS:** desde que LinkedIn capa el `Comenta "X"` escrito en el texto (`post-workflow §4.5.0-CTA`), Martín Arosa hace exactamente lo contrario: **el "comenta" vive SOLO en la imagen** — banner inferior oscuro con 💬 *Comenta "SISTEMA" y te lo envío por mensaje privado* (1.321c el 11/08, 289c el 10/08) — y el texto queda limpio con la pregunta + acceso libre + conecta conmigo. Daniel Matias igual, con franja amarilla arriba (*Connect + Comment "MCP" for access*, 249c). **La regla vieja valía cuando el texto podía llevar el gate; hoy la imagen es el ÚNICO sitio donde puede vivir.** Receta completa en `post-workflow §4.5.0-CTA-IMAGEN`.
 
 **Y el formato sigue siendo NUESTRO: 1:1.** Su 1.245c es 16:9 y su 2.125c casi 2:1; se calca el concepto y se recompone a cuadrado (`§0b`). Su 1.958c ya es 1:1, así que ahí no hay conflicto.
@@ -884,7 +884,7 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
 
 **El patrón que se lee de la tabla:** cuanto más abstracta es la imagen, peor va. Lo humano (selfie) arriba, lo concreto (artefacto real, cifras reales) en medio, lo conceptual abajo.
 
-## 🤖 0b-OG-SCRIPT · LA IMAGEN DE COMPARTIR YA NO LA GENERA NADIE: LA MONTA UN SCRIPT (Iker, 2026-08-14)
+## 🤖 0b-OG-SCRIPT · LA IMAGEN DE COMPARTIR YA NO LA GENERA NADIE: LA MONTA UN SCRIPT (2026-08-14)
 
 > **La idea es de Iker y resuelve el cuello de botella real del pilar:** *"cada vez tengo que generar dos fotos y perdemos mucho tiempo. Voy a hacer una plantilla PSD editable y me la generas tú, y así yo solo genero la foto de la publicación"*.
 
@@ -894,14 +894,14 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
 - **Del PSD sale TODO menos las palabras:** posición, línea base, cuerpo (122 px la de arriba y 150 la de abajo) y color (`#ebfff6` la 1, `#fe8238` la 2). Si Iker cambia la plantilla, el script cambia solo. Ojo a la trampa de siempre: el `FontSize` del PSD va en unidades del documento, así que se multiplica por la escala de `layer.transform`, y de esa matriz salen también la x y la línea base (lo mismo que en `montar-llanta.py`).
 - **Sale a 1200x630 PNG**, que es lo que pide Open Graph.
 - **⛔ Si el copy no cabe, el script ABORTA con la medida exacta en píxeles** en vez de encogerlo. Es `lead-magnet-web §4c` hecho código: **se acorta el copy, nunca se toca el diseño**. Iker, 2026-08-14: *"todas tienen que empezar en la misma posición y tamaño para coherencia de diseño, así que tu solución tiene que ser simplemente poner frases más cortas. Para algo tienes la plantilla"*. **No hay ningún `--forzar`: esa puerta no existe.**
-- **⛔⛔ Y "CABER" NO ES "NO TOCARSE": ES QUE SE VEAN SEPARADAS EN MINIATURA (Iker, 2026-08-14).** *"Estas imágenes se ven en pequeño. Si ya en grande se nota que se están chocando, imagínate en pequeño"*. Con el hueco puesto a ojo, las once pasaban el check y **dos quedaban rozando la pieza azul**.
+- **⛔⛔ Y "CABER" NO ES "NO TOCARSE": ES QUE SE VEAN SEPARADAS EN MINIATURA (2026-08-14).** *"Estas imágenes se ven en pequeño. Si ya en grande se nota que se están chocando, imagínate en pequeño"*. Con el hueco puesto a ojo, las once pasaban el check y **dos quedaban rozando la pieza azul**.
   - **El límite real no es el borde del lienzo, son las PIEZAS AZULES**, que entran en diagonal, así que el ancho libre **depende de la altura a la que caiga cada línea**. Se mide sobre el fondo limpio, buscando el primer píxel de la pieza en la banda de esa línea.
   - **El suelo sale de lo que Iker aceptó y rechazó, no de mi criterio:** rechazó las de **4 px** y **34 px** de aire (`Encuentras la empresa`, `Los filtros se acabaron`) y dio por buenas todas las de **89 px para arriba**. El hueco quedó en el **5% del ancho**, 87 px sobre el lienzo de 1731.
   - **Y las tres trampas de la medición, que costaron una pasada cada una:** buscar "lo claro" cuenta el **halo magenta** como pieza · medir después de dibujar la línea 1 la detecta a **ella** como pieza (el mint también tiene el azul alto) · contar el descendente entero deja que mande **la punta del triángulo** y tumba hasta el copy ya publicado.
 - **🔴 Y ESTA IMAGEN YA NO LLEVA POSTPRODUCCIÓN**, porque no ha pasado por un generador ni por PhotoCraft: no hay acabado de render que suavizar ni firma de IA que borrar. **Misma excepción que "Los 10" y el despiece** (`§0a-penta`). Lo único que queda de su circuito es el último paso: **pasársela al chat de la web de recursos para que le inserte el logo y la suba.**
 - **Qué cambia en la ENTREGA del lead magnet:** las cuatro piezas siguen siendo cuatro, pero ahora **la de compartir va como FICHERO ya montado**, no como prompt. Iker solo genera **una** imagen, la del post.
 
-## ⭐ 0b-OG · LA IMAGEN DE COMPARTIR DEL RECURSO WEB (Iker, 2026-08-06)
+## ⭐ 0b-OG · LA IMAGEN DE COMPARTIR DEL RECURSO WEB (2026-08-06)
 
 > **Por qué existe esta sección:** lo descubrimos hace tiempo —al compartir un enlace de la web de recursos (entonces `recursos.neety.com`, hoy `neety.com/academia`) salía sin imagen— y **no lo escribí en ningún sitio**, así que en la entrega del lead magnet de `firma` volví a dejarla fuera y Iker tuvo que pasarme la referencia otra vez. Lo aprendido que no se guarda se vuelve a perder.
 
@@ -918,11 +918,11 @@ SOLO HAZ LO QUE TE PIDO: centra el título en el ancho de la imagen, igual que l
 - **Cero footer, cero URL, cero foto.** Igual que todo lo nuestro (`§0a-bis`).
 - **El LOGO no lo pone el diseñador: se inserta DESPUÉS** (ver el circuito de abajo). El diseñador la entrega sin logo.
 
-**⭐ EL CIRCUITO COMPLETO DE ESTA IMAGEN, QUE NO TERMINA EN EL DISEÑADOR (Iker, 2026-08-06).** Es distinto al de la imagen del post y por eso se me quedó a medias: yo entregaba el prompt y ahí lo dejaba. El diseñador la genera desde la referencia, y luego Mario la desenfoca, la exporta limpia y **se la pasa al chat de la web de recursos, que le inserta el logo y la sube**. Sin ese último paso la imagen existe pero el enlace sigue llegando como caja gris.
+**⭐ EL CIRCUITO COMPLETO DE ESTA IMAGEN, QUE NO TERMINA EN EL DISEÑADOR (2026-08-06).** Es distinto al de la imagen del post y por eso se me quedó a medias: yo entregaba el prompt y ahí lo dejaba. El diseñador la genera desde la referencia, y luego el compañero de marketing la desenfoca, la exporta limpia y **se la pasa al chat de la web de recursos, que le inserta el logo y la sube**. Sin ese último paso la imagen existe pero el enlace sigue llegando como caja gris.
 
-**El aviso va en UNO SOLO, el rojo de `§0a-penta` ampliado — no en dos (Iker, 2026-08-06).** Yo lo había partido en un 🔴 y un 🟣 y es la misma cadena de postproducción. Literal, para copiar:
+**El aviso va en UNO SOLO, el rojo de `§0a-penta` ampliado — no en dos (2026-08-06).** Yo lo había partido en un 🔴 y un 🟣 y es la misma cadena de postproducción. Literal, para copiar:
 
-> 🔴 **Acuérdate Mario de aplicar el desenfoque de superficie en PhotoCraft, exportar sin metadatos con Exportar como, y pasársela al otro chat, el de la web de recursos, para que le inserte el logo y la suba.**
+> 🔴 **Acuérdate el compañero de marketing de aplicar el desenfoque de superficie en PhotoCraft, exportar sin metadatos con Exportar como, y pasársela al otro chat, el de la web de recursos, para que le inserte el logo y la suba.**
 
 **Quién decide qué dice:** el texto sale del gancho del post, igual que el H1 del gate (`lead-magnet-web §2`).
 
@@ -952,7 +952,7 @@ solo haz lo que te pido. sube las 2 lineas de texto hacia arriba para aprovechar
 
 Sirve para todo lo espacial: separar del borde, llenar un hueco, subir algo que cuelga. **Describe el movimiento y el espacio, nunca el resultado.**
 
-### ⭐⭐ 0c-TAMAÑO · TODA ORDEN DE TAMAÑO VA CON LA DEL ESPACIO QUE SOBRA, EN LA MISMA FRASE (Iker, 2026-08-19)
+### ⭐⭐ 0c-TAMAÑO · TODA ORDEN DE TAMAÑO VA CON LA DEL ESPACIO QUE SOBRA, EN LA MISMA FRASE (2026-08-19)
 
 **El caso, y el prompt bueno lo escribió él.** Pedí bajar el cuerpo de letra de la transcripción a tamaño de documento y añadí *"deja el bloque centrado con márgenes estrechos"*. El generador hizo lo barato: **encogió el texto y dejó media imagen en blanco**, con una isla de letra pequeña en el centro. El prompt de Iker que lo arregló a la primera fue *"aprovecha todo el espacio que queda por arriba y la izquierda para que todo el texto sea más grande y legible"*.
 
@@ -964,7 +964,7 @@ Sirve para todo lo espacial: separar del borde, llenar un hueco, subir algo que 
 
 **Es la misma familia que `§0b-ANCHO`** (pedir 1:1 no basta: hay que pedir que el contenido llegue de borde a borde). **Cambiar el tamaño y repartir el espacio son la misma instrucción, y se escriben juntas.**
 
-**⭐ Y VALE IGUAL PARA EL TAMAÑO, NO SOLO PARA LA POSICIÓN (Iker, 2026-08-06).** Aquí esto estaba escrito solo para colocar, y por eso el 2026-08-06 pedí *"agrándalos hasta que ocupen bastante más de la mitad del alto"* — que es otra vez pedirle que MIDA y que JUZGUE, el mismo error con otra ropa. **Agrandar también se pide nombrando el espacio libre y la dirección:**
+**⭐ Y VALE IGUAL PARA EL TAMAÑO, NO SOLO PARA LA POSICIÓN (2026-08-06).** Aquí esto estaba escrito solo para colocar, y por eso el 2026-08-06 pedí *"agrándalos hasta que ocupen bastante más de la mitad del alto"* — que es otra vez pedirle que MIDA y que JUZGUE, el mismo error con otra ropa. **Agrandar también se pide nombrando el espacio libre y la dirección:**
 - ❌ `agrándalos hasta que ocupen más de la mitad del alto`
 - ❌ `hazlos más grandes, sobra mucho espacio vacío`
 - ✅ `aprovecha el espacio que los logos tienen por arriba y por abajo y también por los laterales para que llenen la imagen`
@@ -982,7 +982,7 @@ Sirve para todo lo espacial: separar del borde, llenar un hueco, subir algo que 
 
 **Y el caso típico donde hace falta: al recomponer una referencia de 16:9 a nuestro 1:1** (`§0b`). El generador conserva el ancho de los elementos y te deja dos bandas muertas arriba y abajo. **Se cuenta como espacio a aprovechar, nunca como "está pequeño".**
 
-### ⭐⭐ 0c-MEDIR · SI HAY UN HERMANO QUE YA ESTÁ BIEN, SE LE MANDA MEDIRLO EN PÍXELES Y COPIAR EL NÚMERO (Iker, 2026-08-14)
+### ⭐⭐ 0c-MEDIR · SI HAY UN HERMANO QUE YA ESTÁ BIEN, SE LE MANDA MEDIRLO EN PÍXELES Y COPIAR EL NÚMERO (2026-08-14)
 
 **El tercer escalón de esta sección, y el que desatasca lo que no se desatasca con los otros dos.** `§0c` dice que no se le pide un JUICIO (*céntralo*) sino una OPERACIÓN (*aprovecha el espacio de la izquierda*). Faltaba el caso en que ni siquiera eso funciona: cuando el elemento tiene **hermanos que ya están bien** y el generador no acierta a igualarlo.
 
@@ -1006,7 +1006,7 @@ Sirve para todo lo espacial: separar del borde, llenar un hueco, subir algo que 
 - **Lo que NO se toca aunque te pique:** la mecánica cómica, el sujeto, el layout. Eso es el motor. **El estilo de dibujo SÍ se cambia: siempre a dibujo plano minimalista** (`§0a-DIBUJO`, Iker 01/10).
 - **La pregunta:** ¿esto es lo que hizo volar al post, o es un defecto que nadie ha mirado? Lo primero se calca. Lo segundo se mejora. **Estos detalles de diseño marcan la diferencia entre un remix y una copia peor que el original.**
 
-### ⛔⛔ 0d-PROPORCION · EL TAMAÑO RELATIVO DE LOS PANELES ES CALCO, NO DECORADO. Y UNA "MEJORA" QUE NO ESTÁ EN LA LISTA DE ARRIBA ES UNA HIPÓTESIS MÍA (Mario, 2026-08-26)
+### ⛔⛔ 0d-PROPORCION · EL TAMAÑO RELATIVO DE LOS PANELES ES CALCO, NO DECORADO. Y UNA "MEJORA" QUE NO ESTÁ EN LA LISTA DE ARRIBA ES UNA HIPÓTESIS MÍA (2026-08-26)
 
 > **Iker, sobre la 2ª pasada del meme de la katana:** *"al igualar las dos cajas el peso visual ya no es el mismo, y sobre todo las manos de la caja de abajo las has estirado y deformado mucho hacia arriba, queda feo. Este prompt de edición no era una mejora. De hecho, la referencia original tiene esa gran diferencia de que la caja primera es más grande que la segunda. Me había quedado con la versión anterior. Igual que ha pasado antes con otra publicación"*.
 
@@ -1050,37 +1050,37 @@ Son artefactos distintos con reglas opuestas. **No apliques la del post a la ima
 - **La regla:** si la operación es **determinista** (pegar, recortar, enmascarar, colocar, redimensionar), la hace un **script**; el modelo es para lo que hay que **inventar** (un meme nuevo, una escena). Caso: `scripts/montar-orla.py` (`post-workflow §4.3` Paso 6b) → 0 píxeles de la plantilla tocados, foto idéntica al original.
 - Es la misma lección que el validador de posts y que el sorteo del agradecimiento en `replyGenerator`: **lo que se puede comprobar o ejecutar mecánicamente no se le pide por favor a un modelo.**
 
-## 0g · 🎭 EL REGISTRO DE LA IMAGEN VA POR CUENTA (Unai ≠ Iker)
-> La escala de voz de `brand-voice §1b` **también aplica a la imagen**, y aquí es donde más se nota. Fue lo que falló con el meme del perro en la cuenta de Unai.
+## 0g · 🎭 EL REGISTRO DE LA IMAGEN VA POR CUENTA (el primer jefe ≠ Iker)
+> La escala de voz de `brand-voice §1b` **también aplica a la imagen**, y aquí es donde más se nota. Fue lo que falló con el meme del perro en la cuenta del primer jefe.
 
 **Son DOS cajones, no tres** (matizado por el usuario el 2026-07-16):
 
 | Cuenta | Qué meme le pega |
 |---|---|
-| **Unai** (fundador) y **Asier** | **Meme INTELIGENTE, para industriales, inequívocamente de ventas, y NUNCA infantil.** El chiste lo tiene que pillar un director comercial de 50 años y tiene que pensar "esto lo ha escrito alguien que ha vendido". Sirven: capturas reales, informes, gráficos, fotos, un wojak (que es feo, no mono). **No sirven:** dibujos de animales, caricaturas tiernas, cualquier cosa con pinta de canal de memes |
+| **El primer jefe** (fundador) y **el tercer jefe** | **Meme INTELIGENTE, para industriales, inequívocamente de ventas, y NUNCA infantil.** El chiste lo tiene que pillar un director comercial de 50 años y tiene que pensar "esto lo ha escrito alguien que ha vendido". Sirven: capturas reales, informes, gráficos, fotos, un wojak (que es feo, no mono). **No sirven:** dibujos de animales, caricaturas tiernas, cualquier cosa con pinta de canal de memes |
 | **Iker** | **Cualquier meme outlier**, del formato que sea, con la única condición de siempre: **adaptado a ventas** (`global §2.3`, el test del ancla). Aquí no hay restricción extra: es la regla estándar de cualquier post |
 
-- **🔄 05/11: el wojak y cualquier caricatura de personaje SALEN de las cuentas de Unai y Asier** (`post-workflow §4.4-FILTRO-IMAGEN`). Lo de "un wojak es feo, no mono" de la tabla de arriba queda superado: en la cuenta de un directivo, la caricatura se lee como canal de memes igual. Les valen gráficas, capturas, documentos y fotos.
-- **El meme NO se le prohíbe a Unai ni a Asier**, y confundirlo saldría carísimo: el mejor post de la historia de Unai (**16.62x**) ES un meme, el wojak de la caja de herramientas. Lo que se les prohíbe es el **registro infantil**. Un wojak es feo; un border collie dibujado es mono. Esa es toda la frontera.
-- **El texto de Unai ya era sobrio en ese 16.62x.** En su cuenta la sobriedad se juega en la IMAGEN, no en el texto.
-- Si una referencia es buenísima pero su imagen es un dibujo tierno, **va a la cuenta de Iker**, no a la de Unai ni a la de Asier. Cambiar de cuenta es gratis; forzar el registro, no.
+- **🔄 05/11: el wojak y cualquier caricatura de personaje SALEN de las cuentas del primer jefe y el tercer jefe** (`post-workflow §4.4-FILTRO-IMAGEN`). Lo de "un wojak es feo, no mono" de la tabla de arriba queda superado: en la cuenta de un directivo, la caricatura se lee como canal de memes igual. Les valen gráficas, capturas, documentos y fotos.
+- **El meme NO se le prohíbe al primer jefe ni al tercer jefe**, y confundirlo saldría carísimo: el mejor post de la historia del primer jefe (**16.62x**) ES un meme, el wojak de la caja de herramientas. Lo que se les prohíbe es el **registro infantil**. Un wojak es feo; un border collie dibujado es mono. Esa es toda la frontera.
+- **El texto del primer jefe ya era sobrio en ese 16.62x.** En su cuenta la sobriedad se juega en la IMAGEN, no en el texto.
+- Si una referencia es buenísima pero su imagen es un dibujo tierno, **va a la cuenta de Iker**, no a la del primer jefe ni a la del tercer jefe. Cambiar de cuenta es gratis; forzar el registro, no.
 - ⚠️ **"Inteligente y específico de ventas" NO significa "de nicho".** `global §2.4` sigue mandando: el claim tiene que aterrizar en CUALQUIERA cerca del B2B comercial. Un meme que solo pilla el SDR ultratécnico es un meme del 1% y no viaja, en la cuenta de quien sea. El modelo es el 16.62x: *"cada año la caja de herramientas engorda pero el comercial cierra menos"* lo entiende cualquier comercial, y aun así suena a industrial y no a creador. **Específico de ventas = pasa el test del ancla; no = jerga que estrecha el alcance.**
 
 ## 0h · 🖼️ EL TEXTO DE LA IMAGEN (4 reglas que faltaban, 2026-07-16)
-> Las cuatro salieron de la misma tanda de correcciones sobre el meme de Asier. Ninguna era un fallo de esa imagen: eran reglas que no estaban escritas.
+> Las cuatro salieron de la misma tanda de correcciones sobre el meme del tercer jefe. Ninguna era un fallo de esa imagen: eran reglas que no estaban escritas.
 
 **1 · ⭐ EL TÍTULO DE LA IMAGEN TAMBIÉN SE ANCLA A VENTAS.** El test de `global §2.3` ("¿esto SOLO puede publicarlo una cuenta de ventas?") **no es solo del hook: es de todo lo que se lee**, y el título de la imagen se lee tanto como el hook.
 - ❌ **Caso real:** el hook se corrigió a *"En ventas, el pedido encoge…"* porque "pedido" es ancla ambigua… y el título de la imagen se quedó en **"LA VIDA DE UN PEDIDO"**, igual de genérico. Lo puede firmar un jefe de logística. Se arregló el hook y se dejó el mismo agujero al lado.
 - ✅ **Corregido a "EL PEDIDO SUBE. LA VENTA NO."** — ancla fuerte ("VENTA") y encima cuenta el chiste.
 
-**1-bis · ⛔ SI LA IMAGEN TIENE VARIOS ELEMENTOS, EL ANCLA VA EN TODOS, NO EN UNO (Iker, 2026-08-19).** La regla de arriba se escribió pensando en imágenes con UN título. Cuando la pieza es un documento con varias filas —4 resultados de un buscador, las líneas de un chat, las filas de una tabla, los turnos de una transcripción— **cada una es una oportunidad de ancla, y dejar solo una anclada desperdicia el resto**.
+**1-bis · ⛔ SI LA IMAGEN TIENE VARIOS ELEMENTOS, EL ANCLA VA EN TODOS, NO EN UNO (2026-08-19).** La regla de arriba se escribió pensando en imágenes con UN título. Cuando la pieza es un documento con varias filas —4 resultados de un buscador, las líneas de un chat, las filas de una tabla, los turnos de una transcripción— **cada una es una oportunidad de ancla, y dejar solo una anclada desperdicia el resto**.
 
 - **El caso:** la primera versión del meme de la búsqueda de Google salió con 4 resultados y **solo el segundo hablaba de ventas**. Iker: *"en esta foto solo la segunda búsqueda se ha adaptado a ventas, así que estaría bien que se adapten las cuatro"*.
 - **Y el que más manda es el campo de búsqueda**, o la cabecera del documento, que es lo primero que se lee: ahí el ancla no es opcional. `como hacer que mi mensaje no parezca escrito por una ia` → **`hacer que mi mensaje de ventas no parezca ia`**, que además es más corto y cabe a más tamaño.
 - **⚠️ Pero se ancla VARIANDO el vocabulario del oficio**, no repitiendo `de ventas` cuatro veces: mensaje en frío, comercial, prospecto, cliente, equipo comercial. Cuatro filas con la misma coletilla se leen a plantilla y delatan que lo hemos fabricado.
-- **Y si un elemento existe para atar el meme al carril de la cuenta** (aquí, el resultado del foro de desarrollo, que es lo que lo hace de Asier), **ese no se sacrifica: se ancla también**, cruzando las dos cosas — *un programador montó el limpiador que le pidió el equipo de ventas*.
+- **Y si un elemento existe para atar el meme al carril de la cuenta** (aquí, el resultado del foro de desarrollo, que es lo que lo hace del tercer jefe), **ese no se sacrifica: se ancla también**, cruzando las dos cosas — *un programador montó el limpiador que le pidió el equipo de ventas*.
 
-**1b · ⭐ EL TÍTULO ES UN SEGUNDO GANCHO: CORTO, PUNCHY Y GENERICO** (Iker, 2026-07-20).
+**1b · ⭐ EL TÍTULO ES UN SEGUNDO GANCHO: CORTO, PUNCHY Y GENERICO** (2026-07-20).
 No basta con que ancle a ventas y no repita el hook. **Se le exige lo MISMO que al gancho del post**, porque compite con el en la misma pantalla:
 - **CORTO.** 3-5 palabras. Si necesita una subordinada, no es un titulo, es una frase.
 - **VERBO PUNCHY** (`global §2.9`). Un verbo de estado ("se parece", "es", "tiene") mata el titulo aunque el concepto sea bueno.
@@ -1090,7 +1090,7 @@ No basta con que ancle a ventas y no repita el hook. **Se le exige lo MISMO que 
 
 **2 · EL TÍTULO NO REPITE EL HOOK.** Si el hook ya dice *"En ventas, el pedido encoge cada vez que sube un piso"*, la imagen **no lo vuelve a decir**: el lector lee lo mismo dos veces y la foto no aporta nada. El título de la imagen es **otra frase** del mismo chiste, no un eco.
 
-**2b · ⛔ EL PROMPT VA EN UN SOLO PÁRRAFO, EN PROSA (Iker, 2026-08-11).** *"Tiene que
+**2b · ⛔ EL PROMPT VA EN UN SOLO PÁRRAFO, EN PROSA (2026-08-11).** *"Tiene que
 ser un prompt de solo un párrafo. Me has metido muchos símbolos raros y cosas."* Nada
 de listas con viñetas, nada de `·`, `→`, flechas, cabeceras en mayúsculas ni etiquetas
 tipo `IZQUIERDA (55%)`. Se escribe como se le explicaría a una persona: un párrafo
@@ -1117,9 +1117,9 @@ lleva la palabra naranja, las etiquetas van todas berenjena.**
 tiene que ir donde está el contenido que se compara. El título ya destaca por
 tamaño de letra, no necesita caja; el eje es contexto y no debe competir.
 
-**2c · ⛔ LAS ETIQUETAS VAN EN MAYÚSCULA INICIAL, Y EL EJE SIN CAJA (Iker, 2026-08-11).** En cualquier rótulo o etiqueta de una imagen, **la primera letra de cada palabra va en mayúscula menos las preposiciones**: `Nivel de Responsabilidad`, `Jefe de Equipo`, `Responsable de Ventas`. Todo en minúscula se lee a borrador. Y **la etiqueta del eje no lleva caja de color**: el texto suelto en berenjena. Una caja ahí compite con las etiquetas de datos, que son las que tienen que destacar.
+**2c · ⛔ LAS ETIQUETAS VAN EN MAYÚSCULA INICIAL, Y EL EJE SIN CAJA (2026-08-11).** En cualquier rótulo o etiqueta de una imagen, **la primera letra de cada palabra va en mayúscula menos las preposiciones**: `Nivel de Responsabilidad`, `Jefe de Equipo`, `Responsable de Ventas`. Todo en minúscula se lee a borrador. Y **la etiqueta del eje no lleva caja de color**: el texto suelto en berenjena. Una caja ahí compite con las etiquetas de datos, que son las que tienen que destacar.
 
-**2d · ⛔ PARA MOVER ALGO, NOMBRA EL HUECO, NO LA ACCIÓN (Iker, 2026-08-11).** *“Si le decimos céntralo, se pierde”.* Se le dice **`aprovecha el espacio que tiene por la izquierda para moverlo un poco`**, no *“céntralo”*. Es la misma regla que §0c para el tamaño (*“aprovecha el espacio que tiene”* en vez de *“agrándalo”*): el diseñador ejecuta bien una instrucción espacial concreta y mal una abstracta.
+**2d · ⛔ PARA MOVER ALGO, NOMBRA EL HUECO, NO LA ACCIÓN (2026-08-11).** *“Si le decimos céntralo, se pierde”.* Se le dice **`aprovecha el espacio que tiene por la izquierda para moverlo un poco`**, no *“céntralo”*. Es la misma regla que §0c para el tamaño (*“aprovecha el espacio que tiene”* en vez de *“agrándalo”*): el diseñador ejecuta bien una instrucción espacial concreta y mal una abstracta.
 
 **3 · ⛔ SIN FOOTER, NUNCA.** Aunque la referencia lleve una franja inferior (la del meme de The Office llevaba *"BREAKING NEWS: 99% OF DEALS DIE OF OVER-COMMUNICATION"*), **se quita**. Queda fatal. La imagen termina en la última fila. Es de las cosas que se calcan NO (`§4.4`: el formato es nuestro, no el suyo).
 - Y en la misma familia: **cero logos y cero marcas de agua**. Nuestra marca se pone con la paleta y los detalles, nunca con un logo pegado.
@@ -1127,7 +1127,7 @@ tamaño de letra, no necesita caja; el eje es contexto y no debe competir.
 **4 · SE TRADUCE **TODO** EL TEXTO DE LA IMAGEN, no solo las etiquetas.** Si el post se traduce, la imagen también. **Mira los rincones**, que es donde se queda el inglés: badges, botones, estados y micro-copia de las capturas. Caso real: se tradujeron las 6 etiquetas grandes y la columna derecha entera se quedó en inglés (`Delivered`, `Pending`, `Subject: Following up…`, `Send`). Traducciones: Delivered → Entregado · Pending → Pendiente · Send → Enviar · Subject → Asunto.
 
 
-## ⭐ 0h-2 · EN UN LEAD MAGNET, EL TITULO DE LA IMAGEN NOMBRA EL ARTEFACTO (Iker, 2026-07-21)
+## ⭐ 0h-2 · EN UN LEAD MAGNET, EL TITULO DE LA IMAGEN NOMBRA EL ARTEFACTO (2026-07-21)
 
 **El titulo de la imagen NO siempre busca punch.** En meme si: la imagen es el motor y el titulo remata el chiste (`§0h`, `§1b`). **En un lead magnet la imagen es la PRUEBA del recurso**, y entonces el titulo tiene un trabajo distinto: **decir que es lo que estas viendo**.
 
@@ -1139,7 +1139,7 @@ tamaño de letra, no necesita caja; el eje es contexto y no debe competir.
 
 **Reparto de trabajo, calcado del original:** el **titulo** nombra el artefacto, el **subtitulo** lo cuantifica y lo acota ("25 empresas de tu sector que estan comprando ahora"), y **las filas dan la prueba**. Tres capas, cada una con su funcion.
 
-## ⭐ 0h-3 · TITULO LARGO: SE PARTE EN ESCALERA, Y SIEMPRE ASCENDENTE (Iker, 2026-07-21)
+## ⭐ 0h-3 · TITULO LARGO: SE PARTE EN ESCALERA, Y SIEMPRE ASCENDENTE (2026-07-21)
 
 La escalera estaba escrita para el cuerpo del post (`global §3.2`) y para el titular de la web (`lead-magnet-web`), pero **no para el titulo de una imagen**. Va aqui.
 
@@ -1149,7 +1149,7 @@ La escalera estaba escrita para el cuerpo del post (`global §3.2`) y para el ti
 
 **⚠️ Si al partir por su pausa natural la escalera sale INVERTIDA, no la partas: reescribe la frase.** Una escalera al reves es el mismo zigzag que `§3.2` prohibe en el cuerpo, y en un titulo se ve el triple porque son solo dos lineas. Caso real de ese dia: *"Tu lista de empresas, no la de todos"* corta en 21/14 — descendente. Como cabia en una linea (36 caracteres), se dejo en una. Si no hubiera cabido, habria tocado reescribirla, no partirla mal.
 
-## ⭐ 0i-1 · VARIOS ASSETS: VAN EN UN ZIP, Y SE PROHIBE REDIBUJARLOS (Iker, 2026-07-21)
+## ⭐ 0i-1 · VARIOS ASSETS: VAN EN UN ZIP, Y SE PROHIBE REDIBUJARLOS (2026-07-21)
 
 **Iker genera las imagenes con ChatGPT.** Dos limitaciones medidas el 2026-07-21, y las dos se arreglan en el prompt.
 
@@ -1163,7 +1163,7 @@ Por eso, **a partir de 3-4 assets, van en ZIP con el nombre numerado igual que l
 
 **Y en la entrega hay que avisar a Iker de que revise los logos uno a uno antes de publicar.** Vale para cualquier asset de marca ajena: logos, capturas de producto, packshots. **Mejor sin logos que con logos mal.**
 
-## ⭐ 0h-4 · LA CIFRA DE LA IMAGEN Y LA DEL TEXTO SON LA MISMA (Iker, 2026-07-21)
+## ⭐ 0h-4 · LA CIFRA DE LA IMAGEN Y LA DEL TEXTO SON LA MISMA (2026-07-21)
 
 **Si la imagen enseña filas contables, el numero del gancho tiene que ser EXACTAMENTE el numero de filas.** Guillermo Flor puede decir "1,000" y enseñar 35 filas porque nadie espera ver mil; **entre 25 y 15 se cuenta a ojo**, y el lector que las cuenta descubre que le prometes mas de lo que enseñas. En un lead magnet, donde lo unico que vendes es la credibilidad del recurso, eso lo mata.
 
@@ -1171,16 +1171,16 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 
 **Los tres sitios que tienen que decir el mismo numero:** el gancho, la linea del entregable en el cuerpo, y el subtitulo de la imagen. **Si cambias uno, cambias los tres.** Y el numero sigue siendo impar (`global §2.5b`).
 
-**⭐ Y LAS MINIATURAS DE UN VISOR DE PDF TAMBIEN SE CUENTAN, Y VAN CUADRADAS (Iker, 2026-08-14).** Es la misma regla, en el sitio donde no la estaba aplicando: en el lead magnet de la criba el post prometia **5 pasos** y la columna de la izquierda enseñaba **7 miniaturas**. Nadie cuenta 30 filas, pero **7 miniaturas se cuentan de un vistazo**, y ahi el lector ve que le prometemos cinco cosas y le enseñamos siete paginas.
+**⭐ Y LAS MINIATURAS DE UN VISOR DE PDF TAMBIEN SE CUENTAN, Y VAN CUADRADAS (2026-08-14).** Es la misma regla, en el sitio donde no la estaba aplicando: en el lead magnet de la criba el post prometia **5 pasos** y la columna de la izquierda enseñaba **7 miniaturas**. Nadie cuenta 30 filas, pero **7 miniaturas se cuentan de un vistazo**, y ahi el lector ve que le prometemos cinco cosas y le enseñamos siete paginas.
 - **El numero de miniaturas = el numero del gancho.** Es la cuarta pata de los tres sitios de arriba.
 - **Y van CUADRADAS, aunque la referencia las tenga horizontales.** Iker: *"aunque la referencia lo tenia asi, que todas sean cuadradas para que haya coherencia de diseño, y asi estamos copiando y mejorando"*. Las suyas son horizontales porque **su imagen es horizontal**; la nuestra es 1:1 siempre (`§0b`), asi que un documento cuadrado tiene miniaturas cuadradas. Es de la familia de `§0d`: el encuadre del original es un defecto heredado, no el motor.
 - **La miniatura activa se queda NITIDA y con su marco**, y las demas desenfocadas. Es lo que sostiene la ilusion del visor: estas mirando la pagina 1, asi que la pagina 1 no puede estar borrosa.
 
 **Y ajusta la densidad de la tabla al numero real de filas:** si la referencia trae treinta y tu llevas quince, el prompt tiene que pedir mas aire entre filas, o la tabla queda apelotonada arriba y medio cuadrado vacio.
 
-## 💡 0i-2b · MEME SOBRE PELÍCULA O FAMOSO: RECORDATORIO, NO BLOQUEO (Iker, 2026-07-22 · degradado el 2026-08-13)
+## 💡 0i-2b · MEME SOBRE PELÍCULA O FAMOSO: RECORDATORIO, NO BLOQUEO (2026-07-22 · degradado el 2026-08-13)
 
-> ### 💡 ESTO YA NO ES UN AVISO ROJO. LA CAUSA ERA EL MODO DE GENERACIÓN (Iker, 2026-08-13)
+> ### 💡 ESTO YA NO ES UN AVISO ROJO. LA CAUSA ERA EL MODO DE GENERACIÓN (2026-08-13)
 > **Lo que pasaba de verdad:** el rechazo por copyright salía **usando la generación con inteligencia alta**. *"Desde que uso generar instantánea ya nunca da error."* Comprobado el 13/08 con el SpongeBob progresivo, que es un personaje de Nickelodeon de manual: **generado sin un solo problema.**
 > - **Consecuencia práctica: una referencia con película, personaje o famoso YA NO se descarta ni se manda a montaje manual por defecto.** Se genera con la opción instantánea y punto.
 > - **Se queda como recordatorio, no como bloqueo**, por dos motivos: el filtro sigue existiendo en el modo de inteligencia alta, y si algún día vuelve a saltar ya sabemos que la salida es el overlay a mano de aquí abajo. **No hay que volver a descubrirlo desde cero.**
@@ -1197,13 +1197,13 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 
 **Consecuencia para elegir referencia (`post-workflow §4.4`):** al bajar por Inspiration, si el meme outlier se monta sobre un **fotograma de película / cara de famoso**, sé consciente de que **la imagen NO la va a generar la IA** — se hará por overlay. No es motivo para descartarla (el motor sigue siendo válido), pero sí para avisar y montarla a mano.
 
-## ⛔ 0i-2-ADJUNTOS · LOS ASSETS SE LOS ADJUNTA IKER, NUNCA LOS BUSCA EL DISEÑADOR (Iker, 2026-08-06)
+## ⛔ 0i-2-ADJUNTOS · LOS ASSETS SE LOS ADJUNTA IKER, NUNCA LOS BUSCA EL DISEÑADOR (2026-08-06)
 
 **En el prompt jamás se escribe "me los descargas", "búscalos" ni "sácalos de su web".** Ni logos, ni la foto de referencia, ni las tipografías. **Todo eso se lo adjunta Iker**, y el prompt lo da por hecho: *"te adjunto los logos"*, *"te paso la foto de referencia"*.
 - **Por qué no es un detalle:** si el diseñador busca el logo, se trae la versión que encuentre —vieja, con fondo, en baja, o la de otra marca con el mismo nombre—. Es el mismo fallo de familia que deducir la URL de LinkedIn por el nombre (`post-workflow §4.2 Paso 4`): un asset no se adivina, se pasa.
 - **⚠️ Y DEBAJO DE CADA PROMPT DE IMAGEN VA UN AVISO CON EL TRIÁNGULO AMARILLO** listando lo que Iker tiene que adjuntar: la foto de referencia, los logos que aparezcan, y las tipografías si el diseñador no las tiene. Va fuera del bloque cercado, en una línea, igual que el recordatorio de postproducción de `§0a-penta`.
 
-## ⭐ 0i-2 · LOGOS DE TERCEROS: EL GENERADOR LOS RECHAZA, Y SE SACAN DE LA IMAGEN (Iker, 2026-07-21)
+## ⭐ 0i-2 · LOGOS DE TERCEROS: EL GENERADOR LOS RECHAZA, Y SE SACAN DE LA IMAGEN (2026-07-21)
 
 **Medido el 2026-07-21:** un prompt que pedia colocar quince logos de empresas reales hizo que ChatGPT devolviera *"se ha producido un error en la herramienta de generacion"*. Es el filtro de marcas de terceros, y **no se arregla insistiendo ni reformulando el prompt**.
 
@@ -1221,7 +1221,7 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 
 **Y en el prompt, la frase que evita el rechazo sin mentir:** *"lo que estas maquetando es una tabla de datos publicos, asi que tratalo como una maquetacion tipografica: el resultado es texto sobre fondo, sin ilustraciones, sin iconos y sin ningun logotipo"*. Describe la tarea de verdad y le quita al generador la parte que dispara el filtro.
 
-## 🎨 0i-4 · LA PALETA DE MARCA NO SE APLICA A LA ANATOMÍA (Iker, 2026-08-04)
+## 🎨 0i-4 · LA PALETA DE MARCA NO SE APLICA A LA ANATOMÍA (2026-08-04)
 
 **Los colores de marca van en lo que se DISEÑA. Lo que el cuerpo humano ya tiene de serie conserva su color natural.**
 
@@ -1235,7 +1235,7 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 **Plantilla de la frase de paleta, para copiar:**
 > *"Usa los colores de nuestra marca: fondo en mint claro ebfff6, ropa y pelo en berenjena 431b44, objetos y acentos en naranja fe8238, detalles sueltos en azul bebé a7c5f9. La piel en tono natural y los dientes en blanco."*
 
-## ⭐ 0i-3 · EL PROMPT SE ESCRIBE COMO SE LE HABLA A UN AMIGO (Iker, 2026-07-21, ya avisado antes)
+## ⭐ 0i-3 · EL PROMPT SE ESCRIBE COMO SE LE HABLA A UN AMIGO (2026-07-21, ya avisado antes)
 
 **Los prompts largos y con puntuacion rara fallan.** Medido el 2026-07-21: un prompt de edicion con parentesis numerados, comillas y frases encadenadas dio error de generacion tres veces seguidas. La version corta y hablada paso a la primera.
 
@@ -1250,12 +1250,12 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 
 **Contraste medido ese dia:** la version que fallaba ocupaba un parrafo de 15 lineas con seis parentesis y ocho comillas. La que funciono son siete lineas sueltas y ni un simbolo.
 
-✅ **RESUELTO — NO HAY DOS FORMATOS, HAY UNO SOLO (Iker, 2026-07-27).** Aqui ponia que esto "chocaba" con `§0h` y que el parrafo unico era solo para generacion desde cero. **Esa ambiguedad era el bug:** al no saber cual tocaba, acabe entregando un prompt con numeracion `(1) (2) (3)`, que es justo lo que prohibe el punto de arriba. **El formato es UNO y vale para CUALQUIER prompt de imagen: de calca, de edicion, de cero, y de cualquier pilar (mapa, meme, lead magnet, historia, lo que sea).**
+✅ **RESUELTO — NO HAY DOS FORMATOS, HAY UNO SOLO (2026-07-27).** Aqui ponia que esto "chocaba" con `§0h` y que el parrafo unico era solo para generacion desde cero. **Esa ambiguedad era el bug:** al no saber cual tocaba, acabe entregando un prompt con numeracion `(1) (2) (3)`, que es justo lo que prohibe el punto de arriba. **El formato es UNO y vale para CUALQUIER prompt de imagen: de calca, de edicion, de cero, y de cualquier pilar (mapa, meme, lead magnet, historia, lo que sea).**
 - Abre con **SOLO HAZ LO QUE TE PIDO** en mayusculas.
 - **UN SOLO PARRAFO**, siempre. Nada de listas, nada de lineas sueltas, nada de `(1) (2) (3)`, cero parentesis y cero comillas.
-- **⚠️ Y ESTO NO ES DEL PROMPT DE IMAGEN: ES GLOBAL** (Iker, 2026-08-18).
+- **⚠️ Y ESTO NO ES DEL PROMPT DE IMAGEN: ES GLOBAL** (2026-08-18).
 
-## ✅✅ 0h-CHECKLIST · LA IMAGEN SE CLAVA AL PRIMER PROMPT, NO A LA TERCERA RONDA (Iker, 2026-08-18)
+## ✅✅ 0h-CHECKLIST · LA IMAGEN SE CLAVA AL PRIMER PROMPT, NO A LA TERCERA RONDA (2026-08-18)
 
 **El caso:** la imagen del lead magnet de `/llaves/` salió perfecta, pero **a la tercera corrección**, y las tres las cazó Iker. *"Ha sido criminal que te haya tenido que estar corrigiendo yo. Tú deberías ser más perfeccionista que yo. En el futuro, con solo un primer prompt me tienes que haber dado este resultado."*
 
@@ -1273,7 +1273,7 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 | 6 | **Los datos de dentro son reales y verificados** contra la fuente | `aboutme` | ✅ las 14 secciones salieron del HTML |
 | 7 | **Cero logos, cero año, cero marca de agua** | `§0h` regla 3 | ✅ |
 | 8 | **El aviso de postproducción** con `⚠️ AVISO, MARIO:` | `§0a-penta` | lo puse con `⚙️` |
-| 9 | **Tamaño de letra y altura de línea IGUALES en todo el bloque**, y prohibido encoger una línea para que quepa el texto | `§0a-septima-quinquies` p.3 | 18/08: se me olvidó pedirlo y el generador **encogió la primera línea** del tuit de Helena para meter dos caracteres |
+| 9 | **Tamaño de letra y altura de línea IGUALES en todo el bloque**, y prohibido encoger una línea para que quepa el texto | `§0a-septima-quinquies` p.3 | 18/08: se me olvidó pedirlo y el generador **encogió la primera línea** del tuit de la compañera de clientes para meter dos caracteres |
 | 10 | **El CORTE DE LÍNEA se calca de la referencia**: si su remate va solo en la última línea, el nuestro también. Y nunca se pide *que quepa en N líneas* | `§0b-TEXTO-REF-CORTE` | 18/08: salió en 3 líneas con el remate colgando; la referencia iba en 4 con la palabra sola |
 | 11 | **`flat illustration`, dicho así**, con sombras, degradados, volumen y brillos prohibidos por su nombre | `§0a-DIBUJO` | 02/10: *ilustración plana de estilo editorial* salió sombreada |
 | 12 | **Si es captura o collage de una app, su formato calcado**: interfaz, número de líneas, tamaño del subtítulo, sin palabra naranja si el original no la lleva | `§0a-sexta-TIKTOK` | 02/10: 3 líneas, naranja, subtítulo gigante y sin el botón de TikTok |
@@ -1281,8 +1281,8 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 | 14 | **El GESTO que hace el chiste, pedido EXAGERADO desde el primer prompt**, al menos al grado de la referencia y descrito rasgo a rasgo (ojos, boca, cabeza). *"Conservando la cara"* no basta: **el flat illustration suaviza la expresión por defecto** | `§0a-bis` 2e (el grado del dibujo) | 07/10, v1: el león de la referencia tenía los ojos desorbitados y la sonrisa torcida y salió un león tranquilo; hizo falta otra edición |
 | 15 | **El TEXTO de una franja se dicta como: una frase en cada línea, todas al mismo tamaño y con la misma letra, y si no caben, más pequeñas.** Nunca *"que ocupe el ancho"* a secas: el generador **estrecha la letra** de la línea larga para meterla | `§0b-TEXTO-REF-CORTE` | 07/10, v1: la 1ª línea (52 car) metida en el mismo ancho que la 2ª (47), con las letras apretadas |
 | 16 | **Puntuación calcada: `ninguna frase lleva punto final`** si el original no lo lleva (vale para títulos, rótulos y frases de franja, no solo etiquetas) | `§0b-TEXTO-REF` | 07/10, v1: puntos finales que la referencia no tenía |
-| 18 | **En un meme de REVELACIÓN, el texto se reparte por panel y posición como en la referencia**: lo que se repite entre paneles va idéntico y el giro va entero en su sitio, aunque la frase en español se ordene distinto. **Y la POSE se compara panel a panel** (manos, brazos, cabeza): si cambia, se pide | `§0b-TEXTO-REF-REVELACION` | 14/10, el sable de Asier: partí la frase por el orden de las palabras y abajo a la izquierda puse `el producto de tu` en vez de repetir `Hemos decidido comprar`. Y pedí *"la misma postura en los dos paneles"* cuando abajo suelta una mano y echa el brazo atrás |
-| 17 | ⛔ **NUNCA una salida alternativa en el prompt** (*"si no cabe, pártela en dos líneas"*, *"o si no…"*): **el generador coge la alternativa**. Se le da UNA instrucción. Y ~~en una EDICIÓN, un solo tipo de cambio (o el texto, o el dibujo)~~ → **🔄 Iker, 14/10: si hay varios cambios, van TODOS en UN solo prompt sencillo, nunca en dos prompts separados** (el sable de Asier: le di uno para la pose y otro para el texto y lo tumbó). Una sola instrucción por cambio, sin plan B, todas en el mismo párrafo | `§0i-3-EFECTO` | 07/10, v2: le di el plan B de partir la línea y salieron **3 líneas con letra más grande**. Lo arregló a la primera *"vuelve a poner el texto en dos líneas, una frase en cada línea y las dos al mismo tamaño, haciéndolo más pequeño para que cada frase quepa en su línea"* |
+| 18 | **En un meme de REVELACIÓN, el texto se reparte por panel y posición como en la referencia**: lo que se repite entre paneles va idéntico y el giro va entero en su sitio, aunque la frase en español se ordene distinto. **Y la POSE se compara panel a panel** (manos, brazos, cabeza): si cambia, se pide | `§0b-TEXTO-REF-REVELACION` | 14/10, el sable del tercer jefe: partí la frase por el orden de las palabras y abajo a la izquierda puse `el producto de tu` en vez de repetir `Hemos decidido comprar`. Y pedí *"la misma postura en los dos paneles"* cuando abajo suelta una mano y echa el brazo atrás |
+| 17 | ⛔ **NUNCA una salida alternativa en el prompt** (*"si no cabe, pártela en dos líneas"*, *"o si no…"*): **el generador coge la alternativa**. Se le da UNA instrucción. Y ~~en una EDICIÓN, un solo tipo de cambio (o el texto, o el dibujo)~~ → **🔄 Iker, 14/10: si hay varios cambios, van TODOS en UN solo prompt sencillo, nunca en dos prompts separados** (el sable del tercer jefe: le di uno para la pose y otro para el texto y lo tumbó). Una sola instrucción por cambio, sin plan B, todas en el mismo párrafo | `§0i-3-EFECTO` | 07/10, v2: le di el plan B de partir la línea y salieron **3 líneas con letra más grande**. Lo arregló a la primera *"vuelve a poner el texto en dos líneas, una frase en cada línea y las dos al mismo tamaño, haciéndolo más pequeño para que cada frase quepa en su línea"* |
 | 19 | **El nombre de la fuente nunca va pegado al texto que hay que escribir.** El texto va en su frase y la letra en otra; en una edición no se nombra la fuente: *"con la misma letra que tiene ahora"* | `§0i-3` | 30/10, meme de las llamadas: *"el título Llamar en frío en Bricolage Grotesque"* salió escrito **Llamar en frío en Bricolage**, porque el `en` de la fuente se confunde con el `en` del título |
 | 20 | **Los rótulos de la referencia se traducen por su chiste, no palabra a palabra, y la fecha se cambia por una palabra con fuerza.** Cada eje y cada etiqueta conserva el matiz que hace gracia (*Hairline Health* es el pelo que te va quedando, no la salud del pelo; *Cold Calls Made* lleva el *hechas*), un título con año (*in 2026*) se queda sin él pero gana una palabra con fuerza, nunca un título plano. **Pero la palabra con fuerza se suma al marco del título, no lo cambia:** si la referencia retrata el oficio (*Cold calling in 2026* = así es llamar en frío hoy), el nuestro lo sigue retratando con más fuerza (`Llamar en frío, sin anestesia`), no lo convierte en otra historia (`Sobrevivir llamando en frío` pasa a contar una hazaña y se lee distinto). Y **el símbolo de la referencia se conserva** en vez de pasarlo a palabras: *100+ calls* es `+101 llamadas`, con el `+` delante como se escribe en español, porque en palabras la etiqueta se alarga y el generador la encoge | `post-workflow §4.4-ESENCIA` y `global §3.5b` (sin años) | 30/10, mismo meme: `Salud del pelo`, `Llamadas en frío` sin el *hechas*, el título `Llamar en frío` a secas y `Más de 101 llamadas`, que salió más pequeña que las otras etiquetas |
 | 21 | **UN solo punto focal y es el mensaje**: a 360 px, lo primero que se ve es lo que hay que entender (en un meme, el dibujo), y nada compite con él | `§0a-FOCO` | 30/10: `frío` en naranja en el título se llevaba el ojo antes que los calvos |
@@ -1292,13 +1292,13 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 > - **Y el gesto:** *"exagera la cara como en la referencia: [rasgo 1], [rasgo 2], [rasgo 3]"*, con los rasgos sacados del inventario del Paso 6a, no de memoria.
 > - **Al revisar cada versión se vuelve a mirar el gesto**, aunque la edición fuera solo de texto: el generador redibuja y la cara cambia (en la v3 cambió otra vez, por suerte a más).
 
-**⭐ ÁMBITO, Y ES GLOBAL (Iker, 2026-10-02):** *"esto no se tiene que aplicar solo a memes… es de receta global, por si en el futuro nos inventamos un nuevo pilar con fotos así"*. La checklist vale para **toda imagen que pinte un generador, en cualquier pilar**: meme, ilustraciones de lead magnet, tarjeta, portada de recurso, banner y cualquier pilar que venga. **No aplica** a lo que no pinta un generador: la foto real de la historia, el vídeo, la captura del mapa de PamPam y las plantillas que monta un script ("Las 10", despiece). **La vara que puso Iker con la v2 del meme de Asier (*"la mejora es brutal"*): ese nivel tiene que salir en el PRIMER prompt**, sin que él tenga que pedir las correcciones.
+**⭐ ÁMBITO, Y ES GLOBAL (2026-10-02):** *"esto no se tiene que aplicar solo a memes… es de receta global, por si en el futuro nos inventamos un nuevo pilar con fotos así"*. La checklist vale para **toda imagen que pinte un generador, en cualquier pilar**: meme, ilustraciones de lead magnet, tarjeta, portada de recurso, banner y cualquier pilar que venga. **No aplica** a lo que no pinta un generador: la foto real de la historia, el vídeo, la captura del mapa de PamPam y las plantillas que monta un script ("Las 10", despiece). **La vara que puso Iker con la v2 del meme del tercer jefe (*"la mejora es brutal"*): ese nivel tiene que salir en el PRIMER prompt**, sin que él tenga que pedir las correcciones.
 
 **El test final, de un vistazo:** tapa el post y mira solo la foto. **¿Aporta algo que el post no dice, y sabes qué palabra comentar?** Las dos cosas, o vuelve al prompt.
 
 ### 🔴🔴 0h-CHECKLIST-bis · UN FALLO QUE NO PUEDO MEDIR NO SE CANTA COMO FALLO (2026-08-18)
 
-**El caso, y lo pagó él:** Iker mandó la primera versión del tuit de Helena y yo le dije que **faltaba un interrogante (siete en vez de ocho)** y que **el fondo era gris claro en vez de blanco**. **Las dos cosas eran falsas.** Estaban bien desde el principio: yo conté los signos **a ojo sobre la imagen del chat**, que llega reescalada, y llamé gris a un blanco. Resultado: **una pasada de generación tirada** y dos minutos suyos comprobando algo que ya estaba bien.
+**El caso, y lo pagó él:** Iker mandó la primera versión del tuit de la compañera de clientes y yo le dije que **faltaba un interrogante (siete en vez de ocho)** y que **el fondo era gris claro en vez de blanco**. **Las dos cosas eran falsas.** Estaban bien desde el principio: yo conté los signos **a ojo sobre la imagen del chat**, que llega reescalada, y llamé gris a un blanco. Resultado: **una pasada de generación tirada** y dos minutos suyos comprobando algo que ya estaba bien.
 
 **⛔ Por qué esto es peor que callarse:** un aviso falso tiene el mismo coste que un fallo real —otra ronda con el diseñador o el generador— y además **gasta la credibilidad de los avisos que sí valen**. Si le canto tres cosas y una es mentira, la siguiente se la mira con menos ganas.
 
@@ -1309,7 +1309,7 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 
 **El paralelo que ya teníamos escrito:** es la misma lección de `§0a-CAPADO` (*"cuando una hipótesis se puede comprobar en el corpus, se comprueba antes de tocar el post"*) y de `working-preferences §0c`. **Antes de dar un defecto por bueno, mídelo.**
 
-## 🛑🛑 0h-COMPLEMENTO · LA COMPLEMENTARIEDAD ES DE **TODO** EL TEXTO DE LA IMAGEN, NO SOLO DEL CTA (Iker, 2026-08-18)
+## 🛑🛑 0h-COMPLEMENTO · LA COMPLEMENTARIEDAD ES DE **TODO** EL TEXTO DE LA IMAGEN, NO SOLO DEL CTA (2026-08-18)
 
 **El fallo, y es de los gordos.** El lead magnet de `/llaves/` salió con la cabecera diciendo *"Claude me robó las riendas de mi LinkedIn"*, que es **el gancho del post calcado**, y con `riendas` apareciendo **dos veces en la misma foto**, arriba y en el banner. Iker: *"hemos estado toda la mañana discutiendo el tema de los textos complementarios y has puesto arriba el mismo texto de la publicación. Es un error garrafal"*.
 
@@ -1322,16 +1322,16 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 
 **LOS TRES CHECKS DEL TÍTULO DE LA IMAGEN, antes de meterlo en el prompt:**
 1. **¿Repite el gancho?** Si sí, se reescribe. 🔄 **Afinado por Iker el 18/09: lo que no se repite es el CONCEPTO o la FRASE** (la metáfora, el giro, la construcción), no una palabra suelta. La palabra ancla del oficio (`vender`, `ventas`, `cliente`) puede salir en los dos: `Dime con quién andas y te diré cuánto vendes` y `Las ventas se reinventan` son dos ideas distintas. Lo que sí es repetir: `Con quién andamos` (mismo giro del gancho).
-2. **¿Lleva ancla de VENTAS?** (Iker, 2026-08-18: *"ahora no tiene ni vinculación a ventas"*.) Corto, punchy **y** de ventas, las tres a la vez. Ej. validado: `Un post que no vende, sobra.`
+2. **¿Lleva ancla de VENTAS?** (2026-08-18: *"ahora no tiene ni vinculación a ventas"*.) Corto, punchy **y** de ventas, las tres a la vez. Ej. validado: `Un post que no vende, sobra.`
 3. **¿Cuántas palabras naranjas hay en TODA la imagen?** **UNA.** Y en un lead magnet **va en el CTA del banner**, porque es donde tiene que caer el ojo. **El título va entero en berenjena.** Dos naranjas reparten la mirada y matan el CTA, que es el único motor del pilar.
 
-**⛔ Y UN ECO GIRADO TAMBIÉN ES REPETIR (Iker, 2026-09-18).** Para el cartel de ponentes de Unai propuse `Con quién andamos` con el gancho `Dime con quién andas y te diré cuánto vendes`. No era el gancho literal, pero llevaba `con quién` y el verbo `andar`, y el cuerpo ya decía `con quién andamos`: tres veces en el mismo post. **Contestar al gancho con sus mismas palabras es repetirlo.** La foto responde con lo que ENSEÑA (las caras), y el título aporta otra capa: aquí quedó `Cuatro miradas a la venta`, con ancla de ventas y cero palabras del gancho. El check 1 se corre contra el gancho **y contra el cuerpo**, mirando si se repite el giro o la frase, no la palabra ancla (Iker, 18/09: *"repetir un verbo no es repetir el gancho"*).
+**⛔ Y UN ECO GIRADO TAMBIÉN ES REPETIR (2026-09-18).** Para el cartel de ponentes del primer jefe propuse `Con quién andamos` con el gancho `Dime con quién andas y te diré cuánto vendes`. No era el gancho literal, pero llevaba `con quién` y el verbo `andar`, y el cuerpo ya decía `con quién andamos`: tres veces en el mismo post. **Contestar al gancho con sus mismas palabras es repetirlo.** La foto responde con lo que ENSEÑA (las caras), y el título aporta otra capa: aquí quedó `Cuatro miradas a la venta`, con ancla de ventas y cero palabras del gancho. El check 1 se corre contra el gancho **y contra el cuerpo**, mirando si se repite el giro o la frase, no la palabra ancla (18/09: *"repetir un verbo no es repetir el gancho"*).
 
 **Y LA FORMA DEL TÍTULO, gustos de Iker (2026-09-18):** **2 a 4 palabras**, **con verbo punchy** (un concepto sin verbo, como `4 miradas a la venta`, no le vale), **cifras en dígito**, y **se entregan varias alternativas para elegir**, como con los ganchos. Si la imagen ya lleva una etiqueta (`PONENTES CONFIRMADOS`), el título no la repite.
 
 **El test de un vistazo, que resume los tres:** tapa el post, mira solo la foto. **¿Aporta algo que el post no dice, y sabes qué palabra comentar?** Si la foto repite el gancho, has gastado el único espacio visual del post en decir dos veces lo mismo.
 
-## 🛑🛑 0h-FILTROS · EL TEXTO QUE VA DENTRO DE LA IMAGEN ES COPY NUESTRO Y PASA LOS MISMOS FILTROS QUE EL CUERPO (Iker, 2026-08-18)
+## 🛑🛑 0h-FILTROS · EL TEXTO QUE VA DENTRO DE LA IMAGEN ES COPY NUESTRO Y PASA LOS MISMOS FILTROS QUE EL CUERPO (2026-08-18)
 
 **El fallo, y es de los caros porque llega hasta el diseñador.** Para el banner del lead magnet de `/llaves/` copié el literal de Martín Arosa palabra por palabra: `Comenta "PALABRA" y te lo envío por mensaje privado`. Dos líneas donde cabía una, y un `por mensaje privado` que **nuestra propia `brand-voice §2c` prohíbe** (familia 5, sacar gente a privado). Lo cazó Iker mirando la imagen ya generada: *"asegúrate de que esto no vuelva a pasar, tu primer prompt tendría que haber tenido en cuenta estos cambios también"*.
 
@@ -1353,31 +1353,31 @@ Fallo real de ese dia: gancho con 25 e imagen con 15. Se corrigio bajando el tex
 - Cierra en minusculas con **deja todo lo demas intacto y no toques nada que no te he pedido**.
 Lo unico que cambia entre calca y edicion es **QUE se le cuenta** (ver el bloque rojo de abajo), no COMO se le escribe.
 
-**🚨 CHEQUEO OBLIGATORIO ANTES DE PEGAR CUALQUIER PROMPT DE IMAGEN (Iker, 2026-07-29).** La regla llevaba escrita desde el 27 y aun asi entregue un prompt con `UNO, DOS, TRES`, ocho comillas y la contencion AL PRINCIPIO. **No fallo la receta, falle yo por no releerla.** Asi que ahora se relee esto, literal, antes de pegar el prompt en la respuesta. Los cinco puntos, uno por uno:
+**🚨 CHEQUEO OBLIGATORIO ANTES DE PEGAR CUALQUIER PROMPT DE IMAGEN (2026-07-29).** La regla llevaba escrita desde el 27 y aun asi entregue un prompt con `UNO, DOS, TRES`, ocho comillas y la contencion AL PRINCIPIO. **No fallo la receta, falle yo por no releerla.** Asi que ahora se relee esto, literal, antes de pegar el prompt en la respuesta. Los cinco puntos, uno por uno:
 
 1. **¿Empieza por `SOLO HAZ LO QUE TE PIDO:`?** Si empieza por cualquier otra cosa, esta mal. Nada de "edita esta imagen", nada de "coge esta imagen".
 2. **¿La contencion esta AL FINAL?** `deja todo lo demas intacto y no toques nada que no te he pedido` va **en la ultima frase**. Ponerla al principio la convierte en ruido que el generador se come antes de leer las ordenes.
 3. **¿Cero simbolos raros?** Ni `UNO, DOS, TRES`, ni `(1)`, ni comillas, ni barras `/`, ni parentesis. Si hay que citar un texto literal, se dice **sin comillas**: *cambia la hora de las 10:46 a las 09:47*.
 4. **¿Es CORTO?** Una orden por frase, frases cortas, todo del tirado en un parrafo. Si ocupa mas de 10 lineas, sobra la mitad.
 5. **¿Repite algo que la imagen ya tiene bien?** Si es de EDICION, fuera. Solo van los cambios.
-6. **¿Dice que va CUADRADA?** (Iker, 2026-07-30). La regla de `§0` ya lo decia — **al calcar, el formato es NUESTRO, no el de la referencia** — y aun asi entregue el meme de reaccion en horizontal porque el original era horizontal. **Si la referencia no es 1:1, el prompt tiene que pedir 1:1 explicitamente**, y decir si se amplia (arriba y abajo, o a los lados) o se recorta. Calcar el encuadre malo del original es lo contrario de copiar y mejorar.
+6. **¿Dice que va CUADRADA?** (2026-07-30). La regla de `§0` ya lo decia — **al calcar, el formato es NUESTRO, no el de la referencia** — y aun asi entregue el meme de reaccion en horizontal porque el original era horizontal. **Si la referencia no es 1:1, el prompt tiene que pedir 1:1 explicitamente**, y decir si se amplia (arriba y abajo, o a los lados) o se recorta. Calcar el encuadre malo del original es lo contrario de copiar y mejorar.
 
-7. **⛔⛔ ¿EL TEXTO QUE VA DENTRO DE LA IMAGEN LLEVA SUS TILDES Y SUS EÑES? (Iker, 2026-08-14).** El generador **transcribe literal lo que le escribo**, asi que una tilde que yo me como sale publicada. En el lead magnet de la criba salieron `1 sesion` y `te lo envio` sin tilde porque mi prompt las escribia asi.
+7. **⛔⛔ ¿EL TEXTO QUE VA DENTRO DE LA IMAGEN LLEVA SUS TILDES Y SUS EÑES? (2026-08-14).** El generador **transcribe literal lo que le escribo**, asi que una tilde que yo me como sale publicada. En el lead magnet de la criba salieron `1 sesion` y `te lo envio` sin tilde porque mi prompt las escribia asi.
    - **LA DISTINCION, y es la que hay que tener clara:** mis ORDENES pueden ir sin acentos, que es como escribo yo. **El TEXTO LITERAL que se va a dibujar, no.** Ese se escribe **exacto**, con tildes, eñes, `¿` y `¡`. Antes de pegar el prompt, se buscan las cadenas que van a acabar renderizadas y se repasan una a una.
    - **Y ademas se le PIDE explicitamente**, en la misma frase: *respeta las tildes tal cual te las escribo*. Con eso se cubre el otro fallo conocido, que es que copie las faltas de la referencia (`§0a-septima-quinquies`, que decia esto mismo pero **solo para pantallazos**: es global y vale para cualquier imagen con texto).
    - **Las que mas se cuelan, por si sirve de lista:** sesion, envio, numeracion, pagina, titulo, linea, tambien, mas, aqui, asi, informacion, prospeccion, señales.
-   - **⭐⭐ Y DENTRO DE UN DOCUMENTO FINGIDO, CADA VOZ TIENE SU REGISTRO (Iker, 2026-08-19).** En una captura conviven dos manos y **no se escriben igual**:
+   - **⭐⭐ Y DENTRO DE UN DOCUMENTO FINGIDO, CADA VOZ TIENE SU REGISTRO (2026-08-19).** En una captura conviven dos manos y **no se escriben igual**:
      - **Lo que TECLEA una persona** (una barra de búsqueda, un chat, un asunto de correo): **minúsculas, sin punto final y sin capitalizar siglas** — se escribe `ia`, no `IA`. Es lo que hace que parezca tecleado a las dos de la tarde y no redactado.
      - **Lo que PUBLICA una web o un sistema** (el título de un resultado, un titular, una etiqueta de interfaz): **capitalización normal y siglas en mayúscula** — ahí sí `IA`.
-     - **⚠️ Y LO TECLEADO TAMPOCO LLEVA TILDES (Iker, 2026-08-19).** Yo defendí lo contrario diez minutos antes apoyándome en la regla de arriba, y **esa regla es del texto DENTRO de un documento** — nació porque el generador se comía las eñes de un correo —, no de lo que alguien teclea. Iker: *"para hacerlo más natural ponemos como sin acento en la búsqueda"*. Tiene razón: en un buscador **nadie pone tildes**, y con `ia` ya en minúscula, `cómo` con tilde era justo la pieza que desentonaba. Queda **`como hacer que mi mensaje de ventas no parezca ia`**.
+     - **⚠️ Y LO TECLEADO TAMPOCO LLEVA TILDES (2026-08-19).** Yo defendí lo contrario diez minutos antes apoyándome en la regla de arriba, y **esa regla es del texto DENTRO de un documento** — nació porque el generador se comía las eñes de un correo —, no de lo que alguien teclea. Iker: *"para hacerlo más natural ponemos como sin acento en la búsqueda"*. Tiene razón: en un buscador **nadie pone tildes**, y con `ia` ya en minúscula, `cómo` con tilde era justo la pieza que desentonaba. Queda **`como hacer que mi mensaje de ventas no parezca ia`**.
      - **⛔ El límite es el mismo de `brand-voice §3b`:** falta de TILDE sí, falta de ORTOGRAFÍA no. Nada de `aser` ni `mensage`, que eso ya no se lee como tecleo sino como descuido nuestro.
      - **El test:** ¿esto lo tecleó alguien o lo publicó una máquina? Lo tecleado va en minúsculas, sin tildes y sin capitalizar siglas; lo publicado va formal, con tildes y con las siglas en mayúscula.
-     - **🔄 2026-11-10 · EN UN CHAT ENTRE DOS PERSONAS SE CALCA LA ESCRITURA DE LA REFERENCIA, NO LA DE UN BUSCADOR.** Lo de minúsculas y sin tildes vale para lo que se teclea deprisa en una barra (buscador, asunto). En una conversación de trabajo (jefe y comercial por WhatsApp) cada mensaje empieza en mayúscula, lleva sus tildes y la mayúscula de grito se escribe con tilde (`LLÁMALE`), igual que la referencia, que capitalizaba cada línea: un jefe no escribe `llamale, que es mas rapido`. Sin punto final, salvo los puntos suspensivos si la referencia los lleva. Caso: la primera versión del chat de `llámalos` (Iker, 10/11) salió en minúsculas y sin tildes y restaba credibilidad.
+     - **🔄 2026-11-10 · EN UN CHAT ENTRE DOS PERSONAS SE CALCA LA ESCRITURA DE LA REFERENCIA, NO LA DE UN BUSCADOR.** Lo de minúsculas y sin tildes vale para lo que se teclea deprisa en una barra (buscador, asunto). En una conversación de trabajo (jefe y comercial por WhatsApp) cada mensaje empieza en mayúscula, lleva sus tildes y la mayúscula de grito se escribe con tilde (`LLÁMALE`), igual que la referencia, que capitalizaba cada línea: un jefe no escribe `llamale, que es mas rapido`. Sin punto final, salvo los puntos suspensivos si la referencia los lleva. Caso: la primera versión del chat de `llámalos` (10/11) salió en minúsculas y sin tildes y restaba credibilidad.
      - **🔄 2026-11-10 · EN UN CHAT, MISMO ESPACIO ENTRE TODAS LAS BURBUJAS.** El generador comprime las primeras y deja más aire abajo, y eso delata que la captura es falsa. Se pide en el primer prompt: el mismo hueco vertical entre cada burbuja y la siguiente, de arriba abajo, repartiendo el chat por toda la pantalla. **Y en cada versión se MIDE, no se mira:** se recorre la imagen fila a fila buscando los píxeles de burbuja (blanco puro y el verde de WhatsApp) y se saca el hueco en px entre cada par; el hueco que se aparte se corrige. **Cuál es el bueno no lo decide la media:** en WhatsApp, cuando cambia quien escribe la burbuja se separa más que entre dos mensajes seguidos de la misma persona; en un chat que alterna en cada mensaje, todos los huecos van como el más amplio y se separan los apretados (10/11: 23 px el primero contra 16-20 los demás, y los que chirriaban eran los de 16-20). **Y el prompt de espaciado va solo, con un cambio:** "deja entre todas el espacio que hay entre la primera y la segunda". Pedido junto a otro cambio, el generador hizo el fácil (estrechar una burbuja) y dejó el espacio igual. **🔄 Mismo día, lo que SÍ funcionó (prompt del jefe):** nombrar las dos burbujas por su color y su texto y pedir el cambio de UN solo hueco: `Solo haz lo que te pido. Reduce el espacio entre la primera burbuja blanca que contiene el texto llama al cliente y la primera burbuja verde que contiene el texto le he mandado un correo. Deja todo lo demás intacto y no hagas nada que no te he pedido.` Pedir "que todas queden igual" o "sube esta y las de debajo" no lo entiende. Cuando hay que igualar, se da la medida con otro par: "igual que el espacio entre la burbuja X y la burbuja Y". En espaciado, un hueco por prompt (excepción medida a "todos los cambios en un prompt" del 14/10). Y tras cada versión se vuelve a medir: al cerrar un hueco el generador puede abrir otros. El mismo 10/11 se dio por bueno a ojo («cada ~100 px») un chat cuyo primer hueco medía 23 px contra una media de 18, y lo vio el jefe marcándolo en rojo. **Y también se mide el ANCHO de cada burbuja:** en WhatsApp cada burbuja se ajusta a su texto y la hora va pegada al final; el generador tiende a copiar el ancho de una burbuja a otra parecida y deja un hueco de sobra antes de la hora (10/11: 113 px en una burbuja contra 38-60 en las demás). Se mide el hueco texto-hora de cada burbuja y se corrige el que se salga.
 
 **La forma de fallar este chequeo es no hacerlo.** Si el prompt anterior salio bien, este sale igual: se copia el molde, no se improvisa.
 
-**🔴 DECIDE PRIMERO: ¿edicion o calca-de-cero? (Iker, 2026-07-23, me equivoque en esto).** Si el usuario YA te ha pasado una version generada de la imagen, el prompt es de **EDICION sobre ESA**: solo los cambios, NUNCA re-describas la calca entera de la referencia. El "calca esta referencia desde cero" (`§0h`/`§4.4` Paso 6b) es SOLO para la primera version, cuando aun no hay imagen. Di el mismo prompt-de-calca por segunda vez y le haces re-generar de cero lo que ya tenia bien (colores, maqueta, fuentes). Antes de escribir el prompt: ¿hay ya una imagen? → edicion. ¿No la hay? → calca.
+**🔴 DECIDE PRIMERO: ¿edicion o calca-de-cero? (2026-07-23, me equivoque en esto).** Si el usuario YA te ha pasado una version generada de la imagen, el prompt es de **EDICION sobre ESA**: solo los cambios, NUNCA re-describas la calca entera de la referencia. El "calca esta referencia desde cero" (`§0h`/`§4.4` Paso 6b) es SOLO para la primera version, cuando aun no hay imagen. Di el mismo prompt-de-calca por segunda vez y le haces re-generar de cero lo que ya tenia bien (colores, maqueta, fuentes). Antes de escribir el prompt: ¿hay ya una imagen? → edicion. ¿No la hay? → calca.
 
 **FORMATO EXACTO (vale para EDICION y para CALCA; lo unico que cambia es el contenido):**
 - **Empieza SIEMPRE con `SOLO HAZ LO QUE TE PIDO:` en MAYUSCULAS.** El apertura de contencion va tambien en los prompts de edicion, no solo en los de calca.
@@ -1385,13 +1385,13 @@ Lo unico que cambia entre calca y edicion es **QUE se le cuenta** (ver el bloque
 - **Cierra con la contencion:** `No toques nada mas: ni colores, ni maquetacion, ni fuentes, ni el resto de textos e iconos.`
 - Entre medias, los cambios en frases habladas (sin parentesis numerados ni simbolos raros, `§0i-3`).
 
-**⭐ La FIRMA/autoría de la portada = NUESTRA marca (Neety), no la del referente (Iker, 2026-07-24).** Al calcar una portada de guía que lleva el sello del creador original arriba (Martín Arosa llevaba "ANTHROPIC"), NO lo dejes: implica que el PDF lo firma ese tercero (autoría falsa, engaña). Cámbialo por **Neety**. Los logos de terceros como AUTORIDAD o tema (Claude, SPRI, Gobierno Vasco) SÍ van, en su sitio (abajo), porque son reales y relevantes; lo que no vale es el sello de AUTOR ajeno arriba.
+**⭐ La FIRMA/autoría de la portada = NUESTRA marca (Neety), no la del referente (2026-07-24).** Al calcar una portada de guía que lleva el sello del creador original arriba (Martín Arosa llevaba "ANTHROPIC"), NO lo dejes: implica que el PDF lo firma ese tercero (autoría falsa, engaña). Cámbialo por **Neety**. Los logos de terceros como AUTORIDAD o tema (Claude, SPRI, Gobierno Vasco) SÍ van, en su sitio (abajo), porque son reales y relevantes; lo que no vale es el sello de AUTOR ajeno arriba.
 
-**⭐ TRUCO para portadas de GUÍA/PDF (Iker, 2026-07-24):** la IA genera bien la PORTADA pero rellena las páginas interiores (las miniaturas del visor de PDF) con texto GIBBERISH/lorem que, al ampliar, canta a IA (y encima mezcla inglés). Solución en el prompt de EDICIÓN: **desenfocar y oscurecer TODAS las miniaturas de la columna izquierda** → se lee como "contenido bloqueado que hay que desbloquear" (refuerza el gate de correo) y esconde el texto falso. Solo la portada + el índice grande quedan nítidos. **Y SIEMPRE fuentes NUESTRAS** (Bricolage Grotesque títulos + Switzer cuerpo) con "te adjunto los instaladores" (`§0h`): los generadores de IA no honran fuentes custom de fiar, así que se pide explícito en el edit. **Y el interior del PDF real (el que se entrega) lleva contenido REAL en español, nunca lorem** — el gibberish solo se esconde en la PREVIEW, no se entrega.
+**⭐ TRUCO para portadas de GUÍA/PDF (2026-07-24):** la IA genera bien la PORTADA pero rellena las páginas interiores (las miniaturas del visor de PDF) con texto GIBBERISH/lorem que, al ampliar, canta a IA (y encima mezcla inglés). Solución en el prompt de EDICIÓN: **desenfocar y oscurecer TODAS las miniaturas de la columna izquierda** → se lee como "contenido bloqueado que hay que desbloquear" (refuerza el gate de correo) y esconde el texto falso. Solo la portada + el índice grande quedan nítidos. **Y SIEMPRE fuentes NUESTRAS** (Bricolage Grotesque títulos + Switzer cuerpo) con "te adjunto los instaladores" (`§0h`): los generadores de IA no honran fuentes custom de fiar, así que se pide explícito en el edit. **Y el interior del PDF real (el que se entrega) lleva contenido REAL en español, nunca lorem** — el gibberish solo se esconde en la PREVIEW, no se entrega.
 
-**⭐ TODA imagen se CALCA de un outlier REAL con su ENLACE — de CUALQUIER pilar, no solo del meme (Iker, 2026-07-24).** Nunca un diseño generico "de cero" ni "estilo Anthropic" sacado de la manga: si no hay una referencia validada con datos, no vale. Orden: primero outliers de OTROS creadores (mejor de otro sector, para remixear); cuando tengamos, los nuestros. Toda propuesta de imagen lleva el ENLACE a la referencia + su ratio/comentarios. Fallo real: propuse la portada de la guia del lead magnet "estilo Anthropic" sin referencia — no valia. La buena es la **portada de guia en PDF de Martin Arosa (2.089 com):** `https://www.linkedin.com/posts/martinarosaotero_la-gu%C3%ADa-oficial-de-linkedin-claude-2026-activity-7480512271941722112-yiqy` — se calca ESA y se le cambia el contenido a lo nuestro.
+**⭐ TODA imagen se CALCA de un outlier REAL con su ENLACE — de CUALQUIER pilar, no solo del meme (2026-07-24).** Nunca un diseño generico "de cero" ni "estilo Anthropic" sacado de la manga: si no hay una referencia validada con datos, no vale. Orden: primero outliers de OTROS creadores (mejor de otro sector, para remixear); cuando tengamos, los nuestros. Toda propuesta de imagen lleva el ENLACE a la referencia + su ratio/comentarios. Fallo real: propuse la portada de la guia del lead magnet "estilo Anthropic" sin referencia — no valia. La buena es la **portada de guia en PDF de Martin Arosa (2.089 com):** `https://www.linkedin.com/posts/martinarosaotero_la-gu%C3%ADa-oficial-de-linkedin-claude-2026-activity-7480512271941722112-yiqy` — se calca ESA y se le cambia el contenido a lo nuestro.
 
-## ⭐ 0h-5 · UNA TABLA SE LEE EN EL FEED, NO SE ADMIRA (Iker, 2026-07-21)
+## ⭐ 0h-5 · UNA TABLA SE LEE EN EL FEED, NO SE ADMIRA (2026-07-21)
 
 Cuando el remix es una tabla de datos (lista, comparativa, ranking), **el objetivo NO es que sea bonita, es que se lea sin zoom en el movil**. LinkedIn no deja ampliar la imagen del feed. La referencia de Guillermo Flor es mas bonita que la nuestra y **no se lee una sola fila** — ahi es exactamente donde se le gana (`global §2.2b`, batir al original en su punto debil): mas retencion, la gente para a leer en vez de pasar de largo.
 
@@ -1404,7 +1404,7 @@ Cuando el remix es una tabla de datos (lista, comparativa, ranking), **el objeti
 **⚠️ Legibilidad SIN aplanar.** Subir el peso de todo el texto a negrita mata la jerarquia: si actividad, empleados y zona pesan igual que el nombre, el nombre deja de mandar y la tabla queda plana — el problema de Guillermo por el otro lado. **La negrita se reserva para lo que importa de cada fila** (el nombre de la empresa); el resto sube a peso medio y a gris oscuro, no a negrita.
 
 
-## ⭐ 0i-0 · EL PROMPT VA SIEMPRE EN UN BLOQUE CERCADO, Y COMPLETO (Iker, 2026-07-21)
+## ⭐ 0i-0 · EL PROMPT VA SIEMPRE EN UN BLOQUE CERCADO, Y COMPLETO (2026-07-21)
 
 **Todo prompt de diseñador se entrega en un bloque cercado**, igual que el texto de un post (`working-preferences §1`). Iker lo copia con el boton y lo pega. En cita o en parrafo tiene que seleccionarlo a mano, y ahi es donde se pierde media frase.
 
@@ -1412,7 +1412,7 @@ Cuando el remix es una tabla de datos (lista, comparativa, ranking), **el objeti
 
 Fuera del bloque solo queda **lo que se adjunta como fichero** (`§0i`): la referencia, las fuentes, los logos, las fotos. Eso no se pega, se arrastra.
 
-## ⭐ 0a-octava · ELEGIR ENTRE VARIAS FOTOS REALES (Iker, 2026-07-29)
+## ⭐ 0a-octava · ELEGIR ENTRE VARIAS FOTOS REALES (2026-07-29)
 
 Cuando el pilar pide **foto real** (historia sobre todo) y llegan varias del movil, el criterio no es estetico, es de **CTR**. Orden, de mas a menos, segun los experimentos de MrBeast que maneja Iker:
 
@@ -1426,7 +1426,7 @@ Cuando el pilar pide **foto real** (historia sobre todo) y llegan varias del mov
 
 **🔴 Y esta foto NO lleva el desenfoque de postproduccion** (`§0a-penta`): sale de una camara, no de un generador, asi que no hay acabado de render ni firma de IA que borrar. **Misma excepcion que "Los 10".**
 
-## ⭐ 0a-novena · LA SILUETA DEL OBJETO: PLANTILLA POR SECTOR (Iker, 2026-07-30)
+## ⭐ 0a-novena · LA SILUETA DEL OBJETO: PLANTILLA POR SECTOR (2026-07-30)
 
 Idea de Iker para el pilar **despiece**, y resuelve el problema de fondo: el mapa tiene captura de PamPam y "Los 10" tiene orla, pero un despiece no tenía imagen natural. **La silueta del objeto más representativo del sector, con los LOGOS repartidos por ella.** En automoción, una **llanta** con los logos en la corona.
 
@@ -1436,19 +1436,19 @@ Idea de Iker para el pilar **despiece**, y resuelve el problema de fondo: el map
 - **El título va en capa de texto editable con `XXX` como marcador de región**, y el script lo sustituye respetando los colores del PSD (la palabra punchy en naranja).
 - **Los huecos se marcan en MAGENTA liso** en la generación y luego se pasan a transparente en PhotoCraft. El magenta no existe en nuestra paleta, así que la selección por color sale limpia de una.
 - **⭐ El aro tiene que BISECAR cada hueco**, pasarle por el centro y dejarlo partido en dos mitades, y estar en la capa de DETRÁS. Así el logo queda montado sobre la rueda en vez de flotando al lado. Costó cuatro pasadas el 30/07.
-- **🔴 EL CUERPO DEL TÍTULO NO SE RECALCULA, SE LEE DEL PSD (Iker, 2026-07-30).** Mi primera versión del script ajustaba el tamaño de letra a la caja por prueba y error, y salió **más pequeño que el que había puesto el diseñador**. El `FontSize` del PSD está en **unidades del documento, no en píxeles**: hay que multiplicarlo por la escala de la **matriz de transformación de la capa** (`capa.transform`). En esta plantilla, 29 x 2,82 = **81,8 px**. El interlineado igual (`Leading` x escala) y la posición sale de la misma matriz: `tr[4]` es el centro horizontal y `tr[5]` la primera línea base. **Si el diseñador puso un tamaño, se respeta.**
-- **Los huecos llevan CONTORNO en berenjena** (Iker, 2026-07-30): un logo blanco sobre el menta claro no se despega del fondo. El aro morado lo enmarca y de paso aprovecha la paleta. **Y en la orla de "Las 10" igual, a 5 px** (01/10, el grosor del trazo de los nombres; `post-workflow §4.3-LAS10`).
-- **⭐ EN TODA IMAGEN QUE COMPONGO CON LOGOS (llanta, orla), EL CENTRADO SE MIDE ANTES DE ENTREGAR (Iker, 2026-10-01).** Huecos izquierda/derecha y arriba/abajo de cada disco, en píxeles. Iker vio Ajusa descolocado y estaba exacto (10/10/10/10): engañaba el diseño del logo. Los logos anchos suben unos píxeles a propósito (centrado óptico, 16/09), y eso se dice en vez de "corregirlo".
-- **⭐ UN TÍTULO DE DOS LÍNEAS QUE COMPONGO YO VA EN ESCALERA (Iker, 2026-10-01):** la de abajo, que lleva la palabra naranja, más ancha y más grande que la de arriba, y con algo más de aire entre ellas que el del PSD. Lo hace `montar-orla.py`; si otro script compone títulos, hereda la regla.
+- **🔴 EL CUERPO DEL TÍTULO NO SE RECALCULA, SE LEE DEL PSD (2026-07-30).** Mi primera versión del script ajustaba el tamaño de letra a la caja por prueba y error, y salió **más pequeño que el que había puesto el diseñador**. El `FontSize` del PSD está en **unidades del documento, no en píxeles**: hay que multiplicarlo por la escala de la **matriz de transformación de la capa** (`capa.transform`). En esta plantilla, 29 x 2,82 = **81,8 px**. El interlineado igual (`Leading` x escala) y la posición sale de la misma matriz: `tr[4]` es el centro horizontal y `tr[5]` la primera línea base. **Si el diseñador puso un tamaño, se respeta.**
+- **Los huecos llevan CONTORNO en berenjena** (2026-07-30): un logo blanco sobre el menta claro no se despega del fondo. El aro morado lo enmarca y de paso aprovecha la paleta. **Y en la orla de "Las 10" igual, a 5 px** (01/10, el grosor del trazo de los nombres; `post-workflow §4.3-LAS10`).
+- **⭐ EN TODA IMAGEN QUE COMPONGO CON LOGOS (llanta, orla), EL CENTRADO SE MIDE ANTES DE ENTREGAR (2026-10-01).** Huecos izquierda/derecha y arriba/abajo de cada disco, en píxeles. Iker vio Ajusa descolocado y estaba exacto (10/10/10/10): engañaba el diseño del logo. Los logos anchos suben unos píxeles a propósito (centrado óptico, 16/09), y eso se dice en vez de "corregirlo".
+- **⭐ UN TÍTULO DE DOS LÍNEAS QUE COMPONGO YO VA EN ESCALERA (2026-10-01):** la de abajo, que lleva la palabra naranja, más ancha y más grande que la de arriba, y con algo más de aire entre ellas que el del PSD. Lo hace `montar-orla.py`; si otro script compone títulos, hereda la regla.
 - **⚠️ Al pedir un cambio de tamaño, di el CUÁNTO, no solo la dirección.** "Encoge los radios" se pasó de largo; "agrándalos hasta la mitad de camino de lo que eran" acertó a la primera, porque le das una referencia entre dos versiones que ya ha hecho.
 
-## ⭐ 0i · DESPUES DE CADA PROMPT, LA LISTA DE ADJUNTOS (Iker, 2026-07-21)
+## ⭐ 0i · DESPUES DE CADA PROMPT, LA LISTA DE ADJUNTOS (2026-07-21)
 
 **El prompt ya no se basta solo.** Desde que decimos "calca esta referencia" y "te adjunto los instaladores de las fuentes", el prompt **da por hecho ficheros que van aparte**. Si Iker esta despistado y manda solo el texto, el diseñador no tiene ni la referencia ni las fuentes, y devuelve algo que no se parece a nada.
 
 **Regla: cada vez que entregues un prompt de diseñador, debajo y FUERA del bloque, va una lista corta de lo que hay que adjuntar.** Solo lo que viaja aparte — no repitas colores, tipografia ni formato, que ya van dentro del prompt.
 
-**⚠️ EN LOS DE EDICION TAMBIEN, Y CON EL EMOJI DE ALERTA (Iker, 2026-07-29).** Aqui ponia "prompt de diseñador" y yo lo lei como "prompt de calca", asi que en los de EDICION solte la ruta del fichero en una linea suelta, sin aviso y sin destacar. **Vale exactamente igual para los dos.** Un prompt de edicion pide adjuntos constantemente: la foto de perfil que hay que meter, un logo, una fuente, una captura nueva. Y si falta, el generador se inventa una cara, que es peor que en la calca, no mejor.
+**⚠️ EN LOS DE EDICION TAMBIEN, Y CON EL EMOJI DE ALERTA (2026-07-29).** Aqui ponia "prompt de diseñador" y yo lo lei como "prompt de calca", asi que en los de EDICION solte la ruta del fichero en una linea suelta, sin aviso y sin destacar. **Vale exactamente igual para los dos.** Un prompt de edicion pide adjuntos constantemente: la foto de perfil que hay que meter, un logo, una fuente, una captura nueva. Y si falta, el generador se inventa una cara, que es peor que en la calca, no mejor.
 
 **El formato, siempre el mismo:** justo debajo del bloque cercado, fuera de el, una linea que empieza por **⚠️** con la **ruta completa del fichero**. Si son varios, un ⚠️ y debajo la lista. Y si alguno tumba la pieza si falta, se dice en esa misma linea.
 
@@ -1487,7 +1487,7 @@ UN párrafo simple en prosa, listo para pegar en un generador de imágenes. Nomb
 1. **MEME** → ilustración / cambio corporal, o **calcar la referencia** (§5-B). Dibujado es correcto AQUÍ, y **siempre en dibujo plano minimalista, aunque la referencia sea foto o 3D** (`§0a-DIBUJO`, Iker 01/10).
 2. **DESEO / NÚMEROS / CONVERSACIÓN** → **screenshot documental real** que calca una pantalla reconocible: **iMessage de iPhone** (conversación/mensajes simulados), **captura de la app del banco**, Stripe, calendario, CRM, factura. Y para un **post de métricas**: **captura del dashboard oficial de analíticas de LinkedIn** con NUESTROS datos. Prueba real, no ilustración. Conserva el chrome visible (logo, tipografía real, números en su formato) — ahí está la credibilidad. La credibilidad está en que el FORMATO calca una pantalla real, no en que el dato sea literalmente cierto. Funciona muy bien tanto en memes (motor B) como fuera.
 3. **PERSONAL / LEAD-MAGNET / FOUNDER** → **foto natural real** del autor, NO caricatura ni diseño elaborado/complejo. Rinden mejor las **fotos naturales tipo selfie o foto en grupo con compañeros** (cara real, oficina) que las ilustraciones. La cara real es el motor de credibilidad (Iker "desmonto perfiles" foto real 9.13x vs caricatura 0.2x). Especialmente en **lead magnets**: selfie / grupo con el equipo > cualquier caricatura.
-   - **⭐ En un post de HISTORIA/anécdota, la foto REAL de la persona gana a una captura de métricas, aunque el post mencione cifras (Iker, 2026-07-24).** La cara ES la historia: si cuentas "di mi primera conferencia", la foto tuya dándola (y que se te vea joven, natural) engancha más que cualquier pantalla de datos. El registro de métricas (§2 de arriba) es para posts de flex de números, no para una historia personal.
+   - **⭐ En un post de HISTORIA/anécdota, la foto REAL de la persona gana a una captura de métricas, aunque el post mencione cifras (2026-07-24).** La cara ES la historia: si cuentas "di mi primera conferencia", la foto tuya dándola (y que se te vea joven, natural) engancha más que cualquier pantalla de datos. El registro de métricas (§2 de arriba) es para posts de flex de números, no para una historia personal.
    - **⭐ Y si en algún post SÍ quieres imagen de métricas: captura NUESTRA herramienta real** (la sección accounts, que ya enseña las cifras enteras y potentes tipo `2.036.300`), **no falsifiques la interfaz de LinkedIn.** Suplantar la UI de un tercero con datos montados es una prueba falsa y encima innecesaria cuando nuestro dashboard ya se ve potente. Cifra que no sea real → fuera, siempre.
 
 ---
@@ -1507,13 +1507,13 @@ UN párrafo simple en prosa, listo para pegar en un generador de imágenes. Nomb
 > **⚠️ Los dos claros NO valen como masa sobre fondo claro.** Azul bebé y Mint claro tienen muy poco contraste contra Alabastro/Mint (ratio ~1,6:1): a tamaño miniatura se disuelven. Van como **detalle o superficie interior**, nunca como la forma principal que tiene que leerse pequeña. La masa oscura es **siempre Berenjena**.
 > **El brandbook también confirma la tipografía:** Bricolage Grotesque + Switzer (las mismas de §4).
 >
-> **⛔ EL ISOTIPO NO SE REDIBUJA CON IA NUNCA (Mario, 2026-07-29).** El cuerpo de la mascota Kaixito **ES el isotipo de Neety**, así que es material de marca, no ilustración. Medido ese día: el isotipo oficial del brandbook (p.12) tiene el marco **prácticamente cuadrado, 42,0 × 41,9 pt = 1:1**, y el cuerpo que había generado la IA salía **~20% más ancho que alto**. El brandbook además avisa de que en esta versión *"suavizamos los bordes del isotipo"*, o sea que el redondeo también cambió.
+> **⛔ EL ISOTIPO NO SE REDIBUJA CON IA NUNCA (2026-07-29).** El cuerpo de la mascota Kaixito **ES el isotipo de Neety**, así que es material de marca, no ilustración. Medido ese día: el isotipo oficial del brandbook (p.12) tiene el marco **prácticamente cuadrado, 42,0 × 41,9 pt = 1:1**, y el cuerpo que había generado la IA salía **~20% más ancho que alto**. El brandbook además avisa de que en esta versión *"suavizamos los bordes del isotipo"*, o sea que el redondeo también cambió.
 > **Procedimiento:** el isotipo se **extrae del PDF como vector** y se pega tal cual; nunca se le pide a un generador que lo dibuje ni que lo "redondee un poco". Cada vuelta de IA lo aproxima y encima suele romper otras piezas. Extracción hecha con PyMuPDF (`fitz`, `get_drawings()` para localizar el bbox y `get_pixmap(dpi=2400, clip=...)`), porque `pdftoppm` no está instalado en esta máquina.
 > **El SÍNTOMA exacto que hay que buscar (2026-07-30):** el generador siempre falla en **los dos entrantes del centro, la "cintura" entre los dos cuadrados**. En el isotipo oficial esos bordes son **rectos y se afilan hasta una punta**; la IA los **redondea y los engorda**, y de paso corta alguna esquina en recto donde va redondeada. Se detecta a simple vista comparando la cintura, y aparece incluso cuando se le pasa el vector correcto como referencia en el mismo chat. Es el motivo de la regla: no es un fallo de prompt, es que reinterpreta contornos.
 
 - **Paleta VIEJA (la de los outliers publicados):** Alabastro `#f9f3ef` (fondo dominante — todas las imágenes se apoyan en esta superficie clara) · Dark Blue `#0c202e` (títulos, texto, linework — la "tinta") · Persian Orange `#ee9363` (highlight / scroll-stop — a cuentagotas, a la palabra o elemento más importante).
 - **Tipografía (solo si la imagen lleva texto):** Bricolage Grotesque para títulos (bold, display) · Switzer para cuerpo. Ninguna otra fuente bajo ningún concepto.
-  - ⭐ **Y SIEMPRE que las nombres en un prompt, añade que le adjuntas los instaladores** (Iker, 2026-07-20): `Te adjunto los dos archivos instaladores de las fuentes.` Los manda Iker junto al prompt. Nombrar una fuente que el diseñador no tiene instalada es pedirle que improvise: acaba usando la que mas se le parezca y la imagen sale fuera de marca.
+  - ⭐ **Y SIEMPRE que las nombres en un prompt, añade que le adjuntas los instaladores** (2026-07-20): `Te adjunto los dos archivos instaladores de las fuentes.` Los manda Iker junto al prompt. Nombrar una fuente que el diseñador no tiene instalada es pedirle que improvise: acaba usando la que mas se le parezca y la imagen sale fuera de marca.
 - **Regla de la palabra naranja:** cuando hay texto, la ÚNICA palabra más importante va en Persian Orange; el resto en Dark Blue sobre Alabastro. Elígela deliberadamente (es el scroll-stop) y nómbrala explícitamente en el párrafo.
   - 🔄 **02/11: en el MEME no va palabra naranja salvo que la referencia ya lleve una palabra de color** (corrección del 30/10 en `§0a-FOCO`, A/B abierto): el foco del meme es el dibujo. En el resto de imágenes (lead magnet, mapa, banner, portada, tarjeta de evento) la regla sigue igual.
 
@@ -1529,13 +1529,13 @@ La referencia manda: layout, nº de paneles, escena, expresiones, lenguaje corpo
 1. **Remapea los colores** a la paleta Neety **y añade detalles de marca** (no solo recolorear): corbatas naranjas, patrones, siluetas, props narrativos en naranja.
 2. **Textos:** si los hay, tradúcelos al español (adaptados a ventas) en Bricolage Grotesque (títulos) + Switzer (cuerpo). 🔄 02/11: antes ponía *"con la regla de la palabra naranja"*; desde el 30/10, sin palabra naranja salvo que la referencia ya lleve una palabra de color (`§0a-FOCO`, A/B abierto).
 3. **Props específicos:** conserva el elemento pero varía el detalle (café → otro café, avión → otro avión).
-4. **Roles de trabajadores Y CUALQUIER etiqueta de la imagen:** en español genérico, **sin anglicismos ni jerga** (stack, pipeline, CRM, lead…), entendibles por un industrial de 50+. No es solo para los roles: es para TODO texto que vaya en la foto. Fallo real (Iker, 2026-07-22): una etiqueta decía *"Tu stack de ventas"* y un jefe de ventas de 55 no tiene por qué saber qué es un "stack". Se cambió a *"Tu comercial como lo pintan"* (dicho que sí se pilla) vs *"Tu comercial de verdad"*.
+4. **Roles de trabajadores Y CUALQUIER etiqueta de la imagen:** en español genérico, **sin anglicismos ni jerga** (stack, pipeline, CRM, lead…), entendibles por un industrial de 50+. No es solo para los roles: es para TODO texto que vaya en la foto. Fallo real (2026-07-22): una etiqueta decía *"Tu stack de ventas"* y un jefe de ventas de 55 no tiene por qué saber qué es un "stack". Se cambió a *"Tu comercial como lo pintan"* (dicho que sí se pilla) vs *"Tu comercial de verdad"*.
 Todo lo demás de la referencia se preserva. No fuerces el uniforme camisa-blanca+corbata-naranja ni el grid simétrico si la referencia no los tiene. (Runbook operativo completo en `post-workflow §4.4`.)
 
-5. **⛔⛔ EL MEME YA NO SE ENTREGA CUTRE: LA DEGRADACIÓN ESTÁ EN CUARENTENA DESDE EL 2026-08-04.** Aquí ponía *"el meme se entrega un poco CUTRE a propósito… JPG calidad 10 y 500×500"* **y se suspendió con datos** (`§0a-penta`): los memes de Asier hicieron **29.764 impresiones sin degradar** contra **345 y 196 degradados**, con su "Los 10" del 29/07 en 8.382 por el medio, o sea que la cuenta no estaba capada. **Lo único que compartían los dos hundidos era el fichero destrozado a propósito.**
+5. **⛔⛔ EL MEME YA NO SE ENTREGA CUTRE: LA DEGRADACIÓN ESTÁ EN CUARENTENA DESDE EL 2026-08-04.** Aquí ponía *"el meme se entrega un poco CUTRE a propósito… JPG calidad 10 y 500×500"* **y se suspendió con datos** (`§0a-penta`): los memes del tercer jefe hicieron **29.764 impresiones sin degradar** contra **345 y 196 degradados**, con su "Los 10" del 29/07 en 8.382 por el medio, o sea que la cuenta no estaba capada. **Lo único que compartían los dos hundidos era el fichero destrozado a propósito.**
    - **Mientras dure la cuarentena: resolución completa y sin bajar calidad.** Si hace falta que parezca reenviado, se consigue con el CONTENIDO (una captura, una interfaz real), no rompiendo el fichero.
    - **Lo que SÍ se hace siempre está en `§0a-penta`:** desenfoque de superficie **con el radio que toque** (pieza de diseño 8/12 · **rostro fotorrealista 1/12**, que con 8 se cartoniza la cara) y exportar sin metadatos, más desactivar las Content Credentials.
-   - **🔴 POR QUÉ ESTE PUNTERO EXISTE (Mario, 2026-08-27):** el texto viejo se quedó aquí **tres semanas después de la cuarentena**, y el 27/08 lo leí y estuve a punto de mandar degradar un meme que estaba bien. **Una regla suspendida en un sitio y viva en otro se aplica igual**: es el mismo fallo que el overlay del Aquaman (`§0i-3-HERRAMIENTA`). **Al poner algo en cuarentena hay que ir a las secciones que lo enseñan, no solo a la que lo mide.**
+   - **🔴 POR QUÉ ESTE PUNTERO EXISTE (2026-08-27):** el texto viejo se quedó aquí **tres semanas después de la cuarentena**, y el 27/08 lo leí y estuve a punto de mandar degradar un meme que estaba bien. **Una regla suspendida en un sitio y viva en otro se aplica igual**: es el mismo fallo que el overlay del Aquaman (`§0i-3-HERRAMIENTA`). **Al poner algo en cuarentena hay que ir a las secciones que lo enseñan, no solo a la que lo mide.**
 
 ### (B-fallback) MEME SIN REFERENCIA → sistema meme desde cero (§6)
 Aplica el filtro de 4 puntos del meme (`global-instructions §4.3`: jerarquía de roles B2B + cambio corporal que DUELE y es LEGIBLE a miniatura + punchline citable + el lector ríe CON nosotros) y el sistema visual de §6.
@@ -1637,7 +1637,7 @@ El único creador de la BD que puso métricas simuladas es **Chris Donnelly, en 
 
 **No heredamos la parte que ya no sostiene nadie.** Además es la parte que nos obligaría a poner una cifra inventada en una imagen, que es exactamente lo que `CLAUDE.md` prohíbe en su primera línea.
 
-> 🧪 **SUSPENDIDO PARA UN A/B (Iker, 2026-09-23):** la 2ª tarjeta (Asier) lleva la barra calcada de Donnelly, con cifras elegidas impares y creíbles. Corrección de lo de arriba: Donnelly no lo hizo una vez, lo hizo en **al menos 4 outliers de 2023** (99-112k likes reales, barra al 7-18% de eso). Método, confusores y cómo se lee en `post-workflow §4.6-AB-METRICAS`. La cifra de la barra es atrezo del formato, como el `5,3M` del iMessage, no un dato que se afirme en el texto.
+> 🧪 **SUSPENDIDO PARA UN A/B (2026-09-23):** la 2ª tarjeta (el tercer jefe) lleva la barra calcada de Donnelly, con cifras elegidas impares y creíbles. Corrección de lo de arriba: Donnelly no lo hizo una vez, lo hizo en **al menos 4 outliers de 2023** (99-112k likes reales, barra al 7-18% de eso). Método, confusores y cómo se lee en `post-workflow §4.6-AB-METRICAS`. La cifra de la barra es atrezo del formato, como el `5,3M` del iMessage, no un dato que se afirme en el texto.
 
 ### 9.4 · La paleta (extraída de los ficheros, no de memoria)
 
@@ -1661,11 +1661,11 @@ El único creador de la BD que puso métricas simuladas es **Chris Donnelly, en 
 - **1:1, 800x800.** Manda `§0b` sin excepciones, y además cae dentro del rango medido de Grant (0,91-1,00).
 - **⛔ NUNCA APAISADO.** Andy Elliott es el único de la BD que lo hace apaisado (1,55-1,74) y es el que peor rinde de los que usan el formato.
 
-### 9.7 · ⛔ El avatar sale como círculo MAGENTA y la cara la pega un script (Iker, 2026-09-16)
+### 9.7 · ⛔ El avatar sale como círculo MAGENTA y la cara la pega un script (2026-09-16)
 
 El generador deforma a las personas en cada iteración. **En el prompt el avatar es un círculo magenta liso `FF00FF`, sin foto dentro y sin adjuntarle la foto del jefe.** Cuando el resto está aprobado, Iker pasa el magenta a transparente y `scripts/montar-avatar-tarjeta.py` pega la foto de perfil debajo. Flujo completo en `post-workflow §4.6-AVATAR`. Misma familia que `§0f` (un modelo de imagen no puede pegar) y que la silueta del despiece (`§0a-novena`, huecos en magenta).
 
-### 9.8 · Lo que se arregla FUERA del generador (Iker, 2026-09-17)
+### 9.8 · Lo que se arregla FUERA del generador (2026-09-17)
 
 - **⛔ El halo claro alrededor de las letras y el ruido del generador NUNCA se piden por prompt.** Iker: *"eso la herramienta de generación nunca lo va a poder arreglar"*. Lo quita el **desenfoque de superficie** de PhotoCraft, y tras aplicarlo se comprobó en el fichero: el anillo de píxeles alrededor de las letras da 226,8 contra 228 del fondo, sin halo.
 - **Los huecos entre párrafos se MIDEN en el PNG final, de arriba de línea a arriba de línea.** En la primera tarjeta salieron 161 px y 134 px aunque el prompt pedía iguales. Se corrigió bajando la banda del P3 27 px en píxeles (costura de 0,4 niveles, invisible), y de paso el aire de abajo quedó en 69 px contra 70 arriba. `montar-avatar-tarjeta.py` ya imprime estas medidas y avisa si no cuadran.
@@ -1676,30 +1676,30 @@ El generador deforma a las personas en cada iteración. **En el prompt el avatar
 
 ---
 
-## 10 · 🪪 EL BANNER DEL PERFIL (1584×396) (Iker, 2026-09-23)
+## 10 · 🪪 EL BANNER DEL PERFIL (1584×396) (2026-09-23)
 
 > **Por qué existe:** hasta hoy no había ni una regla escrita para el banner; solo `APUNTES PERFIL LINKEDIN.txt` (*"BANNER = propuesta de VALOR + CTA"*). Todo lo de abajo sale de **medirlo montado** sobre la captura real del perfil de Iker, a 800 y a 375 px de ancho (script de maqueta en el scratchpad de la sesión del 23/09, `make.py` + `ronda2.py`).
 
 **Lo medido, no opinado:**
 1. **La foto de perfil tapa x 3,5-23,5% y la mitad de abajo del banner** (captura del perfil de Iker). Todo el texto va alineado a la derecha, de x≈40% a x≈95%.
 2. **En móvil (375 px) el banner se ve a 0,24x.** Un título de 66-70 px se lee; **un botón de 27 px con 47 caracteres NO se lee, y la tira de logos tampoco.** O sea: **el título lleva todo el mensaje**, y el botón solo sobrevive si es corto (≤ ~24 caracteres) y a ~36 px, siempre más pequeño que el título.
-3. **El banner no se puede pulsar.** Un botón pintado que parece pulsable manda el clic a la imagen a pantalla completa. El enlace real es el botón personalizado del perfil, **"Concertar una cita"** (en escritorio, abajo a la izquierda, bajo el titular). **Sin flecha (Iker, 23/09: "es un banner, no es pulsable, la flecha sobra").** Yo la había puesto para mandar el ojo al botón real, como el `Haz clic abajo 👇` de la referencia de Chris Payne; se quitó por limpieza y porque no hay dato de que sume. Si con el banner nuevo baja la tasa de clics al botón por visita (base Iker 3,2%), lo primero que se prueba es devolverla.
+3. **El banner no se puede pulsar.** Un botón pintado que parece pulsable manda el clic a la imagen a pantalla completa. El enlace real es el botón personalizado del perfil, **"Concertar una cita"** (en escritorio, abajo a la izquierda, bajo el titular). **Sin flecha (23/09: "es un banner, no es pulsable, la flecha sobra").** Yo la había puesto para mandar el ojo al botón real, como el `Haz clic abajo 👇` de la referencia de Chris Payne; se quitó por limpieza y porque no hay dato de que sume. Si con el banner nuevo baja la tasa de clics al botón por visita (base Iker 3,2%), lo primero que se prueba es devolverla.
 4. **Message-match con la página de destino, que es la causa nº1 medida de 51 clics → 0 formularios en `/agendar/`.** La página dice `Reserva 30 min con Iker` y `te lo digo yo mismo`: el banner habla en **singular del founder** y dice **30 minutos, nunca 20**.
 
 **El copy:**
 - **Cero jerga ni siglas** (ni `B2B`, ni `prospección`, ni `inteligencia comercial`, ni `IA`). `B2B para empresas` además es redundante.
 - **El eje es la identificación** (`global §4.4b-ORDEN`): a quién vender y a quién llamar dentro. **Nunca** automatismo (`IA que ejecuta` estaba en el banner viejo y es veto de 5 empresas), volumen ni la señal.
-- **Ningún verbo de CANAL en el título (Iker, 23/09: `llamar` → no siempre es por teléfono).** `llamar` promete un teléfono que no está confirmado que demos (`feedback: contacto, no teléfono`) y deja fuera el correo y LinkedIn. Pero `contactar` tampoco basta: vale para cualquiera de dentro, incluida la recepción, y **el valor es el que decide, no el canal**. Nuestros mejores ninjas nombran siempre al decisor (`el de quien paga` 0,56%, `Al que firma, no.` 0,281%). **Y entre las palabras del decisor MANDA EL DATO, no el ojo (medido el 23/09 sobre los 47 posts con enlace y clics de la BD, CTR corregido por alcance porque a más impresiones baja solo, log-log, pendiente -0,44):** `decide` **x1,66** (n=4, **los 4 por encima de lo esperado**) · `de dentro` x1,29 (5) · `el nombre` x1,14 (9) · `llamar/marcar` x1,12 (11) · `firma` **x0,88** (6, solo 2 de 6 por encima, aunque tiene el mejor post suelto: recepción x2,55) · `compra` x0,76 (10). `contacto` sale x2,09 pero con n=2 y los dos llevan también `firma`/`decide`, así que no se puede separar. `contactar` como verbo **no se ha usado nunca**: sin dato. Por mes no hay sesgo (jul 1,00 · ago 1,05 · sep 0,92). **Ganó `A quién vender y quién decide`** (29 caracteres). Yo había elegido `firma` por la vista, y el dato lo tumbó. n pequeño: se revisa cuando haya 10 ninjas por palabra.
+- **Ningún verbo de CANAL en el título (23/09: `llamar` → no siempre es por teléfono).** `llamar` promete un teléfono que no está confirmado que demos (`feedback: contacto, no teléfono`) y deja fuera el correo y LinkedIn. Pero `contactar` tampoco basta: vale para cualquiera de dentro, incluida la recepción, y **el valor es el que decide, no el canal**. Nuestros mejores ninjas nombran siempre al decisor (`el de quien paga` 0,56%, `Al que firma, no.` 0,281%). **Y entre las palabras del decisor MANDA EL DATO, no el ojo (medido el 23/09 sobre los 47 posts con enlace y clics de la BD, CTR corregido por alcance porque a más impresiones baja solo, log-log, pendiente -0,44):** `decide` **x1,66** (n=4, **los 4 por encima de lo esperado**) · `de dentro` x1,29 (5) · `el nombre` x1,14 (9) · `llamar/marcar` x1,12 (11) · `firma` **x0,88** (6, solo 2 de 6 por encima, aunque tiene el mejor post suelto: recepción x2,55) · `compra` x0,76 (10). `contacto` sale x2,09 pero con n=2 y los dos llevan también `firma`/`decide`, así que no se puede separar. `contactar` como verbo **no se ha usado nunca**: sin dato. Por mes no hay sesgo (jul 1,00 · ago 1,05 · sep 0,92). **Ganó `A quién vender y quién decide`** (29 caracteres). Yo había elegido `firma` por la vista, y el dato lo tumbó. n pequeño: se revisa cuando haya 10 ninjas por palabra.
 - **El botón dice qué pasa, sin orden** (`global §2.3d`: el director de 55 se resiste a la orden): `Vemos tu caso en 30 min` mejor que `Agenda 30 min y lo verás en acción!` (demo genérica, orden y sin `¡`).
 - **Repetir el mensaje central aquí NO es quemarlo**: el banner es fijo y la narrativa constante es lo que premia el algoritmo (`APUNTES LINKEDIN`, algoritmo). `La idea no se quema, la frase sí` vale para el feed, no para el perfil.
 
-**📏 CÓMO SE MIDE EL BANNER, que no es con los clics de los posts (Iker, 23/09: "¿es inteligente medirlo con clics?").** Los clics del ninja sirvieron para ELEGIR la palabra (hay 47 posts; reservas por palabra no hay ni para empezar), pero miden a otro lector (el del feed, no el que ya abrió tu perfil) y un clic no es una reunión (`/agendar/`: 51 clics, 0 formularios). **La métrica del banner es `premium_button_clicks / profile_viewers_count`** (clics a "Concertar una cita" por visita al perfil), que la BD ya guarda por post. **Línea base antes del cambio (hasta el 23/09):** Iker **3,2%** (212/6.593, 57 posts) · Unai 4,2% (112/2.642) · Asier 5,7% (34/599). Se apunta el día del cambio de banner y se compara antes/después. **Ojo con el volumen:** Iker hace ~350-450 visitas al perfil al mes con dato de botón, así que un cambio de 3,2% a ~4,5% tarda meses en separarse del ruido. Por eso la palabra se eligió con los clics y este test sirve para confirmar que el banner **no empeora**, no para elegir. La verdad final son las reservas en GA4 con UTM propia en el enlace del botón (`utm_medium=perfil`), no los clics de LinkedIn, que se pierden a ratos.
+**📏 CÓMO SE MIDE EL BANNER, que no es con los clics de los posts (23/09: "¿es inteligente medirlo con clics?").** Los clics del ninja sirvieron para ELEGIR la palabra (hay 47 posts; reservas por palabra no hay ni para empezar), pero miden a otro lector (el del feed, no el que ya abrió tu perfil) y un clic no es una reunión (`/agendar/`: 51 clics, 0 formularios). **La métrica del banner es `premium_button_clicks / profile_viewers_count`** (clics a "Concertar una cita" por visita al perfil), que la BD ya guarda por post. **Línea base antes del cambio (hasta el 23/09):** Iker **3,2%** (212/6.593, 57 posts) · el primer jefe 4,2% (112/2.642) · el tercer jefe 5,7% (34/599). Se apunta el día del cambio de banner y se compara antes/después. **Ojo con el volumen:** Iker hace ~350-450 visitas al perfil al mes con dato de botón, así que un cambio de 3,2% a ~4,5% tarda meses en separarse del ruido. Por eso la palabra se eligió con los clics y este test sirve para confirmar que el banner **no empeora**, no para elegir. La verdad final son las reservas en GA4 con UTM propia en el enlace del botón (`utm_medium=perfil`), no los clics de LinkedIn, que se pierden a ratos.
 
-**🔗 EL ENLACE DEL BOTÓN DEL PERFIL LLEVA UTM FIJA, SIN FECHA (Iker, 23/09).** Hasta hoy el botón "Concertar una cita" mandaba a `/agendar/` pelado y las reservas del perfil no se distinguían de las de los posts. `/agendar/` guarda la UTM con cada reserva (`neety-resources/src/api/agendar.js`), así que basta con esto, uno por jefe:
+**🔗 EL ENLACE DEL BOTÓN DEL PERFIL LLEVA UTM FIJA, SIN FECHA (23/09).** Hasta hoy el botón "Concertar una cita" mandaba a `/agendar/` pelado y las reservas del perfil no se distinguían de las de los posts. `/agendar/` guarda la UTM con cada reserva (`neety-resources/src/api/agendar.js`), así que basta con esto, uno por jefe:
 `https://neety.com/solicitar-demo?utm_source=linkedin&utm_medium=perfil&utm_campaign=perfil-boton-cita&utm_content={iker|unai|asier}`
   (🔄 22/11/2026: antes `https://recursos.neety.com/agendar/…`, dominio que ya no existe. Si el botón de algún perfil sigue con la URL vieja, se cambia: el 301 lleva a la demo pero se pierde la UTM.)
 - `utm_medium=perfil`, **no `post`**: es lo que separa el perfil de los posts en GA4 y en la tabla de reservas. **Sin fecha en `utm_campaign`**, porque este enlace es fijo y no pertenece a una publicación (`global §4.4b-UTM-FECHA` es para posts).
-- **UN SOLO BANNER PARA LOS TRES, con el botón `Vemos tu caso en 30 min` (Iker, 23/09).** Sustituye a `Te lo enseño` (Iker) / `Te lo enseñamos` (Unai y Asier). `/agendar/` solo existe en versión Iker, así que un singular de Unai rompía el message-match; el `vemos` incluye al lector ("tú confirmas"), no ordena como `agenda`, no suena a consultora como `diagnóstico`, y `con tu caso` dice lo que pasa en la llamada (se monta su búsqueda real). Versión final acortada por Iker: sin el `lo` (que obligaba a buscar a qué se refiere) y con el verbo delante, que dice quién lo hace (`feedback: el ninja dice quién lo hace`). Los `30 min` se quedan: acotan el compromiso y calcan `Reserva 30 min` de la página.
+- **UN SOLO BANNER PARA LOS TRES, con el botón `Vemos tu caso en 30 min` (23/09).** Sustituye a `Te lo enseño` (Iker) / `Te lo enseñamos` (el primer jefe y el tercer jefe). `/agendar/` solo existe en versión Iker, así que un singular del primer jefe rompía el message-match; el `vemos` incluye al lector ("tú confirmas"), no ordena como `agenda`, no suena a consultora como `diagnóstico`, y `con tu caso` dice lo que pasa en la llamada (se monta su búsqueda real). Versión final acortada por Iker: sin el `lo` (que obligaba a buscar a qué se refiere) y con el verbo delante, que dice quién lo hace (`feedback: el ninja dice quién lo hace`). Los `30 min` se quedan: acotan el compromiso y calcan `Reserva 30 min` de la página.
 
 **🔄 TÍTULO FINAL (jefe, 24/09): `A quién vender. Cuándo. Y cómo.`, con `quién` en naranja.** El jefe quiere que se vean las 3 fases del producto (detecta · prioriza · actúa), y esta frase las cuenta en 31 caracteres: `a quién vender` = detecta, `cuándo` = prioriza, `cómo` = actúa. **No choca con `global §4.4b-ORDEN`**: la identificación abre y lleva el naranja, y la señal (`cuándo`) va segunda, dentro de una tríada, no como argumento. El `cómo` vago lo concreta el botón (`Vemos tu caso`). Se descartó el literal `Detecta. Prioriza. Actúa.`: tres imperativos sin objeto que suenan a eslogan de software y dan órdenes al lector. `quién decide` (el ganador en CTR) se queda fuera del banner: es la opción a probar si la tasa de clic al botón baja. **Fondo:** nada de manchas `#431B44` difuminadas detrás del botón o de los logos: salen gris-malva (`#9D929E` medido) y compiten con el botón. Lila `#C9B6E4` o azul bebé `#A7C5F9`.
 
@@ -1708,7 +1708,7 @@ El generador deforma a las personas en cada iteración. **En el prompt el avatar
 - **Tira de logos de clientes bajo el botón**: en escritorio se lee y es la única prueba social del banner; en móvil desaparece, así que nunca lleva mensaje.
 - Bricolage Grotesque Bold en el título, Switzer Semibold en el botón.
 
-## 11 · 🎟️ LA PORTADA DE WEBINAR O EVENTO ONLINE: LA MONTO YO POR SCRIPT (Iker, 2026-10-08)
+## 11 · 🎟️ LA PORTADA DE WEBINAR O EVENTO ONLINE: LA MONTO YO POR SCRIPT (2026-10-08)
 
 > **Iker:** *"siempre que te pida una portada del webinar, me la vas a crear tú con ese fondo. Y con todo lo que sabemos de composición, nuestra fuente de texto, la mascota y todo"*.
 

@@ -62,7 +62,7 @@ Analizados a fondo (los números citados en `email-marketing §8` salen de aquí
 - **Aprilynne Alter** — 7 correos. Asuntos en minúsculas, P.S. en el 100%.
 - Más inventario de Lavender, BOGA/EDEM, Cosas de Freelance, lemlist, Singularu, Kieran Flanagan.
 
-Los .eml originales NO van en este paquete (son cientos de megas). Si hace falta re-analizarlos, los tiene Mario en `Documents/Mario/LINKEDIN GROWTH/EMAIL MARKETING/`.
+Los .eml originales NO van en este paquete (son cientos de megas). Si hace falta re-analizarlos, los tiene el compañero de marketing en `Documents/Mario/LINKEDIN GROWTH/EMAIL MARKETING/`.
 
 ---
 

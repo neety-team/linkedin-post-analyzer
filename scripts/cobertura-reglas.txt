@@ -397,8 +397,8 @@ aboutme | Mario Carrillo Ramirez CUENTA DADA DE BAJA 2026- | check: CUENTA DADA 
 aboutme | EL PUENTE DE LAS CUENTAS DE OFICIO la companera | pendiente(2026-11-11): necesita-criterio · ampliar ninja con --cuenta mario/helena: "¿el puente atencion -> clientes (lo que el tema te trae / lo que no 
 aboutme | Helena Baviera Serigo Partnerships Customer Succ | pendiente(2026-11-11): necesita-check · ⛔ SIN MENCIONES en Helena sin dueño: FALLO con --cuenta helena si queda una @. Ademas CONTRADICE (l.387) "el g
 aboutme | Angela Brook Uria Product Designer 6a cuenta Ike | pendiente(2026-11-11): cubierta · checks: Hook anclado a DISENO DE PRODUCTO + El CUERPO lleva la vinculacion con VENTAS + ENTREGA: ¿el CUERPO pr
-aboutme | 3 Una sola voz para los tres voz Neety | pendiente(2026-11-11): contradice · "NO mantenemos voces por persona... la voz es siempre la misma" contradice brand-voice §1b (registro por perso
-aboutme | 4 Estrategia de publicacion contexto que condici | pendiente(2026-11-11): contradice · enlace https://recursos.neety.com/agendar/ (vetado desde 05/10, aboutme §1 y check de solicitar-demo; dominio muerto desde el 22/11/2026, check Sin enlaces a recursos.neety.com); "Link d
+aboutme | 3 Una voz de marca con registro por cuenta | contexto: resumen que remite a brand-voice §1b (24/11: ya no contradice el registro por cuenta)
+aboutme | 4 Estrategia de publicacion contexto que condici | contexto: identidad estrategica; el destino del ninja vive en post-workflow §8.1b (24/11: sin el enlace muerto)
 aboutme | 5 Que me falta de aqui huecos a rellenar por el | contexto: huecos; seguidores no es variable de contenido
 post-workflow | 4.4-PSICOLOGIA EL SEGUNDO EJE DEL MEME QUE LO HA | criterio: motor
 brand-voice | CANONICO UNA IA GENERICA NUNCA ESTA AL NIVEL DE | check: IA generica por debajo de Neety

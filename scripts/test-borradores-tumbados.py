@@ -155,10 +155,10 @@ CASOS += [
                .replace('El cliente barato sale caro.', 'La venta barata sale cara.')),
 ]
 
-# Historia/evento de Asier del 16/10 (ponente en el evento Neety Forward). Iker tumbo dos
-# ganchos el 15/10: "nunca habia vendido nada" es mentira (llevan 3-4 anos con la empresa)
-# y Asier, como Unai, no se hace de menos en publico ("nunca habia rezado", "nunca habia
-# pensado"). brand-voice §1b, ASIER TAMBIEN VA GRANDIOSO.
+# Historia/evento del 16/10 (ponente en el evento Neety Forward). Dos ganchos tumbados
+# el 15/10: "nunca habia vendido nada" es mentira (llevan 3-4 anos con la empresa)
+# y la incredulidad propia no va en esa cuenta ("nunca habia rezado", "nunca habia
+# pensado"). brand-voice §1b, LA CUENTA TECNICA TAMBIEN VA CON GANCHO DE AUTORIDAD.
 CUERPO_ASIER = """La primera vez fue con algo que llevaba meses construyendo.
 
 Y me llevé la lección de cualquier comercial.
@@ -190,10 +190,10 @@ CASOS += [
      '15/10: "¿como vamos a decir que nunca han vendido nada?" Lleva 3-4 anos de socio',
      'no se dice que nunca ha vendido', FLAGS_ASIER),
     ('Nunca había rezado tanto para que saliera bien una demo de ventas 🙏\n\n' + CUERPO_ASIER,
-     '15/10: "siendo jefes, publicamente no quieren dar a entender cosas como nunca habia rezado"',
-     'el gancho no se hace de menos', FLAGS_ASIER),
+     '15/10: la incredulidad propia (nunca habia rezado) no va en esa cuenta',
+     'el gancho va sin incredulidad propia', FLAGS_ASIER),
     # 17/11, historia/evento de SeedRocket (Unai): la casa como victima de otro en el gancho
-    # es otra forma de hacerse de menos (brand-voice §1b). Lo humilde, al cuerpo.
+    # es otra forma de restar autoridad (brand-voice §1b). La confesion, al cuerpo.
     ('Un año después de desmontarnos, @SeedRocket nos sienta ante sus inversores 🔧\n\n' + CUERPO_ASIER,
      '17/11: en un gancho grandioso la casa no sale desmontada por otro',
      'como la VICTIMA de otro', ['--pilar', 'historia', '--cuenta', 'unai', '--historia-evento']),

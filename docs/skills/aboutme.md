@@ -380,13 +380,11 @@ Caso real, el post de la caída de los influencers (21/08): *"Una caída te trae
 
 ---
 
-## 3 · Una sola voz para los tres: "voz Neety"
+## 3 · Una voz de marca, con registro por cuenta
 
-🔄 Superado el 16/07 y el 15/10 por `brand-voice §1b`: el QUÉ es el mismo en las tres cuentas, pero el registro (volumen, intensificadores, gancho) va por persona; lo que sigue es registro de la decisión de julio. Decisión de producto (julio 2026): **NO mantenemos voces por persona**. Las tres cuentas escriben con **una única voz genérica llamada "Neety"**.
-
-- Antes había perfiles de voz separados (Iker / el primer jefe). Se colapsaron en uno solo porque las tres personas publican sobre lo mismo.
-- Mencionar "Iker", "el primer jefe" o "el tercer jefe" en una petición **NO cambia la voz** — solo cambia (en la herramienta) la identidad del preview (nombre + foto). La voz es siempre la misma.
-- El detalle completo de esa voz está en la skill **`brand-voice`**.
+- **El QUÉ es uno:** las cuentas hablan de lo mismo y con la misma marca, la voz "Neety".
+- **El registro va por cuenta** (desde el 16/07 y el 15/10): volumen, intensificadores y tipo de gancho. La tabla de cada perfil está en `brand-voice §1b`, y el reparto de alias en `§2`.
+- En la herramienta, elegir cuenta cambia la identidad del preview (nombre y foto) y el registro que aplica el prompt.
 
 ---
 
@@ -394,10 +392,10 @@ Caso real, el post de la caída de los influencers (21/08): *"Una caída te trae
 
 Estos puntos son de identidad estratégica; el detalle operativo está en `global-instructions` y `working-preferences`.
 
-- **Objetivo doble (MIX):** ya no es solo alcance/outlier. Ahora es **viralidad + que agenden demo** (https://neety.com/solicitar-demo; 🔄 05/10, §1: antes `recursos.neety.com/agendar/`). No son excluyentes: el meme iMessage con link de agendar (7.9x · 80.9K) fue el post más visto del periodo.
-- **Frecuencia: 3 posts/semana por cuenta** (Iker, el primer jefe, el tercer jefe), mínimo absoluto 1/semana. Ojo al histórico: durante abr-jul 2026 eran **4/semana** porque solo se gestionaban 2 cuentas (Iker + el primer jefe); al entrar el tercer jefe (jul 2026) se bajó a **3** para no saturar el feed con 3 cuentas a la vez. Si en el futuro cambia el nº de cuentas, revisa esta cifra.
+- **Objetivo doble (MIX):** ya no es solo alcance/outlier. Ahora es **viralidad + que agenden demo** (https://neety.com/solicitar-demo, desde el 05/10, §1). No son excluyentes: el meme iMessage con link de agendar (7.9x · 80.9K) fue el post más visto del periodo.
+- **Frecuencia: 3 posts/semana por cuenta de jefe**, mínimo absoluto 1/semana. Ojo al histórico: durante abr-jul 2026 eran **4/semana** porque solo se gestionaban 2 cuentas (segundo y primer jefe); al entrar el tercer jefe (jul 2026) se bajó a **3** para no saturar el feed con 3 cuentas a la vez. Si en el futuro cambia el nº de cuentas, revisa esta cifra.
 - **Exclusividad de CATEGORÍA por día (intercalado):** (🔄 hoy los pilares son más: historia, noticia, tarjeta, despiece y "Las 10" en vez de "Los 10"; la lógica vigente está en `post-workflow §8.2`) las 3 cuentas rotan las mismas 3 categorías de pilar — **Peloteo** (mapa regional o "Los 10", cuentan como una sola), **Lead magnet** y **Meme** — pero intercaladas: el mismo día NO se repite categoría en dos cuentas. Cada día las 3 cuentas cubren las 3 categorías distintas; cada cuenta pasa por las 3 a lo largo de la semana. La lógica completa (cuadro latino 3×3, frecuencia, pregunta previa) vive en `post-workflow §8`.
-- 🔄 Superado el 30/10 y el 06/11 por `post-workflow §8.1b`: el destino del ninja es `/solicitar-demo` por defecto, y el gate de un recurso solo con su motivo; no siempre es agendar. **Link de agendar SIEMPRE en spam ninja**, atado al hook o a algo gracioso del cuerpo — nunca como venta directa, y **sin nombrar a Neety** (nombrar la marca lo delata como publicidad encubierta). Va en TODOS los pilares menos el lead magnet. Reglas completas: `global-instructions §4.4b`.
+- **El destino del spam ninja es `/solicitar-demo` por defecto** (`post-workflow §8.1b`, 30/10 y 06/11), y el gate de un recurso solo con su motivo. Va atado al hook o a algo gracioso del cuerpo — nunca como venta directa, y **sin nombrar a Neety** (nombrar la marca lo delata como publicidad encubierta). Va en TODOS los pilares menos el lead magnet. Reglas completas: `global-instructions §4.4b`.
 - **Mencionar Neety en el cuerpo está permitido** de vez en cuando (no en cada post, pero no prohibido).
 
 ---

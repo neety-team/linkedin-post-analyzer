@@ -2137,31 +2137,31 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # outliers-database §3.7 (los outliers usan un 25% MENOS lenguaje de
     # autoridad/prueba que los posts normales). La credencial va en el cuerpo si
     # hace falta, o en la foto, que no presume porque no lo dice: lo enseña.
-    # ⚠️ EXCEPCION UNAI (2026-09-30): su gancho va a lo grande. En su cuenta el
-    # aviso NO pide la version humilde (eso le jugaba a la contra): pide que lo grande sea VERDAD, sobrio y sin compararse
+    # ⚠️ EXCEPCION DEL PRIMER PERFIL (2026-09-30): su gancho va con autoridad. En su cuenta el
+    # aviso pide que lo grande sea VERDAD, sobrio y sin compararse
     # (brand-voice §1b, PRIMER JEFE: EL GANCHO DE AUTORIDAD).
-    # 🔄 ASIER TAMBIEN (2026-10-15): su tono se alinea con el de Unai; nada de
-    # "nunca habia pensado" ni "nunca habia rezado". Grandioso, sin humildad y sin
-    # prepotencia, en Unai y en Asier. La lente del inversor sigue siendo solo de Unai.
+    # 🔄 TAMBIEN EL TERCER PERFIL (2026-10-15): mismo registro; nada de
+    # "nunca habia pensado" ni "nunca habia rezado". Autoridad sin
+    # prepotencia en los dos. La lente del inversor sigue siendo solo del primero.
     _cta_grande = (cuenta or '').strip().lower()
     if _cta_grande in ('unai', 'asier'):
         chk(False, f'ENTREGA: el gancho de {_cta_grande.upper()} va A LO GRANDE (brand-voice §1b)',
-            'En Unai NO se busca la version humilde: se busca la version GRANDE de la misma '
+            'En esta cuenta el gancho cuenta la version GRANDE de la misma '
             'escena verdadera ("La nueva forma de vender que presentamos no cupo en una sala"). '
             'Comprueba tres cosas: (1) el hecho es CIERTO, nada de "la mayor" ni cifras '
             'infladas; (2) la VOZ sin jerga de creador (de locos, flipa), sin ULTIMA HORA y sin '
             'revolucionar/transformar; romper/reventar SI valen sobre un objeto concreto (la '
             'sala), "no cupo" se le queda formal (30/09); (3) no se compara con '
-            'nadie (mejor que nadie, los demas). Solo en Unai y Asier (15/10): el resto de '
-            'cuentas sigue con la version humilde de global §2.0c-PRESUMIR', aviso=True)
+            'nadie (mejor que nadie, los demas). Solo en unai y asier (15/10): en el resto de '
+            'cuentas manda global §2.0c-PRESUMIR', aviso=True)
         # 👑 SIN INCREDULIDAD PROPIA (brand-voice §1b, 2026-10-08): fuera "jamas pense";
         # y el "nunca pense que iba a presentar delante de 100 personas"
         # se descarto. Cae jamas/nunca + pensar/imaginar/creer referido a si mismo;
         # el jamas de un HECHO ("no me deja una propuesta en visto. Jamas") sigue.
-        # Ampliado el 15/10 con Asier: "nunca habia rezado tanto", "nunca habia pensado".
+        # Ampliado el 15/10 al tercer perfil: "nunca habia rezado tanto", "nunca habia pensado".
         _incredulo = (re.search(r'\b(jam[aá]s|nunca)\s+(me\s+)?(hab[ií]a\s+|hubiera\s+|habr[ií]a\s+)?(pens|imagin|cre[ií]|rez|so[ñn]|esper)\w*', hook_txt, re.I)
                       or re.search(r'\b(jam[aá]s|nunca)\s+(me\s+)?(hubiera|habr[ií]a)\b', hook_txt, re.I))
-        chk(not _incredulo, f'{_cta_grande.upper()}: el gancho no se hace de menos, sin "jamas pense" ni "nunca habia rezado" (brand-voice §1b)',
+        chk(not _incredulo, f'{_cta_grande.upper()}: el gancho va sin incredulidad propia, sin "jamas pense" ni "nunca habia rezado" (brand-voice §1b)',
             (f'"{_incredulo.group(0)}": es la psicologia de sorprenderse de haber llegado, y en esa '
              'cuenta no encaja. Cuenta el hecho grande en firme ("Defendi ante mas de 100 personas que...")')
             if _incredulo else '')
@@ -2405,12 +2405,10 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'Mario es la cuenta de marketing/growth: el hook ancla en contenido/redes/marketing, '
             'no en "vender"' if not _mk else f'ancla marketing: "{_mk.group(0)}"')
     elif _es_helena or _es_angela:
-        # ⛔ EL CUERPO DE HELENA NO PUEDE SONAR PREPOTENTE (Iker, 2026-08-27).
-        # Y el de ANGELA tampoco (01/10): Iker la pide "muy humilde", con el mismo
-        # tono que el post de Helena, y tambien la escribe una chica.
-        # "Ten en cuenta que el tono de la publicacion esta escrito por una chica,
-        # ademas no puede sonar a prepotente tampoco". Es el mismo eje que la
-        # EXCEPCION 4 de brand-voice (por lo que Mario paso a hablar en plural) y
+        # ⛔ EL CUERPO DE LAS CUENTAS DE OFICIO NO PUEDE SONAR PREPOTENTE (2026-08-27,
+        # ampliado el 01/10): registro cercano, en primera persona y sin presumir.
+        # Es el mismo eje que la
+        # EXCEPCION 4 de brand-voice y
         # que 2.0c-PRESUMIR, pero aplicado al CUERPO entero y no solo al gancho.
         # AVISO y no fallo duro: la prepotencia es criterio y una lista cerrada
         # tumbaria lineas buenas. Lo que el script puede hacer es cantar las
@@ -5825,9 +5823,9 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
         # UNAI EN PLURAL (2026-10-08): el merito es del equipo, asi que su gancho de
         # evento o historia va en "Defendimos", no en "Defendi".
         # En su cuenta la 1a del plural tambien cuenta como gancho personal.
-        # Y ASIER (Iker, 2026-10-15): su tono va como el de Unai, grandioso y con el
-        # merito de la casa cuando es compartido (brand-voice §1b, ASIER TAMBIEN VA
-        # GRANDIOSO). En el no es obligatorio el plural, pero tampoco cuenta como fallo.
+        # Y EL TERCER PERFIL (2026-10-15): mismo registro de autoridad, con el
+        # merito de la casa cuando es compartido (brand-voice §1b, LA CUENTA TECNICA
+        # TAMBIEN VA CON GANCHO DE AUTORIDAD). En el no es obligatorio el plural, pero tampoco cuenta como fallo.
         if (FOTO_GRUPO or (cuenta or '').strip().lower() in ('unai', 'asier')) and not _personal:
             _personal = (re.search(r'(^|\s)(nos|nosotros|nuestr\w+)(\s|,|\.)', ' '+h.lower())
                          # 15/10: el verbo en 1a del plural tambien vale si no abre el gancho
@@ -6350,14 +6348,14 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     chk(not _sn, 'Spam ninja: la señal no es la promesa (global §4.4b-ORDEN)',
         f'"{_sn.group(0)}" en el ninja: la señal va despues del encaje (empresa y persona), nunca '
         'como lo que se vende' if _sn else '', aviso=True)
-    # 11/11, auditoria. brand-voice §1b NUNCA SE HACE DE MENOS: el gancho de una historia de Unai
+    # 11/11, auditoria. brand-voice §1b SIN INCREDULIDAD PROPIA: el gancho de una historia del primer perfil
     # no va en primera del singular (va en nosotros o en la escena).
     if _cta == 'unai' and pilar == 'historia' and not NOTICIA:
         _yo = re.match(r'\s*yo\b', _hl) or re.search(
             r'\b(?!caf[eé]\b|beb[eé]\b|porqu[eé]\b|jos[eé]\b)[a-zñ]{3,}é\b', _hl)
         chk(not _yo, 'UNAI: el gancho de historia no va en primera del singular (brand-voice §1b)',
             f'"{_yo.group(0).strip()}": en Unai la historia se cuenta en nosotros o desde la escena; '
-            'el yo le hace de menos o le pone a presumir' if _yo else '', aviso=True)
+            'el yo le resta autoridad o le pone a presumir' if _yo else '', aviso=True)
 
     # 11/11, auditoria. global §4.4b: nada pasa sin el comercial, tampoco fuera del ninja.
     # En lead magnet es fallo (abajo); aqui aviso, porque en el cuerpo puede ser el enemigo.
@@ -6815,9 +6813,9 @@ def main():
                     'adjetivo. La culpa va a la situacion, la prisa o el proceso: "cuanto menos paga un '
                     'cliente, mas problemas da" quedo en "cuanto mas descuento das, mas problemas trae la venta"'
                     % _juzga[0][:80]) if _juzga else '', False))
-    # VOZ AJENA (Iker, 2026-10-05, borrador de Ismael): en el texto de un perfil
-    # nuevo manda SU forma de escribir. La chica de producto reescribio varias
-    # veces el gancho que le pulimos porque "no sonaba a ella". El FORMATO de la
+    # VOZ AJENA (2026-10-05): en el texto de un perfil
+    # nuevo manda SU forma de escribir. Un gancho pulido de una cuenta de oficio se
+    # reescribio varias veces porque no sonaba a su autora. El FORMATO de la
     # casa pasa a aviso; lo que protege el alcance, la marca o la ley sigue duro.
     # CUENTA DADA DE BAJA (2026-11-24): Mario (marketing) deja la empresa. No se
     # escriben ni se planifican posts para su perfil (aboutme §2, su ficha de baja).
@@ -6828,7 +6826,7 @@ def main():
                        'referencias de marketing para el. Elige otra cuenta.', False))
     if a.voz_ajena and (a.cuenta or '').strip().lower() in ('iker', 'unai', 'asier', 'mario'):
         res.insert(0, (False, '--voz-ajena NO vale en las cuentas de los 3 jefes ni en la de Mario',
-                       'Es para el borrador de un perfil nuevo (Ismael, la chica de producto...). '
+                       'Es para el borrador de un perfil nuevo (las cuentas de oficio). '
                        'En Iker, Unai, Asier y Mario (marketing) el formato de la casa es obligatorio.', False))
     # ISMAEL ES EL COMERCIAL (Iker, 2026-10-08): su ninja va a su agenda,
     # meetings.neety.com/ismael, nunca a la web de solicitar demo.

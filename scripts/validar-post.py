@@ -259,13 +259,19 @@ _RE_FECHA_ENTRADA = re.compile(r'^(\d{4})-(\d{2})-(\d{2}) ')
 
 # 2026-11-23: Ismael (ventas) publica desde la pagina Semana. Con el aqui, una
 # entrada del historial que diga 'Ismael' cuenta como suya y no veta a las demas.
-_CUENTAS = ('iker', 'unai', 'asier', 'ismael')
+# 2026-11-24: José Tomás (SDR) tambien, con la clave 'jose'.
+_CUENTAS = ('iker', 'unai', 'asier', 'ismael', 'jose')
+# Como se nombra a cada cuenta en una entrada, si no es su clave tal cual. A José
+# Tomás se le busca por el nombre entero: un 'José' suelto suele ser otra persona
+# (un director de una empresa del mapa) y no debe liberar la palabra a las demas.
+_PATRON_CUENTA = {'jose': r'jos[eé]\s+th?om[aá]s'}
 AVISOS_OTRA_CUENTA = []
 
 
 def cuentas_de(valor):
     """Las cuentas que nombra una entrada de lista ('2026-09-16 ... Asier')."""
-    return {c for c in _CUENTAS if re.search(r'(?<![a-z])' + c + r'(?![a-z])', valor, re.I)}
+    return {c for c in _CUENTAS
+            if re.search(r'(?<![a-záéíóúñ])' + _PATRON_CUENTA.get(c, c) + r'(?![a-záéíóúñ])', valor, re.I)}
 
 
 def quemada(clave, valor, ventana_dias, cuenta=None, hoy=None):
@@ -6273,11 +6279,12 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # Asier ya habia retirado dos posts suyos (la katana del 26/08 y
     # el "soñe con ella"), asi que el bloqueo es el mismo: solo Iker aguanta lo bruto.
     # 2026-11-23: Ismael (ventas) tambien. Es imagen de marca, no voz: el que habla
-    # con los prospectos no publica un meme controversial.
-    if pilar == 'meme' and (cuenta or '').strip().lower() in ('unai', 'asier', 'ismael'):
+    # con los prospectos no publica un meme controversial. 2026-11-24: José Tomás (SDR), igual.
+    if pilar == 'meme' and (cuenta or '').strip().lower() in ('unai', 'asier', 'ismael', 'jose'):
         chk(meme_sobrio,
-            'MEME en %s: confirmado que NO es controversial (§4.4-STOP)' % (cuenta or '').strip().capitalize(),
-            'Unai (CEO) y Asier son cuentas restringidas desde el 02/10, e Ismael desde el 23/11. Un meme '
+            'MEME en %s: confirmado que NO es controversial (§4.4-STOP)'
+            % {'jose': 'José Tomás'}.get((cuenta or '').strip().lower(), (cuenta or '').strip().capitalize()),
+            'Unai (CEO) y Asier son cuentas restringidas desde el 02/10, Ismael desde el 23/11 y José Tomás desde el 24/11. Un meme '
             'controversial ahi NO se publica: va a IKER, y si Iker no puede, no se publica '
             '(se cambia el chiste, nunca se suaviza). Si de verdad es sobrio, pasa '
             '--meme-sobrio y quedara constancia de que lo decidiste. Pregunta 6 (01/10): '

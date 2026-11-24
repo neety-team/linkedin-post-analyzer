@@ -1,6 +1,7 @@
 /**
  * LA SEMANA: el calendario de posts de las cuentas (los tres fundadores y,
- * desde el 23/11, Ismael, de ventas) y el feedback de cada post (2026-11-17).
+ * de ventas, Ismael desde el 23/11 y José Tomás desde el 24/11) y el feedback
+ * de cada post (2026-11-17).
  *
  * Por que existe: los posts de una semana se escriben la anterior y cada
  * fundador lee los suyos y dice que cambiaria. Hasta ahora eso vivia en un
@@ -16,10 +17,11 @@ import { normalizarMenciones, motivoMenciones, type Mencion } from './menciones'
 
 /**
  * Las cuentas de la semana, en el orden de las columnas. Ismael (ventas) entra
- * el 2026-11-23: publica y se programa como los demas, pero NO esta en el
+ * el 2026-11-23 y José Tomás (SDR, Comunitat Valenciana) el 2026-11-24, con la
+ * clave `jose`: publican y se programan como los demas, pero NO estan en el
  * efecto abeja, que es entre los tres fundadores (services/abeja.ts).
  */
-export const CUENTAS = ['iker', 'unai', 'asier', 'ismael'] as const;
+export const CUENTAS = ['iker', 'unai', 'asier', 'ismael', 'jose'] as const;
 export type CuentaSemana = (typeof CUENTAS)[number];
 // Los objetivos viven en services/objetivo.ts: Cuentas los usa tambien y no pueden divergir.
 export { OBJETIVOS } from './objetivo';
@@ -1026,7 +1028,8 @@ export async function perfilesDeCuentas(): Promise<Record<string, { nombre: stri
       `SELECT name, headline, profile_image_url FROM creators WHERE is_managed = TRUE AND name IS NOT NULL`
     );
     for (const r of rows) {
-      const primero = String(r.name).trim().split(/\s+/)[0].toLowerCase();
+      // Sin tildes: el perfil de «José Tomás» es la cuenta `jose` (24/11).
+      const primero = String(r.name).trim().split(/\s+/)[0].normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
       const cuenta = CUENTAS.find((c) => c === primero);
       if (cuenta) out[cuenta] = { nombre: r.name, titular: r.headline || null, foto: r.profile_image_url || null };
     }

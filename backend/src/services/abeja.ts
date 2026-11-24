@@ -32,10 +32,11 @@
  * responde. Y la respuesta abre SIEMPRE con la mencion de quien comento, como
  * las de Cuentas (`buildMentionedReply`): `{{0}}` + el resto en minuscula.
  *
- * SOLO ENTRE FUNDADORES (2026-11-23): la semana tiene tambien la cuenta de
- * Ismael (ventas), pero la ronda es de Iker, Unai y Asier. Un post de Ismael
- * no tiene ronda (ni aviso al Chat, ni likes, ni comentarios) y Ismael nunca
- * es actor en la de otro: `FUNDADORES` es la lista de aqui, no la de semana.ts.
+ * SOLO ENTRE FUNDADORES (2026-11-23): la semana tiene tambien las cuentas de
+ * ventas (Ismael y, desde el 24/11, José Tomás), pero la ronda es de Iker, Unai
+ * y Asier. Un post suyo no tiene ronda (ni aviso al Chat, ni likes, ni
+ * comentarios) y ellos nunca son actores en la de otro: `FUNDADORES` es la
+ * lista de aqui, no la de semana.ts.
  *
  * NUNCA DOS VECES: cada accion se reclama con un UPDATE atomico. Una que se
  * queda «en_curso» mas de 15 minutos (el proceso murio a mitad) se da por
@@ -49,7 +50,7 @@ import { cuentasUnipile, NOMBRE_EN_LINKEDIN } from './publicadorLinkedin';
 import { repartirRoles, generarRonda, componerAviso, type Cuenta, type Ronda } from './abejaTextos';
 
 const UN_MINUTO = 60 * 1000;
-/** Quienes hacen la ronda. A proposito NO es la lista de semana.ts (que lleva a Ismael). */
+/** Quienes hacen la ronda. A proposito NO es la lista de semana.ts (que lleva a Ismael y José Tomás). */
 export const FUNDADORES: Cuenta[] = ['iker', 'unai', 'asier'];
 export const esFundador = (c: string): c is Cuenta => (FUNDADORES as string[]).includes(c);
 const CADUCA_MIN = 8 * 60;
@@ -190,7 +191,7 @@ export async function planificarAbeja(
   op: { ahora?: Date; ronda?: Ronda | null; automatica?: boolean; azar?: () => number } = {}
 ): Promise<number> {
   try {
-    // Un post que no es de un fundador (Ismael) no tiene ronda: ni aviso ni acciones.
+    // Un post que no es de un fundador (Ismael, José Tomás) no tiene ronda: ni aviso ni acciones.
     if (!esFundador(fila.cuenta)) return 0;
     const autor = fila.cuenta;
     const ya = await pool.query(`SELECT 1 FROM abeja_acciones WHERE semana_post_id = $1 LIMIT 1`, [fila.id]);

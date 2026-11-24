@@ -8,7 +8,8 @@ import LinkedInPostPreview from './LinkedInPostPreview';
    corta LinkedIn el gancho con el nombre y la foto de la cuenta que publica.
 
    "Ver como" enseña SOLO a quien publica desde la pagina Semana, en su orden
-   (Unai, Iker, Asier y, desde el 23/11, Ismael), y la cuenta de la empresa. Con
+   (Unai, Iker, Asier y, de ventas, Ismael desde el 23/11 y José Tomás desde el
+   24/11), y la cuenta de la empresa. Con
    las ocho cuentas gestionadas la fila de chips se rompia y los nombres salian
    cortados; las demas manuales (Mario, Helena, Angela) no publican desde aqui. */
 
@@ -25,12 +26,14 @@ interface Cuenta {
 // Orden fijo por nombre de pila de quien publica desde Semana. Se casa primero
 // contra las cuentas CONECTADAS (con sesion de Unipile); si la de esa persona
 // sigue dada de alta como manual (Ismael lo estaba), se usa esa.
-const ORDEN_PERSONAS = ['unai', 'iker', 'asier', 'ismael'];
+const ORDEN_PERSONAS = ['unai', 'iker', 'asier', 'ismael', 'jose'];
 const CUENTA_EMPRESA = 'neety';
 const CLAVE_BORRADOR = 'linkedin_preview_borrador';
 const CLAVE_PERSONA = 'linkedin_preview_persona';
 
-const nombrePila = (c: Cuenta) => (c.name || '').trim().split(/\s+/)[0]?.toLowerCase() || '';
+// Sin tildes: «José Tomás» casa con `jose`.
+const nombrePila = (c: Cuenta) =>
+  ((c.name || '').trim().split(/\s+/)[0] || '').normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
 
 export function personasDelPreview(cuentas: Cuenta[]): Cuenta[] {
   const conectadas = cuentas.filter((c) => !c.is_manual && !!c.unipile_account_id);

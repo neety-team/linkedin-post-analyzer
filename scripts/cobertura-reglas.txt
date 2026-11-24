@@ -333,6 +333,7 @@ post-workflow | 8 EL WORKFLOW REAL planificador semanal de las 3 | fuera: fuera 
 post-workflow | 4.9 Runbook NOTICIA lo que ha pasado esta semana | pendiente(2026-11-11): sin clasificar · 
 post-workflow | 4.9.1 LO QUE DICEN LOS DATOS medido el 2310 sobr | pendiente(2026-11-11): necesita-criterio · La psicología medida (persona conocida > herramienta del lector > choque de comercio > estudio sin protagonist
 post-workflow | 4.9.2 LA RECETA en prueba hasta tener 3 publicad | pendiente(2026-11-11): sin clasificar · 
+post-workflow | 4.10 Runbook RADAR DE INVERSIONES recurso con en | criterio: verdad
 post-workflow | LA VENTANA DE PUBLICACION CORREGIDO 2026-07-20 l | fuera: obsoleta · Superada por working-preferences §1h (lo dice el texto)
 post-workflow | 8.0 LA CUENTA DE MARIO marketing ESTA DADA DE BA | check: CUENTA DADA DE BAJA
 post-workflow | 8.0 LEE EL PILAR ANTES DE SACAR CONCLUSIONES 202 | fuera: fuera · Medición

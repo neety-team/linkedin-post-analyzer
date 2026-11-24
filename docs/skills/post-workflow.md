@@ -4408,6 +4408,22 @@ El playbook dice "output = acción ejecutada o HTML estudio". Para posts **no**:
 
 **Lo que NO es este pilar:** un lead magnet con gancho de noticia (`§4.5.0`), un resumen de noticias, ni una noticia de Neety (eso es historia/evento).
 
+### 4.10 · Runbook RADAR DE INVERSIONES (recurso con enlace público, una edición al mes) — PRIMER CASO MEDIDO (2026-11-24)
+
+> **Por qué existe:** el primer Radar (segundo jefe, 20/11, 08:30) hizo a los 4 días 25.690 impresiones, 76 reacciones, 14 comentarios y **272 clics al enlace (CTR 1,06 %)**, con 42 seguidores y 92 visitas al perfil. Es el mejor CTR de las cuentas: unas 10 veces el de un mapa (~0,1 %) y unas 25 veces el de una historia con enlace a la demo (Google Dublín, 0,04 %). En la web, del 16 al 24/11 entraron 32 leads, frente a 2 en los 9 días anteriores: 25 del Radar, y 18 de ellos desde LinkedIn. En la misma semana, los 6 posts con enlace a `/solicitar-demo` no trajeron ninguna demo por UTM: las 5 solicitudes llegaron por el perfil o sin post detrás. **n=1: es la receta del primer caso, no una ley.**
+
+**La anatomía del primero, que se calca hasta tener 3 medidos:**
+1. **Gancho:** la condición del lector, la cifra y un verbo en positivo: `Si vendes a la industria, en [mes] hemos encontrado [N] empresas que están invirtiendo en [país o región]`. Sin el año (`global §3.5b`).
+2. **Qué es, en dos líneas:** la lista, cada empresa con su fuente, y que saldrá cada mes.
+3. **Por qué lo hemos montado:** quien invierte tiene que comprar; esas inversiones dejan rastro en fuentes públicas (el BOE, la prensa de la zona, el boletín de la comunidad), y ningún comercial tiene tiempo de leerlo todo. El método, en una línea: comprobadas una a una.
+4. **Qué columna mirar primero** (lo que suele comprar en ese momento): es lo que vuelve útil la lista para el que vende.
+5. **Seis empresas con flecha**, cada una con @empresa y @quien decide (cargo con poder de decisión, filtros de `§4.2 Paso 4`), cifra, lugar y qué está haciendo, en dos o tres líneas. Variadas de región y de sector.
+6. **El dato de conjunto** (cuántas son plantas nuevas, cuántas pasan de 100 millones) y **el cierre de enhorabuena con el motivo para llamar:** `Enhorabuena a las [N]. Y si les vendes algo, ya tienes un buen motivo para llamarlas.`
+7. **El enlace, al final, a la edición entera** en `neety.com/radar/<país>/<AAAA-MM>`, con `utm_campaign=radar-<país>-<AAAA-MM>` y `utm_content=<cuenta>`. No va a la demo: la puerta a la reunión está dentro de la página.
+8. **Imagen:** el mapa propio por código con los puntos de la edición y la región que más suma en naranja. Sin el año.
+
+**Lo que no cambia:** cada inversión y cada cifra, verificada contra su fuente pública (`CLAUDE.md`); las menciones, con sus dos filtros; al que compra no se le juzga. **Validador:** todavía sin pilar propio en `validar-post.py` (se dice en la entrega cuál se usó). **Se mide** a los 3 y 7 días en clics al enlace, CTR y leads de la página por `utm_campaign`, y se apunta en las `notas` del post por el MCP. Con 3 ediciones medidas, mejor en cuentas distintas, se decide si es pilar fijo y si en alcance el enlace va por defecto al recurso y no a la demo.
+
 ### ⭐ LA VENTANA DE PUBLICACIÓN (CORREGIDO 2026-07-20, la 1ª versión estaba MAL)
 
 **⚠️ AVISO SOBRE LA VERSIÓN ANTERIOR.** Aquí ponía *"los 10 posts que han pasado de 6x están todos entre las 10:00 y las 13:00"* y *"después de las 13:00 nada ha pasado de 3.57x"*. **Las dos frases eran FALSAS.** Salieron de un análisis cuyo filtro de pilares **no reconocía los memes**, así que tiraba a la basura justo los posts de más alcance. Corregido sobre los **90 posts desde abril de 2026**, sin filtrar por pilar.

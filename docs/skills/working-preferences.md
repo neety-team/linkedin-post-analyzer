@@ -152,7 +152,7 @@ Si sale algo, se sustituye por `\b` y se vuelve a comprobar.
 
 ## ⭐ 1d · LOS AVISOS CRITICOS VAN MARCADOS EN ROJO (2026-07-21)
 
-El terminal no pinta color, asi que **todo aviso que pueda tumbar una publicacion o hacerle perder tiempo empieza por 🔴**. Iker lee en diagonal cuando va rapido y un parrafo de texto plano se le pasa.
+El terminal no pinta color, asi que **todo aviso que pueda tumbar una publicacion o hacerle perder tiempo empieza por 🔴**. Un aviso dentro de un parrafo de texto plano se pasa en una lectura rapida.
 
 Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo falso, cosas que faltan por adjuntar y sin las cuales el entregable no funciona, y contradicciones entre lo que dice el texto y lo que enseña la imagen.
 

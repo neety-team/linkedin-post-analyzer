@@ -11,7 +11,7 @@
 **La voz controla el CÓMO, nunca el QUÉ.** El tipo de hook, la estructura, el arquetipo, el ángulo y la mecánica viral salen de los datos de outliers (`outliers-database` + `global-instructions`). La voz es la pintura; los datos son el plano. **Si hay conflicto, mandan los datos.**
 
 Una única voz de marca para las tres cuentas (Iker, el primer jefe, el tercer jefe): la **voz Neety**. Lo que dicen, lo que creen y cómo formatean es lo mismo en las tres.
-**Pero desde el 2026-07-16 el REGISTRO sí va por persona** (`§1b`): el primer jefe (fundador) es el más sobrio, luego el tercer jefe, luego Iker. Comparten el QUÉ; cambia el volumen.
+**Pero desde el 2026-07-16 el REGISTRO sí va por persona** (`§1b`): el primer jefe es el más sobrio, luego el tercer jefe, luego el segundo jefe. Comparten el QUÉ; cambia el volumen.
 
 ---
 
@@ -38,7 +38,7 @@ Una única voz de marca para las tres cuentas (Iker, el primer jefe, el tercer j
 
 | ✅ GLOBAL (imagen de marca, las tres cuentas) | 🎚️ POR CUENTA (tono, se queda donde está) |
 |---|---|
-| No juzgar al que compra, ni cargo ni cliente (`§NO CRITICAMOS` 5) · no plantear que la IA sustituye al comercial (abajo; **en Iker, desde el 20/10, vale como creencia ajena que el post desmiente**) · ni prepotencia sobre él · la prospección nunca como masiva · nada de política (`§NO CRITICAMOS` 6) · no dejar mal a la casa · no criticar a nadie con nombre, región ni colectivo · ningún zasca en respuestas (`§7.1g`) | Unai: gancho grandioso, nunca se hace de menos, plural en historia, intensificador formal, foto corporativa · Asier: no vende (su `yo` es el ingeniero, pero nunca "no ha vendido nunca"), **gancho grandioso y sin hacerse de menos como Unai (15/10)**, fútbol y mujer en clave romántica fuera · memes controversiales: solo Iker · Iker: registro bruto y absurdo, y sí puede ser humilde en público |
+| No juzgar al que compra, ni cargo ni cliente (`§NO CRITICAMOS` 5) · no plantear que la IA sustituye al comercial (abajo; **en el segundo jefe, desde el 20/10, vale como creencia ajena que el post desmiente**) · ni prepotencia sobre él · la prospección nunca como masiva · nada de política (`§NO CRITICAMOS` 6) · no dejar mal a la casa · no criticar a nadie con nombre, región ni colectivo · ningún zasca en respuestas (`§7.1g`) | Primer jefe: gancho de autoridad, sin incredulidad propia, plural en historia, intensificador formal, foto corporativa · Tercer jefe: no vende (su `yo` es el ingeniero, pero nunca "no ha vendido nunca"), **gancho de autoridad y sin incredulidad propia, como el primer jefe (15/10)**, fútbol y mujer en clave romántica fuera · memes controversiales: solo el segundo jefe · Segundo jefe: registro bruto y absurdo, y cabe la primera persona que cuenta dudas |
 
 - **🔄 Movido a global el mismo 15/10 (Iker):** `NADIE PLANTEA QUE LA IA SUSTITUYE AL COMERCIAL` (sección de abajo). *"Él no quiere que públicamente compartamos esa visión, así que es común de la marca"*.
 - **Lo que esto NO es:** una excusa para lijar el tono. Las reglas globales cierran **a quién** se le apunta (al que compra, a la casa, a una región), no **cómo de fuerte** se dice.
@@ -55,21 +55,21 @@ Una única voz de marca para las tres cuentas (Iker, el primer jefe, el tercer j
 
 | ⛔ tumbados en el primer jefe | ✅ los suyos |
 |---|---|
-| `ni de broma` · `flipa` · `de locos` · `se queda tieso` | **`jamás`** · `nunca` · `en la vida` (como negación absoluta de un HECHO, nunca de incredulidad propia: ver `UNAI NUNCA SE HACE DE MENOS`, 08/10) |
+| `ni de broma` · `flipa` · `de locos` · `se queda tieso` | **`jamás`** · `nunca` · `en la vida` (como negación absoluta de un HECHO, nunca de incredulidad propia: ver `SIN INCREDULIDAD PROPIA`, 08/10) |
 
-**La frontera: el adverbio de negación absoluta funciona; la expresión coloquial hecha, no.** `jamás me imaginé` lo firma un CEO delante de un inversor; `ni de broma me imaginaba` es la misma idea contada en una barra de bar. **En Iker sí valen las de la izquierda**, que para eso es la cuenta cercana.
+**La frontera: el adverbio de negación absoluta funciona; la expresión coloquial hecha, no.** `jamás me imaginé` lo firma un CEO delante de un inversor; `ni de broma me imaginaba` es la misma idea contada en una barra de bar. **En el segundo jefe sí valen las de la izquierda**, que para eso es la cuenta cercana.
 - **Y no cuesta caracteres:** `jamás` son 5 y `ni de broma` 11. La versión sobria salió **más corta** que la de calle, así que aquí no hay que elegir entre tono y longitud.
 - **✅ Y `jamás` NO es una preferencia, está MEDIDO en su propia cuenta (21/08):** su meme del 29/07 abre con *"A mí un cliente no me deja una propuesta en visto. **Jamás** 👇"* y hizo **6.83x · 93.744 impresiones**, uno de sus dos mejores posts del verano. **El intensificador que le pega ya se lo habíamos dado antes y funcionó**; lo que faltaba era tenerlo escrito para no volver a ofrecerle `ni de broma`.
 - **Vale para todo lo que escriba esta cuenta**, no solo el gancho: cuerpo, spam ninja y respuestas a comentarios.
 
-#### 🏆 UNAI: EL GANCHO GRANDIOSO, SOBRIO EN LA VOZ Y A LO GRANDE EN LO QUE CUENTA (2026-09-30)
+#### 🏆 PRIMER JEFE: EL GANCHO DE AUTORIDAD, SOBRIO EN LA VOZ Y A LO GRANDE EN LO QUE CUENTA (2026-09-30)
 
 > **De dónde sale:** el post de cierre de Neety Forward (página de empresa, con su tono). Se descartó un gancho humilde: es la cuenta del CEO, y el gancho tiene que transmitir que el evento fue un éxito y posicionar a la casa arriba. El precedente es suyo: el 23/09 eligió `En menos de 24 horas se marca un antes y un después en ventas 👇`.
 
 **Qué cambia en su cuenta (y en la página de empresa cuando va con su tono):** en el GANCHO no se busca la versión humilde de `global §2.0c-PRESUMIR`. Se busca la versión **grande de la misma escena verdadera**: la sala que se quedó pequeña, la forma de vender que presentamos, el antes y el después. El caso: `Jamás pensamos que tendríamos que cambiar de sala para hablar de ventas 🙂` (tumbado, humilde) → `La nueva forma de vender que presentamos no cupo en una sala 👇`.
 
 **Lo que NO cambia, para que esta regla no juegue a la contra:**
-- **Solo el primer jefe y, desde el 15/10, el tercer jefe** (sección `ASIER TAMBIÉN VA GRANDIOSO`, abajo). Iker, la compañera de clientes y la compañera de diseño siguen con `§2.0c-PRESUMIR` tal cual. Si una referencia pide gancho humilde y la cuenta es el primer jefe, se hace grande o se da a otra cuenta.
+- **Solo el primer jefe y, desde el 15/10, el tercer jefe** (sección `LA CUENTA TÉCNICA TAMBIÉN VA CON GANCHO DE AUTORIDAD`, abajo). El segundo jefe, la compañera de clientes y la compañera de diseño siguen con `§2.0c-PRESUMIR` tal cual. Si una referencia pide gancho humilde y la cuenta es el primer jefe, se hace grande o se da a otra cuenta.
 - **"Cero hype" de la tabla de arriba sigue en pie, y es otra cosa:** el hype que se veta es el de la VOZ (exclamaciones, jerga de creador, `de locos`, `flipa`). Lo grande va en la **ambición del hecho**.
 - **🔄 CORREGIDO EL MISMO 30/09: `no cupo` se queda CORTO. Lo que funciona es la sensación de ROTO:** `no cupo` se queda formal; la escena es que rompimos la sala con nuestra forma de vender. Yo había escrito aquí que `reventar la sala` era de calle y había que decir `no cupo`: **me pasé de sobrio y le quité justo lo que pedía.** `romper` / `reventar` + un objeto CONCRETO de la escena (`la sala`) sí valen en su gancho grandioso; es `§2.9-ABSTRACTO` al derecho: lo que no le gusta es `romper el mercado` (abstracto), no `romper la sala`. `petar` es el peldaño más de calle y está sin probar con él. Candidatos entregados: `Rompimos la sala con una nueva forma de vender 👇` · `La nueva forma de vender que presentamos reventó la sala 👇` · `Nunca una sala se había venido abajo por hablar de ventas 👇` (pendiente de cuál elige).
 - **Grande no es inventado.** El hecho tiene que ser cierto (la sala se quedó pequeña: sí; "la mayor" o "miles": no). `CLAUDE.md`, lo que no se negocia.
@@ -85,7 +85,7 @@ Una única voz de marca para las tres cuentas (Iker, el primer jefe, el tercer j
 
 **Mecanizado:** con `--cuenta unai`, el aviso `ENTREGA: ¿el gancho PRESUME?` de `validar-post.py` ya no pide la versión humilde: pide comprobar que lo grande es verdad, sobrio y sin compararse.
 
-#### 👑 UNAI NUNCA SE HACE DE MENOS: FUERA LA INCREDULIDAD PROPIA EN SUS GANCHOS (Iker, 2026-10-08) — MANDA SOBRE LO DE ARRIBA
+#### 👑 SIN INCREDULIDAD PROPIA: EL GANCHO HABLA DESDE LA AUTORIDAD (2026-10-08) — MANDA SOBRE LO DE ARRIBA
 
 > **El caso:** un gancho del tipo `nunca pensé que iba a presentar delante de 100 personas` se descartó. En la cuenta del CEO los ganchos de incredulidad propia (`jamás pensé`, `nunca imaginé`) no encajan: restan autoridad a quien firma.
 
@@ -103,12 +103,12 @@ Una única voz de marca para las tres cuentas (Iker, el primer jefe, el tercer j
   3. **Compararse con el antes en el gancho.** `Un año después…`, `Hace un año nos…, y este viernes…`: basta con `Volvemos` o con lo que pasa ahora; el antes va en la línea 2. **Aviso** `el gancho no se compara con el antes`.
   4. **Vulnerabilidad en el cuerpo de su historia/evento de ecosistema (solo el primer jefe).** `apuntando lo que no queríamos oír` y `lo que más nos sirvió fue lo que peor nos sentó` se cambiaron por agradecimiento y recorrido con sus propias palabras (`afinando el negocio con sus mentores`, `Gente que ya ha construido y ve lo que tú no ves`, `Buena parte de ese camino arrancó aquella semana`). En ese carril el cuerpo celebra lo conseguido y lo agradece; la vulnerabilidad se queda para sus historias personales (la de origen del 17/11). Dueño: la clave `voz` de `--criterio`, que ya lo pregunta.
 
-#### 👑 ASIER TAMBIÉN VA GRANDIOSO: NI HUMILDE NI PREPOTENTE (2026-10-15) — MANDA SOBRE `§2.0c-PRESUMIR` EN SU CUENTA
+#### 👑 LA CUENTA TÉCNICA TAMBIÉN VA CON GANCHO DE AUTORIDAD, NI INCRÉDULO NI PREPOTENTE (2026-10-15) — MANDA SOBRE `§2.0c-PRESUMIR` EN SU CUENTA
 
-> **De dónde sale:** se descartaron dos ganchos humildes de su historia/evento del 16/10. El tono del tercer jefe se alinea con el del primer jefe: son fundadores, y en público un fundador transmite confianza en lo que ha construido. Ni `nunca había pensado` ni `nunca había rezado`: el hecho grande, sin sonar humilde y sin sonar prepotente.
+> **De dónde sale:** se descartaron dos ganchos de incredulidad propia de su historia/evento del 16/10. El registro del tercer jefe se alinea con el del primer jefe: el gancho transmite confianza en lo construido. Ni `nunca había pensado` ni `nunca había rezado`: el hecho grande, dicho con naturalidad y sin sonar prepotente.
 
-- **Asier entra en las dos secciones de Unai de arriba:** el gancho grandioso (lo grande va en el hecho cierto, voz sobria, sin compararse) y el veto a hacerse de menos (`nunca pensé`, `nunca había rezado`, `jamás imaginé`, `quién me iba a decir`). **La lente del inversor y el plural obligatorio siguen siendo solo de Unai** (en Asier el plural es lo natural cuando el mérito es compartido, pero no es regla).
-- **Es voz por cuenta, no global** (`§1b`, qué va por cuenta): Iker, la compañera de clientes y la compañera de diseño siguen pudiendo abrirse en canal y dudar en público. Iker: *"a mí públicamente sí que soy así de humilde… la audiencia puede conectar mucho más contigo si te abres"*.
+- **El tercer jefe entra en las dos secciones del primer jefe de arriba:** el gancho de autoridad (lo grande va en el hecho cierto, voz sobria, sin compararse) y el veto a la incredulidad propia (`nunca pensé`, `nunca había rezado`, `jamás imaginé`, `quién me iba a decir`). **La lente del inversor y el plural obligatorio siguen siendo solo del primer jefe** (en el tercer jefe el plural es lo natural cuando el mérito es compartido, pero no es regla).
+- **Es voz por cuenta, no global** (`§1b`, qué va por cuenta): en el segundo jefe, la compañera de clientes y la compañera de diseño cabe la primera persona que cuenta dudas, porque la audiencia conecta más con quien se abre. Son registros distintos, no mejores ni peores.
 - **⛔ Y "NO VENDE" NO ES "NUNCA HA VENDIDO".** Le propuse `Llevo años programando para comerciales y nunca había vendido nada yo` y es mentira: *"son tres jefes y llevan con la empresa tres o cuatro años, ¿cómo vamos a decir que nunca han vendido nada?"*. El tercer jefe no es comercial (`aboutme §2-ASIER-MEME`), pero es socio de una empresa que vende: nada de presentarle como alguien que no ha vendido nunca.
 - **Mecanizado** en `validar-post.py --cuenta asier`: el aviso del gancho grandioso, el fallo duro de `nunca había pensado/rezado/imaginado` (el del primer jefe, ampliado) y un fallo duro nuevo, `ASIER: no se dice que nunca ha vendido`. Los dos ganchos tumbados están en `scripts/test-borradores-tumbados.py`.
 
@@ -116,7 +116,7 @@ Una única voz de marca para las tres cuentas (Iker, el primer jefe, el tercer j
 
 > **🔄🔄 20/10, EXCEPCIÓN: LA CUENTA DE IKER (Iker, tras hablarlo con el segundo jefe).** *"La marca somos todos"*, y en SU cuenta quiere volver a los ganchos de opinión y contrarian que abren debate, como antes. **En Iker este veto pasa a aviso:** se puede poner la creencia ajena sobre la mesa (`Medio LinkedIn jura que la IA va a sustituir al comercial`) si el post la desmiente y la opinión es nuestra en contra. Lo que sigue fuera también en Iker: afirmarlo como nuestra visión, dejarlo en el aire sin desmentir, y cualquier cosa que deje mal al que nos compra o a la casa (lo global de la tabla de abajo no cambia). **El primer jefe y el tercer jefe siguen con el fallo duro.** Y en general, en Iker caben opiniones que abran debate siempre que no sean dañinas: polémica con cabeza, nunca a costa de alguien. El dato que lo respalda es de su propia cuenta: `El humo de "la IA va a reemplazar a los comerciales"…` (26/05, 49.824).
 
-> **🔄 Iker, 15/10, horas después:** *"él no quiere que públicamente pensemos o compartamos esa visión, así que es común de la marca"*. Nació en Unai y **pasa a las tres cuentas y a cualquier perfil de la casa**. Lo que había escrito como "solo Unai" abajo queda corregido por esto. ⚠️ **Lo que cuesta, dicho:** cierra un molde que funcionó en Iker (`El humo de "la IA va a reemplazar a los comerciales"…`, 26/05, 49.824) y en Unai (`Medio LinkedIn jura que la IA le quitó el equipo comercial`, 23.174). La tensión se sigue pudiendo usar sin nombrar la amenaza (`lo que sí vale`, abajo).
+> **🔄 15/10, horas después:** la marca no comparte esa visión en público, así que la regla es común. Nació en el primer jefe y **pasa a las tres cuentas y a cualquier perfil de la casa**. Lo que había escrito como "solo Unai" abajo queda corregido por esto. ⚠️ **Lo que cuesta, dicho:** cierra un molde que funcionó en el segundo jefe (`El humo de "la IA va a reemplazar a los comerciales"…`, 26/05, 49.824) y en el primer jefe (`Medio LinkedIn jura que la IA le quitó el equipo comercial`, 23.174). La tensión se sigue pudiendo usar sin nombrar la amenaza (`lo que sí vale`, abajo).
 
 > **El primer jefe, eligiendo gancho para la entrevista de Telmo:** *"siendo nosotros una herramienta de ventas, puede ser peligroso que lo preguntemos nosotros, porque si no es como que sí que lo vemos así como visión"*. Tumbó `Le preguntamos a quien vende IA si los comerciales tienen los días contados` y eligió `La pregunta que más incomoda a un comercial se la hicimos a quien vende IA`.
 

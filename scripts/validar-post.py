@@ -2139,7 +2139,7 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
     # hace falta, o en la foto, que no presume porque no lo dice: lo enseña.
     # ⚠️ EXCEPCION UNAI (2026-09-30): su gancho va a lo grande. En su cuenta el
     # aviso NO pide la version humilde (eso le jugaba a la contra): pide que lo grande sea VERDAD, sobrio y sin compararse
-    # (brand-voice §1b, UNAI QUIERE EL GANCHO GRANDIOSO).
+    # (brand-voice §1b, PRIMER JEFE: EL GANCHO DE AUTORIDAD).
     # 🔄 ASIER TAMBIEN (2026-10-15): su tono se alinea con el de Unai; nada de
     # "nunca habia pensado" ni "nunca habia rezado". Grandioso, sin humildad y sin
     # prepotencia, en Unai y en Asier. La lente del inversor sigue siendo solo de Unai.
@@ -2154,8 +2154,8 @@ def validar(texto, pilar, cuenta=None, generico=False, meme_sobrio=False, ref_fu
             'sala), "no cupo" se le queda formal (30/09); (3) no se compara con '
             'nadie (mejor que nadie, los demas). Solo en Unai y Asier (15/10): el resto de '
             'cuentas sigue con la version humilde de global §2.0c-PRESUMIR', aviso=True)
-        # 👑 UNAI NUNCA SE HACE DE MENOS (Iker, 2026-10-08): "jamas pense" no lo va a
-        # decir nunca, y el "nunca pense que iba a presentar delante de 100 personas"
+        # 👑 SIN INCREDULIDAD PROPIA (brand-voice §1b, 2026-10-08): fuera "jamas pense";
+        # y el "nunca pense que iba a presentar delante de 100 personas"
         # se descarto. Cae jamas/nunca + pensar/imaginar/creer referido a si mismo;
         # el jamas de un HECHO ("no me deja una propuesta en visto. Jamas") sigue.
         # Ampliado el 15/10 con Asier: "nunca habia rezado tanto", "nunca habia pensado".

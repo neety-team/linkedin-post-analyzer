@@ -6,7 +6,7 @@ Fuente de verdad del "cerebro": `backend/src/services/postPrompt.ts` y el
 `SYSTEM_PROMPT` de `backend/src/routes/chat.ts`.
 
 ## Orden de carga
-1. **aboutme** — identidad: Neety, ICP, los 3 diferenciales (§1b) y los 3 perfiles (Iker / el primer jefe / el tercer jefe) con headlines.
+1. **aboutme** — identidad: Neety, ICP, los 3 diferenciales (§1b) y los 3 perfiles (El segundo jefe / el primer jefe / el tercer jefe) con headlines.
 2. **brand-voice** — el CÓMO suena (voz Neety literal, regla de audiencia, tabla anti-IA).
 3. **working-preferences** — flujo de trabajo, entrega en bloques cercados, validación proactiva.
 4. **global-instructions** — el QUÉ y el CÓMO-mecánico del post de TEXTO: hooks, cuerpos, 4 mecánicas, timing. Cubre solo el post de texto; imagen y vídeo tienen sus propias skills.

@@ -10,7 +10,7 @@
 
 **La voz controla el CÓMO, nunca el QUÉ.** El tipo de hook, la estructura, el arquetipo, el ángulo y la mecánica viral salen de los datos de outliers (`outliers-database` + `global-instructions`). La voz es la pintura; los datos son el plano. **Si hay conflicto, mandan los datos.**
 
-Una única voz de marca para las tres cuentas (Iker, el primer jefe, el tercer jefe): la **voz Neety**. Lo que dicen, lo que creen y cómo formatean es lo mismo en las tres.
+Una única voz de marca para las tres cuentas (El segundo jefe, el primer jefe, el tercer jefe): la **voz Neety**. Lo que dicen, lo que creen y cómo formatean es lo mismo en las tres.
 **Pero desde el 2026-07-16 el REGISTRO sí va por persona** (`§1b`): el primer jefe es el más sobrio, luego el tercer jefe, luego el segundo jefe. Comparten el QUÉ; cambia el volumen.
 
 ---
@@ -114,7 +114,7 @@ Una única voz de marca para las tres cuentas (Iker, el primer jefe, el tercer j
 
 #### 🤖 NINGUNA CUENTA PLANTEA QUE LA IA SUSTITUYE AL COMERCIAL, NI COMO PREGUNTA (el primer jefe vía Iker, 2026-10-15) — 🔄 GLOBAL DESDE EL MISMO DÍA
 
-> **🔄🔄 20/10, EXCEPCIÓN: LA CUENTA DE IKER (Iker, tras hablarlo con el segundo jefe).** *"La marca somos todos"*, y en SU cuenta quiere volver a los ganchos de opinión y contrarian que abren debate, como antes. **En Iker este veto pasa a aviso:** se puede poner la creencia ajena sobre la mesa (`Medio LinkedIn jura que la IA va a sustituir al comercial`) si el post la desmiente y la opinión es nuestra en contra. Lo que sigue fuera también en Iker: afirmarlo como nuestra visión, dejarlo en el aire sin desmentir, y cualquier cosa que deje mal al que nos compra o a la casa (lo global de la tabla de abajo no cambia). **El primer jefe y el tercer jefe siguen con el fallo duro.** Y en general, en Iker caben opiniones que abran debate siempre que no sean dañinas: polémica con cabeza, nunca a costa de alguien. El dato que lo respalda es de su propia cuenta: `El humo de "la IA va a reemplazar a los comerciales"…` (26/05, 49.824).
+> **🔄🔄 20/10, EXCEPCIÓN: LA CUENTA DE IKER (Iker, tras hablarlo con el segundo jefe).** *"La marca somos todos"*, y en SU cuenta quiere volver a los ganchos de opinión y contrarian que abren debate, como antes. **En Iker este veto pasa a aviso:** se puede poner la creencia ajena sobre la mesa (`Medio LinkedIn jura que la IA va a sustituir al comercial`) si el post la desmiente y la opinión es nuestra en contra. Lo que sigue fuera también en el segundo jefe: afirmarlo como nuestra visión, dejarlo en el aire sin desmentir, y cualquier cosa que deje mal al que nos compra o a la casa (lo global de la tabla de abajo no cambia). **El primer jefe y el tercer jefe siguen con el fallo duro.** Y en general, en el segundo jefe caben opiniones que abran debate siempre que no sean dañinas: polémica con cabeza, nunca a costa de alguien. El dato que lo respalda es de su propia cuenta: `El humo de "la IA va a reemplazar a los comerciales"…` (26/05, 49.824).
 
 > **🔄 15/10, horas después:** la marca no comparte esa visión en público, así que la regla es común. Nació en el primer jefe y **pasa a las tres cuentas y a cualquier perfil de la casa**. Lo que había escrito como "solo Unai" abajo queda corregido por esto. ⚠️ **Lo que cuesta, dicho:** cierra un molde que funcionó en el segundo jefe (`El humo de "la IA va a reemplazar a los comerciales"…`, 26/05, 49.824) y en el primer jefe (`Medio LinkedIn jura que la IA le quitó el equipo comercial`, 23.174). La tensión se sigue pudiendo usar sin nombrar la amenaza (`lo que sí vale`, abajo).
 
@@ -178,7 +178,7 @@ Los posts de evento o de historia del primer jefe pasan por su revisión, y es n
 Lo que arriba son "dos tejados" (ventas y ecosistema) en la cuenta del primer jefe se planifica desde el 30/10 bajo **un solo paraguas: EMPRENDIMIENTO**, entendido como construir una empresa. Debajo caben sus cuatro caras, cada post en una: **vender** (el carril de siempre, con caso real cuando el post tiene que convertir), **fundar y liderar** (fundadores, equipo, decisiones), **invertir** (inversores, fondos, rondas) y **el territorio y sus instituciones** (programas, foros). Con ventas pasaba igual: el paraguas era ventas y cada gancho entraba por una perspectiva distinta.
 - **Por qué encaja:** vender es lo primero que tiene que resolver quien emprende, así que un post de ventas en su cuenta no se sale del paraguas, y uno de inversores tampoco. El límite es el mismo que en cualquier cuenta: un post que no toca ni la empresa ni el oficio de construirla (un plan de ocio, una afición) se sale.
 - **⚠️ Paraguas para PLANIFICAR, no palabra para el GANCHO.** `emprendimiento` o `emprendedores` dichos tal cual estrechan el gancho a la burbuja startup, y nuestro ICP (director comercial de 45-60, `aboutme §1`) no se llama a sí mismo emprendedor. En el gancho se rota la familia de siempre (`§1b` de arriba: inversores, fondos, fundadores, el programa, el territorio…) o se va a ventas. El validador ya acepta `emprend…` como ancla de ecosistema; usarla es posible, abusar de ella no.
-- **Iker y el tercer jefe siguen bajo el paraguas de ventas**, con excepciones declaradas.
+- **El segundo jefe y el tercer jefe siguen bajo el paraguas de ventas**, con excepciones declaradas.
 
 #### 🧪 GANCHO GENÉRICO EN UNAI: A/B DECLARADO, NO CARRIL NUEVO (2026-10-30, lanzamiento del 03/11)
 
@@ -339,7 +339,7 @@ Escribe como un founder-operador se lo diría **a un director comercial de 55 a�
 
 ### ⛔⛔ 2b-DOS-LISTAS · NO ES UNA LISTA DE PALABRAS PROHIBIDAS, SON DOS, Y CON CRITERIOS DISTINTOS (2026-08-27)
 
-**Yo las tenía mezcladas, y al meter `post` en la lista equivocada lo convertí en fallo duro en todo el texto.** Iker: *"esto es para el gancho, que ahí es donde hay que maximizar el alcance y reducir al máximo la barrera de entrada; en el spam ninja puedes dejar post tranquilamente, porque eso ya forma parte del cuerpo de la publicación"*.
+**Yo las tenía mezcladas, y al meter `post` en la lista equivocada lo convertí en fallo duro en todo el texto.** el equipo: *"esto es para el gancho, que ahí es donde hay que maximizar el alcance y reducir al máximo la barrera de entrada; en el spam ninja puedes dejar post tranquilamente, porque eso ya forma parte del cuerpo de la publicación"*.
 
 | lista | criterio | dónde prohíbe | ejemplos |
 |---|---|---|---|
@@ -489,7 +489,7 @@ El cuerpo debe sonar a persona afilada hablando, nunca a IA. El enemigo no es el
 **1 · La cita va ENTRECOMILLADA.** Sin comillas, las líneas se leen como la voz del narrador y el lector no sabe que está leyendo un documento. Comillas **rectas** (`"…"`), que son las del móvil y las que ya usamos en el CTA del lead magnet; nada de angulares `«»`, que en LinkedIn cantan a texto importado. Si la cita ocupa varias líneas, se abre en la primera y se cierra en la última, **no una por línea**.
 > ⚠️ Iker sobre esto: *"nunca soy fan de poner símbolos raros, pero yo creo que ese bloque lo pondría entre comillas"*. **Es la excepción consciente a su propia manía**, y por eso está escrito: las comillas no decoran, marcan de quién es la voz.
 
-**2 · Y se puntúa como la puntuó QUIEN LA ESCRIBIÓ.** Aquí es donde se cuela la IA. Yo escribí *"**Hola, soy Iker** y vivo en el 7"* — la coma vocativa es **correcta en español**, y precisamente por eso está mal: **la escribió un crío de 15 años a mano en un papel, y un crío de 15 no pone la coma del vocativo.** Iker: *"parece un poco escrito por inteligencia artificial, dudo que un niño lo sepa escribir también"*. Queda `"Hola soy Iker y vivo en el 7."`.
+**2 · Y se puntúa como la puntuó QUIEN LA ESCRIBIÓ.** Aquí es donde se cuela la IA. Yo escribí *"**Hola, soy Iker** y vivo en el 7"* — la coma vocativa es **correcta en español**, y precisamente por eso está mal: **la escribió un crío de 15 años a mano en un papel, y un crío de 15 no pone la coma del vocativo.** el equipo: *"parece un poco escrito por inteligencia artificial, dudo que un niño lo sepa escribir también"*. Queda `"Hola soy Iker y vivo en el 7."`.
 
 **La regla de fondo, que es lo que hay que retener:** dentro de una cita, **la corrección gramatical NO es la vara. La verosimilitud lo es.** Una cita perfectamente puntuada delata que la ha escrito quien narra, no quien habla. Vale igual para una nota de un crío, un WhatsApp, un correo de un cliente o un tuit de una captura: se conserva su registro, sus faltas de puntuación y su desorden, exactamente como `post-workflow §4.4-ESENCIA` manda conservar las repeticiones del original.
 
@@ -546,7 +546,7 @@ El cuerpo debe sonar a persona afilada hablando, nunca a IA. El enemigo no es el
 ❌ Las hacía para nadie.
    Las hacía por verlas funcionar.
 ```
-Pasaba todo: anáfora, escalera ascendente, líneas cortas. Y **`hacer algo para nadie` no lo dice nadie**: es una construcción de poema, montada para que las dos líneas empezaran igual. Iker: *"suena muy mal, no parece que esté escrito correctamente"*. Quedó en
+Pasaba todo: anáfora, escalera ascendente, líneas cortas. Y **`hacer algo para nadie` no lo dice nadie**: es una construcción de poema, montada para que las dos líneas empezaran igual. El equipo: *"suena muy mal, no parece que esté escrito correctamente"*. Quedó en
 ```
 ✅ Nadie las abría.
    Nadie me las pedía.
@@ -1005,7 +1005,7 @@ Lo reconstruido en §1-§6 (voz founder-trincheras, regla de audiencia, tabla an
 **Ningún post lleva el año dentro.** Ni en el gancho, ni en el cuerpo, ni en el
 rótulo de la foto.
 
-Iker: *"si decimos el año, tanto en la foto como en el texto, nos estamos limitando
+El equipo: *"si decimos el año, tanto en la foto como en el texto, nos estamos limitando
 el alcance, y este meme dentro de un año no se puede seguir viralizando"*.
 
 **Por qué:** un post sin año se puede **reflotar, reutilizar en otra cuenta y seguir
@@ -1033,7 +1033,7 @@ año tampoco entra nunca en el prompt del diseñador.
 **Regla única, para TODOS los pilares y TODAS las cuentas, y vale igual en el gancho,
 en el cuerpo, en el cierre, en el spam ninja, en el texto de la imagen y en el DM.**
 
-Iker: *"nunca en nuestras publicaciones ni en gancho ni en cuerpo ni en texto ni en
+El equipo: *"nunca en nuestras publicaciones ni en gancho ni en cuerpo ni en texto ni en
 imagen ni en nada nos autocritiquemos ni critiquemos otras regiones"*.
 
 **Las CUATRO cosas que no se hacen:**
@@ -1099,9 +1099,9 @@ el proceso.
 
 **⛔ Y LA CASA NO CONFIESA QUE SE LLEVA MAL, NI EN BROMA (2026-10-21) — GLOBAL.** En su meme de ventas y marketing (referencia: `Sales & Marketing: friends or enemies?`) escribí en el cuerpo `Amigos no somos, pero las reuniones no las devuelven.` el compañero de marketing: *"públicamente decir amigos no somos me juega la contra… ellos en el cuerpo no dicen explícitamente no somos amigos. Eso queda fatal"*. Tenía razón y además era calcar mal: el original solo lo PREGUNTA en el gancho y en el cuerpo dice lo contrario (*different roles, same goal*). **La tensión entre equipos se pregunta en el gancho o la carga la imagen; el cuerpo, en `nosotros`, cuenta lo que hacemos juntos.** Quedó `Cada uno a lo suyo y todos detrás del mismo cliente.` Lo que sí vale: un absoluto sobre una práctica (`Con likes, ventas y marketing nunca se hacen amigos.`), porque el que falla es el like, no el equipo. **Mecanizado** como fallo duro en `validar-post.py` (`Sin confesar que en casa nos llevamos mal`; 0 falsos positivos en 327 posts publicados) y en `scripts/test-borradores-tumbados.py`.
 
-**⛔ Y TAMPOCO LA AUTOCRÍTICA IMPLÍCITA, AUNQUE EL SUJETO SEA UNA COSA (2026-09-30).** En el lead magnet del tercer jefe escribí *"Yo vivo entre código y el comercial, entre programas que no se hablan"*. Nadie sale señalado, pero **se lee como que en casa no nos comunicamos**. Iker: *"nunca pongas algo que nos pueda dejar mal o que deje a huevo que la gente diga: qué mal se organizan"*. **Las carencias se cuentan del SECTOR o del proceso de cualquiera, nunca de nuestra casa, ni en primera persona ni de nuestros programas.** La salida es la cara positiva de lo nuestro: quedó *"En mi código, cada pieza sabe lo que hace la de al lado"*. El test tiene una segunda pregunta: *¿esta frase le deja a alguien decir "qué mal se organizan en Neety"?*
+**⛔ Y TAMPOCO LA AUTOCRÍTICA IMPLÍCITA, AUNQUE EL SUJETO SEA UNA COSA (2026-09-30).** En el lead magnet del tercer jefe escribí *"Yo vivo entre código y el comercial, entre programas que no se hablan"*. Nadie sale señalado, pero **se lee como que en casa no nos comunicamos**. El equipo: *"nunca pongas algo que nos pueda dejar mal o que deje a huevo que la gente diga: qué mal se organizan"*. **Las carencias se cuentan del SECTOR o del proceso de cualquiera, nunca de nuestra casa, ni en primera persona ni de nuestros programas.** La salida es la cara positiva de lo nuestro: quedó *"En mi código, cada pieza sabe lo que hace la de al lado"*. El test tiene una segunda pregunta: *¿esta frase le deja a alguien decir "qué mal se organizan en Neety"?*
 
-**⛔ Y SI LA HISTORIA CUENTA UN FALLO NUESTRO DEL PASADO, EL HOY SE DICE CON TODAS LAS LETRAS (2026-10-01) — GLOBAL.** En la historia del tercer jefe del filtro que se dejó fuera al mejor cliente, el cambio solo se insinuaba en el ninja (`Eso lo hacemos…`) y en `tumbó mi forma de programar`. Iker: *"quiero dejar claro que es una historia del pasado… y que a día de hoy, con nuestra nueva generación del software, ya no. Quien quiera malinterpretar siempre lo va a hacer, pero no se lo dejes a huevo"*. **Regla:** todo post que cuente un error propio, un método viejo o algo que nos salió mal lleva, después del ninja y antes del cierre, **una línea explícita de que hoy está resuelto y dónde** (la nueva versión de nuestro software, cómo trabajamos ahora). Insinuarlo no vale: el lector que va rápido se queda con el fallo. Caso: `Esa empresa ya no se queda fuera en la nueva versión de nuestro software.` **🔄 Afinado el mismo día:** `la nueva versión` arregla el pasado pero deja caer que la versión vieja fallaba. **Gana contarlo como ORIGEN:** el fallo fue antes de construir el producto, y el producto nació para que no pasara. Quedó `Por eso @Neety, nuestro software, nació mirando lo que hace cada empresa.` `@Neety` con su categoría (`§2.5b-EXPLÍCITO`) y en el cuerpo, nunca en el ninja (`global §4.4c`). El "ya lo tenemos en la versión nueva" se queda para posts que vendan el lanzamiento, no para una historia de un error.
+**⛔ Y SI LA HISTORIA CUENTA UN FALLO NUESTRO DEL PASADO, EL HOY SE DICE CON TODAS LAS LETRAS (2026-10-01) — GLOBAL.** En la historia del tercer jefe del filtro que se dejó fuera al mejor cliente, el cambio solo se insinuaba en el ninja (`Eso lo hacemos…`) y en `tumbó mi forma de programar`. El equipo: *"quiero dejar claro que es una historia del pasado… y que a día de hoy, con nuestra nueva generación del software, ya no. Quien quiera malinterpretar siempre lo va a hacer, pero no se lo dejes a huevo"*. **Regla:** todo post que cuente un error propio, un método viejo o algo que nos salió mal lleva, después del ninja y antes del cierre, **una línea explícita de que hoy está resuelto y dónde** (la nueva versión de nuestro software, cómo trabajamos ahora). Insinuarlo no vale: el lector que va rápido se queda con el fallo. Caso: `Esa empresa ya no se queda fuera en la nueva versión de nuestro software.` **🔄 Afinado el mismo día:** `la nueva versión` arregla el pasado pero deja caer que la versión vieja fallaba. **Gana contarlo como ORIGEN:** el fallo fue antes de construir el producto, y el producto nació para que no pasara. Quedó `Por eso @Neety, nuestro software, nació mirando lo que hace cada empresa.` `@Neety` con su categoría (`§2.5b-EXPLÍCITO`) y en el cuerpo, nunca en el ninja (`global §4.4c`). El "ya lo tenemos en la versión nueva" se queda para posts que vendan el lanzamiento, no para una historia de un error.
 
 ### ⛔⛔ 5b · Y TAMPOCO SE HABLA **EN NOMBRE** DE OTRO COLECTIVO, AUNQUE SEA PARA DEFENDERLO (2026-08-21)
 
@@ -1147,7 +1147,7 @@ el proceso.
 **Para afirmar, confesar o nombrar un dolor, se habla en PRIMERA PERSONA DEL
 SINGULAR.** En el gancho, en el cuerpo, en el cierre y en el texto de la imagen.
 
-Iker: *"a lo mejor sería incluso más efectivo 'en marketing no salvo'. Hablar de yo,
+El equipo: *"a lo mejor sería incluso más efectivo 'en marketing no salvo'. Hablar de yo,
 ya que el espectador en cuanto lo lea pensará en sí mismo y no en mí. Si pongo
 primera persona plural, parece que estoy forzándole a que piense en nosotros
 juntos"*.
@@ -1188,7 +1188,7 @@ salvas`, titular y etiqueta hablan en dos voces distintas dentro de la misma fot
 
 **⭐⭐ Y LA REGLA GENERAL QUE SE DESTAPA, porque esto ya lo teníamos a medias:** `global §2.0c-PRESUMIR` dice que **el gancho** no presume porque el lector lee *"mírame"*. **Faltaba la otra mitad: una cadena de `yo` seguidos en el CUERPO produce exactamente el mismo efecto**, aunque ninguna frase suelta presuma. El test es de contar: **si el cuerpo encadena tres o más frases con `yo` de sujeto y el mérito no es personal, pasa a `nosotros`.**
 
-**⛔ Y AL CAMBIAR LA PERSONA SE CAMBIA EN TODO EL CUERPO, POSESIVOS INCLUIDOS.** El 27/08 pasé el cuerpo a plural… y dejé un bloque entero en `¿El gancho? **Mío**. / ¿La hora de publicar? **Mía**.`. Iker: *"lo haces de una manera muy prepotente: hablar solo en primera persona cuando justo antes te ha dicho que primera persona singular no"*. **Los posesivos son los que se escapan**, porque el verbo ya está en plural y el oído da la frase por corregida. **Ctrl+F antes de entregar: `mío`, `mía`, `mis`, `me `, `yo`.**
+**⛔ Y AL CAMBIAR LA PERSONA SE CAMBIA EN TODO EL CUERPO, POSESIVOS INCLUIDOS.** El 27/08 pasé el cuerpo a plural… y dejé un bloque entero en `¿El gancho? **Mío**. / ¿La hora de publicar? **Mía**.`. El equipo: *"lo haces de una manera muy prepotente: hablar solo en primera persona cuando justo antes te ha dicho que primera persona singular no"*. **Los posesivos son los que se escapan**, porque el verbo ya está en plural y el oído da la frase por corregida. **Ctrl+F antes de entregar: `mío`, `mía`, `mis`, `me `, `yo`.**
 
 ##### 🤝 Y EN LA COMPAÑERA DE CLIENTES LA MISMA REGLA APRIETA MÁS, PORQUE SU CUENTA HABLA DE CUIDAR A ALGUIEN (2026-08-27)
 

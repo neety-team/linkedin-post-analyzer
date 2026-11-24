@@ -184,7 +184,7 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 3. **El mismo plano con un zoom distinto en cada palabra del gancho.** Con 3 planos o con uno, en la intro cada palabra lleva su propio corte o zoom.
 4. **3 palabras de gancho y 15,8 s de vídeo.** La duración de 15-30 s de este pilar va en esa línea.
 
-**⚠️ El techo del intensificador lo pone la cuenta (`brand-voice §1b`).** `de la muerte` es de calle: vale en Iker y **no en el primer jefe**, cuyo intensificador es el formal (`jamás`, `en la vida`) o la expresión de prensa (`de infarto`, *(deducción: sin medir en su cuenta)*).
+**⚠️ El techo del intensificador lo pone la cuenta (`brand-voice §1b`).** `de la muerte` es de calle: vale en el segundo jefe y **no en el primer jefe**, cuyo intensificador es el formal (`jamás`, `en la vida`) o la expresión de prensa (`de infarto`, *(deducción: sin medir en su cuenta)*).
 
 ### 6.3 · La receta del gancho (lo cerrado el 23/09)
 
@@ -201,7 +201,7 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 
 #### ⛔⛔ 6.3-CHECK · TODO GANCHO DE VÍDEO SE ENTREGA CON ESTE CHEQUEO ESCRITO, LÍNEA A LÍNEA (2026-09-29)
 
-> Iker: *"asegúrate de que siempre que me das una corrección del gancho la autovalidas con todo lo que sabes"*. En tres rondas le di `de infarto` (fuera del registro del primer jefe), `sin descanso` (segunda lectura de explotación) y `persiguiendo clientes` (autogol). **Los tres fallaban una regla que ya estaba escrita.** No había un check que las juntara para vídeo.
+> El equipo: *"asegúrate de que siempre que me das una corrección del gancho la autovalidas con todo lo que sabes"*. En tres rondas le di `de infarto` (fuera del registro del primer jefe), `sin descanso` (segunda lectura de explotación) y `persiguiendo clientes` (autogol). **Los tres fallaban una regla que ya estaba escrita.** No había un check que las juntara para vídeo.
 
 | # | check | fuente |
 |---|---|---|
@@ -226,7 +226,7 @@ La estructura del vídeo alrededor de las palabras. VIDEO_SCRIPT (§2) manda en 
 
 ### 6.4a · LA PORTADA DE LINKEDIN ES UNA IMAGEN APARTE (30/09)
 
-LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir un fotograma de la línea de tiempo. Criterio de Iker: *"un fotograma que luego te vayas a encontrar en el vídeo"*, como en YouTube Shorts.
+LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir un fotograma de la línea de tiempo. Criterio del equipo: *"un fotograma que luego te vayas a encontrar en el vídeo"*, como en YouTube Shorts.
 - **~~El gancho se agranda en la portada~~ → Iker, 30/09: el texto de la portada va IGUAL que dentro del vídeo** (en el primero, 30% del ancho y 7,6% del alto), *"porque si les aparece la portada y pulsan play, coincidirá; si de repente lo pongo mucho más grande, va a quedar feo"*. Manda la continuidad entre portada y vídeo. Lo que sí se cuida es que el texto **no tape la cara** de quien mira a cámara.
 - **El fotograma, con los criterios de `§6.4`:** identidad y sitio sin sonido. Si el vídeo es de equipo, que se vea el equipo (en el primero, 4897: los 5 con las vigas). Un logo de la casa de fondo (la bolsa de Neety) vale **si es atrezo y no el tema**; el photocall o un cartel, no, porque destripan y se leen como anuncio.
 - **Reproducción automática, según la ayuda de LinkedIn (comprobado el 30/09):** los vídeos del feed **arrancan solos y sin sonido** por defecto, y el sonido entra cuando alguien toca el vídeo. **En el móvil, por defecto solo arrancan con wifi**, y cada uno lo puede desactivar en *Ajustes → Preferencias del sitio → Reproducción automática*. Consecuencia: la **portada la ve quien está con datos móviles**, el que lo tiene desactivado y el que entra por el perfil; con wifi, lo primero que se ve es el primer fotograma. Por eso portada y primer fotograma son el mismo plano. **✅ Confirmado por Iker al publicar el primero (30/09):** *"en cuanto te aparece un vídeo en LinkedIn se ejecuta el autoplay, aunque no le des, pero sin sonido"*. El subtitulado entero no es opcional.
@@ -320,15 +320,15 @@ LinkedIn deja **subir una portada propia** al publicar un vídeo, no solo elegir
 
 Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-PREDICCION`, que también es global en vídeo.
 
-**⭐ Y EL CONTENIDO QUE FUNCIONÓ, en palabras de Iker:** *"atacamos el punto de dolor del cliente, que es lo que más conversión nos va a generar… no se nos ha ido la cabeza haciendo un primer vídeo de un trend, un baile que no tenga nada que ver."* **El formato viral pone el alcance; el dolor del cliente, dicho en la voz, pone la conversión.** Es la misma separación de palancas que `post-workflow §4.4-CONVERSION`.
+**⭐ Y EL CONTENIDO QUE FUNCIONÓ, en palabras del equipo:** *"atacamos el punto de dolor del cliente, que es lo que más conversión nos va a generar… no se nos ha ido la cabeza haciendo un primer vídeo de un trend, un baile que no tenga nada que ver."* **El formato viral pone el alcance; el dolor del cliente, dicho en la voz, pone la conversión.** Es la misma separación de palancas que `post-workflow §4.4-CONVERSION`.
 
 ### 6.5e · EL MAPA DE PLANOS USA TODO LO GRABADO, Y EL AUDIO NO SE SUPONE (30/09)
 
 > *"Ya que grabé todo el contenido que pude, no puede ser que haya planos que no me hayas incluido."* En el primer mapa se quedaron fuera 5 de 25 clips, entre ellos **4899, un trabajador**, sin decir por qué.
 
-- **⛔ "DUPLICADO" ES EL MISMO ENCUADRE, NO LA MISMA ACTIVIDAD (30/09).** Descarté 4918 como *duplicado de 4916* porque los dos son galletas, y **4918 era el mejor de los dos**: ángulo distinto y fondo desenfocado. Iker: *"cuidado al descartar, asegúrate muy bien de lo que dices"*.
+- **⛔ "DUPLICADO" ES EL MISMO ENCUADRE, NO LA MISMA ACTIVIDAD (30/09).** Descarté 4918 como *duplicado de 4916* porque los dos son galletas, y **4918 era el mejor de los dos**: ángulo distinto y fondo desenfocado. El equipo: *"cuidado al descartar, asegúrate muy bien de lo que dices"*.
   - Antes de descartar, **se ponen los dos fotogramas uno al lado del otro** y se compara lo que se ve: encuadre, profundidad de campo, luz, si hay cara o gesto. Si cambian, **no es duplicado: son dos planos**, y se puede usar cada uno en un momento (galletas, luego comida, luego otra vez galletas desde otro ángulo: variedad sin salir de la escena).
-  - **Y al revés, que también falló el mismo día:** mantuve 4912 y 4913 como planos distintos y son **el mismo movimiento de cámara por la banderola y el photocall** (igual que 4911). Iker: *"son casi idénticos… quiero variedad"*. Comparar lado a lado sirve para las dos cosas: no descartar un plano distinto y no meter dos veces el mismo.
+  - **Y al revés, que también falló el mismo día:** mantuve 4912 y 4913 como planos distintos y son **el mismo movimiento de cámara por la banderola y el photocall** (igual que 4911). El equipo: *"son casi idénticos… quiero variedad"*. Comparar lado a lado sirve para las dos cosas: no descartar un plano distinto y no meter dos veces el mismo.
   - Entre dos tomas de verdad parecidas gana la **más llamativa**: fondo desenfocado, luz, movimiento dentro del plano.
   - Y si el motivo es gusto (*no aporta*, *no llama la atención*), se escribe como `porque…`, nunca disfrazado de `duplicado`.
 - **Si Iker ya está montando, un mapa nuevo va con su lista de cambios (30/09):** qué fila cambia y de qué clip a qué clip (`Esa mañana: 4923 → 4918`). El 30/09 rehíce el mapa seis veces mientras él editaba y acabó con el 4913 donde tocaba el 4912, dos planos del photocall con números casi iguales. **Y cuando dos clips tienen números seguidos y parecidos, se nombran con su descripción al lado** (`4912, photocall con la cámara en movimiento`).
@@ -336,7 +336,7 @@ Y cierra con la **🔮 PREDICCIÓN DE VIRALIDAD** de `working-preferences §1e-P
 - **Cada clip de la carpeta sale en el mapa:** usado, o `DESCARTADO` con su motivo (casi siempre, *duplicado de X*: la misma escena desde otro ángulo). Lo comprueba `validar-video.py --carpeta <dir> --planos <mapa.txt>`.
 - **~~Ritmo: un corte cada ~1 s en el medio y ~0,7 s en la prisa~~ → CORREGIDO EL MISMO DÍA CON EL PREMIERE DELANTE (30/09).** *"¿Cómo vas a meterme en dos segundos cinco planos?"* `y el nombre de quien decide` duró **1,4 s** y no cabían dos planos. La regla buena:
   - **SOLO el gancho va sobrecargado:** un corte cada ~2 palabras, sin dejar respirar ni un segundo.
-  - **Del gancho en adelante, los planos RESPIRAN, y EL CORTE LO PONE LA VOZ, NO UN NÚMERO (30/09):** se corta donde la voz hace su pausa natural (la coma, el punto, la respiración). `Esa mañana, / los del reloj en contra / éramos nosotros.` lleva **3 planos** porque la voz ya se parte en 3. *"Que el cambio de plano sea natural, que tampoco se pueda predecir, pero que no sea plano por meter"*: ni metrónomo cada X palabras ni saturar por dinamismo. **Suelo mecánico: ~3 palabras de voz por plano (~1 s).** No hace falta que el corte caiga exacto en la palabra. Nuestro público es mayor. Iker: *"los niños sí necesitan esa sobrecarga de planos; en nuestro caso necesitamos que los planos puedan respirar"*.
+  - **Del gancho en adelante, los planos RESPIRAN, y EL CORTE LO PONE LA VOZ, NO UN NÚMERO (30/09):** se corta donde la voz hace su pausa natural (la coma, el punto, la respiración). `Esa mañana, / los del reloj en contra / éramos nosotros.` lleva **3 planos** porque la voz ya se parte en 3. *"Que el cambio de plano sea natural, que tampoco se pueda predecir, pero que no sea plano por meter"*: ni metrónomo cada X palabras ni saturar por dinamismo. **Suelo mecánico: ~3 palabras de voz por plano (~1 s).** No hace falta que el corte caiga exacto en la palabra. Nuestro público es mayor. El equipo: *"los niños sí necesitan esa sobrecarga de planos; en nuestro caso necesitamos que los planos puedan respirar"*.
   - **Un plano dura lo que tarda en entenderse su acción:** *"la gracia era que se viese cómo colocaba la masa. Si lo hubiese cortado ahí, ni se entendía el plano"*. Se elige el tramo del clip donde la acción se completa.
   - **El giro:** un plano en `Aunque, bueno…` y otro en `¿y este plano?`, y el último se queda en pantalla después de la voz.
   - **Ritmo de voz MEDIDO en este vídeo:** 36 palabras en 11,9 s, **3,0 palabras/s** con pausas. Un plano de ~4 palabras dura ~1,3 s.

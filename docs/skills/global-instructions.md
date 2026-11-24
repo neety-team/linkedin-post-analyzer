@@ -20,7 +20,7 @@
 >
 > **Eso llevaba meses en la base de datos y yo estaba discutiendo el pilar con un ejemplo suelto.**
 
-**Lo que da esta consulta y no da ninguna otra fuente:** con cinco casos propios repitiendo el mismo patrón, **sabes si va a funcionar ANTES de publicar**. Iker: *"con eso vamos a casi garantizar el éxito y lo vamos a saber antes incluso de publicar"*. Los outliers de fuera te dan ideas; **los propios te dan garantía**, porque son tu audiencia, tu voz y tu cuenta.
+**Lo que da esta consulta y no da ninguna otra fuente:** con cinco casos propios repitiendo el mismo patrón, **sabes si va a funcionar ANTES de publicar**. El equipo: *"con eso vamos a casi garantizar el éxito y lo vamos a saber antes incluso de publicar"*. Los outliers de fuera te dan ideas; **los propios te dan garantía**, porque son tu audiencia, tu voz y tu cuenta.
 
 **⚠️ Y el corolario incómodo:** si una regla de la receta **no la puedes respaldar con una consulta**, es una opinión mía disfrazada de regla. Antes de defenderla, consúltala.
 
@@ -81,18 +81,18 @@ El hook es la línea más importante. Si no funciona, no se lee el cuerpo.
 - **Por qué importa en todos los pilares:** sea cual sea el objetivo del pilar (en historia/evento, la autoridad), el alcance se intenta maximizar siempre. Un gancho sin ninguna pregunta abierta tira a la basura el trabajo del cuerpo.
 - **Dueño:** la clave `bucle` de `--criterio` pide nombrar el interrogativo que queda abierto. El aviso `GANCHO: deja un HUECO` caza las palabras de hueco más comunes, incluido el adjetivo de novedad (`el nuevo`).
 
-> **POR QUÉ ESTÁ AQUÍ ARRIBA Y NO EN UN RUNBOCK (2026-07-31).** Yo la tenía escrita **solo en el runbook del lead magnet** (`post-workflow §4.5`), como si fuera una regla de ese pilar, y por eso propuse un gancho de meme que desvelaba el chiste. Iker: *"todos mis ganchos tienen que abrir un bucle abierto porque la estrategia principal de LinkedIn es el gancho corto y que pulsen ver más"*. **El fallo no fue la regla, fue tenerla guardada en el cajón equivocado.** Cuando una regla habla del GANCHO, del CUERPO o del REMIX, vive aquí, en global, aunque la haya aprendido haciendo un pilar concreto.
+> **POR QUÉ ESTÁ AQUÍ ARRIBA Y NO EN UN RUNBOCK (2026-07-31).** Yo la tenía escrita **solo en el runbook del lead magnet** (`post-workflow §4.5`), como si fuera una regla de ese pilar, y por eso propuse un gancho de meme que desvelaba el chiste. El equipo: *"todos mis ganchos tienen que abrir un bucle abierto porque la estrategia principal de LinkedIn es el gancho corto y que pulsen ver más"*. **El fallo no fue la regla, fue tenerla guardada en el cajón equivocado.** Cuando una regla habla del GANCHO, del CUERPO o del REMIX, vive aquí, en global, aunque la haya aprendido haciendo un pilar concreto.
 
 #### ⛔⛔ 2.0-PAGO · EL BUCLE SE ABRE EN EL GANCHO Y SE CIERRA, EXPLÍCITO, EN EL ÚLTIMO TERCIO (2026-09-30) — GLOBAL
 
-> **Iker:** *"cuando se hablan de cosas así, se tiene que mantener el misterio hacia el final de la publicación, pero ya hacia el final sí que se debe resolver ese bucle abierto. Es como en las publicaciones de peloteo, que hacia el final ya desvelamos la región"*.
+> **El equipo:** *"cuando se hablan de cosas así, se tiene que mantener el misterio hacia el final de la publicación, pero ya hacia el final sí que se debe resolver ese bucle abierto. Es como en las publicaciones de peloteo, que hacia el final ya desvelamos la región"*.
 
 **Abrir el bucle es la mitad de la regla.** Todo lo que el gancho deja en el aire (la región del mapa, *el día más importante*, *el gran anuncio*, *qué pasó*) **se dice con todas las letras antes de acabar**, igual que el reveal del peloteo (`Sí, hablo de…`). Si el lector termina el post sin saber qué era, el gancho le ha tomado el pelo y el post no se entiende al compartirlo.
 - **Dónde:** en el último tercio, nunca arriba (arriba mata el bucle) y nunca fuera del texto (la foto no cuenta como pago).
 - **Cómo:** explícito y con sus nombres: qué era, dónde y por qué importaba. En la historia del 30/09 el gancho decía `nuestro gran anuncio` y el pago es `En el hotel Arima presentamos en primicia lo nuevo que hemos construido`.
 - **El test:** tapa todo menos el gancho y el último tercio. ¿Se entiende a qué se refería el gancho? Si no, falta el pago.
 - **⛔ Y EL PAGO REPITE LA PALABRA DEL GANCHO, LITERAL (2026-09-30).** Contar el qué no basta si no se cose con el gancho: el 30/09 el final decía `presentamos en primicia…` y el gancho `nuestro gran anuncio`, y el lector no unía las dos cosas. Quedó `El gran anuncio fue en Neety Forward, nuestro evento en San Sebastián.` Es exactamente el `Sí, hablo de Navarra` del peloteo: se nombra lo que el gancho dejó en el aire **con la misma palabra**.
-- **😏 LA EXCEPCIÓN CON GRACIA: EL GANCHO EXAGERA Y EL PAGO DESINFLA (2026-10-20).** Cuando el gancho infla a propósito un hecho real con una palabra punchy, el pago no la repite: la **rebaja con ironía**, y en esa rebaja está el chiste. Avispas: gancho `…lo que nos invadió en una barbacoa`, pago `Nos visitaron avispas asiáticas.` Iker: *"tampoco hubo tantas como para considerarlo una invasión… nos visitaron queda más gracioso. Y quitar invadir del gancho sería un error garrafal: perderíamos la power word"*.
+- **😏 LA EXCEPCIÓN CON GRACIA: EL GANCHO EXAGERA Y EL PAGO DESINFLA (2026-10-20).** Cuando el gancho infla a propósito un hecho real con una palabra punchy, el pago no la repite: la **rebaja con ironía**, y en esa rebaja está el chiste. Avispas: gancho `…lo que nos invadió en una barbacoa`, pago `Nos visitaron avispas asiáticas.` el equipo: *"tampoco hubo tantas como para considerarlo una invasión… nos visitaron queda más gracioso. Y quitar invadir del gancho sería un error garrafal: perderíamos la power word"*.
   - **Por qué funciona** (*criterio, con un precedente*): la hipérbole arriba compra el clic; el eufemismo abajo dice la verdad y guiña al lector, que se siente cómplice del exagerado y no engañado. Es lo que ya hizo su historia del 30/09: gancho `Nos entraron en casa…`, pago `Nadie había entrado, salvo quizá un jabalí madrugador.` (12.657 impresiones, su historia de más alcance desde entonces). n=1, patrón y no ley.
   - **Las dos condiciones:** (1) **el qué se dice con todas las letras** igual (`avispas asiáticas`, `un jabalí`): se desinfla la palabra, nunca se esconde la respuesta; y (2) **la palabra punchy del gancho no se toca**, porque la exageración es la que hace pulsar. Si el pago la desinfla, no hace falta repetirla literal; si el gancho no exagera nada, el pago la repite como siempre.
   - **Y protege el `verdad` del criterio:** la exageración vive solo en el gancho y el cuerpo deja claro lo que pasó de verdad, así nadie puede decir que nos lo inventamos.
@@ -205,7 +205,7 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 
 **🚪 Y SI EL POST NO ES DE UN PILAR VALIDADO, EL GANCHO VA SOLO Y PRIMERO** (`post-workflow §4.1-GANCHO`): se entregan **10 metáforas** y se para ahí, sin cuerpo, hasta que Iker elija. Sin pilar detrás, el gancho es lo único que sostiene el post.
 
-**⛔ Y NUNCA NOMBRES LO QUE ANUNCIAS.** Ni "evento", ni "premio", ni "lanzamiento". Iker: *"si ya en el gancho te han dicho cuál es el premio, ¿para qué te vas a leer la publicación?"*. El objeto sustituye al nombre.
+**⛔ Y NUNCA NOMBRES LO QUE ANUNCIAS.** Ni "evento", ni "premio", ni "lanzamiento". El equipo: *"si ya en el gancho te han dicho cuál es el premio, ¿para qué te vas a leer la publicación?"*. El objeto sustituye al nombre.
 
 **🔄 CONCEPTOS YA USADOS:** la lista viva, con fecha y cuenta, es `CONCEPTO_QUEMADO` de `validar-post.py`, y **solo frena a la cuenta que lo usó durante sus 3 publicaciones siguientes** (`§2.0b-VENTANA`: por cuenta, 3 publicaciones de esa cuenta, y los clichés no entran). Ejemplos de conceptos que ya han salido: `esquina del Atlántico` · `trastienda del norte` · `patio trasero de los Pirineos` · `tejado de la Península` · `museo minero` · `desierto` · `secarral` · `última parada` · `sitio de comer`. Propuestos el 05/08 para el evento y aún sin gastar: `fecha de derribo` · `vitrina` · `cuenta atrás` · `carpeta que no se abre` · `último de su especie` · `interruptor` · `la grieta` · `la última foto`.
 
@@ -275,7 +275,7 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 1. **POR CUENTA.** Lo que usó Iker solo le frena a Iker. El primer jefe y el tercer jefe pueden usarlo al día siguiente.
 2. **CADUCA.** Una expresión no se repite en **las 3 publicaciones siguientes de esa misma cuenta** (del mismo pilar, cuando la lista es de un pilar). Pasadas esas, vuelve a estar libre.
 3. **LOS CLICHÉS NO SE QUEMAN NUNCA EN EL CUERPO.** Son de la región, no del post: si una región se vuelve a hacer, sus clichés típicos (el pulpo, la txistorra, el bacalao) valen otra vez **abajo**. Lo que rota es lo que **inventamos nosotros**: el concepto, el país de la comparación, la frase-rabia, el verbo del prejuicio, el arranque de la anáfora y la frase del ninja.
-   - **⛔⛔ PERO EN EL GANCHO SÍ: REPETIR REGIÓN NO ES REPETIR GANCHO (2026-10-15).** Para "Las 10" de Aragón de Iker entregué `el Pilar, el cierzo` y Uruguay. El gancho del tercer jefe de Aragón (14/07) ya llevaba `jota, Pilar` con el cierzo dentro del concepto, y Uruguay lo había usado Iker en Murcia (23/07). Iker: *"habrá cosas más conocidas de Aragón que el Pilar y el cierzo… a mí, que soy joven, el cierzo no sé ni lo que es"*, y lo sube a la ley de variedad: *"no me importa repetir la región, de hecho hacer double down es otra estrategia muy inteligente… pero que tenga cabeza"*.
+   - **⛔⛔ PERO EN EL GANCHO SÍ: REPETIR REGIÓN NO ES REPETIR GANCHO (2026-10-15).** Para "Las 10" de Aragón de Iker entregué `el Pilar, el cierzo` y Uruguay. El gancho del tercer jefe de Aragón (14/07) ya llevaba `jota, Pilar` con el cierzo dentro del concepto, y Uruguay lo había usado Iker en Murcia (23/07). El equipo: *"habrá cosas más conocidas de Aragón que el Pilar y el cierzo… a mí, que soy joven, el cierzo no sé ni lo que es"*, y lo sube a la ley de variedad: *"no me importa repetir la región, de hecho hacer double down es otra estrategia muy inteligente… pero que tenga cabeza"*.
    - **La regla:** al repetir región, **ningún cliché del gancho puede haber salido en el gancho de un peloteo anterior de esa región, sea de la cuenta que sea**. Se buscan los 2 más universales que no se hayan usado arriba, y se pasan por el test del joven: *¿lo conoce alguien de 25 años de cualquier provincia?* (el cierzo no lo pasa; el jamón de Teruel, sí).
    - **El país de la comparación no se repite NUNCA en la misma cuenta** (la ventana de 42 días se queda para concepto, verbo y frase-rabia). El país es lo que se comparte y el seguidor de esa cuenta lo recuerda.
    - **El double down es legítimo, pero se decide y se declara**, nunca sale por defecto: `--double-down` en el validador y una línea en la entrega diciendo qué se repite y por qué.
@@ -305,9 +305,9 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 
 #### 🔁🔁 2.0b-ECO · VARIEDAD NO ES PROHIBIR: ES NO REPETIR LO QUE EL LECTOR ACABA DE LEER, Y OFRECER EL SINÓNIMO (2026-09-23) — GLOBAL, TODOS LOS PILARES
 
-> **Iker:** *"hay una diferencia entre bloquear palabras y hacerlas prohibidas y otra en repetir, que siempre te equivocas con eso cuando hablo de variedad"*. Y antes: *"no hayas hardcodeado esas palabras, sino que tengas la capacidad en la receta global, porque esto va across todo tipo de posts: ofrecer sinónimos ya"*.
+> **El equipo:** *"hay una diferencia entre bloquear palabras y hacerlas prohibidas y otra en repetir, que siempre te equivocas con eso cuando hablo de variedad"*. Y antes: *"no hayas hardcodeado esas palabras, sino que tengas la capacidad en la receta global, porque esto va across todo tipo de posts: ofrecer sinónimos ya"*.
 
-**El caso:** la historia de Iker del 23/09 pasaba 60/60 y llevaba `nave nueva` (el "Los 10" del primer jefe del 15/09), `naves` y `camiones` (el mapa del propio Iker del DÍA ANTERIOR) y `carpeta` (el gancho de la historia del tercer jefe del 09/09). Iker: *"no sé por qué lo de nave me suena"*. Las listas de quemadas no podían verlo: guardan FRASES, se rellenan a mano y solo después de publicar.
+**El caso:** la historia de Iker del 23/09 pasaba 60/60 y llevaba `nave nueva` (el "Los 10" del primer jefe del 15/09), `naves` y `camiones` (el mapa del propio Iker del DÍA ANTERIOR) y `carpeta` (el gancho de la historia del tercer jefe del 09/09). El equipo: *"no sé por qué lo de nave me suena"*. Las listas de quemadas no podían verlo: guardan FRASES, se rellenan a mano y solo después de publicar.
 
 **LAS TRES COSAS, que son distintas y no se mezclan:**
 
@@ -328,7 +328,7 @@ LinkedIn corta el post en el feed a ~210 caracteres o las primeras 2-3 líneas, 
 2. **¿Es una CITA o el REMATE de la escena?** En una cita manda cómo habla quien la dice (`brand-voice §3b`), y el remate es la línea que no se toca por decorado.
 3. **¿El sinónimo es PEOR?** Si pierde la doble lectura, la voz hablada o caracteres que no compensan, se queda la original. **La variedad nunca justifica una frase peor.**
 
-**El fallo que lo motiva:** cambié `lo del periódico es la foto` por `es el corte de cinta` solo porque el aviso lo marcaba. Iker: *"no sé si al aportar variedad en este caso estamos cometiendo un error"*. Lo estábamos: un vigilante dice `es para la foto`, `corte de cinta` es de nota de prensa, se perdía la doble lectura y el eco era de otro sentido y estaba a 14 días, en el límite. Volvió `es para la foto`. **Es el mismo error de la tabla de arriba: tratar un aviso como si fuera un veto.**
+**El fallo que lo motiva:** cambié `lo del periódico es la foto` por `es el corte de cinta` solo porque el aviso lo marcaba. El equipo: *"no sé si al aportar variedad en este caso estamos cometiendo un error"*. Lo estábamos: un vigilante dice `es para la foto`, `corte de cinta` es de nota de prensa, se perdía la doble lectura y el eco era de otro sentido y estaba a 14 días, en el límite. Volvió `es para la foto`. **Es el mismo error de la tabla de arriba: tratar un aviso como si fuera un veto.**
 
 **LAS TRES REGLAS DE MANTENIMIENTO:**
 1. **Al publicar, la frase usada entra en su lista con su FECHA y su CUENTA**, leída del texto real de la BD. No espera a que nadie lo pida. Si ya estaba, se le actualiza la fecha.
@@ -400,7 +400,7 @@ Un hook que viaja hace TRES cosas a la vez. Si la idea cruda no puede con las tr
 
 > **📏 28/10 · TOPE POR PILAR, Y PASARLO SE JUSTIFICA POR ESCRITO.** Los ganchos de historia crecieron mes a mes (mediana de 52 caracteres en junio, 65 en agosto, 71 en septiembre y 80 en octubre) y en historia los de 70 o menos rinden casi el doble (0,97 contra 0,55 de outlier_ratio, n=9 y 15, `scripts/auditar-derivas.py`). El validador avisaba a partir de 90 y el aviso del tachón salía siempre, así que nadie lo leía. **Topes:** historia 70, el resto de pilares 75 (la mediana de los ganadores); el peloteo se libra, porque sus ganchos largos son estructura y vuelan. Por encima, `validar-post.py` pide la clave `largo` en `--criterio`: se acorta o se escribe por qué cada palabra de más es imprescindible.
 
-**La regla, y es de las que no admiten matiz:** si el gancho puede decir **exactamente lo mismo** con menos palabras, la versión corta es la buena. Siempre. Iker: *"siempre en la vida es mejor corto y bueno que largo y bueno, sobre todo alargarlo no aporta nada extra y es repetir información o redundante"*.
+**La regla, y es de las que no admiten matiz:** si el gancho puede decir **exactamente lo mismo** con menos palabras, la versión corta es la buena. Siempre. El equipo: *"siempre en la vida es mejor corto y bueno que largo y bueno, sobre todo alargarlo no aporta nada extra y es repetir información o redundante"*.
 
 **Lo que hay que entender, porque es lo que lo hace operativo:** alargar un gancho **nunca** añade fuerza. Lo que añade es o **redundancia** (una palabra que ya se deduce de otra) o **información que le tocaba al cuerpo**. Las dos gastan atención en el único sitio donde no sobra ni un carácter, que es antes del corte del "ver más" (`§2.0`).
 
@@ -449,7 +449,7 @@ De la 1ª a la 2ª se fue **el escenario** (`§2.3b-ESCENARIO`); de la 2ª a la 
 
 **LA REGLA, en una línea:** *la tijera de `§2.2c` quita lo REDUNDANTE; el intensificador no es redundante aunque se pueda borrar sin romper la gramática.* Y esto ya estaba escrito en `§2.3d` (*"la prueba es la de siempre: quítalo y mira si el gancho sigue apretando igual"*); lo que faltaba era decirlo **aquí**, que es donde se coge la tijera.
 
-**⛔ Y NO SOLO EL DEL GANCHO: AL RECORTAR UN CUERPO PARA CUADRAR LA LONGITUD, LO PUNCHY NO ENTRA EN LA TIJERA (2026-09-30).** Para meter sus correcciones en los 780 caracteres de la historia de la alarma quité `madrugador` de `un jabalí madrugador`. Iker: *"por mucho que yo te dé correcciones, hay cosas de punchy que no tienes que perder. Esa naturalidad, ese punchy, es lo que nos diferencia del resto"*. **Lo que se recorta primero es el decorado informativo** (una ciudad que ya da el hotel, un complemento que ya se deduce); el adjetivo que hace gracia, el remate y el detalle visual que hace reír se quedan. Si aun así no cabe, se pasa un poco del rango y se dice, que el rango es aviso y 800 es el tope.
+**⛔ Y NO SOLO EL DEL GANCHO: AL RECORTAR UN CUERPO PARA CUADRAR LA LONGITUD, LO PUNCHY NO ENTRA EN LA TIJERA (2026-09-30).** Para meter sus correcciones en los 780 caracteres de la historia de la alarma quité `madrugador` de `un jabalí madrugador`. El equipo: *"por mucho que yo te dé correcciones, hay cosas de punchy que no tienes que perder. Esa naturalidad, ese punchy, es lo que nos diferencia del resto"*. **Lo que se recorta primero es el decorado informativo** (una ciudad que ya da el hotel, un complemento que ya se deduce); el adjetivo que hace gracia, el remate y el detalle visual que hace reír se quedan. Si aun así no cabe, se pasa un poco del rango y se dice, que el rango es aviso y 800 es el tope.
 
 **EL ORDEN CORRECTO, y son dos pasos, no uno:**
 1. **Primero se comprueba que el intensificador está.** Si no está, el gancho no está terminado.
@@ -461,7 +461,7 @@ De la 1ª a la 2ª se fue **el escenario** (`§2.3b-ESCENARIO`); de la 2ª a la 
 
 **El test, y se corre en un segundo:** dale el gancho a una persona que hace vídeos. **¿Sabe qué grabar?** Si sí, el gancho vale. **Si no se le ocurre ningún plano, el gancho no es lo bastante bueno y se descarta**, por bien escrito que esté.
 
-Iker: *"un gancho que no se pueda representar visualmente una creadora de vídeos lo descarta, ya que entonces no es lo suficientemente bueno"*.
+El equipo: *"un gancho que no se pueda representar visualmente una creadora de vídeos lo descarta, ya que entonces no es lo suficientemente bueno"*.
 
 **Por qué esto no es lo mismo que `§2.2` punto 1, que ya pedía "pintar una imagen":** aquel decía **qué** buscar; este da el **juez**, y es un juez externo que no puede hacer trampa. Yo puedo convencerme de que *"la prospección manual ya tiene fecha de derribo"* pinta algo; **una cámara no puede grabar una fecha de derribo.** Sí puede grabar a alguien saltándose buzones, tirando unas llaves o mirando un portátil que le plantan delante — y esos tres son ganchos nuestros que funcionaron.
 
@@ -525,7 +525,7 @@ Iker: *"un gancho que no se pueda representar visualmente una creadora de vídeo
 - **Mecanizado** como clave `conceptos` de `--criterio` en `validar-post.py`: pide al menos 5 ganchos separados por ` | ` y el motivo del elegido. No aplica a los peloteos (mapa, Las 10, despiece), cuyo gancho es estructura.
 
 ### 2.3 · Ancla de sector en la primera línea
-> **🔄 Excepción de cuenta desde el 26/10 (Iker): el primer jefe.** Su gancho ancla a ventas o al ecosistema (inversores, fondos, fundadores, instituciones), sobre todo en los posts de evento y según el objetivo del post (ventas sigue valiendo, solo deja de ser obligatorio), y con la misma variedad que pide esta sección (`brand-voice §1b`). Iker y el tercer jefe siguen con el ancla de ventas.
+> **🔄 Excepción de cuenta desde el 26/10 (Iker): el primer jefe.** Su gancho ancla a ventas o al ecosistema (inversores, fondos, fundadores, instituciones), sobre todo en los posts de evento y según el objetivo del post (ventas sigue valiendo, solo deja de ser obligatorio), y con la misma variedad que pide esta sección (`brand-voice §1b`). El segundo jefe y el tercer jefe siguen con el ancla de ventas.
 
 Nuestro sector es **ventas B2B** (la IA es una herramienta que usamos, NO nuestra categoría). El hook debe leerse inequívocamente sobre VENDER. Ancla con la familia entera de señales de venta, **variando** (no reflex-type "ventas" cada vez):
 - El **verbo** conjugado: vender / vendes / vendiendo / "cuando vendes…".
@@ -610,7 +610,7 @@ Lee el post e imagina que lo sube una consultora, una agencia o una constructora
 
 #### 🧭 2.3-PERSPECTIVAS · EL ANCLA DE VENTAS SE QUEDA; LO QUE ROTA ES LA PERSPECTIVA (2026-10-27) — TODOS LOS PILARES
 
-**Por qué el ancla se queda (revisado el 27/10 con datos).** Ganchos sin peloteo de las tres cuentas desde el 01/05: con ancla de ventas, mediana de **4.218** impresiones (n=124); sin ella, **4.459** (n=20, casi todos de mayo y la mayoría hablan de ventas con otras palabras). **El ancla no recorta el alcance.** Los tres mayores éxitos la llevan (193.410, 180.344, 165.526) y los apuntes de los expertos de `LINKEDIN GROWTH` dicen lo mismo: nicho antes que viralidad, y las dos primeras líneas deciden a quién se le enseña el post. El hito sin ancla (San Francisco, 17.371) es carril de ecosistema del primer jefe, sin enlace, y no se repite en un post que tiene que convertir. **Iker y el tercer jefe siguen con ancla de ventas en el gancho; el primer jefe, la excepción de ecosistema de arriba.**
+**Por qué el ancla se queda (revisado el 27/10 con datos).** Ganchos sin peloteo de las tres cuentas desde el 01/05: con ancla de ventas, mediana de **4.218** impresiones (n=124); sin ella, **4.459** (n=20, casi todos de mayo y la mayoría hablan de ventas con otras palabras). **El ancla no recorta el alcance.** Los tres mayores éxitos la llevan (193.410, 180.344, 165.526) y los apuntes de los expertos de `LINKEDIN GROWTH` dicen lo mismo: nicho antes que viralidad, y las dos primeras líneas deciden a quién se le enseña el post. El hito sin ancla (San Francisco, 17.371) es carril de ecosistema del primer jefe, sin enlace, y no se repite en un post que tiene que convertir. **El segundo jefe y el tercer jefe siguen con ancla de ventas en el gancho; el primer jefe, la excepción de ecosistema de arriba.**
 
 **El fallo era otro: anclábamos siempre desde el mismo sitio.** En octubre, 12 ganchos anclaban por el que vende y 16 por `ventas` dicho tal cual; **el cliente salió 1 vez (y era una repetición), la acción del día 1 y el marcador 0.** Las perspectivas, ganchos sin peloteo desde el 01/05 (`python scripts/auditar-anclas.py`, BD del 27/10; las familias se solapan y en las pequeñas mandan los memes):
 
@@ -698,7 +698,7 @@ Lee el post e imagina que lo sube una consultora, una agencia o una constructora
 - **Condición 1: la lectura es del día de publicar**, con hora, y va en la entrega. El 16/09 Iker escribió `quedan 20` de memoria; la API a las 13:28 decía **15** (65 registrados). **Se escribe la cifra de la API, no la recordada.**
 - **Condición 2: la sala pasa del 75% llena.** Por debajo, vuelve la regla de arriba (`solo hay 80`).
 - **Y la cifra caduca con el post:** para el siguiente, otra lectura. El validador avisa en cuanto ve `quedan N plazas/puestos`.
-- **🔄 17/09: EL EVENTO CAMBIÓ DE SALA Y SUBIÓ EL AFORO.** Pasó al ARIMA Hotel (Miramón), *"para poder recibiros a todos"*, y Luma pasó de 15 plazas libres a **34** (lectura del 17/09, 09:51). **Con el aforo ampliado, `quedan N` vuelve a estar prohibido**: la cifra ya no dice "se acaba", dice "hay hueco". **La escasez se cuenta con el hecho, sin número:** `la primera sala se quedó corta` (demanda real, verificable en Luma). Iker: *"con el matiz de debido a la afluencia… pero no lo hagas muy largo"*.
+- **🔄 17/09: EL EVENTO CAMBIÓ DE SALA Y SUBIÓ EL AFORO.** Pasó al ARIMA Hotel (Miramón), *"para poder recibiros a todos"*, y Luma pasó de 15 plazas libres a **34** (lectura del 17/09, 09:51). **Con el aforo ampliado, `quedan N` vuelve a estar prohibido**: la cifra ya no dice "se acaba", dice "hay hueco". **La escasez se cuenta con el hecho, sin número:** `la primera sala se quedó corta` (demanda real, verificable en Luma). El equipo: *"con el matiz de debido a la afluencia… pero no lo hagas muy largo"*.
 
 **🔄 22/09 · SIN EL TOTAL, `quedan N` SE LEE AL REVÉS (Iker, mapa de Álava).** *"decir 23 plazas a 2 días publicamente nos puede perjudicar, parece que lo tenemos vacío al no decir el total"*. El lector no sabe que la sala es de 100: `quedan 23` puede leerse como mucho hueco. **Si el total no cabe en la línea, se quita la cifra y se dice la escasez sin número: `ya quedan las últimas plazas`** (cierto con la sala al 77%). La cifra sola solo vale cuando es pequeña de por sí (15, que ya suena a poco) o va con su total.
 
@@ -720,7 +720,7 @@ Lee el post e imagina que lo sube una consultora, una agencia o una constructora
 
 #### ⛔⛔ 2.3d-FUTURO · EN UN GANCHO DE PROMESA, EL INTENSIFICADOR NO PUEDE DAR EL HECHO POR CUMPLIDO (2026-08-21)
 
-**El fallo, y lo canta el oído antes que la gramática:** puse *"lo último que me esperaba **era reescribir** el mundo de las ventas"*. Iker: *"estás diciendo que ya lo has hecho cuando no es verdad"*. **Y tenía razón: `era reescribir` es un atributo cerrado, cuenta un hecho consumado.** El gancho de promesa (`§2.0`, cargado en el futuro) vive de que **algo está a punto de pasar**; si el verbo lo da por hecho, se cae el bucle entero y encima afirmamos algo que todavía no ha ocurrido, que es la línea que no cruzamos.
+**El fallo, y lo canta el oído antes que la gramática:** puse *"lo último que me esperaba **era reescribir** el mundo de las ventas"*. El equipo: *"estás diciendo que ya lo has hecho cuando no es verdad"*. **Y tenía razón: `era reescribir` es un atributo cerrado, cuenta un hecho consumado.** El gancho de promesa (`§2.0`, cargado en el futuro) vive de que **algo está a punto de pasar**; si el verbo lo da por hecho, se cae el bucle entero y encima afirmamos algo que todavía no ha ocurrido, que es la línea que no cruzamos.
 
 **LA MECÁNICA, y es lo único que hay que recordar: el superlativo mira ATRÁS, el claim mira ADELANTE.** Los dos tiempos conviven en la misma frase y cada uno hace su trabajo:
 
@@ -875,7 +875,7 @@ Ruptura de patrón · Rompe creencias · Dato impactante · Intriga (curiosity g
 
 **Corolario de `§2.2c` que merece nombre propio, porque la palabra que sobra casi nunca es un sustantivo: es una preposición o un artículo.** Son invisibles al releer y son las que meten micro-pausas en la frase que más rápido se lee de todo el post.
 
-**El caso:** entregué *"saltándome **a** medio barrio"* y lo cazó Iker: *"la duda es esa preposición de a, que no sé si la veo bien"*. Tenía razón. **Gramaticalmente la `a` es defendible** (`saltarse a alguien`, con `medio barrio` leído como colectivo de personas), **pero no aporta nada y frena**: `medio barrio` funciona igual como lugar y la frase corre. Fuera.
+**El caso:** entregué *"saltándome **a** medio barrio"* y lo cazó el equipo: *"la duda es esa preposición de a, que no sé si la veo bien"*. Tenía razón. **Gramaticalmente la `a` es defendible** (`saltarse a alguien`, con `medio barrio` leído como colectivo de personas), **pero no aporta nada y frena**: `medio barrio` funciona igual como lugar y la frase corre. Fuera.
 
 **Y la otra tijera del mismo día:** `la mitad de los` → **`medio`**. Significan exactamente lo mismo y una ocupa 11 caracteres menos. `Mi primera venta la cerré saltándome medio barrio` (51 car) contra la primera versión (73). **22 caracteres, cero ideas perdidas, tres rondas de tijera.**
 
@@ -904,7 +904,7 @@ Cuando tengas 2+ frases que sean estructura paralela, enumeración, dato+consecu
 
 **Si un detalle del gancho no aporta gracia pero sí estrecha el publico, se quita.** Doble ganancia: menos palabras y mas gente que se ve reflejada.
 
-**El caso:** yo arrastraba `al correo` del original porque estaba en el texto literal. Iker: *"la rabia te da que te manden un codigo, la parte del correo es un poco sin mas"*. Y ademas **el codigo te puede llegar por SMS**, asi que nombrar el correo dejaba fuera a la mitad. Quitarlo no toca la esencia y amplia el alcance.
+**El caso:** yo arrastraba `al correo` del original porque estaba en el texto literal. El equipo: *"la rabia te da que te manden un codigo, la parte del correo es un poco sin mas"*. Y ademas **el codigo te puede llegar por SMS**, asi que nombrar el correo dejaba fuera a la mitad. Quitarlo no toca la esencia y amplia el alcance.
 
 **⚠️ Ojo, esto NO contradice copiar la esencia palabra por palabra** (`post-workflow §4.4-ESENCIA`). Se copia **lo que HACE el chiste** (`codigo de verificacion`) y se puede soltar **el atrezo que lo acompaña** (`al correo`). La prueba: quitalo y pregunta si el chiste sigue igual de bueno. Si sigue igual, sobraba.
 
@@ -925,7 +925,7 @@ Cuando tengas 2+ frases que sean estructura paralela, enumeración, dato+consecu
 - Lo vigila `validar-post.py` (`Al menos un bloque de DOS`).
 - **⭐ UNA FRASE POR LÍNEA. Si hay un punto en medio, se corta ahí (2026-07-27).** *"Yo eso no lo hago en la vida."* Meter dos frases en la misma línea (*"Buscar a mano no te hace mejor comercial. Solo te deja sin mañana."*) rompe el ritmo y delata que el bloque se montó a ojo. Cada punto es un salto de línea.
 - **⛔ CADA LÍNEA DE UN BLOQUE DE 2 O DE 3 ES UNA ORACIÓN CERRADA (2026-10-21) — GLOBAL.** *"Nosotros nunca dividimos una oración en 3 líneas como bloque de 3. Cada línea de un bloque de 3 tiene que cerrarse… queda rarísimo"*. El caso: en la historia del tercer jefe del 22/10 partí la cita literal de un cliente en tres líneas para tener el bloque de tres. El bloque de tres se busca en otro sitio, con tres oraciones independientes. **Mecanizado** como fallo duro en `validar-post.py` (`Cada linea de un bloque de 2 o 3 es una oracion cerrada`: línea que acaba en coma o punto y coma, o seguida de otra que arranca en minúscula); medido sobre 185 posts publicados desde abril, solo lo llevan dos lead magnets de mayo. El borrador está en `scripts/test-borradores-tumbados.py`.
-- **⛔ EL RITMO SE CUENTA EN LÍNEAS PINTADAS, NO EN LÍNEAS ESCRITAS (2026-10-21) — y corrige lo que puse justo arriba.** Mi arreglo fue meter la cita entera (185 caracteres) en una sola línea "suelta". Iker: *"en la preview ya se me divide en dos líneas… en LinkedIn va a ocupar dos o tres, que es como si fuese un bloque… tiene muy pocas líneas individuales"*. LinkedIn pinta ~78 caracteres por línea en escritorio (medido por el compañero de marketing el 02/10) y ~55 en el móvil (`§4.4b-FORMA`): esa cita se ve como un bloque de 3 en escritorio y de 4 en el móvil, pegada a un bloque de 2 y a uno de 3. **La regla:** una línea suelta tiene que VERSE suelta, o sea quedarse en ~80 caracteres. **Una cita larga se recorta a su trozo literal con `…`** donde se quita texto (`"Es mucho de olfato… y para mí eso es muy peligroso", me soltó el jefe.`): las palabras siguen siendo del cliente y la elipsis dice que hay un corte. **🔄 28/10: la puntuación de la cita se adapta a lo que dice, no es una plantilla.** Los `…` del final solo van si la frase queda colgando (una enumeración, una idea que sigue); si el trozo se cierra con sentido, punto. Si es una pregunta o una exclamación, sus dos signos, el de abrir y el de cerrar. Un corte por delante no lleva `…` al principio: la cita empieza en mayúscula. Si la cita no se puede recortar sin cambiarle el sentido, se busca otra. **Mecanizado** como fallo duro en historia y aviso en el resto (`RITMO VISUAL`: cada bloque se mide en líneas pintadas y dos bloques visuales de 2+ no van seguidos). Medido el 21/10 sobre las 45 historias publicadas: lo incumplen 14, y las de la receta actual que lo hacen son historias/evento de 1.611-4.406 impresiones; las de más alcance (37.150, 20.491, 16.6k) lo cumplen.
+- **⛔ EL RITMO SE CUENTA EN LÍNEAS PINTADAS, NO EN LÍNEAS ESCRITAS (2026-10-21) — y corrige lo que puse justo arriba.** Mi arreglo fue meter la cita entera (185 caracteres) en una sola línea "suelta". El equipo: *"en la preview ya se me divide en dos líneas… en LinkedIn va a ocupar dos o tres, que es como si fuese un bloque… tiene muy pocas líneas individuales"*. LinkedIn pinta ~78 caracteres por línea en escritorio (medido por el compañero de marketing el 02/10) y ~55 en el móvil (`§4.4b-FORMA`): esa cita se ve como un bloque de 3 en escritorio y de 4 en el móvil, pegada a un bloque de 2 y a uno de 3. **La regla:** una línea suelta tiene que VERSE suelta, o sea quedarse en ~80 caracteres. **Una cita larga se recorta a su trozo literal con `…`** donde se quita texto (`"Es mucho de olfato… y para mí eso es muy peligroso", me soltó el jefe.`): las palabras siguen siendo del cliente y la elipsis dice que hay un corte. **🔄 28/10: la puntuación de la cita se adapta a lo que dice, no es una plantilla.** Los `…` del final solo van si la frase queda colgando (una enumeración, una idea que sigue); si el trozo se cierra con sentido, punto. Si es una pregunta o una exclamación, sus dos signos, el de abrir y el de cerrar. Un corte por delante no lleva `…` al principio: la cita empieza en mayúscula. Si la cita no se puede recortar sin cambiarle el sentido, se busca otra. **Mecanizado** como fallo duro en historia y aviso en el resto (`RITMO VISUAL`: cada bloque se mide en líneas pintadas y dos bloques visuales de 2+ no van seguidos). Medido el 21/10 sobre las 45 historias publicadas: lo incumplen 14, y las de la receta actual que lo hacen son historias/evento de 1.611-4.406 impresiones; las de más alcance (37.150, 20.491, 16.6k) lo cumplen.
 - **⭐ LA FRASE DE DESPUES DEL HOOK VA SUELTA, NUNCA EN BLOQUE (2026-07-29).** Justo despues del gancho toca **una linea individual**. Un bloque ahi queda mal: el lector viene de abrir el "ver mas" y lo primero que se encuentra es un muro. El primer bloque va **despues** de esa linea suelta.
 - **⭐ UN BLOQUE COMPARTE TEMA, no solo forma (2026-07-29).** Dos frases seguidas no son un bloque por estar pegadas: **un bloque de 2 o de 3 habla de UNA sola cosa**, y por eso lleva anafora. Si las dos lineas van de temas distintos (el tono con el que te lo dijeron y lo que opinaba del producto), o se reescriben para compartir tema o se dejan sueltas. **Fallo real de ese dia:** yo pegue *"Sin maldad ninguna, que es lo que mas me marco"* con *"El producto le resolvia el problema"* — dos temas. Arreglado con anafora y un tema unico, lo que NO fue el problema: *"No tenia ni una pega del producto. Lo reconocio el." / "No lo dijo con mala intencion, que es lo que mas me marco."*
 - **⭐ ESCALERA ASCENDENTE POR DEFECTO en el bloque de 2 (2026-07-27):** primera línea **corta**, segunda **más larga**. La invertida sigue siendo válida (§3.2), pero cuando puedas elegir, sube. Ej. bueno: *"Buscar a mano no te hace mejor comercial."* (41) → *"Solo te deja sin mañana y sin una llamada hecha."* (48).
@@ -1200,7 +1200,7 @@ Corre estas puertas EN ORDEN:
 > **La frontera, que es lo único que hay que tener claro:** se aplica a las cifras que **elegimos**, no a las que **verificamos**. Un dato real no se toca jamás para que quede impar — eso sería inventarse el dato, que es la línea que no se cruza (`aboutme`). Si Navarra exporta 9.444,2 M€, van 9.444,2. Si el mapa tiene 12 empresas, son 12.
 > - **Elegida** (va impar): la hora de una escena, el nº de puntos de una lista, "las 25 empresas", un plazo, una edad inventada.
 > - **Verificada** (va como es): exportaciones, facturación, nº real de menciones, impresiones, porcentajes con fuente.
-> - **Caso del 14/08:** *"Plantarte en su portal a las 8"* → **a las 9**. Iker: *"a las 7 de la mañana o a las 5 lo veo excesivo, pero a las 9 sí"*. O sea que impar **y** creíble: el realismo manda sobre la manía del impar, y de los impares creíbles se coge el que mejor suene.
+> - **Caso del 14/08:** *"Plantarte en su portal a las 8"* → **a las 9**. El equipo: *"a las 7 de la mañana o a las 5 lo veo excesivo, pero a las 9 sí"*. O sea que impar **y** creíble: el realismo manda sobre la manía del impar, y de los impares creíbles se coge el que mejor suene.
 
 **Impares.** Esta medido fuera que los numeros impares generan mas clics que los redondos: 25 se lee como una cuenta real, 50 como una estimacion de marketing. `§2.5` limitaba a UNA cifra en el hook pero no decia nada de que cifra. **No lo teniamos escrito en ninguna receta.**
 
@@ -1235,9 +1235,9 @@ Corre estas puertas EN ORDEN:
 
 > **⚖️ El límite (2026-10-27): explícito es lo que le quita una duda AL LECTOR, no lo que nos justifica a nosotros.** Antes de añadir un dato, pregúntate qué gana el lector con él. Si solo sirve para demostrar de dónde lo sacamos, sobra. **Y lo que nos pone en riesgo no se escribe aunque sea verdad:** que una cita de un cliente o de una empresa que nos estaba valorando sale de una demo, una reunión o una llamada de venta (se lee como que contamos lo que nos dicen en privado). Caso: `Se lo oyó mi socio en una demo` en la historia del tercer jefe del 27/10, que además sonaba mal; quedó `Mi socio le preguntó qué le faltaba para llegar.` Regla en `post-workflow §4.6` punto 1b-TER y fallo en `validar-post.py`.
 
-> **Caso del 30/09 (Iker: *"siempre sueles fallar en lo de ser explícito"*):** en la historia de la alarma escribí `en Neety Forward` dando por hecho que se sabe qué es. Un nombre propio nuestro va con su categoría pegada: `el evento Neety Forward`, `@Neety, nuestro software`. **🔁 Reincidido el 15/10** (`nos lo contó en Neety Forward` a secas, en la entrevista de Telmo): **mecanizado** como fallo duro en `validar-post.py` (`Neety Forward va con su categoria`). Y `software` ya no: `@Neety, nuestra herramienta` (`brand-voice §2b`). Lo mismo que `anuncio` en el gancho: la palabra que dice qué es la cosa se escribe.
+> **Caso del 30/09 (El equipo: *"siempre sueles fallar en lo de ser explícito"*):** en la historia de la alarma escribí `en Neety Forward` dando por hecho que se sabe qué es. Un nombre propio nuestro va con su categoría pegada: `el evento Neety Forward`, `@Neety, nuestro software`. **🔁 Reincidido el 15/10** (`nos lo contó en Neety Forward` a secas, en la entrevista de Telmo): **mecanizado** como fallo duro en `validar-post.py` (`Neety Forward va con su categoria`). Y `software` ya no: `@Neety, nuestra herramienta` (`brand-voice §2b`). Lo mismo que `anuncio` en el gancho: la palabra que dice qué es la cosa se escribe.
 
-> **Iker:** *"falta explícitamente tal cual poner que vamos a hacer un evento, y encima presencial. Elena pone que el 1 de abril van a hacer una sesión live. Hay que ser más explícito, y últimamente te está costando, y no hay que dejar la duda ni confusiones, porque nuestro público es mayor y se pueden confundir"*.
+> **El equipo:** *"falta explícitamente tal cual poner que vamos a hacer un evento, y encima presencial. Elena pone que el 1 de abril van a hacer una sesión live. Hay que ser más explícito, y últimamente te está costando, y no hay que dejar la duda ni confusiones, porque nuestro público es mayor y se pueden confundir"*.
 
 **La regla de aquí arriba era del SUSTANTIVO DE UNA CIFRA. El vicio es más ancho y es siempre el mismo: por caber en el tope de caracteres, tacho la palabra que quitaba la duda.** El validador la da por buena porque la frase sigue siendo gramatical, y el lector se queda adivinando.
 
@@ -1292,7 +1292,7 @@ Corre estas puertas EN ORDEN:
 ORIGINAL  hook 34 car | 1 frase  | emoji 🤣
 EL MIO    hook 62 car | 2 frases | emoji 👇
 ```
-Iker: *"todo lo queremos validar en datos. En las referencias igual: analiza su ritmo, su lenguaje, sus conjugaciones, su longitud, sus emojis, todo. Y copiamos y mejoramos."*
+El equipo: *"todo lo queremos validar en datos. En las referencias igual: analiza su ritmo, su lenguaje, sus conjugaciones, su longitud, sus emojis, todo. Y copiamos y mejoramos."*
 
 - **Longitud del gancho.** El ingles dice lo mismo con menos, asi que hay margen, **pero no el DOBLE**.
 - **Numero de frases del gancho.** Una frase es una frase; partirla en dos se carga el golpe seco.
@@ -1658,7 +1658,7 @@ El resto, con ninja dentro .......   370 clics  ->  15 asistentes
 
 ##### ⛔⛔ 4.4b-UTM-FECHA · LA FECHA DEL UTM SALE DEL RELOJ, NUNCA DEL CONTEXTO QUE ESTABA LEYENDO (2026-08-27) — GLOBAL
 
-> **Iker:** *"me parece muy bien que en el enlace hayas metido los UTM, pero hoy es 27 de agosto: tienes que revisar muy bien y no hardcodear la fecha del UTM de ayer, sino la del día real en el que estamos hablando"*.
+> **El equipo:** *"me parece muy bien que en el enlace hayas metido los UTM, pero hoy es 27 de agosto: tienes que revisar muy bien y no hardcodear la fecha del UTM de ayer, sino la del día real en el que estamos hablando"*.
 
 **Qué pasó:** entregué un post el **27** con `utm_campaign=meme-aura-26ago`. No lo inventé de la nada — **arrastré el `26` del `historial-publicaciones.md` que estaba leyendo**, donde los posts de esa semana son del 26. Y es el peor modo de fallo posible porque **el UTM no se ve en el feed**: LinkedIn lo acorta a `lnkd.in`, así que nadie lo revisa nunca más y el dato queda torcido para siempre.
 
@@ -1734,7 +1734,7 @@ botón → luma.com/...?utm_source=recursos-agendar--meme-recepcion-16sep-iker
 
 **Comprobado en el navegador, no de oídas:** aterrizando en `/mapas/bizkaia/?utm_source=linkedin&utm_campaign=mapa-bizkaia-02sep&utm_content=asier` y navegando después a `/agendar/` con la URL limpia, la atribución llega intacta.
 
-**🔒 DESDE EL 29/09 UN UTM DE POST NO SE PIERDE NUNCA (Iker: *"no quiero que nunca se pierdan UTMs, para saber perfectamente qué genera cada post"*), `attr.js?v=4`.** El "primero de la sesión manda" perdía dos casos: quien entraba antes en la misma pestaña sin UTM y luego llegaba desde un post, y quien pinchaba el post, cerraba y volvía otro día. Reglas ahora: **(1)** la URL con UTM manda siempre y entre dos posts gana el último; **(2)** nada sin UTM (interno, referer, directo) pisa un post guardado; **(3)** con consentimiento de estadística de Cookiebot se recuerda 30 días el último post (`localStorage`, `neety:attr_last`) y rechazar lo borra; **(4)** si no, el referer. Probado en local y en producción. **Lo que sigue sin poder cubrirse, y es legal o físico, no un fallo:** quien rechaza cookies y vuelve otro día, y quien cambia de dispositivo. **Para probarlo a mano:** pestaña de incógnito.
+**🔒 DESDE EL 29/09 UN UTM DE POST NO SE PIERDE NUNCA (El equipo: *"no quiero que nunca se pierdan UTMs, para saber perfectamente qué genera cada post"*), `attr.js?v=4`.** El "primero de la sesión manda" perdía dos casos: quien entraba antes en la misma pestaña sin UTM y luego llegaba desde un post, y quien pinchaba el post, cerraba y volvía otro día. Reglas ahora: **(1)** la URL con UTM manda siempre y entre dos posts gana el último; **(2)** nada sin UTM (interno, referer, directo) pisa un post guardado; **(3)** con consentimiento de estadística de Cookiebot se recuerda 30 días el último post (`localStorage`, `neety:attr_last`) y rechazar lo borra; **(4)** si no, el referer. Probado en local y en producción. **Lo que sigue sin poder cubrirse, y es legal o físico, no un fallo:** quien rechaza cookies y vuelve otro día, y quien cambia de dispositivo. **Para probarlo a mano:** pestaña de incógnito.
 
 **📌 Para el próximo que añada un botón a la web:** antes de pegarle un UTM, la única pregunta es **¿este enlace sale de neety.com?** Si la respuesta es no, no lleva UTM y se mide con un evento.
 
@@ -1976,7 +1976,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 > 🔄 **CADUCADA EL 28/10 (02/11): lo que sigue es el registro del webinar 1, no regla vigente; el destino se razona en `post-workflow §8.1b`.** Lo que no dependía del webinar (el veto a `online` y que `videollamada` se lee más pobre que `evento`) sigue vivo y está en `§4.4b-FORMATO-EVENTO`, justo después de esta sección. Para el próximo evento por internet, esta sección sirve de molde, no de regla.
 
-> **Iker:** *"vamos a cambiar a partir de ahora el spam ninja hasta la fecha del evento… al ser online abrimos el público objetivo muchísimo más, bajamos al máximo la barrera de entrada. Ahora cualquiera puede acudir"*.
+> **El equipo:** *"vamos a cambiar a partir de ahora el spam ninja hasta la fecha del evento… al ser online abrimos el público objetivo muchísimo más, bajamos al máximo la barrera de entrada. Ahora cualquiera puede acudir"*.
 
 **Los datos (leídos de la API de Luma el 08/10, `curl -s "https://api.lu.ma/url?url=7hhyx07z"`):** `Cómo detectar con IA los clientes que tardas meses en encontrar` · **miércoles 28 de octubre, 10:00-11:00 hora de España** (30 min más preguntas) · **online por Google Meet** · **gratis, sin aprobación y sin aforo** · `https://luma.com/7hhyx07z`. El contenido es la escalera de la descripción: gratis con LinkedIn, con Claude y poco presupuesto, con Neety.
 
@@ -2020,7 +2020,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
    Cuáles te comprarían, te lo enseñamos nosotros: {link}
 ```
 
-**⛔ 19/10, CORREGIDO CON DATOS: MIENTRAS HAY UN EVENTO ABIERTO, EL MAPA LLEVA EL EVENTO EN EL TEXTO Y EL ENLACE A LUMA.** El mapa de la Comunidad Valenciana del primer jefe (16/10) hizo **165.246 impresiones y 179 clics al blog, y ni un solo inscrito**: el texto no nombraba la sesión y la banda de la página no la pulsó nadie con UTM. Su CTR (0,108%) es además el más bajo de los mapas (0,17-0,41%): quien entra, entra a ver el mapa. El mapa de Álava, que fue directo a Luma con la línea de contexto (22/09), trajo 3 inscritos con 30.144 impresiones. Iker: *"en una empresa lo que interesa, y sobre todo estas semanas, es generar asistentes… no puede ser que un post tan viral no haya generado ni un asistente"*. **Regla mientras dure el evento:** línea de contexto del evento + bloque de 2 con el enlace de Luma en lugar de `Mapa completo aquí`; el mapa del blog se queda para cuando no hay evento. Lo de abajo queda como historia de la decisión del 08/10.
+**⛔ 19/10, CORREGIDO CON DATOS: MIENTRAS HAY UN EVENTO ABIERTO, EL MAPA LLEVA EL EVENTO EN EL TEXTO Y EL ENLACE A LUMA.** El mapa de la Comunidad Valenciana del primer jefe (16/10) hizo **165.246 impresiones y 179 clics al blog, y ni un solo inscrito**: el texto no nombraba la sesión y la banda de la página no la pulsó nadie con UTM. Su CTR (0,108%) es además el más bajo de los mapas (0,17-0,41%): quien entra, entra a ver el mapa. El mapa de Álava, que fue directo a Luma con la línea de contexto (22/09), trajo 3 inscritos con 30.144 impresiones. El equipo: *"en una empresa lo que interesa, y sobre todo estas semanas, es generar asistentes… no puede ser que un post tan viral no haya generado ni un asistente"*. **Regla mientras dure el evento:** línea de contexto del evento + bloque de 2 con el enlace de Luma en lugar de `Mapa completo aquí`; el mapa del blog se queda para cuando no hay evento. Lo de abajo queda como historia de la decisión del 08/10.
 
 **⭐ EL MAPA SE QUEDA CON EL ULTRA NINJA Y EL WEBINAR SE VENDE EN SU PÁGINA (08/10).** El post del mapa lleva `Mapa completo aquí: {link}` a `neety.com/blog/mapa-industrial-<región>` y **no** el enlace de Luma: el ultra ninja es el que más clics ha dado al peloteo (`/mapas/` 0,27-0,42% de CTR) y el único mapa que fue directo a Luma, Álava 22/09, se quedó en 0,177%. La sesión la vende la página: **`WebinarBand`** (repo `landing`, `components/WebinarBand.tsx`) va justo debajo del mapa y sus cifras en los 15 posts-mapa, al final de los artículos del blog y en `/solicitar-demo` solo bajo el formulario y en el acuse de quien no cualifica (nunca delante del calendario). UTM `utm_source=web-<ubicación>`, clic medido como `cta_evento` en GA4, y caducaba sola al acabar la sesión (🔄 02/11: se apagó sola el 28/10 a las 11:00, como estaba previsto). Era el mismo reparto que la banda de Neety Forward en recursos (agosto-septiembre).
 
@@ -2063,7 +2063,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 - **⛔ La línea NO sustituye al bloque de dos ni lo toca.** Sigue siendo `carencia / la cubre` con sus 55 caracteres y la palabra del gancho dentro (`§4.4b-BLOQUE`). Lo que se añade es la línea suelta de encima, que además rompe el pasillo de ritmo.
 - **⛔ Y no se convierte en el anuncio.** Una línea, informativa, y se acabó: si detrás va el programa o los ponentes, se cae el motor (`§4.4b`, vende la sala).
-- **⏳ CADUCA SOLA EL 24/09/2026.** Iker: *"dentro de un mes lo dejaremos de hacer, evento ya pasado"*. **El check lleva la fecha dentro y deja de correr ese día**; cuando pase, esta sección se borra entera en vez de quedarse de fósil.
+- **⏳ CADUCA SOLA EL 24/09/2026.** el equipo: *"dentro de un mes lo dejaremos de hacer, evento ya pasado"*. **El check lleva la fecha dentro y deja de correr ese día**; cuando pase, esta sección se borra entera en vez de quedarse de fósil.
 
 ##### ⏳⏳ 4.4b-EVENTO-FECHA · LA FECHA VA CONCRETA Y CON SU DÍA DE LA SEMANA, NUNCA "LA SEMANA QUE VIENE" (2026-09-15)
 
@@ -2130,7 +2130,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 #### ⛔⛔ 4.4b-FORMA · DOS LÍNEAS PEGADAS Y SIGUIENDO LA BROMA DEL GANCHO. SIEMPRE, EN TODOS LOS PILARES (2026-08-12)
 
-**La forma del ninja no es de un pilar. Es global**, y se rompió en dos pilares distintos la misma semana. Iker: *"si el gancho de ayer era de los calvos, deberíamos seguir la broma de eso en el spam ninja"*.
+**La forma del ninja no es de un pilar. Es global**, y se rompió en dos pilares distintos la misma semana. El equipo: *"si el gancho de ayer era de los calvos, deberíamos seguir la broma de eso en el spam ninja"*.
 
 ```
 ✅ BIEN — dos líneas, un solo salto entre ellas
@@ -2170,7 +2170,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 | 06/08 el primer jefe (vender es un caos) | 95.913 | **6,0** | **4** | 0,004% | línea suelta, broma nueva sin recoger |
 | 12/08 el tercer jefe (los calvos) | 58.925 | 3,7 | 17 | 0,029% | línea suelta, broma nueva sin recoger |
 
-**⭐ LA PARADOJA QUE LO DESTAPÓ, y es de Iker:** *"¿por qué hemos mejorado todas las métricas y no los clics?"*. El engagement por mil impresiones se ha **multiplicado por casi 4** (1,6 → 6,0 de julio a agosto) y los clics han caído de 76-142 a 4-17. **Un post que gusta más y se pincha menos no es un misterio del algoritmo: es que la puerta está peor puesta.** Los dos mejores posts de agosto en interacción son los dos peores del año en clics, y los dos llevan el enlace en una línea suelta.
+**⭐ LA PARADOJA QUE LO DESTAPÓ, y es del equipo:** *"¿por qué hemos mejorado todas las métricas y no los clics?"*. El engagement por mil impresiones se ha **multiplicado por casi 4** (1,6 → 6,0 de julio a agosto) y los clics han caído de 76-142 a 4-17. **Un post que gusta más y se pincha menos no es un misterio del algoritmo: es que la puerta está peor puesta.** Los dos mejores posts de agosto en interacción son los dos peores del año en clics, y los dos llevan el enlace en una línea suelta.
 
 **POR QUÉ FUNCIONA EL BLOQUE DE DOS, para no "simplificarlo" otra vez:** la línea de arriba es el **peaje emocional**. Sin ella el enlace aparece después de un blanco, aislado, y se lee como el banner de un anuncio, que es exactamente lo que el ojo ya sabe saltarse. Pegado a la broma se lee como el remate del chiste, y al remate del chiste no se le hace scroll.
 
@@ -2189,7 +2189,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 ##### 🎯 ¿Y SI EL POST NO TIENE BROMA? SE SIGUE LO MÁS PUNCHY DEL GANCHO: SU OBJETO Y SU VERBO (2026-08-12)
 
-**Media parrilla no es meme.** Una historia, un mapa o un despiece no llevan chiste, y ahí la regla de arriba se quedaba coja: "seguir la broma" no se puede cumplir si no hay broma, y por ese hueco se cuela la frase de catálogo. Iker: *"si no hay broma, pues aprovechar y seguir lo más punchy del gancho en el spam ninja"*.
+**Media parrilla no es meme.** Una historia, un mapa o un despiece no llevan chiste, y ahí la regla de arriba se quedaba coja: "seguir la broma" no se puede cumplir si no hay broma, y por ese hueco se cuela la frase de catálogo. El equipo: *"si no hay broma, pues aprovechar y seguir lo más punchy del gancho en el spam ninja"*.
 
 **Lo más punchy de un gancho son siempre las mismas dos piezas** (`§2.0a`, que pide objeto físico + verbo con techo): **el OBJETO que pinta la imagen mental y el VERBO que frena el scroll.** Esas dos son las que se recogen.
 
@@ -2212,7 +2212,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 ❌ Saber quién firma dentro es lo que cuesta meses: https://…        (solo dolor, sin solución)
 ❌ Dar con las empresas es fácil. Saber quién firma, no. https://…   (dos oraciones)
 ```
-**Antes esto se hacía en DOS oraciones y con eso se cumplía, pero era largo.** El trabajo ahora es meter las dos mitades en UNA sola y corta: dolor, coma, y quién lo resuelve. Iker: *"el único error que hacías antes es que lo decías muy largo y en dos oraciones; dilo más corto y en solo una"*.
+**Antes esto se hacía en DOS oraciones y con eso se cumplía, pero era largo.** El trabajo ahora es meter las dos mitades en UNA sola y corta: dolor, coma, y quién lo resuelve. El equipo: *"el único error que hacías antes es que lo decías muy largo y en dos oraciones; dilo más corto y en solo una"*.
 
 **⛔ EL FORMATO EXACTO DEL NINJA: UNA SOLA ORACIÓN + DOS PUNTOS + ENLACE, TODO PEGADO (2026-08-07).**
 🔄 Superado el 27/08 por `§4.4b-MOLDE` (bloque de DOS líneas ≤55, el enlace en la 2) y el 05/10 por `aboutme §1` (destino `https://neety.com/solicitar-demo`; el enlace del ejemplo se ha actualizado).
@@ -2221,7 +2221,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 ❌ Dar con estas 12 es lo fácil. Saber quién firma dentro, no. https://…   (DOS oraciones y el enlace)
 ❌ Dar con estas 12 es lo fácil.⏎⏎https://…                                (el enlace suelto en su línea)
 ```
-- **Da igual que esa línea caiga a dos líneas en el móvil.** Iker: *"me da igual que la frase con el enlace caiga a 2 líneas, lo que NO quiero son 2 oraciones y el enlace todo junto"*. Es la única excepción al ancho de línea de `§3.2`, porque la URL mide lo que mide.
+- **Da igual que esa línea caiga a dos líneas en el móvil.** el equipo: *"me da igual que la frase con el enlace caiga a 2 líneas, lo que NO quiero son 2 oraciones y el enlace todo junto"*. Es la única excepción al ancho de línea de `§3.2`, porque la URL mide lo que mide.
 - **🔴 Y esto ya se hacía bien: lo rompí yo el 07/08.** Escribí que *"el enlace va SIEMPRE en línea individual porque la URL es lo único que no puedo acortar"*, y era una deducción mía disfrazada de regla (`working-preferences §0c`). Iker no lo había pedido nunca. **Cuidado con las reglas que suenan razonables y no vienen de él ni de un dato.**
 
 **Qué es:** 🔄 Superado el 05/10 por `aboutme §1`: la puerta de agendar es `https://neety.com/solicitar-demo` (antes `recursos.neety.com/agendar/`). El link de agendar (`https://neety.com/solicitar-demo`, `aboutme §1`) tejido DENTRO del cuerpo con gracia. **No es el cierre** y no consume la regla del UNO (§4.5): el post cierra después con un bold statement aparte.
@@ -2230,7 +2230,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > **El punto de dolor está cerrado y no se toca:** desde el informe de las 50 demos sabemos que lo que compran es **encontrar al cliente ideal, la empresa Y la persona que decide dentro**. Ya no se habla del "momento adecuado" ni de la señal: eso era lo que creíamos nosotros, no lo que dicen ellos (`project-diferenciador-real-clientes`).
 >
-> **Pero la FORMA rota en cada publicación.** Iker, textual: *"seguro que hay miles de variantes, no puede ser que siempre me digas es dar con el que decide"*. Un cierre calcado hace que **la publicación nueva no se note nueva**, que es exactamente lo contrario de para lo que existe.
+> **Pero la FORMA rota en cada publicación.** el equipo, textual: *"seguro que hay miles de variantes, no puede ser que siempre me digas es dar con el que decide"*. Un cierre calcado hace que **la publicación nueva no se note nueva**, que es exactamente lo contrario de para lo que existe.
 >
 > **La mejor variante es la que cuelga de la BROMA DEL GANCHO**, no una frase de catálogo. Si el post va de un tatuaje, el spam ninja habla de tatuajes:
 > > `Tatuarse es lo fácil. Lo caro es saber de quién tiene que ser el logo.`
@@ -2267,7 +2267,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > ### 🏅 LO QUE YA HACÍA UNAI Y HABÍAMOS PERDIDO (recuperado el 2026-08-05 del cajón `otro`)
 >
-> Al crear el pilar aparecieron **7 posts de evento y premio** clasificados como `otro`. Iker: *"ahí hacía conceptos muy originales, porque de por sí sabía que la publicación de evento no le interesa a nadie"*. Tenía razón, y de esos posts salen **tres reglas que ninguna receta tenía escritas**:
+> Al crear el pilar aparecieron **7 posts de evento y premio** clasificados como `otro`. El equipo: *"ahí hacía conceptos muy originales, porque de por sí sabía que la publicación de evento no le interesa a nadie"*. Tenía razón, y de esos posts salen **tres reglas que ninguna receta tenía escritas**:
 >
 > **1. EL EVENTO ES EL DECORADO, NO EL TEMA.** El post va de una **lección que le sirve al lector**; el evento solo es dónde pasó.
 > > *"Ganamos una final nacional con solo 4 minutos para vendernos. **Y lo que aprendí no va de vender** 👇"*
@@ -2317,7 +2317,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 >
 > **El motor es LA SALA.** No el programa, no los ponentes, no la agenda. Cuenta **quién está dentro y por qué se ha elegido a mano**. Es de otro sector (eventos de IA y VC), así que no copiamos a nadie de ventas y no hace falta acreditar (`--referencia-fuera`).
 >
-> **🔴🔴 CORRECCIÓN DEL MISMO DÍA, Y ES A ESTA REGLA DE AQUÍ ABAJO: "DESPUÉS EL AFORO" NO SIGNIFICA QUE LA LÍNEA 2 SEA EL AFORO.** Escribí esto por la mañana y por la tarde me llevó a entregar `Un post no te sienta en la sala con los que compran. / Solo hay 80 plazas y las elegimos una a una:`. Iker: *"esa segunda línea tiene que seguir la narrativa y solucionar el punto de dolor de la primera"*.
+> **🔴🔴 CORRECCIÓN DEL MISMO DÍA, Y ES A ESTA REGLA DE AQUÍ ABAJO: "DESPUÉS EL AFORO" NO SIGNIFICA QUE LA LÍNEA 2 SEA EL AFORO.** Escribí esto por la mañana y por la tarde me llevó a entregar `Un post no te sienta en la sala con los que compran. / Solo hay 80 plazas y las elegimos una a una:`. El equipo: *"esa segunda línea tiene que seguir la narrativa y solucionar el punto de dolor de la primera"*.
 > - **El fallo de fondo: hay DOS moldes y apliqué solo uno.** El del EVENTO (`§4.4b`, Grace Gong: sala + aforo + fricción) dice **qué información va**; el del NINJA (`§4.4b-BLOQUE`: la 1 nombra la carencia, la 2 la cubre) dice **qué papel hace cada línea**. Al venir el enlace de Luma me fui entero al primero y me salté el segundo.
 > - **La línea 2 nunca es "el dato que falta": es LA COBERTURA de lo que la 1 dice que falta.** El aforo cabe dentro de ella, pero **formulado como cobertura**, no como ficha:
 > ```
@@ -2331,7 +2331,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 > - **El test de los 5 segundos lo caza:** ¿la línea 2 valdría pegada a cualquier otro post nuestro? `Solo hay 80 plazas` sí ⛔. `A esa sala solo entran 80 personas` no ✅.
 >
 > **⛔⛔ Y EN EL NINJA DE DOS LÍNEAS EL ORDEN ES: PRIMERO QUIÉN ESTÁ DENTRO, DESPUÉS EL AFORO (2026-08-27).** Las 4 piezas de abajo son para un POST de evento entero. Cuando el evento viaja dentro de otro pilar (`§4.4b`, el enlace de Luma ocupa el hueco del ninja), hay que meterlas en **dos líneas**, y ahí es donde se pierde el valor.
-> - **El fallo:** entregué `Un post nunca nos sienta en la misma sala. / Solo hay 80 plazas y se piden una a una:`. Iker: *"no creo que estemos explicando bien el valor que va a tener para la gente asistir al evento"*. **Las dos líneas vendían la PUERTA y ninguna la HABITACIÓN.**
+> - **El fallo:** entregué `Un post nunca nos sienta en la misma sala. / Solo hay 80 plazas y se piden una a una:`. El equipo: *"no creo que estemos explicando bien el valor que va a tener para la gente asistir al evento"*. **Las dos líneas vendían la PUERTA y ninguna la HABITACIÓN.**
 > - **La escasez sin valor es una puerta cerrada sin nada detrás.** `80 plazas` solo aprieta si antes sabes qué hay dentro; si no, es un número.
 > - **EL MOLDE:** línea 1 = **qué te llevas de la sala** (colgado de la broma del gancho); línea 2 = **cuántos caben y cómo se entra** + enlace.
 > ```
@@ -2657,7 +2657,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 > #### 🧩🧩 4.4b-TIPOS · CADA NINJA LE HABLA A UNO DE LOS 4 TIPOS DE CLIENTE, ROTAN Y SE MIDEN (2026-10-14) — GLOBAL, TODOS LOS PILARES
 >
-> **Iker:** *"que los spam ninjas ataquen a los cuatro tipos, priorizando el que vayas viendo poco a poco y autoaprendiendo en base a datos qué es el que más convierte"*. Los tipos son los eslabones de `§4.4b-CADENA`: **1** no sabe a qué empresas vender (9 cuentas, cierra 11%) · **2** sabe cuáles pero no a quién dentro (15, 20%) · **3** sabe a quién pero no cuándo (21, 10%) · **4** no tiene nada montado, se le van los meses buscando (26, 62%, 16 de los 22 clientes).
+> **El equipo:** *"que los spam ninjas ataquen a los cuatro tipos, priorizando el que vayas viendo poco a poco y autoaprendiendo en base a datos qué es el que más convierte"*. Los tipos son los eslabones de `§4.4b-CADENA`: **1** no sabe a qué empresas vender (9 cuentas, cierra 11%) · **2** sabe cuáles pero no a quién dentro (15, 20%) · **3** sabe a quién pero no cuándo (21, 10%) · **4** no tiene nada montado, se le van los meses buscando (26, 62%, 16 de los 22 clientes).
 >
 > **Dónde estábamos (auditoría del 14/10, 55 ninjas medidos desde julio):** en las 3 cuentas, los ninjas de las últimas 3 semanas hablaban al tipo 2 doce veces, al tipo 1 dos, y al 3 y al 4 una vez cada uno. El primer ninja limpio al tipo 4 con el enlace del webinar es la historia del primer jefe del 14/10 (`Un Excel así le cuesta meses de calle a cualquiera.` / `Buscar menos y vender más, eso sí te lo explicamos:`). El tipo 4 ya había salido antes, pero siempre mezclado con el 2 (`Saber quién firma lleva meses`).
 >
@@ -2674,7 +2674,7 @@ En esta sí lo hacemos y tan solo hay 80 plazas:        <- apunta al SEGUNDO, no
 
 > #### 🔀🔀 4.4b-ROTACION · EL DOLOR DEL NINJA ROTA ENTRE POSTS, Y SE MIDE (2026-10-08) — GLOBAL, TODOS LOS PILARES
 >
-> > **Iker:** *"todo el rato veo que estamos diciendo quién decide, quién decide, quién decide. Mantener el mismo punto de dolor pero variar con sinónimos, o incluso variar con los tipos de punto de dolor, no solo con el más efectivo, para seguir haciendo A/B testing"*.
+> > **el equipo:** *"todo el rato veo que estamos diciendo quién decide, quién decide, quién decide. Mantener el mismo punto de dolor pero variar con sinónimos, o incluso variar con los tipos de punto de dolor, no solo con el más efectivo, para seguir haciendo A/B testing"*.
 >
 > **Medido ese día en la BD (ninjas desde el 01/09, sin contar resubidas):** desde el 23/09, **los 12 ninjas distintos de las 3 cuentas venden el MISMO dolor** (la persona de dentro, eslabón 2 de `§4.4b-CADENA`) y **7 dicen literalmente `quien decide`**. El dolor es bueno (el mejor CTR medido, `§4.4b-MUNICIÓN-PUNCH`), pero ya no se está probando nada más.
 >
@@ -2797,7 +2797,7 @@ Te marcamos quién va a comprar y tu comercial entra solo ahí: [link]
 
 #### ⛔⛔⛔ 4.4e-UNA · UN POST, UN ENLACE. EL DOBLE BLOQUE SE RETIRA ENTERO (2026-08-27) — CANÓNICO, MANDA SOBRE TODO LO DE ESTA SECCIÓN
 
-> **Iker:** *"el otro día quise maximizar y en una publicación puse tanto el enlace de agendar como el otro, y creo que justamente LinkedIn no me midió, o que realmente nadie pulsó ninguno de los dos, ya que aumentamos la fricción. Solo un CTA, solo un spam ninja, es mucho más efectivo"*.
+> **El equipo:** *"el otro día quise maximizar y en una publicación puse tanto el enlace de agendar como el otro, y creo que justamente LinkedIn no me midió, o que realmente nadie pulsó ninguno de los dos, ya que aumentamos la fricción. Solo un CTA, solo un spam ninja, es mucho más efectivo"*.
 
 **Y NO ES CRITERIO, ESTÁ MEDIDO. Son los 3 únicos posts de la casa que llevaron dos enlaces, y los tres se quedaron sin dato:**
 
@@ -2978,13 +2978,13 @@ La palabra del gancho sigue dentro (`caída`), el chiste sigue girado, **y la pr
 
 > #### ⛔⛔ 4.4e-PRONTO · "ANTES DEL 650" NO ES "CUANTO ANTES": EL SUELO SE MIDE EN BLOQUES (2026-08-19)
 >
-> **El fallo:** en el primer post con doble bloque puse el de agendar **de tercer bloque** — gancho, una línea y ya la venta. Iker: *"me has adelantado demasiado el primer enlace, no va a convertir casi. El spam tiene que ir siempre después de haber explicado el contexto de la publicación, o sea, por el medio hacia el final"*.
+> **El fallo:** en el primer post con doble bloque puse el de agendar **de tercer bloque** — gancho, una línea y ya la venta. El equipo: *"me has adelantado demasiado el primer enlace, no va a convertir casi. El spam tiene que ir siempre después de haber explicado el contexto de la publicación, o sea, por el medio hacia el final"*.
 >
 > **Por qué el 650 solo no basta:** ese número mide el techo (más allá, el lector ya no llega). **No dice nada del suelo.** Y el suelo importa igual: un enlace que aparece antes de que el post haya explicado nada **le pide el clic a alguien que todavía no sabe de qué le hablas**, y encima se lee como banner, que es justo lo que el bloque de dos existe para evitar (`§4.4b-FORMA`).
 > - **La regla: entre el gancho y el bloque de agendar van AL MENOS DOS bloques de cuerpo.** Y sigue cayendo antes del carácter 650. Ese es el pasillo.
 > - **⚠️ Se mide en BLOQUES, no en caracteres, y esa es la lección:** el borrador que Iker devolvió tenía el enlace **en el 36% del texto** y aun así estaba mal. Lo que canta es la **estructura** (gancho → una línea → venta), no el porcentaje. Un umbral de caracteres lo habría dado por bueno.
 > - **No rompe nada de lo que ya funcionó:** el meme del 14/08 y el del 13/08 lo ponen en el último tercio.
-> - **Y entre los dos bloques van al menos DOS BLOQUES distintos de cuerpo**, no dos líneas cualesquiera: una suelta y otra suelta, o una suelta y un bloque de tres. Iker: *"entre el primero y el segundo que haya variedad de líneas"*. Dos bloques de dos con la misma forma y casi pegados se leen como un patrón, y el ojo se salta los dos.
+> - **Y entre los dos bloques van al menos DOS BLOQUES distintos de cuerpo**, no dos líneas cualesquiera: una suelta y otra suelta, o una suelta y un bloque de tres. El equipo: *"entre el primero y el segundo que haya variedad de líneas"*. Dos bloques de dos con la misma forma y casi pegados se leen como un patrón, y el ojo se salta los dos.
 > - **⚠️ Y esto se arregla REORDENANDO, no alargando** (19/08): *"yo ahora no añadiría nada nuevo, sino que reestructuraría lo que tenemos, manteniendo la misma longitud"*. El presupuesto del meme sigue siendo el de `§4.4e-MEME`.
 >
 > **Mecanizado** en `validar-post.py`: `Doble ninja: el de agendar no va pegado al gancho` (fallo duro, mide bloques) y `>=2 BLOQUES de cuerpo entre los dos` (sustituye al de 2 líneas).
@@ -3094,7 +3094,7 @@ Recordatorios rápidos que siguen viviendo aquí porque afectan a la elección d
   > **Criterio general:** cuando dos reglas de estas skills se contradicen, **manda SIEMPRE la basada en datos actuales de nuestras cuentas** sobre la intuición o el folklore heredado (mismo principio que `outliers-database §4` manda sobre `§3`).
 - **Cadencia:** por defecto **3 posts/semana por cuenta** (≈9/semana entre las 3); máx. 1/día por cuenta (dos el mismo día se canibalizan). Mínimo absoluto: 1/semana/cuenta. Exclusividad de CATEGORÍA por día entre las 3 cuentas (peloteo / lead magnet / meme intercalados) — lógica completa en `post-workflow §8`.
 - **Ventana de oro (HIPÓTESIS, sin dato propio; 30/10):** se dice que si en los primeros 60 minutos no hay 5 o más likes y 1-2 comentarios, LinkedIn deja de distribuir. **Tenemos dos casos en contra:** un meme casi sin interacción interna que se hizo viral (punto siguiente) y un post programado, sin nadie delante, que llegó a 218.529 impresiones (`post-workflow §8`). No se usa para explicar un post flojo sin mirar antes el texto.
-- **Palanca de las 3 cuentas (interna, gratis):** somos 3 fundadores de la MISMA empresa → Iker, el primer jefe y el tercer jefe **se comentan y repostean entre sí** en los primeros 30 min de cada post (comentario sustancioso, no "🔥"). Es el motor de arranque más fiable que tenemos y no cuesta nada. ⚠️ **Decisivo, pero no en el 100% de los casos (2026-09-29):** en las 2 semanas de vacaciones hubo días sin que los jefes se comentaran entre sí y, aunque las historias fueron mal, un meme casi sin interacción interna se hizo súper viral. Se hace siempre que se pueda; si un día no se puede, no se da el post por perdido.
+- **Palanca de las 3 cuentas (interna, gratis):** somos 3 fundadores de la MISMA empresa → el segundo jefe, el primer jefe y el tercer jefe **se comentan y repostean entre sí** en los primeros 30 min de cada post (comentario sustancioso, no "🔥"). Es el motor de arranque más fiable que tenemos y no cuesta nada. ⚠️ **Decisivo, pero no en el 100% de los casos (2026-09-29):** en las 2 semanas de vacaciones hubo días sin que los jefes se comentaran entre sí y, aunque las historias fueron mal, un meme casi sin interacción interna se hizo súper viral. Se hace siempre que se pueda; si un día no se puede, no se da el post por perdido.
 - **Comentar antes de publicar:** 30-60 min antes, la cuenta que publica comenta de verdad en 5-10 personas que comentaron su post anterior → les salta la notificación y devuelven el comentario en la ventana de oro (táctica externa validada, `outliers-database §5.2`).
 - **Responder rápido:** contesta a los primeros comentarios en cuanto entran (alimenta la ventana de oro), con la voz de `brand-voice §7` (corto, vocales alargadas, agradecer si elogian).
 
@@ -3146,7 +3146,7 @@ Sigue:  imagen/vídeo según sus skills (`images` / `video`: registros + paleta/
 
 ## 🚫🚫 9 · CAPADO Y MODERACIÓN — CANÓNICO Y GLOBAL (2026-08-26)
 
-> **Por qué esto vive aquí y no en el runbook del lead magnet, que es donde estaba.** Iker: *"ya nos han baneado varias veces publicaciones de lead magnets, el otro día un meme y hoy un pilar historia. O sea, que esto es general"*. **Tres pilares distintos en tres semanas.** Es el caso de libro de `working-preferences §0c-BIS`: escrito dentro de un runbook, garantizaba que se rompiera en los otros cinco. El detalle operativo sigue en `post-workflow §4.5.0-*`; **lo que manda está aquí.**
+> **Por qué esto vive aquí y no en el runbook del lead magnet, que es donde estaba.** el equipo: *"ya nos han baneado varias veces publicaciones de lead magnets, el otro día un meme y hoy un pilar historia. O sea, que esto es general"*. **Tres pilares distintos en tres semanas.** Es el caso de libro de `working-preferences §0c-BIS`: escrito dentro de un runbook, garantizaba que se rompiera en los otros cinco. El detalle operativo sigue en `post-workflow §4.5.0-*`; **lo que manda está aquí.**
 
 ### 🔴🔴 9.0 · CORRECCIÓN DEL 26/08, LA MISMA TARDE: EL UMBRAL DE 10 MINUTOS ERA FALSO Y NOS COSTÓ DOS POSTS
 
@@ -3211,7 +3211,7 @@ Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran 
 | 26/08 · historia | El primer jefe | **1er UTM de la casa** | ~20 min | 5.400 imp |
 | 27/08 · meme | Iker | **1er UTM de SU cuenta** | **~18 min** | repartiendo |
 
-**⭐ LA HIPÓTESIS, y la formula Iker:** *"un día más comprobamos que los UTM no bloquean, pero puede que, si es la primera vez que se hace en una cuenta, el ingrediente ponga en revisión"*. **El UTM no capa; parece pedir una revisión de ~20 minutos la primera vez que ese enlace aparece en una cuenta.**
+**⭐ LA HIPÓTESIS, y la formula el equipo:** *"un día más comprobamos que los UTM no bloquean, pero puede que, si es la primera vez que se hace en una cuenta, el ingrediente ponga en revisión"*. **El UTM no capa; parece pedir una revisión de ~20 minutos la primera vez que ese enlace aparece en una cuenta.**
 
 **⛔ Y EL AGUJERO DE MÉTODO, dicho entero porque invalida media conclusión: NO TENEMOS GRUPO DE CONTROL.** Antes del 26/08 **borrábamos siempre antes del minuto 20**, así que **no sabemos si un post SIN UTM también tarda 18-20 minutos**. La correlación es real y son 2 de 2, pero **no hay un solo caso medido de post sin UTM esperando hasta el minuto 30**. Es exactamente el sesgo que `§9.0` documenta al revés: *"si borras siempre antes del tiempo de recuperación, cualquier cosa que cambies después parecerá la causa"*.
 - **Cómo se cierra:** el próximo post **sin** enlace (un lead magnet, por ejemplo) se cronometra igual. Si también tarda 18-20, el UTM no pinta nada y lo que hay es una cola de revisión normal.
@@ -3265,7 +3265,7 @@ Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran 
 
 ### 9.2 · ⛔ EL CORPUS CADUCA: un post de hace meses NO prueba que una palabra pase el filtro HOY
 
-**Este es el error que cometí el 26/08 y es el más caro de todos, porque parece rigor.** Defendí `teléfono` con 12 posts nuestros que la llevan, dos de ellos con 168.926 y 192.303 impresiones. Iker: *"hace meses es correcto que los lead magnets podían llevar `comenta` y nunca nos bloqueaba, pero LinkedIn se está poniendo muy restrictivo. Esa hipótesis no es válida, porque una publicación de hace meses está demostrado que se subió cuando LinkedIn era menos restrictivo"*.
+**Este es el error que cometí el 26/08 y es el más caro de todos, porque parece rigor.** Defendí `teléfono` con 12 posts nuestros que la llevan, dos de ellos con 168.926 y 192.303 impresiones. El equipo: *"hace meses es correcto que los lead magnets podían llevar `comenta` y nunca nos bloqueaba, pero LinkedIn se está poniendo muy restrictivo. Esa hipótesis no es válida, porque una publicación de hace meses está demostrado que se subió cuando LinkedIn era menos restrictivo"*.
 
 **Y tiene la prueba de nuestro propio lado:** `comenta "X"` funcionó durante meses y **dejó de funcionar el 5 de agosto** (`post-workflow §4.5.0-CTA`). La palabra no cambió; cambió el filtro.
 
@@ -3341,7 +3341,7 @@ Historia de Iker, resubidas 3ª y 4ª (`Nos entraron en casa…`, una con `gran 
 ### 🟠 9.3d · `automatizar` CAPÓ UN POST (08/10, el primer jefe): CAPADO PROBABLE, n=1
 
 Historia con vídeo del resumen de Neety Forward, primer post de la casa con el enlace del webinar (`luma.com/7hhyx07z` con UTM). **1ª versión** con `automatizar` en gancho, tesis y ninja: **más de 40 minutos sin aparecer en relevantes** (~20 impresiones), borrada. **2ª versión, un solo cambio** (`automatizar` → `lanzar más mensajes`), mismo vídeo y mismo enlace: **en relevantes a los 28 min.**
-- **Es el molde de `§9.3b` (`LinkedIn`): pasó el umbral de 30 min y la resubida con UNA variable salió.** Iker: *"creo que era automatizar, tiene sentido"*. La charla del evento iba justo de no automatizar las ventas con IA.
+- **Es el molde de `§9.3b` (`LinkedIn`): pasó el umbral de 30 min y la resubida con UNA variable salió.** el equipo: *"creo que era automatizar, tiene sentido"*. La charla del evento iba justo de no automatizar las ventas con IA.
 - **🟠 EN DUDA DESDE EL 15/10 (`§9.1b`):** con vídeo, la revisión dura 30-45 minutos y se ve igual que un capado. La 1ª versión se borró a los 40 minutos y la resubida también tardó 28, así que puede que `automatizar` no capara y fuera solo la revisión. Se sigue evitando porque no cuesta nada, pero **un segundo caso solo cuenta si es un post sin vídeo, o con vídeo y más de 60 minutos sin salir.**
 - **Por qué no es veto todavía (`§9.5`):** n=1, y 19 posts nuestros anteriores la llevan sin capado (dos en el gancho, 2.895 y 1.144 imp). Puede pesar el contexto: palabra + enlace nuevo + vídeo, o la vara que se mueve (`§9.2`).
 - **Hasta un segundo caso: se evita.** El recambio probado es `lanzar más mensajes`; cuesta nada y no pierde el sentido.
@@ -3350,7 +3350,7 @@ Historia con vídeo del resumen de Neety Forward, primer post de la casa con el 
 
 ### 🗺️🗺️ 9.6 · EL MAPA DE CAPADOS POR PSICOLOGÍA: CADA CASO, POR QUÉ, Y SUS VECINAS (2026-10-08) — CANÓNICO
 
-> **Iker:** *"mejora tu validador de bloqueos analizando bien la psicología en detalle de por qué crees que en cada caso nos han bloqueado, y para nunca sugerirme palabras del estilo"*. El fallo que lo motiva: para sustituir `automatizar` propuse `mandar mensajes a miles` y `disparar`, que eran primas de la misma familia o de otra con riesgo.
+> **El equipo:** *"mejora tu validador de bloqueos analizando bien la psicología en detalle de por qué crees que en cada caso nos han bloqueado, y para nunca sugerirme palabras del estilo"*. El fallo que lo motiva: para sustituir `automatizar` propuse `mandar mensajes a miles` y `disparar`, que eran primas de la misma familia o de otra con riesgo.
 
 **La lectura de fondo es de Iker (`§9.3`):** nos capan cuando **forzamos el reparto** o cuando el texto da **indicios de riesgo para las personas**. Todo lo de abajo cuelga de esas dos ramas.
 

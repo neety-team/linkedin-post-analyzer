@@ -20,7 +20,7 @@
 - **Todo borrador de post va dentro de un bloque de código cercado** (triple backtick sin lenguaje). Motivo: la UI mangla los saltos de línea y el espaciado si el post va como texto normal; dentro del bloque se preserva exacto y sale botón de copiar.
   - Un bloque por variante / por hook / por pieza de vídeo.
   - Fuera del bloque va todo lo demás: razonamiento, tag de viralidad, "por qué funciona", concepto de imagen.
-- **⛔ UN SOLO BLOQUE POR POST, Y ES EL FICHERO QUE PASÓ EL VALIDADOR, COPIADO TAL CUAL (2026-09-16).** El 16/09 entregué la tarjeta dos veces: la primera reescrita a mano en la respuesta y **sin la línea en blanco entre el bloque del spam ninja y el cierre**, y la segunda buena con una nota de "copia esta". Iker: *"¿por qué me das dos variantes con la primera estando fatal?"*. **El texto del bloque se vuelca del fichero validado (`cat`), nunca se reteclea**: al reteclear se pierden justo los saltos, que el validador ya no ve. Y si detecto un fallo en un bloque antes de enviar, se corrige ese bloque; **nunca se entrega el malo con una fe de erratas debajo**. La línea en blanco después del ninja es obligatoria: sin ella el enlace y el cierre se leen como un bloque de tres.
+- **⛔ UN SOLO BLOQUE POR POST, Y ES EL FICHERO QUE PASÓ EL VALIDADOR, COPIADO TAL CUAL (2026-09-16).** El 16/09 entregué la tarjeta dos veces: la primera reescrita a mano en la respuesta y **sin la línea en blanco entre el bloque del spam ninja y el cierre**, y la segunda buena con una nota de "copia esta". El equipo: *"¿por qué me das dos variantes con la primera estando fatal?"*. **El texto del bloque se vuelca del fichero validado (`cat`), nunca se reteclea**: al reteclear se pierden justo los saltos, que el validador ya no ve. Y si detecto un fallo en un bloque antes de enviar, se corrige ese bloque; **nunca se entrega el malo con una fe de erratas debajo**. La línea en blanco después del ninja es obligatoria: sin ella el enlace y el cierre se leen como un bloque de tres.
   - **🔄 17/11 · Mecanizado.** Hubo una tercera vez (un cierre retecleado que no era el del fichero) y la regla de memoria no bastó. Desde hoy, con `ENTREGABLE: SÍ`, `validar-post.py` imprime al final el `BLOQUE PARA PEGAR` volcado del fichero y su última línea. **La entrega copia ese bloque y ninguno más**; si el texto cambia, se valida otra vez y se copia el bloque nuevo. Un bloque que no sale de esa salida no se entrega.
 - **⛔ EL ENTREGABLE CIERRA EL TURNO, Y LO QUE VENGA DESPUÉS ESPERA AL SIGUIENTE (2026-11-11).** Texto del post, prompt o bloque para copiar van en el mensaje final, después de la última herramienta: lo que se escribe entre dos herramientas no llega de forma fiable. Ya estaba en la memoria desde el 10/11 y volvió a fallar el 11/11, cuando el texto definitivo de un meme se pegó a mitad de turno y el turno siguió con otra tarea (una auditoría): quedó enterrado. **Si el mismo mensaje pide un entregable y otra tarea, el turno termina con el entregable y la otra tarea empieza en el turno siguiente.** Si por lo que sea hubo herramientas después, el entregable se repite entero al final. Antes de cerrar cualquier turno: ¿el último mensaje lleva el bloque que se ha pedido?
 - **Nada de markdown DENTRO del post** (no `**negrita**`, no `*cursiva*`, no `#` headers, no `código`). LinkedIn no lo renderiza. El único markdown que toca el post es el propio bloque que lo envuelve.
@@ -32,7 +32,7 @@
 
 ## 📋📋 1-PEGAR · EL POST SE ENTREGA AQUÍ, Y SE PEGA EN LINKEDIN PASANDO POR GOOGLE DOCS (2026-09-17)
 
-**El bloque cercado sigue siendo LA entrega** (`§1`). Iker: *"es mejor que me lo pases aquí como hasta ahora"*.
+**El bloque cercado sigue siendo LA entrega** (`§1`). El equipo: *"es mejor que me lo pases aquí como hasta ahora"*.
 
 **El problema, que no es del texto:** el bloque es texto plano puro, sin markdown, y sus líneas en blanco están vacías (comprobado byte a byte el 17/09: sin invisibles ni `
 `). Lo que cambió es el editor de LinkedIn, que ya no pega bien ni el texto plano ni cualquier HTML.
@@ -61,7 +61,7 @@ Vale para todo lo que se copia y pega: un prompt de diseñador, el texto de un p
 
 ### ⛔⛔ 1c-BIS · UN ENTREGABLE QUE AUN NO SE HA EJECUTADO SE REHACE ENTERO, NUNCA SE COMPLEMENTA (2026-08-14) — GLOBAL
 
-**El caso:** le di un prompt de edicion de imagen con tres correcciones, **el no lo habia pasado todavia**, y volvio con una cuarta idea suya. Le entregue un SEGUNDO prompt con lo nuevo y le dije que pegara los dos seguidos. Iker: *"si tu me das un plan de correccion y sin ejecutarlo yo te doy mas informacion, tienes que completar el prompt que ya tenias y darme uno con todo, tanto lo tuyo como lo mio. Esto es receta global"*.
+**El caso:** le di un prompt de edicion de imagen con tres correcciones, **el no lo habia pasado todavia**, y volvio con una cuarta idea suya. Le entregue un SEGUNDO prompt con lo nuevo y le dije que pegara los dos seguidos. El equipo: *"si tu me das un plan de correccion y sin ejecutarlo yo te doy mas informacion, tienes que completar el prompt que ya tenias y darme uno con todo, tanto lo tuyo como lo mio. Esto es receta global"*.
 
 **La regla:** mientras un entregable **no se haya ejecutado**, sigue estando abierto. Cualquier cosa que llegue despues —una correccion suya, una idea nueva, un dato mio— **se funde dentro y se vuelve a dar el entregable COMPLETO**, una sola pieza para copiar y pegar.
 
@@ -95,7 +95,7 @@ Vale para todo lo que se copia y se pega: prompts de diseñador, de animador y d
 
 ## 🛑🛑 1b · TODO PROMPT PARA UN EJECUTOR VA EN **UN SOLO BLOQUE, UN SOLO PÁRRAFO Y SIN SÍMBOLOS RAROS** (2026-08-18) — GLOBAL
 
-**Esto ya estaba escrito, pero SOLO en `images §0i-3` como si fuera del prompt del diseñador.** No lo es: vale para **cualquier** prompt que yo le dé a alguien que ejecuta — diseñador, animador, **programador** — y por tenerlo guardado en el sitio equivocado lo incumplí el 18/08 entregándole **cuatro bloques** para un solo encargo. Iker: *"¿por qué me pasas cuatro prompts cuando te he dicho que me pases solo uno, definitivo, con todo, en un solo párrafo, sin símbolos raros? Eso ya lo deberías saber de hace mucho tiempo"*. Es el caso de libro de `§0c-BIS`: **una regla universal escrita dentro de un runbook garantiza que se rompa en los demás.**
+**Esto ya estaba escrito, pero SOLO en `images §0i-3` como si fuera del prompt del diseñador.** No lo es: vale para **cualquier** prompt que yo le dé a alguien que ejecuta — diseñador, animador, **programador** — y por tenerlo guardado en el sitio equivocado lo incumplí el 18/08 entregándole **cuatro bloques** para un solo encargo. El equipo: *"¿por qué me pasas cuatro prompts cuando te he dicho que me pases solo uno, definitivo, con todo, en un solo párrafo, sin símbolos raros? Eso ya lo deberías saber de hace mucho tiempo"*. Es el caso de libro de `§0c-BIS`: **una regla universal escrita dentro de un runbook garantiza que se rompa en los demás.**
 
 **LAS TRES CONDICIONES, y son a la vez:**
 1. **UN SOLO BLOQUE.** Un encargo, un bloque cercado, una sola cosa que copiar y pegar. Si le doy dos, tiene que decidir él en qué orden van y qué hace con cada uno, y eso ya es trabajo mío que le he pasado.
@@ -174,7 +174,7 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 |---|---|---|
 | Bucle abierto | `post-workflow §4.4` (meme) | Propuse un gancho de meme que desvelaba el chiste; había que moverla a `global §2.0` |
 | Vehículo vs contenido | `post-workflow §4.4` (meme) | Se rompió **cuatro veces el mismo día** en un lead magnet |
-| Medir la anatomía de la referencia | `post-workflow §4.4` (meme) | Iker: *"espero que no lo hayas aplicado solo a la receta de meme"*. A `global §2.2b-MEDIR` |
+| Medir la anatomía de la referencia | `post-workflow §4.4` (meme) | el equipo: *"espero que no lo hayas aplicado solo a la receta de meme"*. A `global §2.2b-MEDIR` |
 | Ritmo de bloques | Solo en el validador, y a medias | Prohibía el `1-2-1-2` y le colé un `1-3-1-2-1-3-1-2` |
 | **Variedad del ARRANQUE de los bloques** | `post-workflow §4.2`, `§4.3` y `§4.5`, **tres veces y las tres en un runbook** | Escrita desde el **28/07** y aun así entregué `La web / La centralita / La persona` el 25/08, una semana después del `La eché…` de la historia del 18/08. **Al escribir una historia no aplicaba ninguna de las tres.** A `global §2.0b-ARRANQUE` |
 
@@ -184,7 +184,7 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 
 ## 🔴🔴 0c-TER · UN FORMATO NUEVO QUE COMPARTE MOTOR CON UNO VALIDADO HEREDA SU RECETA ENTERA (2026-10-01) — GLOBAL
 
-**El caso:** "Las 10" (las 10 empresas de una región en una orla de logos) es un peloteo regional, igual que el mapa. Yo le quité al gancho `exporta` y la comparación con un país "para no canibalizar el mapa", y al cuerpo le resumí el bloque de números en una línea y le quité la anáfora. Iker: *"si sabemos que eso funciona, lo copiamos y ya está. ¿Para qué vamos a arriesgar con un gancho nuevo?"* y *"lo inteligente va a ser que copies todos los elementos, todos los bloques, toda la psicología"*.
+**El caso:** "Las 10" (las 10 empresas de una región en una orla de logos) es un peloteo regional, igual que el mapa. Yo le quité al gancho `exporta` y la comparación con un país "para no canibalizar el mapa", y al cuerpo le resumí el bloque de números en una línea y le quité la anáfora. El equipo: *"si sabemos que eso funciona, lo copiamos y ya está. ¿Para qué vamos a arriesgar con un gancho nuevo?"* y *"lo inteligente va a ser que copies todos los elementos, todos los bloques, toda la psicología"*.
 
 **La regla:** antes de escribir un formato nuevo, pregúntate **qué formato validado comparte su MOTOR** (aquí: el orgullo regional) y **copia su receta entera**, gancho y cuerpo. Lo nuevo es la REPRESENTACIÓN (la imagen), que además ya diferencia el post de un vistazo. Lo que se renueva en cada post es lo de siempre: concepto, clichés, país, frase-rabia y verbo. **Quitar una pieza validada para "diferenciar" es una hipótesis sin dato, y no entra** (`§0c`).
 
@@ -194,18 +194,18 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 
 **A QUIÉN APLICA (Iker, 08/10):** a las cuentas de los **compañeros** que no son ni los 3 jefes ni marketing: hoy **Ismael** (Sales Consultant), **Helena** y **Angela** (Product Designer), y a cualquier trabajador que se sume. **Fuera: Iker, Unai, Asier y Mario** (marketing), que van con la receta entera. Iker: *"son compañeros de trabajo que tampoco van a querer hablar como habla un jefe públicamente en LinkedIn. Por eso me pasan un borrador"*.
 
-> 🔄 24/11: la cuenta de marketing está dada de baja (`aboutme §2`); hoy quedan fuera solo Iker, el primer jefe y el tercer jefe.
+> 🔄 24/11: la cuenta de marketing está dada de baja (`aboutme §2`); hoy quedan fuera solo el segundo jefe, el primer jefe y el tercer jefe.
 
 **Cuándo aplica:** Iker pasa un post YA ESCRITO por uno de ellos para retocarlo. Primer caso: Ismael, Sales Consultant, historia del director comercial que "se conocía a todos" (05/10). El precedente: un gancho pulido para una cuenta de compañeros se reescribió varias veces porque no sonaba a su autora.
 
-**Iker, literal:** *"que siempre intente respetar, si es un borrador que me ha pasado esa persona, su manera de escribir, sus muletillas, sus frases"*.
+**El equipo, literal:** *"que siempre intente respetar, si es un borrador que me ha pasado esa persona, su manera de escribir, sus muletillas, sus frases"*.
 
 - **Lo que SÍ se trabaja con la receta entera:** el **gancho** (es lo más importante: bucle abierto, una oración, sin desvelar), la **puntuación anti-IA** (guion largo, coma antes de "y"), la **señal de ilegalidad** (`brand-voice §2c-DATOS`), el **spam ninja y su UTM** si lleva enlace, y que el **dolor** de Neety se note.
-- **⛔ LA PALABRA DEL OFICIO NO SE CAMBIA POR UNA PUNCHY (2026-10-16).** En el borrador del compañero de ventas del 08/10 cambié `sector` por `censo` para que el gancho pegara más, y no lo entendió nadie: en ventas se llama **sector**. Iker: *"hay ciertas palabras del sector de ventas que no las puedes cambiar a punchy porque se llaman así. Sector es sector, no censo. Pon punchy en otra cosa, en verbo o lo que sea, sin pasarte extremo"*. **La palabra con la que el lector nombra su trabajo (sector, señal, ICP, lead, decisor, prospectar, oferta, feria, cartera…) se queda tal cual la escribió el compañero.** El punch va al **verbo** que no es del oficio (`dicen` → `juran`) o a un **intensificador** (`§2.9-SIN-VERBO`), un peldaño, sin irse al extremo (`§2.9-TECHOS`). Vale para el compañero de ventas, la compañera de clientes, la compañera de diseño y cualquier trabajador que se sume. Aviso de entrega en `validar-post.py` con `--voz-ajena` (`la palabra del OFICIO sigue siendo la suya`), que imprime las del gancho para compararlas con su borrador.
+- **⛔ LA PALABRA DEL OFICIO NO SE CAMBIA POR UNA PUNCHY (2026-10-16).** En el borrador del compañero de ventas del 08/10 cambié `sector` por `censo` para que el gancho pegara más, y no lo entendió nadie: en ventas se llama **sector**. El equipo: *"hay ciertas palabras del sector de ventas que no las puedes cambiar a punchy porque se llaman así. Sector es sector, no censo. Pon punchy en otra cosa, en verbo o lo que sea, sin pasarte extremo"*. **La palabra con la que el lector nombra su trabajo (sector, señal, ICP, lead, decisor, prospectar, oferta, feria, cartera…) se queda tal cual la escribió el compañero.** El punch va al **verbo** que no es del oficio (`dicen` → `juran`) o a un **intensificador** (`§2.9-SIN-VERBO`), un peldaño, sin irse al extremo (`§2.9-TECHOS`). Vale para el compañero de ventas, la compañera de clientes, la compañera de diseño y cualquier trabajador que se sume. Aviso de entrega en `validar-post.py` con `--voz-ajena` (`la palabra del OFICIO sigue siendo la suya`), que imprime las del gancho para compararlas con su borrador.
 - **Lo que se RESPETA aunque choque con la casa:** sus frases, sus muletillas (*"no te hago el rollo entero, que para eso ya está la web"*), los números en letra, las líneas largas, el cierre en pregunta, la longitud. Se toca solo lo que estorba la lectura (un párrafo con tres datos pasa a bloque, un golpe enterrado sale a línea suelta).
 - **Para recortar, se quita lo redundante, no lo suyo:** primero la frase que repite una idea ya dicha, luego el dato secundario. Sus giros se quedan.
 - **No se verifican sus datos ni sus menciones** (`feedback-revision-post-ajeno-solo-lo-pedido`).
-- **Validador:** `--voz-ajena` (y `--cuenta <Nombre>`). Pasa a AVISO los checks de formato de la casa y deja duros el gancho, la puntuación, la ilegalidad, el ninja y el UTM. **Falla si se usa con Iker, el primer jefe o el tercer jefe** (y con `mario`, cuenta dada de baja).
+- **Validador:** `--voz-ajena` (y `--cuenta <Nombre>`). Pasa a AVISO los checks de formato de la casa y deja duros el gancho, la puntuación, la ilegalidad, el ninja y el UTM. **Falla si se usa con el segundo jefe, el primer jefe o el tercer jefe** (y con `mario`, cuenta dada de baja).
 - **Si Iker pide además "cómo quedaría en una cuenta de los jefes"**, esa segunda versión va con la receta entera y sin `--voz-ajena`.
 - **El gancho manda.** Es lo único que se trabaja a fondo, con 3-5 alternativas y una recomendada. El cuerpo puede quedar lejos de lo que sabemos que funciona y no pasa nada: Iker, 08/10, sobre el post del compañero de ventas del 05/10: *"no fuimos en el cuerpo totalmente fiel a lo que sabemos que funciona, pero da igual. Son excepciones"*.
 - **Lleva spam ninja** (lo pidió Iker para el compañero de ventas el 05/10), a la puerta de agendar de la web nueva con UTM y `utm_content=<nombre>`.
@@ -231,19 +231,19 @@ Describir el concepto de la imagen y enlazar la referencia **no es la entrega**:
 
 **Dos fallos del mismo turno, y los dos dejan al diseñador sin poder trabajar.**
 
-**1 · El enlace de la referencia se pega TAL CUAL lo devuelve la API. Nunca se acorta a mano.** Yo cogí el `share_url` de Unipile y le quité el slug codificado por dejarlo "limpio", y **LinkedIn devuelve error sin ese slug**. Iker: *"el enlace da error, no sé si ha caducado o me lo has dado mal"*. Da igual que sea feísimo y ocupe cuatro líneas: se pega entero, con el `%F0%9D...` y con los parámetros.
+**1 · El enlace de la referencia se pega TAL CUAL lo devuelve la API. Nunca se acorta a mano.** Yo cogí el `share_url` de Unipile y le quité el slug codificado por dejarlo "limpio", y **LinkedIn devuelve error sin ese slug**. El equipo: *"el enlace da error, no sé si ha caducado o me lo has dado mal"*. Da igual que sea feísimo y ocupe cuatro líneas: se pega entero, con el `%F0%9D...` y con los parámetros.
 
 **1b · Y SIEMPRE COMO ENLACE PULSABLE, NUNCA EN BLOQUE DE CÓDIGO (2026-08-13).** *"¿Por qué me has dado el enlace en un formato que puedo pulsar y copiar? Siempre los enlaces me los tienes que dar en formato que yo pulso y que salen aquí en azul."* Va en markdown, `[texto corto](URL completa)`, en **cualquier** enlace que le dé: referencias, posts nuestros, documentación, PRs.
 - **⛔ EL FALLO DE FONDO, y es el que hay que recordar: traté "completo" y "pulsable" como si hubiera que elegir.** Primero se lo di pulsable pero acortado (roto), y al corregirlo me fui al extremo y se lo puse en bloque de código para que se copiara entero (no pulsable). **Son independientes:** el markdown lleva la URL entera y fea en el destino y enseña un texto corto en azul. Se cumplen las dos a la vez, siempre.
 - **La única excepción es lo que va DENTRO del post**, donde la URL se escribe en crudo porque LinkedIn no renderiza markdown (`§1`).
 
-**2 · La foto de la referencia va en el MISMO mensaje que la entrega, al final, no suelta a mitad de turno.** La regla de `§1d-ter` ya decía que se adjunta siempre, y **yo la adjunté**… en medio de un turno largo lleno de comandos, y se perdió de vista. Iker: *"sin foto de referencia, ¿cómo le voy a decir al diseñador que la calque?"*. **Adjuntarla no basta: tiene que estar donde él la va a buscar**, que es junto al post y al prompt.
+**2 · La foto de la referencia va en el MISMO mensaje que la entrega, al final, no suelta a mitad de turno.** La regla de `§1d-ter` ya decía que se adjunta siempre, y **yo la adjunté**… en medio de un turno largo lleno de comandos, y se perdió de vista. El equipo: *"sin foto de referencia, ¿cómo le voy a decir al diseñador que la calque?"*. **Adjuntarla no basta: tiene que estar donde él la va a buscar**, que es junto al post y al prompt.
 - **Y se vuelve a descargar en el momento de entregar**, no se reutiliza la de hace tres horas: las URL de `media.licdn.com` caducan y dan 403 (`§1d-ter`).
 - **Antes de darla, se comprueba que el post sigue vivo** pidiéndolo a la API. Si el autor lo ha borrado, la referencia ya no vale y hay que decirlo.
 
 ## ⭐ 1d-ter · LA FOTO DE LA REFERENCIA SE ADJUNTA SIEMPRE, NO SOLO SU ENLACE (2026-08-06)
 
-**En CUALQUIER entrega que se base en una referencia —meme, lead magnet, mapa, historia, email— la imagen de esa referencia va ADJUNTA en el chat**, además del enlace. Iker: *"a veces me la pasas y a veces no, y me la tienes que pasar siempre para ir más rápido"*.
+**En CUALQUIER entrega que se base en una referencia —meme, lead magnet, mapa, historia, email— la imagen de esa referencia va ADJUNTA en el chat**, además del enlace. El equipo: *"a veces me la pasas y a veces no, y me la tienes que pasar siempre para ir más rápido"*.
 
 - **El enlace es para él** (comprobar que existe y cuánto hizo); **la foto es para el diseñador**, que la necesita adjunta y no va a abrir LinkedIn (`images §0i-2-ADJUNTOS`). Si no se la doy descargada, el trabajo de bajarla se lo come Iker.
 - **Se baja de la API, no se le pide a él:** las nuestras con `POST /api/posts/post/{id}/refresh-media` (las URLs de `media.licdn.com` caducan y dan 403) y las de fuera con `attachments[0].url` de Unipile.
@@ -255,7 +255,7 @@ Describir el concepto de la imagen y enlazar la referencia **no es la entrega**:
 
 **⚠️ APLICA A TODO, no solo a los memes (2026-07-30).** Mapa, "Los 10", despiece, lead magnet, historia, meme, newsletter, secuencia de email, prompt de imagen y prompt para el programador. **Y a cualquier pilar que inventemos manana.** Vive aqui, en como se ENTREGA, precisamente para que no dependa del pilar: si algun dia hay que repetirlo dentro de un runbook, es que esta mal puesto.
 
-**El problema que lo motiva, en palabras de Iker:** *"tienes todas las recetas superdetalladas, con validaciones superespecificas, y solo las estas aplicando si te lo digo yo"*. Cuerpos bien, **ganchos mal**, y cada dia fallando por un motivo distinto: un dia sin sujeto colectivo, otro sin verbo punchy, otro con una cifra dentro.
+**El problema que lo motiva, en palabras del equipo:** *"tienes todas las recetas superdetalladas, con validaciones superespecificas, y solo las estas aplicando si te lo digo yo"*. Cuerpos bien, **ganchos mal**, y cada dia fallando por un motivo distinto: un dia sin sujeto colectivo, otro sin verbo punchy, otro con una cifra dentro.
 
 **⛔ La causa raiz: lo que vive solo como CRITERIO depende de que yo me acuerde, y yo me olvido.** Hay dos arreglos y hacen falta los dos.
 
@@ -297,14 +297,14 @@ Grotesque y Switzer**, y los **logos** si el pilar los lleva (despiece, mapa).
 
 **Y el prompt mismo NUNCA sale sin paleta ni tipografía.** Está en `images §4 ·
 Constraints de marca (SIEMPRE, en cualquier variante)` desde el principio y el
-11/08 lo omití en los dos memes. Iker: *"es lo más importante, tanto nuestra
+11/08 lo omití en los dos memes. El equipo: *"es lo más importante, tanto nuestra
 tipografía como los colores del nuevo brand book"*. **Un meme calcado sin nuestra
 tipografía es el meme de otro con nuestro chiste**: lo único que lo hace nuestro es
 cómo está escrito. Las dos cosas van al validador como aviso de entrega.
 
 ## ⛔⛔ 1h-DIA · EL DÍA NO SE PREGUNTA: SE PUBLICA HOY (2026-09-16) — GLOBAL
 
-**Todo lo que se prepara se publica el mismo día en que Iker lo cierra conmigo**, salvo que él diga otra cosa, esté de vacaciones o ya sea muy tarde. Iker: *"siempre las cosas se publican el día en el que hablo contigo, a menos que te diga lo contrario"*. **El fallo:** el 16/09 tuve tres turnos seguidos la pregunta *"¿hoy o el 17?"* en los pendientes. **No se pregunta el día; se pregunta la HORA** (abajo), y el `ddmes` del UTM es el de ese día. Si hay algo del calendario que choca (una cuenta que publicó ayer), se avisa en una línea, no se deja abierto como pregunta.
+**Todo lo que se prepara se publica el mismo día en que Iker lo cierra conmigo**, salvo que él diga otra cosa, esté de vacaciones o ya sea muy tarde. El equipo: *"siempre las cosas se publican el día en el que hablo contigo, a menos que te diga lo contrario"*. **El fallo:** el 16/09 tuve tres turnos seguidos la pregunta *"¿hoy o el 17?"* en los pendientes. **No se pregunta el día; se pregunta la HORA** (abajo), y el `ddmes` del UTM es el de ese día. Si hay algo del calendario que choca (una cuenta que publicó ayer), se avisa en una línea, no se deja abierto como pregunta.
 
 ## ⛔⛔ 1h · ANTES DE QUE SUBA NADA, PREGUNTARLE LA HORA (2026-08-11) — GLOBAL
 
@@ -324,7 +324,7 @@ cómo está escrito. Las dos cosas van al validador como aviso de entrega.
 a qué hora piensa publicarlo y decirle lo que dice el dato.** Sin esperar a que lo
 pregunte él.
 
-Iker: *"a veces me caliento. Hoy ya he subido 2 y los 2 a muy buena hora, eso es
+El equipo: *"a veces me caliento. Hoy ya he subido 2 y los 2 a muy buena hora, eso es
 más que suficiente. Mejor guardarme para mañana los 2 buenos y a buena hora, que si
 no, todo el trabajo para nada. Subir ahora a las 2 de la tarde posts buenos es
 matarnos"*.
@@ -357,7 +357,7 @@ que se busca es romper la sequía, no el pico. Ahí 0,43x es mejor que nada.
 **En todo bloque cercado pensado para COPIAR, cada párrafo va en UNA SOLA LÍNEA.**
 Nada de cortar a los 70-75 caracteres para que "quede cuadrado".
 
-Iker: *"siempre me los das con un formato raro, como un salto de línea, entonces los
+El equipo: *"siempre me los das con un formato raro, como un salto de línea, entonces los
 prompts ocupan mucha altura y sobra mucho espacio por la derecha. Dámelos tal cual.
 Es un problema global"*.
 
@@ -409,7 +409,7 @@ engagement en meme, por clics en peloteo):
 | meme | 06/08, *"Vender es un caos"* (0,54% lk/imp, 31 reposts) | — |
 | mapa | 28/04 el primer jefe (1,096% CTR) y 13/05 Iker (270 clics) | — |
 
-**⛔ Y EL PELOTEO NO SE LIBRA POR NO TENER REFERENCIA EXTERNA (2026-08-10).** *"Peloteos nunca tenemos referencias de otros, pero de nosotros sí"*. Allí la vista 2 es la ÚNICA, y es justo donde más falta hace: **es el control de regresión del pilar.** Iker: *"así me aseguraré en el futuro de no volver a cagarla como cuando me borraste del gancho la palabra exporta"*. Ese fallo — quitar del gancho una palabra que en el mapa ganador sí estaba — es invisible leyendo el post solo, y **salta a la cara puesto al lado del que funcionó**. La comparativa contra nosotros mismos no es un adorno de la entrega: es lo que impide que cada post nuevo pierda, sin querer, una pieza que ya sabíamos que funcionaba.
+**⛔ Y EL PELOTEO NO SE LIBRA POR NO TENER REFERENCIA EXTERNA (2026-08-10).** *"Peloteos nunca tenemos referencias de otros, pero de nosotros sí"*. Allí la vista 2 es la ÚNICA, y es justo donde más falta hace: **es el control de regresión del pilar.** el equipo: *"así me aseguraré en el futuro de no volver a cagarla como cuando me borraste del gancho la palabra exporta"*. Ese fallo — quitar del gancho una palabra que en el mapa ganador sí estaba — es invisible leyendo el post solo, y **salta a la cara puesto al lado del que funcionó**. La comparativa contra nosotros mismos no es un adorno de la entrega: es lo que impide que cada post nuevo pierda, sin querer, una pieza que ya sabíamos que funcionaba.
 
 **Y las dos se rehacen cada vez que cambia el texto** (§1e-REENTREGA).
 
@@ -419,7 +419,7 @@ engagement en meme, por clics en peloteo):
 nueva va en esa misma entrega, sin que Iker la pida**. No solo la primera vez.
 
 **El disparador es que cambie el texto del post.** Una corrección a un análisis, a
-una cifra de la entrega o al código **no** la dispara. Iker: *"cuando te haga una
+una cifra de la entrega o al código **no** la dispara. El equipo: *"cuando te haga una
 corrección respecto al texto de la publicación me refiero"*.
 
 **Por qué:** el 2026-08-10 entregué el lead magnet con su comparativa, Iker corrigió
@@ -440,7 +440,7 @@ cambiado, que es justo para lo que se mira.
 
 **El error:** entregue el lead magnet del martes comparado contra el post de 483
 comentarios de Martín Arosa, que **no comparte nada con el nuestro** salvo el
-mecanismo del CTA. Iker: *"no entiendo tampoco por qué me has puesto esa
+mecanismo del CTA. El equipo: *"no entiendo tampoco por qué me has puesto esa
 referencia si no tiene absolutamente nada que ver con lo nuestro, solo que es el
 lead magnet más reciente, supongo"*. Y era exactamente eso: lo elegí por reciente.
 
@@ -461,7 +461,7 @@ se monta contra la referencia anatómica de verdad.
 
 Copié el cierre de Martín Arosa casi literal: *"Lo estoy compartiendo de forma
 gratuita. / Acceso libre. / (Conecta conmigo para que pueda escribirte)"*, tres
-líneas contra sus tres. Iker: *"se ve demasiado copia — todo eso yo lo resumiría
+líneas contra sus tres. El equipo: *"se ve demasiado copia — todo eso yo lo resumiría
 en una, sin perder valor y con otras palabras"*.
 
 **Lo que se roba es el MECANISMO:** sin la palabra "comenta", una pregunta
@@ -479,12 +479,12 @@ En **cada** entrega de un post (meme, lead magnet, mapa, lo que sea), además de
 
 **⭐ EL ORDEN DE LA ENTREGA (2026-07-27):** primero **mi post** en su bloque cercado listo para copiar; **justo debajo, el post ORIGINAL entero en OTRO bloque cercado igual** (también copiable, mismo formateado); y **después** la vista comparativa. Sin el original suelto no se puede leer de dónde sale lo nuestro.
 
-**🔴 REINCIDÍ OTRA VEZ EL 2026-08-06, y la doctrina de abajo ya estaba escrita entera.** Entregué el meme del primer jefe con dos bloques cercados apilados. Iker: *"esto te lo he pedido ya muchas veces y siempre te equivocas"*. **Aquí no falta receta, falta cumplirla:** antes de pegar una entrega de post, se relee este bloque, igual que el chequeo de `images §0i-3`. Y dos precisiones suyas de ese día:
+**🔴 REINCIDÍ OTRA VEZ EL 2026-08-06, y la doctrina de abajo ya estaba escrita entera.** Entregué el meme del primer jefe con dos bloques cercados apilados. El equipo: *"esto te lo he pedido ya muchas veces y siempre te equivocas"*. **Aquí no falta receta, falta cumplirla:** antes de pegar una entrega de post, se relee este bloque, igual que el chequeo de `images §0i-3`. Y dos precisiones suyas de ese día:
 - **Las columnas se separan con una línea DISCONTINUA vertical** (`:` repetido a lo alto), no con un borde continuo ni con espacios sueltos. Debajo de la cabecera, una regla horizontal que se cruza con ella.
-- **Cero etiquetas dentro de las columnas.** Nada de `GANCHO:`, `CUERPO:`, `CIERRE:`. Iker: *"eso lo sé yo"*. Va el texto tal cual, seguido, de arriba abajo.
+- **Cero etiquetas dentro de las columnas.** Nada de `GANCHO:`, `CUERPO:`, `CIERRE:`. El equipo: *"eso lo sé yo"*. Va el texto tal cual, seguido, de arriba abajo.
 - **La comparativa NO tiene que ser copiable** —*"ni me apetece copiarla, no lo necesito, pero necesito verlo en dos columnas"*—, **pero eso NO cambia el contenedor: sigue yendo en un BLOQUE CERCADO de tres comillas.** Al leer lo de "no copiable" me pasé a `<pre>` y no funcionó: el terminal **no renderiza HTML**, así que Iker vio la etiqueta `<pre>` literal y encima el texto en fuente proporcional, que desalinea las columnas y convierte la vista en una sopa. **El bloque cercado es lo ÚNICO que garantiza monoespaciado aquí**, y el monoespaciado es lo que sostiene las dos columnas. Que además se pueda copiar es un efecto secundario inofensivo.
 - **⚙️ NO SE MAQUETA A MANO: `python scripts/comparativa.py <original.txt> <mio.txt> "<cab izq>" "<cab der>"`.** La he entregado mal **cuatro veces**, siempre por maquetado y nunca por criterio: dos apilada, una en `<pre>`, y una con la regla horizontal más ancha que las columnas —se partía en dos líneas— y encima continua. El script fija los 36 caracteres por columna (75 de ancho total, que es lo que entra sin partirse), pone la regla **discontinua** y del ancho exacto, y **cuenta los emojis como dos celdas**, que es lo que descuadraba el separador en las líneas con 🤣 o 👇.
-- **Columnas estrechas y largas está BIEN.** Iker: *"si los textos son largos, las columnas serán compactas a nivel de anchura pero muy largas a nivel de altura, y eso me parece bien"*. No se recorta ni se resume para que quepa.
+- **Columnas estrechas y largas está BIEN.** el equipo: *"si los textos son largos, las columnas serán compactas a nivel de anchura pero muy largas a nivel de altura, y eso me parece bien"*. No se recorta ni se resume para que quepa.
 
 **El formato, exacto (aquí se mira al detalle):**
 - **LOS DOS TEXTOS VAN ENTEROS, sin resumir ni poner `[lo malo]` ni recortes.** Una comparativa "general" con etiquetas no vale: se comparan las publicaciones completas, palabra por palabra.
@@ -564,7 +564,7 @@ Esto es la vista que pidió el 2026-07-22, tras rechazar dos intentos: uno "supe
 - **Dos salidas:**
   - **Fix silencioso** (violación clara y trivial: markdown dentro, preámbulo prohibido en la línea 2, 2+ cifras en el hook, frases paralelas pegadas con puntos, opener genérico, etc.) → arréglalo dentro de tu razonamiento antes de que lo vea. No hace falta mencionarlo.
   - **Riesgo significativo** (el post va a rendir regular aunque lo arregles: meme que solo pasa 2/4 del filtro, mapa en región baneada, lead magnet dentro de la ventana de fatiga, arquetipo que ya flopeó, hook solo legible por un SDR muy técnico) → **avísame ANTES o junto al borrador**, con razón concreta y datos: *"Antes de entregártelo: esto va a ir regular porque [Madrid ya falló a 0.55x / es el 4º lead magnet en 10 días / al meme le falta cambio corporal en la imagen]. ¿Lo retocamos o pruebo otra mecánica?"*
-  - **🚨 SEÑAL LEGAL — TERCERA SALIDA, Y NO SE PREGUNTA (2026-08-20).** Si una palabra o una frase puede leerse como que hacemos algo **ilegal o peligroso con datos o conversaciones de otros**, **no me la entregas y no me consultas**: la **sustituyes por un sinónimo igual de punchy** y me das el post ya limpio. Iker: *"no la tienes ni que avisar directamente, me tienes que dar un sinónimo, que sea igual de punchy, pero que no pueda percibirse que es ilegal"*.
+  - **🚨 SEÑAL LEGAL — TERCERA SALIDA, Y NO SE PREGUNTA (2026-08-20).** Si una palabra o una frase puede leerse como que hacemos algo **ilegal o peligroso con datos o conversaciones de otros**, **no me la entregas y no me consultas**: la **sustituyes por un sinónimo igual de punchy** y me das el post ya limpio. El equipo: *"no la tienes ni que avisar directamente, me tienes que dar un sinónimo, que sea igual de punchy, pero que no pueda percibirse que es ilegal"*.
     - **Vale aunque NO esté comprobada al 100%.** Aquí no se pide certeza: el recambio no cuesta nada y el capado cuesta el post entero (19/08: **133 impresiones**).
     - **⚠️ Y EL SINÓNIMO PASA POR LA ESCALERA DE `global §2.9` COMO CUALQUIER VERBO.** Esta regla protege el post de LinkedIn; **no es permiso para lijarlo**. Si el recambio es más flojo que el original, no has terminado: busca otro. `transcribo` → `apunto` mantuvo el ritmo y el post voló; `transcribo` → *"documento el contenido de la conversación"* habría sido peor que el capado.
     - **En la entrega va UNA línea fuera del bloque** diciendo qué cambié y por qué — no es un aviso ni una pregunta, es el registro para que la familia crezca con casos reales.

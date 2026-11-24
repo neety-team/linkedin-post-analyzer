@@ -427,5 +427,19 @@ ok(palabraDelPilar('historia_evento', 'text_video') === 'VIDEO' && palabraDelPil
 ok(classifyPillar({ content_text: TELMO }) === 'historia_evento', 'la entrevista de Telmo es historia/evento');
 ok(classifyPillar({ content_text: EXCEL }) === 'historia', 'la historia del Excel con el ninja a Luma sigue siendo historia');
 
+// Lead magnet con la palabra en la IMAGEN y el texto que solo regala (20/11).
+const LM_REGALO = 'He creado un sistema completo de prospeccion con Claude.\n\nSon 6 agentes, uno por tarea.\n\nCada uno hace una parte del trabajo que hoy haces a mano.\n\nEstoy regalando todo el sistema.\nAcceso gratuito.';
+const LM_GIF = 'He metido en Claude lo que aprendi con mis clientes.\n\nSon 30 decisiones que nadie toma.\n\nLas he convertido en una guia paso a paso.\n\nAl final del GIF tienes como conseguirla.';
+const LM_FLECHAS = 'Mi equipo de ventas no tiene nominas.\n\n→ Agente de prospeccion - encuentra a quien vender\n→ Agente de mensajes - escribe el primero\n→ Agente de agenda - reserva la reunion\n→ Agente de seguimiento - no deja a nadie atras\n→ Agente de informes - cuenta que funciona\n→ Agente de perfil - lo deja listo\n\nTodo con Claude.\n\nACCESO PRIORITARIO ⬇️';
+const HIRING = 'HIRING 🚨\n\nBuscamos un SDR para nuestro equipo.\n\nTrabajaras con nuestro sistema de prospeccion y con todo el equipo comercial desde el primer dia.\n\nSi te interesa, escribeme por DM.';
+const CURSO = 'Mi curso para aprender MCP desde cero ya esta disponible.\n\nDiez modulos y un proyecto final.\n\nEs el curso que me habria gustado tener.\n\nTe lo dejo en el primer comentario.';
+const EVENTO_GRATIS = 'Estoy organizando una sesion en directo sobre prospeccion.\n\nEnseñare el sistema que uso cada semana.\n\nEvento gratuito, plazas limitadas.\n\nAcceso gratuito aqui: https://luma.com/abc123';
+ok(classifyPillar({ content_text: LM_REGALO, content_type: 'text_image' }) === 'lead_magnet', 'lead magnet que solo regala (sin comenta) es lead magnet');
+ok(classifyPillar({ content_text: LM_GIF, content_type: 'text_image' }) === 'lead_magnet', 'lead magnet que manda al final del GIF es lead magnet');
+ok(classifyPillar({ content_text: LM_FLECHAS, content_type: 'text_image' }) === 'lead_magnet', 'la lista de agentes con flechas no lo convierte en peloteo', classifyPillar({ content_text: LM_FLECHAS, content_type: 'text_image' }));
+ok(classifyPillar({ content_text: HIRING, content_type: 'text_image' }) !== 'lead_magnet', 'una oferta de empleo con "escribeme por DM" no es lead magnet');
+ok(classifyPillar({ content_text: CURSO, content_type: 'text_image' }) !== 'lead_magnet', 'vender un curso con "te lo dejo" no es lead magnet');
+ok(classifyPillar({ content_text: EVENTO_GRATIS, content_type: 'text_image' }) !== 'lead_magnet', 'un evento gratuito con enlace no es lead magnet');
+
 console.log(fallos === 0 ? '\n✅ variedad y formato en orden' : `\n❌ ${fallos} fallo(s)`);
 process.exit(fallos === 0 ? 0 : 1);

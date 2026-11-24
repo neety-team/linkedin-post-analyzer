@@ -15,7 +15,9 @@
  *   · peloteo_los10  — foto que pone "los 10" + bloque de ~10 menciones
  *   · peloteo_objeto — el DESPIECE: un objeto partido en piezas, y cada pieza
  *                      con la empresa que la fabrica ("→ Los frenos: @X - @Y")
- *   · lead_magnet    — el cuerpo pide EXPLICITAMENTE "comenta <palabra>"
+ *   · lead_magnet    — el cuerpo pide "comenta <palabra>", o (desde el 18/08)
+ *                      pregunta + gratis + entregable, o (desde el 20/11) solo
+ *                      REGALA y la palabra va en la imagen (`regalaEntregable`)
  *   · meme           — el motor es la IMAGEN y el cuerpo es corto por diseño.
  *                      Las risas disparadas (>25%) confirman, pero NO se exigen
  *   · historia       — anecdota personal en primera persona (pilar nuevo)
@@ -60,7 +62,7 @@
  * etiquetas viejas — que es exactamente lo que paso el 13/08 con la historia
  * de Iker: el fix llego 9 minutos despues de publicar y nadie reproceso.
  */
-export const PILLAR_RULES_VERSION = '2026-10-15.historia-evento';
+export const PILLAR_RULES_VERSION = '2026-11-24.lead-magnet-sin-comenta';
 
 export type Pillar =
   | 'peloteo_mapa'
@@ -338,6 +340,71 @@ function pideConectar(texto: string): boolean {
 }
 
 /**
+ * El TERCER CTA del lead magnet: la palabra vive en la IMAGEN y el texto solo
+ * dice que se REGALA (2026-11-20).
+ *
+ * POR QUE HACIA FALTA: es la tercera vez que el genero cambia el CTA y este
+ * fichero se queda codificando el muerto (05/08 con "comenta", 18/08 con
+ * "conecta conmigo"). Desde septiembre los referentes ya no escriben "comenta
+ * X" en el texto (1 de 46 en Martin Arosa, 1 de 31 en Juan Cruz): la palabra va
+ * en el GIF y el cierre es `Estoy regalando todo el sistema. / Acceso gratuito.`
+ * o `Al final del GIF tienes como conseguirlo.`. Con las dos funciones de arriba,
+ * de los lead magnets con palabra de sep-nov solo se etiquetaba el 19% (89%
+ * hasta mayo), y cualquier analisis filtrado por pilar veia uno de cada cinco
+ * (`post-workflow §4.5.0-CRUCE-20NOV`).
+ *
+ * La firma son dos cosas juntas, y se exigen las dos:
+ *   · en la COLA, una OFERTA de regalo o de envio (`estoy regalando`, `acceso
+ *     gratuito`, `te la mando`, `al final del GIF … conseguirlo`);
+ *   · en el cuerpo, el ENTREGABLE nombrado (guia, sistema, prompts, skills,
+ *     agentes…). Regalar sin nombrar que es no es un lead magnet.
+ * Y la misma cuarta pata que en `pideConectar`: sin enlace en la cola. Un
+ * "evento gratuito, apuntate aqui: luma…" se cae aqui y ya lo coge `esEvento`.
+ */
+const OFERTA_RE = new RegExp([
+  String.raw`\bestoy\s+regalando\b`,
+  String.raw`\b(lo|la|los|las|te\s+l[oa]s?)\s+(estoy\s+)?regal(o|amos|ando)\b`,
+  String.raw`\bregalo\s+(gratis|completo|entero|todo)\b`,
+  String.raw`\bvoy\s+a\s+(dar|regalar|abrir)\s+(el\s+)?acceso\b`,
+  String.raw`\bacceso\s+(gratuito|gratis|libre|prioritario)\b`,
+  // Sin `te lo dejo` ni `escribeme por privado`: medido sobre 5.803 posts, eran
+  // la puerta de la venta de cursos y de las ofertas de empleo (`HIRING`).
+  String.raw`\bte\s+l[oa]s?\s+(mando|env[ií]o|paso|comparto)\b`,
+  String.raw`\bal\s+final\s+del\s+(gif|v[ií]deo|carrusel|documento)\b[^\n]{0,40}\b(conseguir|acceder|descargar|pedir)\w*`,
+].join('|'), 'i');
+
+const ENTREGABLE_AMPLIO_RE =
+  /\b(gu[ií]a|sistema|plantillas?|checklist|playbook|framework|prompts?|skills?|agentes?|gpts?|hoja|dossier|manual|recursos?|biblioteca|instrucciones|herramientas?|paso\s+a\s+paso|curso|ebook|pdf|kit)\b/i;
+
+/**
+ * Las ofertas INEQUIVOCAS: en la cola de un post solo aparecen cuando se regala
+ * algo, asi que no piden el entregable nombrado (`Nadie se dio cuenta de que era
+ * Claude. / ACCESO PRIORITARIO ⬇️` no dice que es, y es un lead magnet de 327).
+ * Se comprueban ANTES que el peloteo: los referentes listan sus agentes con
+ * flechas (`→ Agente de prospeccion - encuentra…`) y el bloque se leia como
+ * fichas de mapa. Nuestros peloteos nunca llevan estas frases y siempre cierran
+ * con enlace, que aqui tambien descarta.
+ */
+const OFERTA_FUERTE_RE = new RegExp([
+  String.raw`\bestoy\s+regalando\b`,
+  String.raw`\bacceso\s+(gratuito|gratis|prioritario)\b`,
+  String.raw`\bpru[eé]bal[oa]\s+(t[uú]\s+mism[oa]\s+)?gratis\b`,
+  String.raw`\b(darte|te\s+paso\s+(el\s+)?)acceso\b`,
+  String.raw`\bcomunidad\s+(privada\s+y\s+)?gratuita\b`,
+].join('|'), 'i');
+
+function regalaEntregable(texto: string): boolean {
+  const cola = texto.slice(Math.floor(texto.length * 0.6));
+  if (ENLACE_RE.test(cola)) return false;
+  return ofreceSinDuda(texto) || (OFERTA_RE.test(cola) && ENTREGABLE_AMPLIO_RE.test(texto));
+}
+
+function ofreceSinDuda(texto: string): boolean {
+  const cola = texto.slice(Math.floor(texto.length * 0.6));
+  return OFERTA_FUERTE_RE.test(cola) && !ENLACE_RE.test(cola);
+}
+
+/**
  * Post de EVENTO: el que anuncia una jornada nuestra y lleva el enlace de
  * inscripcion de Luma.
  *
@@ -479,6 +546,10 @@ export function classifyPillar(post: PillarInput): Pillar {
   if (narra && hablaDeNuestroEvento(t)) return 'historia_evento';
   if (esEvento(t) && !narra) return 'evento';
 
+  // El lead magnet que regala SIN DUDA va antes que el peloteo: su lista de
+  // agentes con flechas se confundia con fichas (20/11, `ofreceSinDuda`).
+  if (ofreceSinDuda(t)) return 'lead_magnet';
+
   const piezas = contarPiezas(t);
   if (piezas >= 6) return 'peloteo_objeto';
 
@@ -505,7 +576,8 @@ export function classifyPillar(post: PillarInput): Pillar {
   // 05/08/2026, que siguen en la base) y el nuevo de pregunta + gratis +
   // conecta conmigo. Con solo el viejo, los lead magnets de ahora caian en
   // 'otro' — que es lo que le paso al del 11/08.
-  if (pideComentarPalabra(t) || pideConectar(t)) return 'lead_magnet';
+  // Y el tercero (20/11): la palabra en la imagen y el texto que solo regala.
+  if (pideComentarPalabra(t) || pideConectar(t) || regalaEntregable(t)) return 'lead_magnet';
 
   // 3. Meme. Solo con imagen: un texto pelado no es un meme aunque haga gracia.
   // Dos señales, y basta con UNA:

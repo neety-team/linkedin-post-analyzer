@@ -4401,6 +4401,8 @@ El playbook dice "output = acción ejecutada o HTML estudio". Para posts **no**:
 6. **Conversión:** sin regalo. **Spam ninja como en cualquier pilar** (`global §4.4b`), con el destino razonado en `§8.1b` (🔄 02/11: antes ponía *"hoy al evento del 28/10 (`§4.4b-WEBINAR`)"*, que caducó ese día), recogiendo la palabra del gancho y antes del carácter 650.
 7. **Validar:** `python scripts/validar-post.py <fichero> --pilar noticia --cuenta X --criterio <fichero>`. Corre como historia (ritmo, ninja, enlace antes del 650) sin los checks de escena personal, y añade los de este pilar.
 8. **Medir:** al publicar, anotar en `historial-publicaciones.md` el subtipo (persona, herramienta, comercio, estudio), impresiones a las 3 h y a las 24 h, comentarios, reposts y **guardados**. Con 3 posts se decide si entra en rotación.
+   - **🔄 24/11 · Primer caso medido, y en contra: la opinión sobre un debate electoral (segundo jefe, 20/11) hizo 2.396 impresiones y 0 clics a los 4 días**, bajo su mediana sin peloteo (3.454). Rozaba la política vetada (`brand-voice §NO CRITICAMOS` 6) aunque no nombraba partidos ni candidatos, y no compensa: ni llega ni convierte. **La actualidad política no se propone en este pilar.** Si la noticia sale de ahí, se cuenta solo por lo que le pasa al que vende, sin el debate de fondo, o se cambia de noticia. Lleva 1 de los 3 publicados que deciden el pilar.
+   - **🔄 24/11 · Desde el 24/11 lo medido se apunta en las `notas` del post por el MCP** (`neety_semana_publicar`), no en `historial-publicaciones.md`, que es archivo (`CLAUDE.md`).
 
 **Lo que NO es este pilar:** un lead magnet con gancho de noticia (`§4.5.0`), un resumen de noticias, ni una noticia de Neety (eso es historia/evento).
 

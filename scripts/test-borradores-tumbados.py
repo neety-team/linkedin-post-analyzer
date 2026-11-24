@@ -474,6 +474,17 @@ CASOS += [
      'MEME en Ismael', ['--pilar', 'meme', '--cuenta', 'ismael']),
 ]
 
+# José Tomás (SDR, clave 'jose') entra el 24/11 igual que Ismael: mismas reglas de marca,
+# sin las de voz de cada fundador y sin la de "su agenda" (no tiene agenda propia conocida).
+CASOS += [
+    ('Le preguntamos a quien vende IA si los comerciales tienen los días contados 👀\n\n' + CUERPO,
+     '24/11: la vision de la marca vale tambien en la cuenta de José Tomás',
+     'sin plantear que la IA sustituye', ['--pilar', 'historia', '--cuenta', 'jose', '--historia-evento']),
+    ('Cuando el director comercial pide la lista para ayer\n\nY tú todavía con el Excel abierto.',
+     '24/11: el meme de José Tomás pasa por el mismo STOP que los de Unai, Asier e Ismael',
+     'MEME en José Tomás', ['--pilar', 'meme', '--cuenta', 'jose']),
+]
+
 def main() -> int:
     agujeros = 0
     for caso in CASOS:

@@ -50,7 +50,7 @@ import { instanteMadrid, cuandoMadrid, horaMadrid, HORA_POR_DEFECTO } from '../u
 import { OBJETIVO, type Objetivo } from '../utils/objetivo';
 import CanalSelector from '../components/CanalSelector';
 
-type Cuenta = 'iker' | 'unai' | 'asier' | 'ismael';
+type Cuenta = 'iker' | 'unai' | 'asier' | 'ismael' | 'jose';
 
 interface Feedback {
   id: string;
@@ -266,7 +266,7 @@ const NOMBRE_ACCION: Record<string, string> = {
   like_comentario: 'Like al comentario',
   repost: 'Repost',
 };
-const NOMBRE_CUENTA: Record<string, string> = { iker: 'Iker', unai: 'Unai', asier: 'Asier', ismael: 'Ismael' };
+const NOMBRE_CUENTA: Record<string, string> = { iker: 'Iker', unai: 'Unai', asier: 'Asier', ismael: 'Ismael', jose: 'José Tomás' };
 
 interface AccionAbeja {
   id: string;
@@ -376,6 +376,8 @@ const CUENTAS: { id: Cuenta; nombre: string; rol: string }[] = [
   { id: 'unai', nombre: 'Unai', rol: 'CEO' },
   { id: 'asier', nombre: 'Asier', rol: 'Tecnología' },
   { id: 'ismael', nombre: 'Ismael', rol: 'SDR' },
+  // 24/11: José Tomás (SDR, Comunitat Valenciana). La clave es `jose`, sin tilde.
+  { id: 'jose', nombre: 'José Tomás', rol: 'SDR' },
 ];
 
 // La ronda del efecto abeja es solo entre los tres fundadores (services/abeja.ts).
@@ -387,6 +389,7 @@ const NOMBRE_COMPLETO: Record<Cuenta, string> = {
   unai: 'Unai Arambarri Yeregui',
   asier: 'Asier Olaizola Paniagua',
   ismael: 'Ismael El Bekkar',
+  jose: 'José Tomás López Cifuentes',
 };
 
 type Perfiles = Partial<Record<Cuenta, Perfil>> | undefined;
@@ -2270,7 +2273,9 @@ export default function Semana() {
   const [programando, setProgramando] = useState(false);
   const [aviso, setAviso] = useState<string | null>(null);
   // La cuenta de quien mira: por su nombre de pila, venga del login o del boton.
-  const miCuenta = CUENTAS.find((c) => autor.trim().toLowerCase().split(/\s+/)[0] === c.id)?.id || null;
+  // Sin tildes, para que «José Tomás» sea la cuenta `jose`.
+  const pilaAutor = autor.trim().split(/\s+/)[0].normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+  const miCuenta = CUENTAS.find((c) => pilaAutor === c.id)?.id || null;
   const [soloMios, setSoloMios] = useState(false);
   const enLista = soloMios && !!miCuenta;
   // El filtro de personas: que columnas salen en el calendario. Se guarda en el

@@ -24,8 +24,8 @@
  *
  * Cada cuenta publica desde su propia cuenta de Unipile. Se busca sola en
  * `GET /api/v1/accounts` por el nombre de LinkedIn de la persona (una y solo
- * una, conectada); UNIPILE_ACCOUNT_IKER/UNAI/ASIER/ISMAEL la fijan a mano si
- * hace falta.
+ * una, conectada); UNIPILE_ACCOUNT_IKER/UNAI/ASIER/ISMAEL/JOSE la fijan a mano
+ * si hace falta.
  */
 import pool from '../db';
 import { CUENTAS, motivoParaPublicar, type Pendiente } from './semana';
@@ -73,6 +73,9 @@ export const NOMBRE_EN_LINKEDIN: Record<string, string> = {
   asier: 'Asier Olaizola',
   // Ventas (2026-11-23). Su cuenta de Unipile se llama asi en `GET /api/v1/accounts`.
   ismael: 'Ismael El Bekkar',
+  // Ventas (2026-11-24). Comprobado ese dia en `GET /api/v1/accounts`: conectada
+  // y una sola. En Salescaling sale como «José Thomás López», pero manda Unipile.
+  jose: 'José Tomás López Cifuentes',
 };
 const sinTildes = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').replace(/\s+/g, ' ').trim().toLowerCase();
 let cacheCuentas: { at: number; mapa: Record<string, string | null> } | null = null;

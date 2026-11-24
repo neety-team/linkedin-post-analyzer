@@ -394,7 +394,7 @@ PPD. Si contestas a este correo, te responde una persona.
 
 > **Tres cosas de este correo que no se deben perder al versionarlo:**
 > 1. **La puerta cambió a `/agendar/` la víspera del evento** (22/09): no sabemos dónde vive la lista y Donostia no le sirve a la mayoría. De paso lo convierte en la prueba limpia del pilar, sin el ruido del evento.
-> 2. **La línea del enlace dice QUIÉN lo hace** (`…, nosotros:`). La primera versión decía `con nombre y apellido:` y se quedaba en el qué. Iker: *"bastantes veces pecas de ser explícito, te falta serlo más"*.
+> 2. **La línea del enlace dice QUIÉN lo hace** (`…, nosotros:`). La primera versión decía `con nombre y apellido:` y se quedaba en el qué. El equipo: *"bastantes veces pecas de ser explícito, te falta serlo más"*.
 > 3. **`Abrirlo, no.` cuelga del ASUNTO**: es la palabra que el ninja repite, y cambió cuando cambió el asunto.
 
 ---

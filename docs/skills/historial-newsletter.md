@@ -245,7 +245,7 @@ _(ninguno)_
 
 ## 📡 Detección de rebotes SIN pagar validador (2026-08-21)
 
-Iker: *"no vamos a pagar. Eso de limpiar los correos, deberíamos ser nosotros capaces de
+El equipo: *"no vamos a pagar. Eso de limpiar los correos, deberíamos ser nosotros capaces de
 detectarlo antes de tiempo."*
 
 ### ❌ Lo que se probó y NO funciona: puntuar direcciones absurdas
@@ -796,7 +796,7 @@ conceptos distintos aunque los dos "repartan" la audiencia.
    comprobarlo).
 4. **Partido al 50% al azar** (semilla fija `20260827` por si hay que auditar el reparto): **517 en la
    lista A, 518 en la B.** Dos listas nuevas creadas por API: `Correo 2 · A/B remitente · A (Iker de
-   Neety)` (id 11) y `· B (Iker Galarza de Neety)` (id 12).
+   Neety)` (id 11) y `· B (El segundo jefe de Neety)` (id 12).
 5. **Dos campañas en borrador, idénticas salvo el remitente:**
 
 | | Campaña A | Campaña B |
@@ -1163,7 +1163,7 @@ personas tampoco se puede (`§ A/B del correo 3`, que se mató por lo mismo).
 
 ### 🕵️ EL ASISTENTE DEL EVENTO NO VINO DE LA NEWSLETTER: VINO DE HUBSPOT
 
-> **Lo que preguntaba Iker:** *"en la información de la web de Luma hemos conseguido un asistente
+> **Lo que preguntaba el equipo:** *"en la información de la web de Luma hemos conseguido un asistente
 > también por el correo, pero no sé exactamente por cuál ha sido, ya que el UTM solo muestra el source
 > de `hs_email`"*.
 
@@ -1353,11 +1353,11 @@ Genera el HTML **desde el `.txt` validado**, que es lo que la receta pedía desd
 
 **🔁 Cambio de asunto (22/09, a propuesta de Iker):** el primero decía de qué iba el correo, y los asuntos buenos de las referencias nunca dicen el tema (`email-marketing §8g`). **Hipótesis con nuestro dato, n=2 contra n=2:** los dos asuntos que más abrieron son **preguntas cortas en 2ª persona, de tú a tú y sin tema** (`¿no te acuerdas de mí?` 46,8% · `te guardo la silla o no?` 44,4%) y los dos que menos, **afirmaciones** (`me traje 200 tarjetas…` 35,6% · `en euskadi nos juntamos sin ti` 28,9%). Con 45 destinatarios no es prueba, pero la dirección coincide en los 4. **Si este abre en la franja alta, se propone como regla.** Ninja cambiado para que cuelgue de `abrir`: `Una máquina te escribe el mensaje. Abrirlo, no.` Validador 37/37.
 
-**🔁 PUERTA CAMBIADA A `/agendar/` (22/09 tarde), y es la única.** Iker: *"como la ubicación del evento ya restringe mucho"*. **No se sabe dónde vive la lista** (ni Brevo ni el CRM guardan ubicación: 37 de 42 son `.com`), así que Donostia no le sirve a la mayoría. Se descartó añadir un segundo enlace (regla de un solo enlace, `email-marketing §3`) y **se cambió la única puerta**. De paso, el enlace a `/agendar/` resuelve justo lo que dice el cuerpo (*a quién mandárselo*) y hace de este correo la **prueba limpia de OBJECIÓN**, sin el ruido del evento. Se quitó la línea del evento; ninja `Una máquina te escribe el mensaje. Abrirlo, no.` / `A quién mandárselo, con su nombre, nosotros:` (Iker: explícito, quién lo hace, como el `en el evento sí` del post de la mañana). **UTM escrito a mano** (`utm_source=brevo&utm_medium=email&utm_campaign=correo-05-iker-objecion`), porque el seguimiento de Brevo está apagado. Validador 36/37 (solo la `¿`, aceptada). Auditor ✅.
+**🔁 PUERTA CAMBIADA A `/agendar/` (22/09 tarde), y es la única.** el equipo: *"como la ubicación del evento ya restringe mucho"*. **No se sabe dónde vive la lista** (ni Brevo ni el CRM guardan ubicación: 37 de 42 son `.com`), así que Donostia no le sirve a la mayoría. Se descartó añadir un segundo enlace (regla de un solo enlace, `email-marketing §3`) y **se cambió la única puerta**. De paso, el enlace a `/agendar/` resuelve justo lo que dice el cuerpo (*a quién mandárselo*) y hace de este correo la **prueba limpia de OBJECIÓN**, sin el ruido del evento. Se quitó la línea del evento; ninja `Una máquina te escribe el mensaje. Abrirlo, no.` / `A quién mandárselo, con su nombre, nosotros:` (Iker: explícito, quién lo hace, como el `en el evento sí` del post de la mañana). **UTM escrito a mano** (`utm_source=brevo&utm_medium=email&utm_campaign=correo-05-iker-objecion`), porque el seguimiento de Brevo está apagado. Validador 36/37 (solo la `¿`, aceptada). Auditor ✅.
 
 ### 🟠 LOS INSCRITOS AL EVENTO ENTRAN EN LA LISTA (decisión de Iker, 2026-09-22 · 19:00)
 
-**Lo que decide Iker, y queda escrito porque es una excepción a `§ SOLO CON CONSENTIMIENTO EXPLÍCITO` (28/08):** el formulario de Luma llevaba una casilla **obligatoria** con este texto literal — *"Términos del evento · Uso de datos para la operativa del evento y con objetivos comerciales"* — y el anfitrión del evento somos nosotros. Iker: *"con objetivos comerciales podemos hilar la fina línea de que nos han dado el permiso"*.
+**Lo que decide Iker, y queda escrito porque es una excepción a `§ SOLO CON CONSENTIMIENTO EXPLÍCITO` (28/08):** el formulario de Luma llevaba una casilla **obligatoria** con este texto literal — *"Términos del evento · Uso de datos para la operativa del evento y con objetivos comerciales"* — y el anfitrión del evento somos nosotros. El equipo: *"con objetivos comerciales podemos hilar la fina línea de que nos han dado el permiso"*.
 
 ⚠️ **El aviso que se dio antes de hacerlo, para que no se relea como una recomendación mía:** una casilla obligatoria para poder inscribirse no es un consentimiento libre en el sentido estricto del RGPD, y subir un lote de contactos que no han pasado por nuestro formulario es la señal nº1 del perfil que nos cerró MailerLite. Se hace con tres mitigaciones que pidió el propio Iker o que salen de `§0b`:
 

@@ -1190,9 +1190,9 @@ salvas`, titular y etiqueta hablan en dos voces distintas dentro de la misma fot
 
 **⛔ Y AL CAMBIAR LA PERSONA SE CAMBIA EN TODO EL CUERPO, POSESIVOS INCLUIDOS.** El 27/08 pasé el cuerpo a plural… y dejé un bloque entero en `¿El gancho? **Mío**. / ¿La hora de publicar? **Mía**.`. Iker: *"lo haces de una manera muy prepotente: hablar solo en primera persona cuando justo antes te ha dicho que primera persona singular no"*. **Los posesivos son los que se escapan**, porque el verbo ya está en plural y el oído da la frase por corregida. **Ctrl+F antes de entregar: `mío`, `mía`, `mis`, `me `, `yo`.**
 
-##### 👩 Y EN HELENA LA MISMA REGLA APRIETA MÁS, PORQUE SU CUENTA HABLA DE CUIDAR A ALGUIEN (2026-08-27)
+##### 🤝 Y EN LA COMPAÑERA DE CLIENTES LA MISMA REGLA APRIETA MÁS, PORQUE SU CUENTA HABLA DE CUIDAR A ALGUIEN (2026-08-27)
 
-> **Iker, sobre el 1er borrador de su post del evento:** *"ten en cuenta que el tono de la publicación está escrito por una chica, además no puede sonar a prepotente tampoco"*.
+> **Sobre el 1er borrador de su post del evento:** el tono es cercano y en primera persona, y no puede sonar prepotente.
 
 **El fallo, y era mío:** escribí `Su nombre lo tenemos desde el primer día` y `Su problema lo vemos venir antes de que lo cuenten`. Las dos son verdad y las dos presumen: dicen *sabemos de tu negocio más que tú*. **En una cuenta de customer success eso no es una chulería cualquiera, es una chulería sobre el cliente que te está leyendo.**
 

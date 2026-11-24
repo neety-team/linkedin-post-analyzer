@@ -196,7 +196,7 @@ Se marca en rojo: datos que no se han podido verificar, riesgos de publicar algo
 
 > 🔄 24/11: la cuenta de marketing está dada de baja (`aboutme §2`); hoy quedan fuera solo Iker, el primer jefe y el tercer jefe.
 
-**Cuándo aplica:** Iker pasa un post YA ESCRITO por uno de ellos para retocarlo. Primer caso: Ismael, Sales Consultant, historia del director comercial que "se conocía a todos" (05/10). El precedente: la chica de producto reescribió varias veces el gancho que le pulimos porque *"no sonaba a ella"*.
+**Cuándo aplica:** Iker pasa un post YA ESCRITO por uno de ellos para retocarlo. Primer caso: Ismael, Sales Consultant, historia del director comercial que "se conocía a todos" (05/10). El precedente: un gancho pulido para una cuenta de compañeros se reescribió varias veces porque no sonaba a su autora.
 
 **Iker, literal:** *"que siempre intente respetar, si es un borrador que me ha pasado esa persona, su manera de escribir, sus muletillas, sus frases"*.
 

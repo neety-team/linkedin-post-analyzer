@@ -224,7 +224,7 @@ brand-voice | 7.3 Que SI es fiable recordatorio | contexto: recordatorio de fiab
 brand-voice | NUNCA EL ANO NI EN EL TEXTO NI EN LA IMAGEN 2026 | pendiente(2026-11-11): cubierta · check: Sin el AÑO en el post (atemporalidad, brand-voice)
 brand-voice | 5 AL QUE COMPRA NO SE LE JUZGA EN NINGUNA CUENTA | criterio: comprador
 brand-voice | 6 POLITICA NUNCA EN NINGUNA CUENTA auditoria del | pendiente(2026-11-11): necesita-check · POLITICA sin check fuera de la casilla --meme-sobrio (memes de Unai/Asier). FALLO duro en todas las cuentas y 
-brand-voice | Y EN HELENA LA MISMA REGLA APRIETA MAS PORQUE SU | pendiente(2026-11-11): cubierta · check (aviso): ENTREGA: ¿el CUERPO presume? (cuentas Helena y Angela)
+brand-voice | Y EN LA COMPANERA DE CLIENTES LA MISMA REGLA APR | pendiente(2026-11-11): cubierta · check (aviso): ENTREGA: ¿el CUERPO presume? (cuentas Helena y Angela)
 brand-voice | LA TERCERA PERSONA SINGULAR SI PLURAL SOLO PARA | pendiente(2026-11-11): necesita-criterio · clave voz o bucle en historia: "¿el protagonista de la escena es UN actor (1a o 3a singular)? 3a plural solo p
 post-workflow | 0 Regla de oro precedencia | fuera: fuera · proceso: precedencia entre skills
 post-workflow | 1 El marco traducido a posts | fuera: fuera · proceso (workflow/loop)

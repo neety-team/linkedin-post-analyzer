@@ -13,7 +13,8 @@ import { runMigrations } from '../db/migrate';
 import { guardarSemana, guardarImagen, leerImagen, borrarImagen } from '../services/semana';
 import { prepararPublicacion, cuerpoUnipile } from '../services/publicadorLinkedin';
 import { planRonda, planificarAbeja, vueltaAbeja, cambiarAbeja, estadoAbeja, respuestaConMencion, type Ejecutor } from '../services/abeja';
-import { repartirRoles, limpiarTexto, interpretarRonda, componerAviso, type Ronda } from '../services/abejaTextos';
+import { repartirRoles, limpiarTexto, interpretarRonda, type Ronda } from '../services/abejaTextos';
+import { EQUIPO, elegirPersonas, componerAvisoDelDia, primeraLinea, enlaceDePost, interpretarPreguntas, type Persona } from '../services/avisoDelDia';
 
 let fallos = 0;
 const ok = (c: boolean, m: string) => {
@@ -61,8 +62,8 @@ function falso(yaRespondidos: string[] = []) {
     async chat(t) {
       log.push(`chat ${t}`);
     },
-    async cabecera() {
-      return '🐝 Nuevo post de IKER:';
+    async preguntas(pedidos) {
+      return pedidos.map((p) => `¿Pregunta para ${p.persona.nombre}?`);
     },
   };
   return { ej, log };
@@ -139,16 +140,49 @@ const cuentas = { iker: 'A-iker', unai: 'A-unai', asier: 'A-asier' };
   );
   ok(r4.comentarios[0].respuesta === 'R-iker' && r4.comentarios[1].respuesta === 'R-asier', 'la respuesta va con el comentario de encima aunque la firme el autor');
   ok(r2.comentarios[0].texto === 'Lo de "quién decide" es la clave' && r2.comentarios[1].respuesta === 'También', 'lee el formato de líneas, con comillas dentro');
-  const aviso = componerAviso({
-    cabecera: 'CAB',
-    url: 'U',
-    autor: 'iker',
-    automatica: true,
-    comentarios: [{ cuenta: 'unai', texto: 'Hola', hora: new Date('2098-05-13T08:00:00Z') }],
-    reposts: ['unai', 'asier'],
-    recordatorio: 'REC',
+  // ── Aviso del día (puro) ──
+  ok(primeraLinea('\n  Gancho *con* formato\nresto') === 'Gancho con formato', 'primera línea sin lo que el Chat lee como formato');
+  ok(primeraLinea('a '.repeat(80)).endsWith('…') && primeraLinea('a '.repeat(80)).length <= 111, 'la primera línea larga se corta en una palabra');
+  ok(enlaceDePost({ linkedin_post_id: '75' }) === 'https://www.linkedin.com/feed/update/urn:li:activity:75/', 'sin verificar, el enlace sale del id del post');
+  ok(enlaceDePost({ linkedin_url: 'U', linkedin_post_id: '75' }) === 'U', 'manda el enlace verificado');
+  const eq: Persona[] = [
+    { clave: 'ana', nombre: 'Ana', chatId: '1', papel: 'SDR', zonas: ['cataluña'], pedir: true, cuenta: 'ismael' },
+    { clave: 'bea', nombre: 'Bea', chatId: '2', papel: 'CS', zonas: [], pedir: true },
+    { clave: 'cris', nombre: 'Cris', chatId: null, papel: 'Marketing', zonas: [], pedir: true },
+    { clave: 'dani', nombre: 'Dani', chatId: '4', papel: '', zonas: [], pedir: false },
+  ];
+  const el = elegirPersonas(
+    [
+      { cuenta: 'iker', texto: 'Si vendes en Cataluña…' },
+      { cuenta: 'unai', texto: 'Otro tema' },
+    ],
+    eq,
+    { bea: 2000, cris: 1000 }
+  );
+  ok(el[0]?.clave === 'ana' && el[1]?.clave === 'cris', 'le toca a quien es de la zona y luego a quien hace más que no se le pide');
+  const el2 = elegirPersonas([{ cuenta: 'ismael', texto: 'Cataluña' }], eq, {});
+  ok(el2[0]?.clave !== 'ana', 'nunca se le pide comentar su propio post');
+  const el3 = elegirPersonas(
+    [1, 2, 3, 4].map(() => ({ cuenta: 'iker', texto: 'x' })),
+    eq,
+    {}
+  );
+  ok(el3.filter(Boolean).length === 3 && el3[3] === null && new Set(el3.filter(Boolean).map((p) => p!.clave)).size === 3, 'una persona distinta por post y nunca a quien no tiene papel');
+  ok(EQUIPO.every((p) => !p.pedir || (p.papel && p.chatId)), 'en el equipo, a quien se le pide tiene papel e id de Chat');
+  const avDia = componerAvisoDelDia({
+    posts: [
+      { id: 'a', cuenta: 'iker', texto: 'Gancho de Iker\ncuerpo', url: 'https://x/1' },
+      { id: 'b', cuenta: 'jose', texto: 'Gancho de José', url: null },
+    ],
+    personas: [eq[1], eq[2]],
+    preguntas: ['¿Qué te dicen los clientes?', null],
   });
-  ok(/Unai, hacia las 10:00: «Hola»/.test(aviso) && /Iker responde/.test(aviso) && /Repost de Unai y Asier/.test(aviso), 'el aviso cuenta la ronda');
+  ok(/^🐝 \*Hoy salen 2 posts\*/.test(avDia) && /\*Iker\* · Gancho de Iker\n<https:\/\/x\/1\|Abrir el post>/.test(avDia), 'aviso del día: titular, primera línea y enlace corto');
+  ok(/<users\/2> ¿Qué te dicen los clientes\? Contéstalo/.test(avDia) && /\*Cris\* ¿Te pasa algo parecido/.test(avDia), 'mención con id de Chat y, sin pregunta, la de por defecto');
+  ok(/\*José Tomás\* · Gancho de José/.test(avDia) && !/Ronda de los fundadores/.test(avDia) && /un like a cada uno/.test(avDia), 'incluye los de ventas, sin la ronda y con el like para el resto');
+  ok(/^🐝 \*Post nuevo de Unai\*/.test(componerAvisoDelDia({ posts: [{ id: 'a', cuenta: 'unai', texto: 'G', url: 'U' }], personas: [null], preguntas: [null] })), 'con un solo post, «Post nuevo de»');
+  const qs = interpretarPreguntas('**PREGUNTA 1:** ¿Cuánto tardas en saber quién decide?\nPREGUNTA 2: Sin interrogación\nPREGUNTA 9: ¿Fuera?', 2);
+  ok(qs[0] === '¿Cuánto tardas en saber quién decide?' && qs[1] === null, 'lee las preguntas y descarta lo que no es pregunta');
 
   // ── Plan ──
   const plan = planRonda({ autor: 'iker', orden: ['unai', 'asier'], ronda, automatica: true, azar: () => 0.5 });
@@ -212,6 +246,44 @@ const cuentas = { iker: 'A-iker', unai: 'A-unai', asier: 'A-asier' };
   await vueltaAbeja({ ejecutor: f2.ej, cuentas });
   const saltadas = (await pool.query(`SELECT COUNT(*)::int n FROM abeja_acciones WHERE semana_post_id = $1 AND estado = 'saltado'`, [P3])).rows[0].n;
   ok(saltadas === 4, 'si no se localiza el post, el resto no sale');
+
+  // ── Aviso del día: espera a los de la mañana y sale uno para todos ──
+  await cambiarAbeja(true, 'Prueba');
+  await guardarSemana(S, {
+    posts: [
+      { clave: 'g-1', ...base, fecha: '2098-05-14', cuenta: 'iker', texto: 'Primero de Iker\ncuerpo' },
+      { clave: 'g-2', ...base, fecha: '2098-05-14', cuenta: 'asier', texto: 'Segundo de Asier\ncuerpo' },
+      { clave: 'g-3', ...base, fecha: '2098-05-14', cuenta: 'jose', texto: 'Radar de José\ncuerpo' },
+    ],
+  } as any);
+  const G1 = await id('g-1');
+  const G2 = await id('g-2');
+  const G3 = await id('g-3');
+  await pool.query(`UPDATE semana_posts SET estado = 'publicado', publicado_at = NOW() - interval '20 minutes', linkedin_post_id = '91' WHERE id = $1`, [G1]);
+  await pool.query(`UPDATE semana_posts SET estado = 'publicado', publicado_at = NOW() - interval '10 minutes', linkedin_post_id = '93' WHERE id = $1`, [G3]);
+  await pool.query(`UPDATE semana_posts SET estado = 'programado', programado_para = NOW() + interval '30 minutes' WHERE id = $1`, [G2]);
+  const sinRonda: Ronda = { idioma: 'es', comentarios: [] };
+  await planificarAbeja({ id: G1, cuenta: 'iker', texto: 'x' }, { ahora: new Date(Date.now() - 20 * 60 * 1000), ronda: sinRonda, automatica: false });
+  const g = falso();
+  await vueltaAbeja({ ejecutor: g.ej, cuentas });
+  await vueltaAbeja({ ejecutor: g.ej, cuentas });
+  ok(!g.log.some((l) => l.startsWith('chat ')), 'con otro post de la mañana por salir, el aviso espera');
+  const espera = (await pool.query(`SELECT estado, error FROM abeja_acciones WHERE semana_post_id = $1 AND tipo = 'aviso'`, [G1])).rows[0];
+  ok(espera.estado === 'pendiente' && /todos juntos/.test(espera.error || ''), 'queda pendiente y dice por qué');
+  // Sale el segundo: su aviso avisa de los tres y el primero ya no repite.
+  await pool.query(`UPDATE semana_posts SET estado = 'publicado', publicado_at = NOW() - interval '5 minutes', linkedin_post_id = '92' WHERE id = $1`, [G2]);
+  await planificarAbeja({ id: G2, cuenta: 'asier', texto: 'x' }, { ahora: new Date(Date.now() - 5 * 60 * 1000), ronda: sinRonda, automatica: false });
+  await pool.query(`UPDATE abeja_acciones SET programado_para = NOW() - interval '1 minute' WHERE semana_post_id = ANY($1) AND estado = 'pendiente'`, [[G1, G2]]);
+  for (let i = 0; i < 3; i++) await vueltaAbeja({ ejecutor: g.ej, cuentas });
+  const chats = g.log.filter((l) => l.startsWith('chat '));
+  ok(chats.length === 1 && /Hoy salen 3 posts/.test(chats[0]) && /Primero de Iker/.test(chats[0]) && /Segundo de Asier/.test(chats[0]) && /Radar de José/.test(chats[0]), 'un solo aviso con los tres posts, también el de ventas');
+  ok(/<users\/\d+> ¿Pregunta para /.test(chats[0]), 'con la pregunta y la mención de una persona del equipo');
+  const avisos = (await pool.query(`SELECT estado, resultado FROM abeja_acciones WHERE semana_post_id = ANY($1) AND tipo = 'aviso' ORDER BY estado`, [[G1, G2]])).rows;
+  ok(avisos.map((r) => r.estado).join(',') === 'hecho,saltado', 'uno avisa y el otro se salta');
+  const pedidos = avisos.find((r) => r.estado === 'hecho')?.resultado?.pedidos || [];
+  ok(pedidos.length === 3 && new Set(pedidos).size === 3, 'apunta a quién se le pidió, una persona distinta por post');
+  ok((await pool.query(`SELECT COUNT(*)::int n FROM semana_posts WHERE id = ANY($1) AND chat_avisado_at IS NOT NULL`, [[G1, G2, G3]])).rows[0].n === 3, 'los tres quedan avisados');
+  await pool.query(`DELETE FROM abeja_acciones WHERE semana_post_id = ANY($1)`, [[G1, G2, G3]]);
 
   await pool.query(`DELETE FROM semanas WHERE semana = $1`, [S]);
   await pool.query(`UPDATE publicador_ajustes SET abeja_activa = FALSE, abeja_cambiado_por = NULL, abeja_cambiado_at = NULL WHERE id = 1`);

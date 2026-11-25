@@ -30,7 +30,7 @@ import {
   IMAGEN_MAX_BYTES,
 } from '../services/semana';
 import { estadoPublicador, cambiarSubidaAutomatica } from '../services/publicadorLinkedin';
-import { estadoAbeja, cambiarAbeja, rondaDePost, ensayarRonda } from '../services/abeja';
+import { estadoAbeja, cambiarAbeja, rondaDePost, ensayarRonda, ensayarAvisoDelDia } from '../services/abeja';
 import { identidadDe } from '../middleware/basicAuth';
 
 const router = Router();
@@ -44,6 +44,18 @@ router.get('/abeja', async (_req: Request, res: Response) => {
     res.json(await estadoAbeja());
   } catch (err: any) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * GET /api/semana/abeja/aviso-del-dia?fecha=AAAA-MM-DD — el aviso del día al
+ * Chat de esa fecha tal como saldría, sin enviarlo ni guardar nada.
+ */
+router.get('/abeja/aviso-del-dia', async (req: Request, res: Response) => {
+  try {
+    res.json(await ensayarAvisoDelDia(String(req.query.fecha || '')));
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
   }
 });
 

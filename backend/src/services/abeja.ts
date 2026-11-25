@@ -6,8 +6,10 @@
  *
  *   1. verificar   (cuenta del autor, +3 min): busca el post ya publicado en
  *      LinkedIn y apunta su social_id y su enlace. Sin eso no se puede comentar.
- *   2. aviso       (+3 min): el mensaje al Chat de contenido (GOOGLE_CHAT_WEBHOOK_URL)
- *      con el enlace y lo que van a comentar los otros dos.
+ *   2. aviso       (+3 min): el aviso del dia al Chat de contenido
+ *      (GOOGLE_CHAT_WEBHOOK_URL). Espera a los demas posts de la manana y sale
+ *      uno solo para todos, con una pregunta a una persona del equipo por post
+ *      (services/avisoDelDia.ts, 25/11).
  *   3. like_post   (cada uno de los otros dos, entre +6 y +20 min).
  *   4. comentar    (el primero entre +15 y +35 min, apoyando; el segundo entre
  *      +40 y +75, poniendo en duda o dando otro angulo).
@@ -44,10 +46,9 @@
  */
 import pool from '../db';
 import { sendToGoogleChat } from './googleChat';
-import { cabeceraChat } from './cabeceraChat';
-import { recordatorioAlAzar } from './anuncioChat';
 import { cuentasUnipile, NOMBRE_EN_LINKEDIN } from './publicadorLinkedin';
-import { repartirRoles, generarRonda, componerAviso, type Cuenta, type Ronda } from './abejaTextos';
+import { repartirRoles, generarRonda, type Cuenta, type Ronda } from './abejaTextos';
+import { EQUIPO, elegirPersonas, componerAvisoDelDia, generarPreguntas, enlaceDePost, type Persona } from './avisoDelDia';
 
 const UN_MINUTO = 60 * 1000;
 /** Quienes hacen la ronda. A proposito NO es la lista de semana.ts (que lleva a Ismael y José Tomás). */
@@ -57,6 +58,8 @@ const CADUCA_MIN = 8 * 60;
 const COLGADA_MIN = 15;
 const VERIFICAR_INTENTOS = 12;
 const REINTENTOS = 3;
+/** Lo que el aviso de un post espera, como mucho, a los demás de la mañana. */
+const ESPERA_AVISO_MIN = 120;
 
 export type TipoAccion = 'verificar' | 'aviso' | 'like_post' | 'comentar' | 'responder' | 'like_comentario' | 'repost';
 
@@ -257,7 +260,8 @@ export interface Ejecutor {
   reaccionar(p: { account_id: string; social_id: string; comment_id?: string | null }): Promise<void>;
   repost(p: { account_id: string; social_id: string }): Promise<void>;
   chat(texto: string): Promise<void>;
-  cabecera(p: { cuenta: Cuenta; texto: string; pilar: string | null }): Promise<string>;
+  /** Una pregunta por post para la persona elegida. null donde no haya. */
+  preguntas(p: { texto: string; autor: string; persona: Persona }[]): Promise<(string | null)[]>;
 }
 
 class ErrorDefinitivo extends Error {}
@@ -353,8 +357,13 @@ export const ejecutorReal: Ejecutor = {
     if (!hook) throw new ErrorDefinitivo('GOOGLE_CHAT_WEBHOOK_URL sin configurar');
     await sendToGoogleChat(hook, texto);
   },
-  async cabecera({ cuenta, texto, pilar }) {
-    return cabeceraChat({ pillar: pilar, contentText: texto, creatorName: NOMBRE_EN_LINKEDIN[cuenta] || cuenta });
+  async preguntas(pedidos) {
+    try {
+      return await generarPreguntas(pedidos);
+    } catch (e: any) {
+      console.error(`[abeja] no se han podido escribir las preguntas del aviso: ${e?.message}. Sale con la pregunta por defecto`);
+      return pedidos.map(() => null);
+    }
   },
 };
 
@@ -461,26 +470,56 @@ async function ejecutar(a: FilaAccion, ej: Ejecutor, cuentas: Record<string, str
   }
 
   if (a.tipo === 'aviso') {
-    const { rows: acc } = await pool.query(
-      `SELECT tipo, actor, texto, programado_para FROM abeja_acciones WHERE semana_post_id = $1 ORDER BY orden`,
+    const { rows: yo } = await pool.query(
+      `SELECT chat_avisado_at, EXTRACT(EPOCH FROM (NOW() - COALESCE(publicado_at, NOW()))) / 60 AS minutos FROM semana_posts WHERE id = $1`,
       [a.semana_post_id]
     );
-    const automaticos = acc
-      .filter((x) => x.tipo === 'comentar')
-      .map((x) => ({ cuenta: x.actor as Cuenta, texto: x.texto as string, hora: new Date(x.programado_para) as Date | null }));
-    let propuestos: { cuenta: Cuenta; texto: string; hora: Date | null }[] = [];
-    try {
-      propuestos = a.texto ? (JSON.parse(a.texto) as any[]).map((x) => ({ cuenta: x.cuenta, texto: x.texto, hora: null })) : [];
-    } catch {
-      propuestos = [];
+    if (yo[0]?.chat_avisado_at) {
+      await terminar(a.id, 'saltado', { error: 'Ya salió en el aviso del día' });
+      return 'saltado';
     }
-    const comentarios = automaticos.length ? automaticos : propuestos;
-    const reposts = acc.filter((x) => x.tipo === 'repost').map((x) => x.actor as Cuenta);
-    const cabecera = await ej.cabecera({ cuenta: a.autor, texto: a.post_texto, pilar: a.pilar }).catch(() => `🐝 Nuevo post de ${a.autor.toUpperCase()}:`);
-    const url = a.linkedin_url || (a.linkedin_social_id ? `https://www.linkedin.com/feed/update/${a.linkedin_social_id}/` : null);
-    await ej.chat(componerAviso({ cabecera, url, autor: a.autor, automatica: automaticos.length > 0, comentarios, reposts, recordatorio: recordatorioAlAzar() }));
-    await pool.query(`UPDATE semana_posts SET chat_avisado_at = NOW() WHERE id = $1`, [a.semana_post_id]);
-    await terminar(a.id, 'hecho');
+    // Espera a los demás posts de fundadores de la mañana para avisar de todos juntos.
+    const { rows: faltan } = await pool.query(
+      `SELECT 1 FROM semana_posts p
+        WHERE p.fecha = (SELECT fecha FROM semana_posts WHERE id = $1) AND p.id <> $1
+          AND p.estado = 'programado' AND p.cuenta = ANY($2)
+          AND p.programado_para > NOW() - interval '30 minutes'
+          AND p.programado_para < NOW() + interval '${ESPERA_AVISO_MIN} minutes'
+        LIMIT 1`,
+      [a.semana_post_id, FUNDADORES]
+    );
+    if (faltan.length && Number(yo[0]?.minutos || 0) < ESPERA_AVISO_MIN) {
+      await aplazar(a.id, 5, 'Espera a los demás posts de la mañana para avisar de todos juntos', false);
+      return 'aplazada';
+    }
+    const { rows: delDia } = await pool.query(
+      `SELECT id, cuenta, texto, linkedin_url, linkedin_social_id, linkedin_post_id
+         FROM semana_posts
+        WHERE fecha = (SELECT fecha FROM semana_posts WHERE id = $1)
+          AND (id = $1 OR (estado = 'publicado' AND chat_avisado_at IS NULL AND publicado_at > NOW() - interval '12 hours'))
+        ORDER BY publicado_at NULLS LAST, id`,
+      [a.semana_post_id]
+    );
+    const posts = delDia.map((p) => ({ id: p.id as string, cuenta: p.cuenta as string, texto: (p.texto || '') as string, url: enlaceDePost(p) }));
+    const { personas, preguntas } = await elegirYPreguntar(posts, ej);
+    // Con la ronda apagada, los comentarios que los fundadores pegan a mano.
+    const { rows: propuestas } = await pool.query(
+      `SELECT texto FROM abeja_acciones WHERE tipo = 'aviso' AND texto IS NOT NULL AND semana_post_id = ANY($1)`,
+      [posts.map((p) => p.id)]
+    );
+    const copiar: { cuenta: string; texto: string }[] = [];
+    for (const r of propuestas) {
+      try {
+        for (const x of JSON.parse(r.texto) as any[]) if (x?.cuenta && x?.texto) copiar.push({ cuenta: x.cuenta, texto: x.texto });
+      } catch {
+        /* texto viejo sin JSON: se ignora */
+      }
+    }
+    await ej.chat(componerAvisoDelDia({ posts, personas, preguntas, copiar }));
+    await pool.query(`UPDATE semana_posts SET chat_avisado_at = NOW() WHERE id = ANY($1)`, [posts.map((p) => p.id)]);
+    await terminar(a.id, 'hecho', {
+      resultado: { posts: posts.map((p) => p.id), pedidos: personas.filter(Boolean).map((p) => (p as Persona).clave) },
+    });
     return 'hecho';
   }
 
@@ -524,6 +563,41 @@ async function ejecutar(a: FilaAccion, ej: Ejecutor, cuentas: Record<string, str
   }
   await terminar(a.id, 'hecho');
   return 'hecho';
+}
+
+/** A quién se le pregunta en cada post (rotando) y qué. */
+async function elegirYPreguntar(posts: { cuenta: string; texto: string }[], ej: Ejecutor) {
+  const { rows: antes } = await pool.query(
+    `SELECT resultado, hecho_at FROM abeja_acciones
+      WHERE tipo = 'aviso' AND estado = 'hecho' AND resultado IS NOT NULL AND hecho_at > NOW() - interval '30 days'`
+  );
+  const ultimaVez: Record<string, number> = {};
+  for (const r of antes) {
+    for (const c of (r.resultado?.pedidos || []) as string[]) {
+      ultimaVez[c] = Math.max(ultimaVez[c] || 0, new Date(r.hecho_at).getTime());
+    }
+  }
+  const personas = elegirPersonas(posts, EQUIPO, ultimaVez);
+  const pedidos = posts.flatMap((p, i) => (personas[i] ? [{ i, texto: p.texto, autor: p.cuenta, persona: personas[i] as Persona }] : []));
+  const respuestas = pedidos.length ? await ej.preguntas(pedidos.map(({ texto, autor, persona }) => ({ texto, autor, persona }))) : [];
+  const preguntas: (string | null)[] = posts.map(() => null);
+  pedidos.forEach((p, k) => (preguntas[p.i] = respuestas[k] || null));
+  return { personas, preguntas };
+}
+
+/** El aviso del día de una fecha, sin enviarlo ni guardar nada (ruta de ensayo). */
+export async function ensayarAvisoDelDia(fecha: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) throw new Error('Fecha no válida (AAAA-MM-DD)');
+  const { rows } = await pool.query(
+    `SELECT id, cuenta, texto, linkedin_url, linkedin_social_id, linkedin_post_id
+       FROM semana_posts WHERE fecha = $1 AND estado IN ('publicado', 'programado')
+      ORDER BY COALESCE(publicado_at, programado_para), id`,
+    [fecha]
+  );
+  const posts = rows.map((p) => ({ id: p.id as string, cuenta: p.cuenta as string, texto: (p.texto || '') as string, url: enlaceDePost(p) }));
+  if (!posts.length) return { texto: null, pedidos: [] };
+  const { personas, preguntas } = await elegirYPreguntar(posts, ejecutorReal);
+  return { texto: componerAvisoDelDia({ posts, personas, preguntas }), pedidos: personas.map((p) => p?.clave || null) };
 }
 
 /** Una vuelta: lo que toca ahora. Devuelve lo que ha hecho, para los tests. */

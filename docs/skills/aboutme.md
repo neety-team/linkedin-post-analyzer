@@ -137,6 +137,7 @@ Interacción en LinkedIn · cambio de puesto · **nueva planta / ampliación / i
 > | **compañera de clientes** | Helena, Partnerships & Customer Success | `--cuenta helena` |
 > | **compañera de diseño** | Angela, Product Designer | `--cuenta angela` |
 > | **compañero de ventas** | Ismael, Sales Consultant | `--cuenta Ismael --voz-ajena` |
+> | **compañero de ventas de zona** | José Tomás, SDR de la Comunitat Valenciana (desde el 24/11) | `--cuenta jose --voz-ajena` |
 > | compañero de marketing | cuenta dada de baja el 24/11 | — |
 >
 > **«Los jefes»** son los tres primeros. **«Los compañeros»** son las tres cuentas siguientes, y entra en el grupo cualquier trabajador que se sume.

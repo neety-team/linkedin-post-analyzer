@@ -190,7 +190,8 @@ Sale un post en LinkedIn de un compañero y queremos que esa persona lo comente.
 
 Reglas:
 - Tutea. Español de España. Una sola pregunta, de hasta 140 caracteres, que acabe en "?".
-- Sobre el tema del post y desde el dia a dia de esa persona (su papel viene en el pedido).
+- Sobre el TEMA DEL POST, visto desde el dia a dia de esa persona (su papel viene en el pedido). El tema lo pone el post, no su papel.
+- La respuesta se publica como comentario en ese post, a la vista de clientes y prospectos. Nunca preguntes por vender o recomendar Neety, por argumentos de venta, ni por clientes, partners o procesos internos.
 - Que se conteste con una experiencia o una opinion en una linea, no con un si o un no.
 - NADA INVENTADO: no afirmes nada de la persona ni de su trabajo ("tú abriste Cataluña", "tu cliente X"), ni datos, ni nombres. Solo pregunta.
 - Nada de "¿qué te parece el post?", "¿estás de acuerdo?" ni frases de gurú. Sin emojis, sin comillas, sin guion largo.

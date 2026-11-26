@@ -408,4 +408,4 @@ global-instructions | 2.2e BANCO DE CONCEPTOS ANTES DEL GANCHO CINCO I | criteri
 post-workflow | 4.6-CONCEPTO ANTES DEL GANCHO CINCO CONCEPTOS Y | criterio: conceptos
 post-workflow | 4.6-TEMA-OUTLIER LA SEGUNDA FUENTE DE HISTORIAS | fuera: de dónde sale la idea de una historia (planificación), no el texto del post
 post-workflow | 4.4-IMAGEN-ESENCIA AL REVISAR LA IMAGEN DE UN ME | criterio: imagen
-post-workflow | 8.0b EL POST DE UN COMPANERO NECESITA QUE ALGUIE | fuera: avisar al equipo al programar el post de un compañero (operación), no el texto del post
+post-workflow | 8.0b EL POST DE UN COMPANERO SE LEE SABIENDO SI | fuera: cómo se lee el post de un compañero (medición), no el texto del post

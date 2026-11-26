@@ -1455,6 +1455,12 @@ const migracionSemana = `
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS linkedin_social_id TEXT;
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS linkedin_url TEXT;
   ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS chat_avisado_at TIMESTAMPTZ;
+  -- TRAER TRAS PUBLICAR (2026-11-26): el boton «Traer posts nuevos» se pulsa
+  -- solo a la hora de Semana. traido_at = ya esta en Cuentas; los intentos
+  -- ponen techo a las llamadas si el post no aparece. Ver services/traerTrasPublicar.ts.
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS traido_at TIMESTAMPTZ;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS traer_intentos INT NOT NULL DEFAULT 0;
+  ALTER TABLE semana_posts ADD COLUMN IF NOT EXISTS traer_ultimo_at TIMESTAMPTZ;
   ALTER TABLE publicador_ajustes ADD COLUMN IF NOT EXISTS abeja_activa BOOLEAN NOT NULL DEFAULT FALSE;
   ALTER TABLE publicador_ajustes ADD COLUMN IF NOT EXISTS abeja_cambiado_por TEXT;
   ALTER TABLE publicador_ajustes ADD COLUMN IF NOT EXISTS abeja_cambiado_at TIMESTAMPTZ;

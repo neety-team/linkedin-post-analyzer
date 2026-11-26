@@ -81,7 +81,7 @@ const filtrosBase = {
   pilar: z
     .array(z.string())
     .optional()
-    .describe('peloteo_mapa | peloteo_los10 | peloteo_objeto | lead_magnet | meme | historia | otro'),
+    .describe('peloteo_mapa | peloteo_los10 | peloteo_objeto | radar | lead_magnet | meme (y meme_*) | historia | historia_evento | hito | opinion | trastienda | noticia | evento | tarjeta | otro'),
   tema: z
     .array(z.string())
     .optional()

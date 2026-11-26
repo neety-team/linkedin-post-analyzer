@@ -747,6 +747,12 @@ export async function guardarSemana(
       }
     }
     await client.query('COMMIT');
+    // Si cambia el pilar de un post ya traido, Cuentas lo recoge sin esperar al
+    // siguiente scrape (2026-11-26). Import dinamico: pilarSemana acaba
+    // importando este modulo a traves del publicador.
+    if ((datos.posts || []).some((p) => p.pilar !== undefined)) {
+      import('./pilarSemana').then((m) => m.aplicarPilaresDeSemana()).catch(() => {});
+    }
     return { creados, actualizados };
   } catch (err) {
     await client.query('ROLLBACK');

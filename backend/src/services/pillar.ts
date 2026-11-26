@@ -62,7 +62,17 @@
  * etiquetas viejas — que es exactamente lo que paso el 13/08 con la historia
  * de Iker: el fix llego 9 minutos despues de publicar y nadie reproceso.
  */
-export const PILLAR_RULES_VERSION = '2026-11-24.lead-magnet-sin-comenta';
+export const PILLAR_RULES_VERSION = '2026-11-26.pilar-de-semana-y-radar';
+
+/**
+ * DESDE CUANDO reprocesa el arranque esta version (YYYY-MM-DD), o null para
+ * todo el historico. Se pone cuando la regla nueva solo corrige posts recientes
+ * y el historico ya esta revisado: el 26/11 el fallo empezaba con la semana 47
+ * (16/11), cuando arrancaron los formatos nuevos y la publicacion desde Semana,
+ * y lo anterior se habia revisado a mano. Al subir la version otra vez, vuelve a
+ * null salvo que la regla nueva tambien sea solo para lo reciente.
+ */
+export const PILLAR_RULES_DESDE: string | null = '2026-11-16';
 
 export type Pillar =
   | 'peloteo_mapa'
@@ -80,6 +90,15 @@ export type Pillar =
   | 'historia'
   | 'historia_evento'
   | 'evento'
+  // Pilares que estreno el equipo en Semana (2026-11-26). Los pone sobre todo
+  // la etiqueta de Semana (services/pilarSemana.ts); del texto solo se reconoce
+  // el Radar, que se nombra a si mismo.
+  | 'radar'
+  | 'opinion'
+  | 'trastienda'
+  | 'hito'
+  | 'noticia'
+  | 'tarjeta'
   | 'otro';
 
 export interface PillarInput {
@@ -545,6 +564,11 @@ export function classifyPillar(post: PillarInput): Pillar {
   const narra = pareceHistoria(t);
   if (narra && hablaDeNuestroEvento(t)) return 'historia_evento';
   if (esEvento(t) && !narra) return 'evento';
+
+  // El RADAR de inversiones (2026-11-26) se nombra siempre a si mismo ("nuestro
+  // Radar de inversiones industriales de octubre") y lleva fichas "→ @Empresa"
+  // de enhorabuena, asi que va antes que el peloteo.
+  if (/\bradar de inversiones\b/i.test(t)) return 'radar';
 
   // El lead magnet que regala SIN DUDA va antes que el peloteo: su lista de
   // agentes con flechas se confundia con fichas (20/11, `ofreceSinDuda`).

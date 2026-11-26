@@ -31,6 +31,7 @@ import { fetchPremiumAnalytics, savePremiumAnalytics } from '../services/premium
 import { leerDemos, leerLeads } from '../services/conversionesWeb';
 import { leerEventos, leerLeadsCombinados, guardarInscritosLuma, registrarEvento } from '../services/conversionesEventos';
 import { fetchAudiencia, saveAudiencia } from '../services/audienciaPost';
+import { aplicarPilaresDeSemana } from '../services/pilarSemana';
 import {
   extraerPost,
   guardarPostManual,
@@ -153,6 +154,8 @@ export async function scrapeCreatorPosts(
 
   await PostModel.bulkUpsert(posts);
   await CreatorModel.update(creator.id, { last_scraped_at: new Date() } as any);
+  // El pilar que puso el equipo en Semana pisa al que adivino el texto (2026-11-26).
+  await aplicarPilaresDeSemana(creator.id);
 
   // Seed the first snapshot for each newly-discovered post from the data
   // we just downloaded — INSERT only, no extra Unipile calls. Lookup the

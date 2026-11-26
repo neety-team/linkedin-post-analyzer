@@ -20,8 +20,9 @@
  * el arranque ni el calendario.
  */
 import pool from '../db';
-import { classifyPillar, PILLAR_RULES_VERSION } from './pillar';
+import { classifyPillar, PILLAR_RULES_VERSION, PILLAR_RULES_DESDE } from './pillar';
 import { esMeme } from '../utils/pilarBase';
+import { etiquetasDeSemana, pilarDeEtiqueta } from './pilarSemana';
 
 const CLAVE = 'pillar_rules_version';
 
@@ -36,24 +37,34 @@ const CLAVE = 'pillar_rules_version';
  * del bucle esto eran cientos de idas y vueltas a Postgres.
  */
 export async function reclassifyAllPosts(
-  opts: { soloVacios?: boolean } = {}
+  opts: { soloVacios?: boolean; desde?: string | null } = {}
 ): Promise<{ revisados: number; escritos: number; por_pilar: Record<string, number>; cambios: { id: string; pilar: string }[] }> {
   const { rows } = await pool.query(
     `SELECT id, content_text, reaction_mix, content_type, pillar
        FROM posts
       WHERE linkedin_post_id <> 'DEMO_LIVE_POST'
         AND pillar_manual IS NOT TRUE
-        ${opts.soloVacios ? 'AND pillar IS NULL' : ''}`
+        ${opts.soloVacios ? 'AND pillar IS NULL' : ''}
+        ${opts.desde ? 'AND published_at >= $1::date' : ''}`,
+    opts.desde ? [opts.desde] : []
   );
+
+  // Lo que el equipo escribio en Semana manda sobre el texto (2026-11-26,
+  // services/pilarSemana.ts). Si falla la lectura, se sigue solo con el texto.
+  const semana = await etiquetasDeSemana().catch((e) => {
+    console.error('[pillar] sin pilares de Semana:', e?.message);
+    return new Map<string, string>();
+  });
 
   const por_pilar: Record<string, number> = {};
   const cambios: { id: string; pilar: string }[] = [];
   for (const r of rows) {
-    const pilar = classifyPillar({
+    const texto = classifyPillar({
       content_text: r.content_text,
       reaction_mix: r.reaction_mix,
       content_type: r.content_type,
     });
+    const pilar = pilarDeEtiqueta(semana.get(r.id), texto, r.pillar) ?? texto;
     por_pilar[pilar] = (por_pilar[pilar] || 0) + 1;
     // El subtipo del meme lo pone la lectura de la imagen (postImageText) y el
     // clasificador solo sabe decir 'meme': si los dos dicen meme, se queda el subtipo.
@@ -87,8 +98,11 @@ export async function reclassifyIfRulesChanged(): Promise<void> {
       return;
     }
 
-    console.log(`[pillar] reglas nuevas: ${guardada ?? 'ninguna'} → ${PILLAR_RULES_VERSION}. Reprocesando…`);
-    const res = await reclassifyAllPosts();
+    console.log(
+      `[pillar] reglas nuevas: ${guardada ?? 'ninguna'} → ${PILLAR_RULES_VERSION}. Reprocesando ` +
+        (PILLAR_RULES_DESDE ? `desde el ${PILLAR_RULES_DESDE}…` : 'todo el historico…')
+    );
+    const res = await reclassifyAllPosts({ desde: PILLAR_RULES_DESDE });
     // Se listan los cambios, no solo el numero: si un reproceso mueve algo que
     // estaba bien, queremos verlo en el log del despliegue y no descubrirlo
     // semanas despues mirando una grafica rara.

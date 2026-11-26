@@ -63,6 +63,12 @@ const CABECERAS: Record<string, string[]> = {
   // Pilar en prueba desde el 2026-09-16 (categoria creada a mano, slug `tarjeta`).
   // Sin esta linea caia en "Nuevo POST", el mismo hueco que el del 11/08.
   tarjeta: ['Nueva TARJETA de {N}', 'Nueva TARJEEETA de {N}', 'TARJETA nueva de {N}', '{N} tiene TARJETA nueva'],
+  // Pilares que estreno el equipo en Semana (2026-11-26).
+  radar: ['Nuevo RADAR de {N}', 'Nuevo RADAAAR de {N}', 'RADAR nuevo de {N}', '{N} tiene RADAR nuevo'],
+  hito: ['Nuevo HITO de {N}', 'Nuevo HITOOO de {N}', 'HITO nuevo de {N}', '{N} tiene HITO nuevo'],
+  opinion: ['Nueva OPINIÓN de {N}', 'Nueva OPINIÓÓN de {N}', 'OPINIÓN nueva de {N}', '{N} tiene OPINIÓN nueva'],
+  trastienda: ['Nueva TRASTIENDA de {N}', 'Nueva TRASTIEEENDA de {N}', 'TRASTIENDA nueva de {N}', '{N} tiene TRASTIENDA nueva'],
+  noticia: ['Nueva NOTICIA de {N}', 'Nueva NOTICIAAA de {N}', 'NOTICIA nueva de {N}', '{N} tiene NOTICIA nueva'],
   otro: ['Nuevo POST de {N}', 'Nuevo POOOST de {N}', 'POST nuevo de {N}', '{N} tiene POST nuevo', 'Nuevo POST {N}'],
 };
 

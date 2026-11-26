@@ -40,6 +40,12 @@ const PILAR_PALABRA: Record<string, string> = {
   lead_magnet: 'LEAD MAGNET',
   evento: 'EVENTO',
   tarjeta: 'TARJETA',
+  // Los que estreno el equipo en Semana (2026-11-26): sin palabra salian como POST.
+  radar: 'RADAR',
+  hito: 'HITO',
+  opinion: 'OPINIÓN',
+  trastienda: 'TRASTIENDA',
+  noticia: 'NOTICIA',
 };
 
 function esVideo(contentType: string | null | undefined): boolean {

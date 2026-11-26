@@ -1039,6 +1039,19 @@ const migration = `
     ('meme_personaje', 'Meme (personaje)', 'naranja', 'Meme de plantilla de personaje o escena: pelicula, animal o vineta de reaccion', TRUE, 65)
   ON CONFLICT (slug) DO UPDATE SET builtin = TRUE;
 
+  -- PILARES QUE ESTRENO EL EQUIPO EN SEMANA (2026-11-26). Los pone la etiqueta
+  -- de Semana (services/pilarSemana.ts), que manda sobre el texto; sin ellos,
+  -- estos formatos caian en 'otro'. 'tarjeta' ya existia creada a mano: pasa a
+  -- builtin sin tocar su nombre ni su color.
+  INSERT INTO pillars (slug, label, color, ayuda, builtin, sort_order) VALUES
+    ('radar',      'Radar',              'cian',  'Radar de inversiones industriales: la edicion entera o una comunidad, con enhorabuena a varias empresas', TRUE, 35),
+    ('hito',       'Hito propio',        'ambar', 'Un logro nuestro: premio, viaje, certificacion, clientes nuevos', TRUE, 78),
+    ('opinion',    'Opinión',            'rosa',  'Opinion sobre el oficio de vender (del oficio, del ingeniero): una idea discutible defendida', TRUE, 80),
+    ('trastienda', 'Trastienda técnica', 'lima',  'Como funciona Neety por dentro, contado por quien escribe el codigo', TRUE, 82),
+    ('noticia',    'Noticia',            'cielo', 'Lectura de una noticia de actualidad', TRUE, 84),
+    ('tarjeta',    'Tarjeta',            'gris',  'Informe o dato propio en tarjeta', TRUE, 86)
+  ON CONFLICT (slug) DO UPDATE SET builtin = TRUE;
+
   -- v36: la config del lead magnet, a la base (Iker, 2026-08-20).
   --
   -- Vivia en localStorage con clave por post. Con la pestana Lead Magnet

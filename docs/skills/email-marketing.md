@@ -730,7 +730,28 @@ Hay dos tipos de correo y no se mezclan:
 - **Nada que no esté en la edición revisada:** empresas, cifras y fuentes salen de su fichero. Sin personas y sin clientes de Neety (las reglas del propio Radar).
 - **Se mide aparte por audiencia:** apertura, clics por enlace, descargas del Excel, reuniones con su `utm_campaign` y bajas.
 
-**👀 LA PREVIEW ES EL CORREO DE VERDAD (2026-11-23).** Todo correo, sea de Kaixito o del Radar, se sube a la página Newsletter con su HTML exacto (el que genera `montar-correo-brevo.py` o `montar-radar-correo.py`, con el pie), y la página lo pinta tal cual, en móvil y en escritorio. Se aprueba lo que se va a enviar, no un texto plano.
+### 📬 5S · EL AVISO SEMANAL DE INVERSIONES: LA NEWSLETTER DESDE EL 9/12 (2026-11-26)
+
+La newsletter pasa a ser el sitio donde la industria se entera antes que nadie de quién está invirtiendo. El correo de cada semana es el **aviso semanal**: las inversiones industriales de España que han salido esa semana, antes de que lleguen al Radar del mes y a LinkedIn. Diseño: `docs/superpowers/specs/2026-11-26-newsletter-inversiones-design.md`.
+
+**Por qué (dato propio):** el correo 15 (el Radar en Excel, 24/11) tuvo un 3,1 % de clic real y 0 bajas. El último de historias (correo 14, 17/11) tuvo un 0,5 % y 3 bajas.
+
+| | Aviso semanal |
+|---|---|
+| Cuándo | Cada martes a las 09:05, menos la primera semana del mes, que sale el Radar (§5R). Si el martes es festivo, el día laborable siguiente |
+| A quién | La newsletter (listas 15, 16 y 19), sin los que están en la bienvenida (lista «En bienvenida», §5b). Los clientes sí lo reciben, porque no pide reunión |
+| Remitente | `Iker de Neety`, con la respuesta a `iker@neety.com` |
+| Qué lleva | Dos líneas de entrada, de 5 a 8 inversiones (empresa, dónde, qué hace, qué puede necesitar y su fuente enlazada), el botón al Excel con todas las de la semana, la línea fija de «quiero esta», el puente a Neety, la firma y Kaixito como GIF pequeño |
+| Lo que no lleva | Enlace a `/solicitar-demo` en el cuerpo, historia, PD de broma ni ninja. Ni automatismo ni volumen en el puente (`global §4.4b-MUNICIÓN`) |
+
+- **La línea fija, tal cual:** `¿Te interesa alguna? Respóndeme «quiero esta» y te digo a quién escribir dentro.` Quien responde recibe el **cargo** al que conviene escribir y por qué encaja, nunca el nombre ni el contacto de una persona. Esa respuesta es la señal de intención, y la reunión la propone Iker en persona cuando alguien repite o pregunta por Neety.
+- **Lo genera `scripts/montar-aviso-semanal.py`** desde `newsletter/semanas/AAAA-Wnn.md` (la tabla del Radar con `semana`, `desde` y `hasta` en el frontmatter). Descarta las filas sin fuente o con la fecha fuera de la semana, elige de 5 a 8 por importe y, si empatan, por fecha, y **con menos de 5 no monta nada**: esa semana no se rellena. El Excel sale de `scripts/radar-excel.py` con el mismo fichero.
+- **Cada fila la da por buena Iker** en la revisión del lunes, antes de que salga. Los ficheros de la semana son la base del Radar del mes.
+- **El asunto lleva A/B** (§5, desde el 3/12). `validar-email.py` no se le pasa al HTML; las dos líneas de entrada siguen las reglas de forma de la casa.
+- **Se mide** como la newsletter (clic único sobre entregados: mínimo 5 %, éxito 8 %), más las respuestas «quiero esta» por envío. Si un correo pasa del 3 % de bajas, se para y se revisa.
+- **Lo prepara la rutina `contenido-newsletter-auto` (lunes) y lo programa Iker.** Ninguna rutina programa ni envía: deja el correo en la página Newsletter y la campaña de Brevo como borrador sin programar.
+
+**👀 LA PREVIEW ES EL CORREO DE VERDAD (2026-11-23).** Todo correo, sea de Kaixito o del Radar, se sube a la página Newsletter con su HTML exacto (el que genera `montar-correo-brevo.py`, `montar-radar-correo.py` o `montar-aviso-semanal.py`, con el pie), y la página lo pinta tal cual, en móvil y en escritorio. Se aprueba lo que se va a enviar, no un texto plano.
 
 **📝 PLANIFICAR ES REDACTAR (2026-11-23).** Un correo entra en el calendario de la página Newsletter ya escrito y validado, como `borrador`, nunca como `idea`. Así se aprueba el correo y no una idea, y se ve pronto si el plan aguanta.
 - **Si depende de algo que aún no existe** (un recurso, la edición del Radar, un dato), se escribe igual con lo que hay. Lo que falta se dice en el porqué del correo y el texto no lleva ninguna cifra sin fuente. Al llegar lo que falta se vuelve a pasar el validador.
@@ -987,6 +1008,14 @@ Es la forma medida de RunnerPro y de Timepack (`§4b`, `§8d`), y resuelve el co
 **La vara, y es dura:** el correo 0 lleva **0 clics de 336 entregados y 0 respuestas de 191**. Cualquier número mayor que cero es información nueva.
 
 ### 5b · Secuencia automática de bienvenida (nuevos leads)
+**🔄 26/11/2026 · La bienvenida que se monta es de tres correos, y manda sobre el esquema de 14 días de abajo** (diseño `2026-11-26-newsletter-inversiones-design.md` §4.2). Es una automatización de Brevo que empieza cuando un contacto entra en la lista 15, una sola vez por contacto y para siempre:
+- **Día 0:** qué va a recibir y cuándo (las inversiones de cada martes, antes de que salgan en ningún sitio) y, de regalo, el último Excel del Radar.
+- **Día 3:** cómo se lee una inversión, con una fila real del Radar, y el mecanismo de «quiero esta». Sin enlace: se invita a responder.
+- **Día 7:** una inversión de la última semana como muestra y «desde el martes que viene, te llegan todas». Una línea, sin vender, de que esto es lo que Neety hace a diario.
+- Los firma `Iker de Neety`, con la respuesta a `iker@neety.com` y Kaixito como GIF. Se escriben con este documento y pasan `validar-email.py`.
+- **Sin doble flujo, con una lista:** el primer paso mete al contacto en la lista «En bienvenida» y el último lo saca. El aviso semanal (§5S) excluye esa lista. La lista «En bienvenida» es solo de Brevo: el CRM no la toca.
+- Se crea como borrador y se activa solo cuando Iker lo pide.
+
 Día 0: entrega del lead magnet prometido · Día 1-2: quiénes somos y qué problema resolvemos (SIN pitch duro) · Día 3-5: una idea útil · Día 6-8: caso de uso · Día 9-11: error común que Neety evita · Día 12-14: invitación a diagnóstico. Valor, no presión: el lead tiene que entender solo por qué la demo tiene sentido.
 - **Sin doble flujo:** mientras un lead está DENTRO de la bienvenida (días 0-14) NO recibe la newsletter normal. Al terminar la secuencia pasa al nurture semanal. Nunca los dos a la vez.
 - **Referenciar el origen:** el email de día 0-2 SÍ nombra el recurso que se descargó ("la guía de X que te llevaste"); a partir de ahí, genérico, porque en la lista conviven leads de magnets distintos. Si un envío va filtrado a UN magnet concreto, se referencia; si va mezclado, no se asume ninguno.

@@ -111,6 +111,14 @@ def test_excel_semana():
         assert 'semana del 02/11 al 08/11' in texto, texto[:300]
 
 
+def test_asunto_b_sin_importe():
+    # Ensayo W48: «empieza con 20 M€ y aspira a 70 M€» salía como «invierte 70 M€». El asunto no lleva cifra.
+    filas = [fila('Pasek Minerals', 'Planta nueva — arranca con 20 M€ y aspira a llegar a 70 M€')] + \
+            [fila(f'X{i}', 'Planta nueva') for i in range(4)]
+    _a, b, _p = av.asuntos({}, filas, av.elegir(filas))
+    assert 'M€' not in b and 'Pasek Minerals' in b, b
+
+
 if __name__ == '__main__':
     fallos = 0
     for nombre, f in list(globals().items()):

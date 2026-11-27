@@ -68,11 +68,11 @@ def _corto(empresa):
 
 
 def asuntos(fm, validas, elegidas):
+    # El asunto no lleva cifra: rc.importe() coge la mayor de la señal, y «arranca con 20 M€ y aspira
+    # a 70 M€» salía como «invierte 70 M€» (ensayo W48). El importe va en la tarjeta, con su contexto.
     top = elegidas[0]
-    imp = rc.importe(top['senal'])
     a = f'{len(validas)} industriales que invierten esta semana'
-    b = (f'{_corto(top["empresa"])} invierte {imp:g} M€ en {rc.provincia(top["ubicacion"])}'.replace('.', ',')
-         if imp else f'quién invierte esta semana en {rc.provincia(top["ubicacion"])}')
+    b = f'{_corto(top["empresa"])} invierte en {rc.provincia(top["ubicacion"])}'
     preview = f'{len(validas)} inversiones con su fuente, antes de que salgan en el Radar del mes.'
     return a, b, preview
 

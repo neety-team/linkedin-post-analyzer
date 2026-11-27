@@ -15,10 +15,13 @@ const estados: Record<string, string> = { [ID_BORRADOR]: 'borrador', [ID_IDEA]: 
 const HUELLA = 'h-actual';
 let aprobadosLlamadas = 0;
 let conversionesColgadas = false;
+const retirados: string[] = [];
+const programados: string[] = [];
 
 const deps: DepsNewsletter = {
   listarCorreos: async () => ({
     proximos: Object.entries(estados).map(([id, estado]) => ({ id, estado, feedback: [], metricas: null })),
+    automaticos: [{ id: 'auto', estado: 'automatico', feedback: [], metricas: null }],
     enviados: [{ id: ID_ENVIADO, estado: 'enviado', fecha: '2026-11-12', feedback: [], metricas: null }],
   }),
   aprobarCorreo: async (id, quien, huella) => {
@@ -30,6 +33,19 @@ const deps: DepsNewsletter = {
     return 'ok';
   },
   crearFeedback: async (correoId, autor, texto) => ({ id: 'f1', correo_id: correoId, autor, texto }),
+  retirarCorreo: async (id) => {
+    if (!(id in estados)) return 'no_existe';
+    retirados.push(id);
+    return 'ok';
+  },
+  programarCorreo: async (id, quien) => {
+    if (!puedeAprobar(quien)) return 'solo iker@neety.com programa los correos';
+    if (!(id in estados)) return 'no_existe';
+    if (estados[id] !== 'aprobado') return 'solo se programa un correo aprobado';
+    programados.push(id);
+    estados[id] = 'programado';
+    return 'ok';
+  },
   puedeAprobar, // el real: es la regla que se prueba
   estadoMetricas: () => ({ configurado: !!process.env.BREVO_API_KEY }),
   estadoBarrido: async () => ({ ultimo_at: null, error: null }),
@@ -77,6 +93,18 @@ async function main() {
   assert.deepEqual(g.enviados[0].conversiones, { demos: 3, inscritos: null }, 'cada enviado trae sus conversiones');
   s.cerrar();
 
+  // Unai no retira ni programa
+  s = await servir('unai@neety.com');
+  r = await fetch(`${s.base}/correos/${ID_BORRADOR}/retirar`, { method: 'POST' });
+  assert.equal(r.status, 403);
+  r = await fetch(`${s.base}/correos/${ID_BORRADOR}/programar`, { method: 'POST' });
+  assert.equal(r.status, 403);
+  assert.equal(retirados.length + programados.length, 0);
+  // Los automáticos llegan aparte
+  g = await cuerpo(await fetch(s.base));
+  assert.deepEqual(g.automaticos.map((c: any) => c.id), ['auto']);
+  s.cerrar();
+
   // Sin identidad: 403
   s = await servir(null);
   r = await fetch(`${s.base}/correos/${ID_BORRADOR}/aprobar`, { method: 'POST' });
@@ -113,6 +141,21 @@ async function main() {
   assert.equal(g.metricas.configurado, false, 'sin BREVO_API_KEY no hay métricas configuradas');
   assert.equal(g.metricas.ultimo_barrido, null);
   assert.ok(Array.isArray(g.proximos) && Array.isArray(g.enviados));
+
+  // Programar: un aprobado sí (pasa a programado); otra vez, no
+  r = await fetch(`${s.base}/correos/${ID_BORRADOR}/programar`, { method: 'POST' });
+  assert.equal(r.status, 200, await r.clone().text());
+  assert.equal(estados[ID_BORRADOR], 'programado');
+  r = await fetch(`${s.base}/correos/${ID_BORRADOR}/programar`, { method: 'POST' });
+  assert.equal(r.status, 409);
+  r = await fetch(`${s.base}/correos/${ID_NADA}/programar`, { method: 'POST' });
+  assert.equal(r.status, 404);
+  // Retirar: Iker sí
+  r = await fetch(`${s.base}/correos/${ID_IDEA}/retirar`, { method: 'POST' });
+  assert.equal(r.status, 200);
+  assert.deepEqual(retirados, [ID_IDEA]);
+  r = await fetch(`${s.base}/correos/${ID_NADA}/retirar`, { method: 'POST' });
+  assert.equal(r.status, 404);
 
   // Feedback: con identidad firma con su nombre y no con el del cuerpo
   r = await fetch(`${s.base}/correos/${ID_BORRADOR}/feedback`, {

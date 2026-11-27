@@ -12,6 +12,8 @@ import {
   aprobarCorreo,
   crearFeedback,
   puedeAprobar,
+  retirarCorreo,
+  programarCorreo,
 } from '../services/newsletter';
 import { estadoMetricas, estadoBarrido, refrescarMetricas, conversionesDeEnviados } from '../services/metricasNewsletter';
 import { identidadDe } from '../middleware/basicAuth';
@@ -24,6 +26,8 @@ export interface DepsNewsletter {
   aprobarCorreo: typeof aprobarCorreo;
   crearFeedback: typeof crearFeedback;
   puedeAprobar: typeof puedeAprobar;
+  retirarCorreo: typeof retirarCorreo;
+  programarCorreo: (id: string, quien: any) => Promise<string>;
   estadoMetricas: typeof estadoMetricas;
   estadoBarrido: typeof estadoBarrido;
   refrescarMetricas: typeof refrescarMetricas;
@@ -36,6 +40,8 @@ export const serviciosReales: DepsNewsletter = {
   aprobarCorreo,
   crearFeedback,
   puedeAprobar,
+  retirarCorreo,
+  programarCorreo: (id, quien) => programarCorreo(id, quien),
   estadoMetricas,
   estadoBarrido,
   refrescarMetricas,
@@ -68,7 +74,7 @@ export function crearRouter(
   /** GET /api/newsletter — los correos, sus métricas y si quien mira puede aprobar. */
   router.get('/', async (req: Request, res: Response) => {
     try {
-      const { proximos, enviados } = await deps.listarCorreos();
+      const { proximos, enviados, automaticos = [] } = await deps.listarCorreos();
       const { configurado } = deps.estadoMetricas();
       const barrido = await deps.estadoBarrido();
       // Las conversiones no pueden tumbar ni frenar la pestaña: si fallan o tardan más de
@@ -77,7 +83,8 @@ export function crearRouter(
       const conv = await conTope(deps.conversionesDeEnviados(enviados), msConversiones, []);
       res.json({
         proximos,
-        enviados: enviados.map((c, i) => ({ ...c, conversiones: conv[i] ?? { demos: null, inscritos: null } })),
+        automaticos,
+        enviados: enviados.map((c: any, i: number) => ({ ...c, conversiones: conv[i] ?? { demos: null, inscritos: null } })),
         metricas: { configurado, ultimo_barrido: barrido.ultimo_at, error: barrido.error },
         puedo_aprobar: deps.puedeAprobar(identidadDe(req)),
       });
@@ -109,6 +116,43 @@ export function crearRouter(
       res.json([...proximos, ...enviados].find((c) => c.id === id) || { id, estado: 'aprobado' });
     } catch (err: any) {
       console.error('[newsletter/aprobar]', err);
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  /** POST /api/newsletter/correos/:id/retirar — solo Iker. Deja de salir en la página (no se borra). */
+  router.post('/correos/:id/retirar', async (req: Request, res: Response) => {
+    try {
+      if (!deps.puedeAprobar(identidadDe(req))) return res.status(403).json({ error: 'Solo Iker retira los correos' });
+      const id = idDe(req);
+      if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+      const r = await deps.retirarCorreo(id, 'desde la página');
+      if (r === 'no_existe') return res.status(404).json({ error: 'Correo no encontrado' });
+      if (r !== 'ok') return res.status(409).json({ error: r });
+      res.json({ id, estado: 'retirado' });
+    } catch (err: any) {
+      console.error('[newsletter/retirar]', err);
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  /**
+   * POST /api/newsletter/correos/:id/programar — solo Iker y solo un aprobado: crea la campaña
+   * en Brevo con el HTML aprobado, a su fecha y hora, y la deja vinculada.
+   */
+  router.post('/correos/:id/programar', async (req: Request, res: Response) => {
+    try {
+      const yo = identidadDe(req);
+      if (!deps.puedeAprobar(yo)) return res.status(403).json({ error: 'Solo Iker programa los correos' });
+      const id = idDe(req);
+      if (!RE_UUID.test(id)) return res.status(400).json({ error: 'Id no válido' });
+      const r = await deps.programarCorreo(id, yo);
+      if (r === 'no_existe') return res.status(404).json({ error: 'Correo no encontrado' });
+      if (r !== 'ok') return res.status(409).json({ error: r });
+      const { proximos, enviados } = await deps.listarCorreos();
+      res.json([...proximos, ...enviados].find((c: any) => c.id === id) || { id, estado: 'programado' });
+    } catch (err: any) {
+      console.error('[newsletter/programar]', err);
       res.status(500).json({ error: err.message });
     }
   });

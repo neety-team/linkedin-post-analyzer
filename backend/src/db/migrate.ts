@@ -1383,6 +1383,9 @@ const migracionSemana = `
   -- Una campana de Brevo solo puede estar en un correo (las tandas van cada una en su fila).
   CREATE UNIQUE INDEX IF NOT EXISTS idx_newsletter_correos_campana
     ON newsletter_correos (brevo_campaign_id) WHERE brevo_campaign_id IS NOT NULL;
+  -- 2026-11-27: a qué listas de Brevo va cada correo y cuáles excluye, para programarlo desde la página.
+  ALTER TABLE newsletter_correos ADD COLUMN IF NOT EXISTS listas INT[];
+  ALTER TABLE newsletter_correos ADD COLUMN IF NOT EXISTS excluir INT[];
 
   CREATE TABLE IF NOT EXISTS newsletter_feedback (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),

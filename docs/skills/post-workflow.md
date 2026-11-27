@@ -655,6 +655,11 @@ Auditando el cajón `otro` vi el post del primer jefe del 12/06 (*"Nadie habla d
 
 ### 4.3 · Runbook "LAS 10" (encadenado) — las 10 EMPRESAS de una región, con sus LOGOS en una orla (2026-10-01). Debajo, la receta de "LOS 10" (personas), que sigue prohibida y se conserva
 
+> ### ⏸️ 4.3-PAUSA · "LAS 10" EN PAUSA (Iker, 2026-11-26) — MANDA SOBRE TODO LO DE ESTA SECCIÓN
+> **No se propone "Las 10" en ninguna matriz ni en ninguna rutina** hasta que Iker lo levante por escrito. Lo dijo el 17/11 y lo dejó como regla el 26/11: *"No quiero el formato de las 10… que por ahora no lo proponga… mantén todo el aprendizaje por si acaso"*. El peloteo regional va con el **mapa** (`§4.2`) y el despiece.
+> - **La receta, los datos y las medidas de abajo se conservan enteros**, por si vuelve. No se borra nada.
+> - El último que se escribió, "Las 10" de Cataluña de Iker (W49, 30/11, 102/102), se retiró del lunes ese mismo día: el texto queda en `contenido/borradores/2026-11-30-iker-las10-cataluna.txt` y la orla en `contenido/imagenes/2026-W49/`.
+
 > ### 🔄🔄🔄 4.3-LAS10 · EL VETO SE LEVANTA, PERO SOLO SOBRE LA EMPRESA (2026-10-01) — MANDA SOBRE TODO LO DE ABAJO
 > **📊 09/11 · Primer "Las 10" con logos en el primer jefe (Castilla y León, vie 06/11, BD a 2,8 días):** 54.550 impresiones, 7 veces sus dos de personas (7.320 y 7.789). Familia con logos, n=5: 57.828 · 54.550 · 46.630 · 35.185 · 14.148 (mediana 46.630); con personas, n=5: 55.204 · 42.668 · 13.357 · 7.789 · 7.320 (mediana 13.357). **No voló por guardados ni envíos:** 0,29 y 0,24 por 1.000, de los más bajos de todos los peloteos con dato (16 y 13 en bruto). Sí por comentarios de fuera: 12, el máximo de la familia (5-9), y 8 de esos 12 son `faltan empresas` (seis) o discutir el gentilicio del título (dos): la orla con la región enorme en naranja invita a corregirla. **El reparto es una ola tardía fuera de la red:** 98% fuera, 16.607 a las 47,5 h y 52.643 a las 59,5 h (3.408 por hora el domingo por la tarde), con 1,5 likes por 1.000 dentro de la ola. Público generalista: Madrid 23%, cargos de ventas 3%, empresas de más de 10.000 empleados 17%. Clics 0,27 por 1.000 y 0 reuniones. **Se queda como formato de alcance;** a reuniones no ha llevado nada. *(El gancho de `patio de luces` no se puede aislar: todos los de la familia usan el mismo molde.)*
 >
@@ -4605,7 +4610,7 @@ Durante esas dos semanas **no va a estar la capa manual que hace funcionar el si
 **⛔ Y lo que esto NO autoriza, que es la lectura peligrosa:** no dice que el sistema funcione igual sin la capa manual. En esa misma ventana la frecuencia bajó a la mitad, las cuentas no se comentaron entre sí y se quedaron comentarios sin responder — y **la mediana de impresiones de la segunda semana fue de 1.364 contra 20.260 de la primera**. Lo que está medido es la fontanería (publica o no publica), no el rendimiento. **Programar más no sustituye a estar delante**, y el volumen de las semanas sin nadie sigue cerrado donde está (`§8.0-SEPTIEMBRE`).
 
 ### 8.1 · Las 3 categorías de pilar (unidad de rotación)
-- **PELOTEO (regional)** = { **Mapa regional** | **"Las 10"** (orla de logos, desde el 01/10, `§4.3-LAS10`) | **Despiece** (uno por sector con plantilla) }. ~~"Los 10" de personas~~ sigue **prohibido** (`§4.3-VETO`). Los tres pelotean EMPRESAS de una región y solo cambia la representación. **Coste de producción (2026-10-01):** "Las 10" y el despiece son los baratos, porque la imagen la monto yo con script; el mapa pide además CSV, PamPam, captura y página web. Con poco tiempo esa semana, el peloteo va a orla o despiece. Los tres formatos cuentan como **la MISMA categoría** a efectos de intercalado (no pueden coincidir dos peloteos el mismo día).
+- **PELOTEO (regional)** = { **Mapa regional** | ~~**"Las 10"**~~ ⏸️ **en pausa desde el 26/11, no se propone** (`§4.3-PAUSA`) | **Despiece** (uno por sector con plantilla) }. ~~"Los 10" de personas~~ sigue **prohibido** (`§4.3-VETO`). Los tres pelotean EMPRESAS de una región y solo cambia la representación. **Coste de producción (2026-10-01):** "Las 10" y el despiece son los baratos, porque la imagen la monto yo con script; el mapa pide además CSV, PamPam, captura y página web. Con poco tiempo esa semana, el peloteo va a orla o despiece. Los tres formatos cuentan como **la MISMA categoría** a efectos de intercalado (no pueden coincidir dos peloteos el mismo día).
 - **LEAD MAGNET** (comment-gated).
 - **MEME** (con motor).
 
@@ -4705,7 +4710,7 @@ El workflow SIEMPRE arranca preguntando:
 
 ### 8.5 · Flujo del workflow (paralelo por cuenta)
 1. **Pregunta previa** (8.4) + confirmar frecuencia y días.
-2. **Proponer la MATRIZ semanal** (tabla cuenta × día × categoría) aplicando 8.2 + 8.3. Para cada celda de PELOTEO, decidir si mapa, "Las 10" o despiece (y de qué sector), y la región. **Nunca "Los 10" de personas** (`§4.3-VETO`).
+2. **Proponer la MATRIZ semanal** (tabla cuenta × día × categoría) aplicando 8.2 + 8.3. Para cada celda de PELOTEO, decidir si mapa o despiece (y de qué sector), y la región. **"Las 10" no se propone** (en pausa, `§4.3-PAUSA`). **Nunca "Los 10" de personas** (`§4.3-VETO`).
 3. **[Checkpoint] Enseñarte la matriz** para aprobar o ajustar ANTES de generar (recomendado siempre; imprescindible las primeras semanas).
 4. **Generar los posts en PARALELO** (una rama por cuenta; dentro de cada post, el runbook del pilar §4.2-4.5, encadenado): verificar datos → hook → cuerpo → CTA → concepto de imagen → Loop de validación (§8).
 5. **Entregar:** la matriz + todos los posts, cada uno con su texto en bloque cercado, tag, "por qué", riesgos, concepto de imagen y "revisa estas" (empresas/cifras/menciones). Y **di qué esperas de mí** para el siguiente paso.

@@ -80,6 +80,8 @@ def test_html():
     assert 'utm_source=brevo&amp;utm_medium=email' in html
     assert av.H.escape(EXCEL) in html
     assert f'src="{GIF}"' in html and f'alt="{ALT}"' in html
+    assert 'width="56"' in html and 'width="200"' not in html, 'Kaixito va pequeño en la firma (estilo C)'
+    assert 'Cofundador de Neety' in html and html.index(GIF) < html.index('Cofundador de Neety')
     assert 'solicitar-demo' not in html
     assert 'Perfiles Murcia' not in html and 'Repsol' not in html
     assert 'ASUNTO A:' in err and 'ASUNTO B:' in err and 'PREVIEW:' in err

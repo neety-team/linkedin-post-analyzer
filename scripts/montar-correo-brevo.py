@@ -25,6 +25,22 @@ GIF_TPL = ('<p style="margin:0 0 24px;text-align:center;"><img src="{url}" alt="
            'max-width:70%;height:auto;border:0;outline:none;text-decoration:none;"></p>')
 
 
+# Estilo C (27/11/2026, email-marketing §3b): Kaixito ya no va grande en medio del correo, va
+# pequeño y redondo junto a la firma. Iker lo eligio entre tres estilos (newsletter/estilos/).
+FIRMA = re.compile(r'^((?:Iker|Unai|Asier) [^,\n]+),\s*(co\w*fundador[^\n]*)$', re.I)
+
+
+def firma_html(nombre, cargo, gif, alt):
+    avatar = ('<td style="padding-right:12px;vertical-align:middle;"><img src="%s" alt="%s" width="56" height="56" '
+              'style="display:block;width:56px;height:56px;border-radius:50%%;border:0;"></td>'
+              % (gif, H.escape(alt))) if gif else ''
+    texto = ('<td style="font-size:14px;line-height:1.4;vertical-align:middle;">%s<br>'
+             '<span style="color:#8a7f86;">%s</span></td>'
+             % (H.escape(nombre), H.escape(cargo[:1].upper() + cargo[1:]))) if nombre else ''
+    return ('<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;"><tr>%s%s</tr></table>'
+            % (avatar, texto))
+
+
 def texto_corto(url):
     """https://neety.com/solicitar-demo?utm_... -> neety.com/solicitar-demo"""
     u = H.unescape(url).split('?')[0].split('#')[0]
@@ -67,10 +83,14 @@ def main():
         sys.exit('GIF fuera de Brevo: ' + a.gif + '. Usa la URL de img.mailinblue.com de la tabla de email-marketing §3b')
     txt = io.open(a.fichero, encoding='utf-8').read()
     partes = []
+    firmado = False
     for b in bloques_de(txt):
-        if b.strip().startswith('['):          # marcador [GIF: ...] -> la imagen
-            if a.gif:
-                partes.append(GIF_TPL.format(url=a.gif, alt=H.escape(a.alt)))
+        if b.strip().startswith('['):          # marcador [GIF: ...]: Kaixito va en la firma, no aqui
+            continue
+        m = FIRMA.match(b.strip())
+        if m:                                   # la firma, con Kaixito pequeño al lado (estilo C)
+            partes.append(firma_html(m.group(1), m.group(2), a.gif, a.alt))
+            firmado = True
             continue
         lineas = [H.escape(l.strip()) for l in b.splitlines() if l.strip()]
         html = '<br>'.join(lineas)
@@ -80,6 +100,8 @@ def main():
                                 % (m.group(1), a.enlace_texto or texto_corto(m.group(1))), html)
         partes.append('<p style="margin:0 0 20px;">%s</p>' % html)
 
+    if a.gif and not firmado:                  # sin linea de firma: Kaixito al final
+        partes.append(firma_html(None, None, a.gif, a.alt))
     if a.pie:
         partes.append('<p style="margin:40px 0 0;font-size:12px;line-height:1.6;color:#8a7f86;text-align:center;">'
                       '¿Prefieres que no te escriba más? <a href="#" style="color:#8a7f86;">Date de baja aquí</a>'

@@ -140,9 +140,13 @@ def html(fm, validas, elegidas, excel, gif, alt, pie=False):
     p.append(f'<tr><td style="padding:24px 32px 8px;font-size:16px;line-height:1.6;">'
              f'<p style="margin:0 0 16px;"><strong>{H.escape(LINEA_FIJA)}</strong></p>'
              f'<p style="margin:0 0 16px;">{H.escape(PUENTE)}</p>'
-             '<p style="margin:0;">Iker</p></td></tr>')
-    p.append(f'<tr><td align="center" style="padding:16px 32px 32px;"><img src="{H.escape(gif)}" alt="{H.escape(alt)}" '
-             'width="200" style="display:block;margin:0 auto;width:200px;max-width:60%;height:auto;border:0;"></td></tr>')
+             '</td></tr>')
+    # Estilo C (27/11/2026): Kaixito pequeño y redondo junto a la firma, nunca grande en el cuerpo.
+    p.append(f'<tr><td style="padding:0 32px 28px;"><table role="presentation" cellpadding="0" cellspacing="0"><tr>'
+             f'<td style="padding-right:12px;vertical-align:middle;"><img src="{H.escape(gif)}" alt="{H.escape(alt)}" '
+             'width="56" height="56" style="display:block;width:56px;height:56px;border-radius:50%;border:0;"></td>'
+             f'<td style="font-size:14px;line-height:1.4;vertical-align:middle;">Iker Galarza<br>'
+             f'<span style="color:{rc.SUAVE};">Cofundador de Neety</span></td></tr></table></td></tr>')
     if pie:
         p.append(f'<tr><td style="padding:16px 32px 24px;font-size:12px;color:{rc.SUAVE};text-align:center;">{rc.PIE}</td></tr>')
     p.append('</table></td></tr></table>')

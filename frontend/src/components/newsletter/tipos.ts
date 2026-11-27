@@ -64,6 +64,9 @@ export interface Correo {
   aprobado_por: string | null;
   aprobado_at: string | null;
   brevo_campaign_id: number | null;
+  /** Las listas de Brevo a las que va y las que excluye (2026-11-27): sin listas no se programa. */
+  listas?: number[] | null;
+  excluir?: number[] | null;
   feedback: FeedbackCorreo[];
   metricas: MetricasCorreo | null;
   /** Lo añade la tarea de conversiones; mientras no llegue, la columna dice «—». */
@@ -72,6 +75,8 @@ export interface Correo {
 
 export interface RespuestaNewsletter {
   proximos: Correo[];
+  /** Los que envía una automatización de Brevo (las bienvenidas): se ven aparte, no se programan. */
+  automaticos?: Correo[];
   enviados: Correo[];
   metricas: { configurado: boolean; ultimo_barrido: string | null; error: string | null };
   puedo_aprobar: boolean;
@@ -95,4 +100,5 @@ export const ESTADO_CORREO: Record<string, { texto: string; clase: string }> = {
   aprobado: { texto: 'Aprobado', clase: 'text-success border-success/40 bg-success/10' },
   programado: { texto: 'Programado en Brevo', clase: 'text-data border-data/40 bg-data/10' },
   enviado: { texto: 'Enviado', clase: 'text-text-secondary border-border bg-bg-secondary' },
+  automatico: { texto: 'Automático en Brevo', clase: 'text-accent border-accent/40 bg-accent/10' },
 };

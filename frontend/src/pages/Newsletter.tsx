@@ -92,8 +92,10 @@ export default function Newsletter() {
   const d = datos.data;
   const location = useLocation();
   const correos = useMemo<Correo[]>(() => (d ? [...d.proximos, ...d.enviados] : []), [d]);
+  // Los automáticos (las bienvenidas de Brevo) van en su sección, fuera del calendario.
+  const automaticos = d?.automaticos || [];
   const clave = params.get('c');
-  const abierto = (clave && correos.find((c) => c.clave === clave)) || null;
+  const abierto = (clave && [...correos, ...automaticos].find((c) => c.clave === clave)) || null;
   const claveAbierta = abierto?.clave || null;
   const hoy = mesDeHoy();
   // Un enlace con `&c=` y sin `?m=` abre el mes de ese correo; si no, el de hoy.
@@ -293,6 +295,27 @@ export default function Newsletter() {
               </div>
 
               <CalendarioMes mes={mes} correos={correos} seleccionada={abierto?.clave || null} onElegir={elegir} />
+
+              {automaticos.length > 0 && (
+                <div className="space-y-2">
+                  <h3 className="text-[13px] font-semibold text-text-muted">Automáticos · los envía Brevo solo, a quien entra en su lista</h3>
+                  <ul className="flex flex-wrap gap-2">
+                    {automaticos.map((c) => (
+                      <li key={c.id}>
+                        <button
+                          type="button"
+                          data-clave={c.clave}
+                          aria-expanded={abierto?.clave === c.clave}
+                          onClick={() => elegir(c.clave)}
+                          className={`max-w-full text-left break-words px-2.5 py-1 rounded-md border text-[12px] font-semibold ${ESTADO_CORREO.automatico.clase}`}
+                        >
+                          {c.asunto}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {sinFecha.length > 0 && (
                 <div className="space-y-2">

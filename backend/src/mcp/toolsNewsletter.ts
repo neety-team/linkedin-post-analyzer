@@ -4,6 +4,7 @@ import {
   guardarCorreos,
   listarCorreos,
   vincularCampana,
+  retirarCorreo,
   listarFeedbackCorreos,
   resolverFeedbackCorreo,
   REMITENTES,
@@ -62,9 +63,22 @@ const correoEntrada = z.object({
   validador: z.string().nullable().optional().describe('La salida del validador de email'),
   validador_ok: z.boolean().optional().describe('Si el validador dio ENTREGABLE: SÍ'),
   estado: z
-    .enum(['idea', 'borrador'])
+    .enum(['idea', 'borrador', 'automatico'])
     .optional()
-    .describe('Solo idea o borrador. Aprobar es cosa de Iker en la página Newsletter'),
+    .describe(
+      'idea o borrador; automatico para un correo que envía una automatización de Brevo (las bienvenidas): ' +
+        'sale en su propia sección y no se aprueba ni se programa. Aprobar es cosa de Iker en la página Newsletter'
+    ),
+  listas: z
+    .array(z.number().int().positive())
+    .nullable()
+    .optional()
+    .describe('Ids de las listas de Brevo a las que va (p. ej. [15, 16, 19]). Sin listas no se puede programar desde la página'),
+  excluir: z
+    .array(z.number().int().positive())
+    .nullable()
+    .optional()
+    .describe('Ids de las listas de Brevo que se excluyen (p. ej. [24], los que están en la bienvenida)'),
 });
 
 const pct = (n: number | null | undefined) => (n == null ? '—' : `${(n * 100).toFixed(1)}%`);
@@ -77,6 +91,7 @@ function lineaCorreo(c: any): string {
     `«${c.asunto || '(sin asunto)'}»${c.asunto_b ? ` / B «${c.asunto_b}»` : ''}`,
   ];
   let s = partes.join(' · ');
+  if (c.listas?.length) s += ` · listas ${c.listas.join(', ')}${c.excluir?.length ? ' sin ' + c.excluir.join(', ') : ''}`;
   if (c.brevo_campaign_id != null) s += ` · campaña Brevo ${c.brevo_campaign_id}`;
   if (c.notas) s += `\n    notas: ${c.notas}`;
   const m = c.metricas;
@@ -133,7 +148,7 @@ export function registrarToolsNewsletter(servidor: McpServer): void {
     },
     async () => {
       try {
-        const { proximos, enviados } = await listarCorreos();
+        const { proximos, enviados, automaticos } = await listarCorreos();
         const { configurado } = estadoMetricas();
         const barrido = await estadoBarrido();
         const l = [
@@ -143,6 +158,9 @@ export function registrarToolsNewsletter(servidor: McpServer): void {
           '',
           `PRÓXIMOS (${proximos.length})`,
           ...(proximos.length ? proximos.map(lineaCorreo) : ['(ninguno)']),
+          '',
+          `AUTOMÁTICOS (${automaticos.length})`,
+          ...(automaticos.length ? automaticos.map(lineaCorreo) : ['(ninguno)']),
           '',
           `ENVIADOS (${enviados.length})`,
           ...(enviados.length ? enviados.map(lineaCorreo) : ['(ninguno)']),
@@ -180,6 +198,32 @@ export function registrarToolsNewsletter(servidor: McpServer): void {
             ? `Correo ${args.clave} desvinculado, vuelve a borrador.`
             : `Correo ${args.clave} vinculado a la campaña ${args.campaign_id}.`
         );
+      } catch (e) {
+        return error(e);
+      }
+    }
+  );
+
+  servidor.registerTool(
+    'neety_newsletter_retirar',
+    {
+      title: 'Retirar un correo de la newsletter',
+      description:
+        'Quita un correo de la página Newsletter porque ya no va (por ejemplo, uno sustituido por otro). ' +
+        'No se borra: su feedback y sus notas se quedan en la base. No vale para un correo programado o ' +
+        'enviado: lo que está en Brevo se cancela allí primero.',
+      inputSchema: {
+        clave: z.string().describe('La clave del correo'),
+        motivo: z.string().describe('Por qué se retira; se apunta en sus notas'),
+      },
+      annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+    },
+    async (args) => {
+      try {
+        const r = await retirarCorreo(args.clave, args.motivo);
+        if (r === 'no_existe') return error(new Error(`No existe el correo ${args.clave}`));
+        if (r !== 'ok') return error(new Error(`No se retira el correo ${args.clave}: ${r}`));
+        return texto(`Correo ${args.clave} retirado: ya no sale en la página. Motivo: ${args.motivo}`);
       } catch (e) {
         return error(e);
       }

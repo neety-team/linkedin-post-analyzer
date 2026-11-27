@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { apiPost } from '../../hooks/useApi';
-import type { Correo } from './tipos';
+import { cuandoCorreo, type Correo } from './tipos';
 
 /**
  * Un correo de la newsletter como llegará a la bandeja (2026-11-20): primero el
@@ -212,6 +212,34 @@ export default function CorreoTarjeta({
   const [errorAprobar, setErrorAprobar] = useState<string | null>(null);
   const hayB = !!(correo.asunto_b || correo.preview_b);
   const aprobable = puedoAprobar && correo.estado === 'borrador' && correo.validador_ok;
+  const programable = puedoAprobar && correo.estado === 'aprobado' && correo.brevo_campaign_id == null;
+  const retirable = puedoAprobar && ['idea', 'borrador', 'aprobado', 'automatico'].includes(correo.estado);
+  const [ocupado, setOcupado] = useState<null | 'programar' | 'retirar'>(null);
+  const [errorAccion, setErrorAccion] = useState<string | null>(null);
+  const listas = correo.listas?.length
+    ? `listas ${correo.listas.join(', ')}${correo.excluir?.length ? ` (sin ${correo.excluir.join(', ')})` : ''}`
+    : null;
+
+  /** Programar en Brevo o retirar: lo hace el servidor, solo para Iker. */
+  const accion = async (que: 'programar' | 'retirar') => {
+    const pregunta =
+      que === 'programar'
+        ? `Programar en Brevo «${correo.asunto}» para el ${cuandoCorreo(correo.fecha, correo.hora)}${listas ? `, a las ${listas}` : ''}? Saldrá solo a esa hora.`
+        : correo.estado === 'automatico'
+          ? `Quitar «${correo.asunto}» de la página? La automatización de Brevo sigue activa: esto solo lo quita de aquí.`
+          : `Retirar «${correo.asunto}»? Deja de salir en la página.`;
+    if (!window.confirm(pregunta)) return;
+    setOcupado(que);
+    setErrorAccion(null);
+    try {
+      await apiPost(`/api/newsletter/correos/${correo.id}/${que}`, {});
+      onCambio();
+    } catch (e) {
+      setErrorAccion(`No se ha podido ${que}: ${e instanceof Error ? e.message : 'error desconocido'}`);
+    } finally {
+      setOcupado(null);
+    }
+  };
 
   const aprobar = async () => {
     if (!window.confirm(`Aprobar el correo ${correo.numero ?? ''} «${correo.asunto}»?`)) return;
@@ -313,6 +341,41 @@ export default function CorreoTarjeta({
               {aprobando ? 'Aprobando…' : 'Aprobar'}
             </button>
             {errorAprobar && <p className="text-xs text-danger">{errorAprobar}</p>}
+          </div>
+        )}
+        {correo.estado === 'automatico' && (
+          <p className="text-[13px] leading-relaxed text-text-secondary">
+            Lo envía solo una automatización de Brevo a quien entra en su lista. No hay que aprobarlo ni programarlo.
+          </p>
+        )}
+        {listas && correo.estado !== 'automatico' && <p className="text-[13px] text-text-secondary">Va a las {listas}</p>}
+        {(programable || retirable) && (
+          <div className="space-y-1.5">
+            <div className="flex flex-wrap gap-2">
+              {programable && (
+                <button
+                  type="button"
+                  onClick={() => accion('programar')}
+                  disabled={!!ocupado || !listas}
+                  title={listas ? undefined : 'Falta a qué listas va: pídeselo a Claude'}
+                  className="px-5 py-2 rounded-full bg-accent text-on-accent text-[14px] font-semibold hover:bg-accent-strong disabled:opacity-60 transition-colors"
+                >
+                  {ocupado === 'programar' ? 'Programando…' : 'Programar en Brevo'}
+                </button>
+              )}
+              {retirable && (
+                <button
+                  type="button"
+                  onClick={() => accion('retirar')}
+                  disabled={!!ocupado}
+                  className="px-4 py-2 rounded-full border border-border bg-bg-card text-text-secondary text-[13px] font-semibold hover:border-text-muted disabled:opacity-60 transition-colors"
+                >
+                  {ocupado === 'retirar' ? 'Retirando…' : correo.estado === 'automatico' ? 'Quitar de aquí' : 'Retirar'}
+                </button>
+              )}
+            </div>
+            {programable && !listas && <p className="text-xs text-text-muted">Para programarlo falta a qué listas va.</p>}
+            {errorAccion && <p className="text-xs text-danger">{errorAccion}</p>}
           </div>
         )}
         {correo.estado !== 'borrador' && correo.aprobado_por && (

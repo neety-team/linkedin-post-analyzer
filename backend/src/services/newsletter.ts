@@ -13,7 +13,9 @@ import pool from '../db';
 import type { Identidad } from '../middleware/basicAuth';
 import { metricasDeCorreo } from './metricasNewsletter';
 
-export const ESTADOS_CORREO = ['idea', 'borrador', 'aprobado', 'programado', 'enviado'] as const;
+// 'automatico' (2026-11-27): un correo que envía una automatización de Brevo (las bienvenidas). Se ve en
+// su propia sección y no se aprueba ni se programa. 'retirado': ya no va; no sale en la página.
+export const ESTADOS_CORREO = ['idea', 'borrador', 'aprobado', 'programado', 'enviado', 'automatico', 'retirado'] as const;
 // 'Radar' (2026-11-23): el correo mensual del Radar de inversiones, que no firma una persona
 // (email-marketing §5R). En la bandeja sale «Radar de Neety».
 export const REMITENTES = ['Iker', 'Asier', 'Unai', 'Kaixito', 'Radar'] as const;
@@ -47,7 +49,10 @@ export interface CorreoEntrada {
   por_que?: string | null;
   validador?: string | null;
   validador_ok?: boolean;
-  estado?: 'idea' | 'borrador';
+  estado?: 'idea' | 'borrador' | 'automatico';
+  /** Las listas de Brevo a las que va y las que se excluyen (2026-11-27): sin listas no se programa. */
+  listas?: number[] | null;
+  excluir?: number[] | null;
 }
 
 // `html` entra en la huella: si cambia lo que se ve en la preview, lo aprobado vuelve a borrador.
@@ -71,6 +76,7 @@ export function estadoTrasReescribir(
   pedido?: string
 ): string {
   if (actual.estado === 'aprobado') return actual.huella === nueva ? 'aprobado' : 'borrador';
+  if (actual.estado === 'retirado' && !pedido) return 'retirado';
   return pedido || actual.estado;
 }
 
@@ -158,15 +164,93 @@ function validar(e: CorreoEntrada): string | null {
   if (e.fecha !== undefined && !RE_FECHA.test(e.fecha)) return `fecha no válida: ${e.fecha}`;
   if (e.hora !== undefined && !RE_HORA.test(e.hora)) return `hora no válida: ${e.hora}`;
   if (e.html != null && String(e.html).length > MAX_HTML) return `el html pasa de ${MAX_HTML} caracteres`;
-  if (e.estado !== undefined && e.estado !== 'idea' && e.estado !== 'borrador') {
-    return `estado no válido: ${e.estado} (solo idea o borrador)`;
+  if (e.estado !== undefined && e.estado !== 'idea' && e.estado !== 'borrador' && e.estado !== 'automatico') {
+    return `estado no válido: ${e.estado} (solo idea, borrador o automatico)`;
+  }
+  for (const k of ['listas', 'excluir'] as const) {
+    const v = e[k];
+    if (v != null && (!Array.isArray(v) || v.some((n) => !Number.isInteger(n) || n <= 0))) {
+      return `${k} no válido: tiene que ser una lista de ids de lista de Brevo`;
+    }
   }
   return null;
 }
 
+/** Por qué no se puede retirar un correo: lo que ya está en Brevo se cancela allí primero. */
+export function motivoNoRetirable(c: { estado: string }): string | null {
+  if (c.estado === 'programado') return 'está programado en Brevo: suspende la campaña en Brevo primero';
+  if (c.estado === 'enviado') return 'ya está enviado: lo enviado se queda en el historial';
+  return null;
+}
+
+/** Los correos de la página: los retirados no salen, los automáticos van aparte. */
+export function separarCorreos<T extends { estado: string }>(correos: T[]) {
+  return {
+    proximos: correos.filter((c) => !['enviado', 'automatico', 'retirado'].includes(c.estado)),
+    automaticos: correos.filter((c) => c.estado === 'automatico'),
+    enviados: correos.filter((c) => c.estado === 'enviado').reverse(),
+  };
+}
+
+/** «2026-12-09» y «09:05» en Madrid → ISO con su desfase («2026-12-09T09:05:00+01:00»). */
+export function horaMadridAIso(fecha: string, hora: string): string {
+  const [y, mo, d] = fecha.split('-').map(Number);
+  const [h, mi] = hora.split(':').map(Number);
+  // El desfase de Madrid en ese día: se mira qué hora marca Madrid para ese instante en UTC.
+  const comoUtc = Date.UTC(y, mo - 1, d, h, mi);
+  const partes = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Madrid', hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit',
+  }).formatToParts(new Date(comoUtc));
+  const v = (t: string) => Number(partes.find((p) => p.type === t)!.value);
+  const madrid = Date.UTC(v('year'), v('month') - 1, v('day'), v('hour'), v('minute'));
+  const off = Math.round((madrid - comoUtc) / 60000);
+  const signo = off >= 0 ? '+' : '-';
+  const hh = String(Math.floor(Math.abs(off) / 60)).padStart(2, '0');
+  const mm = String(Math.abs(off) % 60).padStart(2, '0');
+  return `${fecha}T${hora}:00${signo}${hh}:${mm}`;
+}
+
+const REMITENTE_BREVO: Record<string, string> = {
+  Iker: 'Iker de Neety', Asier: 'Asier de Neety', Unai: 'Unai de Neety', Kaixito: 'Kaixito de Neety', Radar: 'Radar de Neety',
+};
+export const CORREO_REMITENTE = 'hola@neety.com';
+export const RESPONDER_A = 'iker@neety.com';
+/** Margen mínimo entre programar y la hora de envío. */
+const MARGEN_MS = 10 * 60 * 1000;
+
+/**
+ * El cuerpo de POST /v3/emailCampaigns para programar un correo aprobado, o el motivo por el que no
+ * se puede. El HTML es el de la página: el enlace de baja del pie pasa a ser el de Brevo.
+ */
+export function campanaBrevo(c: any, ahora: Date = new Date()): Record<string, any> | { motivo: string } {
+  if (c.estado !== 'aprobado') return { motivo: `solo se programa un correo aprobado (está en «${c.estado}»)` };
+  if (!c.remitente || !REMITENTE_BREVO[c.remitente]) return { motivo: 'falta el remitente' };
+  if (!c.html || !String(c.html).trim()) return { motivo: 'falta el HTML del correo' };
+  if (!Array.isArray(c.listas) || !c.listas.length) return { motivo: 'falta a qué listas de Brevo va' };
+  if (!c.fecha || !RE_FECHA.test(c.fecha) || !c.hora || !RE_HORA.test(c.hora)) return { motivo: 'falta la fecha o la hora de envío' };
+  const cuando = horaMadridAIso(c.fecha, c.hora);
+  if (new Date(cuando).getTime() < ahora.getTime() + MARGEN_MS) {
+    return { motivo: `la hora de envío (${c.fecha} ${c.hora}) ya ha pasado o es antes de 10 minutos` };
+  }
+  const html = String(c.html).replace(/<a href="#"([^>]*)>(Date de baja aquí|Darte de baja)<\/a>/g, '<a href="{{ unsubscribe }}"$1>$2</a>');
+  const cuerpo: Record<string, any> = {
+    name: c.clave,
+    sender: { name: REMITENTE_BREVO[c.remitente], email: CORREO_REMITENTE },
+    replyTo: RESPONDER_A,
+    htmlContent: html,
+    previewText: c.preview || undefined,
+    recipients: { listIds: c.listas, ...(Array.isArray(c.excluir) && c.excluir.length ? { exclusionListIds: c.excluir } : {}) },
+    scheduledAt: cuando,
+  };
+  if (c.asunto_b) Object.assign(cuerpo, { abTesting: true, subjectA: c.asunto, subjectB: c.asunto_b, splitRule: 50 });
+  else cuerpo.subject = c.asunto;
+  return cuerpo;
+}
+
 const COLUMNAS = `id, clave, numero, to_char(fecha, 'YYYY-MM-DD') AS fecha, hora, remitente, asunto, asunto_b,
   preview, preview_b, cuerpo, gif_url, gif_alt, html, notas, enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que,
-  validador, validador_ok, huella, estado, aprobado_por, aprobado_at, brevo_campaign_id, created_at, updated_at`;
+  validador, validador_ok, huella, estado, aprobado_por, aprobado_at, brevo_campaign_id, listas, excluir, created_at, updated_at`;
 
 /**
  * Guarda o reescribe correos por `clave`. Lo que no viene en la entrada se queda
@@ -268,6 +352,8 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
     por_que: e.por_que !== undefined ? opcional(e.por_que, 4000) : base.por_que ?? null,
     validador: e.validador !== undefined ? opcional(e.validador, 8000) : base.validador ?? null,
     validador_ok: e.validador_ok !== undefined ? !!e.validador_ok : !!base.validador_ok,
+    listas: e.listas !== undefined ? (e.listas?.length ? e.listas : null) : base.listas ?? null,
+    excluir: e.excluir !== undefined ? (e.excluir?.length ? e.excluir : null) : base.excluir ?? null,
   };
   const huella = huellaTexto(fusion as any);
   const estado = previo
@@ -279,12 +365,14 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
     fusion.preview, fusion.preview_b, fusion.cuerpo, fusion.gif_url, fusion.gif_alt, fusion.enlace,
     fusion.utm_campaign, fusion.utm_source, fusion.pilar, fusion.tipo_cliente, fusion.por_que,
     fusion.validador, fusion.validador_ok, huella, estado, vuelveABorrador, fusion.html, fusion.notas,
+    fusion.listas, fusion.excluir,
   ];
   await cx.query(
     `INSERT INTO newsletter_correos
        (clave, numero, fecha, hora, remitente, asunto, asunto_b, preview, preview_b, cuerpo, gif_url, gif_alt,
-        enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que, validador, validador_ok, huella, estado, html, notas)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$24,$25)
+        enlace, utm_campaign, utm_source, pilar, tipo_cliente, por_que, validador, validador_ok, huella, estado, html, notas,
+        listas, excluir)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$24,$25,$26,$27)
      ON CONFLICT (clave) DO UPDATE SET
        numero = EXCLUDED.numero, fecha = EXCLUDED.fecha, hora = EXCLUDED.hora, remitente = EXCLUDED.remitente,
        asunto = EXCLUDED.asunto, asunto_b = EXCLUDED.asunto_b, preview = EXCLUDED.preview,
@@ -293,6 +381,7 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
        utm_source = EXCLUDED.utm_source, pilar = EXCLUDED.pilar, tipo_cliente = EXCLUDED.tipo_cliente,
        por_que = EXCLUDED.por_que, validador = EXCLUDED.validador, validador_ok = EXCLUDED.validador_ok,
        huella = EXCLUDED.huella, estado = EXCLUDED.estado, html = EXCLUDED.html, notas = EXCLUDED.notas,
+       listas = EXCLUDED.listas, excluir = EXCLUDED.excluir,
        aprobado_por = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_por END,
        aprobado_at = CASE WHEN $23 THEN NULL ELSE newsletter_correos.aprobado_at END,
        updated_at = NOW()`,
@@ -302,7 +391,7 @@ async function guardarUno(cx: PoolClient, clave: string, e: CorreoEntrada): Prom
 }
 
 /** Los correos con su feedback. Los enviados, del mas reciente al mas antiguo; el resto, por fecha. */
-export async function listarCorreos(): Promise<{ proximos: any[]; enviados: any[] }> {
+export async function listarCorreos(): Promise<{ proximos: any[]; automaticos: any[]; enviados: any[] }> {
   const { rows } = await pool.query(
     `SELECT ${COLUMNAS} FROM newsletter_correos
       ORDER BY fecha ASC NULLS LAST, hora ASC NULLS LAST, numero ASC NULLS LAST`
@@ -322,10 +411,64 @@ export async function listarCorreos(): Promise<{ proximos: any[]; enviados: any[
     const metricas = c.brevo_campaign_id != null ? await metricasDeCorreo(c.brevo_campaign_id) : null;
     correos.push({ ...c, feedback: porCorreo.get(c.id) || [], metricas });
   }
-  return {
-    proximos: correos.filter((c) => c.estado !== 'enviado'),
-    enviados: correos.filter((c) => c.estado === 'enviado').reverse(),
-  };
+  return separarCorreos(correos);
+}
+
+/**
+ * Retira un correo: deja de salir en la página. No se borra (su feedback y su diario se quedan).
+ * Devuelve 'ok', 'no_existe' o el motivo por el que no se puede.
+ */
+export async function retirarCorreo(idOClave: string, motivoRetiro?: string): Promise<'ok' | 'no_existe' | string> {
+  const col = /^[0-9a-f]{8}-[0-9a-f]{4}-/i.test(idOClave) ? 'id' : 'clave';
+  const { rows } = await pool.query(`SELECT estado FROM newsletter_correos WHERE ${col} = $1`, [idOClave]);
+  if (!rows.length) return 'no_existe';
+  const motivo = motivoNoRetirable(rows[0]);
+  if (motivo) return motivo;
+  const u = await pool.query(
+    `UPDATE newsletter_correos
+        SET estado = 'retirado', updated_at = NOW(),
+            notas = CASE WHEN $3::text IS NULL THEN notas ELSE concat_ws(E'\n', notas, $3::text) END
+      WHERE ${col} = $1 AND estado = $2`,
+    [idOClave, rows[0].estado, motivoRetiro ? `Retirado: ${motivoRetiro}` : null]
+  );
+  return u.rowCount ? 'ok' : 'el correo ha cambiado de estado: vuelve a intentarlo';
+}
+
+type Fetcher = (url: string, init?: any) => Promise<{ ok: boolean; status: number; json: () => Promise<any>; text: () => Promise<string> }>;
+
+/**
+ * Solo Iker: crea la campaña en Brevo con el HTML aprobado, programada a la fecha y hora del correo,
+ * y la deja vinculada (estado «programado»). Devuelve 'ok', 'no_existe' o el motivo.
+ */
+export async function programarCorreo(
+  id: string,
+  quien: Identidad | null,
+  fetcher: Fetcher = fetch as any
+): Promise<'ok' | 'no_existe' | string> {
+  if (!puedeAprobar(quien)) return `solo ${APROBADOR} programa los correos`;
+  if (!process.env.BREVO_API_KEY) return 'falta BREVO_API_KEY en el servidor';
+  const { rows } = await pool.query(`SELECT ${COLUMNAS} FROM newsletter_correos WHERE id = $1`, [id]);
+  if (!rows.length) return 'no_existe';
+  const c = rows[0];
+  if (c.brevo_campaign_id != null) return `ya tiene la campaña ${c.brevo_campaign_id} en Brevo`;
+  const cuerpo = campanaBrevo(c);
+  if ('motivo' in cuerpo) return cuerpo.motivo as string;
+  const res = await fetcher('https://api.brevo.com/v3/emailCampaigns', {
+    method: 'POST',
+    headers: { 'api-key': process.env.BREVO_API_KEY, 'content-type': 'application/json', accept: 'application/json' },
+    body: JSON.stringify(cuerpo),
+  });
+  if (!res.ok) return `Brevo no la ha creado (${res.status}): ${(await res.text()).slice(0, 300)}`;
+  const { id: campana } = await res.json();
+  const u = await pool.query(
+    `UPDATE newsletter_correos
+        SET brevo_campaign_id = $2, estado = 'programado', updated_at = NOW(),
+            notas = concat_ws(E'\n', notas, $3::text)
+      WHERE id = $1 AND estado = 'aprobado' AND brevo_campaign_id IS NULL`,
+    [id, campana, `Programado desde la página: campaña ${campana} de Brevo, ${c.fecha} ${c.hora}, listas ${c.listas.join(', ')}${c.excluir?.length ? ' sin ' + c.excluir.join(', ') : ''}.`]
+  );
+  if (!u.rowCount) return `la campaña ${campana} se creó en Brevo, pero el correo cambió entre medias: revísala en Brevo`;
+  return 'ok';
 }
 
 /** Solo Iker aprueba. Devuelve 'ok', 'no_existe' o el motivo por el que no se puede. */

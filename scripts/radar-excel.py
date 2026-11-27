@@ -133,6 +133,16 @@ def main():
     region, mes = fm['region'], fm['mes']
     anio, nmes = mes.split('-')
     nombre_mes = rc.MESES[int(nmes) - 1]
+    semanal = 'semana' in fm
+    if semanal:
+        # Aviso semanal (email-marketing §5S): solo las filas válidas, igual que el correo.
+        _sa = importlib.util.spec_from_file_location(
+            'aviso', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'montar-aviso-semanal.py'))
+        av = importlib.util.module_from_spec(_sa)
+        _sa.loader.exec_module(av)
+        filas, _desc = av.filas_validas(fm, filas)
+        d, h = (av._fecha(fm['desde']), av._fecha(fm['hasta']))
+        periodo = f'semana del {d:%d/%m} al {h:%d/%m}'
     oficiales = sum(1 for f in filas if rc.OFICIAL.search(f['fuente']))
 
     wb = Workbook()
@@ -143,8 +153,10 @@ def main():
     ws.column_dimensions['A'].width = 4
     ws.column_dimensions['B'].width = 100
     lineas = [
-        (f'Radar de inversiones industriales · {rc.REGIONES.get(region, region)} · {nombre_mes} {anio}', T),
-        (f'{len(filas)} empresas industriales que han anunciado una inversión en {nombre_mes}: plantas nuevas, '
+        (f'Radar de inversiones industriales · {rc.REGIONES.get(region, region)} · '
+         + (periodo if semanal else f'{nombre_mes} {anio}'), T),
+        (f'{len(filas)} empresas industriales que han anunciado una inversión en '
+         + (f'la {periodo}' if semanal else nombre_mes) + ': plantas nuevas, '
          'ampliaciones, ayudas concedidas y tramitaciones. Cada una con lo que puede necesitar comprar y su fuente.', B),
         ('', B),
         ('Cómo usarlo en 10 minutos', BB),
@@ -155,8 +167,9 @@ def main():
          '«A quién buscar dentro». Apunta en las dos últimas columnas si te encaja y tu próximo paso.', B),
         ('', B),
         ('De dónde sale', BB),
-        (f'De la edición de {nombre_mes} del Radar de Neety (neety.com/radar/{region}/{mes}). '
-         f'{oficiales} de las {len(filas)} salen de boletines oficiales y el resto, de prensa. '
+        ((f'Del aviso semanal de inversiones de la newsletter de Neety ({periodo}), antes de que entren en el Radar del mes. '
+          if semanal else f'De la edición de {nombre_mes} del Radar de Neety (neety.com/radar/{region}/{mes}). ')
+         + f'{oficiales} de las {len(filas)} salen de boletines oficiales y el resto, de prensa. '
          'Cada fila lleva el enlace a su fuente.', B),
         ('«Familia de compra» y «A quién buscar dentro» son una clasificación nuestra del texto «Qué puede necesitar», '
          'con la guía de quién decide la compra en una empresa industrial. Son orientativas: lo que no encaja claro va en «Varios».', B),

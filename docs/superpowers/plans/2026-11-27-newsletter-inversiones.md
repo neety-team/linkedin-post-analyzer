@@ -50,7 +50,7 @@
   - remitente `Radar de Neety`;
   - **respuesta a `iker@neety.com`**;
   - listas 15, 16, 19 y la lista nueva del Radar;
-  - excluyendo la 22, porque el Radar lleva botón de reunión.
+  - excluyendo la 22, porque el Radar lleva botón de reunión, y la 24 («En bienvenida», revisión final).
   - Vincularla con `neety_newsletter_vincular`.
 - [ ] **Paso 5.** Mandar una prueba a `iker@neety.com`. Con `get_message`, comprobar que la cabecera `Reply-To` es `iker@neety.com`.
   - Esperado: `Reply-To: iker@neety.com`. Si sale `hola@`, no se sigue.

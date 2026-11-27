@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """montar-aviso-semanal.py — el aviso semanal de inversiones, desde el fichero de la semana.
 
@@ -56,11 +56,37 @@ def filas_validas(fm, filas):
     return validas, descartadas
 
 
+# Sin importe, va antes lo que ya está decidido que lo que está en trámite (revisión final, W48).
+PRIORIDAD_SENAL = [('planta nueva', 0), ('ampliación de planta', 0), ('línea nueva', 0),
+                   ('inversión productiva', 0), ('ayuda', 1), ('tramitación', 2)]
+MAX_POR_SECTOR = 2
+
+
+def _prioridad(senal):
+    s = senal.lower()
+    return next((p for clave, p in PRIORIDAD_SENAL if s.startswith(clave)), 1)
+
+
 def elegir(validas, n_min=N_MIN, n_max=N_MAX):
+    """De 5 a 8: por importe, luego por tipo de señal y fecha, con un tope de 2 por sector.
+    Si el tope deja menos de n_min, se rellena con las siguientes aunque repitan sector."""
     if len(validas) < n_min:
         raise SystemExit(f'menos de {n_min} inversiones válidas ({len(validas)}): esta semana no hay aviso')
-    orden = sorted(validas, key=lambda f: (-rc.importe(f['senal']), -_fecha(f['fecha']).toordinal()))
-    return orden[:n_max]
+    orden = sorted(validas, key=lambda f: (-rc.importe(f['senal']), _prioridad(f['senal']),
+                                           -_fecha(f['fecha']).toordinal()))
+    elegidas, por_sector = [], {}
+    for f in orden:
+        if len(elegidas) == n_max:
+            break
+        if por_sector.get(f['sector'], 0) < MAX_POR_SECTOR:
+            elegidas.append(f)
+            por_sector[f['sector']] = por_sector.get(f['sector'], 0) + 1
+    for f in orden:
+        if len(elegidas) >= n_min:
+            break
+        if f not in elegidas:
+            elegidas.append(f)
+    return elegidas
 
 
 def _corto(empresa):
@@ -71,8 +97,10 @@ def asuntos(fm, validas, elegidas):
     # El asunto no lleva cifra: rc.importe() coge la mayor de la señal, y «arranca con 20 M€ y aspira
     # a 70 M€» salía como «invierte 70 M€» (ensayo W48). El importe va en la tarjeta, con su contexto.
     top = elegidas[0]
-    a = f'{len(validas)} industriales que invierten esta semana'
-    b = f'{_corto(top["empresa"])} invierte en {rc.provincia(top["ubicacion"])}'
+    # «la semana pasada»: sale el martes y cuenta la semana anterior. Y el B no afirma que invierte:
+    # muchas filas son tramitaciones, no inversiones decididas (revisión final).
+    a = f'{len(validas)} industriales que invirtieron la semana pasada'
+    b = f'qué va a comprar {_corto(top["empresa"])} en {rc.provincia(top["ubicacion"])}'
     preview = f'{len(validas)} inversiones con su fuente, antes de que salgan en el Radar del mes.'
     return a, b, preview
 
@@ -101,7 +129,7 @@ def html(fm, validas, elegidas, excel, gif, alt, pie=False):
          'style="width:100%;max-width:600px;background:#FFFFFF;border-radius:16px;overflow:hidden;'
          f'font-family:Arial,Helvetica,sans-serif;color:{rc.TEXTO};">',
          f'<tr><td style="padding:32px 32px 8px;font-size:16px;line-height:1.6;">'
-         f'<p style="margin:0 0 12px;">Estas son las inversiones industriales que han salido esta semana en España, '
+         f'<p style="margin:0 0 12px;">Estas son las inversiones industriales que salieron la semana pasada en España, '
          f'antes de que lleguen al Radar del mes.</p>'
          f'<p style="margin:0;">Cada una con lo que puede necesitar comprar y su fuente.</p></td></tr>']
     p += [_tarjeta(f, campana, i) for i, f in enumerate(elegidas, start=1)]
@@ -128,6 +156,8 @@ def main():
     ap.add_argument('--gif', required=True, help='URL pública del GIF de Kaixito')
     ap.add_argument('--alt', required=True, help='Texto alternativo del GIF')
     ap.add_argument('--pie', action='store_true', help='Añade el pie de Brevo, para la preview')
+    ap.add_argument('--min', type=int, default=N_MIN,
+                    help='Mínimo de inversiones para que salga (5). Solo lo baja Iker, en su revisión')
     a = ap.parse_args()
 
     fm, _t, filas = rc.leer(a.semana)
@@ -137,7 +167,7 @@ def main():
     validas, descartadas = filas_validas(fm, filas)
     for d in descartadas:
         print(f'DESCARTADA: {d["empresa"]} · {d["motivo"]}', file=sys.stderr)
-    elegidas = elegir(validas)
+    elegidas = elegir(validas, n_min=a.min)
     a_, b_, preview = asuntos(fm, validas, elegidas)
     print(f'ASUNTO A: {a_}\nASUNTO B: {b_}\nPREVIEW: {preview}', file=sys.stderr)
     sys.stdout.write(html(fm, validas, elegidas, a.excel, a.gif, a.alt, a.pie))

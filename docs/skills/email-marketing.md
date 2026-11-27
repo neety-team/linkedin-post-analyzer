@@ -739,13 +739,13 @@ La newsletter pasa a ser el sitio donde la industria se entera antes que nadie d
 | | Aviso semanal |
 |---|---|
 | Cuándo | Cada martes a las 09:05, menos la primera semana del mes, que sale el Radar (§5R). Si el martes es festivo, el día laborable siguiente |
-| A quién | La newsletter (listas 15, 16 y 19), sin los que están en la bienvenida (lista «En bienvenida», §5b). Los clientes sí lo reciben, porque no pide reunión |
+| A quién | La newsletter (listas 15, 16 y 19), sin los que están en la bienvenida (lista 24 «En bienvenida», §5b). Los clientes sí lo reciben, porque no pide reunión |
 | Remitente | `Iker de Neety`, con la respuesta a `iker@neety.com` |
 | Qué lleva | Dos líneas de entrada, de 5 a 8 inversiones (empresa, dónde, qué hace, qué puede necesitar y su fuente enlazada), el botón al Excel con todas las de la semana, la línea fija de «quiero esta», el puente a Neety, la firma y Kaixito como GIF pequeño |
 | Lo que no lleva | Enlace a `/solicitar-demo` en el cuerpo, historia, PD de broma ni ninja. Ni automatismo ni volumen en el puente (`global §4.4b-MUNICIÓN`) |
 
 - **La línea fija, tal cual:** `¿Te interesa alguna? Respóndeme «quiero esta» y te digo a quién escribir dentro.` Quien responde recibe el **cargo** al que conviene escribir y por qué encaja, nunca el nombre ni el contacto de una persona. Esa respuesta es la señal de intención, y la reunión la propone Iker en persona cuando alguien repite o pregunta por Neety.
-- **Lo genera `scripts/montar-aviso-semanal.py`** desde `newsletter/semanas/AAAA-Wnn.md` (la tabla del Radar con `semana`, `desde` y `hasta` en el frontmatter). Descarta las filas sin fuente o con la fecha fuera de la semana, elige de 5 a 8 por importe y, si empatan, por fecha, y **con menos de 5 no monta nada**: esa semana no se rellena. El Excel sale de `scripts/radar-excel.py` con el mismo fichero.
+- **Lo genera `scripts/montar-aviso-semanal.py`** desde `newsletter/semanas/AAAA-Wnn.md` (la tabla del Radar con `semana`, `desde` y `hasta` en el frontmatter). Descarta las filas sin fuente o con la fecha fuera de la semana y elige de 5 a 8: por importe, después lo ya decidido antes que lo que está en trámite y la fecha, con un tope de 2 por sector. **Con menos de 5 no monta nada**: esa semana no se rellena, salvo que Iker lo baje con `--min`. El asunto habla de «la semana pasada» y el B no afirma que la empresa invierte («qué va a comprar X en Y»): muchas filas son tramitaciones. El Excel sale de `scripts/radar-excel.py` con el mismo fichero.
 - **Cada fila la da por buena Iker** en la revisión del lunes, antes de que salga. Los ficheros de la semana son la base del Radar del mes.
 - **El asunto lleva A/B** (§5, desde el 3/12). `validar-email.py` no se le pasa al HTML; las dos líneas de entrada siguen las reglas de forma de la casa.
 - **Se mide** como la newsletter (clic único sobre entregados: mínimo 5 %, éxito 8 %), más las respuestas «quiero esta» por envío. Si un correo pasa del 3 % de bajas, se para y se revisa.
@@ -1011,9 +1011,9 @@ Es la forma medida de RunnerPro y de Timepack (`§4b`, `§8d`), y resuelve el co
 **🔄 26/11/2026 · La bienvenida que se monta es de tres correos, y manda sobre el esquema de 14 días de abajo** (diseño `2026-11-26-newsletter-inversiones-design.md` §4.2). Es una automatización de Brevo que empieza cuando un contacto entra en la lista 15, una sola vez por contacto y para siempre:
 - **Día 0:** qué va a recibir y cuándo (las inversiones de cada martes, antes de que salgan en ningún sitio) y, de regalo, el último Excel del Radar.
 - **Día 3:** cómo se lee una inversión, con una fila real del Radar, y el mecanismo de «quiero esta». Sin enlace: se invita a responder.
-- **Día 7:** una inversión de la última semana como muestra y «desde el martes que viene, te llegan todas». Una línea, sin vender, de que esto es lo que Neety hace a diario.
+- **Día 7:** una inversión real del Radar, con su mes dicho (la plantilla es fija: una «de esta semana» dejaría de ser verdad a los días), y «desde el martes te llegan todas». Una línea, sin vender, de que esto es lo que Neety hace a diario.
 - Los firma `Iker de Neety`, con la respuesta a `iker@neety.com` y Kaixito como GIF. Se escriben con este documento y pasan `validar-email.py`.
-- **Sin doble flujo, con una lista:** el primer paso mete al contacto en la lista «En bienvenida» y el último lo saca. El aviso semanal (§5S) excluye esa lista. La lista «En bienvenida» es solo de Brevo: el CRM no la toca.
+- **Sin doble flujo, con una lista:** el primer paso mete al contacto en la lista 24 «En bienvenida» y **6 días después del correo del día 7** lo saca, para que ningún aviso le caiga la misma semana que el día 7. El aviso semanal (§5S) y el Radar (§5R) excluyen esa lista. La lista es solo de Brevo: el CRM no la toca.
 - Se crea como borrador y se activa solo cuando Iker lo pide.
 
 Día 0: entrega del lead magnet prometido · Día 1-2: quiénes somos y qué problema resolvemos (SIN pitch duro) · Día 3-5: una idea útil · Día 6-8: caso de uso · Día 9-11: error común que Neety evita · Día 12-14: invitación a diagnóstico. Valor, no presión: el lead tiene que entender solo por qué la demo tiene sentido.

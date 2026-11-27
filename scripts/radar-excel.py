@@ -175,8 +175,10 @@ def main():
          'con la guía de quién decide la compra en una empresa industrial. Son orientativas: lo que no encaja claro va en «Varios».', B),
         ('El importe solo aparece cuando lo da la fuente.', B),
         ('', B),
-        ('Si quieres ver estas señales cada día, filtradas por lo que vendes y con la persona a la que escribir, '
-         'reserva media hora con el equipo: neety.com/solicitar-demo', B),
+        (('¿Te interesa alguna? Responde «quiero esta» al correo y te decimos a quién escribir dentro.', B)
+         if semanal else
+         ('Si quieres ver estas señales cada día, filtradas por lo que vendes y con la persona a la que escribir, '
+          'reserva media hora con el equipo: neety.com/solicitar-demo', B)),
     ]
     for i, (t, f) in enumerate(lineas, start=2):
         c = ws.cell(row=i, column=2, value=t)
@@ -268,7 +270,8 @@ def main():
             'neety.com/guias/quien-decide-compra-empresa-industrial').font = B
 
     wb.properties.creator = 'Neety'
-    wb.properties.title = f'Radar de inversiones industriales · {nombre_mes} {anio}'
+    wb.properties.title = (f'Inversiones industriales · {fm["semana"]} · {periodo}' if semanal
+                           else f'Radar de inversiones industriales · {nombre_mes} {anio}')
     wb.save(sys.argv[2])
     cuenta = Counter(fam for f in filas for fam in familias(f['necesita']))
     print(f'{len(filas)} inversiones, {oficiales} de boletines oficiales')

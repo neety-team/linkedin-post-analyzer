@@ -43,8 +43,8 @@ def test_descarta_sin_fuente_y_fuera_de_semana():
 def test_elige_entre_5_y_8():
     fm, _t, filas = av.rc.leer(FIXTURE)
     validas, _ = av.filas_validas(fm, filas)
-    assert len(av.elegir(validas)) == 7
-    diez = [fila(f'E{i}', f'Línea nueva — {i} M€') for i in range(1, 11)]
+    assert len(av.elegir(validas)) == 6  # 3 de Alimentación y bebidas: entran 2 (tope por sector)
+    diez = [dict(fila(f'E{i}', f'Línea nueva — {i} M€'), sector=f'S{i}') for i in range(1, 11)]
     ocho = av.elegir(diez)
     assert [f['empresa'] for f in ocho] == [f'E{i}' for i in range(10, 2, -1)], [f['empresa'] for f in ocho]
     try:
@@ -75,7 +75,8 @@ def test_html():
     for f in av.elegir(av.filas_validas(fm, filas)[0]):
         assert av.H.escape(f['empresa']) in html, f['empresa']
         assert av.H.escape(f['url']) in html, f['url']
-    assert html.count('utm_campaign=inversiones-2026-W45') >= 8, html.count('utm_campaign=inversiones-2026-W45')
+    n = len(av.elegir(av.filas_validas(fm, filas)[0]))
+    assert html.count('utm_campaign=inversiones-2026-W45') >= n + 1, html.count('utm_campaign=inversiones-2026-W45')
     assert 'utm_source=brevo&amp;utm_medium=email' in html
     assert av.H.escape(EXCEL) in html
     assert f'src="{GIF}"' in html and f'alt="{ALT}"' in html
@@ -117,6 +118,56 @@ def test_asunto_b_sin_importe():
             [fila(f'X{i}', 'Planta nueva') for i in range(4)]
     _a, b, _p = av.asuntos({}, filas, av.elegir(filas))
     assert 'M€' not in b and 'Pasek Minerals' in b, b
+
+
+def fila_s(empresa, sector, senal, fecha):
+    f = fila(empresa, senal, fecha); f['sector'] = sector; return f
+
+
+def test_elige_variado_por_tipo_y_sector():
+    # Revisión final: con W48 salían 4 tramitaciones de biometano casi iguales (las del viernes) y quedaban
+    # fuera plantas en obra. Sin importe, va antes la planta nueva que la tramitación, y como mucho 2 por sector.
+    filas = [fila_s(f'Bio{i}', 'Energía industrial', 'Tramitación ambiental — biometano', '2026-11-06') for i in range(5)] + \
+            [fila_s('Plasticos', 'Plástico', 'Ampliación de planta — nave nueva', '2026-11-03'),
+             fila_s('Frio', 'Alimentación', 'Planta nueva — almacén', '2026-11-02'),
+             fila_s('Metal', 'Metal', 'Línea nueva — perfiladora', '2026-11-02')]
+    elegidas = av.elegir(filas)
+    sectores = [f['sector'] for f in elegidas]
+    assert sectores.count('Energía industrial') <= 2, sectores
+    assert [f['empresa'] for f in elegidas[:3]] == ['Plasticos', 'Frio', 'Metal'], [f['empresa'] for f in elegidas]
+    assert len(elegidas) >= 5, len(elegidas)
+
+
+def test_semana_pasada_y_asunto_b_prudente():
+    html, err = html_del_fixture()
+    assert 'esta semana' not in html and 'la semana pasada' in html
+    a = [l for l in err.splitlines() if l.startswith('ASUNTO A:')][0]
+    b = [l for l in err.splitlines() if l.startswith('ASUNTO B:')][0]
+    assert 'la semana pasada' in a, a
+    assert 'invierte' not in b and 'qué va a comprar' in b, b
+
+
+def test_min_lo_decide_iker():
+    with tempfile.NamedTemporaryFile('w', suffix='.md', delete=False, encoding='utf-8') as t:
+        lineas = open(FIXTURE, encoding='utf-8').read().splitlines()
+        tabla = [l for l in lineas if l.startswith('| ') and not l.startswith('| Empresa')]
+        t.write('\n'.join(l for l in lineas if l not in tabla[4:]) + '\n')
+    r = subprocess.run([sys.executable, os.path.join(AQUI, 'montar-aviso-semanal.py'), t.name, '--min', '3',
+                        '--excel', EXCEL, '--gif', GIF, '--alt', ALT], capture_output=True, text=True)
+    os.unlink(t.name)
+    assert r.returncode == 0, r.stderr
+
+
+def test_excel_semana_sin_demo():
+    with tempfile.TemporaryDirectory() as d:
+        salida = os.path.join(d, 'semana.xlsx')
+        subprocess.run([sys.executable, os.path.join(AQUI, 'radar-excel.py'), FIXTURE, salida], check=True,
+                       capture_output=True)
+        wb = load_workbook(salida)
+        texto = ' '.join(str(c.value) for ws in wb for row in ws.iter_rows() for c in row if c.value)
+        assert 'solicitar-demo' not in texto
+        assert 'quiero esta' in texto
+        assert '2026-W45' in wb.properties.title or '02/11' in wb.properties.title, wb.properties.title
 
 
 if __name__ == '__main__':
